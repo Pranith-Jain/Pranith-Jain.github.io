@@ -1,0 +1,217 @@
+{
+  "id": 108,
+  "name": "Virtual Private Network (VPN)",
+  "description": "The adversary is leveraging Virtual Private Networks (VPN) to hide the origin of the activities.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 59,
+      "name": "Avoid free VPN services",
+      "description": "Free VPN providers might collect and sell your information.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 290,
+      "name": "dVPN",
+      "description": "Decentralized VPN: dVPNs use blockchain technology to operate a network of distributed nodes to connect to, and aim to improve on VPN service design in other ways. Current solutions promise proven inability for centralized logging, distribution of trust without one entity making decisions, and more fair payment systems. They aim for these improvements and highlight them as selling points while promising to deliver the same benefits as a centralized VPN service.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 344,
+      "name": "Free VPN service",
+      "description": "Free VPN services might be used to mask IP-addresses or to add them to proxy/vpn chains.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 377,
+      "name": "IPtables kill switch",
+      "description": "A VPN kill switch might be implemented with IP tables on Linux systems. This prevents IP address leakages.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 384,
+      "name": "Killswitch VPN",
+      "description": "A kill switch is a feature that blocks your internet access if the VPN connection drops, preventing your data from being exposed",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 420,
+      "name": "Nested chain of VPNs",
+      "description": "choose providers that operate from poorly-cooperating geopolitical spheres of influence (SOIs). It’s best to avoid providers in the SOI where you live. For your direct-connect VPN, it’s arguably best to choose a provider in a relatively-neutral SOI, which doesn’t attract too much attention, and yet is at least somewhat hard to subvert. For your terminal/innermost VPN, it’s arguably best to choose a provider in an effectively non-cooperating SOI. If you’re using three or more VPNs overall, it’s arguably best to alternate between distinct poorly-cooperating SOIs for the middle VPNs.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 426,
+      "name": "No-log VPN",
+      "description": "VPN-services which do not keep logs are preferred to prevent leaving any traces.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 427,
+      "name": "Non-USA VPN",
+      "description": "USA VPN-providers are forced to provide law enforcement agencies logs, therefore they must be avoided.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 524,
+      "name": "Route VM's through host VPN",
+      "description": "Virtual machines might be routed through the host VPN connection.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 534,
+      "name": "Second VPN service",
+      "description": "Secondary VPN services might be added to virtual machines to avoid leaks during the host-client to VM-client transition.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 566,
+      "name": "Stealth mode VPN",
+      "description": "Stealth mode VPN’s try to use undetectable VPN protocols.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 639,
+      "name": "VPN -> obfs4 bridge",
+      "description": "For optimized fingerprint protection, a obfs4 bridge might be user after a VPN tunnel.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 640,
+      "name": "VPN qube",
+      "description": "VPN’s might be setup in specific qubes in Qubes OS to provide internet connectivity to other qubes.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 641,
+      "name": "VPN routers",
+      "description": "A VPN router is simply a router that has been configured to automatically connect to VPN servers, thus protecting your whole network.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 642,
+      "name": "VPN-firewall",
+      "description": "VPN-firewall: If you’re going with the high-privacy option, just disable Internet connectivity to your LAN. After finishing the installation, you’ll install VPN-Firewall and your direct-connect VPN client, restore Internet connectivity, and establish the VPN connection. Then you’ll download and install updates, reboot and proceed to the next tutorial for VirtualBox setup.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-384",
+      "name": "Cryptofibers",
+      "description": "Cryptofibers is a privacy-focused VPN-provider."
+    },
+    {
+      "id": "TTP-20",
+      "name": "AirVPN",
+      "description": "AirVPN is an OpenVPN and WireGuard based VPN service. https://airvpn.org/"
+    },
+    {
+      "id": "TTP-571",
+      "name": "ExpressVPN",
+      "description": "ExpressVPN is a VPN-provider. https://www.expressvpn.com/"
+    },
+    {
+      "id": "TTP-635",
+      "name": "Globus",
+      "description": "Globus: Globus VPN browser positions itself with a built-in firewall, providing access to blocked websites and safeguarding users with firewall protection and encrypted outgoing traffic.\n\n\nMerits:\n\n    Firewall Protection- The built-in firewall protects against potential threats, adding an extra layer of security.\n    Encrypted Outgoing Traffic- All outgoing traffic is encrypted, ensuring data integrity and confidentiality.\n\nhttps://globus-vpn-browser.en.lo4d.com/windows"
+    },
+    {
+      "id": "TTP-672",
+      "name": "Hide Me",
+      "description": "Hide me is a zero-log VPN service. https://hide.me/en/"
+    },
+    {
+      "id": "TTP-715",
+      "name": "Ivpn",
+      "description": "Ivpn is a VPN-provider which offers privacy leak protection with the IVPN-firewall, automatic connection on insecure Wi-Fi and Multi-hop. https://www.ivpn.net/en/"
+    },
+    {
+      "id": "TTP-850",
+      "name": "Mullvad VPN",
+      "description": "Mullvad VPN is a commercial VPN service which operates the WireGuard and OpenVPN protocols. https://mullvad.net/"
+    },
+    {
+      "id": "TTP-860",
+      "name": "Mysterium",
+      "description": "Mysterium VPN is a decentralised VPN service. https://www.mysteriumvpn.com/"
+    },
+    {
+      "id": "TTP-888",
+      "name": "NordVPN",
+      "description": "NordVPN is a commercial VPN provider. https://nordvpn.com/ \n\n19/11/2024, 12:55, merged with\nNordDNS"
+    },
+    {
+      "id": "TTP-949",
+      "name": "OpenVPN",
+      "description": "OpenVPN is a virtual private network (VPN) system that implements techniques to create secure point-to-point or site-to-site connections in routed or bridged configurations and remote access facilities. It implements both client and server applications. https://openvpn.net/client/\n\n19/11/2024, 16:36, merged with\nOvpn.net"
+    },
+    {
+      "id": "TTP-955",
+      "name": "Orchid",
+      "description": "Orchid is a decentralized VPN. https://www.orchid.com/vpn/"
+    },
+    {
+      "id": "TTP-1037",
+      "name": "Private Internet Access (PIA)",
+      "description": "Private Internet Access (PIA) is a VPN service provider. https://www.privateinternetaccess.com/"
+    },
+    {
+      "id": "TTP-1061",
+      "name": "PureVPN",
+      "description": "PureVPN is a VPN provider. https://www.purevpn.com/"
+    },
+    {
+      "id": "TTP-1158",
+      "name": "SecurityKISS",
+      "description": "SecurityKiSS is a VPN-provider."
+    },
+    {
+      "id": "TTP-1171",
+      "name": "Sentinel",
+      "description": "Sentinel is dVPN. https://www.sentinel.co/"
+    },
+    {
+      "id": "TTP-1370",
+      "name": "Viscosity",
+      "description": "Viscosity is a OpenVPN client. https://www.sparklabs.com/viscosity/"
+    },
+    {
+      "id": "TTP-2803",
+      "name": "FoxyProxy",
+      "description": "FoxyProxy sells reliable, fast, secure VPN and proxy servers in 110+ different countries with 6 ways to connect. "
+    },
+    {
+      "id": "TTP-2806",
+      "name": "4everproxy.com",
+      "description": " 4everproxy is a secure and anonymous VPN and web proxy. Hide your IP address while browsing the Internet.\n"
+    },
+    {
+      "id": "TTP-2810",
+      "name": "Cryptostorm VPN",
+      "description": "The VPN service provider for the truly paranoid"
+    },
+    {
+      "id": "TTP-1435",
+      "name": "Wireguard",
+      "description": "Modern, high-performance VPN protocol with a minimal codebase and state-of-the-art cryptography. https://www.wireguard.com/"
+    }
+  ]
+}

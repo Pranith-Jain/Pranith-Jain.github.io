@@ -1,0 +1,241 @@
+{
+  "id": 8,
+  "name": "Anonymous instant messaging",
+  "description": "The adversary is trying to communicate anonymously. \n\n22/11/2024, 14:48, merged with\nSecure communication",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [
+    {
+      "id": 25,
+      "name": "Authenticate via question",
+      "description": "In some cases secret answers to questions might be used to authenticate a communication partner, e.g. with Pidgin where so called buddies must be authenticated. The answer to the question will be send separately and securely, for example with PGP.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 208,
+      "name": "Dead drop",
+      "description": "A dead drop or dead letter box is a method of espionage tradecraft used to pass items or information between two individuals via a secret location. By avoiding direct meetings, individuals can maintain operational security.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 326,
+      "name": "Extensible Messaging and Presence Protocol (XMPP)",
+      "description": "Extensible Messaging and Presence Protocol is an open communication protocol designed for instant messaging, presence information, and contact list maintenance. Based on XML, it enables the near-real-time exchange of structured data between two or more network entities.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-13",
+          "name": "Adium",
+          "description": "Adium is a free instant messaging application for macOS that can connect to XMPP (jabber), IRC and more. https://adium.im/"
+        }
+      ]
+    },
+    {
+      "id": 371,
+      "name": "Internet Relay Chat (IRC)",
+      "description": "IRC (Internet Relay Chat) is an internet protocol that lets you communicate with people with text in real-time",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-827",
+          "name": "mIRC",
+          "description": "mIRC is a popular IRC client used to communicate, share, play and work with each other on IRC networks. https://www.mirc.com/"
+        }
+      ]
+    },
+    {
+      "id": 392,
+      "name": "Local mesh mode",
+      "description": "Local mesh mode allows to communicate with others with close proximity, even when internet access is limited.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 436,
+      "name": "Off-the-record (OTR) messaging",
+      "description": "Off-the-record Messaging (OTR) is a cryptographic protocol that provides encryption for instant messaging conversations. OTR uses a combination of AES symmetric-key algorithm with 128 bits key length, the Diffie-Hellman key exchange with 1536 bits group size, and the SHA-1 hash function.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-145",
+          "name": "Avoid logging OTR conversations",
+          "description": "Disabling conversation logging in OTR sessions to prevent storage of decrypted plaintext on disk"
+        }
+      ]
+    },
+    {
+      "id": 439,
+      "name": "OMEMO Multi-End Message and Object Encryption",
+      "description": "OMEMO encryption, OMEMO is a recursive acronym for OMEMO Multi-End Message and Object Encryption. the OMEMO protocol offers many-to-many encrypted chat, offline messages queuing, forward secrecy, file transfer, verifiability and deniability at the cost of slightly larger message size overhead.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2721,
+      "name": "Add cryptocurrency to darknet market account",
+      "description": "Cryptocurrency might be added to a darknet market account for placing orders. ",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-405",
+      "name": "Debian VM -> VPN -> Matrix/Element",
+      "description": "This is a specific setup for private instant messaging."
+    },
+    {
+      "id": "TTP-430",
+      "name": "DeltaChat",
+      "description": "DeltaChat is a decentralised and secure messenger app. https://delta.chat/en/"
+    },
+    {
+      "id": "TTP-619",
+      "name": "Gajim",
+      "description": "Gojim is a fully-featured XMPP chat client. https://xmpp.org/software/gajim/"
+    },
+    {
+      "id": "TTP-664",
+      "name": "HexChat",
+      "description": "HexChat is an open source IRC client based on XChat. https://hexchat.github.io/"
+    },
+    {
+      "id": "TTP-712",
+      "name": "Irssi (Linux cli)",
+      "description": "Irssi is a IRC-client program for Linux, FreeBSD, macOS and Microsoft Windows. https://irssi.org/"
+    },
+    {
+      "id": "TTP-716",
+      "name": "Jabber",
+      "description": "Jabber is the original messaging service based on the eXtensible Messaging and Presence Protocol (XMPP). https://jabber.org/"
+    },
+    {
+      "id": "TTP-810",
+      "name": "Matrix",
+      "description": "Matrix is an open source open network for secure, decentralized communication. https://matrix.org/"
+    },
+    {
+      "id": "TTP-811",
+      "name": "Matrix protocol",
+      "description": "Networking protocol for real-time communication and data synchronization."
+    },
+    {
+      "id": "TTP-813",
+      "name": "Mcabber",
+      "description": "Macaber is a small XMPP console client. https://github.com/McKael/mcabber"
+    },
+    {
+      "id": "TTP-836",
+      "name": "Mollysocket",
+      "description": "Mollysocket allows getting signal notifications via UnifiedPush. It works like a linked device, which doesn’t have encryption key, connected to the Signal server. https://github.com/mollyim/mollysocket"
+    },
+    {
+      "id": "TTP-1004",
+      "name": "Pidgin",
+      "description": "Pidgin is a free and open source multiplatform instant messaging client, based on a library names lib purple that has support for many instant messaging protocols, allowing the user to simultaneously log in to various services from a single application. https://pidgin.im/"
+    },
+    {
+      "id": "TTP-1011",
+      "name": "Poezio",
+      "description": "Poezio is a free console XMPP client. https://poez.io/"
+    },
+    {
+      "id": "TTP-1035",
+      "name": "Private Contact Discovery (Signal)",
+      "description": "Private contact disvoer is a technical feature in Signal which allows Signal clients to determine whether the contacts in their address book are Signal users without revealing the contacts in their address book to the Signal service. https://signal.org/blog/private-contact-discovery/"
+    },
+    {
+      "id": "TTP-1036",
+      "name": "Private Group System (Signal)",
+      "description": "The Private Group System is a technical Signal feature which supports private groups where membership information is readily available to all group members but hidden from the service provider or anodyne outside the group. https://signal.org/blog/pdfs/signal_private_group_system.pdf"
+    },
+    {
+      "id": "TTP-1055",
+      "name": "Psi+",
+      "description": "Psi+ is a cross-platform powerful XMPP client. https://psi-plus.com/"
+    },
+    {
+      "id": "TTP-1108",
+      "name": "Revolt",
+      "description": "Revolt lets you create a private space for you and your friends to chat. https://revolt.chat/"
+    },
+    {
+      "id": "TTP-1111",
+      "name": "Riseup.net",
+      "description": "Riseup provides online communication tools for people and groups working on liberatory social change. https://riseup.net/"
+    },
+    {
+      "id": "TTP-1140",
+      "name": "Sealed Sender (Signal)",
+      "description": "Signal’s Sealed Sender feature leverages sender certificates to hide who the message is for. https://signal.org/blog/sealed-sender/"
+    },
+    {
+      "id": "TTP-1188",
+      "name": "Signal",
+      "description": "Signal is an open source encrypted messaging service for instant messaging, voice and video calls. https://signal.org/"
+    },
+    {
+      "id": "TTP-1193",
+      "name": "SimpleX Chat",
+      "description": "SimpleX Chat is a private and encrypted messenger without any user IDs. https://simplex.chat/"
+    },
+    {
+      "id": "TTP-1263",
+      "name": "Telegram",
+      "description": "Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed. https://telegram.org/"
+    },
+    {
+      "id": "TTP-1275",
+      "name": "Threema",
+      "description": "Threema is a messenger app with rigorous data protection and rock-solid security. https://threema.ch/en"
+    },
+    {
+      "id": "TTP-1278",
+      "name": "Tkabber",
+      "description": "Tkabber is a free and open source client for the Jabber instant messaging system. https://tkabber.jabber.ru/"
+    },
+    {
+      "id": "TTP-1441",
+      "name": "Xabber",
+      "description": "Xabber is an open source XMPP client for Android and web. https://www.xabber.com/"
+    },
+    {
+      "id": "TTP-1443",
+      "name": "XChat",
+      "description": "Schat is an IRC chat program for both Linux and Windows. http://xchat.org/"
+    },
+    {
+      "id": "TTP-2808",
+      "name": "Wickr",
+      "description": "AWS Wickr is an American software company based in New York City. It is known for its instant messaging application of the same name. The Wickr messaging service allows an organization's users to exchange end-to-end encrypted and content-expiring messages. Wickr offers apps for iOS, Android, Mac, Windows, and Linux operating systems. Wickr was acquired by Amazon Web Services in mid-2021"
+    },
+    {
+      "id": "TTP-316",
+      "name": "ChatSecure",
+      "description": "ChatSecure is a free and open source messaging app that features OMEMO encryption and OTR encryption over XMPP. https://chatsecure.org/"
+    },
+    {
+      "id": "TTP-321",
+      "name": "Cinny",
+      "description": "Cinny is open source and built on top of Matrix, an open network for secure, decentralized communication. https://cinny.in/"
+    },
+    {
+      "id": "TTP-520",
+      "name": "Element",
+      "description": "Matrix protocol client for end-to-end encrypted, decentralised messaging. https://element.io/"
+    },
+    {
+      "id": "TTP-1109",
+      "name": "RicoChat",
+      "description": "Tor-based anonymous instant messaging client using hidden services for peer-to-peer communication"
+    },
+    {
+      "id": "TTP-290",
+      "name": "Cabal",
+      "description": "Peer-to-peer, offline-first, decentralised chat protocol for anonymous group communication. https://cabal.chat/"
+    }
+  ]
+}

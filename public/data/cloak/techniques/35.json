@@ -1,0 +1,45 @@
+{
+  "id": 35,
+  "name": "Buy with cash",
+  "description": "The adversary is trying to buy stuff anonymously with cash because it is way harder to trace back those transactions to his identity. \n\n26/11/2024, 08:43, merged with\nAnonymous cash\nThe adversary is trying to purchase products and services anonymously via cash.",
+  "type": "Technical",
+  "tacticId": 8,
+  "tacticName": "Anonymous transactions",
+  "subtechniques": [
+    {
+      "id": 14,
+      "name": "Anonymously buy laptop",
+      "description": "The adversary is trying to buy a laptop anonymously to prevent leaving any traces and reduce the likelihood of tampered devices.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 15,
+      "name": "Anonymously buy SIM card",
+      "description": "The adversary is trying to anonymously buy a SIM card to prevent direct links to his identity.",
+      "type": "Behavioral",
+      "procedures": [
+        {
+          "id": "TTP-627",
+          "name": "GiffGaff (UK)",
+          "description": "GiffGaff is a budget service provider based in the UK. https://www.giffgaff.com/"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "name": "Avoid counterfeit money",
+      "description": "Counterfeit money is risky and not worth the risk and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 466,
+      "name": "Pawn shop",
+      "description": "Pawn shops might be visited to anonymously buy phones, tablets or laptops with cash.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

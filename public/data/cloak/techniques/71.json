@@ -1,0 +1,288 @@
+{
+  "id": 71,
+  "name": "Password",
+  "description": "The adversary is trying to prevent unauthorized access by using strong passwords/passhphrases.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 141,
+      "name": "Bits of entropy",
+      "description": "Bits of entropy are a way of measuring how hard it is for you to encode the message to your friend. The more bits of entropy, the harder it would become to guess or brute force a password. Not less than 90 bits of entropy are recommended. (passwords)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 172,
+      "name": "Cleanse bad passwords",
+      "description": "As part of the purge process, old and bad security habits which might include bad passwords are cleansed. For example by replacing them with strong Diceware passphrases.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 225,
+      "name": "Delete all passwords or change them",
+      "description": "Purging one’s digital footprint might include deleting all passwords or changing them. This would make it harder to gain unauthorized access to any old accounts with weak(er) passwords.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 299,
+      "name": "Enable HDD/SSD password",
+      "description": "Enabling a password for accessing the HDD or SSD adds an extra layer of protection, which makes it harder to gain unauthorized access.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 300,
+      "name": "Enable PIN scrambling",
+      "description": "Pin scrambling is a feature which presents the digits in different order each time you have to enter your PIN. This makes it harder to learn one’s PIN by shoulder surfing.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 301,
+      "name": "Enable TPM startup enhanced PIN",
+      "description": "TPM startup enhanced PIN adds an extra layer of security to access the system and prevents extracting the Bitlocker key from a TPM-chip.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 413,
+      "name": "Multi-factor authentication (MFA)",
+      "description": "Multi-factor authentication is an electronic authentication method in which a user is granted access to a website or application only after successfully presenting two or more pieces of evidence to an authentication mechanism.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-14",
+          "name": "Aegis Authenticator",
+          "description": "Aegis Authenticator is a free, secure and open source app for Android to manage 2-step verification tokens for online services. The app does not collect any data from a device and only requires camera access for scanning QR-codes. https://getaegis.app/"
+        },
+        {
+          "id": "TTP-641",
+          "name": "Google authenticator",
+          "description": "Google Authenticator adds an extra layer of security to online accounts by adding a second step of verification when you sign in. https://support.google.com/websearch/answer/4815696?hl=en"
+        },
+        {
+          "id": "TTP-823",
+          "name": "Microsoft Authenticator",
+          "description": "Microsoft Authenticator is a mobile app that helps you sign in to all your accounts without using a password. https://support.microsoft.com/en-gb/account-billing/download-microsoft-authenticator-351498fc-850a-45da-b7b6-27e523b8702a"
+        },
+        {
+          "id": "TTP-879",
+          "name": "Nitrokey",
+          "description": "Nitrokey stores your secret keys securely on the device and protects them from malware and physical attackers. https://www.nitrokey.com/"
+        },
+        {
+          "id": "TTP-90",
+          "name": "AuthPass",
+          "description": "AuthPass is a free and open source password manager for Android, iOS, MacOS, Linux and Windows, which is compatible with KeePass. https://authpass.app/"
+        },
+        {
+          "id": "TTP-92",
+          "name": "Authy OTP",
+          "description": "Authy is a 2-step verification app. https://www.authy.com/"
+        },
+        {
+          "id": "TTP-995",
+          "name": "Photolok",
+          "description": "Photolok is a passwordless login solution from Netlok. This solution uses photos instead of passwords. https://netlok.com/"
+        },
+        {
+          "id": "TTP-1073",
+          "name": "Raivo",
+          "description": "Raivo is a OTP authenticator solution. https://raivo-otp.com/"
+        },
+        {
+          "id": "TTP-1451",
+          "name": "Yubikey",
+          "description": "The YubiKey is a hardware authentication device. https://www.yubico.com/"
+        },
+        {
+          "id": "TTP-91",
+          "name": "Authy",
+          "description": "TOTP-based multi-factor authentication application. https://authy.com/"
+        }
+      ]
+    },
+    {
+      "id": 459,
+      "name": "Paper password",
+      "description": "Passwords might be written on a small piece op paper to carry with you and can be swallowed in case things go bad.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 462,
+      "name": "Passphrase",
+      "description": "Passphrases, such as Diceware, are strong and hard to crack.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-442",
+          "name": "Diceware passphrases",
+          "description": "Diceware is a password generator which creates passwords based on dice rolls keyed to a set of words. https://www.diceware.org/"
+        },
+        {
+          "id": "TTP-1063",
+          "name": "Pwgen",
+          "description": "Pwgen is a tool to generate passwords, but could also be used to generate usernames. https://pwgen.io/en/"
+        },
+        {
+          "id": "TTP-1127",
+          "name": "Safient",
+          "description": "Safient is a non custodial recovery and inheritance protocol that aims to provide a convenient and secure way of inheriting and safekeeping mechanism for your secrets without exposing it to any intermediaries. https://github.com/safient"
+        },
+        {
+          "id": "TTP-245",
+          "name": "Bitwarden",
+          "description": "Bitwarden is a open source password manager."
+        }
+      ]
+    },
+    {
+      "id": 464,
+      "name": "Password-authenticated key exchange (PAKE)",
+      "description": "In cryptography, a password-authenticated key agreement method is an interactive method for two or more parties to establish cryptographic keys based on one or more party's knowledge of a password",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 476,
+      "name": "PIN along with recovery phrase",
+      "description": "In addition to the Bitcoin seed phrase a PIN should be set as an extra layer of protection against unauthorized access.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 479,
+      "name": "Pre-boot PIN",
+      "description": "Pre-boot PIN adds an extra layer of security by preventing the encryption key from automatically being loaded into system memory during the boot process, which protects agains direct memory access attacks.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 494,
+      "name": "Quadruple passwords",
+      "description": "BIOS/UEFI password, SSD/HDD password, Bitlocker password, Windows password",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 498,
+      "name": "Random strong passphrases",
+      "description": "Random strong passphrase should be used to prevent unauthorized access by brute-forcing, guessing, rainbow tables, and so on.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 538,
+      "name": "Securely split and restore passwords",
+      "description": "Split via QR-codes and keep pieces oft he secret on different devices",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 549,
+      "name": "Set BIOS password",
+      "description": "A BIOS password adds an extra layer of protection and helps to prevent any unauthorized changes to the BIOS.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 596,
+      "name": "Unique passphrases",
+      "description": "Leaked passphrases affect only one account or service if they are unique for each account and service. This reduces the impact it might have.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 597,
+      "name": "Unique PIN",
+      "description": "PINs should be unique to prevent unauthorized access if a PIN is cracked, guessed or leaked.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 638,
+      "name": "VOIP for MFA",
+      "description": "VOIP numbers might be used for MFA verification codes.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 672,
+      "name": "Wordlists",
+      "description": "Wordlists might be used to generate strong passphrase, for example with KeePassXC.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2760,
+      "name": "Password policies",
+      "description": "Password policies might be applied in password managers to set predefined length and character set. ",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2761,
+      "name": "Avoid digital and online diceware simulators.",
+      "description": "If they are compromised or insecure in any way, so is the outcome. They should therefore be avoided. ",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-638",
+      "name": "GNU Pass",
+      "description": "Pass is the standard unix password manager. https://www.passwordstore.org/"
+    },
+    {
+      "id": "TTP-731",
+      "name": "KeePass2Android",
+      "description": "Keepass2Android is an open source password manager app for Android that syncs with KeePass 2.x and other KeePass ports. https://play.google.com/store/apps/details?id=keepass2android.keepass2android&hl=en-US"
+    },
+    {
+      "id": "TTP-732",
+      "name": "KeePassDroid",
+      "description": "KeePassDroid is a port of the KeePass password sage for the Android platform. https://www.keepassdroid.com/"
+    },
+    {
+      "id": "TTP-733",
+      "name": "KeePassDX",
+      "description": "KeePassDX is an ethical app that lets you edit encrypted keys and digital identities in a single KeePass file and fill out forms securely. https://www.keepassdx.com/"
+    },
+    {
+      "id": "TTP-734",
+      "name": "KeePassXC",
+      "description": "KeePassXC is a modern, secure, and open source password manager that stores and manages your most sensitive information. https://keepassxc.org/\n\n19/11/2024, 10:44, merged with\nKeypass"
+    },
+    {
+      "id": "TTP-816",
+      "name": "Meta secret",
+      "description": "Meta Secret is a open source distributed password management solution which allows to split and recover passwords. https://meta-secret.github.io/"
+    },
+    {
+      "id": "TTP-2817",
+      "name": "KeePassX",
+      "description": "KeePassX is an application for people with extremly high demands on secure personal data management."
+    },
+    {
+      "id": "TTP-973",
+      "name": "Pass",
+      "description": "Unix-style password manager using GPG encryption and git for version-controlled credential storage. https://www.passwordstore.org/"
+    },
+    {
+      "id": "TTP-974",
+      "name": "Passage",
+      "description": "Modernised fork of Pass — a GPG-based password manager with improved usability. https://github.com/FiloSottile/passage"
+    },
+    {
+      "id": "TTP-978",
+      "name": "Password manager",
+      "description": "Generic procedure: using a dedicated password manager to generate and store unique, strong credentials for each service"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": 100,
+  "name": "Tamper-evident software",
+  "description": "The adversary is trying to tamper-evident his software to be able to detect any tampering.",
+  "type": "Technical",
+  "tacticId": 16,
+  "tacticName": "Tamper protection",
+  "subtechniques": [
+    {
+      "id": 190,
+      "name": "Compile software yourself",
+      "description": "Open source software might be compiled by themselves to prevent any malware which has been added during compiling to affect the system.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 298,
+      "name": "Enable firmware password with disable-reset",
+      "description": "Firmware password reset protection is a macOS feature which mitigates the possibility to use hardware hacks to disable or bypass a firmware password.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 336,
+      "name": "Flash BIOS",
+      "description": "To make sure that the BIOS is trustworthy (free from malware), it might be flashed and re-installed with new firmware. \n\n24/11/2024, 12:48, merged with\nInstall own BIOS\n\n24/11/2024, 12:59, merged with\nReflash BIOS\n\n24/11/2024, 13:02, merged with\nReplace BIOS",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 602,
+      "name": "USB with secure firmware",
+      "description": "USBs with secure firmware (open source) might be used to reduce the attack surface.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2764,
+      "name": "Hash-based software integrity verification",
+      "description": "Before installing software, the adversary computes or verifies the cryptographic hash (SHA-256, SHA-512) of downloaded binaries against the publisher's announced value, detecting in-transit tampering, MITM, and supply chain substitution. Lighter-weight complement to GPG signature verification and self-compilation.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1462",
+          "name": "GtkHash",
+          "description": "GtkHash is a free, open source desktop utility for computing and verifying message digests and checksums (MD5, SHA-1, SHA-256, SHA-512 and more). Used for verifying downloaded software against publisher-provided hashes. https://gtkhash.org/"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-723",
+      "name": "K-iPhone",
+      "description": "Kryptall® K IPHONE is a firmware modified encrypted and secure cell phone that protects your privacy from eavesdropping. It uses certified encryption algorithms and a global network of servers to ensure secure voice and data communications with any phone type. https://www.kryptall.com/index.php/kryptall-mobile-products/kryptall-k-iphone-secure-cellular-communications"
+    },
+    {
+      "id": "TTP-959",
+      "name": "Oversight",
+      "description": "OverSight keeps an eye on your Mac's mic and webcam, alerting you whenever either is activated. https://objective-see.org/products/oversight.html"
+    }
+  ]
+}

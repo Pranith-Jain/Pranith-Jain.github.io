@@ -1,0 +1,25 @@
+{
+  "id": 79,
+  "name": "Qube templates",
+  "description": "This is the place where software in Qubes OS is installed (root filesystem). ",
+  "type": "Technical",
+  "tacticId": 16,
+  "tacticName": "Tamper protection",
+  "subtechniques": [
+    {
+      "id": 174,
+      "name": "Clone template",
+      "description": "In Qubes OS, templates might be cloned to work with. The templates themselves are left alone and additional packages are only installed in the cloned template. The cloned template may become an App qube based on the cloned template, optional: make this App qube a disposable.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 560,
+      "name": "Split SSH",
+      "description": "If untrusted qubes in QubesOS require access to SSH keys, split-SSH from freshly qubes might be used.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

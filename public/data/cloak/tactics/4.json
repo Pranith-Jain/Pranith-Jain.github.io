@@ -1,0 +1,324 @@
+{
+  "id": 4,
+  "name": "Anonymous communication",
+  "description": "The adversary is trying to communicate anonymously. \n",
+  "techniqueCount": 14,
+  "subtechniqueCount": 39,
+  "procedureCount": 84,
+  "techniques": [
+    {
+      "id": 4,
+      "name": "Anonymity protocols",
+      "type": "Technical",
+      "subCount": 3,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 348,
+          "name": "Gemini protocol",
+          "type": "Technical"
+        },
+        {
+          "id": 349,
+          "name": "Gopher protocol",
+          "type": "Technical"
+        },
+        {
+          "id": 360,
+          "name": "Hide commands",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Anonymize RPC requests",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 7,
+      "name": "Anonymous email",
+      "type": "Technical",
+      "subCount": 9,
+      "procCount": 17,
+      "subIndex": [
+        {
+          "id": 152,
+          "name": "Burner email",
+          "type": "Technical"
+        },
+        {
+          "id": 181,
+          "name": "Common mailboxes",
+          "type": "Technical"
+        },
+        {
+          "id": 288,
+          "name": "Draft emails",
+          "type": "Technical"
+        },
+        {
+          "id": 292,
+          "name": "Email alias",
+          "type": "Technical"
+        },
+        {
+          "id": 293,
+          "name": "Email forwarding",
+          "type": "Technical"
+        },
+        {
+          "id": 342,
+          "name": "Forward and delete copies",
+          "type": "Technical"
+        },
+        {
+          "id": 430,
+          "name": "Nymserver",
+          "type": "Technical"
+        },
+        {
+          "id": 575,
+          "name": "Subject in body",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2733,
+          "name": "Disposable email",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Anonymous instant messaging",
+      "type": "Technical",
+      "subCount": 8,
+      "procCount": 31,
+      "subIndex": [
+        {
+          "id": 25,
+          "name": "Authenticate via question",
+          "type": "Technical"
+        },
+        {
+          "id": 208,
+          "name": "Dead drop",
+          "type": "Technical"
+        },
+        {
+          "id": 326,
+          "name": "Extensible Messaging and Presence Protocol (XMPP)",
+          "type": "Technical"
+        },
+        {
+          "id": 371,
+          "name": "Internet Relay Chat (IRC)",
+          "type": "Technical"
+        },
+        {
+          "id": 392,
+          "name": "Local mesh mode",
+          "type": "Technical"
+        },
+        {
+          "id": 436,
+          "name": "Off-the-record (OTR) messaging",
+          "type": "Technical"
+        },
+        {
+          "id": 439,
+          "name": "OMEMO Multi-End Message and Object Encryption",
+          "type": "Technical"
+        },
+        {
+          "id": 2721,
+          "name": "Add cryptocurrency to darknet market account",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Anonymous phone number",
+      "type": "Technical",
+      "subCount": 8,
+      "procCount": 14,
+      "subIndex": [
+        {
+          "id": 12,
+          "name": "Anonymous SMS services",
+          "type": "Technical"
+        },
+        {
+          "id": 154,
+          "name": "Burner smartphone",
+          "type": "Technical"
+        },
+        {
+          "id": 217,
+          "name": "Dedicated anonymous phone number",
+          "type": "Technical"
+        },
+        {
+          "id": 274,
+          "name": "Disposable VOIP number",
+          "type": "Technical"
+        },
+        {
+          "id": 481,
+          "name": "Pre-paid SIM card",
+          "type": "Behavioral"
+        },
+        {
+          "id": 615,
+          "name": "Utilize e-SIM",
+          "type": "Technical"
+        },
+        {
+          "id": 636,
+          "name": "Voice-over-IP (VOIP)",
+          "type": "Technical"
+        },
+        {
+          "id": 2736,
+          "name": "Only travel with burner devices",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Anonymous support",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 15,
+      "name": "Anonymous tablet",
+      "type": "Technical",
+      "subCount": 6,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 5,
+          "name": "Airplane mode",
+          "type": "Technical"
+        },
+        {
+          "id": 2719,
+          "name": "Avoid package tracking official USPS website",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2720,
+          "name": "Third party package tracking",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2722,
+          "name": "Destroy, burn, or throw away received packages",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2723,
+          "name": "Open package in public place",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2732,
+          "name": "Compartmentalize sensitive data",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Anonymously buy phone",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 18,
+      "name": "Anonymously buy VPN services",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 77,
+      "name": "Proxy",
+      "type": "Technical",
+      "subCount": 4,
+      "procCount": 10,
+      "subIndex": [
+        {
+          "id": 192,
+          "name": "Content Delivery Network (CDN)",
+          "type": "Technical"
+        },
+        {
+          "id": 525,
+          "name": "RPC proxy",
+          "type": "Technical"
+        },
+        {
+          "id": 555,
+          "name": "SOCKS",
+          "type": "Technical"
+        },
+        {
+          "id": 590,
+          "name": "Tor2web proxy",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "name": "Remote Desktop Protocol (RDP)",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 350,
+          "name": "GPU RDP",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "name": "Rent phone numbers",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 114,
+      "name": "Anonymous file sharing",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 1,
+      "subIndex": []
+    },
+    {
+      "id": "TL-4",
+      "name": "Tactic-level TTPs & Procedures",
+      "type": "",
+      "subCount": 0,
+      "procCount": 5,
+      "subIndex": []
+    }
+  ]
+}

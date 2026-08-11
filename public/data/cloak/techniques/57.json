@@ -1,0 +1,69 @@
+{
+  "id": 57,
+  "name": "Hide DNS requests",
+  "description": "The adversary is trying to hide his DNS-requests from third parties, which prevent them from knowing which sites were requested.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 401,
+      "name": "Masking DNS",
+      "description": "Masking DNS traffic to prevent where the request came from reduces the attack surface and success of correlation attacks.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 434,
+      "name": "Oblivious DNS over HTTPS (ODoH)",
+      "description": "Oblivious DoH (ODoH) makes secure DNS over HTTPS (DoH) queries into private queries which prevent the leakage of client IP addresses to resolvers.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 582,
+      "name": "Third-party DNS servers",
+      "description": "Third party DNS-servers might be leveraged to hide the origin of DNS-requests.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-614",
+          "name": "FreeDNS",
+          "description": "FreeDNS offers free and premium DNS services for subdomains and domains, with dynamic updates, IPv6 support, web forwarding and more. https://freedns.afraid.org/"
+        },
+        {
+          "id": "TTP-875",
+          "name": "Nextdns.io",
+          "description": "NextDNS blocks ads and trackers on websites and in apps and provides a safe and supervised internet for kids - on all devices and on all networks. https://nextdns.io/"
+        },
+        {
+          "id": "TTP-495",
+          "name": "DNS over HTTPS (DoH)",
+          "description": "Encrypts DNS queries within HTTPS traffic to prevent ISP-level DNS interception and logging"
+        },
+        {
+          "id": "TTP-496",
+          "name": "DNS over TLS (DoT)",
+          "description": "Encrypts DNS queries over a dedicated TLS connection to prevent interception and logging by network intermediaries"
+        },
+        {
+          "id": "TTP-889",
+          "name": "NortonDNS",
+          "description": "Public DNS service with content filtering; used as an alternative resolver to reduce ISP-level DNS logging"
+        },
+        {
+          "id": "TTP-944",
+          "name": "OpenDNS",
+          "description": "Cisco-owned public DNS service with content filtering capabilities. https://www.opendns.com/"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-344",
+      "name": "ComodoDNS",
+      "description": "Comodo Secure DNS is a domain name resolution service that resolves your secure DNS requests through a worldwide network of redundant DNS security servers. https://www.comodo.com/secure-dns/"
+    }
+  ]
+}

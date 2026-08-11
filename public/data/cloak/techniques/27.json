@@ -1,0 +1,64 @@
+{
+  "id": 27,
+  "name": "Avoid proprietary software",
+  "description": "The adversary is avoiding proprietary software because of possible backdoors, spyware, and surveillance.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 7,
+      "name": "Alternative app store",
+      "description": "Alternative app stores are used to be able to install more privacy and anonymity focused applications on mobile phones.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-584",
+          "name": "Fdroid",
+          "description": "F-Droid is an installable catalogue of free and open source software applications for the Android platform. https://f-droid.org/"
+        },
+        {
+          "id": "TTP-87",
+          "name": "Aurora Store",
+          "description": "Aurora Store is a free Google Play Store alternative where one can download apps, update the apps you already have, receive details about in-app trackers, hide your location, search for apps, and so on."
+        }
+      ]
+    },
+    {
+      "id": 176,
+      "name": "Closed source apps for public use",
+      "description": "Closed source apps should only be used for public use (non-anonymous) on segmented profiles.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 177,
+      "name": "Closed-source OS only in VM",
+      "description": "Closed-source operating systems might only be run in virtual machines to prevent leaking information to third parties, such as with telemetry. With VMs there is more control over network traffic.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-604",
+      "name": "Flowblade",
+      "description": "Flowblade is a multitrack non-linear video editor that supports all the media that can be accessed in a Linux system. https://jliljebl.github.io/flowblade/"
+    },
+    {
+      "id": "TTP-85",
+      "name": "Audacity",
+      "description": "Audacity is an easy-to-use, multi-track audio editor and recorder. Audacity is free and open source. https://www.audacityteam.org/download/"
+    },
+    {
+      "id": "TTP-1113",
+      "name": "Ristretto",
+      "description": "Ristretto is an image viewer for the Xfce desktop environment. https://github.com/xfce-mirror/ristretto"
+    },
+    {
+      "id": "TTP-1125",
+      "name": "Rumble",
+      "description": "Rumble is an online video platform. https://rumble.com/"
+    }
+  ]
+}

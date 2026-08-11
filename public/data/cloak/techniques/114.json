@@ -1,0 +1,16 @@
+{
+  "id": 114,
+  "name": "Anonymous file sharing",
+  "description": "The adversary is trying to share files anonymously. ",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-377",
+      "name": "Croc",
+      "description": "croc is a tool that allows any two computers to simply and securely transfer files and folders. AFAIK, croc is the only CLI file-transfer tool that does all of the following:\n•allows any two computers to transfer data (using a relay)\n•provides end-to-end encryption (using PAKE)\n•enables easy cross-platform transfers (Windows, Linux, Mac)\n•allows multiple file transfers\n•allows resuming transfers that are interrupted\n•local server or port-forwarding not needed\n•ipv6-first with ipv4 fallback\n•can use proxy, like tor\nhttps://github.com/schollz/croc"
+    }
+  ]
+}

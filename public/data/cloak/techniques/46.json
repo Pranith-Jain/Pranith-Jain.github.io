@@ -1,0 +1,72 @@
+{
+  "id": 46,
+  "name": "Deception",
+  "description": "The adversary might use deception and lies to prevent revealing any true intelligence about himself. \n\n22/11/2024, 12:44, merged with\nFool algorithms\n\n22/11/2024, 13:02, merged with\nLying\n\n22/11/2024, 13:06, merged with\nMisinformation",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 214,
+      "name": "Decoy files",
+      "description": "Decoy files might be placed into the outer decoy volume to thwart law enforcement agencies. Some fake sensitive information is purposely placed there to prevent revealing the hidden volume with real sensitive information.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 215,
+      "name": "Decoy partition",
+      "description": "A decoy volume/partition might be created to deceive law enforcement agencies and hide the hidden volume/partition.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 328,
+      "name": "Fake doxing",
+      "description": "Fake doxing might be applied to spread disinformation and distract others, such as fake addresses or email addresses.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 331,
+      "name": "File corruption",
+      "description": "Intentional file corruption techniques might be applied to prevent unauthorized access to content, unless you know how to reconfigure them.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-629",
+          "name": "Gimp",
+          "description": "GNU Image Manipulation Program (Gimp) is a high quality framework for scripted image manipulation. https://www.gimp.org/\n\n19/11/2024, 08:47, merged with\nGNU image manipulation program"
+        }
+      ]
+    },
+    {
+      "id": 389,
+      "name": "Leave lights on",
+      "description": "Leaving the lights on make it appear as if someone is still home.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 391,
+      "name": "Leave phone in friend's car",
+      "description": "Leaving a phone in a friend’s car provides disinformation about one’s true whereabouts.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2786,
+      "name": "Active disinformation feeding (red herring)",
+      "description": "When the adversary suspects interaction with law enforcement or an informant, they deliberately provide false but plausible biographical details, operational information, and personal characteristics. Rather than ending contact, the adversary maintains interaction while inserting false data to consume investigative resources and misdirect attribution.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-357",
+      "name": "Confusion",
+      "description": "Deliberately introducing misleading or contradictory information to confuse adversaries and impede attribution"
+    }
+  ]
+}

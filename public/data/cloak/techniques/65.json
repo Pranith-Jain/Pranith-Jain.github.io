@@ -1,0 +1,10 @@
+{
+  "id": 65,
+  "name": "Mix networks",
+  "description": "The adversary might leverage mix networks (minnet) which routes network traffic between peers but hides the metadata associated with the traffic. Mixnets contribute to remaining anonymous.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [],
+  "procedures": []
+}

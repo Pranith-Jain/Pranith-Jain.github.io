@@ -1,0 +1,25 @@
+{
+  "id": 126,
+  "name": "Privacy-preserving cryptocurrency selection",
+  "description": "The adversary applies a structured evaluation framework when selecting a cryptocurrency for anonymous transactions, assessing: (1) mandatory vs. optional privacy configuration; (2) cryptographic privacy mechanism (ring signatures+CT, zk-SNARKs, Mimblewimble, shielded pools); (3) resistance to blockchain analysis; (4) quantum resistance; (5) exchange exposure creating KYC attribution vectors.",
+  "type": "Technical",
+  "tacticId": 5,
+  "tacticName": "Anonymous cryptocurrency",
+  "subtechniques": [
+    {
+      "id": 2789,
+      "name": "Prefer mandatory-privacy cryptocurrencies",
+      "description": "Cryptocurrencies where all transactions are private by default provide stronger anonymity than optional-privacy systems. Optional-privacy currencies have small anonymity sets because most users use transparent transactions, making the private subset conspicuous.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2790,
+      "name": "Evaluate cryptographic privacy mechanism",
+      "description": "Different privacy cryptocurrencies use different cryptographic techniques: ring signatures+CT (Monero) for unlinkability and amount hiding; zk-SNARKs (Zcash, Aleo) requiring trusted setup; Mimblewimble (Grin, Beam) with good pruning but limited scripting. The adversary evaluates specific mechanisms for known weaknesses and law enforcement bypass capabilities.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

@@ -1,0 +1,16 @@
+{
+  "id": "TL-3",
+  "name": "Tactic-level TTPs & Procedures",
+  "description": "Items linked to this tactic but not to a specific technique/subtechnique, or with an incomplete chain.",
+  "type": "",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-59",
+      "name": "Anonymouse",
+      "description": "Anonymous is a free anonymous browsing service. http://anonymouse.org/anonwww.html"
+    }
+  ]
+}

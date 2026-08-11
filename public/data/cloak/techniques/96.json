@@ -1,0 +1,445 @@
+{
+  "id": 96,
+  "name": "Situational awareness",
+  "description": "The adversary is constantly trying to understand its environment, its elements, and how it changes for effective decision-making.",
+  "type": "Technical",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 34,
+      "name": "Avoid blackmailing",
+      "description": "The adversary is trying to prevent anyone from having the ability to blackmail him.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 38,
+      "name": "Avoid calling in the same room",
+      "description": "Remove all phones, tablets and so on from the room where sensitive activities are conducted to avoid them issuing watermarked sounds as well as listening to keystroke sounds and watermarked sounds.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 40,
+      "name": "Avoid CCTV",
+      "description": "Avoid CCTV in public places to prevent leaving a trail and the ability to get de-anonymized.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 45,
+      "name": "Avoid conducting sensitive activities from host OS",
+      "description": "Host operating systems leak data which could be accessed more easily by forensic investigators. Using virtualization, especially combined with hidden volumes, makes it impossible to find any traces and thus contributes to plausible deniability.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 48,
+      "name": "Avoid cracked software",
+      "description": "Cracked software often contains malware and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 49,
+      "name": "Avoid CSAM",
+      "description": "Law enforcement agencies are all over CSAM hosters and users, avoiding CSAM might make you a less wanted person.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 50,
+      "name": "Avoid current device for shooting media",
+      "description": "Use only devices which haven’t been used to share media in the past, because camera fingerprints could contribute to de-anonymization. \n\n22/11/2024, 17:45, merged with\nAvoid devices which have been used for sharing non-anonymously",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 52,
+      "name": "Avoid discussing sensitive activities where lightbulbs could be seen from outside",
+      "description": "Lightbulbs could be observed from a distance to listen to the sound in the room. Measures should be taken to prevent eavesdropping on sensitive information in rooms with lightbulbs.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 53,
+      "name": "Avoid discussing sensitive information in public",
+      "description": "No-brainer.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 55,
+      "name": "Avoid downloading via Tor",
+      "description": "When unencrypted especially",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 56,
+      "name": "Avoid drunkness/high",
+      "description": "Loose lips might sink hips.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 60,
+      "name": "Avoid Google services",
+      "description": "Avoid the use of Google Services by accessing the service through a public computer (if possible).",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 61,
+      "name": "Avoid heavily monitored networks",
+      "description": "Heavily monitored networks are unsuitable for sensitive operations and should therefore be avoided. Instead public Wi-Fi should be used.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 64,
+      "name": "Avoid host OS directly connecting to anything illegal",
+      "description": "The host OS leaves trails locally which could be accessed more easily. Only conducting sensitive activities from virtual machines reduces the traces which are left and provides more control.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 68,
+      "name": "Avoid links",
+      "description": "Links should never be trusted because they can be malicious or used in social engineering attacks. Avoiding them significantly reduces the possibility of malware infections or other incidents.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 69,
+      "name": "Avoid local area",
+      "description": "For buying stuff anonymously, local area’s are avoided to prevent any links to your own identity and remain anonymous.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 72,
+      "name": "Avoid monitored systems and networks",
+      "description": "Monitored systems and networks should be avoided for conducting sensitive activities, because there is a lack of control and can be seized without one’s permission.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 76,
+      "name": "Avoid peer-to-peer (P2P)",
+      "description": "P2P services such as pirated software or torrents should be avoided as they could contain malware.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 79,
+      "name": "Avoid pluggin in untrusted devices",
+      "description": "Never trust devices and avoid plugging them into equipment which is used for sensitive activities. Untrusted devices could contain malware and thus should be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 83,
+      "name": "Avoid public places",
+      "description": "For conducting sensitive activities, public crowded places should be avoided. Instead locations where no one can spy on you should be preferred.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 88,
+      "name": "Avoid risky platforms",
+      "description": "Avoiding platforms which cooperate with law enforcement agencies or host content which is appropriate, since they draw more attention and could negatively impact you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 98,
+      "name": "Avoid shortened links",
+      "description": "Shortened links cannot be verified before redirection and should therefore never be trusted and thus avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 99,
+      "name": "Avoid shoulder surfing",
+      "description": "If others could see what is happening on your screen this could expose sensitive information about you or your activities. To prevent this from happening, shoulder surfing should be avoided everywhere. \n\n23/11/2024, 10:05, merged with\nAvoid spying",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 108,
+      "name": "Avoid SMS authentication",
+      "description": "SMS authentication should be avoided because it is prone to SIM-swapping and Man-in-the-Middle attacks. \n\n24/11/2024, 13:05, merged with\nReplace SMS",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 115,
+      "name": "Avoid suspicious behavior",
+      "description": "Suspicious behavior could trigger human verifications, or reveal information which could be used against you. Such as OpSec guides on a decoy volume or anonymity or encryption software could make you suspicious just by using them. \n\n23/11/2024, 10:13, merged with\nAvoid suspicious files in decoy partition\nOpSec guides, verscrypt, and so on",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 127,
+      "name": "Avoid unknown websites",
+      "description": "Unknown websites should be avoided because they cannot be trusted.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 138,
+      "name": "Be very skeptical",
+      "description": "Be very skeptical about everything by checking stuff twice before engaging with it.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 162,
+      "name": "Carry wallet in front pocket",
+      "description": "Carrying a wallet in your front pocket makes it harder to steal unnoticed.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 193,
+      "name": "Copy and paste URL",
+      "description": "URLs might be manually copied and pasted into the address bar and retyped to prevent typo squatting and homograph attacks.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 324,
+      "name": "Exclude exit nodes",
+      "description": "Some Tor exit nodes might be excluded for example to match the fake identity’s location.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 329,
+      "name": "Fake IP geolocation should match fake identity",
+      "description": "The fake IP geolocations might be adjusted to match their fake identities.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 378,
+      "name": "Keep low-profile",
+      "description": "Keeping a low profile will draw less attention and may contribute to remaining anonymous.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 386,
+      "name": "Learn from OpSec mistakes",
+      "description": "Cybercriminals who got arrested often make OpSec mistakes. Others are analyzing those and try to learn from them to prevent similar mistakes themselves.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 411,
+      "name": "Monitor for break-ins",
+      "description": "Monitoring for break-ins could mean that something is stolen, tampered with, and so on, which requires immediate response.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 422,
+      "name": "Never bring personal phone when buying anonymously",
+      "description": "Personal phones can be tracked, which could correlate your transaction back to you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 423,
+      "name": "Never leave computer unattended",
+      "description": "To prevent unauthorized access and tampering, devices should not be left unattended.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 461,
+      "name": "Paranoid mindset",
+      "description": "To prevent OpSec mistakes, a paranoid mindset is required to doubt everything, trust nothing and verify everything.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 475,
+      "name": "Physical timing",
+      "description": "For collecting packages or conducting physical transactions and meetings, timing should be taken into consideration. For example at night it is harder to recognize someone than during daytime.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 478,
+      "name": "Poisitioning devices",
+      "description": "Devices and other sensitive stuff should be positioned in a way that no one can shoulder surf (from a distance).",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 503,
+      "name": "Read developers documentation",
+      "description": "Reading developers documentation helps to better understand how something works, which could help to preserve one’s security, privacy and anonymity.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 512,
+      "name": "Remove mobile devices from the room",
+      "description": "Remove all phones, tablets and so on from the room to avoid them issuing watermakred sounds as well as listening to keystroke sounds and watermarked sounds.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 519,
+      "name": "Respond similarly",
+      "description": "Whenever you receive a message from someone, responding in a similar way as they do mitigates stylometry attacks.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 592,
+      "name": "Travel by foot or bike",
+      "description": "Public transport can leave a trail which should be avoided whenever possible.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 617,
+      "name": "Valid return address",
+      "description": "To avoid attracting attention.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 621,
+      "name": "Verify domains",
+      "description": "Domains might be verified before visiting them. Which could encompass OSINT-investigations.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 673,
+      "name": "Write lightly",
+      "description": "To avoid leaving sensitive information when writing on a piece of paper, writing lightly could prevent the information being revealed from the page underneath.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2726,
+      "name": "Act if car GPS is being tracked",
+      "description": "The adversary assumes that the GPS coordiates of his car are being tracked and acts accordingly. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2729,
+      "name": "Keep evidence minimal",
+      "description": "The amount of evidence is minimized to reduce the associated risks. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2730,
+      "name": "Avoid saving customer addresses",
+      "description": "The adversary is avoiding saving customer addresses because this might prove that he is a vendor.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2735,
+      "name": "Avoid roads with toll",
+      "description": "Roads with toll might be avoided because they could leave traces behind about the individual.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2737,
+      "name": "Avoid cars with radio frequency communications",
+      "description": "To prevent car movements from being tracked, cars with radio frequency communications might be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2738,
+      "name": "Avoid Tor over Tor",
+      "description": "Tor over Tor connections are avoided to prevent weaknesses. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2739,
+      "name": "Avoid using anonymously bought devices within CCTV storage window",
+      "description": "CCTV is usually stored for 2-4 weeks. Avoid using anonymously bought equipment during that period prevents CCTV footage being traced back to you. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2743,
+      "name": "Read unsuccessful prosecutions",
+      "description": "Unsuccessful cybercrime prosecutions might be read to understand how someone prevented going to jail.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2744,
+      "name": "Carry external media with you",
+      "description": "",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2745,
+      "name": "Carry transmitting devices with you",
+      "description": "",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2750,
+      "name": "Private browsing mode",
+      "description": "",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2751,
+      "name": "Close and clean",
+      "description": "Closing sessions and cleaning the browser (by shutting down), any traces of preveious sessions are wiped, such as cookies. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2753,
+      "name": "Avoid ignoring warnings",
+      "description": "Warnings (e.g.  browser) are there for a reason, avoiding them might be harmful. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2754,
+      "name": "Avoid downloading from untrusted sources to prevent malware infections.",
+      "description": "",
+      "type": "Behavioral\n",
+      "procedures": []
+    },
+    {
+      "id": 2755,
+      "name": "Show punycode",
+      "description": "Enabling punycode in webbrowsers might contribute in detection of  phishing sites. ",
+      "type": "Technical\n",
+      "procedures": []
+    },
+    {
+      "id": 2794,
+      "name": "Awareness of law enforcement cryptocurrency lure technique",
+      "description": "Law enforcement undercovers may approach vendors with scripted requests to conduct transactions in traceable cryptocurrencies (BTC) outside market infrastructure, using two documented social engineering pretexts: (1) claiming distrust of coin-swapping services; (2) claiming inability to perform coin swaps. The adversary recognises these patterns and maintains strict cryptocurrency discipline — refusing to transact outside established privacy-preserving payment infrastructure.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

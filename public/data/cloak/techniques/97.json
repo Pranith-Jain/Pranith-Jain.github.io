@@ -1,0 +1,41 @@
+{
+  "id": 97,
+  "name": "Steganography",
+  "description": "The adversary applies steganography to conceal information within another message or physical object.",
+  "type": "Technical",
+  "tacticId": 9,
+  "tacticName": "Data obfuscation",
+  "subtechniques": [
+    {
+      "id": 294,
+      "name": "Embed files into videos",
+      "description": "Files may be hidden inside video’s (video steganography).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 567,
+      "name": "Steganography combined with encryption",
+      "description": "Steganography combined with encryption make it harder to gain unauthorized access to information.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-421",
+      "name": "DeepSound",
+      "description": "DeepSound is a steganography tool and audio converter that hides secret data into audio files. The application also enables you to extract secret files directly from audio files or audio CD tracks.https://github.com/Jpinsoft/DeepSound"
+    },
+    {
+      "id": "TTP-697",
+      "name": "Infinite storage glitch",
+      "description": "AKA ISG lets you embed files into vide and upload them to YouTube as storage. https://github.com/DvorakDwarf/Infinite-Storage-Glitch"
+    },
+    {
+      "id": "TTP-1232",
+      "name": "Steganography Online",
+      "description": "Steganography Online is an online tool to encode messages into images. https://stylesuxx.github.io/steganography/"
+    }
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "id": 9,
+  "name": "Anonymous internet connection",
+  "description": "The adversay is leveraging public Wi-Fi networks to establish an anonymous internet connection.",
+  "type": "Technical",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [
+    {
+      "id": 347,
+      "name": "Garlic routing",
+      "description": "Garlic routing is a variant of onion routing that encrypts multiple messages together to make it more difficult for attackers to perform traffic analysis and to increase the speed of data transfer. Michael J. Freedman defined \"garlic routing\" as an extension of onion routing, in which multiple messages are bundled together.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 374,
+      "name": "Invisible Internet Project (I2P)",
+      "description": "I2P is a fully encrypted private network layer that protects your activity and location. It is a truly free and anonymizing Internet alternative that relies on peers to route traffic and resist censorship.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-724",
+          "name": "KabaOS",
+          "description": "KabaOS is a live operating system based off of Apline Linux that aims to help users stay anonymous online. All network traffic that is sent out of your computer is routed through the I2P network, keeping your data secure. https://kabaos.org/"
+        },
+        {
+          "id": "TTP-1464",
+          "name": "i2pd",
+          "description": "i2pd (I2P Daemon) is a full-featured C++ implementation of the I2P router, lighter weight than the reference Java implementation and suitable for low-resource devices or background service deployment. https://github.com/PurpleI2P/i2pd"
+        }
+      ]
+    },
+    {
+      "id": 431,
+      "name": "Obfsproxy",
+      "description": "Obfsproxy is a way to mask Tor and OpenVPN traffic flow to make it look like something else (regular HTTP traffic, for example). Obfsproxy is ideal for people who live in countries where the government is forcing ISPs to use DPI and filter SSL traffic.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1135",
+          "name": "ScrambleSuit",
+          "description": "ScrambleSuit is a pluggable transport protocol for obfsproxy. https://github.com/NullHypothesis/scramblesuit"
+        }
+      ]
+    },
+    {
+      "id": 433,
+      "name": "Obfuscated bridges",
+      "description": "Obfuscated bridges might be used to use Tor and simultaneously make it hard to detect the fact you are using Tor. \n\n24/11/2024, 16:19, merged with\nTor bridges",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-2796",
+          "name": "OBFS4 IAT-MODE timing obfuscation",
+          "description": "OBFS4 bridges support configurable Inter-Arrival Time (IAT) modes: IAT-MODE=0 (no obfuscation), IAT-MODE=1 (fixed-length packet splitting), IAT-MODE=2 (variable-length packet splitting, highest obfuscation). IAT-MODE=2 has been reported to work in China and other restrictive environments. Both client and server must have the same IAT-MODE configured."
+        }
+      ]
+    },
+    {
+      "id": 482,
+      "name": "Prefer onion sites",
+      "description": "Onion sites provide more privacy and anonymity over regular websites, they are therefore preferred whenever possible.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 492,
+      "name": "Public Wi-Fi",
+      "description": "Public Wi-Fi is used to eliminate the link to one’s identity.",
+      "type": "Behavioral",
+      "procedures": [
+        {
+          "id": "TTP-1414",
+          "name": "Wifimap.io",
+          "description": "A website to discover Wi-Fi hotspots nearby. https://www.wifimap.io/"
+        },
+        {
+          "id": "TTP-870",
+          "name": "Never use home Wi-Fi",
+          "description": "Operational rule: never use a home network for sensitive activities to prevent ISP-level attribution to a residential address"
+        }
+      ]
+    },
+    {
+      "id": 496,
+      "name": "Raceboat framework",
+      "description": "The recently proposed Raceboat framework, inspired by CloudTransport bridge design takes a different approach. Raceboat purpose is to offer a censorship resistant service helping end users to get access to bridges with a large choice of protocols, instead of having each software embedding their own Pluggable Transport.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 552,
+      "name": "Smartphone shared connection",
+      "description": "Use a burner smartphone that will be connected to the VM layered network through tetering/Sharing of the connection through Wi-Fi (no further details provided for WhatsApp/Signal).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 563,
+      "name": "SSH via Tor",
+      "description": "SSH over Tor provides more anonymity.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 564,
+      "name": "SSH via VPN",
+      "description": "SSH over VPN provides more anonymity.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 572,
+      "name": "Stream isolation",
+      "description": "Stream isolation is a technique used in networking, particularly with Tor, to prevent different applications from sharing the same connection or circuit. This enhances privacy by ensuring that each application uses a separate set of credentials and connections, reducing the risk of tracking or correlation between activities.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 581,
+      "name": "The Onion Router (TOR)",
+      "description": "Tor is a free overlay network for enabling anonymous communication. Built on free and open-source software and more than seven thousand volunteer-operated relays worldwide, users can have their Internet traffic routed via a random path through the network.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-773",
+          "name": "Linux -> Hidden partition -> Whonix VM -> TOR -> Decentralized services",
+          "description": "A specific setup to browse anonymously, conduct sensitive operations and achieve plausible deniability."
+        },
+        {
+          "id": "TTP-878",
+          "name": "Nipe",
+          "description": "Nope is an engine, developed in Perl, that aims on making the Tor network your default network gateway. https://github.com/htrgouvea/nipe"
+        },
+        {
+          "id": "TTP-923",
+          "name": "Onion browser for iOS",
+          "description": "Onion browser for iOS. https://apps.apple.com/us/app/onion-browser/id519296448"
+        },
+        {
+          "id": "TTP-954",
+          "name": "Orbot",
+          "description": "Orbot is an app that can route traffic from any other app on your device through the Tor network, but simply using the Vanadium browser through Orbot is not recommended. https://orbot.app/en/"
+        },
+        {
+          "id": "TTP-956",
+          "name": "Orfox",
+          "description": "Orfox is a fork of Tor browser that works on Firefox for Android and the Android operating system. https://guardianproject.info/apps/info.guardianproject.orfox/"
+        },
+        {
+          "id": "TTP-957",
+          "name": "Orwall",
+          "description": "orWall will force selected applications through Orbot while preventing unchecked applications to have network access. In order to do so, it will call the iptables binary. This binary, present on your Android device, requires superuser access (aka root). It's the application that manages the firewall on Linux and, by extension, on Android. https://github.com/EthACKdotOrg/orWall"
+        },
+        {
+          "id": "TTP-964",
+          "name": "P.O.R.T.A.L.",
+          "description": "Personal Onion Router To Assure Liberty. PORTAL is a project that aims to keep people out of jail. It is a dedicated hardware device (a router) which forces all internet traffic to be sent over the Tor network. This significantly increases the odds of using Tor effectively, and reduces the potential to make fatal mistakes. https://github.com/grugq/portal"
+        },
+        {
+          "id": "TTP-1233",
+          "name": "StegoTorus",
+          "description": "StegoTorus is a camouflage proxy for the Tor anonymity system. It masks the traffic from a Tor client to the entry point into the Tor onion routing such that it looks like ordinary HTML traffic. https://www.freehaven.net/anonbib/cache/ccs2012-stegotorus.pdf"
+        },
+        {
+          "id": "TTP-1283",
+          "name": "Tor browser bundle",
+          "description": "The Tor browser protects you against tracking, surveillance, and censorship. The browser can also access the Darkweb (onions). https://www.torproject.org/download/"
+        },
+        {
+          "id": "TTP-1289",
+          "name": "Tor2web",
+          "description": "Tor2web lets internet users access Tor onion services from the clear web. https://www.tor2web.org/"
+        },
+        {
+          "id": "TTP-1291",
+          "name": "Torbox",
+          "description": "TorBox is an easy-to-use anonymizing router based on Raspberry Pi. https://github.com/radio24/TorBox"
+        },
+        {
+          "id": "TTP-1292",
+          "name": "Tortilla",
+          "description": "Tortilla is an open source tool that allows users to securely, anonymously, and transparently route all TCP/IP and DNS traffic through Tor, regardless of the client software, and without relying on VPNs or additional hardware or virtual machines. https://www.crowdstrike.com/resources/community-tools/tortilla-tool/"
+        },
+        {
+          "id": "TTP-1381",
+          "name": "VPN -> Tor -> Internet",
+          "description": "You -> VPN -> Tor -> Internet. Recommended setup before connecting to Tor when you are using an internet connection tied to your identity. For example: your threat model includes an adversary which is capable of extracting information from your ISP, your ISP itself is an adversary, local network administrators before your ISP are adversaries."
+        },
+        {
+          "id": "TTP-1408",
+          "name": "Whonix VM -> Tor -> Veracrypt hidden partition",
+          "description": "A setup for achieving plausible deniability.  "
+        },
+        {
+          "id": "TTP-1409",
+          "name": "Whonix VM -> Tor -> VPN -> Veracrypt decoy partition",
+          "description": "A setup for anonymous use where Whonix VMs are places on a VeraCrypt decoy partition and traffic is routed through Tor and combined with a VPN (VPN over Tor). \n\n21/11/2024, 20:14, merged with\nWhonix VPN -> Tor"
+        },
+        {
+          "id": "TTP-2797",
+          "name": "dark.fail",
+          "description": "Dark.fail is a site which is accessible from both the clear- and darkweb which shows if .onion sites are online. This site might be used to quickly access darknet markets or forums. "
+        },
+        {
+          "id": "TTP-2798",
+          "name": "tor.taxi",
+          "description": "Tor.taxi is a website which indexes several darknet sites and services, such as forums, search engines, and news. "
+        },
+        {
+          "id": "TTP-57",
+          "name": "Anonymous torrents",
+          "description": "Routing torrent traffic through Tor for anonymity"
+        },
+        {
+          "id": "TTP-950",
+          "name": "OpenWRT Tor gateway",
+          "description": "OpenWRT-based router configured as a transparent Tor gateway, routing all connected device traffic through Tor"
+        },
+        {
+          "id": "TTP-1287",
+          "name": "Tor over VPN",
+          "description": "Connecting to Tor through a VPN to conceal Tor usage from the ISP while retaining Tor anonymity properties"
+        },
+        {
+          "id": "TTP-1382",
+          "name": "VPN over Tor",
+          "description": "Routing VPN traffic through Tor to obtain a VPN exit IP address without linking it to the real identity"
+        }
+      ]
+    },
+    {
+      "id": 587,
+      "name": "Tor new identity",
+      "description": "Tor new identities’ feature might be used often between sessions or sites to make correlation attacks harder.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 588,
+      "name": "Tor over Tor",
+      "description": "Tor over Tor might be used to add an extra layer of connections which makes it harder to crack.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 601,
+      "name": "USB Wi-Fi dongle",
+      "description": "Will be passed through to a bridge VM to prevent exposure of Whonix Gateway to Host OS/network",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 606,
+      "name": "Use German exit nodes",
+      "description": "Use German IP due tot their legal stance on using anonymous accounts on online platforms (or GDPR covered countries)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 611,
+      "name": "Use public computer away from home",
+      "description": "To prevent activities tracing back to you, public computers far away from home might be used.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 616,
+      "name": "V2Ray",
+      "description": "Project V is a set of tools to help you build your own privacy network over internet. The core of Project V, named V2Ray, is responsible for network protocols and communications. It can work alone, as well as combine with other tools.\nThis website is mainly a manual for V2Ray, with some additional information regarding the whole project.\nFeatures\n•Multiple inbound/outbound proxies: one V2Ray instance supports in parallel multiple inbound and outbound protocols. Each protocol works independently.\n•Customizable routing: incoming traffic can be sent to different outbounds based on routing configuration. It is easy to route traffic by target region or domain.\n•Multiple protocols: V2Ray supports multiple protocols, including Socks, HTTP, Shadowsocks, VMess etc. Each protocol may have its own transport, such as TCP, mKCP, WebSocket etc.\n•Obfuscation: V2Ray has built in obfuscation to hide traffic in TLS, and can run in parallel with web servers.\n•Reverse proxy: General support of reverse proxy. Can be used to build tunnels to localhost.\n•Multiple platforms: V2Ray runs natively on Windows, Mac OS, Linux, etc. There is also third party support on mobile.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 624,
+      "name": "Verify layering setup",
+      "description": "If a layered setup is implemented, such as with multiple VPNs combined with Tor, if they are in tact should be testes regularly.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 656,
+      "name": "Wi-Fi antenna",
+      "description": "Wi-Fi antenna’s might be used to increase coverage which allows them to access public or residential Wi-Fi from a more remote location.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 657,
+      "name": "Wi-Fi only device in Airplane mode",
+      "description": "Keeping a mobile device in airplane mode at all times prevents connectivity to cell towers. Wi-Fi can be used when required.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-885",
+          "name": "Non-cellular iPad",
+          "description": "Non-cellular iPad’s might be used to prevent tracking via SIM-cards."
+        }
+      ]
+    },
+    {
+      "id": 2766,
+      "name": "I2P eepsite hosting",
+      "description": "The adversary hosts anonymous web services (eepsites) within the I2P network. Unlike Tor onion services, eepsites are only accessible from within I2P and do not expose exit-node traffic, reducing traffic correlation attack surface.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-726",
+      "name": "Kali Anonsurf",
+      "description": "Kali-anonsurf is parrotSec’s anon surf and stealth ported to work with Kali Linux. https://github.com/Und3rf10w/kali-anonsurf"
+    },
+    {
+      "id": "TTP-2805",
+      "name": "IRC Vhost",
+      "description": "A vHost (virtual host) is used to mask your real IP address or hostname, providing you with greater privacy while using HybridIRC.\n\nHybridIRC offers free custom vHosts for registered users, which are linked directly to your NickServ account. Once a vHost is set, it will automatically be activated and visible every time you successfully identify to your account on IRC. Your real IP address or the default server hostname will be replaced with your selected vHost, giving you a more private and personalized presence on the network. For enhanced security and privacy, the network automatically hashes your IP address or hostmask, ensuring that your true identity remains hidden. "
+    }
+  ]
+}

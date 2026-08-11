@@ -1,0 +1,79 @@
+{
+  "id": 67,
+  "name": "Network monitoring",
+  "description": "The adversary is applying network monitoring to detect and respond to any unwanted network behavior, such as outgoing connections to third parties.",
+  "type": "Technical",
+  "tacticId": 14,
+  "tacticName": "Risk management",
+  "subtechniques": [
+    {
+      "id": 332,
+      "name": "Filter C2 packets",
+      "description": "Filtering command-and-control (C2) requests to only allow certain request through to the C2 backend, as with frameworks such as Metasploit or Empire.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 334,
+      "name": "Firewall",
+      "description": "Firewalls might be deployed to filter incoming and outgoing network traffic.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-791",
+          "name": "LuLu",
+          "description": "LuLu is a free open source firewall designed to block unknown outgoing connections, safeguarding both your privacy and your Mac. https://objective-see.org/products/lulu.html"
+        },
+        {
+          "id": "TTP-1310",
+          "name": "UFW (Linux)",
+          "description": "Uncomplicated Firewall (UWF) provides a more user-friendly framework for managing netfilter and a command-line interface for working with the firewall. https://www.linux.com/training-tutorials/introduction-uncomplicated-firewall-ufw/\n\n21/11/2024, 19:20, merged with\nUWF"
+        }
+      ]
+    },
+    {
+      "id": 557,
+      "name": "Speedtesting",
+      "description": "Speedtesting sites might be used to test the latency of native ISP connections.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 620,
+      "name": "Verify blacklisted Tor exit nodes",
+      "description": "If sites or services are hard to access, third party tools might be used to verify if the Tor exit node is on a blacklist.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 650,
+      "name": "Web Application Firewall (WAF)",
+      "description": "A web application firewall is a specific form of application firewall that filters, monitors, and blocks HTTP traffic to and from a web service. By inspecting HTTP traffic, it can prevent attacks exploiting a web application's known vulnerabilities, such as SQL injection, cross-site scripting, file inclusion, and improper system configuration",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1388",
+          "name": "WAF -> RPROXY1 -> RPROXY2 -> VPN -> Backend",
+          "description": "This is a recommended setup for hosting a secure and resilient onion service. The WAF combined with double reversed proxies prevents the backend from ending up on famous services such as Shodan or Censys."
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-632",
+      "name": "Glasswire",
+      "description": "Glassware is a network monitoring and security solution for Microsoft Windows and Google Android devices. https://www.glasswire.com/"
+    },
+    {
+      "id": "TTP-1436",
+      "name": "Wireshark",
+      "description": "Wireshark is a network protocol analyzer and could be used for leak testing. https://www.wireshark.org/"
+    },
+    {
+      "id": "TTP-865",
+      "name": "Net monitor",
+      "description": "Network monitoring tool for detecting anomalous or unexpected outbound connections that may indicate a compromise"
+    }
+  ]
+}

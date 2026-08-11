@@ -1,0 +1,67 @@
+{
+  "id": 72,
+  "name": "Physical destruction",
+  "description": "The adversary is physically destroying hardware or documents to prevent recovery of information and evidence against himself. \n\nDelete everything you can from the internet, delete everything offline, destroy the ISM card and trash it in a random place, Erase and then destroy the burner phone and trash it in a random place, Securely erase laptop hard drive and physically destroy the drive/laptop and trash it somewhere, destroy backups similarly.",
+  "type": "Physical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 146,
+      "name": "Break/Crush the board and memory cells (SSD)",
+      "description": "When physically destroying SSDs, the board and memory cells should be breached or crushed to prevent recovery of data.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 147,
+      "name": "Break/Deform/Crush the platters",
+      "description": "When physically destroying HDDs, the board and memory cells should be breached or crushed to prevent recovery of data.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 150,
+      "name": "Burn or cook the platters (HDD)",
+      "description": "HDDs might be burned to prevent recovery of the data.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 151,
+      "name": "Burn the board and memory cells (SSD)",
+      "description": "SSds might be burned to prevent recovery of the data.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 289,
+      "name": "Dump at separate random places",
+      "description": "Hardware which is destroyed to wipe traces and prevent unauthorized access might be dumped at random different places.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 404,
+      "name": "Microwave cards",
+      "description": "Physical cards should not only be cut and shredded but also microwaved for 10 seconds to ensure all chips and strips are destroyed.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 527,
+      "name": "Rub the platters with a rare earth magnet (HDD)",
+      "description": "A specific technique to physically destroy the data.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 561,
+      "name": "Splitted disposal",
+      "description": "Disposing documents or pieces of hardware should be done splitted and on different locations. \n\n24/11/2024, 14:43, merged with\nSeparate the debris (HDD)",
+      "type": "Physical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

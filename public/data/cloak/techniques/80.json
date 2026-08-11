@@ -1,0 +1,34 @@
+{
+  "id": 80,
+  "name": "Remote Desktop Protocol (RDP)",
+  "description": "Remote Desktop Protocol (RDP) is a proprietary protocol developed by Microsoft Corporation which provides a user with a graphical interface to connect to another computer over a network connection.",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [
+    {
+      "id": 350,
+      "name": "GPU RDP",
+      "description": "RDP with GPU allows users to remotely connect to a computer with a GPU and leverage its processing power to accelerate graphic-intensive applications, such as Android emulator, video rendering, 3D modeling, game streaming, AI training and deep learning.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-25",
+      "name": "AmazingRDP Graphic Card",
+      "description": "AmazingRDP’s Graphic Card RDP is a service which allows one to emulate Android applications. Amazingrdp.com/graphic-card-rdp/"
+    },
+    {
+      "id": "TTP-1465",
+      "name": "Remmina",
+      "description": "Free and open source remote desktop client for Linux supporting RDP, VNC, SSH and other protocols. https://remmina.org/"
+    },
+    {
+      "id": "TTP-1466",
+      "name": "RealVNC viewer",
+      "description": "VNC remote desktop viewer for accessing remote infrastructure anonymously. https://www.realvnc.com/en/connect/download/viewer/linux/"
+    }
+  ]
+}

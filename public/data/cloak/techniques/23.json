@@ -1,0 +1,18 @@
+{
+  "id": 23,
+  "name": "Avoid biometrics",
+  "description": "The adversary is avoiding the use of biometrics because they can be forced to unlock their devices and they could be abused more easily.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 33,
+      "name": "Avoid biometrics alone to safeguard secrets",
+      "description": "Because biometrics could be used without your consent it is insufficient to rely on them solely.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

@@ -1544,14 +1544,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['registry', 'regscope', 'persistence', 'windows', 'forensics'],
   },
 
-  // Tools hub
-  {
-    path: '/dfir/tools/:group',
-    label: 'DFIR Tools (category)',
-    description: 'DFIR tools grouped by category - pick a subcategory to see relevant tooling.',
-    sectionLabel: 'DFIR · Tools',
-    group: 'dfir',
-  },
   {
     path: '/dfir/c/:cat',
     label: 'DFIR Hub',
@@ -1836,6 +1828,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Frameworks',
     group: 'dfir',
     keywords: ['post-quantum', 'pqc', 'nist', 'mlkem', 'ml-dsa', 'slh-dsa', 'hndl', 'crypto'],
+  },
+  {
+    path: '/dfir/cloak',
+    label: 'CLOAK — Anonymity Framework',
+    description:
+      'Concealment Layers for Online Anonymity and Knowledge — tactics, techniques, sub-techniques, and procedures used by adversaries to maintain anonymity.',
+    sectionLabel: 'DFIR · Frameworks',
+    group: 'dfir',
+    keywords: ['cloak', 'anonymity', 'tor', 'privacy', 'obfuscation', 'concealment', 'adversary'],
   },
 ];
 

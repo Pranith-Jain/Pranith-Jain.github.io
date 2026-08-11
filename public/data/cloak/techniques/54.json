@@ -1,0 +1,25 @@
+{
+  "id": 54,
+  "name": "Gift cards",
+  "description": "The adversary might buy gift cards to conduct transactions anonymously.",
+  "type": "Technical",
+  "tacticId": 8,
+  "tacticName": "Anonymous transactions",
+  "subtechniques": [
+    {
+      "id": 506,
+      "name": "Register giftcards anonymously",
+      "description": "Giftcards might be registered anonymously to be able to purchase products or services anonymously.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 585,
+      "name": "Top-up vouchers",
+      "description": "Top-up vouchers might be used to purchase products or services anonymously.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

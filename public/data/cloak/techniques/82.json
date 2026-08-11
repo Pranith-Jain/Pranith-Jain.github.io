@@ -1,0 +1,10 @@
+{
+  "id": 82,
+  "name": "Rent phone numbers",
+  "description": "The adversary might temporary rent phone numbers.",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [],
+  "procedures": []
+}

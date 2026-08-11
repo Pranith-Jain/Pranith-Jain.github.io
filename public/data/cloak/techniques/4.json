@@ -1,0 +1,48 @@
+{
+  "id": 4,
+  "name": "Anonymity protocols",
+  "description": "Anonymity protocols are leveraged to become and remain anonymous online.",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [
+    {
+      "id": 348,
+      "name": "Gemini protocol",
+      "description": "Gemini: Gemini is \"a new, collaboratively designed internet protocol, which explores the space inbetween [sic] gopher and the web, striving to address (perceived) limitations of one while avoiding the (undeniable) pitfalls of the other.\" [Project Gemini homepage]\nLike HTTPS, it uses TLS to secure connections (required by the protocol spec); like Gopher, it serves documents in one-off connections with minimal traffic overhead. Most Gemini clients support a new file type called \"gemtext\" (.gmi, mimetype \"text/gemini\"), which is like a stripped-down Markdown with only bullet lists, a few levels of document headers, and links that can only be on their own line. Thus it offers a bit more customization than Gopher's gophermaps, but not by much.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 349,
+      "name": "Gopher protocol",
+      "description": "Gopher is \"a communications protocol designed for distributing, searching, and retrieving documents in Internet Protocol networks. The design of the Gopher protocol and user interface is menu-driven. The experience of browsing a Gopherhole (a site on Gopher) is essentially the same as browsing a folder on your local hard drive: content is hierarchical (organized into a folder structure). While HTML files can be shared, the vast majority of Gopher clients either do not support viewing HTML in-browser or do not support CSS.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 360,
+      "name": "Hide commands",
+      "description": "Commands may be hidden with Bash or by running them as background processes.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-898",
+      "name": "Nymtech",
+      "description": "The Nym mixnet is a free and open-source software designed to ensure a high level of privacy in all online communications. https://github.com/nymtech/nym"
+    },
+    {
+      "id": "TTP-1454",
+      "name": "ZeroNet",
+      "description": "ZeroNet: ZeroNet is \"a decentralized web-like network of peer-to-peer users... Instead of having an IP address, sites are identified by a public key (specifically a bitcoin address).\" [Wikipedia]\nZeroNet is basically BitTorrent for websites, where instead of domains, websites are identified using a Bitcoin public key (although ZeroNet supports a few ways to link a public key to a ZeroNet-specific domain name). Unlike traditional BitTorrent, however, \"zites\" (ZeroNet sites) can be updated after they have been originally published while retaining the same key and peers.\nBecause ZeroNet is not a client-server network, traditional website applications like WordPress that require server-side languages like PHP will not work on it. ZeroNet works best with static sites (HTML/CSS/client-side JavaScript), or you can use CoffeeScript and ZeroNet's special APIs to create decentralized applications. https://zeronet.io/"
+    },
+    {
+      "id": "TTP-789",
+      "name": "Lokinet",
+      "description": "Onion-routing anonymity network built on the Oxen blockchain, providing an alternative to Tor with different routing and performance properties. https://lokinet.org/"
+    }
+  ]
+}

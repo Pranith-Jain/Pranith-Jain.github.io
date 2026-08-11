@@ -1,0 +1,10 @@
+{
+  "id": 50,
+  "name": "Domain fronting",
+  "description": "Domain fronting is a technique for Internet censorship circumvention that uses different domain names in different communication layers of an HTTPS connection to discreetly connect to a different target domain than is discernable to third parties monitoring the requests and connections.",
+  "type": "Technical",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [],
+  "procedures": []
+}

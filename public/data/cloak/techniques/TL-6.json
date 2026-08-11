@@ -1,0 +1,176 @@
+{
+  "id": "TL-6",
+  "name": "Tactic-level TTPs & Procedures",
+  "description": "Items linked to this tactic but not to a specific technique/subtechnique, or with an incomplete chain.",
+  "type": "",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-385",
+      "name": "Cryptoho",
+      "description": "Cryptoho is a VPS and dedicated hosting provider which allow cryptocurrency payments. https://cryptoho.st/"
+    },
+    {
+      "id": "TTP-552",
+      "name": "Envs.net",
+      "description": "Envs.net is a minimalist, non-commercial shared Linux system. https://envs.net/"
+    },
+    {
+      "id": "TTP-554",
+      "name": "Epio",
+      "description": "Epio host is a offshore hosting provider. http://www.epio.host/"
+    },
+    {
+      "id": "TTP-31",
+      "name": "Anon Hosting",
+      "description": "Anon Hosting is a free darkweb hosting provider which has no rules. https://anonhosting.io/"
+    },
+    {
+      "id": "TTP-636",
+      "name": "Glowhost",
+      "description": "GlowHost is a web hosting provider. https://glowhost.com/"
+    },
+    {
+      "id": "TTP-676",
+      "name": "Host-world",
+      "description": "Host-World is a hosting provider for VPS and dedicated servers. https://host-world.com/"
+    },
+    {
+      "id": "TTP-677",
+      "name": "Hoster Box VPS",
+      "description": "Hoster Box is a VPS hosting provider. https://hosterbox.com/hosting/vps.php\n\n19/11/2024, 09:32, merged with\nHosterbox"
+    },
+    {
+      "id": "TTP-678",
+      "name": "Hostlick",
+      "description": "HostSlick is a hosting provider for VPS & cloud services. https://hostslick.com/"
+    },
+    {
+      "id": "TTP-680",
+      "name": "Hostsailor",
+      "description": "HostSailor is a web hosting provider. https://www.hostsailor.com/"
+    },
+    {
+      "id": "TTP-681",
+      "name": "HostWinds VPS",
+      "description": "Hostwinds is a VPS hosting provider. https://www.hostwinds.com/vps/linux"
+    },
+    {
+      "id": "TTP-53",
+      "name": "Anonymous Speech",
+      "description": "Anonymous Speech is a anonymous hosting provider. https://anonymousspeech.com"
+    },
+    {
+      "id": "TTP-694",
+      "name": "Impreza",
+      "description": "Impreza is a privacy-focused hosting and security services provider. They provide VPS, dedicated servers, offshore hosting, Tor hosting, webhosting, email services and SSL certificates. https://impreza.host/"
+    },
+    {
+      "id": "TTP-735",
+      "name": "Keff",
+      "description": "Keff is an offshore VPS hosting provider which ignores abuse/DMCA (except from Swedish authorities. https://vps.keff.org/"
+    },
+    {
+      "id": "TTP-753",
+      "name": "LalekHosted",
+      "description": "LalekHosted is an anonymous offshore hosting provider."
+    },
+    {
+      "id": "TTP-764",
+      "name": "Liberty VPS",
+      "description": "Liberty VPS is an offshore hosting provider. https://libertyvps.net/windows-vps"
+    },
+    {
+      "id": "TTP-828",
+      "name": "MivoCloud",
+      "description": "Mivocloud is a VPS hosting provider. https://mivocloud.com/en"
+    },
+    {
+      "id": "TTP-843",
+      "name": "MonsterMegs",
+      "description": "MonsterMegs is a web hosting provider. https://monstermegs.com/"
+    },
+    {
+      "id": "TTP-1007",
+      "name": "Pinata cloud",
+      "description": "Pinata cloud offers different plans for file storage, gateways, bandwidth, requests, and members. Pinata provides the InternPlenetary File System (IPFS) protocol for storing and sharing data in a distributed file system. https://pinata.cloud/"
+    },
+    {
+      "id": "TTP-222",
+      "name": "Banhof",
+      "description": "Banhof is a offshore hosting provider."
+    },
+    {
+      "id": "TTP-235",
+      "name": "BitcoinWebHosting",
+      "description": "Bitcoin Web Hosting is a hosting provider which allows cryptocurrency payments. https://www.bitcoinwebhosting.net/"
+    },
+    {
+      "id": "TTP-237",
+      "name": "Bithost",
+      "description": "Bithost is a hosting provider which allows cryptocurrency payments. https://bithost.io/"
+    },
+    {
+      "id": "TTP-5",
+      "name": "1984",
+      "description": "1984 is a hosting provider based in Iceland which allows cryptocurrency payments. Https://1984.is"
+    },
+    {
+      "id": "TTP-238",
+      "name": "BitLaunch",
+      "description": "BitLaunch is a hosting provider which allows cryptocurrency payments. https://bitlaunch.io/\n\n18/11/2024, 11:51, merged with\nbitvps"
+    },
+    {
+      "id": "TTP-1387",
+      "name": "Vsys VPS",
+      "description": "Virtual Systems (Vsys) is a web hosting provider. https://vsys.host/"
+    },
+    {
+      "id": "TTP-1400",
+      "name": "Webcare360",
+      "description": "WebCare360 is an offshore hosting provider. https://webcare360.com/"
+    },
+    {
+      "id": "TTP-1448",
+      "name": "Xuid",
+      "description": "Xuid is a bulletproof hosting provider."
+    },
+    {
+      "id": "TTP-6",
+      "name": "AbeloHost",
+      "description": "AbeloHost is an offshore hosting provider which allows cryptocurrency payments. https://abelohost.com/"
+    },
+    {
+      "id": "TTP-257",
+      "name": "BlueAngelHost",
+      "description": "BlueAngelHost is an offshore hosting provider which allows cryptocurrency payments and ignores copyright infringements (DMCA). https://www.blueangel.host/"
+    },
+    {
+      "id": "TTP-286",
+      "name": "BuyVM",
+      "description": "BuyVM is a hosting provider which allows cryptocurrency payments."
+    },
+    {
+      "id": "TTP-304",
+      "name": "CCIHosting",
+      "description": "CCIHosting is an offshore hosting provider with identity protection and data privacy. https://www.ccihosting.com/"
+    },
+    {
+      "id": "TTP-318",
+      "name": "Cherry Servers VPS",
+      "description": "Cherry Servers is a hosting provider. https://www.cherryservers.com/"
+    },
+    {
+      "id": "TTP-336",
+      "name": "Cockbox",
+      "description": "Cockbox is a Tor-friendly, privacy oriented Linux/BSD VPS provider. https://cockbox.org/"
+    },
+    {
+      "id": "TTP-338",
+      "name": "coin.host",
+      "description": "Coin Host is privacy-infused crypto hosting provider. https://coin.host/"
+    }
+  ]
+}

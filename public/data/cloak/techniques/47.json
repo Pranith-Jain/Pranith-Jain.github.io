@@ -1,0 +1,31 @@
+{
+  "id": 47,
+  "name": "Disable scripts",
+  "description": "The adversary is disabling scripts in his browser to prevent the execution of (malicious) scripts which could reveal information about him or infect machines.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 442,
+      "name": "Only enable JavaScript for CAPTCHA's",
+      "description": "To prevent tracking and malware infections, Javascript might only be enabled to complete CAPTCHA’s.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 676,
+      "name": "xHTML",
+      "description": "xHTML might be used to serve content without the need for javascript, which is often blocked in Tor to prevent malware infections and tracking.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-2816",
+      "name": "CavansBlocker",
+      "description": "This add-on allows users to prevent websites from using some Javascript APIs to fingerprint them. Users can choose to block the APIs entirely on some or all websites (which may break some websites) or fake its fingerprinting-friendly readout API."
+    }
+  ]
+}

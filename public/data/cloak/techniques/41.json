@@ -1,0 +1,10 @@
+{
+  "id": 41,
+  "name": "Consistency",
+  "description": "The adversary tries to maintain consistency with his behavior, for instance constantly using Tor to browse the internet instead of only for specific sites. Inconsistent behavior could lead to linking activities together and ultimately de-anonymization.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [],
+  "procedures": []
+}

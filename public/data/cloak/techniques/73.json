@@ -1,0 +1,10 @@
+{
+  "id": 73,
+  "name": "Practice discipline",
+  "description": "The adversary might practice his discipline practices with a non-sensitive account to prevent mistakes resulting in affection of sensitive accounts or de-anonymization of them.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [],
+  "procedures": []
+}

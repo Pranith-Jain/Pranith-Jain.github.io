@@ -1,0 +1,46 @@
+{
+  "id": 21,
+  "name": "Anti-forensics",
+  "description": "The adversary is implementing measures which thwart digital forensic investigations with the goal of a lack of evidence.",
+  "type": "Technical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 233,
+      "name": "Detached LUKS header",
+      "description": "LUKS supports using a detached header. With this configuration, your actual encrypted storage drive could be setup without any LUKS header actually stored on it–giving you total plausible deniability as your entire drive’s contents would be indistinguishable from a random distribution of bits.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 296,
+      "name": "Emergency shutdown",
+      "description": "Emergency shutdown is a feature in Tails OS which activates when the Tails USB is removed. It will shut down and overwrite the RAM with random data and any LUKS USBs that were unlocked will be encrypted again. These prevent unauthorized access and leaving any traces.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 387,
+      "name": "Leave forensic evidence in decoy partition",
+      "description": "Edit documents, unmount and mount frequently, torrent client installed",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 406,
+      "name": "Mix client traffic with Tor relay or bridge",
+      "description": "To make correlation attacks harder to conduct, mix client traffic with a Tor relay or bridge.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 429,
+      "name": "Nuke password",
+      "description": "Nuke passwords might be used to destroy the encryption keys which are required to unlock encrypted partitions.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

@@ -1,0 +1,18 @@
+{
+  "id": 16,
+  "name": "Anonymously buy cryptocurrency",
+  "description": "The adversary is trying to buy cryptocurrency anonymously, for example with cash, to prevent any trails that would lead back to him.",
+  "type": "Behavioral",
+  "tacticId": 5,
+  "tacticName": "Anonymous cryptocurrency",
+  "subtechniques": [
+    {
+      "id": 2725,
+      "name": "Avoid exchanges",
+      "description": "Cryptocurrency exchanges such as Coinbase might be avoided because they can seize your coins. LocalMonero is mentioned as an alternative.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

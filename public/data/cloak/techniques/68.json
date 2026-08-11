@@ -1,0 +1,39 @@
+{
+  "id": 68,
+  "name": "No-KYC",
+  "description": "The adversary is leveraging services which do not require know-your-customer (KYC), basically meaning they can use them anonymously.",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [
+    {
+      "id": 159,
+      "name": "Camera software",
+      "description": "Specific camera software might be used to bypass KYC-procedures.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-751",
+      "name": "Kycnot.me",
+      "description": "KYCnot.me is a website containing alternatives for buying, exchanging, trading and using cryptocurrencies without having to disclose their identity, thus preserving the right to privacy. https://kycnot.me/"
+    },
+    {
+      "id": "TTP-1180",
+      "name": "Shinjiru",
+      "description": "Shinjiru is a offshore hosting provider which accepts cryptocurrency payments and provides dedicated servers, web hosting, VPS, Bitcoin hosting. https://www.shinjiru.com/"
+    },
+    {
+      "id": "TTP-1359",
+      "name": "Versus",
+      "description": "Versus is a darknet market."
+    },
+    {
+      "id": "TTP-7",
+      "name": "Ablative Hosting",
+      "description": "Ablative Hosting is a hosting provider for Onion services which does not require Know-Your-Customer (KYC)/Anti-Money Laundering (AML) and allows cryptocurrency payments. https://ablative.hosting/"
+    }
+  ]
+}

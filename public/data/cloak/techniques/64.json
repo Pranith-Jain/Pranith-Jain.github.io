@@ -1,0 +1,39 @@
+{
+  "id": 64,
+  "name": "Masking",
+  "description": "The adversary is trying to mask his activities to hide the true meaning or prevention of leaving any trails.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 359,
+      "name": "Hide arguments",
+      "description": "Arguments might be hidden to mask commands as other processes, for example Nmap as syslogd.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 361,
+      "name": "Hide files",
+      "description": "Files may be hidden in volatile memory locations, such as /dev/shm, hiding a directory from the ls command or using ASCII characters for filenames. \n\n24/11/2024, 12:43, merged with\nHide permanent files",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 400,
+      "name": "Mask sounds",
+      "description": "Masking sounds might be applied to mask one’s voice.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 562,
+      "name": "Spoofing",
+      "description": "In the context of information security, and especially network security, a spoofing attack is a situation in which a person or program successfully identifies as another by falsifying data, to gain an illegitimate advantage",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

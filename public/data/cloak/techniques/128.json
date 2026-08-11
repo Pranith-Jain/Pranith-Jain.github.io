@@ -1,0 +1,18 @@
+{
+  "id": 128,
+  "name": "Periodic OPSEC review and adaptation",
+  "description": "The adversary treats operational security as a continuously evolving practice requiring scheduled review: rotation of cryptographic keys, regular updates to security-critical software, periodic review of identity and infrastructure for lingering exposure, and willingness to abandon compromised or outdated identities. Attachment to familiar tools or long-lived identities is a documented failure mode.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 2793,
+      "name": "Scheduled cryptographic key rotation",
+      "description": "The adversary rotates PGP keys, session keys, and other long-lived cryptographic credentials on a defined schedule. Long-lived keys accumulate risk: more ciphertext for cryptanalysis, possible undetected exposure, and a long attribution history linked to a single fingerprint.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

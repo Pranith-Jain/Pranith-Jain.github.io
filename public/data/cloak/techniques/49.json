@@ -1,0 +1,10 @@
+{
+  "id": 49,
+  "name": "DMCA ignored",
+  "description": "Services which ignore Digital Millennium Copyright Act (DMCA) requests are preferred to continue illicit activities.",
+  "type": "Behavioral",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [],
+  "procedures": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": 117,
+  "name": "Avoid leaving DNA",
+  "description": "The adversary is trying to prevent leaving DNA in packages",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [],
+  "procedures": []
+}

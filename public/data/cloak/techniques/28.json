@@ -1,0 +1,25 @@
+{
+  "id": 28,
+  "name": "Avoid routines",
+  "description": "The adversary is avoiding routines because they could be analyzed over a longer period of time and could result in de-anonymization.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 75,
+      "name": "Avoid patterns",
+      "description": "Patterns can be analyzed and could link certain activities back to you. To prevent this, patters and routines should be avoided. For example by avoiding posting at different times on a forum.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 133,
+      "name": "Avoid using the same place twice",
+      "description": "To prevent routines and linking activities back to you when using public Wi-Fi, it should be avoided to use the same place twice.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

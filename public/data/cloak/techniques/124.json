@@ -1,0 +1,25 @@
+{
+  "id": 124,
+  "name": "Operational patience",
+  "description": "The adversary enforces deliberate pacing of all operational activities to prevent OPSEC failure caused by impatience or time pressure. Rushing causes: skipping verification steps; clipboard paste errors revealing sensitive data; sending messages to wrong recipients; bypassing anonymisation steps. Operational patience treats every step as requiring conscious verification before proceeding, regardless of counterparty time pressure.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 2780,
+      "name": "Verify clipboard contents before sending",
+      "description": "Before sending any message, the adversary explicitly verifies clipboard contents to ensure the correct text is being transmitted. Clipboard paste errors are a documented failure mode — pasting the wrong item can inadvertently transmit sensitive plaintext or unencrypted content intended for a different context.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2781,
+      "name": "Resist counterparty time pressure",
+      "description": "When a counterparty attempts to rush an operation, the adversary deliberately slows down rather than complying. Urgency from counterparties is a known vector for inducing OPSEC failures and may indicate a test or undercover operation.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

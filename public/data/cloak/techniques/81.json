@@ -1,0 +1,39 @@
+{
+  "id": 81,
+  "name": "Removal services",
+  "description": "The adversary might leverage removal services which aid in removing personal identities and identifiable information from the internet.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 206,
+      "name": "Data removal services",
+      "description": "Data removal services might be leveraged to remove past traces of personal identifiable information from several databases. This reduces the attack surface. \n\n24/11/2024, 12:46, merged with\nIdentity Scrubbing",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-642",
+          "name": "Google personal information removal page",
+          "description": "Remove personally identifiable information or doxxing content from Google Search results. \n\nhttps://support.google.com/websearch/answer/12719076?hl=en"
+        },
+        {
+          "id": "TTP-696",
+          "name": "Incogni",
+          "description": "Incognito is a Data Broker Removal Service. https://incogni.com/"
+        },
+        {
+          "id": "TTP-722",
+          "name": "JustDeleteMe",
+          "description": "JustDeleteMe is a website with a directory of direct links to delete your account from websites. https://justdeleteme.xyz/"
+        },
+        {
+          "id": "TTP-922",
+          "name": "Onerep",
+          "description": "Onerep is a data removal service provider. https://onerep.com/"
+        }
+      ]
+    }
+  ],
+  "procedures": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": 102,
+  "name": "Temporary phone numbers",
+  "description": "The adversary might leverage temporary phone numbers which are not tied to his identity.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [],
+  "procedures": []
+}

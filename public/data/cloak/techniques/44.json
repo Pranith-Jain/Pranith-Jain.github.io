@@ -1,0 +1,538 @@
+{
+  "id": 44,
+  "name": "Cryptocurrency",
+  "description": "The adversary is leveraging cryptocurrency to conduct anonymous transactions.",
+  "type": "Technical",
+  "tacticId": 8,
+  "tacticName": "Anonymous transactions",
+  "subtechniques": [
+    {
+      "id": 11,
+      "name": "Anonymous MultiBit clients",
+      "description": "The adversary is using anonymous MultiBit clients.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 13,
+      "name": "Anonymous swapping service",
+      "description": "From an anonymized browser (such as Tor Browser), use a non-KYC (Know Your Customer) service swapping service (see Appendix A8: Crypto Swapping Services without Registration and KYC) and convert your Monero to BTC and transfer those to the BTC Wallet you have on your anonymized VM. You should now have an anonymized Bitcoin wallet that can be used for purchasing services that do not accept Monero. You should never access this wallet from a non-anonymized environment. Always use well-thought OPSEC with your BTC transactions. Remember those can be traced back to you.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 46,
+      "name": "Avoid convertion to actual currency",
+      "description": "Because this will require KYC-practices which breaks the anonymity.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 67,
+      "name": "Avoid linking phone numbers to crypto platforms",
+      "description": "Phone numbers (SIM cards) are tied to identities. Linking them to cryptocurrency platforms could contribute to de-anonymization and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 86,
+      "name": "Avoid reuse of wallet addresses",
+      "description": "Cryptocurrency transactions are conducted on a public ledger, which could be traced. When using the same addresses multiple times, transactions could be traces back to you more easily. Avoiding reusing wallet addresses reduces tying transactions together.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 91,
+      "name": "Avoid sending crypto directly from exchange to DNM",
+      "description": "Cryptocurrency transactions are public on the blockchain and if you use an exchange they have personal information about you. Conducting direct transactions to Darknet markets could therefore de-anonymize you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 140,
+      "name": "Bitcoin ATM",
+      "description": "A Bitcoin ATM is a kiosk that allows a person to purchase Bitcoin and other cryptocurrencies by using cash or debit card. Some Bitcoin ATMs offer bidirectional functionality, enabling both the purchase of Bitcoin and the sale of Bitcoin for cash",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 163,
+      "name": "Cash for Bitcoins",
+      "description": "To remain anonymous, cash might be exchanged for Bitcoins.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 164,
+      "name": "Chain of anonymous wallets",
+      "description": "Chains of anonymous wallets might be used to make Bitcoins less associated with a person or wallet. This makes it harder to trace transactions back to a single person.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 201,
+      "name": "Crypto card",
+      "description": "Crypto cards are a type of payment card that allows holders to spend their digital assets — just like fiat money — in their everyday life.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 204,
+      "name": "Cryptomining",
+      "description": "Mining Bitcoins yourself over Tor might be an option to prevent dealing with anyone else and remain anonymous.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-565",
+          "name": "Exchange -> miners wallet -> destination",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": 230,
+      "name": "Desktop wallets",
+      "description": "Desktop wallets:The desktop wallets are softwares that you have to download and locally execute on your computer. The desktop wallets provide you with complete control over your funds and keys. As you generate a new desktop wallet, a file named “wallet.dat” gets stored locally on your desktop. This file stores the private key information that will be used to access your crypto addresses. Thus, it requires encryption with a personal password. You need to keep the files safe and not let others access them.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-585",
+          "name": "Feather wallet",
+          "description": "Feather is a free Monero desktop wallet for Linux, Tails, macOS and Windows. https://github.com/feather-wallet/feather"
+        },
+        {
+          "id": "TTP-820",
+          "name": "MetaMask",
+          "description": "MetaMask is a software cryptocurrency wallet used to interact with the Ethereum blockchain. https://metamask.io/"
+        },
+        {
+          "id": "TTP-859",
+          "name": "Myetherwallet.com",
+          "description": "MyEtherWallet is a self-custody wallet that supports Ethereum and other blockchains. https://www.myetherwallet.com/"
+        },
+        {
+          "id": "TTP-1213",
+          "name": "Sparrowwallet.com",
+          "description": "Sparrow is a desktop wallet that values privacy, security and usability. It supports single sig and multis wallets, hardware wallets, coin control, PayNyms, transaction editor and more. https://www.sparrowwallet.com/"
+        }
+      ]
+    },
+    {
+      "id": 319,
+      "name": "Escrow services",
+      "description": "An escrow is a arrangement in which a third party (the stakeholder or escrow agent) receives and disburses money or property for the primary transacting parties, with the disbursement dependent on conditions agreed to by the transacting parties. This is to prevent fraud and ensure fairness and security in transactions.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-339",
+          "name": "Coinsavr",
+          "description": "Coinsavr is a Bitcoin escrow service. https://www.coinsavr.com/"
+        },
+        {
+          "id": "TTP-555",
+          "name": "Escrow my bits",
+          "description": "Escrow my bits is a Bitcoin escrow service provider."
+        },
+        {
+          "id": "TTP-557",
+          "name": "ESCRYPTO",
+          "description": "Escrypto is an all-in-one digital asset cryptocurrency ecosystem which provides Bitcoin escrow services. https://www.escrypto.com/"
+        },
+        {
+          "id": "TTP-586",
+          "name": "Federal Escrow",
+          "description": "Federal escrow is a Bitcoin escrow provider."
+        },
+        {
+          "id": "TTP-633",
+          "name": "Global escrow",
+          "description": "Global escrow is a Bitcoin escrow service provider."
+        },
+        {
+          "id": "TTP-690",
+          "name": "IBC Group",
+          "description": "IBC Group is a Bitcoin escrow service provider. https://www.ibcgroup.io/"
+        },
+        {
+          "id": "TTP-714",
+          "name": "ItBit Escrow",
+          "description": "ItBit Escrow is a Bitcoin escrow service."
+        },
+        {
+          "id": "TTP-854",
+          "name": "MultiEscrow",
+          "description": "MultiEscrow is a Bitcoin escrow service."
+        },
+        {
+          "id": "TTP-917",
+          "name": "OgNasty",
+          "description": "Ognasty is a Bitcoin escrow service."
+        },
+        {
+          "id": "TTP-983",
+          "name": "Paxful",
+          "description": "Paxful is a peer-to-peer bitcoin marketplace which provides escrow services. https://paxful.com/"
+        },
+        {
+          "id": "TTP-228",
+          "name": "Best Bro Bits",
+          "description": "Best Bro Bits is a Bitcoin escrow business."
+        },
+        {
+          "id": "TTP-1177",
+          "name": "SetEscrow",
+          "description": "SetEscrow is a Bitcoin escrow service provider."
+        },
+        {
+          "id": "TTP-236",
+          "name": "BitFy",
+          "description": "BitFy is a Bitcoin escrow service."
+        },
+        {
+          "id": "TTP-1268",
+          "name": "The Escaroo",
+          "description": "The Escaroo is a Bitcoin escrow service provider."
+        },
+        {
+          "id": "TTP-1296",
+          "name": "Trade Guardian",
+          "description": "Trade Guardian is a Bitcoin escrow service provider."
+        },
+        {
+          "id": "TTP-1302",
+          "name": "TrustBTC",
+          "description": "TrustBTC is a Bitcoin escrow service provider."
+        },
+        {
+          "id": "TTP-242",
+          "name": "BitRate",
+          "description": "BitRate is a Bitcoin escrow service."
+        },
+        {
+          "id": "TTP-274",
+          "name": "BTC Asia",
+          "description": "BTC Asia is a cryptocurrency escrow service. https://btc-asia.com/"
+        },
+        {
+          "id": "TTP-300",
+          "name": "CardVilla",
+          "description": "CardVilla is a Bitcoin escrow service, carding and hacking forum."
+        }
+      ]
+    },
+    {
+      "id": 355,
+      "name": "Hardware wallet",
+      "description": "Hardware or ‘cold’ wallets (extra layer of protection by keeping private keys offline and away from online threats). Hardware wallets: The hardware wallets, as the name suggests, are physical, electronic devices that use a random number generator (RNG) for generating both private and public keys. Then the keys are stored in the device itself, which does not need an internet connection for storage. This implies that the hardware wallets are cold wallets and finds its mention as one of the most secure alternatives. These wallets offer a high level of security as compared to their counterparts from the online attacks. \n\nHowever, they may possess a threat if the firmware implementation does not take place properly. Additionally, the hardware wallets tend to be usually less user-friendly, making it difficult to access the funds compared to the hot wallets. The hardware wallets are the best option if you hold a large amount of crypto and that too for a long time. You need to set up a PIN along with a recovery phrase to protect your device. These will help you in case your wallet gets lost.\n\n24/11/2024, 12:29, merged with\nCold wallet\nCold wallets might be used to store private keys offline, making them immune to online attacks.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-340",
+          "name": "Coldcardwallet",
+          "description": "Coldcard is a open source Bitcoin hardware wallet. https://coldcard.com/"
+        },
+        {
+          "id": "TTP-16",
+          "name": "Airgap",
+          "description": "Airgap is a hardware wallet which is based on two devices which makes it Airgapped (hense the name). Https://airgap.it"
+        },
+        {
+          "id": "TTP-394",
+          "name": "Cypherockwallet",
+          "description": "Cypherrock is a hardware wallet with no seed phrase vulnerability. https://www.cypherock.com/"
+        },
+        {
+          "id": "TTP-650",
+          "name": "Grid-lattice1",
+          "description": "The Lattice1 is a hardware device that enables the secure management of cryptocurrency assets through a user-friendly interface. Paired with SafeCards, the Lattice1 can be used to manage multiple cryptocurrency wallets simultaneously. https://gridplus.io/products/grid-lattice1\n\n19/11/2024, 10:59, merged with\nLattice"
+        },
+        {
+          "id": "TTP-763",
+          "name": "Ledger",
+          "description": "Ledger is a hardware crypto wallet (cold wallet). https://www.ledger.com/"
+        },
+        {
+          "id": "TTP-231",
+          "name": "BitBox",
+          "description": "BitBox is a hardware wallet for cryptocurrency. https://bitbox.swiss/"
+        },
+        {
+          "id": "TTP-1195",
+          "name": "Sirin Labs Finney U1",
+          "description": "The SIRIN Labs Finney u1 is a dual screen Android smartphone that features a secure, cold storage wallet for cryptocurrency. https://www.androidauthority.com/blockchain-phone-sirin-labs-finney-884899/"
+        },
+        {
+          "id": "TTP-17",
+          "name": "Airgap vault",
+          "description": "Air-gapped device dedicated to securely generating and storing private keys, never connected to any network"
+        },
+        {
+          "id": "TTP-18",
+          "name": "Airgap wallet",
+          "description": "Air-gapped cryptocurrency wallet that signs transactions offline to prevent remote key exfiltration"
+        }
+      ]
+    },
+    {
+      "id": 364,
+      "name": "Hot wallets",
+      "description": "Software wallets: The software wallets are usually hot wallets and are connected to the internet. The software wallets are available in various formats, and here are the most common types.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 402,
+      "name": "Memorize Bitcoin seed words",
+      "description": "A seed phrase, seed recovery phrase or backup seed phrase is a list of words which store all the information needed to recover Bitcoin funds on-chain. Wallet software will typically generate a seed phrase and instruct the user to write it down on paper. It should be memorized to prevent others from accessing it (e.g. when written on paper).",
+      "type": "Behavioral",
+      "procedures": [
+        {
+          "id": "TTP-261",
+          "name": "Border wallets",
+          "description": "Border wallets is a new way to quickly and reliably memorize Bitcoin seed phrases. https://www.borderwallets.com/?source=post_page-----000201888743--------------------------------"
+        }
+      ]
+    },
+    {
+      "id": 405,
+      "name": "Minimize interactions with transparent blockchains",
+      "description": "Because of its transparency, interactions with it should be reduced to a minimum. This reduces the traces left behind.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 408,
+      "name": "Mobile wallets",
+      "description": "Mobile wallets:The mobile wallets work almost like desktop wallets except for the fact that the former ones are specially meant for smartphones. These are pretty convenient as they permit you to receive and send cryptocurrencies via the use of QR codes. As mobile wallets are also prone to hacking through malware infection and malicious apps, it is always recommended that you encrypt it with a password. You must also regularly backup your private keys or seed phrase.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 415,
+      "name": "Multi-signature wallet",
+      "description": "Multi-Signature (Multi-Sig) is a security feature that necessitates multiple keys to authorize a cryptocurrency transaction. Multi-Sig wallets aim to provide improved protection, particularly for businesses or groups that need to safeguard their digital assets.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-616",
+          "name": "Freeotp+",
+          "description": "FreeOTP is a free ad open source app that generates one-time passwords for systems that support HOTP and TOTP protocols. https://freeotp.github.io/"
+        }
+      ]
+    },
+    {
+      "id": 416,
+      "name": "Multiple sending and receiving addresses",
+      "description": "Multiple sending and receiving addresses might be used for better anonymity.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 417,
+      "name": "Multiple wallets",
+      "description": "Multiple wallets might be used for segmentation and thwart correlation.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 418,
+      "name": "Multisignature markets",
+      "description": "Multisig markets are markets which adopted multisig transactions.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-653",
+          "name": "Hansa",
+          "description": "Hansa is a multi signature (multisig) Darknet Market."
+        }
+      ]
+    },
+    {
+      "id": 460,
+      "name": "Paper wallets",
+      "description": "Paper wallers: Paper wallets can be termed as pieces of paper on which you usually note down the crypto address and its private key. They are physically printed in the form of QR codes, after which these codes can be scanned for executing cryptocurrency transactions. Some of the paper wallet websites permit you to download their code for generating new addresses and keys while they remain offline. This makes sure that the wallets are highly resistant to online hacking attacks and probably are alternatives to cold storage. However, now the paper wallets are considered dangerous, owing to potential threats.\n\n24/11/2024, 13:20, merged with\nOffline cryptocurrency\nOn a piece of paper in the form of QR-code and a long string of characters. This makes it easy to store anonymously, give anonymously en even load into an anonymous digital crypto wallet.https://walletgenerator.net.  \n\n24/11/2024, 14:36, merged with\nStore seed offline",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 537,
+      "name": "Secure wallet service",
+      "description": "Choose reputable and well-established wallet service that offiers feautures like MFA, multi-signature authorization, and cold storage",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 565,
+      "name": "Stealth addresses",
+      "description": "imagine getting a new email address every time you receive a message. That's how stealth addresses work in privacy coins. Monero (XMR), one of the best privacy coins, uses this method effectively. It generates a one-time public address for each transaction, a private view key to see incoming funds, and a private spend key for sending money. This makes tracking individual transactions nearly impossible.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 651,
+      "name": "Web wallets",
+      "description": "Web wallets: The web wallets can be used to access the blockchains via a browser interface without the requirement of installation or downloading. The web wallets include both the exchange wallets and the other browser oriented wallet providers. In most instances, you can create a new wallet and set your personal password for accessing it. But, some of the service providers do hold and manage the private key, which could be dangerous. Now, most web wallets enable you to secure your cryptocurrency by holding and managing your private keys.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 679,
+      "name": "zk-SNARKs",
+      "description": "zk-SNARKs is like a magic trick. It proves a transaction is legitimate without revealing any specifics about it. Zcash, a pioneer among the best crypto privacy coins, uses zk-SNARKs to keep transaction details under wraps while still verifying their validity.\n\nThese techniques highlight how privacy coins like Monero, Zcash, and others offer enhanced privacy and security. Each method contributes to making transactions anonymous and untraceable, positioning these currencies as some of the best crypto privacy coins available.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-389",
+      "name": "Cryptowallet.com",
+      "description": "Cryptowallet is a crypto wallet service. https://cryptowallet.com/"
+    },
+    {
+      "id": "TTP-396",
+      "name": "Darkness.su",
+      "description": "Darkness.su is an atomic swap (exchange of cryptocurrencies from separate blockchains) service. https://darkness.su/"
+    },
+    {
+      "id": "TTP-22",
+      "name": "AlphaWallet",
+      "description": "AlphaWallet is a self-custodial wallet which is open source. https://alphawallet.com/"
+    },
+    {
+      "id": "TTP-23",
+      "name": "Altcoin",
+      "description": "Altcoins is a collective name for all cryptocurrencies other than bitcoin."
+    },
+    {
+      "id": "TTP-519",
+      "name": "Electrum wallet",
+      "description": "18/11/2024, 17:58, merged with\nElectrum\nElectrum is a Bitcoin wallet. https://electrum.org/"
+    },
+    {
+      "id": "TTP-559",
+      "name": "Ethereum",
+      "description": "Ethereum is a global, decentralized platform for money and new kinds of applications. On Ethereum, you can write code that controls money, and build applications accessible anywhere in the world."
+    },
+    {
+      "id": "TTP-570",
+      "name": "Exodus",
+      "description": "Exodus is a cryptocurrency wallet. https://www.exodus.com/"
+    },
+    {
+      "id": "TTP-611",
+      "name": "Frame.sh",
+      "description": "Frame creates a secure system-wide interface to your chains and accounts. https://frame.sh/"
+    },
+    {
+      "id": "TTP-675",
+      "name": "Horizon (ZEN)",
+      "description": "ZEN is the cryptocurrency of Horizen. https://www.horizen.io/zen/"
+    },
+    {
+      "id": "TTP-837",
+      "name": "Monero (XMR)",
+      "description": "Monero is decentralized cryptocurrency that keeps your finances confidential and secure. https://www.getmonero.org/"
+    },
+    {
+      "id": "TTP-83",
+      "name": "Atomic Wallet",
+      "description": "Atomic Wallet is a crypto wallet service. https://atomicwallet.io/"
+    },
+    {
+      "id": "TTP-926",
+      "name": "OnionWallet",
+      "description": "OnionWallet is a anonymous darkweb Tor Bitcoin wallet and laundry service."
+    },
+    {
+      "id": "TTP-945",
+      "name": "OpenKeychain",
+      "description": "OpenKeychain is a free and open source mobile app for the Android operating system that provides strong user-based encryption which is compatible with the OpenPGP standard. https://www.openkeychain.org/"
+    },
+    {
+      "id": "TTP-1072",
+      "name": "Rainbow",
+      "description": "Rainbow is a Ethereum wallet. https://github.com/rainbow-me/rainbow"
+    },
+    {
+      "id": "TTP-1187",
+      "name": "Sideshift.ai",
+      "description": "SideShift.ai is a service that allows you to trade between 100+ coins without signing up or leaving your wallet. https://sideshift.ai/"
+    },
+    {
+      "id": "TTP-1229",
+      "name": "StealthEX",
+      "description": "StealthEX is a non-custodial platform that allows you to exchange over 1400 coins and tokens without registration. https://stealthex.io/"
+    },
+    {
+      "id": "TTP-240",
+      "name": "Bitlox",
+      "description": "Bitlox is a hardware wallet for cryptocurrency. https://www.bitlox.com/"
+    },
+    {
+      "id": "TTP-1299",
+      "name": "Trezor",
+      "description": "Trezor is a cold storage (hardware) cryptocurrency wallet for crypto security and independence. https://trezor.io/"
+    },
+    {
+      "id": "TTP-1303",
+      "name": "Trustwallet",
+      "description": "Trust Wallet is a self-custody wallet that supports millions of assets across 100+ blockchains. https://trustwallet.com/"
+    },
+    {
+      "id": "TTP-241",
+      "name": "BitQuick.co",
+      "description": "Bitquick is an exclusive and private crypto community where crypto secrets, info and first-hand news is being shared. https://bitquick.com/"
+    },
+    {
+      "id": "TTP-1316",
+      "name": "Uniswap",
+      "description": "Uniswap is a decentralised cryptocurrency exchange. https://uniswap.org/"
+    },
+    {
+      "id": "TTP-1343",
+      "name": "Verge (XVG)",
+      "description": "Verge (XVG) is a cryptocurrency. https://vergecurrency.com/"
+    },
+    {
+      "id": "TTP-1389",
+      "name": "Walletscrunity",
+      "description": "WalletScrunity helps everyday bitcoin users verify whether or not their wallet is truly open source and secure. https://walletscrutiny.com/"
+    },
+    {
+      "id": "TTP-1452",
+      "name": "Zcash",
+      "description": "Cash is privacy-focused cryptocurrency. https://z.cash/"
+    },
+    {
+      "id": "TTP-2807",
+      "name": "Dash",
+      "description": "Dash is an open source cryptocurrency. It is an altcoin that was forked from the Bitcoin protocol. It is also a decentralized autonomous organization run by a subset of its users. It was previously known as Xcoin and Darkcoin"
+    },
+    {
+      "id": "TTP-288",
+      "name": "Bytecoin",
+      "description": "Bytecoin is a service which anonymizes cryptocurrency. https://bytecoin.org/"
+    },
+    {
+      "id": "TTP-292",
+      "name": "Cakewallet.com",
+      "description": "Cake Wallet is an open source cryptocurrency wallet. https://cakewallet.com/"
+    },
+    {
+      "id": "TTP-313",
+      "name": "Changelly",
+      "description": "Changelly is a crypto exchange. https://changelly.com/"
+    },
+    {
+      "id": "TTP-314",
+      "name": "Changenow",
+      "description": "ChangeNow is a cryptocurrency exchange. https://changenow.io/"
+    },
+    {
+      "id": "TTP-232",
+      "name": "Bitcoin",
+      "description": "Bitcoin (BTC) as the base-layer cryptocurrency; commonly used as a starting point in anonymous transaction setups"
+    }
+  ]
+}

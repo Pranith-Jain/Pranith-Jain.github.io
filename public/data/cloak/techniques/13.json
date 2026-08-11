@@ -1,0 +1,74 @@
+{
+  "id": 13,
+  "name": "Anonymous search engine",
+  "description": "The adversary is trying to anonymously use search engines.",
+  "type": "Technical",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [
+    {
+      "id": 486,
+      "name": "Privacy search engines",
+      "description": "The adversary is using privacy-friendly search engines to prevent tracking, fingerprinting, and so on.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-510",
+          "name": "DuckDuckGo",
+          "description": "DuckDuckGo is a browser and search engine that protects your online privacy and does not track your personal data. https://duckduckgo.com/index.html"
+        },
+        {
+          "id": "TTP-515",
+          "name": "Ecosia",
+          "description": "Ecosia is a search engine and web browser. https://www.ecosia.org/"
+        },
+        {
+          "id": "TTP-818",
+          "name": "Metager",
+          "description": "Metager is a privacy-friendly search engine. https://metager.org/"
+        },
+        {
+          "id": "TTP-834",
+          "name": "Mojeek",
+          "description": "Mojeek is a privacy-friendly search engine. https://www.mojeek.com/"
+        },
+        {
+          "id": "TTP-1070",
+          "name": "Qwant",
+          "description": "Qwant is a privacy-friendly search engine. https://www.qwant.com/"
+        },
+        {
+          "id": "TTP-1142",
+          "name": "SearX",
+          "description": "Searx is a privacy-friendly metasearch engine. https://metasearx.com/ \n\n21/11/2024, 15:18, merged with\nSearXNG"
+        },
+        {
+          "id": "TTP-1226",
+          "name": "StartPage",
+          "description": "19/11/2024, 10:32, merged with\nIxquick\n\nStartpage is a privacy-friendly search engine. https://www.startpage.com"
+        },
+        {
+          "id": "TTP-1249",
+          "name": "Swisscows",
+          "description": "Swisscows is a privacy-friendly search engine. https://swisscows.com/en"
+        },
+        {
+          "id": "TTP-1449",
+          "name": "Yacy",
+          "description": "Yay is a decentralised search engine. https://yacy.net/"
+        },
+        {
+          "id": "TTP-264",
+          "name": "Brave search",
+          "description": "Brave Search is a privacy preserving search engine developed by Brave Software."
+        },
+        {
+          "id": "TTP-725",
+          "name": "Kagi",
+          "description": "Privacy-focused search engine with no advertising tracking. https://kagi.com/"
+        }
+      ]
+    }
+  ],
+  "procedures": []
+}

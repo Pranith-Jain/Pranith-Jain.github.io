@@ -1,0 +1,32 @@
+{
+  "id": 98,
+  "name": "Surveillance detection",
+  "description": "The adversary might leverage surveillance detection techniques if they suspect themselves targeted by physical surveillance.",
+  "type": "Physical",
+  "tacticId": 10,
+  "tacticName": "Physical security",
+  "subtechniques": [
+    {
+      "id": 158,
+      "name": "Camera detector",
+      "description": "Camera detectors might be used to detect infrared radiation coming from objects, for example in hotel rooms.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 403,
+      "name": "Metal detector",
+      "description": "Metal detectors might be used in hotels, Airbnb’s and so on to detect equipment.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 477,
+      "name": "Pin-pointer",
+      "description": "Pin pointers might be used in hotels, Airbnb’s and so on to detect equipment.",
+      "type": "Physical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

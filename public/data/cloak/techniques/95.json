@@ -1,0 +1,32 @@
+{
+  "id": 95,
+  "name": "Silence",
+  "description": "The adversary is trying to remain silent and avoid admitting anything to law enforcement agencies. \n",
+  "type": "Technical",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 520,
+      "name": "Retain lawyer",
+      "description": "Lawyers might be retained on beforehand in case things go wrong.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2778,
+      "name": "Awareness of law enforcement interrogation deception tactics",
+      "description": "The adversary studies documented law enforcement interrogation deception tactics to recognise and resist them without legal counsel present: (1) false co-defendant confession; (2) threats against family members; (3) false leniency promises; (4) artificial rapport-building; (5) false claim of complete prior knowledge; (6) manufactured urgency. In most jurisdictions, law enforcement officers are legally permitted to use deception during interrogations.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2779,
+      "name": "Know and invoke legal rights during detention",
+      "description": "The adversary has memorised and practises the specific verbal formulas required to assert legal rights: right to remain silent, refusal of consent to search, and right to legal counsel. Explicit invocation using legally recognised phrasing is required in many jurisdictions. Knows which questions are legally obligatory to answer versus which require no response.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

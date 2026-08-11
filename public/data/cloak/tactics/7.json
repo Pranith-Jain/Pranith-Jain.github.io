@@ -1,0 +1,880 @@
+{
+  "id": 7,
+  "name": "Anonymous identity",
+  "description": "The adversary is trying to anonymize his identity.",
+  "techniqueCount": 14,
+  "subtechniqueCount": 150,
+  "procedureCount": 32,
+  "techniques": [
+    {
+      "id": 32,
+      "name": "Bouncing servers",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 43,
+      "name": "Counter surveillance",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 4,
+      "subIndex": [
+        {
+          "id": 134,
+          "name": "Avoid using Tor/VPN to access services on the same ASN",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "name": "Emulation",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 396,
+          "name": "Machine emulator and virtualizer",
+          "type": "Technical"
+        },
+        {
+          "id": 495,
+          "name": "Quick EMUlator (QEMU)",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "name": "Hide DNS requests",
+      "type": "Technical",
+      "subCount": 3,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 401,
+          "name": "Masking DNS",
+          "type": "Technical"
+        },
+        {
+          "id": 434,
+          "name": "Oblivious DNS over HTTPS (ODoH)",
+          "type": "Technical"
+        },
+        {
+          "id": 582,
+          "name": "Third-party DNS servers",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "name": "Leak protection",
+      "type": "Technical",
+      "subCount": 69,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 39,
+          "name": "Avoid carrying a cellphone",
+          "type": "Behavioral"
+        },
+        {
+          "id": 44,
+          "name": "Avoid commercial anti-malware software",
+          "type": "Behavioral"
+        },
+        {
+          "id": 51,
+          "name": "Avoid devices with Bluetooth Low-Energy (BLE)",
+          "type": "Behavioral"
+        },
+        {
+          "id": 63,
+          "name": "Avoid home Wi-Fi",
+          "type": "Behavioral"
+        },
+        {
+          "id": 65,
+          "name": "Avoid leaving fingerprints",
+          "type": "Behavioral"
+        },
+        {
+          "id": 66,
+          "name": "Avoid license plate exposure",
+          "type": "Behavioral"
+        },
+        {
+          "id": 70,
+          "name": "Avoid logging in non-anonymous accounts",
+          "type": "Behavioral"
+        },
+        {
+          "id": 71,
+          "name": "Avoid meeting people in real life unless neccessary",
+          "type": "Behavioral"
+        },
+        {
+          "id": 77,
+          "name": "Avoid personal identifiable information (PII)",
+          "type": "Behavioral"
+        },
+        {
+          "id": 78,
+          "name": "Avoid photos which relate to you",
+          "type": "Behavioral"
+        },
+        {
+          "id": 80,
+          "name": "Avoid powering on burner phones at places that relate to you",
+          "type": "Behavioral"
+        },
+        {
+          "id": 81,
+          "name": "Avoid printing invisible watermarks",
+          "type": "Behavioral"
+        },
+        {
+          "id": 82,
+          "name": "Avoid public cloud storage",
+          "type": "Behavioral"
+        },
+        {
+          "id": 84,
+          "name": "Avoid reselling harddrives",
+          "type": "Behavioral"
+        },
+        {
+          "id": 87,
+          "name": "Avoid revealing operational details",
+          "type": "Behavioral"
+        },
+        {
+          "id": 92,
+          "name": "Avoid sending physical materials via post",
+          "type": "Behavioral"
+        },
+        {
+          "id": 93,
+          "name": "Avoid sensitive acitivities from untrusted powerline",
+          "type": "Behavioral"
+        },
+        {
+          "id": 100,
+          "name": "Avoid sign-up with famous services",
+          "type": "Behavioral"
+        },
+        {
+          "id": 102,
+          "name": "Avoid SIM cards",
+          "type": "Behavioral"
+        },
+        {
+          "id": 105,
+          "name": "Avoid Siri",
+          "type": "Behavioral"
+        },
+        {
+          "id": 107,
+          "name": "Avoid smart devices",
+          "type": "Behavioral"
+        },
+        {
+          "id": 109,
+          "name": "Avoid social media",
+          "type": "Behavioral"
+        },
+        {
+          "id": 117,
+          "name": "Avoid the use of anonymous devices at home",
+          "type": "Behavioral"
+        },
+        {
+          "id": 118,
+          "name": "Avoid third-party software",
+          "type": "Behavioral"
+        },
+        {
+          "id": 119,
+          "name": "Avoid TOR gateways",
+          "type": "Behavioral"
+        },
+        {
+          "id": 121,
+          "name": "Avoid torrents over Tor",
+          "type": "Behavioral"
+        },
+        {
+          "id": 122,
+          "name": "Avoid tracking",
+          "type": "Behavioral"
+        },
+        {
+          "id": 124,
+          "name": "Avoid typing with open microphones",
+          "type": "Behavioral"
+        },
+        {
+          "id": 125,
+          "name": "Avoid unencrypted calls",
+          "type": "Behavioral"
+        },
+        {
+          "id": 126,
+          "name": "Avoid unencrypted sites",
+          "type": "Behavioral"
+        },
+        {
+          "id": 130,
+          "name": "Avoid using devices in front of a camera",
+          "type": "Behavioral"
+        },
+        {
+          "id": 131,
+          "name": "Avoid using real voice",
+          "type": "Behavioral"
+        },
+        {
+          "id": 132,
+          "name": "Avoid using the same network for both decoy as hidden volume",
+          "type": "Behavioral"
+        },
+        {
+          "id": 135,
+          "name": "Avoid video/voice communication",
+          "type": "Behavioral"
+        },
+        {
+          "id": 144,
+          "name": "Block trackers",
+          "type": "Technical"
+        },
+        {
+          "id": 148,
+          "name": "Bridging",
+          "type": "Technical"
+        },
+        {
+          "id": 157,
+          "name": "Cached website versions",
+          "type": "Technical"
+        },
+        {
+          "id": 184,
+          "name": "Compartmentalize DNS queries",
+          "type": "Technical"
+        },
+        {
+          "id": 195,
+          "name": "Cover LED lights with electrical tape",
+          "type": "Physical"
+        },
+        {
+          "id": 205,
+          "name": "Custom filters",
+          "type": "Technical"
+        },
+        {
+          "id": 226,
+          "name": "Delete Google advertising ID",
+          "type": "Technical"
+        },
+        {
+          "id": 231,
+          "name": "Destroy, forge or remove PRNU",
+          "type": "Technical"
+        },
+        {
+          "id": 239,
+          "name": "Digital redaction bars",
+          "type": "Technical"
+        },
+        {
+          "id": 276,
+          "name": "DNS leak protection",
+          "type": "Technical"
+        },
+        {
+          "id": 279,
+          "name": "DNS over VPN over Tor",
+          "type": "Technical"
+        },
+        {
+          "id": 280,
+          "name": "DNS spoofability test",
+          "type": "Technical"
+        },
+        {
+          "id": 284,
+          "name": "DoHoT",
+          "type": "Technical"
+        },
+        {
+          "id": 330,
+          "name": "Faraday cage",
+          "type": "Physical"
+        },
+        {
+          "id": 337,
+          "name": "Flush DNS",
+          "type": "Technical"
+        },
+        {
+          "id": 338,
+          "name": "Foil",
+          "type": "Physical"
+        },
+        {
+          "id": 353,
+          "name": "Hard code DNS servers",
+          "type": "Technical"
+        },
+        {
+          "id": 390,
+          "name": "Leave phone home",
+          "type": "Behavioral"
+        },
+        {
+          "id": 407,
+          "name": "Mobile phone jammer",
+          "type": "Technical"
+        },
+        {
+          "id": 485,
+          "name": "Privacy screen",
+          "type": "Physical"
+        },
+        {
+          "id": 504,
+          "name": "Redact documents",
+          "type": "Behavioral"
+        },
+        {
+          "id": 516,
+          "name": "Remove SIM card",
+          "type": "Physical"
+        },
+        {
+          "id": 526,
+          "name": "RPC request mixer",
+          "type": "Technical"
+        },
+        {
+          "id": 583,
+          "name": "Throwaway camera",
+          "type": "Physical"
+        },
+        {
+          "id": 589,
+          "name": "Tor safest security settings",
+          "type": "Technical"
+        },
+        {
+          "id": 594,
+          "name": "Turn computer off",
+          "type": "Behavioral"
+        },
+        {
+          "id": 595,
+          "name": "Turn phone off when not needed",
+          "type": "Behavioral"
+        },
+        {
+          "id": 609,
+          "name": "Use open source offline anti-malware software",
+          "type": "Technical"
+        },
+        {
+          "id": 612,
+          "name": "Use Wi-Fi location you normally don't use",
+          "type": "Behavioral"
+        },
+        {
+          "id": 631,
+          "name": "View, wipe and verify metadata",
+          "type": "Technical"
+        },
+        {
+          "id": 644,
+          "name": "Watch offline",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2727,
+          "name": "Remove car microphone",
+          "type": "Physical"
+        },
+        {
+          "id": 2728,
+          "name": "Put super glue into microphone",
+          "type": "Physical"
+        },
+        {
+          "id": 2734,
+          "name": "Encrypt DNS",
+          "type": "Technical"
+        },
+        {
+          "id": 2740,
+          "name": "Offline notes",
+          "type": "Physical"
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "name": "Masking",
+      "type": "Technical",
+      "subCount": 4,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 359,
+          "name": "Hide arguments",
+          "type": "Technical"
+        },
+        {
+          "id": 361,
+          "name": "Hide files",
+          "type": "Technical"
+        },
+        {
+          "id": 400,
+          "name": "Mask sounds",
+          "type": "Technical"
+        },
+        {
+          "id": 562,
+          "name": "Spoofing",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "name": "Mix networks",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 84,
+      "name": "Route traffic through Tor",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 88,
+      "name": "Secure identity",
+      "type": "Technical",
+      "subCount": 42,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 6,
+          "name": "Alias",
+          "type": "Behavioral"
+        },
+        {
+          "id": 10,
+          "name": "Anonymous Google account",
+          "type": "Technical"
+        },
+        {
+          "id": 54,
+          "name": "Avoid DNA tests",
+          "type": "Behavioral"
+        },
+        {
+          "id": 85,
+          "name": "Avoid reuse",
+          "type": "Behavioral"
+        },
+        {
+          "id": 95,
+          "name": "Avoid services which require phone number",
+          "type": "Behavioral"
+        },
+        {
+          "id": 101,
+          "name": "Avoid signing messages",
+          "type": "Behavioral"
+        },
+        {
+          "id": 120,
+          "name": "Avoid TOR over VPN",
+          "type": "Behavioral"
+        },
+        {
+          "id": 123,
+          "name": "Avoid trusting someone",
+          "type": "Behavioral"
+        },
+        {
+          "id": 139,
+          "name": "Behave differently for each anonymous identity",
+          "type": "Behavioral"
+        },
+        {
+          "id": 153,
+          "name": "Burner laptop",
+          "type": "Technical"
+        },
+        {
+          "id": 155,
+          "name": "Buy at places usually not visited",
+          "type": "Behavioral"
+        },
+        {
+          "id": 166,
+          "name": "Change Tor node between each session",
+          "type": "Behavioral"
+        },
+        {
+          "id": 170,
+          "name": "Clean keyboard",
+          "type": "Physical"
+        },
+        {
+          "id": 171,
+          "name": "Clean phone camera",
+          "type": "Physical"
+        },
+        {
+          "id": 175,
+          "name": "Close all activities first before using anonymous identity",
+          "type": "Behavioral"
+        },
+        {
+          "id": 186,
+          "name": "Compartmentalize graphics drivers",
+          "type": "Technical"
+        },
+        {
+          "id": 191,
+          "name": "Computer Name spoofing",
+          "type": "Technical"
+        },
+        {
+          "id": 196,
+          "name": "Create fake identity legend",
+          "type": "Behavioral"
+        },
+        {
+          "id": 200,
+          "name": "Crop images",
+          "type": "Technical"
+        },
+        {
+          "id": 213,
+          "name": "Deception",
+          "type": "Behavioral"
+        },
+        {
+          "id": 221,
+          "name": "Deep fake technology",
+          "type": "Technical"
+        },
+        {
+          "id": 240,
+          "name": "Digital resistance kit",
+          "type": "Technical"
+        },
+        {
+          "id": 291,
+          "name": "Edit old posts and remove information",
+          "type": "Behavioral"
+        },
+        {
+          "id": 327,
+          "name": "Face generator",
+          "type": "Technical"
+        },
+        {
+          "id": 369,
+          "name": "Image cloaking",
+          "type": "Technical"
+        },
+        {
+          "id": 380,
+          "name": "Keep track of background stories fake identities",
+          "type": "Behavioral"
+        },
+        {
+          "id": 395,
+          "name": "MAC Address spoofing",
+          "type": "Technical"
+        },
+        {
+          "id": 435,
+          "name": "Obscure faces",
+          "type": "Technical"
+        },
+        {
+          "id": 480,
+          "name": "Pre-paid cards",
+          "type": "Behavioral"
+        },
+        {
+          "id": 489,
+          "name": "Pseudonym",
+          "type": "Technical"
+        },
+        {
+          "id": 493,
+          "name": "Purchase at remote location",
+          "type": "Behavioral"
+        },
+        {
+          "id": 497,
+          "name": "Random profile picture",
+          "type": "Behavioral"
+        },
+        {
+          "id": 499,
+          "name": "Random usernames",
+          "type": "Behavioral"
+        },
+        {
+          "id": 514,
+          "name": "Remove personal information",
+          "type": "Technical"
+        },
+        {
+          "id": 550,
+          "name": "Short lifetime anonymous identities",
+          "type": "Behavioral"
+        },
+        {
+          "id": 554,
+          "name": "Sock Puppets",
+          "type": "Behavioral"
+        },
+        {
+          "id": 574,
+          "name": "Sub-aliases",
+          "type": "Behavioral"
+        },
+        {
+          "id": 580,
+          "name": "Test burner phone at random location",
+          "type": "Behavioral"
+        },
+        {
+          "id": 607,
+          "name": "Use language associated with fake identity's country",
+          "type": "Behavioral"
+        },
+        {
+          "id": 634,
+          "name": "Voice changers",
+          "type": "Technical"
+        },
+        {
+          "id": 635,
+          "name": "Voice privacy mouthpiece mask",
+          "type": "Physical"
+        },
+        {
+          "id": 637,
+          "name": "Voicechangers",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "name": "Temporary phone numbers",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 108,
+      "name": "Virtual Private Network (VPN)",
+      "type": "Technical",
+      "subCount": 15,
+      "procCount": 20,
+      "subIndex": [
+        {
+          "id": 59,
+          "name": "Avoid free VPN services",
+          "type": "Behavioral"
+        },
+        {
+          "id": 290,
+          "name": "dVPN",
+          "type": "Technical"
+        },
+        {
+          "id": 344,
+          "name": "Free VPN service",
+          "type": "Technical"
+        },
+        {
+          "id": 377,
+          "name": "IPtables kill switch",
+          "type": "Technical"
+        },
+        {
+          "id": 384,
+          "name": "Killswitch VPN",
+          "type": "Technical"
+        },
+        {
+          "id": 420,
+          "name": "Nested chain of VPNs",
+          "type": "Technical"
+        },
+        {
+          "id": 426,
+          "name": "No-log VPN",
+          "type": "Technical"
+        },
+        {
+          "id": 427,
+          "name": "Non-USA VPN",
+          "type": "Technical"
+        },
+        {
+          "id": 524,
+          "name": "Route VM's through host VPN",
+          "type": "Technical"
+        },
+        {
+          "id": 534,
+          "name": "Second VPN service",
+          "type": "Technical"
+        },
+        {
+          "id": 566,
+          "name": "Stealth mode VPN",
+          "type": "Technical"
+        },
+        {
+          "id": 639,
+          "name": "VPN -> obfs4 bridge",
+          "type": "Technical"
+        },
+        {
+          "id": 640,
+          "name": "VPN qube",
+          "type": "Technical"
+        },
+        {
+          "id": 641,
+          "name": "VPN routers",
+          "type": "Technical"
+        },
+        {
+          "id": 642,
+          "name": "VPN-firewall",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "name": "Virtualization",
+      "type": "Technical",
+      "subCount": 14,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 358,
+          "name": "Hidden VM",
+          "type": "Technical"
+        },
+        {
+          "id": 367,
+          "name": "Hypervisor",
+          "type": "Technical"
+        },
+        {
+          "id": 382,
+          "name": "Kernel-Based Virtual Machine (KVM)",
+          "type": "Technical"
+        },
+        {
+          "id": 388,
+          "name": "Leave host OS alone",
+          "type": "Behavioral"
+        },
+        {
+          "id": 421,
+          "name": "Network Address Translation (NAT)",
+          "type": "Technical"
+        },
+        {
+          "id": 454,
+          "name": "Operate from VM",
+          "type": "Behavioral"
+        },
+        {
+          "id": 541,
+          "name": "Self-contained VM",
+          "type": "Technical"
+        },
+        {
+          "id": 586,
+          "name": "Tor gateway VM",
+          "type": "Technical"
+        },
+        {
+          "id": 605,
+          "name": "Use closed-source software in VM",
+          "type": "Technical"
+        },
+        {
+          "id": 632,
+          "name": "Virtual machine",
+          "type": "Technical"
+        },
+        {
+          "id": 653,
+          "name": "Whonix gateway VM",
+          "type": "Technical"
+        },
+        {
+          "id": 654,
+          "name": "Whonix on Qubes",
+          "type": "Technical"
+        },
+        {
+          "id": 655,
+          "name": "Whonix VM in hidden partition",
+          "type": "Technical"
+        },
+        {
+          "id": 677,
+          "name": "Xubuntu Bridge VM",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 121,
+      "name": "Anonymous traveling",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": "TL-7",
+      "name": "Tactic-level TTPs & Procedures",
+      "type": "",
+      "subCount": 0,
+      "procCount": 2,
+      "subIndex": []
+    }
+  ]
+}

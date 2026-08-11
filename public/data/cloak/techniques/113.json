@@ -1,0 +1,169 @@
+{
+  "id": 113,
+  "name": "Open Source Software (OSS)",
+  "description": "The adversary is leveraging open source software so that the source code can be verified, e.g. against surveillance or data leakage. ",
+  "type": "Technical",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 351,
+      "name": "Graphene OS",
+      "description": "GrapheneOS is an Android-based, open source, privacy and security-focused mobile operating system for selected Google Pixel devices, including smartphones, tablets and foldable. https://grapheneos.org/",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-362",
+      "name": "CopperHeadOS",
+      "description": "CopperheadOS is a privacy focused company that offers security-centric and Google-free Android for the latest Pixel devices. It features hardened kernel, sandboxing, encryption, firewall, no tracking and more. https://copperhead.co/android/"
+    },
+    {
+      "id": "TTP-560",
+      "name": "Etherpad.org",
+      "description": "Etherpad is a highly customizable open source online editor providing collaborative editing in real-time. https://etherpad.org/"
+    },
+    {
+      "id": "TTP-601",
+      "name": "Flameshot",
+      "description": "Flameshot is a free and open sourced cross-platform tool to take screenshots with many built-in features to save you time. https://flameshot.org/"
+    },
+    {
+      "id": "TTP-630",
+      "name": "Github",
+      "description": "Github is a platform for software development and versioning. https://github.com/"
+    },
+    {
+      "id": "TTP-631",
+      "name": "Glary Utilities",
+      "description": "Glary Utilities is free software that includes more than 20 tools to clean, optimize and protect a PC. https://www.glarysoft.com/"
+    },
+    {
+      "id": "TTP-637",
+      "name": "GNU IceCat",
+      "description": "GNU IceCat is a free version of the Mozilla Firefox web browser distributed by the GNU Project. https://icecatbrowser.org/index.html"
+    },
+    {
+      "id": "TTP-646",
+      "name": "GParted",
+      "description": "GParted is a free partition manager that enables you to resize, copy and move partitions without data loss. https://gparted.org/download.php"
+    },
+    {
+      "id": "TTP-661",
+      "name": "Hdparm utilities",
+      "description": "Hdparm utilities is a command line utility to set and view hardware parameters of hard disk drives. https://wiki.archlinux.org/title/Hdparm"
+    },
+    {
+      "id": "TTP-746",
+      "name": "Kleopatra",
+      "description": "Kleopatra is a free and open source software that stores your OpenPGP certificates and keys. https://www.openpgp.org/software/kleopatra/"
+    },
+    {
+      "id": "TTP-750",
+      "name": "Kwrite",
+      "description": "KWrite is a text editor bij KDE, based on the Kate’s editor component. https://apps.kde.org/kwrite/"
+    },
+    {
+      "id": "TTP-767",
+      "name": "LibreOffice",
+      "description": "LibreOffice is a free and open source software suite compatible with Microsoft and based on OpenOffice. https://www.libreoffice.org/download\n\n19/11/2024, 11:13, merged with\nLibrewriter"
+    },
+    {
+      "id": "TTP-809",
+      "name": "Mastadon",
+      "description": "Mastadon is free and open source software for running self-hosted social networking services. https://mastodon.social/"
+    },
+    {
+      "id": "TTP-812",
+      "name": "MatterMost",
+      "description": "Mattermost is an open source, self-host able online chat service with file sharing, search, and third party applications integrations. https://mattermost.com/apps/"
+    },
+    {
+      "id": "TTP-835",
+      "name": "Molly",
+      "description": "Molly is an independent Signal fork for Android. https://molly.im/"
+    },
+    {
+      "id": "TTP-874",
+      "name": "Nextcloud",
+      "description": "Nextcloud is a suite of client-server software for creating and using file hosting services. https://nextcloud.com/"
+    },
+    {
+      "id": "TTP-876",
+      "name": "Nginx",
+      "description": "Nginx is an HTTP web server, reverse proxy, content cache, load balancer, TCP/UDP proxy server, and mail proxy server. https://nginx.org/en/"
+    },
+    {
+      "id": "TTP-892",
+      "name": "Notepad++",
+      "description": "Notepad++ is a free source code editor and Notepad replacement that supports several languages. https://notepad-plus-plus.org/"
+    },
+    {
+      "id": "TTP-905",
+      "name": "OBS Studio",
+      "description": "OBS Studio is free and open source software for video recording and live streaming. https://obsproject.com"
+    },
+    {
+      "id": "TTP-906",
+      "name": "OBS Virtual Cam plugin",
+      "description": "OBS Virtualcam is a plugin that allows you to output video from OBS studio as a virtual webcam for programs like Zoom, Skype, etc. https://obsproject.com/forum/resources/obs-virtualcam.949/"
+    },
+    {
+      "id": "TTP-909",
+      "name": "Obsidian",
+      "description": "Obsidian is a note-taking app. https://obsidian.md/"
+    },
+    {
+      "id": "TTP-919",
+      "name": "Olive",
+      "description": "Olive Video Editor is an open source video and audio editor. https://www.olivevideoeditor.org/"
+    },
+    {
+      "id": "TTP-946",
+      "name": "OpenShot",
+      "description": "OpenShot is free and open source video editor software for Linux, Mac and Windows. https://www.openshot.org/"
+    },
+    {
+      "id": "TTP-1082",
+      "name": "Read You",
+      "description": "Read You is a free and open source app that lets you subscribe to feed links, import from OPML, sync and update articles, and filter unread and starred items. https://f-droid.org/packages/me.ash.reader/"
+    },
+    {
+      "id": "TTP-1124",
+      "name": "Rufus",
+      "description": "Rufus is a free and open source utility that helps format and create bootable USB flash drives from bootable ISO’s. https://rufus.ie/en/"
+    },
+    {
+      "id": "TTP-1183",
+      "name": "ShotCut",
+      "description": "Shotcut is a video/audio editor that supports hundreds of formats, native editing, Blackmagic Design devices, and 4k resolution. https://www.shotcut.org/"
+    },
+    {
+      "id": "TTP-1206",
+      "name": "SnowHaze browser",
+      "description": "SnowHaze browser is a iOS browser with privacy and security in mind. It is open source. https://snowhaze.com/en/browser.html"
+    },
+    {
+      "id": "TTP-1277",
+      "name": "Thunderbird",
+      "description": "Thunderbird is a free email application. https://www.thunderbird.net/"
+    },
+    {
+      "id": "TTP-1371",
+      "name": "VLC",
+      "description": "VLC is a free and open source cross-platform multimedia player and framework. https://www.videolan.org/vlc/"
+    },
+    {
+      "id": "TTP-1379",
+      "name": "VokoscreenNG",
+      "description": "VokoscreenNG is free and open source software to record the screen, an area or a windows with audio and camera support. https://linuxecke.volkoh.de/vokoscreen/vokoscreen.html"
+    },
+    {
+      "id": "TTP-263",
+      "name": "Brave browser",
+      "description": "Brave Browser is a free and open source webbrowser based on Chromium."
+    }
+  ]
+}

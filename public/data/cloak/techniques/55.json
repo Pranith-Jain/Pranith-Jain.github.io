@@ -1,0 +1,533 @@
+{
+  "id": 55,
+  "name": "Hardening",
+  "description": "The adversary tries to reduce his attack surface by disabling unnecessary services, ports, accounts, and so on.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 4,
+      "name": "Add security headers",
+      "description": "The adversary is implementing security headers to protect against security vulnerabilities such as Cross-Site scripting attacks.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 30,
+      "name": "Avoid anti-malware software with real-time protection",
+      "description": "Anti-malware solutions with real-time protection are avoided as they often run with admin privileges and can become an attack vector.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 35,
+      "name": "Avoid bluetooth",
+      "description": "Disabling or avoiding Bluetooth as much as possible reduces the opportunities to abuse it.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 36,
+      "name": "Avoid bluetooth internet sharing",
+      "description": "Avoid sharing internet via Bluetooth because it is insecure.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 37,
+      "name": "Avoid browser add-ons and plugins",
+      "description": "Adding browser extensions increases the attack surface and could make your browser more unique, which in turn could result in de-anonymization via the browser’s fingerprint.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 41,
+      "name": "Avoid Chinese products",
+      "description": "Chinese products should be avoided because they might contain spyware.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 57,
+      "name": "Avoid end-of-life devices",
+      "description": "End-of-life devices do not receive any updates which leaves them vulnerable, and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 58,
+      "name": "Avoid external devices",
+      "description": "Connecting external devices should be avoided to prevent information leakage and also increases the attack surface.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 97,
+      "name": "Avoid sharing memory",
+      "description": "Escaping a virtual machine becomes easier when memory is shared with other virtual machines, which therefore should be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 110,
+      "name": "Avoid software running in background",
+      "description": "Avoid running unnecessary software in the background, which increases the attack surface and attack window.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 129,
+      "name": "Avoid USB devices",
+      "description": "USB devices should never be trusted and to prevent any incidents, they should be avoided whenever possible.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 142,
+      "name": "Block connectivity",
+      "description": "Blocking connectivity completely will disallow someone to track your whereabouts (e.g. faraday cage).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 156,
+      "name": "CAA record",
+      "description": "As part of the hardening process, CAA-records might be deployed.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 165,
+      "name": "Change default passwords",
+      "description": "Default passwords are often publicly known or weak, and should therefore always be altered instantly.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 194,
+      "name": "Cover camera",
+      "description": "Camera’s could become compromised and used to spy on someone, they should therefore be covered when not in use.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 241,
+      "name": "Disable ActiveX",
+      "description": "ActiveX might be disabled to reduce the attack surface.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 242,
+      "name": "Disable AMD PSP",
+      "description": "The platform security processor might be disabled to prevent unauthorized access to the system via the CPU.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 243,
+      "name": "Disable Bash history",
+      "description": "To prevent leaving traces, Bash history might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 244,
+      "name": "Disable bluetooth",
+      "description": "To reduce the attack surface and attack window, Bluetooth might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 245,
+      "name": "Disable boot from USB in BIOS",
+      "description": "Booting from USB might be disabled in the BIOS to prevent unauthorised access.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 246,
+      "name": "Disable camera",
+      "description": "To reduce the attack surface and attack window, the camera might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 247,
+      "name": "Disable DOM storage pseudocookies",
+      "description": "DOM storage pseudocookies in the browser might be disabled. This prevents persistent storage on devices which could be used for tracking.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 248,
+      "name": "Disable drag 'n drop (VM)",
+      "description": "To prevent data being moved in or out of the virtual machine. ",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 249,
+      "name": "Disable firewire port",
+      "description": "To prevent accessing the contents of RAM, the firewire port might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 250,
+      "name": "Disable flash",
+      "description": "To reduce the attack surface and attack window, Flash might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 251,
+      "name": "Disable Flash cookies",
+      "description": "Flash cookies could be used to track someone, and should therefore be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 252,
+      "name": "Disable Intel ME",
+      "description": "To reduce the attack surface and attack window, IntelME might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 253,
+      "name": "Disable Javascript",
+      "description": "To reduce the attack surface and attack window, Javascript might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 254,
+      "name": "Disable location services",
+      "description": "Disable Global Toggles for bluetooth, location, camera acces, and microphone access disabled when you don't need them for a specific purpose. Apps cannot use disabled feautures even with individual permissions until they are re-enabled.\n\n24/11/2024, 11:07, merged with\nDisable GPS\nTo reduce the attack surface and attack window, GPS might be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 255,
+      "name": "Disable OCSP calls",
+      "description": "OCSP reporting calls in operating systems might be disabled to prevent leaking any information via telemetry.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 256,
+      "name": "Disable PowerShell logging",
+      "description": "PowerShell logging might be disables to prevent command line history from being registered.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 257,
+      "name": "Disable predictive typing",
+      "description": "Turn off keyboard predictive typing (to prevent learning your anonymous email addresses and other data you type in)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 258,
+      "name": "Disable saving Wi-Fi hostory",
+      "description": "To prevent maintaining a list of Wi-Fi networks that have been connected with. This information could be used to track back activities to you and de-anonymize you.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 259,
+      "name": "Disable secure boot",
+      "description": "Secure boot might be disabled when Qubes OS is used because it is not supported out of the box.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 260,
+      "name": "Disable shared clipboard (VM)",
+      "description": "Shared clipboard between virtual machines might be disabled to prevent leaking information between virtual machines.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 261,
+      "name": "Disable show status",
+      "description": "Disabling to let others see when your are online or offline, reduces analysts to determine at which times you are active.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 262,
+      "name": "Disable speakers",
+      "description": "Speakers might be abused with sounds to track your activity. Disabling them prevents this from happening.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 263,
+      "name": "Disable SSD Trim (Windows)",
+      "description": "Disabling trim will reduce the lifetime of SSD, but is required to achieve plausible deniability",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 264,
+      "name": "Disable telemetry",
+      "description": "Telemetry might reveal information about you, your system and your activities which could be leaked to third parties, which should therefore be disabled.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 265,
+      "name": "Disable terminal history",
+      "description": "Preventing to keep terminal history eliminates traces of executed commands, by whom and when.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 266,
+      "name": "Disable USB ports in BIOS",
+      "description": "To mitigate the risk of untrusted USB-devices, USB ports might be completely blocked in the BIOS/UEFI.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 267,
+      "name": "Disable Veracrypt mounting history",
+      "description": "Unless you strive for plausible deniability (then you want this feature on for the Decoy OS). Otherwise, mounting history should never be saves.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 268,
+      "name": "Disable webGL",
+      "description": "WebGL might be disabled to prevent graphics fingerprinting.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 269,
+      "name": "Disable WebRTC",
+      "description": "WebRTC might leak local IP addresses, even when using a VPN, and should therefore be disabled. \n\n23/11/2024, 20:12, merged with\nAvoid WebRTC leaks",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 270,
+      "name": "Disable WiFi",
+      "description": "Wi-Fi should be disabled when not in use because it can be used to track you.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 354,
+      "name": "Hardware switch",
+      "description": "Hardware switches might be used on mobile devices to toggle certain functions on or off, such as camera, microphone or Bluetooth.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1008",
+          "name": "PinePhone",
+          "description": "The PinePhone is an open source smartphone that empowers users with control over the device. It is capable of running mainline Linux and features hardware privacy switches. https://pine64.org/devices/pinephone/"
+        }
+      ]
+    },
+    {
+      "id": 357,
+      "name": "Hibernate when lid is closed",
+      "description": "Hibernation might be enabled when the laptop lid is closed to prevent the encryption keys staying in RAM, which could be extracted.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 381,
+      "name": "Kernel hardening",
+      "description": "Tools might be used to harden the kernel of systems to reduce its attack surface.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 444,
+      "name": "Only open ports for the service before",
+      "description": "As part of the hardening process, in a chain of proxies, only some ports and sources are allowed access.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 509,
+      "name": "Remove battery",
+      "description": "The battery of mobile devices might be removed to prevent connectivity and tracking.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 510,
+      "name": "Remove harddrive",
+      "description": "The hard drive might be removed to eliminate writing anything to disk and solely rely on live disk systems.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 511,
+      "name": "Remove interfaces",
+      "description": "The interfaces for microphone, camera, speakers, and so on might be removed to reduce the attack surface.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 513,
+      "name": "Remove or close unnecessary software",
+      "description": "To reduce the attack surface and attack window.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 515,
+      "name": "Remove phone number after MFA verification",
+      "description": "Prevent someone from using that phone number to take over account",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 517,
+      "name": "Remove version string PGP public key",
+      "description": "A hardening aspect to prevent others from learning which software was used.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 584,
+      "name": "TLS hardening",
+      "description": "Hardening TLS mitigates crypto related issues.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 598,
+      "name": "Unplug and lock",
+      "description": "Unplugging and locking devices reduces the attack surface and attack window.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 603,
+      "name": "USB-C adapter for wired internet connection",
+      "description": "USB(-C) adapters might be used for wired internet connections instead of wireless, which increases the attack surface.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 675,
+      "name": "Write-protect switch",
+      "description": "When you insert a normal USB into a computer, the computer does read and write operations with it, and a write operation can change the data on the USB. Some special USBs developed for malware analysis have a physical switch that can lock the USB, so that data can be read from it, but no new data can be written to it. Boot Tails with toram option, which loads Tails completely into memory, eject the Tails USB at the beginning of your session before you do anything else.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2731,
+      "name": "Avoid printer Wi-Fi",
+      "description": "The printer is never connected to a Wi-Fi network to prevent leaking information. Only cabled or bluetooth connectons are recommended. ",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2746,
+      "name": "Limit number of installed applications",
+      "description": "",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2747,
+      "name": "Set homepage to Google",
+      "description": "The homepage of the browser might be set to Google it is non-alerting.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2749,
+      "name": "Disable search history",
+      "description": "",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2757,
+      "name": "Disable beaconing",
+      "description": "The beacon.enabled preference in webbrowsers controls whether the browser sends data to the server when a user leaves a page. Setting it to false disables this feature, enhancing user privacy by preventing data from being sent without consent.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2758,
+      "name": "Disable prefetching",
+      "description": "Disabling prefetching prevents the browser from making connections to links which aren't clicked. ",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2759,
+      "name": "Disable browser pings",
+      "description": "",
+      "type": "Technical\n",
+      "procedures": []
+    },
+    {
+      "id": 2804,
+      "name": "Anonymous printing",
+      "description": "The adversary uses printing hardware that does not embed invisible tracking dots (machine identification codes) in printed output. Certain printers embed steganographic yellow dot patterns that uniquely identify the printer and encode the time and date of printing, enabling forensic attribution of printed documents.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-50",
+          "name": "Anonymous printing",
+          "description": "Selecting and using printers that do not embed invisible tracking dots (machine identification codes / yellow dots) in printed output, to prevent forensic attribution of printed documents. Reference: https://www.eff.org/pages/printer-tracking-dots"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-72",
+      "name": "Apparmor",
+      "description": "AppArmor is an effective and easy-to-use Linux application security system. https://www.apparmor.net/"
+    },
+    {
+      "id": "TTP-738",
+      "name": "Kernel-hardening-checker",
+      "description": "Kernel-hardening-checker is a tool for checking the security hardening options of the Linux kernel. https://github.com/a13xp0p0v/kernel-hardening-checker"
+    },
+    {
+      "id": "TTP-786",
+      "name": "Lockdown mode (iOS)",
+      "description": "Lockdown Mode is an optional, extreme protection that’s designed for the very few individuals who, because of who they are or what they do, might be personally targeted by some of the most sophisticated digital threats. https://support.apple.com/en-us/105120"
+    },
+    {
+      "id": "TTP-793",
+      "name": "Lynis",
+      "description": "Lynis is a security auditing tool for systems based on UNIX like Linux, macOS, BSD, and others. It performs an in-depth security scan and runs on the system itself. The primary goal is to test security defenses and provide tips for further system hardening. https://github.com/CISOfy/lynis"
+    },
+    {
+      "id": "TTP-196",
+      "name": "Avoid telemetry",
+      "description": "Disabling operating system and application telemetry to reduce passive data exfiltration and unwanted exposure"
+    },
+    {
+      "id": "TTP-207",
+      "name": "Avoid unknown ports",
+      "description": "Avoiding outbound connections to non-standard or unknown ports to reduce interception and traffic analysis risk"
+    },
+    {
+      "id": "TTP-462",
+      "name": "Disable microphone",
+      "description": "Disabling microphone hardware or software access to prevent audio-based surveillance"
+    },
+    {
+      "id": "TTP-1031",
+      "name": "Privacy settings",
+      "description": "Systematically configuring application and operating system privacy settings to minimise data exposure and telemetry"
+    }
+  ]
+}

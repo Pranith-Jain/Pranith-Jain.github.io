@@ -1,0 +1,39 @@
+{
+  "id": 106,
+  "name": "Vendor vetting",
+  "description": "The adversary is trying to vet the vendor to determine if it is trustworthy before engaging.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 321,
+      "name": "Evaluate customer reviews",
+      "description": "Vendors might be vetted by reviewing customer reviews.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 322,
+      "name": "Evaluate vendor on Dread",
+      "description": "Vendors might be vetted by evaluating their presence on Dread. \n\n24/11/2024, 13:06, merged with\nReview on Dread",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 323,
+      "name": "Evaluate vendor's darkweb presence",
+      "description": "Vendors might be vetted by reviewing their darkweb presence. \n\n24/11/2024, 13:09, merged with\nKnow buyers before selling",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 623,
+      "name": "Verify independent audit reports (closed-source)",
+      "description": "Indépendant audit reports might be analyzed to determine if a product or service is trustworthy.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

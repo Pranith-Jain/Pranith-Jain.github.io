@@ -1,0 +1,163 @@
+{
+  "id": 87,
+  "name": "Secure hosting",
+  "description": "Free speech content: the hosting provider shouldn't censor the customer because they think the same way as the customer does\nHate speech content: hosting providers should accept to host any content labeled as hate speech (nazi, racist, offensive speech)\nGeographic location: select countries which respect freedom (of speech).\nCryptocurrency: the hosting provider should accept popular crytocurrencies. It is better if they accept XMR.\n\n\n22/11/2024, 10:51, merged with\nSecure hosting",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [
+    {
+      "id": 20,
+      "name": "Application firewall",
+      "description": "Application firewalls might be deployed to control input and output or system calls of an application or service.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-780",
+          "name": "Littlesnitch",
+          "description": "Little Snitch is a host-based application firewall for macOS. It can be used to monitor applications, preventing or permitting them to connect to attached networks through advanced rules. https://www.littlesnitch.eu/index.html"
+        },
+        {
+          "id": "TTP-948",
+          "name": "Opensnitch",
+          "description": "OpenSnitch is a GNU/Linux interactive application firewall inspired by Little Snitch. https://github.com/evilsocket/opensnitch"
+        },
+        {
+          "id": "TTP-1014",
+          "name": "Portmaster",
+          "description": "Portmaster is a free and open source application firewall. https://safing.io/ \n\n21/11/2024, 14:50, merged with\nSafing.io"
+        }
+      ]
+    },
+    {
+      "id": 207,
+      "name": "DDoS-protection",
+      "description": "DDoS-protection might be implemented to become resilient against DDoS-attacks.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-400",
+          "name": "DDoS-Guard",
+          "description": "DDoS-Guard is a Russian internet infrastructure company which provides DDoS protection and web hosting services. https://ddos-guard.net/"
+        },
+        {
+          "id": "TTP-603",
+          "name": "Flokinet",
+          "description": "FlokiNET provides secure, stable and anonymous webhosting, virtual servers, colocation, dedicated servers, DDoS protection, and more. https://billing.flokinet.is/index.php"
+        }
+      ]
+    },
+    {
+      "id": 212,
+      "name": "Decentralized hosting",
+      "description": "Decentralized web hosting provides increased security, redundancy, and resistance to censorship. Technologies like blockchains, peer-to-peer networks, and other distributed systems ensure website files remain available during network issues or disruptions.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-943",
+          "name": "OpenBazaar",
+          "description": "Open source project developing a protocol for e-commerce transactions in a fully decentralized marketplace. https://github.com/OpenBazaar"
+        }
+      ]
+    },
+    {
+      "id": 343,
+      "name": "Free domains",
+      "description": "Hosting providers which provide free domain names along with their services might be used to eliminate the need to register one themselves.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 370,
+      "name": "Intermediary VPS",
+      "description": "Intermediary VPS’es might be used to conduct attacks and hide true IP addresses.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 633,
+      "name": "Virtual Private Server (VPS)",
+      "description": "A virtual private server is a virtual machine sold as a service by an Internet hosting service. The term \"virtual dedicated server\" has a similar meaning. A virtual private server runs its own copy of an operating system, and customers may have superuser-level access to that operating system instance, so they can install almost any software that runs on that OS",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-877",
+          "name": "NiceVPS",
+          "description": "NiceVPS is a hosting provider which provides web hosting, VPS, dedicated servers, privacy VPN and anonymous domains. https://nicevps.net/"
+        },
+        {
+          "id": "TTP-881",
+          "name": "Njal",
+          "description": "Njalla is a privacy-friendly hosting provider which provides domains, VPN and servers. https://njal.la"
+        },
+        {
+          "id": "TTP-953",
+          "name": "Orangewebsite",
+          "description": "Orangewebsite is a hosting provider based in Iceland which provides dedicated servers, VPS, and webhosting. https://orangewebsite.com/"
+        },
+        {
+          "id": "TTP-1038",
+          "name": "Privatealps",
+          "description": "Privatealps is an offshore hosting provider which provides VPS, RDP, and allows cryptocurrency payments. https://privatealps.net/"
+        },
+        {
+          "id": "TTP-1042",
+          "name": "Privex",
+          "description": "Privex is a hosting provider which provides dedicated servers and virtual servers. Privex allows cryptocurrency payments. https://www.privex.io/"
+        },
+        {
+          "id": "TTP-1245",
+          "name": "Superbithost",
+          "description": "Superbithost is an offshore hosting provider which provides dedicated servers, VPS, domains, Bitcoin shared hosting, and accepts cryptocurrency payments. https://www.superbithost.com/"
+        },
+        {
+          "id": "TTP-1248",
+          "name": "Svea",
+          "description": "Svea is an offshore hosting provider which provides dedicated servers, VPS, and co-location servers. https://svea.net/"
+        },
+        {
+          "id": "TTP-1250",
+          "name": "Swisslayer",
+          "description": "SwissLayer is a hosting provider which provides dedicated servers, VPS, and co-location servers. https://www.swisslayer.com/"
+        },
+        {
+          "id": "TTP-1300",
+          "name": "Trilightzone",
+          "description": "Trilightzone provides anonymity and offshore services, such as VPN, proxies, dedicated servers and VPS. https://www.trilightzone.org/"
+        },
+        {
+          "id": "TTP-1311",
+          "name": "Ultahost",
+          "description": "UltraHost is a hosting provider which provides domains, VPS, dedicated servers. https://ultahost.com/"
+        },
+        {
+          "id": "TTP-1319",
+          "name": "URDN",
+          "description": "URDN is a hosting provider which provides VPS, dedicated servers, IP transit, and accepts cryptocurrency payments. https://www.urdn.com.ua/"
+        },
+        {
+          "id": "TTP-1386",
+          "name": "VPS.bg",
+          "description": "VPS hosting provider. https://www.vps.bg/"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-847",
+      "name": "Mozilla Observatory",
+      "description": "Mozilla Observatory is a project designed to help developers, system administrators, and security professionals configure their sites safely and securely. https://observatory.mozilla.org/analyze/wikipedia.org"
+    },
+    {
+      "id": "TTP-911",
+      "name": "OCSP stapling",
+      "description": "Server-side OCSP stapling prevents certificate revocation status leakage to third-party OCSP responders"
+    },
+    {
+      "id": "TTP-1065",
+      "name": "Qualys TLS checker",
+      "description": "Online tool for verifying TLS/SSL configuration quality and identifying weaknesses in hosted services. https://www.ssllabs.com/ssltest/"
+    }
+  ]
+}

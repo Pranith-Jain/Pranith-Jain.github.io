@@ -1,0 +1,10 @@
+{
+  "id": 58,
+  "name": "Honeypots",
+  "description": "The adversary might use a honeypot to detect, deflect, or in some manner, counteract attempts at unauthorized use of information systems.",
+  "type": "Technical",
+  "tacticId": 16,
+  "tacticName": "Tamper protection",
+  "subtechniques": [],
+  "procedures": []
+}

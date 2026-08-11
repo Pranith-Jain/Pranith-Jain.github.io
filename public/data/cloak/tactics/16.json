@@ -1,0 +1,190 @@
+{
+  "id": 16,
+  "name": "Tamper protection",
+  "description": "The adversary is trying to protect against tampering.",
+  "techniqueCount": 7,
+  "subtechniqueCount": 24,
+  "procedureCount": 7,
+  "techniques": [
+    {
+      "id": 58,
+      "name": "Honeypots",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 79,
+      "name": "Qube templates",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 174,
+          "name": "Clone template",
+          "type": "Technical"
+        },
+        {
+          "id": 560,
+          "name": "Split SSH",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "name": "Secure message signing",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 99,
+      "name": "Tamper-evident hardware",
+      "type": "Technical",
+      "subCount": 15,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 161,
+          "name": "Candle wax",
+          "type": "Physical"
+        },
+        {
+          "id": 167,
+          "name": "Charge only when locked or off",
+          "type": "Behavioral"
+        },
+        {
+          "id": 168,
+          "name": "Check CPU for Spectre/Meltdown attacks",
+          "type": "Technical"
+        },
+        {
+          "id": 182,
+          "name": "Compare photos",
+          "type": "Physical"
+        },
+        {
+          "id": 297,
+          "name": "Enable Anti Evil Maid (EAM) protection",
+          "type": "Technical"
+        },
+        {
+          "id": 393,
+          "name": "Lock computer case",
+          "type": "Behavioral"
+        },
+        {
+          "id": 449,
+          "name": "Open RISC-V CPU architecture",
+          "type": "Technical"
+        },
+        {
+          "id": 450,
+          "name": "Open source firmware",
+          "type": "Technical"
+        },
+        {
+          "id": 451,
+          "name": "Open Source Hardware",
+          "type": "Technical"
+        },
+        {
+          "id": 508,
+          "name": "Reliable cables",
+          "type": "Physical"
+        },
+        {
+          "id": 522,
+          "name": "ROM flashing",
+          "type": "Technical"
+        },
+        {
+          "id": 530,
+          "name": "Scheduled remote verification",
+          "type": "Technical"
+        },
+        {
+          "id": 556,
+          "name": "Solder RAM into the motherboard",
+          "type": "Physical"
+        },
+        {
+          "id": 568,
+          "name": "Stickers and nail polish",
+          "type": "Physical"
+        },
+        {
+          "id": 604,
+          "name": "Use business grade laptops",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 100,
+      "name": "Tamper-evident software",
+      "type": "Technical",
+      "subCount": 5,
+      "procCount": 2,
+      "subIndex": [
+        {
+          "id": 190,
+          "name": "Compile software yourself",
+          "type": "Technical"
+        },
+        {
+          "id": 298,
+          "name": "Enable firmware password with disable-reset",
+          "type": "Technical"
+        },
+        {
+          "id": 336,
+          "name": "Flash BIOS",
+          "type": "Technical"
+        },
+        {
+          "id": 602,
+          "name": "USB with secure firmware",
+          "type": "Technical"
+        },
+        {
+          "id": 2764,
+          "name": "Hash-based software integrity verification",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "name": "Tamper-evident storage",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 385,
+          "name": "Lay objects following a straight line and compare",
+          "type": "Physical"
+        },
+        {
+          "id": 469,
+          "name": "Pencil eraser to detect tampering",
+          "type": "Physical"
+        }
+      ]
+    },
+    {
+      "id": 112,
+      "name": "Tamper detection",
+      "type": "Physical",
+      "subCount": 0,
+      "procCount": 2,
+      "subIndex": []
+    }
+  ]
+}

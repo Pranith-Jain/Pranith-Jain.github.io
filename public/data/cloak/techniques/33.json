@@ -1,0 +1,45 @@
+{
+  "id": 33,
+  "name": "Breach detection",
+  "description": "The adversary is trying to keep up-to-date with the latests data breaches to determine if they affect him in any kind of way.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 160,
+      "name": "Canarytoken",
+      "description": "Canarytokens is a free tool that helps you discover you've been breached by having attackers announce themselves.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 197,
+      "name": "Create many wallet.dat files",
+      "description": "Fake wallet.dat files might be placed with traps inside, comparable to Canarytokens, to discover intruders.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 198,
+      "name": "Create pdf trojan horse",
+      "description": "A PDF trojan horse might be created with traps inside, comparable to Canarytokens, to discover intruders.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 410,
+      "name": "Monitor breaches",
+      "description": "Monitoring breaches is important to identify if your data is among the breach. If your data is present, you can take immediate action to correct it or prevent further damage.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-659",
+      "name": "Have I Been Pwned",
+      "description": "Have I Been Pwned is a website that allows internet users to check whether their personal data has been compromised by data breaches. https://haveibeenpwned.com/"
+    }
+  ]
+}

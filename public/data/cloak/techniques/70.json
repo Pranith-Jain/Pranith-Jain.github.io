@@ -1,0 +1,24 @@
+{
+  "id": 70,
+  "name": "Offshore hosting",
+  "description": "The adversary might leverage offshore hosting providers which provide hosting services in other countries with more privacy, anonymity and freedom of speech.",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [
+    {
+      "id": 339,
+      "name": "Foreign provider",
+      "description": "Foreign providers might be leveraged to make it harder for law enforcement agencies to confiscate systems and data.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-916",
+      "name": "Offshore Racks",
+      "description": "Physical server racks located in offshore jurisdictions outside Five Eyes and cooperative law enforcement reach"
+    }
+  ]
+}

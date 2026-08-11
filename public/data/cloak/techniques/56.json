@@ -1,0 +1,46 @@
+{
+  "id": 56,
+  "name": "Hidden volume",
+  "description": "The adversary is trying to achieve plausible deniability by hiding a volume within another volume.",
+  "type": "Technical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 62,
+      "name": "Avoid hidden volumes on external SSD without Trim",
+      "description": "Trim is used to purge data on disks. For SSDs this isn’t recommended because they operate differently than HDDs. Encrypted file containers could be used instead on SSD. \n\n22/11/2024, 18:07, merged with\nAvoid hidden volumes on SSD",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 73,
+      "name": "Avoid mounting hidden volume from decoy volume",
+      "description": "If not careful, the hidden volume could be overwritten when making changes to the decoy volume after mounting.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 128,
+      "name": "Avoid uploading encrypted file containers to cloud services",
+      "description": "Plausible deniability, most providers keep versioning/backups which could be used for differential analysis to prove existence of hidden container",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2787,
+      "name": "Avoid SMR (Shingled Magnetic Recording) drives for hidden volumes",
+      "description": "SMR hard drives (prevalent since 2018, now most consumer HDDs) implement SSD-style firmware translation layers, making them unsafe for hidden volumes despite appearing as regular HDDs. Write artifacts can expose the existence of a hidden volume. Operators should use genuine CMR (Conventional Magnetic Recording) drives, preferably manufactured before 2018.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2788,
+      "name": "Awareness of spin-stand microscopy as physical forensic threat",
+      "description": "Spin-stand microscopy measures residual magnetic field strength across HDD platters. Because magnetic fields decay over time, sectors written at different points exhibit different field strengths, potentially revealing temporal write patterns. If random data written during hidden volume creation shows different field strength than later data, the hidden volume's existence may be detectable.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

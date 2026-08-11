@@ -1,0 +1,10 @@
+{
+  "id": 74,
+  "name": "Prevent hardware access",
+  "description": "The adversary is trying to prevent that virtualized machines have direct access to physical hardware.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [],
+  "procedures": []
+}

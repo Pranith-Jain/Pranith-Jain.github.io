@@ -1,0 +1,10 @@
+{
+  "id": 18,
+  "name": "Anonymously buy VPN services",
+  "description": "The adversary is trying to anonymously purchase VPN-services.",
+  "type": "Behavioral",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [],
+  "procedures": []
+}

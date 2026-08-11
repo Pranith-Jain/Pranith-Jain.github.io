@@ -1,0 +1,562 @@
+{
+  "id": 62,
+  "name": "Leak protection",
+  "description": "The adversary is trying to reduce or prevent any leaks from his systems to prevent leaving traces and de-anonymization.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 39,
+      "name": "Avoid carrying a cellphone",
+      "description": "Phones can be tracked so to prevent this from happening, phones should be avoided completely or left at home or somewhere else.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 44,
+      "name": "Avoid commercial anti-malware software",
+      "description": "Do not use commercial AV software that uses any ‘cloud protection’ or sends extensive telemetry and samples to their company.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 51,
+      "name": "Avoid devices with Bluetooth Low-Energy (BLE)",
+      "description": "These devices even broadcast information when offline and should therefore be avoided to prevent leaving any traces.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 63,
+      "name": "Avoid home Wi-Fi",
+      "description": "Your home IP address is tied to your identity which could de-anonymize you. Public Wi-Fi or someone else’s Wi-Fi should therefore be used to prevent linking your activities to you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 65,
+      "name": "Avoid leaving fingerprints",
+      "description": "Leaving fingerprints could lead to de-anonymization. To prevent this precaution should be taken to prevent leaving fingerprints on for example packages or envelopes.",
+      "type": "Behavioral",
+      "procedures": [
+        {
+          "id": "TTP-356",
+          "name": "Confound DNA analysis",
+          "description": "Accumulate dust from public places, containing the DNA of many people. Using toilet paper and wearing disposable gloves, lightly rub the dust into each component (cash, cover sheet and envelope)."
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "name": "Avoid license plate exposure",
+      "description": "License plates are tied to identities. Exposing your license plate leaves a trail which might help to de-anonymize someone.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 70,
+      "name": "Avoid logging in non-anonymous accounts",
+      "description": "Logging in to non-anonymous accounts could compromise one’s anonymity and should therefore be avoided en completely segmented from sensitive operations.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 71,
+      "name": "Avoid meeting people in real life unless neccessary",
+      "description": "Communicating sensitive information to known organizations should not be done in person, unless there is no other option. Because this breaks one’s anonymity.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 77,
+      "name": "Avoid personal identifiable information (PII)",
+      "description": "All personal identifiable information (PII) that you provide can be used against you and contribute to one’s de-anonymization. Never sharing PII in the first place could help to remain anonymous.",
+      "type": "Behavioral",
+      "procedures": [
+        {
+          "id": "TTP-1033",
+          "name": "Privacy.com",
+          "description": "Privacy.com is a supplier of virtual privacy cards which allow you to shield your card info. https://privacy.com/"
+        }
+      ]
+    },
+    {
+      "id": 78,
+      "name": "Avoid photos which relate to you",
+      "description": "Any photo which relates to you could reveal more information about you (metadata), your location, your friends or family, and so on. This information could help to de-anonymize you and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 80,
+      "name": "Avoid powering on burner phones at places that relate to you",
+      "description": "The IMEI and IMSI can be traced back to you when used at the same location as other non-anonymous phones. This should therefore be avoided to break your anonymity.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 81,
+      "name": "Avoid printing invisible watermarks",
+      "description": "Many printers will print an invisible watermark allowing for identification of the printer. This could be traced back to you. Printing in color should therefore be avoided, because watermarks are not present without color toners/cartridges. \n\n24/11/2024, 16:12, merged with\nSecure printing",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 82,
+      "name": "Avoid public cloud storage",
+      "description": "Public cloud storage providers will or must cooperate with law enforcement agencies and should therefore be avoided to prevent leaking any information which could trace back to you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 84,
+      "name": "Avoid reselling harddrives",
+      "description": "Avoid reselling harddrives because data could be recovered if not wiped appropriately.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 87,
+      "name": "Avoid revealing operational details",
+      "description": "Revealing your operational details could be used against you and should therefore be avoided to remain anonymous.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 92,
+      "name": "Avoid sending physical materials via post",
+      "description": "Beause of risk of leaving DNA/fingerprints, which could be used to de-anonymize you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 93,
+      "name": "Avoid sensitive acitivities from untrusted powerline",
+      "description": "It is possible to leak information via power lines, which could help de-anonymize you. Untrusted power lines should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 100,
+      "name": "Avoid sign-up with famous services",
+      "description": "Sign up with Google, Microsoft, Facebook, and so on could tie accounts together and reveal more information about you, such as IP addresses, timestamps, and so on. Which in turn could be used to de-anonymize you. Using this feature should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 102,
+      "name": "Avoid SIM cards",
+      "description": "Avoiding SIM cards wil block a phone’s baseband processor from communicating with cellular providers, which could be used to trace back activity to you and de-anonymize you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 105,
+      "name": "Avoid Siri",
+      "description": "Siri can record everything you say and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 107,
+      "name": "Avoid smart devices",
+      "description": "The amount of devices with internet connections, such as smart devices, should be avoided because they could be abused and probably leak information.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 109,
+      "name": "Avoid social media",
+      "description": "Social media are known for collecting many datapoints, which could be used to de-anonymize you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 117,
+      "name": "Avoid the use of anonymous devices at home",
+      "description": "Anonymous devices should only be used from anonymous networks, so home Wi-Fi networks should be avoided to prevent de-anonymization.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 118,
+      "name": "Avoid third-party software",
+      "description": "Third party software might collect and sell information about you and should therefore be avoided whenever possible.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 119,
+      "name": "Avoid TOR gateways",
+      "description": "Credentials and data are send plaintext over the internet till it reaches the Tor gateway, and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 121,
+      "name": "Avoid torrents over Tor",
+      "description": "Torrent file-sharing applications have been observed to ignore proxy settings and make direct connections even when they are told to use Tor. Even if your torrent application connects only through Tor, you will often send out your real IP address in the tracker GET request, because that's how torrents work. Not only do you deanonymize your torrent traffic and your other simultaneous Tor web traffic this way, you also slow down the entire Tor network for everyone else. Don't enable or install browser plugins The Tor Browser will block browser plugins such as Flash, RealPlayer, Quicktime, and others: they can be manipulated into revealing your IP address. Similarly, we do not recommend installing additional addons or plugins into the Tor Browser, as these may bypass Tor or otherwise harm your anonymity and privacy.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 122,
+      "name": "Avoid tracking",
+      "description": "Avoid software and services which track your activity, such as Google’s search engine or Microsoft Edge browser.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 124,
+      "name": "Avoid typing with open microphones",
+      "description": "Recorded keyboard sounds might provide enough information to accurately reconstruct what was types. To prevent this, typing with open microphones should be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 125,
+      "name": "Avoid unencrypted calls",
+      "description": "Unencrypted calls can by eavesdropped/wiretapped and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 126,
+      "name": "Avoid unencrypted sites",
+      "description": "Unencrypted websites transfer data in plaintext, which could reveal sensitive information or manipulated in transit and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 130,
+      "name": "Avoid using devices in front of a camera",
+      "description": "Camera’s could be compromised and used to spy on someone. Avoiding the use of devices in front of a camera prevents this attack vector.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 131,
+      "name": "Avoid using real voice",
+      "description": "Voices can be fingerprinted and used to identify your voice (based on a hash). Avoiding to use your real voice can prevent identifying you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 132,
+      "name": "Avoid using the same network for both decoy as hidden volume",
+      "description": "To prevent leaving any traces which could be tied together, using the same public Wi-Fi network for the decoy and hidden OS should be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 135,
+      "name": "Avoid video/voice communication",
+      "description": "When communicating sensitive information to known organizations, one cannot trust them to protect your anonymity. Voice and video communication should therefore be avoided to prevent de-anonymization.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 144,
+      "name": "Block trackers",
+      "description": "Trackers for advertising, analytics, anti-fraud, cryptomining, email, fingerprinting, and so on are blocked. ",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 148,
+      "name": "Bridging",
+      "description": "Bridged networking connects a virtual machine to a network by using the network adapter on the host system (or another VM).",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-900",
+          "name": "Obfs4",
+          "description": "Obfs4 is a Tor pluggable transport that makes traffic look random and prevents censors from finding bridges. https://support.torproject.org/glossary/obfs4/"
+        },
+        {
+          "id": "TTP-1199",
+          "name": "SkypeMorph",
+          "description": "SkypeMorph is a obfuscation protocol for Tor bridges which makes it hard to distinguish between Skype calls and bridges traffic. https://www.semanticscholar.org/paper/SkypeMorph:-protocol-obfuscation-for-Tor-bridges-Moghaddam-Li/8a35487218ff0c056249702bbfc7742209b179dd"
+        }
+      ]
+    },
+    {
+      "id": 157,
+      "name": "Cached website versions",
+      "description": "Browsing cached versions eliminates the need to make DNS requests to those sites, which reduces the amount of traces left behind.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 184,
+      "name": "Compartmentalize DNS queries",
+      "description": "If multiple VPNs are used in a chain, several different DNS servers should be used to reduce tracking and correlation attacks.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 195,
+      "name": "Cover LED lights with electrical tape",
+      "description": "Covering LED lights with electrical tape is effective against Power LED side-channel attacks, for example on smart card readers.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 205,
+      "name": "Custom filters",
+      "description": "Custom filters might be applied for example for content filtering, DNS filtering, ad-blocking, and so on.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 226,
+      "name": "Delete Google advertising ID",
+      "description": "Google’s advertising ID might be deleted to prevent tracking via Google services.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 231,
+      "name": "Destroy, forge or remove PRNU",
+      "description": "Photo-Response NonUniformity",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 239,
+      "name": "Digital redaction bars",
+      "description": "Digital redaction bars might be used to redact information in documents.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 276,
+      "name": "DNS leak protection",
+      "description": "Leak protection mechanisms are implemented to prevent DNS requests leaking to third parties.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-494",
+          "name": "DNS leak test",
+          "description": "DNS leak test offers a simple test to determine if your DNS requests are being leaked which may represent a critical privacy threat. https://www.dnsleaktest.com/"
+        },
+        {
+          "id": "TTP-1002",
+          "name": "Pi-hole",
+          "description": "Pi-hole is a DNS sinkhole that protects devices from unwanted content without installing any client-side software. https://pi-hole.net/"
+        },
+        {
+          "id": "TTP-1312",
+          "name": "UltraDNS",
+          "description": "UltraDNS is a hosted DNS provider. https://vercara.com/authoritative-dns"
+        }
+      ]
+    },
+    {
+      "id": 279,
+      "name": "DNS over VPN over Tor",
+      "description": "This setup mitigates leaking DNS related information to third parties which could prove which sites you requested.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 280,
+      "name": "DNS spoofability test",
+      "description": "DNS spoofability tests might be run to test or check your DNS name servers and configuration.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-2799",
+          "name": "DNSCrypt",
+          "description": "DNSCrypt is a protocol that authenticates communications between a DNS client and a DNS resolver. It prevents DNS spoofing. It uses cryptographic signatures to verify that responses originate from the chosen DNS resolver and haven't been tampered with.\n\nIt is an open specification, with free and open source reference implementations, and it is not affiliated with any company nor organization."
+        },
+        {
+          "id": "TTP-2800",
+          "name": "dnscrypt-proxy 2",
+          "description": "A flexible DNS proxy, with support for modern encrypted DNS protocols such as DNSCrypt v2, DNS-over-HTTPS, Anonymized DNSCrypt and ODoH (Oblivious DoH). \nhttps://github.com/DNSCrypt/dnscrypt-proxy"
+        }
+      ]
+    },
+    {
+      "id": 284,
+      "name": "DoHoT",
+      "description": "DNS over HTTPS over Tor",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 330,
+      "name": "Faraday cage",
+      "description": "Faraday cages might be used to prevent connectivity from mobile devices to prevent any data leakage and tracking.",
+      "type": "Physical",
+      "procedures": [
+        {
+          "id": "TTP-1190",
+          "name": "Silent Pocket",
+          "description": "Silent Pocket is a Faraday cage for your phone. https://slnt.com/"
+        }
+      ]
+    },
+    {
+      "id": 337,
+      "name": "Flush DNS",
+      "description": "The DNS cache might be flushed to wipe DNS traces.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 338,
+      "name": "Foil",
+      "description": "Multiple layers of foil might be applied on mobile devices to block signals (connectivity).",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 353,
+      "name": "Hard code DNS servers",
+      "description": "DNS severs might be hard coded to prevent them from being overwritten by DHCP/PPP on WAN.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 390,
+      "name": "Leave phone home",
+      "description": "Mobile phones can be tracked in different manners and should be left at home to prevent tracking while away.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 407,
+      "name": "Mobile phone jammer",
+      "description": "Mobile phone jammers prevent any unwanted signals from reaching a phone while it is in use.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 485,
+      "name": "Privacy screen",
+      "description": "Privacy screens might be applied against shoulder surfing.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 504,
+      "name": "Redact documents",
+      "description": "Documents might be redacted to hide certain information.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 516,
+      "name": "Remove SIM card",
+      "description": "The SIM card might be removed to prevent geo trangulation.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 526,
+      "name": "RPC request mixer",
+      "description": "RPC request mixer to protect your real IP location of the entry node, unblock yourself (sanctioned country), your IP is not known by the exit node, if the exit node is compromised, it does not reveal your IP address)",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1222",
+          "name": "Spook",
+          "description": "https://github.com/EdenBlockVC/spook\nThis Ethereum RPC request mixer is a proof of concept that uses the Nym network to anonymize RPC requests.\nThis is useful if:\n•You need to protect your real IP location of the entry node.\n•You want to unblock yourself, if you're in a sanctioned country and you're using Metamask\n•Your IP is not known by the exit node. Where you are in the world is not visible for anyone, it's hidden behind the Nym network.\n•If the exit node is compromised, it does not reveal your IP address.\nHowever, your exit node's IP address will be visible to the Ethereum node, but the entry node's IP address will be hidden behind the Nym network. Also, the exit node can censor your requests if it wants to.\nYou can use this as:\n•RPC URL for Metamask or other wallets to anonymize your requests (prevent real IP logging, unblock sanctioned countries)\n•local RPC URL for CLI utilities (like cast)"
+        }
+      ]
+    },
+    {
+      "id": 583,
+      "name": "Throwaway camera",
+      "description": "Throwaway camera’s might be used.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 589,
+      "name": "Tor safest security settings",
+      "description": "The safest security settings better protect against fingerprinting, tracking and malware infections.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 594,
+      "name": "Turn computer off",
+      "description": "Turn off the device with sensitive data while chatting on the phone (prevent information leakage from the screen which could be leaked via the webcam microphone/LCD screens).",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 595,
+      "name": "Turn phone off when not needed",
+      "description": "To prevent leaking any information and tracking.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 609,
+      "name": "Use open source offline anti-malware software",
+      "description": "To prevent any information leaking to third parties, offline and open source anti-malware solutions should be used.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 612,
+      "name": "Use Wi-Fi location you normally don't use",
+      "description": "Prevent routines and use Wi-Fi networks you normally don’t use.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 631,
+      "name": "View, wipe and verify metadata",
+      "description": "Double checking if metadata is truly wiped prevents it from leaking.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 644,
+      "name": "Watch offline",
+      "description": "Watching video’s offline elimenates flash cookies which could track or identify you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2727,
+      "name": "Remove car microphone",
+      "description": "The adversary might remove the microphone in his car to prevent eavesdropping. ",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 2728,
+      "name": "Put super glue into microphone",
+      "description": "The adversary might put super glue into the microphones to prevent eavesdropping. ",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 2734,
+      "name": "Encrypt DNS",
+      "description": "DNS requests might be encrypted to prevent leaking information from them.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2740,
+      "name": "Offline notes",
+      "description": "Offline notes might be taken to prevent information leaking or to communicate offline without talking (against eavesdropping). ",
+      "type": "Physical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-271",
+      "name": "Browser Mirror",
+      "description": "Browser mirror provides detailed information about your web browser and its capabilities. "
+    }
+  ]
+}

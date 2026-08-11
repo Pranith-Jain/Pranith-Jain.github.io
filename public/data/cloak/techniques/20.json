@@ -1,0 +1,295 @@
+{
+  "id": 20,
+  "name": "Anti-fingerprinting",
+  "description": "The adversary is implementing measures against fingerprinting to reduce the opportunities for de-anonymization via information leakage.",
+  "type": "Technical",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [
+    {
+      "id": 3,
+      "name": "Ad blocking",
+      "description": "The adversary is trying to block advertisements.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 149,
+      "name": "Browser extensions",
+      "description": "Browser extensions might be used for adding specific features to a web browser.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-684",
+          "name": "HTTPS Everywhere",
+          "description": "HTTPS Everywhere is a browser extensions which sets HTTPS by default to prevent insecure connections to websites. https://github.com/EFForg/https-everywhere"
+        },
+        {
+          "id": "TTP-784",
+          "name": "LocalCDN",
+          "description": "LocalCDN is a web browser extension that emulates Content Delivery Networks to improve your online privacy. It intercepts traffic, finds supported resources locally, and injects them into the environment. https://www.localcdn.org/"
+        },
+        {
+          "id": "TTP-801",
+          "name": "Mailvelope",
+          "description": "Mailvelope is a browser add-on that you can use in Chrome, Edge and Firefox to securely encrypt your emails with PGP using webmail providers. https://mailvelope.com/en/"
+        },
+        {
+          "id": "TTP-1198",
+          "name": "Skip Redirect",
+          "description": "Skip Redirect is a webextension that tries to extract the final url from the intermediary url and goes there straight away if successful. https://addons.mozilla.org/en-US/firefox/addon/skip-redirect/"
+        },
+        {
+          "id": "TTP-1308",
+          "name": "uBlock Origin",
+          "description": "uBlock Origin is a free and open source cross-platform browser extension for content filtering primarily aimed at neutralizing privacy invasion in an efficient, user-friendly method. https://ublockorigin.com/"
+        },
+        {
+          "id": "TTP-2804",
+          "name": "Greasemonkey",
+          "description": "Greasemonkey is a Firefox extension that allows you to customize the way webpages look and function.\n\nHundreds of scripts are already available for free. And if you're the tinkerer sort, you can also write your own."
+        },
+        {
+          "id": "TTP-361",
+          "name": "Cookie Auto Delete",
+          "description": "Browser extension that automatically deletes cookies upon tab closure, reducing persistent cross-site tracking"
+        },
+        {
+          "id": "TTP-596",
+          "name": "Firefox",
+          "description": "Privacy-configurable open source browser; recommended with a hardened user.js or Arkenfox profile. https://www.mozilla.org/firefox/"
+        }
+      ]
+    },
+    {
+      "id": 183,
+      "name": "Compartmentalize browsers",
+      "description": "Their usage is segmented to prevent cross-contamination and uniqueness.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 185,
+      "name": "Compartmentalize email addresses",
+      "description": "Their usage is segmented to prevent cross-contamination and uniqueness.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 187,
+      "name": "Compartmentalize identities",
+      "description": "Their usage is segmented to prevent cross-contamination and uniqueness.\n\n26/11/2024, 09:11, merged with\nSegment internet usage\nTheir usage is segmented to prevent cross-contamination and uniqueness. \n\n26/11/2024, 09:27, merged with\nIdentity segmentation\nTo prevent cross-contamination, identities must be kept segmented at all times.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 188,
+      "name": "Compartmentalize passphrases",
+      "description": "Their usage is segmented to prevent cross-contamination and uniqueness.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 189,
+      "name": "Compartmentalize sensitive data",
+      "description": "The adversary might physically compartmentalize himself from his encrypted stuff. That is, you store your encrypted stuff anonymously online. To reduce the risk and impact of loss, you can have multiple compartments, and store multiple copies of each, in different places. So you possess the minimum required for whatever you’re currently working on. However, few could remember that much information about locations, passwords, etc. But if you encrypt and store it locally, you’re faced with the same issue about refusing to decrypt stuff.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 222,
+      "name": "Delay mouse events",
+      "description": "Mouse events might be delayed to become more resilient against specific mouse tracking software.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 223,
+      "name": "Delay publication",
+      "description": "Delay publication (Every type of blog software offers the option to select a point in time when new postings are published. It is safer to delay the publishing of new posts to a time when you are not online anymore, rather than publishing immediately.)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 224,
+      "name": "Delayed delivery",
+      "description": "Delayed delivery of messages and transactions could make correlation attacks harder.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 232,
+      "name": "Desynchronize each VM clock with host OS clock",
+      "description": "The initial virtual hardware clock of VMs might be spoofed to prevent clock correlation attacks.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 281,
+      "name": "Do multiple things at once with Tor client",
+      "description": "Against correlation attacks.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 318,
+      "name": "Entry guards",
+      "description": "To protect against evil Tor entry guards, Tor entry guards might be rotated frequently.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 335,
+      "name": "Fixed posting time",
+      "description": "Over time, pseudonymous activity can be profiled to provide an accurate estimate of the timezone, reducing the user's anonymity set. It is better to restrict posting activity to a fixed time that fits the daily activity pattern of people across many places.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 363,
+      "name": "Hostname spoofing",
+      "description": "Spoofing MAC addresses is insufficient because the computer name and host name could still link the MAC addresses back to both. Therefore both computer and host names might be changed every time before and after they connect to any network.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 432,
+      "name": "Obfuscate metadata",
+      "description": "Metadata might be obfuscated to prevent fingerprinting, tracking, and so on.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-65",
+          "name": "Anonymouth",
+          "description": "Anonymouth is a document anonymization tool. https://github.com/psal/anonymouth"
+        }
+      ]
+    },
+    {
+      "id": 500,
+      "name": "Randomize Bluetooth address Host OS",
+      "description": "Randomizing MAC and Bluetooth addresses avoid activities being tracked back to someone.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 501,
+      "name": "Randomize MAC address",
+      "description": "Randomizing MAC and Bluetooth addresses avoid activities being tracked back to someone. \n\n24/11/2024, 15:47, merged with\nUnique MAC and LAN address",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-795",
+          "name": "Macchanger (Linux)",
+          "description": "Macchanger is a utility that makes the manipulation of MAC addresses of network interfaces easier. https://www.kali.org/tools/macchanger/"
+        },
+        {
+          "id": "TTP-1221",
+          "name": "SpoofMAC",
+          "description": "SpoofMAC is a python script to spoof your MAC address for Sox, Windows and Linux. https://github.com/feross/spoofmac"
+        },
+        {
+          "id": "TTP-1262",
+          "name": "Technitium MAC Address Changer (TMAC)",
+          "description": "Technitium MAC address Changer (TMAC) is a free system utility tool that lets you change the MAC address of your Wi-Fi and LAN network adapters. https://technitium.com/tmac/"
+        }
+      ]
+    },
+    {
+      "id": 539,
+      "name": "Segment private keys",
+      "description": "Their usage is segmented to prevent cross-contamination and uniqueness.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 540,
+      "name": "Segment wallets",
+      "description": "Transfer your Monero from the wallet from which you bought it to the wallet on your VM. We cannot stress enough how import it is to have two separate wallets for this process, even for handling Monero.",
+      "type": "Behavioral",
+      "procedures": [
+        {
+          "id": "TTP-591",
+          "name": "File encryption",
+          "description": "Encrypting individual files prior to storage or transmission as a lightweight alternative to full container encryption"
+        }
+      ]
+    },
+    {
+      "id": 551,
+      "name": "Short lifetime attack infrastructure",
+      "description": "Attack infrastructure should have a short lifetime and should only be used for one target or activity before discarded.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 558,
+      "name": "Spell checking",
+      "description": "Spell checking tools might be used to automatically fix errors which could be used in stylometry analysis.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 613,
+      "name": "User Agent Switcher",
+      "description": "User Agent Switcher is a user-agent spoofer browser extension. https://github.com/ray-lothian/UserAgent-Switcher",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2718,
+      "name": "Random hostname",
+      "description": "Random hostnames might be used to enhance privacy and anonymity",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2741,
+      "name": "Multiple translations",
+      "description": "To thwart stylometry analysis, multiple translations might be applied. For instance English to German, German to Spanish, and Spanish to English. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2742,
+      "name": "Generate PGP keys regularly",
+      "description": "PGP keys might be generated regularly to prevent PGP keys being tied to one's (fake) identity. ",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2752,
+      "name": "Avoid advertisements",
+      "description": "To avoid malvertising, clicking op advertisements should be avoided. ",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-925",
+      "name": "OnionShare",
+      "description": "OnionShare is an open source tool that lets you securely and anonymously share files, host websites, and chat with friends using the Tor network. https://onionshare.org/"
+    },
+    {
+      "id": "TTP-1335",
+      "name": "User Agent Switcher",
+      "description": "User Agent Switcher is a user-agent spoofer browser extension. https://github.com/ray-lothian/UserAgent-Switcher"
+    },
+    {
+      "id": "TTP-161",
+      "name": "Avoid resizing windows",
+      "description": "Window dimensions are a fingerprinting vector; keeping the default Tor Browser window size prevents identification"
+    },
+    {
+      "id": "TTP-311",
+      "name": "Change device name",
+      "description": "Changing the device hostname prevents network-level identification via mDNS and network scanning"
+    },
+    {
+      "id": "TTP-452",
+      "name": "Disable cookies",
+      "description": "Disabling browser cookies reduces cross-site tracking and fingerprinting"
+    }
+  ]
+}

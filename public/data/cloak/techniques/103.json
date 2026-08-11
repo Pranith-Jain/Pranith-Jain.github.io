@@ -1,0 +1,90 @@
+{
+  "id": 103,
+  "name": "Threat modeling",
+  "description": "The adversary applies threat modeling methodologies to identify threats and determine appropriate countermeasures.",
+  "type": "Behavioral",
+  "tacticId": 14,
+  "tacticName": "Risk management",
+  "subtechniques": [
+    {
+      "id": 104,
+      "name": "Avoid single-point-of-failure (SPOF)",
+      "description": "Single points of failure could crumble sensitive activities and lead to de-anonymization and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 169,
+      "name": "CIA-triad",
+      "description": "Confidentiality, integrity and availability, the CIA-triad is a security model which could be applied for threat modeling and risk management.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 234,
+      "name": "Determine countermeasures",
+      "description": "Based on threat modeling and risk management practices, appropriate countermeasures can be determined.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 235,
+      "name": "Determine risks",
+      "description": "Based on threat modeling and risk management practices, risks can be determined.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 236,
+      "name": "Determine threats",
+      "description": "Based on threat modeling and risk management practices, threats can be determined.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 237,
+      "name": "Determine vulnerabilities",
+      "description": "Based on threat modeling and risk management practices, vulnerabilities can be determined.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 238,
+      "name": "Determine what needs protection",
+      "description": "Based on threat modeling and risk management practices, what needs protection the most can be determined.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 320,
+      "name": "Evade extradiction",
+      "description": "To evade extradition, cybercriminals might travel to countries which do not have any extradition treaty with their own country.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 325,
+      "name": "Exit plan",
+      "description": "Exit plans might be prepared in case worse things happen, such as arrested by law enforcement. These plan could make sure that their activities continue or that others can access certain resources.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-769",
+      "name": "LINDDUN",
+      "description": "LINDDUN is a privacy threat modeling framework. https://linddun.org/"
+    },
+    {
+      "id": "TTP-980",
+      "name": "PASTA",
+      "description": "Process for Attack Simulation and Threat Analysis (PASTA) is a risk-centric threat modeling method. https://cdn2.hubspot.net/hubfs/4598121/Content%20PDFs/VerSprite-PASTA-Threat-Modeling-Process-for-Attack-Simulation-Threat-Analysis.pdf"
+    },
+    {
+      "id": "TTP-1239",
+      "name": "STRIDE",
+      "description": "STRIDE is a model of threats, used to help reason and find threats to a system. https://en.wikipedia.org/wiki/STRIDE_model"
+    }
+  ]
+}

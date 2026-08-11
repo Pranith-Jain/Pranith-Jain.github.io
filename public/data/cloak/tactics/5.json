@@ -1,0 +1,101 @@
+{
+  "id": 5,
+  "name": "Anonymous cryptocurrency",
+  "description": "The adversary is trying to anonymize cryptocurrency under its control.",
+  "techniqueCount": 7,
+  "subtechniqueCount": 6,
+  "procedureCount": 4,
+  "techniques": [
+    {
+      "id": 10,
+      "name": "Anonymous mixer",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 2,
+      "subIndex": [
+        {
+          "id": 203,
+          "name": "Cryptocurrency mixers",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Anonymously buy cryptocurrency",
+      "type": "Behavioral",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2725,
+          "name": "Avoid exchanges",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "name": "Cleaning coins",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 42,
+      "name": "Converting",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 424,
+          "name": "New wallet after conversion",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "name": "Privacy coins",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 521,
+          "name": "Ring signatures",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": "TL-5",
+      "name": "Tactic-level TTPs & Procedures",
+      "type": "",
+      "subCount": 0,
+      "procCount": 2,
+      "subIndex": []
+    },
+    {
+      "id": 126,
+      "name": "Privacy-preserving cryptocurrency selection",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2789,
+          "name": "Prefer mandatory-privacy cryptocurrencies",
+          "type": "Technical"
+        },
+        {
+          "id": 2790,
+          "name": "Evaluate cryptographic privacy mechanism",
+          "type": "Technical"
+        }
+      ]
+    }
+  ]
+}

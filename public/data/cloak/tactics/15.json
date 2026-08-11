@@ -1,0 +1,1054 @@
+{
+  "id": 15,
+  "name": "Secure behavior",
+  "description": "The adversary is trying to behave securely to be able to become and remain as anonymous as possible, which is often referred to as a ‘paranoid’ mindset.",
+  "techniqueCount": 29,
+  "subtechniqueCount": 158,
+  "procedureCount": 56,
+  "techniques": [
+    {
+      "id": 3,
+      "name": "Add randomness",
+      "type": "Behavioral",
+      "subCount": 3,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 22,
+          "name": "Apply noise",
+          "type": "Technical"
+        },
+        {
+          "id": 317,
+          "name": "Entropy",
+          "type": "Technical"
+        },
+        {
+          "id": 488,
+          "name": "PRNG Stream",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Avoid biometrics",
+      "type": "Behavioral",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 33,
+          "name": "Avoid biometrics alone to safeguard secrets",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Avoid cross-contamination",
+      "type": "Behavioral",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 180,
+          "name": "Colour VM's",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Avoid five-eyes jurisdiction",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 27,
+      "name": "Avoid proprietary software",
+      "type": "Behavioral",
+      "subCount": 3,
+      "procCount": 4,
+      "subIndex": [
+        {
+          "id": 7,
+          "name": "Alternative app store",
+          "type": "Technical"
+        },
+        {
+          "id": 176,
+          "name": "Closed source apps for public use",
+          "type": "Behavioral"
+        },
+        {
+          "id": 177,
+          "name": "Closed-source OS only in VM",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Avoid routines",
+      "type": "Behavioral",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 75,
+          "name": "Avoid patterns",
+          "type": "Behavioral"
+        },
+        {
+          "id": 133,
+          "name": "Avoid using the same place twice",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Avoid stylometry",
+      "type": "Behavioral",
+      "subCount": 6,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 2,
+          "name": "Acting",
+          "type": "Behavioral"
+        },
+        {
+          "id": 271,
+          "name": "Disguise linguistic style",
+          "type": "Behavioral"
+        },
+        {
+          "id": 533,
+          "name": "Search and replace",
+          "type": "Behavioral"
+        },
+        {
+          "id": 591,
+          "name": "Translation",
+          "type": "Behavioral"
+        },
+        {
+          "id": 674,
+          "name": "Write text offline and copy",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2772,
+          "name": "Reduce comparison corpus",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Backups",
+      "type": "Technical",
+      "subCount": 10,
+      "procCount": 6,
+      "subIndex": [
+        {
+          "id": 42,
+          "name": "Avoid cloud backups",
+          "type": "Behavioral"
+        },
+        {
+          "id": 43,
+          "name": "Avoid cloud syncing",
+          "type": "Behavioral"
+        },
+        {
+          "id": 136,
+          "name": "Backup at alternative location",
+          "type": "Physical"
+        },
+        {
+          "id": 286,
+          "name": "Double backup",
+          "type": "Technical"
+        },
+        {
+          "id": 397,
+          "name": "Make offline backup when system is turned off",
+          "type": "Technical"
+        },
+        {
+          "id": 398,
+          "name": "Manual backup",
+          "type": "Technical"
+        },
+        {
+          "id": 437,
+          "name": "Offline backup",
+          "type": "Physical"
+        },
+        {
+          "id": 441,
+          "name": "Only access online backups from secure devices or VM",
+          "type": "Technical"
+        },
+        {
+          "id": 553,
+          "name": "Snapshots",
+          "type": "Technical"
+        },
+        {
+          "id": 577,
+          "name": "Synchronization",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Blending in",
+      "type": "Behavioral",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 647,
+          "name": "Wear clothing that blends in",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "Consistency",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 46,
+      "name": "Deception",
+      "type": "Behavioral",
+      "subCount": 7,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 214,
+          "name": "Decoy files",
+          "type": "Behavioral"
+        },
+        {
+          "id": 215,
+          "name": "Decoy partition",
+          "type": "Technical"
+        },
+        {
+          "id": 328,
+          "name": "Fake doxing",
+          "type": "Behavioral"
+        },
+        {
+          "id": 331,
+          "name": "File corruption",
+          "type": "Technical"
+        },
+        {
+          "id": 389,
+          "name": "Leave lights on",
+          "type": "Behavioral"
+        },
+        {
+          "id": 391,
+          "name": "Leave phone in friend's car",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2786,
+          "name": "Active disinformation feeding (red herring)",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "name": "Disguise",
+      "type": "Behavioral",
+      "subCount": 4,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 645,
+          "name": "Wear a facemask",
+          "type": "Behavioral"
+        },
+        {
+          "id": 646,
+          "name": "Wear a hat",
+          "type": "Behavioral"
+        },
+        {
+          "id": 648,
+          "name": "Wear loose clothes",
+          "type": "Behavioral"
+        },
+        {
+          "id": 649,
+          "name": "Wear sunglasses",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "name": "Identify scams",
+      "type": "Behavioral",
+      "subCount": 4,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 32,
+          "name": "Avoid bad OpSec practices by DNM",
+          "type": "Behavioral"
+        },
+        {
+          "id": 111,
+          "name": "Avoid standard escrow services",
+          "type": "Behavioral"
+        },
+        {
+          "id": 137,
+          "name": "Be aware of skimmers",
+          "type": "Behavioral"
+        },
+        {
+          "id": 446,
+          "name": "Only use funds you are comfortable losing",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "name": "Password",
+      "type": "Behavioral",
+      "subCount": 22,
+      "procCount": 10,
+      "subIndex": [
+        {
+          "id": 141,
+          "name": "Bits of entropy",
+          "type": "Technical"
+        },
+        {
+          "id": 172,
+          "name": "Cleanse bad passwords",
+          "type": "Behavioral"
+        },
+        {
+          "id": 225,
+          "name": "Delete all passwords or change them",
+          "type": "Behavioral"
+        },
+        {
+          "id": 299,
+          "name": "Enable HDD/SSD password",
+          "type": "Technical"
+        },
+        {
+          "id": 300,
+          "name": "Enable PIN scrambling",
+          "type": "Technical"
+        },
+        {
+          "id": 301,
+          "name": "Enable TPM startup enhanced PIN",
+          "type": "Technical"
+        },
+        {
+          "id": 413,
+          "name": "Multi-factor authentication (MFA)",
+          "type": "Technical"
+        },
+        {
+          "id": 459,
+          "name": "Paper password",
+          "type": "Technical"
+        },
+        {
+          "id": 462,
+          "name": "Passphrase",
+          "type": "Technical"
+        },
+        {
+          "id": 464,
+          "name": "Password-authenticated key exchange (PAKE)",
+          "type": "Technical"
+        },
+        {
+          "id": 476,
+          "name": "PIN along with recovery phrase",
+          "type": "Technical"
+        },
+        {
+          "id": 479,
+          "name": "Pre-boot PIN",
+          "type": "Technical"
+        },
+        {
+          "id": 494,
+          "name": "Quadruple passwords",
+          "type": "Technical"
+        },
+        {
+          "id": 498,
+          "name": "Random strong passphrases",
+          "type": "Behavioral"
+        },
+        {
+          "id": 538,
+          "name": "Securely split and restore passwords",
+          "type": "Technical"
+        },
+        {
+          "id": 549,
+          "name": "Set BIOS password",
+          "type": "Technical"
+        },
+        {
+          "id": 596,
+          "name": "Unique passphrases",
+          "type": "Behavioral"
+        },
+        {
+          "id": 597,
+          "name": "Unique PIN",
+          "type": "Behavioral"
+        },
+        {
+          "id": 638,
+          "name": "VOIP for MFA",
+          "type": "Technical"
+        },
+        {
+          "id": 672,
+          "name": "Wordlists",
+          "type": "Technical"
+        },
+        {
+          "id": 2760,
+          "name": "Password policies",
+          "type": "Technical"
+        },
+        {
+          "id": 2761,
+          "name": "Avoid digital and online diceware simulators.",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "name": "Practice discipline",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 78,
+      "name": "Psychology",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 95,
+      "name": "Silence",
+      "type": "Technical",
+      "subCount": 3,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 520,
+          "name": "Retain lawyer",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2778,
+          "name": "Awareness of law enforcement interrogation deception tactics",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2779,
+          "name": "Know and invoke legal rights during detention",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "name": "Situational awareness",
+      "type": "Technical",
+      "subCount": 62,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 34,
+          "name": "Avoid blackmailing",
+          "type": "Behavioral"
+        },
+        {
+          "id": 38,
+          "name": "Avoid calling in the same room",
+          "type": "Behavioral"
+        },
+        {
+          "id": 40,
+          "name": "Avoid CCTV",
+          "type": "Behavioral"
+        },
+        {
+          "id": 45,
+          "name": "Avoid conducting sensitive activities from host OS",
+          "type": "Behavioral"
+        },
+        {
+          "id": 48,
+          "name": "Avoid cracked software",
+          "type": "Behavioral"
+        },
+        {
+          "id": 49,
+          "name": "Avoid CSAM",
+          "type": "Behavioral"
+        },
+        {
+          "id": 50,
+          "name": "Avoid current device for shooting media",
+          "type": "Behavioral"
+        },
+        {
+          "id": 52,
+          "name": "Avoid discussing sensitive activities where lightbulbs could be seen from outside",
+          "type": "Behavioral"
+        },
+        {
+          "id": 53,
+          "name": "Avoid discussing sensitive information in public",
+          "type": "Behavioral"
+        },
+        {
+          "id": 55,
+          "name": "Avoid downloading via Tor",
+          "type": "Behavioral"
+        },
+        {
+          "id": 56,
+          "name": "Avoid drunkness/high",
+          "type": "Behavioral"
+        },
+        {
+          "id": 60,
+          "name": "Avoid Google services",
+          "type": "Behavioral"
+        },
+        {
+          "id": 61,
+          "name": "Avoid heavily monitored networks",
+          "type": "Behavioral"
+        },
+        {
+          "id": 64,
+          "name": "Avoid host OS directly connecting to anything illegal",
+          "type": "Behavioral"
+        },
+        {
+          "id": 68,
+          "name": "Avoid links",
+          "type": "Behavioral"
+        },
+        {
+          "id": 69,
+          "name": "Avoid local area",
+          "type": "Behavioral"
+        },
+        {
+          "id": 72,
+          "name": "Avoid monitored systems and networks",
+          "type": "Behavioral"
+        },
+        {
+          "id": 76,
+          "name": "Avoid peer-to-peer (P2P)",
+          "type": "Behavioral"
+        },
+        {
+          "id": 79,
+          "name": "Avoid pluggin in untrusted devices",
+          "type": "Behavioral"
+        },
+        {
+          "id": 83,
+          "name": "Avoid public places",
+          "type": "Behavioral"
+        },
+        {
+          "id": 88,
+          "name": "Avoid risky platforms",
+          "type": "Behavioral"
+        },
+        {
+          "id": 98,
+          "name": "Avoid shortened links",
+          "type": "Behavioral"
+        },
+        {
+          "id": 99,
+          "name": "Avoid shoulder surfing",
+          "type": "Behavioral"
+        },
+        {
+          "id": 108,
+          "name": "Avoid SMS authentication",
+          "type": "Behavioral"
+        },
+        {
+          "id": 115,
+          "name": "Avoid suspicious behavior",
+          "type": "Behavioral"
+        },
+        {
+          "id": 127,
+          "name": "Avoid unknown websites",
+          "type": "Behavioral"
+        },
+        {
+          "id": 138,
+          "name": "Be very skeptical",
+          "type": "Behavioral"
+        },
+        {
+          "id": 162,
+          "name": "Carry wallet in front pocket",
+          "type": "Behavioral"
+        },
+        {
+          "id": 193,
+          "name": "Copy and paste URL",
+          "type": "Technical"
+        },
+        {
+          "id": 324,
+          "name": "Exclude exit nodes",
+          "type": "Technical"
+        },
+        {
+          "id": 329,
+          "name": "Fake IP geolocation should match fake identity",
+          "type": "Technical"
+        },
+        {
+          "id": 378,
+          "name": "Keep low-profile",
+          "type": "Behavioral"
+        },
+        {
+          "id": 386,
+          "name": "Learn from OpSec mistakes",
+          "type": "Behavioral"
+        },
+        {
+          "id": 411,
+          "name": "Monitor for break-ins",
+          "type": "Physical"
+        },
+        {
+          "id": 422,
+          "name": "Never bring personal phone when buying anonymously",
+          "type": "Behavioral"
+        },
+        {
+          "id": 423,
+          "name": "Never leave computer unattended",
+          "type": "Behavioral"
+        },
+        {
+          "id": 461,
+          "name": "Paranoid mindset",
+          "type": "Behavioral"
+        },
+        {
+          "id": 475,
+          "name": "Physical timing",
+          "type": "Behavioral"
+        },
+        {
+          "id": 478,
+          "name": "Poisitioning devices",
+          "type": "Behavioral"
+        },
+        {
+          "id": 503,
+          "name": "Read developers documentation",
+          "type": "Behavioral"
+        },
+        {
+          "id": 512,
+          "name": "Remove mobile devices from the room",
+          "type": "Behavioral"
+        },
+        {
+          "id": 519,
+          "name": "Respond similarly",
+          "type": "Behavioral"
+        },
+        {
+          "id": 592,
+          "name": "Travel by foot or bike",
+          "type": "Behavioral"
+        },
+        {
+          "id": 617,
+          "name": "Valid return address",
+          "type": "Behavioral"
+        },
+        {
+          "id": 621,
+          "name": "Verify domains",
+          "type": "Technical"
+        },
+        {
+          "id": 673,
+          "name": "Write lightly",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2726,
+          "name": "Act if car GPS is being tracked",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2729,
+          "name": "Keep evidence minimal",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2730,
+          "name": "Avoid saving customer addresses",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2735,
+          "name": "Avoid roads with toll",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2737,
+          "name": "Avoid cars with radio frequency communications",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2738,
+          "name": "Avoid Tor over Tor",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2739,
+          "name": "Avoid using anonymously bought devices within CCTV storage window",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2743,
+          "name": "Read unsuccessful prosecutions",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2744,
+          "name": "Carry external media with you",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2745,
+          "name": "Carry transmitting devices with you",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2750,
+          "name": "Private browsing mode",
+          "type": "Technical"
+        },
+        {
+          "id": 2751,
+          "name": "Close and clean",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2753,
+          "name": "Avoid ignoring warnings",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2754,
+          "name": "Avoid downloading from untrusted sources to prevent malware infections.",
+          "type": "Behavioral\n"
+        },
+        {
+          "id": 2755,
+          "name": "Show punycode",
+          "type": "Technical\n"
+        },
+        {
+          "id": 2794,
+          "name": "Awareness of law enforcement cryptocurrency lure technique",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "name": "Vendor vetting",
+      "type": "Behavioral",
+      "subCount": 4,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 321,
+          "name": "Evaluate customer reviews",
+          "type": "Behavioral"
+        },
+        {
+          "id": 322,
+          "name": "Evaluate vendor on Dread",
+          "type": "Behavioral"
+        },
+        {
+          "id": 323,
+          "name": "Evaluate vendor's darkweb presence",
+          "type": "Behavioral"
+        },
+        {
+          "id": 623,
+          "name": "Verify independent audit reports (closed-source)",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "name": "Verify integrity",
+      "type": "Technical",
+      "subCount": 9,
+      "procCount": 2,
+      "subIndex": [
+        {
+          "id": 399,
+          "name": "Manual malware reviews",
+          "type": "Behavioral"
+        },
+        {
+          "id": 618,
+          "name": "Verified boot",
+          "type": "Technical"
+        },
+        {
+          "id": 619,
+          "name": "Verify APK files",
+          "type": "Technical"
+        },
+        {
+          "id": 622,
+          "name": "Verify fingerprint",
+          "type": "Technical"
+        },
+        {
+          "id": 626,
+          "name": "Verify onion sites",
+          "type": "Technical"
+        },
+        {
+          "id": 627,
+          "name": "Verify safety numbers",
+          "type": "Technical"
+        },
+        {
+          "id": 628,
+          "name": "Verify signatures",
+          "type": "Technical"
+        },
+        {
+          "id": 629,
+          "name": "Verify software",
+          "type": "Technical"
+        },
+        {
+          "id": 2756,
+          "name": "Certificate pinning",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 113,
+      "name": "Open Source Software (OSS)",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 30,
+      "subIndex": [
+        {
+          "id": 351,
+          "name": "Graphene OS",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 116,
+      "name": "Avoid bookmarked darknet markets",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 1,
+      "subIndex": []
+    },
+    {
+      "id": 117,
+      "name": "Avoid leaving DNA",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 118,
+      "name": "Compartmentalization",
+      "type": "Behavioral",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2803,
+          "name": "Maintained normalcy cover profile",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 120,
+      "name": "Selfeducation",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": "UL-ST-15",
+      "name": "Unlinked Subtechniques",
+      "type": "",
+      "subCount": 7,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 94,
+          "name": "Avoid sensitive activities from non-encrypted system",
+          "type": "Behavioral"
+        },
+        {
+          "id": 96,
+          "name": "Avoid sharing devices",
+          "type": "Behavioral"
+        },
+        {
+          "id": 103,
+          "name": "Avoid simultaneously running untrusted qubes with sensitive qubes",
+          "type": "Behavioral"
+        },
+        {
+          "id": 112,
+          "name": "Avoid storing information on VPS",
+          "type": "Behavioral"
+        },
+        {
+          "id": 113,
+          "name": "Avoid storing passwords in browser",
+          "type": "Behavioral"
+        },
+        {
+          "id": 535,
+          "name": "Secondary user profile",
+          "type": "Behavioral"
+        },
+        {
+          "id": 608,
+          "name": "Use online services for non-sensitive files",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 124,
+      "name": "Operational patience",
+      "type": "Behavioral",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2780,
+          "name": "Verify clipboard contents before sending",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2781,
+          "name": "Resist counterparty time pressure",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 125,
+      "name": "Physical and social footprint minimisation",
+      "type": "Behavioral",
+      "subCount": 4,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2782,
+          "name": "Avoid physically distinguishing vehicle or property markers",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2783,
+          "name": "Vet social circle for law enforcement proximity",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2784,
+          "name": "Avoid timezone-revealing greetings in anonymous communications",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2785,
+          "name": "Avoid bragging or status display",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 128,
+      "name": "Periodic OPSEC review and adaptation",
+      "type": "Behavioral",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2793,
+          "name": "Scheduled cryptographic key rotation",
+          "type": "Technical"
+        }
+      ]
+    }
+  ]
+}

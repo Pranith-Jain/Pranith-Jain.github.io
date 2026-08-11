@@ -1,0 +1,53 @@
+{
+  "id": 83,
+  "name": "Restrict permissions",
+  "description": "The adversary is trying to restrict permissions to reduce the attack surface and impact of incidents.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 375,
+      "name": "Invite-only services",
+      "description": "Invite-only services might be developed and used to reduce the likelihood for unwanted users.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 394,
+      "name": "Lockdown SIM",
+      "description": "Lock down SIM (aks mobile phone carrier to never make changes to your phone number/SIM unless you physically show up at a specific store with at least two forms of identification.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 419,
+      "name": "Need-to-know",
+      "description": "The need-to-know principle means that information should only be shared with someone if they have a need for it, otherwise it should not be shared.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 487,
+      "name": "Privileged access segmentation",
+      "description": "Avoid grinding UAC or SUDO permissions to default user accounts, but segment those to an administrator account.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 531,
+      "name": "Screenlock",
+      "description": "Screenlocks might be enabled to prevent unauthorized access.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 569,
+      "name": "Storage Scopes",
+      "description": "When an app asks for storage permissions, select Storage Scopes. This will make the app think that it has all the storage permissions it is requesting, when in fact is has none. GrapheneOS",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

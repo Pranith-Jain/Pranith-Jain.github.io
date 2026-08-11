@@ -1,0 +1,43 @@
+{
+  "id": 92,
+  "name": "Selfdestruction",
+  "description": "The adversary may leverage self-destruction techniques or services which prevent leaving traces.",
+  "type": "Technical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 90,
+      "name": "Avoid self-destruct message services",
+      "description": "These services should not be trusted and might store your messages anyway, which could be used against you. In addition, if Javascript is required to operate, this should be avoided to prevent fingerprinting and malware.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 543,
+      "name": "Selfdestruct messages",
+      "description": "Selfdestruct messages might be used to wipe all traces of those messages, which contributes to plausible deniability. \n\n24/11/2024, 14:40, merged with\nSecret chat function",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2762,
+      "name": "Software dead man's switch",
+      "description": "The adversary deploys a software-based dead man's switch that monitors for a heartbeat signal, timer expiry, or network trigger. If the expected signal is not received within a configured interval — indicating possible arrest, physical compromise, or loss of control — the switch automatically executes RAM wipe, volume lock, process termination, or shutdown. Architecturally distinct from hardware kill-cord variants (BusKill) and blockchain-based variants (Sarcophagus).",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1458",
+          "name": "DeadManSwitch",
+          "description": "DeadManSwitch is a Rust application that activates a configurable dead man's switch to secure the computer in case of an emergency. Monitors for a heartbeat and triggers a protective response if not received. https://github.com/flowchartsman/deadman"
+        },
+        {
+          "id": "TTP-1459",
+          "name": "gokill",
+          "description": "gokill is a software dead man's switch written in Go. Waits for a configurable signal and executes a kill command if not refreshed in time. https://github.com/vysheng/gokill"
+        }
+      ]
+    }
+  ],
+  "procedures": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": 78,
+  "name": "Psychology",
+  "description": "The adversary might seek professional psychological aid because of the stress they are under. This way they are protected by confidentiality laws and can talk more freely.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [],
+  "procedures": []
+}

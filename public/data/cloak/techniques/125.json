@@ -1,0 +1,39 @@
+{
+  "id": 125,
+  "name": "Physical and social footprint minimisation",
+  "description": "The adversary consciously limits the physical and social signals observable by law enforcement or informants in the real world: avoiding physically distinguishing marks on vehicles, controlling information shared with social contacts, vetting associates for law enforcement proximity, and ensuring operational activities leave no observable real-world pattern.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 2782,
+      "name": "Avoid physically distinguishing vehicle or property markers",
+      "description": "The adversary avoids attaching stickers, badges, or modifications to vehicles or property that make them uniquely identifiable. These markers allow law enforcement to track movements and build pattern-of-life profiles.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2783,
+      "name": "Vet social circle for law enforcement proximity",
+      "description": "The adversary assesses whether social or professional circle members have connections to law enforcement, prosecution services, or informant networks. Associates recently arrested, on probation, or with known law enforcement relationships are excluded from operational knowledge.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2784,
+      "name": "Avoid timezone-revealing greetings in anonymous communications",
+      "description": "The adversary avoids time-of-day greetings (good morning/afternoon/evening) and temporal markers in anonymous communications, as these can be used to estimate timezone and narrow geographic location.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2785,
+      "name": "Avoid bragging or status display",
+      "description": "The adversary refrains from displaying wealth, operational success, or status both online and physically. High-profile asset display is a primary trigger for law enforcement targeting. Operational details are never shared as status signalling.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

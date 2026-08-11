@@ -1,0 +1,144 @@
+{
+  "id": 11,
+  "name": "Anonymous phone number",
+  "description": "The adversary is trying to anonymously use a phone number.",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [
+    {
+      "id": 12,
+      "name": "Anonymous SMS services",
+      "description": "Anonymous SMS services are leveraged to prevent the need to use a phone number which is tied to one’s identity.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-720",
+          "name": "Jmp.chat",
+          "description": "Jip.chat gives you a real phone number that is yours for calling and texting, including group and picture messages. https://jmp.chat/"
+        }
+      ]
+    },
+    {
+      "id": 154,
+      "name": "Burner smartphone",
+      "description": "A burner smartphone might be used which is not tied to one’s identity. \n\n24/11/2024, 16:15, merged with\nThrow-away phones",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 217,
+      "name": "Dedicated anonymous phone number",
+      "description": "A dedicated anonymous phone number might be used to prevent any links to one’s identity. \n\n24/11/2024, 10:30, merged with\nDedicated phone numbers",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 274,
+      "name": "Disposable VOIP number",
+      "description": "Disposable VoIP numbers are temporary anonymous phone numbers which might be used for receiving MFA text verification messages.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 481,
+      "name": "Pre-paid SIM card",
+      "description": "Pre-paid SIM cards might be used to remain anonymous.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 615,
+      "name": "Utilize e-SIM",
+      "description": "An eSIM is a form of SIM card that is embedded directly into a device as software installed onto a eUICC chip.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 636,
+      "name": "Voice-over-IP (VOIP)",
+      "description": "Voice over Internet Protocol, also called IP telephony, is a method and group of technologies for voice calls for the delivery of voice communication sessions over Internet Protocol networks, such as the Internet\n\n24/11/2024, 15:38, merged with\nOnline phone numbers",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2736,
+      "name": "Only travel with burner devices",
+      "description": "Only burner devices are carried to prevent activities being tied to one's identity. ",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-376",
+      "name": "Cricket Wireless",
+      "description": "Cricket Wireless is a pay-as-you-go service for acquiring a phone number anonymously. https://www.cricketwireless.com/."
+    },
+    {
+      "id": "TTP-388",
+      "name": "Crypton.sh",
+      "description": "Crypton.sh is a secure physical phone number in the cloud service. https://crypton.sh/"
+    },
+    {
+      "id": "TTP-644",
+      "name": "Google voice number",
+      "description": "Google Voice numbers lets you make and receive calls at voice.google.com or on the Google Voice app. This service might be used to hide true phone numbers. https://voice.google.com/"
+    },
+    {
+      "id": "TTP-685",
+      "name": "Hushed",
+      "description": "Hushed is a free app that makes it easy and affordable to call and text on private phone numbers. https://hushed.com/"
+    },
+    {
+      "id": "TTP-918",
+      "name": "Oksms.org",
+      "description": "Oksms provides temporary anonymous free disposable phone numbers for you to receive verification codes online. https://oksms.org/"
+    },
+    {
+      "id": "TTP-924",
+      "name": "Onion Mail",
+      "description": "Onion Mail is a free encrypted and anonymous email service. https://onionmail.org/"
+    },
+    {
+      "id": "TTP-933",
+      "name": "Onoff.app",
+      "description": "Onoff provides a second phone number to send or receive SMS. https://www.onoff.app/en/"
+    },
+    {
+      "id": "TTP-1009",
+      "name": "PingMe",
+      "description": "PingMe is secondary phone number provider which could be used for receiving SMS verification numbers, secure calling, and texting. https://pingme.tel/"
+    },
+    {
+      "id": "TTP-1191",
+      "name": "Silent.link",
+      "description": "Silent.link provides anonymous eSIM cards and accepts cryptocurrency payments. https://silent.link/"
+    },
+    {
+      "id": "TTP-1203",
+      "name": "Smspva.com",
+      "description": "SMSpva provides virtual temporary phone numbers which could be used for receiving text messages. https://smspva.com/"
+    },
+    {
+      "id": "TTP-1293",
+      "name": "Tracfone",
+      "description": "Tracfone is a pay-as-you-go service for acquiring a phone number anonymously. https://www.tracfone.com/home"
+    },
+    {
+      "id": "TTP-1368",
+      "name": "Virtualsim",
+      "description": "VirtualSIM is an anonymous phone number provider. https://virtualsim.net/go.php"
+    },
+    {
+      "id": "TTP-260",
+      "name": "Boost Mobile",
+      "description": "Boost Mobile is pay-as-you-go service for acquiring a phone number anonymously. https://www.boostmobile.com/"
+    },
+    {
+      "id": "TTP-281",
+      "name": "Burnerapp",
+      "description": "Burnerapp is a service for temporary phone numbers."
+    }
+  ]
+}

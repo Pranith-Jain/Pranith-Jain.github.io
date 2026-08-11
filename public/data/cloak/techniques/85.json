@@ -1,0 +1,95 @@
+{
+  "id": 85,
+  "name": "Sanitization",
+  "description": "The adversary is sanitizing information to prevent leaving traces.",
+  "type": "Technical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 27,
+      "name": "Auto-format",
+      "description": "The adversary might implement auto-formatting when a certain amount of failed logins took place. This might prevent unauthorized access to the information.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 143,
+      "name": "Block erase",
+      "description": "Performs memory block erasure to destroy the data.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 227,
+      "name": "Delete old posts and emails",
+      "description": "To reduce one’s digital footprint, old posts and accounts might be deleted, blocked or altered. \n\n24/11/2024, 10:37, merged with\nDelete social media accounts\n\n24/11/2024, 10:37, merged with\nDelete Google account",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 282,
+      "name": "DoD 5220.22M - The American Department of Defense 5220.22-M full 7 pass wipe",
+      "description": "This is a wiping standard developed by the American Department of Defense.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 283,
+      "name": "DoD Short - The Amercian Department of Defense 5220.22-M short 3 pass wipe",
+      "description": "This is a wiping standard developed by the American Department of Defense.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 352,
+      "name": "Gutmann wipe",
+      "description": "Peter Gutmann's method (Secure Deletion of Data from Magnetic and Solid-State Memory)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 362,
+      "name": "HMG IS5 enhanced",
+      "description": "Secure Sanitisation of Protectively Marked Information or Sensitive Information",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 490,
+      "name": "Pseudorandom data",
+      "description": "To ensure secure deletion of data, one could fill the disk with pseudorandom data.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 502,
+      "name": "RCMP TSSIT OPS-II - Royal Canadian Mounted Police Technical Security Standard, OPS-II",
+      "description": "RCMP TSSIT OPS-II is a software based data sanitization method used in various file shredder and data destruction programs to overwrite existing information on a hard drive or other storage device.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 578,
+      "name": "System rescue",
+      "description": "System rescue utilities might be used to securely wipe HDD/SSDs.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 579,
+      "name": "Taint analysis",
+      "description": "Taint analysis identifies every source of user data - form inputs, headers, you name it - and follows each piece of data all the way through your system to make sure it gets sanitized before you do anything with it. It might be used to confirm that mixing has been successful.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 593,
+      "name": "Trim operations",
+      "description": "A trim command allows an operating system to inform a solid-state drive which blocks of data are no longer considered to be \"in use\" and therefore can be erased internally. Trim was introduced soon after SSDs were introduced",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

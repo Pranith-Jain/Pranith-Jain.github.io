@@ -1028,6 +1028,7 @@ import { traceixRouter } from './routes/traceix';
 import { whoxyRouter } from './routes/whoxy';
 import { fullhuntRouter } from './routes/fullhunt';
 import { opensanctionsRouter } from './routes/opensanctions';
+import { cloakRouter } from './routes/cloak-edge-tools';
 import { dehashRouter } from './routes/dehash';
 import { darknetIntelRouter } from './routes/darknet-intel-tools';
 import { darkwebOsintRouter } from './routes/darkweb-osint';
@@ -2080,6 +2081,7 @@ app.route('/api/v1', fullhuntRouter);
 //            GET /api/v1/opensanctions/entity?id=
 //            GET /api/v1/opensanctions/stats
 app.route('/api/v1', opensanctionsRouter);
+app.route('/api/v1', cloakRouter);
 
 // Dehash.lt — hash decryption / reverse lookup (md5/sha1/sha256/sha384/sha512).
 // No API key required.

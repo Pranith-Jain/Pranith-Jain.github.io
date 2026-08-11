@@ -1,0 +1,50 @@
+{
+  "id": 10,
+  "name": "Anonymous mixer",
+  "description": "The adversary is trying to anonymously use a cryptocurrency mixer to remain anonymous.",
+  "type": "Technical",
+  "tacticId": 5,
+  "tacticName": "Anonymous cryptocurrency",
+  "subtechniques": [
+    {
+      "id": 203,
+      "name": "Cryptocurrency mixers",
+      "description": "Bitcoin mixers are services that allow users to hide the origins of their BTC coins and achieve additional privacy.\n",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-745",
+          "name": "Kilo Swap",
+          "description": "Kilo Swap is a Darkweb non-KYC crypto swapping service."
+        },
+        {
+          "id": "TTP-838",
+          "name": "Monero wallet -> exchange -> destination or miners wallet -> exchange wallet -> bitcoin wallet -> destination",
+          "description": "A specific setup for converting Monero into bitcoin. "
+        },
+        {
+          "id": "TTP-234",
+          "name": "Bitcoin mixing setup",
+          "description": "Specific operational setup for obfuscating Bitcoin transaction history through multiple mixing hops"
+        },
+        {
+          "id": "TTP-698",
+          "name": "Instant exchange service over Tor",
+          "description": "Using instant cryptocurrency swap services exclusively via Tor to prevent IP-based attribution during conversion"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-1202",
+      "name": "Sms24.me",
+      "description": "SMS24.me provides disposable temporary phone numbers. https://sms24.me/en/numbers"
+    },
+    {
+      "id": "TTP-1085",
+      "name": "Reduce electromagnetic eavesdropping",
+      "description": "Measures to reduce electromagnetic emissions (TEMPEST) that could be intercepted by a nearby adversary to reconstruct screen content or keystrokes"
+    }
+  ]
+}

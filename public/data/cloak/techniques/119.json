@@ -1,0 +1,10 @@
+{
+  "id": 119,
+  "name": "Disposable services",
+  "description": "Disposable services might be leveraged to remain anonymous for short-term activities. ",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [],
+  "procedures": []
+}

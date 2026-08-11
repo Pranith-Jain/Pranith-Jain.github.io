@@ -1,0 +1,39 @@
+{
+  "id": 48,
+  "name": "Disguise",
+  "description": "The adversary disguises himself in public to prevent recognition and thwart public surveillance systems, which contributes to remaining anonymous. \n\n22/11/2024, 12:48, merged with\nFool facial regocnition\n\n22/11/2024, 13:03, merged with\nMask identity",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 645,
+      "name": "Wear a facemask",
+      "description": "Facemasks might help to prevent recognition in public places and thus contributes to remaining anonymous.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 646,
+      "name": "Wear a hat",
+      "description": "In order to make recognition harder, disguises might be worn, such as a hat.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 648,
+      "name": "Wear loose clothes",
+      "description": "In order to make recognition harder, disguises might be worn, such as wearing loose clothes.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 649,
+      "name": "Wear sunglasses",
+      "description": "In order to make recognition harder, disguises might be worn, such as wearing sunglasses.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

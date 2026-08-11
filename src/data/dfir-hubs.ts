@@ -1406,6 +1406,15 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Scenario-driven tabletop exercises - pick a scenario, run it.',
         compVar: 'Tabletop',
       },
+      {
+        path: '/dfir/cloak',
+        tabId: 'cloak',
+        label: 'CLOAK — Anonymity Framework',
+        desc: 'Concealment Layers for Online Anonymity and Knowledge — adversary tactics, techniques, sub-techniques, and procedures.',
+        compVar: 'Cloak',
+        badge: 'new',
+        keywords: ['cloak', 'anonymity', 'tor', 'privacy', 'obfuscation'],
+      },
     ],
   },
 ];

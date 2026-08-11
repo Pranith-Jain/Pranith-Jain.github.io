@@ -1,0 +1,138 @@
+{
+  "id": 77,
+  "name": "Proxy",
+  "description": "The adversary is trying to hide the true origin of activities by leveraging proxies, which contribute to remaining anonymous.",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [
+    {
+      "id": 192,
+      "name": "Content Delivery Network (CDN)",
+      "description": "A content delivery network (CDN) is a geographically distributed group of servers that caches content close to end users.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-335",
+          "name": "Cloudflare",
+          "description": "Cloudflare is an American company that provides content delivery networks services, cloud cybersecurity, DDoS mitigation, wide area network services, reverse proxies, Domain Name Service, and ICANN-accredited domain registration services. Https://cloudflare.com."
+        }
+      ]
+    },
+    {
+      "id": 525,
+      "name": "RPC proxy",
+      "description": "RPC proxies might be used to accept and forward RPC over HTTP connections.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-663",
+          "name": "Helios",
+          "description": "Helios is a trustless, efficient, and portable multichain light client written in Rust.\nHelios converts an untrusted centralized RPC endpoint into a safe unmanipulable local RPC for its users. It syncs in seconds, requires no storage, and is lightweight enough to run on mobile devices.\nHelios has a small binary size and compiles into WebAssembly. This makes it a perfect target to embed directly inside wallets and dapps.\nhttps://github.com/a16z/helios"
+        }
+      ]
+    },
+    {
+      "id": 555,
+      "name": "SOCKS",
+      "description": "SOCKS is an Internet protocol that exchanges network packets between a client and server through a proxy server. SOCKS5 optionally provides authentication so only authorized users may access a server. Practically, a SOCKS server proxies TCP connections to an arbitrary IP address, and provides a means for UDP packets to be forwarded.\n",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1020",
+          "name": "PremSocks",
+          "description": "Premsocks is a private SOCKS5 proxy service provider. https://premsocks.com/"
+        },
+        {
+          "id": "TTP-1047",
+          "name": "Proxifier",
+          "description": "Proxifier allows network applications that do not support working through proxy servers to operate through a SOCKS or HTTPS proxy and chains. https://www.proxifier.com/"
+        },
+        {
+          "id": "TTP-1050",
+          "name": "ProxyChains",
+          "description": "ProxyChains is a UNIX program that hooks network-related libc functions in dynamically linked programs via a preloaded DLL and redirects the connections through SOCKS4/5 or HTTP proxies. https://github.com/haad/proxychains"
+        },
+        {
+          "id": "TTP-2809",
+          "name": "SOCKSchain",
+          "description": "Sockschain is a program that allows to work with any Internet service through a chain of SOCKS or HTTP proxies to hide the real IP-address. SocksChain can function as a usual SOCKS-server that transmits queries through a chain of proxies. SocksChain can be used with client programs that do not support the SOCKS protocol, but work with one TCP-connection, such as TELNET, HTTP, IRC... (FTP uses 2 connections). And your IP-address will not be seen in the server's logs or mail headers"
+        },
+        {
+          "id": "TTP-77",
+          "name": "Aqnt",
+          "description": "SOCKS proxy service. https://aqnt.net/security"
+        },
+        {
+          "id": "TTP-223",
+          "name": "bcprx.net",
+          "description": "Commercial SOCKS proxy service provider. https://bcprx.net/"
+        },
+        {
+          "id": "TTP-792",
+          "name": "luxsocks.su",
+          "description": "Commercial SOCKS proxy service. https://luxsocks.cc/en/"
+        }
+      ]
+    },
+    {
+      "id": 590,
+      "name": "Tor2web proxy",
+      "description": "Tor2web proxies might be used to serve onion sites on the clearweb, while still hiding the backend.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-441",
+      "name": "DHTProxy",
+      "description": "DHTProxy is a free service to anonymize your torrent activity. http://dhtproxy.com/"
+    },
+    {
+      "id": "TTP-443",
+      "name": "Dichvusocks.us",
+      "description": "Dichvusocks.us is a SOCKS proxy provider. https://dichvusocks.net/"
+    },
+    {
+      "id": "TTP-514",
+      "name": "Dynamic RPC proxy",
+      "description": "A Dynamic RPC proxy to different Ethereum RPC servers and optionally alter the request. https://github.com/shark0der/rpc-proxy"
+    },
+    {
+      "id": "TTP-821",
+      "name": "Metaproxy",
+      "description": "Metaproxy is a universal router, proxy and encapsulated metasearcher for information retrieval protocols. It accepts, processes, interprets and redirects requests from IR clients using standard protocols such as the binary ANSI/NISO Z39.50 and the information search and retrieval web service SRU as well as functioning as a limited HTTP server."
+    },
+    {
+      "id": "TTP-947",
+      "name": "OpenSMTPd",
+      "description": "OpenSMTPd is a Unix deamon implementing the Simple mail Transfer Protocol to deliver messages on a local machine or to relay them to other SMTP servers. https://www.opensmtpd.org/"
+    },
+    {
+      "id": "TTP-963",
+      "name": "Oxylabs",
+      "description": "Oxylabs is a proxy provider. https://oxylabs.io/"
+    },
+    {
+      "id": "TTP-4",
+      "name": "922proxy",
+      "description": "922proxy is a proxy service provider which provides ISP and Residential proxies for improved anonymity. https://www.922proxy.com/"
+    },
+    {
+      "id": "TTP-1044",
+      "name": "Privoxy",
+      "description": "Privoxy is a non-caching web proxy with advanced filtering capabilities for enhancing privacy, modifying web page data and HTTP headers, controlling access, and removing ads and other abnoxious internet junk. https://www.privoxy.org/"
+    },
+    {
+      "id": "TTP-1049",
+      "name": "Proxy-seller.com",
+      "description": "Proxy-Seller offers a range of proxy types: datacenter UPv4 & IPv6, ISP, residential, and 4G/5G rotating mobile, tailored for use cases. https://proxy-seller.com/"
+    },
+    {
+      "id": "TTP-1201",
+      "name": "SmartProxy",
+      "description": "Smartproxy is a proxy provider for several proxies such as residential, mobile, and datacenter proxies. https://smartproxy.com/"
+    }
+  ]
+}

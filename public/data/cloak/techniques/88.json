@@ -1,0 +1,332 @@
+{
+  "id": 88,
+  "name": "Secure identity",
+  "description": "The adversary leverages an arrange of techniques and services to secure his (online) identities.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 6,
+      "name": "Alias",
+      "description": "The adversary operates under one or more aliases to hide his true identity.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 10,
+      "name": "Anonymous Google account",
+      "description": "The adversary is anonymously using a Google account.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 54,
+      "name": "Avoid DNA tests",
+      "description": "DNA might be sold and is readily available for law enforcement agencies which could de-anonymize someone who left DNA somewhere.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 85,
+      "name": "Avoid reuse",
+      "description": "Reusing usernames, passwords, email addresses, and so on is a bad practice. They could be used to trace activities back to you and de-anonymize you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 95,
+      "name": "Avoid services which require phone number",
+      "description": "Personal registered phone numbers could be used to de-anonymize you. Avoiding services which require phone numbers mitigates this risk.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 101,
+      "name": "Avoid signing messages",
+      "description": "Not PGP signing messages on forums or marketplaces provides you the ability for plausible deniability, because you can claim that someone else accessed your account. Which is harder to claim when your private key was used to sign a message.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 120,
+      "name": "Avoid TOR over VPN",
+      "description": "Tor over VPN introduces a permanent entry guard, which could be used to de-anonymize you.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 123,
+      "name": "Avoid trusting someone",
+      "description": "Never trust anyone to prevent them from abusing your trust.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 139,
+      "name": "Behave differently for each anonymous identity",
+      "description": "The way you type (speed/accuracy), the words you use (careful with usual expressions), the response you use (if sarcastic by default. Try to have different approach with identities), the way you use your mouse and click (try solve captcha’s differently). Avoid habits, change behavior to travel to content,",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 153,
+      "name": "Burner laptop",
+      "description": "A burner laptop might be used which is not tied to one’s identity.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 155,
+      "name": "Buy at places usually not visited",
+      "description": "To make it less likely to run into someone you know or someone will recognize you, visit places you usually don’t visit.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 166,
+      "name": "Change Tor node between each session",
+      "description": "To make correlation attacks harder, Tor exit nodes should be changed between every session in which transactions are made. \n\n24/11/2024, 09:16, merged with\nChange Tor identities",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 170,
+      "name": "Clean keyboard",
+      "description": "To prevent leaving fingerprints the keyboard should be cleaned.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 171,
+      "name": "Clean phone camera",
+      "description": "To prevent leaving fingerprints in photo’s, the camera might be cleaned before using it.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 175,
+      "name": "Close all activities first before using anonymous identity",
+      "description": "To prevent cross-contamination, all activities must be segmented. This also means that all non-anonymous activities must be closed before going anonymous.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 186,
+      "name": "Compartmentalize graphics drivers",
+      "description": "Using the same GPU for virtual machines results into the WebGL fingerprint. Each VM should therefore have different graphic drivers to prevent the same fingerprint.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 191,
+      "name": "Computer Name spoofing",
+      "description": "Spoofing MAC addresses is insufficient because the computer name and host name could still link the MAC addresses back to both. Therefore both computer and host names might be changed every time before and after they connect to any network.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 196,
+      "name": "Create fake identity legend",
+      "description": "Create fake identity What is a legend? Well, it is a full back-story for your character:\n•Age\n•Sex\n•Gender\n•Ethnicity\n•Place of Birth and date of Birth\n•Place of residence\n•Country of origin\n•Visited Countries (for travels for instance)\n•Interests and hobbies\n•Education History\n•Work experience\n•Health information\n•Religion if any\n•Goals\n•Family history\n•Family composition if any (Children? Spouse? Husband?)\n•Relationship Status if any (Married? Single?)\n•Spoken Languages\n•Personality traits (Introvert, Extrovert …)\nAll these should be crafted carefully for every single identity, and you should be incredibly careful to stick to the details of each legend when using those identities. Nothing can leak that could lead to your real persona. Nothing could leak that could compromise the consistency of your legend. Everything should always be consistent.",
+      "type": "Behavioral",
+      "procedures": [
+        {
+          "id": "TTP-580",
+          "name": "Fakenamegenerator.com",
+          "description": "Fake Name Generator is a free online service to generate fake names, addresses, social security numbers, credit card numbers, occupations, UOS tracking numbers, and more. https://www.fakenamegenerator.com/"
+        },
+        {
+          "id": "TTP-622",
+          "name": "Generated Photos",
+          "description": "Generated Photos is an online service for generating AI photos. https://generated.photos/"
+        },
+        {
+          "id": "TTP-1273",
+          "name": "Thispersondoesnotexits",
+          "description": "Thispersondoesnotexist.com is site where random faces can be generated, which in turn could be used for identification or other purposes. https://thispersondoesnotexist.com/"
+        },
+        {
+          "id": "TTP-581",
+          "name": "False identity",
+          "description": "Fully fabricated identity — including name, background, and supporting details — used exclusively for anonymous operations"
+        }
+      ]
+    },
+    {
+      "id": 200,
+      "name": "Crop images",
+      "description": "Images might be cropped to remove any background details that could identify someone.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 213,
+      "name": "Deception",
+      "description": "The adversary might use deception and lies to prevent revealing any true intelligence about himself. \n\n22/11/2024, 12:44, merged with\nFool algorithms\n\n22/11/2024, 13:02, merged with\nLying\n\n22/11/2024, 13:06, merged with\nMisinformation",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 221,
+      "name": "Deep fake technology",
+      "description": "Use deep fake technology to generate the required verification pictures using a randomly computer-generated face that would be swapped over the picture of a complicit model or stock photo.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 240,
+      "name": "Digital resistance kit",
+      "description": "A digital resistance kit contains anonymous supplies which come in one kit and are ready for use. For example, anonymous cash, anonymous bitcoin, prepaid gift cards, anonymous tablet/phone, anonymous SIM card, and so on. \n\n28/11/2024, 19:13, merged with\nPrepare survival kit\nA survival kit might be prepared for in case things go bad (e.g. seizure of servers), which could contain cash, anonymous devices, and so on.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 291,
+      "name": "Edit old posts and remove information",
+      "description": "Information from old posts might be removed or altered to reduce the amount of information out there which could be used in investigations against someone.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 327,
+      "name": "Face generator",
+      "description": "Face generators might be used for fake identities.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-576",
+          "name": "FaceSwap",
+          "description": "FaceSwap is a tool that utilizes deep learning to recognize and swap faces in pictures and videos. https://github.com/deepfakes/faceswap"
+        }
+      ]
+    },
+    {
+      "id": 369,
+      "name": "Image cloaking",
+      "description": "Image cloaking techniques might be applied to prevent picture recognition.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 380,
+      "name": "Keep track of background stories fake identities",
+      "description": "Fake identities’ legends should always match up, meaning that the same answers are provided, same dates are mentioned, and so on. Consistency is key here.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 395,
+      "name": "MAC Address spoofing",
+      "description": "This should be done BEFORE and AFTER when connecting to any network.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 435,
+      "name": "Obscure faces",
+      "description": "Obscuring faces in pictures to prevent de-anonymization.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 480,
+      "name": "Pre-paid cards",
+      "description": "Pre-paid cards might be used to anonymously buy stuff. Sometimes they can be bought with anonymous cryptocurrency.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 489,
+      "name": "Pseudonym",
+      "description": "A pseudonym or alias is a fictitious name that a person assumes for a particular purpose, which differs from their original or true meaning. This also differs from a new name that entirely or legally replaces an individual's own. Many pseudonym holders use them because they wish to remain anonymous and maintain privacy, though this may be difficult to achieve as a result of legal issues.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 493,
+      "name": "Purchase at remote location",
+      "description": "To reduce the likelihood to be recognized, purchases at random remote locations should be preferred.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 497,
+      "name": "Random profile picture",
+      "description": "Random profile pictures might be used to prevent any information which relates to one’s identity.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 499,
+      "name": "Random usernames",
+      "description": "Random usernames which are not tied to identities in any way might be used.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 514,
+      "name": "Remove personal information",
+      "description": "Deleting one’s digital footprint reduces the information that can be found by others. Which in return could be used to de-anonymize someone.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 550,
+      "name": "Short lifetime anonymous identities",
+      "description": "Anonymous identities are difficult to maintain over long periods of time, therefore they should be short-term and short-lived identities which are rotated regularly.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 554,
+      "name": "Sock Puppets",
+      "description": "Sock puppets are fake accounts used for example to conduct investigations.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 574,
+      "name": "Sub-aliases",
+      "description": "Sub-aliases might be created.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 580,
+      "name": "Test burner phone at random location",
+      "description": "Burner phones might be tested at random remote locations, to prevent them to be traced back to you, for example your house or local area.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 607,
+      "name": "Use language associated with fake identity's country",
+      "description": "Adapt your language/writing to the identity to not raise suspicions and lower your chances of being fingerprinted by online platforms. Be especially careful with using pedantic words and figures of speech/quotes that could allow some people to guess your writing is very similar to that person with this Twitter handle or this Reddit user.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 634,
+      "name": "Voice changers",
+      "description": "Voice Changers can make your voice deeper, make your voice sound like a girl/guy, change and distort your voice so it's anonymous.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 635,
+      "name": "Voice privacy mouthpiece mask",
+      "description": "Keep nosy bystanders from overhearing your personal calls by putting on this voice privacy mouthpiece mask. This handy device is placed over the mouth while the microphone slips into the side compartment – substantially blocking your voice while you talk. https://www.thisiswhyimbroke.com/voice-privacy-mouthpiece-mask/",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 637,
+      "name": "Voicechangers",
+      "description": "The adversary might leverage voice changers to mask his own voice and thus remain anonymous.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

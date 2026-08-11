@@ -1,0 +1,47 @@
+{
+  "id": 34,
+  "name": "Bulletproof hosting",
+  "description": "The adversary is leveraging bulletproof hosting which is technical infrastructure which is resilient to complaints of illicit activities. This allows the adversary to continue his illicit activities.",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [
+    {
+      "id": 9,
+      "name": "Anonymous domain registration",
+      "description": "The adversary is trying to anonymously register domain names to prevent leaving a trail and de-anonymization.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-862",
+          "name": "Namecheap",
+          "description": "Namecheap is a domain registrar and web hosting provider. https://www.namecheap.com/"
+        }
+      ]
+    },
+    {
+      "id": 285,
+      "name": "Domain registration",
+      "description": "The adversary might leverage anonymous hosting providers to anonymously register domain names.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-695",
+          "name": "Incognet",
+          "description": "Incognet is a privacy-friendly ISP which provides hosting services, WireGuard VPN, private domain registration and VPS. https://incognet.io/"
+        },
+        {
+          "id": "TTP-711",
+          "name": "Ipxcore",
+          "description": "Ipxcore is a web hosting provider which providers web hosting, domain registration, servers and managed security. https://ipxcore.com/web-hosting"
+        },
+        {
+          "id": "TTP-1051",
+          "name": "prq.se",
+          "description": "Prq.se is a hosting provider which provides Raspberry Pi, dedicated servers, web/mail hosting, VPN tunnels, domains, and Co-location hosting. https://prq.se/"
+        }
+      ]
+    }
+  ],
+  "procedures": []
+}

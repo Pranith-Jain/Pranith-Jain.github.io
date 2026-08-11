@@ -1,0 +1,18 @@
+{
+  "id": 105,
+  "name": "Tracking reduction",
+  "description": "Tracking reduction aims to reduce the amount of data collected about an exposed user. It reduces a footprint’s spread primarily by blocking trackers. Sometimes this can increase the size of a footprint.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 518,
+      "name": "Rename identites if deletion is not possible",
+      "description": "Identities might be renamed when deletion is not an option.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

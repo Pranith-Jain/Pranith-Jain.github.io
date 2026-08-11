@@ -1,0 +1,193 @@
+{
+  "id": 7,
+  "name": "Anonymous email",
+  "description": "The adversary is trying to communicate anonymously via email. \n\n22/11/2024, 13:42, merged with\nSecure email provider",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [
+    {
+      "id": 152,
+      "name": "Burner email",
+      "description": "Temporary or disposable email addresses might be used to hide true email addresses.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-32",
+          "name": "AnonBox",
+          "description": "Anonbox is a anonymous disposable email service which leverages the Tor network. https://www.anonbox.net/"
+        },
+        {
+          "id": "TTP-1264",
+          "name": "TempMail",
+          "description": "Disposable temporary email address service for anonymous registrations. https://temp-mail.org/"
+        }
+      ]
+    },
+    {
+      "id": 181,
+      "name": "Common mailboxes",
+      "description": "Common mailboxes might be used to protect the intended recipient from an adversary and also to protect the sender of the message. In a common mailbox, all messages are stored in a central inbox with no to and from headers. It is up to the users who use the service to attempt to use their PGP keys to try and decrypt all of the messages. If they can, that message was intended for them.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 288,
+      "name": "Draft emails",
+      "description": "Draft emails, perhaps across multiple segmented accounts and providers, might be used to process (parts of) sensitive information. This prevents it from being accessed easily and prevents sending it over the internet.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 292,
+      "name": "Email alias",
+      "description": "Email aliases might be used to hide true email addresses and contribute to segmenting activities.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1",
+          "name": "10minutemail",
+          "description": "10minutemail is disposable email service which allows one to leverage free anonymous temporary email services. https://10minutemail.com/"
+        },
+        {
+          "id": "TTP-598",
+          "name": "Firefox Relay",
+          "description": "Firefox Relay makes it easy to create email masks that forward your messages to your true inbox. https://relay.firefox.com/faq/"
+        },
+        {
+          "id": "TTP-2",
+          "name": "20minutemail",
+          "description": "20minutemail is disposable email service which allows one to leverage free anonymous temporary email services. https://www.20minutemail.com/"
+        }
+      ]
+    },
+    {
+      "id": 293,
+      "name": "Email forwarding",
+      "description": "(Trick) Log into Google Mail on desktop and go into the Gmail Quick Settings > See all Setting > Forwarding and POP/IMAP > Add a forwarding address > Verify (using Proton) > Go back to Gmail and set the forwarding to forward and delete Google copy > Save. This step will allow you to check your Google Mail using Proton instead and will allow you to avoid triggering Google Security checks by Logging in from various VPN/Tor exit IP addresses in the future while storing your sensitive e-mail at Proton instead. This trick will allow you to receive all the e-mails from your Gmail addresses on your Proton (or other) address without needing to login into your Google accounts (reducing risks of it being suspended, especially if you use Tor).",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-12",
+          "name": "Addy",
+          "description": "Addy is an anonymous email forwarding service. https://addy.io/"
+        }
+      ]
+    },
+    {
+      "id": 342,
+      "name": "Forward and delete copies",
+      "description": "(Trick) Log into Google Mail on desktop and go into the Gmail Quick Settings > See all Setting > Forwarding and POP/IMAP > Add a forwarding address > Verify (using Proton) > Go back to Gmail and set the forwarding to forward and delete Google copy > Save. This step will allow you to check your Google Mail using Proton instead and will allow you to avoid triggering Google Security checks by Logging in from various VPN/Tor exit IP addresses in the future while storing your sensitive e-mail at Proton instead. This trick will allow you to receive all the e-mails from your Gmail addresses on your Proton (or other) address without needing to login into your Google accounts (reducing risks of it being suspended, especially if you use Tor).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 430,
+      "name": "Nymserver",
+      "description": "A pseudonymous remailer or nym server, as opposed to an anonymous remailer, is an Internet software program designed to allow people to write pseudonymous messages on Usenet newsgroups and send pseudonymous email\n\n24/11/2024, 15:48, merged with\nRemailing services",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 575,
+      "name": "Subject in body",
+      "description": "PGP does encrypt the body of the email, but not the subject field. To prevent the subject from leaking, it should be contained in the body of the message.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2733,
+      "name": "Disposable email",
+      "description": "To maintain anonymous, temporary or disposable email serices might be used.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-366",
+      "name": "CounterMail",
+      "description": "CounterMail is a secure and easy to use online email service, designed to provide maximum security and privacy without any unnecessary complexity. https://countermail.com/"
+    },
+    {
+      "id": "TTP-521",
+      "name": "Eludemail",
+      "description": "Eludemail is an encrypted anonymous email service which operates over the Tor network."
+    },
+    {
+      "id": "TTP-651",
+      "name": "Guerilla Mail",
+      "description": "Guerrilla Mail is a disposable temporary email service. https://www.guerrillamail.com/"
+    },
+    {
+      "id": "TTP-798",
+      "name": "Mail2Tor",
+      "description": "Mail2tor is an anonymous email service provider. http://mail2tor.com/"
+    },
+    {
+      "id": "TTP-799",
+      "name": "Mailfence",
+      "description": "Mailfence is a secure and private email service provider. https://mailfence.com/"
+    },
+    {
+      "id": "TTP-800",
+      "name": "Mailum",
+      "description": "Mailum is a secure encrypted email service provider. https://mailum.com/"
+    },
+    {
+      "id": "TTP-848",
+      "name": "Muellmail",
+      "description": "Meullmail is a disposable email service provider. https://muellmail.com/en"
+    },
+    {
+      "id": "TTP-861",
+      "name": "MySudo",
+      "description": "MySudo lets you create and manage multiple Sudos with different phone numbers, handles and email addresses. https://support.mysudo.com/hc/en-us/articles/360019976014-What-is-MySudo"
+    },
+    {
+      "id": "TTP-93",
+      "name": "Autistici",
+      "description": "Autistici provides several anonymity services such as anonymous remailer and Nym server. https://www.autistici.org/services/anon"
+    },
+    {
+      "id": "TTP-1178",
+      "name": "Sharklasers",
+      "description": "Sharklasers is a disposable email service. https://www.sharklasers.com/"
+    },
+    {
+      "id": "TTP-1192",
+      "name": "Simplelogin",
+      "description": "SimpleLogin is an email alias service provider, which allows you to receive and send emails anonymously. https://simplelogin.io/"
+    },
+    {
+      "id": "TTP-1225",
+      "name": "Startmail",
+      "description": "StartMail is a secure email service offering encrypted communication, unlimited aliases, and privacy protection. https://www.startmail.com/"
+    },
+    {
+      "id": "TTP-1265",
+      "name": "TempmailO",
+      "description": "Tempmailo is a temporary disposable email service provider. https://tempmailo.com/"
+    },
+    {
+      "id": "TTP-1306",
+      "name": "Tuta",
+      "description": "Tuta Mail is a free secure email service provider. https://tuta.com/secure-email"
+    },
+    {
+      "id": "TTP-1360",
+      "name": "VFEmail",
+      "description": "VFEmail is a secure email provider. https://www.vfemail.net/"
+    },
+    {
+      "id": "TTP-1450",
+      "name": "Yopmail.com",
+      "description": "YOPmail is a disposable email service provider. https://yopmail.com/en/"
+    },
+    {
+      "id": "TTP-1197",
+      "name": "Skiff Mail",
+      "description": "End-to-end encrypted, privacy-focused email service. https://skiff.com/mail"
+    }
+  ]
+}

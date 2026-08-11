@@ -1,0 +1,36 @@
+{
+  "id": "TL-4",
+  "name": "Tactic-level TTPs & Procedures",
+  "description": "Items linked to this tactic but not to a specific technique/subtechnique, or with an incomplete chain.",
+  "type": "",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-589",
+      "name": "FidoNet",
+      "description": "FidoNet is a PC-based network run by hobbyists. https://www.fidonet.org/"
+    },
+    {
+      "id": "TTP-634",
+      "name": "GlobaLeaks",
+      "description": "GlobaLeaks is free and open source whistleblowing software that enables the creation of secure whistleblowing projects. https://www.globaleaks.org/"
+    },
+    {
+      "id": "TTP-1039",
+      "name": "Privatebin.net",
+      "description": "PrivateBin is a minimalist, open source pastebin where the server has zero knowledge of pasted data. https://privatebin.info/"
+    },
+    {
+      "id": "TTP-1155",
+      "name": "SecureDrop",
+      "description": "SecureDrop is an open source whistleblower submission system that media organizations can install to securely accept documents from anonymous sources. https://securedrop.org/"
+    },
+    {
+      "id": "TTP-1433",
+      "name": "Wire",
+      "description": "Wire is an encrypted communications and collaboration app. https://wire.com/en/"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": 9,
+  "name": "Data obfuscation",
+  "description": "The adversary might obfuscate data and/or traffic to make it more difficult to detect. ",
+  "techniqueCount": 2,
+  "subtechniqueCount": 3,
+  "procedureCount": 3,
+  "techniques": [
+    {
+      "id": 40,
+      "name": "Conceal text",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 178,
+          "name": "Code words",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 97,
+      "name": "Steganography",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 294,
+          "name": "Embed files into videos",
+          "type": "Technical"
+        },
+        {
+          "id": 567,
+          "name": "Steganography combined with encryption",
+          "type": "Technical"
+        }
+      ]
+    }
+  ]
+}

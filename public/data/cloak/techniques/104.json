@@ -1,0 +1,18 @@
+{
+  "id": 104,
+  "name": "Tracking evasion",
+  "description": "Tracking evasion reduces the amount of data exposed by a user. Rather than eliminating data collection itself, TE prevents useful data from being made available in the first place. In other words, it reduces a footprint’s size.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 412,
+      "name": "Mount volumes as removable volumes",
+      "description": "Prevent log writing to event logs",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

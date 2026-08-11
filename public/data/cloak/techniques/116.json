@@ -1,0 +1,16 @@
+{
+  "id": 116,
+  "name": "Avoid bookmarked darknet markets",
+  "description": "The adversary is avoiding bookmarking darknet websites, such as marketplaces or forums to prevent connections to those. Instead, websites such as dark.fail are used to quickly access those.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-129",
+      "name": "Avoid Finalize Early (FE)",
+      "description": "Refusing to finalise darknet market transactions before receiving goods, to prevent escrow bypass fraud"
+    }
+  ]
+}

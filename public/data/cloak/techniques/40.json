@@ -1,0 +1,18 @@
+{
+  "id": 40,
+  "name": "Conceal text",
+  "description": "The adversary is trying to conceal text to hide information from observers.",
+  "type": "Technical",
+  "tacticId": 9,
+  "tacticName": "Data obfuscation",
+  "subtechniques": [
+    {
+      "id": 178,
+      "name": "Code words",
+      "description": "Code words might be used to avoid using real names, places, and so on.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

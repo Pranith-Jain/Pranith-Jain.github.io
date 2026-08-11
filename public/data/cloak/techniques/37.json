@@ -1,0 +1,10 @@
+{
+  "id": 37,
+  "name": "Cash by mail",
+  "description": "The adversary might send cash by mail for in return for specific services, such as a VPN-service or cryptocurrency. Cash by mail is hard to trace back to his identity, which helps to remain anonymous.",
+  "type": "Behavioral",
+  "tacticId": 8,
+  "tacticName": "Anonymous transactions",
+  "subtechniques": [],
+  "procedures": []
+}

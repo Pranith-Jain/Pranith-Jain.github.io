@@ -1,0 +1,292 @@
+{
+  "id": 90,
+  "name": "Secure operating system",
+  "description": "The adversary uses operating systems which provide more control over privacy, security and thus anonymity.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 8,
+      "name": "Android emulation",
+      "description": "The Android operating system is emulated to be able to run mobile applications from a secure environment instead of an often more insecure mobile device.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 17,
+      "name": "Anti-malware",
+      "description": "The adversary is implementing anti-malware solutions to prevent malware infections on his endpoints.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-395",
+          "name": "Dangerzone",
+          "description": "Dangerzone converts potentially dangerous PDFs, office documents, or images into safe PDFs. https://dangerzone.rocks/"
+        },
+        {
+          "id": "TTP-748",
+          "name": "Knock Knock",
+          "description": "KnockKnock uncovers persistently installed software in order to generically reveal such malware on macOS. https://objective-see.org/products/knockknock.html"
+        },
+        {
+          "id": "TTP-778",
+          "name": "Linux Malware Detect (LMD)",
+          "description": "Linux Malware Detect (LMD) is a malware scanner for Linux. https://github.com/rfxn/linux-malware-detect"
+        },
+        {
+          "id": "TTP-803",
+          "name": "Malwarebytes",
+          "description": "Malwarebytes offers real-time antivirus, advanced anti-malware and privacy protection. https://www.malwarebytes.com/"
+        },
+        {
+          "id": "TTP-1143",
+          "name": "Secmail",
+          "description": "Secmail is a email spam prevention service. https://www.secmail.com/"
+        },
+        {
+          "id": "TTP-1246",
+          "name": "Surfshark",
+          "description": "Surfshark provides several security products such as VPN, anti-virus, breach detection, and aliases/disposables. https://surfshark.com/"
+        },
+        {
+          "id": "TTP-1369",
+          "name": "Virustotal",
+          "description": "VirusTotal is an online service where suspicious files, domains, IPs and URLs can be analyzed to detect malware and other breaches. https://www.virustotal.com/"
+        },
+        {
+          "id": "TTP-319",
+          "name": "Chkrootkit",
+          "description": "Chrootkit is a tool to locally check for signs of a rootkit. https://www.chkrootkit.org/"
+        },
+        {
+          "id": "TTP-322",
+          "name": "ClamAV",
+          "description": "ClamAV is an open source antivirus engine for detecting trojans, viruses, malware & other malicious threats. https://www.clamav.net/"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Avoid apt-update and apt-upgrade",
+      "description": "In Qubes OS, the commands apt update and apt upgrade are avoided because these bypass built-in Qubes OS update security measures.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 89,
+      "name": "Avoid rooting & jailbreaking",
+      "description": "Rooting and jailbreaking circumvents the security of operating systems, which could pose a threat to your mobile device.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 275,
+      "name": "Distribution morphing",
+      "description": "Distribution morphing refers to the process of transforming an existing Linux distribution into a different, usually derivative, distribution by installing specific packages and making necessary configurations.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 345,
+      "name": "Fresh OS offline installation",
+      "description": "To wipe traces, fresh OS installations might be conducted. Combined with full disk encryption, this wipes all data.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 452,
+      "name": "Open source operating system",
+      "description": "Open source software provides the ability to review the code for malware and spyware and is therefore preferred over closed source software.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-403",
+          "name": "Debian",
+          "description": "Debian is an operating system and a distribution of free software. https://www.debian.org/"
+        },
+        {
+          "id": "TTP-490",
+          "name": "DivestOS",
+          "description": "DivestOS is a custom operating system for Android devices that aims to provide security, privacy and performance. https://divestos.org/"
+        },
+        {
+          "id": "TTP-623",
+          "name": "Gentoo Linux",
+          "description": "Gentoo Linux is a highly flexible source-based Linux distribution. https://www.gentoo.org/"
+        },
+        {
+          "id": "TTP-28",
+          "name": "Android",
+          "description": "Android is an open source mobile operating system. Https://android.com.\n\n18/11/2024, 10:55, merged with\nAndroid-x86"
+        },
+        {
+          "id": "TTP-709",
+          "name": "IprediaOS",
+          "description": "Ipredia OS: Ipredia, rooted in I2P protocols, harnesses the Invisible Internet Project for encryption and anonymity, extending its coverage to anonymous BitTorrent, emails, and deep web browsing.\n\n\nMerits:\n\n    Versatile Anonymity- Ipredia offers anonymity for general browsing and extends its coverage to various services like BitTorrent and emails.\n    Deep Web Browsing- It facilitates secure access to the deep web, aligning with user preferences for privacy.\n\nhttps://archiveos.org/ipredia/"
+        },
+        {
+          "id": "TTP-741",
+          "name": "Kicksecure OS",
+          "description": "Kicksecure is a free and open-source Linux distribution that aims to provide a highly secure computing environment. It has been developed from the ground up according to a formidable -- and time proven -- defense in-depth security design. In the default configuration, Kicksecure provides superior layered defenses of protection from many types of Malware.\nKicksecure is a complete computer operating system. Numerous applications come pre-installed with safe defaults which can be used immediately upon installation with minimal user input."
+        },
+        {
+          "id": "TTP-770",
+          "name": "Lineage OS",
+          "description": "LineageOS is an open source Android operating system for various devices. https://lineageos.org/"
+        },
+        {
+          "id": "TTP-772",
+          "name": "Linux",
+          "description": "Linux is a family of open source Unix-like operating systems based on the Linux kernel. https://www.linux.com/what-is-linux/"
+        },
+        {
+          "id": "TTP-775",
+          "name": "Linux -> Tor -> website",
+          "description": "A specific setup to browse the web anonymously."
+        },
+        {
+          "id": "TTP-776",
+          "name": "Linux -> Whonix VM -> Tor -> decentralized services",
+          "description": "A specific setup to browse anonymously and achieve partially plausible deniability."
+        },
+        {
+          "id": "TTP-777",
+          "name": "Linux Kodachi",
+          "description": "Linux Kodachi is a security-focused operating system designed for users who value privacy, anonymity and a secure computing experience. https://github.com/WMAL/Linux-Kodachi"
+        },
+        {
+          "id": "TTP-779",
+          "name": "Linux Mint",
+          "description": "Linux Mint is an elegant, easy to use, up to date and comfortable desktop operating system. https://www.linuxmint.com/"
+        },
+        {
+          "id": "TTP-844",
+          "name": "MotionEye OS",
+          "description": "MotionEyeOS is a Linux distribution that turns a single-board computer into a video surveillance system. https://github.com/motioneye-project/motioneyeos/wiki"
+        },
+        {
+          "id": "TTP-971",
+          "name": "ParrotOS",
+          "description": "ParrotOS is an open source operating system based on Debian which is free from trackers and telemetry and provides many privacy tools. https://www.parrotsec.org/"
+        },
+        {
+          "id": "TTP-972",
+          "name": "PartedMagic",
+          "description": "PartedMagic is a Linux-based live operating system which offers tools for partitioning, cloning, rescuing, erasing, and benchmarking disks and devices. https://partedmagic.com/"
+        },
+        {
+          "id": "TTP-1013",
+          "name": "Pop!_OS",
+          "description": "Pop!_OS is a open source operating system for STEM and creative professionals who use their computer as a tool to discover and create. https://pop.system76.com/ \n\n21/11/2024, 18:32, merged with\nSystem76"
+        },
+        {
+          "id": "TTP-1060",
+          "name": "PureOS",
+          "description": "PureOS is a Linux distribution focusing on privacy and security, using the GNOME or KDE Plasma desktop environment. https://www.pureos.net/"
+        },
+        {
+          "id": "TTP-1068",
+          "name": "Qubes OS",
+          "description": "Qubes OS is a security-focused desktop operating system that aims to provide security through isolation. Isolation is provided through the use of virtualization technology. This allows the segmentation of applications into secure virtual machines called qubes. https://www.qubes-os.org/"
+        },
+        {
+          "id": "TTP-1104",
+          "name": "Replicant",
+          "description": "Replicant is a free operating system based on the Android mobile platform that intends to replace all proprietary Android components with free software counterparts. https://www.replicant.us/"
+        },
+        {
+          "id": "TTP-1242",
+          "name": "SubgraphOS",
+          "description": "Subgraph OS balances usability and security, implementing hardening techniques and container isolation. https://subgraph.com/"
+        },
+        {
+          "id": "TTP-1255",
+          "name": "Tails OS",
+          "description": "The Amnesic Incognito Live System (TAILS) is a security-focused Debian-based Linux distribution aimed at preservering privacy and anonymity against surveillance. https://tails.net/"
+        },
+        {
+          "id": "TTP-1309",
+          "name": "Ubuntu",
+          "description": "Ubuntu is a secure Linux distribution for cloud, edge, IoT, and desktop. https://ubuntu.com/download"
+        },
+        {
+          "id": "TTP-1377",
+          "name": "Void Linux",
+          "description": "Void Linux is a lightweight and flexible Linux distribution. https://voidlinux.org/"
+        },
+        {
+          "id": "TTP-1406",
+          "name": "Whonix OS",
+          "description": "Whonix is an anonymous operating system that runs like an app and routes all Internet traffic through the Tor anonymity network. It offers privacy protection and anonymity online and is available for all major operating systems. https://www.whonix.org/"
+        },
+        {
+          "id": "TTP-1456",
+          "name": "ZorinOS",
+          "description": "ZorinOS is the alternative to Windows and macOS designed to make your computer faster, more powerful, secure and privacy-respecting."
+        },
+        {
+          "id": "TTP-2811",
+          "name": "Fedora",
+          "description": "Fedora Linux is a free and open source operating system for various platforms and purposes."
+        },
+        {
+          "id": "TTP-2812",
+          "name": "Kali linux",
+          "description": ""
+        },
+        {
+          "id": "TTP-293",
+          "name": "CalyxOS",
+          "description": "CalyxOS is an Android mobile operating system that puts privacy and security into the handsof everyday users. Plus, proactive security recommendations and automatic updates take the guesswork out of keeping your personal data personal. https://calyxos.org/"
+        },
+        {
+          "id": "TTP-306",
+          "name": "CentOS",
+          "description": "Open source Linux distribution used as a hardened server operating system. https://www.centos.org/"
+        },
+        {
+          "id": "TTP-624",
+          "name": "GerdaOS",
+          "description": "Privacy-focused mobile operating system fork based on Sailfish OS, designed to minimise data collection. https://merproject.org/"
+        }
+      ]
+    },
+    {
+      "id": 507,
+      "name": "Regularly formatting",
+      "description": "Harddrives might be formatted regularly to keep them clean from hidden persistent viruses.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 523,
+      "name": "Root smartphone",
+      "description": "Android phones might be rooted to side load applications or install custom operating systems.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-649",
+      "name": "Graphene OS",
+      "description": "GrapheneOS is an Android-based, open source, privacy and security-focused mobile operating system for selected Google Pixel devices, including smartphones, tablets and foldable. https://grapheneos.org/"
+    },
+    {
+      "id": "TTP-721",
+      "name": "JonDonym",
+      "description": "JonDonym - TOR Secure Live CD: JonDonym emerges as a full-fledged operating system bundled with deep web browsers, offering an encompassing anonymous and safe browsing experience.\n\n\nMerits:\n\n    Diverse Software Bundle- JonDonym includes an array of software, from the TOR browser to Thunderbird, providing users with a comprehensive suite for secure browsing.\n\n    Best tor browsers for the deep web\n\n    Focus on Anonymity- The design of JonDonym primarily emphasizes anonymity, aligning with users seeking a heightened level of privacy."
+    },
+    {
+      "id": "TTP-1169",
+      "name": "SElinux",
+      "description": "SELinux is a Linux kernel security module that provides mandatory access control policies and confines user programs and system services. https://en.wikipedia.org/wiki/Security-Enhanced_Linux"
+    },
+    {
+      "id": "TTP-256",
+      "name": "BlockBlock",
+      "description": "BlockBlock monitors common persistence locations and alerts whenever a persistent component is added. https://objective-see.org/products/blockblock.html"
+    }
+  ]
+}

@@ -47,6 +47,7 @@ const SiemLibrary = lazy(() => import('./pages/SiemLibrary'));
 const HuntHypotheses = lazy(() => import('./pages/HuntHypotheses'));
 const CloudReference = lazy(() => import('./pages/CloudReference'));
 const Pqc = lazy(() => import('./pages/Pqc'));
+const Cloak = lazy(() => import('./pages/Cloak'));
 const CveRiskMatrix = lazy(() => import('./pages/CveRiskMatrix'));
 const CoCGenerator = lazy(() => import('./pages/dfir/CoCGenerator'));
 const SocCalculators = lazy(() => import('./pages/dfir/SocCalculators'));
@@ -170,7 +171,6 @@ const XssPayloadSelector = lazy(() => import('./pages/dfir/XssPayloadSelector'))
 
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintMapper = lazy(() => import('./pages/dfir/OsintMapper'));
-const ToolsCategory = lazy(() => import('./pages/dfir/ToolsCategory'));
 const TimestampConverter = lazy(() => import('./pages/dfir/TimestampConverter'));
 const HashCalculator = lazy(() => import('./pages/dfir/HashCalculator'));
 const BrandImpersonation = lazy(() => import('./pages/dfir/BrandImpersonation'));
@@ -432,6 +432,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/hunt-hypotheses', Component: HuntHypotheses },
   { path: '/dfir/cloud-reference', Component: CloudReference },
   { path: '/dfir/pqc', Component: Pqc },
+  { path: '/dfir/cloak', Component: Cloak },
   { path: '/dfir/cve-risk-matrix', Component: CveRiskMatrix },
   { path: '/dfir/coc-generator', Component: CoCGenerator },
   { path: '/dfir/soc-calculators', Component: SocCalculators },
@@ -567,7 +568,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/log-parser', Component: LogParser },
   { path: '/dfir/socmint', Component: Socmint },
   { path: '/dfir/infostealer-intel', Component: InfostealerIntel },
-  { path: '/dfir/tools/:group', Component: ToolsCategory },
   { path: '/dfir/timestamp', Component: TimestampConverter },
   { path: '/dfir/hash-calc', Component: HashCalculator },
   { path: '/dfir/brand-impersonation', Component: BrandImpersonation },
@@ -742,7 +742,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
 const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boolean }> = [
-  { path: '/dfir/tools/core-dfir', to: '/dfir/catalog' },
+  { path: '/dfir/tools/:group', to: '/dfir/catalog' },
   { path: '/dfir/fleet-map', to: '/dfir/catalog' },
   { path: '/dfir/wordpress-sim', to: '/dfir/catalog' },
   { path: '/dfir/rhysida-intrusion', to: '/dfir/catalog' },

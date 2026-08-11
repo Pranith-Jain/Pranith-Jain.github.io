@@ -1,0 +1,10 @@
+{
+  "id": 89,
+  "name": "Secure message signing",
+  "description": "The adversary leverages strong ciphers for signing Pretty Good Privacy (PGP) messages, such as ECDSA + ECDH. \n\n22/11/2024, 14:47, merged with\nSecure hash algorithms",
+  "type": "Technical",
+  "tacticId": 16,
+  "tacticName": "Tamper protection",
+  "subtechniques": [],
+  "procedures": []
+}

@@ -1,0 +1,59 @@
+{
+  "id": 29,
+  "name": "Avoid stylometry",
+  "description": "The adversary is avoiding using the same writing style over and over to prevent stylometric analysis, which could result in linking messages to one or more identities and ultimately, de-anonymization. \n\nDo not use the same writing style for your sensitive activities as your normal activities, reduce the amount of comparison text for adversaries to compare with you (small online footprint for normal activities), use a word processor to fix any grammatical/spelling errors that you regularly encounter, reduce or change the idioms that you use while conducting sensitive activities, understand how your identity affects your writing style (is your alias younger, older, more educated), pay attention to how your slang and spelling might identify you, pay attention to your use of emoticons and emojis, pay attention to how you structure your writing, consider what symbols you use in your writing",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 2,
+      "name": "Acting",
+      "description": "The adversary impersonates others, for example a famous author, to thwart stylometry analysis.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 271,
+      "name": "Disguise linguistic style",
+      "description": "Do not use the same writing style for your sensitive activities as your normal activities, reduce the amount of comparison text for adversaries to compare with you (small online footprint for normal activities), use a word processor to fix any grammatical/spelling errors that you regularly encounter, reduce or change the idioms that you use while conducting sensitive activities, understand how your identity affects your writing style (is your alias younger, older, more educated), pay attention to how your slang and spelling might identify you, pay attention to your use of emoticons and emojis, pay attention to how you structure your writing, consider what symbols you use in your writing\n\n26/11/2024, 09:40, merged with\nFake authorship\nThe writing style of a specific author might be mimiced to thwart stylometry attacks.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 533,
+      "name": "Search and replace",
+      "description": "Search and replace (do not use an autocorrect replace option!, do not use replace all, find words you use commonly in your writing, change several words like don’t to do not). Consider changing words choices to fit a geographic location (pretend to live in another country).",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 591,
+      "name": "Translation",
+      "description": "Translation tools might be used to translate text back and forth. This might be effective against stylometry.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 674,
+      "name": "Write text offline and copy",
+      "description": "Texts are written offline and then copied to their destination. This prevents identifying tracing your typing speed.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2772,
+      "name": "Reduce comparison corpus",
+      "description": "The adversary minimises the volume of attributable writing available on the clearnet (reducing social media posts, forum activity under real identity) to deny forensic linguists a reference corpus for cross-comparison with anonymous writing.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-846",
+      "name": "Mozbackup",
+      "description": "Mozbackup is software that allows you to backup and restore your data from various Mozilla applications. http://mozbackup.jasnapaka.com/"
+    }
+  ]
+}

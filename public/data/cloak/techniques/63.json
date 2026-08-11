@@ -1,0 +1,36 @@
+{
+  "id": 63,
+  "name": "Live operating system",
+  "description": "The adversary might leverage live operating systems which operate only in memory and therefore leave less traces then installed operating systems on harddisks.",
+  "type": "Technical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 272,
+      "name": "Diskless live VMs",
+      "description": "Diskless liveCD VM’s are useful when isolation matters, because VM storage in RAM doesn’t survive rebooting. This reduces the amount of traces left behind.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 599,
+      "name": "USB live disk software",
+      "description": "USB live disk software is preferred since it entirely operates in memory, and therefore leaves less traces.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-558",
+          "name": "Etcher",
+          "description": "Balena is a powerful OS image flasher built with web technologies to ensure flashing an SD card or USB drive is a pleasant and safe experience. https://etcher.balena.io/"
+        },
+        {
+          "id": "TTP-992",
+          "name": "Persistent Storage",
+          "description": "Encrypted persistent storage partition on a Tails or similar live OS USB drive, preserving files and configuration across sessions"
+        }
+      ]
+    }
+  ],
+  "procedures": []
+}

@@ -1,0 +1,540 @@
+{
+  "id": 52,
+  "name": "Encryption",
+  "description": "The adversary is applying encryption to hide the meaning of information or a message, and prevent unauthorized access to information.",
+  "type": "Technical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 26,
+      "name": "Authenticated encryption",
+      "description": "Authenticated encryption might be used to detect malicious modifications to encrypted data, for example with Message Authentication Codes (MAC).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 28,
+      "name": "Auto-reboot",
+      "description": "The automatic reboot will put the device fully at rest again and thus activate full disk encryption. If law enforcement agencies manage to get their hands on your phone while it is in a lock-screen state, this setting will return it to more effective encryption once the time has elapsed.\n\n22/11/2024, 15:28, merged with\nAutomatic sleep",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 74,
+      "name": "Avoid own-developed crypto",
+      "description": "All good crypto standards are public and peer-reviewed, if it is proprietary there can be no assurance on their level of protection which should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 106,
+      "name": "Avoid sleep stand-by",
+      "description": "An offline system cannot be attacked remotely which reduces the attack window. In addition, full disk encryption is enabled when offline.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 116,
+      "name": "Avoid Telegram",
+      "description": "Telegram is not fully encrypted and uses own-developed crypto and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 287,
+      "name": "Double encryption",
+      "description": "Double encryption might be used to prevent access to the data itself. For example full disk encryption combined with encrypted file containers.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 302,
+      "name": "Encrypt backups locally before uploading to cloud services",
+      "description": "Cloud services nor their encryption should be trusted. It is therefore necessary to locally encrypt all sensitive data before uploading it to cloud services.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 303,
+      "name": "Encrypt RAM",
+      "description": "RAM might be encrypted to prevent so-called cold boot attacks. This however costs some performance of the system.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 304,
+      "name": "Encrypt the keys within RAM",
+      "description": "Encrypt the keys in RAM to prevent them from being accessed by forensic investigators who have access to memory (dump).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 305,
+      "name": "Encrypt voice",
+      "description": "Tools might be used to encrypt one’s voice to mitigate the succes of wiretapping.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-717",
+          "name": "JackPair Safeguard",
+          "description": "JackPair is an affordable tool that enables average citizens to protect themselves against wiretapping. It’s a pair of encryption devices you put in between your phone and headset, which are connected through standard 3.5mm audio jacks. You can secure your phone line by simply pushing the JackPair button, and your voice will be encrypted. There’s no password to remember, no software to install, no service to subscribe to, and it works with any phone through a standard audio jack. http://www.jackpair.com/"
+        },
+        {
+          "id": "TTP-719",
+          "name": "Jitsi",
+          "description": "Jitsi (from Bulgarian: жици — \"wires\") is a collection of free and open-source multiplatform voice (VoIP), video conferencing and instant messaging applications for the Web platform, Windows, Linux, macOS, iOS and Android. https://jitsi.org/"
+        }
+      ]
+    },
+    {
+      "id": 306,
+      "name": "Encrypt wallet",
+      "description": "Wallet encryption adds an extra layer of protection with a password to prevent unauthorized access and loss of cryptocurrency.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 307,
+      "name": "Encrypted backups",
+      "description": "Sensitive information should be encrypted to prevent unauthorized access, the same counts for backups.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1461",
+          "name": "Duplicity",
+          "description": "Duplicity produces space-efficient, incrementally compressed, GPG-encrypted tar-format backup volumes. Supports SFTP, AWS S3, Backblaze B2, and Tor hidden services as storage backends, making it suitable for anonymous offsite encrypted backups. https://duplicity.gitlab.io/"
+        }
+      ]
+    },
+    {
+      "id": 308,
+      "name": "Encrypted Client Hello (ECH)",
+      "description": "Encrypted Client Hello (ECH) will encrypt contributes to hiding DNS requests from third parties.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 309,
+      "name": "Encrypted containers",
+      "description": "Encrypted containers add an extra layer of protection if someone manages to access your HDD/SSD. Without the password they cannot access any sensitive information. \n\n23/11/2024, 19:28, merged with\nEncrypted file containers",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1342",
+          "name": "VeraCrypt",
+          "description": "VeraCrypt is free and open source disk encryption software. https://www.veracrypt.fr/code/VeraCrypt/"
+        },
+        {
+          "id": "TTP-1317",
+          "name": "Unmount and disconnect encrypted volumes",
+          "description": "Unmounting and disconnecting encrypted volumes immediately after use to prevent forensic access via mounted filesystem or memory"
+        }
+      ]
+    },
+    {
+      "id": 310,
+      "name": "Encrypted email",
+      "description": "Encrypting emails prevents third parties from accessing your data.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-549",
+          "name": "Enigmail",
+          "description": "Enigmail is an extension for the mail clients Postbox, SeaMonkey and Epirus. It allows you to encrypt and digitally sign emails using the OpenPGP standard. https://enigmail.net/index.php/en/"
+        },
+        {
+          "id": "TTP-647",
+          "name": "Gpg4win",
+          "description": "Gpg4win is an email and file encryption package for most versions of Microsoft Windows and Microsoft Outlook, which utilizes the GnuPG framework for symmetric and public-key cryptography, such as data encryption, digital signatures, hash calculations, etc. https://www.gpg4win.org/"
+        }
+      ]
+    },
+    {
+      "id": 311,
+      "name": "Encrypted file containers should be identical at all times",
+      "description": "Forensic analysts can detect hidden volumes with encrypted file containers if sizes differ, to prevent this one should make sure that their sizes are equal.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 312,
+      "name": "Encrypted Logical Volume Manager (LVM)",
+      "description": "Encrypted LVM might be applied as an extra layer of protection in case the host OS is compromised while running.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-391",
+          "name": "Cryptsetup-nuke-password",
+          "description": "Cryptsetup-nuke-password is a patch for cryptsetup which adds the option to nuke all key slots given a certain passphrase, rendering the LVM volume inaccessible. https://gitlab.com/kalilinux/packages/cryptsetup-nuke-keys"
+        },
+        {
+          "id": "TTP-1470",
+          "name": "Cryptsetup",
+          "description": "Cryptsetup is the reference userspace tool for setting up encrypted disk volumes using Linux dm-crypt. Implements LUKS, plain dm-crypt, loop-AES, and VeraCrypt containers. Upstream project from which cryptsetup-nuke-password is derived. https://gitlab.com/cryptsetup/cryptsetup"
+        }
+      ]
+    },
+    {
+      "id": 313,
+      "name": "Encrypted USB",
+      "description": "USBs might be encrypted to prevent unauthorized access.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 314,
+      "name": "Encrypted virtual machines",
+      "description": "Virtual machines might be encrypted on USB drives.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 315,
+      "name": "Encrypted volumes",
+      "description": "In addition to full disk encryption, encrypted volumes add an extra layer of protection.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 316,
+      "name": "End-to-end encryption (E2EE)",
+      "description": "End-to-end encryption is a private communication system in which only communicating users can participate. As such, no one else, including the communication system provider, telecom providers, Internet providers or malicious actors, can access the cryptographic keys needed to converse.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-390",
+          "name": "Cryptpad.fr",
+          "description": "Cryptpad is a web-based tool for end-to-end encrypted collaboration. https://cryptpad.fr/"
+        },
+        {
+          "id": "TTP-718",
+          "name": "Jami",
+          "description": "Jami is a free/libre, end-to-end encrypted, and private communication software. https://jami.net/"
+        },
+        {
+          "id": "TTP-740",
+          "name": "Keybase",
+          "description": "Keybase is a open source app for keeping everyone’s chats and files safe. https://keybase.io/"
+        },
+        {
+          "id": "TTP-1174",
+          "name": "Session",
+          "description": "Session is an end-to-end encrypted messenger that minimises sensitive metadata, designed and built for people who want absolute privacy and freedom from any form of surveillance. https://getsession.org/"
+        },
+        {
+          "id": "TTP-966",
+          "name": "PAKE",
+          "description": "Password-Authenticated Key Exchange — a cryptographic protocol for establishing a shared key from a password without transmitting the password, enabling E2EE without a PKI requirement"
+        }
+      ]
+    },
+    {
+      "id": 340,
+      "name": "Format Transforming Encryption (FTE)",
+      "description": "In cryptography, format-transforming encryption refers to encryption where the format of the input plaintext and output ciphertext are configurable. Descriptions of formats can vary, but are typically compact set descriptors, such as a regular expression. Format-transforming encryption is closely related to, and a generalization of, format-preserving encryption",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 341,
+      "name": "Format-preserving encryption (FPE)",
+      "description": "In cryptography, format-preserving encryption, refers to encrypting in such a way that the output is in the same format as the input. The meaning of \"format\" varies. Typically only finite sets of characters are used; numeric, alphabetic or alphanumeric.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 346,
+      "name": "Full Disk Encryption (FDE)",
+      "description": "Disk encryption is a technology which protects information by converting it into unreadable code that cannot be deciphered easily by unauthorized people. Disk encryption uses disk encryption software or hardware to encrypt every bit of data that goes on a disk or disk volume. It is used to prevent unauthorized access to data storage\n\n23/11/2024, 11:02, merged with\nDisk encryption\n\n24/11/2024, 11:18, merged with\nEncrypted storage\n\n24/11/2024, 12:10, merged with\nFile-system encryption",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-483",
+          "name": "Diskcryptor",
+          "description": "Disk Cryptor is free and open source software that encrypts all disk partitions, including the system partition. https://diskcryptor.org/"
+        },
+        {
+          "id": "TTP-491",
+          "name": "Dm-crypt",
+          "description": "Dm-crypt is a Linux and DragonFly BSD kernel feature that can encrypt disks, partitions, files and volumes."
+        },
+        {
+          "id": "TTP-594",
+          "name": "FileVault",
+          "description": "FileVault is a disk encryption program in MacOS. https://support.apple.com/guide/mac-help/protect-data-on-your-mac-with-filevault-mh11785/mac"
+        },
+        {
+          "id": "TTP-790",
+          "name": "LUKS",
+          "description": "Linux Unified Key Setup (LUKS) is a disk encryption specification. https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup"
+        },
+        {
+          "id": "TTP-239",
+          "name": "Bitlocker",
+          "description": "BitLocker is a full disk encryption function on Windows operating systems."
+        }
+      ]
+    },
+    {
+      "id": 356,
+      "name": "Hashing",
+      "description": "Hashing might be applied to verify the integrity of software or to verify a digital signature.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 365,
+      "name": "HTTPS",
+      "description": "HTTPS is now used more often by web users than the original, non-secure HTTP, primarily to protect page authenticity on all types of websites, secure accounts, and keep user communications, identity, and web browsing private.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 379,
+      "name": "Keep private key private",
+      "description": "Private keys should be kept private to prevent abuse and unauthorized access.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 383,
+      "name": "Key file",
+      "description": "Key files may be added as an extra layer of protection to prevent decrypting a drive without the key file.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 414,
+      "name": "Multi-layered encryption",
+      "description": "Multiple layers of encryption might be used to protect information.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 445,
+      "name": "Only trust own encryption",
+      "description": "Never rely on encryption by third parties and encrypt everything yourself to prevent unauthorized access.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 463,
+      "name": "Password encryption",
+      "description": "To prevent unauthorized access to passwords they should be stored encrypted.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 470,
+      "name": "Perfect Forward Secrecy (PFS)",
+      "description": "In cryptography, forward secrecy, also known as perfect forward secrecy, is a feature of specific key-agreement protocols that gives assurances that session keys will not be compromised even if long-term secrets used in the session key exchange are compromised, limiting damage",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 471,
+      "name": "PGP-based MFA",
+      "description": "PGP-based MFA uses PGP keys as a second factor to authenticate, such as: https://github.com/quintessence-sec/pgp-mfa",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 474,
+      "name": "Physical security key",
+      "description": "Physical security keys might be used to prevent unauthorized access.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 559,
+      "name": "Split GPG",
+      "description": "Split GPG. Split GPG implements a concept similar to having a smart card with your private GPG keys, except that the role of the “smart card” is played by another Qubes app qube. This way one not-so-trusted domain, e.g. the one where Thunderbird is running, can delegate all crypto operations – such as encryption/decryption and signing – to another, more trusted, network-isolated domain. This way the compromise of your domain where Thunderbird or another client app is running – arguably a not-so-unthinkable scenario – does not allow the attacker to automatically also steal all your keys. (We should make a rather obvious comment here that the so-often-used passphrases on private keys are pretty meaningless because the attacker can easily set up a simple backdoor which would wait until the user enters the passphrase and steal the key then.)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 573,
+      "name": "Strong cipher suites only",
+      "description": "Strong cipher suites prevent unauthorized access to information. Weak ciphers should therefore be avoided.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 576,
+      "name": "Subkey for signing",
+      "description": "Subkeys might be generated for signing messages.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 610,
+      "name": "Use printer without tracking dots",
+      "description": "To prevent tracking down which type of printer was used, use a printer without tracking dots.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 680,
+      "name": "ZRTP encryption",
+      "description": "Z and Real-Time Transport protocol is a cryptographic key-agreement protocol to negotiate the keys for encryption between two end points in VOIP based on the real-time transport protocol",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2748,
+      "name": "Change download folder to encrypted location",
+      "description": "",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2763,
+      "name": "Client-side cloud encryption",
+      "description": "The adversary encrypts files client-side before synchronisation to cloud storage so the provider only ever stores ciphertext. Distinct from server-side encryption (provider manages keys) and encrypted backups (batch operations). Protects against provider surveillance, CLOUD Act data demands, and provider-side breaches.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1460",
+          "name": "Cryptomator",
+          "description": "Cryptomator is a free, open source client-side encryption tool for cloud files. Creates an encrypted vault in any cloud storage folder (Dropbox, Google Drive, OneDrive, etc.) transparent to the user. The provider only ever sees encrypted data. https://cryptomator.org"
+        }
+      ]
+    },
+    {
+      "id": 2765,
+      "name": "Air-gapped cryptographic key management",
+      "description": "All cryptographic private keys (PGP, SSH, cryptocurrency) are managed on a device permanently air-gapped from any network. Key operations are performed on the isolated device; data transfer uses QR codes, paper, or physically controlled removable media. Protects against remote key exfiltration regardless of connected-host compromise.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1463",
+          "name": "PrivateKeyVault",
+          "description": "PrivateKeyVault turns a Raspberry Pi into a dedicated air-gapped device for managing PGP, SSH, and cryptocurrency private keys. Keys never leave unencrypted; communication uses QR code scanning. https://github.com/johnshearing/PrivateKeyVault"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-15",
+      "name": "AES 256 bits HMAC-SHA-3",
+      "description": ""
+    },
+    {
+      "id": "TTP-379",
+      "name": "CryFS",
+      "description": "CryFS encrypts your files, so you can store them anywhere. It works well together with cloud services like Dropbox, iCloud, OneDrive and others. https://www.cryfs.org/"
+    },
+    {
+      "id": "TTP-516",
+      "name": "ED25519",
+      "description": "ED25519 is a public-key signature system invented by Bernstein et al. that is standardized for use in internet protocols as RFC 8032."
+    },
+    {
+      "id": "TTP-593",
+      "name": "Filen",
+      "description": "Filen provides zero-knowledge, client-side encrypted cloud storage. https://filen.io/"
+    },
+    {
+      "id": "TTP-639",
+      "name": "GnuPG",
+      "description": "GnuPG is a free implementation of OpenPGP, which allows you to encrypt and sign data and communications. https://gnupg.org/"
+    },
+    {
+      "id": "TTP-749",
+      "name": "Kryptor",
+      "description": "Krypton is a simple, modern, and secure file encryption and signing tool for Windows, Linux, and macOS. https://www.kryptor.co.uk/"
+    },
+    {
+      "id": "TTP-78",
+      "name": "Argon2",
+      "description": "Argon2 is a key derivation function that was selected as the winner of the 2015 Password Hashing Competition."
+    },
+    {
+      "id": "TTP-79",
+      "name": "Argon2i",
+      "description": "Argon2i is optimized to resist side-channel attacks."
+    },
+    {
+      "id": "TTP-80",
+      "name": "Argond2id",
+      "description": "Argon2id is a hybrid version. It follows the Argon2i approach for the first half pass over memory and the Argon2d approach for subsequent passes."
+    },
+    {
+      "id": "TTP-887",
+      "name": "NordLocker",
+      "description": "NordLocker is an encryption tool that anyone can use to store files securely and protect them from snoopers, hackers, and advertisers. https://nordlocker.com/"
+    },
+    {
+      "id": "TTP-984",
+      "name": "PBKDF2",
+      "description": "PBKDF2 is a key derivation function used to reduce vulnerability to brute-force attacks. https://en.wikipedia.org/wiki/PBKDF2"
+    },
+    {
+      "id": "TTP-985",
+      "name": "pCloud",
+      "description": "pCloud is a encrypted cloud storage provider. https://www.pcloud.com/"
+    },
+    {
+      "id": "TTP-218",
+      "name": "AxCrypt",
+      "description": "AxCrypt is easy to use strong and secure encryption. https://axcrypt.net/"
+    },
+    {
+      "id": "TTP-1003",
+      "name": "Picocrypt",
+      "description": "Pico is a small, simple, yet very secure encryption tool that can be used to protect files. https://github.com/Picocrypt/Picocrypt"
+    },
+    {
+      "id": "TTP-224",
+      "name": "Bcrypt",
+      "description": "Bcrypt is a password-hashing function designed by Niels Provos and David Mazières, based on the Blowfish cipher and presented at USENIX in 1999."
+    },
+    {
+      "id": "TTP-1139",
+      "name": "Scrypt",
+      "description": "The scrypt key derivation function was originally developed for use in the Tarsnap online backup system and is designed to be far more secure against hardware brute-force attacks than alternative functions such as PBKDF2 or bcrypt. https://github.com/Tarsnap/scrypt"
+    },
+    {
+      "id": "TTP-1194",
+      "name": "SiriKali",
+      "description": "SiriKali is a Qt/C++ GUI application that manages ecryptfs, cryfs, encfs, gocryptfs, fscrypt and securefs based encrypted folders. These projects are compared here. SiriKali can also connect to ssh servers using sshfs. https://github.com/mhogomchungu/sirikali"
+    },
+    {
+      "id": "TTP-1281",
+      "name": "Tomb",
+      "description": "Tomb is a free and open source tool that facilitates managing secret files in volumes protected by strong encryption. https://dyne.org/tomb/"
+    },
+    {
+      "id": "TTP-1307",
+      "name": "TwoFish",
+      "description": "Twofish is a symmetric key block cipher with a block size of 128 bits and key sizes up to 256 bits."
+    },
+    {
+      "id": "TTP-1442",
+      "name": "XChaCha20",
+      "description": "xChaCha20 is an extended 192.bit nonce variant of the ChaCha20-Poly1305 construction."
+    },
+    {
+      "id": "TTP-248",
+      "name": "BLAKE2",
+      "description": "BLAKE2 is a cryptographic hash function faster than MD5, SHA-1, SHA-2, and SHA-3, yet is at least as secure as the latest standard SHA-3."
+    },
+    {
+      "id": "TTP-308",
+      "name": "ChaCha20-Poly1305",
+      "description": "ChaCha20-Polu1305 is an authenticated encryption with associated data algorithm, that combines the ChaCha20 stream cipher with the Poly1305 message authentication code."
+    },
+    {
+      "id": "TTP-1021",
+      "name": "Pretty Good Privacy (PGP)",
+      "description": "PGP asymmetric encryption system for email and file encryption and digital signatures. https://www.openpgp.org/"
+    },
+    {
+      "id": "TTP-1453",
+      "name": "Zero Access encryption",
+      "description": "Encryption scheme providing zero-knowledge access control, ensuring a service provider cannot access stored data"
+    }
+  ]
+}

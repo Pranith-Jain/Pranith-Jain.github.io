@@ -1,0 +1,18 @@
+{
+  "id": 42,
+  "name": "Converting",
+  "description": "The adversary is converting cryptocurrency into other coin types, for example Monero into Bitcoin.",
+  "type": "Technical",
+  "tacticId": 5,
+  "tacticName": "Anonymous cryptocurrency",
+  "subtechniques": [
+    {
+      "id": 424,
+      "name": "New wallet after conversion",
+      "description": "To make correlation attacks and de-anonymization harder. ",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

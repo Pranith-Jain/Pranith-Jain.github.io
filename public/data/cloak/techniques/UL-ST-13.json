@@ -1,0 +1,221 @@
+{
+  "id": "UL-ST-13",
+  "name": "Unlinked Subtechniques",
+  "description": "Subtechniques without a TechniqueID; placed here for visibility.",
+  "type": "",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 16,
+      "name": "Anti-fingerprinting",
+      "description": "The adversary is implementing measures against fingerprinting to reduce the opportunities for de-anonymization via information leakage.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-370",
+          "name": "Coveryourtracks",
+          "description": "Coveryourtrack is a website which allows one to test how the browser protects against tracking and fingerprinting. https://coveryourtracks.eff.org/ \n\n21/11/2024, 12:05, merged with\nPanopticlick 3.0"
+        },
+        {
+          "id": "TTP-375",
+          "name": "Creepjs",
+          "description": "Creepjs is a online tool to see how the browser protects against tracking and fingerprinting. https://abrahamjuliot.github.io/creepjs/"
+        },
+        {
+          "id": "TTP-406",
+          "name": "Decentraleyes",
+          "description": "Decentraleyes is a free and open source browser extension that blocks connections to major CNDs and serves popular web libraries locally. It is available for various web browsers and claims to improve privacy, anti-tracking and loading times. https://decentraleyes.org/"
+        },
+        {
+          "id": "TTP-440",
+          "name": "Deviceinfo.me",
+          "description": "Deviceinfo.me is an online service that lays out exactly what kind of data your device and browser are sharing with websites. https://www.deviceinfo.me/"
+        },
+        {
+          "id": "TTP-480",
+          "name": "Disconnect",
+          "description": "Disconnect is a browser extension which lets you visualize and block the invisible websites that track you. https://chromewebstore.google.com/detail/disconnect/jeoacafpbcihiomhlakheieifhpjdfeo"
+        },
+        {
+          "id": "TTP-504",
+          "name": "Dolphin",
+          "description": "Dolphin is an anti-detect browser for multi-accounting. https://dolphin-anty.com/ru/"
+        },
+        {
+          "id": "TTP-518",
+          "name": "Efani",
+          "description": "Efani provides a phone service plan with guaranteed mobile security from SIM swapping, eavesdropping, location tracking, and more.  https://www.efani.com/"
+        },
+        {
+          "id": "TTP-553",
+          "name": "Epic browser",
+          "description": "Epic browser is a fast, private, secure, chromium-based web browser that blocks ads, trackers, fingerprinting, crypto mining, ultrasound signaling and more. https://epicbrowser.com/"
+        },
+        {
+          "id": "TTP-573",
+          "name": "Extension detector",
+          "description": "Extension Detector is an online service which shows which browser extensions you are currently using and how they can be used for tracking purposes. https://z0ccc.github.io/extension-detector/"
+        },
+        {
+          "id": "TTP-26",
+          "name": "Amiunique.org",
+          "description": "Amiunique is an online service to determine one’s browser fingerprint. https://www.amiunique.org/"
+        },
+        {
+          "id": "TTP-588",
+          "name": "Fennec",
+          "description": "Fennec is an Android app for improved privacy, such as ad blockers and private mode. https://f-droid.org/packages/org.mozilla.fennec_fdroid/"
+        },
+        {
+          "id": "TTP-625",
+          "name": "Getipintel.net",
+          "description": "Getipintel is a IP intelligence service that determines how likely an IP address is a proxy / VPN / bad IP using advanced mathematical and modern computing techniques. http://getipintel.net/"
+        },
+        {
+          "id": "TTP-626",
+          "name": "Ghostery",
+          "description": "Ghostery is a browser extension which blocks trackers and ads, and blocks pop-ups. https://www.ghostery.com/"
+        },
+        {
+          "id": "TTP-708",
+          "name": "IPLeak",
+          "description": "IPLeak is an online IP leak privacy test. https://ipleak.net/"
+        },
+        {
+          "id": "TTP-756",
+          "name": "Leakuidator+",
+          "description": "Leakuidator + (https://chromewebstore.google.com/detail/leakuidator+/hhfpajcjkikoocmmhcimllpinjnbedll) helps users to protect themselves against cross-site leaks, a class of vulnerabilities derived from side-channels built into the web platform."
+        },
+        {
+          "id": "TTP-771",
+          "name": "Linken Sphere",
+          "description": "Linken Sphere is a anti-detect browser. https://ls.app/"
+        },
+        {
+          "id": "TTP-788",
+          "name": "Logger",
+          "description": "IntelTechniques’ Logger is an online tool to check what can be tracked from your browser. https://inteltechniques.com/logger/"
+        },
+        {
+          "id": "TTP-849",
+          "name": "Mullvad browser",
+          "description": "Mullvad browser is a free and open source browser that minimizes tracking and fingerprinting. It works with a VPN to protect your online identity and data from big tech, authorities and data brokers. https://mullvad.net/en/browser"
+        },
+        {
+          "id": "TTP-890",
+          "name": "NoScript",
+          "description": "NoScript is a free and open source extension for Firefox and Chromium-based web browsers. It blocks malicious scripts and allows JavaScript and other potentially dangerous content only from sites you trust. https://noscript.net/"
+        },
+        {
+          "id": "TTP-899",
+          "name": "O&O ShutUp10++",
+          "description": "O&O ShutUp10++ is a free antispy tool for Windows 10 and 11. https://www.oo-software.com/en/shutup10"
+        },
+        {
+          "id": "TTP-1024",
+          "name": "Privacy Analyzer",
+          "description": "Privacy Analyzer is an online tool which shows what is exposed from your browser. https://privacy.net/analyzer/"
+        },
+        {
+          "id": "TTP-1025",
+          "name": "Privacy Badger",
+          "description": "Privacy Badger is a free and open source browser extension which blocks advertisements and tracking cookies. https://privacybadger.org/"
+        },
+        {
+          "id": "TTP-1052",
+          "name": "Pry-fi",
+          "description": "Pry-fi is an app that protects the information about your Wi-Fi networks. https://pry-fi.en.uptodown.com/android"
+        },
+        {
+          "id": "TTP-1186",
+          "name": "ShutUpTrackers",
+          "description": "ShutUpTrackers is a site which contains protection tips and tools against mass surveillance and spying. https://shutuptrackers.com/"
+        },
+        {
+          "id": "TTP-1313",
+          "name": "uMatrix",
+          "description": "uMatrix is a browser extension that blocks unwanted web content and improves online privacy and security.  https://chromewebstore.google.com/detail/umatrix/ogfcmafjalglgifnmanfmnieipoejdcf"
+        },
+        {
+          "id": "TTP-1340",
+          "name": "Vanguards plugin",
+          "description": "The Tor Vanguards Control Port Add-On defends against guard discovery attacks in Tor. https://blog.torproject.org/announcing-vanguards-add-onion-services/"
+        },
+        {
+          "id": "TTP-1401",
+          "name": "Webkay",
+          "description": "Webkay shows you what data your browser reveals to any website without your consent. Learn how to prevent your browser from leaking your location, software, hardware, connection, social media, and more. https://webkay.robinlinus.com/"
+        },
+        {
+          "id": "TTP-1403",
+          "name": "Whoer.net",
+          "description": "Whoer.net provides an anonymity score. https://whoer.net/"
+        },
+        {
+          "id": "TTP-247",
+          "name": "Blahdns",
+          "description": "Blahdns is a Adblock DNS project with DoH, DoT, DoQ, DNSCryptv2 and DNS over DTLS support."
+        },
+        {
+          "id": "TTP-272",
+          "name": "BrowserLeaks",
+          "description": "BrowserLeaks is a suite of tools that offer a range of tests to evaluate the security and privacy of your web browser. These tests focus on identifying ways in which websites may leak your real IP address, collect information about your device, and perform a browser fingerprinting. https://browserleaks.com/"
+        },
+        {
+          "id": "TTP-273",
+          "name": "browserspy.dk",
+          "description": "Browserspy shows information about your browser and operating system. https://browserspy.dk/"
+        },
+        {
+          "id": "TTP-328",
+          "name": "ClearURLs",
+          "description": "ClearURLs is a browser extension which will automatically remove tracking elements from URLs to help protect your privacy when browsing the internet. https://github.com/ClearURLs/Addon"
+        }
+      ]
+    },
+    {
+      "id": 455,
+      "name": "Optical Character Recognition (OCR) reader",
+      "description": "Optical character recognition or optical character reader (OCR) is the electronic or mechanical conversion of images of typed, handwritten or printed text into machine-encoded text, whether from a scanned document, a photo of a document, a scene photo (for example the text on signs and billboards in a landscape photo) or from subtitle text superimposed on an image (for example: from a television broadcast)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 465,
+      "name": "Pastebins",
+      "description": "A pastebin or text storage site is a type of online content-hosting service where users can store plain text. The most famous pastebin is the eponymous pastebin.com. Other sites with the same functionality have appeared, and several open source pastebin scripts are available. Pastebins may allow commenting where readers can post feedback directly on the page. GitHub Gists are a type of pastebin with version control",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 536,
+      "name": "Secure SSH keys",
+      "description": "",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 570,
+      "name": "Store data on USB",
+      "description": "Sensitive data is preferably stored encrypted on USB devices because it is easier to carry with you or getting rid of.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 600,
+      "name": "USB stick",
+      "description": "USB sticks might be used for storing sensitive information, live disk software, Wi-Fi adapters, and so on.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 652,
+      "name": "Webrings",
+      "description": "Webrings are an algorithm-free way of discovering new websites. Webmasters with similar interests voluntarily agree to share mutual links with (at least some of) the other sites in the webring, whether through banner exchanges where one hosts an image with a simple link to said website or through a fancy server-side program that one of the webmaster hosts which provides a \"previous\" and \"next\" button to cycle through all the members of the webring (which is where the \"ring\" part comes from).",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

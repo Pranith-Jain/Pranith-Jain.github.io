@@ -1,0 +1,10 @@
+{
+  "id": 32,
+  "name": "Bouncing servers",
+  "description": "The adversary is leveraging bouncing servers to access other services.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [],
+  "procedures": []
+}

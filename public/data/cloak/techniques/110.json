@@ -1,0 +1,290 @@
+{
+  "id": 110,
+  "name": "Wipe traces",
+  "description": "The adversary is trying to wipe his traces to achieve plausible deniability and prevent de-anonymization.",
+  "type": "Technical",
+  "tacticId": 11,
+  "tacticName": "Plausible deniability",
+  "subtechniques": [
+    {
+      "id": 23,
+      "name": "ATA/NVME Secure Erase or Sanitize",
+      "description": "ATA/NVMe Secure Erase: This method will remove the mapping table that keeps track of allocated data on the storage Blocks but does not destroy the actual data.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 173,
+      "name": "Cleanup free space",
+      "description": "After each modification to the files, you should clean the free space on the (USB) disk and make sure that any backup of such containers is absolutely identical on each key and your computer. Otherwise forensic investigators can spot differences which will break plausible deniability.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 199,
+      "name": "Create snapshot before opening hidden volume and restore after working on it",
+      "description": "Mount hidden volumes in Guest VM, take snapshot before opening/working the hidden volume and then restore the snapshot before opening/working on it after use. This should erase the traces of its presence and mitigate the issue.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 202,
+      "name": "Crypto scrabble",
+      "description": "Performs the wiping by changing the encryption key of self-encrypting SSDs.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 216,
+      "name": "Decrypt and re-encrypt drive",
+      "description": "For SSDs to securely erase everything, decrypting and re-encrypting the drive will overwrite the entire disk and wipe everything.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 273,
+      "name": "Disposable virtual machine",
+      "description": "Disposable virtual machines are one-off machines that self-destruct when shut down, which prevents leaving any trails.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 457,
+      "name": "Overwrite deleted data",
+      "description": "Deleted data might be overwritten to make sure it cannot be recovered.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 625,
+      "name": "Verify Ones",
+      "description": "This method only reads the device and checks that it is filled with ones (0xFF)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 630,
+      "name": "Verify Zeros",
+      "description": "This method only reads the device and checks that it is filled with zeros (0x00).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 658,
+      "name": "Wipe browser history",
+      "description": "Wiping browser history reduces the digital footprint.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 659,
+      "name": "Wipe cookies",
+      "description": "Cookies can be used to identify and track you and should therefore be wiped to reduce the digital footprint.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 660,
+      "name": "Wipe Event logs",
+      "description": "To wipe traces, Windows’ Event logs may be wiped.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 661,
+      "name": "Wipe keys before making modifications to encrypted containers",
+      "description": "Delete/wipe the keys completely before making any modifications on such containers on your computer (if you do not work from the USB key directly). This is to prevent an adversary that would seize your assets before you could update the keys from having multiple versions of the containers that could lead to proving the existence of hidden data using forensic techniques.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 662,
+      "name": "Wipe keys from RAM when new device is inserted",
+      "description": "To prevent cold boot attacks, encryption keys in RAM might be wiped when a new device is inserted.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 663,
+      "name": "Wipe logfiles",
+      "description": "To wipe traces, logfiles might be wiped.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 664,
+      "name": "Wipe metadata",
+      "description": "To prevent leaving any traces, metadata is purged.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-567",
+          "name": "Exifcleaner",
+          "description": "ExifCleaner is a free and open source cross-platform desktop apps that removes metadata from images, videos, PDFs, and other files. https://github.com/szTheory/exifcleaner"
+        },
+        {
+          "id": "TTP-568",
+          "name": "Exiftool",
+          "description": "ExifTool is a Perl library and command-line tool for manipulating metadata in various file formats, including images, videos and audio files. https://exiftool.org/"
+        },
+        {
+          "id": "TTP-817",
+          "name": "Metadata Anonymization Toolkit 2 (MAT2)",
+          "description": "Mat2 is a metadata removal tool, supporting a wide range of commonly used file formats, written in Python3. https://github.com/tpet/mat2"
+        },
+        {
+          "id": "TTP-986",
+          "name": "PDFparanoia",
+          "description": "Pdfparanoia is a PDF watermark removal library for academic papers. Some publishers include private information like institution names, personal names, ip addresses, timestamps and other identifying information in watermarks on each page. https://github.com/kanzure/pdfparanoia"
+        },
+        {
+          "id": "TTP-1134",
+          "name": "Scrambled exif",
+          "description": "Scrambled exif helps you remove the metadata in your pictures before you share them. https://f-droid.org/packages/com.jarsilio.android.scrambledeggsif/"
+        },
+        {
+          "id": "TTP-455",
+          "name": "Disable file history",
+          "description": "Preventing the operating system from logging recently accessed files to reduce forensic metadata exposure"
+        },
+        {
+          "id": "TTP-822",
+          "name": "MetaX",
+          "description": "Metadata removal tool for documents and media files, stripping embedded author, location, and device information. https://www.advenage.com/products/metax.php"
+        }
+      ]
+    },
+    {
+      "id": 665,
+      "name": "Wipe PowerShell logs",
+      "description": "To wipe traces, logfiles might be wiped.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 666,
+      "name": "Wipe Prefetch",
+      "description": "Prefetch is a Windows caching technique which could contain traces of applications. To prevent this, prefetch might be wiped.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 667,
+      "name": "Wipe RAM",
+      "description": "To prevent leaving traces, RAM might be wiped (volatile memory). \n\n24/11/2024, 13:51, merged with\nVolatile memory\nVolatile memory, in contrast to non-volatile memory, is computer memory that requires power to maintain the stored information; it retains its contents while powered on but when the power is interrupted, the stored data is quickly lost. Volatile memory has several uses including as primary storage.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1325",
+          "name": "USBkill",
+          "description": "Usbkill is an anti-forensic kill-switch that waits for a change on your USB ports and then immediately shuts down your computer. https://usbkill.com/"
+        },
+        {
+          "id": "TTP-307",
+          "name": "Centry",
+          "description": "Centry is a panic button intended to protect users against Cold Boot Attacks, Direct Memory Access Attacks and other live system threats. Centry is most effective when deployed on systems with Full Disk Encryption and without a swap/page file. The panic function can be activated through the GUI or through a network request (through browser, smartphone, etc). Upon recieving the panic instruction, Centry will attempt to remove sensitive keys from memory, securily overwrite the RAM and then force a shutdown."
+        },
+        {
+          "id": "TTP-961",
+          "name": "Overwrite RAM",
+          "description": "Actively overwriting RAM contents with random data to prevent cold boot attacks from recovering sensitive material in memory"
+        }
+      ]
+    },
+    {
+      "id": 668,
+      "name": "Wipe recent documents",
+      "description": "In office suites the ‘recent documents’ might reveal evidence of documents that have been opened. Wiping this list reduces the traces about them.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 669,
+      "name": "Wipe terminal history",
+      "description": "Wiping the terminal history prevents leaving trails of commands that have been executed, by whom and when.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 670,
+      "name": "Wipe Wi-Fi history",
+      "description": "Wi-Fi history could contain networks that have been connected to before, which could reveal where you have been and might correlate activities with you. Wiping the history could prevent that from happening.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 671,
+      "name": "Wipe with random data",
+      "description": "Wipe data by overwriting with ones or zeroes. \n",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-369",
+      "name": "Covermyass",
+      "description": "Covermyass is a post-exploitation tool to cover your tracks on various operating systems. It was designed for penetration testing \"covering tracks\" phase, before exiting the compromised server. At any time, you can run the tool to find which log files exists on the system, then run again later to erase those files. The tool will tell you which file can be erased with the current user permissions. Files are overwritten repeatedly with random data, in order to make it harder for even very expensive hardware probing to recover the data.\nIt supports the three major operating systems (Linux, macOS, Windows) and a few smaller ones (FreeBSD, OpenBSD). https://github.com/sundowndev/covermyass"
+    },
+    {
+      "id": "TTP-399",
+      "name": "DBAN",
+      "description": "DBAN is free open source data wiping software for personal use. https://dban.org/"
+    },
+    {
+      "id": "TTP-574",
+      "name": "Extirpater",
+      "description": "Extirpater is a free space eraser for Android systems. https://github.com/Divested-Mobile/Extirpater"
+    },
+    {
+      "id": "TTP-592",
+      "name": "File Shredder",
+      "description": "File Shredder is a free desktop application for shredding (destroying) unwanted files beyond recovery. https://fileshredder.org."
+    },
+    {
+      "id": "TTP-742",
+      "name": "KillDisk Data Erasure",
+      "description": "KillDisk is a disk sanitation and partition eraser utility, supporting DoD 5220.22-M and more than 20 international data sanitizing standards. https://www.killdisk.com/"
+    },
+    {
+      "id": "TTP-896",
+      "name": "Nwipe",
+      "description": "Mwipe is a fork of the dwipe command from DBAN that can wipe disks with various methods and generate certificates. https://github.com/martijnvanbrummelen/nwipe"
+    },
+    {
+      "id": "TTP-934",
+      "name": "Onyx",
+      "description": "OnyX is a multifunction utility that you can use to verify the structure of the system files; run cleaning and computer maintenance tasks; configure parameters in the Finder, Dock, Safari, and some Apple applications; delete caches; remove certain problematic folders and files; rebuild various databases and indexes; and more. OnyX is a reliable application which provides a clean interface to many tasks that would otherwise require complex commands to be typed using a command-line interface. https://titanium-software.fr/en/onyx.html"
+    },
+    {
+      "id": "TTP-1087",
+      "name": "Regedit (Windows)",
+      "description": "The registry editor (regedit) might be used to delete all keys (folders). https://support.microsoft.com/nl-nl/topic/registersubsleutels-en-waarden-toevoegen-wijzigen-of-verwijderen-met-behulp-van-een-reg-bestand-9c7f37cf-a5e9-e1cd-c4fa-2a26218a1a23"
+    },
+    {
+      "id": "TTP-1185",
+      "name": "ShredOS",
+      "description": "ShredOS.ShredOS is a USB bootable (BIOS or UEFI) small linux distribution with the sole purpose of securely erasing the entire contents of your disks using the program nwipe. If you are familiar with dwipe from DBAN then you will feel right at home with ShredOS and nwipe. What are the advantages of nwipe over dwipe/DBAN? Well as everybody probably knows, DBAN development stopped in 2015 which means it has not received any further bug fixes or support for new hardware since that date. Nwipe originally was a fork of dwipe but has continued to have improvements and bug fixes and is now available in many Linux distros. ShredOS hopefully will always provide the latest nwipe on a up to date Linux kernel so it will support modern hardware.\n\nShredOS supports either 32bit or 64bit processors. You will need to download the appropriate 64bit or 32bit .img or .iso file, depending upon your target processor and whether you want to burn ShredOS to a USB memory stick, in which case you would download the .img file. Alternatively, if you wanted to burn ShredOS to CD/DVD, then you would download the .iso file.\n\nBecause ShredOS boots and runs straight from a USB flash drive or DVD/CD, it doesn't matter what operating system already exists on the computer. It will remove all data/directories/operating systems, from the drive or drives you have selected for wiping, leaving a disk with no trace of what originally existed. It will wipe PC's & Intel based MACs, such as MAC Book Pros. It doesn't care what operating system previosuly existed, be it Windows/MAC OSX/Linux/VXWorks.\n\nShredOS can be used as a software image and booted via the network using a client PC that supports Preboot execution environment (PXE) via a PXE enabled server. A procedure for creating a simple UEFI PXE server based on Debian/Ubuntu and serving up ShredOS can be found here #148\n\nYou can also use ShredOS on headless systems or systems with faulty display hardware as it includes a user enabled telnet server. Further details can be found here. How to wipe drives on headless systems or systems with faulty or missing display hardware or keyboards\n\nShredOS includes the latest Nwipe official release, but in addition includes other disk related utilities such as Smartmontools, hdparm, a hexeditor hexedit, and, the program loadkeys which can be used for setting the keyboard layout. Nwipe automatically starts it's GUI in the first virtual terminal (ALT-F1), hdparm, smartmontools and hexeditor can be run in the second virtual terminal, (ALT-F2). Nwipe will erase drives using a user selectable choice of seven methods. hdparm - amongst many of its options - can be used for wiping a drive by issueing ATA erase commands or SAS erase commands interface commands to the firmware of the storrage device. This is a planned feature addition to nwipe.\n\nShredOS boots very quickly and depending upon the host system can boot in as little as 2 seconds (typically 4 to 6 seconds) on modern hardware, while on an old Pentium4 may take 40+ seconds. Nwipe automatically starts in GUI mode and will list the disks present on the host system. In fact, on version of ShredOS earlier than v2023.08.2_25.0_x86-64_0.35 nwipe can launch so fast that the USB devices have not yet initialised so the first time nwipe appears it may not show any USB drives, this behaviour has been fixed from version v2023.08.2_25.0_x86-64_0.35 onwards so there will usually be a delay of about 5-10 seconds while the USB devices are initialised. On older versions of ShredOS you would use Control-C to exit and restart nwipe to see any attached USB devices. You can then select the methods by which you want to securely erase the disk/s. Nwipe is able to simultanuosly wipe multiple disks using a threaded software architecture. I have simultaneously wiped 28 loop devices in tests and know of instances where it's been used to simultaneuosly wipe upwards of fifty drives on a rack server.\n\nThe vanilla version of ShredOS boots into nwipe's GUI and shows the available discs that can then be selected for wiping. It does not autonuke your discs at launch, however it is capable of doing that, if you edit the grub.cfg file and specify the appropriate nwipe command line option. Details of configuring nwipe's launch behaviour is shown below How to run nwipe so you can specify nwipe command line options. https://github.com/PartialVolume/shredos.x86_64"
+    },
+    {
+      "id": "TTP-249",
+      "name": "Blancco Data Erasure",
+      "description": "Blancco Data Erasure is secure data erasure software for data centers, laptops, mobile, SSDs, NVMes, and more."
+    },
+    {
+      "id": "TTP-250",
+      "name": "BleachBit",
+      "description": "BleachBit is open source software which allows one to free cache, delete cookies, clear internet history, shred temporary files, delete logs, and discard other junk. It also includes advanced features such as shredding files to prevent recovery, wiping free disk space to hide traces of files deleted by other application, and vacuuming FireFox to make it faster."
+    },
+    {
+      "id": "TTP-282",
+      "name": "BusKill cable",
+      "description": "BusKill is an open source dead man switch triggered when a magnetic breakaway is tripped, severing USB connection. https://www.buskill.in/"
+    },
+    {
+      "id": "TTP-138",
+      "name": "Avoid keeping OpSec guides",
+      "description": "Removing operational security guides and documentation prevents forensic evidence of operational intent"
+    }
+  ]
+}

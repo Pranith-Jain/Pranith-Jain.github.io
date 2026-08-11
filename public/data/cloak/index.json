@@ -1,0 +1,106 @@
+{
+  "source": "CLOAK (Concealment Layers for Online Anonymity and Knowledge)",
+  "sourceUrl": "https://github.com/Mickinthemiddle/CLOAK",
+  "license": "GPL-2.0",
+  "author": "Mick Deben — Leiden University",
+  "replicatedAt": "2026-08-11T17:43:54.959Z",
+  "counts": {
+    "tactics": 13,
+    "techniques": 129,
+    "subtechniques": 751,
+    "procedures": 367
+  },
+  "tacticIndex": [
+    {
+      "id": 3,
+      "name": "Anonymous browsing",
+      "techniqueCount": 8,
+      "subtechniqueCount": 58,
+      "procedureCount": 27
+    },
+    {
+      "id": 4,
+      "name": "Anonymous communication",
+      "techniqueCount": 14,
+      "subtechniqueCount": 39,
+      "procedureCount": 84
+    },
+    {
+      "id": 5,
+      "name": "Anonymous cryptocurrency",
+      "techniqueCount": 7,
+      "subtechniqueCount": 6,
+      "procedureCount": 4
+    },
+    {
+      "id": 6,
+      "name": "Anonymous hosting",
+      "techniqueCount": 10,
+      "subtechniqueCount": 18,
+      "procedureCount": 41
+    },
+    {
+      "id": 7,
+      "name": "Anonymous identity",
+      "techniqueCount": 14,
+      "subtechniqueCount": 150,
+      "procedureCount": 32
+    },
+    {
+      "id": 8,
+      "name": "Anonymous transactions",
+      "techniqueCount": 4,
+      "subtechniqueCount": 33,
+      "procedureCount": 30
+    },
+    {
+      "id": 9,
+      "name": "Data obfuscation",
+      "techniqueCount": 2,
+      "subtechniqueCount": 3,
+      "procedureCount": 3
+    },
+    {
+      "id": 10,
+      "name": "Physical security",
+      "techniqueCount": 4,
+      "subtechniqueCount": 11,
+      "procedureCount": 0
+    },
+    {
+      "id": 11,
+      "name": "Plausible deniability",
+      "techniqueCount": 8,
+      "subtechniqueCount": 100,
+      "procedureCount": 37
+    },
+    {
+      "id": 13,
+      "name": "Reduce attack surface",
+      "techniqueCount": 19,
+      "subtechniqueCount": 134,
+      "procedureCount": 37
+    },
+    {
+      "id": 14,
+      "name": "Risk management",
+      "techniqueCount": 3,
+      "subtechniqueCount": 17,
+      "procedureCount": 9
+    },
+    {
+      "id": 15,
+      "name": "Secure behavior",
+      "techniqueCount": 29,
+      "subtechniqueCount": 158,
+      "procedureCount": 56
+    },
+    {
+      "id": 16,
+      "name": "Tamper protection",
+      "techniqueCount": 7,
+      "subtechniqueCount": 24,
+      "procedureCount": 7
+    }
+  ]
+}

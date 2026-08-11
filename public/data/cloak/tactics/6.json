@@ -1,0 +1,187 @@
+{
+  "id": 6,
+  "name": "Anonymous hosting",
+  "description": "The adversary is trying to host applications and/or services anonymously.",
+  "techniqueCount": 10,
+  "subtechniqueCount": 18,
+  "procedureCount": 41,
+  "techniques": [
+    {
+      "id": 34,
+      "name": "Bulletproof hosting",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 9,
+          "name": "Anonymous domain registration",
+          "type": "Technical"
+        },
+        {
+          "id": 285,
+          "name": "Domain registration",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "name": "DMCA ignored",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 53,
+      "name": "Fake servers",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 546,
+          "name": "Send packets copy from multiple sources",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "name": "No-KYC",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 4,
+      "subIndex": [
+        {
+          "id": 159,
+          "name": "Camera software",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "name": "No-log service",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 70,
+      "name": "Offshore hosting",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 339,
+          "name": "Foreign provider",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "name": "Secure hosting",
+      "type": "Technical",
+      "subCount": 6,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 20,
+          "name": "Application firewall",
+          "type": "Technical"
+        },
+        {
+          "id": 207,
+          "name": "DDoS-protection",
+          "type": "Technical"
+        },
+        {
+          "id": 212,
+          "name": "Decentralized hosting",
+          "type": "Technical"
+        },
+        {
+          "id": 343,
+          "name": "Free domains",
+          "type": "Technical"
+        },
+        {
+          "id": 370,
+          "name": "Intermediary VPS",
+          "type": "Technical"
+        },
+        {
+          "id": 633,
+          "name": "Virtual Private Server (VPS)",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "name": "Selfhosting",
+      "type": "Technical",
+      "subCount": 3,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 228,
+          "name": "Deleting and recreate",
+          "type": "Technical"
+        },
+        {
+          "id": 544,
+          "name": "Selfhosted DNS server with pi-hole",
+          "type": "Technical"
+        },
+        {
+          "id": 545,
+          "name": "Selfhosted VPN",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": "TL-6",
+      "name": "Tactic-level TTPs & Procedures",
+      "type": "",
+      "subCount": 0,
+      "procCount": 33,
+      "subIndex": []
+    },
+    {
+      "id": 129,
+      "name": "BGP-level network infrastructure security",
+      "type": "Technical",
+      "subCount": 4,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2797,
+          "name": "Awareness of Raptor / BGP correlation attacks against Tor",
+          "type": "Technical"
+        },
+        {
+          "id": 2798,
+          "name": "Verify physical vs. virtual server location",
+          "type": "Technical"
+        },
+        {
+          "id": 2799,
+          "name": "RPKI validation for server infrastructure",
+          "type": "Technical"
+        },
+        {
+          "id": 2800,
+          "name": "Rotating server infrastructure to prevent traffic correlation",
+          "type": "Technical"
+        }
+      ]
+    }
+  ]
+}

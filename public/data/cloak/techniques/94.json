@@ -1,0 +1,10 @@
+{
+  "id": 94,
+  "name": "Shredding",
+  "description": "The adversary is shredding information to prevent its recovery.",
+  "type": "Physical",
+  "tacticId": 10,
+  "tacticName": "Physical security",
+  "subtechniques": [],
+  "procedures": []
+}

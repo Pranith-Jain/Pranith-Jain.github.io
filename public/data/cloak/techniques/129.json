@@ -1,0 +1,39 @@
+{
+  "id": 129,
+  "name": "BGP-level network infrastructure security",
+  "description": "The adversary operating high-value infrastructure implements defences against Border Gateway Protocol (BGP) attacks that can de-anonymise Tor users by correlating traffic at the autonomous system (AS) level. BGP attacks including Raptor attacks, BGP hijacking, and BGP interception allow law enforcement-affiliated ASes to perform traffic correlation on Tor circuits without breaking encryption.",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [
+    {
+      "id": 2797,
+      "name": "Awareness of Raptor / BGP correlation attacks against Tor",
+      "description": "The Raptor attack uses BGP to position an AS on the path between a Tor client and entry node, enabling traffic correlation via asymmetric traffic analysis, BGP path changes over time, and BGP hijacking. As international law enforcement collaboration effectively transforms local adversaries into global ones, the Tor threat model assumption of 'no global passive adversary' becomes less valid.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2798,
+      "name": "Verify physical vs. virtual server location",
+      "description": "Many bulletproof hosting providers advertise servers in privacy-friendly jurisdictions but route all traffic through upstream providers in cooperative countries (Germany, Netherlands, France). The adversary verifies the true physical location and upstream AS of any rented server using traceroute, nmap --traceroute, firewalk, and BGP lookup tools (bgp.tools, RIPE database).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2799,
+      "name": "RPKI validation for server infrastructure",
+      "description": "Resource Public Key Infrastructure (RPKI) provides cryptographic validation of BGP route announcements, preventing certain categories of BGP hijack. The adversary checks whether their hosting provider and upstream ASes have RPKI enabled and properly configured via isbgpsafeyet.com and bgp.tools. RPKI alone is insufficient but is a necessary baseline.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2800,
+      "name": "Rotating server infrastructure to prevent traffic correlation",
+      "description": "The adversary periodically moves infrastructure to new hosting providers and ASes, creating discrepancies in BGP path analysis tools used to pin-point server location. Dynamic server movement is the most operationally accessible defence against Raptor-class traffic correlation attacks.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

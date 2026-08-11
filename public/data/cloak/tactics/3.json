@@ -1,0 +1,370 @@
+{
+  "id": 3,
+  "name": "Anonymous browsing",
+  "description": "The adversary is trying to browse anonymously.",
+  "techniqueCount": 8,
+  "subtechniqueCount": 58,
+  "procedureCount": 27,
+  "techniques": [
+    {
+      "id": 9,
+      "name": "Anonymous internet connection",
+      "type": "Technical",
+      "subCount": 22,
+      "procCount": 2,
+      "subIndex": [
+        {
+          "id": 347,
+          "name": "Garlic routing",
+          "type": "Technical"
+        },
+        {
+          "id": 374,
+          "name": "Invisible Internet Project (I2P)",
+          "type": "Technical"
+        },
+        {
+          "id": 431,
+          "name": "Obfsproxy",
+          "type": "Technical"
+        },
+        {
+          "id": 433,
+          "name": "Obfuscated bridges",
+          "type": "Technical"
+        },
+        {
+          "id": 482,
+          "name": "Prefer onion sites",
+          "type": "Behavioral"
+        },
+        {
+          "id": 492,
+          "name": "Public Wi-Fi",
+          "type": "Behavioral"
+        },
+        {
+          "id": 496,
+          "name": "Raceboat framework",
+          "type": "Technical"
+        },
+        {
+          "id": 552,
+          "name": "Smartphone shared connection",
+          "type": "Technical"
+        },
+        {
+          "id": 563,
+          "name": "SSH via Tor",
+          "type": "Technical"
+        },
+        {
+          "id": 564,
+          "name": "SSH via VPN",
+          "type": "Technical"
+        },
+        {
+          "id": 572,
+          "name": "Stream isolation",
+          "type": "Technical"
+        },
+        {
+          "id": 581,
+          "name": "The Onion Router (TOR)",
+          "type": "Technical"
+        },
+        {
+          "id": 587,
+          "name": "Tor new identity",
+          "type": "Technical"
+        },
+        {
+          "id": 588,
+          "name": "Tor over Tor",
+          "type": "Technical"
+        },
+        {
+          "id": 601,
+          "name": "USB Wi-Fi dongle",
+          "type": "Technical"
+        },
+        {
+          "id": 606,
+          "name": "Use German exit nodes",
+          "type": "Technical"
+        },
+        {
+          "id": 611,
+          "name": "Use public computer away from home",
+          "type": "Behavioral"
+        },
+        {
+          "id": 616,
+          "name": "V2Ray",
+          "type": "Technical"
+        },
+        {
+          "id": 624,
+          "name": "Verify layering setup",
+          "type": "Technical"
+        },
+        {
+          "id": 656,
+          "name": "Wi-Fi antenna",
+          "type": "Technical"
+        },
+        {
+          "id": 657,
+          "name": "Wi-Fi only device in Airplane mode",
+          "type": "Technical"
+        },
+        {
+          "id": 2766,
+          "name": "I2P eepsite hosting",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Anonymous search engine",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 486,
+          "name": "Privacy search engines",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Anti-censorship",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 6,
+      "subIndex": [
+        {
+          "id": 2795,
+          "name": "Protocol hiding vs. network circumvention distinction",
+          "type": "Technical"
+        },
+        {
+          "id": 2801,
+          "name": "TLS fingerprint impersonation (uTLS / ClientHello spoofing)",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Anti-fingerprinting",
+      "type": "Technical",
+      "subCount": 27,
+      "procCount": 5,
+      "subIndex": [
+        {
+          "id": 3,
+          "name": "Ad blocking",
+          "type": "Technical"
+        },
+        {
+          "id": 149,
+          "name": "Browser extensions",
+          "type": "Technical"
+        },
+        {
+          "id": 183,
+          "name": "Compartmentalize browsers",
+          "type": "Behavioral"
+        },
+        {
+          "id": 185,
+          "name": "Compartmentalize email addresses",
+          "type": "Behavioral"
+        },
+        {
+          "id": 187,
+          "name": "Compartmentalize identities",
+          "type": "Behavioral"
+        },
+        {
+          "id": 188,
+          "name": "Compartmentalize passphrases",
+          "type": "Behavioral"
+        },
+        {
+          "id": 189,
+          "name": "Compartmentalize sensitive data",
+          "type": "Behavioral"
+        },
+        {
+          "id": 222,
+          "name": "Delay mouse events",
+          "type": "Technical"
+        },
+        {
+          "id": 223,
+          "name": "Delay publication",
+          "type": "Technical"
+        },
+        {
+          "id": 224,
+          "name": "Delayed delivery",
+          "type": "Technical"
+        },
+        {
+          "id": 232,
+          "name": "Desynchronize each VM clock with host OS clock",
+          "type": "Technical"
+        },
+        {
+          "id": 281,
+          "name": "Do multiple things at once with Tor client",
+          "type": "Behavioral"
+        },
+        {
+          "id": 318,
+          "name": "Entry guards",
+          "type": "Technical"
+        },
+        {
+          "id": 335,
+          "name": "Fixed posting time",
+          "type": "Behavioral"
+        },
+        {
+          "id": 363,
+          "name": "Hostname spoofing",
+          "type": "Technical"
+        },
+        {
+          "id": 432,
+          "name": "Obfuscate metadata",
+          "type": "Technical"
+        },
+        {
+          "id": 500,
+          "name": "Randomize Bluetooth address Host OS",
+          "type": "Technical"
+        },
+        {
+          "id": 501,
+          "name": "Randomize MAC address",
+          "type": "Technical"
+        },
+        {
+          "id": 539,
+          "name": "Segment private keys",
+          "type": "Behavioral"
+        },
+        {
+          "id": 540,
+          "name": "Segment wallets",
+          "type": "Behavioral"
+        },
+        {
+          "id": 551,
+          "name": "Short lifetime attack infrastructure",
+          "type": "Behavioral"
+        },
+        {
+          "id": 558,
+          "name": "Spell checking",
+          "type": "Technical"
+        },
+        {
+          "id": 613,
+          "name": "User Agent Switcher",
+          "type": "Technical"
+        },
+        {
+          "id": 2718,
+          "name": "Random hostname",
+          "type": "Technical"
+        },
+        {
+          "id": 2741,
+          "name": "Multiple translations",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2742,
+          "name": "Generate PGP keys regularly",
+          "type": "Technical"
+        },
+        {
+          "id": 2752,
+          "name": "Avoid advertisements",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Bypass human verification",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 2,
+      "subIndex": [
+        {
+          "id": 29,
+          "name": "Automated CAPTCHA solving",
+          "type": "Technical"
+        },
+        {
+          "id": 548,
+          "name": "Set accessibility cookie",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "name": "Domain fronting",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 76,
+      "name": "Privacy-conscious alternatives",
+      "type": "Technical",
+      "subCount": 4,
+      "procCount": 11,
+      "subIndex": [
+        {
+          "id": 428,
+          "name": "Note taking",
+          "type": "Technical"
+        },
+        {
+          "id": 456,
+          "name": "OSS apps for private use",
+          "type": "Behavioral"
+        },
+        {
+          "id": 483,
+          "name": "Privacy community",
+          "type": "Behavioral"
+        },
+        {
+          "id": 484,
+          "name": "Privacy front-ends",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": "TL-3",
+      "name": "Tactic-level TTPs & Procedures",
+      "type": "",
+      "subCount": 0,
+      "procCount": 1,
+      "subIndex": []
+    }
+  ]
+}

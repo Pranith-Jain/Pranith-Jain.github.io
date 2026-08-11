@@ -1,0 +1,10 @@
+{
+  "id": 17,
+  "name": "Anonymously buy phone",
+  "description": "The adversary is trying to anonymously buy a phone to prevent it being tied to his identity.",
+  "type": "Behavioral",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [],
+  "procedures": []
+}

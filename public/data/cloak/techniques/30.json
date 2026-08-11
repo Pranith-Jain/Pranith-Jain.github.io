@@ -1,0 +1,118 @@
+{
+  "id": 30,
+  "name": "Backups",
+  "description": "The adversary makes backups to prevent data loss in case things go bad.",
+  "type": "Technical",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 42,
+      "name": "Avoid cloud backups",
+      "description": "Cloud backups are avoided for several reasons, such as the possibility that cloud environments could be seized by law enforcement agencies or that they keep version history which could reveal the existence of hidden volumes over time.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 43,
+      "name": "Avoid cloud syncing",
+      "description": "Cloud syncing is avoided to prevent storing sensitive information in public cloud environments, such as passwords.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 136,
+      "name": "Backup at alternative location",
+      "description": "To prevent data loss and have the ability to recover data and systems, multiple backups should be made and at least one at a remote location. \n\n23/11/2024, 20:21, merged with\nBackup wallet on multiple devices",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 286,
+      "name": "Double backup",
+      "description": "Double backups might be made to prevent data loss. One backup might be stored on a remote location. \n\n24/11/2024, 13:02, merged with\nRedundant backup",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 397,
+      "name": "Make offline backup when system is turned off",
+      "description": "Encrypted-by-default (FDE)",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 398,
+      "name": "Manual backup",
+      "description": "Manual backups might be made instead of automatically to prevent to need to trust the computer.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 437,
+      "name": "Offline backup",
+      "description": "Offline backups might be made to evade online attacks and have the ability to access data if an online system becomes compromised.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 441,
+      "name": "Only access online backups from secure devices or VM",
+      "description": "To prevent any malware from spreading to sensitive information.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 553,
+      "name": "Snapshots",
+      "description": "Snapshots capture the entire state of the virtual machine at the time you take the snapshot. You can take a snapshot when a virtual machine is powered on, powered off, or suspended. If you are suspending a virtual machine, wait until the suspend operation finishes before you take a snapshot.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 577,
+      "name": "Synchronization",
+      "description": "Synchronization tools might be used to sync data between data storage.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1251",
+          "name": "Sync",
+          "description": "Sync is a file storage, sharing, and collaboration platform. https://www.sync.com/"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-484",
+      "name": "Diskdigger",
+      "description": "DiskDigger can undelete and recover lost photos, videos, music, documents, and most other files that have been deleted. It can also recover files from corrupted or formatted flash drives, hard disks,, and memory cards https://www.diskdigger.org/download"
+    },
+    {
+      "id": "TTP-1132",
+      "name": "SARDU MultiBoot Creator",
+      "description": "SARDU MultiBoot Creator is a useful application designed to help you create an emergency rescue CD or USB drive. These drives can be used to check and to repair your system in case of a failure. https://www.sarducd.it/"
+    },
+    {
+      "id": "TTP-1159",
+      "name": "Seedvault",
+      "description": "https://github.com/seedvault-app/seedvault\nA backup application for the Android Open Source Project. Needs to be integrated in your Android ROM and can not be installed as a regular app."
+    },
+    {
+      "id": "TTP-330",
+      "name": "Clonezilla",
+      "description": "CloneZilla is a partition and disk imaging/cloning program similar to True Image or Norton Ghost. It helps to do system deployment, bare metal backup and recovery. https://clonezilla.org/"
+    },
+    {
+      "id": "TTP-331",
+      "name": "Cloning",
+      "description": "Creating bit-for-bit clones of drives or virtual machines as a backup and disaster recovery method"
+    },
+    {
+      "id": "TTP-1122",
+      "name": "Rsync",
+      "description": "File synchronisation tool commonly used for encrypted incremental remote backups over SSH. https://rsync.samba.org/"
+    }
+  ]
+}

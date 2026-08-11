@@ -1,0 +1,582 @@
+{
+  "id": 11,
+  "name": "Plausible deniability",
+  "description": "The adversary strives to achieve the ability to deny knowledge of or responsibility for actions committed by or on behalf of someone.",
+  "techniqueCount": 8,
+  "subtechniqueCount": 100,
+  "procedureCount": 37,
+  "techniques": [
+    {
+      "id": 21,
+      "name": "Anti-forensics",
+      "type": "Technical",
+      "subCount": 5,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 233,
+          "name": "Detached LUKS header",
+          "type": "Technical"
+        },
+        {
+          "id": 296,
+          "name": "Emergency shutdown",
+          "type": "Technical"
+        },
+        {
+          "id": 387,
+          "name": "Leave forensic evidence in decoy partition",
+          "type": "Behavioral"
+        },
+        {
+          "id": 406,
+          "name": "Mix client traffic with Tor relay or bridge",
+          "type": "Technical"
+        },
+        {
+          "id": 429,
+          "name": "Nuke password",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "name": "Encryption",
+      "type": "Technical",
+      "subCount": 42,
+      "procCount": 24,
+      "subIndex": [
+        {
+          "id": 26,
+          "name": "Authenticated encryption",
+          "type": "Technical"
+        },
+        {
+          "id": 28,
+          "name": "Auto-reboot",
+          "type": "Technical"
+        },
+        {
+          "id": 74,
+          "name": "Avoid own-developed crypto",
+          "type": "Behavioral"
+        },
+        {
+          "id": 106,
+          "name": "Avoid sleep stand-by",
+          "type": "Behavioral"
+        },
+        {
+          "id": 116,
+          "name": "Avoid Telegram",
+          "type": "Behavioral"
+        },
+        {
+          "id": 287,
+          "name": "Double encryption",
+          "type": "Technical"
+        },
+        {
+          "id": 302,
+          "name": "Encrypt backups locally before uploading to cloud services",
+          "type": "Technical"
+        },
+        {
+          "id": 303,
+          "name": "Encrypt RAM",
+          "type": "Technical"
+        },
+        {
+          "id": 304,
+          "name": "Encrypt the keys within RAM",
+          "type": "Technical"
+        },
+        {
+          "id": 305,
+          "name": "Encrypt voice",
+          "type": "Technical"
+        },
+        {
+          "id": 306,
+          "name": "Encrypt wallet",
+          "type": "Technical"
+        },
+        {
+          "id": 307,
+          "name": "Encrypted backups",
+          "type": "Technical"
+        },
+        {
+          "id": 308,
+          "name": "Encrypted Client Hello (ECH)",
+          "type": "Technical"
+        },
+        {
+          "id": 309,
+          "name": "Encrypted containers",
+          "type": "Technical"
+        },
+        {
+          "id": 310,
+          "name": "Encrypted email",
+          "type": "Technical"
+        },
+        {
+          "id": 311,
+          "name": "Encrypted file containers should be identical at all times",
+          "type": "Technical"
+        },
+        {
+          "id": 312,
+          "name": "Encrypted Logical Volume Manager (LVM)",
+          "type": "Technical"
+        },
+        {
+          "id": 313,
+          "name": "Encrypted USB",
+          "type": "Technical"
+        },
+        {
+          "id": 314,
+          "name": "Encrypted virtual machines",
+          "type": "Technical"
+        },
+        {
+          "id": 315,
+          "name": "Encrypted volumes",
+          "type": "Technical"
+        },
+        {
+          "id": 316,
+          "name": "End-to-end encryption (E2EE)",
+          "type": "Technical"
+        },
+        {
+          "id": 340,
+          "name": "Format Transforming Encryption (FTE)",
+          "type": "Technical"
+        },
+        {
+          "id": 341,
+          "name": "Format-preserving encryption (FPE)",
+          "type": "Technical"
+        },
+        {
+          "id": 346,
+          "name": "Full Disk Encryption (FDE)",
+          "type": "Technical"
+        },
+        {
+          "id": 356,
+          "name": "Hashing",
+          "type": "Technical"
+        },
+        {
+          "id": 365,
+          "name": "HTTPS",
+          "type": "Technical"
+        },
+        {
+          "id": 379,
+          "name": "Keep private key private",
+          "type": "Behavioral"
+        },
+        {
+          "id": 383,
+          "name": "Key file",
+          "type": "Technical"
+        },
+        {
+          "id": 414,
+          "name": "Multi-layered encryption",
+          "type": "Technical"
+        },
+        {
+          "id": 445,
+          "name": "Only trust own encryption",
+          "type": "Behavioral"
+        },
+        {
+          "id": 463,
+          "name": "Password encryption",
+          "type": "Technical"
+        },
+        {
+          "id": 470,
+          "name": "Perfect Forward Secrecy (PFS)",
+          "type": "Technical"
+        },
+        {
+          "id": 471,
+          "name": "PGP-based MFA",
+          "type": "Technical"
+        },
+        {
+          "id": 474,
+          "name": "Physical security key",
+          "type": "Technical"
+        },
+        {
+          "id": 559,
+          "name": "Split GPG",
+          "type": "Technical"
+        },
+        {
+          "id": 573,
+          "name": "Strong cipher suites only",
+          "type": "Technical"
+        },
+        {
+          "id": 576,
+          "name": "Subkey for signing",
+          "type": "Technical"
+        },
+        {
+          "id": 610,
+          "name": "Use printer without tracking dots",
+          "type": "Technical"
+        },
+        {
+          "id": 680,
+          "name": "ZRTP encryption",
+          "type": "Technical"
+        },
+        {
+          "id": 2748,
+          "name": "Change download folder to encrypted location",
+          "type": "Technical"
+        },
+        {
+          "id": 2763,
+          "name": "Client-side cloud encryption",
+          "type": "Technical"
+        },
+        {
+          "id": 2765,
+          "name": "Air-gapped cryptographic key management",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "name": "Hidden volume",
+      "type": "Technical",
+      "subCount": 5,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 62,
+          "name": "Avoid hidden volumes on external SSD without Trim",
+          "type": "Behavioral"
+        },
+        {
+          "id": 73,
+          "name": "Avoid mounting hidden volume from decoy volume",
+          "type": "Behavioral"
+        },
+        {
+          "id": 128,
+          "name": "Avoid uploading encrypted file containers to cloud services",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2787,
+          "name": "Avoid SMR (Shingled Magnetic Recording) drives for hidden volumes",
+          "type": "Technical"
+        },
+        {
+          "id": 2788,
+          "name": "Awareness of spin-stand microscopy as physical forensic threat",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "name": "Live operating system",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 272,
+          "name": "Diskless live VMs",
+          "type": "Technical"
+        },
+        {
+          "id": 599,
+          "name": "USB live disk software",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "name": "Physical destruction",
+      "type": "Physical",
+      "subCount": 8,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 146,
+          "name": "Break/Crush the board and memory cells (SSD)",
+          "type": "Physical"
+        },
+        {
+          "id": 147,
+          "name": "Break/Deform/Crush the platters",
+          "type": "Physical"
+        },
+        {
+          "id": 150,
+          "name": "Burn or cook the platters (HDD)",
+          "type": "Physical"
+        },
+        {
+          "id": 151,
+          "name": "Burn the board and memory cells (SSD)",
+          "type": "Physical"
+        },
+        {
+          "id": 289,
+          "name": "Dump at separate random places",
+          "type": "Physical"
+        },
+        {
+          "id": 404,
+          "name": "Microwave cards",
+          "type": "Physical"
+        },
+        {
+          "id": 527,
+          "name": "Rub the platters with a rare earth magnet (HDD)",
+          "type": "Physical"
+        },
+        {
+          "id": 561,
+          "name": "Splitted disposal",
+          "type": "Physical"
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "name": "Sanitization",
+      "type": "Technical",
+      "subCount": 12,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 27,
+          "name": "Auto-format",
+          "type": "Technical"
+        },
+        {
+          "id": 143,
+          "name": "Block erase",
+          "type": "Technical"
+        },
+        {
+          "id": 227,
+          "name": "Delete old posts and emails",
+          "type": "Behavioral"
+        },
+        {
+          "id": 282,
+          "name": "DoD 5220.22M - The American Department of Defense 5220.22-M full 7 pass wipe",
+          "type": "Technical"
+        },
+        {
+          "id": 283,
+          "name": "DoD Short - The Amercian Department of Defense 5220.22-M short 3 pass wipe",
+          "type": "Technical"
+        },
+        {
+          "id": 352,
+          "name": "Gutmann wipe",
+          "type": "Technical"
+        },
+        {
+          "id": 362,
+          "name": "HMG IS5 enhanced",
+          "type": "Technical"
+        },
+        {
+          "id": 490,
+          "name": "Pseudorandom data",
+          "type": "Technical"
+        },
+        {
+          "id": 502,
+          "name": "RCMP TSSIT OPS-II - Royal Canadian Mounted Police Technical Security Standard, OPS-II",
+          "type": "Technical"
+        },
+        {
+          "id": 578,
+          "name": "System rescue",
+          "type": "Technical"
+        },
+        {
+          "id": 579,
+          "name": "Taint analysis",
+          "type": "Technical"
+        },
+        {
+          "id": 593,
+          "name": "Trim operations",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "name": "Selfdestruction",
+      "type": "Technical",
+      "subCount": 3,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 90,
+          "name": "Avoid self-destruct message services",
+          "type": "Behavioral"
+        },
+        {
+          "id": 543,
+          "name": "Selfdestruct messages",
+          "type": "Technical"
+        },
+        {
+          "id": 2762,
+          "name": "Software dead man's switch",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 110,
+      "name": "Wipe traces",
+      "type": "Technical",
+      "subCount": 23,
+      "procCount": 13,
+      "subIndex": [
+        {
+          "id": 23,
+          "name": "ATA/NVME Secure Erase or Sanitize",
+          "type": "Technical"
+        },
+        {
+          "id": 173,
+          "name": "Cleanup free space",
+          "type": "Technical"
+        },
+        {
+          "id": 199,
+          "name": "Create snapshot before opening hidden volume and restore after working on it",
+          "type": "Technical"
+        },
+        {
+          "id": 202,
+          "name": "Crypto scrabble",
+          "type": "Technical"
+        },
+        {
+          "id": 216,
+          "name": "Decrypt and re-encrypt drive",
+          "type": "Technical"
+        },
+        {
+          "id": 273,
+          "name": "Disposable virtual machine",
+          "type": "Technical"
+        },
+        {
+          "id": 457,
+          "name": "Overwrite deleted data",
+          "type": "Technical"
+        },
+        {
+          "id": 625,
+          "name": "Verify Ones",
+          "type": "Technical"
+        },
+        {
+          "id": 630,
+          "name": "Verify Zeros",
+          "type": "Technical"
+        },
+        {
+          "id": 658,
+          "name": "Wipe browser history",
+          "type": "Technical"
+        },
+        {
+          "id": 659,
+          "name": "Wipe cookies",
+          "type": "Technical"
+        },
+        {
+          "id": 660,
+          "name": "Wipe Event logs",
+          "type": "Technical"
+        },
+        {
+          "id": 661,
+          "name": "Wipe keys before making modifications to encrypted containers",
+          "type": "Technical"
+        },
+        {
+          "id": 662,
+          "name": "Wipe keys from RAM when new device is inserted",
+          "type": "Technical"
+        },
+        {
+          "id": 663,
+          "name": "Wipe logfiles",
+          "type": "Technical"
+        },
+        {
+          "id": 664,
+          "name": "Wipe metadata",
+          "type": "Technical"
+        },
+        {
+          "id": 665,
+          "name": "Wipe PowerShell logs",
+          "type": "Technical"
+        },
+        {
+          "id": 666,
+          "name": "Wipe Prefetch",
+          "type": "Technical"
+        },
+        {
+          "id": 667,
+          "name": "Wipe RAM",
+          "type": "Technical"
+        },
+        {
+          "id": 668,
+          "name": "Wipe recent documents",
+          "type": "Technical"
+        },
+        {
+          "id": 669,
+          "name": "Wipe terminal history",
+          "type": "Technical"
+        },
+        {
+          "id": 670,
+          "name": "Wipe Wi-Fi history",
+          "type": "Technical"
+        },
+        {
+          "id": 671,
+          "name": "Wipe with random data",
+          "type": "Technical"
+        }
+      ]
+    }
+  ]
+}

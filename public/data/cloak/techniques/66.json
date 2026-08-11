@@ -1,0 +1,48 @@
+{
+  "id": 66,
+  "name": "Monitoring",
+  "description": "The adversary is monitoring the information he is providing to the world to take appropriate actions if required.",
+  "type": "Technical",
+  "tacticId": 14,
+  "tacticName": "Risk management",
+  "subtechniques": [
+    {
+      "id": 373,
+      "name": "Intrusion Detection System (IDS)",
+      "description": "An intrusion detection system is a device or software application that monitors a network or systems for malicious activity or policy violations. Any intrusion activity or violation is typically either reported to an administrator or collected centrally using a security information and event management system",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 409,
+      "name": "Monitor account activity",
+      "description": "Monitoring account activity is important to detect unauthorized access, such as failed logins, successful logins, changes to account, and so on.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 643,
+      "name": "Warrant canary",
+      "description": "Allows users to figure out if they have been compromised by LEA orders.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-640",
+      "name": "Google alerts",
+      "description": "Google Alerts are email updates of the latest relevant Google results (web, news, etc.) based on your queries. Cybercriminals might use Google Alerts to receive notifications about information about themselves (self-doxing). https://support.google.com/websearch/answer/4815696?hl=en"
+    },
+    {
+      "id": "TTP-660",
+      "name": "Haven",
+      "description": "Haven: keep Watch is an Android application that leverages on-device sensors to provide monitoring and protection of physical spaces. Haven turns any Android\nphone into a motion, sound, vibration and light detector, watching for\nunexpected guests and unwanted intruders. https://play.google.com/store/apps/details?id=org.havenapp.main&hl=en"
+    },
+    {
+      "id": "TTP-858",
+      "name": "MXtoolbox",
+      "description": "Mxtoolbox’s blacklists can be leveraged to determine if certain emails or IP’s are listed on a blacklist. https://mxtoolbox.com/blacklists.aspx"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "id": 107,
+  "name": "Verify integrity",
+  "description": "The adversary is trying to verify the integrity to prevent incidents.",
+  "type": "Technical",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 399,
+      "name": "Manual malware reviews",
+      "description": "Manual code reviews might be conducted to detect malware or spyware in the code.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 618,
+      "name": "Verified boot",
+      "description": "Verified boot ensures the system’s integrity during boot.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 619,
+      "name": "Verify APK files",
+      "description": "The integrity of APK files might be verified by confirming their hash.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 622,
+      "name": "Verify fingerprint",
+      "description": "PGP fingerprints might be verified to ensure the integrity of the sender.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 626,
+      "name": "Verify onion sites",
+      "description": "To prevent scams and mistakes, onion sites should always be verified manually with their PGP signature.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 627,
+      "name": "Verify safety numbers",
+      "description": "Safety numbers in Signal might be verified to ensure there is no man-in-the-middle to decrypt messages.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 628,
+      "name": "Verify signatures",
+      "description": "PGP signatures should be verified to ensure the integrity of the sender.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-76",
+          "name": "AppVerifier",
+          "description": "AppVerifier is an app signing certificate has viewer and verifier. https://github.com/soupslurpr/AppVerifier"
+        },
+        {
+          "id": "TTP-826",
+          "name": "Minisign",
+          "description": "Minisign is a dead simple tool to sign files and verify signatures. https://github.com/jedisct1/minisign"
+        }
+      ]
+    },
+    {
+      "id": 629,
+      "name": "Verify software",
+      "description": "Verify source code for spyware",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2756,
+      "name": "Certificate pinning",
+      "description": "Certificate Pinning is a security technique where only authorized, or pinned, certificates are accepted when establishing a secure session. Any attempt to establish a secure session using a different certificate is rejected.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-86",
+      "name": "Auditor",
+      "description": "The Auditor app included in GrapheneOS uses hardware security features to monitor the integrity of the device's firmware and OS software. This is critical because it will alert you if these components of the device are maliciously tampered with. Note that Auditor doesn't necessarily check whether the user-level apps running on your device are malicious. The Auditor app must be configured immediately after GrapheneOS is installed, before any Internet connection is made."
+    },
+    {
+      "id": "TTP-1349",
+      "name": "Verify implementation",
+      "description": "Verifying that cryptographic or security implementations are correct, complete, and unmodified before relying on them"
+    }
+  ]
+}

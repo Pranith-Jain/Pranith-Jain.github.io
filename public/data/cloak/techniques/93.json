@@ -1,0 +1,32 @@
+{
+  "id": 93,
+  "name": "Selfhosting",
+  "description": "The adversary is self hosting to gain more control and become less dependent on third parties.",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [
+    {
+      "id": 228,
+      "name": "Deleting and recreate",
+      "description": "To prevent linking bouncing servers together",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 544,
+      "name": "Selfhosted DNS server with pi-hole",
+      "description": "DNS servers might be self hosted combined with pi-hole to block trackers and telemetry.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 545,
+      "name": "Selfhosted VPN",
+      "description": "VPNs might be self hosted to gain more control over them and become less reliant on third parties.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

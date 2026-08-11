@@ -1,0 +1,18 @@
+{
+  "id": 118,
+  "name": "Compartmentalization",
+  "description": "The adversary is applying compartmentaliztion to reduce the risk of exposure of his activities. Compartmentalization prevents cross-contamination. ",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 2803,
+      "name": "Maintained normalcy cover profile",
+      "description": "The adversary deliberately maintains a visible, mundane public digital presence to prevent absence of digital footprint from being anomalous to surveillance systems. The public profile provides plausible cover and can be automated. A public-use phone is actively used for non-sensitive activity and taken across border controls. Private operational activity uses entirely separate infrastructure.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

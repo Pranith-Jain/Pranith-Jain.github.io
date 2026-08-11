@@ -1,0 +1,10 @@
+{
+  "id": 69,
+  "name": "No-log service",
+  "description": "Services which do not keep logs are preferred to prevent leaving any traces.",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [],
+  "procedures": []
+}

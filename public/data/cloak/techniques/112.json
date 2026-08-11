@@ -1,0 +1,21 @@
+{
+  "id": 112,
+  "name": "Tamper detection",
+  "description": "The ability to sense and respond to attempts of compromises.",
+  "type": "Physical",
+  "tacticId": 16,
+  "tacticName": "Tamper protection",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-252",
+      "name": "Blink Comparison app",
+      "description": "This app allows one to quickly switch pictures without delay so you can see the differences."
+    },
+    {
+      "id": "TTP-1258",
+      "name": "Tamper-detection",
+      "description": "Generic techniques for detecting physical tampering with devices, including visual inspection and baseline comparison"
+    }
+  ]
+}

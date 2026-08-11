@@ -1,0 +1,21 @@
+{
+  "id": "TL-5",
+  "name": "Tactic-level TTPs & Procedures",
+  "description": "Items linked to this tactic but not to a specific technique/subtechnique, or with an incomplete chain.",
+  "type": "",
+  "tacticId": 5,
+  "tacticName": "Anonymous cryptocurrency",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-34",
+      "name": "Anonymixer",
+      "description": "Anonymixer is a anonymous Bitcoin-mixing service."
+    },
+    {
+      "id": "TTP-783",
+      "name": "Local Monero",
+      "description": "Local Monero is a service to buy or sell Monero anonymously. https://localmonero.co/"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": 19,
+  "name": "Anti-censorship",
+  "description": "The adversary implements measures to circumvent censorship.",
+  "type": "Technical",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [
+    {
+      "id": 2795,
+      "name": "Protocol hiding vs. network circumvention distinction",
+      "description": "The adversary understands the operational difference between circumvention (bypassing network filters when Tor detection is acceptable) and hiding (preventing Tor detection itself). OBFS4 and most pluggable transports provide circumvention, not hiding. True protocol hiding against a sophisticated adversary requires correctly configured VPN, SSH, or modern proxy tunnels (XTLS, VLESS+REALITY) layered before Tor.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2801,
+      "name": "TLS fingerprint impersonation (uTLS / ClientHello spoofing)",
+      "description": "The adversary uses uTLS — a TLS client that reproduces diverse ClientHello fingerprints from major browsers — to make proxy connections appear as legitimate browser traffic to passive fingerprinting systems and SNI-whitelist firewalls. Defeats passive fingerprinting firewall rules that identify proxy protocols by unique TLS handshake characteristics.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-512",
+      "name": "Dust",
+      "description": "Dust is a censorship-resistant internet transport protocol. https://github.com/blanu/Dust"
+    },
+    {
+      "id": "TTP-814",
+      "name": "Meek",
+      "description": "meek, a new pluggable transport for censorship circumvention. meek tunnels your Tor traffic through HTTPS, and uses a technique called “domain fronting” to hide the fact that you are communicating with a Tor bridge—to the censor it looks like you are talking to some other web site. https://blog.torproject.org/how-use-meek-pluggable-transport/"
+    },
+    {
+      "id": "TTP-1205",
+      "name": "Snowflake",
+      "description": "Snowflake is a pluggable transport available in Tor browser to defeat internet censorship. https://snowflake.torproject.org/"
+    },
+    {
+      "id": "TTP-1478",
+      "name": "Xray Core",
+      "description": "Xray Core is a fork of v2ray-core that integrates VLESS, XTLS, Vision, REALITY, and other advanced anti-censorship transports. Supports AEAD, Perfect Forward Secrecy, and active probe resistance. https://github.com/XTLS/Xray-core"
+    },
+    {
+      "id": "TTP-1479",
+      "name": "VLESS+XTLS",
+      "description": "VLESS+XTLS integrates authentication within the TLS handshake itself rather than nesting TLS over TLS, avoiding the nested TLS fingerprint detectable by advanced DPI. Provides very high passive and active probe resistance. Recommended for restrictive environments with DPI (China, Iran, Turkmenistan)."
+    },
+    {
+      "id": "TTP-1480",
+      "name": "VLESS+REALITY",
+      "description": "VLESS+REALITY borrows ServerHello bytes from high-volume whitelisted sites and layers authentication tokens in the post-handshake. Makes the TLS handshake indistinguishable from connections to whitelisted domains, defeating SNI whitelist censoring and aggressive active probing."
+    }
+  ]
+}

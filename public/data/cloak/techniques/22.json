@@ -1,0 +1,21 @@
+{
+  "id": 22,
+  "name": "Automatic updates",
+  "description": "Automatic updates help fixing vulnerabilities in software.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-910",
+      "name": "Obtanium",
+      "description": "Obtanium allows you to install and update apps directly from their release pages, and receive notifications when new releases are made available. https://github.com/ImranR98/Obtainium"
+    },
+    {
+      "id": "TTP-1209",
+      "name": "Software updates",
+      "description": "Keeping all software updated to ensure known vulnerabilities are patched in a timely manner"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": 15,
+  "name": "Anonymous tablet",
+  "description": "The adversary is trying to buy an Android tablet with cash to prevent any trails tied to his identity. The tablet itself is only used in Airplane-mode and never used on his home network. Instead, anonymous Wi-Fi connections are used, such as public Wi-Fi. Tablets are preferred since they often lack embedded GPS or baseband microchips.",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [
+    {
+      "id": 5,
+      "name": "Airplane mode",
+      "description": "The adversary uses mobile devices only in Airplane-mode to prevent any information leakages.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 2719,
+      "name": "Avoid package tracking official USPS website",
+      "description": "Using the official USPS website to track packages is being avoided, especially over Tor, because the package could become flagged by doing so.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2720,
+      "name": "Third party package tracking",
+      "description": "Third party websites might be used from a public wifi network to check the tracking number of packages. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2722,
+      "name": "Destroy, burn, or throw away received packages",
+      "description": "Received packages are destroyed, burned or dumped. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2723,
+      "name": "Open package in public place",
+      "description": "Received darknet market packages might be opened in public places/bathrooms. Reason is to avoid any placed tracking devices reveiling your home address. This would also allow to get rid of evidence, such as the package or flushing the contents.  This might deny law enforcement the ability to prove that those contents were bought from a darknet market. ",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2732,
+      "name": "Compartmentalize sensitive data",
+      "description": "Compartmentalize sensitive data",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

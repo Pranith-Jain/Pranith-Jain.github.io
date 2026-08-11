@@ -1,0 +1,18 @@
+{
+  "id": 53,
+  "name": "Fake servers",
+  "description": "The adversary uses fake servers to generate fake traffic.",
+  "type": "Technical",
+  "tacticId": 6,
+  "tacticName": "Anonymous hosting",
+  "subtechniques": [
+    {
+      "id": 546,
+      "name": "Send packets copy from multiple sources",
+      "description": "Copies of packets might be send from multiple sources to obscure traffic.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

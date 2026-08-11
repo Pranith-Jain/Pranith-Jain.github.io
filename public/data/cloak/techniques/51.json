@@ -1,0 +1,37 @@
+{
+  "id": 51,
+  "name": "Emulation",
+  "description": "The adversary applies emulation which enables him to use one computer system to behave like another computer system, e.g. Android.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 396,
+      "name": "Machine emulator and virtualizer",
+      "description": "Emulators and virtualization might be used to use specific operating systems.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-27",
+          "name": "AnBox",
+          "description": "AnBox is a container-based approach to boot a full Android system on a regular GNU/Linux system like Ubuntu. AnBox will let you run Android on your Linux system without the slowness of virtualization. https://github.com/anbox/anbox"
+        }
+      ]
+    },
+    {
+      "id": 495,
+      "name": "Quick EMUlator (QEMU)",
+      "description": "QEMU A generic and open source machine emulator and virtualizer. Features. Full-system emulation. Run operating systems for any machine, on any supported architecture. User-mode emulation. Run programs for another Linux/BSD target, on any supported architecture.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-893",
+      "name": "Nox",
+      "description": "Nox is an Android emulator for PC & Mac. https://www.bignox.com/"
+    }
+  ]
+}

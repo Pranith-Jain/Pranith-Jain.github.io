@@ -1,0 +1,172 @@
+{
+  "id": 109,
+  "name": "Virtualization",
+  "description": "The adversary is leveraging virtualization techniques to gain more control over security, privacy and anonymity and reduce the impact of incidents.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 358,
+      "name": "Hidden VM",
+      "description": "A virtual machine hidden inside a hidden volume. \n\n24/11/2024, 15:44, merged with\nVirtual machine on hidden partition/volume",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 367,
+      "name": "Hypervisor",
+      "description": "A hypervisor, also known as a virtual machine monitor (VMM) or virtualizer, is a type of computer software, firmware or hardware that creates and runs virtual machines",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-774",
+          "name": "Linux -> hypervisor -> VM Linux (Debian)",
+          "description": "A specific setup for private internet use by combining a virtual machine with VPN."
+        },
+        {
+          "id": "TTP-1372",
+          "name": "VMware",
+          "description": "VMware Fusion and Workstation is a hosted hypervisor. It enables users to set up virtual machines on a single physical machine. https://blogs.vmware.com/cloud-foundation/2024/11/11/vmware-fusion-and-workstation-are-now-free-for-all-users/"
+        },
+        {
+          "id": "TTP-1445",
+          "name": "Xen hypervisor",
+          "description": "Xen is a free and open source type-1 hypervisor providing services that allow multiple computer operating systems to execute on the same computer hardware concurrently. https://xenproject.org/"
+        },
+        {
+          "id": "TTP-768",
+          "name": "libvirtd",
+          "description": "Linux virtualisation daemon (libvirt) used as a hypervisor management layer for VM orchestration. https://libvirt.org/"
+        }
+      ]
+    },
+    {
+      "id": 382,
+      "name": "Kernel-Based Virtual Machine (KVM)",
+      "description": "Kernel-based Virtual Machine (KVM) is a free and open-source virtualization module in the Linux kernel that allows the kernel to function as a hypervisor.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 388,
+      "name": "Leave host OS alone",
+      "description": "The host operating system might only be used for connecting to public Wi-Fi and be left alone. All other activities take place in virtual machines.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 421,
+      "name": "Network Address Translation (NAT)",
+      "description": "Network address translation is a method of mapping an IP address space into another by modifying network address information in the IP header of packets while they are in transit across a traffic routing device",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 454,
+      "name": "Operate from VM",
+      "description": "The host OS should only be used for connecting to public Wi-Fi, all other activities are conducted from virtual machines.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 541,
+      "name": "Self-contained VM",
+      "description": "Self-contained VMs can operate without installing additional software, such as portable VirtualBox which lets you run any OS from a USB stick.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 586,
+      "name": "Tor gateway VM",
+      "description": "Tor gateway",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 605,
+      "name": "Use closed-source software in VM",
+      "description": "To prevent data leaks",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 632,
+      "name": "Virtual machine",
+      "description": "n computing, a virtual machine is the virtualization or emulation of a computer system. Virtual machines are based on computer architectures and provide the functionality of a physical computer. Their implementations may involve specialized hardware, software, or a combination of the two.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1366",
+          "name": "VirtualBox",
+          "description": "VirtualBox is a general-purpose full virtualization software. https://www.virtualbox.org/"
+        },
+        {
+          "id": "TTP-1407",
+          "name": "Whonix VM",
+          "description": "A virtualized Whonix OS."
+        },
+        {
+          "id": "TTP-1416",
+          "name": "Windows 7",
+          "description": "Windows 7 is an end-of-life operating system developed by Microsoft. It is recommended because activation keys can be found online."
+        },
+        {
+          "id": "TTP-1417",
+          "name": "Windows VM",
+          "description": "A virtualized machine with a Windows operating system because it contains proprietary source code, it should be ran virtualized only."
+        },
+        {
+          "id": "TTP-404",
+          "name": "Debian VM",
+          "description": "Debian-based virtual machine used as an isolated operating environment for sensitive activities"
+        }
+      ]
+    },
+    {
+      "id": 653,
+      "name": "Whonix gateway VM",
+      "description": "The Whonix-Gateway is a software component that runs Tor, which moves data across multiple servers called Tor relays to keep users anonymous on the Internet, and it connects any virtual machine properly to the Internet using Tor only, while user applications should be run inside the Whonix-Workstation",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 654,
+      "name": "Whonix on Qubes",
+      "description": "A particular setup in which Whonix is isolated in a qube in Qubes OS.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 655,
+      "name": "Whonix VM in hidden partition",
+      "description": "A particular setup to hide a virtual machine in a hidden volume.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 677,
+      "name": "Xubuntu Bridge VM",
+      "description": "Xubuntu bridge might be used to set up a network bridge for virtual machines, for example to route traffic through Tor.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-500",
+      "name": "Docker",
+      "description": "Docker is a platform designed to help developers build, share, and run container applications. https://www.docker.com/"
+    },
+    {
+      "id": "TTP-666",
+      "name": "Hidden VM",
+      "description": "A virtual machine hidden inside a hidden volume. \n\n24/11/2024, 15:44, merged with\nVirtual machine on hidden partition/volume"
+    },
+    {
+      "id": "TTP-1362",
+      "name": "Virt-manager",
+      "description": "Virt-manager is an application that lets you manage KVM, Xen, and LXC virtual machines through libvirt. https://virt-manager.org/"
+    }
+  ]
+}

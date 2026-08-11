@@ -1,0 +1,25 @@
+{
+  "id": 101,
+  "name": "Tamper-evident storage",
+  "description": "The adversary is trying to tamper-evident his storage to be able to detect any tampering.",
+  "type": "Technical",
+  "tacticId": 16,
+  "tacticName": "Tamper protection",
+  "subtechniques": [
+    {
+      "id": 385,
+      "name": "Lay objects following a straight line and compare",
+      "description": "To detect tampering with assets, they might be placed following a straight line to be able to compare them when you return.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 469,
+      "name": "Pencil eraser to detect tampering",
+      "description": "Pencil eraser debris might be placed on purpose to detect tampering with physical documents or books (see if they moved or are gone).",
+      "type": "Physical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

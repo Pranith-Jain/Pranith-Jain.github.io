@@ -1,0 +1,46 @@
+{
+  "id": 91,
+  "name": "Secure physical storage",
+  "description": "The adversary is trying to store physical information or hardware securely to prevent theft, unauthorised access or manipulation.",
+  "type": "Physical",
+  "tacticId": 10,
+  "tacticName": "Physical security",
+  "subtechniques": [
+    {
+      "id": 114,
+      "name": "Avoid storing sensitive information on magnetic storage",
+      "description": "Use USB instead which can be destroyed/shredded more easily than magnetic harddrives.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 472,
+      "name": "Physical concealment",
+      "description": "Physically concealing assets, such as USB-sticks. ",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 473,
+      "name": "Physical safe",
+      "description": "Physical safe’s might be deployed to securely store information or hardware. \n\n24/11/2024, 15:11, merged with\nSecure document storage",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 571,
+      "name": "Store devices",
+      "description": "To prevent unauthorized access, theft and tampering, devices should be stored out of sight and shouldn’t be easily found.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 2724,
+      "name": "Fake or hollow walls and floors",
+      "description": "Fake and/or hollow walls and floors might be used to hide stuff.",
+      "type": "Physical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

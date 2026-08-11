@@ -1,0 +1,25 @@
+{
+  "id": 127,
+  "name": "Pre-emptive data minimisation",
+  "description": "Rather than cleaning up data after creation, the adversary prevents unnecessary data from being generated in the first place. Includes refusing to register for services not operationally required, using ephemeral communication channels with automatic message expiry, stripping metadata before sharing files, and not carrying sensitive digital material across physical boundaries.",
+  "type": "Behavioral",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 2791,
+      "name": "Avoid unnecessary service registrations",
+      "description": "The adversary declines to create accounts unless strictly operationally required. Each registration creates a persistent data record (email, IP, usage history) subpoenable by law enforcement.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 2792,
+      "name": "Use ephemeral communication services",
+      "description": "The adversary selects communication services that automatically delete messages after a configured interval rather than retaining message history. Limits forensic value of provider records and reduces impact of server compromise.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

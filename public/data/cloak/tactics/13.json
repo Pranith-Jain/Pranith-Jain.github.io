@@ -1,0 +1,846 @@
+{
+  "id": 13,
+  "name": "Reduce attack surface",
+  "description": "The adversary is trying to reduce its attack surface.",
+  "techniqueCount": 19,
+  "subtechniqueCount": 134,
+  "procedureCount": 37,
+  "techniques": [
+    {
+      "id": 22,
+      "name": "Automatic updates",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 2,
+      "subIndex": []
+    },
+    {
+      "id": 33,
+      "name": "Breach detection",
+      "type": "Technical",
+      "subCount": 4,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 160,
+          "name": "Canarytoken",
+          "type": "Technical"
+        },
+        {
+          "id": 197,
+          "name": "Create many wallet.dat files",
+          "type": "Technical"
+        },
+        {
+          "id": 198,
+          "name": "Create pdf trojan horse",
+          "type": "Technical"
+        },
+        {
+          "id": 410,
+          "name": "Monitor breaches",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "name": "Decentralization",
+      "type": "Technical",
+      "subCount": 14,
+      "procCount": 2,
+      "subIndex": [
+        {
+          "id": 209,
+          "name": "Decentralized exchanges",
+          "type": "Technical"
+        },
+        {
+          "id": 210,
+          "name": "Decentralized filesharing",
+          "type": "Technical"
+        },
+        {
+          "id": 211,
+          "name": "Decentralized Finance (DeFi)",
+          "type": "Technical"
+        },
+        {
+          "id": 366,
+          "name": "Hyperdrive",
+          "type": "Technical"
+        },
+        {
+          "id": 368,
+          "name": "Hyphanet",
+          "type": "Technical"
+        },
+        {
+          "id": 372,
+          "name": "InterPlanetary File System (IPFS)",
+          "type": "Technical"
+        },
+        {
+          "id": 376,
+          "name": "IPFS protocol",
+          "type": "Technical"
+        },
+        {
+          "id": 425,
+          "name": "Nex protocol",
+          "type": "Technical"
+        },
+        {
+          "id": 443,
+          "name": "Only interact with trusted DeFi-protocols",
+          "type": "Behavioral"
+        },
+        {
+          "id": 458,
+          "name": "Oxen Service Node Network",
+          "type": "Technical"
+        },
+        {
+          "id": 467,
+          "name": "Peer-to-peer (P2P)",
+          "type": "Technical"
+        },
+        {
+          "id": 468,
+          "name": "Peer-to-peer exchanges",
+          "type": "Technical"
+        },
+        {
+          "id": 532,
+          "name": "Scroll protocol",
+          "type": "Technical"
+        },
+        {
+          "id": 678,
+          "name": "ZeroNet",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "name": "Disable scripts",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 1,
+      "subIndex": [
+        {
+          "id": 442,
+          "name": "Only enable JavaScript for CAPTCHA's",
+          "type": "Technical"
+        },
+        {
+          "id": 676,
+          "name": "xHTML",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "name": "Hardening",
+      "type": "Technical",
+      "subCount": 67,
+      "procCount": 8,
+      "subIndex": [
+        {
+          "id": 4,
+          "name": "Add security headers",
+          "type": "Technical"
+        },
+        {
+          "id": 30,
+          "name": "Avoid anti-malware software with real-time protection",
+          "type": "Behavioral"
+        },
+        {
+          "id": 35,
+          "name": "Avoid bluetooth",
+          "type": "Behavioral"
+        },
+        {
+          "id": 36,
+          "name": "Avoid bluetooth internet sharing",
+          "type": "Behavioral"
+        },
+        {
+          "id": 37,
+          "name": "Avoid browser add-ons and plugins",
+          "type": "Behavioral"
+        },
+        {
+          "id": 41,
+          "name": "Avoid Chinese products",
+          "type": "Behavioral"
+        },
+        {
+          "id": 57,
+          "name": "Avoid end-of-life devices",
+          "type": "Behavioral"
+        },
+        {
+          "id": 58,
+          "name": "Avoid external devices",
+          "type": "Behavioral"
+        },
+        {
+          "id": 97,
+          "name": "Avoid sharing memory",
+          "type": "Behavioral"
+        },
+        {
+          "id": 110,
+          "name": "Avoid software running in background",
+          "type": "Behavioral"
+        },
+        {
+          "id": 129,
+          "name": "Avoid USB devices",
+          "type": "Behavioral"
+        },
+        {
+          "id": 142,
+          "name": "Block connectivity",
+          "type": "Technical"
+        },
+        {
+          "id": 156,
+          "name": "CAA record",
+          "type": "Technical"
+        },
+        {
+          "id": 165,
+          "name": "Change default passwords",
+          "type": "Behavioral"
+        },
+        {
+          "id": 194,
+          "name": "Cover camera",
+          "type": "Physical"
+        },
+        {
+          "id": 241,
+          "name": "Disable ActiveX",
+          "type": "Technical"
+        },
+        {
+          "id": 242,
+          "name": "Disable AMD PSP",
+          "type": "Technical"
+        },
+        {
+          "id": 243,
+          "name": "Disable Bash history",
+          "type": "Technical"
+        },
+        {
+          "id": 244,
+          "name": "Disable bluetooth",
+          "type": "Technical"
+        },
+        {
+          "id": 245,
+          "name": "Disable boot from USB in BIOS",
+          "type": "Technical"
+        },
+        {
+          "id": 246,
+          "name": "Disable camera",
+          "type": "Technical"
+        },
+        {
+          "id": 247,
+          "name": "Disable DOM storage pseudocookies",
+          "type": "Technical"
+        },
+        {
+          "id": 248,
+          "name": "Disable drag 'n drop (VM)",
+          "type": "Technical"
+        },
+        {
+          "id": 249,
+          "name": "Disable firewire port",
+          "type": "Technical"
+        },
+        {
+          "id": 250,
+          "name": "Disable flash",
+          "type": "Technical"
+        },
+        {
+          "id": 251,
+          "name": "Disable Flash cookies",
+          "type": "Technical"
+        },
+        {
+          "id": 252,
+          "name": "Disable Intel ME",
+          "type": "Technical"
+        },
+        {
+          "id": 253,
+          "name": "Disable Javascript",
+          "type": "Technical"
+        },
+        {
+          "id": 254,
+          "name": "Disable location services",
+          "type": "Technical"
+        },
+        {
+          "id": 255,
+          "name": "Disable OCSP calls",
+          "type": "Technical"
+        },
+        {
+          "id": 256,
+          "name": "Disable PowerShell logging",
+          "type": "Technical"
+        },
+        {
+          "id": 257,
+          "name": "Disable predictive typing",
+          "type": "Technical"
+        },
+        {
+          "id": 258,
+          "name": "Disable saving Wi-Fi hostory",
+          "type": "Technical"
+        },
+        {
+          "id": 259,
+          "name": "Disable secure boot",
+          "type": "Technical"
+        },
+        {
+          "id": 260,
+          "name": "Disable shared clipboard (VM)",
+          "type": "Technical"
+        },
+        {
+          "id": 261,
+          "name": "Disable show status",
+          "type": "Technical"
+        },
+        {
+          "id": 262,
+          "name": "Disable speakers",
+          "type": "Technical"
+        },
+        {
+          "id": 263,
+          "name": "Disable SSD Trim (Windows)",
+          "type": "Technical"
+        },
+        {
+          "id": 264,
+          "name": "Disable telemetry",
+          "type": "Technical"
+        },
+        {
+          "id": 265,
+          "name": "Disable terminal history",
+          "type": "Technical"
+        },
+        {
+          "id": 266,
+          "name": "Disable USB ports in BIOS",
+          "type": "Technical"
+        },
+        {
+          "id": 267,
+          "name": "Disable Veracrypt mounting history",
+          "type": "Technical"
+        },
+        {
+          "id": 268,
+          "name": "Disable webGL",
+          "type": "Technical"
+        },
+        {
+          "id": 269,
+          "name": "Disable WebRTC",
+          "type": "Technical"
+        },
+        {
+          "id": 270,
+          "name": "Disable WiFi",
+          "type": "Technical"
+        },
+        {
+          "id": 354,
+          "name": "Hardware switch",
+          "type": "Technical"
+        },
+        {
+          "id": 357,
+          "name": "Hibernate when lid is closed",
+          "type": "Technical"
+        },
+        {
+          "id": 381,
+          "name": "Kernel hardening",
+          "type": "Technical"
+        },
+        {
+          "id": 444,
+          "name": "Only open ports for the service before",
+          "type": "Technical"
+        },
+        {
+          "id": 509,
+          "name": "Remove battery",
+          "type": "Physical"
+        },
+        {
+          "id": 510,
+          "name": "Remove harddrive",
+          "type": "Physical"
+        },
+        {
+          "id": 511,
+          "name": "Remove interfaces",
+          "type": "Physical"
+        },
+        {
+          "id": 513,
+          "name": "Remove or close unnecessary software",
+          "type": "Behavioral"
+        },
+        {
+          "id": 515,
+          "name": "Remove phone number after MFA verification",
+          "type": "Behavioral"
+        },
+        {
+          "id": 517,
+          "name": "Remove version string PGP public key",
+          "type": "Technical"
+        },
+        {
+          "id": 584,
+          "name": "TLS hardening",
+          "type": "Technical"
+        },
+        {
+          "id": 598,
+          "name": "Unplug and lock",
+          "type": "Behavioral"
+        },
+        {
+          "id": 603,
+          "name": "USB-C adapter for wired internet connection",
+          "type": "Technical"
+        },
+        {
+          "id": 675,
+          "name": "Write-protect switch",
+          "type": "Technical"
+        },
+        {
+          "id": 2731,
+          "name": "Avoid printer Wi-Fi",
+          "type": "Technical"
+        },
+        {
+          "id": 2746,
+          "name": "Limit number of installed applications",
+          "type": "Technical"
+        },
+        {
+          "id": 2747,
+          "name": "Set homepage to Google",
+          "type": "Technical"
+        },
+        {
+          "id": 2749,
+          "name": "Disable search history",
+          "type": "Technical"
+        },
+        {
+          "id": 2757,
+          "name": "Disable beaconing",
+          "type": "Technical"
+        },
+        {
+          "id": 2758,
+          "name": "Disable prefetching",
+          "type": "Technical"
+        },
+        {
+          "id": 2759,
+          "name": "Disable browser pings",
+          "type": "Technical\n"
+        },
+        {
+          "id": 2804,
+          "name": "Anonymous printing",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "name": "Identity detox",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 542,
+          "name": "Self-doxing",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "name": "Isolation",
+      "type": "Technical",
+      "subCount": 17,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 19,
+          "name": "App Qubes",
+          "type": "Technical"
+        },
+        {
+          "id": 21,
+          "name": "Application isolation",
+          "type": "Technical"
+        },
+        {
+          "id": 24,
+          "name": "Attach USB to offline disposable VM",
+          "type": "Technical"
+        },
+        {
+          "id": 218,
+          "name": "Dedicated email addresses",
+          "type": "Technical"
+        },
+        {
+          "id": 219,
+          "name": "Dedicated laptop",
+          "type": "Technical"
+        },
+        {
+          "id": 220,
+          "name": "Dedicated virtual machines",
+          "type": "Technical"
+        },
+        {
+          "id": 295,
+          "name": "Emergency pause",
+          "type": "Technical"
+        },
+        {
+          "id": 333,
+          "name": "Firefox Multi-Account Containers",
+          "type": "Technical"
+        },
+        {
+          "id": 438,
+          "name": "Offline testing",
+          "type": "Behavioral"
+        },
+        {
+          "id": 440,
+          "name": "One Whonix workstation at a time for a single activity",
+          "type": "Technical"
+        },
+        {
+          "id": 447,
+          "name": "Open all files in disposable VM",
+          "type": "Behavioral"
+        },
+        {
+          "id": 448,
+          "name": "Open PDF in browser",
+          "type": "Behavioral"
+        },
+        {
+          "id": 453,
+          "name": "Open untrusted files offline",
+          "type": "Behavioral"
+        },
+        {
+          "id": 528,
+          "name": "Sandboxed Google Play",
+          "type": "Technical"
+        },
+        {
+          "id": 529,
+          "name": "Sandboxing",
+          "type": "Technical"
+        },
+        {
+          "id": 547,
+          "name": "Service isolation",
+          "type": "Technical"
+        },
+        {
+          "id": 614,
+          "name": "User profiles",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "name": "Prevent hardware access",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 81,
+      "name": "Removal services",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 206,
+          "name": "Data removal services",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "name": "Restrict permissions",
+      "type": "Technical",
+      "subCount": 6,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 375,
+          "name": "Invite-only services",
+          "type": "Technical"
+        },
+        {
+          "id": 394,
+          "name": "Lockdown SIM",
+          "type": "Technical"
+        },
+        {
+          "id": 419,
+          "name": "Need-to-know",
+          "type": "Behavioral"
+        },
+        {
+          "id": 487,
+          "name": "Privileged access segmentation",
+          "type": "Technical"
+        },
+        {
+          "id": 531,
+          "name": "Screenlock",
+          "type": "Technical"
+        },
+        {
+          "id": 569,
+          "name": "Storage Scopes",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "name": "Secure hardware",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 13,
+      "subIndex": [
+        {
+          "id": 18,
+          "name": "Anti-theft backpack",
+          "type": "Physical"
+        },
+        {
+          "id": 145,
+          "name": "Bolt computer case to the floor",
+          "type": "Physical"
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "name": "Secure operating system",
+      "type": "Technical",
+      "subCount": 9,
+      "procCount": 4,
+      "subIndex": [
+        {
+          "id": 8,
+          "name": "Android emulation",
+          "type": "Technical"
+        },
+        {
+          "id": 17,
+          "name": "Anti-malware",
+          "type": "Technical"
+        },
+        {
+          "id": 31,
+          "name": "Avoid apt-update and apt-upgrade",
+          "type": "Behavioral"
+        },
+        {
+          "id": 89,
+          "name": "Avoid rooting & jailbreaking",
+          "type": "Behavioral"
+        },
+        {
+          "id": 275,
+          "name": "Distribution morphing",
+          "type": "Technical"
+        },
+        {
+          "id": 345,
+          "name": "Fresh OS offline installation",
+          "type": "Technical"
+        },
+        {
+          "id": 452,
+          "name": "Open source operating system",
+          "type": "Technical"
+        },
+        {
+          "id": 507,
+          "name": "Regularly formatting",
+          "type": "Behavioral"
+        },
+        {
+          "id": 523,
+          "name": "Root smartphone",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "name": "Tracking evasion",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 412,
+          "name": "Mount volumes as removable volumes",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "name": "Tracking reduction",
+      "type": "Technical",
+      "subCount": 1,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 518,
+          "name": "Rename identites if deletion is not possible",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 111,
+      "name": "Wired-only",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 119,
+      "name": "Disposable services",
+      "type": "Technical",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": "TL-13",
+      "name": "Tactic-level TTPs & Procedures",
+      "type": "",
+      "subCount": 0,
+      "procCount": 6,
+      "subIndex": []
+    },
+    {
+      "id": "UL-ST-13",
+      "name": "Unlinked Subtechniques",
+      "type": "",
+      "subCount": 7,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 16,
+          "name": "Anti-fingerprinting",
+          "type": "Technical"
+        },
+        {
+          "id": 455,
+          "name": "Optical Character Recognition (OCR) reader",
+          "type": "Technical"
+        },
+        {
+          "id": 465,
+          "name": "Pastebins",
+          "type": "Technical"
+        },
+        {
+          "id": 536,
+          "name": "Secure SSH keys",
+          "type": "Technical"
+        },
+        {
+          "id": 570,
+          "name": "Store data on USB",
+          "type": "Technical"
+        },
+        {
+          "id": 600,
+          "name": "USB stick",
+          "type": "Technical"
+        },
+        {
+          "id": 652,
+          "name": "Webrings",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 127,
+      "name": "Pre-emptive data minimisation",
+      "type": "Behavioral",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 2791,
+          "name": "Avoid unnecessary service registrations",
+          "type": "Behavioral"
+        },
+        {
+          "id": 2792,
+          "name": "Use ephemeral communication services",
+          "type": "Technical"
+        }
+      ]
+    }
+  ]
+}

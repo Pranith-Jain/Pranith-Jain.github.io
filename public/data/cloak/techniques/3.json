@@ -1,0 +1,38 @@
+{
+  "id": 3,
+  "name": "Add randomness",
+  "description": "The adversary is adding randomness to make it harder to correlate actions which could result in de-anonymization.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 22,
+      "name": "Apply noise",
+      "description": "HSV noise",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 317,
+      "name": "Entropy",
+      "description": "Entropy might be used to generate random bytes by moving the mouse, typing the keyboard, and so on.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 488,
+      "name": "PRNG Stream",
+      "description": "Fills the device with a stream from the PRNG",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-1077",
+      "name": "Random.org",
+      "description": "Random.org is a site where true random numbers are offered. https://www.random.org/"
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "id": 45,
+  "name": "Decentralization",
+  "description": "The adversary uses decentralised services to avoid the need to trust on a single central authority for preserving security, privacy and anonymity.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 209,
+      "name": "Decentralized exchanges",
+      "description": "Decentralized exchanges might be leveraged to remove the control of a single entity, which improves security.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-967",
+          "name": "Pancakeswap",
+          "description": "Pancakeswap is a decentralized cryptocurrency exchange on Binance Smart Chain. https://pancakeswap.finance/"
+        }
+      ]
+    },
+    {
+      "id": 210,
+      "name": "Decentralized filesharing",
+      "description": "Decentralized filesharing removes the need for a central server which improves security.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-393",
+          "name": "Cwtch",
+          "description": "Use CWTCH. Cwtch (/kʊtʃ/ - a Welsh word roughly translating to “a hug that creates a safe place”) is a decentralized, privacy-preserving, multi-party messaging protocol that can be used to build metadata resistant applications. Decentralized and Open Participants in Cwtch can host their own safe spaces, or lend their infrastructure to others seeking a safe space. There is no “Cwtch service” or “Cwtch network”. The Cwtch protocol is open, and anyone is free to build bots, services and user interfacesand integrate and interact with Cwtch.\nPrivacy Preserving\n\nAll communication in Cwtch is end-to-end encrypted and takes place over Tor v3 onion services.\nMetadata Resistant\n\nCwtch has been designed such that no information is exchanged or available to anyone without their explicit consent, including on-the-wire messages and protocol metadata. https://openprivacy.ca/work/cwtch/"
+        }
+      ]
+    },
+    {
+      "id": 211,
+      "name": "Decentralized Finance (DeFi)",
+      "description": "The adversary is leveraging Decentralized Finance which provides financial instruments and services through smart contract on a programmable, permission less blockchain. This approach reduces the need for intermediaries such as brokerages, exchanges, or banks.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1126",
+          "name": "Safe Haven",
+          "description": "Safe Haven is building DeFi solutions for safely managing, storing and transferring your crypto or other digital assets like NFTs, passwords, pictures and documents. Safe Haven’s solutions include decentralized inheritance, masternode solutions, wallets and pooling services. https://safehaven.io/"
+        }
+      ]
+    },
+    {
+      "id": 366,
+      "name": "Hyperdrive",
+      "description": "Hyperdrive is a \"secure, real-time distributed file system designed for easy P2P file sharing.\" [Hyperdrive homepage]\nHyperdrive is the successor to the Dat protocol. You can deploy static webpages, which can be viewed in a browser that supports hyper:// such as Beaker-ng or Agregore. The main implementation is unfortunately written in Node.js.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 368,
+      "name": "Hyphanet",
+      "description": "Hyphanet is \"a peer-to-peer platform for censorship-resistant communication. It uses a decentralized distributed data store to keep and deliver information, and has a suite of free software for publishing and communicating on the Web without fear of censorship.\" [Wikipedia]\nHyphanet's first release (as Freenet) was on March 2000. It is (probably) the oldest project on this page (other than Gopher), and is still receiving regular updates to this day.\nUnlike ZeroNet and IPFS, you do not necessarily have control over the data that is seeded on your device. Data is split into several small blocks, which are replicated to multiple nodes. You designate a set amount of disk space to give Hyphanet (usually between fifteen and fifty gigabytes), and it caches the most popular information on the network. The more frequently accessed a Hyphanet site is by Hyphanet users, the more users that will seed the content. Data is encrypted on disk, and can only be accessed through Hyphanet's web interface.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 372,
+      "name": "InterPlanetary File System (IPFS)",
+      "description": "InterPlanetary File System (IPFS) is a protocol, hypermedia and file sharing peer-to-peer network for storing and sharing data in a distributed file system.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 376,
+      "name": "IPFS protocol",
+      "description": "PFS: IPFS is \"a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices.\" [Wikipedia]\nSimilar to BitTorrent, IPFS allows its users to both receive data from other users who are hosting the file and to share that data in turn with other users looking for that file. Unlike BitTorrent, it seeks to create a unified global network. Files use hashes, meaning if two users publish the same file, that file will be available under the same hash.\nWhile IPFS hashes themselves are immutable, meaning they cannot be changed once published, IPFS supports a system called IPNS where the hash can be of a peer themselves instead of the file, enabling mutable (re-writable) files and folders and ultimately websites.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 425,
+      "name": "Nex protocol",
+      "description": "Nex is \"a simple internet protocol designed for distributed document retrieval.\" [Nex homepage]\nNex has a similar goal to Gemini, that being to serve plain text and the occasional file without CSS stylesheets; unlike Gemini, and like Gopher, Nex has no transport security as it does not support TLS. Thus a barebones browser can be put together using nc / ncat / netcat, whichever one your operating system has available, but it should not be trusted to reliably deliver information in hostile environments where an adversary would have an interest in modifying data during transit. Again, like with Gopher, this can be mitigated by setting up the Nex server as a Tor hidden service, an I2P eepsite, etc.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 443,
+      "name": "Only interact with trusted DeFi-protocols",
+      "description": "Staking, yield farming, NFT farming",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 458,
+      "name": "Oxen Service Node Network",
+      "description": "Oxen’s networking functionality, scalability, and decentralisation tech stack is powered by a set of incentivised nodes called Oxen Service Nodes.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 467,
+      "name": "Peer-to-peer (P2P)",
+      "description": "Peer-to-peer computing or networking is a distributed application architecture that partitions tasks or workloads between peers. Peers are equally privileged, equipotent participants in the network, forming a peer-to-peer network of nodes. In addition, a personal area network is also in nature a type of decentralized peer-to-peer network typically between two devices.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-615",
+          "name": "FreeNet",
+          "description": "FreeNet FreeNet distinguishes itself by prioritizing privacy and decentralization, allowing users to create secret identities and fostering peer-to-peer connections.\n\nMerits:\n\n    Creation of Secret Identities- FreeNet enables users to create secret identities, enhancing privacy in online interactions.\n    Peer-to-Peer Connection- Its architecture fosters a peer-to-peer network, reducing reliance on centralized servers.\n\nhttps://staging.freenetproject.org/"
+        },
+        {
+          "id": "TTP-229",
+          "name": "Binance P2P",
+          "description": "Binance P2P is a platform where you can trade cryptocurrencies using bank transfer and 800+ options. https://p2p.binance.com/en"
+        },
+        {
+          "id": "TTP-230",
+          "name": "Bisq",
+          "description": "Bisq is a decentralized peer-to-peer cryptocurrency exchange with open source desktop software. Https://bisq.network"
+        },
+        {
+          "id": "TTP-1253",
+          "name": "Syncthing",
+          "description": "Synching is a free and open source peer-to-peer file synchronization application. https://syncthing.net/"
+        },
+        {
+          "id": "TTP-268",
+          "name": "Briar",
+          "description": "Briar is a free and open source decentralized censorship-resistant peer-to-peer instant messaging solution. https://briarproject.org/"
+        }
+      ]
+    },
+    {
+      "id": 468,
+      "name": "Peer-to-peer exchanges",
+      "description": "Peer-to-peer (P2P) exchanges enable traders to swap cryptocurrencies without needing to go through a third party. Instead, traders can buy cryptocurrencies directly from the seller using their preferred payment method.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 532,
+      "name": "Scroll protocol",
+      "description": "Scroll is \"a new document-retrieval protocol on port 5699, inspired by Gemini and Gopher+. It focuses on quality-of-life additions, particularly internationalization. It adds more metadata to responses, the ability to request pages in a specific language, and a new metadata request, similar to Gopher+'s metadata request. It tries to offer a power-to-weight balance by providing basic metadata and relational data in documents with minimal effort and additions.\" [Scroll homepage]\nThe Scroll protocol was developed to address four frustrations the designer had with Gemini:\nlack of metadata in regards to publication/modification dates;\ndifferentiating different types of links, such as citations, references, and other external resources meant to provide context, along with indicating a positive/negative sentiment towards the thing being linked to;\nlack of formatting such as italics and bold critical for typography;\nand poor support for internationalization and offering documents or other resources in multiple languages.\nScroll is designed specifically for documents; it is not intended for building web applications, unlike how Gemini turned out with its user certificate system.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 678,
+      "name": "ZeroNet",
+      "description": "ZeroNet: ZeroNet is \"a decentralized web-like network of peer-to-peer users... Instead of having an IP address, sites are identified by a public key (specifically a bitcoin address).\" [Wikipedia]\nZeroNet is basically BitTorrent for websites, where instead of domains, websites are identified using a Bitcoin public key (although ZeroNet supports a few ways to link a public key to a ZeroNet-specific domain name). Unlike traditional BitTorrent, however, \"zites\" (ZeroNet sites) can be updated after they have been originally published while retaining the same key and peers.\nBecause ZeroNet is not a client-server network, traditional website applications like WordPress that require server-side languages like PHP will not work on it. ZeroNet works best with static sites (HTML/CSS/client-side JavaScript), or you can use CoffeeScript and ZeroNet's special APIs to create decentralized applications. https://zeronet.io/",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-3",
+      "name": "99Stack Cloud",
+      "description": "99Stack Cloud is a decentralized cloud provider with privacy by default and allows cryptocurrency payments. https://www.99stack.com/"
+    },
+    {
+      "id": "TTP-1131",
+      "name": "Sarcophagus.io",
+      "description": "Sarcophagus is an autonomous, incentivized dead man’s switch dApp built on Ethereum and Arweave. https://sarcophagus.io/"
+    }
+  ]
+}

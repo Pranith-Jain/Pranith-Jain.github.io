@@ -1,0 +1,122 @@
+{
+  "id": 14,
+  "name": "Risk management",
+  "description": "The individual is applying risk management practices to identify risks and implement appropriate countermeasures to mitigate those.",
+  "techniqueCount": 3,
+  "subtechniqueCount": 17,
+  "procedureCount": 9,
+  "techniques": [
+    {
+      "id": 66,
+      "name": "Monitoring",
+      "type": "Technical",
+      "subCount": 3,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 373,
+          "name": "Intrusion Detection System (IDS)",
+          "type": "Technical"
+        },
+        {
+          "id": 409,
+          "name": "Monitor account activity",
+          "type": "Technical"
+        },
+        {
+          "id": 643,
+          "name": "Warrant canary",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "name": "Network monitoring",
+      "type": "Technical",
+      "subCount": 5,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 332,
+          "name": "Filter C2 packets",
+          "type": "Technical"
+        },
+        {
+          "id": 334,
+          "name": "Firewall",
+          "type": "Technical"
+        },
+        {
+          "id": 557,
+          "name": "Speedtesting",
+          "type": "Technical"
+        },
+        {
+          "id": 620,
+          "name": "Verify blacklisted Tor exit nodes",
+          "type": "Technical"
+        },
+        {
+          "id": 650,
+          "name": "Web Application Firewall (WAF)",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "name": "Threat modeling",
+      "type": "Behavioral",
+      "subCount": 9,
+      "procCount": 3,
+      "subIndex": [
+        {
+          "id": 104,
+          "name": "Avoid single-point-of-failure (SPOF)",
+          "type": "Behavioral"
+        },
+        {
+          "id": 169,
+          "name": "CIA-triad",
+          "type": "Behavioral"
+        },
+        {
+          "id": 234,
+          "name": "Determine countermeasures",
+          "type": "Behavioral"
+        },
+        {
+          "id": 235,
+          "name": "Determine risks",
+          "type": "Behavioral"
+        },
+        {
+          "id": 236,
+          "name": "Determine threats",
+          "type": "Behavioral"
+        },
+        {
+          "id": 237,
+          "name": "Determine vulnerabilities",
+          "type": "Behavioral"
+        },
+        {
+          "id": 238,
+          "name": "Determine what needs protection",
+          "type": "Behavioral"
+        },
+        {
+          "id": 320,
+          "name": "Evade extradiction",
+          "type": "Physical"
+        },
+        {
+          "id": 325,
+          "name": "Exit plan",
+          "type": "Behavioral"
+        }
+      ]
+    }
+  ]
+}

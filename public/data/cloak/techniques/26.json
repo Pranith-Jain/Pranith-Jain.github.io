@@ -1,0 +1,32 @@
+{
+  "id": 26,
+  "name": "Avoid home address for delivery",
+  "description": "The adversary is avoiding using his true home address for package delivery.",
+  "type": "Physical",
+  "tacticId": 10,
+  "tacticName": "Physical security",
+  "subtechniques": [
+    {
+      "id": 179,
+      "name": "Collect post instantly",
+      "description": "To prevent tampering, theft or seizing packages, post should be collected instantly.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 229,
+      "name": "Deliver at public places",
+      "description": "Orders might be delivered at public places to prevent linking activities to one’s home address.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 491,
+      "name": "Public drop box",
+      "description": "Public remote drop boxes might be used to collect orders.",
+      "type": "Physical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

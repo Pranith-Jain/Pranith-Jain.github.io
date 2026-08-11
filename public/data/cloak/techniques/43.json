@@ -1,0 +1,39 @@
+{
+  "id": 43,
+  "name": "Counter surveillance",
+  "description": "The adversary is implementing measures against surveillance.",
+  "type": "Technical",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [
+    {
+      "id": 134,
+      "name": "Avoid using Tor/VPN to access services on the same ASN",
+      "description": "To make correlations harder, avoid using services from the same ISP or ASN.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-797",
+      "name": "Magic blanket",
+      "description": "A magic blanket is a small blanket which could be used to mitigate visual surveillance and prevent shoulder surfing in public and private places."
+    },
+    {
+      "id": "TTP-907",
+      "name": "ObscuraCam",
+      "description": "Obscuracam can blur and disguise faces in photos and videos. https://guardianproject.info/apps/org.witness.sscphase1/"
+    },
+    {
+      "id": "TTP-1086",
+      "name": "Reflectacles.com",
+      "description": "Reflectacles are glasses that are designed to fool facial recognition systems that use infrared for illumination and systems using 3D infrared mapping/scanning. https://www.reflectacles.com/"
+    },
+    {
+      "id": "TTP-1179",
+      "name": "Shielding paint",
+      "description": "Shielding paint is special paint for shielding of electromagnetic fields to prevent side-channel attacks."
+    }
+  ]
+}

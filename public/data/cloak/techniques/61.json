@@ -1,0 +1,136 @@
+{
+  "id": 61,
+  "name": "Isolation",
+  "description": "The adversary is isolating his activities as much as possible to reduce the impact of any incident, such as malware infections. \n",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 19,
+      "name": "App Qubes",
+      "description": "App qubes are isolated environments in which a certain applications runs. App cubes can also be disposable, which means that they self-destruct when its originating window closes. App qubes are part of Qubes OS.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 21,
+      "name": "Application isolation",
+      "description": "Applications are isolated to restrict their permissions and to reduce the impact of incidents, such as malware infections.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 24,
+      "name": "Attach USB to offline disposable VM",
+      "description": "In order to prevent malware infections affecting sensitive information or systems, USB devices are only attached to offline systems or disposable virtual machines.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 218,
+      "name": "Dedicated email addresses",
+      "description": "For each account or use a dedicated email address is used to segment their use and to prevent any leaks from affecting multiple accounts or services.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 219,
+      "name": "Dedicated laptop",
+      "description": "A dedicated laptop for sensitive activities might be acquired to segment these activities from regular activities.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 220,
+      "name": "Dedicated virtual machines",
+      "description": "Dedicated virtual machines might be used for specific purposes, e.g. sensitive activities or for accessing a forum on the Darkweb.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 295,
+      "name": "Emergency pause",
+      "description": "Emergency pause is a feature in Qubes OS, which neutralized an untrusted (networked) qube while opening for example the vault for a password.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 333,
+      "name": "Firefox Multi-Account Containers",
+      "description": "Firefox Multi-account containers might be used to isolate online activity in separate tabs, combined with colors to distinguish between the environments.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 438,
+      "name": "Offline testing",
+      "description": "To better understand how things work and become comfortable with them, offline testing might be conducted. In addition, if unsure if software is trustworthy running it offline prevents any information leaking.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 440,
+      "name": "One Whonix workstation at a time for a single activity",
+      "description": "To segment activities and prevent cross-contamination, each activity should be conducted at at time in a segmented environment.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 447,
+      "name": "Open all files in disposable VM",
+      "description": "To prevent malware spreading to secure environments.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 448,
+      "name": "Open PDF in browser",
+      "description": "To prevent the execution of malware with higher privileges.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 453,
+      "name": "Open untrusted files offline",
+      "description": "To prevent malware spreading to other systems and leaking information.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 528,
+      "name": "Sandboxed Google Play",
+      "description": "Sandboxed Google Play can be installed in GrapheneOS to prevent it from gaining access or privileges.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 529,
+      "name": "Sandboxing",
+      "description": "In computer security, a sandbox is a security mechanism for separating running programs, usually in an effort to mitigate system failures and/or software vulnerabilities from spreading. The sandbox metaphor derives from the concept of a child's sandbox—a play area where kids can build, destroy, and experiment without causing any real-world damage.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-686",
+          "name": "Hybrid Analysis",
+          "description": "Hybrid Analysis is a free malware analysis service for the community that detects and analyzes unknown threats using a unique Hybrid Analysis technology. https://www.hybrid-analysis.com/"
+        }
+      ]
+    },
+    {
+      "id": 547,
+      "name": "Service isolation",
+      "description": "Isolation prevents the impact if incidents occur, therefore all services should be isolated. \n\n24/11/2024, 14:47, merged with\nService Qubes",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 614,
+      "name": "User profiles",
+      "description": "User profiles (GrapheneOS), similar to QubesOS.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

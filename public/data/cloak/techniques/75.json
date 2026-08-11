@@ -1,0 +1,18 @@
+{
+  "id": 75,
+  "name": "Privacy coins",
+  "description": "Protecting User Privacy: Privacy coins are great for those who want to keep their financial activities private. They help avoid unwanted tracking and surveillance, offering a shield against censorship.\n    Business Transactions: Companies find privacy coins useful, especially in sensitive dealings like mergers, acquisitions, or confidential contract discussions. They provide a secure way to handle these transactions without external visibility.\n    Escape from Authoritarian Regimes: In countries with restrictive governments, privacy coins can be a financial lifeline. They allow citizens to circumvent harsh regulations and financial scrutiny.)",
+  "type": "Technical",
+  "tacticId": 5,
+  "tacticName": "Anonymous cryptocurrency",
+  "subtechniques": [
+    {
+      "id": 521,
+      "name": "Ring signatures",
+      "description": "Think of ring signatures like a group of friends signing a card, where you can't tell who wrote what. In the world of privacy coins, this method mixes multiple users' transaction details together. Monero and Bytecoin use this technique to blur the lines of individual transactions, making it hard to pinpoint who initiated a transaction.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

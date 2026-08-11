@@ -1,0 +1,36 @@
+{
+  "id": 36,
+  "name": "Bypass human verification",
+  "description": "The adversary is trying to bypass CAPTCHA verifications, which is harder from the Tor network.",
+  "type": "Technical",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [
+    {
+      "id": 29,
+      "name": "Automated CAPTCHA solving",
+      "description": "Automated CAPTCHA solving tools might be used to bypass human verification from Tor, which are more frequent and harder to solve.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 548,
+      "name": "Set accessibility cookie",
+      "description": "Accessibility cookies might be used to bypass hCaptcha’s.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-283",
+      "name": "Buster",
+      "description": "Buster is a browser extension which helps you to solve difficult CAPTCHAs by completing reCAPTCHA audio challenges using speech recognition. Challenges are solved by clicking on the extension button at the bottom of the reCAPTCHA widget. https://chromewebstore.google.com/detail/buster-captcha-solver-for/mpbjkejclgfgadiemmefgebjfooflfhl"
+    },
+    {
+      "id": "TTP-1477",
+      "name": "Wayback Machine onion service as JS-free clearnet proxy",
+      "description": "The Wayback Machine (archive.org) operates an onion service that serves archived clearnet pages without requiring JavaScript. By appending a URL after /web/, users can access static sites anonymously without relying on Tor exit nodes and without JavaScript execution risk. Trust is shifted to archive.org, which cannot obtain usable metrics when connecting via the onion service."
+    }
+  ]
+}

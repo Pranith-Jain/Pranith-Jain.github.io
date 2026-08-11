@@ -1,0 +1,39 @@
+{
+  "id": 59,
+  "name": "Identify scams",
+  "description": "The adversary tries to identify scams, which could negatively affect them financially or result in de-anonymization.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 32,
+      "name": "Avoid bad OpSec practices by DNM",
+      "description": "If Darknet markets propose ‘bad OPSEC’ practices, such as providing a phone number, they should be avoided because they might be scam.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 111,
+      "name": "Avoid standard escrow services",
+      "description": "To prevent the vendor from running away with your money.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 137,
+      "name": "Be aware of skimmers",
+      "description": "Check for creditcard scammers when paying offline to prevent financial losses.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 446,
+      "name": "Only use funds you are comfortable losing",
+      "description": "To prevent losing money you cannot miss.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

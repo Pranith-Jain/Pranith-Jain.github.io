@@ -1,0 +1,210 @@
+{
+  "id": 8,
+  "name": "Anonymous transactions",
+  "description": "The adversary is trying to conduct transactions anonymously.",
+  "techniqueCount": 4,
+  "subtechniqueCount": 33,
+  "procedureCount": 30,
+  "techniques": [
+    {
+      "id": 35,
+      "name": "Buy with cash",
+      "type": "Technical",
+      "subCount": 4,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 14,
+          "name": "Anonymously buy laptop",
+          "type": "Behavioral"
+        },
+        {
+          "id": 15,
+          "name": "Anonymously buy SIM card",
+          "type": "Behavioral"
+        },
+        {
+          "id": 47,
+          "name": "Avoid counterfeit money",
+          "type": "Behavioral"
+        },
+        {
+          "id": 466,
+          "name": "Pawn shop",
+          "type": "Behavioral"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "name": "Cash by mail",
+      "type": "Behavioral",
+      "subCount": 0,
+      "procCount": 0,
+      "subIndex": []
+    },
+    {
+      "id": 44,
+      "name": "Cryptocurrency",
+      "type": "Technical",
+      "subCount": 27,
+      "procCount": 30,
+      "subIndex": [
+        {
+          "id": 11,
+          "name": "Anonymous MultiBit clients",
+          "type": "Technical"
+        },
+        {
+          "id": 13,
+          "name": "Anonymous swapping service",
+          "type": "Technical"
+        },
+        {
+          "id": 46,
+          "name": "Avoid convertion to actual currency",
+          "type": "Behavioral"
+        },
+        {
+          "id": 67,
+          "name": "Avoid linking phone numbers to crypto platforms",
+          "type": "Behavioral"
+        },
+        {
+          "id": 86,
+          "name": "Avoid reuse of wallet addresses",
+          "type": "Behavioral"
+        },
+        {
+          "id": 91,
+          "name": "Avoid sending crypto directly from exchange to DNM",
+          "type": "Behavioral"
+        },
+        {
+          "id": 140,
+          "name": "Bitcoin ATM",
+          "type": "Technical"
+        },
+        {
+          "id": 163,
+          "name": "Cash for Bitcoins",
+          "type": "Behavioral"
+        },
+        {
+          "id": 164,
+          "name": "Chain of anonymous wallets",
+          "type": "Technical"
+        },
+        {
+          "id": 201,
+          "name": "Crypto card",
+          "type": "Technical"
+        },
+        {
+          "id": 204,
+          "name": "Cryptomining",
+          "type": "Technical"
+        },
+        {
+          "id": 230,
+          "name": "Desktop wallets",
+          "type": "Technical"
+        },
+        {
+          "id": 319,
+          "name": "Escrow services",
+          "type": "Technical"
+        },
+        {
+          "id": 355,
+          "name": "Hardware wallet",
+          "type": "Technical"
+        },
+        {
+          "id": 364,
+          "name": "Hot wallets",
+          "type": "Technical"
+        },
+        {
+          "id": 402,
+          "name": "Memorize Bitcoin seed words",
+          "type": "Behavioral"
+        },
+        {
+          "id": 405,
+          "name": "Minimize interactions with transparent blockchains",
+          "type": "Technical"
+        },
+        {
+          "id": 408,
+          "name": "Mobile wallets",
+          "type": "Technical"
+        },
+        {
+          "id": 415,
+          "name": "Multi-signature wallet",
+          "type": "Technical"
+        },
+        {
+          "id": 416,
+          "name": "Multiple sending and receiving addresses",
+          "type": "Technical"
+        },
+        {
+          "id": 417,
+          "name": "Multiple wallets",
+          "type": "Technical"
+        },
+        {
+          "id": 418,
+          "name": "Multisignature markets",
+          "type": "Technical"
+        },
+        {
+          "id": 460,
+          "name": "Paper wallets",
+          "type": "Physical"
+        },
+        {
+          "id": 537,
+          "name": "Secure wallet service",
+          "type": "Technical"
+        },
+        {
+          "id": 565,
+          "name": "Stealth addresses",
+          "type": "Technical"
+        },
+        {
+          "id": 651,
+          "name": "Web wallets",
+          "type": "Technical"
+        },
+        {
+          "id": 679,
+          "name": "zk-SNARKs",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "name": "Gift cards",
+      "type": "Technical",
+      "subCount": 2,
+      "procCount": 0,
+      "subIndex": [
+        {
+          "id": 506,
+          "name": "Register giftcards anonymously",
+          "type": "Technical"
+        },
+        {
+          "id": 585,
+          "name": "Top-up vouchers",
+          "type": "Technical"
+        }
+      ]
+    }
+  ]
+}

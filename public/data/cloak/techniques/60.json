@@ -1,0 +1,18 @@
+{
+  "id": 60,
+  "name": "Identity detox",
+  "description": "The adversary is detoxing himself to wipe earlier traces left behind by accounts, services, and so on. This process reduces the attack surface and information that is out there which could contribute in de-anonymization attempts.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 542,
+      "name": "Self-doxing",
+      "description": "The adversary might apply self-doxxing regularly to identify any information or traces about his identities which could pose a threat. Being aware of those provides the ability to take appropriate measures.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

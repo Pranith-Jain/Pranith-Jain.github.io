@@ -1,0 +1,102 @@
+{
+  "id": 86,
+  "name": "Secure hardware",
+  "description": "The adversary is trying to secure his hardware.",
+  "type": "Technical",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [
+    {
+      "id": 18,
+      "name": "Anti-theft backpack",
+      "description": "The adversary uses anti-theft backpacks to prevent theft of sensitive information or assets.",
+      "type": "Physical",
+      "procedures": [
+        {
+          "id": "TTP-965",
+          "name": "Pacsafe",
+          "description": "Pacsafe is a supplier of anti-theft travel equipment. https://pacsafe.com/"
+        },
+        {
+          "id": "TTP-1444",
+          "name": "XD Design Bobby",
+          "description": "XD Design’s Bobby is an anti-theft backpack. https://www.xd-design.com/collection/bobby-hero-regular-anti-theft-backpack-black/"
+        }
+      ]
+    },
+    {
+      "id": 145,
+      "name": "Bolt computer case to the floor",
+      "description": "The computer case might be bolted to the floor to make it harder for law enforcement agencies to get inside the computer. This would also waste valuable minutes which could make recovery of memory harder or impossible.",
+      "type": "Physical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-752",
+      "name": "Kyocera phone",
+      "description": "Kyocera offers ultra-rugged, dust, drop, and waterproof Android smartphones and flip features phones with MIL-STD ratings. https://www.kyoceramobile.com/available-devices"
+    },
+    {
+      "id": "TTP-1157",
+      "name": "Security and privacy phone",
+      "description": "The Security and Privacy phone is sold on the Darkweb and claims to be unreachable, unhackable, untraceable and encrypted."
+    },
+    {
+      "id": "TTP-1270",
+      "name": "ThinkPad X230",
+      "description": "The Lenovo ThinkPad x230 is a recommended laptop."
+    },
+    {
+      "id": "TTP-1271",
+      "name": "ThinkPhone",
+      "description": "Motorola’s ThinkPhone is a recommended secure phone."
+    },
+    {
+      "id": "TTP-244",
+      "name": "Bittium Tough Mobile 2C",
+      "description": "Bittium Tough Mobile 2 is a ultra secure smartphone."
+    },
+    {
+      "id": "TTP-246",
+      "name": "Blackphone / Silentphone",
+      "description": "Blackphone is a secure mobile handset. Silentphone is a secure smartphone which delivers end-to-end encryption for voice, video, messaging, file transfer, and more."
+    },
+    {
+      "id": "TTP-2801",
+      "name": "ADHOC S2",
+      "description": "Refurbished Samsung Galaxy S2 (GT-i9100) with a privacy tailored Replicant build. Runs exclusively free software, bundled with uncompromised apps for maximum security, privacy and anonymity. FOSS\n\nMain CPU runs exclusively auditable free/open-source software. All drivers, such as modem or telephony included. Powered by Replicant OS.\nFull encryption\n\nAll user data fully encrypted, app data and media files included. Strong passphrase requested before OS boot.\nAnonymous communications\n\nOver Tor using E2E (end-to-end encryption):\nConversations + OMEMO for instant messaging\nK9-Mail + PGP for assyncronous communication.\nPrivate communications\n\nOver the clearnet using E2E (end-to-end encryption):\nSilence for encrypted SMS/MMS\nLinphone for VoIp "
+    },
+    {
+      "id": "TTP-2802",
+      "name": "ADHOC S3",
+      "description": "Refurbished Samsung Galaxy S3 (GT-i9300) with a privacy tailored Replicant build.\nFOSS\n\nMain CPU runs exclusively auditable free/open-source software. All drivers, such as modem or telephony included. Powered by Replicant OS.\nFull encryption\n\nAll user data fully encrypted, app data and media files included. Strong passphrase requested before OS boot.\nAnonymous communications\n\nOver Tor using E2E (end-to-end encryption):\nConversations + OMEMO for instant messaging\nK9-Mail + PGP for assyncronous communication.\nPrivate communications\n\nOver the clearnet using E2E (end-to-end encryption):\nSilence for encrypted SMS/MMS\nLinphone for VoIp "
+    },
+    {
+      "id": "TTP-2813",
+      "name": "Thinkpad X1 Carbon 5th generation",
+      "description": ""
+    },
+    {
+      "id": "TTP-2814",
+      "name": "Thinkpaad T560P",
+      "description": ""
+    },
+    {
+      "id": "TTP-2815",
+      "name": "Thinkpad 450S",
+      "description": ""
+    },
+    {
+      "id": "TTP-643",
+      "name": "Google Pixel",
+      "description": "Recommended hardware platform for GrapheneOS due to strong verified boot, security chip, and regular security updates"
+    },
+    {
+      "id": "TTP-1210",
+      "name": "Solarin",
+      "description": "High-security smartphone with hardware-level encryption, shielding, and tamper protection. https://www.sirin-labs.com/"
+    }
+  ]
+}

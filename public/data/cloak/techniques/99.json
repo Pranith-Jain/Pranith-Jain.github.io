@@ -1,0 +1,184 @@
+{
+  "id": 99,
+  "name": "Tamper-evident hardware",
+  "description": "The adversary is trying to tamper-evident his hardware to be able to detect any tampering.",
+  "type": "Technical",
+  "tacticId": 16,
+  "tacticName": "Tamper protection",
+  "subtechniques": [
+    {
+      "id": 161,
+      "name": "Candle wax",
+      "description": "Small amounts of candle wax might be applied to laptop screws and USB ports to be able to detect tampering with the device.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 167,
+      "name": "Charge only when locked or off",
+      "description": "If USB devices during boot are not required, charging-only when locked is suitable. Charging-only if USB devices are not required at all. Charging could also be set to ‘off’, which disables charging when the OS is booted into the main OS mode (GrapheneOS).",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 168,
+      "name": "Check CPU for Spectre/Meltdown attacks",
+      "description": "Tools might be applied to check for Spectre and Meltdown vulnerabilities.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 182,
+      "name": "Compare photos",
+      "description": "To detect tampering with a device or environment, photo’s might be taken when the scene was left and when returned. These can be compared to detect any deviations which might indicate that tampering has taken place.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 297,
+      "name": "Enable Anti Evil Maid (EAM) protection",
+      "description": "Anti Evil Maid protection is a feature provided by some operating systems and encryption software, such as Windows, VeraCrypt and Qubes OS. This feature protects against tampering with the device and software.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 393,
+      "name": "Lock computer case",
+      "description": "Locks might be adjusted to computer cases to prevent unauthorized access.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 449,
+      "name": "Open RISC-V CPU architecture",
+      "description": "RISC-V is an open standard instruction set architecture based on established reduced instruction set computer principles.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 450,
+      "name": "Open source firmware",
+      "description": "Open source software provides the ability to review the code for malware and spyware and is therefore preferred over closed source software.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-364",
+          "name": "Coreboot",
+          "description": "Coreboot is an open source extended firmware platform that delivers a lightning fast and secure boot experience on modern computers and embedded systems. https://www.coreboot.org/"
+        },
+        {
+          "id": "TTP-662",
+          "name": "Heads",
+          "description": "Heads is an open source custom firmware and OS configuration for laptops and servers that aims to provide slightly better physical security and protection for data on the system. Unlike Tails, which aims to be a stateless OS that leaves no trace on the computer of its presence, Heads is intended for the case where you need to store data and state on the computer. https://osresearch.net/"
+        },
+        {
+          "id": "TTP-727",
+          "name": "Kanguru FlashTrust",
+          "description": "Kanguru FlashTrust firmware USB flash drive is the world’s first unencrypted USB 3.0 flash drive with onboard, trusted secure firmware (RSA-20148 bit) to protect against any potential risk of malicious attacks like BadUSB. https://www.kanguru.com/products/kanguru-flashtrust-secure-firmware-usb-3-0-flash-drive"
+        },
+        {
+          "id": "TTP-765",
+          "name": "Libreboot",
+          "description": "Libreboot provides free open source boot firmware based on core boot, replacing proprietary BIOS/UEFI firmware on specific Intel/AMD x86 and ARM based motherboards, including laptop and desktop computers. https://libreboot.org/"
+        },
+        {
+          "id": "TTP-81",
+          "name": "Asus WRT",
+          "description": "Asus Wireless Receiver / Transmitter (WRT) is router firmware."
+        },
+        {
+          "id": "TTP-993",
+          "name": "pfSense router/firewall",
+          "description": "pfSense is a free and open source firewall and router that also features unified threat management, load balancing, multi WAN, and more. https://www.pfsense.org/"
+        },
+        {
+          "id": "TTP-1062",
+          "name": "Purism Librem 5",
+          "description": "Librium 5 is a open source security and privacy-focused phone. https://puri.sm/products/librem-5/"
+        },
+        {
+          "id": "TTP-1280",
+          "name": "Tomato firmware",
+          "description": "Tomato is a small, lean, open source alternative for Broadcom-based routers. https://www.freshtomato.org/"
+        }
+      ]
+    },
+    {
+      "id": 451,
+      "name": "Open Source Hardware",
+      "description": "Open source hardware provides the ability to review the code for malware and spyware and is therefore preferred over closed source hardware.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-831",
+          "name": "MNT Reform",
+          "description": "MNT Reform is the ultimate open hardware laptop. https://shop.mntre.com/products/mnt-reform"
+        },
+        {
+          "id": "TTP-1212",
+          "name": "Solokeys",
+          "description": "SoloKeys are open source hardware security keys. https://solokeys.com/"
+        }
+      ]
+    },
+    {
+      "id": 508,
+      "name": "Reliable cables",
+      "description": "Only personally owned cables should be trusted and used.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 522,
+      "name": "ROM flashing",
+      "description": "In all-cases flash a freedom and privacy-respecting ROM before using the camera. Be aware that the glorified corporate malware that comes pre-installed on the phone will leak a range of data to the cloud.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 530,
+      "name": "Scheduled remote verification",
+      "description": "Set up a scheduled remote verification with an email that you check regularly (alerts from auditor, e.g. compromised firmware).",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 556,
+      "name": "Solder RAM into the motherboard",
+      "description": "Soldering the RAM into the motherboard prevents it from taken out, which in turn prevents cold boot attacks.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 568,
+      "name": "Stickers and nail polish",
+      "description": "Stickers and nail polish might be put on laptop screws and USB ports to detect tampering with the device.",
+      "type": "Physical",
+      "procedures": []
+    },
+    {
+      "id": 604,
+      "name": "Use business grade laptops",
+      "description": "Use 'business grade' laptops because they provide more customizable security features (BIOS/UEFI) and have longer support: better custom Secure Boot settings, HDD/SSD passwords in addition to BIOS/UEFI passwords, disabling AMD PSP/Intel IME), secure wipe tools from the BIOS, better control over siabling USB ports, wifi, bluetooth, camera, microphone, anti-tampering, better security features with virtualization.",
+      "type": "Technical",
+      "procedures": []
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-743",
+      "name": "Killer",
+      "description": "Killer is a system tamper detector (USB, bluetooth, AC, battery, Disk tray, Ethernet). Shuts the system down upon disallowed changes. https://github.com/Lvl4Sword/Killer"
+    },
+    {
+      "id": "TTP-1067",
+      "name": "Qubes antievilmaid",
+      "description": "Anti Evil Maid is an implementation of a TPM-based dynamic (Intel TXT) trusted\nboot for dracut/initramfs-based OSes (Fedora, Qubes, etc.) with a primary goal\nto prevent Evil Maid attacks.\n\nIn short, AEM relies on TPM and a feature found in Intel's vPro CPUs (TXT) to\ndetect tampering of various boot components.https://github.com/QubesOS/qubes-antievilmaid"
+    },
+    {
+      "id": "TTP-1214",
+      "name": "Spectre & Meltdown Checker",
+      "description": "Spectre & Meltdown Checker is a shell script to assess your system’s resilience against the several transient execution CVEs that were published since early 2018, and give you guidance as to how to mitigate them. https://github.com/speed47/spectre-meltdown-checker"
+    }
+  ]
+}

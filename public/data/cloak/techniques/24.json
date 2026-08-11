@@ -1,0 +1,18 @@
+{
+  "id": 24,
+  "name": "Avoid cross-contamination",
+  "description": "The adversary is avoiding cross-contamination between his internet usage, identities, and so on to prevent correlation of actions which could lead to de-anonymization.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 180,
+      "name": "Colour VM's",
+      "description": "In Qubes OS qubes might receive a colored border to keep track of the domain in which it runs. This helps the individual of keeping track of their corresponding security level and preventing making mistakes.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

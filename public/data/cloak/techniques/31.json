@@ -1,0 +1,18 @@
+{
+  "id": 31,
+  "name": "Blending in",
+  "description": "The adversary is trying to blend in with its environment to prevent de-anonymization or attracting unwanted attention.",
+  "type": "Behavioral",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 647,
+      "name": "Wear clothing that blends in",
+      "description": "In order to make recognition harder, disguises might be worn, such as a clothes which blend in with the environment.",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": 121,
+  "name": "Anonymous traveling",
+  "description": "The adversary is trying to travel anonymously by avoiding certain ways of traveling or by adapting its behavior.",
+  "type": "Behavioral",
+  "tacticId": 7,
+  "tacticName": "Anonymous identity",
+  "subtechniques": [],
+  "procedures": []
+}

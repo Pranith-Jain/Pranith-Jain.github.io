@@ -1,0 +1,10 @@
+{
+  "id": 5,
+  "name": "Anonymize RPC requests",
+  "description": "The adversary is trying to anonymize RPC-requests (Remote Procedure Call).",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [],
+  "procedures": []
+}

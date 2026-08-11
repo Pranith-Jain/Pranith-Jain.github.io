@@ -1,0 +1,60 @@
+{
+  "id": "UL-ST-15",
+  "name": "Unlinked Subtechniques",
+  "description": "Subtechniques without a TechniqueID; placed here for visibility.",
+  "type": "",
+  "tacticId": 15,
+  "tacticName": "Secure behavior",
+  "subtechniques": [
+    {
+      "id": 94,
+      "name": "Avoid sensitive activities from non-encrypted system",
+      "description": "Unencrypted information is readily available when a device is stolen or seized. Unencrypted devices should therefore be avoided for conducting sensitive activities.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 96,
+      "name": "Avoid sharing devices",
+      "description": "To keep secrets secret, sharing devices should be avoided to prevent revealing any information in the wrong hands.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 103,
+      "name": "Avoid simultaneously running untrusted qubes with sensitive qubes",
+      "description": "Assume that all memory could be leaked, and to prevent information leakage untrusted qubes should not be running simultaneously.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 112,
+      "name": "Avoid storing information on VPS",
+      "description": "The hosting provider could see everything on a VPS, which is why they should only be used for conducting attacks and not storing sensitive information.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 113,
+      "name": "Avoid storing passwords in browser",
+      "description": "Stored information in a browser can be easily stolen, such as with info stealers and should therefore be avoided.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 535,
+      "name": "Secondary user profile",
+      "description": "Create secondary user profile for apps that require Google Services.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 608,
+      "name": "Use online services for non-sensitive files",
+      "description": "Using online services is ok as long as it's not for sensitive data. ",
+      "type": "Behavioral",
+      "procedures": []
+    }
+  ],
+  "procedures": []
+}

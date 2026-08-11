@@ -1,0 +1,10 @@
+{
+  "id": 14,
+  "name": "Anonymous support",
+  "description": "The adversary is trying to get technical support anonymously.",
+  "type": "Technical",
+  "tacticId": 4,
+  "tacticName": "Anonymous communication",
+  "subtechniques": [],
+  "procedures": []
+}

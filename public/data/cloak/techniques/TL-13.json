@@ -1,0 +1,41 @@
+{
+  "id": "TL-13",
+  "name": "Tactic-level TTPs & Procedures",
+  "description": "Items linked to this tactic but not to a specific technique/subtechnique, or with an incomplete chain.",
+  "type": "",
+  "tacticId": 13,
+  "tacticName": "Reduce attack surface",
+  "subtechniques": [],
+  "procedures": [
+    {
+      "id": "TTP-488",
+      "name": "Disroot",
+      "description": "Disroot is a platform providing online services based on principles on freedom, privacy, federation and decentralization. https://disroot.org/en"
+    },
+    {
+      "id": "TTP-706",
+      "name": "InviZible Pro",
+      "description": "InviZible Pro is an Andoid application for online privacy and security. It combines the strength of Tor, DNSCrypt, and Purple I2P to provide a comprehensive solution for online privacy, security and anonymity. https://invizible.net/en/"
+    },
+    {
+      "id": "TTP-747",
+      "name": "kloak (keystroke-level online anonymization kernel)",
+      "description": "kloak is designed to stymie adversary attempts to identify and/or impersonate users' biometric traits. The GitHub site succinctly describes kloak's purpose and the tradeoff between usability and the level of privacy. Notably, shorter time delays between keystrokes and release events reduces overall anonymity. https://github.com/vmonaco/kloak"
+    },
+    {
+      "id": "TTP-1041",
+      "name": "PrivaZer",
+      "description": "PrivaZer is a free PC cleaner and privacy tool. https://privazer.com/nl/"
+    },
+    {
+      "id": "TTP-1392",
+      "name": "Wayback machine",
+      "description": "The Wayback Machine is a digital archive of the World Wide Web founded by the Internet Archive. https://archive.org/"
+    },
+    {
+      "id": "TTP-305",
+      "name": "CCleaner",
+      "description": "CCleaner ís a leading optimization app for Windows that cleans junk, boosts performance, and protects privacy. https://www.ccleaner.com/\n\n21/11/2024, 12:35, merged with\nPiriform.com"
+    }
+  ]
+}

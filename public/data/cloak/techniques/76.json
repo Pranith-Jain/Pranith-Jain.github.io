@@ -1,0 +1,101 @@
+{
+  "id": 76,
+  "name": "Privacy-conscious alternatives",
+  "description": "The adversary tries to use privacy-friendly alternatives of famous services such as social media or search engines.",
+  "type": "Technical",
+  "tacticId": 3,
+  "tacticName": "Anonymous browsing",
+  "subtechniques": [
+    {
+      "id": 428,
+      "name": "Note taking",
+      "description": "Specific software might be used for note taking.",
+      "type": "Technical",
+      "procedures": []
+    },
+    {
+      "id": 456,
+      "name": "OSS apps for private use",
+      "description": "Replace apps",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 483,
+      "name": "Privacy community",
+      "description": "Find a privacy-loving community: The first in the list might not be a technical solution, but it’s by far the most important in my experience. Having a group of people around you to support you, give solid feedback, and bounce ideas off of is an essential aspect of a successful journey towards privacy.\nNot only is this type of community beneficial along the way, they can often help with many of the feelings that come along with falling down the privacy “rabbit hole”, like nihilism, loneliness, etc.\nBefore you go any further, I’d recommend this step be priority number one for you no matter your own personal threat model.",
+      "type": "Behavioral",
+      "procedures": []
+    },
+    {
+      "id": 484,
+      "name": "Privacy front-ends",
+      "description": "Privacy front-ends might be used for popular services to prevent tracking, fingerprinting, and information leaks.",
+      "type": "Technical",
+      "procedures": [
+        {
+          "id": "TTP-1137",
+          "name": "Scribe.rip (Medium alternative)",
+          "description": "Scribe is an alternative frontend to Medium. https://scribe.rip/"
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "id": "TTP-703",
+      "name": "Invidious (YouTube alternative)",
+      "description": "Invidious is a free and open source alternative frontend to YouTube. https://invidious.io/"
+    },
+    {
+      "id": "TTP-766",
+      "name": "LibRedirect",
+      "description": "LibRedirect is a web extensions that redirects YouTube, Instagram, Reddit, TikTok and other websites to alternatieve privacy-friendly frontends. https://libredirect.github.io/"
+    },
+    {
+      "id": "TTP-872",
+      "name": "NewPipe",
+      "description": "NewPipe is an open source lightweight privacy frontend for YouTube. https://newpipe.net/"
+    },
+    {
+      "id": "TTP-880",
+      "name": "Nitter (Twitter alternative)",
+      "description": "Nitter is a free and open source alternative Twitter frontend focused on privacy and performance. https://github.com/zedeus/nitter"
+    },
+    {
+      "id": "TTP-989",
+      "name": "Peertube",
+      "description": "PeerTube is a opensource decentralized privacy-friendly video platform, YouTube alternative. https://peertube.tv/"
+    },
+    {
+      "id": "TTP-1046",
+      "name": "Proton Suite",
+      "description": "Proton Suite is a bundle of Proton services and features for individuals and families. It includes Proton Mail, Proton Calendar, Proton Drive, Proton Pass, and Proton VPN. https://proton.me/\n\n21/11/2024, 13:15, merged with\nProtonDrive\n\n21/11/2024, 13:15, merged with\nProtonMail\n\n21/11/2024, 13:15, merged with\nProtonVPN"
+    },
+    {
+      "id": "TTP-1411",
+      "name": "Whoogle",
+      "description": "Get Google search results, but without any ads, JavaScript, AMP links, cookies, or IP address tracking. Easily deployable in one click as a Docker app, and customizable with a single config file. Quick and simple to implement as a primary search engine replacement on both desktop and mobile. https://github.com/benbusby/whoogle-search"
+    },
+    {
+      "id": "TTP-1415",
+      "name": "Wikiless",
+      "description": "Wikiless is a privacy-friendly Wikipedia alternatieve. https://github.com/Metastem/wikiless"
+    },
+    {
+      "id": "TTP-258",
+      "name": "Bluesky",
+      "description": "Blues is a privacy-preserving Twitter (X) alternative. https://bsky.app/"
+    },
+    {
+      "id": "TTP-587",
+      "name": "Fediverse",
+      "description": "Decentralised social network federation (Mastodon, Pleroma, etc.) as a privacy-preserving alternative to centralised platforms"
+    },
+    {
+      "id": "TTP-1121",
+      "name": "RSS feeds",
+      "description": "Using RSS readers instead of visiting sites directly reduces tracking, cookies, and JavaScript execution exposure"
+    }
+  ]
+}
