@@ -93,12 +93,12 @@ describe('backCategoryFor', () => {
   });
 
   describe('dfir paths', () => {
-    it('maps /dfir/ioc-investigate to the core-dfir group', () => {
-      expect(backCategoryFor('/dfir/ioc-investigate')).toBe('/dfir/tools/core-dfir');
+    it('maps /dfir/ioc-investigate to the ioc-triage catalog hub', () => {
+      expect(backCategoryFor('/dfir/ioc-investigate')).toBe('/dfir/catalog?cat=ioc-triage');
     });
 
-    it('maps /dfir/domain-investigator to the investigation group', () => {
-      expect(backCategoryFor('/dfir/domain-investigator')).toBe('/dfir/tools/investigation');
+    it('maps /dfir/domain-investigator to the domain-network catalog hub', () => {
+      expect(backCategoryFor('/dfir/domain-investigator')).toBe('/dfir/catalog?cat=domain-network');
     });
 
     it('returns null for unknown dfir tools', () => {

@@ -61,7 +61,6 @@ const ROUTE_LABELS: Record<string, string> = {
   '/dfir/breach': 'Breach Lookup',
   '/dfir/rules': 'Detection Rules',
   '/dfir/owasp': 'OWASP Top 10',
-  '/dfir/tools': 'All Tools',
   '/dfir': 'About the Toolkit',
   // ── PANOPTICON (threat intel) ────────────────────────────────
   '/threatintel': 'PANOPTICON',

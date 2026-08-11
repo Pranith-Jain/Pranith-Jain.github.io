@@ -16,23 +16,22 @@
  * `/threatintel/iocs/cross` back-links to the `iocs` category even
  * though the slug `cross` is also a tab under `campaigns`.
  *
- * DFIR's group map is built the same way: `data/dfir/tool-sections.ts`
- * already exports SECTIONS, and we walk it once at module load.
+ * DFIR's hub map is built the same way: `data/dfir-hubs.ts` is the
+ * canonical registry (what `/dfir/catalog` displays), and we walk it
+ * once at module load so the back-link can never drift from it.
  */
 import { hubIdForSlug, isFlatToolPath } from '../data/threatintel-hubs';
-import { SECTIONS as DFIR_SECTIONS, type ToolGroup } from '../components/dfir/tool-sections';
+import { getAllPages } from '../data/dfir-hubs';
 
 /* ------------------------------------------------------------------ */
-/*  DFIR: /dfir/<slug> → ToolGroup (rendered at /dfir/tools/<group>)  */
+/*  DFIR: /dfir/<slug> → catalog hub (?cat=<hub-id>)                  */
 /* ------------------------------------------------------------------ */
-const DFIR_TOOL_TO_GROUP: Record<string, ToolGroup> = (() => {
-  const map: Record<string, ToolGroup> = {};
-  for (const section of DFIR_SECTIONS) {
-    for (const t of section.tools) {
-      // Strip the leading `/dfir/` so the lookup table keys on the slug only.
-      const slug = t.path.replace(/^\/dfir\//, '');
-      if (slug && !slug.includes('/')) map[slug] = section.group;
-    }
+const DFIR_TOOL_TO_HUB: Record<string, string> = (() => {
+  const map: Record<string, string> = {};
+  for (const { hub, page } of getAllPages()) {
+    // Strip the leading `/dfir/` so the lookup table keys on the slug only.
+    const slug = page.path.replace(/^\/dfir\//, '');
+    if (slug && !slug.includes('/')) map[slug] = hub.id;
   }
   return map;
 })();
@@ -73,13 +72,13 @@ export function backCategoryFor(pathname: string): string | null {
 
   const df = /^\/dfir\/([^/]+)$/.exec(pathname);
   if (df) {
-    const group = DFIR_TOOL_TO_GROUP[df[1]!];
-    return group ? `/dfir/tools/${group}` : null;
+    const hub = DFIR_TOOL_TO_HUB[df[1]!];
+    return hub ? `/dfir/catalog?cat=${hub}` : null;
   }
   return null;
 }
 
 // Exposed for the drift test; not part of the public API.
 export const __TEST_ONLY = {
-  DFIR_TOOL_TO_GROUP,
+  DFIR_TOOL_TO_HUB,
 };
