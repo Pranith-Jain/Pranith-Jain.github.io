@@ -1174,13 +1174,11 @@ export async function enqueueAllFeeds(queue: Queue<FeedQueueMessage>): Promise<v
   // single burst that the consumer (max_concurrency 10) can't drain fast
   // enough — a burst creates a transient backlog + avg-lag spike on the
   // dashboard. The stagger spaces them so the consumer keeps pace.
-  await queue.sendBatch(
-    FEED_SOURCE_IDS.map((id, i) => ({ body: { sourceId: id }, delaySeconds: i * 2 }))
-  );
+  await queue.sendBatch(FEED_SOURCE_IDS.map((id, i) => ({ body: { sourceId: id }, delaySeconds: i * 2 })));
 }
 
 const ENQUEUE_COOLDOWN_KEY = 'live-iocs:enqueue-cooldown';
-const ENQUEUE_COOLDOWN_SECONDS = 5 * 60;
+const ENQUEUE_COOLDOWN_SECONDS = 15 * 60;
 // Per-colo shadow of the KV cooldown marker. `caches.default` is free and
 // fast, so we only do the KV read on a miss (1 per cooldown per colo instead
 // of 1 per page request). The shadow TTL equals the cooldown TTL, so a stale
@@ -1219,6 +1217,28 @@ async function isEnqueueCoolingDown(kv: KVNamespace | undefined): Promise<boolea
   return !!fresh;
 }
 
+// ── Hourly enqueue-cycle gate ────────────────────────────────────────────
+// The hourly cron enqueues 48 messages (25 gp:warm + 23 live-iocs) every
+// hour unconditionally — ~2,400 queue ops/day. The cycle marker lets the
+// cron skip the fan-out when a previous cycle (or a hit-path refresh) is
+// still fresh: TTL 105 min (cadence 60) means at most one cycle is skipped,
+// and the coverage is safe — gp:warm slices carry a 150-min TTL and the
+// live-iocs Cache-API slices a 6h TTL, both far beyond a 2-cycle gap.
+const ENQUEUE_CYCLE_KEY = 'live-iocs:enqueue-cycle';
+export const ENQUEUE_CYCLE_TTL_SECONDS = 105 * 60;
+
+/** True when the last enqueue cycle is still fresh → the hourly fan-out can be skipped. */
+export async function shouldSkipEnqueueCycle(kv: KVNamespace | undefined): Promise<boolean> {
+  if (!kv) return false;
+  return (await safeNullLog('kv-get-enqueue-cycle', kv.get(ENQUEUE_CYCLE_KEY))) !== null;
+}
+
+/** Record that a fan-out completed so the next hourly cron skips its redundant re-enqueue. */
+export async function markEnqueueCycle(kv: KVNamespace | undefined): Promise<void> {
+  if (!kv) return;
+  await kv.put(ENQUEUE_CYCLE_KEY, new Date().toISOString(), { expirationTtl: ENQUEUE_CYCLE_TTL_SECONDS });
+}
+
 async function maybeEnqueueAllFeeds(
   queue: Queue<FeedQueueMessage> | undefined,
   kv: KVNamespace | undefined
@@ -1227,6 +1247,9 @@ async function maybeEnqueueAllFeeds(
   if (await isEnqueueCoolingDown(kv)) return;
   await enqueueAllFeeds(queue);
   if (kv) {
+    // A hit-path refresh is as fresh as a cron cycle — extend the cycle
+    // marker so the next hourly cron skips its redundant fan-out too.
+    await markEnqueueCycle(kv).catch(() => {});
     await kv.put(ENQUEUE_COOLDOWN_KEY, new Date().toISOString(), { expirationTtl: ENQUEUE_COOLDOWN_SECONDS });
     const cache = (caches as unknown as { default: Cache }).default;
     if (cache) {
@@ -1253,9 +1276,7 @@ async function maybeEnqueueAllFeeds(
 async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIocsResponse> {
   const kv = c.env.KV_CACHE;
   c.executionCtx.waitUntil(
-    maybeEnqueueAllFeeds(c.env.FEEDS_QUEUE, kv).catch((e) =>
-      logError("live-iocs-enqueue failed", e)
-    )
+    maybeEnqueueAllFeeds(c.env.FEEDS_QUEUE, kv).catch((e) => logError('live-iocs-enqueue failed', e))
   );
   const { response, presentSlices } = await composeLiveIocs(c.env);
   // Serve the composed response when slices exist AND it isn't empty. An empty

@@ -50,7 +50,7 @@ import { runFullCollection } from '../api/src/lib/cti-collector';
 import { runRetentionSweep } from '../api/src/lib/retention';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
-import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
+import { enqueueAllFeeds, shouldSkipEnqueueCycle, markEnqueueCycle } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
@@ -217,13 +217,23 @@ export async function executeCronJob(
           // old position inside the fireAndForget block (~line 493) was never
           // reached, so gp:warm:* expired and the map lost every warmed layer.
           if (env.FEEDS_QUEUE) {
-            await enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue'));
-            // Live-IOC feed slices — same reasoning. The queue consumer warms each
-            // source in its own invocation (own budget). Without this the compose-
-            // on-read path falls back to the budget-limited synchronous fan-out,
-            // which starves every source past the first ~11 — the "16 unreachable"
-            // blocklists (blocklist-de, cinsscore, threatview, certpl, bitwire…).
-            await enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue'));
+            // Skip-when-fresh: a fan-out that completed <~105 min ago (cron
+            // OR hit-path refresh — see shouldSkipEnqueueCycle) is still
+            // covered by the gp:warm 150-min TTL and the 6h slice TTL, so the
+            // 48-message re-enqueue is pure waste. Marker is only written on
+            // success, so a failed cycle always re-enqueues next hour.
+            if (await shouldSkipEnqueueCycle(env.KV_CACHE)) {
+              console.log(JSON.stringify({ job: 'queue-enqueue', status: 'skipped-fresh' }));
+            } else {
+              await enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue'));
+              // Live-IOC feed slices — same reasoning. The queue consumer warms each
+              // source in its own invocation (own budget). Without this the compose-
+              // on-read path falls back to the budget-limited synchronous fan-out,
+              // which starves every source past the first ~11 — the "16 unreachable"
+              // blocklists (blocklist-de, cinsscore, threatview, certpl, bitwire…).
+              await enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue'));
+              await markEnqueueCycle(env.KV_CACHE).catch(logCronFail('enqueue-cycle-mark'));
+            }
           }
 
           // === CVE-recent + ransomware-recent warm — FIRST (before the pipeline) =

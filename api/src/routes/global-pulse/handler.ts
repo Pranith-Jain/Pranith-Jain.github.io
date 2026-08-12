@@ -331,16 +331,24 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     },
   });
   c.executionCtx.waitUntil(
-    Promise.all([
-      cache.put(cacheReq, response.clone()),
-      routeCachePut(GP_RESPONSE_KEY, payload, GP_RESPONSE_TTL),
+    (async () => {
+      await Promise.all([
+        cache.put(cacheReq, response.clone()),
+        routeCachePut(GP_RESPONSE_KEY, payload, GP_RESPONSE_TTL),
+      ]);
       // ALSO write to KV (cross-colo) so the GlobalPulse DO's KV fallback
       // (pollFeeds reads kv.get(GP_RESPONSE_KEY)) actually has data. Without
       // this, the DO's KV fallback 404s and the WS live feed goes stale once
       // the per-colo Cache-API entry (300s TTL) expires — the page shows
       // "2 hours ago" because the DO has nothing newer to broadcast.
-      kv ? kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL }) : Promise.resolve(),
-    ])
+      // Write-on-change: an unchanged build must not burn the scarce free-plan
+      // KV write quota (1k/day) — a cheap read skips the put when nothing moved.
+      if (kv) {
+        if ((await kv.get(GP_RESPONSE_KEY)) !== json) {
+          await kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL });
+        }
+      }
+    })()
   );
 
   // ── Background build for external fetchers (botnet C2, supply chain, etc.) ──

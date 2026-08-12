@@ -20,10 +20,10 @@ import { concurrentMap } from '../api/src/lib/concurrent-map';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { fetchXAccountPosts, X_ACCOUNTS } from '../api/src/routes/cyberpulse-ingest';
 
-// `gp:warm:<key>` slice TTL — 90 min. Short enough that stale data expires
-// quickly (the direct-fetch fallback in the 30-min cron kicks in once KV is
-// cold), long enough to survive the 60-min refresh window + one retry gap.
-const GP_WARM_TTL_SECONDS = 90 * 60;
+// `gp:warm:<key>` slice TTL — 150 min. Long enough to cover the skip-when-
+// fresh enqueue gate (ENQUEUE_CYCLE_TTL_SECONDS 105 min → at most one skipped
+// hourly cycle, worst-case slice age ~2h), with margin for one retry gap.
+const GP_WARM_TTL_SECONDS = 150 * 60;
 
 // Within-batch fan-out bound. The relevant runtime limit is ~6 simultaneously
 // OPEN outbound connections (not a total-subrequest cap). Several sources fan
@@ -81,7 +81,14 @@ export async function handleQueue(
           );
           if (res.ok) {
             const body = await res.text();
-            await kv.put(gpWarmKey(gp.key), body, { expirationTtl: GP_WARM_TTL_SECONDS });
+            // Write-on-change: most feeds return byte-identical JSON hour over
+            // hour, and KV writes are the scarce free-plan quota (1k/day vs
+            // 100k reads). One cheap read per warm saves the write whenever
+            // the feed hasn't moved.
+            const key = gpWarmKey(gp.key);
+            if ((await kv.get(key)) !== body) {
+              await kv.put(key, body, { expirationTtl: GP_WARM_TTL_SECONDS });
+            }
           } else {
             // Previously silent — a non-ok warm fetch was acked with no trace,
             // so a broken feed (e.g. a key-gated route returning 401/502) left
@@ -103,9 +110,9 @@ export async function handleQueue(
         // ── CyberPulse source warm (cp:warm:<type>) ──────────────────────
         // Each source type gets its own consumer invocation → its own
         // 50-subrequest budget. The fetcher is called IN-PROCESS (no HTTP
-        // self-fetch). Result is written to `cp:warm:<type>` KV with a 90 min
-        // TTL so stale data expires before the next 60-min cron loop.
-        const CP_WARM_TTL_SECONDS = 90 * 60;
+        // self-fetch). Result is written to `cp:warm:<type>` KV with a 150 min
+        // TTL — long enough to survive the skip-when-fresh enqueue gate.
+        const CP_WARM_TTL_SECONDS = 150 * 60;
         const cp = msg.body?.cp;
         if (cp && typeof cp.type === 'string') {
           try {
@@ -116,9 +123,13 @@ export async function handleQueue(
               msg.ack();
               return;
             }
-            await kv.put(`cp:warm:${cp.type}`, JSON.stringify(posts), {
-              expirationTtl: CP_WARM_TTL_SECONDS,
-            });
+            const key = `cp:warm:${cp.type}`;
+            const raw = JSON.stringify(posts);
+            if ((await kv.get(key)) !== raw) {
+              await kv.put(key, raw, {
+                expirationTtl: CP_WARM_TTL_SECONDS,
+              });
+            }
           } catch (e) {
             console.error(
               JSON.stringify({
