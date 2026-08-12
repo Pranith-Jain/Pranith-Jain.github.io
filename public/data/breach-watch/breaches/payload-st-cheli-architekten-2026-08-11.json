@@ -1,0 +1,15 @@
+{
+  "slug": "payload-st-cheli-architekten-2026-08-11",
+  "title": "Stücheli Architekten",
+  "group": "Payload",
+  "discovered": "2026-08-11T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/st-cheli-architekten-payload-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

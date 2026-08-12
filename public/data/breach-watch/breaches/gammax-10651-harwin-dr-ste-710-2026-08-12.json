@@ -1,0 +1,15 @@
+{
+  "slug": "gammax-10651-harwin-dr-ste-710-2026-08-12",
+  "title": "10651 Harwin Dr. Ste 710",
+  "group": "Gammax",
+  "discovered": "2026-08-12T02:46:06.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b6bb05d4-9cb7-483c-81a9-d18eb3162706",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["Darkfield"]
+}

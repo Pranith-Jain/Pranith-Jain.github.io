@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-crown-group-2026-08-11",
+  "title": "Crown Group",
+  "group": "Qilin",
+  "discovered": "2026-08-11T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/crown-group-qilin-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

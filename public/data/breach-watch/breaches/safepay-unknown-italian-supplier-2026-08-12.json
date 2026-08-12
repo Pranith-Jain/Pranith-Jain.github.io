@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-italian-supplier-2026-08-12",
+  "title": "Unknown (Italian Supplier)",
+  "group": "safepay",
+  "discovered": "2026-08-12T03:01:49.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "Italy",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/df0c68b9-7775-4288-a015-6221ab5c52a9",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-chiller-manufacturer-2026-08-12",
+  "title": "Unknown (Chiller Manufacturer)",
+  "group": "safepay",
+  "discovered": "2026-08-12T03:01:50.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/7c192994-aa45-4ca0-a04c-f5806b9fdb70",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

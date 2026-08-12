@@ -1,0 +1,15 @@
+{
+  "slug": "settra-flowco-inc-com-2026-08-11",
+  "title": "flowco-inc.com",
+  "group": "Settra",
+  "discovered": "2026-08-11T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/flowco-inc-com-settra-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

@@ -1,15 +1,15 @@
 {
   "slug": "akira-i4-solutions-2026-08-10",
   "title": "i4 Solutions",
-  "group": "Akira",
-  "discovered": "2026-08-10T00:00:00.000Z",
+  "group": "akira",
+  "discovered": "2026-08-10T13:22:09.000Z",
   "category": "ransomware",
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/i4-solutions-akira-2026-08",
+  "description": "i4 Solutions has created thousands of Websites for companies all over the world! i4 Solutions c\nreates custom websites and prides itself that all work is done by i4 employees not outsources c\nontractors.\n\nWe will upload 170gb corporate data soon. Lots of working files, projects and so on.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Technology",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

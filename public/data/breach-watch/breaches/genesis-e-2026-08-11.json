@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-e-2026-08-11",
+  "title": "**E***",
+  "group": "genesis",
+  "discovered": "2026-08-11T23:56:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "A healthcare organization",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

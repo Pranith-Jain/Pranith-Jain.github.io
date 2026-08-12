@@ -1,15 +1,15 @@
 {
   "slug": "payoutsking-turner-2026-08-11",
   "title": "Turner",
-  "group": "Payoutsking",
-  "discovered": "2026-08-11T00:00:00.000Z",
+  "group": "payoutsking",
+  "discovered": "2026-08-11T03:35:17.000Z",
   "category": "ransomware",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/turner-payoutsking-2026-08",
+  "description": null,
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
   "activity": null,
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomlook.io"]
 }

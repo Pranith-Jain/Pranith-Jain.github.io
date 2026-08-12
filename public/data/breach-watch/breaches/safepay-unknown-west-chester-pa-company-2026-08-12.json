@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-west-chester-pa-company-2026-08-12",
+  "title": "Unknown (West Chester PA Company)",
+  "group": "safepay",
+  "discovered": "2026-08-12T03:01:49.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/27596206-6ce3-401a-8994-3372a5a70e8f",
+  "groupAliases": [],
+  "activity": "Services",
+  "references": ["Darkfield"]
+}

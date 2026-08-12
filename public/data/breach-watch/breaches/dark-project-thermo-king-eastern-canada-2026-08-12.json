@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-thermo-king-eastern-canada-2026-08-12",
+  "title": "Thermo King Eastern Canada",
+  "group": "Dark Project",
+  "discovered": "2026-08-12T02:39:09.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Canada",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/985ef83d-9434-4a53-a831-3895b11fddc1",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}
