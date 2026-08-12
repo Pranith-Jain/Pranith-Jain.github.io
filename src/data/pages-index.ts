@@ -127,6 +127,15 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'portfolio',
   },
   {
+    path: '/cti-research',
+    label: 'CTI Research',
+    description:
+      'Autonomous CTI research platform - describe an intelligence requirement and get an evidence-backed threat assessment with prioritized detection and threat-hunting recommendations.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['cti', 'threat intelligence', 'research', 'investigation', 'agent', 'assessment', 'threat hunting'],
+  },
+  {
     path: '/projects/:slug',
     label: 'Case Study',
     description: 'Per-project deep dive - problem, approach, detection logic, and impact.',

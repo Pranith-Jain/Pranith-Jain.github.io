@@ -48,6 +48,7 @@ const ROUTES = [
   '/skills',
   '/experience',
   '/projects',
+  '/cti-research',
   '/daily-briefs',
   '/blog',
 

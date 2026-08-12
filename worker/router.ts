@@ -25,6 +25,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/skills', '/__prerendered/skills'],
   ['/experience', '/__prerendered/experience'],
   ['/projects', '/__prerendered/projects'],
+  ['/cti-research', '/__prerendered/cti-research'],
   ['/daily-briefs', '/__prerendered/daily-briefs'],
   ['/blog', '/__prerendered/blog'],
 

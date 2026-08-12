@@ -343,6 +343,7 @@ const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
 const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
+const CtiResearch = lazy(() => import('./pages/CtiResearch'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -395,6 +396,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/experience', Component: Experience },
   { path: '/projects', Component: Projects },
   { path: '/projects/:slug', Component: CaseStudy },
+  { path: '/cti-research', Component: CtiResearch },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/t/:tag', Component: Blog },
