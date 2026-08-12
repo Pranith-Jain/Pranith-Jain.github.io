@@ -188,16 +188,11 @@ const ROUTES = [
   // ── DFIR: tools that were mapped in worker/router.ts PRERENDERED_ROUTES
   //    but missing here, so they were served as the bare SPA shell and
   //    cached 24h as "prerendered". Now generated like their siblings. ──
-  '/dfir/ai-rule-generator',
-  '/dfir/fp-lens',
   '/dfir/threat-graph',
-  '/dfir/attack-chain',
-  '/dfir/hunting-query-generator',
   '/dfir/sandbox',
   '/dfir/ir-playbooks',
   '/dfir/stealer-parser',
   '/dfir/taxii',
-  '/dfir/bloom',
   '/dfir/whois-history',
   '/dfir/passive-dns',
   '/dfir/open-directory',
@@ -207,11 +202,9 @@ const ROUTES = [
   '/dfir/owasp',
   '/dfir/lolbins',
   '/dfir/kill-chain',
-  '/dfir/tabletop',
   '/dfir/grc',
   '/dfir/data-classification',
   '/dfir/privacy-hub',
-  '/dfir/personal-security',
 
   // ── DFIR: utilities & decoders (7) — 0 API calls ──────────────
   '/dfir/timestamp',
@@ -236,7 +229,6 @@ const ROUTES = [
   '/dfir/apk-analyzer',
 
   // ── DFIR: binary / log analyzers (5) — 0 API calls ────────────
-  '/dfir/pe',
   '/dfir/web-log',
   '/dfir/prefetch',
   '/dfir/powershell-deobf',
@@ -248,7 +240,6 @@ const ROUTES = [
   '/dfir/detection-lab',
   '/dfir/prompt-injection',
   '/dfir/pi-taxonomy',
-  '/dfir/ironsight',
   '/dfir/mcp-audit',
   '/dfir/cve-prioritizer',
   '/dfir/fusion-exposure',
@@ -295,28 +286,20 @@ const ROUTES = [
 
   // ── DFIR: specialist tools (8) — 0 API calls ──────────────────
   '/dfir/attack-navigator',
-  '/dfir/mitre-matrix',
   '/dfir/vuln-toolkit',
   '/dfir/sec-headers-live',
-  '/dfir/email-deliverability',
-  '/dfir/ioc-lifecycle',
   '/dfir/osint-mapper',
-  '/dfir/multi-search',
   '/dfir/notebooks',
 
   // ── DFIR: triage & forensic tools (5) — 0 API calls ───────────
   '/dfir/dnscope',
-  '/dfir/regscope',
   '/dfir/crypto-tracer',
   '/dfir/tracerules',
   '/dfir/phone-hub',
-  '/dfir/weather-osint',
   '/dfir/infostealer-intel',
 
   // ── DFIR: AI agent tools (4) — 0 API calls ────────────────────
   '/dfir/agent-suite',
-  '/dfir/attmap-ai',
-  '/dfir/x-verdikt',
 
   // ── DFIR: tools that fetch /api/v1/* on mount (33) ────────────
   // Prerendered chrome + loading state, then client hydrates.
@@ -353,14 +336,12 @@ const ROUTES = [
   '/dfir/dlp-scan',
   '/dfir/username',
   '/dfir/wayback',
-  '/dfir/ip-geo',
   '/dfir/log-parser',
   '/dfir/socmint',
   '/dfir/web-scan',
   '/dfir/malware-scan',
   '/dfir/sample-scan',
   '/dfir/eml',
-  '/dfir/url-rep',
   '/dfir/email-rep',
   '/dfir/email-osnit',
   '/dfir/crypto-trace',
@@ -489,7 +470,6 @@ const ROUTES = [
   '/copilot',
 
   // ── DFIR: real pages (10) ────────────────────────────────────
-  '/dfir/abuse-rep',
   '/dfir/asset-intel',
   '/dfir/blocklists',
   '/dfir/ct-monitor',

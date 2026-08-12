@@ -75,7 +75,6 @@ export const routePreloaders: Record<string, Preloader> = {
   '/blog': () => import('../pages/Blog'),
 
   // New DFIR tools (inbound links from EmailDefense / Dnscope panels).
-  '/dfir/email-deliverability': () => import('../pages/dfir/EmailDeliverability'),
   '/dfir/sec-headers-live-live': () => import('../pages/dfir/SecHeadersLive'),
 };
 

@@ -3,15 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
-import {
-  Upload,
-  Shield,
-  Download,
-  AlertTriangle,
-  CheckCircle2,
-  XCircle,
-  Loader2,
-} from 'lucide-react';
+import { Upload, Shield, Download, AlertTriangle, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
 
 interface IpEnrichment {
   org?: string;
@@ -466,19 +458,99 @@ export default function DmarcAnalyzer(): JSX.Element {
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <DataTable
-                columns={[
-                  { key: 'sourceIp', header: 'Source IP', sortValue: (r: typeof report.records[number]) => r.sourceIp, render: (r) => <span className="text-xs">{r.sourceIp}</span> },
-                  { key: 'org', header: 'Organization', sortValue: (r: typeof report.records[number]) => r.enrichment?.org ?? '', render: (r) => <span className="text-xs max-w-[200px] truncate" title={r.enrichment?.org}>{r.enrichment?.org ?? '-'}</span> },
-                  { key: 'country', header: 'Country', sortValue: (r: typeof report.records[number]) => r.enrichment?.country ?? '', render: (r) => <span className="text-xs">{r.enrichment?.country ?? '-'}</span> },
-                  { key: 'count', header: 'Volume', align: 'right', sortValue: (r: typeof report.records[number]) => r.count, render: (r) => <span className="text-xs">{r.count.toLocaleString()}</span> },
-                  { key: 'spf', header: 'SPF', align: 'center', sortValue: (r: typeof report.records[number]) => r.spf, render: (r) => r.spf === 'pass' ? <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs"><CheckCircle2 size={12} /> pass</span> : <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs"><XCircle size={12} /> {r.spf}</span> },
-                  { key: 'dkim', header: 'DKIM', align: 'center', sortValue: (r: typeof report.records[number]) => r.dkim, render: (r) => r.dkim === 'pass' ? <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs"><CheckCircle2 size={12} /> pass</span> : <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs"><XCircle size={12} /> {r.dkim}</span> },
-                  { key: 'dmarc', header: 'DMARC', align: 'center', render: (r) => { const dmarcPass = r.spf === 'pass' || r.dkim === 'pass'; return <span className={`inline-flex items-center gap-1 text-xs font-medium ${dmarcPass ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{dmarcPass ? 'PASS' : 'FAIL'}</span>; } },
-                  { key: 'headerFrom', header: 'Header From', sortValue: (r: typeof report.records[number]) => r.headerFrom, render: (r) => <span className="text-xs max-w-[160px] truncate" title={r.headerFrom}>{r.headerFrom}</span> },
-                ] as DataTableColumn<typeof report.records[number]>[]}
+                columns={
+                  [
+                    {
+                      key: 'sourceIp',
+                      header: 'Source IP',
+                      sortValue: (r: (typeof report.records)[number]) => r.sourceIp,
+                      render: (r) => <span className="text-xs">{r.sourceIp}</span>,
+                    },
+                    {
+                      key: 'org',
+                      header: 'Organization',
+                      sortValue: (r: (typeof report.records)[number]) => r.enrichment?.org ?? '',
+                      render: (r) => (
+                        <span className="text-xs max-w-[200px] truncate" title={r.enrichment?.org}>
+                          {r.enrichment?.org ?? '-'}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'country',
+                      header: 'Country',
+                      sortValue: (r: (typeof report.records)[number]) => r.enrichment?.country ?? '',
+                      render: (r) => <span className="text-xs">{r.enrichment?.country ?? '-'}</span>,
+                    },
+                    {
+                      key: 'count',
+                      header: 'Volume',
+                      align: 'right',
+                      sortValue: (r: (typeof report.records)[number]) => r.count,
+                      render: (r) => <span className="text-xs">{r.count.toLocaleString()}</span>,
+                    },
+                    {
+                      key: 'spf',
+                      header: 'SPF',
+                      align: 'center',
+                      sortValue: (r: (typeof report.records)[number]) => r.spf,
+                      render: (r) =>
+                        r.spf === 'pass' ? (
+                          <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs">
+                            <CheckCircle2 size={12} /> pass
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs">
+                            <XCircle size={12} /> {r.spf}
+                          </span>
+                        ),
+                    },
+                    {
+                      key: 'dkim',
+                      header: 'DKIM',
+                      align: 'center',
+                      sortValue: (r: (typeof report.records)[number]) => r.dkim,
+                      render: (r) =>
+                        r.dkim === 'pass' ? (
+                          <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs">
+                            <CheckCircle2 size={12} /> pass
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs">
+                            <XCircle size={12} /> {r.dkim}
+                          </span>
+                        ),
+                    },
+                    {
+                      key: 'dmarc',
+                      header: 'DMARC',
+                      align: 'center',
+                      render: (r) => {
+                        const dmarcPass = r.spf === 'pass' || r.dkim === 'pass';
+                        return (
+                          <span
+                            className={`inline-flex items-center gap-1 text-xs font-medium ${dmarcPass ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}
+                          >
+                            {dmarcPass ? 'PASS' : 'FAIL'}
+                          </span>
+                        );
+                      },
+                    },
+                    {
+                      key: 'headerFrom',
+                      header: 'Header From',
+                      sortValue: (r: (typeof report.records)[number]) => r.headerFrom,
+                      render: (r) => (
+                        <span className="text-xs max-w-[160px] truncate" title={r.headerFrom}>
+                          {r.headerFrom}
+                        </span>
+                      ),
+                    },
+                  ] as DataTableColumn<(typeof report.records)[number]>[]
+                }
                 rows={report.records}
                 rowKey={(r) => r.sourceIp}
-                rowClassName={(r) => (r.spf !== 'pass' && r.dkim !== 'pass') ? 'bg-rose-50/30 dark:bg-rose-950/10' : ''}
+                rowClassName={(r) => (r.spf !== 'pass' && r.dkim !== 'pass' ? 'bg-rose-50/30 dark:bg-rose-950/10' : '')}
               />
             </div>
           </div>
@@ -488,7 +560,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
               DMARC XML is parsed entirely in your browser. IPs are enriched server-side via the same edge API used by
               the{' '}
-              <Link to="/dfir/ip-geo" className="text-brand-600 dark:text-brand-400 hover:underline">
+              <Link to="/dfir/ioc-investigate" className="text-brand-600 dark:text-brand-400 hover:underline">
                 IP Geo
               </Link>{' '}
               tool - no file content is uploaded. Results are ephemeral and disappear on page refresh.

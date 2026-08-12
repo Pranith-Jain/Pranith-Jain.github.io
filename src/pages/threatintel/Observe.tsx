@@ -481,7 +481,7 @@ export default function Observe(): JSX.Element {
                 )}
                 {entityType === 'ip' && (
                   <Link
-                    to={`/dfir/ip-geo?q=${encodeURIComponent(submittedQuery)}`}
+                    to={`/dfir/ioc-investigate?indicator=${encodeURIComponent(submittedQuery)}`}
                     className="flex items-center gap-2 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <Monitor size={12} />

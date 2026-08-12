@@ -3,11 +3,10 @@ import { searchPages, hasPageMatch } from '../pages-index';
 
 describe('new pages in catalog', () => {
   it.each([
-    ['/dfir/x-verdikt', 'x-verdikt'],
     ['/dfir/dnscope', 'dnscope'],
-    ['/dfir/attmap-ai', 'attmap-ai'],
     ['/dfir/tracerules', 'tracerules'],
-    ['/dfir/regscope', 'regscope'],
+    ['/dfir/passive-dns', 'passive dns'],
+    ['/dfir/sigbase', 'yara'],
     ['/threatintel/extremists', 'extremists'],
     ['/threatintel/predators', 'predators'],
   ])('has catalog entry for %s', (path, query) => {
@@ -24,13 +23,13 @@ describe('new pages in catalog', () => {
     expect(hasPageMatch('predator')).toBe(true);
   });
 
-  it('registry query finds REGSCOPE', () => {
+  it('registry query finds Registry Hive', () => {
     const matches = searchPages('registry');
-    expect(matches.some((m) => m.page.path === '/dfir/regscope')).toBe(true);
+    expect(matches.some((m) => m.page.path === '/dfir/registry-hive')).toBe(true);
   });
 
-  it('mitre query finds ATTMAP-AI', () => {
+  it('mitre query finds the ATT&CK Navigator', () => {
     const matches = searchPages('mitre');
-    expect(matches.some((m) => m.page.path === '/dfir/attmap-ai')).toBe(true);
+    expect(matches.some((m) => m.page.path === '/dfir/attack-navigator')).toBe(true);
   });
 });

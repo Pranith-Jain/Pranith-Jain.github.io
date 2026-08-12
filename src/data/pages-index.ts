@@ -356,14 +356,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['ioc', 'indicator', 'hash', 'ip', 'domain', 'url', 'lookup'],
   },
   {
-    path: '/dfir/abuse-rep',
-    label: 'Abuse Report',
-    description: 'Draft an abuse report to a hosting provider, registrar, or cert authority.',
-    sectionLabel: 'DFIR · Triage',
-    group: 'dfir',
-    keywords: ['abuse', 'report', 'complaint'],
-  },
-  {
     path: '/dfir/phishing',
     label: 'Phishing Analyzer',
     description: 'Paste a URL or raw email and extract sender, links, attachments, and brand-impersonation signals.',
@@ -399,15 +391,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     description: 'Parse a .eml file, extract headers, body, attachments, and IOCs.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
-  },
-  {
-    path: '/dfir/email-deliverability',
-    label: 'Email Deliverability Tester',
-    description:
-      'Paste or upload a raw email and get a spam score, SPF/DKIM/DMARC alignment, header analysis, and prioritized inbox-placement suggestions.',
-    sectionLabel: 'DFIR · Triage',
-    group: 'dfir',
-    keywords: ['email', 'spam', 'inbox', 'placement', 'spf', 'dkim', 'dmarc', 'mime', 'eml', 'deliverability'],
   },
   {
     path: '/dfir/dmarc-analyzer',
@@ -462,13 +445,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/url-rep',
-    label: 'URL Reputation',
-    description: 'URL reputation lookup against blocklists, phishing feeds, and sandbox verdict history.',
-    sectionLabel: 'DFIR · Triage',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/exposure',
     label: 'Exposure Scan',
     description: 'External attack-surface scan - open ports, exposed services, and ASN neighbors.',
@@ -505,27 +481,12 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/attack-chain',
-    label: 'Attack Chain',
-    description: 'Reconstruct a kill-chain from a sequence of events - TTPs, gaps, and detection coverage.',
-    sectionLabel: 'DFIR · Triage',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/attack-navigator',
     label: 'ATT&CK Navigator',
     description: 'MITRE ATT&CK layer editor - annotate techniques, color by coverage, export as JSON.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['mitre', 'attack', 'navigator', 'ttp'],
-  },
-  {
-    path: '/dfir/mitre-matrix',
-    label: 'MITRE Matrix',
-    description: 'Static reference view of the MITRE ATT&CK matrix with tactic/technique lookup.',
-    sectionLabel: 'DFIR · Triage',
-    group: 'dfir',
-    keywords: ['mitre', 'attack', 'matrix', 'ttp', 'reference'],
   },
   {
     path: '/dfir/kill-chain',
@@ -779,13 +740,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/ioc-lifecycle',
-    label: 'IOC Lifecycle',
-    description: 'Track indicator lifecycle - first-seen, last-seen, decay, and retirement.',
-    sectionLabel: 'DFIR · Investigate',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/asn',
     label: 'ASN Lookup',
     description: 'ASN, prefix, and registrant lookup for an IP or range.',
@@ -875,13 +829,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['phone', 'osint', 'carrier', 'intel', 'risk'],
   },
   {
-    path: '/dfir/weather-osint',
-    label: 'Weather OSINT',
-    description: 'Geolocate a photo via weather, sun-angle, and shadow signals.',
-    sectionLabel: 'DFIR · Investigate',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/image-intel',
     label: 'Image Intelligence',
     description: 'Image analysis - reverse search, perceptual fingerprinting, and OCR screenshot intelligence.',
@@ -943,13 +890,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['directory', 'listing', 'exposure'],
-  },
-  {
-    path: '/dfir/ip-geo',
-    label: 'IP Geolocation',
-    description: 'IP geolocation - country, city, ASN, and hosting provider.',
-    sectionLabel: 'DFIR · Investigate',
-    group: 'dfir',
   },
   {
     path: '/dfir/wayback',
@@ -1050,21 +990,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/ai-rule-generator',
-    label: 'AI Rule Generator',
-    description: 'AI-assisted Sigma rule generation from a natural-language hypothesis.',
-    sectionLabel: 'DFIR · Detection',
-    group: 'dfir',
-    keywords: ['ai', 'sigma', 'detection', 'rule'],
-  },
-  {
-    path: '/dfir/hunting-query-generator',
-    label: 'Hunting Query Generator',
-    description: 'Generate hunting queries (Sigma/SPL/KQL) from a TTP or IOC list.',
-    sectionLabel: 'DFIR · Detection',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/yara',
     label: 'YARA Manager',
     description: 'YARA rule authoring, testing, and corpus scanning - sandboxed runner.',
@@ -1079,14 +1004,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['yara'],
-  },
-  {
-    path: '/dfir/fp-lens',
-    label: 'False Positive Lens',
-    description: 'False-positive analyzer for detection rules - backtest against historical alerts.',
-    sectionLabel: 'DFIR · Detection',
-    group: 'dfir',
-    keywords: ['false positive', 'fp', 'tune'],
   },
   {
     path: '/dfir/osv-scan',
@@ -1195,13 +1112,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['stix'],
   },
   {
-    path: '/dfir/bloom',
-    label: 'Bloom Filter',
-    description: 'Bloom filter analyzer - given a filter, test membership and estimate FPR.',
-    sectionLabel: 'DFIR · Detection',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/stealer-parser',
     label: 'Stealer Log Parser',
     description: 'Parse stealer-log dumps (RedLine, Raccoon, Lumma, Meta) into structured rows.',
@@ -1217,13 +1127,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['infostealer', 'hudsonrock', 'cavalier', 'credentials', 'stealer', 'compromised', 'breach'],
-  },
-  {
-    path: '/dfir/tabletop',
-    label: 'Tabletop Exercise',
-    description: 'Tabletop scenarios - facilitator script, injects, and decision-trail capture.',
-    sectionLabel: 'DFIR · Detection',
-    group: 'dfir',
   },
   {
     path: '/dfir/ir-playbooks',
@@ -1312,14 +1215,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     description: 'SQLite database browser - schemas, rows, and BLOB export.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
-  },
-  {
-    path: '/dfir/pe',
-    label: 'PE Analyzer',
-    description: 'PE binary analyzer - imports, sections, entropy, signatures, and YARA match.',
-    sectionLabel: 'DFIR · Forensics',
-    group: 'dfir',
-    keywords: ['pe', 'portable executable', 'binary'],
   },
   {
     path: '/dfir/apk-analyzer',
@@ -1414,23 +1309,9 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/multi-search',
-    label: 'Multi-Search',
-    description: 'Run a single query across multiple OSINT / enrichment engines in parallel.',
-    sectionLabel: 'DFIR · Triage',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/privacy-hub',
     label: 'Privacy Hub',
     description: 'Privacy hub - GDPR / CCPA / data-subject-request workflows and templates.',
-    sectionLabel: 'DFIR · Compliance',
-    group: 'dfir',
-  },
-  {
-    path: '/dfir/personal-security',
-    label: 'Personal Security',
-    description: 'Personal security playbook - opsec for high-risk users, account hardening, device hygiene.',
     sectionLabel: 'DFIR · Compliance',
     group: 'dfir',
   },
@@ -1499,15 +1380,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/x-verdikt',
-    label: 'X-VERDIKT',
-    description:
-      'Multi-source IOC verdict comparison across 10 threat-intel providers - VT, AbuseIPDB, OTX, URLScan, and more.',
-    sectionLabel: 'DFIR · Intelligence',
-    group: 'dfir',
-    keywords: ['verdikt', 'ioc', 'verdict', 'enrichment', 'threatfox'],
-  },
-  {
     path: '/dfir/dnscope',
     label: 'DNSCOPE',
     description:
@@ -1517,15 +1389,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['dns', 'domain', 'infrastructure', 'whois', 'certificates'],
   },
   {
-    path: '/dfir/attmap-ai',
-    label: 'ATTMAP-AI',
-    description:
-      'AI-powered MITRE ATT&CK technique mapper - describe adversary behavior and get mapped techniques with confidence scores.',
-    sectionLabel: 'DFIR · Intelligence',
-    group: 'dfir',
-    keywords: ['attack', 'mitre', 'technique', 'mapping', 'ttps'],
-  },
-  {
     path: '/dfir/tracerules',
     label: 'TRACERULES',
     description:
@@ -1533,15 +1396,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Intelligence',
     group: 'dfir',
     keywords: ['detection', 'kql', 'sigma', 'xql', 'query', 'rules'],
-  },
-  {
-    path: '/dfir/regscope',
-    label: 'REGSCOPE',
-    description:
-      'Windows registry artifact analyzer - identify known persistence, defense evasion, and credential access registry keys with ATT&CK mapping.',
-    sectionLabel: 'DFIR · Core DFIR',
-    group: 'dfir',
-    keywords: ['registry', 'regscope', 'persistence', 'windows', 'forensics'],
   },
 
   {
@@ -1560,15 +1414,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Network & Domain',
     group: 'dfir',
     keywords: ['wifi', 'wireless', 'bssid', 'ssid', 'wigle', 'mac'],
-  },
-  {
-    path: '/dfir/ironsight',
-    label: 'IronSight',
-    description:
-      'Geopolitical intelligence - Israel alerts, strike tracker, satellite imagery, military flights, and prediction markets.',
-    sectionLabel: 'DFIR · Tools',
-    group: 'dfir',
-    keywords: ['ironsight', 'geopolitical', 'israel', 'strike', 'satellite', 'military'],
   },
   {
     path: '/dfir/detection-chokepoints',

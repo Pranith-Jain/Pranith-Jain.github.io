@@ -218,7 +218,7 @@ export default function C2Tracker(): JSX.Element {
                       ioc
                     </Link>
                     <Link
-                      to={`/dfir/ip-geo?ip=${entry.ip}`}
+                      to={`/dfir/ioc-investigate?indicator=${entry.ip}`}
                       className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       geo

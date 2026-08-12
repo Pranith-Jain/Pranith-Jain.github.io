@@ -141,7 +141,7 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'Wayback Machine', href: '/dfir/wayback', blurb: 'Wayback Machine timeline pivot' },
   { term: 'EXIF', href: '/dfir/exif', blurb: 'EXIF metadata parser for images' },
   { term: 'SOCMINT', href: '/dfir/socmint', blurb: 'Categorised OSINT pivots for email/domain/handle/name' },
-  { term: 'IP geolocation', href: '/dfir/ip-geo', blurb: 'Country, ASN, ISP + AbuseIPDB reputation' },
+  { term: 'IP geolocation', href: '/dfir/ioc-investigate', blurb: 'Country, ASN, ISP + AbuseIPDB reputation' },
 
   // Watch tools (.onion / Telegram)
   { term: '.onion', href: '/threatintel/onion-watch', blurb: 'Live .onion leak-site mirror inventory + reachability' },

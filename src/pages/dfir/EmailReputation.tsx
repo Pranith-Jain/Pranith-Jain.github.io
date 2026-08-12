@@ -428,7 +428,7 @@ export default function EmailReputation(): JSX.Element {
               <ExternalLink size={10} /> Domain Lookup
             </Link>
             <Link
-              to={`/dfir/url-rep?url=${encodeURIComponent('https://' + result.domain)}`}
+              to={`/dfir/url-risk?url=${encodeURIComponent('https://' + result.domain)}`}
               className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> URL Reputation

@@ -272,7 +272,7 @@ export default function DomainReputation(): JSX.Element {
               <ExternalLink size={10} /> Email Reputation
             </Link>
             <Link
-              to={`/dfir/url-rep?url=${encodeURIComponent(isIp ? `http://${clean}` : `https://${clean}`)}`}
+              to={`/dfir/url-risk?url=${encodeURIComponent(isIp ? `http://${clean}` : `https://${clean}`)}`}
               className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> URL Reputation

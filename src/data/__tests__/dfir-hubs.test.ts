@@ -115,10 +115,10 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
     expect(catalogSearch('   ')).toEqual([]);
   });
 
-  it('catalogSearch puts ATTMAP-AI in the top results for mitre', () => {
+  it('catalogSearch puts ATT&CK Navigator in the top results for mitre', () => {
     const results = catalogSearch('mitre');
     const topPaths = results.slice(0, 10).map((r) => r.path);
-    expect(topPaths).toContain('/dfir/attmap-ai');
+    expect(topPaths).toContain('/dfir/attack-navigator');
   });
 
   it('catalogSearch finds pages by hub label', () => {
@@ -127,7 +127,13 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
   });
 
   it('newly added pages are findable', () => {
-    for (const p of ['/dfir/attmap-ai', '/dfir/dnscope', '/dfir/regscope', '/dfir/x-verdikt', '/dfir/tracerules']) {
+    for (const p of [
+      '/dfir/dnscope',
+      '/dfir/tracerules',
+      '/dfir/passive-dns',
+      '/dfir/sigbase',
+      '/dfir/cloud-reference',
+    ]) {
       const result = getPageByPath(p);
       expect(result, `${p} is missing from the catalog`).toBeDefined();
     }

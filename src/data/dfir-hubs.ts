@@ -99,34 +99,11 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'IocExtractor',
       },
       {
-        path: '/dfir/ioc-lifecycle',
-        tabId: 'ioc-lifecycle',
-        label: 'IOC Lifecycle',
-        desc: 'Track an IOC from collection to enrichment to retirement.',
-        compVar: 'IocLifecycle',
-      },
-      {
         path: '/dfir/ct-monitor',
         tabId: 'ct-monitor',
         label: 'Certificate Transparency Monitor',
         desc: 'Watch CT logs for new certificates matching your watchlist.',
         compVar: 'CtMonitor',
-      },
-      {
-        path: '/dfir/abuse-rep',
-        tabId: 'abuse-rep',
-        label: 'Abuse Reputation',
-        desc: 'Cross-source reputation: AbuseIPDB, Spamhaus, OTX, URLhaus.',
-        compVar: 'AbuseRepPage',
-      },
-      {
-        path: '/dfir/x-verdikt',
-        tabId: 'x-verdikt',
-        label: 'X-VERDIKT Multi-Source Verdict',
-        desc: 'Streaming verdicts from X (Twitter) intelligence feeds.',
-        compVar: 'XVeridikt',
-        badge: 'new',
-        keywords: ['x', 'twitter', 'verdict', 'consensus'],
       },
       {
         path: '/dfir/oss-feeds',
@@ -193,13 +170,6 @@ export const HUB_META: readonly HubMeta[] = [
       },
 
       {
-        path: '/dfir/bloom',
-        tabId: 'bloom',
-        label: 'Bloom Filter Lookup',
-        desc: 'Membership-test against a corpus of known-bad indicators.',
-        compVar: 'BloomFilter',
-      },
-      {
         path: '/dfir/infostealer-intel',
         tabId: 'infostealer-intel',
         label: 'Infostealer Intelligence',
@@ -237,13 +207,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Timestamp Converter',
         desc: 'Epoch - Windows FILETIME - Unix - human - bidirectional.',
         compVar: 'TimestampConverter',
-      },
-      {
-        path: '/dfir/pe',
-        tabId: 'pe',
-        label: 'PE Static Analyzer Lite',
-        desc: 'Sections, imports, exports, version info - 0x12 lite profile.',
-        compVar: 'PeAnalyzer',
       },
       {
         path: '/dfir/apk-analyzer',
@@ -356,15 +319,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PrefetchAnalyzer',
       },
       {
-        path: '/dfir/regscope',
-        tabId: 'regscope',
-        label: 'REGSCOPE Registry Analyzer',
-        desc: 'Multi-hive registry scope: persistence, autoruns, services, scheduled tasks.',
-        compVar: 'Regscope',
-        badge: 'new',
-        keywords: ['registry', 'persistence', 'autoruns'],
-      },
-      {
         path: '/dfir/winreg',
         tabId: 'winreg',
         label: 'Windows Registry Artifacts Reference',
@@ -458,13 +412,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Wayback Machine',
         desc: 'Search historical snapshots for a URL - changes over time.',
         compVar: 'Wayback',
-      },
-      {
-        path: '/dfir/ip-geo',
-        tabId: 'ip-geo',
-        label: 'IP Geolocation',
-        desc: 'IP - country / city / ASN / org / hosting type.',
-        compVar: 'IpGeo',
       },
       {
         path: '/dfir/passive-dns',
@@ -568,13 +515,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'EmlExtractor',
       },
       {
-        path: '/dfir/email-deliverability',
-        tabId: 'email-deliverability',
-        label: 'Email Deliverability Tester',
-        desc: 'Paste or upload a raw .eml to get spam score, SPF/DKIM/DMARC alignment, and inbox-placement suggestions.',
-        compVar: 'EmailDeliverability',
-      },
-      {
         path: '/dfir/email-rep',
         tabId: 'email-rep',
         label: 'Email Reputation',
@@ -603,13 +543,6 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Phishing-as-a-service operator catalog and tracking.',
         compVar: 'PhishOps',
         keywords: ['phishing', 'paas', 'operator'],
-      },
-      {
-        path: '/dfir/url-rep',
-        tabId: 'url-rep',
-        label: 'URL Reputation',
-        desc: 'Cross-source URL reputation - PhishTank, OpenPhish, Google Safe Browsing.',
-        compVar: 'UrlReputation',
       },
     ],
   },
@@ -643,13 +576,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Wi-Fi / BSSID Investigation',
         desc: 'Wireless network - BSSID vendor lookup, SSID analysis, security flags.',
         compVar: 'WifiInvestigation',
-      },
-      {
-        path: '/dfir/weather-osint',
-        tabId: 'weather-osint',
-        label: 'Weather OSINT',
-        desc: 'Reverse geocoding + historical weather for a timestamp + coordinates.',
-        compVar: 'WeatherOsint',
       },
       {
         path: '/dfir/socmint',
@@ -686,15 +612,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Brand Impersonation',
         desc: 'Detect typosquats / look-alike domains targeting your brand.',
         compVar: 'BrandImpersonation',
-      },
-
-      {
-        path: '/dfir/ironsight',
-        tabId: 'ironsight',
-        label: 'IRONSIGHT OSINT',
-        desc: 'Real-time OSINT command center - alerts, flights, strikes, markets, satellite thermal.',
-        compVar: 'Ironsight',
-        badge: 'live',
       },
     ],
   },
@@ -847,36 +764,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Threat Graph',
         desc: 'Indicator - relationship graph - visual pivot from any node.',
         compVar: 'ThreatGraph',
-      },
-      {
-        path: '/dfir/attmap-ai',
-        tabId: 'attmap-ai',
-        label: 'ATTMAP-AI',
-        desc: 'AI-assisted mapping of detection rules to ATT&CK techniques.',
-        compVar: 'AttmapAi',
-        badge: 'new',
-        keywords: ['att&ck', 'mapping', 'mitre', 'ai'],
-      },
-      {
-        path: '/dfir/hunting-query-generator',
-        tabId: 'hunting-query-generator',
-        label: 'Hunting Query Generator',
-        desc: 'AI-assisted KQL / SPL / Lucene generation from a hypothesis.',
-        compVar: 'HuntingQueryGenerator',
-      },
-      {
-        path: '/dfir/ai-rule-generator',
-        tabId: 'ai-rule-generator',
-        label: 'AI Rule Generator',
-        desc: 'Generate a Sigma/YARA rule from a natural-language description.',
-        compVar: 'AiRuleGenerator',
-      },
-      {
-        path: '/dfir/fp-lens',
-        tabId: 'fp-lens',
-        label: 'FP Lens',
-        desc: 'False-positive analyst - score a detection against historical FPs.',
-        compVar: 'FpLens',
       },
       {
         path: '/dfir/detection-chokepoints',
@@ -1178,13 +1065,6 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Conversational copilot - ask in plain English, get a runbook.',
         compVar: 'DfirCopilotPage',
       },
-      {
-        path: '/dfir/multi-search',
-        tabId: 'multi-search',
-        label: 'Multi-Search',
-        desc: 'Query 30+ intel sources in parallel - paste an IOC or entity.',
-        compVar: 'MultiSearch',
-      },
 
       {
         path: '/dfir/crypto-tracer',
@@ -1309,13 +1189,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PrivacyHub',
       },
       {
-        path: '/dfir/personal-security',
-        tabId: 'personal-security',
-        label: 'Personal Security',
-        desc: 'OPSEC checklist - threat-modelling for individuals.',
-        compVar: 'PersonalSecurity',
-      },
-      {
         path: '/dfir/dlp-scan',
         tabId: 'dlp-scan',
         label: 'DLP Scan',
@@ -1363,13 +1236,7 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'ATT&CK Navigator',
         desc: 'Layered ATT&CK matrix - coverage heatmap, gap analysis.',
         compVar: 'AttackNavigator',
-      },
-      {
-        path: '/dfir/attack-chain',
-        tabId: 'attack-chain',
-        label: 'Attack Chain',
-        desc: 'Visualise a multi-stage attack as a connected kill-chain.',
-        compVar: 'AttackChain',
+        keywords: ['mitre', 'att&ck', 'matrix', 'technique', 'coverage', 'heatmap'],
       },
       {
         path: '/dfir/kill-chain',
@@ -1391,20 +1258,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'OWASP Top 10',
         desc: 'Web 2021 - API 2023 - LLM 2025 reference + checklist.',
         compVar: 'Owasp',
-      },
-      {
-        path: '/dfir/mitre-matrix',
-        tabId: 'mitre-matrix',
-        label: 'MITRE Matrix',
-        desc: 'Static reference view of the MITRE ATT&CK matrix with tactic/technique lookup.',
-        compVar: 'MitreMatrix',
-      },
-      {
-        path: '/dfir/tabletop',
-        tabId: 'tabletop',
-        label: 'Tabletop Exercises',
-        desc: 'Scenario-driven tabletop exercises - pick a scenario, run it.',
-        compVar: 'Tabletop',
       },
       {
         path: '/dfir/cloak',

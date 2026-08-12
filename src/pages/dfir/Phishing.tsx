@@ -273,7 +273,7 @@ export default function Phishing(): JSX.Element {
           {result.urls.length > 0 && (
             <div className="flex gap-2">
               <Link
-                to={`/dfir/url-rep?url=${encodeURIComponent(result.urls[0]!)}`}
+                to={`/dfir/url-risk?url=${encodeURIComponent(result.urls[0]!)}`}
                 className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-2 rounded-xl border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20"
               >
                 <Crosshair size={11} /> Check all URLs ({result.urls.length})

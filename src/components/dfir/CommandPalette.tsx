@@ -294,7 +294,7 @@ function buildPivots(query: string): MatchedEntry[] {
       kind: 'tool',
       label: `IP Geolocation → ${ioc.value}`,
       desc: 'Country / city / ISP / org via ip-api.com',
-      path: `/dfir/ip-geo?ip=${enc}`,
+      path: `/dfir/ioc-investigate?indicator=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
     });

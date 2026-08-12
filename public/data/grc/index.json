@@ -8,7 +8,7 @@
   "source": "Authored from public regulatory/standards documents (summarized; not a substitute for the standards)",
   "sourceUrl": "https://pranithjain.qzz.io/dfir/grc",
   "license": "Reference summaries of public standards/regulations",
-  "replicatedAt": "2026-08-10",
+  "replicatedAt": "2026-08-11",
   "counts": { "frameworks": 7, "controls": 232, "mapperThemes": 19 },
   "frameworks": [
     {

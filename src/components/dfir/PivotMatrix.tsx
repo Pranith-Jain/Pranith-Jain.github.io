@@ -39,7 +39,7 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
         label: 'Geo IP',
         desc: 'Location / ISP / carrier',
         icon: Globe,
-        href: `/dfir/ip-geo?ip=${encodeURIComponent(value)}`,
+        href: `/dfir/ioc-investigate?indicator=${encodeURIComponent(value)}`,
       });
     }
 
@@ -120,7 +120,10 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
             rel={p.external ? 'noopener noreferrer' : undefined}
             className="flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors group"
           >
-            <p.icon size={16} className="mt-0.5 shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-brand-500" />
+            <p.icon
+              size={16}
+              className="mt-0.5 shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-brand-500"
+            />
             <div className="min-w-0">
               <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
                 {p.label}

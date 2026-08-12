@@ -332,7 +332,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
             powered by intodns.ai
           </span>
           <Link
-            to={`/dfir/email-deliverability?eml=`}
+            to={`/dfir/email-defense?eml=`}
             className="underline-offset-2 hover:underline dark:text-slate-400"
             title="Analyze a raw email for spam score, SPF/DKIM/DMARC alignment, and inbox-placement suggestions"
           >

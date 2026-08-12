@@ -24,10 +24,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [DFIR Catalog](https://pranithjain.qzz.io/dfir/catalog) (dfir): Every DFIR tool, searchable, grouped by category.
 - [IOC Investigator](https://pranithjain.qzz.io/dfir/ioc-investigate) (dfir): Cross-source investigation hub - paste any indicator type and pivot across all sources.
 - [IOC Extractor](https://pranithjain.qzz.io/dfir/extract) (dfir): Pull IOCs from any text blob - refang-aware.
-- [IOC Lifecycle](https://pranithjain.qzz.io/dfir/ioc-lifecycle) (dfir): Track an IOC from collection to enrichment to retirement.
 - [Certificate Transparency Monitor](https://pranithjain.qzz.io/dfir/ct-monitor) (dfir): Watch CT logs for new certificates matching your watchlist.
-- [Abuse Reputation](https://pranithjain.qzz.io/dfir/abuse-rep) (dfir): Cross-source reputation: AbuseIPDB, Spamhaus, OTX, URLhaus.
-- [X-VERDIKT Multi-Source Verdict](https://pranithjain.qzz.io/dfir/x-verdikt) (dfir): Streaming verdicts from X (Twitter) intelligence feeds.
 - [OSS Feed Registry](https://pranithjain.qzz.io/dfir/oss-feeds) (dfir): Curated catalog of 145+ free open-source threat intel feeds - IP, DNS, URL, hash, CVE, JA3, and more. Search by vendor, category, or keyword.
 - [ORKL Library Search](https://pranithjain.qzz.io/dfir/orkl) (dfir): Search the ORKL open-source threat intelligence library - reports, actors, CVEs from hundreds of sources.
 - [Traceix Hash Lookup](https://pranithjain.qzz.io/dfir/traceix) (dfir): SHA-256 hash reputation lookup via Traceix - per-engine antivirus/AV verdicts (Safe/Malicious/Unknown).
@@ -35,12 +32,10 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Whoxy Reverse WHOIS](https://pranithjain.qzz.io/dfir/whoxy) (dfir): Reverse WHOIS lookup via Whoxy - find all domains registered by an email, name, company, or keyword.
 - [Malware Analyzer](https://pranithjain.qzz.io/dfir/malware-analyzer) (dfir): PE / ELF / Mach-O static analysis with import hashing + section entropy.
 - [Infostealer Log Parser](https://pranithjain.qzz.io/dfir/stealer-parser) (dfir): Parse RedLine / Raccoon / Vidar / LummaC stealer logs - credentials, system, browser data.
-- [Bloom Filter Lookup](https://pranithjain.qzz.io/dfir/bloom) (dfir): Membership-test against a corpus of known-bad indicators.
 - [Infostealer Intelligence](https://pranithjain.qzz.io/dfir/infostealer-intel) (dfir): Infostealer-specific intelligence dashboard - prevalent families, log types, and compromised credential tracking.
 - [Codec Hub](https://pranithjain.qzz.io/dfir/codec) (dfir): Decode and encode across base64, hex, URL, rot13, zlib, gzip with auto-detection.
 - [Hash Calculator](https://pranithjain.qzz.io/dfir/hash-calc) (dfir): MD5 - SHA1 - SHA256 - SHA512 - SSDEEP - TLSH - drag a file in.
 - [Timestamp Converter](https://pranithjain.qzz.io/dfir/timestamp) (dfir): Epoch - Windows FILETIME - Unix - human - bidirectional.
-- [PE Static Analyzer Lite](https://pranithjain.qzz.io/dfir/pe) (dfir): Sections, imports, exports, version info - 0x12 lite profile.
 - [APK Analyzer](https://pranithjain.qzz.io/dfir/apk-analyzer) (dfir): Manifest + permissions + signing certs + native libs.
 - [EXIF / Metadata Parser](https://pranithjain.qzz.io/dfir/exif) (dfir): EXIF - IPTC - XMP - MakerNotes - camera, GPS, software fingerprints.
 - [Plist & Protobuf Decoder](https://pranithjain.qzz.io/dfir/plist-protobuf) (dfir): Apple binary plist + protobuf human-readable view.
@@ -55,7 +50,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [iOS Backup Explorer](https://pranithjain.qzz.io/dfir/ios-backup) (dfir): Manifest.db - plists - SQLite artifacts from a local iTunes backup.
 - [Web Server Log Analyzer](https://pranithjain.qzz.io/dfir/web-log) (dfir): Apache - nginx - IIS access logs - anomaly detection + pivots.
 - [Prefetch Analyzer Lite](https://pranithjain.qzz.io/dfir/prefetch) (dfir): Parse Windows Prefetch files - execution evidence, run count, last run time.
-- [REGSCOPE Registry Analyzer](https://pranithjain.qzz.io/dfir/regscope) (dfir): Multi-hive registry scope: persistence, autoruns, services, scheduled tasks.
 - [Windows Registry Artifacts Reference](https://pranithjain.qzz.io/dfir/winreg) (dfir): Windows Registry Forensic Artifact Reference - 292 artifacts, 16 categories, 10 hive types, 77 MITRE techniques.
 - [Signature-Base YARA + IOCs](https://pranithjain.qzz.io/dfir/sigbase) (dfir): Neo23x0 signature-base - 746 YARA rule files (5,784 rules) + 4 IOC lists (hashes, C2, filenames, keywords).
 - [DFIR Reference](https://pranithjain.qzz.io/dfir/dfir-ref) (dfir): Event IDs, memory forensics, browser artifacts, evidence collection phases — practitioner reference.
@@ -67,7 +61,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [DNSCOPE Infrastructure Map](https://pranithjain.qzz.io/dfir/dnscope) (dfir): 
 - [Host Graph](https://pranithjain.qzz.io/dfir/host-graph) (dfir): Graph of related domains, IPs, and ASNs for a target.
 - [Wayback Machine](https://pranithjain.qzz.io/dfir/wayback) (dfir): Search historical snapshots for a URL - changes over time.
-- [IP Geolocation](https://pranithjain.qzz.io/dfir/ip-geo) (dfir): IP - country / city / ASN / org / hosting type.
 - [Passive DNS](https://pranithjain.qzz.io/dfir/passive-dns) (dfir): Historical DNS resolution data for infrastructure tracking - migrations + fast-flux detection.
 - [Asset Intelligence](https://pranithjain.qzz.io/dfir/asset-intel) (dfir): Aggregate asset inventory - domains, subdomains, services, certificates.
 - [Exposed Host](https://pranithjain.qzz.io/dfir/exposed-host) (dfir): Per-host exposure score and evidence - services, versions, CVEs.
@@ -79,22 +72,18 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Phishing Analyzer](https://pranithjain.qzz.io/dfir/phishing) (dfir): URL + sender + header analysis with risk score.
 - [DMARC Analyzer](https://pranithjain.qzz.io/dfir/dmarc-analyzer) (dfir): Parse a DMARC aggregate report (RUA) - alignment, volume, failures.
 - [EML Extractor](https://pranithjain.qzz.io/dfir/eml) (dfir): Headers - body - attachments - URL / hash extraction from a .eml file.
-- [Email Deliverability Tester](https://pranithjain.qzz.io/dfir/email-deliverability) (dfir): Paste or upload a raw .eml to get spam score, SPF/DKIM/DMARC alignment, and inbox-placement suggestions.
 - [Email Reputation](https://pranithjain.qzz.io/dfir/email-rep) (dfir): Sender domain + IP reputation with deliverability signals.
 - [Email OSINT Profile](https://pranithjain.qzz.io/dfir/email-osnit) (dfir): Build digital identity from email - GitHub, Gravatar, breach, reputation, DNS, PGP.
 - [PhishBook](https://pranithjain.qzz.io/dfir/phishbook) (dfir): Curated playbook of phishing patterns, lures, and IOCs.
 - [PHISHOPS](https://pranithjain.qzz.io/dfir/phishops) (dfir): Phishing-as-a-service operator catalog and tracking.
-- [URL Reputation](https://pranithjain.qzz.io/dfir/url-rep) (dfir): Cross-source URL reputation - PhishTank, OpenPhish, Google Safe Browsing.
 - [Username Investigator (alias)](https://pranithjain.qzz.io/dfir/username-investigator) (dfir): Alias of /dfir/username - the canonical page.
 - [Phone Intelligence](https://pranithjain.qzz.io/dfir/phone-hub) (dfir): Phone number OSINT - carrier lookup, line type, breach presence, and AI-powered risk scoring.
 - [Wi-Fi / BSSID Investigation](https://pranithjain.qzz.io/dfir/wifi-investigation) (dfir): Wireless network - BSSID vendor lookup, SSID analysis, security flags.
-- [Weather OSINT](https://pranithjain.qzz.io/dfir/weather-osint) (dfir): Reverse geocoding + historical weather for a timestamp + coordinates.
 - [SOCMINT](https://pranithjain.qzz.io/dfir/socmint) (dfir): Social-media intelligence - X / Reddit / Telegram / Mastodon pivots.
 - [OSINT Mapper](https://pranithjain.qzz.io/dfir/osint-mapper) (dfir): Build a mind-map of an investigation - nodes are entities, edges are pivots.
 - [Breach Lookup](https://pranithjain.qzz.io/dfir/breach) (dfir): Email / username / domain - cross-correlate public breach corpora.
 - [Image Intelligence](https://pranithjain.qzz.io/dfir/image-intel) (dfir): Image analysis - reverse search, perceptual fingerprinting, and OCR screenshot intelligence.
 - [Brand Impersonation](https://pranithjain.qzz.io/dfir/brand-impersonation) (dfir): Detect typosquats / look-alike domains targeting your brand.
-- [IRONSIGHT OSINT](https://pranithjain.qzz.io/dfir/ironsight) (dfir): Real-time OSINT command center - alerts, flights, strikes, markets, satellite thermal.
 - [CVE Lookup](https://pranithjain.qzz.io/dfir/cve) (dfir): Single-CVE detail - NVD, KEV, EPSS, exploit availability.
 - [CVE Prioritizer](https://pranithjain.qzz.io/dfir/cve-prioritizer) (dfir): CVSS + EPSS + KEV + ransomware-use - single patch-priority call.
 - [CVE Resources Catalog](https://pranithjain.qzz.io/dfir/vuln-toolkit) (dfir): Curated list of CVE databases, exploit trackers, vendor PSIRTs.
@@ -111,10 +100,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Rule Converter](https://pranithjain.qzz.io/dfir/rule-converter) (dfir): Sigma - KQL - SPL - YARA via one canonical IR.
 - [YARA Workbench](https://pranithjain.qzz.io/dfir/yara-workbench) (dfir): Collaborative YARA editor with malware test corpus.
 - [Threat Graph](https://pranithjain.qzz.io/dfir/threat-graph) (dfir): Indicator - relationship graph - visual pivot from any node.
-- [ATTMAP-AI](https://pranithjain.qzz.io/dfir/attmap-ai) (dfir): AI-assisted mapping of detection rules to ATT&CK techniques.
-- [Hunting Query Generator](https://pranithjain.qzz.io/dfir/hunting-query-generator) (dfir): AI-assisted KQL / SPL / Lucene generation from a hypothesis.
-- [AI Rule Generator](https://pranithjain.qzz.io/dfir/ai-rule-generator) (dfir): Generate a Sigma/YARA rule from a natural-language description.
-- [FP Lens](https://pranithjain.qzz.io/dfir/fp-lens) (dfir): False-positive analyst - score a detection against historical FPs.
 - [Detection Chokepoints](https://pranithjain.qzz.io/dfir/detection-chokepoints) (dfir): Invariant detection points - prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.
 - [IR Playbooks](https://pranithjain.qzz.io/dfir/ir-playbooks) (dfir): Step-by-step playbooks for common incident types.
 - [TRACERULES](https://pranithjain.qzz.io/dfir/tracerules) (dfir): Trace a rule back to its source intel - coverage and lineage.
@@ -147,7 +132,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Google Dorks Builder](https://pranithjain.qzz.io/dfir/google-dorks) (dfir): Compose a Google dork for a target - site:, inurl:, filetype:.
 - [Log Parser](https://pranithjain.qzz.io/dfir/log-parser) (dfir): Generic log parser - pattern detection + anomaly highlighting.
 - [DFIR Copilot](https://pranithjain.qzz.io/dfir/copilot) (dfir): Conversational copilot - ask in plain English, get a runbook.
-- [Multi-Search](https://pranithjain.qzz.io/dfir/multi-search) (dfir): Query 30+ intel sources in parallel - paste an IOC or entity.
 - [Crypto Tracer](https://pranithjain.qzz.io/dfir/crypto-tracer) (dfir): Cross-chain transaction tracing, real-time flow monitoring, and quick address lookups for AML and ransomware investigations.
 - [PIVEX](https://pranithjain.qzz.io/dfir/pivex) (dfir): Pivot explorer - graph-style pivots from any entity.
 - [Agent History](https://pranithjain.qzz.io/dfir/agent-history) (dfir): AI agent investigation sessions - quality scores, IOCs, and key findings.
@@ -161,18 +145,15 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [LOLBins](https://pranithjain.qzz.io/dfir/lolbins) (dfir): Living-off-the-land binaries - search by binary or behaviour.
 - [Data Classification](https://pranithjain.qzz.io/dfir/data-classification) (dfir): Tag data with sensitivity + handling requirements.
 - [Privacy Hub](https://pranithjain.qzz.io/dfir/privacy-hub) (dfir): GDPR / CCPA references, DPIA templates, privacy notice generator.
-- [Personal Security](https://pranithjain.qzz.io/dfir/personal-security) (dfir): OPSEC checklist - threat-modelling for individuals.
 - [DLP Scan](https://pranithjain.qzz.io/dfir/dlp-scan) (dfir): Data-loss-prevention scan for files + clipboard + screenshots.
 - [Linux IR Triage](https://pranithjain.qzz.io/dfir/linux-triage) (dfir): Bash one-liners for live Linux incident response.
 - [GRC Checklists](https://pranithjain.qzz.io/dfir/grc-checklists) (dfir): Control checklists for NIST CSF, ISO 27001, SOC 2, PCI DSS v4, DPDP 2023, CERT-In, SEBI — plus cross-framework mapper.
 - [Post-Quantum Cryptography](https://pranithjain.qzz.io/dfir/pqc) (dfir): Algorithm profiles, HNDL threat model, crypto-class readiness assessment, and migration checklist.
 - [ATT&CK Navigator](https://pranithjain.qzz.io/dfir/attack-navigator) (dfir): Layered ATT&CK matrix - coverage heatmap, gap analysis.
-- [Attack Chain](https://pranithjain.qzz.io/dfir/attack-chain) (dfir): Visualise a multi-stage attack as a connected kill-chain.
 - [Cyber Kill Chain](https://pranithjain.qzz.io/dfir/kill-chain) (dfir): Lockheed Martin 7-phase kill chain with ATT&CK cross-links.
 - [Diamond Model](https://pranithjain.qzz.io/dfir/diamond) (dfir): Adversary - capability - infrastructure - victim - reference.
 - [OWASP Top 10](https://pranithjain.qzz.io/dfir/owasp) (dfir): Web 2021 - API 2023 - LLM 2025 reference + checklist.
-- [MITRE Matrix](https://pranithjain.qzz.io/dfir/mitre-matrix) (dfir): Static reference view of the MITRE ATT&CK matrix with tactic/technique lookup.
-- [Tabletop Exercises](https://pranithjain.qzz.io/dfir/tabletop) (dfir): Scenario-driven tabletop exercises - pick a scenario, run it.
+- [CLOAK — Anonymity Framework](https://pranithjain.qzz.io/dfir/cloak) (dfir): Concealment Layers for Online Anonymity and Knowledge — adversary tactics, techniques, sub-techniques, and procedures.
 
 ## Threat Intel platform surfaces (124+ routes)
 

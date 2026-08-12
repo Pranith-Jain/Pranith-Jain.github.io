@@ -175,7 +175,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     pivots.push({
       label: 'IP Geolocation',
       desc: 'Country / city / ISP / org',
-      path: `/dfir/ip-geo?ip=${enc}`,
+      path: `/dfir/ioc-investigate?indicator=${enc}`,
     });
     pivots.push({
       label: 'ASN Lookup',

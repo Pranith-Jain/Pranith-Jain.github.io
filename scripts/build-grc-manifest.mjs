@@ -33,11 +33,11 @@ function main() {
   const frameworkIndex = [];
   let totalControls = 0;
 
-  for (const key of FRAMEWORKS) {
-    const fw = JSON.parse(readFileSync(join(SRC, `${key}.json`), 'utf8'));
+  for (const srcName of FRAMEWORKS) {
+    const fw = JSON.parse(readFileSync(join(SRC, `${srcName}.json`), 'utf8'));
     const controls = fw.categories.reduce((n, c) => n + c.controls.length, 0);
     totalControls += controls;
-    writeFileSync(join(OUT, 'frameworks', `${key}.json`), JSON.stringify(fw));
+    writeFileSync(join(OUT, 'frameworks', `${fw.key}.json`), JSON.stringify(fw));
     frameworkIndex.push({
       key: fw.key,
       name: fw.name,

@@ -118,22 +118,15 @@ const StixBuilder = lazy(() => import('./pages/dfir/StixBuilder'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
 const PiTaxonomy = lazy(() => import('./pages/dfir/PiTaxonomy'));
-const Ironsight = lazy(() => import('./pages/dfir/Ironsight'));
 const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
 const KillChain = lazy(() => import('./pages/dfir/KillChain'));
 const Diamond = lazy(() => import('./pages/dfir/Diamond'));
 const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
 const ReportHub = lazy(() => import('./pages/dfir/ReportHub'));
-const IocLifecycle = lazy(() => import('./pages/dfir/IocLifecycle'));
 const CtMonitor = lazy(() => import('./pages/dfir/CtMonitor'));
 const StealerParser = lazy(() => import('./pages/dfir/StealerParser'));
-const BloomFilter = lazy(() => import('./pages/dfir/BloomFilter'));
-const AiRuleGenerator = lazy(() => import('./pages/dfir/AiRuleGenerator'));
-const FpLens = lazy(() => import('./pages/dfir/FpLens'));
 const ThreatGraph = lazy(() => import('./pages/dfir/ThreatGraph'));
-const AttackChain = lazy(() => import('./pages/dfir/AttackChain'));
 const AttackNavigator = lazy(() => import('./pages/dfir/AttackNavigator'));
-const HuntingQueryGenerator = lazy(() => import('./pages/dfir/HuntingQueryGenerator'));
 const IrPlaybooks = lazy(() => import('./pages/dfir/IrPlaybooks'));
 const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
@@ -142,27 +135,23 @@ const CryptoTracer = lazy(() => import('./pages/dfir/CryptoTracer'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const PowershellAnalyzer = lazy(() => import('./pages/dfir/PowershellAnalyzer'));
 const InvestigationHistory = lazy(() => import('./pages/threatintel/InvestigationHistory'));
-const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const DetectionChokepointsHub = lazy(() => import('./pages/dfir/DetectionChokepointsHub'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
 const DataClassification = lazy(() => import('./pages/dfir/DataClassification'));
 const PrivacyHub = lazy(() => import('./pages/dfir/PrivacyHub'));
-const PersonalSecurity = lazy(() => import('./pages/dfir/PersonalSecurity'));
 const UsernameInvestigator = lazy(() => import('./pages/dfir/UsernameInvestigator'));
 const DomainInvestigator = lazy(() => import('./pages/dfir/DomainInvestigator'));
 const PassiveDns = lazy(() => import('./pages/dfir/PassiveDns'));
 const MalwareAnalyzer = lazy(() => import('./pages/dfir/MalwareAnalyzer'));
 const Notebooks = lazy(() => import('./pages/dfir/Notebooks'));
 const VulnToolkitCatalog = lazy(() => import('./pages/dfir/VulnToolkitCatalog'));
-const WeatherOsint = lazy(() => import('./pages/dfir/WeatherOsint'));
 const IocInvestigate = lazy(() => import('./pages/dfir/IocInvestigate'));
 const DfirCopilotPage = lazy(() => import('./pages/dfir/DfirCopilot'));
 const YaraWorkbench = lazy(() => import('./pages/dfir/YaraWorkbench'));
 const StixWorkbench = lazy(() => import('./pages/dfir/StixWorkbench'));
 const WifiInvestigation = lazy(() => import('./pages/dfir/WifiInvestigation'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
-const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
 const Blocklists = lazy(() => import('./pages/dfir/Blocklists'));
 const MedusaScanner = lazy(() => import('./pages/dfir/MedusaScanner'));
@@ -180,14 +169,12 @@ const RegistryHive = lazy(() => import('./pages/dfir/RegistryHive'));
 const EvtxParser = lazy(() => import('./pages/dfir/EvtxParser'));
 const SqliteExplorer = lazy(() => import('./pages/dfir/SqliteExplorer'));
 const IosBackupExplorer = lazy(() => import('./pages/dfir/IosBackupExplorer'));
-const PeAnalyzer = lazy(() => import('./pages/dfir/PeAnalyzer'));
 const WebLogAnalyzer = lazy(() => import('./pages/dfir/WebLogAnalyzer'));
 const PrefetchAnalyzer = lazy(() => import('./pages/dfir/PrefetchAnalyzer'));
 const SubdomainTakeover = lazy(() => import('./pages/dfir/SubdomainTakeover'));
 
 const AiSuite = lazy(() => import('./pages/dfir/AiSuite'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
-const EmailDeliverability = lazy(() => import('./pages/dfir/EmailDeliverability'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatIntelCatalog = lazy(() => import('./pages/threatintel/Catalog'));
@@ -323,7 +310,6 @@ const YaraPage = lazy(() => import('./pages/threatintel/Yarahub'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
 const OrklPage = lazy(() => import('./pages/dfir/Orkl'));
-const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
@@ -334,7 +320,6 @@ const VeraChat = lazy(() => import('./pages/threatintel/VeraChat'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const CyberPulse = lazy(() => import('./pages/threatintel/CyberPulse'));
 const AiHoneypotObservatory = lazy(() => import('./pages/threatintel/AiHoneypotObservatory'));
-const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
 const OpenDirectory = lazy(() => import('./pages/dfir/OpenDirectory'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
@@ -351,12 +336,8 @@ const InfostealerIntel = lazy(() => import('./pages/dfir/InfostealerIntel'));
 const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
-const MultiSearch = lazy(() => import('./pages/dfir/MultiSearch'));
-const XVeridikt = lazy(() => import('./pages/dfir/XVeridikt'));
 const Dnscope = lazy(() => import('./pages/dfir/Dnscope'));
-const AttmapAi = lazy(() => import('./pages/dfir/AttmapAi'));
 const Tracerules = lazy(() => import('./pages/dfir/Tracerules'));
-const Regscope = lazy(() => import('./pages/dfir/Regscope'));
 const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
 
 const RadarHome = lazy(() => import('./pages/radar/Home'));
@@ -446,7 +427,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/external/threatmon', Component: ThreatMonInfostealer },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/orkl', Component: OrklPage },
-  { path: '/dfir/abuse-rep', Component: AbuseRepPage },
   { path: '/dfir/phishing', Component: Phishing },
   { path: '/dfir/whois-history', Component: WhoisHistory },
   { path: '/dfir/open-directory', Component: OpenDirectory },
@@ -515,23 +495,15 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/owasp', Component: Owasp },
   { path: '/dfir/prompt-injection', Component: PromptInjection },
   { path: '/dfir/pi-taxonomy', Component: PiTaxonomy },
-  { path: '/dfir/ironsight', Component: Ironsight },
   { path: '/dfir/mcp-audit', Component: McpAudit },
   { path: '/dfir/kill-chain', Component: KillChain },
   { path: '/dfir/diamond', Component: Diamond },
   { path: '/dfir/osint-mapper', Component: OsintMapper },
   { path: '/dfir/lolbins', Component: Lolbins },
-  { path: '/dfir/ioc-lifecycle', Component: IocLifecycle },
   { path: '/dfir/ct-monitor', Component: CtMonitor },
   { path: '/dfir/stealer-parser', Component: StealerParser },
-  { path: '/dfir/bloom', Component: BloomFilter },
-  { path: '/dfir/ai-rule-generator', Component: AiRuleGenerator },
-  { path: '/dfir/fp-lens', Component: FpLens },
   { path: '/dfir/threat-graph', Component: ThreatGraph },
-  { path: '/dfir/attack-chain', Component: AttackChain },
   { path: '/dfir/attack-navigator', Component: AttackNavigator },
-  { path: '/dfir/mitre-matrix', Component: MitreMatrix },
-  { path: '/dfir/hunting-query-generator', Component: HuntingQueryGenerator },
   { path: '/dfir/ir-playbooks', Component: IrPlaybooks },
   { path: '/dfir/phishops', Component: PhishOps },
   { path: '/dfir/phishbook', Component: PhishBook },
@@ -544,14 +516,12 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/powershell-analyzer', Component: PowershellAnalyzer },
   { path: '/dfir/agent-history', Component: InvestigationHistory },
   { path: '/dfir/agent-suite', Component: AgentSuite },
-  { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/detection-chokepoints', Component: DetectionChokepointsHub },
   { path: '/dfir/subdomain-takeover', Component: SubdomainTakeover },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },
   { path: '/dfir/data-classification', Component: DataClassification },
   { path: '/dfir/privacy-hub', Component: PrivacyHub },
-  { path: '/dfir/personal-security', Component: PersonalSecurity },
   { path: '/dfir/username-investigator', Component: UsernameInvestigator },
   { path: '/dfir/domain-investigator', Component: DomainInvestigator },
   { path: '/dfir/passive-dns', Component: PassiveDns },
@@ -562,9 +532,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/yara-workbench', Component: YaraWorkbench },
   { path: '/dfir/stix-workbench', Component: StixWorkbench },
   { path: '/dfir/wifi-investigation', Component: WifiInvestigation },
-  { path: '/dfir/weather-osint', Component: WeatherOsint },
   { path: '/dfir/wayback', Component: Wayback },
-  { path: '/dfir/ip-geo', Component: IpGeo },
   { path: '/dfir/log-parser', Component: LogParser },
   { path: '/dfir/socmint', Component: Socmint },
   { path: '/dfir/infostealer-intel', Component: InfostealerIntel },
@@ -578,20 +546,14 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/sqlite', Component: SqliteExplorer },
   { path: '/dfir/ios-backup', Component: IosBackupExplorer },
   { path: '/dfir/apk-analyzer', Component: ApkAnalyzer },
-  { path: '/dfir/pe', Component: PeAnalyzer },
   { path: '/dfir/web-log', Component: WebLogAnalyzer },
   { path: '/dfir/prefetch', Component: PrefetchAnalyzer },
   { path: '/dfir/ai-suite', Component: AiSuite },
-  { path: '/dfir/x-verdikt', Component: XVeridikt },
   { path: '/dfir/dnscope', Component: Dnscope },
-  { path: '/dfir/attmap-ai', Component: AttmapAi },
   { path: '/dfir/tracerules', Component: Tracerules },
-  { path: '/dfir/regscope', Component: Regscope },
 
   { path: '/dfir/catalog', Component: DfirCatalog },
   { path: '/dfir/eml', Component: EmlExtractor },
-  { path: '/dfir/email-deliverability', Component: EmailDeliverability },
-  { path: '/dfir/url-rep', Component: UrlReputation },
   { path: '/dfir/url-risk', Component: UrlRisk },
   { path: '/dfir/email-rep', Component: EmailReputation },
   { path: '/dfir/email-osnit', Component: EmailOsnit },
@@ -731,7 +693,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/blocklists', Component: Blocklists },
   // ── 24 Gap Features ──────────────────────────────────────────────
   { path: '/dfir/export-hub', Component: ExportHub },
-  { path: '/dfir/multi-search', Component: MultiSearch },
   { path: '/dfir/report-hub', Component: ReportHub },
   { path: '/admin', Component: AdminApp },
   { path: '/admin/analytics', Component: AdminAnalyticsDashboard },
@@ -803,7 +764,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/dfir/report-analyzer', to: '/dfir/report-hub' },
   { path: '/dfir/report-composer', to: '/dfir/report-hub' },
   { path: '/dfir/mobile-sqlite', to: '/dfir/sqlite' },
-  // ── Merged route redirects ──
   // ── ThreatIntel hub merges ──
   { path: '/threatintel/actors/directory', to: '/threatintel/actors/hub?tab=directory' },
   { path: '/threatintel/actors/timeline', to: '/threatintel/actors/hub?tab=timeline' },
