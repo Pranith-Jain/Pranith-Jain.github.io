@@ -1,0 +1,53 @@
+{
+  "type": "maritime",
+  "date": "2026-08-11",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Immediate operational priority: A confirmed cyberattack against North Carolina Ports' IT systems disrupted operations at Wilmington, Morehead City, and the Charlotte Inland Port, underscoring persistent business-continuity and supply-chain risk to U.S. port authorities. View Article Available reporting indicates a port authority cyber incident impacted terminal operations and gate schedules between 4-6 August 2026, with delays extending during system restoration. The reporting does not indicate navigation or OT/ICS compromise. Confidence in the disruption is medium given vendor-source attribution and consistent operational details. Source Current reporting suggests regulators are reinforcing assessment discipline: the U.S. Coast Guard's Policy Letter 01-26 clarifies how vessels, facilities, and OCS facilities should scope cybersecurity assessments under 33 CFR Part 101 Subpart F, including internal assets, external dependencies, and interfaces that could lead to operational disruption or a TSI. Confidence is high due to official publication. Government Advisory The collected intelligence supports an assessment that near-term risk is elevated for port IT environments-particularly gate, booking, and terminal community systems-while risk to shipboard navigation systems remains unchanged in this cycle. No new CVEs or confirmed OT/ICS exploitation were identified in supplied records. Operationally, the main implications center on schedule adherence, truck turn times, and yard planning; safety-of-navigation risks are not indicated by current sources. However, poor IT/OT segmentation could convert IT outages into OT impacts in some terminal architectures (analytical judgment). Issues requiring immediate attention: verify IT/OT segmentation at ports and terminals; ensure incident-response playbooks for port community systems and vendor remote access; and align assessment scoping with USCG Policy Letter 01-26 (analytical priorities). Government Advisory Confidence in this executive assessment: medium-to-high (mixture of government guidance and vendor reporting; limited technical detail on intrusion vector).",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [],
+  "topThreats": [
+    {
+      "title": "1) North Carolina Ports IT Disruption",
+      "action": "Demonstrates continuing risk to port community and terminal systems affecting gate operations and schedules. Operational impact: Disrupted processes and delays during restoration period; navigation impact reported as none. Recommended attention: Elevate incident-response readiness for port IT; validate isolation from OT/ICS; review vendor remote access. Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://cydome.io/maritime-cybersecurity-bulletin-august-7th-2026/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "2) USCG Policy Letter 01-26 - Cyber Assessment Scoping",
+      "action": "Clarifies mandatory scope for cybersecurity assessments, including external dependencies and interfaces that could cause disruptions or TSIs. Operational impact: Improved risk identification and prioritization across IT/OT boundaries; supports compliance planning. Recommended attention: Align assessment scope and evidence with 33 CFR Part 101 Subpart F; update asset inventories and interfaces mapping. Confidence: High",
+      "sources": [
+        {
+          "url": "https://www.uscg.mil/Portals/0/Images/cyber/CG-5P%20Policy%20Letter%2001-26%20CYBERSECURITY%20ASSESSMENT%20INITIAL%20SCOPING%20AND%20PROCESS.pdf?ver=XMX3PfwomgS2s6r9xe30uw%3D%3D",
+          "label": "Government Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Observed behavior: Port authority IT service disruption; no disclosed intrusion vector (fact).",
+      "ATT&CK mapping: Insufficient detail to confirm technique IDs. Likely phases could include initial access and impact to availability, but no specific techniques are supported by the supplied sources (analytical caution)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for follow-on reporting or official statements regarding the North Carolina Ports incident, including potential attribution or remediation updates (confidence: medium). Supporting Report The immediate risk to U.S. port IT environments remains elevated as organizations confirm restoration and reinforce controls; no evidence suggests navigation or OT targeting in this incident (confidence: medium). Additional disclosures may emerge as entities align assessment programs with USCG Policy Letter 01-26, potentially revealing interface and dependency risks (confidence: high). Government Advisory",
+  "relatedCves": []
+}

@@ -1,0 +1,40 @@
+{
+  "type": "cyber",
+  "date": "2026-08-11",
+  "threatLevel": "",
+  "executiveSummary": "",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "~62",
+        "label": "Events this cycle"
+      },
+      {
+        "value": "ESCALATE ~18 MONITOR ~34 IGNORE ~10",
+        "label": "Decision Breakdown"
+      },
+      {
+        "value": "6+",
+        "label": "Actively Exploited (KEV)"
+      },
+      {
+        "value": "Energy, Water/Wastewater, Manufacturing, Comms, Transportation",
+        "label": "Sectors Impacted"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "",
+  "relatedCves": []
+}

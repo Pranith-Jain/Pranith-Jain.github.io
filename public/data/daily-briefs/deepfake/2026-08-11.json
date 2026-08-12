@@ -1,0 +1,72 @@
+{
+  "type": "deepfake",
+  "date": "2026-08-11",
+  "riskOutlook": "Worsening",
+  "executiveSummary": "The reporting period features multiple high-urgency incidents involving AI voice deepfakes targeting U.S. government officials, including a campaign since April impersonating senior figures and a separate alert after an impostor mimicked the Secretary of State in outreach to diplomats. View Article View Article Enterprises are facing confirmed, scalable AI-enabled vishing that abuses Microsoft 365 identity workflows to capture credentials and register attacker-controlled passkeys, while AI-powered robocall fraud continues to intensify. View Article View Article Legal and regulatory actions accelerated: U.S. authorities filed criminal charges for AI-generated sexualized content and seized major deepfake nude sites under the Take It Down Act, while in the EU, Article 50 transparency obligations took effect with new guidance and a Code of Practice offering an operational path for labeling and detection. View Article View Article View Article View Article Europol's latest threat assessment reinforces that generative AI is a force multiplier across online crime, with direct implications for law enforcement and cyber defenders. View Report Overall, the threat environment appears to be worsening due to concurrent national-security targeting, enterprise identity abuse, and scaling fraud, despite meaningful regulatory and defensive advances.",
+  "keyFindings": [
+    {
+      "title": "AI voice deepfakes targeted current and former senior U.S. officials via message",
+      "summary": "AI voice deepfakes targeted current and former senior U.S. officials via messages and calls seeking access to personal accounts. View Article"
+    },
+    {
+      "title": "The U.S. State Department warned after an impostor used AI to mimic the Secretar",
+      "summary": "The U.S. State Department warned after an impostor used AI to mimic the Secretary of State in outreach to diplomats. View Article"
+    },
+    {
+      "title": "A confirmed vishing campaign abuses Microsoft 365 workflows to capture credentia",
+      "summary": "A confirmed vishing campaign abuses Microsoft 365 workflows to capture credentials and register attacker-controlled passkeys. View Article"
+    },
+    {
+      "title": "U.S. authorities charged a suspect over AI-generated sexualized images/videos; s",
+      "summary": "U.S. authorities charged a suspect over AI-generated sexualized images/videos; separate action seized deepfake nude sites under a new law. View Article View Article"
+    },
+    {
+      "title": "EU's Code of Practice operationalizes content-authenticity and labeling duties f",
+      "summary": "EU's Code of Practice operationalizes content-authenticity and labeling duties for deepfakes and AI-generated public-interest content. View Article"
+    },
+    {
+      "title": "Commission guidance set near-term transparency obligations for providers and dep",
+      "summary": "Commission guidance set near-term transparency obligations for providers and deployers under the AI Act's Article 50. View Article"
+    },
+    {
+      "title": "Europol's IOCTA identifies generative AI as a growing force multiplier for onlin",
+      "summary": "Europol's IOCTA identifies generative AI as a growing force multiplier for online fraud and synthetic criminal content. View Report"
+    },
+    {
+      "title": "U.S. election deepfake rules remain fragmented across states, raising operationa",
+      "summary": "U.S. election deepfake rules remain fragmented across states, raising operational burdens for campaigns and platforms. View Article"
+    },
+    {
+      "title": "Android introduced fake-call detection to counter AI deepfake scam calls at the ",
+      "summary": "Android introduced fake-call detection to counter AI deepfake scam calls at the consumer device layer. View Article"
+    },
+    {
+      "title": "Research challenges watermarking as proof for single items, indicating value mai",
+      "summary": "Research challenges watermarking as proof for single items, indicating value mainly for ecosystem oversight. View Paper"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [],
+  "geographicObservations": [
+    "United States: Multiple national-security impersonation incidents, legal enforcement actions, and election-related exposure were reported.",
+    "Washington, District of Columbia, United States: Specific alert on AI impersonation of the Secretary of State.",
+    "European Union: Transparency obligations under the AI Act took effect alongside a Code of Practice and detailed guidance.",
+    "Global: Reports on AI robocalls, Android defenses, provenance standardization, and research reflect worldwide exposure and response.",
+    "Unknown: Several research efforts were location-agnostic but have global operational implications."
+  ],
+  "detectionDevelopments": [
+    "EU AI Act Article 50 obligations now require machine-readable marking and visible disclosure for deepfakes and certain AI-generated content. View Article",
+    "Commission guidance clarifies timing, scope, and deployer duties for transparency, including visible/audible labels. View Article",
+    "EU Code of Practice offers an operational path to meet deepfake labeling and detection expectations. View Article",
+    "Android introduced fake-call detection to mitigate AI voice scam calls. View Article",
+    "NIST launched a deepfake benchmark emphasizing adversarial realism to improve detector performance. View Challenge",
+    "C2PA governance expanded with TikTok joining the steering committee, potentially boosting cross-platform provenance adoption. View Article",
+    "Identity workflows: Require out-of-band, human-verified callbacks for all privilege escalations, passkey enrollments, and account recovery steps. Label: Analyst Recommendation",
+    "Voice-channel security: Implement \"known-number only\" policies for sensitive requests and maintain an internal directory of verified callback numbers. Label: Analyst Recommendation",
+    "Provenance: Adopt C2PA signing where feasible and ensure labels are user-visible at first exposure per EU guidance. Label: Analyst Recommendation",
+    "Detection stack: Combine watermark checks with detector ensembles and metadata analysis; treat watermark signals as non-deterministic. Label: Analyst Recommendation",
+    "Robocall defenses: Expand STIR/SHAKEN coverage and anomaly analytics; partner with carriers to trace spoofed call paths. Label: Analyst Recommendation",
+    "Elections readiness: Map state-specific deepfake rules; pre-stage rapid response and content disclosure playbooks for campaigns and election offices. Label: Analyst Recommendation",
+    "Evidence handling: Preserve device-level detection alerts, provenance metadata, and full call/session logs to support attribution and adjudication. Label: Analyst Recommendation"
+  ]
+}

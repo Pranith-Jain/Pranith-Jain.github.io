@@ -1,0 +1,48 @@
+{
+  "type": "disaster",
+  "date": "2026-08-11",
+  "overallThreat": "",
+  "executiveSummary": "A deadly earthquake in western Colombia caused extensive structural collapse, with at least 111 fatalities, active search and rescue for people trapped, communications outages in Chocó, and flights suspended at multiple airports. View Article Monsoon flooding in India's Assam state has killed 100 people, displaced more than 700,000, and placed nearly 300,000 in relief camps while road and livelihood disruptions continue. View Article Typhoon Dolphin drove mass relocations and transport shutdowns across eastern China, including 1,300+ flight cancellations and rail/ferry suspensions amid severe flood and landslide risk. View Article In the Philippines, monsoon rains intensified by the same system caused at least 19 deaths, affected more than 1 million people, and displaced about 98,000 amid floods and landslides. View Article Fast-moving wildfires around Okanagan Lake, British Columbia forced about 20,000 evacuations, destroyed homes, caused power outages, and led to a provincial emergency; at least one death reported. View Article In and around Spokane, Washington, wildfires destroyed roughly 850 buildings and triggered evacuations of around 67,000 people; displacement and access restrictions persisted. View Article Extreme heat continues to stress European populations and systems: French hospitals reported severe operational strain during earlier heat waves, and millions in Italy remain under top alerts as temperatures stay extreme. Supporting Report View Article At least 230+ fatalities are confirmed across events; reporting varies and numbers are likely to change as assessments continue.",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Western Colombia's earthquake is the week's deadliest disaster, with extensive u",
+      "summary": "Western Colombia's earthquake is the week's deadliest disaster, with extensive urban damage across multiple departments and ongoing SAR demands. View Article"
+    },
+    {
+      "title": "Severe flooding in Assam, India displaced over 700,000 people and pushed nearly ",
+      "summary": "Severe flooding in Assam, India displaced over 700,000 people and pushed nearly 300,000 into camps, indicating large-scale shelter, WASH, and protection needs. View Article"
+    },
+    {
+      "title": "Typhoon Dolphin caused cascading transport disruptions in China (1,300+ flights ",
+      "summary": "Typhoon Dolphin caused cascading transport disruptions in China (1,300+ flights canceled), with elevated flood and landslide risk to densely populated coastal provinces. View Article"
+    },
+    {
+      "title": "In the Philippines, monsoon flooding and landslides linked to the same system af",
+      "summary": "In the Philippines, monsoon flooding and landslides linked to the same system affected over a million people and displaced nearly 100,000, stressing local response capacity. View Article"
+    },
+    {
+      "title": "Wildfires in British Columbia forced about 20,000 evacuations, destroyed homes, ",
+      "summary": "Wildfires in British Columbia forced about 20,000 evacuations, destroyed homes, and resulted in at least one death under a provincial emergency-further flare-ups remain possible. View Article"
+    },
+    {
+      "title": "Washington State's Spokane-area fires destroyed around 850 buildings and displac",
+      "summary": "Washington State's Spokane-area fires destroyed around 850 buildings and displaced tens of thousands, with return timelines unclear for many residents. View Article"
+    },
+    {
+      "title": "European heat waves continue to strain health systems; prior episodes in France ",
+      "summary": "European heat waves continue to strain health systems; prior episodes in France overwhelmed hospitals and Italy remains under heightened alerts this week. Supporting Report View Article"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Colombia earthquake: Expect continued aftershocks and intensive SAR; prioritize heavy equipment, specialized USAR teams, emergency shelter, and telecom restoration in worst-hit municipalities. Source China coastal provinces: Continued flood/landslide risk from Typhoon Dolphin's remnants; maintain evacuation readiness, slope monitoring, and transport safety checks. Source Philippines: Localized severe flooding/landslides may persist; prioritize WASH, shelter kits, and debris clearance in affected Luzon communities. Source Wildfires (BC/WA): Hot, dry, and windy conditions could support renewed spread; maintain evacuation readiness, protect critical lines and substations, and surge shelter capacity. Assam, India: Flood waters and disease risk may persist; prioritize safe water access, vector control, and relief camp management. Source Europe/Western US heat: Continue heat-health advisories, cooling center operations, and surge capacity for emergency departments. Source Source Fuego Volcano (Guatemala): Monitor lahar risk during rainfall, maintain exclusion zones, and ensure clear public messaging. Source",
+  "regionalTrends": [
+    "Compound extremes: Heat is amplifying wildfire behavior in North America and Southern Europe, while monsoon and cyclone interactions are driving floods and landslides in South/East Asia. View Article",
+    "Preemptive measures: Large-scale relocations and transport shutdowns in China likely reduced casualties but created short-term logistics disruptions. Source",
+    "Prolonged displacement: Wildfire-affected communities in British Columbia and Washington face extended return timelines due to structure loss and access restrictions. Source Source"
+  ]
+}
