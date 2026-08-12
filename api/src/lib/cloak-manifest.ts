@@ -1,1 +1,1 @@
-../../worker/lib/cloak-manifest.ts
+../../../worker/lib/cloak-manifest.ts

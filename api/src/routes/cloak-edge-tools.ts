@@ -7,14 +7,14 @@ import {
   filterTechniques,
 } from '../lib/cloak-manifest';
 
-const app = new Hono();
+export const cloakRouter = new Hono();
 
 const JSON_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
   'Cache-Control': 'public, max-age=300',
 };
 
-app.get('/cloak', async (c) => {
+cloakRouter.get('/cloak', async (c) => {
   const index = await getCloakIndex();
   if (!index) return c.json({ error: 'CLOAK data unavailable' }, 503);
   const q = c.req.query('q');
@@ -22,7 +22,7 @@ app.get('/cloak', async (c) => {
   return c.json({ ...index, tacticIndex: tactics }, 200, JSON_HEADERS);
 });
 
-app.get('/cloak/tactics/:id', async (c) => {
+cloakRouter.get('/cloak/tactics/:id', async (c) => {
   const id = Number(c.req.param('id'));
   if (Number.isNaN(id)) return c.json({ error: 'Invalid tactic id' }, 400);
   const tactic = await getCloakTactic(id);
@@ -33,7 +33,7 @@ app.get('/cloak/tactics/:id', async (c) => {
   return c.json({ ...tactic, techniques }, 200, JSON_HEADERS);
 });
 
-app.get('/cloak/techniques/:id', async (c) => {
+cloakRouter.get('/cloak/techniques/:id', async (c) => {
   const id = Number(c.req.param('id'));
   if (Number.isNaN(id)) return c.json({ error: 'Invalid technique id' }, 400);
   const technique = await getCloakTechnique(id);
@@ -41,10 +41,10 @@ app.get('/cloak/techniques/:id', async (c) => {
   return c.json(technique, 200, JSON_HEADERS);
 });
 
-app.get('/cloak/stats', async (c) => {
+cloakRouter.get('/cloak/stats', async (c) => {
   const index = await getCloakIndex();
   if (!index) return c.json({ error: 'CLOAK data unavailable' }, 503);
   return c.json({ counts: index.counts, tacticCount: index.tacticIndex.length }, 200, JSON_HEADERS);
 });
 
-export default app;
+export default cloakRouter;

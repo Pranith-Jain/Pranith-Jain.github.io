@@ -1,5 +1,3 @@
-import { LRUCache } from 'lru-cache';
-
 export interface CloakIndex {
   source: string;
   sourceUrl: string;
@@ -51,7 +49,7 @@ export interface CloakTechniqueBody {
 }
 
 const PREFIX = '/data/cloak';
-const cache = new LRUCache<string, unknown>({ max: 200, ttl: 5 * 60 * 1000 });
+const cache = new Map<string, unknown>();
 
 function host(url: string) {
   return new URL(url, 'https://cloakeyframe').host;
