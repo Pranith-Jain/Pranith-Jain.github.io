@@ -20,16 +20,19 @@ interface SiemBody {
   id: string;
   name: string;
   category: string;
-  description: string;
+  description?: string;
   severity: string;
   mitre: string;
   mitreName?: string;
-  query: { kql: string; spl?: string; sigma?: string };
-  tuning: string;
-  falsePositives: string[] | string;
+  kql: string;
+  spl?: string;
+  sigma?: string;
+  dataSource?: string;
+  fpRate?: string;
+  tuning?: string;
+  falsePositives?: string[] | string;
   apt?: string;
   references?: string[];
-  tags: string[];
 }
 
 const SEVERITY_TONE: Record<string, string> = {
@@ -99,10 +102,12 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
             </span>
           )}
         </div>
-        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
-        <QueryBlock label="KQL (Microsoft Sentinel)" query={body.query.kql} />
-        <QueryBlock label="SPL (Splunk)" query={body.query.spl} />
-        <QueryBlock label="Sigma" query={body.query.sigma} />
+        {body.description && (
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
+        )}
+        <QueryBlock label="KQL (Microsoft Sentinel)" query={body.kql} />
+        <QueryBlock label="SPL (Splunk)" query={body.spl} />
+        <QueryBlock label="Sigma" query={body.sigma} />
         {body.tuning && (
           <div className="border-l-2 border-amber-500 pl-4 py-2 bg-amber-50 dark:bg-amber-950/20 rounded-r-lg">
             <div className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
@@ -111,14 +116,18 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.tuning}</p>
           </div>
         )}
-        <div>
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            False Positives
+        {(body.falsePositives || body.fpRate) && (
+          <div>
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+              False Positives
+            </div>
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+              {Array.isArray(body.falsePositives)
+                ? body.falsePositives.join(' · ')
+                : body.falsePositives || body.fpRate}
+            </p>
           </div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
-            {Array.isArray(body.falsePositives) ? body.falsePositives.join(' · ') : body.falsePositives}
-          </p>
-        </div>
+        )}
         {body.references && body.references.length > 0 && (
           <div className="text-mini font-mono text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
             Refs: {body.references.join(' · ')}
