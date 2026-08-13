@@ -1,15 +1,15 @@
 {
   "slug": "settra-oligo-de-2026-08-11",
   "title": "oligo.de",
-  "group": "settra",
-  "discovered": "2026-08-11T17:30:34.000Z",
+  "group": "Settra",
+  "discovered": "2026-08-11T00:00:00.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "DE",
+  "country": null,
   "sizeBytes": 0,
-  "description": "A group of companies whose luminaires illuminate Deutsche Bank, Burj Dubai, and Scout Motors' assemb...",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/oligo-de-settra-2026-08",
   "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["RecentBreaches.com"]
 }

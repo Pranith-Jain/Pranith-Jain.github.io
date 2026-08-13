@@ -1,15 +1,15 @@
 {
   "slug": "genesis-interim-healthcare-2026-08-11",
   "title": "Interim HealthCare",
-  "group": "genesis",
-  "discovered": "2026-08-11T00:00:43.000Z",
+  "group": "Genesis",
+  "discovered": "2026-08-11T00:00:00.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": "US",
+  "country": null,
   "sizeBytes": 0,
-  "description": "A healthcare organization dealing with elderly care services",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/interim-healthcare-genesis-2026-08",
   "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["RecentBreaches.com"]
 }

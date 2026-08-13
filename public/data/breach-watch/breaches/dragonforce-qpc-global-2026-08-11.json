@@ -1,15 +1,15 @@
 {
   "slug": "dragonforce-qpc-global-2026-08-11",
   "title": "QPC Global",
-  "group": "DragonForce",
-  "discovered": "2026-08-11T00:00:00.000Z",
+  "group": "dragonforce",
+  "discovered": "2026-08-11T15:53:26.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "GB",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/qpc-global-dragonforce-2026-08",
+  "description": "Quest Personal Care Global Ltd is a global company specializing in affordable beauty and personal care products, with over 30 years of experience and a presence in more than 65 countries. They offer a diverse range of innovative brands and products, including skincare, haircare, and fragrance, aimed at helping consumers look and feel their best. The company focuses on speed to market, consumer insights, and sustainable practices, ensuring high-quality products that are both effective and environmentally friendly. Their mission is to simplify beauty for everyone by providing inclusive and trend-led products to retail partners and distributors worldwide",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DRAGON FORCE"],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Other",
+  "references": ["ransomware.live"]
 }

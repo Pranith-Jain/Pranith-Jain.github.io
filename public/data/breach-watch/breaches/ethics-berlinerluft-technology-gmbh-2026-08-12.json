@@ -1,0 +1,15 @@
+{
+  "slug": "ethics-berlinerluft-technology-gmbh-2026-08-12",
+  "title": "BerlinerLuft. Technology GmbH",
+  "group": "Ethics",
+  "discovered": "2026-08-12T07:50:19.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Systems, equipment & components for building complete ventilation and air conditioning systems",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

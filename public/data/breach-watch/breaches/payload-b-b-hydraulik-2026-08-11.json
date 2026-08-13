@@ -1,15 +1,15 @@
 {
   "slug": "payload-b-b-hydraulik-2026-08-11",
   "title": "B&B Hydraulik",
-  "group": "Payload",
-  "discovered": "2026-08-11T00:00:00.000Z",
+  "group": "payload",
+  "discovered": "2026-08-11T14:30:26.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "DE",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/b-b-hydraulik-payload-2026-08",
+  "description": "B&B Hydraulik is a German company based in Hattingen that specializes in the development and manufacturing of hydraulic systems, power units, and specialized equipment. In cooperation with partner organizations, the enterprise supplies control blocks, valves, and components for both industrial and mobile hydraulics. Its engineering solutions are widely used across construction and agricultural machinery, lifting equipment, and shipbuilding.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
 }

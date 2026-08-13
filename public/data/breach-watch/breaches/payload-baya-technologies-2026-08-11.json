@@ -1,15 +1,15 @@
 {
   "slug": "payload-baya-technologies-2026-08-11",
   "title": "Baya Technologies",
-  "group": "Payload",
-  "discovered": "2026-08-11T00:00:00.000Z",
+  "group": "payload",
+  "discovered": "2026-08-11T14:28:56.000Z",
   "category": "ransomware",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/baya-technologies-payload-2026-08",
+  "description": "Baya offers end-to-end solutions for complex challenges, specializing in technology and distribution services. The company operates under the brands baya-zicon technologies and baya-zicon EMS, providing a wide range of technological services and electronic manufacturing services (EMS). Their target audience includes companies seeking comprehensive solutions in technology and distribution.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Technology",
+  "references": ["ransomware.live"]
 }

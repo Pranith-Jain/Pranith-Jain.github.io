@@ -1,0 +1,15 @@
+{
+  "slug": "ethics-philadelphia-insurance-companies-2026-08-12",
+  "title": "Philadelphia Insurance Companies",
+  "group": "Ethics",
+  "discovered": "2026-08-12T07:49:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Philadelphia Insurance Companies (phly.com) is a premier national Property/Casualty and Professional Liability insurance carrier that designs",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}
