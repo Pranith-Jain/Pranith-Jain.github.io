@@ -1,23 +1,18 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
-import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
+import { classifyResponseError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['domain', 'ipv4', 'ipv6']);
 
-interface MozillaTlsResult {
-  scanId?: number;
-  url?: string;
-  status?: 'completed' | 'pending' | 'error';
-  results?: {
-    score?: number;
-    grade?: string;
-    protocols?: string[];
-    cipherSuites?: string[];
-    signatureAlgorithms?: string[];
-    keyExchange?: string;
-    keyStrength?: number;
-    vulnerabilities?: string[];
-    warnings?: string[];
-  };
+interface HttpObservatoryResult {
+  grade?: string;
+  score?: number;
+  scan_id?: number;
+  state?: 'ABORTED' | 'FAILED' | 'FINISHED' | 'PENDING' | 'STARTING' | 'RUNNING';
+  tests_failed?: number;
+  tests_passed?: number;
+  tests_quantity?: number;
+  response_headers?: Record<string, unknown>;
+  error?: string;
 }
 
 export const mozillaTls: ProviderAdapter = async (indicator, _env, _signal) => {
@@ -37,38 +32,44 @@ export const mozillaTls: ProviderAdapter = async (indicator, _env, _signal) => {
   if (!supports.has(indicator.type)) return base('unsupported');
 
   try {
+    // The hosted TLS Observatory (tls-observatory.services.mozilla.com) was
+    // retired — the host is NXDOMAIN. Mozilla's live successor with the same
+    // A+…F grade semantics is the HTTP Observatory.
     const res = await fetch(
-      `https://tls-observatory.services.mozilla.com/api/v1/scan?url=${encodeURIComponent(indicator.value)}`,
+      `https://http-observatory.security.mozilla.org/api/v1/analyze?host=${encodeURIComponent(indicator.value)}`,
       {
         headers: { Accept: 'application/json' },
         signal: AbortSignal.timeout(15000),
       }
     );
 
+    // The Observatory is frequently flaky (502s under load). A transient
+    // upstream outage shouldn't litter the IOC page with red error cards —
+    // surface it as a neutral scan-unavailable state instead.
     if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
-    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
+    if (!res.ok) {
+      return base('unsupported', {
+        error: `${res.status} from Mozilla Observatory (service under load)`,
+        error_code: 'upstream_5xx',
+        error_tags: ['upstream-5xx', String(res.status)],
+        tags: ['mozilla-observatory-unavailable'],
+        raw_summary: { reason: `${res.status} from Mozilla Observatory (service under load)` },
+      });
+    }
 
-    const json = (await res.json()) as MozillaTlsResult;
+    const json = (await res.json()) as HttpObservatoryResult;
 
-    if (json.status === 'pending') {
-      return base('ok', {
-        verdict: 'unknown',
+    if (json.error || (json.state && json.state !== 'FINISHED')) {
+      return base('unsupported', {
+        error: json.error ?? 'scan in progress, try again shortly',
+        error_code: 'unknown',
         tags: ['scan-pending'],
-        raw_summary: { status: 'pending', message: 'TLS scan in progress, try again shortly' },
+        raw_summary: { state: json.state ?? 'pending', message: json.error ?? 'scan in progress, try again shortly' },
       });
     }
 
-    if (json.status === 'error' || !json.results) {
-      return base('ok', {
-        verdict: 'unknown',
-        tags: ['scan-error'],
-        raw_summary: { status: 'error', message: 'TLS scan failed' },
-      });
-    }
-
-    const results = json.results;
-    const grade = results.grade ?? '';
-    const tlsScore = results.score ?? 0;
+    const grade = json.grade ?? '';
+    const obsScore = json.score ?? 0;
 
     const gradeToVerdict: Record<string, Verdict> = {
       'A+': 'clean',
@@ -91,13 +92,8 @@ export const mozillaTls: ProviderAdapter = async (indicator, _env, _signal) => {
     const verdict = gradeToVerdict[grade] ?? 'unknown';
     const score = verdict === 'malicious' ? 70 : verdict === 'suspicious' ? 40 : 0;
 
-    const tags: string[] = [`tls-grade:${grade}`];
-    if (results.vulnerabilities && results.vulnerabilities.length > 0) {
-      results.vulnerabilities.forEach((v) => tags.push(`vuln:${v}`));
-    }
-    if (results.protocols) {
-      results.protocols.forEach((p) => tags.push(`proto:${p}`));
-    }
+    const tags: string[] = [`grade:${grade}`];
+    if ((json.tests_failed ?? 0) > 0) tags.push(`${json.tests_failed}-tests-failed`);
 
     return base('ok', {
       score,
@@ -105,16 +101,22 @@ export const mozillaTls: ProviderAdapter = async (indicator, _env, _signal) => {
       tags: [...new Set(tags)].slice(0, 7),
       raw_summary: {
         grade,
-        score: tlsScore,
-        protocols: results.protocols,
-        cipher_suites: results.cipherSuites?.slice(0, 5),
-        key_exchange: results.keyExchange,
-        key_strength: results.keyStrength,
-        vulnerabilities: results.vulnerabilities,
-        warnings: results.warnings?.slice(0, 5),
+        score: obsScore,
+        scan_id: json.scan_id,
+        tests_passed: json.tests_passed,
+        tests_failed: json.tests_failed,
+        tests_quantity: json.tests_quantity,
       },
     });
   } catch (err) {
-    return base('error', toProviderError(classifyThrownError(err)));
+    // Network-level failure (DNS/TLS/connection) — treat as unavailable, not a
+    // hard error, since this service is a best-effort enrichment.
+    return base('unsupported', {
+      error: err instanceof Error ? err.message : String(err),
+      error_code: 'network',
+      error_tags: ['network'],
+      tags: ['mozilla-observatory-unavailable'],
+      raw_summary: { reason: err instanceof Error ? err.message : String(err) },
+    });
   }
 };

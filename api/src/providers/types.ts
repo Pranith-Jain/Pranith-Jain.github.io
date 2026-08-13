@@ -154,6 +154,10 @@ export interface ProviderEnv {
   /** FullHunt API key (free at fullhunt.io). Optional — the provider
    *  degrades to 'unsupported' when unset. Used for attack surface discovery. */
   FULLHUNT_API_KEY?: string;
+  /** OpenSanctions API key (free for public-interest work at opensanctions.org).
+   *  The hosted API has required `Authorization: ApiKey …` since 2025; the
+   *  provider degrades to 'unsupported' (no_api_key) when unset. */
+  OPENSANCTIONS_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;

@@ -237,6 +237,7 @@ export function buildProviderEnv(env: {
   INTODNS_API_KEY?: string;
   POLYSWARM_API_KEY?: string;
   FULLHUNT_API_KEY?: string;
+  OPENSANCTIONS_API_KEY?: string;
 }): ProviderEnv {
   return {
     VT_API_KEY: env.VT_API_KEY ?? '',
@@ -263,5 +264,6 @@ export function buildProviderEnv(env: {
     INTODNS_API_KEY: env.INTODNS_API_KEY,
     POLYSWARM_API_KEY: env.POLYSWARM_API_KEY,
     FULLHUNT_API_KEY: env.FULLHUNT_API_KEY,
+    OPENSANCTIONS_API_KEY: env.OPENSANCTIONS_API_KEY,
   };
 }

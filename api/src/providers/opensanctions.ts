@@ -36,16 +36,36 @@ export const opensanctions: ProviderAdapter = async (indicator, env, signal) => 
 
   if (!supports.has(indicator.type)) return base('unsupported');
 
+  // The hosted OpenSanctions API requires an API key (Authorization: ApiKey …)
+  // since 2025 — without one every request 401s. Degrade to a neutral state
+  // instead of a red error so the IOC page isn't littered with failures.
+  const apiKey = env.OPENSANCTIONS_API_KEY;
+  if (!apiKey) {
+    return base('unsupported', {
+      error: 'OPENSANCTIONS_API_KEY not set — free key at opensanctions.org (public-interest licensing)',
+      error_code: 'no_api_key',
+      error_tags: ['no-api-key'],
+    });
+  }
+
   try {
     const url = `https://api.opensanctions.org/search/default?q=${encodeURIComponent(indicator.value)}&limit=20`;
     const res = await fetch(url, {
       headers: {
         Accept: 'application/json',
         'User-Agent': 'pranithjain-threatintel/1.0',
+        Authorization: `ApiKey ${apiKey}`,
       },
       signal,
     });
 
+    if (res.status === 401 || res.status === 403) {
+      return base('unsupported', {
+        error: `${res.status} — OPENSANCTIONS_API_KEY rejected`,
+        error_code: 'unauthorized',
+        error_tags: ['unauthorized', String(res.status)],
+      });
+    }
     if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
     if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 

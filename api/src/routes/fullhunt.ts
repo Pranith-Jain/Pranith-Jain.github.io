@@ -22,7 +22,7 @@ fullhuntRouter.get('/fullhunt/domain', async (c) => {
   if (cached) return c.json({ ...cached, cached: true });
 
   try {
-    const res = await fetch(`https://api.fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/details`, {
+    const res = await fetch(`https://fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/details`, {
       headers: { 'X-API-Key': key, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });
@@ -51,7 +51,7 @@ fullhuntRouter.get('/fullhunt/host', async (c) => {
   if (!key) return serviceUnavailable(c, 'FULLHUNT_API_KEY not configured');
 
   try {
-    const res = await fetch(`https://api.fullhunt.io/api/v1/host/${encodeURIComponent(host)}`, {
+    const res = await fetch(`https://fullhunt.io/api/v1/host/${encodeURIComponent(host)}`, {
       headers: { 'X-API-Key': key, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });
@@ -73,7 +73,7 @@ fullhuntRouter.get('/fullhunt/subdomains', async (c) => {
   if (!key) return serviceUnavailable(c, 'FULLHUNT_API_KEY not configured');
 
   try {
-    const res = await fetch(`https://api.fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/subdomains`, {
+    const res = await fetch(`https://fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/subdomains`, {
       headers: { 'X-API-Key': key, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });

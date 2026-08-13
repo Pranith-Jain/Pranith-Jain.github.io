@@ -58,9 +58,11 @@ export const fullhunt: ProviderAdapter = async (indicator, env, signal) => {
 
   try {
     const isDomain = indicator.type === 'domain';
+    // NOTE: upstream retired the `api.fullhunt.io` host (NXDOMAIN); the API now
+    // lives on `fullhunt.io` (docs.fullhunt.io).
     const endpoint = isDomain
-      ? `https://api.fullhunt.io/api/v1/domain/${encodeURIComponent(indicator.value)}/details`
-      : `https://api.fullhunt.io/api/v1/host/${encodeURIComponent(indicator.value)}`;
+      ? `https://fullhunt.io/api/v1/domain/${encodeURIComponent(indicator.value)}/details`
+      : `https://fullhunt.io/api/v1/host/${encodeURIComponent(indicator.value)}`;
 
     const res = await fetch(endpoint, {
       headers: {

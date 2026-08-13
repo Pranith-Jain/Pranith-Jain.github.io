@@ -17,12 +17,18 @@ export async function mozillaTlsScan(
 ): Promise<{ success: boolean; data?: MozillaTlsResult; error?: string }> {
   const result: { success: boolean; data?: MozillaTlsResult; error?: string } = { success: false };
   try {
-    const res = await fetch(`https://tls-observatory.services.mozilla.com/api/v1/scan?url=${encodeURIComponent(url)}`, {
-      headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(20000),
-    });
+    // The hosted TLS Observatory (tls-observatory.services.mozilla.com) was
+    // retired (NXDOMAIN). The live successor with the same A+…F grade
+    // semantics is the HTTP Observatory.
+    const res = await fetch(
+      `https://http-observatory.security.mozilla.org/api/v1/analyze?host=${encodeURIComponent(url)}`,
+      {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(20000),
+      }
+    );
     if (!res.ok) {
-      result.error = `Mozilla TLS returned ${res.status}`;
+      result.error = `Mozilla Observatory returned ${res.status}`;
       return result;
     }
     result.data = (await res.json()) as MozillaTlsResult;

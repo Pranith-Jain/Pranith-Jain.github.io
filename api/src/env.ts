@@ -136,6 +136,12 @@ export interface Env {
    *  Optional — the provider degrades to 'unsupported' when unset.
    *  Free tier available at fullhunt.io. Used for attack surface discovery. */
   FULLHUNT_API_KEY?: string;
+  /** OpenSanctions API key (`wrangler secret put OPENSANCTIONS_API_KEY`).
+   *  The hosted API requires `Authorization: ApiKey …` since 2025. Free for
+   *  public-interest work (journalism, civil-society, academic) at
+   *  opensanctions.org. Optional — the provider degrades to 'unsupported'
+   *  (no_api_key) when unset instead of surfacing a hard 401. */
+  OPENSANCTIONS_API_KEY?: string;
 
   /** X (Twitter) auth cookies for the cookie-authenticated firehose at
    *  /api/v1/x-firehose. Set via `wrangler secret put X_AUTH_TOKEN` and

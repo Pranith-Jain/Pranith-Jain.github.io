@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, badGateway } from '../lib/api-error';
+import { badRequest, notFound, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
 const CACHE_TTL = 1800;
@@ -19,11 +19,16 @@ opensanctionsRouter.get('/opensanctions/search', async (c) => {
   if (cached) return c.json({ ...cached, cached: true });
 
   try {
+    // The hosted API requires Authorization: ApiKey … since 2025.
+    const apiKey = c.env.OPENSANCTIONS_API_KEY;
+    if (!apiKey)
+      return serviceUnavailable(c, 'OPENSANCTIONS_API_KEY not configured (wrangler secret put OPENSANCTIONS_API_KEY)');
     const url = `https://api.opensanctions.org/search/default?q=${encodeURIComponent(q)}&limit=${limit}`;
     const res = await fetch(url, {
       headers: {
         Accept: 'application/json',
         'User-Agent': 'pranithjain-threatintel/1.0',
+        Authorization: `ApiKey ${apiKey}`,
       },
       signal: AbortSignal.timeout(15000),
     });
@@ -46,10 +51,13 @@ opensanctionsRouter.get('/opensanctions/entity', async (c) => {
   if (!id) return badRequest(c, 'id parameter required');
 
   try {
+    const apiKey = c.env.OPENSANCTIONS_API_KEY;
+    if (!apiKey) return serviceUnavailable(c, 'OPENSANCTIONS_API_KEY not configured');
     const res = await fetch(`https://api.opensanctions.org/entities/${encodeURIComponent(id)}`, {
       headers: {
         Accept: 'application/json',
         'User-Agent': 'pranithjain-threatintel/1.0',
+        Authorization: `ApiKey ${apiKey}`,
       },
       signal: AbortSignal.timeout(10000),
     });
@@ -71,10 +79,13 @@ opensanctionsRouter.get('/opensanctions/stats', async (c) => {
   if (cached) return c.json({ ...cached, cached: true });
 
   try {
+    const apiKey = c.env.OPENSANCTIONS_API_KEY;
+    if (!apiKey) return serviceUnavailable(c, 'OPENSANCTIONS_API_KEY not configured');
     const res = await fetch('https://api.opensanctions.org/statistics', {
       headers: {
         Accept: 'application/json',
         'User-Agent': 'pranithjain-threatintel/1.0',
+        Authorization: `ApiKey ${apiKey}`,
       },
       signal: AbortSignal.timeout(10000),
     });

@@ -26,7 +26,9 @@ export async function fullhuntDomainDetails(env: EnvWithFullhunt, domain: string
   }
 
   try {
-    const res = await fetch(`https://api.fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/details`, {
+    // NOTE: upstream retired the `api.fullhunt.io` host (NXDOMAIN); the API now
+    // lives on `fullhunt.io` (docs.fullhunt.io).
+    const res = await fetch(`https://fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/details`, {
       headers: { 'X-API-Key': env.FULLHUNT_API_KEY, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });
@@ -63,7 +65,7 @@ export async function fullhuntSubdomains(env: EnvWithFullhunt, domain: string) {
   }
 
   try {
-    const res = await fetch(`https://api.fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/subdomains`, {
+    const res = await fetch(`https://fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/subdomains`, {
       headers: { 'X-API-Key': env.FULLHUNT_API_KEY, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });

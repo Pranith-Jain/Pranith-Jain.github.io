@@ -39,4 +39,12 @@ describe('vulncheck provider', () => {
     expect(r.verdict).toBe('clean');
     expect(r.status).toBe('ok');
   });
+
+  it('degrades to unsupported (no_api_key) on 402 quota exhaustion instead of a hard error', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response('quota', { status: 402 }));
+    const r = await vulncheck({ type: 'ipv4', value: '1.2.3.4' }, env('tok'), AbortSignal.timeout(2000));
+    expect(r.status).toBe('unsupported');
+    expect(r.error_code).toBe('no_api_key');
+    expect(r.tags).toContain('vulncheck-quota');
+  });
 });

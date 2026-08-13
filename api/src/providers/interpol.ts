@@ -53,6 +53,19 @@ export const interpol: ProviderAdapter = async (indicator, env, signal) => {
       }
     );
 
+    // ws-public.interpol.int sits behind an Akamai edge that 403s
+    // datacenter/cloud egress IPs (unreachable from a Worker — verified
+    // permanently blocked). Degrade to a neutral state instead of a red error card.
+    if (res.status === 403 && (res.headers.get('content-type') ?? '').includes('text/html')) {
+      return base('unsupported', {
+        error: 'Interpol Red Notices API is behind an Akamai edge — blocks cloud egress IPs',
+        error_code: 'forbidden',
+        error_status: 403,
+        error_tags: ['forbidden', '403'],
+        tags: ['upstream-waf-block'],
+        raw_summary: { reason: 'Akamai edge denies datacenter egress — unavailable from this deployment' },
+      });
+    }
     if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
     if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 

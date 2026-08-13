@@ -42,6 +42,19 @@ export const vulncheck: ProviderAdapter = async (indicator, env, signal) => {
       const code = intel.err.code;
       const status = intel.err.status;
       const errorCode = toProviderErrorCode(code);
+      // 402 = the Community token's quota is exhausted (account state, not a
+      // code bug). Surface it as a neutral no-quota state instead of a red
+      // error card that repeats on every check.
+      if (status === 402) {
+        return base('unsupported', {
+          error: 'vulncheck token quota exhausted (402) — renew/top up at vulncheck.com',
+          error_code: 'no_api_key',
+          error_status: 402,
+          error_tags: ['no-api-key', '402'],
+          tags: ['vulncheck-quota'],
+          raw_summary: { reason: 'VulnCheck returned 402 Payment Required — Community token quota exhausted' },
+        });
+      }
       return base('error', {
         error: `vulncheck ${code}${status ? ` (${status})` : ''}`,
         error_code: errorCode,

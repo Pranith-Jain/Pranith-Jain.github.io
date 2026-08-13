@@ -17,12 +17,17 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
   if (cached) return c.json({ ...cached, cached: true });
 
   try {
-    const res = await fetch(`https://tls-observatory.services.mozilla.com/api/v1/scan?url=${encodeURIComponent(url)}`, {
-      headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(20000),
-    });
+    // The hosted TLS Observatory (tls-observatory.services.mozilla.com) was
+    // retired (NXDOMAIN). The live successor is the HTTP Observatory.
+    const res = await fetch(
+      `https://http-observatory.security.mozilla.org/api/v1/analyze?host=${encodeURIComponent(url)}`,
+      {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(20000),
+      }
+    );
 
-    if (!res.ok) return badGateway(c, `Mozilla TLS upstream ${res.status}`);
+    if (!res.ok) return badGateway(c, `Mozilla Observatory upstream ${res.status}`);
 
     const data = await res.json();
     const body = { url, results: data, generated_at: new Date().toISOString(), cached: false };
@@ -41,18 +46,18 @@ mozillaTlsRouter.get('/mozilla-tls/result', async (c) => {
 
   try {
     const res = await fetch(
-      `https://tls-observatory.services.mozilla.com/api/v1/results/${encodeURIComponent(scanId)}`,
+      `https://http-observatory.security.mozilla.org/api/v1/getScanResults?scan=${encodeURIComponent(scanId)}`,
       {
         headers: { Accept: 'application/json' },
         signal: AbortSignal.timeout(10000),
       }
     );
 
-    if (!res.ok) return badGateway(c, `Mozilla TLS upstream ${res.status}`);
+    if (!res.ok) return badGateway(c, `Mozilla Observatory upstream ${res.status}`);
     const data = await res.json();
     return c.json({ scanId, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
     logError('handler failed', e);
-    return badGateway(c, e instanceof Error ? e.message : 'Mozilla TLS unreachable');
+    return badGateway(c, e instanceof Error ? e.message : 'Mozilla Observatory unreachable');
   }
 });

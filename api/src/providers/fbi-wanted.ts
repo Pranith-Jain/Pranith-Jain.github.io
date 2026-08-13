@@ -62,6 +62,19 @@ export const fbiWanted: ProviderAdapter = async (indicator, env, signal) => {
       }
     );
 
+    // api.fbi.gov sits behind an Akamai bot-page that 403s datacenter/cloud
+    // egress IPs (unreachable from a Worker — verified permanently blocked).
+    // Degrade to a neutral state instead of a red error card.
+    if (res.status === 403 && (res.headers.get('content-type') ?? '').includes('text/html')) {
+      return base('unsupported', {
+        error: 'FBI Wanted API is behind an Akamai bot-wall — blocks cloud egress IPs',
+        error_code: 'forbidden',
+        error_status: 403,
+        error_tags: ['forbidden', '403'],
+        tags: ['upstream-waf-block'],
+        raw_summary: { reason: 'Akamai bot-page blocks datacenter egress — unavailable from this deployment' },
+      });
+    }
     if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as FbiWantedResponse;

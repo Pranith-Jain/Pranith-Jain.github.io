@@ -13,16 +13,27 @@ export interface OpensanctionsSearchResponse {
   results?: OpensanctionsMatch[];
 }
 
-export async function opensanctionsSearch(q: string, limit = 20) {
+export async function opensanctionsSearch(q: string, limit = 20, env?: { OPENSANCTIONS_API_KEY?: string }) {
   const result: { success: boolean; data?: OpensanctionsSearchResponse; error?: string } = {
     success: false,
   };
+
+  // The hosted OpenSanctions API requires Authorization: ApiKey … since 2025.
+  const apiKey = env?.OPENSANCTIONS_API_KEY;
+  if (!apiKey) {
+    result.error = 'OPENSANCTIONS_API_KEY not set — free key at opensanctions.org';
+    return result;
+  }
 
   try {
     const res = await fetch(
       `https://api.opensanctions.org/search/default?q=${encodeURIComponent(q)}&limit=${Math.min(limit, 100)}`,
       {
-        headers: { Accept: 'application/json', 'User-Agent': 'pranithjain-threatintel/1.0' },
+        headers: {
+          Accept: 'application/json',
+          'User-Agent': 'pranithjain-threatintel/1.0',
+          Authorization: `ApiKey ${apiKey}`,
+        },
         signal: AbortSignal.timeout(15000),
       }
     );
@@ -42,12 +53,22 @@ export async function opensanctionsSearch(q: string, limit = 20) {
   return result;
 }
 
-export async function opensanctionsEntity(id: string) {
+export async function opensanctionsEntity(id: string, env?: { OPENSANCTIONS_API_KEY?: string }) {
   const result: { success: boolean; data?: unknown; error?: string } = { success: false };
+
+  const apiKey = env?.OPENSANCTIONS_API_KEY;
+  if (!apiKey) {
+    result.error = 'OPENSANCTIONS_API_KEY not set — free key at opensanctions.org';
+    return result;
+  }
 
   try {
     const res = await fetch(`https://api.opensanctions.org/entities/${encodeURIComponent(id)}`, {
-      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain-threatintel/1.0' },
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'pranithjain-threatintel/1.0',
+        Authorization: `ApiKey ${apiKey}`,
+      },
       signal: AbortSignal.timeout(10000),
     });
 
@@ -70,12 +91,22 @@ export async function opensanctionsEntity(id: string) {
   return result;
 }
 
-export async function opensanctionsStats() {
+export async function opensanctionsStats(env?: { OPENSANCTIONS_API_KEY?: string }) {
   const result: { success: boolean; data?: unknown; error?: string } = { success: false };
+
+  const apiKey = env?.OPENSANCTIONS_API_KEY;
+  if (!apiKey) {
+    result.error = 'OPENSANCTIONS_API_KEY not set — free key at opensanctions.org';
+    return result;
+  }
 
   try {
     const res = await fetch('https://api.opensanctions.org/statistics', {
-      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain-threatintel/1.0' },
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'pranithjain-threatintel/1.0',
+        Authorization: `ApiKey ${apiKey}`,
+      },
       signal: AbortSignal.timeout(10000),
     });
 
