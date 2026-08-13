@@ -217,17 +217,38 @@ deliberately skipped (same clusters, only for news-aggregator submission).
 Vulnerabilities / Exploits / Dark Web Victims / IOC Blocklist / MISP Events; IOC tab has
 copy-all for pfSense/Pi-hole blocklists).
 
+### ThreatCluster Entity Intelligence (sub-vertical)
+
+Derived entity profiles from ThreatCluster data — threat actors (MISP galaxy attribution),
+ransomware groups + sectors (dark-web victims), malware families (Daily-Hunt dictionary
+matching), CVEs (feed + cluster-text regex). **Deterministic build-time extraction — no LLM.**
+Each profile: first/last seen, mention frequency by day, recent activity, weighted
+co-occurrence relationship graph, MITRE techniques (groups also carry their victim list).
+
+**8 MCP tools** (6 above + `tc_list_entities`, `tc_get_entity`)
+
+**3 REST routes** under `/api/v1/threat-intel/threatcluster/entities*`:
+`GET /entities` (q, type, min_mentions, limit → flat list with counts),
+`GET /entities/:type`, `GET /entities/:type/:slug` (activity_limit)
+
+**1 SPA route** at `/threatintel/feeds/threatcluster/entities` (explorer + profile with
+frequency chart, relationship chips, victim table).
+
 **Files**:
 
 - `scripts/sync-threatcluster.mjs` — fetches + regex-parses the RSS feeds + IOC JSON into `threat-intel-staging/threatcluster/`
 - `scripts/build-threatcluster.mjs` — slices staged data into `public/data/threat-intel/threatcluster/`
-- `worker/lib/threat-intel-manifest.ts` — `loadThreatClusterIndex`, `getTcCluster/Vuln/Exploit/Victim`, `loadTcIocs`, `loadTcMispEvents`, `filterTc*` helpers (same file as darknet)
-- `worker/mcp-server.ts` — 6 `tc_*` tool registrations
-- `api/src/routes/threat-intel-edge-tools.ts` — 11 route handlers
+- `scripts/build-tc-entities.mjs` — entity extraction pipeline → `entities/` tree (index + 5 type dirs)
+- `worker/lib/threat-intel-manifest.ts` — `loadThreatClusterIndex`, `getTcCluster/Vuln/Exploit/Victim`, `loadTcIocs`, `loadTcMispEvents`, `filterTc*` helpers + `loadTcEntities`/`getTcEntity`/`filterTcEntities`/`getTcEntityTypeOrNull` (same file as darknet)
+- `worker/mcp-server.ts` — 6 `tc_*` tool registrations (+2 entity tools)
+- `api/src/routes/threat-intel-edge-tools.ts` — 11 route handlers (+3 entity routes)
 - `src/pages/threatintel/ThreatCluster.tsx` — SPA page
-- `public/data/threat-intel/threatcluster/` — generated tree (index + clusters/ + vulnerabilities/ + exploits/ + victims/ + iocs.json + misp.json)
+- `src/pages/threatintel/ThreatClusterEntities.tsx` — SPA entity explorer
+- `public/data/threat-intel/threatcluster/` — generated tree (index + clusters/ + vulnerabilities/ + exploits/ + victims/ + iocs.json + misp.json + entities/)
 
-**To rebuild**: `node scripts/sync-threatcluster.mjs && node scripts/build-threatcluster.mjs`
+**To rebuild**: `node scripts/sync-threatcluster.mjs && node scripts/build-threatcluster.mjs && node scripts/build-tc-entities.mjs`
+
+**To re-run entity extraction only**: `node scripts/build-tc-entities.mjs` (reads staging + feeds from `public/data/threat-intel/threatcluster/`)
 
 **Data layout**:
 

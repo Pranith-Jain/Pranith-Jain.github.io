@@ -43,7 +43,6 @@ import {
   loadTcMispEvents,
   loadTcEntities,
   getTcEntity,
-  getTcEntityTypeOrNull,
   filterTcClusters,
   filterTcVulns,
   filterTcExploits,
@@ -461,6 +460,8 @@ function makeAssetsFixture() {
 
   const tcEntityIndex: TcEntityIndex = {
     source: 'threatcluster.io',
+    url: 'https://threatcluster.io/entities',
+    description: 'test',
     builtAt: '2026-08-13T04:50:00Z',
     counts: { actor: 1, group: 1, malware: 1, cve: 1, sector: 1 },
     entities: {
@@ -470,7 +471,6 @@ function makeAssetsFixture() {
           slug: 'lazarus-group',
           name: 'Lazarus Group',
           aliases: ['Lazarus'],
-          sources: ['misp-galaxy'],
           mentionCount: 3,
           firstSeen: '2026-08-12T07:00:00Z',
           lastSeen: '2026-08-13T04:00:00Z',
@@ -482,7 +482,6 @@ function makeAssetsFixture() {
           slug: 'CVE-2026-0301',
           name: 'CVE-2026-0301',
           aliases: [],
-          sources: ['feed'],
           mentionCount: 1,
           firstSeen: '2026-08-13T03:16:00Z',
           lastSeen: '2026-08-13T03:16:00Z',
@@ -494,7 +493,6 @@ function makeAssetsFixture() {
           slug: 'clop',
           name: 'Clop',
           aliases: [],
-          sources: ['victims'],
           mentionCount: 1,
           firstSeen: '2026-08-12T00:00:00Z',
           lastSeen: '2026-08-12T00:00:00Z',
@@ -506,7 +504,6 @@ function makeAssetsFixture() {
           slug: 'powershell',
           name: 'Powershell',
           aliases: [],
-          sources: ['dictionary'],
           mentionCount: 1,
           firstSeen: '2026-08-12T07:00:00Z',
           lastSeen: '2026-08-12T07:00:00Z',
@@ -518,7 +515,6 @@ function makeAssetsFixture() {
           slug: 'technology',
           name: 'Technology',
           aliases: [],
-          sources: ['victims'],
           mentionCount: 2,
           firstSeen: '2026-08-12T00:00:00Z',
           lastSeen: '2026-08-13T00:22:00Z',
@@ -539,24 +535,29 @@ function makeAssetsFixture() {
     lastSeen: '2026-08-13T04:00:00Z',
     summary:
       'North Korean threat actor. Attributed via MISP galaxy: Lazarus (threat-actor) on 1 MISP event. Co-mentioned with CVE-2026-0301 in 1 record and powershell in 1 record.',
-    frequency: {
-      '2026-08-12': 2,
-      '2026-08-13': 1,
-    },
+    frequency: [
+      { date: '2026-08-12', count: 2 },
+      { date: '2026-08-13', count: 1 },
+    ],
     recentActivity: [
       {
-        type: 'cluster',
-        id: 'lazarus-windows-afdsys-zero-abc123',
+        recordType: 'cluster',
+        slug: 'lazarus-windows-afdsys-zero-abc123',
         title: 'Lazarus Group Exploits Windows Zero-Day',
-        date: '2026-08-12T07:38:58.000Z',
+        pubDate: '2026-08-12T07:38:58.000Z',
       },
       {
-        type: 'misp',
-        id: '31fc2385-a89e-5ffa-af2e-e4bcd29facde',
+        recordType: 'mispEvent',
+        slug: '31fc2385-a89e-5ffa-af2e-e4bcd29facde',
         title: 'Lazarus Group Exploits Windows Zero-Day to Target Defense Sector',
-        date: '2026-08-12T00:00:00.000Z',
+        pubDate: '2026-08-12T00:00:00.000Z',
       },
-      { type: 'cve', id: 'CVE-2026-0301', title: 'CVE-2026-0301', date: '2026-08-13T03:16:46.000Z' },
+      {
+        recordType: 'vulnerability',
+        slug: 'CVE-2026-0301',
+        title: 'CVE-2026-0301',
+        pubDate: '2026-08-13T03:16:46.000Z',
+      },
     ],
     relatedEntities: [
       { type: 'cve', slug: 'CVE-2026-0301', name: 'CVE-2026-0301', weight: 2 },
@@ -578,9 +579,14 @@ function makeAssetsFixture() {
     lastSeen: '2026-08-13T03:16:00Z',
     summary:
       'Feed-listed CVE-2026-0301. Also co-mentioned with lazarus-group in 2 records. 1 mention in feeds, 2 mentions in cluster text.',
-    frequency: { '2026-08-13': 1 },
+    frequency: [{ date: '2026-08-13', count: 1 }],
     recentActivity: [
-      { type: 'vulnerability', id: 'CVE-2026-0301', title: 'CVE-2026-0301', date: '2026-08-13T03:16:46.000Z' },
+      {
+        recordType: 'vulnerability',
+        slug: 'CVE-2026-0301',
+        title: 'CVE-2026-0301',
+        pubDate: '2026-08-13T03:16:46.000Z',
+      },
     ],
     relatedEntities: [
       { type: 'actor', slug: 'lazarus-group', name: 'Lazarus Group', weight: 2 },
@@ -600,13 +606,13 @@ function makeAssetsFixture() {
     firstSeen: '2026-08-12T00:00:00Z',
     lastSeen: '2026-08-12T00:00:00Z',
     summary: 'Ransomware group named 1 time. Observed on 1 leak-site victim.',
-    frequency: { '2026-08-12': 1 },
+    frequency: [{ date: '2026-08-12', count: 1 }],
     recentActivity: [
       {
-        type: 'victim',
-        id: 'portable-intelligence-1a2b',
+        recordType: 'victim',
+        slug: 'portable-intelligence-1a2b',
         title: 'Portable Intelligence Inc',
-        date: '2026-08-13T00:22:25.000Z',
+        pubDate: '2026-08-13T00:22:25.000Z',
       },
     ],
     relatedEntities: [{ type: 'sector', slug: 'technology', name: 'Technology', weight: 1 }],
