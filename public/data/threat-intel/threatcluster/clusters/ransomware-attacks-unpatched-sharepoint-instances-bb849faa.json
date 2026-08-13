@@ -1,0 +1,11 @@
+{
+  "slug": "ransomware-attacks-unpatched-sharepoint-instances-bb849faa",
+  "title": "Ransomware Exploits Critical SharePoint Vulnerability CVE-2026-45659",
+  "link": "https://threatcluster.io/cluster/ransomware-attacks-unpatched-sharepoint-instances-bb849faa?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/ransomware-attacks-unpatched-sharepoint-instances-bb849faa",
+  "pubDate": "2026-08-11T21:49:45.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "CISA has confirmed that ransomware groups are actively exploiting a critical vulnerability (CVE-2026-45659) in Microsoft SharePoint Server, which allows remote code execution. Over 200 unpatched SharePoint servers are currently exposed on the internet, primarily in the USA and Europe. The vulnerability arises from the deserialization of untrusted data, enabling attackers to inject malicious code without needing elevated privileges. Microsoft released security updates for affected SharePoint versions in May 2026, but many organizations have not yet applied these patches. The urgency for remediation is heightened as the exploitation is confirmed to be in progress. Shadowserver Foundation's scans indicate a significant drop in unpatched instances since June, but risks remain. Organizations running on-premises SharePoint deployments are particularly at risk.\n\nKey Points:\n• CVE-2026-45659 is actively exploited for ransomware attacks on SharePoint servers.\n• Over 200 unpatched SharePoint servers are exposed on the internet, mainly in the USA and Europe.\n• Microsoft released security updates in May 2026, but many organizations have not yet patched.",
+  "sizeBytes": 1159
+}

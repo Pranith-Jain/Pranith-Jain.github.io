@@ -1,0 +1,11 @@
+{
+  "slug": "august-2026-monthly-patch-9975ce7d",
+  "title": "Microsoft Issues Critical Security Patches for August 2026",
+  "link": "https://threatcluster.io/cluster/august-2026-monthly-patch-9975ce7d?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/august-2026-monthly-patch-9975ce7d",
+  "pubDate": "2026-08-12T09:32:47.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "On August 12, 2026, Microsoft released security patches addressing multiple critical vulnerabilities across its software products. The vulnerabilities include elevation of privilege flaws in Microsoft Teams, Azure SQL Database, and Azure Active Directory, among others. These vulnerabilities could allow attackers to gain unauthorized access and control over affected systems. The patches are crucial for organizations using Microsoft products to mitigate potential exploitation. Specific vulnerabilities include remote code execution and various use-after-free issues. Microsoft has classified these vulnerabilities as critical, emphasizing the urgency for users to apply the patches. The full list of vulnerabilities and their details can be found in the advisory. Organizations are advised to prioritize these updates to safeguard their systems.\n\nKey Points:\n• Microsoft released critical patches for multiple vulnerabilities on August 12, 2026.\n• Key affected products include Microsoft Teams, Azure SQL Database, and Azure Active Directory.\n• Organizations are urged to apply these patches immediately to prevent potential exploitation.",
+  "sizeBytes": 1141
+}

@@ -13,6 +13,8 @@
  *   GET  /threat-intel/lists           — list detection lists (awesome-lists)
  *   GET  /threat-intel/lists/:slug     — full detection list with entries
  *   GET  /threat-intel/stats           — cache + manifest stats
+ *   GET  /threat-intel/threatcluster/* — ThreatCluster feeds (clusters, vulns,
+ *                                        exploits, victims, iocs, misp)
  *
  * The actual logic lives in worker/lib/threat-intel-manifest.ts (symlinked).
  * Routes read from env.ASSETS — no D1, no KV, no public fetch.
@@ -338,6 +340,201 @@ threatIntelRouter.get('/threat-intel/darknet/categories/:category', async (c) =>
   } catch (e) {
     logError('handler failed', e);
     return internalError(c, `ti_darknet_category_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+// ─── ThreatCluster feeds (threatcluster.io) ────────────────────────────
+//
+// Replicated public feeds from threatcluster.io: top-50 trending threat
+// clusters, CVE vulnerabilities + exploits feeds, dark-web ransomware
+// victims, a high-confidence IOC blocklist, and a slim MISP manifest
+// pass-through. Data ships in public/data/threat-intel/threatcluster/.
+
+threatIntelRouter.get('/threat-intel/threatcluster', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreatClusterIndex(c.env.ASSETS);
+    return c.json({
+      source: idx.source,
+      url: idx.url,
+      description: idx.description,
+      syncedAt: idx.syncedAt,
+      lastBuildDates: idx.lastBuildDates,
+      counts: idx.counts,
+      feeds: idx.feeds,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/clusters', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreatClusterIndex(c.env.ASSETS);
+    const keyword = c.req.query('q');
+    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
+    const clusters = mod.filterTcClusters(idx, { keyword: keyword || undefined, limit });
+    return c.json({ total: idx.counts.clusters, returned: clusters.length, clusters });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_clusters_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/clusters/:slug', async (c) => {
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getTcCluster(c.env.ASSETS, slug);
+    if (!body) return notFound(c, `tc_cluster_not_found: ${slug}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_cluster_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/vulnerabilities', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreatClusterIndex(c.env.ASSETS);
+    const keyword = c.req.query('q');
+    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
+    const vulnerabilities = mod.filterTcVulns(idx, { keyword: keyword || undefined, limit });
+    return c.json({ total: idx.counts.vulnerabilities, returned: vulnerabilities.length, vulnerabilities });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_vulns_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/vulnerabilities/:cveId', async (c) => {
+  const cveId = c.req.param('cveId');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getTcVuln(c.env.ASSETS, cveId);
+    if (!body) return notFound(c, `tc_vuln_not_found: ${cveId}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_vuln_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/exploits', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreatClusterIndex(c.env.ASSETS);
+    const severityRaw = c.req.query('severity');
+    const severity = severityRaw ? severityRaw.toUpperCase() : undefined;
+    const kevOnly = c.req.query('kev_only') === 'true';
+    const keyword = c.req.query('q');
+    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
+    const exploits = mod.filterTcExploits(idx, {
+      severity: severity || undefined,
+      kevOnly: kevOnly || undefined,
+      keyword: keyword || undefined,
+      limit,
+    });
+    return c.json({ total: idx.counts.exploits, returned: exploits.length, exploits });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_exploits_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/exploits/:cveId', async (c) => {
+  const cveId = c.req.param('cveId');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getTcExploit(c.env.ASSETS, cveId);
+    if (!body) return notFound(c, `tc_exploit_not_found: ${cveId}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_exploit_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/victims', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreatClusterIndex(c.env.ASSETS);
+    const group = c.req.query('group');
+    const sector = c.req.query('sector');
+    const country = c.req.query('country');
+    const keyword = c.req.query('q');
+    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
+    const victims = mod.filterTcVictims(idx, {
+      group: group || undefined,
+      sector: sector || undefined,
+      country: country || undefined,
+      keyword: keyword || undefined,
+      limit,
+    });
+    return c.json({ total: idx.counts.victims, returned: victims.length, victims });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_victims_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/victims/:id', async (c) => {
+  const id = c.req.param('id');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getTcVictim(c.env.ASSETS, id);
+    if (!body) return notFound(c, `tc_victim_not_found: ${id}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_victim_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/iocs', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreatClusterIndex(c.env.ASSETS);
+    const body = await mod.loadTcIocs(c.env.ASSETS);
+    const type = c.req.query('type');
+    const keyword = c.req.query('q');
+    const limit = c.req.query('limit') ? Math.min(1000, Math.max(1, Number(c.req.query('limit')) || 200)) : undefined;
+    if (!body) return c.json({ total: idx.counts.iocs, returned: 0, iocs: [] });
+    const iocs = mod.filterTcIocs(body.iocs, {
+      type: type || undefined,
+      keyword: keyword || undefined,
+      limit,
+    });
+    return c.json({ total: body.count, returned: iocs.length, iocs });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_iocs_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/misp', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreatClusterIndex(c.env.ASSETS);
+    const body = await mod.loadTcMispEvents(c.env.ASSETS);
+    if (!body) return c.json({ total: idx.counts.mispEvents, returned: 0, events: [] });
+    const keyword = c.req.query('q')?.toLowerCase();
+    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
+    let events = body.events;
+    if (keyword) {
+      events = events.filter(
+        (e: { info: string | null; tags: string[] }) =>
+          (e.info ?? '').toLowerCase().includes(keyword) || e.tags.some((t) => t.toLowerCase().includes(keyword))
+      );
+    }
+    if (limit) events = events.slice(0, limit);
+    return c.json({ total: body.eventCount, returned: events.length, events });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_misp_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
 

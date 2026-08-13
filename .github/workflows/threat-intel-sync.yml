@@ -41,11 +41,17 @@ jobs:
       - name: Sync darknetlist.is directory
         run: node scripts/sync-darknetlist.mjs
 
+      - name: Sync ThreatCluster feeds
+        run: node scripts/sync-threatcluster.mjs
+
       - name: Build manifest
         run: node scripts/build-threat-intel.mjs
 
       - name: Build darknetlist manifest
         run: node scripts/build-darknetlist.mjs
+
+      - name: Build ThreatCluster manifest
+        run: node scripts/build-threatcluster.mjs
 
       - name: Show diff stat
         run: |
@@ -66,7 +72,9 @@ jobs:
             Daily-Hunt sparse git clone + mthcht/awesome-lists detection CSVs)
             and `scripts/build-threat-intel.mjs` (manifest rebuild). Also syncs
             the darknetlist.is Tor site directory
-            (`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs`).
+            (`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs`)
+            and the ThreatCluster public feeds
+            (`scripts/sync-threatcluster.mjs` + `scripts/build-threatcluster.mjs`).
             Review the diff in `public/data/threat-intel/` and merge if the
             data looks correct.
 
@@ -76,6 +84,8 @@ jobs:
             - TheRavenFile/Daily-Hunt (IOC family files)
             - mthcht/awesome-lists (SOC/DFIR detection-list CSVs)
             - darknetlist.is (Tor site directory, 108 sites across 9 categories)
+            - threatcluster.io (5 public feeds: trending clusters, vulnerabilities,
+              exploits, dark-web victims, IOC blocklist + MISP manifest)
 
             Trigger: `${{ github.event_name }}`
             Run:     `${{ github.run_id }}`

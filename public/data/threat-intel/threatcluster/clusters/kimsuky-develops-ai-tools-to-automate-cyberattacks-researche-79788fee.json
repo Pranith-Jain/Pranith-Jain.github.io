@@ -1,0 +1,11 @@
+{
+  "slug": "kimsuky-develops-ai-tools-to-automate-cyberattacks-researche-79788fee",
+  "title": "Kimsuky Expands AI Capabilities for Cyberattacks",
+  "link": "https://threatcluster.io/cluster/kimsuky-develops-ai-tools-to-automate-cyberattacks-researche-79788fee?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/kimsuky-develops-ai-tools-to-automate-cyberattacks-researche-79788fee",
+  "pubDate": "2026-08-10T03:03:01.000Z",
+  "sourceCount": 48,
+  "categories": ["48 Sources"],
+  "description": "The North Korean hacking group Kimsuky has developed local AI tools to enhance its cyberattack capabilities, as reported by Genians Security Center on August 10, 2026. The group is utilizing large language models (LLMs) such as Ollama and GPT4All, alongside retrieval-augmented generation (RAG) technology, to automate phishing campaigns and analyze stolen data without sending sensitive information to external services. Recent findings indicate that Kimsuky is creating sophisticated phishing lures that mimic legitimate financial documents, making them harder to detect. This marks a shift from previous tactics that primarily relied on reusing stolen documents. The group has been targeting sectors related to finance and cryptocurrency, utilizing AI-generated materials to enhance the effectiveness of its attacks. The U.S. Treasury had previously sanctioned Kimsuky in 2023 for its cyber-espionage activities supporting North Korea's strategic goals.\n\nKey Points:\n• Kimsuky is using local AI tools to automate and enhance cyberattacks.\n• The group has developed sophisticated phishing lures that closely resemble legitimate documents.\n• Kimsuky has been sanctioned by the U.S. Treasury for its cyber-espionage activities.",
+  "sizeBytes": 1227
+}

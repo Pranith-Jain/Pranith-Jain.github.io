@@ -33,6 +33,18 @@ import {
   getDarknetSite,
   getDarknetCategory,
   filterDarknetSites,
+  loadThreatClusterIndex,
+  getTcCluster,
+  getTcVuln,
+  getTcExploit,
+  getTcVictim,
+  loadTcIocs,
+  loadTcMispEvents,
+  filterTcClusters,
+  filterTcVulns,
+  filterTcExploits,
+  filterTcVictims,
+  filterTcIocs,
   type TiSeverity,
   type TiIocIndexEntry,
 } from './lib/threat-intel-manifest';
@@ -99,6 +111,13 @@ import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { traceixLookup } from './lib/traceix';
 import { whoxyReverseWhois } from './lib/whoxy';
+import {
+  parseFleet as nhiParseFleet,
+  scan as nhiScanFleet,
+  reportToJson as nhiReportJson,
+  reportToMarkdown as nhiReportMarkdown,
+  catalogSummary as nhiCatalog,
+} from './lib/nhi-scan';
 import {
   listCampaigns as webamonListCampaigns,
   getCampaignStats as webamonGetCampaignStats,
@@ -2675,6 +2694,176 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      // ── Threat Cluster feeds (threatcluster.io) ────────────────────
+      // Replicated public feeds: top-50 trending threat clusters, CVE
+      // vulnerability + exploit feeds, dark-web ransomware victims, a
+      // high-confidence IOC blocklist, and a slim MISP manifest
+      // pass-through. Data ships in public/data/threat-intel/threatcluster/.
+
+      this.tools(
+        'tc_feed',
+        'List ThreatCluster (threatcluster.io) public feed summaries: trending threat clusters, CVE vulnerabilities, exploits with public PoCs, dark-web victims, and the IOC blocklist — with per-feed counts and last build dates.',
+        {
+          feed: z
+            .enum(['clusters', 'vulnerabilities', 'exploits', 'victims', 'iocs', 'misp'])
+            .optional()
+            .describe('Which feed to inspect (default clusters)'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against titles / CVE IDs / victim names / IOC values'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max items to return (default 50)'),
+        },
+        async ({ feed, keyword, limit }) => {
+          const idx = await loadThreatClusterIndex(ASSETS);
+          const kind = feed ?? 'clusters';
+          let items: unknown[] = [];
+          if (kind === 'clusters') items = filterTcClusters(idx, { keyword, limit: limit ?? 50 });
+          else if (kind === 'vulnerabilities') items = filterTcVulns(idx, { keyword, limit: limit ?? 50 });
+          else if (kind === 'exploits') items = filterTcExploits(idx, { keyword, limit: limit ?? 50 });
+          else if (kind === 'victims') items = filterTcVictims(idx, { keyword, limit: limit ?? 50 });
+          else if (kind === 'iocs') {
+            const body = await loadTcIocs(ASSETS);
+            items = body ? filterTcIocs(body.iocs, { keyword, limit: limit ?? 50 }) : [];
+          }
+          return untrustedToolResult({
+            source: idx.source,
+            syncedAt: idx.syncedAt,
+            lastBuildDates: idx.lastBuildDates,
+            counts: idx.counts,
+            feed: kind,
+            returned: items.length,
+            [kind]: items,
+          });
+        }
+      );
+
+      this.tools(
+        'tc_get_cluster',
+        'Return the full ThreatCluster trending-cluster body: title, publication date, source count, link to the cluster page (summary + timeline + source articles), and full description with key points. Use tc_feed with feed=clusters to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Cluster slug (last segment of the cluster URL, e.g. "windows-afdsys-zero-f15d3d54").'),
+        },
+        async ({ slug }) => {
+          const body = await getTcCluster(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'tc_cluster_not_found',
+              slug,
+              hint: 'Call tc_feed with feed=clusters to see available slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'tc_get_cve',
+        'Return a single ThreatCluster CVE item from the vulnerabilities feed (7-day window) or the exploits feed (30-day window, public PoCs). Full description, severity, CISA KEV status (exploits only), and a link to the ThreatCluster CVE page. Use tc_feed with feed=vulnerabilities or feed=exploits first.',
+        {
+          cveId: z.string().describe('CVE ID, e.g. "CVE-2026-63030"'),
+          feed: z
+            .enum(['vulnerabilities', 'exploits'])
+            .optional()
+            .describe('Which feed to read from (default vulnerabilities)'),
+        },
+        async ({ cveId, feed }) => {
+          const id = cveId.toUpperCase();
+          const body =
+            feed === 'exploits'
+              ? await getTcExploit(ASSETS, id)
+              : ((await getTcVuln(ASSETS, id)) ?? (await getTcExploit(ASSETS, id)));
+          if (!body) {
+            return untrustedToolResult({
+              error: 'tc_cve_not_found',
+              cveId: id,
+              hint: 'Call tc_feed with feed=vulnerabilities or feed=exploits to see covered CVEs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'tc_list_victims',
+        'List newly observed ransomware leak-site victims from the ThreatCluster Dark Web Victims feed (14-day window). Filter by ransom group, sector, country, or keyword. Each entry has a victim name, claiming group, sector, country, and publication date.',
+        {
+          group: z.string().optional().describe('Filter by ransomware group name (case-insensitive)'),
+          sector: z.string().optional().describe('Filter by victim sector, e.g. "Technology"'),
+          country: z.string().optional().describe('Filter by victim country code, e.g. "US"'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against victim / group / sector / country'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max victims to return (default 100)'),
+        },
+        async ({ group, sector, country, keyword, limit }) => {
+          const idx = await loadThreatClusterIndex(ASSETS);
+          const victims = filterTcVictims(idx, { group, sector, country, keyword, limit: limit ?? 100 });
+          return untrustedToolResult({
+            source: idx.source,
+            syncedAt: idx.syncedAt,
+            total: idx.counts.victims,
+            returned: victims.length,
+            victims,
+          });
+        }
+      );
+
+      this.tools(
+        'tc_list_iocs',
+        'List high-confidence malicious domains and IPs from the ThreatCluster IOC blocklist (last 30 days). Each IOC has a type, reason, first/last seen, and the source articles that reported it. Ready for firewall / Pi-hole / pfSense blocklists.',
+        {
+          type: z.string().optional().describe('Filter by indicator type: domain, ipv4, ipv6'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against value / reason / source'),
+          limit: z.number().int().min(1).max(1000).optional().describe('Max IOCs to return (default 200)'),
+        },
+        async ({ type, keyword, limit }) => {
+          const idx = await loadThreatClusterIndex(ASSETS);
+          const body = await loadTcIocs(ASSETS);
+          const iocs = body ? filterTcIocs(body.iocs, { type, keyword, limit: limit ?? 200 }) : [];
+          return untrustedToolResult({
+            source: idx.source,
+            syncedAt: idx.syncedAt,
+            generatedAt: body?.generatedAt ?? null,
+            total: body?.count ?? 0,
+            returned: iocs.length,
+            iocs,
+          });
+        }
+      );
+
+      this.tools(
+        'tc_list_misp_events',
+        'List the slim MISP manifest pass-through from ThreatCluster (misp/manifest.json): event UUID, title, date, threat level, and tags per event. For full MISP ingestion use the upstream remote feed directly (https://threatcluster.io/misp/manifest.json).',
+        {
+          keyword: z.string().optional().describe('Case-insensitive match against event title or tags'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max events to return (default 100)'),
+        },
+        async ({ keyword, limit }) => {
+          const idx = await loadThreatClusterIndex(ASSETS);
+          const body = await loadTcMispEvents(ASSETS);
+          let events = body?.events ?? [];
+          const needle = keyword?.toLowerCase();
+          if (needle) {
+            events = events.filter(
+              (e) =>
+                (e.info ?? '').toLowerCase().includes(needle) || e.tags.some((t) => t.toLowerCase().includes(needle))
+            );
+          }
+          events = events.slice(0, limit ?? 100);
+          return untrustedToolResult({
+            source: idx.source,
+            syncedAt: idx.syncedAt,
+            total: body?.eventCount ?? 0,
+            returned: events.length,
+            events,
+          });
+        }
+      );
+
       // ── Daily Briefs (DB) tools ─────────────────────────────────────
       // AI-generated intelligence briefs: OT/ICS cyber, deepfake/GenAI,
       // and global disaster assessments. Data from
@@ -3525,6 +3714,72 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         async ({ hash }) => {
           const r = await traceixLookup(this.env as { TRACEIX_API_KEY?: string }, hash);
           return untrustedToolResult(r);
+        }
+      );
+
+      // ── NHI Scanner — non-human & agent identity risk tiers + OWASP NHI Top 10 ──
+      // Port of github.com/rpmsft9/nhi-scan (MIT). Deterministic, local, no LLM.
+      this.tools(
+        'nhi_scan',
+        "Scan a non-human & agent identity (NHI) inventory and get a risk report: per-identity Tier 1-4 (critical→baseline) from a transparent floor-tier rules engine, plus OWASP NHI Top 10 findings (NHI1-NHI10) each with evidence and a least-privilege remediation. Input is the inventory JSON (a list of NHI records or {'identities': [...]}); only id and name are required per record — fields like type, privilege, credential, secret_storage, last_rotated_days, last_used_days, exposure, scopes, autonomous, third_party, human_used, shared_across_env, used_by fall back to safe defaults. Returns the full report as JSON, or Markdown with format=markdown.",
+        {
+          inventory: z
+            .string()
+            .describe(
+              'The NHI inventory as a JSON string: an array of NHI records, or an object with an "identities" array. Each record needs only id and name. Example record: {"id":"svc-payments","name":"payments-batch-runner","type":"service_account","environment":"prod","privilege":"admin","credential":"static_secret","secret_storage":"vault","last_rotated_days":410,"scopes":["payments:*"]}'
+            ),
+          format: z.enum(['json', 'markdown']).optional().describe('Output format: json (default) or markdown report'),
+        },
+        async ({ inventory, format }) => {
+          const raw = JSON.parse(inventory) as unknown;
+          const result = nhiScanFleet(nhiParseFleet(raw));
+          if (format === 'markdown') {
+            return { content: [{ type: 'text', text: nhiReportMarkdown(result) }] };
+          }
+          return { content: [{ type: 'text', text: JSON.stringify(nhiReportJson(result), null, 2) }] };
+        }
+      );
+
+      this.tools(
+        'nhi_inventory',
+        "Summarize a non-human & agent identity (NHI) inventory: counts by identity type and risk tier, plus orphaned and long-lived-secret tallies. Input is the inventory JSON (a list of NHI records or {'identities': [...]}); only id and name are required per record. Deterministic, local, no LLM.",
+        {
+          inventory: z
+            .string()
+            .describe(
+              'The NHI inventory as a JSON string: an array of NHI records, or an object with an "identities" array'
+            ),
+        },
+        async ({ inventory }) => {
+          const raw = JSON.parse(inventory) as unknown;
+          const result = nhiScanFleet(nhiParseFleet(raw));
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(
+                  {
+                    total_identities: result.total,
+                    by_type: result.typeCounts,
+                    tier_counts: result.tierCounts,
+                    orphaned: result.orphaned,
+                    long_lived_secrets: result.longLived,
+                  },
+                  null,
+                  2
+                ),
+              },
+            ],
+          };
+        }
+      );
+
+      this.tools(
+        'nhi_owasp_catalog',
+        'Return the OWASP Non-Human Identities (NHI) Top 10 — 2025 catalog (NHI1-NHI10 with titles and summaries), the tiering-rule inventory the NHI scanner enforces (rule id, floor tier, rationale), policy thresholds (rotation/staleness windows, wildcard scope tokens), and the allowed inventory field values (types, privileges, credentials). Use this to understand what nhi_scan checks before running an inventory.',
+        {},
+        async () => {
+          return { content: [{ type: 'text', text: JSON.stringify(nhiCatalog(), null, 2) }] };
         }
       );
 

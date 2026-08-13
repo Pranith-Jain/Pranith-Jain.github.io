@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 280 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 289 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 280,
-  "generatedAt": "2026-08-12T09:01:48.266Z",
+  "toolCount": 289,
+  "generatedAt": "2026-08-13T05:03:34.082Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -665,6 +665,21 @@
       "category": "other"
     },
     {
+      "name": "nhi_inventory",
+      "description": "Summarize a non-human & agent identity (NHI) inventory: counts by identity type and risk tier, plus orphaned and long-lived-secret tallies. Input is the inventory JSON (a list of NHI records or {\\'identities\\': [...]}); only id and name are required per record. Deterministic, local, no LLM.",
+      "category": "identity"
+    },
+    {
+      "name": "nhi_owasp_catalog",
+      "description": "Return the OWASP Non-Human Identities (NHI) Top 10 — 2025 catalog (NHI1-NHI10 with titles and summaries), the tiering-rule inventory the NHI scanner enforces (rule id, floor tier, rationale), policy thresholds (rotation/staleness windows, wildcard scope tokens), and the allowed inventory field values (types, privileges, credentials). Use this to understand what nhi_scan checks before running an inventory.",
+      "category": "identity"
+    },
+    {
+      "name": "nhi_scan",
+      "description": "Scan a non-human & agent identity (NHI) inventory and get a risk report: per-identity Tier 1-4 (critical→baseline) from a transparent floor-tier rules engine, plus OWASP NHI Top 10 findings (NHI1-NHI10) each with evidence and a least-privilege remediation. Input is the inventory JSON (a list of NHI records or {\\'identities\\': [...]}); only id and name are required per record — fields like type, privilege, credential, secret_storage, last_rotated_days, last_used_days, exposure, scopes, autonomous, third_party, human_used, shared_across_env, used_by fall back to safe defaults. Returns the full report as JSON, or Markdown with format=markdown.",
+      "category": "identity"
+    },
+    {
       "name": "notebook_add_entry",
       "description": "Add a note, IOC, finding, timeline event, or artifact to a notebook.",
       "category": "notebook"
@@ -1082,6 +1097,36 @@
     {
       "name": "stix_translate",
       "description": "Translate a natural language threat intelligence question into structured STIX 2.1 query parameters. Given plain English, returns the classified intent, extracted entities, and filter parameters to use with stix_query_bundles. Supports actors, malware, CVEs, sectors, countries, campaigns, time ranges, and strategic queries.",
+      "category": "other"
+    },
+    {
+      "name": "tc_feed",
+      "description": "List ThreatCluster (threatcluster.io) public feed summaries: trending threat clusters, CVE vulnerabilities, exploits with public PoCs, dark-web victims, and the IOC blocklist — with per-feed counts and last build dates.",
+      "category": "other"
+    },
+    {
+      "name": "tc_get_cluster",
+      "description": "Return the full ThreatCluster trending-cluster body: title, publication date, source count, link to the cluster page (summary + timeline + source articles), and full description with key points. Use tc_feed with feed=clusters to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "tc_get_cve",
+      "description": "Return a single ThreatCluster CVE item from the vulnerabilities feed (7-day window) or the exploits feed (30-day window, public PoCs). Full description, severity, CISA KEV status (exploits only), and a link to the ThreatCluster CVE page. Use tc_feed with feed=vulnerabilities or feed=exploits first.",
+      "category": "other"
+    },
+    {
+      "name": "tc_list_iocs",
+      "description": "List high-confidence malicious domains and IPs from the ThreatCluster IOC blocklist (last 30 days). Each IOC has a type, reason, first/last seen, and the source articles that reported it. Ready for firewall / Pi-hole / pfSense blocklists.",
+      "category": "other"
+    },
+    {
+      "name": "tc_list_misp_events",
+      "description": "List the slim MISP manifest pass-through from ThreatCluster (misp/manifest.json): event UUID, title, date, threat level, and tags per event. For full MISP ingestion use the upstream remote feed directly (https://threatcluster.io/misp/manifest.json).",
+      "category": "other"
+    },
+    {
+      "name": "tc_list_victims",
+      "description": "List newly observed ransomware leak-site victims from the ThreatCluster Dark Web Victims feed (14-day window). Filter by ransom group, sector, country, or keyword. Each entry has a victim name, claiming group, sector, country, and publication date.",
       "category": "other"
     },
     {

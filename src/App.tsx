@@ -56,6 +56,7 @@ const SigBase = lazy(() => import('./pages/SigBase'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
 const Traceix = lazy(() => import('./pages/Traceix'));
+const NhiScan = lazy(() => import('./pages/NhiScan'));
 const UrlRisk = lazy(() => import('./pages/dfir/UrlRisk'));
 const Whoxy = lazy(() => import('./pages/Whoxy'));
 const Cerast = lazy(() => import('./pages/threatintel/Cerast'));
@@ -235,6 +236,7 @@ const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
 const FeedQuality = lazy(() => import('./pages/threatintel/FeedQuality'));
 const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const FeedSources = lazy(() => import('./pages/threatintel/FeedSources'));
+const ThreatClusterFeeds = lazy(() => import('./pages/threatintel/ThreatCluster'));
 
 const GithubAdvisories = lazy(() => import('./pages/threatintel/GithubAdvisories'));
 const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulse'));
@@ -343,7 +345,6 @@ const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
 const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
-const CtiResearch = lazy(() => import('./pages/CtiResearch'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -396,7 +397,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/experience', Component: Experience },
   { path: '/projects', Component: Projects },
   { path: '/projects/:slug', Component: CaseStudy },
-  { path: '/cti-research', Component: CtiResearch },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/t/:tag', Component: Blog },
@@ -422,6 +422,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/sysmon-config', Component: SysmonConfig },
   { path: '/dfir/sigbase', Component: SigBase },
   { path: '/dfir/traceix', Component: Traceix },
+  { path: '/dfir/nhi-scan', Component: NhiScan },
   { path: '/dfir/whoxy', Component: Whoxy },
   { path: '/threatintel/apt-actors', Component: ETDAActors },
   { path: '/threatintel/aptmap', Component: Aptmap },
@@ -621,6 +622,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/feeds/sources', Component: FeedSources },
   { path: '/threatintel/feeds/quality', Component: FeedQuality },
   { path: '/threatintel/feeds/scheduler', Component: FeedScheduler },
+  { path: '/threatintel/feeds/threatcluster', Component: ThreatClusterFeeds },
   { path: '/threatintel/feeds/threatfeeds', Component: ThreatFeeds },
   { path: '/threatintel/feeds/mythreatintel', Component: MyThreatIntel },
   { path: '/threatintel/infra/cloud', Component: CloudThreatLandscape },
@@ -795,6 +797,8 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/winreg', to: '/dfir/winreg' },
   { path: '/sigbase', to: '/dfir/sigbase' },
   { path: '/traceix', to: '/dfir/traceix' },
+  { path: '/nhi-scan', to: '/dfir/nhi-scan' },
+  { path: '/nhi', to: '/dfir/nhi-scan' },
   { path: '/whoxy', to: '/dfir/whoxy' },
   { path: '/threatintel/research-hub/campaign-gen', to: '/threatintel/campaigns/generator' },
   { path: '/threatintel/tools/graph', to: '/threatintel/actors/hub' },

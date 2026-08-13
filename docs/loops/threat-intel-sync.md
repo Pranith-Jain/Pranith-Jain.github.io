@@ -29,6 +29,7 @@ If typecheck fails, fix and re-run. Never weaken the check.
 - `public/data/threat-intel/index.json` reports non-zero counts in `cves`, `iocs`, `sectors`, `kevTotal`
 - `public/data/threat-intel/cves/kev.json` exists and is valid JSON
 - At least one sector brief file exists under `public/data/threat-intel/sectors/`
+- `public/data/threat-intel/threatcluster/index.json` reports non-zero counts in `clusters`, `vulnerabilities`, `exploits`, `victims`, `iocs`
 - All three `tsc` projects pass
 - `npx vitest run worker/lib/threat-intel-manifest.test.ts` passes
 
@@ -41,7 +42,8 @@ If typecheck fails, fix and re-run. Never weaken the check.
 ## What to Do
 
 1. Run `node scripts/sync-threat-intel.mjs` (fetches NVD recent, CISA KEV, sparse Daily-Hunt clone into `threat-intel-staging/`).
-2. Run `node scripts/build-threat-intel.mjs` (slices staged data into `public/data/threat-intel/` per-slug JSON).
-3. Run the between-iteration check (typecheck + vitest).
-4. Verify exit conditions. Report counts.
-5. If all green: commit, push, and PR per the weekly workflow.
+2. Run `node scripts/sync-darknetlist.mjs` (Tor site directory) and `node scripts/sync-threatcluster.mjs` (5 ThreatCluster feeds + MISP manifest).
+3. Run `node scripts/build-threat-intel.mjs`, `node scripts/build-darknetlist.mjs`, and `node scripts/build-threatcluster.mjs` (slice staged data into `public/data/threat-intel/` per-slug JSON).
+4. Run the between-iteration check (typecheck + vitest).
+5. Verify exit conditions. Report counts.
+6. If all green: commit, push, and PR per the weekly workflow.

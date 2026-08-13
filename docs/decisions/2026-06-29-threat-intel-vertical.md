@@ -63,6 +63,17 @@ public/data/threat-intel/
 3. Weekly GitHub Action opens a PR if anything changed (same pattern as `si-upstream-sync.yml`)
 4. Deploy from root via `wrangler deploy` (per CLAUDE.md "two wranglers" rule)
 
+**Later additions (same decision, extended scope):** the vertical grew two more
+sub-verticals with identical slim-index + per-slug-body trees under
+`public/data/threat-intel/`: the darknetlist.is Tor site directory
+(`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs` +
+`loadDarknetIndex`, 2026-08) and the
+ThreatCluster public feed suite (`scripts/sync-threatcluster.mjs` +
+`scripts/build-threatcluster.mjs` + `tc_*` MCP tools + `/threat-intel/threatcluster/*`
+REST routes + `/threatintel/feeds/threatcluster` SPA page, 2026-08). Both
+replicate keyless public upstreams on the same weekly sync; neither fetches
+at request time.
+
 **Surfaces:**
 
 - **MCP tools (new namespace `ti_*`, registered on existing `DFIR_MCP` Durable Object):**

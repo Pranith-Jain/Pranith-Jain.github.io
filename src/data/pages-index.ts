@@ -127,15 +127,6 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'portfolio',
   },
   {
-    path: '/cti-research',
-    label: 'CTI Research',
-    description:
-      'Autonomous CTI research platform - describe an intelligence requirement and get an evidence-backed threat assessment with prioritized detection and threat-hunting recommendations.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
-    keywords: ['cti', 'threat intelligence', 'research', 'investigation', 'agent', 'assessment', 'threat hunting'],
-  },
-  {
     path: '/projects/:slug',
     label: 'Case Study',
     description: 'Per-project deep dive - problem, approach, detection logic, and impact.',
@@ -695,6 +686,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     description: 'SHA-256 file hash AV/reputation lookup via traceix.com (PCEF).',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
+  },
+  {
+    path: '/dfir/nhi-scan',
+    label: 'NHI Scanner',
+    description:
+      'Inventory and risk-tier non-human & agent identities (service accounts, API keys, OAuth apps, workload identities, AI agents) against the OWASP NHI Top 10 - deterministic Tier 1-4 floor-tier rules with evidence and least-privilege remediation.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['nhi', 'non-human identity', 'agent', 'service account', 'api key', 'owasp', 'tier', 'risk', 'iam'],
   },
   {
     path: '/dfir/url-risk',
@@ -3544,6 +3544,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     description: 'Feed scheduling and orchestration.',
     sectionLabel: 'Threat Intel · Feeds',
     group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feeds/threatcluster',
+    label: 'ThreatCluster Feeds',
+    description:
+      'Replicated ThreatCluster feeds - top 50 trending threat clusters, CVE vulnerabilities, exploits with public PoCs, dark-web ransomware victims, a high-confidence IOC blocklist ready for firewall blocklists, and a MISP event manifest.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: ['threatcluster', 'feed', 'cluster', 'exploits', 'dark-web', 'victims', 'ioc', 'blocklist', 'misp'],
   },
   {
     path: '/threatintel/feeds/threatfeeds',

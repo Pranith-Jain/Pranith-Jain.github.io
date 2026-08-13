@@ -34,6 +34,25 @@ import {
   type TiDarknetIndex,
   type TiDarknetSiteBody,
   type TiDarknetCategoryBody,
+  loadThreatClusterIndex,
+  getTcCluster,
+  getTcVuln,
+  getTcExploit,
+  getTcVictim,
+  loadTcIocs,
+  loadTcMispEvents,
+  filterTcClusters,
+  filterTcVulns,
+  filterTcExploits,
+  filterTcVictims,
+  filterTcIocs,
+  type TcThreatClusterIndex,
+  type TcClusterBody,
+  type TcVulnBody,
+  type TcExploitBody,
+  type TcVictimBody,
+  type TcIocsBody,
+  type TcMispBody,
 } from './threat-intel-manifest';
 
 function makeAssetsFixture() {
@@ -273,6 +292,165 @@ function makeAssetsFixture() {
     sites: [darknetSite],
   };
   data.set('/data/threat-intel/darknet/categories/markets.json', darknetCategory);
+
+  // ─── ThreatCluster feeds (threatcluster.io) ────────────────────────
+  const tcIdx: TcThreatClusterIndex = {
+    source: 'threatcluster.io',
+    url: 'https://threatcluster.io/feeds',
+    description: 'test',
+    syncedAt: '2026-08-13T04:00:00Z',
+    lastBuildDates: { clusters: '2026-08-13T04:41:40Z', iocs: '2026-08-13T04:45:21Z' },
+    counts: { clusters: 1, vulnerabilities: 1, exploits: 2, victims: 1, iocs: 2, mispEvents: 1 },
+    feeds: [{ id: 'clusters', title: 'Threat Feed', url: 'https://threatcluster.io/feed.xml', window: '7 days' }],
+    clusters: [
+      {
+        slug: 'lazarus-windows-afdsys-zero-abc123',
+        title: 'Lazarus Group Exploits Windows Zero-Day',
+        pubDate: '2026-08-12T07:38:58.000Z',
+        sourceCount: 18,
+        sizeBytes: 1245,
+      },
+    ],
+    vulnerabilities: [
+      {
+        cveId: 'CVE-2026-0301',
+        title: 'CVE-2026-0301',
+        pubDate: '2026-08-13T03:16:46.000Z',
+        sizeBytes: 161,
+      },
+    ],
+    exploits: [
+      {
+        cveId: 'CVE-2026-63030',
+        title: 'CVE-2026-63030 [KEV] [Exploit]',
+        pubDate: '2026-07-17T20:17:28.000Z',
+        severity: 'CRITICAL',
+        inKev: true,
+        sizeBytes: 414,
+      },
+      {
+        cveId: 'CVE-2026-16723',
+        title: 'CVE-2026-16723 [Exploit]',
+        pubDate: '2026-07-16T10:00:00.000Z',
+        severity: 'MEDIUM',
+        inKev: false,
+        sizeBytes: 300,
+      },
+    ],
+    victims: [
+      {
+        id: 'portable-intelligence-1a2b',
+        victim: 'Portable Intelligence Inc',
+        group: 'blacknevas',
+        sector: 'Technology',
+        country: 'US',
+        pubDate: '2026-08-13T00:22:25.000Z',
+        sizeBytes: 400,
+      },
+    ],
+  };
+  data.set('/data/threat-intel/threatcluster/index.json', tcIdx);
+
+  const tcCluster: TcClusterBody = {
+    ...tcIdx.clusters[0]!,
+    link: 'https://threatcluster.io/cluster/lazarus-windows-afdsys-zero-abc123',
+    guid: 'https://threatcluster.io/cluster/lazarus-windows-afdsys-zero-abc123',
+    categories: ['18 Sources'],
+    description: 'The North Korean hacking group Lazarus exploited a zero-day vulnerability.',
+  };
+  data.set('/data/threat-intel/threatcluster/clusters/lazarus-windows-afdsys-zero-abc123.json', tcCluster);
+
+  const tcVuln: TcVulnBody = {
+    ...tcIdx.vulnerabilities[0]!,
+    link: 'https://threatcluster.io/entities/cve/CVE-2026-0301',
+    guid: 'https://threatcluster.io/entities/cve/CVE-2026-0301',
+    description: 'An information disclosure vulnerability in the URL Filtering feature of PAN-OS.',
+  };
+  data.set('/data/threat-intel/threatcluster/vulnerabilities/CVE-2026-0301.json', tcVuln);
+
+  const tcExploit: TcExploitBody = {
+    ...tcIdx.exploits[0]!,
+    link: 'https://threatcluster.io/entities/cve/CVE-2026-63030',
+    guid: 'https://threatcluster.io/entities/cve/CVE-2026-63030',
+    hasExploit: true,
+    categories: ['Severity: CRITICAL', 'CISA KEV'],
+    description: 'Severity: CRITICAL | CISA KEV Listed | Known Exploit Available | WordPress affected.',
+  };
+  data.set('/data/threat-intel/threatcluster/exploits/CVE-2026-63030.json', tcExploit);
+
+  const tcVictim: TcVictimBody = {
+    ...tcIdx.victims[0]!,
+    title: 'Portable Intelligence Inc — claimed by blacknevas',
+    link: 'https://threatcluster.io/dark-web/victim/Portable%20Intelligence%20Inc',
+    guid: 'darkweb-victim:blacknevas:portable intelligence inc',
+    categories: ['Group: blacknevas', 'Sector: Technology', 'Country: US'],
+    description: 'US · Technology · A Canadian IT company based in Markham, Ontario.',
+  };
+  data.set('/data/threat-intel/threatcluster/victims/portable-intelligence-1a2b.json', tcVictim);
+
+  const tcIocs: TcIocsBody = {
+    source: 'threatcluster.io',
+    url: 'https://threatcluster.io/api/iocs/public/feed.json',
+    generatedAt: '2026-08-13T04:45:21Z',
+    syncedAt: '2026-08-13T04:46:00Z',
+    filters: { confidence: 'high', window_days: 30, types: ['ipv4', 'ipv6', 'domain'] },
+    count: 2,
+    iocs: [
+      {
+        type: 'domain',
+        value: 'ccleanerwind.top',
+        confidence: 'high',
+        reason: 'Identified as attacker-controlled domain for malware distribution',
+        first_seen: '2026-08-12T10:20:02+00:00',
+        last_seen: '2026-08-12T11:31:38+00:00',
+        source_count: 2,
+        sources: [
+          {
+            source: 'Gbhackers',
+            url: 'https://gbhackers.com/malicious-ccleaner-installer/',
+            pub_date: '2026-08-12T11:31:38+00:00',
+          },
+        ],
+      },
+      {
+        type: 'ipv4',
+        value: '74.65.75.102',
+        confidence: 'high',
+        reason: 'Explicitly mentioned in response context.',
+        first_seen: '2026-08-11T10:00:19+00:00',
+        last_seen: '2026-08-11T10:00:19+00:00',
+        source_count: 1,
+        sources: [
+          {
+            source: 'Securelist',
+            url: 'https://securelist.com/project-cav3rn-continues/120991/',
+            pub_date: '2026-08-11T10:00:19+00:00',
+          },
+        ],
+      },
+    ],
+  };
+  data.set('/data/threat-intel/threatcluster/iocs.json', tcIocs);
+
+  const tcMisp: TcMispBody = {
+    source: 'threatcluster.io',
+    url: 'https://threatcluster.io/misp/manifest.json',
+    syncedAt: '2026-08-13T04:46:00Z',
+    eventCount: 1,
+    events: [
+      {
+        uuid: '31fc2385-a89e-5ffa-af2e-e4bcd29facde',
+        info: 'Lazarus Group Exploits Windows Zero-Day to Target Defense Sector',
+        date: '2026-08-12',
+        analysis: '2',
+        threat_level_id: '1',
+        timestamp: '1786530293',
+        tags: ['source:ThreatCluster', 'tlp:clear', 'type:apt', 'misp-galaxy:threat-actor="Lazarus"'],
+        orgc: 'ThreatCluster',
+      },
+    ],
+  };
+  data.set('/data/threat-intel/threatcluster/misp.json', tcMisp);
 
   const assets = {
     fetch: vi.fn(async (req: Request) => {
@@ -759,5 +937,158 @@ describe('tiCacheStats (darknet)', () => {
     expect(s.darknet.sites.size).toBe(1);
     expect(s.darknet.sites.hits).toBe(1);
     expect(s.darknet.sites.misses).toBe(1);
+  });
+});
+
+// ─── ThreatCluster feeds (threatcluster.io) ────────────────────────────
+
+describe('loadThreatClusterIndex', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('loads the slim index with counts + per-feed arrays', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadThreatClusterIndex(assets);
+    expect(idx.source).toBe('threatcluster.io');
+    expect(idx.counts.clusters).toBe(1);
+    expect(idx.clusters[0]!.slug).toBe('lazarus-windows-afdsys-zero-abc123');
+    expect(idx.victims[0]!.group).toBe('blacknevas');
+  });
+
+  it('caches across calls', async () => {
+    const { assets } = makeAssetsFixture();
+    const a = await loadThreatClusterIndex(assets);
+    const b = await loadThreatClusterIndex(assets);
+    expect(a).toBe(b);
+  });
+
+  it('throws when the manifest is missing', async () => {
+    const data = new Map<string, unknown>();
+    const assets = {
+      fetch: vi.fn(async () => new Response('not found', { status: 404 })),
+    } as unknown as Fetcher;
+    void data;
+    await expect(loadThreatClusterIndex(assets)).rejects.toThrow(/threatcluster\/index\.json/);
+  });
+});
+
+describe('getTc* body loaders', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('loads a cluster body by slug (case-insensitive)', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTcCluster(assets, 'LAZARUS-WINDOWS-AFDSYS-ZERO-ABC123');
+    expect(body).not.toBeNull();
+    expect(body!.sourceCount).toBe(18);
+    expect(body!.description).toContain('Lazarus');
+  });
+
+  it('loads a vulnerability body by CVE id (uppercased)', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTcVuln(assets, 'cve-2026-0301');
+    expect(body).not.toBeNull();
+    expect(body!.cveId).toBe('CVE-2026-0301');
+  });
+
+  it('loads an exploit body by CVE id', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTcExploit(assets, 'CVE-2026-63030');
+    expect(body).not.toBeNull();
+    expect(body!.inKev).toBe(true);
+    expect(body!.severity).toBe('CRITICAL');
+  });
+
+  it('loads a victim body by id', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTcVictim(assets, 'portable-intelligence-1a2b');
+    expect(body).not.toBeNull();
+    expect(body!.country).toBe('US');
+    expect(body!.sector).toBe('Technology');
+  });
+
+  it('loads the IOC blocklist + MISP pass-through', async () => {
+    const { assets } = makeAssetsFixture();
+    const iocs = await loadTcIocs(assets);
+    expect(iocs).not.toBeNull();
+    expect(iocs!.count).toBe(2);
+    expect(iocs!.iocs[0]!.value).toBe('ccleanerwind.top');
+    const misp = await loadTcMispEvents(assets);
+    expect(misp).not.toBeNull();
+    expect(misp!.events[0]!.tags).toContain('tlp:clear');
+  });
+
+  it('returns null for missing bodies', async () => {
+    const { assets } = makeAssetsFixture();
+    await expect(getTcCluster(assets, 'nope')).resolves.toBeNull();
+    await expect(getTcVuln(assets, 'CVE-2026-9999')).resolves.toBeNull();
+    await expect(getTcExploit(assets, 'CVE-2026-9999')).resolves.toBeNull();
+    await expect(getTcVictim(assets, 'nope')).resolves.toBeNull();
+  });
+});
+
+describe('filterTc* helpers', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('filters clusters by keyword (title or slug)', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadThreatClusterIndex(assets);
+    expect(filterTcClusters(idx, { keyword: 'lazarus' })).toHaveLength(1);
+    expect(filterTcClusters(idx, { keyword: 'afdsys' })).toHaveLength(1);
+    expect(filterTcClusters(idx, { keyword: 'nope' })).toHaveLength(0);
+  });
+
+  it('filters vulnerabilities by keyword', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadThreatClusterIndex(assets);
+    expect(filterTcVulns(idx, { keyword: 'cve-2026-0301' })).toHaveLength(1);
+    expect(filterTcVulns(idx, { keyword: 'nope' })).toHaveLength(0);
+  });
+
+  it('filters exploits by severity and kevOnly', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadThreatClusterIndex(assets);
+    expect(filterTcExploits(idx, { severity: 'CRITICAL' })).toHaveLength(1);
+    expect(filterTcExploits(idx, { kevOnly: true })).toHaveLength(1);
+    expect(filterTcExploits(idx, { kevOnly: true })[0]!.cveId).toBe('CVE-2026-63030');
+    expect(filterTcExploits(idx, { severity: 'HIGH' })).toHaveLength(0);
+  });
+
+  it('filters victims by group / sector / country / keyword', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadThreatClusterIndex(assets);
+    expect(filterTcVictims(idx, { group: 'blacknevas' })).toHaveLength(1);
+    expect(filterTcVictims(idx, { sector: 'Technology' })).toHaveLength(1);
+    expect(filterTcVictims(idx, { country: 'US' })).toHaveLength(1);
+    expect(filterTcVictims(idx, { keyword: 'portable' })).toHaveLength(1);
+    expect(filterTcVictims(idx, { group: 'nope' })).toHaveLength(0);
+  });
+
+  it('filters IOCs by type and keyword, and respects limits', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = (await loadTcIocs(assets)) as TcIocsBody;
+    expect(filterTcIocs(body.iocs, { type: 'domain' })).toHaveLength(1);
+    expect(filterTcIocs(body.iocs, { keyword: 'ccleaner' })).toHaveLength(1);
+    expect(filterTcIocs(body.iocs, { type: 'ipv6' })).toHaveLength(0);
+    expect(filterTcIocs(body.iocs, { limit: 1 })).toHaveLength(1);
+  });
+});
+
+describe('tiCacheStats (threatcluster)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports threatcluster index loaded + body cache hits/misses', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadThreatClusterIndex(assets);
+    await getTcCluster(assets, 'lazarus-windows-afdsys-zero-abc123');
+    await getTcCluster(assets, 'lazarus-windows-afdsys-zero-abc123');
+    await getTcVuln(assets, 'CVE-2026-0301');
+    const s = tiCacheStats();
+    expect(s.threatcluster.indexLoaded).toBe(true);
+    expect(s.threatcluster.indexAgeMs).toBeGreaterThanOrEqual(0);
+    expect(s.threatcluster.clusters.size).toBe(1);
+    expect(s.threatcluster.clusters.hits).toBe(1);
+    expect(s.threatcluster.clusters.misses).toBe(1);
+    expect(s.threatcluster.vulnerabilities.size).toBe(1);
+    expect(s.threatcluster.exploits.size).toBe(0);
+    expect(s.threatcluster.victims.size).toBe(0);
   });
 });

@@ -1,0 +1,11 @@
+{
+  "slug": "sandworm-linked-uac-b7d4844d",
+  "title": "Sandworm Hackers Use Fake Job Interviews to Deploy Trojanized VPN Client",
+  "link": "https://threatcluster.io/cluster/sandworm-linked-uac-b7d4844d?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/sandworm-linked-uac-b7d4844d",
+  "pubDate": "2026-08-11T18:36:47.000Z",
+  "sourceCount": 7,
+  "categories": ["7 Sources"],
+  "description": "The Russian threat group Sandworm has been targeting IT professionals through a social engineering campaign since May 2026. The campaign, attributed to the UAC-0145 subgroup, involves impersonating IT companies and recruiters to lure victims into downloading a trojanized WireGuard VPN client. Victims are approached via fake job offers, and conversations are moved to Telegram for video interviews. During these interviews, candidates receive technical assignments requiring VPN access, leading them to download a malicious client called 'SopraVPN.' This client is designed to execute embedded PowerShell code and can create scheduled tasks on Windows or retrieve executables on Linux. CERT-UA has advised IT companies to restrict access to corporate resources to managed devices. The campaign highlights the ongoing threat to critical infrastructure and government entities, particularly in Ukraine.\n\nKey Points:\n• Sandworm's UAC-0145 subgroup targets IT professionals via fake job offers.\n• Victims are tricked into downloading a trojanized WireGuard VPN client during interviews.\n• CERT-UA advises restricting corporate access to managed, monitored devices.",
+  "sizeBytes": 1161
+}

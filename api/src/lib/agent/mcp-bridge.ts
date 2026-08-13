@@ -4,10 +4,10 @@
  * The investigator agent (InvestigatorAgentDO) and the MCP server
  * (DfirMcpServer / DFIR_MCP) are two parallel tool surfaces. The agent
  * builds its own AgentTool[] registry in tools.ts (124 tools, each
- * calling a REST route via self.fetch). The MCP server registers 279
- * tools via this.tools(...) on the DFIR_MCP Durable Object. ~155 MCP
+ * calling a REST route via self.fetch). The MCP server registers 289
+ * tools via this.tools(...) on the DFIR_MCP Durable Object. ~158 MCP
  * tools are invisible to the agent — including every ti_*, si_*,
- * winreg_*, depx_*, traceix, whoxy, breach_vip, and Tor tool.
+ * nhi_*, winreg_*, depx_*, traceix, whoxy, breach_vip, and Tor tool.
  *
  * This bridge closes that gap. It generates AgentTool[] entries for
  * the high-value MCP-only tools by calling the same library functions
@@ -45,6 +45,17 @@ import {
   getDarknetSite,
   getDarknetCategory,
   filterDarknetSites,
+  loadThreatClusterIndex,
+  getTcCluster,
+  getTcVuln,
+  getTcExploit,
+  loadTcIocs,
+  loadTcMispEvents,
+  filterTcClusters,
+  filterTcVulns,
+  filterTcExploits,
+  filterTcVictims,
+  filterTcIocs,
   type TiSeverity,
   type TiIocIndexEntry,
 } from '../threat-intel-manifest';
@@ -73,6 +84,15 @@ import { traceixLookup } from '../traceix';
 
 // Whoxy (reverse WHOIS)
 import { whoxyReverseWhois } from '../whoxy';
+
+// NHI scanner (non-human & agent identity risk tiers + OWASP NHI Top 10)
+import {
+  parseFleet as nhiParseFleet,
+  scan as nhiScanFleet,
+  reportToJson as nhiReportJson,
+  reportToMarkdown as nhiReportMarkdown,
+  catalogSummary as nhiCatalog,
+} from '../nhi-scan';
 
 // ETDA threat actors (504 APT actors)
 import { loadActorIndex, getActor } from '../etda-actors-manifest';
@@ -457,6 +477,146 @@ export function bridgeMcpTools(
   });
 
   // ══════════════════════════════════════════════════════════════════════
+  //  THREATCLUSTER FEEDS — tc_* (threatcluster.io)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'tc_feed',
+    description:
+      'List ThreatCluster (threatcluster.io) public feed summaries: trending threat clusters, CVE vulnerabilities, exploits with public PoCs, dark-web victims, and the IOC blocklist — with per-feed counts and last build dates.',
+    params: [
+      {
+        name: 'feed',
+        type: 'enum',
+        description: 'Which feed to inspect',
+        required: false,
+        enum: ['clusters', 'vulnerabilities', 'exploits', 'victims', 'iocs', 'misp'],
+      },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against titles / CVE IDs / victim names / IOC values',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max items (default 50, max 500)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadThreatClusterIndex(assets);
+      const kind = (args.feed as string) ?? 'clusters';
+      const keyword = args.keyword as string | undefined;
+      const limit = (args.limit as number) ?? 50;
+      if (kind === 'vulnerabilities') return filterTcVulns(idx, { keyword, limit });
+      if (kind === 'exploits') return filterTcExploits(idx, { keyword, limit });
+      if (kind === 'victims') return filterTcVictims(idx, { keyword, limit });
+      if (kind === 'iocs') {
+        const body = await loadTcIocs(assets);
+        return body ? filterTcIocs(body.iocs, { keyword, limit }) : [];
+      }
+      if (kind === 'misp') {
+        const body = await loadTcMispEvents(assets);
+        return body ? body.events.slice(0, limit) : [];
+      }
+      return filterTcClusters(idx, { keyword, limit });
+    },
+  });
+
+  add({
+    name: 'tc_get_cluster',
+    description:
+      'Return the full ThreatCluster trending-cluster body: title, publication date, source count, link to the cluster page, and full description with key points.',
+    params: [
+      {
+        name: 'slug',
+        type: 'string',
+        description: 'Cluster slug (last segment of the cluster URL)',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getTcCluster(assets, args.slug as string);
+    },
+  });
+
+  add({
+    name: 'tc_get_cve',
+    description:
+      'Return a single ThreatCluster CVE item from the vulnerabilities feed (7-day window) or the exploits feed (30-day window, public PoCs).',
+    params: [
+      { name: 'cveId', type: 'string', description: 'CVE ID, e.g. "CVE-2026-63030"', required: true },
+      {
+        name: 'feed',
+        type: 'enum',
+        description: 'Which feed to read from',
+        required: false,
+        enum: ['vulnerabilities', 'exploits'],
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const id = (args.cveId as string).toUpperCase();
+      if (args.feed === 'exploits') return getTcExploit(assets, id);
+      return (await getTcVuln(assets, id)) ?? getTcExploit(assets, id);
+    },
+  });
+
+  add({
+    name: 'tc_list_victims',
+    description:
+      'List newly observed ransomware leak-site victims from the ThreatCluster Dark Web Victims feed (14-day window). Filter by group, sector, country, or keyword.',
+    params: [
+      { name: 'group', type: 'string', description: 'Filter by ransomware group name', required: false },
+      { name: 'sector', type: 'string', description: 'Filter by victim sector', required: false },
+      { name: 'country', type: 'string', description: 'Filter by victim country code', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against victim / group / sector / country',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max victims (default 100, max 500)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadThreatClusterIndex(assets);
+      return filterTcVictims(idx, {
+        group: args.group as string | undefined,
+        sector: args.sector as string | undefined,
+        country: args.country as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 100,
+      });
+    },
+  });
+
+  add({
+    name: 'tc_list_iocs',
+    description:
+      'List high-confidence malicious domains and IPs from the ThreatCluster IOC blocklist (last 30 days), each with reason, first/last seen, and source articles.',
+    params: [
+      { name: 'type', type: 'enum', description: 'Indicator type', required: false, enum: ['domain', 'ipv4', 'ipv6'] },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against value / reason / source',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max IOCs (default 200, max 1000)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const body = await loadTcIocs(assets);
+      if (!body) return [];
+      return filterTcIocs(body.iocs, {
+        type: args.type as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 200,
+      });
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
   //  SECURITY INVESTIGATOR — si_* (25 skills, 45 KQL queries, 3 automations)
   // ══════════════════════════════════════════════════════════════════════
 
@@ -671,6 +831,74 @@ export function bridgeMcpTools(
       if (!env.TRACEIX_API_KEY) throw new Error('TRACEIX_API_KEY not configured');
       return traceixLookup({ TRACEIX_API_KEY: env.TRACEIX_API_KEY }, args.hash as string);
     },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  NHI SCANNER — non-human & agent identity risk (nhi_*)
+  //  Port of github.com/rpmsft9/nhi-scan (MIT). Deterministic, local, no LLM.
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'nhi_scan',
+    description:
+      'Scan a non-human & agent identity (NHI) inventory and get a risk report: per-identity Tier 1-4 (critical→baseline) from a transparent floor-tier rules engine, plus OWASP NHI Top 10 findings (NHI1-NHI10) with evidence and least-privilege remediation. Input is the inventory JSON (list of NHI records or {identities:[...]}); only id and name are required per record. Deterministic, local, no LLM.',
+    params: [
+      {
+        name: 'inventory',
+        type: 'string',
+        description:
+          'NHI inventory JSON: an array of NHI records, or an object with an "identities" array. Each record needs only id and name; fields like type, privilege, credential, secret_storage, last_rotated_days, last_used_days, exposure, scopes, autonomous, third_party, human_used, shared_across_env, used_by fall back to safe defaults.',
+        required: true,
+      },
+      {
+        name: 'format',
+        type: 'enum',
+        description: 'Output format: json (default) or markdown report',
+        required: false,
+        enum: ['json', 'markdown'],
+      },
+    ],
+    execute: async (args) => {
+      const raw = JSON.parse(args.inventory as string) as unknown;
+      const result = nhiScanFleet(nhiParseFleet(raw));
+      if (args.format === 'markdown') {
+        return { format: 'markdown', markdown: nhiReportMarkdown(result) };
+      }
+      return nhiReportJson(result);
+    },
+  });
+
+  add({
+    name: 'nhi_inventory',
+    description:
+      'Summarize a non-human & agent identity (NHI) inventory: counts by identity type and risk tier, plus orphaned and long-lived-secret tallies. Input is the inventory JSON (list of NHI records or {identities:[...]}); only id and name are required per record. Deterministic, local, no LLM.',
+    params: [
+      {
+        name: 'inventory',
+        type: 'string',
+        description: 'NHI inventory JSON: an array of NHI records, or an object with an "identities" array',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      const raw = JSON.parse(args.inventory as string) as unknown;
+      const result = nhiScanFleet(nhiParseFleet(raw));
+      return {
+        total_identities: result.total,
+        by_type: result.typeCounts,
+        tier_counts: result.tierCounts,
+        orphaned: result.orphaned,
+        long_lived_secrets: result.longLived,
+      };
+    },
+  });
+
+  add({
+    name: 'nhi_owasp_catalog',
+    description:
+      'Return the OWASP Non-Human Identities (NHI) Top 10 — 2025 catalog (NHI1-NHI10), the tiering-rule inventory the NHI scanner enforces (rule id, floor tier, rationale), policy thresholds, and the allowed inventory field values. Use before nhi_scan to understand the checks.',
+    params: [],
+    execute: async () => nhiCatalog(),
   });
 
   // ══════════════════════════════════════════════════════════════════════

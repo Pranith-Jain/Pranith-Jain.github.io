@@ -1,0 +1,11 @@
+{
+  "slug": "cc-4824-7ae5ae13",
+  "title": "Cisco Issues Critical Security Advisories for IOS XE and SD-WAN Vulnerabilities",
+  "link": "https://threatcluster.io/cluster/cc-4824-7ae5ae13?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/cc-4824-7ae5ae13",
+  "pubDate": "2026-08-06T15:04:00.000Z",
+  "sourceCount": 28,
+  "categories": ["28 Sources"],
+  "description": "Cisco has released critical security advisories for multiple vulnerabilities affecting its IOS XE and Catalyst SD-WAN Software. The advisories, published on August 5, 2026, detail vulnerabilities that could allow attackers to bypass security controls, execute arbitrary commands, and gain unauthorized access. Key vulnerabilities include CVE-2026-20272 for IOS XE with a CVSS score of 9.8, and CVE-2026-20304 for SD-WAN, also with a CVSS score of 9.9. Cisco confirmed that there is currently no evidence of active exploitation for these vulnerabilities. The advisories emphasize the importance of patching affected systems promptly, as edge devices are often targeted by attackers. Organizations are urged to follow NCSC-UK's guidance on vulnerability management. Additional vulnerabilities in Cisco's Integrated Management Controller (IMC) were also disclosed, with a public proof-of-concept exploit available.\n\nKey Points:\n• Cisco released critical advisories for IOS XE and SD-WAN vulnerabilities on August 5, 2026.\n• CVE-2026-20272 and CVE-2026-20304 have CVSS scores of 9.8 and 9.9, respectively.\n• No active exploitation of these vulnerabilities has been confirmed, but patching is strongly advised.",
+  "sizeBytes": 1205
+}

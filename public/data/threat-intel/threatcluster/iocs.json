@@ -1,0 +1,643 @@
+{
+  "source": "threatcluster.io",
+  "url": "https://threatcluster.io/api/iocs/public/feed.json",
+  "generatedAt": "2026-08-13T05:02:08Z",
+  "syncedAt": "2026-08-13T05:02:08.678Z",
+  "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
+  "count": 38,
+  "iocs": [
+    {
+      "type": "domain",
+      "value": "ccleanerwind.top",
+      "confidence": "high",
+      "reason": "Identified as attacker-controlled domain for malware distribution",
+      "first_seen": "2026-08-12T10:20:02+00:00",
+      "last_seen": "2026-08-12T11:31:38+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "Gbhackers",
+          "url": "https://gbhackers.com/malicious-ccleaner-installer/amp/",
+          "pub_date": "2026-08-12T11:31:38+00:00"
+        },
+        {
+          "source": "Csoonline",
+          "url": "https://www.csoonline.com/article/4208565/fake-ccleaner-downloads-turn-chrome-into-a-credential-stealing-surveillance-tool.html",
+          "pub_date": "2026-08-12T11:26:50+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "74.65.75.102",
+      "confidence": "high",
+      "reason": "Explicitly mentioned in response context.",
+      "first_seen": "2026-08-11T10:00:19+00:00",
+      "last_seen": "2026-08-11T10:00:19+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Securelist",
+          "url": "https://securelist.com/project-cav3rn-continues/120991/",
+          "pub_date": "2026-08-11T10:00:19+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "sinbad.io",
+      "confidence": "high",
+      "reason": "Identified as a mixer used by DPRK.",
+      "first_seen": "2026-08-09T14:20:27.583290+00:00",
+      "last_seen": "2026-08-09T14:20:27.583290+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.elliptic.co",
+          "url": "https://www.elliptic.co/insights/bybit-exploit-six-months-on/",
+          "pub_date": "2026-08-09T14:20:27.58329+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "yomix.io",
+      "confidence": "high",
+      "reason": "Identified as a mixer used by DPRK.",
+      "first_seen": "2026-08-09T14:20:27.583290+00:00",
+      "last_seen": "2026-08-09T14:20:27.583290+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.elliptic.co",
+          "url": "https://www.elliptic.co/insights/bybit-exploit-six-months-on/",
+          "pub_date": "2026-08-09T14:20:27.58329+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "cryptomixer.io",
+      "confidence": "high",
+      "reason": "Identified as a service used to launder stolen funds.",
+      "first_seen": "2026-08-08T14:23:46+00:00",
+      "last_seen": "2026-08-08T17:34:39+00:00",
+      "source_count": 3,
+      "sources": [
+        {
+          "source": "News.Bitcoin",
+          "url": "https://news.bitcoin.com/crypto-news/bybit-unleashes-rico-lawsuit-on-north-korea-over-1-5b-hack/",
+          "pub_date": "2026-08-08T17:34:39+00:00"
+        },
+        {
+          "source": "Eqs-News",
+          "url": "https://www.eqs-news.com/news/corporate/bybit-sues-north-korea-and-lazarus-group-secures-preliminary-injunction-freezing-stolen-assets-in-landmark-crypto-asset-recovery-effort/afb9f07b-2700-4aec-88a4-4f252b40823a_en",
+          "pub_date": "2026-08-08T14:30:08+00:00"
+        },
+        {
+          "source": "Prnewswire",
+          "url": "https://www.prnewswire.co.uk/news-releases/bybit-sues-north-korea-and-lazarus-group-secures-preliminary-injunction-freezing-stolen-assets-in-landmark-crypto-asset-recovery-effort-302846551.html",
+          "pub_date": "2026-08-08T14:23:46+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "login.microsoft-secure-portal.com",
+      "confidence": "high",
+      "reason": "Clearly identified as an attacker-controlled domain.",
+      "first_seen": "2026-08-08T03:49:43.525813+00:00",
+      "last_seen": "2026-08-08T03:49:43.525813+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "hivesecurity.gitlab.io",
+          "url": "https://hivesecurity.gitlab.io/blog/aitm-phishing-mfa-bypass-evilginx/",
+          "pub_date": "2026-08-08T03:49:43.525813+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "213.165.51.115",
+      "confidence": "high",
+      "reason": "Listed as part of malicious infrastructure in hunting queries.",
+      "first_seen": "2026-08-06T11:21:24.300532+00:00",
+      "last_seen": "2026-08-06T11:21:24.300532+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.trendmicro.com",
+          "url": "https://www.trendmicro.com/en_us/research/26/e/inside-the-influence-and-fraud-patriot-bait-campaign.html?ct=1783532687994",
+          "pub_date": "2026-08-06T11:21:24.300532+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "pool.supportxmr.com",
+      "confidence": "high",
+      "reason": "Identified as a mining pool used by attackers.",
+      "first_seen": "2026-08-06T11:17:42.483045+00:00",
+      "last_seen": "2026-08-06T11:17:42.483045+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.oligo.security",
+          "url": "https://www.oligo.security/blog/shadowray-2-0-attackers-turn-ai-against-itself-in-global-campaign-that-hijacks-ai-into-self-propagating-botnet",
+          "pub_date": "2026-08-06T11:17:42.483045+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "supportxmr.com",
+      "confidence": "high",
+      "reason": "Connected to mining operations by attackers.",
+      "first_seen": "2026-08-06T11:17:42.483045+00:00",
+      "last_seen": "2026-08-06T11:17:42.483045+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.oligo.security",
+          "url": "https://www.oligo.security/blog/shadowray-2-0-attackers-turn-ai-against-itself-in-global-campaign-that-hijacks-ai-into-self-propagating-botnet",
+          "pub_date": "2026-08-06T11:17:42.483045+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "154.223.58.142",
+      "confidence": "high",
+      "reason": "Listed as C2 IP address.",
+      "first_seen": "2026-08-06T08:39:33+00:00",
+      "last_seen": "2026-08-06T08:39:33+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rescana",
+          "url": "https://www.rescana.com/post/active-exploitation-alert-quickfox-windows-supply-chain-attack-delivers-fdmtp-backdoor-via-trojanized-installer",
+          "pub_date": "2026-08-06T08:39:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "154.223.58.64",
+      "confidence": "high",
+      "reason": "Listed as C2 IP address.",
+      "first_seen": "2026-08-06T08:39:33+00:00",
+      "last_seen": "2026-08-06T08:39:33+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rescana",
+          "url": "https://www.rescana.com/post/active-exploitation-alert-quickfox-windows-supply-chain-attack-delivers-fdmtp-backdoor-via-trojanized-installer",
+          "pub_date": "2026-08-06T08:39:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "154.223.75.206",
+      "confidence": "high",
+      "reason": "Listed as C2 IP address.",
+      "first_seen": "2026-08-06T08:39:33+00:00",
+      "last_seen": "2026-08-06T08:39:33+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rescana",
+          "url": "https://www.rescana.com/post/active-exploitation-alert-quickfox-windows-supply-chain-attack-delivers-fdmtp-backdoor-via-trojanized-installer",
+          "pub_date": "2026-08-06T08:39:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "38.60.142.56",
+      "confidence": "high",
+      "reason": "Listed as C2 IP address.",
+      "first_seen": "2026-08-06T08:39:33+00:00",
+      "last_seen": "2026-08-06T08:39:33+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rescana",
+          "url": "https://www.rescana.com/post/active-exploitation-alert-quickfox-windows-supply-chain-attack-delivers-fdmtp-backdoor-via-trojanized-installer",
+          "pub_date": "2026-08-06T08:39:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "45.158.180.250",
+      "confidence": "high",
+      "reason": "Listed as C2 IP address.",
+      "first_seen": "2026-08-06T08:39:33+00:00",
+      "last_seen": "2026-08-06T08:39:33+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rescana",
+          "url": "https://www.rescana.com/post/active-exploitation-alert-quickfox-windows-supply-chain-attack-delivers-fdmtp-backdoor-via-trojanized-installer",
+          "pub_date": "2026-08-06T08:39:33+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "xfconnect.com",
+      "confidence": "high",
+      "reason": "Pointed to as hosting multiple FCN binaries related to Chanming's product",
+      "first_seen": "2026-07-29T18:06:50+00:00",
+      "last_seen": "2026-07-29T18:06:50+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Techtimes",
+          "url": "https://www.techtimes.com/articles/322063/20260729/guangdong-chanming-sold-spy-botnet-pla-nearly-dozen-chinese-hacking-groups.htm",
+          "pub_date": "2026-07-29T18:06:50+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "login.trees4sale.net",
+      "confidence": "high",
+      "reason": "identified as Dysphoria infrastructure domain",
+      "first_seen": "2026-07-29T10:33:04+00:00",
+      "last_seen": "2026-07-29T10:33:04+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Techtimes",
+          "url": "https://www.techtimes.com/articles/321926/20260729/rebuilt-six-days-dysphoria-iot-botnet-hides-blockchain-defy-seizure.htm",
+          "pub_date": "2026-07-29T10:33:04+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "206.72.242.124",
+      "confidence": "high",
+      "reason": "Listed as a known malicious IP address.",
+      "first_seen": "2026-07-28T21:52:08+00:00",
+      "last_seen": "2026-07-28T21:52:08+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Feeds.Feedburner",
+          "url": "https://www.scworld.com/brief/arista-patches-critical-command-injection-flaw-in-velocloud-orchestrator-exploited-in-attacks",
+          "pub_date": "2026-07-28T21:52:08+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "8.19.75.217",
+      "confidence": "high",
+      "reason": "Listed as a known malicious IP address.",
+      "first_seen": "2026-07-28T21:52:08+00:00",
+      "last_seen": "2026-07-28T21:52:08+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Feeds.Feedburner",
+          "url": "https://www.scworld.com/brief/arista-patches-critical-command-injection-flaw-in-velocloud-orchestrator-exploited-in-attacks",
+          "pub_date": "2026-07-28T21:52:08+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "re2.filesdwnload.top",
+      "confidence": "high",
+      "reason": "Listed as C2 server deploying tools.",
+      "first_seen": "2026-07-28T05:26:30+00:00",
+      "last_seen": "2026-07-28T05:26:30+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Zscaler",
+          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
+          "pub_date": "2026-07-28T05:26:30+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "re8.dowlfles.online",
+      "confidence": "high",
+      "reason": "Listed as C2 server deploying tools.",
+      "first_seen": "2026-07-28T05:26:30+00:00",
+      "last_seen": "2026-07-28T05:26:30+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Zscaler",
+          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
+          "pub_date": "2026-07-28T05:26:30+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "update19.upldf.online",
+      "confidence": "high",
+      "reason": "Listed as C2 server deploying tools.",
+      "first_seen": "2026-07-28T05:26:30+00:00",
+      "last_seen": "2026-07-28T05:26:30+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Zscaler",
+          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
+          "pub_date": "2026-07-28T05:26:30+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "xeds.geranteeg.online",
+      "confidence": "high",
+      "reason": "Listed as C2 server deploying tools.",
+      "first_seen": "2026-07-28T05:26:30+00:00",
+      "last_seen": "2026-07-28T05:26:30+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Zscaler",
+          "url": "https://www.zscaler.com/blogs/security-research/helpdesk-hijackers-teams-vishing-quick-assist-and-gogrpc-backdoor",
+          "pub_date": "2026-07-28T05:26:30+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude.ai.download-app.us",
+      "confidence": "high",
+      "reason": "Redirects users to malicious content.",
+      "first_seen": "2026-07-22T20:08:20+00:00",
+      "last_seen": "2026-07-25T01:04:41.598641+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.huntress.com",
+          "url": "https://www.huntress.com/blog/fakeagent-claude-desktop-malvertising-ends-in-dotnet-rat",
+          "pub_date": "2026-07-25T01:04:41.598641+00:00"
+        },
+        {
+          "source": "Huntress",
+          "url": "https://www.huntress.com/blog/fakeagent-claude-desktop-malvertising-ends-in-redline-stealer",
+          "pub_date": "2026-07-22T20:08:20+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "goog1e.com",
+      "confidence": "high",
+      "reason": "Identified as a typosquatted domain mimicking Google.",
+      "first_seen": "2026-07-24T17:38:33.825555+00:00",
+      "last_seen": "2026-07-24T17:38:33.825555+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "hunt.io",
+          "url": "https://hunt.io/blog/operation-roundish-apt28-roundcube-exploitation",
+          "pub_date": "2026-07-24T17:38:33.825555+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "zhblz.com",
+      "confidence": "high",
+      "reason": "Identified as a domain used in an attack.",
+      "first_seen": "2026-07-24T17:38:33.825555+00:00",
+      "last_seen": "2026-07-24T17:38:33.825555+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "hunt.io",
+          "url": "https://hunt.io/blog/operation-roundish-apt28-roundcube-exploitation",
+          "pub_date": "2026-07-24T17:38:33.825555+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "203.161.50.145",
+      "confidence": "high",
+      "reason": "Identified as an IP address associated with malicious activity.",
+      "first_seen": "2026-07-24T17:38:33.825555+00:00",
+      "last_seen": "2026-07-24T17:38:33.825555+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "hunt.io",
+          "url": "https://hunt.io/blog/operation-roundish-apt28-roundcube-exploitation",
+          "pub_date": "2026-07-24T17:38:33.825555+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "claude-pro.com",
+      "confidence": "high",
+      "reason": "Phishing site impersonating Claude AI, likely attacker-controlled.",
+      "first_seen": "2026-07-23T14:16:44+00:00",
+      "last_seen": "2026-07-24T11:24:08.687591+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.group-ib.com",
+          "url": "https://www.group-ib.com/blog/jadeprox-china-nexus-triback-loader/",
+          "pub_date": "2026-07-24T11:24:08.687591+00:00"
+        },
+        {
+          "source": "Techtimes",
+          "url": "https://www.techtimes.com/articles/321375/20260723/china-nexus-hackers-breached-hospital-x-rays-embassy-congress-new-malware-loader.htm",
+          "pub_date": "2026-07-23T14:16:44+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "185.225.17.225",
+      "confidence": "high",
+      "reason": "listed as potential attacker IP",
+      "first_seen": "2026-07-24T09:07:26+00:00",
+      "last_seen": "2026-07-24T09:07:26+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Trendmicro",
+          "url": "https://www.trendmicro.com/en_us/research/26/g/plc-exploitation.html",
+          "pub_date": "2026-07-24T09:07:26+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "8e8a88f8fc968996eed0d7ddd.6ceca998199c18f8d968889898896899789978997.westurn.in",
+      "confidence": "high",
+      "reason": "Identified as C2 server used by TrickBot",
+      "first_seen": "2026-07-23T12:19:54.088909+00:00",
+      "last_seen": "2026-07-23T12:19:54.088909+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.fortinet.com",
+          "url": "https://www.fortinet.com/blog/threat-research/inside-a-trickbot-variant-using-dns-tunneling-for-c2",
+          "pub_date": "2026-07-23T12:19:54.088909+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "mskmde.com",
+      "confidence": "high",
+      "reason": "Used as malware delivery.",
+      "first_seen": "2026-07-23T08:08:37.998373+00:00",
+      "last_seen": "2026-07-23T08:08:37.998373+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "attack.mitre.org",
+          "url": "https://attack.mitre.org/techniques/T1547/001/",
+          "pub_date": "2026-07-23T08:08:37.998373+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "tracking.adsafety.net",
+      "confidence": "high",
+      "reason": "Used for tracking before consent, indicating potential malicious use.",
+      "first_seen": "2026-07-23T08:02:59.893399+00:00",
+      "last_seen": "2026-07-23T08:02:59.893399+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "jscrambler.com",
+          "url": "https://jscrambler.com/blog/beyond-the-vault-what-banking-sites-share",
+          "pub_date": "2026-07-23T08:02:59.893399+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "dwbud.vilaribit.com",
+      "confidence": "high",
+      "reason": "Identified as associated domain with exfiltration code.",
+      "first_seen": "2026-07-22T16:17:23.678778+00:00",
+      "last_seen": "2026-07-22T16:17:23.678778+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "medium.com",
+          "url": "https://medium.com/@anyrun/kratos-phaas-targets-us-and-eu-how-to-reduce-microsoft-365-account-takeover-risk-5696ddc8ab09",
+          "pub_date": "2026-07-22T16:17:23.678778+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "gobf.mx",
+      "confidence": "high",
+      "reason": "Identified as C2 server in context.",
+      "first_seen": "2026-07-20T15:43:55+00:00",
+      "last_seen": "2026-07-20T15:43:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rapid7",
+          "url": "https://www.rapid7.com/blog/post/tr-exposed-webdav-malware-delivery-lab-analysis",
+          "pub_date": "2026-07-20T15:43:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "23.94.252.228",
+      "confidence": "high",
+      "reason": "Identified as C2 server in context.",
+      "first_seen": "2026-07-20T15:43:55+00:00",
+      "last_seen": "2026-07-20T15:43:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rapid7",
+          "url": "https://www.rapid7.com/blog/post/tr-exposed-webdav-malware-delivery-lab-analysis",
+          "pub_date": "2026-07-20T15:43:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "77.110.127.205",
+      "confidence": "high",
+      "reason": "Identified as C2 server in context.",
+      "first_seen": "2026-07-20T15:43:55+00:00",
+      "last_seen": "2026-07-20T15:43:55+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rapid7",
+          "url": "https://www.rapid7.com/blog/post/tr-exposed-webdav-malware-delivery-lab-analysis",
+          "pub_date": "2026-07-20T15:43:55+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "evil.com",
+      "confidence": "high",
+      "reason": "Clearly identified as an exfiltration vector for data",
+      "first_seen": "2026-07-17T18:47:17.820605+00:00",
+      "last_seen": "2026-07-17T18:47:17.820605+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "simonwillison.net",
+          "url": "https://simonwillison.net/tags/lethal-trifecta/",
+          "pub_date": "2026-07-17T18:47:17.820605+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "my-salesforce-cms.com",
+      "confidence": "high",
+      "reason": "Registered by researchers to demonstrate data leak, indicating attacker control",
+      "first_seen": "2026-07-17T18:47:17.820605+00:00",
+      "last_seen": "2026-07-17T18:47:17.820605+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "simonwillison.net",
+          "url": "https://simonwillison.net/tags/lethal-trifecta/",
+          "pub_date": "2026-07-17T18:47:17.820605+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "usa.com",
+      "confidence": "high",
+      "reason": "Mentioned as a non-government sender domain used in phishing scheme",
+      "first_seen": "2026-07-16T18:55:20+00:00",
+      "last_seen": "2026-07-16T18:55:20+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Rock929Rocks",
+          "url": "https://rock929rocks.com/2026/07/16/phishing-scheme-targets-massachusetts-homeowners-with-fake-zoning-fee-demands/",
+          "pub_date": "2026-07-16T18:55:20+00:00"
+        }
+      ]
+    }
+  ]
+}

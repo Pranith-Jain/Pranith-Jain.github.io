@@ -1,0 +1,11 @@
+{
+  "slug": "hackers-breached-a-small-polish-energy-plant-via-private-apn-b4c3b813",
+  "title": "Cyberattack on Polish Energy Sector Exploits Private APN Vulnerability",
+  "link": "https://threatcluster.io/cluster/hackers-breached-a-small-polish-energy-plant-via-private-apn-b4c3b813?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/hackers-breached-a-small-polish-energy-plant-via-private-apn-b4c3b813",
+  "pubDate": "2026-08-10T23:07:21.000Z",
+  "sourceCount": 8,
+  "categories": ["8 Sources"],
+  "description": "In December 2025, hackers breached a Polish combined heat and power (CHP) plant using a private Access Point Name (APN) to access the operational technology network. The attack, attributed to the Russian Electrum threat group, resulted in the shutdown of a steam turbine and water treatment system, affecting a facility that serves 50,000 residents. The attackers initially compromised a FortiGate VPN/firewall at a wind farm and exploited a misconfiguration that allowed devices within the private APN to communicate. They accessed the plant's PLCs and SCADA systems, disrupting operations but causing no significant impact on energy distribution. The Polish Computer Emergency Response Team (CERT) confirmed the incident, marking it as the first known case of such an attack vector in the energy sector. Recovery efforts were swift, and the outage was brief. The incident highlights vulnerabilities in network configurations within critical infrastructure.\n\nKey Points:\n• Attackers exploited a private APN to breach a Polish CHP plant's OT network.\n• The incident involved the Russian Electrum threat group targeting critical infrastructure.\n• Quick recovery measures minimized the impact on energy distribution and local residents.",
+  "sizeBytes": 1234
+}

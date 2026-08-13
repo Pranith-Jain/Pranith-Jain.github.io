@@ -1,0 +1,11 @@
+{
+  "slug": "important-fix-for-memory-exhaustion-and-security-issues-in-s-bd74df9d",
+  "title": "Critical Vulnerabilities in SUSE BIND Require Immediate Attention",
+  "link": "https://threatcluster.io/cluster/important-fix-for-memory-exhaustion-and-security-issues-in-s-bd74df9d?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/important-fix-for-memory-exhaustion-and-security-issues-in-s-bd74df9d",
+  "pubDate": "2026-08-06T20:33:58.000Z",
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
+  "description": "Recent updates for SUSE BIND address multiple vulnerabilities, including CVE-2026-11622 and CVE-2026-11721, which allow for potential memory exhaustion and cache poisoning attacks. These vulnerabilities affect systems running SUSE Linux Enterprise Server and could lead to significant disruptions. The updates also include fixes for other issues such as amplification vulnerabilities and improper handling of DNS records. Administrators are urged to apply patches immediately to mitigate risks. The vulnerabilities were disclosed between May and July 2026, with some having a CVSS score indicating high severity. The updates were released on August 4 and August 6, 2026, highlighting the urgency of the situation. Failure to patch could expose systems to exploitation and compromise.\n\nKey Points:\n• SUSE BIND vulnerabilities include CVE-2026-11622 and CVE-2026-11721, posing serious risks.\n• Patches were released on August 4 and 6, 2026, and must be applied immediately.\n• Affected systems include SUSE Linux Enterprise Server, with potential for significant disruptions.",
+  "sizeBytes": 1072
+}

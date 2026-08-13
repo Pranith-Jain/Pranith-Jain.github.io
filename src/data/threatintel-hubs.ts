@@ -436,6 +436,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Reliability scoring for each feed provider - uptime, freshness, accuracy, and NATO Admiralty trust grades.',
         compVar: 'FeedReliability',
       },
+      {
+        path: '/threatintel/feeds/threatcluster',
+        tabId: 'threatcluster',
+        label: 'ThreatCluster Feeds',
+        desc: 'Replicated ThreatCluster feeds - trending clusters, CVEs, exploits, dark-web victims, IOC blocklist, MISP events.',
+        compVar: 'ThreatClusterFeeds',
+        badge: 'live',
+      },
     ],
   },
   {

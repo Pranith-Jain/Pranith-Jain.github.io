@@ -212,6 +212,145 @@ export interface TiSectorBody extends TiSectorEntry {
   }[];
 }
 
+// ─── ThreatCluster feeds (threatcluster.io) ──────────────────────────
+
+export interface TcClusterIndexEntry {
+  slug: string;
+  title: string;
+  pubDate: string | null;
+  sourceCount: number | null;
+  sizeBytes: number;
+}
+
+export interface TcVulnIndexEntry {
+  cveId: string;
+  title: string;
+  pubDate: string | null;
+  sizeBytes: number;
+}
+
+export interface TcExploitIndexEntry {
+  cveId: string;
+  title: string;
+  pubDate: string | null;
+  severity: string | null;
+  inKev: boolean;
+  sizeBytes: number;
+}
+
+export interface TcVictimIndexEntry {
+  id: string;
+  victim: string;
+  group: string | null;
+  sector: string | null;
+  country: string | null;
+  pubDate: string | null;
+  sizeBytes: number;
+}
+
+export interface TcIocSource {
+  source: string;
+  url: string;
+  pub_date: string | null;
+}
+
+export interface TcIoc {
+  type: 'domain' | 'ipv4' | 'ipv6' | 'url' | 'email' | 'hash' | string;
+  value: string;
+  confidence: string;
+  reason: string | null;
+  first_seen: string | null;
+  last_seen: string | null;
+  source_count: number;
+  sources: TcIocSource[];
+}
+
+export interface TcMispEvent {
+  uuid: string;
+  info: string | null;
+  date: string | null;
+  analysis: string | null;
+  threat_level_id: string | null;
+  timestamp: string | null;
+  tags: string[];
+  orgc: string | null;
+}
+
+export interface TcFeedMeta {
+  id: string;
+  title: string;
+  url: string;
+  window: string;
+}
+
+export interface TcThreatClusterIndex {
+  source: string;
+  url: string;
+  description: string;
+  syncedAt: string;
+  lastBuildDates: Partial<Record<'clusters' | 'vulnerabilities' | 'exploits' | 'victims' | 'iocs', string | null>>;
+  counts: {
+    clusters: number;
+    vulnerabilities: number;
+    exploits: number;
+    victims: number;
+    iocs: number;
+    mispEvents: number;
+  };
+  feeds: TcFeedMeta[];
+  clusters: TcClusterIndexEntry[];
+  vulnerabilities: TcVulnIndexEntry[];
+  exploits: TcExploitIndexEntry[];
+  victims: TcVictimIndexEntry[];
+}
+
+export interface TcClusterBody extends TcClusterIndexEntry {
+  link: string;
+  guid: string;
+  categories: string[];
+  description: string;
+}
+
+export interface TcVulnBody extends TcVulnIndexEntry {
+  link: string;
+  guid: string;
+  description: string;
+}
+
+export interface TcExploitBody extends TcExploitIndexEntry {
+  link: string;
+  guid: string;
+  hasExploit: true;
+  categories: string[];
+  description: string;
+}
+
+export interface TcVictimBody extends TcVictimIndexEntry {
+  title: string;
+  link: string;
+  guid: string;
+  categories: string[];
+  description: string;
+}
+
+export interface TcIocsBody {
+  source: string;
+  url: string;
+  generatedAt: string | null;
+  syncedAt: string;
+  filters: { confidence: string; window_days: number; types: string[] } | null;
+  count: number;
+  iocs: TcIoc[];
+}
+
+export interface TcMispBody {
+  source: string;
+  url: string;
+  syncedAt: string;
+  eventCount: number;
+  events: TcMispEvent[];
+}
+
 const DATA_PREFIX = '/data/threat-intel';
 const MAX_BODY_CACHE = 200;
 
@@ -227,10 +366,18 @@ const sectorBodyCache: BodyCache<TiSectorBody> = { map: new Map(), hits: 0, miss
 const listBodyCache: BodyCache<TiDetectionListBody> = { map: new Map(), hits: 0, misses: 0 };
 const darknetSiteCache: BodyCache<TiDarknetSiteBody> = { map: new Map(), hits: 0, misses: 0 };
 const darknetCategoryCache: BodyCache<TiDarknetCategoryBody> = { map: new Map(), hits: 0, misses: 0 };
+const tcClusterCache: BodyCache<TcClusterBody> = { map: new Map(), hits: 0, misses: 0 };
+const tcVulnCache: BodyCache<TcVulnBody> = { map: new Map(), hits: 0, misses: 0 };
+const tcExploitCache: BodyCache<TcExploitBody> = { map: new Map(), hits: 0, misses: 0 };
+const tcVictimCache: BodyCache<TcVictimBody> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: TiIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedKev: TiKevEntry[] | null = null;
 let cachedKevAt: number | null = null;
+let cachedTcIndex: TcThreatClusterIndex | null = null;
+let cachedTcIndexAt: number | null = null;
+let cachedTcIocs: TcIocsBody | null = null;
+let cachedTcMisp: TcMispBody | null = null;
 
 function safeFilename(slug: string): string {
   return slug.replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
@@ -371,6 +518,96 @@ export async function loadKevSnapshot(assets: Fetcher, opts: { forceRefresh?: bo
   cachedKev = list;
   cachedKevAt = Date.now();
   return list;
+}
+
+// ─── ThreatCluster feeds (threatcluster.io) ───────────────────────────
+//
+// A separate manifest tree under /data/threat-intel/threatcluster/ with
+// its own lazy index: top-50 trending clusters, CVE vulnerability +
+// exploit feeds, dark-web ransomware victims, a high-confidence IOC
+// blocklist, and a slim MISP event pass-through. Loaded separately from
+// the main TiIndex like the darknet directory (different sync cadence +
+// upstream refresh).
+
+export async function loadThreatClusterIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TcThreatClusterIndex> {
+  if (cachedTcIndex && !opts.forceRefresh) return cachedTcIndex;
+  const idx = await fetchJson<TcThreatClusterIndex>(assets, `${DATA_PREFIX}/threatcluster/index.json`);
+  if (!idx) {
+    throw new Error(
+      `ThreatCluster manifest not found at ${DATA_PREFIX}/threatcluster/index.json — ` +
+        'did the build run? Run `node scripts/sync-threatcluster.mjs && node scripts/build-threatcluster.mjs`.'
+    );
+  }
+  cachedTcIndex = idx;
+  cachedTcIndexAt = Date.now();
+  return idx;
+}
+
+export async function getTcCluster(assets: Fetcher, slug: string): Promise<TcClusterBody | null> {
+  const key = slug.toLowerCase();
+  const hit = trackHit(tcClusterCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TcClusterBody>(
+    assets,
+    `${DATA_PREFIX}/threatcluster/clusters/${safeFilename(key)}.json`
+  );
+  if (!body) return null;
+  return recordHit(tcClusterCache, key, body);
+}
+
+export async function getTcVuln(assets: Fetcher, cveId: string): Promise<TcVulnBody | null> {
+  const key = cveId.toUpperCase();
+  const hit = trackHit(tcVulnCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TcVulnBody>(
+    assets,
+    `${DATA_PREFIX}/threatcluster/vulnerabilities/${safeFilename(key)}.json`
+  );
+  if (!body) return null;
+  return recordHit(tcVulnCache, key, body);
+}
+
+export async function getTcExploit(assets: Fetcher, cveId: string): Promise<TcExploitBody | null> {
+  const key = cveId.toUpperCase();
+  const hit = trackHit(tcExploitCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TcExploitBody>(
+    assets,
+    `${DATA_PREFIX}/threatcluster/exploits/${safeFilename(key)}.json`
+  );
+  if (!body) return null;
+  return recordHit(tcExploitCache, key, body);
+}
+
+export async function getTcVictim(assets: Fetcher, id: string): Promise<TcVictimBody | null> {
+  const key = id.toLowerCase();
+  const hit = trackHit(tcVictimCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TcVictimBody>(assets, `${DATA_PREFIX}/threatcluster/victims/${safeFilename(key)}.json`);
+  if (!body) return null;
+  return recordHit(tcVictimCache, key, body);
+}
+
+export async function loadTcIocs(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<TcIocsBody | null> {
+  if (cachedTcIocs && !opts.forceRefresh) return cachedTcIocs;
+  const body = await fetchJson<TcIocsBody>(assets, `${DATA_PREFIX}/threatcluster/iocs.json`);
+  if (!body) return null;
+  cachedTcIocs = body;
+  return body;
+}
+
+export async function loadTcMispEvents(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TcMispBody | null> {
+  if (cachedTcMisp && !opts.forceRefresh) return cachedTcMisp;
+  const body = await fetchJson<TcMispBody>(assets, `${DATA_PREFIX}/threatcluster/misp.json`);
+  if (!body) return null;
+  cachedTcMisp = body;
+  return body;
 }
 
 // ─── Filter helpers ─────────────────────────────────────────────────────
@@ -527,6 +764,112 @@ export function filterDarknetSites(idx: TiDarknetIndex, opts: TiListDarknetOptio
   return out;
 }
 
+// ─── ThreatCluster filter helpers ──────────────────────────────────────
+
+export interface TcListClustersOptions {
+  keyword?: string;
+  limit?: number;
+}
+
+export interface TcListVulnsOptions {
+  keyword?: string;
+  limit?: number;
+}
+
+export interface TcListExploitsOptions {
+  severity?: string;
+  kevOnly?: boolean;
+  keyword?: string;
+  limit?: number;
+}
+
+export interface TcListVictimsOptions {
+  group?: string;
+  sector?: string;
+  country?: string;
+  keyword?: string;
+  limit?: number;
+}
+
+export interface TcListIocsOptions {
+  type?: string;
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterTcClusters(idx: TcThreatClusterIndex, opts: TcListClustersOptions = {}): TcClusterIndexEntry[] {
+  const { keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TcClusterIndexEntry[] = [];
+  for (const c of idx.clusters) {
+    if (needle && !`${c.title} ${c.slug}`.toLowerCase().includes(needle)) continue;
+    out.push(c);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function filterTcVulns(idx: TcThreatClusterIndex, opts: TcListVulnsOptions = {}): TcVulnIndexEntry[] {
+  const { keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TcVulnIndexEntry[] = [];
+  for (const v of idx.vulnerabilities) {
+    if (needle && !`${v.cveId} ${v.title}`.toLowerCase().includes(needle)) continue;
+    out.push(v);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function filterTcExploits(idx: TcThreatClusterIndex, opts: TcListExploitsOptions = {}): TcExploitIndexEntry[] {
+  const { severity, kevOnly, keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const sevNeedle = severity?.toUpperCase();
+  const out: TcExploitIndexEntry[] = [];
+  for (const e of idx.exploits) {
+    if (sevNeedle && e.severity !== sevNeedle) continue;
+    if (kevOnly && !e.inKev) continue;
+    if (needle && !`${e.cveId} ${e.title}`.toLowerCase().includes(needle)) continue;
+    out.push(e);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function filterTcVictims(idx: TcThreatClusterIndex, opts: TcListVictimsOptions = {}): TcVictimIndexEntry[] {
+  const { group, sector, country, keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TcVictimIndexEntry[] = [];
+  for (const v of idx.victims) {
+    if (group && (v.group ?? '').toLowerCase() !== group.toLowerCase()) continue;
+    if (sector && (v.sector ?? '').toLowerCase() !== sector.toLowerCase()) continue;
+    if (country && (v.country ?? '').toLowerCase() !== country.toLowerCase()) continue;
+    if (needle) {
+      const hay = `${v.victim} ${v.group ?? ''} ${v.sector ?? ''} ${v.country ?? ''}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(v);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function filterTcIocs(iocs: TcIoc[], opts: TcListIocsOptions = {}): TcIoc[] {
+  const { type, keyword, limit = 200 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TcIoc[] = [];
+  for (const i of iocs) {
+    if (type && i.type !== type) continue;
+    if (needle) {
+      const hay = `${i.value} ${i.reason ?? ''} ${i.sources.map((s) => s.source).join(' ')}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(i);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 // ─── Priority scoring ───────────────────────────────────────────────────
 
 /**
@@ -586,6 +929,14 @@ export function tiCacheStats(): {
     sites: { size: number; hits: number; misses: number };
     categories: { size: number; hits: number; misses: number };
   };
+  threatcluster: {
+    indexLoaded: boolean;
+    indexAgeMs: number | null;
+    clusters: { size: number; hits: number; misses: number };
+    vulnerabilities: { size: number; hits: number; misses: number };
+    exploits: { size: number; hits: number; misses: number };
+    victims: { size: number; hits: number; misses: number };
+  };
 } {
   return {
     indexLoaded: cachedIndex !== null,
@@ -605,6 +956,14 @@ export function tiCacheStats(): {
         hits: darknetCategoryCache.hits,
         misses: darknetCategoryCache.misses,
       },
+    },
+    threatcluster: {
+      indexLoaded: cachedTcIndex !== null,
+      indexAgeMs: cachedTcIndexAt ? Date.now() - cachedTcIndexAt : null,
+      clusters: { size: tcClusterCache.map.size, hits: tcClusterCache.hits, misses: tcClusterCache.misses },
+      vulnerabilities: { size: tcVulnCache.map.size, hits: tcVulnCache.hits, misses: tcVulnCache.misses },
+      exploits: { size: tcExploitCache.map.size, hits: tcExploitCache.hits, misses: tcExploitCache.misses },
+      victims: { size: tcVictimCache.map.size, hits: tcVictimCache.hits, misses: tcVictimCache.misses },
     },
   };
 }
@@ -628,6 +987,18 @@ export function _resetTiCacheForTests(): void {
   cachedKevAt = null;
   cachedDarknetIndex = null;
   cachedDarknetIndexAt = null;
+  tcClusterCache.map.clear();
+  tcVulnCache.map.clear();
+  tcExploitCache.map.clear();
+  tcVictimCache.map.clear();
+  tcClusterCache.hits = tcClusterCache.misses = 0;
+  tcVulnCache.hits = tcVulnCache.misses = 0;
+  tcExploitCache.hits = tcExploitCache.misses = 0;
+  tcVictimCache.hits = tcVictimCache.misses = 0;
+  cachedTcIndex = null;
+  cachedTcIndexAt = null;
+  cachedTcIocs = null;
+  cachedTcMisp = null;
 }
 
 export { severityFromScore };

@@ -1,0 +1,11 @@
+{
+  "slug": "china-linked-hackers-used-ai-to-run-first-ever-autonomous-cy-0ba13c71",
+  "title": "China-Linked Hackers Conduct First Autonomous Cyberattack on Taiwan Using AI",
+  "link": "https://threatcluster.io/cluster/china-linked-hackers-used-ai-to-run-first-ever-autonomous-cy-0ba13c71?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/china-linked-hackers-used-ai-to-run-first-ever-autonomous-cy-0ba13c71",
+  "pubDate": "2026-08-12T20:00:00.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Suspected China-linked hackers executed an end-to-end autonomous cyberattack on Taiwanese government systems, utilizing open-source AI-agent frameworks Hermes and OpenClaw. The attack, which lasted four days in July, compromised at least 85 accounts and resulted in the theft of over 2,500 personnel records. The autonomous system was capable of adapting its attack paths without human intervention, continuously assessing and reprioritizing its strategies. The attack targeted various government entities, including Taiwan's nuclear safety agency and several energy companies. Researchers from Israeli cybersecurity firm Dream discovered evidence of the attack in a 160MB archive containing 1,395 files. The attackers presented the intrusion as an authorized penetration test to bypass safeguards. The use of easily accessible tools raises concerns about the potential for similar attacks by other threat actors.\n\nKey Points:\n• First known instance of an autonomous cyberattack using AI against a government.\n• Attack compromised 85 accounts and stole over 2,500 personnel records.\n• Utilized open-source AI frameworks Hermes and OpenClaw for attack execution.",
+  "sizeBytes": 1161
+}

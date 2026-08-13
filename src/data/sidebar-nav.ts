@@ -158,6 +158,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/feeds/scheduler': TimerIcon,
   '/threatintel/feeds/threatfeeds': Rss,
   '/threatintel/feeds/mythreatintel': TagIcon,
+  '/threatintel/feeds/threatcluster': Globe,
   // Social
   '/threatintel/social/firehose': Radio,
   '/threatintel/social/news': Newspaper,

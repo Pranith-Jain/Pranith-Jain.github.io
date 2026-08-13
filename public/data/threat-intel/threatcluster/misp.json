@@ -1,0 +1,92 @@
+{
+  "source": "threatcluster.io",
+  "url": "https://threatcluster.io/misp/manifest.json",
+  "syncedAt": "2026-08-13T05:02:09.004Z",
+  "eventCount": 5,
+  "events": [
+    {
+      "uuid": "31fc2385-a89e-5ffa-af2e-e4bcd29facde",
+      "info": "Lazarus Group Exploits Windows Zero-Day to Target Defense Sector",
+      "date": "2026-08-12",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1786530293",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:high",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"Lazarus\"",
+        "misp-galaxy:threat-actor=\"Lazarus Group\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "ba6fab69-679e-5598-bfac-b8e65d860910",
+      "info": "CISA Warns of Critical Exploits in Langflow, Tomcat, and N-central Flaws",
+      "date": "2026-08-07",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786091335",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:threat-actor=\"Salt Typhoon\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "7033c078-aa7d-556c-9767-7f759f7fa1ce",
+      "info": "Head Mare Hackers Exploit TrueConf Vulnerabilities to Deploy Backdoors",
+      "date": "2026-08-08",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786210543",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability"
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "49b385e3-1f17-50da-82f6-12a9d8a3525f",
+      "info": "Critical OS Command Injection Vulnerability in wg-easy 15.3.0 Disclosed",
+      "date": "2026-08-12",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786502480",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "37b3c35c-aaf0-55d6-8cdc-6e35e464e022",
+      "info": "Kimsuky Expands AI Capabilities for Cyberattacks",
+      "date": "2026-08-10",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786334520",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "misp-galaxy:threat-actor=\"Kimsuky\""
+      ],
+      "orgc": "ThreatCluster"
+    }
+  ]
+}

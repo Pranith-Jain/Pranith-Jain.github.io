@@ -1,0 +1,11 @@
+{
+  "slug": "plugin-de-wordpress-permite-a-atacantes-cambiar-contrase%C3%B1as--dff2189e",
+  "title": "Critical WordPress Plugin Vulnerability Allows Admin Password Reset Without Authentication",
+  "link": "https://threatcluster.io/cluster/plugin-de-wordpress-permite-a-atacantes-cambiar-contrase%C3%B1as--dff2189e?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/plugin-de-wordpress-permite-a-atacantes-cambiar-contrase%C3%B1as--dff2189e",
+  "pubDate": "2026-08-09T04:48:11.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "A critical vulnerability (CVE-2026-14365) in the TrueBooker plugin for WordPress enables attackers to reset administrator passwords without authentication. This flaw affects all sites using the TrueBooker – Appointment Booking and Scheduler System plugin, allowing unauthorized access and potential total control of the affected sites. The vulnerability was published on August 7, 2026, and is classified as critical by the National Vulnerability Database. Attackers can exploit this flaw remotely, posing a significant risk to website security. Site administrators are urged to take immediate action to mitigate this risk. The exact number of affected sites is currently unknown, but the potential impact is substantial given the plugin's widespread use.\n\nKey Points:\n• CVE-2026-14365 allows password resets without authentication in TrueBooker plugin.\n• The vulnerability affects all WordPress sites using the TrueBooker plugin.\n• Immediate action is required by site administrators to secure their systems.",
+  "sizeBytes": 1009
+}
