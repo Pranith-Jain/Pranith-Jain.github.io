@@ -1025,6 +1025,7 @@ import { osintRouter } from './routes/osint-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
+import { nhiScanRouter } from './routes/nhi-scan';
 import { whoxyRouter } from './routes/whoxy';
 import { fullhuntRouter } from './routes/fullhunt';
 import { opensanctionsRouter } from './routes/opensanctions';
@@ -2062,6 +2063,13 @@ app.route('/api/v1', etdaActorsRouter);
 // Endpoint: GET /api/v1/traceix/lookup?hash=<sha256>
 // Requires TRACEIX_API_KEY Worker secret.
 app.route('/api/v1', traceixRouter);
+
+// NHI Scanner — non-human & agent identity risk scanner (port of
+// github.com/rpmsft9/nhi-scan, MIT). Deterministic tiering vs. OWASP NHI
+// Top 10; pure local computation, no secrets required.
+// Endpoints: POST /api/v1/nhi/scan   — scan an inventory (list or {identities})
+//            GET  /api/v1/nhi/catalog — OWASP catalog + tiering rules
+app.route('/api/v1', nhiScanRouter);
 
 // Whoxy — reverse WHOIS lookup by email/name/company/keyword.
 // Requires WHOXY_API_KEY Worker secret.

@@ -37,13 +37,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Misc (7) -->
-  <url>
-    <loc>https://pranithjain.qzz.io/cti-research</loc>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+  <!-- Misc (6) -->
   <url>
     <loc>https://pranithjain.qzz.io/daily-briefs</loc>
     <lastmod>2026-08-12</lastmod>
@@ -667,6 +661,12 @@
   <url>
     <loc>https://pranithjain.qzz.io/dfir/traceix</loc>
     <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/dfir/nhi-scan</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

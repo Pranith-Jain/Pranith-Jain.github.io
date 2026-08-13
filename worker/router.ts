@@ -25,7 +25,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/skills', '/__prerendered/skills'],
   ['/experience', '/__prerendered/experience'],
   ['/projects', '/__prerendered/projects'],
-  ['/cti-research', '/__prerendered/cti-research'],
   ['/daily-briefs', '/__prerendered/daily-briefs'],
   ['/blog', '/__prerendered/blog'],
 
@@ -492,6 +491,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],
   ['/dfir/traceix', '/__prerendered/dfir__traceix'],
+  ['/dfir/nhi-scan', '/__prerendered/dfir__nhi-scan'],
   ['/dfir/whoxy', '/__prerendered/dfir__whoxy'],
   ['/dfir/winreg', '/__prerendered/dfir__winreg'],
   ['/dfir/sigbase', '/__prerendered/dfir__sigbase'],

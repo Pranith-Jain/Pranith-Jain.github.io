@@ -1,0 +1,1 @@
+../../../worker/lib/nhi-scan.ts

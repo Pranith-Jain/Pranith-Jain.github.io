@@ -901,6 +901,9 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'db_get_brief',
     'ai_threats_list',
     'ai_threats_get',
+    'nhi_scan',
+    'nhi_inventory',
+    'nhi_owasp_catalog',
   ],
   'supply-chain': [
     'depx_feed',

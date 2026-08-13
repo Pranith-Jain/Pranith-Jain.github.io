@@ -116,7 +116,7 @@ upstream sync is no longer needed (the data is now in `public/data/si/`).
 
 **Weekly sync**: `.github/workflows/si-upstream-sync.yml` re-runs sync + build every Monday 06:00 UTC; opens a PR if `public/data/si/` changed.
 
-**MCP tool inventory**: 258 tools total across the `DFIR_MCP` Durable Object — DFIR/threat-intel tools (`check_ioc`, `lookup_cve`, `enrich_actor`, `lookup_domain`, etc.) + SI tools (`si_*`) + threat-intel vertical (`ti_*`) + depx (`depx_*`) + winreg (`winreg_*`) + HudsonRock (`hr_*`) + Telegram (`tg_*`) + workspace/notebook (`ws_*`, `notebook_*`) + passive DNS + IOC watchlist + report analysis + more.
+**MCP tool inventory**: 283 tools total across the `DFIR_MCP` Durable Object — DFIR/threat-intel tools (`check_ioc`, `lookup_cve`, `enrich_actor`, `lookup_domain`, etc.) + SI tools (`si_*`) + threat-intel vertical (`ti_*`) + NHI scanner (`nhi_*`) + depx (`depx_*`) + winreg (`winreg_*`) + HudsonRock (`hr_*`) + Telegram (`tg_*`) + workspace/notebook (`ws_*`, `notebook_*`) + passive DNS + IOC watchlist + report analysis + more. Regenerate `public/mcp-manifest.json` + `public/mcp/README.md` + `public/llms-full.txt` with `node scripts/build-mcp-manifest.mjs && node scripts/build-llms-full.mjs`.
 
 ## Threat Intel vertical — CVE/KEV/IOC/sector brief (v1)
 
@@ -198,6 +198,47 @@ live up/down status, onion URLs, response codes, and fingerprints.
 - `public/data/threat-intel/darknet/categories/<id>.json` — 9 category bodies with sites
 - `public/data/threat-intel/darknet/sites/<dwd-id>.json` — 108 per-site bodies
 
+### ThreatCluster — Trending Clusters, CVEs, Exploits, Dark-Web Victims, IOC Blocklist
+
+A feed vertical replicating 5 public feeds from [threatcluster.io](https://threatcluster.io/feeds)
+(hourly refresh, no API key): top-50 trending threat clusters (7d), CVE vulnerability feed (7d),
+exploits with public PoCs (30d), ransomware leak-site victims (14d), and a high-confidence
+domain/IP blocklist (30d). Plus a slim MISP manifest pass-through. The SmartNews feed is
+deliberately skipped (same clusters, only for news-aggregator submission).
+
+**6 MCP tools** (registered on `DFIR_MCP`): `tc_feed`, `tc_get_cluster`, `tc_get_cve`,
+`tc_list_victims`, `tc_list_iocs`, `tc_list_misp_events`
+
+**11 REST routes** under `/api/v1/threat-intel/threatcluster/*`:
+`/`, `/clusters`, `/clusters/:slug`, `/vulnerabilities`, `/vulnerabilities/:cveId`,
+`/exploits`, `/exploits/:cveId`, `/victims`, `/victims/:id`, `/iocs`, `/misp`
+
+**1 SPA route** at `/threatintel/feeds/threatcluster` (6 tabs: Trending Clusters /
+Vulnerabilities / Exploits / Dark Web Victims / IOC Blocklist / MISP Events; IOC tab has
+copy-all for pfSense/Pi-hole blocklists).
+
+**Files**:
+
+- `scripts/sync-threatcluster.mjs` — fetches + regex-parses the RSS feeds + IOC JSON into `threat-intel-staging/threatcluster/`
+- `scripts/build-threatcluster.mjs` — slices staged data into `public/data/threat-intel/threatcluster/`
+- `worker/lib/threat-intel-manifest.ts` — `loadThreatClusterIndex`, `getTcCluster/Vuln/Exploit/Victim`, `loadTcIocs`, `loadTcMispEvents`, `filterTc*` helpers (same file as darknet)
+- `worker/mcp-server.ts` — 6 `tc_*` tool registrations
+- `api/src/routes/threat-intel-edge-tools.ts` — 11 route handlers
+- `src/pages/threatintel/ThreatCluster.tsx` — SPA page
+- `public/data/threat-intel/threatcluster/` — generated tree (index + clusters/ + vulnerabilities/ + exploits/ + victims/ + iocs.json + misp.json)
+
+**To rebuild**: `node scripts/sync-threatcluster.mjs && node scripts/build-threatcluster.mjs`
+
+**Data layout**:
+
+- `index.json` — slim index (counts, feed metadata, lastBuildDates, per-feed slim arrays)
+- `clusters/<slug>.json` — 50 trending cluster bodies (title, source count, description w/ key points)
+- `vulnerabilities/<cve-id>.json` — 50 CVE bodies
+- `exploits/<cve-id>.json` — ~50 exploit bodies (severity, KEV flag)
+- `victims/<id>.json` — 50 victim bodies (group, sector, country)
+- `iocs.json` — whole IOC blocklist (38+ indicators with sources)
+- `misp.json` — slim MISP manifest pass-through (uuid, title, tags, threat level)
+
 ## WinReg DFIR — Windows Registry Forensic Artifact Reference
 
 A data vertical replicating the SI pattern for the upstream Windows Registry
@@ -236,6 +277,42 @@ Returns per-engine antivirus/reputation verdicts (Safe/Malicious/Unknown/Failed)
 - `src/pages/Traceix.tsx` — SPA page at `/traceix`
 
 **Secret**: `TRACEIX_API_KEY` (`wrangler secret put TRACEIX_API_KEY`)
+
+## NHI Scanner — Non-Human & Agent Identity Risk (nhi-scan port)
+
+A TypeScript port of [nhi-scan](https://github.com/rpmsft9/nhi-scan) (MIT) —
+inventories non-human & agent identities (service accounts, API keys, OAuth
+apps, service principals, workload identities, CI/CD tokens, PATs, webhooks,
+secrets, AI agents) and assigns each a defensible Tier 1–4 (critical→baseline)
+from a transparent floor-tier rules engine, mapped to the OWASP NHI Top 10
+with a least-privilege remediation per finding. **Deterministic and fully
+local — no LLM in the verdict path, no secrets required, no upstream calls.**
+
+**3 MCP tools** (registered on `DFIR_MCP`): `nhi_scan`, `nhi_inventory`, `nhi_owasp_catalog`
+
+**2 REST routes** under `/api/v1/nhi/` (key-gated like every other route):
+
+- `POST /api/v1/nhi/scan` — body is the inventory (list or `{identities:[...]}`) or `{inventory, format?: json|markdown}`; returns the full JSON report or `{markdown}`
+- `GET /api/v1/nhi/catalog` — OWASP NHI Top 10 catalog + tiering rules + thresholds + allowed values
+
+**1 SPA route** at `/dfir/nhi-scan` (alias `/nhi-scan`), under the Identity & OSINT hub.
+
+**Files**:
+
+- `worker/lib/nhi-scan.ts` — full engine port: models/parse, `TIER_RULES` + `assess`, `CHECKS` + `runChecks`, `OWASP_CATALOG`, `parseFleet`, `scan`, `reportToJson`/`reportToMarkdown`, `catalogSummary`
+- `worker/lib/nhi-scan.test.ts` — 36 vitest tests (port of the upstream pytest suite)
+- `api/src/lib/nhi-scan.ts` — symlink to `worker/lib/nhi-scan.ts`
+- `api/src/routes/nhi-scan.ts` — the 2 REST routes
+- `worker/mcp-server.ts` — 3 `nhi_*` MCP tool registrations
+- `api/src/lib/agent/mcp-bridge.ts` — `nhi_*` agent bridge tools (call the lib directly, no HTTP hop)
+- `src/pages/NhiScan.tsx` — SPA page at `/dfir/nhi-scan`
+
+**Policy tuning**: thresholds live at the top of `worker/lib/nhi-scan.ts`
+(`ROTATION_MAX_DAYS`, `STALE_DAYS`, `WILDCARD_SCOPES`); tiering rules and OWASP
+checks are ordered pure-function lists (`TIER_RULES`, `CHECKS`) — edit those,
+not scattered logic. Upstream source: `github.com/rpmsft9/nhi-scan` (MIT).
+
+**Tests**: `npx vitest run worker/lib/nhi-scan.test.ts` (36 tests)
 
 ## BreachVIP — Breach Database Search
 

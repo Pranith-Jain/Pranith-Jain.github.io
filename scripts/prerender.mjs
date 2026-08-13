@@ -48,7 +48,6 @@ const ROUTES = [
   '/skills',
   '/experience',
   '/projects',
-  '/cti-research',
   '/daily-briefs',
   '/blog',
 
@@ -318,6 +317,7 @@ const ROUTES = [
   '/dfir/asn',
   '/dfir/breach',
   '/dfir/traceix',
+  '/dfir/nhi-scan',
   '/dfir/whoxy',
   '/daily-briefs',
   '/dfir/ai-threats',

@@ -123,6 +123,10 @@ const SUCCESS_NEXT_ACTIONS: Record<string, string[]> = {
   // Hash → reputation + relationships
   sample_scan: ['check_ioc', 'get_relationships'],
   traceix_lookup: ['check_ioc', 'enrich_ioc_deep'],
+  // NHI scan → investigate crown-jewel identities' indicators
+  nhi_scan: ['nhi_inventory', 'check_ioc', 'lookup_cve', 'enrich_actor'],
+  nhi_inventory: ['nhi_scan'],
+  nhi_owasp_catalog: ['nhi_scan'],
   // Search → correlate the findings
   unified_search: ['correlate_iocs', 'cross_correlate'],
   darkweb_multi_search: ['unified_search', 'correlate_iocs'],

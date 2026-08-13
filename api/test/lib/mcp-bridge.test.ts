@@ -128,6 +128,28 @@ describe('bridgeMcpTools', () => {
     expect(names).toContain('breach_vip_search');
   });
 
+  it('generates tools for the NHI scanner', () => {
+    const tools = bridgeMcpTools(mockEnv.ASSETS, mockEnv, new Set(), mockSelf, {});
+    const names = tools.map((t) => t.name);
+    expect(names).toContain('nhi_scan');
+    expect(names).toContain('nhi_inventory');
+    expect(names).toContain('nhi_owasp_catalog');
+  });
+
+  it('nhi_scan executes an end-to-end scan', async () => {
+    const tools = bridgeMcpTools(mockEnv.ASSETS, mockEnv, new Set(), mockSelf, {});
+    const tool = tools.find((t) => t.name === 'nhi_scan');
+    expect(tool).toBeDefined();
+    const result = (await tool!.execute({
+      inventory: JSON.stringify([
+        { id: 'a', name: 'a', privilege: 'admin', credential: 'static_secret' },
+        { id: 'b', name: 'b', credential: 'federated', environment: 'sandbox' },
+      ]),
+    })) as { summary: { total_identities: number }; identities: Array<{ tier: number }> };
+    expect(result.summary.total_identities).toBe(2);
+    expect(result.identities[0]!.tier).toBe(1); // admin + static secret → critical
+  });
+
   it('generates all 43 dn_ darknet-intel tools', () => {
     const tools = bridgeMcpTools(mockEnv.ASSETS, mockEnv, new Set(), mockSelf, {});
     const dnTools = tools.filter((t) => t.name.startsWith('dn_'));

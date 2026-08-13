@@ -146,6 +146,9 @@ function missedCapabilityFor(tool: string): string {
     whoxy_reverse_whois: 'reverse WHOIS domain registration lookup',
     depx_check: 'supply-chain malicious-package check',
     breach_vip_search: 'breach database search (BreachVIP)',
+    nhi_scan: 'NHI risk-tier + OWASP NHI Top 10 scan',
+    nhi_inventory: 'NHI inventory counts by type/tier',
+    nhi_owasp_catalog: 'OWASP NHI Top 10 catalog + tiering rules',
   };
   return map[tool] ?? `${tool} data (capability not mapped)`;
 }
