@@ -1,0 +1,108 @@
+{
+  "type": "cyber",
+  "date": "2026-08-12",
+  "threatLevel": "",
+  "executiveSummary": "Multiple active, OT-directed campaigns continue to target PLCs and industrial facilities. U.S. water utilities are reporting real service impacts from actors changing PLC credentials and network settings, forcing manual operations and boil-water advisories. Security Advisory Iranian-affiliated actors are actively manipulating PLC logic and HMI data across U.S. critical infrastructure, including Energy and Water/Wastewater, using vendor tools on standard ICS protocols (CIP/EtherNet-IP, Modbus/TCP, S7). Security Advisory Europe: CERT Polska reports a destructive December 2025 OT intrusion at a CHP plant via a misconfigured private APN, leading to turbine and water treatment shutdown-an access pattern likely replicated elsewhere. Supporting Report Ransomware ecosystem risk is elevated: a joint U.S.-ROK advisory on Gunra RaaS details Fortinet-edge exploitation, Microsoft 365 exfiltration, and cross-platform lockers; defenders should leverage provided IOCs and a Linux key-recovery weakness. Security Advisory Enterprise-edge and identity surfaces that commonly bridge to OT are under active exploitation: KEV additions include Cisco ASA/FTD, Windows AFD LPE, Metabase, Progress LoadMaster, N-able N-central, and TeamCity; urgent remediation and compromise assessment are required. CISA Alert CISA Alert High-impact product issues with direct OT or facility-security consequences were disclosed, including an unauthenticated deserialization RCE in Johnson Controls C-CURE 9000/victor Application Server and persistent remote access on VMware vCenter via a critical RCE. Security Advisory View Article Nation-state pre-positioning via covert SOHO/IoT proxy networks remains a strategic concern for enterprise-to-OT pivots. Security Advisory",
+  "keyFindings": [
+    {
+      "title": "OT devices exposed to the internet (especially PLCs over VNC/CIP/Modbus/S7) rema",
+      "summary": "OT devices exposed to the internet (especially PLCs over VNC/CIP/Modbus/S7) remain at immediate risk of unauthorized control changes and alarm suppression. Security Advisory"
+    },
+    {
+      "title": "Fortinet credential exposures (\"FortiBleed\") and Gunra RaaS affiliates' exploita",
+      "summary": "Fortinet credential exposures (\"FortiBleed\") and Gunra RaaS affiliates' exploitation of FortiGate/SSL-VPN enable rapid domain takeover and data exfiltration-affecting perimeters that protect OT. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Johnson Controls C-CURE 9000/victor deserialization RCE could allow physical acc",
+      "summary": "Johnson Controls C-CURE 9000/victor deserialization RCE could allow physical access control manipulation at critical facilities. Security Advisory"
+    },
+    {
+      "title": "Critical virtualization management risk",
+      "summary": "active vCenter RCE exploitation with persistent reverse SSH and cron-based footholds observed. View Article"
+    },
+    {
+      "title": "Supply-chain exposure escalates via malicious open-source releases (LiteLLM) and",
+      "summary": "Supply-chain exposure escalates via malicious open-source releases (LiteLLM) and CI server exploitation (TeamCity KEV), risking downstream OT software pipelines. View Article CISA Alert"
+    }
+  ],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [],
+    "vendors": [
+      "Rockwell Automation (MicroLogix, CIP)",
+      "Siemens (S7/TIA Portal)",
+      "Schneider Electric (Modicon)",
+      "Johnson Controls (C-CURE 9000, victor)",
+      "Fortinet (FortiGate/SSL-VPN)",
+      "Cisco (ASA/FTD)",
+      "VMware vCenter",
+      "SAP (MII, Commerce Cloud)",
+      "Microsoft Windows (AFD LPE)",
+      "TeamCity (JetBrains)",
+      "Progress LoadMaster",
+      "SharePoint Server",
+      "TrueConf Server"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems",
+      "Energy (Generation/CHP, Transmission)",
+      "Manufacturing",
+      "Transportation/Communications",
+      "Government/Public Sector",
+      "Healthcare & Public Health (medical/IoT)"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iranian-affiliated APT actively tampering with PLC logic/HMI data across U.S. sectors (ports 44818/2222, 102, 502, 22). Security Advisory",
+        "China-nexus operators leveraging covert SOHO/IoT botnets for proxying and pre-positioning against CI. Security Advisory",
+        "Void Blizzard (Russia) mass-exfiltrating Zimbra email via webmail XSS; theft of 2FA and IMAP persistence noted. Security Advisory",
+        "Lazarus using a Windows AFD zero-day (CVE-2026-68820) for LPE; organizations must patch and harden Windows endpoints in OT-adjacent zones. View Article",
+        "Gunra RaaS: Fortinet-edge exploitation, Microsoft 365 data theft, and ChaCha20+RSA lockers; Linux variant key recovery path detailed. Security Advisory",
+        "SharePoint deserialization RCE under active ransomware exploitation; many internet-exposed servers remain unpatched. View Article",
+        "Covert SOHO/IoT proxy and residential proxy networks expand attacker infrastructure, complicating attribution and geofencing. View Article"
+      ]
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "New/Notable OT CVEs and Issues",
+      "items": [
+        "Johnson Controls C-CURE 9000 / victor Application Server - unauthenticated .NET deserialization to RCE (restrict port 8999; upgrade). Security Advisory",
+        "VMware vCenter Server - CVE-2026-59310 RCE exploited in the wild; observed persistence via cron and reverse SSH. View Article",
+        "Progress LoadMaster - KEV-listed command injection; full device compromise risk at the edge. CISA Alert",
+        "Cisco Secure Firewall ASA/FTD - actively exploited VPN-path DoS via crafted HTTP to RA SSL-VPN endpoints. View Article",
+        "TeamCity - KEV-listed deserialization (supply-chain CI compromise risk). CISA Alert",
+        "SAP MII, SAP Commerce Cloud - critical code execution and injection issues crossing IT-OT boundaries in manufacturing. View Article"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploit Public-Facing Application (T1190): vCenter RCE, SharePoint RCE, TeamCity deserialization, LoadMaster command injection. View Article CISA Alert",
+      "Valid Accounts (T1078) and Remote Services (T1021): Fortinet VPN abuse, RDP/SMB lateral movement (Gunra). Security Advisory",
+      "Proxy/Exfil via Multi-Hop (T1090/T1041): China-nexus covert SOHO/IoT networks; Google Apps Script relay (CAV3RN). Security Advisory View Article",
+      "Privilege Escalation (T1068): Windows AFD/afd.sys LPE under active exploitation. View Article",
+      "Modify Controller Tasking / Manipulation of Control (ICS tactics): Iranian-affiliated PLC logic tampering; WWS PLC password/IP changes. Security Advisory Security Advisory"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1021",
+      "T1090",
+      "T1041",
+      "T1068"
+    ]
+  },
+  "outlook72h": "Expect continued probing and exploitation of publicly exposed SharePoint, vCenter, and VPN/firewall endpoints; prioritize emergency patch windows and temporary exposure reductions. Increase monitoring for PLC credential changes, unexpected mode transitions, and HMI alarm suppression-particularly at smaller utilities and sites with legacy remote access. Conduct targeted compromise assessments on KEV-affected devices/services; rotate credentials, tokens, and certificates associated with edge and CI/CD platforms. Validate backup integrity and recovery for PACS (C-CURE/victor), PLC logic, and Windows domain services supporting OT operations.",
+  "relatedCves": [
+    "CVE-2026-68820",
+    "CVE-2026-59310",
+    "CVE-2026-66066",
+    "CVE-2026-71391"
+  ]
+}

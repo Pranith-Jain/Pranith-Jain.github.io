@@ -1,0 +1,48 @@
+{
+  "type": "disaster",
+  "date": "2026-08-12",
+  "overallThreat": "",
+  "executiveSummary": "A powerful M7.4 earthquake in western Colombia has killed at least 181 people, injured 2,595, and left many more missing as urban search-and-rescue operations continue. Source Wildfires along British Columbia's Okanagan Lake have displaced more than 20,000 people, caused at least one death, destroyed homes, and prompted a provincial emergency posture. View Article Severe storms across Illinois, Indiana, and Ohio left at least one dead, hospitalized multiple people, and cut power to more than 850,000 customers at peak. Source Typhoon Dolphin forced 300,000+ relocations and 1,300+ flight cancellations in eastern China; monsoon rains linked to the system killed at least 19 and displaced ~98,000 in the Philippines. Supporting Report Source Drought-driven displacement around Baidoa, Somalia is escalating needs for food, water, and health services amid acute malnutrition and disease risk. View Article A monsoon-triggered landslide in Mumbai killed six people, including children, and injured four; access constraints slowed rescue operations. Source Life-threatening flash flooding in Central Texas caused at least two deaths and prompted 200+ rescues as roads and rivers became impassable. View Article In the Spokane, Washington area, wildfires destroyed roughly 850 buildings and displaced tens of thousands, with prolonged access restrictions in several neighborhoods. Source Supporting Report",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Colombia earthquake",
+      "summary": "Urban search-and-rescue remains time-critical with widespread building collapse and thousands reported missing. Source"
+    },
+    {
+      "title": "Okanagan Lake wildfires",
+      "summary": "At least one fatality, >20,000 evacuees, and significant structure loss; vulnerable elderly populations required assisted evacuation. Source"
+    },
+    {
+      "title": "Severe Midwest storms",
+      "summary": "Power, transport, and healthcare systems were disrupted; lightning injuries included 16 incarcerated individuals. View Article"
+    },
+    {
+      "title": "Typhoon Dolphin",
+      "summary": "Preventive mass relocations and extensive flight cancellations in eastern China likely reduced casualties but entail major shelter and logistics demands. Source"
+    },
+    {
+      "title": "Philippines impacts",
+      "summary": "Monsoon rains intensified by Dolphin caused at least 19 deaths and displaced ~98,000; transport and urban services were disrupted. Source"
+    },
+    {
+      "title": "Spokane wildfires",
+      "summary": "~850 structures destroyed and long-duration evacuations indicate substantial shelter and recovery needs. View Article"
+    },
+    {
+      "title": "Somalia drought",
+      "summary": "Displacement camps face food, water, and health service shortfalls amid acute malnutrition and disease risks. Source"
+    },
+    {
+      "title": "Mumbai landslide",
+      "summary": "Dense settlements on unstable slopes remain at high risk as heavy monsoon rains continue. Source"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Colombia: Continued SAR and casualty updates likely; high demand for shelter, WASH, and debris removal equipment amid aftershock risk. British Columbia/Spokane: Evacuation zones may adjust with winds and terrain; monitor air quality, road access, and potential re-entry phases. Eastern China/Philippines: Residual flooding and landslide hazards persist; transport normalization will be uneven across affected hubs. US Midwest: Additional rounds of storms possible seasonally; grid restoration and critical facility backup power remain priorities. Somalia: Needs scale-up expected in displacement sites; water trucking, nutrition, and disease surveillance essential. Heat waves (Europe/US): Health alerts and fire weather conditions may tighten resource availability and increase demand for cooling and EMS.",
+  "regionalTrends": []
+}

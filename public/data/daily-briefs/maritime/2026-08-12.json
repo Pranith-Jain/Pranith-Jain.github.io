@@ -1,0 +1,55 @@
+{
+  "type": "maritime",
+  "date": "2026-08-12",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates a cyber incident disrupted IT systems at North Carolina Ports on August 7, causing operational slowdowns and manual fallback at Wilmington, Morehead City, and the Charlotte Inland Port. Confidence in this specific report is low due to community-sourced provenance and limited technical detail. View Article Facts reported by sources: A community post states the North Carolina State Ports Authority confirmed a cyberattack that disrupted port IT systems and slowed operations; manual workarounds were reportedly used. Technical indicators, malware family, and OT impact are not provided. Source Analytical assessment: Given the nature of effects described (IT disruption with operational delays), the event likely impacted enterprise or terminal IT services (e.g., gate processing, TOS interfaces, or appointment systems) rather than port OT/ICS. There is insufficient evidence to assess any impact to quay cranes, PLCs, or other control systems. Confidence: medium for IT impact, low for OT impact. Operational and safety implications: Vessel calls may face gate congestion and cargo-handling delays; however, no navigation safety issues or marine incidents are reported. Confidence: medium. Immediate attention: Maritime operators with calls to North Carolina Ports should verify berth windows, truck gate status, and documentation processes; security teams should monitor for copycat phishing leveraging the incident. Confidence: medium. Supporting Report Outlook judgment: In the near term (72 hours), additional details or an official statement may clarify scope and restoration timelines; until then, local logistics disruption risk remains elevated for the affected facilities. Confidence: low to medium. View Article",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "Cyberattack Reportedly Disrupts North Carolina Ports IT Operations",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.reddit.com/r/SecOpsDaily/comments/1vi1mus/north_carolina_ports_confirms_cyberattack/",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "Cyberattack Reportedly Disrupts North Carolina Ports IT Operations",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.reddit.com/r/SecOpsDaily/comments/1vi1mus/north_carolina_ports_confirms_cyberattack/",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for official statements or service updates from North Carolina Ports to clarify scope and restoration timelines. Confidence: medium. Supporting Report Additional community or media reports may emerge; the immediate risk of local logistics delays remains elevated until confirmed service normalization. Confidence: low to medium. View Article There is insufficient information to determine threat actor, intrusion vector, or persistence risk. Maintain heightened phishing and supplier-fraud vigilance. Confidence: low.",
+  "relatedCves": []
+}

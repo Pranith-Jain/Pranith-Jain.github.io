@@ -1,0 +1,294 @@
+{
+  "type": "deepfake",
+  "date": "2026-08-12",
+  "riskOutlook": "Worsening",
+  "executiveSummary": "Voice-enabled social engineering remains the most consequential synthetic-media threat this cycle, with multiple high-urgency incidents leveraging convincing phone or platform-based calls to obtain access, deliver malware, or defraud victims. Recent cases include large-scale passkey enrollment vishing targeting enterprise accounts, malware pushed via impersonated IT-support calls on collaboration platforms, criminal caller-ID spoofing capabilities linked to 1.8 million scam calls, and a high-value consumer loss in Hong Kong attributed to AI-generated voice notes. View Article View Article View Article View Article Regulatory transparency requirements for synthetic content are advancing in the European Union, where operational guidance for AI Act obligations is now in effect for the marking and disclosure of AI-generated or manipulated media, with Article 50 detailing applicable controls. View Article Security Advisory Defensive developments center on provenance and watermarking: the C2PA 2.3 specification expands support for text and fine-grained actions; research proposes privacy-preserving redaction of provenance data; and new work explores watermarking of embedding vectors bound to C2PA. Vendor Advisory Supporting Report Supporting Report Given concurrent criminal misuse of voice impersonation and expanding disinformation and policy gaps in election contexts, alongside active but still maturing defenses, the overall threat environment appears to be worsening. View Article",
+  "keyFindings": [
+    {
+      "title": "Active voice-based vishing campaigns are coercing enterprise users to enroll att",
+      "summary": "Active voice-based vishing campaigns are coercing enterprise users to enroll attacker-controlled passkeys, enabling account takeover across multiple sectors. View Article"
+    },
+    {
+      "title": "Impersonated IT-support calls via collaboration platforms are being used to depl",
+      "summary": "Impersonated IT-support calls via collaboration platforms are being used to deploy malware and gain initial network access. View Article"
+    },
+    {
+      "title": "Law enforcement in the UK charged suspects tied to a caller-ID spoofing platform",
+      "summary": "Law enforcement in the UK charged suspects tied to a caller-ID spoofing platform linked to 1.8 million scam calls, featuring voice-changing and anti-forensics tools. View Article"
+    },
+    {
+      "title": "An individual in Hong Kong reportedly lost $1.27 million after AI voice notes im",
+      "summary": "An individual in Hong Kong reportedly lost $1.27 million after AI voice notes impersonated a family member over messaging, demonstrating high-impact consumer fraud risk. View Article"
+    },
+    {
+      "title": "EU AI Act transparency guidelines for marking and labeling AI-generated/manipula",
+      "summary": "EU AI Act transparency guidelines for marking and labeling AI-generated/manipulated content are now operational, affecting providers and deployers. View Article"
+    },
+    {
+      "title": "C2PA 2.3 introduces expanded provenance features, including support for text fil",
+      "summary": "C2PA 2.3 introduces expanded provenance features, including support for text files and finer-grained watermark actions. Vendor Advisory"
+    },
+    {
+      "title": "New research proposes privacy-preserving redaction of provenance data to reduce ",
+      "summary": "New research proposes privacy-preserving redaction of provenance data to reduce leakage while maintaining trust signals. Supporting Report"
+    },
+    {
+      "title": "Watermarking for embedding vectors (HaloMark) is proposed to bind AI assets to s",
+      "summary": "Watermarking for embedding vectors (HaloMark) is proposed to bind AI assets to signed provenance, aiming for resilience under attack. Supporting Report"
+    },
+    {
+      "title": "Researchers warn AI labels can be removed or evaded, undermining downstream trac",
+      "summary": "Researchers warn AI labels can be removed or evaded, undermining downstream traceability and detection. Supporting Report"
+    },
+    {
+      "title": "Text-to-video systems can synthesize fake news videos from scratch, complicating",
+      "summary": "Text-to-video systems can synthesize fake news videos from scratch, complicating newsroom and platform verification workflows. Supporting Report"
+    }
+  ],
+  "incidents": [
+    {
+      "title": "Voice-based passkey enrollment vishing targets enterprise accounts",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/entra-passkey-enrollment-vishing-targets-microsoft-365-users/amp/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Impersonated IT-support calls via collaboration platform delivering malware",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/amp/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "AI voice notes impersonation leads to high-value consumer loss via messaging app",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.techradar.com/computing/cybercrime/whatsapp-scam-costs-hong-kong-man-usd1-27-million-after-criminals-used-ai-voice-notes-to-impersonate-his-father-experts-say-secret-codewords-are-the-best-way-to-stay-safe",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "UK charges tied to caller-ID spoofing platform linked to 1.8M scam calls",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "C2PA 2.3 specification update expands provenance and watermarking features",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://spec.c2pa.org/specifications/specifications/2.3/specs/_attachments/C2PA_Specification.pdf",
+          "label": "Vendor Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Privacy-preserving redaction for provenance records (research)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2608.07063",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "EU AI Act transparency guidance for synthetic content labeling",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "AI Act Article 50: Transparency obligations now in effect (EU)",
+      "badges": [
+        "MONITOR",
+        "High"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-50",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Watermarking embeddings under C2PA (HaloMark research)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2608.08645",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "NIST overview on reducing risks from synthetic content (guidance)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.nist.gov/publications/reducing-risks-posed-synthetic-content-overview-technical-approaches-digital-content",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "AI-enabled election disinformation and fake amplification (Moldova, historical)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/461e9a1c9558ae140c5b7539a5c89fd4",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Patchwork U.S. state rules on election deepfakes (policy landscape)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.axios.com/2026/08/07/election-ai-deepfake-rules-states",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Labeling and detection evasion risks for AI-generated content (research)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2608.08129",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Text-to-video systems can generate fake news videos from scratch (research)",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2608.06732",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Monitoring note: No qualifying fresh authoritative items in some recent searches",
+      "badges": [
+        "MONITOR",
+        "Low"
+      ],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    }
+  ],
+  "emergingTrends": [],
+  "geographicObservations": [
+    "Hong Kong: High-value consumer fraud via AI-generated voice notes on a messaging platform. View Article",
+    "United Kingdom: Charges related to large-scale caller-ID spoofing platform enabling scam calls. View Article",
+    "European Union: Transparency obligations and guidance under the AI Act now apply to synthetic content. Security Advisory",
+    "United States: Patchwork of state deepfake rules ahead of elections creates uneven protections. View Article",
+    "Moldova: Historical reporting of AI-enabled disinformation and fake amplification around elections. View Article",
+    "Global/International: Multiple research and standards advances in provenance, watermarking, and detection. Vendor Advisory"
+  ],
+  "detectionDevelopments": [
+    "EU AI Act guidance details transparency, marking, and labeling obligations for synthetic content. View Article",
+    "Article 50 applicability from 2026-08-02 emphasizes machine-readable detection and disclosures. Security Advisory",
+    "C2PA 2.3 expands provenance coverage and watermarking actions. Vendor Advisory",
+    "Research proposes privacy-preserving provenance redaction for selective disclosure. Supporting Report",
+    "Embedding watermarking tied to C2PA provenance for AI assets (HaloMark). Supporting Report",
+    "NIST overview of technical approaches for synthetic content risk reduction. View Article",
+    "Identity workflows: Require out-of-band confirmation and manager approval for new passkey enrollments, MFA resets, and privilege grants. (Analyst Recommendation)",
+    "Telephony authenticity: Enforce call-back procedures to verified internal numbers; block/flag high-risk caller-ID anomalies; leverage STIR/SHAKEN analytics where available. (Analyst Recommendation)",
+    "Collab platforms: Restrict external calling permissions; enable recording/retention for security investigations; alert on links/executables in proximity to voice calls. (Analyst Recommendation)",
+    "Consumer protection: Promote shared \"safe words\" or code phrases for urgent financial requests over voice or messaging. (Analyst Recommendation)",
+    "Provenance controls: Pilot C2PA signing for high-risk media workflows; test privacy-preserving redaction to protect sensitive capture metadata. (Analyst Recommendation)",
+    "Forensics: Preserve original audio, call metadata, and platform logs; examine prosody/timbre artifacts and temporal inconsistencies indicative of synthesis. (Analyst Recommendation)",
+    "Awareness & training: Run vishing tabletop exercises with helpdesk, finance, and exec staff; incorporate deepfake voice exemplars. (Analyst Recommendation)"
+  ]
+}
