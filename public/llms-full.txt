@@ -199,6 +199,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [My Threat Intel](https://pranithjain.qzz.io/threatintel/feeds/mythreatintel) (threatintel): My curated threat-intel feed - personal bookmarks and follows.
 - [Feed Reliability](https://pranithjain.qzz.io/threatintel/source-health) (threatintel): Reliability scoring for each feed provider - uptime, freshness, accuracy, and NATO Admiralty trust grades.
 - [ThreatCluster Feeds](https://pranithjain.qzz.io/threatintel/feeds/threatcluster) (threatintel): Replicated ThreatCluster feeds - trending clusters, CVEs, exploits, dark-web victims, IOC blocklist, MISP events.
+- [Entity Intelligence](https://pranithjain.qzz.io/threatintel/feeds/threatcluster/entities) (threatintel): ThreatCluster-derived entity profiles - actors, ransomware groups, malware, CVEs, and sectors with frequency charts and a weighted co-occurrence relationship graph.
 - [Social Firehose](https://pranithjain.qzz.io/threatintel/social/firehose) (threatintel): Multi-platform social media firehose.
 - [Tech & AI News](https://pranithjain.qzz.io/threatintel/social/news) (threatintel): Tech and AI news aggregation.
 - [Crypto Scam Feed](https://pranithjain.qzz.io/threatintel/social/crypto-scam) (threatintel): Crypto scam feed - wallet addresses, drainers, phishing sites.
