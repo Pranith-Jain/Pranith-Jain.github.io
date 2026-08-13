@@ -1,0 +1,15 @@
+{
+  "slug": "crpx0-boelte-llc-2026-08-12",
+  "title": "Boelte LLC",
+  "group": "crpx0",
+  "discovered": "2026-08-12T16:44:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: Leaked\nLocation: Missouri, USA\nSector: Professional Services / Consulting\nVolume: 8.1 GB\nDeadline: 2026-07-29 00:43:00",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

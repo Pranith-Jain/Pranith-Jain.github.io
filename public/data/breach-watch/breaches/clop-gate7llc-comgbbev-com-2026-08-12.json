@@ -1,0 +1,15 @@
+{
+  "slug": "clop-gate7llc-comgbbev-com-2026-08-12",
+  "title": "GATE7LLC.COMGBBEV.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:51:01.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "clop-irco-com-2026-08-12",
+  "title": "IRCO.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:29:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IR",
+  "sizeBytes": 0,
+  "description": "[AI generated] IRCO.COM appears to be associated with the Industrial Rubber Company (IRCO), a U.S.-based manufacturer and distributor specializing in industrial rubber products, seals, gaskets, hoses, and related components. The company serves sectors such as manufacturing, oil and gas, and construction. Operating primarily in the United States, it supplies both standard and custom rubber solutions to industrial clients across various markets.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

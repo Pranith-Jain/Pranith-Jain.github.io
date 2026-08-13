@@ -1,0 +1,15 @@
+{
+  "slug": "clop-itkholding-hu-2026-08-12",
+  "title": "ITKHOLDING.HU",
+  "group": "clop",
+  "discovered": "2026-08-12T15:45:49.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "HU",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

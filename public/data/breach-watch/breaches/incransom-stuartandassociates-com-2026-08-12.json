@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-stuartandassociates-com-2026-08-12",
+  "title": "stuartandassociates.com",
+  "group": "incransom",
+  "discovered": "2026-08-12T15:03:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Stuart & Associates Commercial Flooring, Inc. specializes in providing high-quality commercial flooring solutions designed to enhance customer experiences. They offer a three-year warranty on new installations when clients purchase maintenance programs, ensuring satisfaction and value throughout the process. The company features a design center with extensive product samples and emphasizes delivering projects on budget and on schedule. Their target clients include businesses seeking safe, comfortable, and aesthetically pleasing flooring options.\r Employees: 50\r Revenue: $6.4 Million\r Industry: Construction Management \r Phone Number: (316) 267-0743",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

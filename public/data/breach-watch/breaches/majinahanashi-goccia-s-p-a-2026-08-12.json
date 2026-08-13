@@ -1,0 +1,15 @@
+{
+  "slug": "majinahanashi-goccia-s-p-a-2026-08-12",
+  "title": "Goccia S.p.A.",
+  "group": "majinahanashi",
+  "discovered": "2026-08-12T14:47:30.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "TARGET: https://www.joygioielli.com/ https://www.gocciagioielli.com/ REVENUE: €19.2M EMPLOYEES: ~ [LEAK / 3557 FILES]",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

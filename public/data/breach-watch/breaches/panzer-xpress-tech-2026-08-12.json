@@ -1,0 +1,15 @@
+{
+  "slug": "panzer-xpress-tech-2026-08-12",
+  "title": "Xpress Tech",
+  "group": "panzer",
+  "discovered": "2026-08-12T22:25:35.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Xpress Tech is a leading B2B iGaming aggregation platform established in 2015 under Softquo Holding. It provides a comprehensive one-stop technical solution connecting operators with over 120 gaming providers and a portfolio of more than 30,000 games via a single Remote API integration. The platform also features integrated payment solutions and back-office data management",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

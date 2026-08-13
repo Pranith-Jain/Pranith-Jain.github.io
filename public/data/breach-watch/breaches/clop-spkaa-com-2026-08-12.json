@@ -1,0 +1,15 @@
+{
+  "slug": "clop-spkaa-com-2026-08-12",
+  "title": "SPKAA.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:43:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "KZ",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

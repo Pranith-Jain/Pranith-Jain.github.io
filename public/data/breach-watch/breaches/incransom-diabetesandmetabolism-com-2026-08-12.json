@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-diabetesandmetabolism-com-2026-08-12",
+  "title": "diabetesandmetabolism.com",
+  "group": "incransom",
+  "discovered": "2026-08-12T15:53:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Diabetes and Metabolism Specialists is a specialty medical clinic located in San Antonio, TX, focused on the diagnosis and treatment of endocrine-related medical conditions. The clinic is staffed by board-certified endocrinologists, nurse practitioners, and certified diabetes educators who provide comprehensive care and education for chronic conditions such as diabetes, hyperparathyroidism, and metabolic syndrome. They emphasize professionalism and patient education, ensuring that clients understand their diagnoses and treatment options. The intended clients are individuals seeking specialized care for endocrine disorders and metabolic conditions.\r Employees: 50\r Revenue: $5.5 Million\r Industry: Hospitals & Physicians Clinics\r Phone Number: (210) 494-3739",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

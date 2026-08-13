@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-united-association-local-union-345-2026-08-13",
+  "title": "United Association Local Union 345",
+  "group": "Qilin",
+  "discovered": "2026-08-13T03:28:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/c64dd453-4a18-47dd-be04-874a7efb2126",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["Darkfield"]
+}

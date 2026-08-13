@@ -1,0 +1,15 @@
+{
+  "slug": "clop-qcpl-in-2026-08-12",
+  "title": "QCPL.IN",
+  "group": "clop",
+  "discovered": "2026-08-12T15:47:31.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "ransomhouse-disclosed-city-of-beacon-2026-08-12",
+  "title": "[DISCLOSED]City of Beacon",
+  "group": "ransomhouse",
+  "discovered": "2026-08-12T16:28:38.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/ransomhouse/[DISCLOSED]City of Beacon.png",
+  "groupAliases": ["RANSOM HOUSE"],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

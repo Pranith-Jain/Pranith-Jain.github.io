@@ -1,0 +1,15 @@
+{
+  "slug": "barracuda-skyline-implants-periodontics-dr-scott-ferguson-2026-08-13",
+  "title": "Skyline Implants & Periodontics (Dr. Scott Ferguson)",
+  "group": "Barracuda",
+  "discovered": "2026-08-13T03:01:36.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d16a3504-4a2c-4f71-9cda-472609887e4f",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

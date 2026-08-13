@@ -1,0 +1,15 @@
+{
+  "slug": "clop-netpower-com-2026-08-12",
+  "title": "NETPOWER.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:26:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

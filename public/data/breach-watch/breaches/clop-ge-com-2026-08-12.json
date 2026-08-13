@@ -1,0 +1,15 @@
+{
+  "slug": "clop-ge-com-2026-08-12",
+  "title": "GE.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:27:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] General Electric (GE) is a American multinational conglomerate headquartered in Cincinnati, Ohio, USA. Operating across multiple industries, GE focuses on aviation, healthcare, and energy sectors. The company manufactures jet engines, medical imaging equipment, and power generation technologies. GE has undergone significant restructuring in recent years, spinning off several business units to sharpen its focus on industrial operations globally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "helix-unknown-victim-3-2026-08-13",
+  "title": "Unknown Victim 3",
+  "group": "HELIX",
+  "discovered": "2026-08-13T02:35:56.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/e9295161-c608-4a67-9b9c-b8fa2d90f5f0",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["Darkfield"]
+}

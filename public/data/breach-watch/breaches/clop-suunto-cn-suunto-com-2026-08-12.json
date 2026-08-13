@@ -1,0 +1,15 @@
+{
+  "slug": "clop-suunto-cn-suunto-com-2026-08-12",
+  "title": "SUUNTO.CN (SUUNTO.COM)",
+  "group": "clop",
+  "discovered": "2026-08-12T15:35:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FI",
+  "sizeBytes": 0,
+  "description": "[AI generated] Suunto is a Finnish company founded in 1936, headquartered in Vantaa, Finland. It specializes in designing and manufacturing sports watches, dive computers, and outdoor instruments. The brand is well known in the sports and adventure industry, offering precision equipment for activities such as hiking, diving, and trail running. Suunto operates globally, with its Chinese market presence reflected in the suunto.cn domain, serving consumers across Asia and worldwide.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

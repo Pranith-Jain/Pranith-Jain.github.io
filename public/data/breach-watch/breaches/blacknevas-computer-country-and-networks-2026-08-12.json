@@ -1,0 +1,15 @@
+{
+  "slug": "blacknevas-computer-country-and-networks-2026-08-12",
+  "title": "COMPUTER COUNTRY AND NETWORKS",
+  "group": "blacknevas",
+  "discovered": "2026-08-12T15:23:35.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "A local Canadian IT company based in Stratford, Ontario, operating since 1983. It provides services to small and medium-sized businesses as well as private clients in the Stratford–St. Marys–Mitchell region and surrounding areas. Core services:Computer and laptop repairNetwork setup and supportServer installation and maintenanceVirus removal and system optimizationPOS systems (point-of-sale equipment)On-site serviceA small local service company with over 40 years of experience.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["black nevas"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

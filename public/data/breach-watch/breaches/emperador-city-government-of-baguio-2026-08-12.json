@@ -1,0 +1,15 @@
+{
+  "slug": "emperador-city-government-of-baguio-2026-08-12",
+  "title": "City Government of Baguio",
+  "group": "emperador",
+  "discovered": "2026-08-12T14:36:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "PH",
+  "sizeBytes": 0,
+  "description": "The City Government of Baguio stands as one of the wealthiest and most prominent local governments in the Philippines. This leak includes highly sensitive and confidential data, such as official contracts, legal permits, identification documents, financial statements, construction blueprints, project proposals, procurement records, and other classified administrative materials. [Size: 2.9 GB | Sector: Government, Finance, Construction]",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Government & Defense",
+  "references": ["ransomware.live"]
+}

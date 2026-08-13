@@ -1,0 +1,15 @@
+{
+  "slug": "clop-enteratek-mxesberbeverage-com-2026-08-12",
+  "title": "ENTERATEK.MXESBERBEVERAGE.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:50:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

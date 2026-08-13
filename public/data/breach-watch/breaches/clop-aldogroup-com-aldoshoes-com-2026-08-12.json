@@ -1,0 +1,15 @@
+{
+  "slug": "clop-aldogroup-com-aldoshoes-com-2026-08-12",
+  "title": "ALDOGROUP.COM (ALDOSHOES.COM)",
+  "group": "clop",
+  "discovered": "2026-08-12T15:29:01.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "[AI generated] ALDO Group is a Canadian footwear and accessories retailer headquartered in Montreal, Quebec. Founded in 1972 by Aldo Bensadoun, the company designs, manufactures, and sells shoes, boots, handbags, and accessories through its ALDO and Call It Spring brands. Operating thousands of stores worldwide across over 100 countries, it serves both wholesale and direct retail markets targeting fashion-conscious consumers globally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

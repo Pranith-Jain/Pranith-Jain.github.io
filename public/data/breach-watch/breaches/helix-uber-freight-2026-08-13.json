@@ -1,0 +1,15 @@
+{
+  "slug": "helix-uber-freight-2026-08-13",
+  "title": "Uber Freight",
+  "group": "HELIX",
+  "discovered": "2026-08-13T02:36:27.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b7279c62-2e2a-4596-84a7-ff54d8c197ba",
+  "groupAliases": [],
+  "activity": "Transportation/Logistics",
+  "references": ["Darkfield"]
+}

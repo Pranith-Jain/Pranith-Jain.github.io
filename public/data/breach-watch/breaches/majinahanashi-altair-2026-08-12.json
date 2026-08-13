@@ -1,0 +1,15 @@
+{
+  "slug": "majinahanashi-altair-2026-08-12",
+  "title": "ALTAIR",
+  "group": "majinahanashi",
+  "discovered": "2026-08-12T14:46:26.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "PUBLICATION SCHEDULED. [LEAK / 84251 FILES]",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

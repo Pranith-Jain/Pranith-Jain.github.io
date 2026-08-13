@@ -1,0 +1,15 @@
+{
+  "slug": "clop-clover-com-2026-08-12",
+  "title": "CLOVER.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:37:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Clover.com is a US-based financial technology company that provides point-of-sale systems and business management solutions primarily for small and medium-sized businesses. Operated under Fiserv, Clover offers hardware terminals, software, and payment processing services. Its platform supports inventory management, employee tracking, customer engagement, and sales analytics, making it a comprehensive commerce solution across the retail and hospitality industries.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

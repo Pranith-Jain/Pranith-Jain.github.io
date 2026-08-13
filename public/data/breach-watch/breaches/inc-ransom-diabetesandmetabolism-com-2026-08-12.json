@@ -1,0 +1,15 @@
+{
+  "slug": "inc-ransom-diabetesandmetabolism-com-2026-08-12",
+  "title": "diabetesandmetabolism.com",
+  "group": "inc ransom",
+  "discovered": "2026-08-12T17:42:05.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/inc ransom/diabetesandmetabolismcom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

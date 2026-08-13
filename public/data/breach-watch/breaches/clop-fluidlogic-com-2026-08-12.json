@@ -1,0 +1,15 @@
+{
+  "slug": "clop-fluidlogic-com-2026-08-12",
+  "title": "FLUIDLOGIC.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:46:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] FluidLogic is a US-based technology company specializing in advanced fluid management systems. It develops innovative hydration and fluid delivery solutions, primarily used in sports, military, and outdoor applications. The company is known for engineering pressurized hydration systems that allow hands-free fluid delivery. Operating in the sporting goods and defense equipment industry, FluidLogic serves both consumer and government markets across the United States.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

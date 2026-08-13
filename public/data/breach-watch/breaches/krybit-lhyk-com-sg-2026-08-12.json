@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-lhyk-com-sg-2026-08-12",
+  "title": "lhyk.com.sg",
+  "group": "krybit",
+  "discovered": "2026-08-12T12:26:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "LHYK Marine Pte Ltd (Lee Huat Yap Kee) is a Singaporean marine logistics specialist company founded in 1959 and incorpor...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

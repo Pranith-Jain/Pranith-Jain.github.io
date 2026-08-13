@@ -1,0 +1,15 @@
+{
+  "slug": "clop-lifestraw-com-2026-08-12",
+  "title": "LIFESTRAW.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:43:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] LifeStraw is an American consumer goods company specializing in portable water filtration and purification products. Founded in Switzerland and now headquartered in the United States, it produces filters, straws, bottles, and pitchers designed to remove bacteria, parasites, and microplastics from water. The company serves outdoor enthusiasts, travelers, and humanitarian relief efforts globally, making safe drinking water accessible in both recreational and emergency contexts.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

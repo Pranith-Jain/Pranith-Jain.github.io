@@ -1,0 +1,15 @@
+{
+  "slug": "clop-mamasandpapas-com-2026-08-12",
+  "title": "MAMASANDPAPAS.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:33:46.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "[AI generated] Mamas & Papas is a British retailer specialising in baby and nursery products, including prams, pushchairs, car seats, furniture, clothing, and accessories for newborns and young children. Founded in 1981 and headquartered in Huddersfield, England, the company operates both physical stores and an e-commerce platform via mamasandpapas.com. It serves customers primarily in the United Kingdom and ships internationally, positioning itself as a premium brand in the mother and baby retail industry.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

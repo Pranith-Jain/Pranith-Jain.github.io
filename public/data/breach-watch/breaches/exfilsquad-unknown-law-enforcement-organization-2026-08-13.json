@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-unknown-law-enforcement-organization-2026-08-13",
+  "title": "Unknown Law Enforcement Organization",
+  "group": "ExfilSquad",
+  "discovered": "2026-08-13T02:54:48.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cedf1f3c-c3be-41ba-a594-486a179d66fa",
+  "groupAliases": [],
+  "activity": "Law Enforcement",
+  "references": ["Darkfield"]
+}

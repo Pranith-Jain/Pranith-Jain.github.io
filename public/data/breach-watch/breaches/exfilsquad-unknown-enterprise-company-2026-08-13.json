@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-unknown-enterprise-company-2026-08-13",
+  "title": "Unknown Enterprise Company",
+  "group": "ExfilSquad",
+  "discovered": "2026-08-13T02:54:49.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/7abce000-ceda-4eba-a538-2631a5661d60",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "clop-smapcenter-uah-edu-2026-08-12",
+  "title": "SMAPCENTER.UAH.EDU",
+  "group": "clop",
+  "discovered": "2026-08-12T15:34:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A\n\nThe identifier \"SMAPCENTER.UAH.EDU\" appears to be a subdomain associated with the University of Alabama in Huntsville (UAH), likely related to a specific research center or project. However, there is insufficient reliable information available to provide a factual and accurate description of this specific entity's scope, activities, or industry focus without risk of providing inaccurate details.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

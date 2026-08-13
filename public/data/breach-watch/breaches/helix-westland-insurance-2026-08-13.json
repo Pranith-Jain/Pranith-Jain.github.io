@@ -1,0 +1,15 @@
+{
+  "slug": "helix-westland-insurance-2026-08-13",
+  "title": "Westland Insurance",
+  "group": "HELIX",
+  "discovered": "2026-08-13T02:36:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c07c730a-e6b3-4088-b4c5-877d1d6e6264",
+  "groupAliases": [],
+  "activity": "Insurance",
+  "references": ["Darkfield"]
+}

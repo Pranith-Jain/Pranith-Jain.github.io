@@ -1,0 +1,15 @@
+{
+  "slug": "majinahanashi-grupo-starfoods-2026-08-12",
+  "title": "Grupo Starfoods",
+  "group": "Majinahanashi",
+  "discovered": "2026-08-12T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Portugal",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/grupo-starfoods-majinahanashi-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

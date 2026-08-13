@@ -1,0 +1,15 @@
+{
+  "slug": "clop-waterlandpe-com-2026-08-12",
+  "title": "WATERLANDPE.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:40:47.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PE",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

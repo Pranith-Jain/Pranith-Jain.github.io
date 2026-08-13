@@ -1,0 +1,15 @@
+{
+  "slug": "clop-brillonconsumer-com-brillonconsumer-com-2026-08-12",
+  "title": "BRILLONCONSUMER.COM (BRILLONCONSUMER.COM)",
+  "group": "clop",
+  "discovered": "2026-08-12T15:36:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

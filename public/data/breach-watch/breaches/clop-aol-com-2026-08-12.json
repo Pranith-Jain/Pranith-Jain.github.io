@@ -1,0 +1,15 @@
+{
+  "slug": "clop-aol-com-2026-08-12",
+  "title": "AOL.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:52:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] AOL.com is an American web services and media company headquartered in New York, USA. Originally known as America Online, it was one of the pioneering internet service providers in the 1990s. Today, AOL operates as a digital media and advertising technology platform under Verizon Communications, offering email services, news, entertainment content, and online advertising solutions to consumers and businesses across the United States and globally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}
