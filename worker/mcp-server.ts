@@ -40,13 +40,18 @@ import {
   getTcVictim,
   loadTcIocs,
   loadTcMispEvents,
+  loadTcEntities,
+  getTcEntity,
+  getTcEntityTypeOrNull,
   filterTcClusters,
   filterTcVulns,
   filterTcExploits,
   filterTcVictims,
   filterTcIocs,
+  filterTcEntities,
   type TiSeverity,
   type TiIocIndexEntry,
+  type TcEntityType,
 } from './lib/threat-intel-manifest';
 import { loadDbIndex, getDbBrief, filterBriefs, dbCacheStats, type DbBriefType } from './lib/daily-briefs-manifest';
 import {
@@ -2864,6 +2869,61 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
+      this.tools(
+        'tc_list_entities',
+        'List ThreatCluster-derived entity profiles: threat actors (MISP galaxy attribution), ransomware groups and sectors (dark-web victims), malware families (Daily-Hunt dictionary matching), and CVEs (feed + cluster-text extraction). Filter by type, keyword, or minimum mention count. Each entry has a name, aliases, mention count, and first/last seen dates. Deterministic build-time extraction — no LLM in the loop.',
+        {
+          type: z
+            .enum(['actor', 'group', 'malware', 'cve', 'sector'])
+            .optional()
+            .describe('Restrict to one entity type (default all five)'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against name or aliases'),
+          minMentions: z.number().int().min(0).optional().describe('Only entities mentioned at least this many times'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max entities to return (default 100)'),
+        },
+        async ({ type, keyword, minMentions, limit }) => {
+          const idx = await loadTcEntities(ASSETS);
+          const entities = filterTcEntities(idx, {
+            type: type as TcEntityType | undefined,
+            keyword,
+            minMentions,
+            limit: limit ?? 100,
+          });
+          return untrustedToolResult({
+            source: idx.source,
+            builtAt: idx.builtAt,
+            counts: idx.counts,
+            returned: entities.length,
+            entities,
+          });
+        }
+      );
+
+      this.tools(
+        'tc_get_entity',
+        'Return the full ThreatCluster entity profile: threat summary, mention frequency by day (first/last seen), recent activity (clusters / victims / CVEs / MISP events), and a weighted related-entity graph derived from record-level co-occurrence (e.g. a ransomware group links to the sectors and countries it hit, a threat actor links to the malware and CVEs co-mentioned with it). Use tc_list_entities to discover slugs.',
+        {
+          type: z
+            .enum(['actor', 'group', 'malware', 'cve', 'sector'])
+            .describe('Entity type (actor, group, malware, cve, sector)'),
+          slug: z.string().describe('Entity slug, e.g. "lazarus-group", "clop", "CVE-2024-27253" (case-insensitive)'),
+          activityLimit: z.number().int().min(1).max(50).optional().describe('Max recent-activity items (default 12)'),
+        },
+        async ({ type, slug, activityLimit }) => {
+          const ent = await getTcEntity(ASSETS, type as TcEntityType, slug);
+          if (!ent) {
+            return untrustedToolResult({
+              error: 'tc_entity_not_found',
+              type,
+              slug,
+              hint: 'Call tc_list_entities to see available entities. Note entity slugs are the lowercase dashed name, e.g. "lazarus-group".',
+            });
+          }
+          if (activityLimit) ent.recentActivity = ent.recentActivity.slice(0, activityLimit);
+          return untrustedToolResult(ent);
+        }
+      );
+
       // ── Daily Briefs (DB) tools ─────────────────────────────────────
       // AI-generated intelligence briefs: OT/ICS cyber, deepfake/GenAI,
       // and global disaster assessments. Data from
@@ -3978,37 +4038,39 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       );
 
       // ── OpenSanctions — sanctions / PEP / crime entity search ──
+      // NOTE: the hosted OpenSanctions API has required `Authorization: ApiKey …`
+      // since 2025 — these tools need OPENSANCTIONS_API_KEY set.
       this.tools(
         'opensanctions_search',
-        'Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. No API key required — public rate-limited API.',
+        'Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. Requires OPENSANCTIONS_API_KEY (free for public-interest work at opensanctions.org).',
         {
           q: z.string().min(2).describe('Search query — entity name, domain, or email address.'),
           limit: z.number().int().min(1).max(100).optional().describe('Max results (default 20, max 100).'),
         },
         async ({ q, limit }) => {
-          const r = await opensanctionsSearch(q, limit);
+          const r = await opensanctionsSearch(q, limit, this.env as { OPENSANCTIONS_API_KEY?: string });
           return untrustedToolResult(r);
         }
       );
 
       this.tools(
         'opensanctions_entity',
-        'Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match.',
+        'Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match. Requires OPENSANCTIONS_API_KEY.',
         {
           id: z.string().describe('OpenSanctions entity ID (e.g. from opensanctions_search results).'),
         },
         async ({ id }) => {
-          const r = await opensanctionsEntity(id);
+          const r = await opensanctionsEntity(id, this.env as { OPENSANCTIONS_API_KEY?: string });
           return untrustedToolResult(r);
         }
       );
 
       this.tools(
         'opensanctions_stats',
-        'Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. No API key required.',
+        'Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. Requires OPENSANCTIONS_API_KEY.',
         {},
         async () => {
-          const r = await opensanctionsStats();
+          const r = await opensanctionsStats(this.env as { OPENSANCTIONS_API_KEY?: string });
           return untrustedToolResult(r);
         }
       );
@@ -4083,10 +4145,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      // ── Mozilla TLS Observatory — TLS/SSL scanning ─────────────
+      // ── Mozilla Observatory — security grade scanning ──────────
       this.tools(
         'mozilla_tls_scan',
-        "Scan a domain's TLS/SSL configuration using the Mozilla TLS Observatory. Returns grade (A+ through F), protocols, cipher suites, and detected vulnerabilities. No API key required.",
+        "Scan a domain's security posture using the Mozilla Observatory (successor to the retired TLS Observatory). Returns grade (A+ through F) and test counts. No API key required.",
         {
           url: z.string().describe('URL or domain to scan (e.g. "example.com" or "https://example.com").'),
         },

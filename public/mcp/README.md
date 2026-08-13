@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**289 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**291 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (177)
+### other (179)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -102,11 +102,11 @@
 - `interpol_search` - Search INTERPOL Red Notices for wanted persons by name, forename, or nationality. Returns entity IDs, charges, and issuing countries. No API key required.
 - `lookup_cisa_kev` - Search the CISA Known Exploited Vulnerabilities (KEV) catalog. Filter by CVE ID, vendor, product, keyword, recency (days), or ransomware-only. Returns matching KEV entries with date_added, due_date, and ransomware status. The full catalog has 1,200+ actively-exploited vulnerabilities.
 - `lookup_mitre` - Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.
-- `mozilla_tls_scan` - Scan a domain's TLS/SSL configuration using the Mozilla TLS Observatory. Returns grade (A+ through F), protocols, cipher suites, and detected vulnerabilities. No API key required.
+- `mozilla_tls_scan` - Scan a domain's security posture using the Mozilla Observatory (successor to the retired TLS Observatory). Returns grade (A+ through F) and test counts. No API key required.
 - `onion_lookup` - Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
-- `opensanctions_entity` - Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match.
-- `opensanctions_search` - Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. No API key required — public rate-limited API.
-- `opensanctions_stats` - Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. No API key required.
+- `opensanctions_entity` - Get detailed entity information from OpenSanctions by ID. Returns full properties, associated datasets, topics, and schema. Use after opensanctions_search to explore a specific match. Requires OPENSANCTIONS_API_KEY.
+- `opensanctions_search` - Search OpenSanctions for entities (individuals, companies, vessels) flagged in sanctions lists, PEP (politically exposed persons) databases, and crime watchlists. Requires OPENSANCTIONS_API_KEY (free for public-interest work at opensanctions.org).
+- `opensanctions_stats` - Get OpenSanctions dataset statistics: total entities, datasets, countries covered, and schema counts. Requires OPENSANCTIONS_API_KEY.
 - `osint_get_portal` - Return the full details of a single OSINT portal entry by slug. Use osint_list_portals first to discover slugs.
 - `osint_list_portals` - List OSINT portals and resources from the curated directory. Filter by category (threat-intel, paste-monitoring, dark-web, reputation, certificate, dns, domain, ip, hash, email, username, social-media, phone, crypto, breach, whois, forensics, misc), keyword, or free/paid status.
 - `osint_stats` - Return cache + manifest stats for the OSINT Portal Directory: total portals, indexed categories, and index cache status.
@@ -131,6 +131,8 @@
 - `tc_feed` - List ThreatCluster (threatcluster.io) public feed summaries: trending threat clusters, CVE vulnerabilities, exploits with public PoCs, dark-web victims, and the IOC blocklist — with per-feed counts and last build dates.
 - `tc_get_cluster` - Return the full ThreatCluster trending-cluster body: title, publication date, source count, link to the cluster page (summary + timeline + source articles), and full description with key points. Use tc_feed with feed=clusters to discover slugs.
 - `tc_get_cve` - Return a single ThreatCluster CVE item from the vulnerabilities feed (7-day window) or the exploits feed (30-day window, public PoCs). Full description, severity, CISA KEV status (exploits only), and a link to the ThreatCluster CVE page. Use tc_feed with feed=vulnerabilities or feed=exploits first.
+- `tc_get_entity` - Return the full ThreatCluster entity profile: threat summary, mention frequency by day (first/last seen), recent activity (clusters / victims / CVEs / MISP events), and a weighted related-entity graph derived from record-level co-occurrence (e.g. a ransomware group links to the sectors and countries it hit, a threat actor links to the malware and CVEs co-mentioned with it). Use tc_list_entities to discover slugs.
+- `tc_list_entities` - List ThreatCluster-derived entity profiles: threat actors (MISP galaxy attribution), ransomware groups and sectors (dark-web victims), malware families (Daily-Hunt dictionary matching), and CVEs (feed + cluster-text extraction). Filter by type, keyword, or minimum mention count. Each entry has a name, aliases, mention count, and first/last seen dates. Deterministic build-time extraction — no LLM in the loop.
 - `tc_list_iocs` - List high-confidence malicious domains and IPs from the ThreatCluster IOC blocklist (last 30 days). Each IOC has a type, reason, first/last seen, and the source articles that reported it. Ready for firewall / Pi-hole / pfSense blocklists.
 - `tc_list_misp_events` - List the slim MISP manifest pass-through from ThreatCluster (misp/manifest.json): event UUID, title, date, threat level, and tags per event. For full MISP ingestion use the upstream remote feed directly (https://threatcluster.io/misp/manifest.json).
 - `tc_list_victims` - List newly observed ransomware leak-site victims from the ThreatCluster Dark Web Victims feed (14-day window). Filter by ransom group, sector, country, or keyword. Each entry has a victim name, claiming group, sector, country, and publication date.
@@ -325,9 +327,9 @@
 
 ### identity (3)
 
-- `nhi_inventory` - Summarize a non-human & agent identity (NHI) inventory: counts by identity type and risk tier, plus orphaned and long-lived-secret tallies. Input is the inventory JSON (a list of NHI records or {\'identities\': [...]}); only id and name are required per record. Deterministic, local, no LLM.
+- `nhi_inventory` - Summarize a non-human & agent identity (NHI) inventory: counts by identity type and risk tier, plus orphaned and long-lived-secret tallies. Input is the inventory JSON (a list of NHI records or {'identities': [...]}); only id and name are required per record. Deterministic, local, no LLM.
 - `nhi_owasp_catalog` - Return the OWASP Non-Human Identities (NHI) Top 10 — 2025 catalog (NHI1-NHI10 with titles and summaries), the tiering-rule inventory the NHI scanner enforces (rule id, floor tier, rationale), policy thresholds (rotation/staleness windows, wildcard scope tokens), and the allowed inventory field values (types, privileges, credentials). Use this to understand what nhi_scan checks before running an inventory.
-- `nhi_scan` - Scan a non-human & agent identity (NHI) inventory and get a risk report: per-identity Tier 1-4 (critical→baseline) from a transparent floor-tier rules engine, plus OWASP NHI Top 10 findings (NHI1-NHI10) each with evidence and a least-privilege remediation. Input is the inventory JSON (a list of NHI records or {\'identities\': [...]}); only id and name are required per record — fields like type, privilege, credential, secret_storage, last_rotated_days, last_used_days, exposure, scopes, autonomous, third_party, human_used, shared_across_env, used_by fall back to safe defaults. Returns the full report as JSON, or Markdown with format=markdown.
+- `nhi_scan` - Scan a non-human & agent identity (NHI) inventory and get a risk report: per-identity Tier 1-4 (critical→baseline) from a transparent floor-tier rules engine, plus OWASP NHI Top 10 findings (NHI1-NHI10) each with evidence and a least-privilege remediation. Input is the inventory JSON (a list of NHI records or {'identities': [...]}); only id and name are required per record — fields like type, privilege, credential, secret_storage, last_rotated_days, last_used_days, exposure, scopes, autonomous, third_party, human_used, shared_across_env, used_by fall back to safe defaults. Returns the full report as JSON, or Markdown with format=markdown.
 
 ### pdns (3)
 

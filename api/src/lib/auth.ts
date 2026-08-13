@@ -128,6 +128,10 @@ const EXEMPT_PATHS = new Set([
   '/api/v1/darknet-intel/abusech/bazaar-tag',
   '/api/v1/darknet-intel/vulners/search',
   '/api/v1/darknet-intel/vulners/exploit',
+  // Profile README stat cards — self-hosted replacement for the flaky
+  // github-readme-stats / streak-stats services. GitHub's image proxy
+  // fetches these without keys, so the endpoint must be public.
+  '/api/v1/profile/gh-stats',
 ]);
 
 export interface AuthUser {

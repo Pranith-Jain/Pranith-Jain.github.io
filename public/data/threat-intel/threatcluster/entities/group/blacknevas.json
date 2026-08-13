@@ -1,0 +1,104 @@
+{
+  "type": "group",
+  "slug": "blacknevas",
+  "name": "blacknevas",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-08-12T16:21:57.000Z",
+  "lastSeen": "2026-08-13T00:22:25.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-12",
+      "count": 3
+    },
+    {
+      "date": "2026-08-13",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "portable-intelligence-inc-www-portable-intelligence-com-serviced-by-an-i-1552",
+      "title": "Portable Intelligence Inc www.portable-intelligence.com serviced by an IT company Computer... — claimed by blacknevas",
+      "pubDate": "2026-08-13T00:22:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "westbrook-greenhouse-systems-www-westbrooksystems-com-serviced-by-an-it--8275",
+      "title": "Westbrook Greenhouse Systems www.westbrooksystems.com serviced by an IT company Computer C... — claimed by blacknevas",
+      "pubDate": "2026-08-12T16:23:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "enteroptyx-ophthalmology-products-www-enteroptyx-com-serviced-by-an-it-c-c8a2",
+      "title": "Enteroptyx Ophthalmology Products www.enteroptyx.com serviced by an IT company Computer Co... — claimed by blacknevas",
+      "pubDate": "2026-08-12T16:22:38.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "jack-rutherford-customs-brokers-ltd-the-rutherford-group-www-therg-ca-se-99d0",
+      "title": "Jack Rutherford Customs Brokers Ltd / The Rutherford Group www.therg.ca serviced by an IT ... — claimed by blacknevas",
+      "pubDate": "2026-08-12T16:21:57.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "portable-intelligence-inc-www-portable-intelligence-com-serviced-by-an-i-1552",
+      "victim": "Portable Intelligence Inc www.portable-intelligence.com serviced by an IT company Computer... — claimed by blacknevas",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-13T00:22:25.000Z"
+    },
+    {
+      "id": "westbrook-greenhouse-systems-www-westbrooksystems-com-serviced-by-an-it--8275",
+      "victim": "Westbrook Greenhouse Systems www.westbrooksystems.com serviced by an IT company Computer C... — claimed by blacknevas",
+      "sector": "Agriculture and Food Production",
+      "country": "US",
+      "pubDate": "2026-08-12T16:23:20.000Z"
+    },
+    {
+      "id": "enteroptyx-ophthalmology-products-www-enteroptyx-com-serviced-by-an-it-c-c8a2",
+      "victim": "Enteroptyx Ophthalmology Products www.enteroptyx.com serviced by an IT company Computer Co... — claimed by blacknevas",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-12T16:22:38.000Z"
+    },
+    {
+      "id": "jack-rutherford-customs-brokers-ltd-the-rutherford-group-www-therg-ca-se-99d0",
+      "victim": "Jack Rutherford Customs Brokers Ltd / The Rutherford Group www.therg.ca serviced by an IT ... — claimed by blacknevas",
+      "sector": "Professional Services",
+      "country": "CA",
+      "pubDate": "2026-08-12T16:21:57.000Z"
+    }
+  ]
+}

@@ -3555,6 +3555,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['threatcluster', 'feed', 'cluster', 'exploits', 'dark-web', 'victims', 'ioc', 'blocklist', 'misp'],
   },
   {
+    path: '/threatintel/feeds/threatcluster/entities',
+    label: 'ThreatCluster Entity Intelligence',
+    description:
+      'Derived entity profiles from ThreatCluster data - threat actors via MISP galaxy attribution, ransomware groups and the sectors they hit, malware families, and CVEs - each with mention frequency by day, recent activity, and a weighted co-occurrence relationship graph.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: ['threatcluster', 'entity', 'actor', 'group', 'malware', 'cve', 'sector', 'profile', 'relationship'],
+  },
+  {
     path: '/threatintel/feeds/threatfeeds',
     label: 'Threat Feeds',
     description: 'Threat intelligence feeds.',

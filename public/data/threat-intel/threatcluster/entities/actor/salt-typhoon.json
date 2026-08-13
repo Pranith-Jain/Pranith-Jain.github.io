@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "salt-typhoon",
+  "name": "Salt Typhoon",
+  "aliases": [],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-07T00:00:00.000Z",
+  "lastSeen": "2026-08-07T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-08-07",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "ba6fab69-679e-5598-bfac-b8e65d860910",
+      "title": "CISA Warns of Critical Exploits in Langflow, Tomcat, and N-central Flaws",
+      "pubDate": "2026-08-07T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

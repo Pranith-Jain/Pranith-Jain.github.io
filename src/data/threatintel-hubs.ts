@@ -444,6 +444,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'ThreatClusterFeeds',
         badge: 'live',
       },
+      {
+        path: '/threatintel/feeds/threatcluster/entities',
+        tabId: 'tc-entities',
+        label: 'Entity Intelligence',
+        desc: 'ThreatCluster-derived entity profiles - actors, ransomware groups, malware, CVEs, and sectors with frequency charts and a weighted co-occurrence relationship graph.',
+        compVar: 'ThreatClusterEntities',
+        badge: 'live',
+      },
     ],
   },
   {

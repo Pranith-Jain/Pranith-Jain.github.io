@@ -351,6 +351,63 @@ export interface TcMispBody {
   events: TcMispEvent[];
 }
 
+// ─── ThreatCluster entity intelligence ────────────────────────────────
+//
+// Derived entities from ThreatCluster data: threat actors (MISP galaxy
+// attribution), ransomware groups + sectors (dark-web victims), malware
+// (Daily-Hunt family dictionary matching), and CVEs (feed + cluster text
+// regex). Each profile carries first/last seen, mention frequency by day,
+// recent activity, and a weighted related-entity graph from record-level
+// co-occurrence. Built by scripts/build-tc-entities.mjs.
+
+export type TcEntityType = 'actor' | 'group' | 'malware' | 'cve' | 'sector';
+
+export const TC_ENTITY_TYPES: TcEntityType[] = ['actor', 'group', 'malware', 'cve', 'sector'];
+
+export interface TcEntityIndexEntry {
+  type: TcEntityType;
+  slug: string;
+  name: string;
+  aliases: string[];
+  mentionCount: number;
+  firstSeen: string | null;
+  lastSeen: string | null;
+}
+
+export interface TcEntityIndex {
+  source: string;
+  url: string;
+  description: string;
+  builtAt: string;
+  counts: Record<TcEntityType, number>;
+  entities: Record<TcEntityType, TcEntityIndexEntry[]>;
+}
+
+export interface TcEntityRelated {
+  type: TcEntityType;
+  slug: string;
+  name: string;
+  weight: number;
+}
+
+export interface TcEntityActivity {
+  recordType: 'cluster' | 'vulnerability' | 'exploit' | 'victim' | 'mispEvent';
+  slug: string;
+  title: string;
+  pubDate: string | null;
+}
+
+export interface TcEntityBody extends TcEntityIndexEntry {
+  sources: string[];
+  summary: string;
+  frequency: { date: string; count: number }[];
+  recentActivity: TcEntityActivity[];
+  relatedEntities: TcEntityRelated[];
+  mitreTechniques: string[];
+  victims?: { id: string; victim: string; sector: string | null; country: string | null; pubDate: string | null }[];
+  description?: string | null;
+}
+
 const DATA_PREFIX = '/data/threat-intel';
 const MAX_BODY_CACHE = 200;
 
@@ -370,6 +427,7 @@ const tcClusterCache: BodyCache<TcClusterBody> = { map: new Map(), hits: 0, miss
 const tcVulnCache: BodyCache<TcVulnBody> = { map: new Map(), hits: 0, misses: 0 };
 const tcExploitCache: BodyCache<TcExploitBody> = { map: new Map(), hits: 0, misses: 0 };
 const tcVictimCache: BodyCache<TcVictimBody> = { map: new Map(), hits: 0, misses: 0 };
+const tcEntityCache: BodyCache<TcEntityBody> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: TiIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedKev: TiKevEntry[] | null = null;
@@ -378,6 +436,8 @@ let cachedTcIndex: TcThreatClusterIndex | null = null;
 let cachedTcIndexAt: number | null = null;
 let cachedTcIocs: TcIocsBody | null = null;
 let cachedTcMisp: TcMispBody | null = null;
+let cachedTcEntities: TcEntityIndex | null = null;
+let cachedTcEntitiesAt: number | null = null;
 
 function safeFilename(slug: string): string {
   return slug.replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
@@ -608,6 +668,38 @@ export async function loadTcMispEvents(
   if (!body) return null;
   cachedTcMisp = body;
   return body;
+}
+
+export async function loadTcEntities(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<TcEntityIndex> {
+  if (cachedTcEntities && !opts.forceRefresh) return cachedTcEntities;
+  const idx = await fetchJson<TcEntityIndex>(assets, `${DATA_PREFIX}/threatcluster/entities/index.json`);
+  if (!idx) {
+    throw new Error(
+      `ThreatCluster entity manifest not found at ${DATA_PREFIX}/threatcluster/entities/index.json — ` +
+        'did the build run? Run `node scripts/build-tc-entities.mjs`.'
+    );
+  }
+  cachedTcEntities = idx;
+  cachedTcEntitiesAt = Date.now();
+  return idx;
+}
+
+export async function getTcEntity(assets: Fetcher, type: TcEntityType, slug: string): Promise<TcEntityBody | null> {
+  const key = `${type}/${slug.toLowerCase()}`;
+  const hit = trackHit(tcEntityCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TcEntityBody>(
+    assets,
+    `${DATA_PREFIX}/threatcluster/entities/${type}/${safeFilename(slug.toLowerCase())}.json`
+  );
+  if (!body) return null;
+  return recordHit(tcEntityCache, key, body);
+}
+
+export function getTcEntityTypeOrNull(raw: string | undefined): TcEntityType | null {
+  if (!raw) return null;
+  const t = raw.toLowerCase() as TcEntityType;
+  return TC_ENTITY_TYPES.includes(t) ? t : null;
 }
 
 // ─── Filter helpers ─────────────────────────────────────────────────────
@@ -870,6 +962,34 @@ export function filterTcIocs(iocs: TcIoc[], opts: TcListIocsOptions = {}): TcIoc
   return out;
 }
 
+export interface TcListEntitiesOptions {
+  type?: TcEntityType;
+  keyword?: string;
+  minMentions?: number;
+  limit?: number;
+}
+
+/** Filter the entity index. With no `type` all five entity types are searched. */
+export function filterTcEntities(idx: TcEntityIndex, opts: TcListEntitiesOptions = {}): TcEntityIndexEntry[] {
+  const { type, keyword, minMentions, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TcEntityIndexEntry[] = [];
+  const types = type ? [type] : TC_ENTITY_TYPES;
+  for (const t of types) {
+    for (const e of idx.entities[t] ?? []) {
+      if (minMentions !== undefined && e.mentionCount < minMentions) continue;
+      if (needle) {
+        const hay = `${e.name} ${e.aliases.join(' ')}`.toLowerCase();
+        if (!hay.includes(needle)) continue;
+      }
+      out.push(e);
+      if (out.length >= limit) break;
+    }
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 // ─── Priority scoring ───────────────────────────────────────────────────
 
 /**
@@ -936,6 +1056,11 @@ export function tiCacheStats(): {
     vulnerabilities: { size: number; hits: number; misses: number };
     exploits: { size: number; hits: number; misses: number };
     victims: { size: number; hits: number; misses: number };
+    entities: {
+      indexLoaded: boolean;
+      indexAgeMs: number | null;
+      bodies: { size: number; hits: number; misses: number };
+    };
   };
 } {
   return {
@@ -964,6 +1089,11 @@ export function tiCacheStats(): {
       vulnerabilities: { size: tcVulnCache.map.size, hits: tcVulnCache.hits, misses: tcVulnCache.misses },
       exploits: { size: tcExploitCache.map.size, hits: tcExploitCache.hits, misses: tcExploitCache.misses },
       victims: { size: tcVictimCache.map.size, hits: tcVictimCache.hits, misses: tcVictimCache.misses },
+      entities: {
+        indexLoaded: cachedTcEntities !== null,
+        indexAgeMs: cachedTcEntitiesAt ? Date.now() - cachedTcEntitiesAt : null,
+        bodies: { size: tcEntityCache.map.size, hits: tcEntityCache.hits, misses: tcEntityCache.misses },
+      },
     },
   };
 }
@@ -991,14 +1121,18 @@ export function _resetTiCacheForTests(): void {
   tcVulnCache.map.clear();
   tcExploitCache.map.clear();
   tcVictimCache.map.clear();
+  tcEntityCache.map.clear();
   tcClusterCache.hits = tcClusterCache.misses = 0;
   tcVulnCache.hits = tcVulnCache.misses = 0;
   tcExploitCache.hits = tcExploitCache.misses = 0;
   tcVictimCache.hits = tcVictimCache.misses = 0;
+  tcEntityCache.hits = tcEntityCache.misses = 0;
   cachedTcIndex = null;
   cachedTcIndexAt = null;
   cachedTcIocs = null;
   cachedTcMisp = null;
+  cachedTcEntities = null;
+  cachedTcEntitiesAt = null;
 }
 
 export { severityFromScore };

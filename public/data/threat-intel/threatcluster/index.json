@@ -2,15 +2,15 @@
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/feeds",
   "description": "Aggregated threat clusters, CVEs, exploits, dark-web victims, and high-confidence IOCs from ThreatCluster. Feeds refresh hourly upstream and are replicated here on the threat-intel sync cadence.",
-  "syncedAt": "2026-08-13T05:02:05.678Z",
+  "syncedAt": "2026-08-13T05:31:21.972Z",
   "lastBuildDates": {
     "clusters": "Thu, 13 Aug 2026 04:41:40 GMT",
-    "vulnerabilities": "Thu, 13 Aug 2026 04:29:05 GMT",
-    "exploits": "Thu, 13 Aug 2026 04:18:00 GMT",
-    "victims": "Thu, 13 Aug 2026 04:29:26 GMT",
-    "iocs": "2026-08-13T05:02:08Z"
+    "vulnerabilities": "Thu, 13 Aug 2026 05:31:22 GMT",
+    "exploits": "Thu, 13 Aug 2026 05:31:23 GMT",
+    "victims": "Thu, 13 Aug 2026 05:31:24 GMT",
+    "iocs": "2026-08-13T05:31:25Z"
   },
-  "counts": { "clusters": 50, "vulnerabilities": 50, "exploits": 48, "victims": 50, "iocs": 38, "mispEvents": 5 },
+  "counts": { "clusters": 50, "vulnerabilities": 50, "exploits": 50, "victims": 50, "iocs": 38, "mispEvents": 5 },
   "feeds": [
     { "id": "clusters", "title": "Threat Feed", "url": "https://threatcluster.io/feed.xml", "window": "7 days" },
     {
@@ -385,6 +385,7 @@
     }
   ],
   "vulnerabilities": [
+    { "cveId": "CVE-2026-18728", "title": "CVE-2026-18728", "pubDate": "2026-08-13T04:17:19.000Z", "sizeBytes": 508 },
     { "cveId": "CVE-2026-0301", "title": "CVE-2026-0301", "pubDate": "2026-08-13T03:16:46.000Z", "sizeBytes": 241 },
     { "cveId": "CVE-2026-0299", "title": "CVE-2026-0299", "pubDate": "2026-08-13T03:16:45.000Z", "sizeBytes": 372 },
     { "cveId": "CVE-2026-0298", "title": "CVE-2026-0298", "pubDate": "2026-08-13T03:16:45.000Z", "sizeBytes": 379 },
@@ -433,8 +434,7 @@
     { "cveId": "CVE-2026-18726", "title": "CVE-2026-18726", "pubDate": "2026-08-12T22:17:14.000Z", "sizeBytes": 518 },
     { "cveId": "CVE-2026-17485", "title": "CVE-2026-17485", "pubDate": "2026-08-12T22:17:14.000Z", "sizeBytes": 166 },
     { "cveId": "CVE-2026-10534", "title": "CVE-2026-10534", "pubDate": "2026-08-12T22:17:14.000Z", "sizeBytes": 132 },
-    { "cveId": "CVE-2024-27253", "title": "CVE-2024-27253", "pubDate": "2026-08-12T22:17:13.000Z", "sizeBytes": 166 },
-    { "cveId": "CVE-2026-73491", "title": "CVE-2026-73491", "pubDate": "2026-08-12T21:17:42.000Z", "sizeBytes": 508 }
+    { "cveId": "CVE-2024-27253", "title": "CVE-2024-27253", "pubDate": "2026-08-12T22:17:13.000Z", "sizeBytes": 166 }
   ],
   "exploits": [
     {
@@ -444,6 +444,14 @@
       "severity": "CRITICAL",
       "inKev": false,
       "sizeBytes": 414
+    },
+    {
+      "cveId": "CVE-2026-0163",
+      "title": "CVE-2026-0163 [Exploit]",
+      "pubDate": "2026-08-04T19:16:39.000Z",
+      "severity": "CRITICAL",
+      "inKev": false,
+      "sizeBytes": 291
     },
     {
       "cveId": "CVE-2026-64564",
@@ -476,6 +484,14 @@
       "severity": "CRITICAL",
       "inKev": false,
       "sizeBytes": 547
+    },
+    {
+      "cveId": "CVE-2026-18556",
+      "title": "CVE-2026-18556 [KEV] [Exploit]",
+      "pubDate": "2026-08-01T20:16:37.000Z",
+      "severity": "HIGH",
+      "inKev": true,
+      "sizeBytes": 228
     },
     {
       "cveId": "CVE-2026-15964",

@@ -1,0 +1,66 @@
+{
+  "type": "group",
+  "slug": "nightspire",
+  "name": "nightspire",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-12T18:26:10.000Z",
+  "lastSeen": "2026-08-13T03:25:50.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-12",
+      "count": 1
+    },
+    {
+      "date": "2026-08-13",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "eas-27b5",
+      "title": "eas**** — claimed by nightspire",
+      "pubDate": "2026-08-13T03:25:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tianji-auto-care-service-company-59df",
+      "title": "Tianji Auto Care Service Company — claimed by nightspire",
+      "pubDate": "2026-08-12T18:26:10.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "eas-27b5",
+      "victim": "eas**** — claimed by nightspire",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-08-13T03:25:50.000Z"
+    },
+    {
+      "id": "tianji-auto-care-service-company-59df",
+      "victim": "Tianji Auto Care Service Company — claimed by nightspire",
+      "sector": "Transportation",
+      "country": "TR",
+      "pubDate": "2026-08-12T18:26:10.000Z"
+    }
+  ]
+}

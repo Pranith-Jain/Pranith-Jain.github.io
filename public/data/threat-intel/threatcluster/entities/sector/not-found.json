@@ -1,0 +1,56 @@
+{
+  "type": "sector",
+  "slug": "not-found",
+  "name": "Not Found",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-08-12T15:43:02.000Z",
+  "lastSeen": "2026-08-13T03:25:50.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 2 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-12",
+      "count": 2
+    },
+    {
+      "date": "2026-08-13",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "eas-27b5",
+      "title": "eas**** — claimed by nightspire",
+      "pubDate": "2026-08-13T03:25:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gate7llc-comgbbev-com-9abb",
+      "title": "GATE7LLC.COMGBBEV.COM — claimed by clop",
+      "pubDate": "2026-08-12T15:51:01.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "spkaa-com-f5d4",
+      "title": "SPKAA.COM — claimed by clop",
+      "pubDate": "2026-08-12T15:43:02.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "clop",
+      "name": "clop",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "nightspire",
+      "name": "nightspire",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": []
+}

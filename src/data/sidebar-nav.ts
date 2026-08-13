@@ -159,6 +159,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/feeds/threatfeeds': Rss,
   '/threatintel/feeds/mythreatintel': TagIcon,
   '/threatintel/feeds/threatcluster': Globe,
+  '/threatintel/feeds/threatcluster/entities': NetworkIcon,
   // Social
   '/threatintel/social/firehose': Radio,
   '/threatintel/social/news': Newspaper,

@@ -14,7 +14,8 @@
  *   GET  /threat-intel/lists/:slug     — full detection list with entries
  *   GET  /threat-intel/stats           — cache + manifest stats
  *   GET  /threat-intel/threatcluster/* — ThreatCluster feeds (clusters, vulns,
- *                                        exploits, victims, iocs, misp)
+ *                                        exploits, victims, iocs, misp,
+ *                                        entities)
  *
  * The actual logic lives in worker/lib/threat-intel-manifest.ts (symlinked).
  * Routes read from env.ASSETS — no D1, no KV, no public fetch.
@@ -535,6 +536,76 @@ threatIntelRouter.get('/threat-intel/threatcluster/misp', async (c) => {
   } catch (e) {
     logError('handler failed', e);
     return internalError(c, `tc_misp_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+// ─── ThreatCluster entity intelligence ─────────────────────────────────
+//
+// Derived entity profiles (actors, ransomware groups, malware, CVEs,
+// sectors) with mention frequency and a weighted related-entity graph.
+// Deterministic build-time extraction — see scripts/build-tc-entities.mjs.
+
+threatIntelRouter.get('/threat-intel/threatcluster/entities', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadTcEntities(c.env.ASSETS);
+    const keyword = c.req.query('q');
+    const typeRaw = c.req.query('type');
+    const type = mod.getTcEntityTypeOrNull(typeRaw ?? undefined) ?? undefined;
+    const minMentionsRaw = c.req.query('min_mentions');
+    const minMentions = minMentionsRaw ? Math.max(0, Number(minMentionsRaw) || 0) : undefined;
+    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
+    const entities = mod.filterTcEntities(idx, { type, keyword: keyword || undefined, minMentions, limit });
+    return c.json({
+      builtAt: idx.builtAt,
+      counts: idx.counts,
+      total: Object.values(idx.counts).reduce((a: number, b: number) => a + b, 0),
+      returned: entities.length,
+      entities,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_entities_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/entities/:type', async (c) => {
+  const typeRaw = c.req.param('type');
+  try {
+    const mod = await loadTiMod();
+    const type = mod.getTcEntityTypeOrNull(typeRaw);
+    if (!type) return badRequest(c, `invalid_entity_type: ${typeRaw} — must be actor, group, malware, cve, or sector`);
+    const idx = await mod.loadTcEntities(c.env.ASSETS);
+    const keyword = c.req.query('q');
+    const minMentionsRaw = c.req.query('min_mentions');
+    const minMentions = minMentionsRaw ? Math.max(0, Number(minMentionsRaw) || 0) : undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(500, Math.max(1, Number(limitRaw) || 100)) : undefined;
+    const entities = mod.filterTcEntities(idx, { type, keyword: keyword || undefined, minMentions, limit });
+    return c.json({ type, total: idx.counts[type] ?? 0, returned: entities.length, entities });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_entities_type_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threatcluster/entities/:type/:slug', async (c) => {
+  const typeRaw = c.req.param('type');
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const type = mod.getTcEntityTypeOrNull(typeRaw);
+    if (!type) return badRequest(c, `invalid_entity_type: ${typeRaw} — must be actor, group, malware, cve, or sector`);
+    const body = await mod.getTcEntity(c.env.ASSETS, type, slug);
+    if (!body) return notFound(c, `tc_entity_not_found: ${type}/${slug}`);
+    const activityLimit = c.req.query('activity_limit')
+      ? Math.min(50, Math.max(1, Number(c.req.query('activity_limit')) || 12))
+      : undefined;
+    if (activityLimit) body.recentActivity = body.recentActivity.slice(0, activityLimit);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `tc_entity_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
 

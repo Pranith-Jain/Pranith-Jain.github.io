@@ -784,6 +784,8 @@ app.use('/api/v1/*', async (c, next) => {
     maxAge = 60; // 1 min for live data
   } else if (path.includes('/feed-status') || path.includes('/briefings/')) {
     maxAge = 120; // 2 min for status/briefings
+  } else if (path.includes('/profile/gh-stats')) {
+    maxAge = 3600; // 1h for README stat cards (self-hosted stats SVGs)
   }
   const headers = new Headers(c.res.headers);
   if (maxAge > 0) {
@@ -1025,6 +1027,7 @@ import { osintRouter } from './routes/osint-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
 import { campaignsRouter } from './routes/campaigns-edge-tools';
 import { traceixRouter } from './routes/traceix';
+import { profileStatsRouter } from './routes/profile-stats';
 import { nhiScanRouter } from './routes/nhi-scan';
 import { whoxyRouter } from './routes/whoxy';
 import { fullhuntRouter } from './routes/fullhunt';
@@ -2063,6 +2066,12 @@ app.route('/api/v1', etdaActorsRouter);
 // Endpoint: GET /api/v1/traceix/lookup?hash=<sha256>
 // Requires TRACEIX_API_KEY Worker secret.
 app.route('/api/v1', traceixRouter);
+
+// Profile GitHub stat cards — self-hosted SVG replacements for the flaky
+// github-readme-stats / streak-stats services used on the profile README.
+// Endpoint: GET /api/v1/profile/gh-stats?type=overview|langs|streak&theme=dark|light
+// Public (no key) so GitHub's image proxy can render the badges.
+app.route('/api/v1', profileStatsRouter);
 
 // NHI Scanner — non-human & agent identity risk scanner (port of
 // github.com/rpmsft9/nhi-scan, MIT). Deterministic tiering vs. OWASP NHI

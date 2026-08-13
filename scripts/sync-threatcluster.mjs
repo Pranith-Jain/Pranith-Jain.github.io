@@ -14,9 +14,12 @@
  *   5. IOC Blocklist         /api/iocs/public/feed.json — high-confidence domains/IPs (30 days)
  *
  * We also capture a slim pass-through of the MISP-compatible manifest
- * (/misp/manifest.json — uuid → event metadata) for correlation. The
- * SmartNews feed is intentionally skipped: it carries the same clusters
- * as the Threat Feed and exists only for SmartNews platform submission.
+ * (/misp/manifest.json — uuid → event metadata) plus the full public event
+ * bodies (/misp/{uuid}.json — MISP galaxy clusters carry structured threat
+ * actor / malware / ransomware-group attribution used by the entity
+ * intelligence vertical). The SmartNews feed is intentionally skipped: it
+ * carries the same clusters as the Threat Feed and exists only for
+ * SmartNews platform submission.
  *
  * Run by:
  *   1. GitHub Action (.github/workflows/threat-intel-sync.yml)
@@ -30,7 +33,7 @@
  *
  * Source: https://threatcluster.io/feeds (free, no API key, public feeds)
  */
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = process.cwd();
@@ -67,6 +70,7 @@ const FEEDS = [
 
 const IOCS_URL = 'https://threatcluster.io/api/iocs/public/feed.json';
 const MISP_URL = 'https://threatcluster.io/misp/manifest.json';
+const MISP_EVENT_URL = (uuid) => `https://threatcluster.io/misp/${uuid}.json`;
 
 function ensureOut() {
   if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true });
@@ -227,6 +231,46 @@ async function fetchMispManifest() {
   }
 }
 
+async function fetchMispEvents(events) {
+  const dir = join(OUT, 'misp-events');
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+  console.log('• MISP event bodies (galaxy attribution)');
+  const out = [];
+  for (const ev of events) {
+    const url = MISP_EVENT_URL(ev.uuid);
+    try {
+      const json = JSON.parse(await fetchText(url, { accept: 'application/json' }));
+      const event = json?.Event ?? {};
+      const galaxies = [];
+      for (const g of event.Galaxy ?? []) {
+        for (const c of g.GalaxyCluster ?? []) {
+          galaxies.push({ uuid: c.uuid ?? null, type: g.type ?? c.type ?? null, value: c.value ?? null });
+        }
+      }
+      out.push({
+        uuid: ev.uuid,
+        info: event.info ?? ev.info ?? null,
+        date: event.date ?? ev.date ?? null,
+        tags: (event.Tag ?? []).map((t) => t.name),
+        galaxies,
+        attributeCount: (event.Attribute ?? []).length,
+      });
+      console.log(`    ✔ ${ev.uuid} (${galaxies.length} galaxy clusters, ${out[out.length - 1].attributeCount} attributes)`);
+    } catch (err) {
+      console.error(`  ✘ ${ev.uuid}: ${err instanceof Error ? err.message : err}`);
+    }
+  }
+  const staged = {
+    source: 'threatcluster.io',
+    url: MISP_URL,
+    syncedAt: new Date().toISOString(),
+    eventCount: out.length,
+    events: out,
+  };
+  writeFileSync(join(dir, 'index.json'), JSON.stringify(staged, null, 2));
+  return out.length;
+}
+
 async function main() {
   console.log('ThreatCluster sync — staging into', OUT);
   ensureOut();
@@ -237,6 +281,8 @@ async function main() {
   }
   counts.iocs = await fetchIocs();
   counts.mispEvents = await fetchMispManifest();
+  const stagedMisp = JSON.parse(readFileSync(join(OUT, 'misp.json'), 'utf8'));
+  counts.mispEventBodies = await fetchMispEvents(stagedMisp.events);
 
   console.log('\nStaged:');
   for (const feed of FEEDS) {
@@ -244,7 +290,8 @@ async function main() {
   }
   console.log(`    iocs                ${String(counts.iocs).padStart(3)} indicators`);
   console.log(`    mispEvents          ${String(counts.mispEvents).padStart(3)} events`);
-  console.log('\nNext: node scripts/build-threatcluster.mjs');
+  console.log(`    mispEventBodies     ${String(counts.mispEventBodies).padStart(3)} event bodies`);
+  console.log('\nNext: node scripts/build-threatcluster.mjs && node scripts/build-tc-entities.mjs');
 }
 
 main().catch((err) => {

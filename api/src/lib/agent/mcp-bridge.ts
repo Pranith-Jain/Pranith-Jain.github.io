@@ -4,7 +4,7 @@
  * The investigator agent (InvestigatorAgentDO) and the MCP server
  * (DfirMcpServer / DFIR_MCP) are two parallel tool surfaces. The agent
  * builds its own AgentTool[] registry in tools.ts (124 tools, each
- * calling a REST route via self.fetch). The MCP server registers 289
+ * calling a REST route via self.fetch). The MCP server registers 291
  * tools via this.tools(...) on the DFIR_MCP Durable Object. ~158 MCP
  * tools are invisible to the agent — including every ti_*, si_*,
  * nhi_*, winreg_*, depx_*, traceix, whoxy, breach_vip, and Tor tool.
@@ -51,13 +51,17 @@ import {
   getTcExploit,
   loadTcIocs,
   loadTcMispEvents,
+  loadTcEntities,
+  getTcEntity,
   filterTcClusters,
   filterTcVulns,
   filterTcExploits,
   filterTcVictims,
   filterTcIocs,
+  filterTcEntities,
   type TiSeverity,
   type TiIocIndexEntry,
+  type TcEntityType,
 } from '../threat-intel-manifest';
 
 // Security Investigator manifest (25 skills, 45 KQL queries, 3 automations)
@@ -613,6 +617,82 @@ export function bridgeMcpTools(
         keyword: args.keyword as string | undefined,
         limit: (args.limit as number) ?? 200,
       });
+    },
+  });
+
+  add({
+    name: 'tc_list_entities',
+    description:
+      'List ThreatCluster-derived entity profiles: threat actors (MISP galaxy attribution), ransomware groups and sectors (dark-web victims), malware families (Daily-Hunt dictionary matching), and CVEs (feed + cluster-text extraction). Filter by type, keyword, or minimum mention count. Deterministic build-time extraction — no LLM in the loop.',
+    params: [
+      {
+        name: 'type',
+        type: 'enum',
+        description: 'Restrict to one entity type',
+        required: false,
+        enum: ['actor', 'group', 'malware', 'cve', 'sector'],
+      },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against name or aliases',
+        required: false,
+      },
+      {
+        name: 'minMentions',
+        type: 'number',
+        description: 'Only entities mentioned at least this many times',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max entities (default 100, max 500)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadTcEntities(assets);
+      return {
+        counts: idx.counts,
+        entities: filterTcEntities(idx, {
+          type: args.type as TcEntityType | undefined,
+          keyword: args.keyword as string | undefined,
+          minMentions: args.minMentions as number | undefined,
+          limit: (args.limit as number) ?? 100,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'tc_get_entity',
+    description:
+      'Return the full ThreatCluster entity profile: threat summary, mention frequency by day, recent activity (clusters / victims / CVEs / MISP events), and a weighted related-entity graph from record-level co-occurrence (e.g. a ransomware group links to the sectors it hit, an actor links to the malware and CVEs co-mentioned with it).',
+    params: [
+      {
+        name: 'type',
+        type: 'enum',
+        description: 'Entity type',
+        required: true,
+        enum: ['actor', 'group', 'malware', 'cve', 'sector'],
+      },
+      {
+        name: 'slug',
+        type: 'string',
+        description: 'Entity slug, e.g. "lazarus-group", "clop", "CVE-2024-27253"',
+        required: true,
+      },
+      {
+        name: 'activityLimit',
+        type: 'number',
+        description: 'Max recent-activity items (default 12)',
+        required: false,
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const body = await getTcEntity(assets, args.type as TcEntityType, args.slug as string);
+      if (!body) return null;
+      const activityLimit = (args.activityLimit as number | undefined) ?? 12;
+      body.recentActivity = body.recentActivity.slice(0, activityLimit);
+      return body;
     },
   });
 

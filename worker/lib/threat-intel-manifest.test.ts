@@ -41,11 +41,15 @@ import {
   getTcVictim,
   loadTcIocs,
   loadTcMispEvents,
+  loadTcEntities,
+  getTcEntity,
+  getTcEntityTypeOrNull,
   filterTcClusters,
   filterTcVulns,
   filterTcExploits,
   filterTcVictims,
   filterTcIocs,
+  filterTcEntities,
   type TcThreatClusterIndex,
   type TcClusterBody,
   type TcVulnBody,
@@ -53,6 +57,9 @@ import {
   type TcVictimBody,
   type TcIocsBody,
   type TcMispBody,
+  type TcEntityIndex,
+  type TcEntityBody,
+  type TcEntityType,
 } from './threat-intel-manifest';
 
 function makeAssetsFixture() {
@@ -451,6 +458,170 @@ function makeAssetsFixture() {
     ],
   };
   data.set('/data/threat-intel/threatcluster/misp.json', tcMisp);
+
+  const tcEntityIndex: TcEntityIndex = {
+    source: 'threatcluster.io',
+    builtAt: '2026-08-13T04:50:00Z',
+    counts: { actor: 1, group: 1, malware: 1, cve: 1, sector: 1 },
+    entities: {
+      actor: [
+        {
+          type: 'actor',
+          slug: 'lazarus-group',
+          name: 'Lazarus Group',
+          aliases: ['Lazarus'],
+          sources: ['misp-galaxy'],
+          mentionCount: 3,
+          firstSeen: '2026-08-12T07:00:00Z',
+          lastSeen: '2026-08-13T04:00:00Z',
+        },
+      ],
+      cve: [
+        {
+          type: 'cve',
+          slug: 'CVE-2026-0301',
+          name: 'CVE-2026-0301',
+          aliases: [],
+          sources: ['feed'],
+          mentionCount: 1,
+          firstSeen: '2026-08-13T03:16:00Z',
+          lastSeen: '2026-08-13T03:16:00Z',
+        },
+      ],
+      group: [
+        {
+          type: 'group',
+          slug: 'clop',
+          name: 'Clop',
+          aliases: [],
+          sources: ['victims'],
+          mentionCount: 1,
+          firstSeen: '2026-08-12T00:00:00Z',
+          lastSeen: '2026-08-12T00:00:00Z',
+        },
+      ],
+      malware: [
+        {
+          type: 'malware',
+          slug: 'powershell',
+          name: 'Powershell',
+          aliases: [],
+          sources: ['dictionary'],
+          mentionCount: 1,
+          firstSeen: '2026-08-12T07:00:00Z',
+          lastSeen: '2026-08-12T07:00:00Z',
+        },
+      ],
+      sector: [
+        {
+          type: 'sector',
+          slug: 'technology',
+          name: 'Technology',
+          aliases: [],
+          sources: ['victims'],
+          mentionCount: 2,
+          firstSeen: '2026-08-12T00:00:00Z',
+          lastSeen: '2026-08-13T00:22:00Z',
+        },
+      ],
+    },
+  };
+  data.set('/data/threat-intel/threatcluster/entities/index.json', tcEntityIndex);
+
+  const tcEntityActor: TcEntityBody = {
+    type: 'actor',
+    slug: 'lazarus-group',
+    name: 'Lazarus Group',
+    aliases: ['Lazarus'],
+    sources: ['misp-galaxy'],
+    mentionCount: 3,
+    firstSeen: '2026-08-12T07:00:00Z',
+    lastSeen: '2026-08-13T04:00:00Z',
+    summary:
+      'North Korean threat actor. Attributed via MISP galaxy: Lazarus (threat-actor) on 1 MISP event. Co-mentioned with CVE-2026-0301 in 1 record and powershell in 1 record.',
+    frequency: {
+      '2026-08-12': 2,
+      '2026-08-13': 1,
+    },
+    recentActivity: [
+      {
+        type: 'cluster',
+        id: 'lazarus-windows-afdsys-zero-abc123',
+        title: 'Lazarus Group Exploits Windows Zero-Day',
+        date: '2026-08-12T07:38:58.000Z',
+      },
+      {
+        type: 'misp',
+        id: '31fc2385-a89e-5ffa-af2e-e4bcd29facde',
+        title: 'Lazarus Group Exploits Windows Zero-Day to Target Defense Sector',
+        date: '2026-08-12T00:00:00.000Z',
+      },
+      { type: 'cve', id: 'CVE-2026-0301', title: 'CVE-2026-0301', date: '2026-08-13T03:16:46.000Z' },
+    ],
+    relatedEntities: [
+      { type: 'cve', slug: 'CVE-2026-0301', name: 'CVE-2026-0301', weight: 2 },
+      { type: 'malware', slug: 'powershell', name: 'Powershell', weight: 1 },
+      { type: 'sector', slug: 'technology', name: 'Technology', weight: 1 },
+    ],
+    mitreTechniques: [],
+  };
+  data.set('/data/threat-intel/threatcluster/entities/actor/lazarus-group.json', tcEntityActor);
+
+  const tcEntityCve: TcEntityBody = {
+    type: 'cve',
+    slug: 'CVE-2026-0301',
+    name: 'CVE-2026-0301',
+    aliases: [],
+    sources: ['feed'],
+    mentionCount: 1,
+    firstSeen: '2026-08-13T03:16:00Z',
+    lastSeen: '2026-08-13T03:16:00Z',
+    summary:
+      'Feed-listed CVE-2026-0301. Also co-mentioned with lazarus-group in 2 records. 1 mention in feeds, 2 mentions in cluster text.',
+    frequency: { '2026-08-13': 1 },
+    recentActivity: [
+      { type: 'vulnerability', id: 'CVE-2026-0301', title: 'CVE-2026-0301', date: '2026-08-13T03:16:46.000Z' },
+    ],
+    relatedEntities: [
+      { type: 'actor', slug: 'lazarus-group', name: 'Lazarus Group', weight: 2 },
+      { type: 'malware', slug: 'powershell', name: 'Powershell', weight: 1 },
+    ],
+    mitreTechniques: [],
+  };
+  data.set('/data/threat-intel/threatcluster/entities/cve/cve-2026-0301.json', tcEntityCve);
+
+  const tcEntityGroup: TcEntityBody = {
+    type: 'group',
+    slug: 'clop',
+    name: 'Clop',
+    aliases: [],
+    sources: ['victims'],
+    mentionCount: 1,
+    firstSeen: '2026-08-12T00:00:00Z',
+    lastSeen: '2026-08-12T00:00:00Z',
+    summary: 'Ransomware group named 1 time. Observed on 1 leak-site victim.',
+    frequency: { '2026-08-12': 1 },
+    recentActivity: [
+      {
+        type: 'victim',
+        id: 'portable-intelligence-1a2b',
+        title: 'Portable Intelligence Inc',
+        date: '2026-08-13T00:22:25.000Z',
+      },
+    ],
+    relatedEntities: [{ type: 'sector', slug: 'technology', name: 'Technology', weight: 1 }],
+    mitreTechniques: [],
+    victims: [
+      {
+        id: 'portable-intelligence-1a2b',
+        victim: 'Portable Intelligence Inc',
+        sector: 'Technology',
+        country: 'US',
+        pubDate: '2026-08-13T00:22:25.000Z',
+      },
+    ],
+  };
+  data.set('/data/threat-intel/threatcluster/entities/group/clop.json', tcEntityGroup);
 
   const assets = {
     fetch: vi.fn(async (req: Request) => {
@@ -1069,6 +1240,83 @@ describe('filterTc* helpers', () => {
     expect(filterTcIocs(body.iocs, { keyword: 'ccleaner' })).toHaveLength(1);
     expect(filterTcIocs(body.iocs, { type: 'ipv6' })).toHaveLength(0);
     expect(filterTcIocs(body.iocs, { limit: 1 })).toHaveLength(1);
+  });
+});
+
+describe('loadTcEntities + getTcEntity', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('loads the entity index with per-type counts', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadTcEntities(assets);
+    expect(idx.counts).toEqual({ actor: 1, group: 1, malware: 1, cve: 1, sector: 1 });
+    expect(idx.entities.actor).toHaveLength(1);
+    expect(idx.entities.sector).toHaveLength(1);
+  });
+
+  it('throws when the entities index is missing', async () => {
+    const assets = {
+      fetch: vi.fn(async () => new Response('not found', { status: 404 })),
+    } as never;
+    await expect(loadTcEntities(assets as never)).rejects.toThrow(/entities.*index/i);
+  });
+
+  it('fetches a full entity body by type + slug (case-insensitive slug)', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getTcEntity(assets, 'actor', 'LAZARUS-GROUP');
+    expect(body?.name).toBe('Lazarus Group');
+    expect(body?.aliases).toContain('Lazarus');
+    expect(body?.recentActivity).toHaveLength(3);
+    expect(body?.relatedEntities[0]).toMatchObject({ type: 'cve', slug: 'CVE-2026-0301', weight: 2 });
+  });
+
+  it('returns null for an unknown entity, unknown type, or missing body', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getTcEntity(assets, 'actor', 'nope')).toBeNull();
+    expect(await getTcEntity(assets, 'group', 'missing-body')).toBeNull();
+  });
+});
+
+describe('filterTcEntities', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns all five types when no type is given, ordered by mention count', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadTcEntities(assets);
+    const all = filterTcEntities(idx, { limit: 10 });
+    expect(all[0]).toMatchObject({ type: 'actor', slug: 'lazarus-group' });
+    expect(new Set(all.map((e) => e.type))).toEqual(
+      new Set<TcEntityType>(['actor', 'group', 'malware', 'cve', 'sector'])
+    );
+  });
+
+  it('filters by type, keyword (name + aliases), and minMentions, and respects limits', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadTcEntities(assets);
+    expect(filterTcEntities(idx, { type: 'group' })).toHaveLength(1);
+    expect(filterTcEntities(idx, { keyword: 'lazarus' })).toHaveLength(1);
+    expect(filterTcEntities(idx, { keyword: 'lazarus', type: 'group' })).toHaveLength(0);
+    expect(filterTcEntities(idx, { minMentions: 2 })).toHaveLength(2);
+    expect(filterTcEntities(idx, { minMentions: 2 })[0]!.name).toBe('Lazarus Group');
+    expect(filterTcEntities(idx, { limit: 1 })).toHaveLength(1);
+  });
+});
+
+describe('tiCacheStats (threatcluster entities)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports entity index + body cache stats', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadTcEntities(assets);
+    await getTcEntity(assets, 'actor', 'lazarus-group');
+    await getTcEntity(assets, 'actor', 'lazarus-group');
+    await getTcEntity(assets, 'cve', 'CVE-2026-0301');
+    const s = tiCacheStats();
+    expect(s.threatcluster.entities.indexLoaded).toBe(true);
+    expect(s.threatcluster.entities.indexAgeMs).toBeGreaterThanOrEqual(0);
+    expect(s.threatcluster.entities.bodies.size).toBe(2);
+    expect(s.threatcluster.entities.bodies.hits).toBe(1);
+    expect(s.threatcluster.entities.bodies.misses).toBe(2);
   });
 });
 
