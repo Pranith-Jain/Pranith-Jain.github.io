@@ -173,8 +173,13 @@ function Confidence({ value }: { value: number | null }) {
 /* ------------------------------------------------------------------ */
 
 function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; onCopy: () => void }) {
+  const [open, setOpen] = useState(false);
   return (
-    <details className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30">
+    <details
+      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30"
+      open={open}
+      onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}
+    >
       <summary className="cursor-pointer list-none">
         <div className="flex items-start justify-between gap-2 mb-1.5">
           <div className="min-w-0">
@@ -239,7 +244,7 @@ function ActorCard({ item, copied, onCopy }: { item: TiActor; copied: boolean; o
         </p>
         <span className="inline-block font-mono text-micro text-slate-400 group-open:text-rose-500 mt-1">profile</span>
       </summary>
-      <ActorDetailBody slug={item.slug} onCopy={onCopy} copied={copied} />
+      {open && <ActorDetailBody slug={item.slug} onCopy={onCopy} copied={copied} />}
     </details>
   );
 }
