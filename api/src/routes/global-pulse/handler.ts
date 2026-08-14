@@ -11,6 +11,7 @@ import type {
 } from './types';
 import {
   GP_FEEDS,
+  GP_FEED_CACHE_KEYS,
   gpWarmKey,
   GLOBAL_PULSE_CACHE,
   CACHE_TTL,
@@ -102,10 +103,12 @@ async function signedSelfFetch(
  * map so the DO cron can additionally persist a last-good copy.
  */
 export async function buildGlobalPulseSync(
-  env: Pick<Env, 'SELF' | 'KV_CACHE' | 'INTERNAL_TOKEN_SECRET'>,
-  _waitUntil?: (p: Promise<unknown>) => void
+  env: Pick<Env, 'SELF' | 'KV_CACHE' | 'INTERNAL_TOKEN_SECRET' | 'BRIEFINGS_DB'>,
+  _waitUntil?: (p: Promise<unknown>) => void,
+  full = false
 ): Promise<{ payload: GlobalPulseResponse; warm: Record<string, unknown>; sync: number }> {
   const kv = env.KV_CACHE;
+  const cache = caches.default;
 
   // Safe wrapper — used by both the sync fetch and the background build.
   const safe = <T>(fn: () => T): T => {
@@ -117,81 +120,156 @@ export async function buildGlobalPulseSync(
     }
   };
 
-  // ── Read per-feed warm KV slices (one batched read) ──────────────────
-  const warm: Record<string, unknown> = {};
-  if (kv) {
-    const sliceVals = await Promise.all(GP_FEEDS.map((f) => readKvJson(kv, gpWarmKey(f.key))));
-    GP_FEEDS.forEach((f, i) => {
-      if (sliceVals[i] != null) warm[f.key] = sliceVals[i];
-    });
-  }
+  // ── Shared subrequest budget ─────────────────────────────────────────
+  // Every subrequest below (route cache.match, KV get, external upstream
+  // fetch, SELF.fetch) consumes the free-plan 50-subrequest invocation cap.
+  // Route-cache reads are prioritized (they're the LIVE data); warm-KV
+  // fallback reads are gated LAST so an exhausted budget degrades a layer
+  // (it renders 0 for this cycle) instead of aborting the whole build — the
+  // poisoning guard keeps a fuller map already in KV.
+  // 42 internal + the handler's own reads/writes after the build (last-good
+  // routeCacheGet + cache.put + routeCachePut + kv.get/put ≈ 7) must stay
+  // under the free-plan 50-subrequest invocation cap.
+  const BUDGET_MAX = 40;
+  const budget = { used: 0 };
+  const consume = (n = 1): boolean => {
+    if (budget.used + n > BUDGET_MAX) return false;
+    budget.used += n;
+    return true;
+  };
 
-  // ── Synchronously fetch the 3 highest-value feeds ────────────────────
-  const syncEvents: PulseEvent[] = [];
-  try {
-    const [cveRes, ransomRes, iocRes] = await Promise.allSettled([
-      signedSelfFetch(env.SELF, '/api/v1/cve-recent?days=7', env, 12000),
-      signedSelfFetch(env.SELF, '/api/v1/ransomware-recent?days=7', env, 10000),
-      signedSelfFetch(env.SELF, '/api/v1/live-iocs', env, 10000),
-    ]);
-    if (cveRes.status === 'fulfilled' && cveRes.value?.ok) {
-      const cveData = (await cveRes.value.json()) as Parameters<typeof fromCveRecent>[0];
-      syncEvents.push(...safe(() => fromCveRecent(cveData)));
-    }
-    if (ransomRes.status === 'fulfilled' && ransomRes.value?.ok) {
-      const ransomData = (await ransomRes.value.json()) as Parameters<typeof fromRansomware>[0];
-      syncEvents.push(...safe(() => fromRansomware(ransomData)));
-    }
-    if (iocRes.status === 'fulfilled' && iocRes.value?.ok) {
-      const iocData = (await iocRes.value.json()) as Parameters<typeof fromLiveIocs>[0];
-      syncEvents.push(...safe(() => fromLiveIocs(iocData)));
-    }
-  } catch (_catchErr) {
-    logError('global-pulse sync fetch failed', _catchErr);
-  }
+  // ── LIVE per-route Cache-API reads (one cheap cache.match per feed) ──
+  // These are the same responses the public /api/v1/* endpoints serve —
+  // SWR-revalidated on visitor traffic with each route's own freshness TTL
+  // (minutes, not hours). Reading them directly (rather than re-entering the
+  // route handler, which would re-run its own fetch fan-out) is 1 subrequest
+  // per feed and populates the map from LIVE data — the user-facing fix for
+  // "layers stuck on warmup data". Per-colo by nature: a cold colo falls back
+  // to the global warm KV slices last.
+  const live: Record<string, unknown> = {};
+  await Promise.all(
+    GP_FEEDS.map(async (f) => {
+      const key = GP_FEED_CACHE_KEYS[f.key];
+      if (!key || !consume()) return;
+      try {
+        const hit = await cache.match(new Request(key));
+        if (hit) live[f.key] = (await hit.json()) as unknown;
+      } catch {
+        /* cold / parse error → fall back to warm KV below */
+      }
+    })
+  );
 
-  // ── Convert warm KV slices to events ─────────────────────────────────
-  const warmEvents: PulseEvent[] = [];
-  if (warm.tm) warmEvents.push(...safe(() => iocFromThreatMap(warm.tm as Parameters<typeof iocFromThreatMap>[0])));
-  if (warm.telegram) warmEvents.push(...safe(() => fromTelegram(warm.telegram as Parameters<typeof fromTelegram>[0])));
-  if (warm.reddit) warmEvents.push(...safe(() => fromReddit(warm.reddit as Parameters<typeof fromReddit>[0])));
-  if (warm.x) warmEvents.push(...safe(() => fromXFeed(warm.x as Parameters<typeof fromXFeed>[0])));
-  if (warm.scam) warmEvents.push(...safe(() => fromScam(warm.scam as Parameters<typeof fromScam>[0])));
-  if (warm.breach) warmEvents.push(...safe(() => fromBreaches(warm.breach as Parameters<typeof fromBreaches>[0])));
-  if (warm.stealer)
-    warmEvents.push(...safe(() => fromStealerForum(warm.stealer as Parameters<typeof fromStealerForum>[0])));
-  if (warm.phishing) warmEvents.push(...safe(() => fromPhishing(warm.phishing as Parameters<typeof fromPhishing>[0])));
-  if (warm.malware) warmEvents.push(...safe(() => fromMalware(warm.malware as Parameters<typeof fromMalware>[0])));
-  if (warm.cybercrime)
-    warmEvents.push(...safe(() => fromCybercrime(warm.cybercrime as Parameters<typeof fromCybercrime>[0])));
-  if (warm.writeups) warmEvents.push(...safe(() => fromWriteups(warm.writeups as Parameters<typeof fromWriteups>[0])));
-  if (warm.xclaims) warmEvents.push(...safe(() => fromXClaims(warm.xclaims as XClaimsResponse)));
-  if (warm.actor) warmEvents.push(...safe(() => fromActorTimeline(warm.actor as ActorTimelineResponse)));
-  if (warm.iocc) warmEvents.push(...safe(() => fromIocCorrelation(warm.iocc as IocCorrelationResponse)));
-  if (warm.secretleaks)
-    warmEvents.push(...safe(() => fromSecretLeaks(warm.secretleaks as Parameters<typeof fromSecretLeaks>[0])));
-  if (warm.malpkg)
-    warmEvents.push(...safe(() => fromMaliciousPackages(warm.malpkg as Parameters<typeof fromMaliciousPackages>[0])));
-  if (warm.exploit) warmEvents.push(...safe(() => fromExploitDb(warm.exploit as Parameters<typeof fromExploitDb>[0])));
-  if (warm.ghsa)
-    warmEvents.push(...safe(() => fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0])));
-  if (warm.kev) warmEvents.push(...safe(() => fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0])));
-  if (warm.rss) warmEvents.push(...safe(() => fromRss(warm.rss as Parameters<typeof fromRss>[0])));
-  if (warm.webamon)
-    warmEvents.push(...safe(() => fromWebamonCampaigns(warm.webamon as Parameters<typeof fromWebamonCampaigns>[0])));
-  if (warm.honeypot) warmEvents.push(...safe(() => fromHoneypot(warm.honeypot as Parameters<typeof fromHoneypot>[0])));
+  // ── LIVE external fetchers (background-only layers) — FULL build only ──
+  // These populate c2_tracker / supply_chain_attacks / blocklist /
+  // cisa_advisory / cyber_attack(dshield) — previously background-build-only,
+  // so they rendered 0 whenever the CPU-killed background build didn't finish.
+  // Gated behind `full` (the DO gp-30-rebuild cron, which has a 30s CPU budget
+  // and calls with ?force=1): parsing multi-MB upstream bodies (blocklist.de,
+  // CISA KEV, EmergingThreats) synchronously would blow the free-plan 10ms CPU
+  // cap on the visitor cache-miss path. The full build writes its result to
+  // KV/cache, and the stale-if-error guard serves that fuller map to visitors.
+  let botnetC2: PulseEvent[] = [];
+  let supplyChain: PulseEvent[] = [];
+  let dshieldAttackers: PulseEvent[] = [];
+  let compromisedIPs: PulseEvent[] = [];
+  let blocklistAttackers: PulseEvent[] = [];
+  let cisaKev: PulseEvent[] = [];
+  let urlhausMalware: PulseEvent[] = [];
+  let briefingEvents: PulseEvent[] = [];
+  if (full) {
+    // fetchBotnetC2 fans out 3 upstreams; the rest are single fetches.
+    [botnetC2, supplyChain, dshieldAttackers, compromisedIPs, blocklistAttackers, cisaKev, urlhausMalware] =
+      await Promise.all([
+        consume(3) ? fetchBotnetC2() : Promise.resolve([] as PulseEvent[]),
+        consume() ? fetchSupplyChain() : Promise.resolve([] as PulseEvent[]),
+        consume() ? fetchDShieldAttackers() : Promise.resolve([] as PulseEvent[]),
+        consume() ? fetchCompromisedIPs() : Promise.resolve([] as PulseEvent[]),
+        consume() ? fetchBlocklistAttackers() : Promise.resolve([] as PulseEvent[]),
+        consume() ? fetchCisaKev() : Promise.resolve([] as PulseEvent[]),
+        consume() ? fetchUrlhaus() : Promise.resolve([] as PulseEvent[]),
+      ]);
+
+    // ── Briefings (D1) ────────────────────────────────────────────────
+    try {
+      if (env.BRIEFINGS_DB) {
+        const { items } = await listBriefings(env.BRIEFINGS_DB, { limit: 5 });
+        briefingEvents = fromBriefings(items);
+      }
+    } catch (_catchErr) {
+      logError('handler failed', _catchErr);
+      /* degraded */
+    }
+  }
 
   // ── CyberPulse incidents (D1) ────────────────────────────────────────
   let cyberpulseEvents: PulseEvent[] = [];
-  try {
-    const cpRes = await signedSelfFetch(env.SELF, '/api/v1/cyberpulse/incidents?days=7&limit=30', env, 10000);
-    if (cpRes && cpRes.ok) {
-      const cpData = (await cpRes.json()) as Parameters<typeof fromCyberPulse>[0];
-      cyberpulseEvents = safe(() => fromCyberPulse(cpData));
+  if (consume()) {
+    try {
+      const cpRes = await signedSelfFetch(env.SELF, '/api/v1/cyberpulse/incidents?days=7&limit=30', env, 10000);
+      if (cpRes && cpRes.ok) {
+        const cpData = (await cpRes.json()) as Parameters<typeof fromCyberPulse>[0];
+        cyberpulseEvents = safe(() => fromCyberPulse(cpData));
+      }
+    } catch (_catchErr) {
+      logError('handler failed', _catchErr);
     }
-  } catch (_catchErr) {
-    logError('handler failed', _catchErr);
   }
+
+  // ── Warm KV slice fallback (cross-colo) — LAST ──────────────────────
+  // Route caches are per-colo; a reader in a cold colo (or a feed without a
+  // route cache key) falls back to the global gp:warm:<key> slice written by
+  // the queue consumer. Deliberately the lowest priority — the user asked for
+  // LIVE data, warmup slices only fill what live reads couldn't. Budget-gated:
+  // once the cap is reached, remaining layers stay empty this cycle rather
+  // than aborting the invocation.
+  const warm: Record<string, unknown> = {};
+  if (kv) {
+    await Promise.all(
+      GP_FEEDS.map(async (f) => {
+        if (live[f.key] != null) return; // route cache already won
+        if (!consume()) return;
+        const val = await readKvJson(kv, gpWarmKey(f.key));
+        if (val != null) warm[f.key] = val;
+      })
+    );
+  }
+
+  // ── Convert collected data → events ──────────────────────────────────
+  const merged: Record<string, unknown> = { ...warm, ...live };
+  const warmEvents: PulseEvent[] = [
+    ...safe(() => (merged.tm ? iocFromThreatMap(merged.tm as Parameters<typeof iocFromThreatMap>[0]) : [])),
+    ...safe(() => (merged.ioc ? fromLiveIocs(merged.ioc as Parameters<typeof fromLiveIocs>[0]) : [])),
+    ...safe(() => (merged.telegram ? fromTelegram(merged.telegram as Parameters<typeof fromTelegram>[0]) : [])),
+    ...safe(() => (merged.reddit ? fromReddit(merged.reddit as Parameters<typeof fromReddit>[0]) : [])),
+    ...safe(() => (merged.x ? fromXFeed(merged.x as Parameters<typeof fromXFeed>[0]) : [])),
+    ...safe(() => (merged.scam ? fromScam(merged.scam as Parameters<typeof fromScam>[0]) : [])),
+    ...safe(() => (merged.breach ? fromBreaches(merged.breach as Parameters<typeof fromBreaches>[0]) : [])),
+    ...safe(() => (merged.stealer ? fromStealerForum(merged.stealer as Parameters<typeof fromStealerForum>[0]) : [])),
+    ...safe(() => (merged.phishing ? fromPhishing(merged.phishing as Parameters<typeof fromPhishing>[0]) : [])),
+    ...safe(() => (merged.malware ? fromMalware(merged.malware as Parameters<typeof fromMalware>[0]) : [])),
+    ...safe(() => (merged.cybercrime ? fromCybercrime(merged.cybercrime as Parameters<typeof fromCybercrime>[0]) : [])),
+    ...safe(() => (merged.writeups ? fromWriteups(merged.writeups as Parameters<typeof fromWriteups>[0]) : [])),
+    ...safe(() => (merged.xclaims ? fromXClaims(merged.xclaims as XClaimsResponse) : [])),
+    ...safe(() => (merged.actor ? fromActorTimeline(merged.actor as ActorTimelineResponse) : [])),
+    ...safe(() => (merged.iocc ? fromIocCorrelation(merged.iocc as IocCorrelationResponse) : [])),
+    ...safe(() =>
+      merged.secretleaks ? fromSecretLeaks(merged.secretleaks as Parameters<typeof fromSecretLeaks>[0]) : []
+    ),
+    ...safe(() =>
+      merged.malpkg ? fromMaliciousPackages(merged.malpkg as Parameters<typeof fromMaliciousPackages>[0]) : []
+    ),
+    ...safe(() => (merged.exploit ? fromExploitDb(merged.exploit as Parameters<typeof fromExploitDb>[0]) : [])),
+    ...safe(() => (merged.ghsa ? fromGithubAdvisories(merged.ghsa as Parameters<typeof fromGithubAdvisories>[0]) : [])),
+    ...safe(() => (merged.kev ? fromCisaKev(merged.kev as Parameters<typeof fromCisaKev>[0]) : [])),
+    ...safe(() => (merged.rss ? fromRss(merged.rss as Parameters<typeof fromRss>[0]) : [])),
+    ...safe(() =>
+      merged.webamon ? fromWebamonCampaigns(merged.webamon as Parameters<typeof fromWebamonCampaigns>[0]) : []
+    ),
+    ...safe(() => (merged.honeypot ? fromHoneypot(merged.honeypot as Parameters<typeof fromHoneypot>[0]) : [])),
+    ...safe(() => (merged.cve ? fromCveRecent(merged.cve as Parameters<typeof fromCveRecent>[0]) : [])),
+    ...safe(() => (merged.ransom ? fromRansomware(merged.ransom as Parameters<typeof fromRansomware>[0]) : [])),
+  ];
 
   // ── Merge + sort ─────────────────────────────────────────────────────
   const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
@@ -207,6 +285,19 @@ export async function buildGlobalPulseSync(
       case 'blocklist':
       case 'honeypot':
         return 'ioc';
+      case 'malware':
+      case 'phishing':
+      case 'infostealer':
+      case 'breach':
+      case 'cybercrime':
+      case 'scam':
+      case 'actor_sighting':
+      case 'secret_leak':
+      case 'malicious_package':
+      case 'exploit':
+      case 'github_advisory':
+      case 'kev':
+        return 'threat';
       case 'cyberpulse':
         return 'threat';
       case 'ioc_correlation':
@@ -218,7 +309,18 @@ export async function buildGlobalPulseSync(
     }
   };
   const sevRank = (s: string): number => (s === 'critical' ? 4 : s === 'high' ? 3 : s === 'medium' ? 2 : 1);
-  const allEvents = [...syncEvents, ...warmEvents, ...cyberpulseEvents]
+  const allEvents = [
+    ...warmEvents,
+    ...safe(() => briefingEvents),
+    ...safe(() => cyberpulseEvents),
+    ...safe(() => botnetC2),
+    ...safe(() => supplyChain),
+    ...safe(() => dshieldAttackers),
+    ...safe(() => compromisedIPs),
+    ...safe(() => blocklistAttackers),
+    ...safe(() => cisaKev),
+    ...safe(() => urlhausMalware),
+  ]
     .map((e) => ({ ...e, cti: tagCti(e.kind) }))
     .sort((a, b) => {
       const sd = sevRank(b.severity) - sevRank(a.severity);
@@ -226,20 +328,60 @@ export async function buildGlobalPulseSync(
       return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
     });
 
-  const syncLayers: Record<string, number> = {};
+  // Full layer map (all PulseKind keys present, like the background build)
+  // so the SPA's layer list shows every layer — zero for empty, not missing.
+  const zeroLayers = (): Record<PulseKind, number> => ({
+    earthquake: 0,
+    ioc_activity: 0,
+    geopolitical: 0,
+    tech_news: 0,
+    reddit: 0,
+    telegram: 0,
+    x_feed: 0,
+    scam: 0,
+    breach: 0,
+    briefing: 0,
+    cyber_attack: 0,
+    aircraft: 0,
+    war_room: 0,
+    c2_tracker: 0,
+    cisa_advisory: 0,
+    blocklist: 0,
+    infostealer: 0,
+    phishing: 0,
+    malware: 0,
+    ransomware: 0,
+    cybercrime: 0,
+    research: 0,
+    cve: 0,
+    actor_sighting: 0,
+    ioc_correlation: 0,
+    secret_leak: 0,
+    malicious_package: 0,
+    exploit: 0,
+    github_advisory: 0,
+    supply_chain_attacks: 0,
+    kev: 0,
+    firm: 0,
+    maritime: 0,
+    cyberpulse: 0,
+    rss: 0,
+    honeypot: 0,
+  });
+
+  const layers: Record<PulseKind, number> = zeroLayers();
   for (const e of allEvents) {
-    syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
+    layers[e.kind] = (layers[e.kind] ?? 0) + 1;
   }
 
   const payload: GlobalPulseResponse = {
     generated_at: new Date().toISOString(),
     total_events: allEvents.length,
     events: allEvents,
-    layers: syncLayers,
-    // layers_ is a runtime-only field for the DO's stale guard
-  } as unknown as GlobalPulseResponse;
+    layers,
+  };
 
-  return { payload, warm, sync: allEvents.length };
+  return { payload, warm: merged, sync: allEvents.length };
 }
 
 /* ─── Handler ───────────────────────────────────────────────────────────── */
@@ -273,17 +415,20 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     }
   }
 
-  // Cache miss. Instead of kicking off a background build that exceeds the
-  // Free-plan CPU/subrequest budget and gets killed silently, assemble the
-  // response synchronously from two cheap sources:
-  //   1. Per-feed warm KV slices (gp:warm:<key>) — warmed by the queue consumer
-  //   2. Direct SELF.fetch for the 3 highest-value feeds (CVE, ransomware, IOCs)
-  // This stays within the 50-subrequest budget (21 KV reads + 3 SELF.fetch = 24)
-  // and returns immediately with real data. The full 30+ source build that
-  // includes external fetchers (botnet C2, supply chain, DShield, etc.) runs
-  // in the background via waitUntil — if it completes, it populates the caches
-  // for the next request; if it gets killed by CPU limits, the sync data
-  // still serves a useful map.
+  // Cache miss. buildGlobalPulseSync assembles the response synchronously
+  // from LIVE data within the free-plan 50-subrequest budget:
+  //   1. Per-route Cache-API entries (the live responses the public /api/v1/*
+  //      endpoints serve, SWR-revalidated on visitor traffic) — 1 cache.match
+  //      each, no handler re-entry, no fan-out
+  //   2. External fetchers (botnet C2, supply chain, DShield, blocklists,
+  //      CISA KEV, URLhaus) + D1 briefings — the layers that used to be
+  //      background-build-only and rendered 0 when the CPU-killed background
+  //      build didn't finish
+  //   3. Per-feed warm KV slices (gp:warm:<key>) as the cross-colo fallback
+  //      for route caches that are cold in this colo
+  // The old full 30+ source background build still runs via waitUntil to
+  // refresh caches; if it gets killed by CPU limits the sync data above is
+  // already a complete map.
   const self = c.env.SELF;
 
   // Safe wrapper — used by both the sync fetch and the background build.
@@ -297,16 +442,24 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   };
 
   // ── Shared sync build (also used by the DO gp-30-rebuild cron) ──────
-  const { payload: syncResult } = await buildGlobalPulseSync(c.env, c.executionCtx.waitUntil.bind(c.executionCtx));
+  // `full` = the DO gp-30-rebuild cron path (30s CPU budget, force=1): includes
+  // the external-fetcher layers + D1 briefings. The visitor cache-miss path
+  // stays cheap (route caches + warm slices + cyberpulse) so the free-plan
+  // 10ms CPU cap can't kill the request — the DO's full build populates
+  // KV/cache and the stale-if-error guard serves the fuller map.
+  const { payload: syncResult } = await buildGlobalPulseSync(
+    c.env,
+    c.executionCtx.waitUntil.bind(c.executionCtx),
+    force
+  );
 
-  // Stale-if-error guard: the sync build above only sees warm-KV slices + the 3
-  // direct feeds, so the background-only layers (c2_tracker, supply_chain_attacks,
-  // blocklist, briefing, cisa_advisory) are absent here and would render as 0 on
-  // the page during cold-cache windows. If a recent FULL build is available and
-  // populates more layers than this partial sync build, serve it instead. The
-  // background build below still refreshes the cache, so staleness is bounded by
-  // one build cycle — a cold cache or a CPU-killed background build never blanks
-  // half the map for the whole GP_RESPONSE_TTL.
+  // Stale-if-error guard: the sync build now covers every layer itself, but a
+  // cold colo or a budget-gated build can still come up with fewer non-zero
+  // layers than a recent full build (e.g. all route caches cold AND KV warm
+  // slices expired). If a recent FULL build is available and populates more
+  // layers than this sync build, serve it instead — staleness is bounded by one
+  // build cycle, and a cold cache never blanks half the map for the whole
+  // GP_RESPONSE_TTL.
   const nonZeroLayers = (l: unknown): number =>
     l && typeof l === 'object'
       ? Object.values(l as Record<string, unknown>).filter((n) => typeof n === 'number' && n > 0).length
@@ -343,9 +496,31 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       // "2 hours ago" because the DO has nothing newer to broadcast.
       // Write-on-change: an unchanged build must not burn the scarce free-plan
       // KV write quota (1k/day) — a cheap read skips the put when nothing moved.
+      // Poisoning guard: a partial sync build (cold colo, warm slices missing)
+      // must NOT clobber a fuller map already in KV (written by the background
+      // build or a prior cycle). Compare non-zero layer counts before writing;
+      // only overwrite when the new payload is at least as complete.
       if (kv) {
-        if ((await kv.get(GP_RESPONSE_KEY)) !== json) {
+        const newNonZero = payload.layers ? nonZeroLayers(payload.layers) : 0;
+        const existing = await readKvJson<GlobalPulseResponse>(kv, GP_RESPONSE_KEY);
+        const existingNonZero = existing?.layers ? nonZeroLayers(existing.layers) : 0;
+        if (existingNonZero > newNonZero) {
+          // keep the fuller map — skip the put
+        } else if ((await kv.get(GP_RESPONSE_KEY)) !== json) {
           await kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL });
+        }
+        // Last-good: the sync build is now a complete map (route caches +
+        // external fetchers + D1), so also refresh the long-lived last-good
+        // copy here — the background build (the old sole writer) is killed by
+        // the subrequest cap after the sync build consumes most of the 50,
+        // and a fresh last-good keeps the stale-if-error guard + DO fallback
+        // from serving an hours-old map. Same poisoning guard: never clobber
+        // a fuller map already persisted.
+        const lgExisting = await readKvJson<GlobalPulseResponse>(kv, GP_LAST_GOOD_KEY);
+        const lgExistingNonZero = lgExisting?.layers ? nonZeroLayers(lgExisting.layers) : 0;
+        if (newNonZero >= lgExistingNonZero) {
+          await routeCachePut(GP_LAST_GOOD_KEY, payload, GP_LAST_GOOD_TTL);
+          await kv.put(GP_LAST_GOOD_KEY, json, { expirationTtl: GP_LAST_GOOD_TTL });
         }
       }
     })()
@@ -551,20 +726,14 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           }
         }
 
-        // Fetch live IOCs directly if cache is empty
-        let finalLiveIocEvents = liveIocEvents;
-        if (finalLiveIocEvents.length === 0) {
-          try {
-            const iocRes = await signedSelfFetch(self, '/api/v1/live-iocs', c.env);
-            if (iocRes && iocRes.ok) {
-              const iocData = (await iocRes.json()) as Parameters<typeof fromLiveIocs>[0];
-              finalLiveIocEvents = safe(() => fromLiveIocs(iocData));
-            }
-          } catch (_catchErr) {
-            logError('handler failed', _catchErr);
-            /* degraded */
-          }
-        }
+        // Live IOCs are warm-slice-only (see the sync-build note above): the
+        // direct self-fetch fans out ~35 sources on a cold slice set, exceeds
+        // the free-plan subrequest cap, and aborts the whole invocation before
+        // the cache/KV writes below — which is exactly how gp:response:v3 /
+        // gp:last-good:v1 went missing. When the `ioc` warm slice is absent the
+        // cyber_attack layer is empty for this cycle (the queue consumer
+        // re-warms it) rather than killing the build.
+        const finalLiveIocEvents = liveIocEvents;
 
         // Fetch phishing data directly if cache is empty
         let finalPhishingEvents = phishingEvents;

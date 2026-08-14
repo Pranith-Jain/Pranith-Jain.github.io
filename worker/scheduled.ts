@@ -51,7 +51,7 @@ import { runRetentionSweep } from '../api/src/lib/retention';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds, shouldSkipEnqueueCycle, markEnqueueCycle } from '../api/src/routes/live-iocs';
-import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
+import { enqueueGpFeeds, shouldSkipGpEnqueue, markGpEnqueue } from '../api/src/routes/global-pulse';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
@@ -218,21 +218,38 @@ export async function executeCronJob(
           // reached, so gp:warm:* expired and the map lost every warmed layer.
           if (env.FEEDS_QUEUE) {
             // Skip-when-fresh: a fan-out that completed <~105 min ago (cron
-            // OR hit-path refresh — see shouldSkipEnqueueCycle) is still
-            // covered by the gp:warm 150-min TTL and the 6h slice TTL, so the
-            // 48-message re-enqueue is pure waste. Marker is only written on
-            // success, so a failed cycle always re-enqueues next hour.
-            if (await shouldSkipEnqueueCycle(env.KV_CACHE)) {
+            // OR hit-path refresh) is still covered by the gp:warm 150-min TTL
+            // and the 6h slice TTL, so the 48-message re-enqueue is pure waste.
+            // Marker is only written on success, so a failed cycle always
+            // re-enqueues next hour.
+            //
+            // NOTE: gp feeds use their OWN marker (GP_ENQUEUE_CYCLE_KEY), NOT
+            // the live-iocs marker — the live-iocs hit path refreshes ITS marker
+            // on visitor traffic, and sharing one gate meant a busy
+            // /api/v1/live-iocs suppressed the gp-warm enqueue, expiring
+            // gp:warm:* and darkening every layer except reddit/x (enqueued
+            // unconditionally by the */30 cron). The two pipelines are
+            // independent — gate them independently.
+            const [gpFresh, iocFresh] = await Promise.all([
+              shouldSkipGpEnqueue(env.KV_CACHE),
+              shouldSkipEnqueueCycle(env.KV_CACHE),
+            ]);
+            if (gpFresh && iocFresh) {
               console.log(JSON.stringify({ job: 'queue-enqueue', status: 'skipped-fresh' }));
             } else {
-              await enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue'));
+              if (!gpFresh) {
+                await enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue'));
+                await markGpEnqueue(env.KV_CACHE).catch(logCronFail('gp-enqueue-cycle-mark'));
+              }
               // Live-IOC feed slices — same reasoning. The queue consumer warms each
               // source in its own invocation (own budget). Without this the compose-
               // on-read path falls back to the budget-limited synchronous fan-out,
               // which starves every source past the first ~11 — the "16 unreachable"
               // blocklists (blocklist-de, cinsscore, threatview, certpl, bitwire…).
-              await enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue'));
-              await markEnqueueCycle(env.KV_CACHE).catch(logCronFail('enqueue-cycle-mark'));
+              if (!iocFresh) {
+                await enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue'));
+                await markEnqueueCycle(env.KV_CACHE).catch(logCronFail('enqueue-cycle-mark'));
+              }
             }
           }
 

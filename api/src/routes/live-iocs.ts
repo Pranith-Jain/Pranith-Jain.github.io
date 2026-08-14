@@ -141,7 +141,26 @@ export interface LiveIocsResponse {
   degraded?: boolean;
 }
 
-async function fetchText(url: string): Promise<string | null> {
+/**
+ * Consume n subrequests from the shared fan-out budget. Returns false when
+ * doing so would exceed the hard cap — callers must degrade the source
+ * (return ok:false / null) instead of launching the request.
+ */
+function consumeBudget(budget: { used: number; max: number } | undefined, n = 1): boolean {
+  if (!budget) return true;
+  if (budget.used + n > budget.max) return false;
+  budget.used += n;
+  return true;
+}
+
+async function fetchText(url: string, budget?: { used: number; max: number }): Promise<string | null> {
+  // The shared fan-out budget counts REAL subrequests (this fetch + the KV
+  // reads cached helpers make). Reserve before launching so a source can't
+  // overshoot the free-plan 50-subrequest cap mid-run; an exhausted budget
+  // degrades THIS source (returns null → ok:false) instead of aborting the
+  // whole invocation with "Too many subrequests" (the 2026-08 incident that
+  // surfaced as HTTP 503 on the global-pulse live snapshot).
+  if (!consumeBudget(budget)) return null;
   try {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
@@ -436,11 +455,11 @@ const entryContext = (e: ParsedEntry): string | undefined => e.context;
 function textFeedSource(cfg: TextFeedConfig): FeedSource {
   return {
     id: cfg.id,
-    run: async () => {
+    run: async (deps) => {
       const urls = [cfg.url, ...(cfg.fallbackUrls ?? [])];
       let text: string | null = null;
       for (const u of urls) {
-        text = await fetchText(u);
+        text = await fetchText(u, deps?.budget);
         if (text) break;
       }
       if (!text) return { items: [], sources: [{ id: cfg.id, ok: false, count: 0 }] };
@@ -486,13 +505,19 @@ const parseBotvrijUrls = (text: string, cap: number): ParsedEntry[] =>
 /** TweetFeed: richest source — per-entry reporter + permalink + mixed kinds. */
 const tweetfeedSource: FeedSource = {
   id: 'tweetfeed',
-  run: async () => {
-    let tweetfeedText = await fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv');
+  run: async (deps) => {
+    let tweetfeedText = await fetchText(
+      'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv',
+      deps?.budget
+    );
     // Fall back to week.csv when today.csv is empty so the feed never shows
     // "0 sources" on quiet days (observed: today.csv is 0 bytes when no IOCs
     // are posted in the current UTC day, but week.csv has 7 days of data).
     if (!tweetfeedText) {
-      tweetfeedText = await fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv');
+      tweetfeedText = await fetchText(
+        'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv',
+        deps?.budget
+      );
     }
     const items: LiveIoc[] = [];
     if (!tweetfeedText) return { items, sources: [{ id: 'tweetfeed', ok: false, count: 0 }] };
@@ -537,7 +562,10 @@ const tweetfeedSource: FeedSource = {
 /** MalwareBazaar: hash samples with family + file-type context. */
 const malwarebazaarSource: FeedSource = {
   id: 'malwarebazaar',
-  run: async ({ executionCtx }) => {
+  run: async ({ executionCtx, budget }) => {
+    // The cached helper does a fetch + a KV read — consume both so the shared
+    // budget stays honest (the old per-source slot reservation didn't).
+    if (!consumeBudget(budget, 2)) return { items: [], sources: [{ id: 'malwarebazaar', ok: false, count: 0 }] };
     const malwareBazaarResult = await safeNullLog('fetch-malwarebazaar', fetchMalwareSamplesCached(executionCtx));
     const items: LiveIoc[] = [];
     if (!malwareBazaarResult) return { items, sources: [{ id: 'malwarebazaar', ok: false, count: 0 }] };
@@ -565,7 +593,20 @@ const malwarebazaarSource: FeedSource = {
  *  emitted so the feed doesn't advertise a permanently-dead source row. */
 const phishingSource: FeedSource = {
   id: 'phishing',
-  run: async ({ executionCtx, kv, env }) => {
+  run: async ({ executionCtx, kv, env, budget }) => {
+    // Cached helper = fetch + KV read (see malwarebazaarSource).
+    if (!consumeBudget(budget, 2)) {
+      const hasPtKey = Boolean(env?.PHISHTANK_API_KEY);
+      return {
+        items: [],
+        sources: hasPtKey
+          ? [
+              { id: 'phishtank', ok: false, count: 0 },
+              { id: 'openphish', ok: false, count: 0 },
+            ]
+          : [{ id: 'openphish', ok: false, count: 0 }],
+      };
+    }
     const hasPtKey = Boolean(env?.PHISHTANK_API_KEY);
     const phishingResult = await safeNullLog(
       'fetch-phishing',
@@ -614,7 +655,9 @@ const phishingSource: FeedSource = {
 /** spmedia crypto-scam domains: shared cached fetch, mapped to domain IOCs. */
 const cryptoScamSource: FeedSource = {
   id: 'crypto-scam',
-  run: async ({ executionCtx, kv }) => {
+  run: async ({ executionCtx, kv, budget }) => {
+    // Cached helper = fetch + KV read (see malwarebazaarSource).
+    if (!consumeBudget(budget, 2)) return { items: [], sources: [{ id: 'crypto-scam', ok: false, count: 0 }] };
     const result = await safeNullLog('fetch-crypto-scam', fetchCryptoScamCached(executionCtx, kv));
     const items: LiveIoc[] = [];
     if (!result) return { items, sources: [{ id: 'crypto-scam', ok: false, count: 0 }] };
@@ -637,8 +680,12 @@ const cryptoScamSource: FeedSource = {
  *  degrades to an empty, ok:false row when WEBAMON_API_KEY is unset. */
 const webamonCampaignsSource: FeedSource = {
   id: 'webamon-campaigns',
-  run: async ({ env }) => {
+  run: async ({ env, budget }) => {
     const id = 'webamon-campaigns';
+    // listCampaigns + per-campaign listCampaignDomains = 1 + N subrequests.
+    // Give it a small allowance; an exhausted budget degrades the source
+    // rather than aborting the whole invocation.
+    if (!consumeBudget(budget, 3)) return { items: [], sources: [{ id, ok: false, count: 0 }] };
     if (!env?.WEBAMON_API_KEY) return { items: [], sources: [{ id, ok: false, count: 0 }] };
     try {
       const campaigns = await listCampaigns(env, { size: 3, sortBy: 'delta_24h', order: 'desc' });
@@ -1099,23 +1146,32 @@ export async function fetchLiveIocs(
   // fetch subrequest (+ optional KV reads for cached helpers like
   // malwarebazaar/phishing). With 30 sources the total stays well under the
   // 50-subrequest free-plan cap. Capped at 45 for safety margin.
-  const SUBREQUEST_BUDGET = Math.min(FEED_SOURCES.length, 45);
+  // Hard cap on the fan-out's REAL subrequests (each source consumes 1-3 via
+  // fetchText + cached-helper KV reads). Leaves headroom under the free-plan
+  // 50-subrequest invocation cap for the cache/KV/analytics reads the handler
+  // does after the fan-out (cache.match, trackEvent, cache.put). Previously
+  // this reserved 1 slot per source up-front while sources spent 1-3 each, so
+  // a full fan-out silently overshot the cap and got killed mid-build
+  // ("Too many subrequests") — surfacing as HTTP 503 + empty layers on
+  // global-pulse. Sources now consume their actual usage (consumeBudget) and
+  // degrade to ok:false when the cap is hit.
+  const SUBREQUEST_BUDGET = 42;
   const budget = { used: 0, max: SUBREQUEST_BUDGET };
   const deps: FeedDeps = { executionCtx, kv, env, budget };
   const feedResults = await concurrentMap(
     FEED_SOURCES,
     async (s) => {
-      // Atomically reserve 1 subrequest slot; if the budget is gone, return
-      // a stub so concurrentMap still produces a result for this index.
+      // Only launch a source when the shared budget still has room; otherwise
+      // return a stub so concurrentMap still produces a result for this index.
       // (concurrentMap preserves order; finalize needs every slot to have a
-      // matching source row.)
+      // matching source row.) Actual consumption happens inside each source's
+      // run() via consumeBudget — this check is just the cheap launch gate.
       if (budget.used >= budget.max) {
         return {
           items: [] as LiveIoc[],
           sources: [{ id: s.id, ok: false, count: 0 }] as LiveSource[],
         };
       }
-      budget.used += 1;
       return s.run(deps);
     },
     FEED_FANOUT_CONCURRENCY

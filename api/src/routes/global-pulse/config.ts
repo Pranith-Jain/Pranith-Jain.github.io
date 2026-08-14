@@ -46,6 +46,67 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
 // cross-colo consistency.
 export const gpWarmKey = (key: string): string => `gp:warm:${key}`;
 
+// Per-feed per-route Cache-API key (the LIVE feed response the route serves,
+// SWR-revalidated, with the route's own freshness TTL). The sync build reads
+// these FIRST — one cheap `cache.match` per feed, no fan-out, no handler
+// re-entry — so the map is populated from the same live responses the public
+// endpoints serve, NOT just the hourly KV warm slices. Per-colo by nature, so
+// the warm KV slice remains the cross-colo fallback when a given colo's route
+// cache is cold.
+//
+// MUST stay in sync with each route's `cache.put` key. Bump on route cache-key
+// version changes (the route's own `vN` suffix) or the live read silently
+// misses and falls back to the warm slice (correct, just older data).
+export const GP_FEED_CACHE_KEYS: Readonly<Record<string, string>> = {
+  reddit: 'https://reddit-feed-cache.internal/v11-raw',
+  x: 'https://x-feed-cache.internal/v7-25pc',
+  telegram: 'https://telegram-feed-cache.internal/v13-telegram-me',
+  actor: 'https://actor-timeline-cache.internal/v3-mti',
+  iocc: 'https://ioc-correlation-cache.internal/v6-mti-hashes',
+  cve: 'https://cve-recent-cache.internal/v10-750-paged',
+  ransom: 'https://ransomware-recent-cache.internal/v11-tz-abbrev-fix',
+  cybercrime: 'https://cybercrime-cache.internal/v2-500',
+  writeups: 'https://writeups-cache.internal/v22-simplified',
+  malware: 'https://malware-samples-cache.internal/v3-500',
+  phishing: 'https://phishing-urls-cache.internal/v11-500',
+  scam: 'https://crypto-scam-feed-cache.internal/v1',
+  breach: 'https://breach-cache.internal/v6-hibp-only',
+  tm: 'https://threat-map-cache.internal/v5-1k',
+  ioc: 'https://live-iocs-cache.internal/v13-freshness-filter',
+  xclaims: 'https://x-claims-cache.internal/v2',
+  stealer: 'https://stealer-forum-intel-cache.internal/v13-no-debug',
+  secretleaks: 'https://secret-leaks-cache.internal/v5-noedgecache',
+  malpkg: 'https://malicious-packages-cache.internal/v2?e=npm',
+  honeypot: 'https://ai-honeypot-feed.internal/v2',
+};
+
+// GP-warm enqueue-cycle marker — SEPARATE from the live-iocs enqueue marker
+// (live-iocs.ts ENQUEUE_CYCLE_KEY). The live-iocs hit path refreshes ITS marker
+// on visitor traffic (maybeEnqueueAllFeeds → markEnqueueCycle); sharing one
+// marker meant a busy /api/v1/live-iocs could keep it fresh for 105 min and
+// suppress the hourly `enqueueGpFeeds`, so `gp:warm:*` slices expired (150-min
+// TTL) and every layer except reddit/x (enqueued unconditionally by the */30
+// cron) went dark. gp feeds get their own gate so live-iocs traffic can never
+// starve the map.
+export const GP_ENQUEUE_CYCLE_KEY = 'gp:enqueue-cycle';
+export const GP_ENQUEUE_CYCLE_TTL_SECONDS = 105 * 60;
+
+/** True when the last gp-warm enqueue cycle is still fresh → the hourly gp enqueue can be skipped. */
+export async function shouldSkipGpEnqueue(kv: KVNamespace | undefined): Promise<boolean> {
+  if (!kv) return false;
+  try {
+    return (await kv.get(GP_ENQUEUE_CYCLE_KEY)) !== null;
+  } catch {
+    return false;
+  }
+}
+
+/** Record that a gp-warm enqueue completed so the next hourly cron skips its redundant re-enqueue. */
+export async function markGpEnqueue(kv: KVNamespace | undefined): Promise<void> {
+  if (!kv) return;
+  await kv.put(GP_ENQUEUE_CYCLE_KEY, new Date().toISOString(), { expirationTtl: GP_ENQUEUE_CYCLE_TTL_SECONDS });
+}
+
 // ALL feeds are warmed every hourly tick — not a rotating subset — so the page
 // never has a feed dark waiting for its window to come around (a 7-per-hour
 // rotation left ~2/3 of feeds stale for up to 3h). This is only affordable
