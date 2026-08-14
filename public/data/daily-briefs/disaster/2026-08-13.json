@@ -1,0 +1,57 @@
+{
+  "type": "disaster",
+  "date": "2026-08-13",
+  "overallThreat": "",
+  "executiveSummary": "A powerful 7.4 earthquake struck western Colombia with high urban impact; reporting varies but at least 111-265 fatalities have been cited, hundreds missing, and >25,800 families affected. View Article Fast-moving wildfires around British Columbia's Okanagan region forced 20,000+ evacuations, destroyed homes, and caused at least one death amid continuing displacement. Source Severe storms and flash flooding in the U.S. Midwest caused widespread damage, multiple deaths, power outages for hundreds of thousands, and ongoing rescues. Supporting Report Monsoon flooding in India's Assam displaced 700,000+ people, placed ~300,000 in relief camps, and raised the death toll to 100 with rivers above danger levels. View Article Typhoon conditions triggered mass relocations (300,000+) in China, significant flight cancellations, and landslide risks across China, Taiwan, and the Philippines. Security Advisory",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [],
+  "topEvents": [
+    {
+      "title": "3) U.S. Midwest Severe Storms & Flooding",
+      "severity": "escalate",
+      "text": "Multi-state flash flooding, tornado threats, and widespread outages; rescues and damage assessments continue.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/83fd919c9394218c38df03bc9db8073d",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "4) Assam, India Monsoon Flooding",
+      "severity": "escalate",
+      "text": "700,000+ displaced, 100 fatalities, and sustained flooding with relief camps at scale.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/7bc402002a9159d828f220914fd9fb21",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "5) Typhoon Impacts - China, Taiwan, Philippines",
+      "severity": "escalate",
+      "text": "300,000+ relocations in China, widespread flight cancellations, and elevated landslide/flood risk regionally.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d40f4d49b0d89935366f360f1f13afd8",
+          "label": "Security Advisory"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Western Colombia Earthquake High likelihood of continued aftershocks, complex SAR, and evolving casualty figures. Expect ongoing access and debris management constraints in dense urban areas. British Columbia Wildfires Continued evacuation operations, re-entry restrictions, and variable containment; anticipate air quality impacts and priority protection of critical infrastructure. U.S. Midwest Severe Weather Residual flooding and scattered severe storms may persist; utility restoration and debris clearance will remain a focus in impacted counties. Assam Flooding River levels may remain elevated; relief camps and WASH services require surge support as waters recede unevenly. Typhoon-Affected Areas Continued landslide and flash-flood potential; transport disruptions and shelter demand likely where relocations are active. Urban-Interface Fires (Spokane area) Perimeter control, re-population planning, and critical services restoration; monitor wind shifts and new ignitions.",
+  "regionalTrends": [
+    "Seismic emergency in western Colombia with protracted SAR and shelter needs.",
+    "Wildfire season driving repeated evacuations in British Columbia and inland Northwest U.S.",
+    "Heat contributing to fire behavior in western states, compounding response demands.",
+    "Monsoon flooding remains elevated in northeast India with long-tail recovery.",
+    "Typhoon hazards continue to threaten coastal and mountainous areas with landslides and transport disruption.",
+    "Heat waves strain health systems in the UK and Western Europe.",
+    "Seasonal wildfire risk in Spain/France amid heat and wind-driven spread."
+  ]
+}

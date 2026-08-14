@@ -1,0 +1,37 @@
+{
+  "type": "maritime",
+  "date": "2026-08-13",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates a confirmed cyberattack against CEVA Logistics, a CMA CGM subsidiary, disrupting multiple European warehouses and creating credible maritime supply-chain and customer-impact risk. View Article U.S. MARAD Advisory 2026-007 warns that foreign-manufactured port equipment and logistics platforms (including LOGINK, Nuctech scanners, and remotely serviceable ship-to-shore cranes) may enable adversarial data access and remote manipulation across maritime IT/OT, recommending immediate segmentation, MFA, monitoring, PLC integrity checks, offline backups, and restricted vendor remote access. Government Advisory Threat environment: Current reporting suggests moderate risk driven by an active third-party logistics compromise and ongoing systemic port OT concerns. Confidence: medium. Active incidents: CEVA disruption is likely to produce knock-on delays, partner portal access issues, and increased fraud/phishing attempts targeting maritime customers and suppliers. Source Critical advisories: MARAD's guidance remains highly relevant for port and terminal operators, especially where remote maintenance and logistics data aggregation are in use. Government Advisory Navigation/communications: No confirmed GPS/GNSS/AIS/ECDIS disruption or SATCOM degradations were reported in this collection window. Operational and safety implications: The collected intelligence supports an assessment that third-party logistics compromises may impede cargo movement planning and EDI/document workflows, while port OT exposure could-if exploited-affect crane operations or terminal throughput. Confidence: medium. Immediate attention: Validate third-party dependencies (warehousing, 3PLs), restrict remote vendor access into port OT, verify offline backups and PLC baselines, and heighten monitoring for partner-originated phishing or fraudulent routing instructions. Recommendations reflect reported guidance and standard defensive practices. Government Advisory",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "MODERATE"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [
+    "Confirmed cyberattack on CEVA Logistics impacted at least eight European warehouses, posing downstream risk to maritime customers and schedules. Confidence: medium. View Article",
+    "MARAD Advisory 2026-007 highlights adversarial risk from foreign-manufactured port technologies and logistics platforms; recommends segmentation, MFA, monitoring, secure transfer, PLC integrity validation, offline backups, and limiting vendor remote access. Confidence: high. Government Advisory",
+    "No validated GNSS interference/spoofing, AIS manipulation, or maritime SATCOM disruptions identified in this cycle.",
+    "Information gaps: No confirmed attack vector, actor, malware, or CVE attribution for the CEVA incident in available reporting."
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "CEVA: Reporting indicates a cyberattack on a logistics provider with disruption to warehousing operations and potential downstream partner impact. Insufficient detail to confirm specific ATT&CK techniques.",
+      "Ports/OT (Advisory): Risks include adversarial remote access, data exfiltration, and potential manipulation of control systems. Formal technique IDs not confirmed in the supplied records."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for continuing CEVA-related service impacts and potential partner-targeted phishing/fraud as incident notifications propagate. Confidence: medium. View Article Port operators should sustain elevated vigilance on remote-access pathways and vendor activities in light of MARAD 2026-007. Continued attention and potential follow-on advisories are likely. Confidence: high. Government Advisory No immediate indicators of navigation system targeting are present; maintain routine GNSS/AIS anomaly detection and cross-validation. Confidence: medium.",
+  "relatedCves": []
+}

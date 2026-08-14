@@ -1,0 +1,75 @@
+{
+  "type": "cyber",
+  "date": "2026-08-14",
+  "threatLevel": "",
+  "executiveSummary": "Multiple, concurrent threats elevate OT/ICS risk to Critical. Active campaigns target PLCs and OT management surfaces while edge and supply-chain exposures expand pivot paths into industrial environments. Immediate actions are required for water/wastewater utilities, energy operators, and any enterprise bridging IT and OT networks. Active exploitation of PLCs across U.S. critical infrastructure with alarm/logic manipulation and service disruption confirmed; remove direct internet exposure, harden access paths, and investigate IOCs immediately. Security Advisory Water and Wastewater Systems sector experiencing password changes and lockouts on exposed PLCs; disconnect PLCs from public internet and enforce gated remote access with MFA. Alert Confirmed destructive OT incident in Poland's energy sector leveraged a misconfigured private APN to pivot into control networks; audit APN configurations and enforce strict device isolation and ACLs before reconnecting. Supporting Report View Article FortiGate \"FortiBleed\" credential exposure enables AD credential theft and lateral movement from compromised edge; rotate credentials, enforce PBKDF2 hashes, and investigate for configuration exports. Security Advisory High-risk OT/adjacent vulnerabilities: unauthenticated RCE in Johnson Controls C-CURE/victor access control servers; multiple OPC UA (Eclipse Milo) flaws impacting authorization and availability across ICS deployments; EVSE/OCPP RCEs. CISA ICS Advisory CISA Weekly State actors: DPRK Lazarus exploited a Windows kernel zero-day (AFD.sys) in the wild with stealthy Graph/OneDrive C2; patch immediately and monitor for ETW blinding and DLL sideloading artifacts. View Article Multiple KEV additions across Aug 3-11 include N-able N-central (RMM), TeamCity (CI/CD), Cisco ASA/FTD, and others-prioritize remediation on any internet-exposed instances and verify for pre-patch compromise. CISA KEV CISA KEV",
+  "keyFindings": [
+    {
+      "title": "OT process disruption confirmed",
+      "summary": "adversaries manipulated PLC logic and HMI states in real environments (U.S. WWS; Poland CHP), underscoring the urgency to remove direct PLC exposure and enforce segmented, monitored access. Security Advisory"
+    },
+    {
+      "title": "Edge-device compromise remains a primary pivot vector into OT networks-FortiGate",
+      "summary": "Edge-device compromise remains a primary pivot vector into OT networks-FortiGate credential leaks, KEV-listed RMM/CI/CD flaws, and exploited firewalls widen attack surface. JPCERT Advisory CISA KEV"
+    },
+    {
+      "title": "Critical ICS software exposures",
+      "summary": "Eclipse Milo(OPC UA) authorization and DoS issues; Johnson Controls C-CURE/victor unauthenticated RCE; EVSE/OCPP RCE enable safety and availability impacts. CISA Weekly ICS Advisory"
+    },
+    {
+      "title": "Advanced APT operations (Lazarus, LAUNDRY BEAR) employ kernel LPEs, cloud relay ",
+      "summary": "Advanced APT operations (Lazarus, LAUNDRY BEAR) employ kernel LPEs, cloud relay C2, and mail platform zero-days for persistence and credential access-raising supplier and operator risk. View Article Security Advisory"
+    },
+    {
+      "title": "At-scale vCenter compromise via path traversal in Syslog Server observed; persis",
+      "summary": "At-scale vCenter compromise via path traversal in Syslog Server observed; persistence via reverse_ssh emphasizes hypervisor-layer risk to industrial virtualized workloads. View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "DPRK Lazarus: In-the-wild exploitation of Windows AFD.sys (CVE-2026-68820) with Graph/OneDrive C2 and ETW blinding; target set includes defense/aerospace. View Article View Article",
+        "Russian operations: FSB Center 16 router targeting, and pro-Russia hacktivists abusing exposed VNC to manipulate HMIs. Security Advisory Security Advisory",
+        "LAUNDRY BEAR/Void Blizzard: Zimbra XSS zero-day campaign stealing mail, scratch codes, and creating IMAP footholds. Security Advisory",
+        "Head Mare APT: Supply-chain poisoning via TrueConf Server to deliver PhantomCore/PhantomGraph to participants; OneDrive-based C2. Supporting Report",
+        "Gunra RaaS: Fortinet edge exploitation leading to double extortion with large M365 exfiltration; FortiOS/FortiProxy auth bypass CVEs. Security Advisory View Article"
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploitation of public-facing applications (T1190): Zimbra XSS, TeamCity RCE, Metabase SQLi, vCenter path traversal",
+      "Valid accounts / Credential Access (T1078/T1003): FortiGate hash reuse, LSASS dumping, AitM phishing",
+      "Command and Control over cloud/DNS (T1071/T1090/T1573): Microsoft Graph/OneDrive, Google Apps Script relays, DNS-controlled channel selection",
+      "Lateral movement (T1021), Remote services abuse (T1021.001/.004): RDP/SMB/SSH tunnels, VNC to HMIs",
+      "Defense evasion (T1562): ETW blinding, rootkit drivers, log deletion",
+      "ICS: Program download/stop, unauthorized setpoint changes, protocol misuse (Modbus TCP, S7comm, CIP/EtherNet/IP)"
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1003",
+      "T1071",
+      "T1090",
+      "T1573",
+      "T1021",
+      "T1021.001",
+      "T1562"
+    ]
+  },
+  "outlook72h": "Disconnect any PLCs/HMIs found reachable from the internet; stand up monitored jump hosts for emergency access only. Enterprise-wide hunt for FortiGate config exports and credential reuse; rotate keys/tokens; validate PBKDF2 adoption. Apply emergency patch windows for TeamCity/N-central/ASA-FTD; restrict admin access to allowlisted management networks. Inventory OPC UA endpoints; disable weak policies; schedule upgrades; place behind strict allowlisting firewalls. For sites with carrier APNs: enforce device isolation, ACLs, and certificates; remove any APN-to-OT flat routes. Patch Windows August updates prioritizing AFD.sys; review EDR telemetry for LPE chains and ETW/driver tampering.",
+  "relatedCves": [
+    "CVE-2026-68820",
+    "CVE-2026-59310"
+  ]
+}
