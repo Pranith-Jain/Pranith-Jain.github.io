@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**294 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**297 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (182)
+### other (185)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -150,6 +150,7 @@
 - `ti_get_detection_list` - Return the full detection list body with all entries (indicator values + metadata: description, tool, severity, category, reference, regex). Optionally search within the list by keyword or severity. Use ti_list_detection_lists first to discover slugs.
 - `ti_get_ioc` - Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.
 - `ti_get_threaticon_actor` - Return the full Threaticon actor profile: executive summary, key capabilities, goals & targeting, MITRE ATT&CK tactics and techniques (T-numbers), software/tooling, IOC patterns, recommended actions, campaigns & victims, targeted sectors and countries, aliases, and confidence. Use ti_list_threaticon_actors to discover slugs.
+- `ti_get_threaticon_catalog_item` - Return the full Threaticon catalog body for one item: description, TLP, status, IDs (CAPEC/CVE/MITRE), CVSS, first/last-seen, references, and section-specific fields. Use ti_threaticon_catalog to discover ids.
 - `ti_list_cves` - List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.
 - `ti_list_darknet` - List Tor-accessible sites from the darknetlist.is directory (markets, forums, news, security, comms, crypto, tools, AI). Each site has live up/down status, onion URL, response code, and fingerprint. Filter by category, status, recommended, or keyword.
 - `ti_list_detection_lists` - List SOC/DFIR detection lists (suspicious named pipes, ports, user-agents, mutexes, ransomware extensions, etc.) sourced from mthcht/awesome-lists. Each list is a curated CSV of indicators with metadata (tool, severity, category, reference). Filter by category or keyword.
@@ -161,7 +162,9 @@
 - `ti_search_ransomware_live` - Search ransomware.live for ransomware group profiles. Returns group description, .onion leak-site URLs, recent victims (with country/sector), MITRE ATT&CK TTPs, and known tools. Free public API — no key required.
 - `ti_search_threatfox` - Search ThreatFox (abuse.ch) for IOCs matching a search term. Returns IOC type, value, malware family, confidence, timestamps, and reporter. Free API — no key required. Useful for looking up specific IPs, domains, URLs, or hashes against ThreatCrowd's crowdsourced IOC database.
 - `ti_stats` - Return cache + manifest stats for the Threat Intel data: index loaded, KEV loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.
+- `ti_threaticon_catalog` - List or search the extended Threaticon catalog (threaticon.com public preview): tools used by threat actors, MITRE mitigations (course-of-action), ATT&CK data components, detection strategies, coordinated attack campaigns, CAPEC-style attack patterns, and CVEs. Pick a section and optionally filter by keyword. Use ti_get_threaticon_catalog_item to fetch the full body for an id.
 - `ti_threaticon_coverage` - Return the Threaticon ATT&CK detection-coverage dataset: every technique the platform ships detection content for, its tactic, and the number of detection rules, plus per-tactic coverage percentages. Filter by tactic, minimum rule count, or keyword. Use for gap analysis when planning detection coverage.
+- `ti_threaticon_indicators` - Search the Threaticon IOC dictionary (480k+ indicators: IPv4/IPv6, domain, URL, MD5/SHA-1/SHA-256/SHA-512, filename, CIDR, email, mutex, registry key, user agent, certificate, CVE). Pass a type key (e.g. "ipv4-address", "domain", "url", "sha-256-hash") plus optional value substring, TLP, or confidence floor. Call without type to see the type catalog.
 - `tools_get` - Get the full profile for a specific security tool by slug.
 - `tools_list` - List security tools from the curated Tools Directory. Filter by category (recon, exploitation, post-exploitation, defense, detection, forensics, osint, c2, phishing, crypto, mobile, cloud, network, reverse-engineering, web, misc), keyword, or offensive/defensive scope.
 - `tor_exit_check` - Check if a specific IP address is a known Tor exit node. Returns boolean and the queried IP.

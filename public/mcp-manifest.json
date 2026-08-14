@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 294 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 297 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 294,
-  "generatedAt": "2026-08-14T04:10:15.106Z",
+  "toolCount": 297,
+  "generatedAt": "2026-08-14T05:07:49.052Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -1210,6 +1210,11 @@
       "category": "other"
     },
     {
+      "name": "ti_get_threaticon_catalog_item",
+      "description": "Return the full Threaticon catalog body for one item: description, TLP, status, IDs (CAPEC/CVE/MITRE), CVSS, first/last-seen, references, and section-specific fields. Use ti_threaticon_catalog to discover ids.",
+      "category": "other"
+    },
+    {
       "name": "ti_list_cves",
       "description": "List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.",
       "category": "other"
@@ -1265,8 +1270,18 @@
       "category": "other"
     },
     {
+      "name": "ti_threaticon_catalog",
+      "description": "List or search the extended Threaticon catalog (threaticon.com public preview): tools used by threat actors, MITRE mitigations (course-of-action), ATT&CK data components, detection strategies, coordinated attack campaigns, CAPEC-style attack patterns, and CVEs. Pick a section and optionally filter by keyword. Use ti_get_threaticon_catalog_item to fetch the full body for an id.",
+      "category": "other"
+    },
+    {
       "name": "ti_threaticon_coverage",
       "description": "Return the Threaticon ATT&CK detection-coverage dataset: every technique the platform ships detection content for, its tactic, and the number of detection rules, plus per-tactic coverage percentages. Filter by tactic, minimum rule count, or keyword. Use for gap analysis when planning detection coverage.",
+      "category": "other"
+    },
+    {
+      "name": "ti_threaticon_indicators",
+      "description": "Search the Threaticon IOC dictionary (480k+ indicators: IPv4/IPv6, domain, URL, MD5/SHA-1/SHA-256/SHA-512, filename, CIDR, email, mutex, registry key, user agent, certificate, CVE). Pass a type key (e.g. \"ipv4-address\", \"domain\", \"url\", \"sha-256-hash\") plus optional value substring, TLP, or confidence floor. Call without type to see the type catalog.",
       "category": "other"
     },
     {
