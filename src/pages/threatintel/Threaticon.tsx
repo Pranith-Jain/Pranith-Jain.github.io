@@ -577,7 +577,7 @@ export default function ThreaticonFeeds() {
       tab === 'actors'
         ? `${base}/actors?limit=1000`
         : tab === 'malware'
-          ? `${base}/malware?limit=5000`
+          ? `${base}/malware?limit=10000`
           : tab === 'coverage'
             ? `${base}/coverage?limit=5000`
             : `${base}/map`;

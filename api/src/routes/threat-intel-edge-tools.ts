@@ -694,7 +694,7 @@ threatIntelRouter.get('/threat-intel/threaticon/malware', async (c) => {
     const minConfidenceRaw = c.req.query('min_confidence');
     const minConfidence = minConfidenceRaw ? Math.max(0, Number(minConfidenceRaw) || 0) : undefined;
     const limitRaw = c.req.query('limit');
-    const limit = limitRaw ? Math.min(2000, Math.max(1, Number(limitRaw) || 200)) : undefined;
+    const limit = limitRaw ? Math.min(10000, Math.max(1, Number(limitRaw) || 200)) : undefined;
     const families = mod.filterThreaticonMalware(body, { category, keyword, minConfidence, limit });
     return c.json({
       syncedAt: body.syncedAt,
