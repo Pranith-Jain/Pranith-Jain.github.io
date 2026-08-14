@@ -1,0 +1,45 @@
+{
+  "slug": "storm-0324",
+  "id": 878,
+  "name": "Storm-0324",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Financially Motivated", "Ransomware", "Email Threats"],
+  "aliases": ["DEV-0324", "Sagrid", "TA543"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Persistence", "Defense-Evasion"],
+  "techniques": ["T1566.003", "T1059.001", "T1078"],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Malicious Office documents exploiting CVEs",
+    "Staging infrastructure for lateral movement"
+  ],
+  "keyCapabilities": [
+    "Email-based initial infection vectors",
+    "Malware deployment for network access",
+    "Network access handoff to other actors",
+    "Ransomware enablement"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect phishing attempts.",
+    "Monitor for unusual network activity indicative of access handoffs.",
+    "Enhance endpoint detection and response capabilities to identify and block malicious payloads.",
+    "Educate employees on recognizing spear-phishing emails."
+  ],
+  "campaignsText": "Storm-0324's campaigns are characterized by their email-based infection vectors and the subsequent handoff of access to other actors. These campaigns often involve multiple stages, starting with an initial compromise through phishing or malicious attachments, followed by lateral movement within the network, and finally the deployment of ransomware. A notable pattern is their collaboration with other threat actors, which suggests a专业化division of labor in the cybercrime ecosystem.",
+  "description": "Storm-0324, also known as DEV-0324, Sagrid, and TA543, is a financially motivated cyber threat actor tracked by Microsoft. The group primarily gains initial access through email-based infection vectors and often facilitates further compromise by handing off access to other malicious actors, frequently resulting in ransomware deployment.",
+  "goals": "Storm-0324's primary goal appears to be facilitating access to compromised networks for financial gain, likely through receiving payment from subsequent attackers or by directly participating in downstream attacks. The group targets sectors with high financial value or those that are less secure, although specific sector targeting is not explicitly detailed in the available information. Their victims typically include organizations across various industries, though the exact list remains unclear.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A878",
+  "sourceUrl": "https://threaticon.com/threat-actors/878"
+}

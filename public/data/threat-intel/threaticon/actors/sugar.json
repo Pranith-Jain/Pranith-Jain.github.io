@@ -1,0 +1,58 @@
+{
+  "slug": "sugar",
+  "id": 614,
+  "name": "sugar",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "cybercriminal", "financial-motivated", "encrypted-exfiltration", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Credential Access", "Discovery"],
+  "techniques": [
+    "T1059.003 - PowerShell command execution via Start-Process with cmd.exe",
+    "T1003 - Credential Dumping",
+    "T1566.001 - Exploitation for Privilege escalation",
+    "T1055 - Process Injection"
+  ],
+  "tools": [
+    "Custom ransomware (Delphi-based)",
+    "Phishing tools (e.g., spear-phishing kits)",
+    "Cobalt Strike-like frameworks for payloads delivery",
+    "Ransomware-as-a-Service (RaaS) platforms"
+  ],
+  "iocPatterns": [
+    "Use of Delphi-based executable files as payload",
+    "Spear-phishing emails containing malicious links or attachments",
+    "Encrypted files extorted for cryptocurrency payments",
+    "Command-and-control (C2) communication over HTTP/HTTPS",
+    "Data exfiltration via encrypted channels"
+  ],
+  "keyCapabilities": [
+    "Development of ransomware variants using the Delphi programming language",
+    "Phishing campaigns to distribute malicious payloads",
+    "Encryption of stolen data to extort ransoms",
+    "Ability to compromise and exfiltrate sensitive information"
+  ],
+  "recommendedActions": [
+    "Implement advanced endpoint detection and response (EDR) solutions to monitor for unknown executables.",
+    "Conduct regular user awareness training to mitigate phishing attempts.",
+    "Patch systems regularly to reduce attack vectors.",
+    "Encrypt sensitive data at rest as a defense-in-depth measure.",
+    "Monitor for unusual network traffic associated with C2 servers or fast-flux domains."
+  ],
+  "campaignsText": "Sugar's campaign patterns are not well-documented, but common ransomware activities include targeting small-to-medium enterprises (SMEs), deploying self-extracting malicious files via phishing emails, and using symmetric encryption to lock victims' data. Their operational tempo likely aligns with other financially motivated groups, conducting campaigns with a focus on quick monetization rather than long-term persistence. Notable past operations include multiple deployments of ransomware targeting unspecified sectors in multiple countries.",
+  "description": "Sugar is suspected to be a medium-sophisticated cybercriminal threat actor primarily involved in ransomware activities for financial gain. The actor likely operates with moderate technical capabilities, targeting unspecified sectors and/or countries due to limited available data.糖主要使用Delphi语言编写的恶意软件进行活动，其 Tactics, Techniques, and Procedures (TTPs) likely involve phishing, payload delivery, and encryption to extort ransoms.",
+  "goals": "Sugar's primary motivation is financial gain through ransomware operations. The actor's targeting profile likely focuses on sectors where data breaches have high consequences, such as healthcare、education、or IT services. The specific sectors and countries targeted by Sugar remain unclear, but ransomware groups often exhibit geographic agnosticism, seeking vulnerabilities globally. Their victims typically include organizations with weak cybersecurity defenses or those operating in industries known for large dataset storage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A614",
+  "sourceUrl": "https://threaticon.com/threat-actors/614"
+}

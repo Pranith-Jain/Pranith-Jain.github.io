@@ -1,0 +1,45 @@
+{
+  "slug": "ramp",
+  "id": 564,
+  "name": "ramp",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Dark web", "RaaS", "Criminal", "Critical Infrastructure", "Hacktivism"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Privilege Escalation", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom ransomware", "Encryption tools", "Dark web forum software"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Ransomware development and deployment",
+    "Initial access brokering",
+    "Affiliate recruitment and management",
+    "Dark web forum management",
+    "Encryption and decryption capabilities"
+  ],
+  "recommendedActions": [
+    "Implement robust email security controls to prevent spear-phishing attacks",
+    "Regularly update and patch software to prevent exploitation of known vulnerabilities",
+    "Use threat intelligence to inform defensive strategies and stay ahead of emerging threats"
+  ],
+  "campaignsText": "The RAMP was likely involved in numerous campaigns, given its role as a central marketplace and recruitment hub for ransomware operators. The forum's operational tempo would have been characterized by a high volume of activity, with threat actors constantly seeking to recruit new affiliates, develop new ransomware strains, and identify vulnerable targets. Notable past operations would have included the deployment of various ransomware strains, including those specifically designed to target high-value organizations.",
+  "description": "The RAMP (Russian Anonymous Marketplace) was a dark web forum that operated as a central hub for ransomware operators, affiliates, and initial access brokers. It was seized by the FBI in January 2026. The forum played a crucial role in the ransomware-as-a-service (RaaS) ecosystem, facilitating the collaboration and recruitment of threat actors.",
+  "goals": "The RAMP's strategic objectives were focused on facilitating the collaboration and recruitment of threat actors, with the ultimate goal of generating financial gain through ransomware attacks and other illicit activities. The forum's targeting profile was likely characterized by a focus on high-value targets, including organizations with sensitive data and those with the financial resources to pay significant ransoms. The typical victims of RAMP-affiliated threat actors would have included a range of organizations, from small businesses to large enterprises, across various sectors.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A564",
+  "sourceUrl": "https://threaticon.com/threat-actors/564"
+}

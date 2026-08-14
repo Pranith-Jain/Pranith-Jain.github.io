@@ -1,0 +1,62 @@
+{
+  "slug": "operation-wocao",
+  "id": 783,
+  "name": "Operation Wocao",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "government", "healthcare", "energy", "Supply Chain Attack", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Defense Evasion",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1059", "T1078", "T1260", "T1040", "T1566", "T1036", "T1560"],
+  "tools": [
+    "Custom malware (possibly similar to known APT20 tools)",
+    "Spear-phishing tools",
+    "Credential dumping utilities",
+    "Network exploitation frameworks"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Use of Chinese-language threat actors' communication channels",
+    "C2 infrastructure leveraging encrypted protocols",
+    "Network scanning and lateral movement patterns"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns targeting high-value individuals",
+    "Use of custom malware for infiltration and data exfiltration",
+    "Lateral movement within networks using valid accounts",
+    "Malware deployment to compromise systems",
+    "Credential dumping techniques",
+    "Network discovery and persistence"
+  ],
+  "recommendedActions": [
+    "Monitor for spear-phishing attempts originating from domains associated with Chinese TTPs.",
+    "Implement robust detection mechanisms for credential dumping activities.",
+    "Enhance network segmentation to limit lateral movement.",
+    "Conduct regular security updates and patch management across all systems.",
+    "Deploy EDR solutions to detect and respond to malicious activity."
+  ],
+  "campaignsText": "Operation Wocao has demonstrated a prolonged operational timeline, targeting multiple countries and sectors. Their campaigns likely involve long-term access to victim networks for data collection. Notable for their stealth and persistence, the group appears capable of maintaining presence in highly secured environments.",
+  "description": "Operation Wocao (我操), described by Fox-IT as a Chinese-based hacking group, is assessed with high confidence to be involved in espionage activities targeting government entities and critical sectors globally. The group's operations suggest alignment with state-sponsored objectives, likely supporting the interests of the Chinese government.",
+  "goals": "Operation Wocao appears to operate with strategic objectives centered on intelligence gathering for espionage purposes, likely supporting Chinese government interests. The group targets a diverse range of sectors, including energy, healthcare, high-tech industries, and government entities, indicating a focus on extracting sensitive information that could provide competitive or geopolitical advantages.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A783",
+  "sourceUrl": "https://threaticon.com/threat-actors/783"
+}

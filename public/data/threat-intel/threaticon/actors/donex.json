@@ -1,0 +1,46 @@
+{
+  "slug": "donex",
+  "id": 417,
+  "name": "donex",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Organized Crime", "Double Extortion", "Financial Gain"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Double extortion ransomware", "Spear-phishing tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting enterprise employees",
+    "Encrypted files with specific extensions",
+    "Network traffic spikes indicating lateral movement"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Double-extortion tactics",
+    "Network infiltration techniques",
+    "Social engineering for initial access"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect phishing attempts",
+    "Patch systems and software to address potential vulnerabilities",
+    "Monitor network activity for signs of unauthorized access",
+    "Establish incident response plans to handle ransomware incidents",
+    "Encrypt sensitive data to mitigate the impact of ransomware attacks"
+  ],
+  "campaignsText": "DoNex campaigns have been observed targeting mid-sized to large enterprises, leveraging phishing and network infiltration techniques. The group's operational timeline is limited to less than a month as of July 2024, with only five known victims identified. Notable operations include the successful deployment of the ransomware in multiple industries and the subsequent decryption capability made available by Avast.",
+  "description": "DoNex is a ransomware strain that emerged in March 2024 as part of an evolving lineage, targeting enterprises in the US and Europe. The group employs double-extortion tactics, encrypting data and threatening to leak stolen information unless a ransom is paid. A free decryptor was released by Avast in July 2024 after discovering a cryptographic flaw in the ransomware.",
+  "goals": "DoNex appears to target enterprises across multiple sectors in the US and Europe, focusing on maximizing financial gain through ransom payments. The choice of double extortion indicates a strategic focus on pressuring victims to comply with demands. The group's targeting profile suggests an emphasis on high-value organizations that are likely to have significant data assets and potentially fewer defenses against sophisticated attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A417",
+  "sourceUrl": "https://threaticon.com/threat-actors/417"
+}

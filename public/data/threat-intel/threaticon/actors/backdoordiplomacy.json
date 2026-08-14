@@ -1,0 +1,53 @@
+{
+  "slug": "backdoordiplomacy",
+  "id": 59,
+  "name": "BackdoorDiplomacy",
+  "mitreId": "G0135",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "Cyber Espionage",
+    "Government Targeting",
+    "Telecommunications Sector",
+    "Initial Access",
+    "Backdoor / C2"
+  ],
+  "aliases": ["BackDip", "CloudComputating", "Quarian"],
+  "targetedSectors": ["Government", "Telecommunications"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom RAT", "Living off the Land (LOTL) tactics"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Customized malware development",
+    "Social engineering and phishing operations",
+    "Network exploitation and persistence",
+    "Data exfiltration and encryption",
+    "Evasion techniques for avoiding detection"
+  ],
+  "recommendedActions": [
+    "Enhance email security with sandboxing and behavioral analysis",
+    "Implement robust access controls and monitoring for privileged accounts",
+    "Regularly update and patch software vulnerabilities, especially in high-risk sectors",
+    "Utilize advanced threat detection tools with AI-driven anomaly detection"
+  ],
+  "campaignsText": "BackdoorDiplomacy's campaign patterns suggest a patient and calculated approach, with operations spanning months or even years. They typically target specific sectors and countries, often leveraging local events or diplomatic tensions to their advantage. Notable past operations have involved the use of zero-day exploits and highly customized malware, indicating significant resources and expertise. Their operational tempo is characterized by periods of high activity followed by dormancy, making detection and attribution challenging.",
+  "description": "BackdoorDiplomacy is a cyber espionage threat group that has been active since at least 2017, targeting government and telecommunications sectors across multiple continents. Their primary motivation appears to be gathering sensitive information. The group's operations have been observed in Africa, Europe, the Middle East, and Asia.",
+  "goals": "The primary objectives of BackdoorDiplomacy appear to be the collection of sensitive diplomatic and strategic information from government and telecommunications entities. Their targeting profile suggests a strategic focus on destabilizing or influencing international relations through the theft of confidential communications and data. Typical victims are high-value targets within Ministries of Foreign Affairs and major telecommunications providers, indicating the group seeks to exploit vulnerabilities in these sectors for espionage purposes.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A59",
+  "sourceUrl": "https://threaticon.com/threat-actors/59"
+}

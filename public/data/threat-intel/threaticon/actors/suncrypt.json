@@ -1,0 +1,64 @@
+{
+  "slug": "suncrypt",
+  "id": 615,
+  "name": "suncrypt",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Crime",
+    "financial-gain",
+    "APT",
+    "DDOS",
+    "Cyber extortion",
+    "Critical Infrastructure",
+    "DDoS"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Reconnaissance",
+    "Initial Access",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1485", "T1059.003", "T1003", "T1278", "T1065", "T1070"],
+  "tools": ["TrickBot", "Cobalt Strike", "Double extortion tools", "DDoS tools (e.g., Tsunami)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Domain Generation Algorithms (DGA) for C2 communication",
+    "Encrypted communications over暗网ダークネット暗号化通信ダークネット"
+  ],
+  "keyCapabilities": [
+    "Sophisticated triple extortion techniques",
+    "Ransomware deployment",
+    "DDoS attacks",
+    "Partnerships with other APT groups for initial access"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and phishing detection",
+    "Regular data backups in air-gapped systems",
+    "Monitor for DDoS activity",
+    "Enhance endpoint protection with EDR solutions",
+    "Conduct regular user training on recognizing phishing attempts"
+  ],
+  "campaignsText": "SunCrypt's campaigns exhibit a steady operational tempo, consistent since their emergence in 2019. Their triple extortion approach increases pressure on victims, making them notable for their aggressive tactics and partnerships with established threat actors like TrickBot.",
+  "description": "SunCrypt is a sophisticated ransomware-as-a-service (RaaS) operation known for innovative extortion techniques, including triple extortion. They leverage partnerships with groups like TrickBot for initial access, targeting organizations across various sectors for financial gain. Their operations demonstrate a medium level of sophistication with a focus on consistently evolving attack methods.",
+  "goals": "SunCrypt's primary goal is financial gain via ransomware operations. Their targeting strategy likely focuses on sectors where data breaches and service interruptions have high impact, such as healthcare or finance. The selection of victims may be strategic to maximize extortion potential and ensure timely payments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A615",
+  "sourceUrl": "https://threaticon.com/threat-actors/615"
+}

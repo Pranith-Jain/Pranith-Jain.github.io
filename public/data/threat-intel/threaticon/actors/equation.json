@@ -1,0 +1,56 @@
+{
+  "slug": "equation",
+  "id": 14,
+  "name": "Equation",
+  "mitreId": "G0020",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "Sophisticated Threat Actor",
+    "Zero-Day Exploits",
+    "Firmware Manipulation",
+    "Zero-Day Exploitation"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Privilege Escalation", "Defense Evasion", "Persistence", "Execution", "Exfiltration"],
+  "techniques": ["T1120", "T1219", "T1542.002", "T1592.003", "T1587.004", "T1564.005", "T1480.001", "T1588.005"],
+  "tools": ["Custom Remote Access Tools", "Firmware manipulation tools", "Zero-day exploits"],
+  "iocPatterns": [
+    "Use of unknown or custom malware",
+    "Spear-phishing with highly targeted and tailored content",
+    "Exploitation of previously unknown vulnerabilities",
+    "Manipulation of system firmware and low-level components",
+    "Unusual patterns of network traffic indicative of command and control communications"
+  ],
+  "keyCapabilities": [
+    "Zero-day exploit development and deployment",
+    "Firmware manipulation of hard disk drives",
+    "Use of multiple remote access tools",
+    "Ability to maintain persistence across system reinstallation or hard drive replacement",
+    "Advanced knowledge of system internals and low-level operations"
+  ],
+  "recommendedActions": [
+    "Implement robust vulnerability management and patching regimes",
+    "Deploy advanced threat detection tools capable of identifying zero-day exploits",
+    "Conduct regular audits of system firmware and low-level system components",
+    "Enforce strict access controls and monitor for signs of privilege escalation",
+    "Implement a defense-in-depth strategy to protect against multi-stage attacks"
+  ],
+  "campaignsText": "Equation's campaign patterns are characterized by a high level of sophistication and patience, with operations possibly spanning years. Their victim profile includes high-security targets, and the use of zero-day exploits suggests a focus on gaining initial access to highly secured environments. Notable past operations have highlighted their ability to stay under the radar for extended periods, using their advanced TTPs to evade detection and maintain access to compromised systems.",
+  "description": "The Equation threat group is a highly sophisticated actor that leverages advanced tools and techniques to target victims, including the use of zero-day exploits and manipulation of hard disk drive firmware. Their operations indicate a high level of expertise and resources, posing a significant threat to targeted sectors. The group's true motivations and goals remain unclear, but their TTPs suggest a focus on persistent access and data exfiltration.",
+  "goals": "Equation's strategic objectives appear to be centered around gaining and maintaining access to sensitive systems and data, likely for espionage or intellectual property theft purposes. Their targeting profile suggests a preference for high-value targets, possibly including government institutions, defense contractors, and technology companies. The specific sectors and countries targeted by Equation are not well-documented, but their use of zero-day exploits and firmware manipulation tools implies a focus on high-security environments where such capabilities would provide a significant advantage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A14",
+  "sourceUrl": "https://threaticon.com/threat-actors/14"
+}

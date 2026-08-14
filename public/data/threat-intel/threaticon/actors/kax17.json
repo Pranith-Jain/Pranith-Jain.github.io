@@ -1,0 +1,67 @@
+{
+  "slug": "kax17",
+  "id": 944,
+  "name": "KAX17",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Surveillance",
+    "Tor Infrastructure Exploitation",
+    "Information Collection",
+    "Network Monitoring",
+    "Ransomware"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Command and Control", "Data Exfiltration", "Defense Evasion"],
+  "techniques": [
+    "T1046 (Data from Network Shared Memory)",
+    "T1075 (Data Extraction via Memory Dump)",
+    "T1573 (Network sniffing)",
+    "T1105 (Custom Command and Control)",
+    "T1071.001 (Use of Tor as a Proxy)"
+  ],
+  "tools": [
+    "Tor relay management software",
+    "Custom network sniffing tools",
+    "Anonymous communication protocols",
+    "Infrastructure obfuscation utilities"
+  ],
+  "iocPatterns": [
+    "Malicious Tor relay IP ranges",
+    "Unusual SSL certificate configurations on Tor nodes",
+    "Abnormal traffic patterns from Tor entry/exit relays",
+    "Suspicious domain registrations linked to Tor infrastructure",
+    "Unusual relay node configurations (e.g., high bandwidth, low latency)"
+  ],
+  "keyCapabilities": [
+    "Deployment and maintenance of large-scale Tor relay networks",
+    "Traffic monitoring and metadata collection via Tor nodes",
+    "Network mapping and route reconstruction techniques",
+    "Resilience against infrastructure takedowns",
+    "Use of custom tools for Tor node management and data exfiltration"
+  ],
+  "recommendedActions": [
+    "Monitor Tor network traffic for anomalies in relay node behavior",
+    "Implement network traffic analysis tools to detect unexpected data flows",
+    "Collaborate with the Tor Project to report suspicious relay nodes",
+    "Enhance firewall rules to block known malicious Tor exit node IP ranges",
+    "Deploy intrusion detection systems tuned to detect custom C2 protocols"
+  ],
+  "campaignsText": "KAX17 has maintained a low operational tempo focused on long-term Tor infrastructure exploitation since 2017. Campaigns involve deploying malicious Tor relays to monitor user traffic and map network routes. The actor's persistence highlights an emphasis on sustained surveillance rather than short-term disruptive goals. Notable operations include repeated reestablishment of Tor nodes after takedowns, suggesting access to resources for rapid redeployment.",
+  "description": "KAX17 is a long-term threat actor active since 2017, exploiting Tor network infrastructure to monitor user traffic and map network routes. Despite repeated takedown efforts, the group maintains hundreds of Tor nodes, suggesting persistence and resilience. Their activities pose risks to Tor users' anonymity and privacy.",
+  "goals": "KAX17's primary objective appears to be surveillance and mapping of Tor users' activities, likely to compromise anonymity or gather intelligence on individuals using the network for sensitive communications. By targeting Tor infrastructure, the actor can intercept metadata, identify traffic patterns, and potentially deanonymize users. The group shows no preference for specific sectors or countries, focusing instead on the Tor network itself, which indicates a broad interest in digital privacy threats and network reconnaissance.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A944",
+  "sourceUrl": "https://threaticon.com/threat-actors/944"
+}

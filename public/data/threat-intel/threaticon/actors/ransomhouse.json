@@ -1,0 +1,54 @@
+{
+  "slug": "ransomhouse",
+  "id": 572,
+  "name": "ransomhouse",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial-Motivation",
+    "Healthcare-Targeted",
+    "Critical-Infrastructure",
+    "Healthcare Targeting",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration of Data", "Data Destruction", "Credential Access", "Initial Access"],
+  "techniques": ["T1566.002", "T1059", "T1486.003", "T1070.001"],
+  "tools": ["Cobalt Strike", "Mimikatz", "RansomHouse Ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Payload delivery via double extortion ransomware",
+    "Multi-layered encryption of victim data",
+    "Exfiltration of sensitive files prior to encryption"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Double extortion tactics",
+    "Multi-layered encryption techniques",
+    "Phishing and social engineering",
+    "Spear-phishing campaigns"
+  ],
+  "recommendedActions": [
+    "Enhance endpoint detection and response (EDR) capabilities to identify Cobalt Strike and Mimikatz activity",
+    "Implement strict email filtering to prevent phishing emails with malicious macros or links",
+    "Conduct regular backups, ensuring they are air-gapped from network access",
+    "Monitor for unusual network traffic indicative of multi-stage attacks"
+  ],
+  "campaignsText": "RansomHouse has conducted numerous campaigns targeting diverse industries, with notable operations including 'Karl Chevrolet' and others linked to critical infrastructure. Their campaign patterns suggest a preference for prolonged lateral movement within networks to identify high-value data before encryption. The group's operational tempo is consistent with financially motivated actors, balancing stealth with the urgency required to pressure victims into timely payment decisions.",
+  "description": "RansomHouse is a medium-sophistication ransomware-as-a-service (RaaS) operation linked to the threat actor 'Jolly Scorpius,' active since June 2021. The group focuses on double extortion tactics, targeting organizations across healthcare, finance, transportation, and government sectors with over 193 known victims. Their recent adoption of multi-layered dual-key encryption highlights an evolution in their technical capabilities to ensure data recovery only through payment.",
+  "goals": "RansomHouse seeks financial gain through ransomware deployment, targeting sectors with high organizational overhead or sensitive data that would incur significant disruption if unaddressed. Their focus on healthcare, finance, transportation, and government reflects an understanding of the critical nature of these industries' infrastructure and data sensitivity. The group’s victims are typically organizations that can be pressured to pay ransoms without raising immediate red flags, often due to operational continuity requirements or patient care obligations in healthcare settings.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A572",
+  "sourceUrl": "https://threaticon.com/threat-actors/572"
+}

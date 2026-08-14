@@ -1,0 +1,47 @@
+{
+  "slug": "leaktheanalyst",
+  "id": 480,
+  "name": "leaktheanalyst",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Extortion", "Cyber crime", "Data theft", "dark web", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Custom malware for data theft", "Phishing tools", "Webshells"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Lateral movement via webshells or compromised accounts",
+    "Exfiltration of sensitive files over encrypted channels",
+    "Dark web leak site activity"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing",
+    "Data exfiltration",
+    "Dark web activities",
+    "Credential dumping",
+    "Webshell deployment"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and detection to prevent phishing attempts.",
+    "Enhance identity and access management to mitigate credential dumping risks.",
+    "Monitor for unusual network traffic indicative of data exfiltration activities.",
+    "Implement a strong incident response plan to address potential data breaches."
+  ],
+  "campaignsText": "LeakTheAnalyst has demonstrated a consistent operational pattern since their first reported activity in January 2022. Their campaigns typically involve initial access via phishing, followed by lateral movement within the network, and eventual data exfiltration for later publication on their dark web site. The group's victims have been limited to their self-reported count of 20, but no specific sectors or industries appear to be targeted preferentially. Notable operations include their 2017 targeting of a Mandiant researcher, suggesting an early focus on high-profile targets. LeakTheAnalyst's campaigns are characterized by their slow-burn approach, with victims given time to negotiate before data is leaked publicly.",
+  "description": "LeakTheAnalyst is a medium-sophistication cyber threat actor specializing in data-theft and extortion activities. Notable for operating a dark web leak site and targeting organizations to publish stolen sensitive corporate data, the group primarily aims to achieve financial gain through organizational harm. Unlike many ransomware groups, LeakTheAnalyst focuses on data exfiltration and public shaming rather than deploying file-encrypting ransomware.",
+  "goals": "LeakTheAnalyst's primary motivation is financial gain through organizational harm. They target organizations across various sectors with data theft operations to extort money or disrupt business activities. Their victims are typically commercial entities holding sensitive information that can be damaging if made public. The group's targeting strategy appears to focus on ease of access and high-impact leaks, rather than sector-specific campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A480",
+  "sourceUrl": "https://threaticon.com/threat-actors/480"
+}

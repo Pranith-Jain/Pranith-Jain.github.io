@@ -1,0 +1,54 @@
+{
+  "slug": "carmine-tsunami",
+  "id": 1013,
+  "name": "Carmine Tsunami",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Mobile Threat",
+    "Surveillance Tools",
+    "Civil Society Targeting",
+    "Data Exfiltration",
+    "Government Targeting"
+  ],
+  "aliases": ["DEV-0196", "QuaDream"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["REIGN platform (mobile surveillance tools)", "KingsPawn iOS malware"],
+  "iocPatterns": [
+    "Spear-phishing with links to malicious domains",
+    "Malicious iOS app distribution",
+    "Use of Let's Encrypt SSL certificates",
+    "Infrastructure hosted on disposable or low-cost cloud services"
+  ],
+  "keyCapabilities": [
+    "iOS malware development",
+    "Mobile device exploitation",
+    "Use of domain registrars and cloud hosting",
+    "Data exfiltration techniques",
+    "Spear-phishing campaigns"
+  ],
+  "recommendedActions": [
+    "Implement mobile device security monitoring for signs of malware activity.",
+    "Monitor for suspicious domain registrations and associated network traffic.",
+    "Enhance email filtering to detect phishing attempts targeting civil society actors.",
+    "Conduct regular audits of cloud service usage for unauthorized or potentially malicious activities."
+  ],
+  "campaignsText": "Carmine Tsunami's operations involve targeting civil society actors in multiple regions. While specific campaigns are not well-documented, the group's focus on mobile device exploitation and surveillance suggests a long-term operational strategy. Their use of domain registrars and cloud hosting indicates careful planning to evade detection.",
+  "description": "Carmine Tsunami (DEV-0196, QuaDream) is a threat actor linked to an Israel-based private sector offensive actor known as Qua Dream. They are associated with the iOS malware KingsPawn and have targeted civil society actors in various regions. Their operations include mobile device exploitation, domain registrar abuse, and use of cloud hosting infrastructure.",
+  "goals": "Carmine Tsunami appears to target civil society actors, including journalists,政治 opposition figures, and NGO workers, likely with the intent of conducting surveillance or intelligence gathering. Their focus on these sectors suggests a potential interest in monitoring dissidents or activists. The actor's targeting extends across multiple regions, indicating either widespread geographic interests or specific operational objectives.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1013",
+  "sourceUrl": "https://threaticon.com/threat-actors/1013"
+}

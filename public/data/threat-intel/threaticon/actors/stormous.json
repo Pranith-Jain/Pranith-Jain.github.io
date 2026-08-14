@@ -1,0 +1,78 @@
+{
+  "slug": "stormous",
+  "id": 613,
+  "name": "stormous",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Hacktivist", "Criminal Group", "Pro-Russian", "Financial-Gain", "Geopolitical", "Hacktivism"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Reconnaissance",
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [
+    "T1043.004 - Adversary Scripting",
+    "T1566.002 -Credential Dumping Tools",
+    "T1078.001 - Email Collection",
+    "T1093.001 - Valid Accounts",
+    "T1544.004 - Network-Based File Transfer Tools",
+    "T1218 - Web Service"
+  ],
+  "tools": [
+    "GhostLocker Ransomware",
+    "Spear-phishing Kits",
+    "Cobalt Strike (potential)",
+    "Mimikatz (for credential dumping)",
+    "Custom Malware/Droppers",
+    "Bulletproof Hosting Services",
+    "Fast-flux Domain Infrastructure"
+  ],
+  "iocPatterns": [
+    "Spear phishing emails with malicious Office document attachments",
+    "Malware distribution via compromised websites or direct delivery",
+    "C2 communication over HTTPS and fast-flux domains",
+    "Exfiltration of data to leak sites post-encryption",
+    "Encrypted backups, files, or systems with specific ransom notes",
+    "Use of known RaaS platforms for affiliate recruitment"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment (including GhostLocker variants)",
+    "Phishing campaigns using spear-phishing emails",
+    "Malicious Office document distribution",
+    "Use of Ransomware-as-a-Service platforms",
+    "Data exfiltration and leak site activity",
+    "Potential use of tools like Cobalt Strike or custom C2 frameworks"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering policies to block phishing emails and macro-laced documents.",
+    "Monitor for malicious VBA scripts in Office attachments using endpoint detection tools.",
+    "Regularly update software and patch systems to mitigate potential exploit usage.",
+    "Segment critical data from general network access to limit lateral movement.",
+    "Use multi-factor authentication for all critical accounts.",
+    "Conduct regular training sessions on phishing awareness for employees.",
+    "Monitor dark web platforms and leak sites for indicators of compromise."
+  ],
+  "campaignsText": "Stormous has demonstrated a consistent operational tempo, frequently targeting businesses and public sector entities. Notable campaigns include the full data dumps of victims such as or-technology.com, FANASA.COM, and others, indicating both financial and reputational damage intent. The group's ability to collaborate with other threat actors like GhostSec suggests an organized approach to maintaining their RaaS operations. Their shift in focus to GhostLocker 2.0 mid-2024 may indicate efforts to refine their toolset, improve evade detection, or expand their operational reach.",
+  "description": "Stormous is a medium-sophistication criminal threat actor group that combines hacktivist activities with ransomware operations, likely aligned with pro-Russian ideologies. Known since at least March 2022, the group has conducted politically motivated attacks across more than 15 countries and operates the GhostLocker 2.0 Ransomware-as-a-Service (RaaS) platform in collaboration with GhostSec. Stormous primarily targets organizations for financial gain through ransomware deployment, frequently sharing indicators of compromise (IOCs) on leak sites following breaches.",
+  "goals": "Stormous' strategic objectives align closely with financial gain through ransomware deployment, while its hacktivist elements suggest an interest in targeting entities that could yield both monetary rewards and political influence. The group's selection of victims appears to be driven by ease of access, sector vulnerabilities, and potential for high-value data dumps. Primarily targeting the corporate and public sectors across multiple countries, Stormous demonstrates a preference for organizations with weaker cybersecurity postures. Their focus on the Middle East, North Africa, Europe, and parts of Asia may reflect both operational opportunities and ideological leanings.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A613",
+  "sourceUrl": "https://threaticon.com/threat-actors/613"
+}

@@ -1,0 +1,68 @@
+{
+  "slug": "salt-typhoon",
+  "id": 111,
+  "name": "Salt Typhoon",
+  "mitreId": "G1045",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "China-state_backed", "Telecommunications_Sector", "Infrastructure_Targeting", "Initial Access"],
+  "aliases": ["FamousSparrow", "UNC2286", "Salt Typhoon", "RedMike"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Credential Access",
+    "Defense Evasion",
+    "Discovery",
+    "Lateral Movement",
+    "Network Sharing",
+    "Exfiltration",
+    "Collection",
+    "Impact"
+  ],
+  "techniques": [
+    "T1110.002",
+    "T1587.001",
+    "T1021.004",
+    "T1040",
+    "T1590.004",
+    "T1136",
+    "T1572",
+    "T1685.006",
+    "T1588.002",
+    "T1098.004"
+  ],
+  "tools": ["JumbledPath"],
+  "iocPatterns": [
+    "Network traffic异常 with SSH protocol usage",
+    "SMB协议或HTTP的非正常通信模式",
+    "网络设备配置dump活动",
+    "网络嗅探和横向移动迹象"
+  ],
+  "keyCapabilities": [
+    "Network Exploitation",
+    "Malware Development",
+    "Password Cracking",
+    "SSH Tunneling",
+    "Defense Evasion Techniques"
+  ],
+  "recommendedActions": [
+    "Implement enhanced network monitoring for unusual traffic patterns, especially over SSH and SMB protocols.",
+    "Apply multi-factor authentication to critical systems and services.",
+    "Conduct regular software updates and patches on all network devices。",
+    "Restrict access to sensitive networks from external sources",
+    "Deploy network segmentation to isolate critical infrastructure components."
+  ],
+  "campaignsText": "Salt Typhoon's campaigns have focused on infiltrating and compromising the network infrastructure of major U.S. telecommunication and ISP companies. Their operational tactics include persistent network access, data exfiltration, and potential long-term presence within targeted networks. Notable past operations involve targeted attacks that exploit specific vulnerabilities in network devices, leveraging tools like JumbledPath for malicious activities.",
+  "description": "Salt Typhoon, a state-backed Chinese cyber threat actor, has targeted U.S. telecommunication and internet service providers since at least 2019. Notably linked to sophisticated attacks leveraging malware and network exploitation techniques, their primary focus appears to be compromising critical infrastructure for potential economic or strategic advantage.",
+  "goals": "Salt Typhoon's primary goal appears to be compromising critical infrastructure within the U.S., particularly in the telecommunications sector. Their targeting profile indicates an interest in sectors that underpin national communication and internet services. The group likely seeks to achieve strategic advantages through these compromises, potentially for espionage or economic gain. U.S. telecommunication and ISP companies are their primary targets, suggesting a focus on infrastructure that could have wide-reaching implications.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A111",
+  "sourceUrl": "https://threaticon.com/threat-actors/111"
+}

@@ -1,0 +1,57 @@
+{
+  "slug": "braincipher",
+  "id": 369,
+  "name": "braincipher",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "financial-gain",
+    "healthcare",
+    "critical-infrastructure",
+    "Ransomware",
+    "Financial Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Communication", "Defense Evasion", "Discovery"],
+  "techniques": ["T1064.001", "T1059.002", "T1071", "T1036", "T1566.001"],
+  "tools": ["LockBit Black ransomware", "Cobalt Strike (potential)", "RansomEXX (similar family)"],
+  "iocPatterns": [
+    "Spear-phishing emails from domains like 'cyberfear.com'",
+    "MD5 Hashes of their malware samples",
+    "Encrypted communications over custom protocols",
+    "Domain-fronting activities",
+    "Presence of LockBit Black files"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment (LockBit Black variant)",
+    "Exploitation of CVE-2023-28252",
+    "Spear-phishing campaigns using macro-laced Office documents",
+    "Encrypted communication channels for C2",
+    "Domain-fronting techniques for obfuscation"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering to detect spear-phishing attempts",
+    "Monitor for known exploit activity in CVE-2023-28252",
+    "Encrypt sensitive data and maintain offline backups",
+    "Enhance network monitoring for domain-fronting activities",
+    "Educate employees on recognizing phishing tactics"
+  ],
+  "campaignsText": "BrainCipher has demonstrated an operational pattern of precision attacks, leveraging known vulnerabilities and sophisticated TTPs. Their shift to a new negotiation portal, hosted on a vanity TOR domain starting with 'brain', indicates efforts to maintain operational persistence and avoid detection. Campaigns have targeted diverse industries, suggesting a strategic focus on maximizing disruption across sectors.",
+  "description": "BrainCipher is a medium-sophistication criminal threat actor specializing in ransomware attacks. Emerging in July 2024, they have targeted various industries, leveraging known vulnerabilities like CVE-2023-28252 and using LockBit Black malware. Their campaigns involve spear-phishing attacks and encrypted communication channels, seeking significant financial gains through organizational disruption.",
+  "goals": "BrainCipher's primary motivation is financial gain through ransomware operations targeting organizations with critical data and infrastructure. Their strategic objectives include disrupting business continuity and extorting large sums from victims. Typically, they target mid-sized to large organizations across various sectors such as healthcare, automotive, and finance, suggesting a focus on industries where downtime or data loss would have significant consequences.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A369",
+  "sourceUrl": "https://threaticon.com/threat-actors/369"
+}

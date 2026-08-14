@@ -1,0 +1,53 @@
+{
+  "slug": "atomsilo",
+  "id": 339,
+  "name": "atomsilo",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "espionage", "healthcare-sector", "education-sector", "double-extortion", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Data Exfiltration", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1078.004", "T1566.002", "T1055.003", "T1010.001"],
+  "tools": ["Cobalt Strike (presumed)", "Custom ransomware", "Phishing tools", "C2 infrastructure"],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious links or attachments",
+    "C2 communication over fast-flux DNS domains",
+    "Web shell activity related to CVE-2021-26084",
+    "Ransomware-related encryption patterns in file systems",
+    "High volumes of outbound network traffic post-compromise",
+    "Presence of encrypted files with specific extension patterns"
+  ],
+  "keyCapabilities": [
+    "Exploitation of Atlassian Confluence vulnerabilities (CVE-2021-26084)",
+    "Double extortion ransomware deployment",
+    "Spear-phishing campaigns for initial access",
+    "Use of custom or known ransomware tools",
+    "Data exfiltration and public leak threats",
+    "Fast-flux command and control infrastructure"
+  ],
+  "recommendedActions": [
+    "Patch all Atlassian Confluence instances and related software promptly.",
+    "Implement multi-factor authentication for remote access tools.",
+    "Monitor for unusual network traffic, especially DNS queries to unknown domains.",
+    "Regularly back up critical systems and store backups offline.",
+    "Educate employees on phishing email tactics and suspicious emails.",
+    "Segment networks to limit lateral movement potential.",
+    "Deploy endpoint detection and response (EDR) solutions."
+  ],
+  "campaignsText": "AtomSilo's campaigns typically involve phishing emails, exploitation of CVE-2021-26084, and deployment of ransomware with double extortion demands. The group appears to target organizations in the healthcare and education sectors, as seen in a notable attack on a US healthcare system in June 2022. Campaigns often include threats of data leaks to pressure victims into payment. Notable operations include high-profile attacks on educational institutions and healthcare providers, with a focus on maximizing financial gain through large ransom demands.",
+  "description": "AtomSilo is a medium-sophistication criminal threat actor specializing in ransomware operations with a primary focus on financial gain. Known for double-extortion tactics, AtomSilo uses initial access via the Atlassian Confluence vulnerability (CVE-2021-26084) and has targeted sectors such as healthcare and education. The group is suspected to be linked to BRONZE STARLIGHT, a Chinese state-linked actor, and has been active since December 2021.",
+  "goals": "AtomSilo targets sectors with sensitive data or less robust cybersecurity defenses, such as healthcare and education. The group seeks to maximize financial gains through double extortion campaigns, where victims are coerced into paying ransoms or face public shaming via leaked data. Their strategic focus appears to be on disrupting organizational operations while leveraging high-profile attacks to establish notoriety in the ransomware landscape. Typical victims include mid-to-large sized organizations with accessible network entry points.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A339",
+  "sourceUrl": "https://threaticon.com/threat-actors/339"
+}

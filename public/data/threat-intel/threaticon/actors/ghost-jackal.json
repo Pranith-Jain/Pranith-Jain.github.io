@@ -1,0 +1,43 @@
+{
+  "slug": "ghost-jackal",
+  "id": 297,
+  "name": "Ghost Jackal",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Financial gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "nation-state", "financial-gain", "espionage"],
+  "aliases": [],
+  "targetedSectors": ["Energy", "Financial services"],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration"],
+  "techniques": ["T1059", "T1055"],
+  "tools": ["Cobalt Strike (for example)", "Mimikatz (speculative)"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting financial services employees",
+    "Malicious links or attachments related to energy sector infrastructure"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Spear-phishing campaigns",
+    "Leverage of exploit kits",
+    "Data exfiltration techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email security solutions to detect and block phishing attempts.",
+    "Conduct regular network monitoring for signs of data exfiltration activities.",
+    "Secure critical infrastructure assets with robust perimeter defenses and access controls."
+  ],
+  "campaignsText": "Ghost Jackal has demonstrated a focus on long-term, strategic campaigns targeting financial and energy sectors. While specific campaign details are limited, their activities suggest they are methodical in approach, likely compromising multiple victims to achieve broader objectives. Recent activity indicates a persistent threat requiring proactive defense measures.",
+  "description": "Ghost Jackal is a nation-state cyber threat actor primarily motivated by financial gain. They target critical sectors such as energy and financial services, leveraging sophisticated attack techniques to achieve their objectives. Their activities pose significant risks to organizational security and economic stability.",
+  "goals": "Ghost Jackal targets energy and financial services sectors, likely due to their high value in terms of sensitive data and potential for disruption. Their focus on financial gain suggests they aim to extract valuable information or assets from these industries. The targeting of critical infrastructure may also serve dual purposes of economic gain and strategic influence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A297",
+  "sourceUrl": "https://threaticon.com/threat-actors/297"
+}

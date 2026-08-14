@@ -1,0 +1,63 @@
+{
+  "slug": "greyenergy",
+  "id": 748,
+  "name": "GreyEnergy",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "critical-infrastructure",
+    "espionage",
+    "energy-sector",
+    "ICS-exploitation",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Lateral Movement",
+    "Impact"
+  ],
+  "techniques": ["T1059.003", "T1566.001", "T1071", "T1560", "T1055"],
+  "tools": ["BlackEnergy (malware family)", "Custom RATs", "PowerShell-based exploitation tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Microsoft Office documents",
+    "C2 communication over DNS with fast-flux techniques",
+    "Staging infrastructure on bulletproof hosting services",
+    "Exploitation of ICS vulnerabilities (e.g., Modbus, SNMP)"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns with malicious documents",
+    "Deployment of custom malware for infrastructure compromise",
+    "Network infiltration and lateral movement techniques",
+    "Exploitation of unpatched industrial control systems (ICS)",
+    "Use of encrypted command-and-control (C2) channels"
+  ],
+  "recommendedActions": [
+    "Deploy advanced email filtering to detect macro-laced documents",
+    "Implement network segmentation to isolate critical infrastructure systems",
+    "Monitor for DNS-based C2 traffic and anomalous domain registrations",
+    "Conduct regular ICS vulnerability assessments and patch management",
+    "Leverage threat intelligence feeds focused on APT activity in energy sectors"
+  ],
+  "campaignsText": "GreyEnergy's campaigns may follow patterns seen in BlackEnergy operations, including prolonged reconnaissance phases and targeting of energy sector infrastructure. Operational tempo appears low, suggesting a focus on precision rather than volume. Past operations linked to BlackEnergy, such as the 2017 Ukraine power grid attacks, indicate a potential for destructive payloads, though no confirmed GreyEnergy campaigns have been reported to date.",
+  "description": "GreyEnergy is a threat actor potentially linked to the BlackEnergy APT group, focusing on critical infrastructure and possibly preparing for destructive attacks. While specific motivations and sophistication remain unclear, their historical ties suggest capabilities in targeting energy and industrial systems, raising concerns for organizations in these sectors.",
+  "goals": "GreyEnergy's strategic objectives are likely aligned with those of the BlackEnergy APT group, which historically focused on disrupting critical infrastructure, particularly in energy and industrial sectors. The actor may target countries with vulnerable infrastructure to achieve political or economic objectives, such as destabilizing operations or extracting sensitive data. Their focus on critical systems suggests an intent to cause widespread disruption, potentially for state-sponsored activities or financial gain.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A748",
+  "sourceUrl": "https://threaticon.com/threat-actors/748"
+}

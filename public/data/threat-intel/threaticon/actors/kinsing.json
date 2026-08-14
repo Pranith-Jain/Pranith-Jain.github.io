@@ -1,0 +1,45 @@
+{
+  "slug": "kinsing",
+  "id": 667,
+  "name": "Kinsing",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": ["Criminal", "Data Extortion", "Dark Web", "Cybercrime", "Data Exfiltration"],
+  "aliases": ["Money Libra"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom scripts for data exploitation", "Data leak forums and marketplaces"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "Data leak announcements on dark web forums",
+    "Extortion demands via anonymous email or messaging services"
+  ],
+  "keyCapabilities": [
+    "Data extortion",
+    "Dark web operations",
+    "Potential data breach capabilities",
+    "Data leak exploitation"
+  ],
+  "recommendedActions": [
+    "Implement robust data protection measures",
+    "Conduct regular security audits and penetration testing",
+    "Establish an incident response plan for data breaches",
+    "Monitor dark web activity for potential data leaks"
+  ],
+  "campaignsText": "Kinsing's campaign patterns are characterized by the public release of stolen data on the Tor network, aiming to extort money from affected companies. The operational tempo and victim types suggest a focus on high-impact, low-frequency operations, where the group leverages the fear of data release to achieve financial gain. Notable past operations include the publication of alleged stolen data from various companies, though the extent of their involvement in these breaches remains unclear. Continuous monitoring is required to understand their evolving tactics and targeting preferences.",
+  "description": "Kinsing, also known as Money Libra, is a criminal threat actor that emerged in the first quarter of 2022, publishing samples of alleged stolen data from companies on their Tor site. The group's primary motivation and sophistication level are unclear, but their actions suggest a focus on financial gain through data extortion. Kinsing's true capabilities and intentions remain uncertain, making them a volatile and potentially significant threat.",
+  "goals": "Kinsing's strategic objectives appear to be financially motivated, with a focus on extorting money from companies by threatening to release sensitive data. Their targeting profile seems to be opportunistic, potentially targeting any sector or country where they can obtain valuable data. Typical victims of Kinsing may include companies with valuable intellectual property, customer data, or other sensitive information that could be leveraged for extortion. The group's willingness to operate openly on the dark web suggests they are seeking to maximize their impact and leverage public fear to achieve their goals.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A667",
+  "sourceUrl": "https://threaticon.com/threat-actors/667"
+}

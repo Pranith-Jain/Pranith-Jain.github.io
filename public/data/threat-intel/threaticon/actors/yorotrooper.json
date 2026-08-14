@@ -1,0 +1,42 @@
+{
+  "slug": "yorotrooper",
+  "id": 895,
+  "name": "YoroTrooper",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "K",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "energy-sector", "government-targeting", "Government Targeting"],
+  "aliases": ["Salted Earth", "Sturgeon Fisher", "ShadowSilk", "Silent Lynx"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Initial Access", "Lateral Movement"],
+  "techniques": ["T1059", "T1059.003", "T1566.003"],
+  "tools": [
+    "Spear-phishing emails with malicious attachments",
+    "Credential harvesting tools",
+    "Custom malware for persistence"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with .doc or .exe attachments",
+    "Malicious scripts executing via WMI commands for persistence"
+  ],
+  "keyCapabilities": ["Spear-phishing", "Account compromise", "Social engineering", "Data exfiltration"],
+  "recommendedActions": [
+    "Deploy advanced email filtering solutions",
+    "Implement multi-factor authentication for critical accounts",
+    "Conduct regular network monitoring for异常 traffic and data exfiltration attempts"
+  ],
+  "campaignsText": "YoroTrooper's campaigns have shown persistence over several years, indicating a well-organized and possibly state-sponsored group. Their operations often involve multiple countries, suggesting a long-term strategy to infiltrate various sectors. Notable activities include compromising critical infrastructure and international organizations.",
+  "description": "YoroTrooper is a threat actor targeting government and energy sectors in Commonwealth of Independent States (CIS) countries such as Azerbaijan and Tajikistan, with additional focus on international organizations including EU health care agencies and World Intellectual Property Organization. Their operations involve sophisticated phishing techniques and account compromise, posing significant risks to critical infrastructure and global institutions.",
+  "goals": "YoroTrooper targets government and energy sectors likely to gather sensitive information for espionage purposes or to disrupt national infrastructure as part of a larger strategic objective. Their targeting of international organizations may aim to influence global policies or gain competitive advantages in intellectual property. The actor's focus on embassies suggests an interest in diplomatic intelligence, possibly to support state-sponsored activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A895",
+  "sourceUrl": "https://threaticon.com/threat-actors/895"
+}

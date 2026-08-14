@@ -1,0 +1,54 @@
+{
+  "slug": "dancing-salome",
+  "id": 726,
+  "name": "Dancing Salome",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Espionage", "Ukraine-sector", "Foreign-affairs", "HackingTeam-compromised", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Command and Control", "Initial Access", "Execution", "Collection", "Persistence", "Discovery"],
+  "techniques": [
+    "T1055 - Data Encoding",
+    "T1105 - Custom Command and Control",
+    "T1192 - Use of Valid Accounts",
+    "T1566.001 - Phishing",
+    "T1078 - Valid Accounts",
+    "T1059.003 - Remote Services - SSH"
+  ],
+  "tools": ["HackingTeam RCS (compromised implants)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents embedded with HackingTeam RCS components",
+    "C2 traffic using domain names registered through bulletproof hosting providers",
+    "Use of legitimate SSH protocols for command-and-control communication",
+    "Compromised HackingTeam implant signatures in memory dumps or network traffic"
+  ],
+  "keyCapabilities": [
+    "Exploitation of compromised HackingTeam RCS implants for surveillance and data exfiltration",
+    "Targeted spear-phishing campaigns against diplomatic and think tank entities",
+    "Stealthy persistence mechanisms leveraging known, outdated surveillance tools for evasion",
+    "Focused intelligence collection on diplomatic communications and strategic documents"
+  ],
+  "recommendedActions": [
+    "Monitor for HackingTeam RCS implant signatures in network traffic and endpoint memory dumps",
+    "Implement advanced email filtering to detect malicious Office documents linked to known campaigns",
+    "Conduct regular audits of SSH and remote access protocols for anomalous C2 activity",
+    "Deploy threat intelligence feeds specific to Ukrainian diplomatic and think tank entities",
+    "Enhance detection capabilities for compromised surveillance tool usage"
+  ],
+  "campaignsText": "Dancing Salome’s campaigns appear to be low-frequency but highly targeted, focusing on Ukrainian diplomatic and think tank entities. The actor’s reliance on HackingTeam tools suggests a strategic intent to maintain operational stealth by leveraging compromised, previously legitimate surveillance infrastructure. Campaigns likely involve multi-stage compromises, with initial access achieved through spear-phishing or compromised credentials, followed by lateral movement and data exfiltration. Notable past operations include the targeting of Ukrainian diplomatic networks and academic think tanks, with a focus on compromising communications infrastructure.",
+  "description": "Dancing Salome, a Kaspersky-named APT group, specializes in targeting Ukrainian ministries of foreign affairs, think tanks, and related entities. The actor leverages compromised HackingTeam RCS implants, likely obtained during the 2016 HackingTeam breach, to conduct espionage. This makes the group a significant threat to diplomatic and strategic intelligence operations in Ukraine.",
+  "goals": "Dancing Salome appears to prioritize intelligence collection focused on Ukrainian foreign policy, defense strategy, and strategic think tank research. The targeting of ministries of foreign affairs and think tanks suggests an objective of gaining insights into diplomatic communications, geopolitical analysis, and national security planning. Ukraine’s geopolitical position as a focal point of regional conflict and its role in international policy likely drive the actor’s interest in this sector. The use of HackingTeam implants implies a focus on compromising sensitive communications infrastructure, potentially to access classified or confidential data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A726",
+  "sourceUrl": "https://threaticon.com/threat-actors/726"
+}

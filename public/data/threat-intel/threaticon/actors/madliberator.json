@@ -1,0 +1,54 @@
+{
+  "slug": "madliberator",
+  "id": 498,
+  "name": "madliberator",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Cybercrime",
+    "Government Sector",
+    "Data Breach",
+    "Unpredictable Tactics",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Credential Access", "Encryption", "Impact"],
+  "techniques": ["T1070", "T1259", "T1567", "T1486"],
+  "tools": ["Custom ransomware (inferred)", "Data leak site infrastructure"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting government employees",
+    "Unusual network activity linked to known victims",
+    "Encrypted files with specific file extensions (e.g., .mlbr or similar)",
+    "DNS queries to domains used by MadLiberator's data leak site"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Data exfiltration and leak site usage",
+    "Targeting government entities",
+    "Unpredictable encryption patterns"
+  ],
+  "recommendedActions": [
+    "Implement robust backup and recovery solutions to prevent ransomware-induced data loss",
+    "Enhance endpoint detection and response capabilities to identify suspicious activities early",
+    "Monitor network traffic for anomalies linked to known threat actors in the public sector",
+    "Conduct regular phishing simulations to improve employee awareness of cyber threats",
+    "Ensure all systems are patched with the latest security updates"
+  ],
+  "campaignsText": "MadLiberator's campaigns exhibit a pattern of targeting government institutions, with notable operations including the attack on the Italian Ministry of Culture. Their operational tempo is variable, likely adapting to avoid detection or due to internal factors such as leadership changes. Campaigns involve data exfiltration followed by demands for cryptocurrency payments in exchange for decryption keys. The group's use of a dedicated data leak site indicates an intent to escalate pressure on victims, potentially increasing the success rate of their ransom demands.",
+  "description": "MadLiberator, a medium-sophistication ransomware group first seen in May 2024, primarily targets government entities. Known for erratic behavior, including unpredictable encryption patterns and randomized ransom demands, they have targeted high-value victims such as the Italian Ministry of Culture. Their operations suggest a focus on financial gain through data exfiltration and ransom activities.",
+  "goals": "MadLiberator's strategic objectives are centered around financial gain through the deployment of ransomware. Their targeting profile focuses on government entities, likely due to the sensitivity and high value of the data they hold, which increases the likelihood of successful ransoms. The group's choice of victims suggests a focus on sectors where data breaches could have significant political and reputational impacts, forcing victims to act quickly to avoid further exposure. By targeting institutions like the Italian Ministry of Culture, MadLiberator demonstrates a preference for high-profile yet potentially vulnerable organizations that may not have robust cybersecurity measures in place.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A498",
+  "sourceUrl": "https://threaticon.com/threat-actors/498"
+}

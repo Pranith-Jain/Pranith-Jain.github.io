@@ -1,0 +1,99 @@
+{
+  "slug": "uat-9686",
+  "id": 1274,
+  "name": "UAT-9686",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "Initial Access",
+    "APT",
+    "Critical Infrastructure",
+    "Espionage",
+    "Networking Infrastructure",
+    "Cisco",
+    "State-sponsored"
+  ],
+  "aliases": ["tracked as", "UAT 9686", "AquaTunnel", "Chisel"],
+  "targetedSectors": [
+    "Government",
+    "Critical infrastructure",
+    "Financial services",
+    "Defense",
+    "Telecommunications",
+    "Healthcare",
+    "Media",
+    "Non profit",
+    "Energy",
+    "Education",
+    "Nuclear",
+    "Utilities",
+    "Manufacturing"
+  ],
+  "targetedCountries": ["CN", "RU", "UA", "US", "GB", "IL", "FR", "DE", "IR", "PL", "EG", "RO"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Command and Control"
+  ],
+  "techniques": [
+    "T1190 - Exploit Public-Facing Application",
+    "T1203 - Exploit for Client Execution",
+    "T1068 - Exploitation for Privilege Escalation",
+    "T1059.003 - Command and Scripting Interpreter",
+    "T1562.004 - Impair Defenses"
+  ],
+  "tools": [
+    "AquaShell",
+    "AquaTunnel (ReverseSSH)",
+    "Chisel",
+    "AquaPurge",
+    "Custom web shell implants",
+    "Python-based payloads"
+  ],
+  "iocPatterns": [
+    "Exploit of CVE-2025-20393 via Spam Quarantine interface",
+    "Unauthenticated HTTP POST requests containing encoded commands for AquaShell execution",
+    "Reverse SSH tunneling using AquaTunnel or Chisel to attacker-hosted servers",
+    "Log clearing operations with AquaPurge on compromised devices",
+    "Persistence through embedded Python backdoor in web server files"
+  ],
+  "keyCapabilities": [
+    "Exploitation of zero‑day RCE CVE-2025-20393 via Spam Quarantine interface",
+    "Deployment of lightweight Python web shell AquaShell for command execution",
+    "Establishment of reverse SSH tunnels using AquaTunnel (ReverseSSH) and Chisel",
+    "Log clearing and defense evasion with AquaPurge",
+    "Persistent remote control over compromised appliances",
+    "Use of custom encoding/decoding routines to hide payloads"
+  ],
+  "recommendedActions": [
+    "Apply updated firmware or software patches for Cisco AsyncOS appliances as soon as they are released; until then, restrict inbound access to Spam Quarantine interfaces via firewalls and segmentation.",
+    "Disable or tightly configure the Spam Quarantine feature if it is not essential. Monitor network traffic for anomalous outbound SSH connections, especially reverse tunnels originating from known Cisco device IPs. Deploy host‑based intrusion detection that flags unknown Python executables or unusual modifications to web server files. Enable detailed logging on appliances and centralize logs in a tamper‑evident SIEM; regularly audit for missing entries indicative of AquaPurge usage. Use Web Application Firewalls (WAF) with custom rules to detect malformed HTTP POST payloads targeting the web shell API endpoints.",
+    "suggested_tags",
+    "APT",
+    "Chinese-nexus",
+    "State-sponsored",
+    "Espionage",
+    "Critical-infrastructure-attacks",
+    "Email-Gateway-Compromise",
+    "Zero-Day-Exploit",
+    "Remote-Code-Execution",
+    "Command-and-Control"
+  ],
+  "campaignsText": "The UAT‑9686 campaign has operated with high tempo since November 2025, coinciding with the discovery of CVE-2025-20393. The actor systematically scans for Cisco AsyncOS appliances with Spam Quarantine enabled, exploits the vulnerability remotely, and deploys its toolset to secure a foothold and maintain anonymity through reverse tunnels and log deletion. Victim organizations reflect the broad reach of Cisco Edge devices across many critical sectors, and the campaign exhibits clear patterns of leveraging a single high‑impact exploit followed by disciplined post‑compromise procedures. No public evidence currently links financial gain objectives directly; however, the potential for data exfiltration or later monetization remains. Notable past operations include documented compromises reported to Cisco in December 2025 and subsequent advisories issued by CISA, indicating a coordinated effort against federal agencies and international enterprises.",
+  "description": "UAT‑9686 is a Chinese‑linked APT that leveraged the zero‑day CVE‑2025‑20393 to compromise Cisco AsyncOS appliances in secure email gateways worldwide. The group deploys a lightweight Python backdoor (AquaShell), reverse SSH tunnels (AquaTunnel and Chisel) and log‑clearing utilities (AquaPurge) to maintain stealth and control over compromised edge devices.",
+  "goals": "UAT‑9686’s strategic objective is to gain persistent remote access to high‑value networking infrastructure, exploiting vulnerabilities in Cisco Secure Email Gateway appliances used by governments, critical infrastructure providers, and large enterprises worldwide. By installing backdoors and establishing reverse tunnels on these edge devices, the actor can covertly exfiltrate data or pivot into broader corporate networks for espionage, sabotage, or later monetary exploitation. Typical victims are organizations that own or operate Cisco Secure Email Gateway and Web Manager appliances—often in sectors such as finance, defense, utilities, healthcare, and education across countries including CN, RU, UA, US, GB, IL, FR, DE, IR, PL, EG, and RO.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1274",
+  "sourceUrl": "https://threaticon.com/threat-actors/1274"
+}

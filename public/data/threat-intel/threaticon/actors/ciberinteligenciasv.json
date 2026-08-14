@@ -1,0 +1,49 @@
+{
+  "slug": "ciberinteligenciasv",
+  "id": 1097,
+  "name": "CiberInteligenciaSV",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": ["Data leakage", "Government targeting", "Custom tools", "Social engineering", "El Salvador"],
+  "aliases": ["APT28", "Pawn Storm", "Fancy Bear", "Sednit"],
+  "targetedSectors": ["Healthcare", "Financial services", "Critical infrastructure", "Defense", "Government"],
+  "targetedCountries": ["BR", "CN"],
+  "tactics": ["Credential Access", "Data Collection", "Exfiltration", "Initial Access"],
+  "techniques": ["T1589.001", "T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom tools", "Open-source tools"],
+  "iocPatterns": [
+    "Data leakage on Breach Forums",
+    "Compromise of government systems",
+    "Use of custom tools",
+    "Social engineering tactics"
+  ],
+  "keyCapabilities": [
+    "Data exfiltration",
+    "Credential harvesting",
+    "Source code leakage",
+    "VPN credential compromise",
+    "Social engineering",
+    "Open-source intelligence gathering"
+  ],
+  "recommendedActions": [
+    "Monitor for suspicious activity on government systems",
+    "Implement robust incident response planning",
+    "Conduct regular security audits and vulnerability assessments",
+    "Enhance cybersecurity awareness and training for government employees",
+    "Track threat actor activity on Breach Forums and other platforms"
+  ],
+  "campaignsText": "CiberInteligenciaSV's campaign patterns and operational tempo are not well understood, but their actions suggest a focus on compromising and leaking sensitive information related to El Salvador. They may be operating in a relatively short-term campaign, given the limited amount of information available about their activities. Notable past operations include the leakage of 5.1 million Salvadoran records on Breach Forums and the compromise of the state Bitcoin wallet, Chivo.",
+  "description": "CiberInteligenciaSV is a threat actor that has compromised sensitive data in El Salvador, including 5.1 million citizen records and the state Bitcoin wallet, Chivo. They have been linked to the leakage of sensitive information on Breach Forums and have attempted to obscure their involvement by associating with other groups. Their motivations and sophistication level are currently unknown, but their actions suggest a significant threat to El Salvador's digital infrastructure.",
+  "goals": "CiberInteligenciaSV's strategic objectives and targeting profile are not well understood, but their actions suggest a focus on compromising and leaking sensitive information related to El Salvador. They may be targeting the government, financial institutions, or other organizations in an attempt to disrupt the country's digital infrastructure or gain financial benefits. Their typical victims appear to be El Salvador's citizens and government agencies, and their actions could have severe consequences for the country's economy and security.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1097",
+  "sourceUrl": "https://threaticon.com/threat-actors/1097"
+}

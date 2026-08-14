@@ -1,0 +1,72 @@
+{
+  "slug": "darkvault",
+  "id": 408,
+  "name": "darkvault",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Ransomware", "Double extortion", "Finance-sector", "Professional services", "Data exfiltration"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": ["T1059.003", "T1078", "T1547", "T1055", "T1093", "T1203", "T1016", "T1014"],
+  "tools": [
+    "LockBit ransomware",
+    "Phishing tools (e.g., spear-phishing kits)",
+    "Fileless malware frameworks",
+    "Cobalt Strike (if linked to LockBit)",
+    "Mimikatz-like credential dumping tools",
+    "RDP brute-forcing tools",
+    "Custom backdoors"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "Malicious macros in Office documents",
+    "RDP brute-force attempts",
+    "Encrypted EXE files dropped as part of campaigns",
+    "Domain fronting techniques for C2 communication",
+    "Clipboard injection to capture credentials",
+    "High volume of file access and deletion events post-infection"
+  ],
+  "keyCapabilities": [
+    "Data exfiltration",
+    "Ransomware deployment",
+    "Double extortion tactics",
+    "Sophisticated phishing campaigns",
+    "Fileless malware techniques",
+    "Credential dumping operations",
+    "Lateral movement within networks",
+    "Steganographic communication channels"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) on RDP services and critical systems.",
+    "Conduct regular phishing simulations to improve employee awareness.",
+    "Monitor network traffic for indicators of unauthorized access and lateral movement.",
+    "Segment sensitive data from general-purpose networks to reduce exposure.",
+    "Ensure all systems are patched against known vulnerabilities, especially those exploited by ransomware groups.",
+    "Educate employees on suspicious emails and macro-based document risks."
+  ],
+  "campaignsText": "DarkVault's campaigns exhibit a preference for stealth and long-term驻留 within networks, indicating an interest in maximizing data collection before deploying ransomware. Their victims are typically large organizations with complex IT environments, making them more lucrative targets. Past operations suggest a focus on financial gain through both immediate ransom payments and the sale of stolen data. Campaigns have included sophisticated phishing attempts, use of custom malware, and the compromise of vendor accounts to infiltrate target networks.",
+  "description": "DarkVault is a medium-sophistication criminal threat actor specializing in data exfiltration and double-extortion ransomware activities. First identified in late 2023, the group has targeted organizations in the finance, professional services, legal, and technology sectors across Europe, the UK, and North America. DarkVault's operations are suspected to have a connection to the LockBit ransomware family, making them a significant threat to businesses with high-value data assets.",
+  "goals": "DarkVault seeks primarily to achieve financial gain through double extortion, where victims are pressured to pay ransoms for both decrypted data and the return of stolen information. The group's targeting of finance, professional services, legal, and technology sectors aligns with their goal of accessing high-value data that can be sold or used as leverage. Their geographic focus on Europe, the UK, and North America suggests they target regions with strong economic ties and potentially weaker cross-border law enforcement cooperation.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A408",
+  "sourceUrl": "https://threaticon.com/threat-actors/408"
+}

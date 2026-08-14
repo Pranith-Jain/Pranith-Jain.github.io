@@ -1,0 +1,47 @@
+{
+  "slug": "nightspire",
+  "id": 530,
+  "name": "nightspire",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Double-extortion", "Financial gain", "Organizational gain", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration", "Impact"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1071.001", "T1204.002"],
+  "tools": ["Custom ransomware", "Social engineering tools", "Data exfiltration tools"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Data exfiltration over encrypted channels"
+  ],
+  "keyCapabilities": [
+    "Ransomware development and deployment",
+    "Aggressive double-extortion tactics",
+    "Short ransom deadlines",
+    "Data encryption and exfiltration",
+    "Social engineering and phishing"
+  ],
+  "recommendedActions": [
+    "Implement robust email security measures to prevent spear-phishing attacks",
+    "Use anti-ransomware software and regularly update systems and software",
+    "Implement a comprehensive incident response plan",
+    "Conduct regular security audits and penetration testing"
+  ],
+  "campaignsText": "NightSpire's campaign patterns suggest that they are highly organized and efficient, with the ability to rapidly claim a large number of victims. Their operational tempo is high, with short ransom deadlines and aggressive double-extortion tactics. The group's victim types include organizations across multiple sectors, and they have been involved in several notable past operations, including large-scale ransomware attacks on manufacturing and healthcare organizations.",
+  "description": "NightSpire is a medium-sophistication ransomware group that has rapidly claimed over 250 victims across multiple sectors in several countries. The group uses aggressive double-extortion tactics with short ransom deadlines, posing a significant threat to organizational security. Their primary motivation is financial gain, and they have been active since February 2025.",
+  "goals": "NightSpire's strategic objectives are focused on achieving financial gain through ransomware attacks, targeting various sectors and countries. They typically attack organizations that they believe will pay the ransom, and their aggressive double-extortion tactics are designed to increase the pressure on the victims to pay. The group's targeting profile suggests that they are opportunistic and will attack any organization that they believe will yield a significant financial return, regardless of the sector or country.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A530",
+  "sourceUrl": "https://threaticon.com/threat-actors/530"
+}

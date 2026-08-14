@@ -1,0 +1,53 @@
+{
+  "slug": "hummingbad",
+  "id": 681,
+  "name": "HummingBad",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": ["criminal", "ad-fraud", "mobile-malware", "financial-motivated", "android-exploitation"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Discovery"],
+  "techniques": [
+    "T1197.001 - Software Deployment",
+    "T1112 - Modify Existing Permissions",
+    "T1055 - Input Capture",
+    "T1566.001 - Phishing",
+    "T1082 - System Information Discovery"
+  ],
+  "tools": ["HummingBad malware", "Ad fraud framework components", "Custom Android exploitation modules"],
+  "iocPatterns": [
+    "hash-sha256: [specific malware hashes provided]",
+    "Android app packages with suspicious permissions",
+    "C2 communication via legitimate ad network domains"
+  ],
+  "keyCapabilities": [
+    "Large-scale Android device infection via malicious app distribution",
+    "Persistence mechanisms for long-term device control",
+    "Ad revenue generation through unauthorized in-app advertisements",
+    "Potential for selling device access to third parties",
+    "Exploitation of Android app store vulnerabilities for undetected distribution"
+  ],
+  "recommendedActions": [
+    "Monitor for known HummingBad SHA-256 hashes in endpoint and network traffic",
+    "Implement strict app store policies and mobile device security controls",
+    "Deploy mobile threat defense solutions to detect anomalous app behavior",
+    "Regularly update device OS and apps to mitigate exploitation risks",
+    "Conduct user education on app download practices and phishing awareness"
+  ],
+  "campaignsText": "HummingBad has demonstrated sustained operational tempo, with campaigns like 'A Whale of a Tale: HummingBad Returns' indicating ongoing activity and adaptation to countermeasures. The actor's campaigns focus on mobile devices, leveraging app distribution networks to maintain a low profile. Notable operations include the use of compromised ad networks to avoid detection, suggesting a strategic effort to blend with legitimate traffic. The group's ability to consistently infect millions of devices highlights their resourcefulness in maintaining infrastructure and evading removal.",
+  "description": "HummingBad is a criminal group exploiting Android devices to generate $300,000 monthly in fraudulent ad revenue by infecting over 85 million devices globally. This threat actor monetizes compromised devices through unauthorized ad clicks and potentially sells access to third parties. The scale of infection indicates a highly operational and financially motivated campaign targeting mobile users.",
+  "goals": "HummingBad's primary objective is financial gain through fraudulent ad revenue generation. The actor targets Android users globally, with no specific sector or country focus, as mobile devices represent a universal attack surface. Vulnerable users, particularly those in regions with high smartphone penetration and less stringent app store security, are likely victims. The group's operations suggest a preference for low-risk, high-reward attacks that avoid direct confrontation with law enforcement, prioritizing persistence and stealth over advanced technical intrusions.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A681",
+  "sourceUrl": "https://threaticon.com/threat-actors/681"
+}

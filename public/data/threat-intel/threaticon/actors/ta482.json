@@ -1,0 +1,47 @@
+{
+  "slug": "ta482",
+  "id": 939,
+  "name": "TA482",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "T",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "media-sector", "geopolitical", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Discovery", "Exfiltration or Upload", "Social Engineering", "Influence Operations"],
+  "techniques": ["T1560.002", "T1569", "T1078", "T1137"],
+  "tools": ["Cobalt Strike", "Custom phishing tools", "TA482-malware"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting journalists via spoofed email addresses",
+    "Social media account compromises linked to US-based media professionals",
+    "Infrastructure hosting in Turkey (e.g., domains, C2 servers)",
+    "Phishing emails containing malicious links or attachments"
+  ],
+  "keyCapabilities": [
+    "Credential-harvesting via phishing",
+    "Social engineering through targeted communication",
+    "Use of compromised Turkish-based infrastructure",
+    "Leverage of social media platforms for targeting"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for social media and email accounts",
+    "Educate employees on threat actor tactics through regular security awareness training",
+    "Monitor for suspicious activity originating from Turkish-based domains or IPs",
+    "Conduct periodic audits of access controls for journalist and media organization accounts",
+    "Deploy advanced phishing detection tools to identify and block spear-phishing attempts"
+  ],
+  "campaignsText": "TA482 has demonstrated a consistent operational tempo since its first observation in early 2022, targeting predominantly US-based media professionals. The actor's campaigns exhibit a focus on accessing social media accounts, likely to gather sensitive information or facilitate further influence operations. Notable for their use of Turkish infrastructure, TA482's activities may be part of broader state-sponsored efforts to shape international narratives through media manipulation.",
+  "description": "TA482 is a threat actor observed since early 2022, primarily engaging in credential harvesting campaigns targeting US-based journalists and media organizations. The actor's use of Turkish-based infrastructure and alignment with pro-Turkish government activities suggest state-sponsored influence operations.",
+  "goals": "TA482 appears to target sectors where information control and influence operations are critical, specifically focusing on the media sector in the United States. The targeting of journalists aligns with efforts to compromise sensitive communications and gain access to valuable intelligence, which could be used for disinformation campaigns or diplomatic leverage. The actor's geographic focus on U.S.-based individuals indicates a possible emphasis on influencing or monitoring affairs within that region.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A939",
+  "sourceUrl": "https://threaticon.com/threat-actors/939"
+}

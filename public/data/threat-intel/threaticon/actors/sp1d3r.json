@@ -1,0 +1,72 @@
+{
+  "slug": "sp1d3r",
+  "id": 1108,
+  "name": "Sp1d3r",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "United States (US)",
+  "originCode": "US",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "Financial Motivation",
+    "Data Breach",
+    "Cyber Crime",
+    "Retail Sector",
+    "Banking Sector",
+    "Initial Access",
+    "Supply Chain Attack",
+    "Data Exfiltration"
+  ],
+  "aliases": ["UNC3944", "the UNC5537 attack", "Starfraud", "Muddled Libra"],
+  "targetedSectors": [
+    "Financial services",
+    "Media",
+    "Defense",
+    "Healthcare",
+    "Telecommunications",
+    "Retail",
+    "Government",
+    "Non profit",
+    "Pharmaceutical",
+    "Manufacturing",
+    "Critical infrastructure",
+    "Entertainment",
+    "Information technology",
+    "Hospitality",
+    "Energy"
+  ],
+  "targetedCountries": ["IR", "IL", "SA", "US", "RU"],
+  "tactics": ["Reconnaissance", "Initial Access", "Exfiltration, Data Manipulation Activity"],
+  "techniques": ["T1566.003", "T1078", "T1003", "T1040"],
+  "tools": ["Phishing kits", "Custom payload delivery tools", "Data exfiltration utilities", "暗网交易工具"],
+  "iocPatterns": [
+    "Spear-phishing emails mimicking legitimate communications",
+    "Lateral movement across internal networks using compromised credentials",
+    "Exfiltration of large volumes of structured data (e.g., credit card details, customer PII)",
+    "Presence of encrypted or obfuscated communication channels"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing",
+    "Exploitation of vulnerabilities in web applications and APIs",
+    "Credential dumping",
+    "Data exfiltration via encrypted channels"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for critical systems",
+    "Conduct regular phishing simulations to enhance employee awareness",
+    "Monitor darknet markets for signs of leaked data from your organization",
+    "Segment networks to limit lateral movement in case of a breach",
+    "Encrypt sensitive data at rest and in transit"
+  ],
+  "campaignsText": "Sp1d3r's campaigns exhibit a pattern of long-term targeting and persistence. They typically remain active for extended periods, re-targeting successful victims or expanding their scope to include new industries. Notable operations include the breach of Cylance, a cybersecurity firm, which suggests an interest in high-value targets with strong security measures. Their use of darknet forums indicates a preference for monetization over direct extortion, aligning with trends in cybercrime where stolen data is increasingly commoditized.",
+  "description": "Sp1d3r is a threat actor known for conducting multiple data breaches targeting financial institutions and retail companies. They have stolen sensitive information such as customer emails, account details, and source code, which they attempt to sell on hacking forums. This activity indicates a focus on financial gain through the illegal monetization of stolen data.",
+  "goals": "Sp1d3r's primary motivation appears to be financial gain, as evidenced by their activities in selling stolen data on darknet markets. Their targeting profile focuses on industries with high-value sensitive information, such as banking (Truist Bank) and retail (Advance Auto Parts). Additionally, they have targeted third-party service providers, indicating an understanding of the supply chain's vulnerability. The choice of victims suggests a preference for sectors where stolen data can be monetized effectively through resale or direct financial extortion.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1108",
+  "sourceUrl": "https://threaticon.com/threat-actors/1108"
+}

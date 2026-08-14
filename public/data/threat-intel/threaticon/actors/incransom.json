@@ -1,0 +1,49 @@
+{
+  "slug": "incransom",
+  "id": 460,
+  "name": "incransom",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Healthcare Targeting", "Government Targeting"],
+  "aliases": ["Inc Ransom"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [
+    "Phishing kits for malicious Office documents",
+    "RDP brute-force tools",
+    "Double extortion ransomware payloads",
+    "Network monitoring tools for lateral movement"
+  ],
+  "iocPatterns": ["ip-v4, 178.20.41.208", "url, .*incransom[.]red"],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Spear-phishing with malicious Office attachments",
+    "Brute-force RDP access",
+    "Double extortion tactics (data exfiltration + encryption)",
+    "Advanced persistence techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for RDP access.",
+    "Enhance email filtering to detect spear-phishing attempts.",
+    "Conduct regular vulnerability scans and apply patches promptly.",
+    "Encrypt backups and store them offline or in secure cloud storage.",
+    "Monitor network traffic for signs of brute-force attacks and lateral movement.",
+    "Educate employees on phishing awareness through regular training sessions."
+  ],
+  "campaignsText": null,
+  "description": "The incransom threat actor is a medium-sophistication criminal ransomware group targeting healthcare, government, education, and manufacturing sectors in North America and Europe. They employ spear-phishing campaigns, brute-force RDP attacks, and double extortion tactics to achieve financial gain through ransomware deployments. Since their emergence in 2023, they have victimized over 783 organizations, indicating a broad attack surface and strategic targeting of sectors with high data sensitivity.",
+  "goals": "incransom's strategic objectives are centered on achieving financial gain through ransomware deployment. They target sectors where data is highly sensitive or critical, such as healthcare, government, education, and manufacturing, which often lack robust defenses or have limited recovery options. The group’s broad targeting approach suggests they aim to maximize opportunities across various industries without concentrating efforts on specific sectors. Their geographic focus on North America and Europe reflects regions with a higher density of attractive targets and potentially more lucrative ransom payments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A460",
+  "sourceUrl": "https://threaticon.com/threat-actors/460"
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "malekteam",
+  "id": 500,
+  "name": "malekteam",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "extortion",
+    "Israel-focused",
+    "Healthcare Targeting",
+    "Data Exfiltration",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": ["Targeted phishing attempts", "Ransomware deployment", "Data exfiltration activities"],
+  "keyCapabilities": ["Data exfiltration", "Ransomware deployment", "Extortion tactics"],
+  "recommendedActions": [
+    "Implement robust email security measures to detect and block phishing campaigns.",
+    "Enhance network monitoring for signs of data exfiltration.",
+    "Conduct regular backup procedures to mitigate ransomware attacks."
+  ],
+  "campaignsText": "Malek Team has demonstrated a focus on high-profile targets within Israel, suggesting an operational strategy aimed at maximizing media impact and financial gain. Their campaigns have included attacks on sensitive infrastructure such as medical facilities, potentially indicating a desire to cause significant disruption. While their activity window is limited to late 2023 and early 2024, the group has shown persistence in targeting specific sectors.",
+  "description": "Malek Team is a medium-sophistication Iranian-linked threat actor primarily targeting Israeli organizations with ransomware and extortion activities. Emerging after the Hamas attack on Israel, they have targeted sectors including healthcare and education.",
+  "goals": "The primary objectives of Malek Team appear to be financial gain through ransomware campaigns and organizational disruption. Their targeting focus is concentrated on Israel, likely due to both geopolitical motivations and the availability of high-value targets in critical sectors such as healthcare and education.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A500",
+  "sourceUrl": "https://threaticon.com/threat-actors/500"
+}

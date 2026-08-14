@@ -1,0 +1,51 @@
+{
+  "slug": "rhysida",
+  "id": 583,
+  "name": "rhysida",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Cybercrime", "Phishing", "Financial-Gain", "Cobalt Strike", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration of Data for Impact", "Ransomware Deployment"],
+  "techniques": [
+    "T1059.003 - Spear-phishing with attachment",
+    "T1003 -Credential dumping via Registry tools",
+    "T1566.001 - PupyRTM for persistence"
+  ],
+  "tools": ["Cobalt Strike", "rhysida Ransomware"],
+  "iocPatterns": [
+    "Malicious hashes identified from MD5 samples",
+    "Network communication patterns indicative of Cobalt Strike activity",
+    "Spear-phishing emails with malicious attachments"
+  ],
+  "keyCapabilities": [
+    "Phishing via spear-phishing emails",
+    "Cobalt Strike for initial access and lateral movement",
+    "Ransomware deployment with '.ryshida' file extension",
+    "Data exfiltration for ransom leverage",
+    "Bitcoin-based payment mechanism"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions to detect phishing attempts.",
+    "Monitor for Cobalt Strike-related network behaviors and signatures.",
+    "Enhance endpoint detection to identify and block rhysida payloads.",
+    "Establish routine backups and isolate critical systems from direct internet access.",
+    "Educate users on recognizing malicious emails and avoiding suspicious links."
+  ],
+  "campaignsText": "Rhysida has carried out numerous campaigns across North America and Europe, targeting sectors like education and healthcare. Their recent operations include attacks against Stelia North America and Southold Town Senior Services, indicating a preference for critical infrastructure and organizations with less robust defenses.",
+  "description": "Rhysida, a ransomware-as-a-service (RAAS) group emerged in May 2023, utilizing phishing and Cobalt Strike for network breaches. Their campaigns target various sectors globally, leaving '.ryshida' file extensions and demanding Bitcoin ransoms, with threats of data distribution as leverage.",
+  "goals": "Rhysida's primary goal is financial gain. Their targeting strategy focuses on maximizing profit through widespread campaigns rather than sector-specific attacks. victims include educational institutions, healthcare providers, and corporate entities in various countries, with a preference for easy compromise targets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A583",
+  "sourceUrl": "https://threaticon.com/threat-actors/583"
+}

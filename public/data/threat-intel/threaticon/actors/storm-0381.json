@@ -1,0 +1,43 @@
+{
+  "slug": "storm-0381",
+  "id": 1031,
+  "name": "Storm-0381",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Ransomware", "Cyber-Crime", "Malware", "Finance"],
+  "aliases": ["DEV-0381"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Impact"],
+  "techniques": ["T1055", "T1204", "T1493.001"],
+  "tools": ["Magniber Ransomware", "TrickBot", "BazarLoader"],
+  "iocPatterns": [
+    "Malicious ad campaigns delivering Magniber",
+    "Hosting domains used for malvertising campaigns",
+    "Communication channels using HTTP(S) or DGA techniques"
+  ],
+  "keyCapabilities": [
+    "Malvertising campaigns",
+    "Magniber ransomware deployment",
+    "Use of TrickBot and BazarLoader for initial infections"
+  ],
+  "recommendedActions": [
+    "Implement ad blockers to filter malicious ads",
+    "Monitor network traffic for signs of suspicious scripts and domains",
+    "Patch systems regularly and maintain offline backups"
+  ],
+  "campaignsText": "Storm-0381 has conducted prolonged campaigns since late 2019, focusing on EMEA regions. Their operations often involve multi-stage attacks beginning with malware distribution and culminating in ransomware deployment, targeting industries where data is critical and ransoms are likely.",
+  "description": "Storm-0381 is a Russian cybercrime group linked to distributing Magniber ransomware through malvertising campaigns. Known for targeting financial and healthcare sectors, they pose a significant threat due to their financially motivated activities.",
+  "goals": "Storm-0381's primary goal is financial gain, achieved through large-scale ransomware campaigns targeting high-value industries such as finance and healthcare. Their focus on these sectors suggests a strategy to maximize the potential for ransom payments due to data sensitivity and critical operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1031",
+  "sourceUrl": "https://threaticon.com/threat-actors/1031"
+}

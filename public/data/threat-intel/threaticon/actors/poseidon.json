@@ -1,0 +1,48 @@
+{
+  "slug": "poseidon",
+  "id": 309,
+  "name": "Poseidon",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "nation-state", "government", "critical-infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Exfiltration"],
+  "techniques": ["T1059.003", "T1566.001", "T1284.001"],
+  "tools": ["Custom malware", "Mimikatz", "PowerShell scripts", "Valid.win (if used for living-off-the-land)"],
+  "iocPatterns": [
+    "Spear-phishing emails mimicking trusted senders",
+    "Use of custom malware for initial access",
+    "Lateral movement via RDP or other protocols",
+    "Exfiltration channels encrypted over HTTPS"
+  ],
+  "keyCapabilities": [
+    "spear-phishing",
+    "zero-day exploits",
+    "living-off-the-land techniques",
+    "credential dumping",
+    "data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for critical systems",
+    "Conduct regular network monitoring for异常 traffic patterns",
+    "Educate employees on phishing attack vectors",
+    "Patch and update all software regularly to mitigate exploit risks",
+    "Deploy endpoint detection and response (EDR) solutions"
+  ],
+  "campaignsText": "The Poseidon actor likely operates with a slow, persistent approach to avoid detection and maintain long-term access. Their campaigns may involve prolonged presence in targeted networks to enable deep data collection. Notable past operations include attacks on government agencies and defense contractors, though specific details remain classified.",
+  "description": "ThePoseidon threat actor exhibits nation-state-level cyber espionage capabilities, targeting critical infrastructure and government sectors. Known for sophisticated operations, they likely employ advanced tactics to infiltrate systems and exfiltrate sensitive data.",
+  "goals": "The strategic objectives of the Poseidon threat actor likely include gathering sensitive information that can be used for diplomatic, military, or economic leverage. They target sectors such as government, defense, and critical infrastructure, which are rich in valuable data and poorly suited for defending against highly skilled adversaries. The choice of victims reflects a focus on entities with significant geopolitical influence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A309",
+  "sourceUrl": "https://threaticon.com/threat-actors/309"
+}

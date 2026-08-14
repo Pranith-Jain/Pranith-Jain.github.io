@@ -1,0 +1,57 @@
+{
+  "slug": "aeroblade",
+  "id": 983,
+  "name": "AeroBlade",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cyber-espionage", "aerospace-sector", "unknown-actor", "phishing", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation"],
+  "techniques": [
+    "T1059.003 - Command-Line Interface",
+    "T1204.001 - User Execution",
+    "T1566.001 - Phishing",
+    "T1055.003 - VBA Scripting",
+    "T1190 - Exploit Public-Facing Application",
+    "T1192 - Multi-Tiered Attack"
+  ],
+  "tools": ["Malicious VBA Macros", "Weaponized Microsoft Office Documents", "Remote Template Injection Exploits"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Microsoft Office attachments",
+    "Remote template injection in Office documents",
+    "VBA macro code with obfuscation and persistence mechanisms",
+    "Multi-stage payload delivery over email",
+    "Unusual document metadata indicators"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns with weaponized Microsoft Office documents",
+    "Remote template injection exploits in Office files",
+    "Malicious VBA macro code execution",
+    "Multi-phase attack chain execution",
+    "Targeted initial access via social engineering",
+    "Document-based payload delivery techniques"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering with attachment sandboxing for office documents",
+    "Enforce strict macro execution policies and user training on phishing indicators",
+    "Deploy endpoint detection and response (EDR) solutions to monitor VBA macro activity",
+    "Conduct regular red team exercises targeting document-based attack vectors",
+    "Monitor for anomalous document creation times and metadata inconsistencies"
+  ],
+  "campaignsText": "AeroBlade has maintained a persistent presence since September 2022, conducting a multi-phase campaign against U.S. aerospace targets. The attacks demonstrate a high degree of operational patience, with initial spear-phishing attempts followed by lateral movement and data exfiltration phases. The actor's focus on the aerospace sector suggests a long-term campaign to harvest sensitive research and development data. Notable operational patterns include the use of document-based payloads and the absence of known affiliations with state-sponsored groups or organized cybercrime networks.",
+  "description": "AeroBlade is an emerging threat actor conducting sustained cyber espionage campaigns targeting the aerospace sector in the United States. The group employs spear-phishing attacks using weaponized Office documents with malicious VBA macros and remote template injection techniques. Since September 2022, the actor has executed a multi-phase attack chain against a major aerospace organization, though its origin and ultimate objectives remain unattributed.",
+  "goals": "AeroBlade's strategic objectives appear to center on industrial espionage, targeting the aerospace sector due to its concentration of cutting-edge technology and defense-related intellectual property. The United States is a key focus given its leadership in aerospace innovation, suggesting the actor seeks to exfiltrate trade secrets, technological blueprints, or strategic business intelligence to benefit a competing nation or private entity. The absence of overt ransomware or financial extortion tactics points toward a focused espionage campaign rather than financial gain. Typical victims include aerospace manufacturers, defense contractors, and research institutions involved in advanced materials, propulsion systems, or satellite technologies.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A983",
+  "sourceUrl": "https://threaticon.com/threat-actors/983"
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "ep918",
+  "id": 428,
+  "name": "ep918",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Crime", "Low-Activity"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Network infiltration",
+    "Encrypted file creation",
+    "Victim communication via dark web"
+  ],
+  "recommendedActions": [
+    "Implement robust backup solutions to mitigate ransomware impact",
+    "Conduct regular employee training to combat phishing attempts",
+    "Monitor network traffic for signs of unknown encrypted file creation"
+  ],
+  "campaignsText": "EP918's campaign patterns remain speculative due to their low activity and lack of publicly documented attacks. They may use initial accessbrokers for entry into target networks, leveraging common attack vectors such as phishing or exploit kits. The group likely operates with a focus on minimizing detection during lateral movement and maintaining persistence within infected systems.",
+  "description": "EP918 is a low-activity ransomware group with no confirmed victims or documented attacks, operating with medium sophistication and focusing on financial gain through organizational targeting. Despite being flagged in tracking databases, EP918 remains elusive, making it a potential but under-the-radar threat to organizations seeking financial gains.",
+  "goals": "EP918's strategic goals center on financial gain, as evidenced by their ransomware activities. They appear to target organizations broadly without sector-specific preferences, indicating a potential willingness to compromise any entity that offers a viable return on investment through ransom payments. The group's low activity and lack of confirmed victims may stem from either careful operational security or an inability to execute attacks at scale.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A428",
+  "sourceUrl": "https://threaticon.com/threat-actors/428"
+}

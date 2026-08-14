@@ -1,0 +1,47 @@
+{
+  "slug": "evanescent-bat",
+  "id": 308,
+  "name": "Evanescent Bat",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "nation-state", "cyber-espionage"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Access Removal", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1284", "T1566.001"],
+  "tools": ["Custom malware", "Spear-phishing tools", "Lateral movement frameworks"],
+  "iocPatterns": [
+    "Use of custom malware for initial access",
+    "Network persistence using known tools",
+    "Scheduled task creation for lateral movement",
+    "Data exfiltration via encrypted channels"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) techniques",
+    "Custom malware development",
+    "Lateral movement within networks",
+    "Data exfiltration",
+    "Sustained operational persistence"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring and detection frameworks",
+    "Conduct regular security audits and penetration testing",
+    "Leverage threat intelligence feeds to identify potential APT indicators",
+    "Enhance employee training on phishing awareness"
+  ],
+  "campaignsText": "Evanescent Bat's campaigns have been observed to employ persistent and patient tactics, often remaining dormant within targeted networks for extended periods. Their operational tempo suggests they are methodical, with a focus on long-term goals rather than quick victories. Notable past operations include high-profile breaches in sectors of strategic interest, though specific details remain unclear due to the secretive nature of their activities.",
+  "description": "Evanescent Bat is a nation-state threat actor primarily involved in espionage activities. They have demonstrated advanced capabilities in targeting specific sectors and countries, with a focus on intelligence gathering. Their operations are linked to Crowdstrike's tracking efforts, indicating a persistent and targeted approach to their activities.",
+  "goals": "Evanescent Bat's strategic objectives appear to be centered on espionage, likely aiming to acquire sensitive political, military, or economic information. Their targeting profile suggests a focus on sectors that align with these goals, potentially including government agencies, defense contractors, and critical infrastructure entities. The choice of specific countries may reflect geopolitical interests or regional priorities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A308",
+  "sourceUrl": "https://threaticon.com/threat-actors/308"
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "slug",
+  "id": 607,
+  "name": "slug",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "emerging threat", "aviation sector", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Ransomware executable", "File encryption tool"],
+  "iocPatterns": [
+    "Phishing emails with malicious attachments",
+    "Encrypted files with specific extensions",
+    "Unusual network traffic indicators"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Encryption of files",
+    "Distribution via phishing or direct attack vectors",
+    "Communication channels for ransom negotiations"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and attachment sandboxes",
+    "Regularly back up critical data offsite",
+    "Monitor for异常网络活动indicative of ransomware behavior",
+    "Train employees to recognize phishing attempts"
+  ],
+  "campaignsText": "Slug has only been observed in a single campaign targeting AerCap, suggesting either limited operational capacity or an early stage in their evolution. Their activity to date indicates a focus on quick strike operations rather than prolonged campaigns. The group's targets suggest they may expand their focus to other financial or high-revenue sectors as they mature.",
+  "description": "Slug appears to be a low-profile ransomware or extortion group targeting high-value sectors such as aviation. Despite their limited activity, observed only in January 2024 with AerCap as the sole documented victim, they demonstrate basic capabilities centered around financial gain through ransomware deployment.",
+  "goals": "Slug's objectives appear to be primarily financial, leveraging ransomware to extract payments from targeted organizations. While no specific sectors have been consistently targeted beyond AerCap, their choice of victim suggests an interest in large enterprises with deep pockets and the ability to pay ransoms. The group's targeting strategy likely focuses on quick monetization rather than long-term operational persistence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A607",
+  "sourceUrl": "https://threaticon.com/threat-actors/607"
+}

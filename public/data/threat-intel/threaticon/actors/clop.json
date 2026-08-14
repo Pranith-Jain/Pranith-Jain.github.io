@@ -1,0 +1,54 @@
+{
+  "slug": "clop",
+  "id": 382,
+  "name": "clop",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-gain", "TA505 affiliate", "Phishing"],
+  "aliases": ["Cl0p"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Attack Execution", "Credential Access", "Defense Evasion", "Persistence", "Exfiltration", "Discovery"],
+  "techniques": [
+    "T1566.001 - Phishing",
+    "T1058 - Exploitation for Impact",
+    "T1078 - Discovery",
+    "T1093 - External Remote Control",
+    "T1094.004 - Exfiltration over Network Tools"
+  ],
+  "tools": ["Macro-enabled Documents (loader)", "Get2 Loader", "TA505-associated tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-enabled Office documents",
+    "Deployment of Get2 loader after initial compromise",
+    "File extensions like .clop, .CIIp, .Cl0p following encryption",
+    "Ransom notes named 'ClopReadMe.txt', 'README_README.txt'"
+  ],
+  "keyCapabilities": [
+    "Phishing campaigns using macro-enabled documents",
+    "Loader deployment (Get2)",
+    "Exploitation of vulnerabilities",
+    "Reconnaissance and lateral movement techniques",
+    "Ransomware deployment with varying file extensions"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect phishing attempts.",
+    "Use sandboxing solutions to analyze macro-enabled documents.",
+    "Patch network vulnerabilities promptly.",
+    "Ensure regular backups of critical data systems.",
+    "Educate employees on spotting phishing indicators."
+  ],
+  "campaignsText": "CLOP has executed campaigns targeting sectors such as healthcare, legal services, and cloud infrastructure. Notable operations include attacks on INJURYLAWYERS.COM, CLOUD.CLEARWAYGROUP.COM. Their shift to exploit-based infections indicates evolution in tactics, suggesting a focus on higher-value targets.",
+  "description": "The CLOP (Cl0p) threat actor group is a medium-sophisticated criminal organization primarily engaged in ransomware activities to achieve financial gain. Known since March 2020, they have shifted from phishing-based infections to exploiting vulnerabilities for deploying their ransomware, targeting organizations globally with significant campaign activity.",
+  "goals": "CLOP primarily targets organizations for financial gain via ransomware. Their strategic objectives include disrupting operations to coerce payments, with a focus on sectors where data breaches have high costs and slower recovery times. Known campaigns suggest targeting industries with less robust cybersecurity measures, such as legal services and healthcare.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A382",
+  "sourceUrl": "https://threaticon.com/threat-actors/382"
+}

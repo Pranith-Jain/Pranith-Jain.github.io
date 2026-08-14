@@ -1,0 +1,69 @@
+{
+  "slug": "unc5291",
+  "id": 1086,
+  "name": "UNC5291",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "critical-infrastructure",
+    "espionage",
+    "cyber-physical-systems",
+    "Initial Access",
+    "Critical Infrastructure"
+  ],
+  "aliases": ["UNC5221", "APT28", "Pawn Storm", "Fancy Bear"],
+  "targetedSectors": [
+    "Defense",
+    "Media",
+    "Financial services",
+    "Government",
+    "Critical infrastructure",
+    "Energy",
+    "Manufacturing",
+    "Aviation",
+    "Education",
+    "Maritime",
+    "Oil gas",
+    "Retail",
+    "Aerospace",
+    "Transportation",
+    "Mining",
+    "Information technology"
+  ],
+  "targetedCountries": ["CN", "US", "IR", "PL", "IL", "AU", "AE", "UA"],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Ivanti Connect Secure exploitation tools", "Radmin (potential lateral movement tool)"],
+  "iocPatterns": [
+    "Probing attempts against Citrix Netscaler ADC",
+    "Spear phishing emails targeting Ivanti Connect Secure devices",
+    "Lateral movement using known tools like Radmin"
+  ],
+  "keyCapabilities": [
+    "Probing vulnerabilities in Citrix Netscaler ADC",
+    "Targeting Ivanti Connect Secure devices post-public disclosure",
+    "Ability to shift focus based on intelligence",
+    "Experience in targeting critical infrastructure"
+  ],
+  "recommendedActions": [
+    "Patch and secure all Citrix Netscaler ADC and Ivanti Connect Secure devices immediately",
+    "Implement multi-factor authentication (MFA) for critical systems",
+    "Monitor network traffic for signs of probing activity or unauthorized access attempts",
+    "Conduct regular security audits on critical infrastructure systems"
+  ],
+  "campaignsText": "UNC5291's campaign patterns involve initial probing of Citrix Netscaler ADC, followed by a shift to Ivanti Connect Secure devices after mid-January 2024. The group exhibits patience and adaptability, adjusting their focus based on disclosed information. Their targeting reflects a long-term strategic interest in critical infrastructure sectors, with potential links to state-sponsored activities as seen in past Volt Typhoon operations.",
+  "description": "UNC5291 is a cyber threat cluster linked with moderate confidence to UNC3236 (Volt Typhoon), targeting critical infrastructure sectors such as academic, energy, defense, and health. Their activities involve probing for vulnerabilities in Citrix Netscaler ADC and Ivanti Connect Secure devices, with shifts in focus based on public disclosures. The group's operations align with known patterns ofVolt Typhoon, targeting critical infrastructure, suggesting potential state-sponsored activity.",
+  "goals": "UNC5291 appears to target sectors critical to national security, such as energy, defense, and health, consistent with Volt Typhoon's known targeting patterns. Their strategic objectives likely include gathering intelligence, disrupting operations, or preparing for potential exploitation of critical infrastructure systems. The choice of targets indicates a focus on entities that, if compromised, could have significant economic or security repercussions.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1086",
+  "sourceUrl": "https://threaticon.com/threat-actors/1086"
+}

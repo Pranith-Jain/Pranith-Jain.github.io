@@ -1,0 +1,55 @@
+{
+  "slug": "operation-soft-cell",
+  "id": 778,
+  "name": "Operation Soft Cell",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Cyber Espionage", "State-sponsored", "Telecommunications"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Covert Collection", "Cyber Espionage", "Resource Development"],
+  "techniques": ["T1086|0002", "T1583", "T1594", "T1003", "T1074", "T1218", "T1021", "T1055"],
+  "tools": [
+    "Mimikatz",
+    "Custom compiled binaries",
+    "Process injection tools (e.g., BeEF)",
+    "C2 frameworks (e.g., Moloquist)",
+    "LNK files"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "VBA-based macros in Office documents",
+    "LNK files dropped via compromised websites",
+    "Registry and file persistence mechanisms",
+    "Unusual network traffic patterns"
+  ],
+  "keyCapabilities": [
+    "Multi-stage attack framework",
+    "Network exploration and lateral movement",
+    "Credential dumping techniques",
+    "Persistent access mechanisms",
+    "Data exfiltration protocols"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions to detect phishing attempts.",
+    "Monitor for known MITRE ATT&CK-based indicators of compromise (IOC).",
+    "Enhance credential protection mechanisms, such as multi-factor authentication (MFA).",
+    "Conduct regular network security audits and penetration testing exercises.",
+    "Ingest threat intelligence feeds into SIEM tools to detect related attack patterns."
+  ],
+  "campaignsText": "Operation Soft Cell has demonstrated an operational rhythm aligned with state-sponsored campaigns, likely indicating a well-resourced and persistent threat actor. Their focus on telecommunications providers suggests an interest in targeting critical infrastructure, possibly for both economic and national security purposes. Notable operations include the complete takeover of targeted networks, leading to significant data loss or compromise.",
+  "description": "Operation Soft Cell is an advanced persistent threat group suspected of Chinese state sponsorship, targeting telecommunications providers globally since at least 2018. Their primary tactics involve multi-stage attacks aimed at network takeover and data exfiltration, leveraging tools associated with other Chinese-affiliated APTs like APT10.",
+  "goals": "Operation Soft Cell's strategic goals align with those of typical state-sponsored actors: intelligence gathering and network compromise. Their targeting of telecommunications providers suggests an interest in securing access to communications infrastructure, potentially for mass surveillance capabilities. The group’s focus on complete network takeover indicates a desire not just to exfiltrate data but also to establish long-term persistence within targeted organizations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A778",
+  "sourceUrl": "https://threaticon.com/threat-actors/778"
+}

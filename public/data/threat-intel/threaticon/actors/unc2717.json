@@ -1,0 +1,59 @@
+{
+  "slug": "unc2717",
+  "id": 981,
+  "name": "UNC2717",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "government", "malware", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Defense Evasion",
+    "credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1563.001", "T1057.002", "T1055", "T1505.004", "T1003.001", "T1059.003", "T1078.001"],
+  "tools": ["HARDPULSE", "QUIETPULSE", "PULSEJUMP"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "Malware droppers masquerading as legitimate files",
+    "C2 communication over DNS channels",
+    "Presence of custom malware such as HARDPULSE, QUIETPULSE, and PULSEJUMP",
+    "Staging infrastructure hosted on compromised servers"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Spear-phishing campaigns with malware-laced emails",
+    "Malware development and deployment",
+    "C2 infrastructure using DNS for communication",
+    "Credential harvesting",
+    "Lateral movement within networks",
+    "Exfiltration of data"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts.",
+    "Monitor for unusual network traffic and DNS queries unrelated to normal business operations.",
+    "Conduct regular updates of software and patch management programs.",
+    "Use endpoint detection and response (EDR) tools to identify and block malicious activities.",
+    "Strengthen authentication mechanisms and implement multi-factor authentication (MFA)."
+  ],
+  "campaignsText": "UNC2717 has been active for several years, with campaigns targeting government agencies globally. Their operational tempo is methodical, with a focus on long-term access and data exfiltration. Notable past operations include the use of HARDPULSE malware to compromise victim systems, followed by the deployment of additional tools for persistence and lateral movement. The group's ability to adapt their tactics and evade detection makes them a significant threat.",
+  "description": "UNC2717 is a sophisticated threat actor engaging in espionage activities aligned with Chinese government priorities. They are known for advanced tradecraft and evasive tactics, targeting global government agencies to steal sensitive information such as credentials and intellectual property.",
+  "goals": "UNC2717 appears to focus on advancing Chinese government interests through espionage activities. Their primary targets include global government agencies, likely to gain access to diplomatic and military communications. The group's goal is to collect sensitive information such as credentials, email communications, and intellectual property, which could be used for strategic advantage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A981",
+  "sourceUrl": "https://threaticon.com/threat-actors/981"
+}

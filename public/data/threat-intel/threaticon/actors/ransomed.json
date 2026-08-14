@@ -1,0 +1,40 @@
+{
+  "slug": "ransomed",
+  "id": 570,
+  "name": "ransomed",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "extortion", "organizational-gain", "high-profile-targets"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": ["Spear-phishing emails targeting executives", "Malicious links disguised as official communications"],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Extortion tactics including regulatory threats",
+    "Ransomware-as-a-Service (RaaS) operation"
+  ],
+  "recommendedActions": [
+    "Enhance phishing detection capabilities",
+    "Implement robust backup strategies",
+    "Monitor for unusual network activities",
+    "Educate employees on GDPR threat awareness"
+  ],
+  "campaignsText": "Campaigns focused on high-profile organizations, using GDPR fears for leverage. Operations were brief but impactful due to their extortive methods and sudden shutdown post-arrest reports.",
+  "description": "Ransomed, an active ransomware group from August to November 2023, targeted high-profile victims including Sony, using GDPR fines as an extortion tactic. They operated as Ransomware-as-a-Service (RaaS) before shutting down due to an exit scam following arrests.",
+  "goals": "Ransomed targeted high-profile victims across various industries to extort financial gains. Their use of GDPR fines highlighted a strategic approach to pressure victims into paying ransoms promptly. The group's broad targeting suggests they sought significant organizational impact rather than focusing on specific sectors or geographies.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A570",
+  "sourceUrl": "https://threaticon.com/threat-actors/570"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "exorcist",
+  "id": 432,
+  "name": "exorcist",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial Motivation", "File Encryption", "Moderate Sophistication"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Data Exfiltration", "Persistence", "Impact"],
+  "techniques": ["T1003.001", "T1485", "T1048", "T1071"],
+  "tools": ["Generic ransomware", "Custom encryption tools", "Phishing emails with macro payloads"],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Office documents",
+    "Encrypted C2 communication channels",
+    "Files with appended .rnyZoV-like extensions",
+    "Dropped HTML decryption files"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment with file encryption",
+    "Modifying desktop wallpaper for intimidation",
+    "Dropping HTML decryption tools with ransom notes",
+    "Communicating via encrypted channels for C2"
+  ],
+  "recommendedActions": [
+    "Implement strong email filtering to block phishing attempts",
+    "Monitor for file extension changes indicative of encryption",
+    "Educate users on recognizing suspicious emails and attachments",
+    "Regularly back up critical data offline",
+    "Segment networks to limit lateral movement potential"
+  ],
+  "campaignsText": "Exorcist campaigns typically involve phishing-based initial access, followed by lateral movement and data encryption. Victims may include businesses or individuals with financial transaction history. The group's operational pattern suggests a focus on quick infections and rapid victim impact to ensure timely payment.",
+  "description": "Exorcist is a ransomware group targeting individuals and organizations for financial gain. The actors encrypt victim files and demand payment for decryption keys, using sophisticated tactics to maximize impact and evade detection.",
+  "goals": "Exorcist seeks organizational gain through targeted ransomware attacks, primarily focusing on individuals and organizations involved in financial transactions or data management. While specific targeting preferences are unclear, the group likely selects victims based on perceived ability to pay ransoms or vulnerability to phishing-based deployments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A432",
+  "sourceUrl": "https://threaticon.com/threat-actors/432"
+}

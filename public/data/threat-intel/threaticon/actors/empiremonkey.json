@@ -1,0 +1,66 @@
+{
+  "slug": "empiremonkey",
+  "id": 292,
+  "name": "EmpireMonkey",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "financial-sector", "banking"],
+  "aliases": ["CobaltGoblin", "Empire Monkey"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Espionage: Reconnaissance",
+    "Initial Access",
+    "Execution",
+    "Defense Evasion",
+    "Credential Access",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1059.003 - Spear-phishing via email attachment with macros",
+    "T1055 - Non-proprietary tools for data dump",
+    "T1566.001 - Powershell for command and control (C2)",
+    "T1048 - Valid accounts"
+  ],
+  "tools": [
+    "Cobalt Strike-like frameworks",
+    "Malicious Office documents with macros",
+    "Custom malware variants linked to FIN7/Carbanak",
+    "C2 infrastructure using HTTPS and fast-flux domains"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "C2 communication over HTTPS or DNS tunnels",
+    "Presence of Cobalt Strike-like beacons",
+    "Use of custom domains mimicking financial institutions",
+    "Lateral movement using legitimate RDP or PS sessions"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns with malicious attachments",
+    "Use of custom malware for persistence and data exfiltration",
+    "Lateral movement within networks using legitimate-looking tools",
+    "Data theft and espionage targeting financial institutions"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear-phishing attempts",
+    "Monitor network traffic for indicators of malicious C2 communication",
+    "Conduct regular security audits on financial systems",
+    "Enhance multi-factor authentication (MFA) for sensitive accounts",
+    "Ingest threat intelligence feeds focusing on EmpireMonkey's known IOCs"
+  ],
+  "campaignsText": "EmpireMonkey's campaign patterns are characterized by targeted attacks on financial institutions, often involving prolonged network presence. They employ techniques such as spear-phishing, credential dumping, and persistence to achieve their objectives. Notable operations include the Bank of Valletta incident, which highlights their ability to infiltrate critical financial systems. Their operational tempo suggests they are active in multiple campaigns simultaneously, targeting high-value assets for long-term intelligence gathering.",
+  "description": "EmpireMonkey, also known as CobaltGoblin, is a nation-state level cyber threat actor primarily involved in espionage activities. They have demonstrated a significant focus on targeting financial institutions, leveraging sophisticated attack techniques and tools linked to criminal groups like FIN7 and Carbanak. Their activities pose a critical threat to global financial stability and sensitive data integrity.",
+  "goals": "EmpireMonkey’s primary motivation appears to be espionage, with a focus on gathering intelligence and potentially disrupting financial operations. They target sectors known for holding sensitive data, such as banking and finance, indicating a strategic interest in economic and national security advantages. Their targeting of specific countries involved in financial transactions suggests an intent to compromise critical infrastructure and gain competitive economic intelligence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A292",
+  "sourceUrl": "https://threaticon.com/threat-actors/292"
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "ta544",
+  "id": 290,
+  "name": "TA544",
+  "mitreId": "TA544",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Financial gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "financial-gain", "banking-malware", "nation-state", "financial-sector", "Financial Targeting"],
+  "aliases": ["GOLD ESSEX", "TA544", "Storm-0302"],
+  "targetedSectors": ["Financial services"],
+  "targetedCountries": ["DE", "JP", "PL"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion"],
+  "techniques": [],
+  "tools": ["URLZone", "Ursnif", "Panda Banker", "Nymaim", "Chthonic", "Smoke Loader"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Malware deployment targeting financial sector employees",
+    "C2 communication via hardcoded domains or command-and-control infrastructure",
+    "Intrusion into online banking systems"
+  ],
+  "keyCapabilities": ["/URLZone", "/Ursnif", "/Panda Banker", "/Nymaim", "/Chthonic", "/Smoke Loader"],
+  "recommendedActions": [
+    "Implement advanced threat detection solutions to monitor for nation-state-sponsored attacks.",
+    "Conduct regular employee training on phishing and malware avoidance techniques.",
+    "Segment network infrastructure to limit lateral movement within financial systems.",
+    "Patch and update all systems regularly to mitigate known vulnerabilities.",
+    "Establish robust incident response plans to detect and respond to unauthorized access."
+  ],
+  "campaignsText": "TA544 has been involved in long-term campaigns targeting financial institutions, particularly in Europe and Asia. The group's operational tempo suggests persistence over months or years, with a focus on lateral movement within targeted networks to achieve maximal impact. Notable past operations include malware-driven attacks aimed at stealing banking credentials and facilitating unauthorized transactions.",
+  "description": "TA544, also known as GOLD ESSEX and Storm-0302, is a nation-state-sponsored cyber threat actor primarily targeting the financial sector in several countries, including Germany, Poland, Japan, Italy, Spain, and others. The group's main goal appears to be financial gain, employing various malware tools such as URLZone, Ursnif, and Panda Banker to compromise online banking systems and steal sensitive information from victims.",
+  "goals": "TA544 targets the financial sector, particularly online banking systems, to achieve financial gain. The group's targeting of countries such as Germany, Japan, Poland, Italy, and Spain suggests a focus on regions with robust financial services and high-value targets. The use of sophisticated malware tools indicates an intent to steal sensitive information and disrupt financial operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A290",
+  "sourceUrl": "https://threaticon.com/threat-actors/290"
+}

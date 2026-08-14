@@ -1,0 +1,46 @@
+{
+  "slug": "curious-gorge",
+  "id": 835,
+  "name": "Curious Gorge",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "government-sector", "Ransomware", "Critical Infrastructure", "Government Targeting"],
+  "aliases": ["UNC3742"],
+  "targetedSectors": ["Government", "Defense", "Transportation"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration"],
+  "techniques": ["T1078", "T1569", "T1214", "T1055"],
+  "tools": ["Custom Malware", "Common Tools (Inference)"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting government/military employees",
+    "Domain generation activity (likely C2)",
+    "Network traffic anomalies in government/defense networks",
+    "Artifacts in compromised systems aligning with APT activity"
+  ],
+  "keyCapabilities": [
+    "State-sponsored cyber operations",
+    "Persistent network presence",
+    "Targeted compromise of critical infrastructure",
+    "Intelligence gathering on defense and government activities"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect spear-phishing attempts.",
+    "Monitor network traffic for signs of C2 communication patterns.",
+    "Conduct regular audits of critical infrastructure for unauthorized access.",
+    "Adopt MFA (Multi-Factor Authentication) where possible."
+  ],
+  "campaignsText": "Curious Gorge has demonstrated a sustained operational tempo, with campaigns spanning multiple years. Their focus on Russia and Ukraine suggests a regional strategy aimed at destabilization or intelligence collection targets. Notable operations include compromises of the Russian Ministry of Foreign Affairs and defense contractors in Ukraine.",
+  "description": "Curious Gorge (aka UNC3742), attributed to China's PLA SSF, targets government and defense sectors in Ukraine, Russia, Kazakhstan, and Mongolia. The group conducts prolonged campaigns focusing on情报 gathering and infrastructure compromise. While specifics like TTPs and tools remain unclear, their activity indicates a nation-state level of sophistication with significant operational reach.",
+  "goals": "Curious Gorge's primary objectives appear to be intelligence collection and disruption of key infrastructure in target countries. Their focus on government and defense sectors suggests a desire to gather sensitive information and undermine national security capabilities. The actor's targeting strategy reflects a long-term commitment to specific regions, indicating operational patience and strategic planning.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A835",
+  "sourceUrl": "https://threaticon.com/threat-actors/835"
+}

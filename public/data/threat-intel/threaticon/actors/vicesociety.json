@@ -1,0 +1,45 @@
+{
+  "slug": "vicesociety",
+  "id": 637,
+  "name": "vicesociety",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "financial-gain", "Linux", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Impact"],
+  "techniques": ["T1078", "T1566.001", "T1566.002"],
+  "tools": ["Vice Society ransomware", "HelloKitty ransomware (possible link)"],
+  "iocPatterns": [
+    "Ransom note appended with .v-society extension",
+    "File names containing 'Vice Society'",
+    "Dark web leak site"
+  ],
+  "keyCapabilities": [
+    "Linux-targeted ransomware",
+    "Dark web leak site operation",
+    "Encryption of victim files using .v-society extension"
+  ],
+  "recommendedActions": [
+    "Implement robust backup solutions to protect against ransomware encryption",
+    "Monitor network traffic for signs of encrypted files or unusual activities",
+    "Educate employees about phishing and social engineering tactics",
+    "Deploy endpoint detection and response (EDR) tools",
+    "Enforce multi-factor authentication (MFA) where possible"
+  ],
+  "campaignsText": "The Vice Society has demonstrated a sustained operational presence from 2021 to 2023, indicating a structured criminal approach. Their campaigns likely involve initial access via phishing or exploiting vulnerabilities specific to Linux systems, followed by encryption and data theft. The presence of a dark web leak site suggests an organized attempt to pressure victims into paying ransoms by threatening data exposure. Notable operations include multiple ransomware deployments with known victim count reaching 188 individuals or entities.",
+  "description": "The Vice Society threat actor is a medium-sophistication criminal group primarily motivated by financial gain through ransomware activities targeting Linux-based systems. Known since May 2021, they append files with the .v-society extension upon encryption and operate a dark web leak site, potentially linked to HelloKitty ransomware.",
+  "goals": "The strategic objectives of Vice Society are centered around financial gain through ransomware campaigns. Their targeting strategy focuses on sectors and individuals where encryption can be applied effectively, with a likely preference for industries that rely heavily on Linux-based infrastructure. The group's victims may include educational institutions, research organizations, or businesses running critical Linux servers, though specific sectoral targeting is not explicitly detailed in the available information. The actor's motivation aligns with typical ransomware operations where financial extraction from victims is the primary aim.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A637",
+  "sourceUrl": "https://threaticon.com/threat-actors/637"
+}

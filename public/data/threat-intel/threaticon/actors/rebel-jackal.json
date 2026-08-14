@@ -1,0 +1,54 @@
+{
+  "slug": "rebel-jackal",
+  "id": 720,
+  "name": "Rebel Jackal",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": ["Hacktivist"],
+  "countryOfOrigin": "T",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Hacktivism",
+    "Pro-Islamist",
+    "Network Intrusion",
+    "Defacements",
+    "Malware Development",
+    "Ideologically Motivated",
+    "Backdoor / C2"
+  ],
+  "aliases": ["FallagaTeam"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Network Access Exploitation", "Exfiltration", "Defense Evasion"],
+  "techniques": ["T1070.004", "T1505.002", "T1635.001"],
+  "tools": ["Fallaga RAT", "njRAT", "WebShells", "Custom payloads for website defacements"],
+  "iocPatterns": [
+    "Website defacement activities (overwriting websites with politically charged messages)",
+    "Presence of njRAT-based malware on targeted systems",
+    "Use of web shells for initial access and lateral movement",
+    "Signs of fileless or in-memory payloads used for persistence"
+  ],
+  "keyCapabilities": [
+    "Website defacements",
+    "Development and deployment of custom RAT (Fallaga RAT)",
+    "Basic malware capabilities based on njRAT framework",
+    "Limited persistence and lateral movement techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical accounts and systems",
+    "Monitor for unusual network activity, particularly during periods of heightened geopolitical tension",
+    "Conduct regular code signing verification to detect malicious binaries",
+    "Apply patches and updates to websites to prevent defacement attempts"
+  ],
+  "campaignsText": "Rebel Jackal appears to operate with periodic campaigns, often triggered by specific geopolitical events or perceived slights against Muslim communities. The group’s victims are typically high-profile entities in sectors such as government, finance, and media. Notable operations include a series of defacements targeting entities associated with Western interests. While the group’s operational tempo is not consistently high, its involvement in campaigns suggests that it is a persistent but relatively low-sophistication threat actor in the hacktivist space.",
+  "description": "Rebel Jackal, also known as FallagaTeam, is a pro-Islamist hacktivist group primarily targeting sectors and countries perceived as antagonistic to Muslim interests. Known for website defacements and the use of a custom RAT (Fallaga RAT) based on njRAT, this group leverages basic malware capabilities to further its ideological goals.",
+  "goals": "Rebel Jackal’s strategic objectives appear to be driven by a desire to defend perceived Muslim interests and retaliate against real or perceived injustices. The group targets sectors and countries aligned with Western policies or those it deems hostile to Islamic causes, including government agencies, financial institutions, and media outlets. Its primary motivation centers on ideological grievances, and its targeting profile reflects efforts to impact entities with significant public exposure or symbolic importance in the context of Muslim communities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A720",
+  "sourceUrl": "https://threaticon.com/threat-actors/720"
+}

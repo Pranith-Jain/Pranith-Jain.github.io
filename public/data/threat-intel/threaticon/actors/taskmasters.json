@@ -1,0 +1,61 @@
+{
+  "slug": "taskmasters",
+  "id": 235,
+  "name": "Taskmasters",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "government", "defense", "nation-state", "Government Targeting"],
+  "aliases": ["BlueTraveller"],
+  "targetedSectors": ["Government", "Telecommunications", "Defense"],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [
+    "T1566.002 - Collection (File Transfer)",
+    "T1071.001 - Internal Communication via Remote Access Tools",
+    "T1566.003 - Account Access Removal or Modification",
+    "T1059.003 - Application Layer Protocol Command Injection"
+  ],
+  "tools": ["RemShell", "404-Input-shell", "Eternal Blue exploit", "Scheduled Tasks"],
+  "iocPatterns": [
+    "Use of RemShell remote access tool",
+    "Scheduled Task persistence mechanisms (e.g., task矾.create)",
+    "Eternal Blue SMB vulnerability exploitation activity",
+    "404-Input-shell post-exploitation commands"
+  ],
+  "keyCapabilities": [
+    "RemShell remote access tool",
+    "404-Input-shell post-exploitation framework",
+    "Eternal Blue vulnerability exploitation (SMB)",
+    "Scheduled Tasks for persistence"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for known RemShell and 404-Input-shell signatures",
+    "Harden against Eternal Blue exploits by patching SMB services",
+    "Use Endpoint Detection and Response (EDR) solutions to detect scheduled task anomalies",
+    "Conduct regular audits of user accounts and permissions to identify unauthorized access"
+  ],
+  "campaignsText": "Taskmasters' campaigns typically involve prolonged access to networks, with a focus on data collection and exfiltration. While specific campaign details are limited, their operational patterns suggest they are patient and methodical, avoiding high-profile activities that could attract attention. Past operations likely include targeted compromises of government agencies and defense contractors.",
+  "description": "Taskmasters, also known as BlueTraveller, is a nation-state threat actor primarily involved in espionage activities targeting critical sectors such as government, telecommunications, and defense. Their toolset includes RemShell, 404-Input-shell, Eternal Blue, and Scheduled Tasks, which suggest advanced capabilities for persistence, lateral movement, and data exfiltration. This group poses a significant risk to national security and organizational confidentiality due to their ability to compromise sensitive systems.",
+  "goals": "Taskmasters' strategic objectives appear to focus on gathering sensitive information from targeted sectors, likely for national security or competitive advantage purposes. Their choice of victims—government, telecommunications, and defense—indicates a focus on sectors that hold high-value data and assets. This group's targeting profile suggests they are methodical in selecting victims, possibly based on the availability of exploitable vulnerabilities and the potential impact of stolen intelligence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A235",
+  "sourceUrl": "https://threaticon.com/threat-actors/235"
+}

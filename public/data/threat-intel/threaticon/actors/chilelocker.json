@@ -1,0 +1,43 @@
+{
+  "slug": "chilelocker",
+  "id": 376,
+  "name": "chilelocker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "APT", "affiliate-program", "cybercrime", "Ransomware", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Ransomware .crypt file extension",
+    "RaaS affiliate recruitment via criminal forums",
+    "Network traffic analysis for encrypted communications"
+  ],
+  "keyCapabilities": ["Ransomware deployment", "Affiliate recruitment under a RaaS model"],
+  "recommendedActions": [
+    "Implement robust endpoint detection and response (EDR) solutions to detect potential ransomware activity.",
+    "Monitor network traffic for C2 communication patterns indicative of ChileLocker activity.",
+    "Conduct regular user training on phishing and malicious email awareness.",
+    "Secure exposed RDP endpoints through multi-factor authentication and limited access privileges.",
+    "Develop and maintain an incident response plan tailored to ransomware scenarios, including isolating infected systems.",
+    "Regularly back up critical data and store copies offline or in secure cloud storage.",
+    "Deploy AI-based threat detection tools to identify anomalies linked to ChileLocker's known TTPs."
+  ],
+  "campaignsText": "ChileLocker's campaigns exhibit rapid expansion post-emergence, with affiliate recruiting driving global reach. The actor's operations suggest an adaptive approach, focusing on encrypting files and negotiating ransoms systematically. Notable for their initial success in targeting high-profile victims like the Chilean government, they may have broader ambitions to disrupt critical infrastructure.",
+  "description": "ChileLocker (alias: ARCrypter), a medium-sophistication criminal threat actor first observed in August 2022, primarily deploys ransomware to extort financial gains. Known for targeting Chilean government agencies and expanding globally through a Ransomware-as-a-Service (RaaS) model on criminal forums, ChileLocker encrypts victim files with '.crypt' extensions and recruits affiliates for coordinated attacks.",
+  "goals": "ChileLocker's strategic objectives center on maximizing financial gains via global ransomware operations. The actor likely targets sectors with high organizational value and potential for substantial ransoms, such as government agencies, healthcare, and critical infrastructure. Its broad targeting approach reflects the flexibility of its RaaS model, which enables affiliates to target diverse regions efficiently.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A376",
+  "sourceUrl": "https://threaticon.com/threat-actors/376"
+}

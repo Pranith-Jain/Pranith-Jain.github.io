@@ -1,0 +1,52 @@
+{
+  "slug": "hellcat",
+  "id": 450,
+  "name": "hellcat",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Critical Infrastructure Targeting",
+    "High-impact Attacks",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Credential Access", "Persistence", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Infostealer malware (possibly custom or known families)", "Custom ransomware", "Lateral movement tools"],
+  "iocPatterns": [
+    "Spear-phishing with stolen Jira credential access",
+    "Infostealer malware activity in pre-attack phase",
+    "Ransomware deployment to critical systems"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Infostealer malware use",
+    "Credential harvesting (Jira credentials)",
+    "Network infiltration via stolen credentials",
+    "Targeting critical infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for Jira and other critical systems.",
+    "Monitor network traffic for signs of lateral movement or infostealing activity.",
+    "Regularly patch and secure internal systems to prevent credential harvesting.",
+    "Conduct regular phishing simulations to test email security resilience."
+  ],
+  "campaignsText": "HellCat's campaigns exhibit a focus on high-profile, high-impact targets. The group's operational pattern involves rapid deployment of infostealer malware to harvest credentials, followed by internal network traversal and ransomware encryption. Notable past operations include attacks against Schneider Electric and other critical infrastructure entities, suggesting an appetite for disrupting essential services. The relatively short time since their emergence indicates a potentially agile and adaptable threat group.",
+  "description": "HellCat is a ransomware-as-a-service (RaaS) group that emerged in late 2024. Known for high-profile attacks targeting critical infrastructure, government entities, and major corporations, HellCat operates with medium sophistication and focuses on financial gain through ransomware campaigns. Initial access appears to rely on stolen Jira credentials from infostealer malware.",
+  "goals": "HellCat appears to target critical infrastructure and government entities in order to maximize the impact of their ransomware campaigns. These sectors are particularly sensitive due to the potential for widespread disruption, which likely increases the group's success rate in negotiating large ransom payments. The choice of high-profile victims suggests a strategic focus on industries with deep pockets and high tolerance for financial losses when operational continuity is at risk.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A450",
+  "sourceUrl": "https://threaticon.com/threat-actors/450"
+}

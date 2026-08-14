@@ -1,0 +1,46 @@
+{
+  "slug": "marketo",
+  "id": 503,
+  "name": "marketo",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Cyber Extortion", "Data Theft", "Financial Gain"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access (T1567)", "Defense Evasion (T1568)", "Discovery (T1040)"],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Data exfiltration via compromised API endpoints",
+    "Email communication involving extortion demands or data samples"
+  ],
+  "keyCapabilities": [
+    "Phishing campaigns with malicious links or attachments",
+    "Data exfiltration via compromised API access",
+    "Encrypting stolen data for ransom",
+    "Email-based extortion schemes",
+    "Blackmail operations targeting reputation and financial stability"
+  ],
+  "recommendedActions": [
+    "Implement rigorous monitoring for unauthorized API access or data transfers out of trusted environments",
+    "Enforce strict email security protocols to prevent phishing-based infections",
+    "Establish a robust incident response plan specific to data extortion scenarios",
+    "Educate employees on recognizing and reporting suspicious emails, especially those involving data threats"
+  ],
+  "campaignsText": "Marketo's campaigns are characterized by their unique blend of data exfiltration and extortion tactics. Victims have included 32 distinct organizations across multiple sectors, indicating a broad targeting strategy. The group operates with moderate intensity, maintaining active campaigns but without evidence of extreme velocity. Notable operations include the use of stolen data samples to pressure victims through competitor email distribution, a tactic that sets Marketo apart from traditional ransomware groups which typically focus on file encryption. This approach makes quick victim identification and response challenging and adds immediate pressure, increasing the likelihood of payment.",
+  "description": "Marketo is a medium-sophistication cyber threat actor operating since December 2021, primarily engaged in ransomware and financial gain activities through data-theft extortion. Marketo operates a marketplace that steals and sells sensitive data, often without encrypting files, thereby creating urgency for victims to respond by emailing stolen data samples to competitors. This unique approach makes Marketo a significant threat to organizations handling sensitive or proprietary information.",
+  "goals": "Marketo's primary strategic objective is financial gain, achieved through both ransomware attacks and data extortion. The actor targets sectors with abundant sensitive information, including healthcare, finance, and technology, as these industries offer high-value data that can be monetized effectively. The targeting approach suggests a focus on entities where data breaches would have significant consequences, whether from direct financial loss or reputational damage. victims include businesses across various industries due to the broad appeal of Marketo's extortion tactics.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A503",
+  "sourceUrl": "https://threaticon.com/threat-actors/503"
+}

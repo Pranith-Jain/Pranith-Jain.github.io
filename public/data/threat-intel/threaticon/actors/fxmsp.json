@@ -1,0 +1,51 @@
+{
+  "slug": "fxmsp",
+  "id": 770,
+  "name": "Fxmsp",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "credential-theft", "botnet", "cybercrime", "information-theft", "Supply Chain Attack", "DDoS"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Credential Access", "Exfiltration"],
+  "techniques": [
+    "T1133.001 - Remote Desktop Protocol (RDP)",
+    "T1210 - Exploit Public-Facing Application",
+    "T1003.001 - Credentials from User Input",
+    "T1040.001 - Exfiltration over C2 Channel"
+  ],
+  "tools": ["Custom credential-stealing botnet", "Remote Desktop Protocol (RDP)"],
+  "iocPatterns": [
+    "Exploitation of exposed RDP and Active Directory services",
+    "Use of compromised proxy resellers for infrastructure distribution",
+    "Botnet command-and-control (C2) communication via standard protocols"
+  ],
+  "keyCapabilities": [
+    "Exploitation of exposed RDP and Active Directory services",
+    "Deployment of a credential-stealing botnet",
+    "Use of proxy resellers for breach promotion and infrastructure distribution",
+    "Exfiltration of sensitive usernames and passwords from compromised systems"
+  ],
+  "recommendedActions": [
+    "Patch and secure RDP services with multi-factor authentication",
+    "Implement strict Active Directory access controls and monitoring",
+    "Deploy network segmentation to limit lateral movement",
+    "Monitor for unusual outbound traffic indicative of botnet C2 activity",
+    "Conduct regular vulnerability scans for exposed remote services"
+  ],
+  "campaignsText": "Fxmsp’s campaigns demonstrate a progression from breach promotion to direct network infiltration. Early operations leveraged proxy resellers to distribute stolen data, while recent efforts focus on deploying a botnet to systematically steal credentials. Their campaigns typically target systems with misconfigured RDP or Active Directory exposure, suggesting a reliance on low-effort, high-impact exploits. Operational tempo appears consistent, with a focus on expanding botnet reach and maintaining persistence within compromised networks. Notable past operations include breaching environments via RDP and promoting data on criminal forums, though no confirmed large-scale exfiltration events have been publicly attributed to them.",
+  "description": "Fxmsp is a threat actor that transitioned from promoting breaches via proxy resellers in 2017–2018 to developing a credential-stealing botnet targeting high-value systems. Their primary focus is infiltrating networks through exposed RDP and Active Directory services to exfiltrate sensitive credentials. Recent claims highlight their emphasis on improving botnet capabilities for large-scale information theft.",
+  "goals": "Fxmsp’s primary objective is to establish and expand a credential-stealing botnet capable of infiltrating networks with valuable data. Their targeting profile centers on organizations with exposed RDP or Active Directory services, which provide low-barrier entry points for initial compromise. By focusing on systems with weak remote access security, they aim to maximize the scale and profitability of their operations. Their lack of sector-specific focus suggests a broad monetization strategy, potentially targeting any organization with vulnerable remote infrastructure, though prior activities hint at an interest in high-profile victims for greater financial gain.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A770",
+  "sourceUrl": "https://threaticon.com/threat-actors/770"
+}

@@ -1,0 +1,103 @@
+{
+  "slug": "xinxin",
+  "id": 1319,
+  "name": "XinXin",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "cybercrime",
+    "phishing",
+    "smishing",
+    "credential theft",
+    "financial fraud",
+    "PhaaS",
+    "Initial Access",
+    "Phishing",
+    "Data Exfiltration"
+  ],
+  "aliases": ["changqixinyun", "Black Technology", "EncryptHub", "tracked as"],
+  "targetedSectors": [
+    "Financial services",
+    "Defense",
+    "Healthcare",
+    "Government",
+    "Education",
+    "Telecommunications",
+    "Manufacturing",
+    "Critical infrastructure",
+    "Media",
+    "Retail",
+    "Non profit",
+    "Information technology",
+    "Hospitality",
+    "Aerospace",
+    "Maritime",
+    "Nuclear",
+    "Entertainment",
+    "Gaming",
+    "Food agriculture",
+    "Construction",
+    "Transportation"
+  ],
+  "targetedCountries": ["CN", "RU", "TW", "IR", "IN", "UA", "GB", "DE", "KP", "PK", "BY", "PL", "CA", "AU", "SG"],
+  "tactics": [
+    "Initial Access",
+    "Resource Development",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [
+    "T1566.001 (Phish Email)",
+    "T1566.002 (Social Engineering)",
+    "T1190 (Exploit Public-Facing Application)",
+    "T1133 (External Remote Services)",
+    "T1048 (Exfiltration Over Alternative Protocol)",
+    "T1567 (Exfiltration Over Web Service)",
+    "T1657 (Financial Theft)"
+  ],
+  "tools": [
+    "Lucid PhaaS platform",
+    "Lighthouse phishing kit",
+    "Darcula phishing kit",
+    "Various custom phishing emails and SMS templates"
+  ],
+  "iocPatterns": [
+    "Spearphishing emails containing malicious links Smishing messages using RCS/iMessage and SMS Domains generated via algorithmic pattern for C2 Credential harvesting landing pages mimicking legitimate merchant portals Exfiltration over HTTPS/HTTP Use of custom domains that frequently change Phishing kits delivered via encrypted mail attachments"
+  ],
+  "keyCapabilities": [
+    "Phishing-as-a-service platform (Lucid)",
+    "Smishing via Rich Communication Services (RCS) and Apple iMessage",
+    "Custom phishing kits (Lighthouse, Darcula)",
+    "Credential harvesting of credit card details and personal identifiers",
+    "Automated mass‑phishing campaign generation",
+    "Staged infrastructure for command & control",
+    "Marketplace for selling stolen credentials",
+    "Support for development of similar PhaaS services",
+    "Exfiltration over HTTPS/web services"
+  ],
+  "recommendedActions": [
+    "Deploy comprehensive mobile-security solutions that filter RCS and iMessage traffic for malicious links. Enforce multi‑factor authentication on all payment card processing endpoints. Educate staff to recognize smishing; conduct regular training simulations. Implement advanced phishing detection engines with zero‑trust email gateways. Block known malicious domains via network security appliances. Monitor outbound HTTPS traffic for anomalous exfiltration patterns. Maintain up‑to‑date threat intelligence feeds focusing on PhaaS and smishing trends."
+  ],
+  "campaignsText": "XinXin regularly launches multi‑channel phishing campaigns that combine email, RCS, and iMessage vectors. The actor’s operational tempo is high, with new domains and mail templates created at a rapid cadence—estimated hundreds of domains per month—to stay ahead of blacklisting efforts. Victim selection emphasizes organizations in sectors handling payment data or sensitive personal logs; however the group does not discriminate strictly by industry. Notable past operations include large‑scale smishing attacks that compromised thousands of credential sets, which were then sold on underground forums. XinXin’s campaigns exhibit a consistent pattern: initial compromise through a lure, credential capture via fake login portals, exfiltration over encrypted web channels, and subsequent monetization via data marketplaces. The actor frequently updates its phishing kits to evade detection, such as incorporating domain generation algorithms and dynamic script delivery mechanisms. While no public reports link XinXin directly to ransomware operations, the overlap in infrastructure with known RaaS groups suggests a potential future expansion into double‑extortion or data‑theft‑enhanced attacks.",
+  "description": "XinXin is a Chinese‑speaking cybercriminal unit that runs a phishing‑as‑a‑service platform called Lucid, using smishing via Rich Communication Services (RCS) and Apple iMessage to bypass SMS filters and harvest credit card details and personal identifiers. The group sells the stolen data through a structured hierarchy and also supports the creation of similar kits such as Lighthouse and Darcula. XinXin targets a wide range of sectors worldwide, focusing on financial gain rather than state objectives.",
+  "goals": "XinXin’s primary strategic objective is monetary gain through large‑scale credential harvesting. Its extensive use of smishing via RCS/iMessage appeals to victims who trust mobile messaging, allowing it to penetrate a variety of institutions—especially in finance, health care, education, and critical infrastructure—where personal data or payments are routinely processed. The actor deliberately targets countries with substantial mobile usage such as the United States, UK, Germany, Australia, India, and China, but also extends operations into Eastern European states, Middle Eastern nations, and Southeast Asia where regulatory enforcement is comparatively lax. Typical victims include enterprises handling payment card data or sensitive personal information; the organization’s broad sector focus allows XinXin to adapt its messaging vector to each target’s prevalent communication channels.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1319",
+  "sourceUrl": "https://threaticon.com/threat-actors/1319"
+}

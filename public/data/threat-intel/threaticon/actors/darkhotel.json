@@ -1,0 +1,68 @@
+{
+  "slug": "darkhotel",
+  "id": 41,
+  "name": "Darkhotel",
+  "mitreId": "G0012",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "North Korea (KP)",
+  "originCode": "KP",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "government-targeted", "South_Korea-linked", "East_Asia", "Initial Access", "Phishing"],
+  "aliases": ["DUBNIUM", "Zigzag Hail", "Luder", "Karba"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": ["RU", "CN", "TW", "KR", "KP", "JP"],
+  "tactics": [
+    "Espionage",
+    "Exploitation for Client Execution",
+    "Defense Evasion",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1056.001",
+    "T1204.002",
+    "T1573.001",
+    "T1080",
+    "T1518.001",
+    "T1553.002",
+    "T1074",
+    "T1124",
+    "T1497",
+    "T1083"
+  ],
+  "tools": [],
+  "iocPatterns": [
+    "Spearphishing emails targeting travelers",
+    "Hashes of malicious files (MD5)",
+    "Compromise via hotel or public Wi-Fi networks",
+    "Use of domains like 'all-microsoft-control.com' for C2",
+    "Encrypted/encoded communication channels"
+  ],
+  "keyCapabilities": [
+    "Spearphishing campaigns",
+    "Exploitation of CVE-2015-8651",
+    "Peer-to-peer file sharing infections",
+    "Keylogging malware",
+    "Code signing techniques",
+    "Malicious file creation and distribution"
+  ],
+  "recommendedActions": [
+    "Monitor network traffic in hotels and high-risk travel locations for suspicious activity.",
+    "Educate employees on phishing tactics, especially when traveling to targeted regions.",
+    "Implement endpoint detection solutions to identify malicious file patterns associated with Darkhotel.",
+    "Conduct regular security audits of external devices used by executives.",
+    "Use sandboxes to analyze unknown files before allowing execution."
+  ],
+  "campaignsText": "Darkhotel's campaigns demonstrate long-term persistence and targeting precision. Notable operations include their hotel network compromises for espionage, spearphishing efforts, and use of malicious files. The group has been observed since at least 2015, with activity continuing in recent years as noted by Microsoft in September 2020. Their victims include both governmental entities and private sector executives traveling through targeted regions.",
+  "description": "Darkhotel, a suspected South Korean threat group, conducts cyberespionage targeting primarily East Asian countries, focusing on government sectors and traveling executives through hotel networks. Known for long-term operations since at least 2004, they employ phishing, exploitCVE-2015-8651, and peer-to-peer infections to gather intelligence.",
+  "goals": "Darkhotel's primary motivation is espionage, targeting government sectors to gather intelligence. Their focus on East Asian countries suggests a strategic interest in geopolitical intelligence. Typical victims include traveling executives, diplomats, and other high-profile individuals likely to have access to sensitive information while in transit or at hotels.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A41",
+  "sourceUrl": "https://threaticon.com/threat-actors/41"
+}

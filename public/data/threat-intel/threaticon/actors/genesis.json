@@ -1,0 +1,82 @@
+{
+  "slug": "genesis",
+  "id": 442,
+  "name": "genesis",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Double extortion",
+    "Data leakage",
+    "Financial gain",
+    "Healthcare sector",
+    "Manufacturing sector",
+    "US-targeted",
+    "Healthcare Targeting",
+    "Critical Infrastructure",
+    "Data Exfiltration"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078", "T1505.001", "T1204", "T1021"],
+  "tools": [
+    "Cobalt Strike",
+    "Custom Ransomware",
+    "AES Encryption Tools",
+    "Zipping Utility",
+    "Custom Backdoor Malware",
+    "Mimikatz-like credential dumping tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "C2 communications over HTTP/HTTPS or DNS tunnels",
+    "Network file access patterns indicating lateral movement",
+    "Encrypted files following specific naming conventions",
+    "credential dumping via WMI/Powershell"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Double-extortion tactics",
+    "Spear-phishing campaigns",
+    "Data exfiltration",
+    "C2 infrastructure management",
+    "Malware development",
+    "Network infiltration"
+  ],
+  "recommendedActions": [
+    "Implement MFA for critical systems",
+    "Enforce network segmentation to limit lateral movement",
+    "Conduct regular phishing training exercises",
+    "Deploy robust endpoint detection solutions",
+    "Monitor for异常数据传输和访问 patterns indicative of exfiltration attempts",
+    "Develop incident response plans with a focus on ransomware scenarios",
+    "Regularly back up data and store it offline securely",
+    "Use network traffic analytics to detect potential C2 activity"
+  ],
+  "campaignsText": "Genesis campaigns exhibit a high level of operational efficiency, leveraging phishing/malspam as the primary infection vector. The group systematically accesses networks, exfiltrates data, and deploys ransomware to encrypt systems. victims have faced significant disruptions, with healthcare providers and financial services particularly hard-hit. Notable operations include attacks against HMI Elements, CarePoint Health, and OneSource Medical Group.",
+  "description": "Genesis is an emerging ransomware group targeting small to mid-sized organizations in the US across multiple sectors, utilizing double-extortion tactics with a focus on data exfiltration and public exposure of victim data. The group's operations have evolved since first being observed in late 2025, demonstrating medium sophistication and a clear focus on financial gain through ransom demands and data sales.",
+  "goals": "Genesis targeting profiles are centered around maximizing financial gain through ransom payments and data exploitation. Their choice of sectors reflects an understanding of which industries have both sensitive data and limited resources to combat attacks effectively. The group's geographic focus appears concentrated on US-based entities, likely due to the higher value placed on data within Western markets and easier access via English language phishing campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A442",
+  "sourceUrl": "https://threaticon.com/threat-actors/442"
+}

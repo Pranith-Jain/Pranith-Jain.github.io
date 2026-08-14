@@ -1,0 +1,65 @@
+{
+  "slug": "polonium",
+  "id": 57,
+  "name": "POLONIUM",
+  "mitreId": "G1005",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "L",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "nation-state", "cyber espionage", "Initial Access", "Government Targeting"],
+  "aliases": ["Plaid Rain", "UNC4453", "GREATRIFT", "INCENDIARY JACKAL"],
+  "targetedSectors": [
+    "Manufacturing",
+    "Defense",
+    "Financial services",
+    "Government",
+    "Healthcare",
+    "Pharmaceutical",
+    "Information technology",
+    "Transportation",
+    "Non profit"
+  ],
+  "targetedCountries": [],
+  "tactics": [
+    "Information Gathering",
+    "Supply Chain Compromise",
+    "Tooling",
+    "Exfiltration",
+    "Defense Evasion",
+    "Valid Accounts",
+    "Communication"
+  ],
+  "techniques": ["T1583.006", "T1199", "T1588.002", "T1567.002", "T1090", "T1078", "T1102.002"],
+  "tools": ["CreepyDrive", "CreepySnail"],
+  "iocPatterns": [
+    "Phishing emails with malicious links/attachments",
+    "Exfiltration via cloud storage",
+    "C2 communication using compromised infrastructure"
+  ],
+  "keyCapabilities": [
+    "Compromised actor relationships",
+    "Cloud storage exfiltration",
+    "Proxy communication channels",
+    "Spear-phishing via malicious links/injects",
+    "Tailored malware"
+  ],
+  "recommendedActions": [
+    "Monitor cloud storage for unauthorized access",
+    "Enhance MaaS provider vetting",
+    "Implement network monitoring for suspicious activities",
+    "Strengthen account security protocols",
+    "Educate users on phishing threats"
+  ],
+  "campaignsText": "POLONIUM is linked to long-term campaigns, leveraging trusted relationships and cloud services. Their operations are likely part of broader nation-state strategies targeting Israel and related sectors.",
+  "description": "POLONIUM, also known as Plaid Rain, UNC4453, GREATRIFT, and INCENDIARY JACKAL, is a Lebanon-based threat actor suspected to have ties with Iran’s Ministry of Intelligence and Security (MOIS). Primarily active since February 2022, POLONIUM has targeted Israeli organizations across multiple sectors, including manufacturing, defense, IT, and healthcare. Their operations suggest a coordinated approach, likely state-sponsored, using sophisticated tactics and tools.",
+  "goals": "POLONIUM targets sectors vital to national security and economic interests with possible espionage or disruptive goals. Their focus on Israel suggests a political or strategic agenda aligned with Iran. Likely objectives include data theft, supply chain compromise, or undermining critical infrastructure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A57",
+  "sourceUrl": "https://threaticon.com/threat-actors/57"
+}

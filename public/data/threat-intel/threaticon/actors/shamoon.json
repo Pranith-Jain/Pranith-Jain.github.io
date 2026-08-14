@@ -1,0 +1,47 @@
+{
+  "slug": "shamoon",
+  "id": 239,
+  "name": "Shamoon",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Iran (IR)",
+  "originCode": "IR",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": [
+    "APT",
+    "nation-state",
+    "espionage",
+    "energy-sector",
+    "telecommunications",
+    "Critical Infrastructure",
+    "Wiper / Destructive"
+  ],
+  "aliases": ["Volatile Kitten"],
+  "targetedSectors": ["Energy", "Telecommunications", "Transportation"],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Disruption Operations"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Shamoon/Disttrack wiper malware"],
+  "iocPatterns": [
+    "Use of wiper malware",
+    "Spear-phishing emails with malicious attachments",
+    "Network traffic anomalies associated with data exfiltration"
+  ],
+  "keyCapabilities": ["Wiper malware (Shamoon/Disttrack)", "Data destruction", "Network persistence", "Spear-phishing"],
+  "recommendedActions": [
+    "Implement robust network monitoring to detect异常traffic patterns linked to Shamoon's known tactics.",
+    "Conduct regular employee training to mitigate phishing attempts.",
+    "Harden ICS/SCADA systems in critical sectors to withstand wiper attacks."
+  ],
+  "campaignsText": "Shamoon has conducted several high-profile campaigns targeting critical infrastructure, including energy and transportation sectors. The group's modus operandi involves the deployment of wiper malware to delete or overwrite critical data on targeted systems, causing significant operational disruption. Notable operations include attacks that have impacted organizations in the Middle East and North Africa (MENA) region, suggesting a possible focus on geopolitical priorities.",
+  "description": "Shamoon, also known as Volatile Kitten, is a nation-state threat actor primarily involved in espionage activities targeting critical infrastructure sectors such as energy, telecommunications, and transportation. Known for its use of wiper malware (e.g., Shamoon/Disttrack), the group has demonstrated the ability to disrupt operations through data destruction and exfiltration. Shamoon's modus operandi involves targeted attacks aimed at gathering sensitive information and undermining operational stability in critical sectors.",
+  "goals": "Shamoon's primary goal is espionage, focusing on the collection of sensitive information from critical infrastructure sectors. The group targets energy, telecommunications, and transportation industries, likely due to their strategic importance in national security and economic stability. Shamoon's campaigns are suspected to be linked to nation-state interests, aiming to gather intelligence that could influence policy decisions or compromise competitive advantages.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A239",
+  "sourceUrl": "https://threaticon.com/threat-actors/239"
+}

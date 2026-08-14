@@ -1,0 +1,49 @@
+{
+  "slug": "cold-river",
+  "id": 755,
+  "name": "Cold River",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "government/military", "financial sector", "Backdoor / C2"],
+  "aliases": ["Nahr Elbard", "Nahr el bared"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Lateral Movement"],
+  "techniques": [
+    "T1594.001 - Compromise certificates",
+    "T1071 - Interprocess communication using legitimate protocols",
+    "T1568 - Lateral movement via DNS"
+  ],
+  "tools": ["Custom malware implants", "DNS manipulation tools", "C2 infrastructure"],
+  "iocPatterns": [
+    "Spear-phishing emails withmacro-laced Office documents",
+    "Unexpected DNS subdomains in traffic",
+    "Self-signed or misissued SSL certificates"
+  ],
+  "keyCapabilities": [
+    "Advanced Persistent Threat (APT) activity",
+    "Custom malware development",
+    "Highly effective social engineering"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering solutions",
+    "Monitor for异常DNS queries",
+    "Conduct regular network configuration audits",
+    "Deploy endpoint detection and response (EDR) tools",
+    "Train employees to recognize phishing attempts"
+  ],
+  "campaignsText": "Cold River likely conducts prolonged campaigns, focusing on high-value targets. Their operations are characterized by stealth and persistence, aiming to maintain undetected access for data exfiltration.",
+  "description": "Cold River is a sophisticated threat actor leveraging advanced techniques such as DNS subdomain hijacking, certificate spoofing, and covert command and control traffic. They employ complex phishing documents and custom implants, targeting sectors like finance, government, and critical infrastructure.",
+  "goals": "Their strategic objectives likely include intelligence gathering or financial gain, targeting sectors where sensitive data is abundant, such as finance and critical infrastructure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A755",
+  "sourceUrl": "https://threaticon.com/threat-actors/755"
+}

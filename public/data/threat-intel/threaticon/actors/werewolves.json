@@ -1,0 +1,49 @@
+{
+  "slug": "werewolves",
+  "id": 641,
+  "name": "werewolves",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APTFamily", "Ransomware", "FinancialGain", "RecruitmentTactics", "CryptoRansomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Credential Access", "Lateral Movement", "Defense Evasion", "Disruption"],
+  "techniques": ["T1078", "T1566", "T1552", "T1021.004", "T1040"],
+  "tools": ["LockBit 3 (Black)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Lateral movement within networks using legitimate tools",
+    "Use of compromised credentials for access",
+    "Ransomware deployment targeting critical systems",
+    "Exfiltration of sensitive data prior to encryption"
+  ],
+  "keyCapabilities": [
+    "Use of modified LockBit 3 ransomware",
+    "Public recruitment campaigns with bug-bounty incentives",
+    "Sophisticated phishing techniques",
+    "Exfiltration and encryption capabilities",
+    "Targeting critical sectors for high financial yields"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for all critical accounts",
+    "Enforce employee training on phishing and malware awareness",
+    "Monitor public domains and forums for potential recruitment campaigns",
+    "Conduct regular backups and store them offline securely",
+    "Leverage endpoint detection and response tools to identify malicious activity"
+  ],
+  "campaignsText": "WereWolves' campaign patterns include active recruitment of new members through their public website and the use of a bug-bounty program to identify vulnerabilities in targets. Their operational tempo is steady, with persistent attacks across multiple regions and sectors. Notable past operations have targeted energy and healthcare organizations, indicating a focus on critical infrastructure. The group's marketing tactics—such as promoting its recruitment initiative—suggest an effort to build a brand presence while expanding their attack capabilities.",
+  "description": "WereWolves is a Russian-speaking ransomware group that emerged in May 2023, using a modified LockBit 3 (Black) encryptor. The group operates an unusual public website recruiting members and offering a bug-bounty program with rewards up to $1 million. With at least 26 victims across Russia, the US, and Europe, WereWolves is targeting industries for financial gain through ransomware.",
+  "goals": "WereWolves' primary goal is financial gain through ransomware activities. Their targeting strategy focuses on sectors with high potential for financial payout, such as energy, healthcare, and technology. By recruiting new members and offering significant rewards, they aim to expand their operational capacity. The group's victims are typically organizations in Russia, the US, and Europe, suggesting either regional focus or where English and Russian-speaking markets are more lucrative.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A641",
+  "sourceUrl": "https://threaticon.com/threat-actors/641"
+}

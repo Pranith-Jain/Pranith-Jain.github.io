@@ -1,0 +1,53 @@
+{
+  "slug": "meow",
+  "id": 508,
+  "name": "meow",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "espionage",
+    "healthcare-sector",
+    "Ransomware",
+    "Healthcare Targeting",
+    "Data Exfiltration"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration of Data", "Credential Access"],
+  "techniques": [],
+  "tools": ["Conti v2 ransomware", "Data exfiltration tools"],
+  "iocPatterns": [
+    "Data exfiltration activities",
+    "Lateral movement within networks",
+    "Phishing emails targeting healthcare workers"
+  ],
+  "keyCapabilities": [
+    "Data extortion capabilities",
+    "Ransomware development and distribution",
+    "Stolen data monetization expertise",
+    "Targeted attacks on healthcare organizations"
+  ],
+  "recommendedActions": [
+    "Enhance email filtering to detect and block phishing attempts.",
+    "Monitor network traffic for signs of data exfiltration.",
+    "Implement strict access controls on sensitive data repositories.",
+    "Conduct regular cybersecurity awareness training, particularly for healthcare staff."
+  ],
+  "campaignsText": "Meow has conducted numerous campaigns targeting healthcare and medical research organizations. Their campaign patterns include data theft with a focus on financial gain through selling stolen information. Notable operations include significant breaches in the US healthcare sector, demonstrating their ability to persistently target this vertical.",
+  "description": "Meow is a medium-sophistication criminal threat actor that has evolved from offering Ransomware as a Service (RaaS) using the Conti v2 codebase to focusing on data extortion, targeting primarily US healthcare and medical research organizations. Their operational period spans from 2022 with recent aggressive activity in 2024, shifting strategies to avoid file encryption and instead monetize stolen data.",
+  "goals": "Meow targets US healthcare and medical research organizations due to their access to sensitive and valuable data. Healthcare sector victimology aligns with the goal of extracting high-value information for sale on dark web markets, leveraging the sector's often limited cybersecurity defenses and reliance on sensitive data systems.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A508",
+  "sourceUrl": "https://threaticon.com/threat-actors/508"
+}

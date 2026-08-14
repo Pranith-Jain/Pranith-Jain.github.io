@@ -1,0 +1,46 @@
+{
+  "slug": "ta579",
+  "id": 839,
+  "name": "TA579",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Banking Trojan", "Phishing", "Financial Sector"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution"],
+  "techniques": ["T1566.001", "T1059.003", "T1584", "T1064"],
+  "tools": ["BazaLoader", "IcedID"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Command-and-control (C2) communication via established servers",
+    "Staging infrastructure using bulletproof hosting providers",
+    "Presence of IcedID and BazaLoader indicators"
+  ],
+  "keyCapabilities": [
+    "Phishing campaign orchestration",
+    "Deployment of BazaLoader and IcedID malware",
+    "Staging infrastructure setup",
+    "Credential theft via malware"
+  ],
+  "recommendedActions": [
+    "Implement email filtering to detect phishing attempts",
+    "Deploy endpoint detection and response solutions",
+    "Monitor for unusual activity in financial systems",
+    "Educate employees on recognizing suspicious emails"
+  ],
+  "campaignsText": "TA579 has been observed leveraging phishing emails to deliver BazaLoader. Campaigns have targeted financial institutions in North America, suggesting a prolonged operational presence and focus on sectors with high financial yield potential. Their use of known malware frameworks without significant customizations may indicate reuse or purchase from other threat actors.",
+  "description": "TA579 is an active threat actor since August 2021, primarily known for deploying BazaLoader and IcedID malware. Targeting North American financial services and retail sectors, they use phishing campaigns to gain unauthorized access, aiming to steal sensitive data with financial motives.",
+  "goals": "TA579’s primary objective appears to be financial gain through the theft of sensitive information and potential unauthorized transactions due to their targeting of financial services. By focusing on North American retail sectors, they may also seek personally identifiable information (PII) for fraudulent activities. Their victimology indicates a preference for industries rich in financial data, making them attractive targets for cybercriminal operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A839",
+  "sourceUrl": "https://threaticon.com/threat-actors/839"
+}

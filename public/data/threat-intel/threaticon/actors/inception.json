@@ -1,0 +1,61 @@
+{
+  "slug": "inception",
+  "id": 21,
+  "name": "Inception",
+  "mitreId": "G0100",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "Espionage", "Government Sector", "Geopolitical Targeting", "Initial Access", "Government Targeting"],
+  "aliases": ["Inception Framework", "Cloud Atlas", "Clean Ursa", "OXYGEN"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": ["RU", "GB", "UA"],
+  "tactics": ["Exfiltration", "Collection", "Reconnaissance", "Defense Evasion", "Lateral Movement"],
+  "techniques": [
+    "T1204.002",
+    "T1573.001",
+    "T1069.002",
+    "T1005",
+    "T1083",
+    "T1102",
+    "T1218.005",
+    "T1059.001",
+    "T1588.002",
+    "T1203",
+    "T1071.001"
+  ],
+  "tools": ["PowerShower", "VBShower", "Custom Malware", "Encrypted Communication Tools"],
+  "iocPatterns": [
+    "Spearphishing attacks with malicious files",
+    "Encrypted/obfuscated communication channels",
+    "Use of Mshta (T1218.005)",
+    "Web protocol abuse for C2",
+    "Staging infrastructure in compromised domains"
+  ],
+  "keyCapabilities": [
+    "Malware development and distribution",
+    "Spearphishing campaigns",
+    "Encrypted communication channels",
+    "File-based attacks (T1204)",
+    "Symmetric cryptography (T1573)"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems.",
+    "Monitor and analyze encrypted traffic for anomalies.",
+    "Conduct regular threat hunting focusing on file-based attacks and web service anomalies.",
+    "Enhance email filtering to detect spearphishing campaigns.",
+    "Update and patch systems to mitigate known exploit techniques."
+  ],
+  "campaignsText": "Inception's campaigns, including 'Red October' and 'Cloud Atlas', demonstrate a focus on long-term operations with occasional periods of dormancy. The group targets government entities and critical infrastructure sectors, suggesting an interest in high-value intelligence. Their operational tempo is irregular but persistent over years. Notable for their use of encrypted communication channels and file-based attacks, Inception has been observed adapting to avoid detection while maintaining access.",
+  "description": "Inception, also known as Cloud Atlas or Blue Odin, is a cyber espionage group active since at least 2014. The group primarily targets government entities and has been observed in multiple campaigns across regions including Russia, the US, Europe, Asia, Africa, and the Middle East. Inception employs sophisticated tactics, techniques, and procedures (TTPs) to conduct espionage activities, leveraging malware and encrypted communication channels.",
+  "goals": "Inception's primary motivation appears to be espionage, targeting governmental entities to acquire sensitive information. The group strategically focuses on countries with significant geopolitical influence or advanced technology sectors, such as Russia, the UK, and Ukraine. This suggests a focus on intelligence gathering for strategic or military advantage, aligning with typical nation-state actor behavior.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A21",
+  "sourceUrl": "https://threaticon.com/threat-actors/21"
+}

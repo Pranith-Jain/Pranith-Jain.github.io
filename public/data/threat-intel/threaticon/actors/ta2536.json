@@ -1,0 +1,44 @@
+{
+  "slug": "ta2536",
+  "id": 866,
+  "name": "TA2536",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "N",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "fraudulent activity", "financial sector", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Persistance"],
+  "techniques": ["T1056", "T1025", "T1568.003"],
+  "tools": ["HawkEye", "Custom keylogging malware"],
+  "iocPatterns": [
+    "Spear-phishing emails with domain typosquatting",
+    "Recurring email substring reuse",
+    "Keylogger activity linked to HawkEye malware"
+  ],
+  "keyCapabilities": [
+    "Keylogger deployment (e.g., HawkEye)",
+    "Typo-squatting domain registration",
+    "Stylometric analysis for phishing campaigns",
+    "Spear-phishing with email substring reuse"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems and financial transactions",
+    "Educate employees about phishing tactics and stylometric anomalies in emails",
+    "Monitor network traffic for Indicators of Compromise related to TA2536's TTPs"
+  ],
+  "campaignsText": "TA2536 has demonstrated sustained activity over several years, focusing on prolonged campaigns that target financially lucrative sectors. Their use of persistent techniques and custom tools suggests an evolved operational framework. Campaign patterns include patient hunting for high-value targets within the financial sector, with a particular emphasis on compromising sensitive customer data.",
+  "description": "TA2536 is a cyber threat actor likely based in Nigeria, identified by unique linguistic patterns, tactics, and tools. Active since 2015, TA2536 targets financial and retail sectors globally, using keyloggers like HawkEye and distinctive typo-squatting domains to compromise victims.",
+  "goals": "TA2536's objectives appear to be primarily financial, aiming to extract sensitive information and funds from targeted industries. The group’s choice of victims aligns with sectors where data breach or financial theft can yield significant monetary returns. By leveraging their unique linguistic and technical methods, TA2536 focuses on global organizations across multiple geographies, reflecting a patient and methodical approach to achieving long-term financial gain.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A866",
+  "sourceUrl": "https://threaticon.com/threat-actors/866"
+}

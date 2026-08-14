@@ -1,0 +1,67 @@
+{
+  "slug": "sabbath",
+  "id": 589,
+  "name": "sabbath",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Critical Infrastructure Targeting",
+    "Double Extortion",
+    "Healthcare Sector Attack",
+    "Natural Resources Sector Attack",
+    "Healthcare Targeting",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Credential Access"],
+  "techniques": [
+    "T1059.003 - Executive Account Access Through Force Account Credential Use",
+    "T1055 - spear_phishing_using_infostealing_attachments",
+    "T1566.001 - Data Destruction"
+  ],
+  "tools": [
+    "Custom ransomware (akin to DarkSide)",
+    "Phishing tools/spear-phishing campaigns",
+    "Cobalt Strike for lateral movement or credential dumping",
+    "Mimikatz for credential extraction",
+    "Custom scripts/trools for encryption and persistence"
+  ],
+  "iocPatterns": [
+    "Phishing emails with macro-laced Office documents",
+    "Ransomware encryption of specific file types (e.g., .sabbath)",
+    "Use of dark web forums for affiliate recruitment",
+    "C2 communication via encrypted channels",
+    "Presence of custom ransomware binaries in compromised systems"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Double extortion tactics",
+    "Backup destruction techniques",
+    "Affiliate recruitment networks",
+    "Targeting critical infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect and block phishing attempts.",
+    "Conduct regular, secure backups and store them offline to mitigate backup destruction risks.",
+    "Monitor network traffic for anomalous activities indicative of lateral movement or data exfiltration.",
+    "Educate employees on identifying potential ransomware attack vectors, such as suspicious emails.",
+    "Segment critical infrastructure networks to limit the spread of attacks."
+  ],
+  "campaignsText": "Sabbath has demonstrated a clear pattern of targeting critical infrastructure since their emergence in 2021. Their operations span approximately four months, with notable campaigns against hospitals, schools, and natural resource sectors. The group's use of affiliate recruitment indicates an organized business model focused on scaling their attack capabilities without direct operational involvement. This approach allows them to maintain a lower profile while increasing their attack volume and geographic reach.",
+  "description": "Sabbath, also known as 54BB47h (operated by UNC2190), is a medium-sophistication ransomware group that emerged in mid-2021. Originally rebranded from Arcane ransomware, they target critical infrastructure sectors such as healthcare, education, and natural resources in the US and Canada, employing double extortion and backup destruction to maximize financial gain.",
+  "goals": "Sabbath's strategic objectives are centered around financial gain through ransomware activities. They specifically target sectors where downtime can lead to significant disruption or harm, such as hospitals and schools, maximizing the impact of their attacks and increasing the likelihood of payment. Their focus on natural resources may reflect an interest in critical infrastructure with high recovery costs. The choice of targeting the US and Canada suggests a strategic decision based on these countries' robust cyber infrastructures and higher ransom-paying potentials.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A589",
+  "sourceUrl": "https://threaticon.com/threat-actors/589"
+}

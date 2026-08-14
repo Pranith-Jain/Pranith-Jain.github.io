@@ -1,0 +1,45 @@
+{
+  "slug": "dev-0147",
+  "id": 867,
+  "name": "DEV-0147",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "diplomatic sector", "Backdoor / C2", "Data Exfiltration", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Credential Dumping", "Exfiltration"],
+  "techniques": ["T1070", "T1003", "T1270.001"],
+  "tools": ["ShadowPad", "QuasarLoader", "Cobalt Strike"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Remote Desktop Protocol (RDP) lateral movement",
+    "Cobalt Strike C2 communication"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat tactics",
+    "Use of ShadowPad and QuasarLoader",
+    "Cobalt Strike deployment",
+    "Post-exploitation activities including identity infrastructure abuse"
+  ],
+  "recommendedActions": [
+    "Monitor for RDP lateral movement signs",
+    "Implement multi-factor authentication",
+    "Segment sensitive network areas",
+    "Regular software patching"
+  ],
+  "campaignsText": "DEV-0147's campaigns show a strategic shift in targeting, leveraging advanced tools for prolonged access and lateral movement. They maintain persistence and execute targeted data theft from diplomatic networks, notably in South America.",
+  "description": "DEV-0147 is a China-based cyber espionage threat actor targeting diplomatic entities globally, particularly expanding into South America. They employ advanced tools like ShadowPad and Cobalt Strike for persistent access and data exfiltration, posing significant risks to government agencies and think tanks.",
+  "goals": "DEV-0147 targets diplomatic entities to gather intelligence, expanding regionally to diversify their sources. Their motivation aligns with broader Chinese espionage goals, focusing on government agencies and think tanks to collect high-value data for strategic gain.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A867",
+  "sourceUrl": "https://threaticon.com/threat-actors/867"
+}

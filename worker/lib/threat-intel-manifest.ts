@@ -408,6 +408,119 @@ export interface TcEntityBody extends TcEntityIndexEntry {
   description?: string | null;
 }
 
+// ─── Threaticon (threaticon.com) ───────────────────────────────────────
+//
+// A separate manifest tree under /data/threat-intel/threaticon/ with its
+// own lazy index: actor catalog + profiles, malware family dictionary,
+// ATT&CK detection-coverage dataset, and a country-level threat map.
+// Mirrors the darknet/threatcluster pattern (own sync + build scripts,
+// read through env.ASSETS).
+
+export interface TiThreaticonActorIndexEntry {
+  slug: string;
+  id: number;
+  name: string;
+  mitreId: string | null;
+  status: string | null;
+  tlp: string | null;
+  confidence: number | null;
+  types: string[];
+  originCode: string | null;
+  countryOfOrigin: string | null;
+  techniquesCount: number;
+  toolsCount: number;
+  targetedCountriesCount: number;
+  tagsCount: number;
+  added: string | null;
+}
+
+export interface TiThreaticonActorBody extends TiThreaticonActorIndexEntry {
+  sophistication: string | null;
+  resourceLevel: string | null;
+  motivation: string | null;
+  tags: string[];
+  aliases: string[];
+  targetedSectors: string[];
+  targetedCountries: string[];
+  tactics: string[];
+  techniques: string[];
+  tools: string[];
+  iocPatterns: string[];
+  keyCapabilities: string[];
+  recommendedActions: string[];
+  campaignsText: string | null;
+  description: string | null;
+  goals: string | null;
+  killChain: string | null;
+  sourceUrl: string;
+}
+
+export interface TiThreaticonIndex {
+  source: string;
+  url: string;
+  description: string;
+  syncedAt: string;
+  builtAt: string;
+  counts: {
+    actors: number;
+    actorsWithProfiles: number;
+    malwareFamilies: number;
+    malwareCategories: number;
+    techniques: number;
+    tactics: number;
+    originCountries: number;
+    targetedCountries: number;
+    sectors: number;
+  };
+  tactics: Record<string, { techniqueCount: number; coveragePct: number }>;
+  actors: TiThreaticonActorIndexEntry[];
+}
+
+export interface TiThreaticonMalwareEntry {
+  id: number;
+  name: string;
+  category: string | null;
+  tlp: string | null;
+  confidence: number | null;
+  status: string | null;
+}
+
+export interface TiThreaticonMalwareBody {
+  source: string;
+  syncedAt: string;
+  familyCount: number;
+  byCategory: Record<string, number>;
+  families: TiThreaticonMalwareEntry[];
+}
+
+export interface TiThreaticonCoverageTechnique {
+  patternId: number;
+  techniqueId: string;
+  name: string;
+  tactic: string;
+  rules: number;
+}
+
+export interface TiThreaticonCoverageBody {
+  source: string;
+  syncedAt: string;
+  techniqueCount: number;
+  tactics: Record<string, { techniqueCount: number; coveragePct: number }>;
+  techniques: TiThreaticonCoverageTechnique[];
+}
+
+export interface TiThreaticonMapEntry {
+  code: string;
+  count: number;
+}
+
+export interface TiThreaticonMapBody {
+  builtAt: string;
+  origin: TiThreaticonMapEntry[];
+  targeted: TiThreaticonMapEntry[];
+  sectors: { sector: string; count: number }[];
+}
+
 const DATA_PREFIX = '/data/threat-intel';
 const MAX_BODY_CACHE = 200;
 
@@ -428,6 +541,7 @@ const tcVulnCache: BodyCache<TcVulnBody> = { map: new Map(), hits: 0, misses: 0 
 const tcExploitCache: BodyCache<TcExploitBody> = { map: new Map(), hits: 0, misses: 0 };
 const tcVictimCache: BodyCache<TcVictimBody> = { map: new Map(), hits: 0, misses: 0 };
 const tcEntityCache: BodyCache<TcEntityBody> = { map: new Map(), hits: 0, misses: 0 };
+const tiActorCache: BodyCache<TiThreaticonActorBody> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: TiIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedKev: TiKevEntry[] | null = null;
@@ -438,6 +552,11 @@ let cachedTcIocs: TcIocsBody | null = null;
 let cachedTcMisp: TcMispBody | null = null;
 let cachedTcEntities: TcEntityIndex | null = null;
 let cachedTcEntitiesAt: number | null = null;
+let cachedTiIndex: TiThreaticonIndex | null = null;
+let cachedTiIndexAt: number | null = null;
+let cachedTiMalware: TiThreaticonMalwareBody | null = null;
+let cachedTiCoverage: TiThreaticonCoverageBody | null = null;
+let cachedTiMap: TiThreaticonMapBody | null = null;
 
 function safeFilename(slug: string): string {
   return slug.replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
@@ -700,6 +819,70 @@ export function getTcEntityTypeOrNull(raw: string | undefined): TcEntityType | n
   if (!raw) return null;
   const t = raw.toLowerCase() as TcEntityType;
   return TC_ENTITY_TYPES.includes(t) ? t : null;
+}
+
+// ─── Threaticon loaders ────────────────────────────────────────────────
+
+export async function loadThreaticonIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TiThreaticonIndex> {
+  if (cachedTiIndex && !opts.forceRefresh) return cachedTiIndex;
+  const idx = await fetchJson<TiThreaticonIndex>(assets, `${DATA_PREFIX}/threaticon/index.json`);
+  if (!idx) {
+    throw new Error(
+      `Threaticon manifest not found at ${DATA_PREFIX}/threaticon/index.json — ` +
+        'did the build run? Run `node scripts/sync-threaticon.mjs && node scripts/build-threaticon.mjs`.'
+    );
+  }
+  cachedTiIndex = idx;
+  cachedTiIndexAt = Date.now();
+  return idx;
+}
+
+export async function getThreaticonActor(assets: Fetcher, slug: string): Promise<TiThreaticonActorBody | null> {
+  const key = slug.toLowerCase();
+  const hit = trackHit(tiActorCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TiThreaticonActorBody>(
+    assets,
+    `${DATA_PREFIX}/threaticon/actors/${safeFilename(key)}.json`
+  );
+  if (!body) return null;
+  return recordHit(tiActorCache, key, body);
+}
+
+export async function loadThreaticonMalware(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TiThreaticonMalwareBody | null> {
+  if (cachedTiMalware && !opts.forceRefresh) return cachedTiMalware;
+  const body = await fetchJson<TiThreaticonMalwareBody>(assets, `${DATA_PREFIX}/threaticon/malware.json`);
+  if (!body) return null;
+  cachedTiMalware = body;
+  return body;
+}
+
+export async function loadThreaticonCoverage(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TiThreaticonCoverageBody | null> {
+  if (cachedTiCoverage && !opts.forceRefresh) return cachedTiCoverage;
+  const body = await fetchJson<TiThreaticonCoverageBody>(assets, `${DATA_PREFIX}/threaticon/coverage.json`);
+  if (!body) return null;
+  cachedTiCoverage = body;
+  return body;
+}
+
+export async function loadThreaticonMap(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TiThreaticonMapBody | null> {
+  if (cachedTiMap && !opts.forceRefresh) return cachedTiMap;
+  const body = await fetchJson<TiThreaticonMapBody>(assets, `${DATA_PREFIX}/threaticon/map.json`);
+  if (!body) return null;
+  cachedTiMap = body;
+  return body;
 }
 
 // ─── Filter helpers ─────────────────────────────────────────────────────
@@ -990,6 +1173,89 @@ export function filterTcEntities(idx: TcEntityIndex, opts: TcListEntitiesOptions
   return out;
 }
 
+// ─── Threaticon filters ────────────────────────────────────────────────
+
+export interface TiListThreaticonActorsOptions {
+  type?: string;
+  country?: string;
+  tlp?: string;
+  status?: string;
+  hasMitre?: boolean;
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterThreaticonActors(
+  idx: TiThreaticonIndex,
+  opts: TiListThreaticonActorsOptions = {}
+): TiThreaticonActorIndexEntry[] {
+  const { type, country, tlp, status, hasMitre, keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TiThreaticonActorIndexEntry[] = [];
+  for (const a of idx.actors) {
+    if (type && !a.types.some((t) => t.toLowerCase().includes(type.toLowerCase()))) continue;
+    if (country && a.originCode?.toLowerCase() !== country.toLowerCase()) continue;
+    if (tlp && a.tlp?.toUpperCase() !== tlp.toUpperCase()) continue;
+    if (status && a.status?.toLowerCase() !== status.toLowerCase()) continue;
+    if (hasMitre && !a.mitreId) continue;
+    if (needle) {
+      const hay = `${a.name} ${a.mitreId ?? ''} ${a.types.join(' ')} ${a.countryOfOrigin ?? ''}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(a);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export interface TiListThreaticonMalwareOptions {
+  category?: string;
+  keyword?: string;
+  minConfidence?: number;
+  limit?: number;
+}
+
+export function filterThreaticonMalware(
+  body: TiThreaticonMalwareBody,
+  opts: TiListThreaticonMalwareOptions = {}
+): TiThreaticonMalwareEntry[] {
+  const { category, keyword, minConfidence, limit = 200 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TiThreaticonMalwareEntry[] = [];
+  for (const f of body.families) {
+    if (category && f.category?.toLowerCase() !== category.toLowerCase()) continue;
+    if (minConfidence !== undefined && (f.confidence ?? 0) < minConfidence) continue;
+    if (needle && !`${f.name} ${f.category ?? ''}`.toLowerCase().includes(needle)) continue;
+    out.push(f);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export interface TiListThreaticonCoverageOptions {
+  tactic?: string;
+  minRules?: number;
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterThreaticonCoverage(
+  body: TiThreaticonCoverageBody,
+  opts: TiListThreaticonCoverageOptions = {}
+): TiThreaticonCoverageTechnique[] {
+  const { tactic, minRules, keyword, limit = 500 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TiThreaticonCoverageTechnique[] = [];
+  for (const t of body.techniques) {
+    if (tactic && t.tactic.toLowerCase() !== tactic.toLowerCase()) continue;
+    if (minRules !== undefined && t.rules < minRules) continue;
+    if (needle && !`${t.techniqueId} ${t.name}`.toLowerCase().includes(needle)) continue;
+    out.push(t);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 // ─── Priority scoring ───────────────────────────────────────────────────
 
 /**
@@ -1062,6 +1328,14 @@ export function tiCacheStats(): {
       bodies: { size: number; hits: number; misses: number };
     };
   };
+  threaticon: {
+    indexLoaded: boolean;
+    indexAgeMs: number | null;
+    malwareLoaded: boolean;
+    coverageLoaded: boolean;
+    mapLoaded: boolean;
+    actors: { size: number; hits: number; misses: number };
+  };
 } {
   return {
     indexLoaded: cachedIndex !== null,
@@ -1094,6 +1368,14 @@ export function tiCacheStats(): {
         indexAgeMs: cachedTcEntitiesAt ? Date.now() - cachedTcEntitiesAt : null,
         bodies: { size: tcEntityCache.map.size, hits: tcEntityCache.hits, misses: tcEntityCache.misses },
       },
+    },
+    threaticon: {
+      indexLoaded: cachedTiIndex !== null,
+      indexAgeMs: cachedTiIndexAt ? Date.now() - cachedTiIndexAt : null,
+      malwareLoaded: cachedTiMalware !== null,
+      coverageLoaded: cachedTiCoverage !== null,
+      mapLoaded: cachedTiMap !== null,
+      actors: { size: tiActorCache.map.size, hits: tiActorCache.hits, misses: tiActorCache.misses },
     },
   };
 }
@@ -1133,6 +1415,13 @@ export function _resetTiCacheForTests(): void {
   cachedTcMisp = null;
   cachedTcEntities = null;
   cachedTcEntitiesAt = null;
+  tiActorCache.map.clear();
+  tiActorCache.hits = tiActorCache.misses = 0;
+  cachedTiIndex = null;
+  cachedTiIndexAt = null;
+  cachedTiMalware = null;
+  cachedTiCoverage = null;
+  cachedTiMap = null;
 }
 
 export { severityFromScore };

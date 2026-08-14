@@ -1,0 +1,44 @@
+{
+  "slug": "gnosticplayers",
+  "id": 771,
+  "name": "Gnosticplayers",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Cybercriminal", "Extortion", "Data breach", "Weak encryption exploitation", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Generic hacking tools and techniques"],
+  "iocPatterns": [
+    "Spear-phishing campaigns using macro-laced Office documents",
+    "Negotiation and extortion communications",
+    "Staging infrastructure for data storage"
+  ],
+  "keyCapabilities": [
+    "Data breach expertise",
+    "Extraction of hashed passwords",
+    "Negotiation with companies (extortion)",
+    "Public sale of stolen data"
+  ],
+  "recommendedActions": [
+    "Implement strong password hashing algorithms like bcrypt",
+    "Monitor for extortion emails or messages from unknown actors claiming breaches",
+    "Enhance security monitoring to detect unauthorized access attempts"
+  ],
+  "campaignsText": "Gnosticplayers' campaigns have featured extortion attempts against compromised companies, wherein victims can avoid public exposure by paying fees. The actor's focus on hashed passwords indicates a technical proficiency in identifying and exploiting encryption weaknesses. Notable operations include attempted sales of large-scale data breaches, with one instance involving more than one billion records. Gnosticplayers appears to operate independently or in small groups, leveraging common tools rather than sophisticated frameworks.",
+  "description": "Gnosticplayers is an active threat actor primarily motivated by frustration over poor security practices and the desire to highlight vulnerabilities through data breaches. Known for targeting various sectors, Gnosticplayers has engaged in extortion and data sales activities, focusing on hashed passwords that can be cracked with varying degrees of difficulty.",
+  "goals": "Gnosticplayers' strategic objectives appear to be driven by a mix of revenge, financial gain, and a crusade against poor cybersecurity practices. The actor targets primarily sectors with weaker security postures, such as startups, likely due to the ease of breach and the potential for embarrassment in the market place. While specific targeted sectors and countries remain unclear from available data, Gnosticplayers' focus on companies that fail to implement strong encryption suggests an operational preference for low-hanging fruit in terms of targets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A771",
+  "sourceUrl": "https://threaticon.com/threat-actors/771"
+}

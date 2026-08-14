@@ -1,0 +1,59 @@
+{
+  "slug": "sarcoma",
+  "id": 591,
+  "name": "sarcoma",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Criminal",
+    "Mid-market targeting",
+    "Financial gain",
+    "Organizational disruption",
+    "Healthcare Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "credential Dumping", "Lateral Movement"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078.001", "T1204.001"],
+  "tools": [
+    "Custom ransomware (Sarcoma)",
+    "Phishing emails with malicious links",
+    "Cobalt Strike-like tools for internal movement"
+  ],
+  "iocPatterns": [
+    "Phishing emails containing malicious links or attachments",
+    "Ransomware payloads delivered via PowerShell scripts",
+    "Exfiltration of sensitive data prior to ransomware deployment",
+    "Command and Control (C2) communication over HTTP/HTTPS protocols"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Spear-phishing campaigns",
+    "Leverage of internal vulnerabilities",
+    "Sophisticated encryption techniques",
+    "Exfiltration of sensitive data"
+  ],
+  "recommendedActions": [
+    "Implement robust phishing detection mechanisms, including email filtering and endpoint protection",
+    "Enhance internal network monitoring for unusual activity patterns",
+    "Conduct regular employee training on identifying social engineering tactics",
+    "Encrypt sensitive data at rest and in transit",
+    "Establish a strong incident response plan with regular演练"
+  ],
+  "campaignsText": "Sarcoma has demonstrated a rapid escalation in campaign intensity, from its debut in July 2024 to mid-2025. Their victims include both small and medium-sized enterprises (SMEs) and larger corporations within targeted industries. Notable campaigns involve coordinated phishing attempts followed by rapid ransomware deployment, often leading to significant business disruption. The group’s operational tempo suggests a professional approach with well-coordinated campaign planning and execution.",
+  "description": "Sarcoma is a ransomware group that emerged in July 2024, rapidly establishing itself as one of the most active global threats by mid-2025, with at least 141 documented victims. Targeting mid-market companies across manufacturing, retail, healthcare, legal, and business services globally, Sarcoma primarily seeks financial gain through extortion. Unlike other ransomware groups, Sarcoma focuses heavily on organizational-gain motivations, suggesting a structured approach to victim selection and campaign management.",
+  "goals": "Sarcoma’s strategic objectives center on generating maximum financial return through ransomware deployment. They target sectors with high organizational resilience gaps and the potential for significant operational disruption, such as manufacturing and healthcare. Their geographic concentration in the United States suggests a focus on regions with higher corporate ransom payment capabilities. The group likely aims to maximize both the volume of victims and the average ransom amount by targeting industries where the impact of downtime is severe but organizational security measures may be inadequate for full protection.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A591",
+  "sourceUrl": "https://threaticon.com/threat-actors/591"
+}

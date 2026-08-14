@@ -1,0 +1,62 @@
+{
+  "slug": "tag-28",
+  "id": 1004,
+  "name": "TAG-28",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "State-sponsored",
+    "Espionage",
+    "South Asia",
+    "Media sector",
+    "Government agencies",
+    "APT",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Collection"],
+  "techniques": ["T1566.001", "T1030", "T1074.004", "T1055", "T1003", "T1005"],
+  "tools": [
+    "Winnti malware",
+    "Mimikatz",
+    "Process hollowing",
+    "Custom C2 frameworks",
+    "Cobalt Strike-like campaign tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing campaigns with malicious Office document attachments",
+    "Use of LNK files for persistence",
+    "Encrypted C2 communications",
+    "Fileless malware techniques",
+    "Scheduled task creation for persistence"
+  ],
+  "keyCapabilities": [
+    "Network intrusion capabilities",
+    "Data exfiltration techniques",
+    "Persistent access through malware",
+    "Cyber espionage activities"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for unusual east-west traffic patterns.",
+    "Conduct regular phishing simulations to improve employee awareness.",
+    "Deploy endpoint detection and response (EDR) solutions to detect process hollowing and fileless malware activities.",
+    "Monitor for signs of credential theft, such as unexpected LSASS processes or rundll32.exe executions.",
+    "Block execution of scripts from untrusted sources."
+  ],
+  "campaignsText": "TAG-28's campaigns focus on long-term access and data collection from Indian targets. The group's operational tempo is not well-documented, but their use of Winnti malware suggests a focus on stealth and persistence. Limited publicly available information on TAG-28 implies either a niche targeting approach or low activity levels compared to other Chinese state-sponsored groups. Notable past operations include targeted intrusions into Indian media and government networks, likely in alignment with broader geopolitical interests.",
+  "description": "TAG-28 is identified as a Chinese state-sponsored threat actor targeting Indian organizations, including media conglomerates and government agencies. Their primary objective appears to be intelligence gathering for espionage purposes. TAG-28 has been linked to the use of Winnti malware, commonly associated with other Chinese state-sponsored groups.",
+  "goals": "TAG-28's primary motivation is intelligence gathering, likely for strategic or political purposes. Their targeting of Indian media and government agencies indicates a focus on collecting sensitive information related to national security, policy-making, and public perception in India. The group appears to prioritize sectors that could yield valuable insights into India's internal affairs and diplomatic communications.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1004",
+  "sourceUrl": "https://threaticon.com/threat-actors/1004"
+}

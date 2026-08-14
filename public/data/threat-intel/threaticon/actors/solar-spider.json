@@ -1,0 +1,57 @@
+{
+  "slug": "solar-spider",
+  "id": 654,
+  "name": "SOLAR SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": [
+    "APT",
+    "financial-sector",
+    "South-Asia",
+    "Southeast-Asia",
+    "cyber-criminal",
+    "RAT",
+    "Financial Targeting",
+    "Phishing",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Credential Access"],
+  "techniques": ["T1059.003", "T1078.001", "T1566.003", "T1530", "T1042"],
+  "tools": ["JSOutProx RAT", "Custom phishing tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents or links",
+    "MD5 hashes associated with JSOutProx RAT files",
+    "C2 communication via GitLab-associated domains",
+    "Specific IP ranges and domain names used for C2"
+  ],
+  "keyCapabilities": [
+    "Phishing campaign orchestration",
+    "Deployment of JSOutProx RAT for unauthorized access",
+    "GitLab abuse for C2 communication",
+    "Spear-phishing with malicious attachments or links"
+  ],
+  "recommendedActions": [
+    "Implement email filtering and phishing detection solutions",
+    "Monitor for异常 network traffic and C2 communications",
+    "Deploy endpoint detection and response (EDR) systems to detect RAT activity",
+    "Conduct regular employee training on phishing awareness",
+    "Harden banking system perimeters with multi-layered security"
+  ],
+  "campaignsText": "SOLAR SPIDER's campaigns demonstrate a focus on specific regions and industries, with patterns indicating prolonged驻留 in targeted networks. The use of GitLab abuse for C2 communication suggests an attempt to blend malicious activity with legitimate services, reducing detection chances. Notable operations include the targeting of financial institutions in APAC and MENA regions, leveraging phishing emails and malicious links to deliver their payload.",
+  "description": "SOLAR SPIDER is a cyber threat actor targeting financial institutions across Africa, the Middle East, South Asia, and Southeast Asia through phishing campaigns delivering the JSOutProx RAT. Their activities are increasingly sophisticated, leveraging known malware and infrastructure to compromise sensitive financial systems.",
+  "goals": "SOLAR SPIDER's strategic objectives appear to be financial gain, likely through data exfiltration, unauthorized transactions, or other revenue-generating activities. The targeting of financial institutions aligns with this goal, as these entities hold sensitive customer information and are critical to national economies. The actor focuses on regions where financial systems may have weaker defenses or where geopolitical factors make them attractive targets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A654",
+  "sourceUrl": "https://threaticon.com/threat-actors/654"
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "uta0178",
+  "id": 1003,
+  "name": "UTA0178",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "critical-infrastructure-targeting",
+    "energy-sector",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2"
+  ],
+  "aliases": ["UNC5221", "Red Dev 61"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Lateral Movement", "Defense Evasion", "Exfiltration"],
+  "techniques": ["T1566.002", "T1077.001", "T1264.001", "T1539.001"],
+  "tools": ["Custom WebShells", "Proxy Utilities", "Malware for credential harvesting"],
+  "iocPatterns": [
+    "Webshell activity on ICS devices",
+    "Unusual RDP login attempts from external IPs",
+    "Anomalies in VPN appliance logs",
+    "Credentials being dumped from compromised accounts"
+  ],
+  "keyCapabilities": [
+    "Webshell deployment for backdoor access",
+    "Credential harvesting via compromised accounts",
+    "RDP-based lateral movement within networks",
+    "Living off the land tactics to avoid detection",
+    "Custom malware development"
+  ],
+  "recommendedActions": [
+    "Implement strong multi-factor authentication for RDP access.",
+    "Monitor network traffic for signs of webshell activity.",
+    "Conduct regular penetration testing focused on ICS environments.",
+    "Enhance logging and monitoring for VPN and remote access endpoints."
+  ],
+  "campaignsText": "UTA0178's campaigns appear to focus on prolonged network access and persistence. Their targeting of ICS environments suggests a strategic interest in industrial control systems, possibly for both espionage and disruption. The actor's operational tempo is methodical, with an emphasis on stealth and long-term access rather than rapid deployment of destructive payloads.",
+  "description": "UTA0178, also known as UNC5221 or Red Dev 61, is a threat actor observed primarily in the energy sector. Their attacks involve initial access through compromised VPN appliances, followed by credential harvesting and横向 movement within networks using RDP. While their exact motivation remains unclear, their operational tactics suggest potential nation-state-sponsored activity.",
+  "goals": "UTA0178 appears to target energy sector organizations, potentially to gather sensitive information or disrupt operations. Their use of credential harvesting and persistence techniques indicates an interest in long-term access rather than immediate damage. The targeting of ICS environments suggests a high-level operational objective, possibly aligned with nation-state interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1003",
+  "sourceUrl": "https://threaticon.com/threat-actors/1003"
+}

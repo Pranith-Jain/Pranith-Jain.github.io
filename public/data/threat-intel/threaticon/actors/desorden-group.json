@@ -1,0 +1,51 @@
+{
+  "slug": "desorden-group",
+  "id": 923,
+  "name": "Desorden Group",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "ransomware", "data-broker", "financial-motivated", "hacker-forum", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration"],
+  "techniques": [
+    "T1059.003 - spear-phishing via malicious documents",
+    "T1213 - data theft via remote services",
+    "T1566.001 - C2 over DNS for communication"
+  ],
+  "tools": ["Custom phishing kits", "Ransomware variants", "Data extraction tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents",
+    "C2 communication using DNS-based tunneling",
+    "Staged infrastructure on bulletproof hosting services"
+  ],
+  "keyCapabilities": [
+    "Data exfiltration and monetization through illicit sales",
+    "Ransomware deployment and negotiation",
+    "Exploitation of forum-based networks for victim acquisition",
+    "Custom tool development for attack execution",
+    "Public announcement of operations to deter law enforcement"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect phishing attempts",
+    "Deploy multi-factor authentication for all remote access points",
+    "Conduct regular network segmentation to limit lateral movement",
+    "Monitor DNS traffic for anomalous C2 patterns",
+    "Subscribe to threat intelligence feeds forDesorden Group-related IOCs"
+  ],
+  "campaignsText": "Desorden Group's campaigns demonstrate a pattern of forum-based operations, with a focus on high-impact ransomware attacks and data monetization. Their operational tempo suggests a continuous cycle of victim targeting, attack execution, and post-exploitation data sales. Notable operations include high-profile ransom demands and the dissemination of stolen databases, often announced publicly on hacking forums to establish credibility and deter law enforcement. The group's activities indicate a preference for targeting poorly secured infrastructure and organizations with limited cybersecurity defenses.",
+  "description": "Desorden Group (formerly ChaosCC) is a financially motivated hacker collective active since September 2021, known for operating on hacking forums, selling stolen data, and publicly announcing ransom demands. The group has established a reputation in cybercriminal circles for high-quality data leaks and successful attacks.",
+  "goals": "Desorden Group's primary objective is financial gain through a combination of ransomware operations and data trafficking. By targeting organizations with valuable data assets, the group can extract ransoms and sell sensitive information on underground markets. Their forum-based operations suggest a preference for sectors with high data valuations (e.g., healthcare, finance, government) and infrastructure vulnerabilities that enable successful attacks. The group's public sharing of attack details may also serve as a form of reputational marketing to attract more victims and business opportunities within the cybercrime ecosystem.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A923",
+  "sourceUrl": "https://threaticon.com/threat-actors/923"
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "pale-panda",
+  "id": 219,
+  "name": "Pale Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["PlugX", "Custom APT tools"],
+  "iocPatterns": [
+    "Malware-related IOCs such as PlugX indicators",
+    "Network traffic analysis for data exfiltration patterns",
+    "Anomalies in system processes and TTY usage"
+  ],
+  "keyCapabilities": [
+    "PlugX malware",
+    "Advanced persistent threat (APT) techniques",
+    "Remote control and data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement strong network perimeter controls and intrusion detection systems.",
+    "Conduct regular vulnerability assessments and penetration testing.",
+    "Monitor for unusual lateral movement and process injection activities.",
+    "Educate employees about phishing and social engineering tactics."
+  ],
+  "campaignsText": "Pale Panda's campaigns are long-term and patient, aiming to gather strategic intelligence rather than immediate damage. Their operations likely involve targeting specific industries with tailored attacks. Notable past operations include activities referenced in the 2014 Crowdstrike report, indicating a history of consistent threat activity.",
+  "description": "The Pale Panda threat actor is a nation-state-sponsored group primarily involved in espionage activities. Known for using the PlugX malware, this group targets specific sectors and countries to gather strategic intelligence. Their operations are sophisticated, leveraging advanced tools and techniques to achieve their objectives.",
+  "goals": "Pale Panda's primary motivation is espionage, indicating a focus on stealing sensitive data and intellectual property from targeted sectors such as government, defense, and critical infrastructure. The group likely selects specific countries based on geopolitical interests, making them a significant threat to national security and international organizations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A219",
+  "sourceUrl": "https://threaticon.com/threat-actors/219"
+}

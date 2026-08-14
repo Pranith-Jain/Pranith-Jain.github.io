@@ -1,0 +1,53 @@
+{
+  "slug": "blue-tsunami",
+  "id": 1011,
+  "name": "Blue Tsunami",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cyber espionage", "financial sector", "consulting", "human rights", "Critical Infrastructure"],
+  "aliases": ["Black Cube"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Initial Access", "Defense Evasion", "Credentials Access", "Discovery"],
+  "techniques": ["T1565.002", "T1086", "T1037", "T1092", "T1140"],
+  "tools": [
+    "Social engineering kits",
+    "Spear-phishing tools",
+    "Credential dumping tools (e.g., Mimikatz-like tools)",
+    "Custom malware for data exfiltration"
+  ],
+  "iocPatterns": [
+    "Spear-phishing with social engineering lures via email or messaging",
+    "Fake LinkedIn profiles and company pages",
+    "Job listings for fictitious organizations linked to Blue Tsunami/Black Cube clients",
+    "Social media activity targeting professionals in finance, consulting, and human rights sectors"
+  ],
+  "keyCapabilities": [
+    "Social engineering",
+    "Phishing",
+    "Identity theft/fraud",
+    "Fake profiles/company pages creation",
+    "HUMINT gathering"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering and endpoint detection to combat spear-phishing attempts.",
+    "Enhance user training on social engineering tactics, particularly for employees and professionals in targeted industries.",
+    "Monitor LinkedIn and other professional platforms for suspicious activity or fake profiles linked to the organization.",
+    "Use multi-factor authentication (MFA) to mitigate credential theft risks.",
+    "Conduct regular audits of HR practices and job posting mechanisms to prevent misuse by threat actors."
+  ],
+  "campaignsText": "Blue Tsunami's campaigns are characterized by their use of fake LinkedIn profiles and company pages to deceive targets. Their operational tempo appears to be event-driven, with increased activity during periods when sensitive information is likely to be exchanged. The group has recently been involved in creating fraudulent job opportunities to lure professionals into sharing confidential data. Notable past operations include the creation of numerous fake accounts and pages that were later taken down by platforms like LinkedIn and Microsoft.",
+  "description": "Blue Tsunami, also known as Black Cube, is a cyber mercenary group linked to the private intelligence firm Black Cube. They specialize in social engineering and creating fake profiles on professional platforms like LinkedIn to gather human intelligence for their clients. The group targets individuals in industries such as finance, consulting, and human rights, making them a significant threat to organizations and individuals in these sectors.",
+  "goals": "Blue Tsunami's primary objective appears to be gathering sensitive information and intelligence for client organizations, likely ranging from corporate entities to governments. Their targeting profile focuses on industries where human intelligence can provide a competitive advantage or strategic edge. The group's victims are typically individuals working in sectors with high-value data, such as finance professionals, consultants, and human rights activists. This targeting strategy suggests that Blue Tsunami operates with a client-driven approach, tailoring their attacks to specific needs, making them both flexible and dangerous to a wide range of industries.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1011",
+  "sourceUrl": "https://threaticon.com/threat-actors/1011"
+}

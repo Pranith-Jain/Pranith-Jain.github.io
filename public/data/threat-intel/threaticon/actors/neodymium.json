@@ -1,0 +1,45 @@
+{
+  "slug": "neodymium",
+  "id": 172,
+  "name": "NEODYMIUM",
+  "mitreId": "G0055",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "osint-targeting", "russia-linked", "malware-dropper", "Critical Infrastructure"],
+  "aliases": ["G0055"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Disruption", "Collection"],
+  "techniques": ["T1059.003", "T1238.001", "T1078", "T125", "T1566.001"],
+  "tools": ["Wingbird"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "Use of malicious hashes for payload delivery",
+    "C2 communication via encoded protocols in files"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns using malicious Office documents",
+    "Use of malware (e.g., Wingbird) for data collection and exfiltration",
+    "Focus on OSINT platforms as infection vectors",
+    "Intermediate-level operational sophistication"
+  ],
+  "recommendedActions": [
+    "Implement strict monitoring of spear-phishing attempts using email security solutions",
+    "Conduct regular user training on phishing awareness and OSINT platform hygiene",
+    "Deploy endpoint detection and response (EDR) tools to identify malicious activity",
+    "Analyze file hashes against known NEODYMIUM IOCs for potential lateral movement"
+  ],
+  "campaignsText": "NEODYMIUM has been active since at least May 2016, with its latest known activities occurring in December 2016. The group's campaigns have focused on Turkish individuals, suggesting a geographically targeted approach. NEODYMIUM's operations demonstrate similarities to PROMETHIUM, including the use of overlapping victim characteristics and malware deployment methods. These parallels raise questions about whether they are distinct groups or part of a larger campaign network. Notable operations include the targeting of OSINT users, likely to compromise sensitive data and disrupt intelligence gathering efforts.",
+  "description": "NEODYMIUM, an activity group linked to espionage activities, has been observed targeting Turkish individuals since at least May 2016. The group shares similarities with PROMETHIUM due to overlapping victimology and campaign characteristics, suggesting a possible connection or shared operational approach. NEODYMIUM's activities may be linked to BlackOasis operations, though no definitive evidence of alias usage has been established. The threat actor employs spear-phishing campaigns using malicious Office documents and demonstrates intermediate sophistication in targeting OSINT platforms.",
+  "goals": "NEODYMIUM appears to primarily seekEspionage-related intelligence from its targets. This is evident from the targeting of individuals in sectors that likely handle sensitive information, such as defense, government, or OSINT professionals. The group's focus on Turkish victims suggests a potential interest in regional intelligence gathering or geopolitical espionage. NEODYMIUM's strategic goal aligns with other advanced persistent threat (APT) groups seeking to gather critical data for national security or competitive advantage purposes.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A172",
+  "sourceUrl": "https://threaticon.com/threat-actors/172"
+}

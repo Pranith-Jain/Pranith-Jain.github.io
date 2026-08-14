@@ -1,0 +1,45 @@
+{
+  "slug": "ayy-ld-z-tim",
+  "id": 730,
+  "name": "Ayyıldız Tim",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "T",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Hacktivism", "Political Motivations", "DDoS", "Government Targeting"],
+  "aliases": ["Crescent and Star"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Disruption"],
+  "techniques": ["T1505.002", "T1486"],
+  "tools": ["Low Orbit Ion Cannon (LOIC)", "Mirai botnet", "QBot"],
+  "iocPatterns": [
+    "DDoS attack patterns targeting .gov domains",
+    "Use of reflective DNS for amplification attacks",
+    "Unusual spikes in web traffic to governmental websites"
+  ],
+  "keyCapabilities": [
+    "Conducting distributed denial-of-service (DDoS) attacks",
+    "Website defacements",
+    "Use of anonymous communication channels",
+    "Potential use of SQL injection and other web application vulnerabilities"
+  ],
+  "recommendedActions": [
+    "Implement DDoS protection solutions",
+    "Monitor for异常流量 on critical systems",
+    "Conduct regular vulnerability assessments of web applications",
+    "Educate employees on phishing and social engineering tactics"
+  ],
+  "campaignsText": "Ayyıldáz Tim's campaigns often exhibit a pattern of targeting high-profile government websites during periods of heightened political tension. Their operational tempo is irregular but tends to increase in response to specific events or policies they oppose. Notable past operations include multiple DDoS attacks on Turkish government sites following perceived injustices against Kurdish populations.",
+  "description": "Ayyıldız Tim, also known as Crescent and Star, is a nationalist hacking group founded in 2002. The group primarily engages in defacements and DDoS attacks targeting government websites they perceive as repressive towards Muslim minorities or involved in Islamophobic policies.",
+  "goals": "Ayyıldáz Tim's strategic objectives revolve around challenging what they perceive as oppressive policies against Muslim minorities. Their targeting profile focuses on government websites within countries where such policies are prevalent. By attacking these sites, the group seeks to raise awareness and provoke change in political stances. Their victims typically include governmental institutions, law enforcement agencies, and sometimes corporate entities that align with targeted governments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A730",
+  "sourceUrl": "https://threaticon.com/threat-actors/730"
+}

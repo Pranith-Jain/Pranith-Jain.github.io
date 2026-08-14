@@ -1,0 +1,49 @@
+{
+  "slug": "desolator",
+  "id": 412,
+  "name": "desolator",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Criminal", "affiliate program"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Execution", "Discovery"],
+  "techniques": ["T1059", "T1078", "T1566"],
+  "tools": [
+    "Phishing Campaigns using malicious links",
+    "Cobalt Strike-like tools for lateral movement",
+    "Exploit Kits for initial access"
+  ],
+  "iocPatterns": [
+    "Encrypted files with .desolator extensions",
+    "Phishing emails with malicious attachments or links",
+    "C2 traffic via domains associated with targeted regions"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Affiliate recruitment through dark web forums",
+    "Coordination with initial access brokers",
+    "Social engineering campaigns"
+  ],
+  "recommendedActions": [
+    "Enhance email security to detect phishing attempts",
+    "Monitor network traffic for unusual activities",
+    "Implement regular data backups",
+    "Use decoy systems (honeypots) to detect malicious activity"
+  ],
+  "campaignsText": "Desolator's campaigns have started recently, with limited known victims as of now. Their operational tempo is likely to increase as their affiliate program grows. They target specific sectors and regions, indicating a strategic focus on industries that may offer higher financial returns.",
+  "description": "Desolator is a medium-sophistication ransomware group that emerged in August 2025. They primarily target construction, engineering firms in Latin America and Europe, and technology companies in Asia. Their operations include recruiting affiliates from dark web forums to expand their attack capabilities.",
+  "goals": "Desolator's strategic objectives are centered around financial gain through ransomware activities. They target sectors with potentially higher vulnerabilities or weaker security postures, such as construction and engineering firms in Latin America and Europe, as well as technology companies in Asia. Their targeting strategy implies a focus on regions where they may find easier entry points or less sophisticated defenses, allowing them to maximize their attack success rate.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A412",
+  "sourceUrl": "https://threaticon.com/threat-actors/412"
+}

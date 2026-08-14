@@ -2,11 +2,11 @@
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/entities",
   "description": "Derived entity intelligence from ThreatCluster clusters, MISP galaxy attribution, dark-web victims and CVE feeds. Entities are extracted deterministically at build time from in-repo signals (MISP galaxy tags, victim group/sector fields, CVE regexes, Daily-Hunt family dictionary matching) — no LLM in the loop.",
-  "builtAt": "2026-08-13T05:32:52.156Z",
+  "builtAt": "2026-08-14T03:30:37.886Z",
   "counts": {
     "actor": 3,
     "group": 9,
-    "malware": 1,
+    "malware": 61,
     "cve": 137,
     "sector": 14
   },
@@ -17,9 +17,9 @@
         "slug": "kimsuky",
         "name": "Kimsuky",
         "aliases": [],
-        "mentionCount": 1,
+        "mentionCount": 2,
         "firstSeen": "2026-08-10T00:00:00.000Z",
-        "lastSeen": "2026-08-10T00:00:00.000Z"
+        "lastSeen": "2026-08-10T03:03:01.000Z"
       },
       {
         "type": "actor",
@@ -126,12 +126,552 @@
     "malware": [
       {
         "type": "malware",
+        "slug": "attrib",
+        "name": "attrib",
+        "aliases": [],
+        "mentionCount": 11,
+        "firstSeen": "2026-07-16T05:16:18.000Z",
+        "lastSeen": "2026-08-12T23:17:22.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "global",
+        "name": "Global",
+        "aliases": [],
+        "mentionCount": 7,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-13T03:16:45.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "docker",
+        "name": "Docker",
+        "aliases": [],
+        "mentionCount": 4,
+        "firstSeen": "2026-07-14T17:17:15.000Z",
+        "lastSeen": "2026-08-12T22:17:17.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "payload",
+        "name": "Payload",
+        "aliases": [],
+        "mentionCount": 4,
+        "firstSeen": "2026-07-30T21:18:12.000Z",
+        "lastSeen": "2026-08-12T22:17:14.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "ransomware",
+        "name": "Ransomware",
+        "aliases": [],
+        "mentionCount": 4,
+        "firstSeen": "2026-08-10T17:42:00.000Z",
+        "lastSeen": "2026-08-12T15:51:49.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "route",
+        "name": "route",
+        "aliases": [],
+        "mentionCount": 4,
+        "firstSeen": "2026-07-15T21:16:53.000Z",
+        "lastSeen": "2026-08-12T13:05:25.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "unicat",
+        "name": "UNICAT",
+        "aliases": [],
+        "mentionCount": 4,
+        "firstSeen": "2026-08-06T12:21:53.000Z",
+        "lastSeen": "2026-08-13T03:16:44.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "langflow",
+        "name": "Langflow",
+        "aliases": [],
+        "mentionCount": 3,
+        "firstSeen": "2026-07-17T18:17:17.000Z",
+        "lastSeen": "2026-08-07T04:23:04.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "resident",
+        "name": "Resident",
+        "aliases": [],
+        "mentionCount": 3,
+        "firstSeen": "2026-08-08T17:23:13.000Z",
+        "lastSeen": "2026-08-10T23:07:21.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "backdoor",
+        "name": "Backdoor",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-08-06T06:06:06.000Z",
+        "lastSeen": "2026-08-08T14:16:23.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "exploit-code",
+        "name": "Exploit code",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-08-11T16:39:54.000Z",
+        "lastSeen": "2026-08-12T15:48:38.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "guard",
+        "name": "Guard",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-07-29T11:16:50.000Z",
+        "lastSeen": "2026-08-08T19:17:00.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "malware",
+        "name": "Malware",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-12T07:31:11.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "phishing",
+        "name": "phishing",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-08-09T14:18:17.000Z",
+        "lastSeen": "2026-08-10T03:03:01.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "sponsor",
+        "name": "Sponsor",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-08-06T06:06:06.000Z",
+        "lastSeen": "2026-08-08T14:30:08.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "stration",
+        "name": "Stration",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-07-20T15:16:44.000Z",
+        "lastSeen": "2026-07-21T14:16:32.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "telegram",
+        "name": "Telegram",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-08-07T15:47:38.000Z",
+        "lastSeen": "2026-08-11T18:36:47.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "trojan",
+        "name": "Trojan",
+        "aliases": [],
+        "mentionCount": 2,
+        "firstSeen": "2026-08-06T06:06:06.000Z",
+        "lastSeen": "2026-08-11T18:36:47.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "athena",
+        "name": "Athena",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-02T15:16:33.000Z",
+        "lastSeen": "2026-08-02T15:16:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "backdoors",
+        "name": "Backdoors",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-08T14:16:23.000Z",
+        "lastSeen": "2026-08-08T14:16:23.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "citadel",
+        "name": "Citadel",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-08T10:32:45.000Z",
+        "lastSeen": "2026-08-08T10:32:45.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "coruna",
+        "name": "Coruna",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-10T22:17:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "crisis",
+        "name": "Crisis",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-07T15:47:38.000Z",
+        "lastSeen": "2026-08-07T15:47:38.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "custom-tooling",
+        "name": "Custom tooling",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T18:41:25.000Z",
+        "lastSeen": "2026-08-10T18:41:25.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "darksword",
+        "name": "DarkSword",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-10T22:17:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "darksword-exploit-kit",
+        "name": "DarkSword exploit kit",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-10T22:17:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "destructive-malware",
+        "name": "Destructive Malware",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T07:31:11.000Z",
+        "lastSeen": "2026-08-12T07:31:11.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "embargo",
+        "name": "Embargo",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T22:17:14.000Z",
+        "lastSeen": "2026-08-12T22:17:14.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "expand",
+        "name": "Expand",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T03:03:01.000Z",
+        "lastSeen": "2026-08-10T03:03:01.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "exploit-frameworks",
+        "name": "Exploit frameworks",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-10T22:17:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "exploit-kit",
+        "name": "Exploit Kit",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-10T22:17:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "exploit-kits",
+        "name": "Exploit kits",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T22:17:33.000Z",
+        "lastSeen": "2026-08-10T22:17:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "fdmtp",
+        "name": "FDMTP",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-06T06:06:06.000Z",
+        "lastSeen": "2026-08-06T06:06:06.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "gadget",
+        "name": "Gadget",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-07-23T09:16:26.000Z",
+        "lastSeen": "2026-07-23T09:16:26.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "hermes",
+        "name": "Hermes",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T20:00:00.000Z",
+        "lastSeen": "2026-08-12T20:00:00.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "hive",
+        "name": "Hive",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-02T15:16:33.000Z",
+        "lastSeen": "2026-08-02T15:16:33.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "inter",
+        "name": "inter",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-08T06:13:26.000Z",
+        "lastSeen": "2026-08-08T06:13:26.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "interception",
+        "name": "Interception",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-11T10:56:43.000Z",
+        "lastSeen": "2026-08-11T10:56:43.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "joomla",
+        "name": "Joomla",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-07-29T11:16:50.000Z",
+        "lastSeen": "2026-07-29T11:16:50.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "large-language-models-llms",
+        "name": "Large Language Models (LLMs)",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T03:03:01.000Z",
+        "lastSeen": "2026-08-10T03:03:01.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "leverage",
+        "name": "Leverage",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T18:41:25.000Z",
+        "lastSeen": "2026-08-10T18:41:25.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "medusa",
+        "name": "Medusa",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T17:42:00.000Z",
+        "lastSeen": "2026-08-10T17:42:00.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "microsoft-teams",
+        "name": "Microsoft Teams",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T09:32:47.000Z",
+        "lastSeen": "2026-08-12T09:32:47.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "newpass",
+        "name": "NewPass",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-01T09:17:00.000Z",
+        "lastSeen": "2026-08-01T09:17:00.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "node.js",
+        "name": "Node.js",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-07-23T18:16:53.000Z",
+        "lastSeen": "2026-07-23T18:16:53.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "nordvpn",
+        "name": "NordVPN",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T13:05:25.000Z",
+        "lastSeen": "2026-08-12T13:05:25.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "phantomcore",
+        "name": "PhantomCore",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-08T14:16:23.000Z",
+        "lastSeen": "2026-08-08T14:16:23.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "phishing-campaigns",
+        "name": "Phishing campaigns",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-10T03:03:01.000Z",
+        "lastSeen": "2026-08-10T03:03:01.000Z"
+      },
+      {
+        "type": "malware",
         "slug": "powershell",
         "name": "Powershell",
         "aliases": [],
         "mentionCount": 1,
         "firstSeen": "2026-08-11T18:36:47.000Z",
         "lastSeen": "2026-08-11T18:36:47.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "powershell-code",
+        "name": "PowerShell code",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-11T18:36:47.000Z",
+        "lastSeen": "2026-08-11T18:36:47.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "proton",
+        "name": "Proton",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T13:05:25.000Z",
+        "lastSeen": "2026-08-12T13:05:25.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "rogue",
+        "name": "Rogue",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-13T03:16:45.000Z",
+        "lastSeen": "2026-08-13T03:16:45.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "royal",
+        "name": "Royal",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-11T08:44:28.000Z",
+        "lastSeen": "2026-08-11T08:44:28.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "rshell",
+        "name": "Rshell",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-11T18:36:47.000Z",
+        "lastSeen": "2026-08-11T18:36:47.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "scheduled-tasks",
+        "name": "Scheduled Tasks",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-11T18:36:47.000Z",
+        "lastSeen": "2026-08-11T18:36:47.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "social-engineering-tactics",
+        "name": "Social engineering tactics",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-08T06:13:26.000Z",
+        "lastSeen": "2026-08-08T06:13:26.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "stop",
+        "name": "STOP",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-07-31T16:17:00.000Z",
+        "lastSeen": "2026-07-31T16:17:00.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "synchro",
+        "name": "SynChro",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T22:17:16.000Z",
+        "lastSeen": "2026-08-12T22:17:16.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "trueconf",
+        "name": "TrueConf",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-08T14:16:23.000Z",
+        "lastSeen": "2026-08-08T14:16:23.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "vbscript",
+        "name": "VBScript",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T22:17:16.000Z",
+        "lastSeen": "2026-08-12T22:17:16.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "warlock",
+        "name": "Warlock",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-12T15:51:49.000Z",
+        "lastSeen": "2026-08-12T15:51:49.000Z"
       }
     ],
     "cve": [

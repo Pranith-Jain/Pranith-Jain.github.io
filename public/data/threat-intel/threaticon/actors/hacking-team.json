@@ -1,0 +1,53 @@
+{
+  "slug": "hacking-team",
+  "id": 772,
+  "name": "Hacking Team",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Exploits", "Espionage", "Surveillance Tools", "Zero-Day Exploitation", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Discovery", "Credential Access"],
+  "techniques": [
+    "T1078 - Valid Accounts",
+    "T1565.002 - Windows Management Service (WMS)",
+    "T1005 - spear_phishing_attachment",
+    "T1040.004 - Powershell Over HTTP",
+    "T1055.003 - Process Hollowing"
+  ],
+  "tools": ["Remote Control System (RCS)", "Custom Exploits and Malware Frameworks", "Hacking Team's Spyware Tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments containing RCS components",
+    "Use of compromised legitimate domains for command-and-control (C2) communication",
+    "Indicators of web-based exploitation frameworks used in surveillance campaigns",
+    "Presence of RCS-related file hashes and signatures in network traffic"
+  ],
+  "keyCapabilities": [
+    "Development of advanced spyware like Remote Control System (RCS)",
+    "Exfiltration of files, emails, and instant messages",
+    "Remote activation of device cameras and microphones for surveillance",
+    "Custom exploit development and distribution",
+    "Possession of a vast collection of 0-day vulnerabilities"
+  ],
+  "recommendedActions": [
+    "Monitor for suspicious activity related to known Hacking Team tools and their attack patterns.",
+    "Implement strict access controls on sensitive systems using the principle of least privilege.",
+    "Conduct regular vulnerability assessments to mitigate potential 0-day exploitation.",
+    "Enhance endpoint detection capabilities to identify RCS-like surveillance behaviors."
+  ],
+  "campaignsText": "Hacking Team's post-breach activities suggest a potential resurgence in the surveillance tools market, with new products or updates to existing software identified as early as 2015. The company's rebranding and acquisition by Tablem Limited may indicate efforts to re-establish itself in the global market under new leadership. APT groups are known to have used Hacking Team's leaked tools, leading to an increased number of espionage campaigns targeting government and private sector entities.",
+  "description": "Hacking Team is a well-known Italian vendor of surveillance and espionage tools that has faced significant scrutiny due to its alleged sales of technology to authoritarian regimes. Following a major breach in 2015, which exposed sensitive data including customer lists, communications, and source code, the company has potentially returned to operations but with new investors linked to Saudi Arabia. The group's tools have been used by various APT actors globally, making it a significant concern for organizations targeted by these campaigns.",
+  "goals": "Hacking Team primarily targeted governments and their agencies across the world to enable state-sponsored surveillance activities. Their products were sold to law enforcement and intelligence agencies as tools for monitoring suspect communications. Post-2015 breach, while not directly tied, APT groups have exploited the leaked information from Hacking Team's database, using the 0-days and source code to develop their own espionage campaigns. The targeting profile suggests a focus on authoritarian regimes and law enforcement entities but also extends to broader intelligence gathering activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A772",
+  "sourceUrl": "https://threaticon.com/threat-actors/772"
+}

@@ -1,0 +1,48 @@
+{
+  "slug": "dragonspark",
+  "id": 950,
+  "name": "DragonSpark",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "East-Asia", "China-related", "RAT", "webshell", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Command and Control"],
+  "techniques": ["T1102", "T1059.003", "T1566.001", "T1055", "T1040"],
+  "tools": ["SparkRAT", "China Chopper"],
+  "iocPatterns": [
+    "Deployment of SparkRAT RAT with multi-platform capabilities",
+    "Use of China Chopper webshells for initial access",
+    "Golang-based code interpretation to evade detection",
+    "C2 traffic patterns using domain-based tunneling or fast-flux techniques"
+  ],
+  "keyCapabilities": [
+    "Use of the SparkRAT remote access Trojan (multi-platform, frequently updated)",
+    "Golang source code interpretation for evasion",
+    "Deployment of the China Chopper webshell for initial access and persistence",
+    "Ability to operate within East Asian infrastructure and locales",
+    "Adaptation of open-source tools for targeted attacks"
+  ],
+  "recommendedActions": [
+    "Monitor for anomalous webshell activity, particularly using China Chopper",
+    "Implement network traffic analysis to detect C2 communication patterns",
+    "Deploy endpoint detection and response (EDR) tools to detect SparkRAT behavior",
+    "Conduct regular vulnerability assessments for web-facing systems",
+    "Block or restrict access to known malicious domains associated with the actor"
+  ],
+  "campaignsText": "DragonSpark's campaigns appear focused on East Asian targets, leveraging localized infrastructure and evasion techniques to avoid detection. While no specific campaigns are publicly linked, the actor's reliance on SparkRAT and China Chopper suggests a preference for stealthy, long-term operations. The lack of confirmed campaign timelines or victim specifics indicates limited public intelligence, with most insights derived from tool usage and infrastructure analysis.",
+  "description": "DragonSpark is a threat actor targeting organizations in East Asia, leveraging the open-source SparkRAT remote access Trojan (RAT) and evasion techniques like Golang source code interpretation. Their operations suggest a focus on China and Taiwan, with infrastructure ties to these regions. The actor remains anonymous, with no confirmed aliases or detailed attribution.",
+  "goals": "DragonSpark's strategic objectives likely center on espionage or economic advantage, targeting sectors in East Asia where sensitive data or technological assets are concentrated. By focusing on China and Taiwan, the group may aim to access intellectual property, trade secrets, or confidential information from organizations in these regions. Their use of localized infrastructure and language support suggests a tailored approach to infiltrate and maintain long-term access to victims, potentially for political, financial, or strategic intelligence-gathering purposes.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A950",
+  "sourceUrl": "https://threaticon.com/threat-actors/950"
+}

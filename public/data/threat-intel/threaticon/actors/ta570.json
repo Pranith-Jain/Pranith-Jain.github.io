@@ -1,0 +1,61 @@
+{
+  "slug": "ta570",
+  "id": 864,
+  "name": "TA570",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Financial Fraud", "Banking Trojan", "Phishing", "Qbot", "Critical Infrastructure"],
+  "aliases": ["DEV-0450"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Persistence", "Lateral Movement", "Collection", "Exfiltration"],
+  "techniques": [
+    "T1003.001 - OS Credential Dumping",
+    "T1566.001 - Phishing Emails with Malicious Links",
+    "T1184 - Remote File Hash Calculation",
+    "T1078 - Internal Domain Communication",
+    "T1021 - SMB Client Abuse",
+    "T1070 - Application Layer Protocol隧道",
+    "T1070.001 - RDP Access"
+  ],
+  "tools": ["Qbot", "Cobalt Strike", "Phishing Email Tools", "RDP Brute Force Tools"],
+  "iocPatterns": [
+    "Qbot malware instances targeting Windows systems",
+    "Phishing emails with malicious links or attachments mimicking financial institutions",
+    "C2 communications over legitimate-looking domains (e.g., banking.mailservice.com)",
+    "SMB protocol traffic between compromised machines",
+    "RDP brute force activity from known TA570 IP addresses"
+  ],
+  "keyCapabilities": [
+    "Qbot malware deployment for credential theft",
+    "Phishing campaigns leveraging email as an infection vector",
+    "Banking Trojan activities targeting financial institutions",
+    "Unauthorised wire transfers and BEC (Business Email Compromise) techniques",
+    "SMB protocol abuse for lateral movement",
+    "RDP brute force attacks for initial access",
+    "C2 communication via HTTP/HTTPS proxies"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for Qbot-related IOC patterns and SMB/RDP traffic anomalies.",
+    "Regularly patch and update software to mitigate known vulnerabilities exploited by Qbot.",
+    "Enforce multi-factor authentication (MFA) for financial transactions and critical systems.",
+    "Educate employees on identifying phishing emails and suspicious communication.",
+    "Deploy endpoint detection and response (EDR) solutions to detect and block Qbot payloads.",
+    "Monitor for unauthorized wire transfers and implement additional layers of verification.",
+    "Review and secure RDP access, disabling it where unnecessary."
+  ],
+  "campaignsText": "TA570 has been involved in multiple campaigns targeting financial institutions, using phishing as the primary entry vector. The group's operational tempo is high, with frequent campaigns often synchronized with global business hours. Notable past operations include large-scale wire fraud attempts and BEC attacks targeting corporate accounts. TA570 frequently adapts its tactics to evade detection, including updating Qbot's configurations and leveraging new domains for C2 communication.",
+  "description": "TA570, also known as DEV-0450, is a prominent cybercrime threat actor associated with the Qbot malware family. Active since at least 2018, TA570 has been linked to several high-profile campaigns targeting financial institutions and other industries. The group primarily relies on banking Trojans and phishing activities to achieve its objectives, making it a significant threat to global enterprises.",
+  "goals": "TA570's strategic objectives appear to be primarily financially motivated, focusing on extracting sensitive information such as banking credentials and facilitating unauthorized transactions. The group's targeting profile includes financial institutions, retail sectors, and other organizations with accessible financial systems. TA570 often uses phishing campaigns and malware distribution to gain initial access to victim networks, enabling subsequent lateral movement and data exfiltration.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A864",
+  "sourceUrl": "https://threaticon.com/threat-actors/864"
+}

@@ -1,0 +1,51 @@
+{
+  "slug": "returned-libra",
+  "id": 851,
+  "name": "Returned Libra",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT group", "Cyber Espionage", "Cryptojacking", "Cloud Threats", "Financial Crime", "State-sponsored"],
+  "aliases": ["8220 Mining Group"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Execution"],
+  "techniques": ["T1025.003", "T1685", "T1496"],
+  "tools": ["PwnRig", "DBUsed", "XMRig", "Custom Cloud Credential Scraping Tools"],
+  "iocPatterns": [
+    "Use of XMRig-based miners with specific configuration strings",
+    "Beaconing communication to command-and-control (C2) servers",
+    "Unusual spikes in CPU usage on cloud instances",
+    "Presence of custom scripts for credential scraping",
+    "Abnormal network traffic patterns indicative of mining operations"
+  ],
+  "keyCapabilities": [
+    "Customized XMRig variants (PwnRig, DBUsed)",
+    "Cloud service credential scraping",
+    "Use ofaaS platforms for distributed mining operations",
+    "Persistent駐留 within compromised environments",
+    "sophisticated evasion techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for cloud service accounts",
+    "Monitor for unauthorized cryptocurrency mining activity",
+    "Regularly update and patch cloud infrastructure software",
+    "Train employees to recognize phishing attempts targeting cloud credentials",
+    "Conduct thorough logging reviews for signs of credential scraping",
+    "Deploy a SIEM solution to detect异常 IOC patterns",
+    "Engage with threat intelligence feeds to identify emerging threats"
+  ],
+  "campaignsText": "Returned Libra has been linked to multiple long-term campaigns targeting cloud service providers and their clients. Their operations typically involve a prolonged驻留 within targeted networks, with minimal disruptive activity to avoid detection. Notable patterns include theuse of legitimate cloud platforms for mining infrastructure, as well as thestealthy exfiltration of credentials for future use._past campaigns have been observed in Asia-Pacific and Europe, suggesting a global targeting strategy.",
+  "description": "Returned Libra, also known as the 8220 Mining Group, is a cloud-based threat actor group suspected to originate from a GitHub fork of the Rocke group's software. They have been active since at least 2017 and specialize in cryptojacking using customized XMRig variants like PwnRig and DBUsed. Their operations involve scraping cloud service credentials to deploy mining activities, targeting sectors with high cloud infrastructure usage to maximize revenue from cryptocurrency mining.",
+  "goals": "Returned Libra's primary motivation appears to be financial gain through unauthorized cryptocurrency mining. They target industries with substantial cloud infrastructure, as these environments provide ample processing power for mining operations. Their targeting strategy focuses on sectors where the detection of mining activities is less likely, such as educational institutions, healthcare providers, and government agencies. The group's ability to scrape cloud credentials allows them to scale their operations effectively, leading to significant financial losses for victims due to increased infrastructure costs and potential data breaches.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A851",
+  "sourceUrl": "https://threaticon.com/threat-actors/851"
+}

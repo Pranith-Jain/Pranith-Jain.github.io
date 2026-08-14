@@ -1,0 +1,45 @@
+{
+  "slug": "clever-kitten",
+  "id": 240,
+  "name": "Clever Kitten",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Iran (IR)",
+  "originCode": "IR",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["nation-state", "espionage", "government TARGETING", "defense sector", "APT", "Backdoor / C2"],
+  "aliases": ["Clever Kitten", "Group 41"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion"],
+  "techniques": ["T1086", "T1567"],
+  "tools": ["Acunetix Web Vulnerability Scanner", "PHP Webshell RC SHELL"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Unusual web traffic related to vulnerability scanning tool usage",
+    "Fileless persistence mechanisms in targeted systems"
+  ],
+  "keyCapabilities": [
+    "Use of Acunetix Web Vulnerability Scanner for network reconnaissance",
+    "Deployment of PHP Webshell RC SHELL for persistence",
+    "Targeting government communications and defense contracts",
+    "Long-term operation and lateral movement within networks"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for unusual vulnerability scan activities",
+    "Use web application firewalls and intrusion detection systems to block known exploit attempts",
+    "Conduct regular security audits of government-facing web applications",
+    "Apply patches promptly to critical vulnerabilities identified during scans"
+  ],
+  "campaignsText": "Clever Kitten has been active since at least 2015, with campaigns targeting Southeast Asian countries. Their operations are characterized by persistent attacks and careful post-exploitation activities to avoid detection. Notable patterns include the use of web-based tools and a focus on maintaining stealthy long-term access.",
+  "description": "Clever Kitten, also known as Group 41, is a nation-state threat actor primarily involved in espionage activities targeting government and defense sectors. The group has demonstrated intermediate sophistication, leveraging tools like Acunetix Web Vulnerability Scanner for reconnaissance and PHP Webshell RC SHELL for persistence. Their operations have been active over several years, with recent sightings indicating continued threats to critical infrastructure.",
+  "goals": "Clever Kitten's primary motivation appears to be espionage, with a focus on collecting sensitive data from government and defense sectors. The group likely targets countries with significant political or economic influence in regions of interest to the nation-state sponsor. Their targeting profile suggests an emphasis on long-term access and data exfiltration rather than immediate disruptive actions.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A240",
+  "sourceUrl": "https://threaticon.com/threat-actors/240"
+}

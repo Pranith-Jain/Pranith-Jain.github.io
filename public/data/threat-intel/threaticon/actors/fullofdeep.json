@@ -1,0 +1,44 @@
+{
+  "slug": "fullofdeep",
+  "id": 193,
+  "name": "FullofDeep",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["nation-state", "espionage", "ransomware", "GB", "UA", "Ransomware", "APT"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": ["GB", "UA"],
+  "tactics": ["Reconnaissance", "Lateral Access Expansion", "Staged Access"],
+  "techniques": ["T1566.003", "T1003", "T1021", "T1084"],
+  "tools": ["QNAPCrypt ransomware"],
+  "iocPatterns": [
+    "Spear-phishing targeting specific sectors",
+    "Use of QNAPCrypt ransomware for system encryption",
+    "Indicator activity linked to nation-state espionage tools"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Use of QNAPCrypt ransomware",
+    "Geographically targeted attacks",
+    "Espionage-focused activities"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint detection and response (EDR) solutions to identify advanced threats.",
+    "Conduct regular vulnerability assessments and patch management to mitigate exploit attempts.",
+    "Monitor network traffic for signs of data exfiltration or encrypted communications."
+  ],
+  "campaignsText": "FullofDeep's campaigns are likely regionally focused, targeting GB and UA. Their use of QNAPCrypt suggests a preference for encrypting systems to extort ransoms while potentially exfiltrating data during the attack process. The group operates with a modus operandi consistent with nation-state actors, emphasizing stealth and long-term access.",
+  "description": "FullofDeep is a nation-state level threat actor primarily engaged in espionage activities. The group has targeted specific sectors and countries, including the United Kingdom (GB) and Ukraine (UA), leveraging advanced tools such as QNAPCrypt ransomware. Their operations suggest a sophisticated capability to compromise systems with the goal of extracting sensitive information.",
+  "goals": "FullofDeep's primary objective appears to be intelligence gathering, likely for state-sponsored espionage purposes. They target sectors and countries that align with their geopolitical interests, focusing on GB and UA as potential high-value targets for sensitive data. Their choice of ransomware indicates the ability to disrupt operations while also extracting information during the attack process.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A193",
+  "sourceUrl": "https://threaticon.com/threat-actors/193"
+}

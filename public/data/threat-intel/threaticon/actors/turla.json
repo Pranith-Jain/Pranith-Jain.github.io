@@ -1,0 +1,65 @@
+{
+  "slug": "turla",
+  "id": 31,
+  "name": "Turla",
+  "mitreId": "G0010",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government",
+    "defense",
+    "Initial Access",
+    "Healthcare Targeting",
+    "Phishing",
+    "Government Targeting"
+  ],
+  "aliases": ["IRON HUNTER", "Group 88", "Waterbug", "WhiteBear"],
+  "targetedSectors": ["Government", "Defense", "Energy", "Aerospace & defense", "Legal"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Discovery"],
+  "techniques": [
+    "T1059.003",
+    "T1087.002",
+    "T1546.013",
+    "T1069.002",
+    "T1005",
+    "T1055",
+    "T1071.003",
+    "T1112",
+    "T1083",
+    "T1027.010"
+  ],
+  "tools": ["Uroburos", "Gazer", "LunarLoader", "Crutch", "Mosquito", "KOPILUWAK"],
+  "iocPatterns": [
+    "Malware hashes: e298b83891b192b8a2782e638e7f5601acf13bab2f619215ac68a0b61230a273",
+    "Domain: connectotels.net",
+    "IP addresses: 94.177.198.94, 162.213.195.129"
+  ],
+  "keyCapabilities": [
+    "Custom malware development",
+    "Advanced persistence techniques",
+    "Watering hole attacks",
+    "Spear-phishing campaigns",
+    "Malware deployment"
+  ],
+  "recommendedActions": [
+    "Monitor for known Turla malware hashes in network traffic.",
+    "Implement multi-factor authentication for critical systems.",
+    "Conduct regular security audits focusing on government and defense infrastructure."
+  ],
+  "campaignsText": "Turla has been involved in numerous high-profile campaigns, including the 'RUAG hack' and operations under aliases like 'VENOMOUS Bear'. Their campaigns often exhibit long-term persistence and use of custom tools designed for specific espionage purposes.",
+  "description": "Turla is a sophisticated Russian cyber espionage group linked to the FSB, targeting critical sectors globally since at least 2004. Known for advanced malware like Uroburos and leveraging multiple attack vectors, Turla poses significant risks to government and defense infrastructure through persistent, targeted campaigns.",
+  "goals": "Turla's primary goal appears to be espionage, with a focus on compromising government entities, defense industries, and other sectors that hold strategic information of interest to Russian interests. Their targeting of Ukraine suggests a geopolitical focus aligned with broader Russian foreign policy objectives.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A31",
+  "sourceUrl": "https://threaticon.com/threat-actors/31"
+}

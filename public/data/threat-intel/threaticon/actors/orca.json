@@ -1,0 +1,52 @@
+{
+  "slug": "orca",
+  "id": 538,
+  "name": "orca",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial crime",
+    "Organized crime",
+    "Healthcare Targeting",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Credential Access", "Impact"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Zeppelin malware", "Custom ransomware tools"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "Ransomware notes with demands for Bitcoin payment",
+    "Network beaconing to command and control servers"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Network exploitation",
+    "Data encryption",
+    "Negotiation for ransom payment"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to block spear-phishing attempts",
+    "Conduct regular vulnerability assessments and patching",
+    "Backup critical data regularly and store offline",
+    "Implement a ransomware response plan"
+  ],
+  "campaignsText": "Orca's campaign patterns are characterized by targeted ransomware attacks against specific sectors, with an operational tempo that suggests the group is actively seeking to exploit vulnerable organizations. The fact that they have claimed victims across multiple countries indicates a global scope of operations. Notable past operations include the targeting of manufacturing and logistics companies in Taiwan, Tunisia, Austria, and France, with the group avoiding hospitals, government institutions, and non-profits.",
+  "description": "The Orca ransomware group, a variant of the Zeppelin malware family, has been active since September 2024, targeting manufacturing and logistics organizations in multiple countries, with a primary motivation of financial gain. With a medium level of sophistication, Orca's attacks have already resulted in at least 5 known victims. Their operations are characterized by a focus on organizational gain through ransomware and financial exploitation.",
+  "goals": "Orca's strategic objectives are centered around achieving financial gain through the deployment of ransomware against manufacturing and logistics organizations. They target these sectors likely due to the high potential for disruption and the consequent willingness of these organizations to pay ransoms to restore operations quickly. Orca's typical victims are organizations in these sectors that have vulnerabilities in their systems, which the group can exploit to gain access and deploy their ransomware.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A538",
+  "sourceUrl": "https://threaticon.com/threat-actors/538"
+}

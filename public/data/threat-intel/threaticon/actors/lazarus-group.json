@@ -1,0 +1,57 @@
+{
+  "slug": "lazarus-group",
+  "id": 16,
+  "name": "Lazarus Group",
+  "mitreId": "G0032",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "North Korea (KP)",
+  "originCode": "KP",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Financial gain",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "espionage",
+    "finance-sector",
+    "state-sponsored",
+    "Initial Access",
+    "Ransomware",
+    "Phishing",
+    "Backdoor / C2",
+    "Wiper / Destructive"
+  ],
+  "aliases": ["Labyrinth Chollima", "HIDDEN COBRA", "Guardians of Peace", "ZINC"],
+  "targetedSectors": ["Government", "Financial services", "Technology"],
+  "targetedCountries": ["US"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Command and Control"],
+  "techniques": ["T1587.001", "T1583.004", "T1588.001", "T1566", "T1584.004"],
+  "tools": ["Wiper", "AppleJeus", "Flame", "Ransomware"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Spear phishing",
+    "Malware development and deployment",
+    "Ransomware attacks",
+    "Use of compromised servers and bitcoin-paid infrastructure",
+    "Adaptation and reorganization of units"
+  ],
+  "recommendedActions": [
+    "Implement robust email security controls to detect and prevent spear phishing attacks",
+    "Conduct regular security awareness training for employees",
+    "Use advanced threat detection and protection tools to identify and block malware",
+    "Develop a comprehensive incident response plan to respond to ransomware attacks"
+  ],
+  "campaignsText": "Lazarus Group's campaign patterns typically involve a combination of spear phishing, malware, and ransomware attacks. The group's operational tempo is often characterized by a series of coordinated attacks, followed by a period of relative inactivity. Notable past operations include the attack on Sony Pictures Entertainment, Operation Blockbuster, and Operation AppleJeus. Victim types typically include large financial institutions, government agencies, and technology companies.",
+  "description": "Lazarus Group, a North Korean state-sponsored cyber threat group, has been active since at least 2009, conducting financially motivated campaigns, espionage, and destructive attacks. The group is known for its adaptability and use of various techniques, including spear phishing, malware, and ransomware. Lazarus Group has targeted government, financial services, and technology sectors, primarily in the US.",
+  "goals": "Lazarus Group's strategic objectives and targeting profile are primarily driven by financial gain. The group has targeted government, financial services, and technology sectors, primarily in the US, to achieve its financial goals. Typical victims of Lazarus Group include large financial institutions, government agencies, and technology companies. The group's targeting profile is likely influenced by North Korea's national priorities and the need to generate revenue through cybercrime.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A16",
+  "sourceUrl": "https://threaticon.com/threat-actors/16"
+}

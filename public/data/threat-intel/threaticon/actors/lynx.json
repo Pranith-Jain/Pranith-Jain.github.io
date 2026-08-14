@@ -1,0 +1,49 @@
+{
+  "slug": "lynx",
+  "id": 495,
+  "name": "lynx",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "cybercrime", "financial-gain", "affiliate-program", "ransomware-as-a-service", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": ["T1566.002", "T1078", "T1059.003", "T1204", "T1215"],
+  "tools": ["Lynx Ransomware (custom)"],
+  "iocPatterns": [
+    "Spear-phishing emails containing attachments with malicious macros",
+    "Encrypted RDP connections from known Lynx C2 servers",
+    "Presence of specific hash-patterns in network traffic indicative of Lynx tools",
+    "Use of cryptocurrency wallets linked to known Lyhx ransomware transactions",
+    "ransom-note content demanding Bitcoin or Monero payments"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns using emails with malicious attachments or links",
+    "Ransomware deployment through custom-built tools tailored to target specific industries",
+    "Encrypted communication channels for affiliate coordination and C2 infrastructure",
+    "Sophisticated negotiation tactics to extract maximum ransom payments",
+    "Use of cryptocurrency for payment receipts and maintaining victim-anonymity"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts",
+    "Train employees on identifying suspicious emails and links",
+    "Monitor for unusual network activity, particularly encrypted communications",
+    "Regularly back up critical systems and store backups offline",
+    "Enforce strong endpoint detection and response (EDR) solutions"
+  ],
+  "campaignsText": "Lynx has conducted numerous campaigns since its emergence, targeting businesses across the globe. The group's operational tempo is driven by affiliate activity, with a focus on maximizing victim count and ransom collection efficiency. Notable past operations include attacks on healthcare providers in late 2024, technology firms in early 2025, and business service companies throughout 2026. The group often deploys its ransomware during weekends or holidays to minimize immediate detection, leveraging time-based pressure to encourage faster ransom payment negotiations.",
+  "description": "Lynx is a ransomware-as-a-service (RaaS) operation that emerged in mid-2024 as a rebranded version of the now-defunct INC Ransomware. The group has targeted numerous organizations across multiple sectors, leveraging its affiliate program to maximize profit through an 80/20 revenue split. Despite its relatively short operational timeline, Lynx has demonstrated significant sophistication in its attack methods and campaign management, making it a notable threat to businesses globally.",
+  "goals": "Lynx primarily targets sectors with high financial value or sensitive data, focusing on manufacturing, business services, technology, and healthcare. The group's strategic focus is to maximize profit through efficient affiliate-driven campaigns. Target selection appears to prioritize industries where ransom demands are likely to be higher due to the critical nature of operations or valuable intellectual property. By leveraging an affiliate network, Lynx ensures geographic and sectoral diversity in its attacks, allowing it to maintain a steady flow of victims while minimizing direct operational exposure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A495",
+  "sourceUrl": "https://threaticon.com/threat-actors/495"
+}

@@ -1,0 +1,54 @@
+{
+  "slug": "romcom",
+  "id": 678,
+  "name": "RomCom",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "Financially motivated",
+    "NATO targeting",
+    "Ukraine targeting",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": ["Storm-0978", "UAT-5647"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1110"],
+  "tools": ["RomCom backdoor", "Custom malware"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Advanced malware development",
+    "Network exploitation",
+    "Data exfiltration",
+    "Social engineering",
+    "Persistent network presence"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and user education to prevent spear-phishing attacks",
+    "Enhance network monitoring to detect and respond to C2 communications",
+    "Conduct regular vulnerability assessments and patching to prevent exploitation",
+    "Develop and implement a comprehensive incident response plan"
+  ],
+  "campaignsText": "The RomCom threat actor's campaign patterns suggest a highly targeted approach, with a focus on compromising specific organizations within Ukraine and NATO countries. Their operational tempo appears to be moderate, with a steady stream of attacks over time. Notable past operations have involved the use of the RomCom backdoor to steal sensitive information and deploy additional malware. The actor's ability to adapt and refine their tactics, tools, and procedures (TTPs) makes them a formidable opponent, requiring continuous monitoring and analysis to stay ahead of their evolving threat profile.",
+  "description": "The RomCom threat actor is a sophisticated group conducting espionage and financially motivated attacks, primarily targeting organizations in Ukraine and NATO countries. Their operations involve the use of the RomCom backdoor for stealing sensitive information and deploying additional malware. The group's adaptability and evolving sophistication pose a significant threat to targeted sectors.",
+  "goals": "The RomCom threat actor's strategic objectives appear to be centered around gathering sensitive information from targeted sectors, including military, government, and political organizations. Their targeting profile suggests a focus on compromising high-value assets, potentially to disrupt operations, steal intellectual property, or gain leverage for financial extortion. Typical victims include entities with significant strategic importance, indicating that the actor is highly selective in their targeting, likely choosing organizations that offer the greatest potential return on investment.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A678",
+  "sourceUrl": "https://threaticon.com/threat-actors/678"
+}

@@ -1,0 +1,53 @@
+{
+  "slug": "nokoyawa",
+  "id": 533,
+  "name": "nokoyawa",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Double Extortion",
+    "Financial Crime",
+    "South America",
+    "Healthcare Targeting",
+    "Zero-Day Exploitation",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Data Destruction", "Exploitation for Access", "Encryption of Data on Devices"],
+  "techniques": ["T1078.004", "T1059.015", "T1203.001", "T1485.001"],
+  "tools": ["Ransomware (double extortion variant)", "Exploit code targeting CVE-2023-28252"],
+  "iocPatterns": [
+    "Double extortion emails",
+    "Network traffic indicative of ransomware C2 servers",
+    "Exploitation attempts exploiting CVE-2023-28252",
+    "Encrypted files with specific extension patterns"
+  ],
+  "keyCapabilities": [
+    "Double extortion",
+    "Ransomware deployment",
+    "Exploitation of zero-day vulnerabilities (CVE-2023-28252)",
+    "RaaS operations"
+  ],
+  "recommendedActions": [
+    "Enhance network perimeter defenses to prevent exploit-based intrusions.",
+    "Implement rigorous backup and recovery solutions to mitigate ransomware impacts.",
+    "Monitor for T1059 activity indicative of initial access via phishing or exploited vulnerabilities."
+  ],
+  "campaignsText": "Nokoyawa has demonstrated a steady operational tempo, with campaigns primarily launching in South America. Their use of a RaaS model suggests an ability to scale their operations by outsourcing attacks to other operators, while the exploitation of a zero-day indicates moderate to high sophistication levels in their tradecraft. Notable past operations include incidents targeting healthcare providers and financial institutions, where successful compromises have led to significant financial payouts.",
+  "description": "Nokoyawa is a medium-sophistication criminal threat actor specializing in double extortion ransomware. They gained notoriety by exploiting the Windows CLFS zero-day (CVE-2023-28252) and operating a Ransomware as a Service (RaaS) program under 'farnetwork'. Primarily targeting South American businesses across healthcare, finance, government, and manufacturing sectors, they have shown significant campaign activity between 2022 and 2023.",
+  "goals": "Nokoyawa's primary goals are financial gain through ransom payments and organizational disruption. They specifically target sectors with deep financial resources and sensitive data, primarily in South American countries, where they may find lower defenses and higher success rates for extortion attempts. Their targeting indicates a focus on industries that can afford to pay ransoms without immediate public backlash, such as healthcare and financial services.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A533",
+  "sourceUrl": "https://threaticon.com/threat-actors/533"
+}

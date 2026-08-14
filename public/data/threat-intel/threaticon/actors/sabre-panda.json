@@ -1,0 +1,42 @@
+{
+  "slug": "sabre-panda",
+  "id": 223,
+  "name": "Sabre Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["Nation-state", "Espionage", "Cyberespionage", "Umbrella Revolution", "APT"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [],
+  "keyCapabilities": [
+    "Espionage",
+    "Custom malware development",
+    "Spear-phishing campaigns",
+    "Lateral movement in networks",
+    "Data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block spear-phishing attempts.",
+    "Enhance network monitoring for signs of lateral movement and data exfiltration activities.",
+    "Conduct regular risk assessments on critical infrastructure to identify potential attack vectors.",
+    "Monitor for suspicious activity linked to known espionage campaigns like the Umbrella Revolution."
+  ],
+  "campaignsText": "Sabre Panda's campaigns are characterized by persistence and customization. The actor has demonstrated the ability to maintain long-term presence within targeted networks, enabling prolonged data collection and exfiltration. Notable operations include activities linked to the Umbrella Revolution, which suggests a focus on geopolitical instability. Sabre Panda's operational tempo appears methodical, aligning with the demands of nation-state espionage.",
+  "description": "Sabre Panda, identified as a nation-state threat actor, primarily engages in espionage activities. The group has been observed targeting sectors and countries involved in the Umbrella Revolution, with a focus on gathering intelligence and compromising critical systems. Sabre Panda's operations are sophisticated and persistent, making it a significant threat to national security and private sector infrastructure.",
+  "goals": "Sabre Panda targets sectors and countries involved in the Umbrella Revolution, focusing on espionage activities to gather strategic and political intelligence. The actor likely seeks to influence or destabilize specific geopolitical situations by compromising government or private sector entities. Its targeting profile is indicative of a nation-state agenda, aiming to achieve long-term strategic goals through persistent cyber operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A223",
+  "sourceUrl": "https://threaticon.com/threat-actors/223"
+}

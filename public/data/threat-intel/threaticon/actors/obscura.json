@@ -1,0 +1,54 @@
+{
+  "slug": "obscura",
+  "id": 535,
+  "name": "obscura",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Criminal",
+    "Organizational gain",
+    "Critical Infrastructure",
+    "Zero-Day Exploitation",
+    "Financially motivated",
+    "Medium sophistication",
+    "Windows-focused"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Credential Access", "Impact"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom ransomware", "Encryption tools"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Ransomware development and deployment",
+    "Encryption using Curve25519 and XChaCha20 algorithms",
+    "Double-extortion tactics",
+    "Exploitation of Windows domain controllers via SYSVOL/NETLOGON share"
+  ],
+  "recommendedActions": [
+    "Implement robust security measures for Windows domain controllers",
+    "Regularly backup sensitive data",
+    "Educate employees on the risks of ransomware and the importance of reporting suspicious activity",
+    "Monitor for and detect Obscura ransomware attacks"
+  ],
+  "campaignsText": "Obscura's campaign patterns suggest a relatively slow and targeted approach, with a focus on exploiting Windows domain controllers and using double-extortion tactics to maximize the impact of their attacks. The attackers appear to be operating with a medium level of sophistication, and their activities have been observed over several months. Notable past operations include the compromise of 33 known victims, with the attackers likely seeking to expand their reach and increase their financial gains.",
+  "description": "The Obscura ransomware strain, first seen in July 2025, targets Windows domain controllers via the SYSVOL/NETLOGON share, using Curve25519 + XChaCha20 encryption and double-extortion tactics. With a medium sophistication level and primary motivation of organizational gain, Obscura poses a significant threat to organizations. Its activities have been observed until at least January 2026, with 33 known victims.",
+  "goals": "Obscura's strategic objectives appear to be focused on achieving financial gain through ransom payments, with a primary motivation of organizational gain. The targeting of Windows domain controllers suggests that the attackers are looking to maximize the impact of their attacks, and the use of double-extortion tactics further supports this goal. The typical victims of Obscura are likely to be organizations with sensitive data and critical systems, such as those in the finance, healthcare, and government sectors.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A535",
+  "sourceUrl": "https://threaticon.com/threat-actors/535"
+}

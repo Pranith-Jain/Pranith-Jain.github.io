@@ -1,0 +1,79 @@
+{
+  "slug": "medusa",
+  "id": 506,
+  "name": "medusa",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "ransomware",
+    "double extortion",
+    "critical infrastructure",
+    "financial-gain",
+    "cybercrime",
+    "healthcare-targeting",
+    "education-sector",
+    "manufacturing-sector",
+    "Ransomware",
+    "Healthcare Targeting",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Credential Access", "Discovery", "Lateral Movement"],
+  "techniques": [
+    "T1566.001 - Double extortion/ransom in conjunction with file encryption (Data Exfiltration)",
+    "T1059.003 - Phishing via spear-phishing attachment",
+    "T1078.001 -Credential dumping via credential theft",
+    "T1233 - Discovery of domain information for external access",
+    "T1048 - Account Access Removal (e.g., removal of user accounts)",
+    "T1055 - Process Injection (e.g., injecting malicious code into legitimate processes)"
+  ],
+  "tools": [
+    "Custom ransomware",
+    "Double extortion tools",
+    "Phishing toolkit (spear-phishing campaigns)",
+    "C2 communication channels (e.g., Tor, onion services)",
+    "Exploitation frameworks (vulnerability targeting)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails targeting critical infrastructure sectors",
+    "Landed documents containing malicious scripts (e.g., Excel macros)",
+    "C2 communication via Tor or dark web channels",
+    "Presence of encryption binaries within victim networks",
+    "Ransom notes with specific payment instructions and deadlines",
+    "Exfiltration attempts targeting sensitive data repositories"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment with double extortion tactics",
+    "Sophisticated phishing campaigns using spear-phishing emails",
+    "Exploitation of unpatched vulnerabilities in target environments",
+    "Lateral movement within networks to maximize impact",
+    "Custom-built encryption tools for data exfiltration and ransom demands",
+    "Coordinated attacks on critical infrastructure sectors",
+    "Use of onion-based communication channels for C2 infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing emails",
+    "Monitor for suspicious activity in network shares and backups",
+    "Conduct regular vulnerability scanning and patch management",
+    "Enforce strict access controls and least privilege policies",
+    "Train employees to recognize spear-phishing attempts",
+    "Deploy endpoint detection and response (EDR) solutions",
+    "Maintain offline backups of critical systems and regularly test restoration"
+  ],
+  "campaignsText": "Medusa's campaigns are highly targeted and efficient, often leveraging phishing emails with malicious attachments or links to gain initial access. The group’s operational tempo has increased significantly since 2023, with a noted focus on sectors that offer higher financial incentives for successful attacks. Notable past operations include the targeting of healthcare providers in late 2024, where Medusa exploited unpatched vulnerabilities to deploy its ransomware. Campaigns are often characterized by their speed and precision, with Medusa operators typically seeking to encrypt data quickly before defenders can respond.",
+  "description": "Medusa is a ransomware-as-a-service (RaaS) operation targeting critical infrastructure sectors with double extortion tactics, having impacted over 500 victims since its inception in 2021. The group's activities have surged by 42% between 2023 and 2024, prompting a formal CISA advisory in early 2025.",
+  "goals": "Medusa's primary motivation is financial gain, achieved through ransomware attacks on organizations with high susceptibility to such threats. The group specifically targets sectors where ransoms are more likely to be paid, such as healthcare and education, due to potential disruptions in essential services. Medusa’s victims are often selected based on factors like slow backup recovery times or international operations that may complicate law enforcement responses.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A506",
+  "sourceUrl": "https://threaticon.com/threat-actors/506"
+}

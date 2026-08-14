@@ -1,0 +1,43 @@
+{
+  "slug": "ta402",
+  "id": 970,
+  "name": "TA402",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "P",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Government Targeting", "Intelligence Collection", "Middle East", "Phishing", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Adversary-in-the-Cloud"],
+  "techniques": ["T1059", "T1566"],
+  "tools": ["Custom Malware", "Cloud Service Abuse Tools"],
+  "iocPatterns": [
+    "Spear-phishing emails",
+    "Malicious links in cloud storage",
+    "Command-and-control via legitimate services"
+  ],
+  "keyCapabilities": [
+    "Sophisticated phishing campaigns",
+    "Custom malware development",
+    "Cloud service abuse for C2 infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions",
+    "Monitor cloud service logs for suspicious activity",
+    "Conduct regular user training on phishing awareness"
+  ],
+  "campaignsText": "TA402 has consistently targeted government entities since 2020, utilizing persistent and evasive techniques. Their campaigns often involve long-term access to facilitate data exfiltration.",
+  "description": "TA402 is an Advanced Persistent Threat (APT) group targeting Middle Eastern and North African governments since 2020, focusing on intelligence collection through sophisticated phishing campaigns and malware.",
+  "goals": "TA402's strategic objectives involve long-term access to target networks to gather sensitive intelligence. Their focus on Middle Eastern governments suggests a potential interest in geopolitical information or influence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A970",
+  "sourceUrl": "https://threaticon.com/threat-actors/970"
+}

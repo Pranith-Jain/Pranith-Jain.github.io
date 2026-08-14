@@ -1,0 +1,55 @@
+{
+  "slug": "reynolds",
+  "id": 582,
+  "name": "reynolds",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Criminal", "BYOVD", "Financial-Gain"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Discovery", "Initial Access", "Execution", "Defense Evasion"],
+  "techniques": [
+    "T1203.001 - Exploit Public-Exposure Vulnerability",
+    "T1584.001 - Defense Evasion via Driver",
+    "T1566.001 - Phishing手法",
+    "T1805 - Data Destruction/Encryption",
+    "T1059.003 - Command-line Instrument.exe"
+  ],
+  "tools": ["ExploitKit", "PSExecute", "Cobalt Strike", "Custom Ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents",
+    "Exploitation of CVE-2025-68947",
+    "Ransomware payload delivery via encrypted files",
+    "Lateral movement using PSExecute and other tools",
+    "C2 communication over HTTP/HTTPS channels"
+  ],
+  "keyCapabilities": [
+    "Exploitation of CVE-2025-68947 for defense evasion",
+    "BYOVD technique to terminate security software",
+    "Ransomware deployment with extortion notes in multiple languages",
+    "Lateral movement within networks using tools like PSExecute",
+    "Encrypted command-and-control (C2) communication channels"
+  ],
+  "recommendedActions": [
+    "Patch systems to mitigate known vulnerabilities like CVE-2025-68947",
+    "Monitor for suspicious processes and lateral movement indicators",
+    "Implement email filtering to detect phishing attempts",
+    "Conduct regular backups of critical data and isolate backup assets",
+    "Educate employees on ransomware awareness and safe email practices"
+  ],
+  "campaignsText": "Reynolds' campaigns are characterized by their use of RaaS affiliates, rapid deployment, and focus on high-value targets. The group's short operational history limits known campaign patterns, but initial sightings suggest a preference for North American and European targets in the financial and healthcare sectors. Reynolds has demonstrated an ability to adapt quickly, incorporating feedback from affiliates to improve its attack toolkit.",
+  "description": "Reynolds is a medium-sized criminal threat actor group primarily involved in ransomware activities for financial gain. They were first identified on November 13, 2025, and are notable for their use of Bring Your Own Vulnerable Driver (BYOVD) defense evasion techniques to terminate security software before encrypting files. Initially linked to Black Basta, Reynolds has attracted attention from Ransomware as a Service (RaaS) affiliates due to its modular and adaptable approach.",
+  "goals": "Reynolds' primary objectives are financial gain through ransomware attacks. The group targets sectors where high-value data is concentrated, such as healthcare, education, and corporate enterprises, with a focus on mid-sized to large organizations that may lack robust incident response plans. Geographically, Reynolds appears to target regions with weaker cybersecurity frameworks and higher payout potential, though specific targeting patterns remain limited due to its early stage of operation.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A582",
+  "sourceUrl": "https://threaticon.com/threat-actors/582"
+}

@@ -1,0 +1,48 @@
+{
+  "slug": "gallmaker",
+  "id": 153,
+  "name": "Gallmaker",
+  "mitreId": "G0084",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "Cyberespionage", "Middle East", "Defense Sector", "Initial Access", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Intrusion", "Exfiltration", "Persistence"],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious附件",
+    "Malicious file executions via PowerShell and VBA macros",
+    "Archive files for payload delivery",
+    "Exfiltration channels"
+  ],
+  "keyCapabilities": [
+    "Spearphishing campaigns",
+    "Malicious file deployments",
+    "PowerShell-based execution",
+    "Obfuscation techniques",
+    "Dynamic data exchange (DDE)",
+    "Archive utilities for hiding malicious content"
+  ],
+  "recommendedActions": [
+    "Monitor network traffic for known TTPs of APT groups.",
+    "Implement strong email filtering to detect spearphishing attempts.",
+    "Regularly update software to mitigate vulnerabilities exploited by APTs.",
+    "Enhance user training on identifying suspicious emails and attachments."
+  ],
+  "campaignsText": "Gallmaker's campaigns involve targeted attacks using spearphishing attachments and malicious Office documents. The group operates with moderate frequency, focusing on long-term access to exfiltrate data. While specific campaign details are limited, their TTPs align with those observed in APT groups targeting Middle Eastern governments.",
+  "description": "Gallmaker is a cyberespionage threat actor targeting Middle Eastern defense, military, and government sectors since at least December 2017. The group employs advanced persistent threat (APT) tactics, including spearphishing and malicious file deployments, to infiltrate victim networks and exfiltrate sensitive data.",
+  "goals": "Gallmaker's strategic objectives appear focused on intelligence gathering from defense and military sectors in the Middle East. The group likely seeks sensitive information for political or strategic advantage, targeting countries where such data is critical. Their focus on government and military suggests a geopolitical agenda aligned with espionage goals.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A153",
+  "sourceUrl": "https://threaticon.com/threat-actors/153"
+}

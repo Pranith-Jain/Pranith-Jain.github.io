@@ -1,0 +1,59 @@
+{
+  "slug": "storm-0558",
+  "id": 882,
+  "name": "Storm-0558",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Nation-state", "APT", "Espionage", "Government Sector"],
+  "aliases": [],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Discovery", "Defense Evasion", "Exfiltration"],
+  "techniques": [
+    "T1566.003 - Espionage Script Injection",
+    "T1095 -redential Dumping",
+    "T1027 - Account Access Removal",
+    "T1055 - Process Injection"
+  ],
+  "tools": [
+    "Custom malware (likely used for initial access)",
+    "Cobalt Strike (for C2 and lateral movement)",
+    "Mimikatz (credential dumping)",
+    "Windows tools (e.g., Ps_EXEC, VBA scripts)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "DNS queries for C2 communication",
+    "Malicious scripts dropped on the endpoint (e.g., Powershell or VBA)",
+    "Scheduled tasks for persistence"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Custom malware development",
+    "Spear-phishing campaigns",
+    "Network infiltration and lateral movement",
+    "Persistent access to target networks"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for sensitive accounts",
+    "Monitor and block known IOC patterns in network traffic",
+    "Conduct regular employee training on phishing awareness",
+    "Deploy endpoint detection and response (EDR) solutions",
+    "Segment critical networks from general access",
+    "Use threat intelligence feeds to identify and block malicious domains"
+  ],
+  "campaignsText": "Storm-0558's campaigns are characterized by their stealthiness and targeted approach. The group likely conducts prolonged campaigns to gather sensitive information over time. Their operational tempo suggests a focus on maintaining persistence within networks rather than rapid exfiltration. Campaigns may involve initial access through spear-phishing, followed by internal movement using known tools like Cobalt Strike.",
+  "description": "Storm-0558 is a nation-state threat actor based in China with suspected ties to state-sponsored espionage activities. The group targets government sectors and has been observed using sophisticated tactics that suggest high operational maturity. While it shares some overlaps with other Chinese APTs like Violet Typhoon, it operates as a distinct entity, targeting sensitive information for strategic intelligence purposes.",
+  "goals": "Storm-0558's strategic objectives are likely aligned with the broader interests of China's state-sponsored cyber espionage efforts. The group targets government entities due to their potential access to classified information and influence over national policies. Their targeting profile indicates a focus on sectors that provide strategic advantage, such as defense, foreign policy, and intelligence gathering.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A882",
+  "sourceUrl": "https://threaticon.com/threat-actors/882"
+}

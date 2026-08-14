@@ -1,0 +1,47 @@
+{
+  "slug": "ech0raix",
+  "id": 424,
+  "name": "ech0raix",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Gain", "Server-Targeted", "Criminal", "Critical Infrastructure", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Execution"],
+  "techniques": ["T1071.004", "T1566.003"],
+  "tools": ["QNAPCrypt ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Office documents targeting server admins",
+    "C2 communication via insecure protocols",
+    "Server-side encryption without on-screen messages",
+    "Creation of unique Bitcoin wallets per victim"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "C2 communication for encryption key retrieval",
+    "Unique Bitcoin wallet creation per victim",
+    "Server-side encryption techniques"
+  ],
+  "recommendedActions": [
+    "Implement network segmentation to isolate critical data",
+    "Monitor for unusual processes and C2 traffic using advanced analytics",
+    "Regularly back up critical data offsite and verify backups",
+    "Enforce multi-factor authentication and access controls for remote access",
+    "Stay informed about emerging ransomware variants and attack vectors"
+  ],
+  "campaignsText": "Ech0raix's operations are characterized by varied infrastructure use and avoidance of direct victim messaging, possibly to mitigate detection. The actor's emphasis on financial gain indicates ongoing activity in sectors where server compromise yields substantial ransoms. Notable for its unique wallet approach but no confirmed campaigns linked yet.",
+  "description": "Ech0raix is a medium-sophistication criminal threat actor primarily motivated by organizational gain through ransomware activities. The actor employs QNAPCrypt ransomware to target servers, leaving unique Bitcoin wallets for each victim and avoiding on-screen ransom notes. Their operations suggest a technical approach tailored for server environments, making them a significant financial threat.",
+  "goals": "Ech0raix's primary goal is financial gain through ransomware deployment. While targeted sectors and countries remain unspecified, their focus on server environments suggests potential targeting of industries with significant data storage needs. The use of unique wallets per victim could indicate an intention to broaden attack vectors without immediate attribution risks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A424",
+  "sourceUrl": "https://threaticon.com/threat-actors/424"
+}

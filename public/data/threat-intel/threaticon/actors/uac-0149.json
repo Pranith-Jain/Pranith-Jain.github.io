@@ -1,0 +1,63 @@
+{
+  "slug": "uac-0149",
+  "id": 1091,
+  "name": "UAC-0149",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Espionage",
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "Ukraine-focused", "military-sector-targeting", "Initial Access", "Backdoor / C2"],
+  "aliases": ["Advanced Persistent Threat 39", "Chafer", "Cadelspy", "Remexi"],
+  "targetedSectors": [
+    "Defense",
+    "Government",
+    "Financial services",
+    "Media",
+    "Non profit",
+    "Manufacturing",
+    "Energy",
+    "Oil gas",
+    "Education",
+    "Mining",
+    "Maritime",
+    "Telecommunications",
+    "Think tank",
+    "Healthcare",
+    "Utilities"
+  ],
+  "targetedCountries": ["UA", "RU", "CN", "IR", "KP", "US", "MX", "IN", "VN", "KR", "BY", "AZ"],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Collection", "Exfiltration"],
+  "techniques": ["T1059", "T1059.003", "T1566", "T1566.002", "T1070"],
+  "tools": ["COOKBOX malware (likely a custom framework)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or documents targeting military personnel",
+    "Dynamic DNS domain registrations associated with the actor's C2 infrastructure",
+    "Network traffic originating from Cloudflare Worker services",
+    "Registry changes or persistence mechanisms linked to COOKBOX malware"
+  ],
+  "keyCapabilities": [
+    "Obfuscation techniques (character encoding, base64)",
+    "Deployment of COOKBOX malware",
+    "Use of dynamic DNS for C2 infrastructure",
+    "Leveraging Cloudflare Workers for command and control",
+    "Spear-phishing campaigns targeting military personnel"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection solutions to identify spear-phishing attempts",
+    "Monitor network traffic for suspicious domains or IP addresses associated with dynamic DNS services",
+    "Enhance endpoint protection to detect and block obfuscated malicious payloads",
+    "Conduct regular audits of system configurations to remove potential backdoors"
+  ],
+  "campaignsText": "UAC-0149 has been observed targeting Ukrainian military personnel since early reports emerged in 2023. Their campaigns exhibit persistence, with a focus on compromising systems and maintaining access through obfuscation. The group's reliance on legitimate services like Cloudflare Workers for C2 infrastructure suggests an ability to operate stealthily while targeting high-value assets.",
+  "description": "UAC-0149 is a threat actor targeting the Armed Forces of Ukraine using COOKBOX malware. The group employs obfuscation techniques such as character encoding and base64 to evade detection, and their C2 infrastructure leverages dynamic DNS services and Cloudflare Workers. Their operations demonstrate moderate sophistication with a focus on evading detection through technical means.",
+  "goals": "UAC-0149's primary objective appears to be targeting the Armed Forces of Ukraine, likely for espionage or disruption purposes. Their focus on military sectors suggests a state-sponsored or politically motivated group aiming to impair Ukraine's defensive capabilities. The use of COOKBOX malware indicates a preference for targeted and persistent attacks, with an emphasis on evading detection through advanced technical means.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1091",
+  "sourceUrl": "https://threaticon.com/threat-actors/1091"
+}

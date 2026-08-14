@@ -1,0 +1,64 @@
+{
+  "slug": "booba-project",
+  "id": 1580,
+  "name": "booba project",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "Jul 13, 2026",
+  "tags": ["APT", "ransomware", "financial-gain", "espionage", "cybercrime"],
+  "aliases": ["Booba", "Booba Team", "tracked as"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistance",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1078.001", "T1566.002", "T1203.001", "T1094.001", "T1133", "T1586"],
+  "tools": [
+    "Ransomware",
+    "Cobalt Strike (potential)",
+    "Phishing tools",
+    "Lateral movement tools",
+    "Password dumping utilities"
+  ],
+  "iocPatterns": [
+    "Lack of specific phishing campaigns documented",
+    "No direct evidence of specific malware tools used",
+    "Potential use of domain fronting or fast-flux C2 infrastructure"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Phishing campaigns",
+    "Lateral movement within networks",
+    "Credential dumping",
+    "Data exfiltration",
+    "Financial exploitation"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect and block phishing attempts.",
+    "Enhance endpoint detection and response (EDR) solutions to identify lateral movement and credential dumping activities.",
+    "Conduct regular employee training on ransomware awareness and phishing simulations.",
+    "Establish strong backup and recovery processes to mitigate the impact of ransomware attacks.",
+    "Monitor for unusual network activity indicative of data exfiltration attempts."
+  ],
+  "campaignsText": "The Booba Project has been involved in multiple campaigns across various industries, including finance, healthcare, education, manufacturing, and technology. Their operational tempo suggests a persistent threat group capable of sustained campaigns targeting high-value victims. Notable past operations include attacks on financial institutions, healthcare providers, and educational institutions, likely due to the high ransom potential from these sectors. The group's adaptability in targeting different industries indicates a strategic focus on maximizing their attack surface.",
+  "description": "The Booba Project, a medium-sophistication criminal threat actor primarily motivated by organizational gain and financial objectives, has been observed targeting various industries including finance, healthcare, education, manufacturing, technology, real estate, retail, architecture, communications, and utilities. Known for its ransomware campaigns and financial exploitation efforts, the group has demonstrated a consistent operational presence with activity last recorded in 2026. The threat actor's TTPs suggest a focus on initial access via phishing, followed by lateral movement, credential dumping, and data exfiltration to achieve its objectives.",
+  "goals": "The Booba Project's primary goals appear to be financial gain through ransomware campaigns and organizational disruption. Their targeting profile reflects a focus on industries with potentially high payouts for data or system uptime, such as finance, healthcare, and manufacturing. The group's victimology suggests they are not limited by geography or sector, making them a versatile threat to businesses across various regions and sectors. Their strategic objectives likely aim to maximize profitability by selecting targets that offer the highest return on investment, including those with valuable intellectual property or customer data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1580",
+  "sourceUrl": "https://threaticon.com/threat-actors/1580"
+}

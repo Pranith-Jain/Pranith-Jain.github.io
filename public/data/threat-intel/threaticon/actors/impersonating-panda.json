@@ -1,0 +1,45 @@
+{
+  "slug": "impersonating-panda",
+  "id": 214,
+  "name": "Impersonating Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Financial gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Financial Espionage", "Nation-State Actor", "Cyber-Theft", "Financial Targeting"],
+  "aliases": ["Impersonating Panda"],
+  "targetedSectors": ["Financial services"],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Exfiltration", "Lateral Movement", "Credential Access"],
+  "techniques": ["T1059.003", "T1078", "T1566.002", "T1048.001"],
+  "tools": ["Custom malware", "Web Shells", "SMB Relays"],
+  "iocPatterns": [
+    "Spear-phishing emails mimicking legitimate financial communications",
+    "Use of web shells for persistent access",
+    "Unusual network traffic indicative of data exfiltration"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Custom malware development",
+    "Lateral movement within networks",
+    "Data exfiltration techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems",
+    "Enhance email security with SPF, DKIM, and DMARC policies",
+    "Monitor for suspicious lateral movement and data transfer activities",
+    "Conduct regular training on social engineering and phishing awareness"
+  ],
+  "campaignsText": "Impersonating Panda likely conducts long-term, stealthy campaigns to avoid detection. Their operations may involve initial access through phishing or compromised credentials, followed by lateral movement and data exfiltration. Notable campaigns may include targeted attacks on high-profile financial institutions to extract sensitive information for financial gain.",
+  "description": "Impersonating Panda is identified as a nation-state threat actor primarily motivated by financial gain. Targeted sectors include the financial services industry, suggesting a focus on sensitive economic data and potential theft or fraudulent activities.",
+  "goals": "Impersonating Panda's strategic objectives appear to be aligned with the extraction of sensitive financial data, potentially for the purpose of fraud, extortion, or sale on the dark web. Their targeting of the financial sector underscores the high value of such information in the cybercrime ecosystem, where data breaches and transaction hijackings can yield significant financial returns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A214",
+  "sourceUrl": "https://threaticon.com/threat-actors/214"
+}

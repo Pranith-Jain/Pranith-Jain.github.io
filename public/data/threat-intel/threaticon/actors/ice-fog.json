@@ -1,0 +1,42 @@
+{
+  "slug": "ice-fog",
+  "id": 197,
+  "name": "Ice Fog",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "government", "telecommunications", "Backdoor / C2", "Government Targeting"],
+  "aliases": ["Dagger Panda", "IceFog", "ICEFOG", "Fucobha"],
+  "targetedSectors": ["Government", "Telecommunications", "Defense"],
+  "targetedCountries": ["TW", "KR", "JP"],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Dagger Three C2 software", "Fucobha Backdoor"],
+  "iocPatterns": ["Use of Dagger Three C2 software", "Deployment of Fucobha Backdoor in targeted networks"],
+  "keyCapabilities": [
+    "Development of custom C2 software (Dagger Three)",
+    "Deployment of Fucobha Backdoor for persistent access",
+    "Sophisticated malware development capabilities",
+    "Advanced persistence techniques"
+  ],
+  "recommendedActions": [
+    "Implement rigorous email filtering and phishing detection mechanisms",
+    "Monitor network traffic for signs of persistent backdoor activities",
+    "Conduct regular vulnerability assessments and apply patches promptly",
+    "Enhance user training to identify spear-phishing attempts",
+    "Use endpoint detection and response (EDR) tools to detect anomalies"
+  ],
+  "campaignsText": "Ice Fog's campaign patterns are not well-documented, but their operations suggest a focus on long-term access and data collection. The group likely operates with a slower, more deliberate pace to avoid detection while maintaining persistence across multiple targets. While specific campaigns remain unclear, the sustained targeting of defense and government sectors points to organized, strategic activity.",
+  "description": "Ice Fog, also known as Dagger Panda or Red Foxtrot, is a nation-state threat actor primarily involved in espionage activities targeting government, telecommunications, and defense sectors in countries such as Taiwan, South Korea, Japan, and the United States. The group is known for its sophisticated tools like Dagger Three C2 software and Fucobha Backdoor, and has demonstrated persistent activity across multiple industries to gather sensitive intelligence.",
+  "goals": "Ice Fog's strategic objectives appear to center around espionage, likely to support national security or military interests. The group's focus on government and defense sectors suggests an intent to gather sensitive military, political, and technological information from these targets. Despite being linked to multiple aliases and potential state affiliations, the exact goals beyond espionage remain unclear. Their targeting of countries like Taiwan, Japan, and South Korea may indicate regional strategic priorities or conflicts.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A197",
+  "sourceUrl": "https://threaticon.com/threat-actors/197"
+}

@@ -59,6 +59,19 @@ import {
   type TcEntityIndex,
   type TcEntityBody,
   type TcEntityType,
+  loadThreaticonIndex,
+  getThreaticonActor,
+  loadThreaticonMalware,
+  loadThreaticonCoverage,
+  loadThreaticonMap,
+  filterThreaticonActors,
+  filterThreaticonMalware,
+  filterThreaticonCoverage,
+  type TiThreaticonIndex,
+  type TiThreaticonActorBody,
+  type TiThreaticonMalwareBody,
+  type TiThreaticonCoverageBody,
+  type TiThreaticonMapBody,
 } from './threat-intel-manifest';
 
 function makeAssetsFixture() {
@@ -628,6 +641,132 @@ function makeAssetsFixture() {
     ],
   };
   data.set('/data/threat-intel/threatcluster/entities/group/clop.json', tcEntityGroup);
+
+  const tiIdx: TiThreaticonIndex = {
+    source: 'threaticon.com',
+    url: 'https://threaticon.com',
+    description: 'STIX 2.1 threat-actor catalog',
+    syncedAt: '2026-08-13T00:00:00Z',
+    builtAt: '2026-08-13T00:00:00Z',
+    counts: {
+      actors: 2,
+      actorsWithProfiles: 2,
+      malwareFamilies: 2,
+      malwareCategories: 2,
+      techniques: 1,
+      tactics: 1,
+      originCountries: 2,
+      targetedCountries: 1,
+      sectors: 1,
+    },
+    tactics: { execution: { techniqueCount: 1, coveragePct: 100 } },
+    actors: [
+      {
+        slug: 'lazarus-group',
+        id: 319,
+        name: 'Lazarus Group',
+        mitreId: 'G0032',
+        status: 'Active',
+        tlp: 'amber',
+        confidence: 85,
+        types: ['Nation-State', 'Espionage'],
+        originCode: 'KP',
+        countryOfOrigin: 'North Korea (KP)',
+        techniquesCount: 4,
+        toolsCount: 2,
+        targetedCountriesCount: 3,
+        tagsCount: 5,
+        added: '2026-05-02',
+      },
+      {
+        slug: 'fin7',
+        id: 12,
+        name: 'FIN7',
+        mitreId: 'G0046',
+        status: 'Active',
+        tlp: 'white',
+        confidence: 70,
+        types: ['Criminal'],
+        originCode: 'RU',
+        countryOfOrigin: 'Russia (RU)',
+        techniquesCount: 2,
+        toolsCount: 1,
+        targetedCountriesCount: 0,
+        tagsCount: 0,
+        added: '2026-05-01',
+      },
+    ],
+  };
+  data.set('/data/threat-intel/threaticon/index.json', tiIdx);
+
+  const tiActor: TiThreaticonActorBody = {
+    slug: 'lazarus-group',
+    id: 319,
+    name: 'Lazarus Group',
+    mitreId: 'G0032',
+    status: 'Active',
+    tlp: 'amber',
+    confidence: 85,
+    types: ['Nation-State', 'Espionage'],
+    originCode: 'KP',
+    countryOfOrigin: 'North Korea (KP)',
+    techniquesCount: 4,
+    toolsCount: 2,
+    targetedCountriesCount: 3,
+    tagsCount: 5,
+    added: '2026-05-02',
+    sophistication: 'Advanced',
+    resourceLevel: 'State-sponsored',
+    motivation: 'Financial, Espionage',
+    tags: ['north korea', 'ransomware'],
+    aliases: ['Lazarus', 'Guardians of Peace'],
+    targetedSectors: ['Financial', 'Cryptocurrency'],
+    targetedCountries: ['US', 'KR'],
+    tactics: ['Initial Access', 'Execution'],
+    techniques: ['T1566', 'T1059.001'],
+    tools: ['BADCALL', 'AppleJeus'],
+    iocPatterns: ['domain:daily#update.org'],
+    keyCapabilities: ['Custom backdoors'],
+    recommendedActions: ['Hunt for AppleJeus'],
+    campaignsText: '2020 crypto heists',
+    description: 'A DPRK-sponsored cyber threat group.',
+    goals: 'Financial gain, espionage',
+    killChain: '/graph/kill-chain?entity=threat_actor%3A319',
+    sourceUrl: 'https://threaticon.com/threat-actors/319',
+  };
+  data.set('/data/threat-intel/threaticon/actors/lazarus-group.json', tiActor);
+
+  const tiMalware: TiThreaticonMalwareBody = {
+    source: 'threaticon.com',
+    syncedAt: '2026-08-13T00:00:00Z',
+    familyCount: 2,
+    byCategory: { Malware: 1, Ransomware: 1 },
+    families: [
+      { id: 1, name: 'AppleJeus', category: 'Malware', tlp: 'amber', confidence: 90, status: 'Active' },
+      { id: 2, name: 'LockBit', category: 'Ransomware', tlp: 'red', confidence: 95, status: 'Active' },
+    ],
+  };
+  data.set('/data/threat-intel/threaticon/malware.json', tiMalware);
+
+  const tiCoverage: TiThreaticonCoverageBody = {
+    source: 'threaticon.com',
+    syncedAt: '2026-08-13T00:00:00Z',
+    techniqueCount: 1,
+    tactics: { execution: { techniqueCount: 1, coveragePct: 100 } },
+    techniques: [{ patternId: 1, techniqueId: 'T1059.001', name: 'PowerShell', tactic: 'Execution', rules: 4 }],
+  };
+  data.set('/data/threat-intel/threaticon/coverage.json', tiCoverage);
+
+  const tiMap: TiThreaticonMapBody = {
+    builtAt: '2026-08-13T00:00:00Z',
+    origin: [
+      { code: 'KP', count: 1 },
+      { code: 'RU', count: 1 },
+    ],
+    targeted: [{ code: 'US', count: 1 }],
+    sectors: [{ sector: 'Financial', count: 1 }],
+  };
+  data.set('/data/threat-intel/threaticon/map.json', tiMap);
 
   const assets = {
     fetch: vi.fn(async (req: Request) => {
@@ -1344,5 +1483,103 @@ describe('tiCacheStats (threatcluster)', () => {
     expect(s.threatcluster.vulnerabilities.size).toBe(1);
     expect(s.threatcluster.exploits.size).toBe(0);
     expect(s.threatcluster.victims.size).toBe(0);
+  });
+});
+
+describe('loadThreaticonIndex', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('fetches and caches the index', async () => {
+    const { assets } = makeAssetsFixture();
+    const a = await loadThreaticonIndex(assets);
+    const b = await loadThreaticonIndex(assets);
+    expect(a).toBe(b);
+    expect(a.counts.actors).toBe(2);
+  });
+
+  it('throws when the index is missing', async () => {
+    const emptyAssets = { fetch: vi.fn(async () => new Response('', { status: 404 })) } as unknown as Fetcher;
+    await expect(loadThreaticonIndex(emptyAssets)).rejects.toThrow(/Threaticon manifest not found/);
+  });
+});
+
+describe('getThreaticonActor', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns a full actor profile (case-insensitive slug) + caches', async () => {
+    const { assets } = makeAssetsFixture();
+    const a = await getThreaticonActor(assets, 'LAZARUS-GROUP');
+    expect(a).not.toBeNull();
+    expect(a!.mitreId).toBe('G0032');
+    expect(a!.originCode).toBe('KP');
+    expect(a!.techniques).toEqual(['T1566', 'T1059.001']);
+    const b = await getThreaticonActor(assets, 'lazarus-group');
+    expect(b).toBe(a);
+  });
+
+  it('returns null for unknown actors', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getThreaticonActor(assets, 'nobody')).toBeNull();
+  });
+});
+
+describe('threaticon collections', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('loads malware, coverage, and map', async () => {
+    const { assets } = makeAssetsFixture();
+    const malware = await loadThreaticonMalware(assets);
+    expect(malware!.familyCount).toBe(2);
+    expect(malware!.byCategory.Ransomware).toBe(1);
+    const coverage = await loadThreaticonCoverage(assets);
+    expect(coverage!.techniques[0]!.techniqueId).toBe('T1059.001');
+    expect(coverage!.tactics.execution!.coveragePct).toBe(100);
+    const map = await loadThreaticonMap(assets);
+    expect(map!.origin).toHaveLength(2);
+  });
+});
+
+describe('threaticon filters', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('filters actors by type / country / mitre / keyword', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadThreaticonIndex(assets);
+    expect(filterThreaticonActors(idx, { type: 'criminal' }).map((a) => a.slug)).toEqual(['fin7']);
+    expect(filterThreaticonActors(idx, { country: 'kp' }).map((a) => a.slug)).toEqual(['lazarus-group']);
+    expect(filterThreaticonActors(idx, { hasMitre: true })).toHaveLength(2);
+    expect(filterThreaticonActors(idx, { keyword: 'FIN7' }).map((a) => a.slug)).toEqual(['fin7']);
+  });
+
+  it('filters malware families by category / confidence', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = (await loadThreaticonMalware(assets))!;
+    expect(filterThreaticonMalware(body, { category: 'ransomware' }).map((f) => f.name)).toEqual(['LockBit']);
+    expect(filterThreaticonMalware(body, { minConfidence: 92 }).map((f) => f.name)).toEqual(['LockBit']);
+  });
+
+  it('filters coverage techniques by tactic / rules', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = (await loadThreaticonCoverage(assets))!;
+    expect(filterThreaticonCoverage(body, { tactic: 'execution' })).toHaveLength(1);
+    expect(filterThreaticonCoverage(body, { minRules: 5 })).toHaveLength(0);
+  });
+});
+
+describe('tiCacheStats (threaticon)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports threaticon index + actor body cache stats', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadThreaticonIndex(assets);
+    await getThreaticonActor(assets, 'lazarus-group');
+    await getThreaticonActor(assets, 'lazarus-group');
+    await getThreaticonActor(assets, 'fin7');
+    const s = tiCacheStats();
+    expect(s.threaticon.indexLoaded).toBe(true);
+    expect(s.threaticon.indexAgeMs).toBeGreaterThanOrEqual(0);
+    expect(s.threaticon.actors.size).toBe(1);
+    expect(s.threaticon.actors.hits).toBe(1);
+    expect(s.threaticon.actors.misses).toBe(2);
   });
 });

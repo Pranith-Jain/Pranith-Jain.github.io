@@ -1,0 +1,64 @@
+{
+  "slug": "the-gentlemen",
+  "id": 702,
+  "name": "the gentlemen",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 14, 2026",
+  "tags": [
+    "Ransomware",
+    "Exploitation",
+    "Affiliate Program",
+    "Transportation Sector",
+    "Construction Sector",
+    "Critical Infrastructure",
+    "Data Exfiltration"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Transportation", "Construction"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Lateral Movement", "Credential Access", "Extraction"],
+  "techniques": [
+    "T1059 - Command-Line Interface",
+    "T1383 - Data Leak via Paste",
+    "T1497 - Exploitation Framework",
+    "T1078 - Discovery",
+    "T1093 - Ingress Tool Transfer"
+  ],
+  "tools": ["Cobalt Strike", "Mimikatz", "Custom Ransomware", "The Gentlemen RaaS"],
+  "iocPatterns": [
+    "Exploitation of Fortinet/Cisco edge appliances",
+    "NTLM relay attacks for initial access",
+    "Use of Cobalt Strike for phishing and payload delivery",
+    "Ransomware negotiation via encrypted channels",
+    "Reused stolen credentials from prior breaches"
+  ],
+  "keyCapabilities": [
+    "Exploitation of Fortinet/Cisco edge appliance vulnerabilities",
+    "NTLM relay attacks for initial access",
+    "Credential theft and reuse",
+    "Dual-pressure negotiation tactics",
+    "Affiliate-driven infection model",
+    "Custom ransomware deployment"
+  ],
+  "recommendedActions": [
+    "Monitor Fortinet/Cisco appliances for signs of exploitation attempts",
+    "Implement multi-factor authentication (MFA) on critical systems",
+    "Patch all CVEs linked to The Gentlemen's exploit list",
+    "Enhance incident response plans to detect and mitigate NTLM relay attacks",
+    "Monitor employee communications for signs of affiliate activity"
+  ],
+  "campaignsText": "The Gentlemen group's campaign patterns include targeting large transportation and construction firms in the UK, using a mix of stolen data and direct exploitation. Their operational tempo is steady, with affiliates actively seeking new infections while maintaining control over the RaaS program. Notable past operations include high-value ransomware deployments and successful extortion campaigns leveraging dual-pressure tactics. The group's active participation in infections suggests a hands-on-approach to ensure high success rates.",
+  "description": "The Gentlemen ransomware as a service (RaaS) group operates with high sophistication, targeting transportation and construction sectors in the UK. Leaked internal communications reveal use of Fortinet/Cisco edge appliance vulnerabilities, NTLM relay attacks, and credential theft. The group leverages stolen data for secondary attacks and employs dual-pressure tactics during negotiations. Their affiliate model and active participation in infections make them a significant threat to critical infrastructure globally.",
+  "goals": "The Gentlemen RaaS group targets transportation and construction sectors due to their potential for high-value data and larger organizational footprints, making them attractive for both initial access and secondary extortion. Their primary motivation appears to be financial gain, as evidenced by successful ransom negotiations and affiliate structures designed to maximize profit. The targeting of the UK suggests a focus on developed economies with weaker security postures or industries where downtime translates into significant economic losses.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A702",
+  "sourceUrl": "https://threaticon.com/threat-actors/702"
+}

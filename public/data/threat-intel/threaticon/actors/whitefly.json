@@ -1,0 +1,72 @@
+{
+  "slug": "whitefly",
+  "id": 144,
+  "name": "Whitefly",
+  "mitreId": "G0107",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "Espionage", "Healthcare sector", "Southeast Asia"],
+  "aliases": [],
+  "targetedSectors": ["Healthcare", "Telecommunications", "Media"],
+  "targetedCountries": [],
+  "tactics": [
+    "Collection",
+    "Credential Access",
+    "Defense Evasion",
+    "Discovery",
+    "Exfiltration",
+    "Execution",
+    "Lateral Movement",
+    "Network",
+    "Reconnaissance",
+    "Subverting Governance"
+  ],
+  "techniques": [
+    "T1027.013",
+    "T1036.005",
+    "T1204.002",
+    "T1574.001",
+    "T1003.001",
+    "T1059",
+    "T1588.002",
+    "T1068",
+    "T1105"
+  ],
+  "tools": ["Cobalt Strike", "Custom Malware"],
+  "iocPatterns": [
+    "Spear-phishing emails",
+    "Encrypted communication channels",
+    "Malicious scripts embedded in documents",
+    "Lateral movement across networks",
+    "C2 communication over HTTPS or DNS"
+  ],
+  "keyCapabilities": [
+    "Use of encrypted/encoded files",
+    "Spoofing legitimate resource names or locations",
+    "Malicious file creation",
+    "DLL injection techniques",
+    "Memory dumping attacks",
+    "Command and scripting interpreter usage",
+    "Ingress tool transfer"
+  ],
+  "recommendedActions": [
+    "Enhance network monitoring for encrypted and legitimate-looking traffic.",
+    "Implement strict patch management to mitigate known vulnerabilities.",
+    "Conduct regular user training on spear-phishing and social engineering tactics.",
+    "Monitor for unusual lateral movement indicators in network logs.",
+    "Encrypt sensitive data at rest and implement access controls."
+  ],
+  "campaignsText": "Whitefly has been active since at least 2017, with notable operations including the SingHealth breach. Their campaigns frequently target high-profile organizations in Singapore's critical sectors, with a focus on data exfiltration. The group demonstrates advanced capabilities in persistence, lateral movement, and information theft.",
+  "description": "Whitefly is a cyber espionage group targeting healthcare, telecommunications, and media sectors primarily in Singapore since 2017. Their primary motive is to steal sensitive information, as evidenced by their attack on SingHealth, Singapore's largest public health organization.",
+  "goals": "Whitefly's primary objective is to steal sensitive information, particularly from healthcare institutions, although their targeting has expanded to include media and telecommunications sectors in Singapore. The group's focus on these industries suggests an interest in both personal data and potentially strategic information that could impact national security. Their victims are typically high-value targets with access to classified or proprietary information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A144",
+  "sourceUrl": "https://threaticon.com/threat-actors/144"
+}

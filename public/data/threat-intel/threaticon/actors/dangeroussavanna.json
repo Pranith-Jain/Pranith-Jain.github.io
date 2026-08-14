@@ -1,0 +1,48 @@
+{
+  "slug": "dangeroussavanna",
+  "id": 857,
+  "name": "DangerousSavanna",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Ransomware", "Financial-Sector", "fraud", "Financial Targeting", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Discovery", "Lateral Movement", "Exfiltration"],
+  "techniques": ["T1059", "T1059.003", "T1567", "T1053.PS2PowerShell", "T1078", "T1071", "T1214"],
+  "tools": ["Metasploit", "PoshC2", "DWservice", "AsyncRAT", "Custom RAT"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Diverse file types (ISO, LNK, JAR, VBE)",
+    "Malicious scripts in document files",
+    "Signs of persistence via scheduled tasks"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Diverse malicious file types",
+    "Use of open-source tools (Metasploit, PoshC2)",
+    "Self-written malware",
+    "Adaptive infection chains"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions to block spear-phishing attempts.",
+    "Educate employees on phishing tactics and suspicious emails.",
+    "Monitor network traffic for signs of unauthorized access or tool deployment.",
+    "Conduct regular endpoint scans for known malicious file types and scripts.",
+    "Adopt a Zero Trust model to limit lateral movement within networks."
+  ],
+  "campaignsText": "DangerousSavanna operates with a clear focus on financial services, leveraging phishing campaigns to penetrate targets. Their campaigns are characterized by continuous evolution of infection vectors, indicating adaptability to defensive measures. Past operations include multiple successful compromises in French-speaking Africa, targeting both public and private sector entities. Notably, their use of open-source tools suggests an effort to minimize detection while maintaining functional effectiveness.",
+  "description": "DangerousSavanna is a cyber threat actor targeting financial institutions in French-speaking Africa through sophisticated phishing campaigns. Their primary method involves spear-phishing emails with malicious attachments, including various file types like ISO and LNK. They use open-source tools and self-written malware to compromise systems, aiming to disrupt or gain unauthorized access to sensitive financial data.",
+  "goals": "DangerousSavanna's strategic objective appears to be gaining unauthorized access to financial institutions' systems in French-speaking African countries. Their targeting of sectors critical to national economies suggests a focus on economic gain or disruption. The choice of victims aligns with their operational capabilities and geographic reach, focusing on entities where successful compromise could yield significant financial or intelligence benefits.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A857",
+  "sourceUrl": "https://threaticon.com/threat-actors/857"
+}

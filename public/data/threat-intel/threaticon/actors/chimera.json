@@ -1,0 +1,46 @@
+{
+  "slug": "chimera",
+  "id": 66,
+  "name": "Chimera",
+  "mitreId": "G0114",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "intellectual property theft", "semiconductor industry", "airline industry"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration", "Collection"],
+  "techniques": ["T1190", "T1082", "T1059", "T1021", "T1005"],
+  "tools": ["Custom malware", "Open-source tools", "Stolen certificates"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Network exploitation",
+    "Data exfiltration",
+    "Social engineering",
+    "Malware development",
+    "Custom tooling"
+  ],
+  "recommendedActions": [
+    "Implement robust security controls such as firewalls and intrusion detection systems",
+    "Conduct regular threat assessments and vulnerability scans",
+    "Engage in information sharing and collaboration with peers and partners",
+    "Provide training and awareness programs for employees on social engineering and phishing attacks"
+  ],
+  "campaignsText": "Chimera's campaign patterns are not well-documented, but it is likely that the group engages in targeted phishing and social engineering attacks against specific individuals and organizations in the semiconductor and airline industries. The group may also use custom malware and tooling to gain access to and exploit targeted networks. Notable past operations include the theft of sensitive data from Taiwanese semiconductor manufacturers and the compromise of airline industry systems.",
+  "description": "Chimera is a suspected China-based threat group active since at least 2018, primarily targeting the semiconductor and airline industries in Taiwan. Their motivations and goals are not entirely clear, but their actions suggest a focus on espionage and intellectual property theft. Organizations in these sectors should be vigilant and prepared to defend against potential attacks.",
+  "goals": "Chimera's strategic objectives appear to be focused on stealing sensitive data and intellectual property from the semiconductor and airline industries in Taiwan. The group's targeting of these specific sectors and geographies suggests a high degree of intentionality and planning, and it is likely that they are seeking to achieve specific strategic goals such as gaining a competitive advantage or supporting national interests. Typical victims of Chimera's attacks are likely to be organizations in the targeted industries, including manufacturers, suppliers, and service providers.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A66",
+  "sourceUrl": "https://threaticon.com/threat-actors/66"
+}

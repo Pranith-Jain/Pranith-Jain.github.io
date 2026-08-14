@@ -1,0 +1,45 @@
+{
+  "slug": "vect",
+  "id": 182,
+  "name": "VECT",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": ["Apt"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 3, 2026",
+  "tags": ["APT", "Ransomware", "Healthcare", "Wiper / Destructive"],
+  "aliases": [],
+  "targetedSectors": ["Healthcare"],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Execution", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom ransomware", "TeamPCP malware"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Ransomware development and deployment",
+    "Partnerships with other threat groups",
+    "Use of encryption and anti-analysis techniques",
+    "Ability to target multiple platforms, including Windows, Linux, and ESXi"
+  ],
+  "recommendedActions": [
+    "Implement robust backup and disaster recovery procedures",
+    "Use anti-virus software and ensure it is up-to-date",
+    "Conduct regular vulnerability assessments and penetration testing",
+    "Implement a security awareness training program for employees"
+  ],
+  "campaignsText": "VECT's campaign patterns suggest that the actor is actively targeting the healthcare sector in the United States of America, with a focus on deploying ransomware and extorting money from their victims. The actor's operational tempo is likely to be moderate, with a focus on exploiting vulnerabilities and using social engineering tactics to gain access to target systems. Notable past operations include the deployment of VECT 2.0 ransomware, which has been linked to several high-profile incidents in the healthcare sector.",
+  "description": "VECT is an APT threat actor that has been observed targeting the healthcare sector in the United States of America. The actor's primary motivation and goals are currently unknown, but their technical implementation demonstrates amateur execution behind a professional facade. The actor's ransomware, VECT 2.0, has a critical flaw that causes files larger than 128 KB to be permanently destroyed rather than encrypted.",
+  "goals": "VECT's strategic objectives and targeting profile suggest that the actor is motivated by financial gain, and their targeting of the healthcare sector in the United States of America may be driven by the potential for significant financial returns. The actor's use of ransomware, despite its technical flaws, suggests that they may be seeking to extort money from their victims, rather than simply destroying data. Typical victims of VECT's attacks are likely to be organizations in the healthcare sector, including hospitals, medical research institutions, and healthcare providers.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A182",
+  "sourceUrl": "https://threaticon.com/threat-actors/182"
+}

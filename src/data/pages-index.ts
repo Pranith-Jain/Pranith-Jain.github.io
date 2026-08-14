@@ -3564,6 +3564,26 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['threatcluster', 'entity', 'actor', 'group', 'malware', 'cve', 'sector', 'profile', 'relationship'],
   },
   {
+    path: '/threatintel/feeds/threaticon',
+    label: 'Threaticon',
+    description:
+      'Replicated threaticon.com STIX 2.1 intelligence - threat-actor catalog with MITRE ATT&CK attribution, a malware family dictionary, detection-coverage dataset with per-tactic rule counts, and a country-level origin vs targeted threat map.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: [
+      'threaticon',
+      'actor',
+      'malware',
+      'stix',
+      'coverage',
+      'detection',
+      'tactic',
+      'technique',
+      'mitre',
+      'map',
+    ],
+  },
+  {
     path: '/threatintel/feeds/threatfeeds',
     label: 'Threat Feeds',
     description: 'Threat intelligence feeds.',

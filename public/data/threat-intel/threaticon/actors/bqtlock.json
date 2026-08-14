@@ -1,0 +1,60 @@
+{
+  "slug": "bqtlock",
+  "id": 368,
+  "name": "bqtlock",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "financial-gain", "cyber-criminal", "Middle East", "Ransomware", "Hacktivism"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Exfiltration of Data",
+    "Network Access Persistence Across Organizational Boundaries",
+    "Spear-Phishing",
+    "Intrusion"
+  ],
+  "techniques": ["T1055", "T1505.001", "T1566.001", "T1059.003"],
+  "tools": [
+    "Ransomware (AES-256/RSA-4096)",
+    "Monero wallet interaction tools",
+    "Wave campaign planning tools",
+    "Spear-phishing components"
+  ],
+  "iocPatterns": [
+    "Ransomware with AES-256/RSA-4096 encryption",
+    "Monero payment demands via Tor-based wallets",
+    "Spear-phishing emails with malicious links",
+    "Wave-like patterns of attack campaigns",
+    "Windows-based file encryption activities"
+  ],
+  "keyCapabilities": [
+    "Ransomware-as-a-Service (RaaS) operation",
+    "AES-256 and RSA-4096 encryption algorithms",
+    "Monero cryptocurrency demand for payments",
+    "Wave-based campaign techniques",
+    "Strict 48-hour ransom deadlines"
+  ],
+  "recommendedActions": [
+    "Implement robust backup and restore mechanisms to mitigate ransomware impacts.",
+    "Train employees to recognize spear-phishing attempts and suspicious emails.",
+    "Monitor network traffic for异常加密活动和Monero交易相关行为，特别是在波状攻击可能发生的时间段。",
+    "Conduct regular vulnerability assessments to identify and patch potential attack vectors.",
+    "部署多因素认证 (MFA) 和网络安全解决方案以防止未经授权的网络访问。",
+    "Establish an incident response plan tailored to ransomware incidents, including isolation and containment strategies."
+  ],
+  "campaignsText": "BQTLock's campaigns are relatively new but demonstrate a methodical approach with clear deadlines and payment mechanisms. Their wave-based targeting suggests an operational model aimed at maximizing the number of potential victims while minimizing the time required to execute attacks. Notable for their association with hacktivist groups, BQTLock may leverage these networks to expand their reach or identify targets.",
+  "description": "BQTLock is a ransomware-as-a-service (RaaS) operation identified in 2025, linked to pro-Palestinian hacktivist networks. The group employs AES-256/RSA-4096 encryption and demands payment in Monero cryptocurrency with 48-hour deadlines. Their campaigns exhibit wave-like patterns, targeting a broad range of organizations without apparent sector-specific focus.",
+  "goals": "BQTLock's primary motivation is organizational-gain, with goals centered around financial profit through ransomware activities. Their targeting strategy appears to be opportunistic rather than sector-specific, reflecting a broad-based approach to identifying vulnerable organizations. This makes it challenging for any particular industry or geography to claim immunity from their attacks. The group's association with hacktivist networks may influence their selection of targets in certain regions or industries, but no specific sectors or countries have been conclusively identified as primary targets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A368",
+  "sourceUrl": "https://threaticon.com/threat-actors/368"
+}

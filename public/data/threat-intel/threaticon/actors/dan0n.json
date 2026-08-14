@@ -1,0 +1,83 @@
+{
+  "slug": "dan0n",
+  "id": 401,
+  "name": "dan0n",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "financial-gain", "business-services", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [
+    "T1059.003 - DLL Hijacking",
+    "T1078 - Account Access Removal",
+    "T1566 - Data Exfiltration via Cryptography",
+    "T1003.001 - Windows Remote Management (WinRM)",
+    "T1552 - Web Shell Usage",
+    "T1055 - Process injection",
+    "T1047 - Masquerading"
+  ],
+  "tools": [
+    "Custom ransomware (likely)",
+    "Spear-phishing tools",
+    "C2 Framework (e.g., Web-based or custom)",
+    "Lateral movement tools (e.g., Cobalt Strike模仿者)",
+    "File encryption tools",
+    "Account access tools (e.g., Mimikatz-like)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious attachments or links",
+    "Presence of custom or known ransomware executables on systems",
+    "Network traffic indicating C2 communication (e.g., HTTP/S)",
+    "Signs of lateral movement within internal networks",
+    "Files encrypted with .dan0n or similar extensions",
+    "Scheduled task creation for persistence",
+    "Unusual SMB/RDP connections"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment and encryption",
+    "ansomware-as-a-service (RaaS) operations",
+    "Spear-phishing with malware-laced email attachments",
+    "Network persistence mechanisms",
+    "Credential dumping techniques",
+    "Data exfiltration prior to encryption",
+    "Use of custom or affiliate ransomware tools",
+    "Lateral movement within networks",
+    "Encrypting files and systems for maximum impact"
+  ],
+  "recommendedActions": [
+    "Implement comprehensive user training on spotting phishing attempts",
+    "Deploy advanced email filtering solutions to block malicious attachments",
+    "Monitor network traffic for C2-like communication patterns",
+    "Conduct regular vulnerability assessments, especially in business services",
+    "Enforce multi-factor authentication (MFA) for critical systems",
+    "Maintain robust backups isolated from production networks",
+    "Use endpoint detection and response (EDR) tools to detect anomalies",
+    "Perform periodic security audits focusing on data encryption practices"
+  ],
+  "campaignsText": "dan0n's campaigns exhibit a high degree of operational efficiency and rapid victim engagement. Their targeting in May 2024, with 13 victims, indicates a well-coordinated campaign strategy. The actors have demonstrated adaptability by focusing on the business services sector, which may be less defended than other industries. Campaign patterns include pre-attack reconnaissance, rapid encryption of targeted systems, and follow-up extortion attempts through encrypted communication channels. Notable for their rapid rise to prominence without significant prior ties to known groups, dan0n appears to be a self-sufficient actor in the ransomware space. The group is expected to expand their operations globally, potentially targeting European and Asian markets as their confidence grows.",
+  "description": "dan0n is a newly emerged threat actor operating a ransomware-as-a-service (RaaS) model, primarily targeting US-based organizations in the business services sector. They rapidly increased their activity in May 2024, filling a void left by interruptions to LockBit and BlackCat/ALPHV groups. Their operations are characterized by high-targeting approaches and significant financial gain motivations.",
+  "goals": "dan0n's primary motivation appears to be financial gain through ransomware operations. Their targeting strategy focuses on sectors and geographies where they can achieve the highest yield with minimal risk. The focus on US-based business services suggests an understanding of market dynamics and potential victim value. dan0n likely targets organizations based on factors such as ease of access, perceived ability to pay ransoms, and limited defensive capabilities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A401",
+  "sourceUrl": "https://threaticon.com/threat-actors/401"
+}

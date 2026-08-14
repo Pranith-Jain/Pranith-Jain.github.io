@@ -1,0 +1,56 @@
+{
+  "slug": "gold-southfield",
+  "id": 138,
+  "name": "GOLD SOUTHFIELD",
+  "mitreId": "G0115",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial Crime",
+    "Data Extortion",
+    "Healthcare Sector",
+    "Critical Infrastructure",
+    "Initial Access",
+    "APT"
+  ],
+  "aliases": ["Pinchy Spider"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Ransomware", "Data Exfiltration", "Initial Access", "Defense Evasion"],
+  "techniques": ["T1566.002", "T1059.001", "T1219", "T1238.001", "T1565"],
+  "tools": ["REvil Ransomware", "Spear Phishing Tools", "Malicious Email Payloads"],
+  "iocPatterns": [
+    "Spear phishing emails with malicious attachments",
+    "REvil ransomware signatures in network traffic",
+    "C2 communications via encrypted channels",
+    "Use of compromised accounts for lateral movement"
+  ],
+  "keyCapabilities": [
+    "REvil Ransomware platform",
+    "Spear phishing campaigns",
+    "Data extortion tactics",
+    "Affiliate recruitment for attacks",
+    "Sophisticated operational infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect and block spear-phishing attempts.",
+    "Monitor for unusual network activity indicative of REvil ransomware payloads.",
+    "Enhance incident response plans to quickly isolate and contain potential breaches.",
+    "Conduct regular employee training on recognizing phishing campaigns.",
+    "Encrypt sensitive data and maintain offline backups to mitigate ransom demands."
+  ],
+  "campaignsText": "GOLD SOUTHFIELD's campaigns typically involve targeted phishing attacks, followed by ransomware deployment and data exfiltration. They have been observed targeting organizations with robust encryption and a focus on sectors with high data sensitivity. Notable past operations include REvil-related incidents where victims were threatened with data leaks if ransoms weren't paid.",
+  "description": "GOLD SOUTHFIELD, also known as Pinchy Spider, is a financially motivated threat actor that operates the REvil Ransomware-as-a-Service (RaaS) platform since at least 2018. Initially focused on traditional ransomware, they evolved by leveraging stolen data to extort victims beyond payment demands in early 2020. Their strategic shift to data theft and extortion significantly increases the pressure on targeted organizations.",
+  "goals": "GOLD SOUTHFIELD primarily seeks financial gain through ransomware campaigns and data extortion, targeting sectors such as healthcare, education, and critical infrastructure. Their focus on these sectors is driven by the potential for higher ransoms, availability of sensitive data, and the victims' desire to avoid public exposure of stolen information. The group's strategic choice of targets reflects a deep understanding of which industries are most vulnerable to both financial pressure and reputational damage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A138",
+  "sourceUrl": "https://threaticon.com/threat-actors/138"
+}

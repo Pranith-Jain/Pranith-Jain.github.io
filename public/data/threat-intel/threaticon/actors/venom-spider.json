@@ -1,0 +1,62 @@
+{
+  "slug": "venom-spider",
+  "id": 792,
+  "name": "VENOM SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Cybercrime", "Financial Fraud", "Russian Cyber Threats"],
+  "aliases": ["badbullzvenom", "badbullz"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Defense Evasion",
+    "Collection"
+  ],
+  "techniques": [
+    "T1059.003 - Process Injection",
+    "T1003 - Keylogging/Monitoring Software",
+    "T1078 - Valid Accounts",
+    "T1055 - Process Injection"
+  ],
+  "tools": ["SKID", "VenomKit", "Taurus Loader", "Cobalt Strike (hypothetical)", "Custom RATs"],
+  "iocPatterns": [
+    "Malicious domains associated with C2 infrastructure",
+    "Encrypted communication channels (e.g., HTTPS anomalies)",
+    "Use of exploit kits targeting known vulnerabilities",
+    "Distribution of malicious files via dark web forums",
+    "Persistence mechanisms using scheduled tasks or registry entries"
+  ],
+  "keyCapabilities": [
+    "Development of custom malware toolset (e.g., SKID, VenomKit, Taurus Loader)",
+    "Exploitation of vulnerabilities for unauthorized access",
+    "Persistence mechanisms in targeted systems",
+    "Carding services and financial fraud",
+    "Selective distribution of tools to trusted affiliates"
+  ],
+  "recommendedActions": [
+    "Enhance network monitoring to detect C2 communications and suspicious domains.",
+    "Implement strict controls on script execution in endpoint environments.",
+    "Conduct regular vulnerability assessments to mitigate potential exploit targets.",
+    "Monitor for unauthorized access attempts originating from known malicious IPs.",
+    "Educate users about phishing and social engineering tactics linked to VENOM SPIDER's TTPs."
+  ],
+  "campaignsText": "VENOM SPIDER's campaigns are characterized by their tool development and selective sale to affiliates, indicating a focus on sustainability rather than direct operational activity. Notable campaign patterns include the use of their tools in conjunction with other known groups' activities. The actor's operational tempo suggests they maintain a low profile while continuously enhancing their toolset for financial gain. VENOM SPIDER primarily targets financial institutions and e-commerce platforms, aligning with their observed activities in carding services.",
+  "description": "VENOM SPIDER is a sophisticated threat actor known for developing a large toolset including SKID, VenomKit, and Taurus Loader. Active since at least 2012 in Russian underground forums, VENOM SPIDER specializes in identifying vulnerabilities and creating exploitation tools for access and unauthorized activities. The actor has demonstrated expertise in carding services and has sold modules to trusted affiliates, with notable adversaries using their tools including COBALT SPIDER, WIZARD SPIDER, and PINCHY SPIDER. The group primarily focuses on financial gain through cybercrime.",
+  "goals": "VENOM SPIDER's strategic goals appear to center on financial gain through cybercrime operations. The actor targets sectors with significant financial assets, such as banking and retail, leveraging their toolset to facilitate unauthorized access and data theft. Their targeting of countries with less robust cybersecurity measures may indicate a preference for easier exploitation avenues. VENOM SPIDER's focus is likely on monetization through盗窃 financial information and enabling other malicious actors, which aligns with the broader cybercrime ecosystem.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A792",
+  "sourceUrl": "https://threaticon.com/threat-actors/792"
+}

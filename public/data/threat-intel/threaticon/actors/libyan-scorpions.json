@@ -1,0 +1,41 @@
+{
+  "slug": "libyan-scorpions",
+  "id": 724,
+  "name": "Libyan Scorpions",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "L",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Espionage", "Political Motivation", "Libya", "Hacktivism"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Espionage", "Initial Access"],
+  "techniques": ["T1036.004", "T1055.002", "T1078"],
+  "tools": ["Custom Malware"],
+  "iocPatterns": ["Network traffic analysis for anomalies", "Malware signatures detection", "Unusual data transfers"],
+  "keyCapabilities": [
+    "Malware development",
+    "Network intrusion techniques",
+    "Data exfiltration tactics",
+    "Potential use of zero-day exploits"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring tools",
+    "Conduct regular security audits",
+    "User training on phishing attempts",
+    "Secure critical infrastructure access points"
+  ],
+  "campaignsText": "Operational patterns include long-term targeting of high-value individuals and institutions, with campaigns likely aligned to political events or instability in Libya. Ongoing activities since 2015 suggest a dedicated and adaptive approach.",
+  "description": "The Libyan Scorpions are a politically motivated threat actor engaged in intelligence gathering and espionage. They have been active since September 2015, targeting influential individuals and political figures within Libya, seeking to influence national stability through their activities.",
+  "goals": "This group's primary objective is intelligence gathering on influential figures and political activities within Libya, suggesting targeting of government officials, political parties, and critical institutions due to their strategic value.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A724",
+  "sourceUrl": "https://threaticon.com/threat-actors/724"
+}

@@ -1,0 +1,58 @@
+{
+  "slug": "blackatom",
+  "id": 1055,
+  "name": "Blackatom",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "P",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "defense-sector", "nation-state", "Initial Access", "Government Targeting"],
+  "aliases": ["Shazam", "the Newscaster Team", "Radiation pagers", "services"],
+  "targetedSectors": [
+    "Defense",
+    "Transportation",
+    "Media",
+    "Financial services",
+    "Government",
+    "Non profit",
+    "Energy",
+    "Manufacturing",
+    "Education",
+    "Information technology"
+  ],
+  "targetedCountries": ["IL", "IR", "UA", "SA", "US"],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing via LinkedIn",
+    "Tailored social engineering messages",
+    "Malware installation through compromised accounts",
+    "Cookie theft and data exfiltration"
+  ],
+  "keyCapabilities": [
+    "Sophisticated social engineering",
+    "Targeted phishing campaigns",
+    "Advanced persistent threat (APT) tactics",
+    "Malware deployment"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection solutions",
+    "Enhance employee training on social engineering risks",
+    "Monitor professional recruitment platforms for suspicious activity",
+    "Use multi-factor authentication (MFA) for sensitive accounts",
+    "Conduct regular network monitoring for signs of APT activity"
+  ],
+  "campaignsText": "Blackatom's campaigns demonstrate a clear pattern of targeting high-value individuals in defense-related sectors. Their operations are methodical, with a focus on social engineering and tailored phishing attempts. Notable past operations include the September 2023 attack on Israeli software engineers, which underscores their ability to exploit professional networks for access. The group's evolution in tactics suggests they are continuously refining their approach to evade detection.",
+  "description": "Blackatom, tracked by Google's Threat Analysis Group (TAG), is a Hamas-linked threat actor targeting high-value individuals in Israel's defense sector through sophisticated social engineering campaigns. Recent operations include phishing attacks on software engineers using LinkedIn to impersonate legitimate companies and steal sensitive data.",
+  "goals": "Blackatom's strategic objectives align with broader Hamas-associated operations, likely focusing on espionage and intelligence collection to support geopolitical goals. Their targeting of defense and transportation sectors suggests a focus on compromising national security capabilities. The group's victims are typically high-value individuals in sensitive roles, such as software engineers and military personnel.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1055",
+  "sourceUrl": "https://threaticon.com/threat-actors/1055"
+}

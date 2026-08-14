@@ -1,0 +1,58 @@
+{
+  "slug": "ke3chang",
+  "id": 42,
+  "name": "Ke3chang",
+  "mitreId": "G0004",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "state-sponsored",
+    "gaming-sector",
+    "government-targeting",
+    "Initial Access",
+    "Government Targeting"
+  ],
+  "aliases": ["APT15", "Mirage", "Vixen Panda", "GREF"],
+  "targetedSectors": ["Government", "Gaming"],
+  "targetedCountries": ["GB"],
+  "tactics": ["Credential Access", "Discovery", "Exfiltration", "Persistence"],
+  "techniques": ["T1059.003", "T1213.002", "T1087.002", "T1041", "T1543", "T1005", "T1614.001", "T1558.001"],
+  "tools": ["Okrum", "MirageFox", "Neoichor", "Custom malware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents",
+    "Lateral movement using Windows command-line executables",
+    "Exfiltration through encrypted channels or legitimate cloud services",
+    "Malicious scripts dropped via web protocols",
+    "Credential dumping operations targeting domain accounts"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing with malicious attachments",
+    "Credential theft",
+    "Lateral network movement",
+    "Data exfiltration via custom tools",
+    "Domain and account compromise",
+    "Persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect and block spear-phishing attempts.",
+    "Monitor for unusual network activity, especially lateral movement patterns indicative of APT behavior.",
+    "Enhance credential protection with MFA (Multi-Factor Authentication) and regular password audits.",
+    "Deploy endpoint detection and response (EDR) solutions to detect malicious scripts and processes.",
+    "Conduct regular red team exercises simulating APT tactics to improve incident response readiness."
+  ],
+  "campaignsText": "Ke3chang has been involved in several high-profile campaigns, including Operation Ke3 Chang identified by Mandiant and APT15 activities noted by multiple security firms. The group often targets organizations with spear-phishing emails, deploying custom tools to gain initial access before using a range of techniques to expand across networks. Campaigns frequently involve long-term驻留 within victim networks, enabling sustained data collection and exfiltration over time. Notable operations have targeted oil and gas industries, government agencies, and gaming companies globally.",
+  "description": "Ke3chang is a Chinese-based advanced persistent threat (APT) group known for espionage activities targeting government, diplomatic, military, and gaming sectors globally since at least 2010. The group has been linked to multiple aliases and campaigns, including 'Mirage Team,' 'NICKEL,' and 'Umbrella Revolution.' Ke3chang employs a wide range of tactics, techniques, and procedures (TTPs) to infiltrate victim networks, collect sensitive data, and maintain long-term access.",
+  "goals": "Ke3 chang's primary strategic objective appears to be gathering intelligence and sensitive information from targeted sectors such as government, military, and gaming industries. The group's focus on these sectors suggests a desire to acquire geopolitical, defense-related, and potentially commercially valuable data. Targeted countries include the United States, South America, Europe, and others, indicating a global scope of operations. The group likely operates under the direction of Chinese state interests, aiming to support national security or economic goals.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A42",
+  "sourceUrl": "https://threaticon.com/threat-actors/42"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "rabbithole",
+  "id": 558,
+  "name": "rabbithole",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "financial-motiv", "cyber_crime", "Ransomware", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1566.001", "T1059", "T1055", "T1547"],
+  "tools": ["REvil", "DarkSide"],
+  "iocPatterns": [
+    "Phishing emails with malicious attachments or links",
+    "RDP brute-force attempts",
+    "Suspicious domains used for command and control infrastructure"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Financial extortion through data encryption",
+    "Use of standard infection vectors (phishing, RDP brute-force)",
+    "Potential use of common ransomware tools like REvil or DarkSide"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring tools to detect异常 traffic patterns indicative of brute-force attacks.",
+    "Educate employees on identifying phishing attempts through regular cybersecurity awareness training.",
+    "Establish regular data backups stored offline or in secure cloud repositories to mitigate ransomware impact.",
+    "Enforce strict access controls and multi-factor authentication for remote desktop services.",
+    "Develop and maintain an incident response plan tailored to ransomware incidents to minimize downtime and recovery costs."
+  ],
+  "campaignsText": "RabbitHole's campaigns are characterized by their stealthy approach and limited visibility in public reports. They likely conduct targeted attacks on specific industries, leveraging standard but effective methods to compromise systems. Their operational tempo appears cautious, possibly reflecting a nascent group or one prioritizing quality over quantity to avoid detection.",
+  "description": "RabbitHole is a low-profile ransomware group with a focus on financial gain. Operating at a medium sophistication level, they primarily target sectors with high perceived value for victims' data. Their limited presence in major threat intelligence reports suggests either small-scale operations or effective operational security.",
+  "goals": "RabbitHole's strategic objectives revolve around generating financial gains through ransomware deployment. They target industries where sensitive data is abundant and valuable, such as healthcare, finance, and energy sectors. As a medium-tropical group, they focus on manageable targets to ensure their operations remain under the radar while still yielding profit. Their victims are typically organizations with weaker cybersecurity measures, making them easier to infiltrate and more likely to pay ransoms.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A558",
+  "sourceUrl": "https://threaticon.com/threat-actors/558"
+}

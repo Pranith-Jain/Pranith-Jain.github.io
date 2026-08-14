@@ -1,0 +1,60 @@
+{
+  "slug": "ghostwriter",
+  "id": 802,
+  "name": "Ghostwriter",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "B",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Cyber Espionage",
+    "Government Sector",
+    "Unknown Motivation",
+    "Eastern Europe",
+    "Critical Infrastructure"
+  ],
+  "aliases": ["UNC1151", "TA445", "PUSHCHA", "Storm-0257"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Data Exfiltration", "Initial Access", "Defense Evasion"],
+  "techniques": [
+    "T1059.003 - DLL Injection into explorer.exe",
+    "T1055 - Process Injection from .NET",
+    "T1566.001 - Account Access Removal of Event Logs"
+  ],
+  "tools": ["Custom malware", "Cobalt Strike", "Mimikatz", "Remote Access Tools (RATs)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "Fileless or reflective malware deployment",
+    "C2 communication over HTTP/S and DNS channels",
+    "Use of steganography for data exfiltration"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Spear-phishing campaigns",
+    "Supply chain compromise",
+    "Exploitation of zero-day vulnerabilities",
+    "Network intrusions and data exfiltration",
+    "Covert command-and-control infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for sensitive systems.",
+    "Enhance network monitoring for signs of APT activity, such as unusual process injection or fileless malware indicators.",
+    "Conduct regular phishing simulations to improve employee awareness and resilience against spear-phishing attacks.",
+    "Review supply chain relationships and implement vendor security validation programs to mitigate supply chain risks.",
+    "Invest in endpoint detection and response (EDR) solutions capable of identifying and neutralizing fileless and reflective malware threats."
+  ],
+  "campaignsText": "Ghostwriter's campaigns are characterized by long-term persistence and targeted attacks against high-value diplomatic and government targets. The group has been linked to multiple intrusions over several years, suggesting a patient and methodical approach to achieving its objectives. Notable operations include attacks on European ministries and Middle Eastern think tanks, resulting in unauthorized access to sensitive information and potential disruption of national decision-making processes.",
+  "description": "Ghostwriter is identified as a sophisticated cyber threat actor targeting primarily government and political sectors in Eastern Europe and the Middle East. Known for its persistence and advanced tactics, this group has demonstrated a focus on long-term espionage activities through spear-phishing campaigns, supply chain compromises, and zero-day exploits.",
+  "goals": "Ghostwriter appears to target government institutions and political entities in Eastern Europe, Central Asia, and other regions with significant geopolitical tensions. The group's focus on sectors critical to national security aligns with strategic objectives likely tied to espionage or influence operations. Its victims include ministries, diplomatic entities, and organizations involved in sensitive policy development, suggesting a goal of gathering intelligence for broader strategic advantage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A802",
+  "sourceUrl": "https://threaticon.com/threat-actors/802"
+}

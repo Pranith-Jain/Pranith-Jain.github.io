@@ -1,0 +1,83 @@
+{
+  "slug": "jabaroot",
+  "id": 1230,
+  "name": "Jabaroot",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "D",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Espionage",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "Data Theft",
+    "Hacktivism",
+    "Government Targeting",
+    "North Africa",
+    "Cyber Conflict",
+    "Initial Access",
+    "Critical Infrastructure",
+    "Data Exfiltration",
+    "espionage",
+    "government-sector",
+    "political-motivated",
+    "data-exfiltration"
+  ],
+  "aliases": ["Jabaroot DZ", "tracked as"],
+  "targetedSectors": [
+    "Government",
+    "Defense",
+    "Telecommunications",
+    "Media",
+    "Financial services",
+    "Non profit",
+    "Education",
+    "Construction",
+    "Healthcare",
+    "Manufacturing",
+    "Hospitality",
+    "Energy",
+    "Critical infrastructure",
+    "Transportation"
+  ],
+  "targetedCountries": ["US", "RU", "PK", "IN", "UA", "GB", "AU", "DE", "FR", "AE", "KP", "VN", "IR", "IL"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Defense Evasion",
+    "Credential Access",
+    "Exfiltration",
+    "Command and Control"
+  ],
+  "techniques": ["T1190", "T1071.001", "T1041", "T1048", "T1083", "T1055.002", "T1036.003"],
+  "tools": ["Gh0st RAT", "ROKRAT", "Havex RAT", "Emotet", "Medusa Ransomware"],
+  "iocPatterns": [
+    "Domain-based C2 infrastructure (e.g., demo‑cloud.space, moroccoworldnews.com)",
+    "Malicious domains hosting ransomware binaries and exfiltration tools",
+    "Use of short or obfuscated domain names for staging servers"
+  ],
+  "keyCapabilities": [
+    "Large‑scale data exfiltration from government databases",
+    "Web application exploitation resulting in defacement",
+    "Use of command and control channels over legitimate cloud domains",
+    "Employment of RATs such as Gh0st and ROKRAT for persistence",
+    "Social engineering via spear‑phishing or malicious email attachments (inferred)",
+    "Credential theft and lateral movement within compromised networks"
+  ],
+  "recommendedActions": [
+    "Implement multifactor authentication across all privileged accounts and critical systems.",
+    "Enforce strict email security controls—filtering attachments and tracking malicious URLs.",
+    "Apply timely patches to web applications and remediate known CVEs. Deploy network segmentation and monitor for anomalous outbound connections, especially DNS or HTTP traffic to questionable domains. Maintain an up‑to‑date incident response plan that includes data breach notification procedures. Conduct regular security awareness training focused on spear‑phishing, social engineering, and the recognition of defacement indicators."
+  ],
+  "campaignsText": "Jabaroot’s operational tempo has accelerated in the wake of heightened Algeria–Morocco tensions, with a series of coordinated attacks spanning 2024 and 2025. The group typically selects high‑profile governmental targets, extracts personal and financial data, then publicly releases the stolen material to amplify its political message. Notable incidents include the CNSS breach, the Ministry of Labor defacement, and multiple public leaks via malicious domains. Despite lacking large‑scale ransomware deployments, Jabaroot’s data‑leak campaigns mirror classic APT patterns—staged exfiltration, use of cloud‑based staging servers, and strategic disclosure timelines. The group maintains a blend of custom and borrowed malware, leveraging both legacy RATs and known spam‑delivery delivery frameworks (e.g., Emotet) to penetrate targets. Their attacks often culminate in the use of publicly monitored C2 domains, indicating an intention to remain observable enough for propaganda purposes. While evidence points to an organized operational model, the absence of public threat intelligence on infrastructure rotation or advanced cryptographic exfiltration suggests that Jabaroot operates at a moderate so",
+  "description": "Jabaroot, an Algerian hacker group also known as Jabaroot DZ, has carried out large‑scale data exfiltration campaigns against Moroccan government institutions, stealing personal and financial information from the National Social Security Fund (CNSS) and other ministries. The attacks appear driven by socio‑political motives tied to Algeria–Morocco tensions and exhibit typical hacktivist APT behavior such as public disclosure of stolen material and website defacement.",
+  "goals": "Jabaroot’s strategic objectives align with espionage and political hacktivism. By targeting government ministries, defense agencies, telecom operators, and key financial institutions across multiple countries—including Morocco, Algeria, the United States, Russia, India, and Ukraine—they aim to acquire personal, financial, and potentially classified data for both covert intelligence use and public dissemination. Their selection of victims appears governed by perceived political leverage: leaking citizen information or critical infrastructure vulnerabilities serves to erode trust in state systems while simultaneously projecting pressure on adversarial governments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1230",
+  "sourceUrl": "https://threaticon.com/threat-actors/1230"
+}

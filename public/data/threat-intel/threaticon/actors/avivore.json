@@ -1,0 +1,39 @@
+{
+  "slug": "avivore",
+  "id": 232,
+  "name": "AVIVORE",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "defense-sector", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": ["Defense", "Aerospace & defense"],
+  "targetedCountries": ["GB"],
+  "tactics": ["Credential Access", "Persistence"],
+  "techniques": ["T1055", "T1078.004"],
+  "tools": ["PlugX", "Mimikatz", "WmiExec"],
+  "iocPatterns": [
+    "Use of PlugX RAT",
+    "Mimikatz credential extraction activities",
+    "WMI activity indicative of AVIVORE campaigns"
+  ],
+  "keyCapabilities": ["PlugX remote access tool", "Mimikatz credential dumping", "WmiExec persistence"],
+  "recommendedActions": [
+    "Implement WMI monitoring and restrictions",
+    "Enhance OS patching and vulnerability management",
+    "Monitor for known malicious domains or IPs linked to AVIVORE"
+  ],
+  "campaignsText": "AVIVORE's known campaign patterns include targeting aerospace firms and using techniques like WMI-based persistence and credential dumping. Their operational tempo appears deliberate, focusing on high-value targets within the defense sector. Notable operations include the `Airbus Attack`, demonstrating their ability to compromise major defense contractors.",
+  "description": "AVIVORE is a nation-state threat actor targeting defense and aerospace industries primarily in the UK and Europe. Specializing in espionage, AVIVORE employs a toolset including PlugX, Mimikatz, and WmiExec. Their activities have been observed in campaigns like 'Airbus Attack,' highlighting their capability to breach critical sectors for sensitive information.",
+  "goals": "AVIVORE targets defense and aerospace industries within the UK and Europe for espionage purposes. Their goal is likely to extract sensitive technical data and intellectual property useful for military and strategic advantage. The choice of sectors indicates a focus on enhancing national capabilities through intelligence gathered from these strategically significant areas.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A232",
+  "sourceUrl": "https://threaticon.com/threat-actors/232"
+}

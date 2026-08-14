@@ -1,0 +1,71 @@
+{
+  "slug": "dev-0950",
+  "id": 934,
+  "name": "DEV-0950",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Ransomware", "Data Exfiltration", "Healthcare Sector", "Education Sector", "Government Sector"],
+  "aliases": ["Lace Tempest"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Command and Control",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [
+    "T1210 - Exploit Public-Facing Application",
+    "T1530 - Data Encrypted for Impact",
+    "T1560 - Archive Collected Data",
+    "T1059.003 - Command-Line Interface",
+    "T1566.001 - Phishing"
+  ],
+  "tools": [
+    "Clop Ransomware",
+    "Exploit kits targeting SysAid and PaperCut vulnerabilities",
+    "Custom data exfiltration utilities"
+  ],
+  "iocPatterns": [
+    "Exploitation of unpatched SysAid and PaperCut vulnerabilities",
+    "Spear-phishing emails with malicious attachments or links",
+    "Clop ransomware signature detection",
+    "C2 communication over common protocols (e.g., HTTP, DNS)",
+    "Data exfiltration to external storage services"
+  ],
+  "keyCapabilities": [
+    "Exploitation of known vulnerabilities in enterprise software (e.g., SysAid, PaperCut)",
+    "Deployment of Clop ransomware for data encryption and double extortion",
+    "Data exfiltration from compromised networks",
+    "Use of unpatched systems as initial access vectors",
+    "Operation without advanced obfuscation or zero-day exploits"
+  ],
+  "recommendedActions": [
+    "Apply security patches for SysAid and PaperCut immediately to mitigate exploitation risks.",
+    "Implement network segmentation to limit lateral movement post-compromise.",
+    "Deploy endpoint detection and response (EDR) tools to identify ransomware activity early.",
+    "Conduct regular phishing simulations to reduce the risk of initial access via social engineering.",
+    "Maintain offline backups of critical data to ensure recovery without paying ransoms."
+  ],
+  "campaignsText": "DEV-0950’s campaigns follow a predictable pattern: exploiting unpatched vulnerabilities in specific software, deploying Clop ransomware, and exfiltrating data prior to encryption. Their operational tempo suggests a focus on quick strikes against targets with known unpatched systems, rather than prolonged network infiltration. Notable operations include attacks on organizations using outdated versions of SysAid and PaperCut, often resulting in significant financial and operational disruptions. The group’s activities indicate a lack of long-term campaign planning, with a focus on immediate financial gain through ransom payments.",
+  "description": "DEV-0950, also known as Lace Tempest, is a cyber threat actor linked to the deployment of the Clop ransomware and data exfiltration through exploited vulnerabilities in software like SysAid and PaperCut. This group targets organizations with unpatched systems, leveraging known exploits to gain initial access and encrypt critical data for financial gain. Their operations pose significant risks to sectors reliant on these vulnerable platforms.",
+  "goals": "The primary objective of DEV-0950 appears to be financial gain through ransom demands, as evidenced by the use of Clop ransomware and data exfiltration. Their targeting of software like SysAid and PaperCut aligns with efforts to compromise organizations with critical infrastructure dependencies, where system downtime can be highly disruptive. While no specific geographic regions or industries have been confirmed, the choice of vulnerabilities suggests a focus on sectors such as healthcare, education, and government, which may be more likely to pay ransoms to avoid operational halts. The actor’s activities also imply a lack of geopolitical motivation, prioritizing short-term financial returns over long-term strategic objectives.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A934",
+  "sourceUrl": "https://threaticon.com/threat-actors/934"
+}

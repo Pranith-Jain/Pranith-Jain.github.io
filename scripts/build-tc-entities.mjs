@@ -44,6 +44,7 @@ const ROOT = process.cwd();
 const STAGING = join(ROOT, 'threat-intel-staging', 'threatcluster');
 const OUT = join(ROOT, 'public', 'data', 'threat-intel', 'threatcluster', 'entities');
 const IOC_DIR = join(ROOT, 'public', 'data', 'threat-intel', 'iocs');
+const THREATICON_MALWARE = join(ROOT, 'public', 'data', 'threat-intel', 'threaticon', 'malware.json');
 
 const ENTITY_TYPES = ['actor', 'group', 'malware', 'cve', 'sector'];
 const DICTIONARY_TYPES = { ransomware: 'group', apt: 'actor', apt_group: 'actor' };
@@ -59,6 +60,30 @@ function readJsonIfExists(p) {
   } catch {
     return null;
   }
+}
+
+// JSON.stringify with indent changed in Node >= 21 (arrays become
+// multiline). Keep entity output byte-stable across Node versions so
+// rebuilds don't churn the committed tree: arrays of primitives stay
+// inline, exactly like pre-21 formatting.
+function stringifyIndent(value, indent = 2, depth = 0) {
+  const pad = ' '.repeat(indent * depth);
+  const inner = ' '.repeat(indent * (depth + 1));
+  if (value === null) return 'null';
+  if (Array.isArray(value)) {
+    if (value.length === 0) return '[]';
+    const allPrimitive = value.every((v) => v === null || ['string', 'number', 'boolean'].includes(typeof v));
+    if (allPrimitive) return `[${value.map((v) => JSON.stringify(v)).join(', ')}]`;
+    const items = value.map((v) => inner + stringifyIndent(v, indent, depth + 1));
+    return `[\n${items.join(',\n')}\n${pad}]`;
+  }
+  if (typeof value === 'object') {
+    const keys = Object.keys(value);
+    if (keys.length === 0) return '{}';
+    const items = keys.map((k) => `${inner}${JSON.stringify(k)}: ${stringifyIndent(value[k], indent, depth + 1)}`);
+    return `{\n${items.join(',\n')}\n${pad}}`;
+  }
+  return JSON.stringify(value);
 }
 
 function hashString(s) {
@@ -160,6 +185,33 @@ for (const file of existsSync(IOC_DIR) ? readdirSync(IOC_DIR).filter((f) => f.en
   });
 }
 console.log(`Dictionary: ${dictionary.length} families loaded from ${IOC_DIR}`);
+
+// 2b. Threaticon malware dictionary (build-time only, from the built
+// threaticon manifest). Merges the platform's family catalog into the
+// match dictionary so cluster text matching picks up more families.
+// Skipped gracefully if the threaticon build hasn't run yet.
+const tiMalware = readJsonIfExists(THREATICON_MALWARE);
+if (tiMalware?.families?.length) {
+  const known = new Set(dictionary.flatMap((f) => f.names).map((n) => n.toLowerCase()));
+  let added = 0;
+  for (const fam of tiMalware.families) {
+    const name = String(fam.name ?? '').trim();
+    if (name.length < 4) continue;
+    const key = name.toLowerCase();
+    if (known.has(key)) continue;
+    known.add(key);
+    dictionary.push({
+      names: [name],
+      type: 'malware',
+      description: fam.category ? `Malware family (${fam.category}) from the Threaticon catalog.` : null,
+      mitreTechniques: [],
+    });
+    added++;
+  }
+  console.log(`Dictionary: +${added} families merged from Threaticon (${THREATICON_MALWARE})`);
+} else {
+  console.log(`Dictionary: Threaticon malware manifest not found (${THREATICON_MALWARE}) — skipping`);
+}
 
 // 3. Canonical entities from structured fields + MISP galaxies.
 
@@ -456,7 +508,7 @@ for (const ent of entities.values()) {
 
   const dir = join(OUT, ent.type);
   mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, `${slug}.json`), JSON.stringify(body, null, 2));
+  writeFileSync(join(dir, `${slug}.json`), `${stringifyIndent(body)}\n`);
 }
 
 // entity index
@@ -478,7 +530,7 @@ const index = {
   entities: byType,
 };
 
-writeFileSync(join(OUT, 'index.json'), JSON.stringify(index, null, 2));
+writeFileSync(join(OUT, 'index.json'), `${stringifyIndent(index)}\n`);
 
 const total = Object.values(counts).reduce((a, b) => a + b, 0);
 console.log('\nEntities built:');

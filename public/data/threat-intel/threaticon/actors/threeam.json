@@ -1,0 +1,57 @@
+{
+  "slug": "threeam",
+  "id": 622,
+  "name": "threeam",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial crime", "Cybercriminal group", "Healthcare sector", "Local government targets"],
+  "aliases": ["3Am"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Credential Access", "Disruption"],
+  "techniques": ["T1059.003", "T1566.001", "T1074", "T1201"],
+  "tools": [
+    "ThreeAM Ransomware",
+    "Cobalt Strike (potential use)",
+    "Mimikatz (used for credential access)",
+    "Custom C2 tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "3AM ransomware encryption patterns",
+    "Encrypted files with '.3Am' extension",
+    "C2 communication via fast-flux DNS domains",
+    "Scheduled task creation for persistence"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment through phishing campaigns",
+    "Double extortion tactics (encrypting data and threatening data leaks)",
+    "Fast-flux domain generation for C2 infrastructure",
+    "Sophisticated encryption techniques",
+    "Custom malware development post-LockBit blocking"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection solutions",
+    "Enhance endpoint detection and response (EDR) capabilities",
+    "Monitor for unusual process injection activities",
+    "Encrypt sensitive data with strong encryption standards",
+    "Conduct regular employee training on ransomware threats",
+    "Establish robust backup and recovery mechanisms",
+    "Implement multi-factor authentication (MFA)",
+    "Perform regular network traffic analysis"
+  ],
+  "campaignsText": "ThreeAM's campaigns exhibit a high operational tempo, frequently shifting tactics after detection. The group has targeted both small and large organizations across various sectors. Notable victims include local governments (e.g., Wyoming County NY), dental practices, legal firms, and international businesses. ThreeAM employs double extortion techniques, encrypting data and threatening to leak it unless a ransom is paid in cryptocurrency. The group uses fast-flux domains for command-and-control infrastructure, making takedowns challenging.",
+  "description": "3AM is a medium-sophistication ransomware group emerged in August 2023. It initially deployedLockBit ransomware but shifted to its own variant after LockBit was blocked. The group primarily targets organizations for financial gain, focusing on various sectors through sophisticated attack campaigns.",
+  "goals": "ThreeAM targets a wide array of sectors, reflecting its focus on maximizing victim diversity for financial gain. The group's victims include local governments, healthcare providers, educational institutions, and small to medium-sized enterprises (SMEs). This broad targeting suggests an operational strategy focused on easy access with high potential for disruption, likely indicating resource availability as the primary targeting criterion. Geographically,ThreeAM appears to focus on regions with less mature cybersecurity defenses but has been observed globally.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A622",
+  "sourceUrl": "https://threaticon.com/threat-actors/622"
+}

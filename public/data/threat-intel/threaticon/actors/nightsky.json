@@ -1,0 +1,88 @@
+{
+  "slug": "nightsky",
+  "id": 529,
+  "name": "nightsky",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Criminal",
+    "Ransomware",
+    "Financial Gain",
+    "Multi-Extortion",
+    "Healthcare Sector Targeting",
+    "Finance Sector Targeting",
+    "Government Sector Targeting",
+    "Manufacturing Sector Targeting",
+    "Healthcare Targeting",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [
+    "T1203.001 - Exploit Publicly disclosed vulnerability in software",
+    "T1567.002 - Encrypt data for impact",
+    "T1567.003 - Leak data to cause chaos or fear",
+    "T1098 - Use of credentials brute force",
+    "T1077 - Validate account using legitimate credentials via remote desktop protocol",
+    "T1534.002 - Exfiltration over alternative protocols",
+    "T1531 - OS Credential Dumping",
+    "T1485 - Delete system files/directories",
+    "T1053 - Scheduled Task Injection"
+  ],
+  "tools": [
+    "Phobos Ransomware Family",
+    "custom data exfiltration tools",
+    "remote desktop protocol (RDP) brute-force utilities",
+    "credential-dumping tools like mimikatz alternative"
+  ],
+  "iocPatterns": [
+    "Exploitation of Log4Shell vulnerability (CVE-2021-44228)",
+    "RDP brute-force attempts targeting network endpoints",
+    "Network traffic associated with known Phobos ransomware activity patterns",
+    "Spear-phishing emails (though none were specified in the data)",
+    "Encrypted communication channels for extortion negotiations"
+  ],
+  "keyCapabilities": [
+    "Exploitation of Log4Shell vulnerability (CVE-2021-44228)",
+    "Multi-extortion tactics combining ransomware encryption with data exfiltration",
+    "Ransomware deployment using Phobos ransomware family",
+    "Lateral movement within networks using RDP protocols",
+    "Data collection and exfiltration techniques",
+    "Brute-force attacks on network resources",
+    "Credential dumping operations"
+  ],
+  "recommendedActions": [
+    "Patch and remediate Log4j vulnerabilities across all environments",
+    "Monitor network logs for signs of RDP brute-force attempts",
+    "Enhance RDP security by implementing multi-factor authentication",
+    "Implement endpoint detection and response (EDR) solutions to detect ransomware activity",
+    "Conduct regular backups of critical systems and isolate backup resources",
+    "Educate employees on phishing and social engineering attacks",
+    "Establish incident response plans for potential ransomware incidents"
+  ],
+  "campaignsText": "Night Sky's campaigns demonstrate a focus on high-value targets with significant operational disruption potential. The group's exploitation of Log4Shell highlights its ability to quickly adopt and leverage zero-day vulnerabilities for large-scale attacks. Multi-extortion tactics, including data encryption and exfiltration, are used to maximize financial gains and coerce victims into paying ransoms. Campaigns have been observed targeting organizations in North America, Europe, and Asia, with a particular emphasis on healthcare and finance sectors. Notable operations include the compromise of multiple healthcare providers and financial institutions in early 2022.",
+  "description": "Night Sky is a medium-sophistication cybercriminal threat actor with a primary motivation of organizational disruption and financial gain through ransomware activity. Emerging in early 2022, the group gained notoriety by exploiting the Log4Shell vulnerability (CVE-2021-44228) to target corporate networks across healthcare, finance, government, and manufacturing sectors using multi-extortion tactics.",
+  "goals": "Night Sky targets industries where ransom payments are likely to be high and data breaches would cause significant reputational damage. The group's selection of healthcare, finance, government, and manufacturing sectors reflects a strategic focus on entities with both financial resources and sensitive data. Night Sky operates globally, exploiting vulnerabilities in widely used software to gain initial access to victim networks. This broad targeting approach suggests an intention to maximize the geographic and sectoral impact of its campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A529",
+  "sourceUrl": "https://threaticon.com/threat-actors/529"
+}

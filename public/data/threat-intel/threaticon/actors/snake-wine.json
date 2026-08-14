@@ -1,0 +1,59 @@
+{
+  "slug": "snake-wine",
+  "id": 312,
+  "name": "Snake Wine",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["nation-state", "APT", "Japan", "espionage", "malware", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": ["JP"],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1059", "T1078", "T1566.004", "T1572", "T1203.001", "T1018", "T1133", "T1220"],
+  "tools": ["Ham Backdoor", "Tofu Backdoor", "Custom C2 infrastructure"],
+  "iocPatterns": [
+    "Specific file hashes associated with Ham Backdoor and Tofu Backdoor",
+    "Registry entries for persistence mechanisms",
+    "Network communication patterns indicative of command-and-control (C2) infrastructure"
+  ],
+  "keyCapabilities": [
+    "Malware development (Ham Backdoor, Tofu Backdoor)",
+    "Persistence mechanisms",
+    "Data exfiltration capabilities",
+    "Network communication tools"
+  ],
+  "recommendedActions": [
+    "Monitor network traffic for signs of C2 activity related to known Snake Wine TTPs.",
+    "Patch systems against potential vulnerabilities exploited by these malware families.",
+    "Train users to recognize phishing attempts, as initial access may involve social engineering.",
+    "Implement robust endpoint detection and response (EDR) solutions to detect malicious processes.",
+    "Conduct regular backups of critical systems to mitigate potential data loss from persistent threats.",
+    "Perform active threat hunting for signs of Snake Wine's tools in the network environment.",
+    "Analyze logs for unusual activity, such as unexpected processes or file modifications."
+  ],
+  "campaignsText": "Snake Wine has demonstrated a consistent pattern of targeting Japanese entities, with campaigns likely tied to specific Intelligence Requirements (_REQs) or internal priorities. Their use of custom malware suggests a capability for tailored attacks aimed at maintaining stealth and persistence in targeted networks. Notable operations include early activity observed in 2019 with initial sightings of the Tofu Backdoor and subsequent evolution in their toolset.",
+  "description": "Snake Wine is a nation-state threat actor primarily involved in espionage activities targeting Japan. Known for deploying sophisticated malware such as Ham Backdoor and Tofu Backdoor, Snake Wine has demonstrated persistent operations since at least 2019. Their activities pose significant risks to Japanese governmental and private sector entities.",
+  "goals": "Snake Wine's strategic objectives appear to be centered around espionage, with a focus on targeting Japanese entities for intelligence collection. Given Japan's geopolitical significance, they are likely interested in information related to government operations, defense, and possibly private sector technology or business strategies. The actor's targeting profile focuses exclusively on Japan, suggesting either a state-affiliated operation with specific regional interests or a group with operational constraints limiting their reach.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A312",
+  "sourceUrl": "https://threaticon.com/threat-actors/312"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "againstthewest",
+  "id": 325,
+  "name": "againstthewest",
+  "mitreId": "APT4",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Hacktivism",
+    "Ransomware",
+    "Wiper malware",
+    "Critical infrastructure",
+    "Government Targeting",
+    "Wiper / Destructive"
+  ],
+  "aliases": ["APT49", "AgainstTheWest", "Samurai Panda", "PLA Navy"],
+  "targetedSectors": ["Government", "Defense"],
+  "targetedCountries": ["CN"],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Custom ransomware", "Wiper malware"],
+  "iocPatterns": [
+    "Spear-phishing with malicious links or attachments",
+    "Ransomware deployment with specific filename patterns",
+    "Wiper malware activity leading to data deletion"
+  ],
+  "keyCapabilities": ["Custom ransomware", "Wiper malware", "Spear-phishing campaigns", "Social engineering"],
+  "recommendedActions": [
+    "Enhance email filtering and phishing detection capabilities",
+    "Implement endpoint detection and response (EDR) solutions",
+    "Monitor for unusual file activities and process behavior",
+    "Conduct regular cybersecurity awareness training"
+  ],
+  "campaignsText": "AgainstTheWest's campaign patterns involve targeting large corporations and government entities with a focus on China. The group's operational tempo is consistent, often launching campaigns against high-profile targets to achieve maximum disruption. Notable operations include attacks on Alibaba, Sberbank, and Gazprom. Campaigns are typically characterized by the deployment of custom ransomware and wiper malware, designed to cause significant downtime and disruption.",
+  "description": "AgainstTheWest (ATW), also known as APT49, Samurai Panda, PLA Navy, APT4, and Wisp Team, is a hacktivist group targeting governments and corporations perceived as authoritarian. Active since October 2021, the group primarily uses ransomware and wiper malware for ideological disruption rather than financial gain. The group has targeted sectors such as government, defense, and corporate entities like Alibaba, Sberbank, and Gazprom.",
+  "goals": "AgainstTheWest seeks to achieve organizational disruption through the deployment of ransomware and wiper malware, targeting primarily government and defense sectors in China (CN) for ideological reasons. The group's focus on high-profile targets suggests an aim to maximize impact and attention. Typical victims include large corporations and critical infrastructure organizations perceived as authoritarian or politically significant.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A325",
+  "sourceUrl": "https://threaticon.com/threat-actors/325"
+}

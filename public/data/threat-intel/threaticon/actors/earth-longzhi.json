@@ -1,0 +1,53 @@
+{
+  "slug": "earth-longzhi",
+  "id": 886,
+  "name": "Earth Longzhi",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT41 subgroup",
+    "State-sponsored activity",
+    "Denial-of-Service (DoS)",
+    "Regional targeting",
+    "Stack manipulation"
+  ],
+  "aliases": ["SnakeCharmer"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Disruption", "Persistence"],
+  "techniques": ["T1059.003", "T1566.001"],
+  "tools": ["Custom DoS exploit tools", "IFEO manipulation tools"],
+  "iocPatterns": [
+    "Spear-phishing-like activity targeting specific regions",
+    "IFEO registry manipulation",
+    "Unusual process behavior related to stack operations"
+  ],
+  "keyCapabilities": [
+    "Intermediate-level cyber capabilities",
+    "DoS attacks with novel techniques",
+    "Manipulation of Image File Execution Options (IFEO)",
+    "Targeted regional campaigns",
+    "Potential ties to APT41"
+  ],
+  "recommendedActions": [
+    "Implement robust monitoring of IFEO settings and process behavior",
+    "Enhance detection mechanisms for novel DoS techniques",
+    "Conduct regular security assessments in targeted sectors",
+    "Apply patches for known vulnerabilities related to image file execution",
+    "Educate employees on regional geopolitical threats"
+  ],
+  "campaignsText": "Earth Longzhi's campaign patterns are not extensively documented, but its use of 'stack rumbling' suggests an emphasis on innovative attack methods. The group appears to operate with a regional focus, targeting specific industries in Southeast Asia and the Pacific. Past operations indicate a preference for disrupting security infrastructure rather than immediate data exfiltration, possibly as a precursor to more comprehensive attacks.",
+  "description": "Earth Longzhi, also known as SnakeCharmer, appears to be a subgroup associated with APT41. It primarily targets organizations in Taiwan, Thailand, the Philippines, and Fiji using a novel denial-of-service (DoS) technique involving Image File Execution Options (IFEO), referred to as 'stack rumbling.' This group demonstrates intermediate sophistication with a focus on disrupting security software through innovative attack methods.",
+  "goals": "The strategic goals of Earth Longzhi likely align with those of APT41, which has been linked to espionage and sabotage activities. The targeting of regions such as Taiwan, Thailand, the Philippines, and Fiji suggests a focus on regional stability or economic interests. The use of DoS techniques indicates an intent to disrupt or degrade the effectiveness of security software, possibly to facilitate access to targeted systems or to create conditions favorable for further attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A886",
+  "sourceUrl": "https://threaticon.com/threat-actors/886"
+}

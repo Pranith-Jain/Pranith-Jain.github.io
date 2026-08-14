@@ -1,0 +1,57 @@
+{
+  "slug": "oldgremlin",
+  "id": 967,
+  "name": "OldGremlin",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Ransomware",
+    "Criminal Activity",
+    "Financial Crime",
+    "Russian Speaker",
+    "Industrial Targeting",
+    "Critical Infrastructure",
+    "Phishing"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Execution", "Persistence", "Impact", "Defense Evasion"],
+  "techniques": ["T1566.003", "T1078", "T1486"],
+  "tools": ["Custom Ransomware Binary", "Phishing Email Tools"],
+  "iocPatterns": [
+    "Phishing emails targeting Russian-speaking individuals",
+    "Presence of custom ransomware binaries in compromised systems",
+    "Encrypted files indicating ransomware encryption patterns",
+    "Network traffic anomalies consistent with command-and-control communications"
+  ],
+  "keyCapabilities": [
+    "Custom ransomware deployment",
+    "Phishing email campaigns",
+    "Cross-platform malware targeting Windows and Linux systems",
+    "Encrypted communication channels for command and control",
+    "Large-scale ransom demands"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect phishing attempts.",
+    "Monitor IT infrastructure for signs of unauthorized access and data encryption.",
+    "Deploy endpoint detection and response (EDR) solutions to identify malicious activity.",
+    "Conduct regular user training on phishing awareness.",
+    "Establish incident response plans tailored to ransomware attacks.",
+    "Perform regular backups of critical systems to mitigate data loss."
+  ],
+  "campaignsText": "OldGremlin has demonstrated a consistent campaign pattern over several years, focusing on Russian entities with high financial and operational value. Their campaigns often exhibit a slow-burn approach, allowing time to infect multiple targets before deploying ransomware. Despite their primary focus on Russia, the group may pose a potential threat to international organizations with Russian business ties or employees.",
+  "description": "OldGremlin is a Russian-speaking ransomware group targeting organizations in Russia across multiple sectors, including banking and logistics. They employ phishing emails as an infection vector and use custom malware for both Windows and Linux systems, demanding large ransoms from victims.",
+  "goals": "OldGremlin's targeting strategy appears to be driven by both financial gain and disruption of critical Russian sectors. By focusing on high-value targets within these sectors, the group aims to maximize the impact of its attacks and secure substantial ransom payments. The choice of victims reflects a strategic focus on industries where business interruption would have significant economic consequences.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A967",
+  "sourceUrl": "https://threaticon.com/threat-actors/967"
+}

@@ -1,0 +1,60 @@
+{
+  "slug": "gorgon-group",
+  "id": 103,
+  "name": "Gorgon Group",
+  "mitreId": "G0078",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "government", "malware", "Initial Access", "Government Targeting"],
+  "aliases": ["Subaat", "Gorgon Group", "ATK92", "G0078"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration", "Lateral Movement", "Defense-Evasion", "Credential Access", "Discovery"],
+  "techniques": [
+    "T1204.002",
+    "T1112",
+    "T1055.002",
+    "T1059.001",
+    "T1588.002",
+    "T1055.012",
+    "T1547.009",
+    "T1547.001",
+    "T1685",
+    "T1564.003",
+    "T1059.005",
+    "T1105"
+  ],
+  "tools": ["NanoCore", "njRAT"],
+  "iocPatterns": [
+    "Spearphishing with malicious attachments",
+    "Registry modifications for persistence",
+    "Use of njRAT malware",
+    "Process hollowing techniques"
+  ],
+  "keyCapabilities": [
+    "Spearphishing campaigns",
+    "Use of malware (NanoCore, njRAT)",
+    "Registry modifications",
+    "Malicious file deployment",
+    "Process hollowing"
+  ],
+  "recommendedActions": [
+    "Implement advanced endpoint detection and response (EDR) solutions to detect malicious file activities.",
+    "Monitor for unusual registry changes indicative of persistence mechanisms.",
+    "Conduct regular phishing simulations to improve employee awareness of spearphishing attacks.",
+    "Apply patches and updates to mitigate vulnerabilities exploited by the group's tools."
+  ],
+  "campaignsText": "The Gorgon Group has conducted campaigns targeting government organizations, leveraging sophisticated malware and persistence techniques. Their use of NanoCore and njRAT indicates a focus on long-term access and data exfiltration. Campaign patterns suggest operational continuity over several years, with attacks observed in multiple countries. Specific details about their campaign operations are limited but indicate a methodical approach to target selection and attack execution.",
+  "description": "The Gorgon Group, also known as Subaat, ATK92, G0078, and Pasty Gemini, is a threat actor suspected to have members with ties to Pakistan. The group conducts espionage and criminal attacks targeting government organizations in the UK, Spain, Russia, and the US. Their activities include the use of malware like NanoCore and njRAT, as well as various MITRE ATT&CK techniques such as T1566.001 (Spearphishing Attachment) and T1204.002 (Malicious File). The Gorgon Group poses a significant threat to government and critical infrastructure sectors due to their blending of criminal activity with targeted espionage.",
+  "goals": "The Gorgon Group appears to have dual motivations: espionage for strategic or political purposes and criminal activities likely aimed at financial gain. Their targeting of government organizations suggests a focus on accessing sensitive information, while their geographic diversity indicates an ability to operate across borders. The group's members are suspected to be based in Pakistan or connected to it, which may influence their targeting priorities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A103",
+  "sourceUrl": "https://threaticon.com/threat-actors/103"
+}

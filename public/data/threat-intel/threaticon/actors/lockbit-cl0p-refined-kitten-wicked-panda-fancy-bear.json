@@ -1,0 +1,57 @@
+{
+  "slug": "lockbit-cl0p-refined-kitten-wicked-panda-fancy-bear",
+  "id": 696,
+  "name": "lockbit, cl0p, refined kitten, wicked panda, fancy bear",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 10, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "espionage",
+    "aerospace",
+    "defense",
+    "Ransomware",
+    "Supply Chain Attack",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Aerospace", "Transportation", "Defense"],
+  "targetedCountries": [],
+  "tactics": ["Lateral Movement", "Exfiltration", "Initial Access", "Credential Access", "Defense Evasion"],
+  "techniques": ["T1505.002", "T1569.001", "T1055", "T1093.001", "T1078.001"],
+  "tools": ["Mimikatz", "Custom APT tools", "LockBit ransomware", "Cl0p ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "C2 infrastructure using fast-flux domains",
+    "Scheduled task creation for persistent access",
+    "Abnormal network traffic volumes during attacks"
+  ],
+  "keyCapabilities": [
+    "Advanced Persistent Threat (APT) tactics",
+    "Ransomware deployment",
+    "Credential dumping",
+    "Data exfiltration",
+    "Targeted spear-phishing campaigns"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems",
+    "Segment networks to isolate aviation-related IT from corporate networks",
+    "Monitor for unusual exfiltration activity using network monitoring tools",
+    "Conduct regular phishing simulations and employee training",
+    "Apply patches and updates to aviation software and third-party dependencies"
+  ],
+  "campaignsText": "The group has been involved in several high-profile campaigns, including the September 2025 ransomware attack on Collins Aerospace MUSE system, which disrupted major European airports. Campaign patterns include targeting third-party aviation suppliers and leveraging shared IT platforms for maximum disruption.",
+  "description": "The threat actor group, known by multiple aliases including LockBit, Cl0p, Refined Kitten, Wicked Panda, and Fancy Bear, is a high-sophistication cybercriminal operation targeting the aerospace, transportation, and defense sectors. The group employs advanced persistent threat (APT) tactics to conduct espionage and ransomware attacks, focusing on stealing intellectual property and disrupting critical aviation systems.",
+  "goals": "The primary strategic objective appears to be financial gain through ransomware attacks, coupled with intelligence-gathering missions targeting intellectual property and military aviation data. The group's targeting of aerospace and defense sectors suggests an intent to compromise critical national infrastructure and gain a competitive advantage in the global market through stolen technology.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A696",
+  "sourceUrl": "https://threaticon.com/threat-actors/696"
+}

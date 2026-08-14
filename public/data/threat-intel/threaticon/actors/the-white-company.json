@@ -1,0 +1,55 @@
+{
+  "slug": "the-white-company",
+  "id": 150,
+  "name": "The White Company",
+  "mitreId": "G0089",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "State-sponsored",
+    "Espionage",
+    "Advanced Persistent Threat",
+    "Government targeting",
+    "Initial Access",
+    "APT",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion"],
+  "techniques": ["T1204.002", "T1203", "T1518.001", "T1070.004", "T1027.002", "T1124", "T1566.001"],
+  "tools": ["NETWIRE", "Revenge RAT", "Cobalt Strike (inferred from similar TTPs)", "Mimikatz (similar tools)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office document attachments",
+    "Malicious file downloads from compromised websites",
+    "Network activity indicative of C2 communication (e.g., unusual DNS queries)",
+    "Signs of malware installation, including dropped files and registry modifications"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Use of custom malware (NETWIRE, Revenge RAT)",
+    "Spear-phishing with malicious attachments",
+    "Exploitation of system vulnerabilities"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear-phishing attempts.",
+    "Monitor for unusual network traffic patterns, particularly related to known C2 infrastructure.",
+    "Use endpoint detection and response (EDR) solutions to identify malicious file activity.",
+    "Conduct regular vulnerability assessments on critical systems to mitigate exploitation risks.",
+    "Educate employees about phishing tactics and implement training programs."
+  ],
+  "campaignsText": "The White Company is known for Operation Shaheen, a targeted espionage campaign against Pakistani government and military entities. The group demonstrates persistence, with activity spanning at least two years. Their use of sophisticated malware suggests a high level of resource and development investment. Notable patterns include the use of spear-phishing attachments and malicious files to compromise targets.",
+  "description": "The White Company is a state-sponsored threat actor with advanced capabilities known for conducting espionage campaigns. They primarily target government and military organizations, focusing on intelligence gathering. Their activities have been linked to Operation Shaheen, which occurred between 2017 and 2018, indicating a persistent and targeted approach.",
+  "goals": "The White Company's strategic objectives appear to align with those of a state-sponsored actor, likely aiming to gather intelligence for geopolitical or military purposes. They specifically target government and military organizations, suggesting a focus on espionage rather than financial gain or disruption. The targeting of Pakistan during Operation Shaheen indicates a focus on South Asian geopolitical interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A150",
+  "sourceUrl": "https://threaticon.com/threat-actors/150"
+}

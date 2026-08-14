@@ -1,0 +1,43 @@
+{
+  "slug": "ta866",
+  "id": 872,
+  "name": "TA866",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Cybercrime", "Financial Fraud", "Malware Distribution", "Espionage", "APT"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration/Transfer", "Defense evasion"],
+  "techniques": ["T1059 - Spear Phishing via Email", "T1217 - Email Header Injection", "T1136 - Phishing as a Service"],
+  "tools": ["Commodity malware (e.g., known worms/trojans)", "Custom tools (details not fully disclosed)"],
+  "iocPatterns": [
+    "Spear-phishing emails",
+    "Malicious URLs or domains for command and control",
+    "Phishing attachment-based payloads"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing via email campaigns",
+    "Use of both commodity and custom malware tools",
+    "Ability to persist and escalate privileges post-compromise"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions to detect spear-phishing attempts.",
+    "Enhance user training on identifying phishing emails.",
+    "Monitor network traffic for signs of command-and-control communication."
+  ],
+  "campaignsText": "TA866's campaigns have been active since at least 2019, with notable peaks in 2022. Their operations focus on financial gain through malware distribution but may also involve data exfiltration.",
+  "description": "TA866 is a newly identified criminal threat actor distributing malware through emails since at least 2019, with heightened activity observed in 2022. Their primary motivation appears to be financial gain, though there are potential espionage activities that could indicate more complex objectives.",
+  "goals": "TA866 primarily targets sectors that offer high financial rewards or sensitive information, such as banking and finance. Their geographic targeting likely focuses on regions with prevalent cybercrime activity and accessible infrastructure for command-and-control domains, though specific countries are not explicitly detailed.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A872",
+  "sourceUrl": "https://threaticon.com/threat-actors/872"
+}

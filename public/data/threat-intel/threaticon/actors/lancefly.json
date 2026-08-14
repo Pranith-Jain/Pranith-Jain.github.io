@@ -1,0 +1,59 @@
+{
+  "slug": "lancefly",
+  "id": 891,
+  "name": "Lancefly",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "South Asia",
+    "Southeast Asia",
+    "Government",
+    "Telecom",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1214", "T1070"],
+  "tools": ["Merdoor", "ZXShell", "PlugX", "ShadowPad RAT"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "SSH brute-force attempts at凌晨 hours",
+    "Deployment of custom backdoors",
+    "C2 communications via IRC or HTTP"
+  ],
+  "keyCapabilities": [
+    "Phishing emails",
+    "SSH credential brute-forcing",
+    "Exploiting server vulnerabilities",
+    "Custom malware (Merdoor, ZXShell rootkit)",
+    "PlugX and ShadowPad RAT"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts",
+    "Monitor SSH traffic for unauthorized access patterns",
+    "Patch server vulnerabilities promptly and regularly",
+    "Deploy EDR solutions to detect RAT activities",
+    "Conduct regular network monitoring using SIEM for异常流量识别"
+  ],
+  "campaignsText": "Lancefly's campaigns since 2018 demonstrate persistence and adaptability, evolving their tools in response to defenses. Their targeting of specific sectors suggests a deliberate focus on information gathering rather than immediate disruption.",
+  "description": "Lancefly is an advanced persistent threat (APT) group targeting government, aviation, and telecom organizations in South and Southeast Asia. They employ a variety of attack techniques including phishing, SSH credential brute-forcing, server vulnerability exploitation, and deployment of custom malware such as Merdoor backdoor, ZXShell rootkit, PlugX, and ShadowPad RAT.",
+  "goals": "Lancefly's strategic objectives likely revolve around collecting sensitive information from targeted sectors such as government for diplomatic or military intelligence. Their focus on aviation and telecom may aim at gathering technological insights or operational data. The choice of specific regions indicates a potential regional focus or resource availability.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A891",
+  "sourceUrl": "https://threaticon.com/threat-actors/891"
+}

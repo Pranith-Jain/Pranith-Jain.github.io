@@ -1,0 +1,49 @@
+{
+  "slug": "buhtrap",
+  "id": 187,
+  "name": "BuhTrap",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["Nation-State", "Espionage", "Ransomware", "Government Targeting", "Critical Infrastructure", "APT"],
+  "aliases": ["Ratopak"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exploitation", "Credential Access", "Persistence", "Defense Evasion"],
+  "techniques": ["T1059", "T1562", "T1003.001", "T1055", "T1566.004"],
+  "tools": ["AmmyAdmin", "LURK", "NSIS", "Mimikatz", "PuntoSwitcher"],
+  "iocPatterns": [
+    "Presence of AmmyAdmin scripts",
+    "Mimikatz credential dumping activity",
+    "Network traffic indicative of C2 communication",
+    "LURK ransomware deployment",
+    "Exploitation attempts against CVE-2012-0158"
+  ],
+  "keyCapabilities": [
+    "Exploitation of known vulnerabilities (e.g., CVE-2012-0158)",
+    "Credential dumping with Mimikatz",
+    "Backdoor establishment with AmmyAdmin",
+    "Ransomware deployment via LURK",
+    "Payload delivery using NSIS framework"
+  ],
+  "recommendedActions": [
+    "Monitor for script-based threats and Mimikatz activity",
+    "Patch systems against known vulnerabilities like CVE-2012-0158",
+    "Use network monitoring tools to detect persistent C2 channels",
+    "Implement strong credential security measures",
+    "Conduct regular incident response drills focusing on detecting espionage activities"
+  ],
+  "campaignsText": "BuhTrap likely operates long-term campaigns targeting high-value assets. While specific operations are unclear, their toolset and methods suggest a focus on data exfiltration from critical sectors. Campaigns may involve persistent access and gradual data collection to evade detection.",
+  "description": "BuhTrap, also known as Ratopak, is a nation-state cyber threat actor primarily motivated by espionage. They utilize a varied toolset including AmmyAdmin, LURK ransomware, NSIS framework, Mimikatz for credential dumping, and exploit the CVE-2012-0158 vulnerability. Their operations are likely aimed at sensitive sectors like government and defense, leveraging persistence and lateral movement to achieve their goals.",
+  "goals": "BuhTrap's primary goal is espionage, targeting sectors rich in sensitive information such as government, defense, and critical infrastructure. Their nation-state affiliation suggests they focus on adversaries' countries, aiming to gather intelligence for strategic advantage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A187",
+  "sourceUrl": "https://threaticon.com/threat-actors/187"
+}

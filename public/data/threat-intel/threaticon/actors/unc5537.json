@@ -1,0 +1,69 @@
+{
+  "slug": "unc5537",
+  "id": 1107,
+  "name": "UNC5537",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "Financially motivated",
+    "Data theft",
+    "Infostealer malware",
+    "Snowflake customer targeting",
+    "Data Exfiltration"
+  ],
+  "aliases": ["LdPinch", "Judische", "the UNC5537 attack", "Octo Tempest"],
+  "targetedSectors": [
+    "Financial services",
+    "Healthcare",
+    "Defense",
+    "Telecommunications",
+    "Government",
+    "Non profit",
+    "Gaming",
+    "Aviation",
+    "Retail",
+    "Manufacturing",
+    "Utilities",
+    "Energy",
+    "Transportation",
+    "Oil gas",
+    "Think tank",
+    "Information technology"
+  ],
+  "targetedCountries": ["AU", "RU", "PL", "SA", "AE", "UA", "NL", "US"],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Infostealer malware", "Tools for credential dumping", "Network exfiltration tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting Snowflake customers",
+    "Infostealer malware activity",
+    "Lack of multi-factor authentication in targeted accounts",
+    "Unusual database access patterns"
+  ],
+  "keyCapabilities": [
+    "Credential theft through infostealer malware",
+    "Data exfiltration from cloud databases",
+    "Exploitation of weak authentication measures",
+    "Extortion or sale of stolen data"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for all critical accounts",
+    "Enhance cloud security by encrypting sensitive data at rest and in transit",
+    "Monitor network traffic for signs of unauthorized access attempts",
+    "Conduct regular security audits to identify and patch vulnerabilities"
+  ],
+  "campaignsText": "UNC5537's campaigns are characterized by their focus on data-rich environments and their reliance on stolen credentials. They target organizations with weak security measures, such as a lack of MFA. Their operational tempo suggests they are methodical, with a focus on maximizing the value of stolen data rather than high-volume attacks.",
+  "description": "UNC5537 is a financially motivated threat actor targeting Snowflake customer databases through credential theft and data exfiltration. They exploit weak security measures, such as lack of MFA, to steal credentials and access sensitive information for extortion or sale on the dark web.",
+  "goals": "UNC5537's strategic objectives appear to be centered on financial gain through data exfiltration and extortion. They target Snowflake customers, suggesting an interest in industries with significant data assets or those that rely heavily on cloud services. The actor likely selects victims based on the ease of access and the perceived value of the stolen data. Their focus on sectors with potentially large datasets aligns with their goal to maximize the profitability of their campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1107",
+  "sourceUrl": "https://threaticon.com/threat-actors/1107"
+}

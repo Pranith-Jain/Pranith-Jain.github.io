@@ -1,0 +1,44 @@
+{
+  "slug": "yanbian-gang",
+  "id": 803,
+  "name": "Yanbian Gang",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Mobile Threat", "Financial Sector", "South Korea", "Financial Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Lateral Movement", "Exfiltration", "Initial Access"],
+  "techniques": ["T1078.001", "T1566.004", "T1059.003"],
+  "tools": ["Yanba Android Malware"],
+  "iocPatterns": [
+    "Spear-phishing campaigns targeting mobile banking users via SMS",
+    "Distribution of Android APK files mimicking legitimate financial institution apps",
+    "Command-and-control communication over hardcoded domains"
+  ],
+  "keyCapabilities": [
+    "Social engineering via SMS and messaging applications",
+    "Development and distribution of malicious Android apps",
+    "Establishment of command-and-control (C2) infrastructure for stolen data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement rigorous app verifications and threat detection on mobile banking platforms.",
+    "Educate users on recognizing suspicious messages or links claiming to be from banks.",
+    "Monitor for unusual account activities indicative of unauthorized access.",
+    "Conduct regular penetration testing to identify vulnerabilities in mobile banking systems."
+  ],
+  "campaignsText": "The Yanbian Gang has been active since 2013, consistently targeting South Korean mobile banking users through phishing campaigns and malicious app distribution. Their campaigns often involve sending deceptive SMS messages or links to fake bank websites, tricking users into downloading malware-laced apps. Notable operations include multiple waves of attacks against major banks, with the goal of stealing user credentials for unauthorized transactions.",
+  "description": "The Yanbian Gang poses a significant threat to South Korean mobile banking users through the distribution of malicious Android apps since 2013. Their primary focus has been on targeting major financial institutions, aiming to compromise customer accounts for financial gain.",
+  "goals": "The Yanbian Gang's strategic goals are centered around financial gain through unauthorized access to customer accounts in the banking sector. Their targeting profile is specifically focused on South Korea due to its high reliance on mobile banking services, which makes it a prime target for financial fraud. The group typically targets individuals who use popular mobile banking apps, exploiting trust in well-known financial institutions to deliver malicious payloads.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A803",
+  "sourceUrl": "https://threaticon.com/threat-actors/803"
+}

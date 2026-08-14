@@ -1,0 +1,83 @@
+{
+  "slug": "lucky-cat",
+  "id": 205,
+  "name": "Lucky Cat",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "nation-state",
+    "aerospace-sector",
+    "defense-sector",
+    "Japan",
+    "India",
+    "Government Targeting"
+  ],
+  "aliases": ["Shadow Network", "SabPub", "TA413", "White Dev 9"],
+  "targetedSectors": ["Aerospace & defense", "Research", "Defense"],
+  "targetedCountries": ["JP", "IN"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1059.003 (Command and Script Interpretation",
+    "T1210 (Exploit Public-Facing Application)",
+    "T1566.001 (Phishing",
+    "T1134 (User Execution",
+    "T1077 (Boot or Logon Item)",
+    "T1082 (System Information Discovery)",
+    "T1040 (Exfiltration Over C2 Channel)"
+  ],
+  "tools": [
+    "Custom-built backdoor malware",
+    "Cobalt Strike (likely for initial access and lateral movement)",
+    "Mimikatz (for credential harvesting)",
+    "PowerSploit (for PowerShell-based attacks)",
+    "Steganographic data exfiltration tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Microsoft Office documents",
+    "C2 communication over DNS tunneling or HTTPS",
+    "Use of domain names registered in Japan or India for staging infrastructure",
+    "Presence of custom backdoor signatures in network traffic",
+    "Unusual PowerShell activity indicative of post-exploitation tools"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) operations",
+    "Custom malware development for stealthy infiltration",
+    "Spear-phishing campaigns with socially engineered payloads",
+    "Command and control (C2) infrastructure resilience (e.g., fast-flux domains)",
+    "Exploitation of zero-day vulnerabilities in enterprise software",
+    "Lateral movement within victim networks using compromised credentials",
+    "Data exfiltration through encrypted channels"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to block malicious document attachments",
+    "Deploy endpoint detection and response (EDR) solutions to monitor for PowerShell-based attacks",
+    "Conduct regular penetration testing of network defenses to identify zero-day vulnerabilities",
+    "Monitor DNS traffic for anomalies indicative of tunneling",
+    "Enforce strict access controls and multi-factor authentication for critical systems",
+    "Train employees to recognize spear-phishing attempts targeting technical staff"
+  ],
+  "campaignsText": "Lucky Cat's campaigns are characterized by a targeted, low-and-slow approach, focusing on high-value sectors and individuals. Operations often begin with spear-phishing emails containing malicious documents or exploit payloads, followed by network infiltration and long-term surveillance. The actor has not been linked to public campaigns, suggesting operations are conducted covertly to avoid attribution. Notable patterns include the use of geographically proximate infrastructure for command and control, as well as the exploitation of local supply chain vulnerabilities in Japan and India.",
+  "description": "Lucky Cat, a nation-state threat actor linked to espionage activities, targets Tibetan activists and critical sectors in Japan and India, including aerospace, defense, and research. Operating under aliases such as Shadow Network and TA413, this group employs sophisticated tactics to infiltrate high-value organizations, seeking to exfiltrate sensitive military and technological data. Their operations suggest a strategic focus on geopolitical and technological intelligence gathering.",
+  "goals": "Lucky Cat's primary objective is espionage, with a strategic focus on acquiring sensitive military and technological intelligence. The group's targeting of aerospace, defense, and research sectors in Japan and India, alongside Tibetan activist networks, indicates an intent to disrupt strategic initiatives, steal proprietary information, and monitor geopolitical movements. The selection of Japan and India as key targets likely reflects their significance in regional security and technological innovation, with the actor aiming to gain insights that could be leveraged for diplomatic or military advantage. Tibetan activists are likely targeted to suppress dissent and gather intelligence on movements advocating for autonomy, aligning with broader nation-state objectives in the region.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A205",
+  "sourceUrl": "https://threaticon.com/threat-actors/205"
+}

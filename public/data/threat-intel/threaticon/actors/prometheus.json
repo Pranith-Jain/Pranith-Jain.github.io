@@ -1,0 +1,51 @@
+{
+  "slug": "prometheus",
+  "id": 551,
+  "name": "prometheus",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-gain", "Critical Infrastructure", "Healthcare Sector", "Evolved Tactics"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration Techniques", "Impact Techniques", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1059.003", "T1566.001", "T1021", "T1078"],
+  "tools": [
+    "Covenant Malware Framework",
+    "Ransomware executable (.NET based)",
+    "PowerShell scripts for payload delivery"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    ".NET-based executables related to Thanos ransomware family",
+    "Encrypted files with specific extensions (e.g., .hakbit, .prometheus)",
+    "Network communication patterns indicative of encrypted C2 channels"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment with .NET-based malware",
+    "Encryption of victim files",
+    "Phishing campaigns using spear-phishing emails",
+    "Extortion techniques including communication channels for negotiation"
+  ],
+  "recommendedActions": [
+    "Implement Endpoint Detection and Response (EDR) solutions to detect .NET-based malware activity",
+    "Conduct regular user training on phishing and ransomware prevention",
+    "Monitor network traffic for unusual PowerShell activities or encrypted communications",
+    "Patch systems regularly to mitigate potential vulnerabilities exploited by the group",
+    "Establish a robust incident response plan with clear ransomware attack protocols"
+  ],
+  "campaignsText": "Prometheus has been involved in several high-profile campaigns targeting healthcare and financial organizations. Their operations typically involve a rapid deployment of ransomware, followed by the encryption of critical systems. Notable campaigns include attacks on European healthcare providers and North American financial institutions, where their extortion tactics have forced quick ransoms due to sensitive data exposure risks.",
+  "description": "Prometheus is a medium-sophistication ransomware group primarily motivated by financial gain. They use a .NET-based ransomware likely derived from Thanos (win.hakbit) and have targeted sectors with high potential for financial extortion, including healthcare and critical infrastructure. Prometheus has demonstrated the ability to evolve their tactics while maintaining a focus on organizational gain through ransomware operations.",
+  "goals": "Prometheus's strategic objectives align with maximizing financial gain through targeted ransomware campaigns. They appear to prioritize sectors where disruptions can lead to significant financial losses or reputational damage, such as healthcare providers and financial institutions. The group's targeting suggests an understanding of how to exploit organizational weaknesses effectively, focusing on entities likely to pay large ransoms quickly to avoid prolonged downtime or data exposure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A551",
+  "sourceUrl": "https://threaticon.com/threat-actors/551"
+}

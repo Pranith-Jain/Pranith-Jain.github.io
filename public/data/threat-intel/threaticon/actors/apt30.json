@@ -1,0 +1,55 @@
+{
+  "slug": "apt30",
+  "id": 106,
+  "name": "APT30",
+  "mitreId": "G0013",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government",
+    "China",
+    "Initial Access",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": ["G0013", "ISTHMUS CASTLE"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Exfiltration"],
+  "techniques": ["T1204.002", "T1566.001", "T1059.003", "T1055", "T1566"],
+  "tools": ["FLASHFLOOD", "NETEAGLE", "SPACESHIP", "SHIPSHAPE", "BACKSPACE"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Custom malware development",
+    "Spear-phishing and social engineering",
+    "Exploitation of software vulnerabilities",
+    "Use of proxy servers and VPNs for anonymity",
+    "Data exfiltration and encryption"
+  ],
+  "recommendedActions": [
+    "Implement robust email security controls to detect and block spear-phishing attacks",
+    "Use anti-virus software and keep it up to date",
+    "Implement a vulnerability management program to patch known vulnerabilities",
+    "Use a web application firewall to detect and block malicious traffic",
+    "Monitor network traffic for suspicious activity"
+  ],
+  "campaignsText": "APT30's campaign patterns are not yet fully understood, but the group appears to be highly targeted and focused on specific government sectors. The group's operational tempo is likely to be moderate to high, with a focus on achieving specific objectives and gathering sensitive information. Notable past operations have included attacks on government agencies and organizations with sensitive information, although the exact scope and impact of these attacks are not yet fully understood.",
+  "description": "APT30 is a sophisticated threat group suspected to be associated with the Chinese government, targeting government sectors with a primary motivation that remains unclear. Their tactics, techniques, and procedures (TTPs) are characterized by the use of custom malware and spear-phishing attacks. Organizations in the government sector should be aware of the potential threat posed by APT30.",
+  "goals": "APT30's strategic objectives appear to be focused on targeting government sectors, potentially for espionage or intelligence gathering purposes. The group's targeting of government targets suggests a high level of interest in sensitive information and a potential desire to influence or disrupt government activities. Typical victims of APT30 attacks are likely to be government agencies or organizations with sensitive information, although the group's motivations and targeting profile are not yet fully understood.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A106",
+  "sourceUrl": "https://threaticon.com/threat-actors/106"
+}

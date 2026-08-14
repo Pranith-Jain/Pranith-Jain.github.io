@@ -1,0 +1,40 @@
+{
+  "slug": "storm-1133",
+  "id": 907,
+  "name": "Storm-1133",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "P",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APC", "cyber_espionage", "regional_conflict", "critical_infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1059", "T1059.003", "T1566", "T1566.004"],
+  "tools": ["Mimikatz", "Custom malware"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting energy, defense, and telecom sectors",
+    "Network probing attempts against Israeli organizations",
+    "Presence of known APT tools in targeted networks"
+  ],
+  "keyCapabilities": ["Email phishing", "Network infiltration", "Credential dumping", "Lateral movement"],
+  "recommendedActions": [
+    "Implement robust email filters for phishing detection",
+    "Monitor network traffic for signs of lateral movement",
+    "Conduct regular endpoint security audits",
+    "Enhance multi-factor authentication (MFA) across critical systems"
+  ],
+  "campaignsText": "Storm-1133 has been active since early 2023, with campaign activity focused on Israeli private sector organizations. The actor's operational patterns suggest a focus on stealth and persistence, possibly deploying custom tools to maintain access. No specific campaigns beyond the initial targeting have been widely reported, but the group appears to be relatively new to the threat landscape and may continue to evolve its tactics.",
+  "description": "Storm-1133 is an unidentified Gaza-based threat actor observed in early 2023 targeting Israeli private sector energy, defense, and telecommunications organizations. This group likely operates with moderate sophistication and exhibits signs of cyber espionage or adversarial activity.",
+  "goals": "Storm-1133 likely seeks to achieve strategic objectives potentially related to intelligence gathering, disruption of critical infrastructure, or influence in the targeted sectors. Their focus on specific industries suggests a calculated approach aimed at maximizing impact. The targeting of energy, defense, and telecommunications indicates an intent to compromise systems that are vital to national security and economic stability. Victims include private sector organizations, which may serve as proxies for accessing sensitive government-related information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A907",
+  "sourceUrl": "https://threaticon.com/threat-actors/907"
+}

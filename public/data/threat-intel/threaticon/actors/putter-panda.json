@@ -1,0 +1,49 @@
+{
+  "slug": "putter-panda",
+  "id": 124,
+  "name": "Putter Panda",
+  "mitreId": "G0024",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "government", "defense", "technology"],
+  "aliases": ["APT2", "MSUpdater", "Putter Panda", "PLA Unit 61486"],
+  "targetedSectors": ["Government", "Defense", "Technology", "Aerospace & defense", "Research"],
+  "targetedCountries": ["US"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion"],
+  "techniques": ["T1055.001", "T1027.013", "T1547.001", "T1685"],
+  "tools": ["3PARA RAT", "pngdowner", "4H RAT", "httpclient"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "DLL injection into legitimate processes",
+    "Encrypted files dropped during compromising operations",
+    "Registry entry modifications for persistence"
+  ],
+  "keyCapabilities": [
+    "State-sponsored espionage",
+    "Sophisticated malware development (e.g., RATs)",
+    "DLL injection techniques",
+    "Encrypted file storage mechanisms",
+    "Registry and startup folder modifications",
+    "Disabling or modifying defensive tools"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint detection and response (EDR) solutions to identify and respond to Putter Panda's TTPs.",
+    "Monitor for unusual network activity, particularly encrypted communications that might indicate C2 channels.",
+    "Enhance phishing detection mechanisms to counter spear-phishing campaigns.",
+    "Conduct regular audits of system registries and startup folders to detect unauthorized modifications.",
+    "Use threat intelligence feeds to block known malicious domains and IP addresses associated with Putter Panda."
+  ],
+  "campaignsText": "Putter Panda's campaigns typically involve targeted attacks against specific industries, often leveraging custom malware and long-term persistence to steal sensitive data. The group has been active for several years, with consistent improvements in their attack techniques. Notable campaigns have targeted US-based government agencies, defense contractors, and technology companies.",
+  "description": "Putter Panda, a suspected Chinese state-sponsored threat group linked to PLA Unit 61486, primarily engages in espionage activities targeting critical sectors such as government, defense, technology, and aerospace. The group has been observed using sophisticated malware and attack techniques to compromise systems, likely with the aim of gathering sensitive information.",
+  "goals": "Putter Panda's strategic objectives appear to focus on intelligence gathering and espionage, particularly targeting industries and countries that hold significant geopolitical or economic interests for China. The group's targeting of sectors like government, defense, technology, and aerospace suggests a focus on stealing sensitive information, military secrets, and advanced technologies. Given the prominence of US-based victims, Putter Panda likely seeks to undermine American strategic advantages in these areas.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A124",
+  "sourceUrl": "https://threaticon.com/threat-actors/124"
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "poisonus-panda",
+  "id": 733,
+  "name": "POISONUS PANDA",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "supply-chain compromise"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Collection", "Exfiltration", "Persistence"],
+  "techniques": ["T1059", "T1020", "T1078", "T1566.001"],
+  "tools": ["Mimikatz", "Custom-built malware", "Cobalt Strike"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "C2 communication via encrypted channels",
+    "Use of custom malware binaries"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing",
+    "Social engineering",
+    "Custom malware development",
+    "Lateral movement within networks"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect phishing attempts.",
+    "Conduct regular network monitoring for signs of lateral movement.",
+    "Enhance credential management practices to mitigate Mimikatz-like attacks.",
+    "Apply patches and updates to systems to prevent known exploit vectors."
+  ],
+  "campaignsText": "No specific campaigns have been attributed to POISONUS PANDA. However, their activities likely involve targeted attacks with a focus on long-term access to victim networks for data exfiltration or sabotage.",
+  "description": "POISONUS PANDA appears to be a cyber threat actor of unknown origin with activities spanning multiple sectors. While limited data exists, this group likely focuses on covert operations targeting specific industries or regions for strategic advantage, employing advanced tactics that suggest moderate sophistication.",
+  "goals": "POISONUS PANDA's objectives are speculative given the sparse intelligence. It is possible they target specific sectors such as government, military, or technology industries, with a potential focus on Asia-Pacific regions due to the group's name. Their targeting likely aims to gather sensitive information or disrupt critical operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A733",
+  "sourceUrl": "https://threaticon.com/threat-actors/733"
+}

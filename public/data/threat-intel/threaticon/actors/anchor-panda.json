@@ -1,0 +1,55 @@
+{
+  "slug": "anchor-panda",
+  "id": 206,
+  "name": "Anchor Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "China", "government", "defense", "aerospace", "maritime", "Government Targeting"],
+  "aliases": ["Anchor Panda", "ANCHOR PANDA", "QAZTeam", "ALUMINUM"],
+  "targetedSectors": ["Government", "Defense", "Aerospace & defense"],
+  "targetedCountries": ["CN"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration"],
+  "techniques": [
+    "T1059.003 - Remote Services",
+    "T1055 - Process Injection",
+    "T1566.001 - Phishing",
+    "T1047 - Windows Management Instrumentation",
+    "T1560 - Data Encrypted for Exfiltration"
+  ],
+  "tools": ["Adobe Gh0st", "Poison Ivy", "Torn RAT", "Custom Encryption Tool (PdPD marker)"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents targeting maritime and defense personnel",
+    "C2 communication over encrypted channels with domain generation algorithms (DGAs)",
+    "Use of PdPD (50 64 50 44) marker in encrypted binaries",
+    "Staging infrastructure on bulletproof hosting services in China",
+    "Malicious file hashes associated with Adobe Gh0st and Torn RAT"
+  ],
+  "keyCapabilities": [
+    "Use of remote access tools (RATs) such as Adobe Gh0st, Poison Ivy, and Torn RAT",
+    "Encrypted malware with PdPD marker for obfuscation and anti-analysis",
+    "Advanced social engineering and spear-phishing campaigns targeting maritime and defense sectors",
+    "Persistence mechanisms to maintain long-term access to victim networks",
+    "Custom tool development for exfiltrating sensitive data from high-value targets"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering and user training to detect and block spear-phishing attempts",
+    "Deploy endpoint detection and response (EDR) solutions to identify anomalous behavior from RATs like Poison Ivy",
+    "Monitor for encrypted traffic anomalies and inspect C2 patterns using network traffic analysis tools",
+    "Conduct regular threat hunting for PdPD-marked binaries and associated malware indicators",
+    "Restrict lateral movement within networks through zero-trust architectures and least-privilege policies"
+  ],
+  "campaignsText": "Anchor Panda's campaigns are characterized by a focus on maritime and defense entities in China, with operations likely orchestrated over extended periods to avoid detection. Their use of encrypted payloads and custom tools suggests a preference for stealth and operational security. Campaigns may involve initial compromise via spear-phishing, followed by lateral movement and data exfiltration. Limited public information on specific campaigns or timestamps implies that their activities may be sporadic or underreported, with a low operational tempo to reduce risk of exposure.",
+  "description": "Anchor Panda is a nation-state threat actor primarily engaged in espionage against government, defense, and aerospace entities in China, focusing on maritime issues in the South China Sea. They employ tools like Adobe Gh0st, Poison Ivy, and Torn RAT, and use encrypted binaries with a PdPD marker. Their activities suggest strategic intelligence-gathering linked to geopolitical interests.",
+  "goals": "Anchor Panda's primary objective is espionage, with a specific focus on sectors and regions critical to China's geopolitical interests, particularly the South China Sea. By targeting government agencies, defense contractors, and aerospace firms, they aim to gather sensitive intelligence on maritime navigation systems, military capabilities, and technological innovations. This targeting profile suggests a strategic intent to support China's territorial claims and enhance its influence in the region. The group's focus on Chinese entities may also reflect an interest in securing internal state secrets or advancing national defense priorities through surveillance and data theft.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A206",
+  "sourceUrl": "https://threaticon.com/threat-actors/206"
+}

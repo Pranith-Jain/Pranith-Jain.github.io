@@ -1,0 +1,68 @@
+{
+  "slug": "lockbit",
+  "id": 483,
+  "name": "lockbit",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Crime",
+    "Financial Gain",
+    "Healthcare Sector",
+    "Education Sector",
+    "Manufacturing",
+    "Double Extortion"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Lateral Movement", "Data Exfiltration", "Defense-Evasion", "Credential Access"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078", "T1021", "T1197", "T1543"],
+  "tools": [
+    "LockBit Ransomware family (e.g., HappyMackerel)",
+    "PowerShell scripts for execution",
+    "Dark web communication channels",
+    "Tor network usage",
+    "Cobalt Strike-like frameworks"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails featuring malicious .zip or .exe attachments",
+    "Use of TTY (e.g., /dev/tty) enumeration techniques in scripts",
+    "Lateral movement using tools like psinfo.exe or WMI",
+    "Encrypted files with extensions such as .locked or .enc",
+    "Ransomware notes left in folders (e.g., README.txt)",
+    "Exfiltration of data via webmail services or cloud storage",
+    "Presence of custom loaders and droppers"
+  ],
+  "keyCapabilities": [
+    "Ransomware-as-a-Service (RaaS) platform",
+    "Affiliate recruitment and management",
+    "Custom ransomware variants like HappyMackerel",
+    "Sophisticated encryption methods",
+    "Leveraging dark web infrastructure for communication",
+    "Targeted phishing campaigns",
+    "Use of legitimate tools for lateral movement"
+  ],
+  "recommendedActions": [
+    "Implement endpoint detection and response (EDR) solutions to monitor for LockBit's TTPs.",
+    "Conduct regular phishing simulations to train employees on identifying suspicious emails.",
+    "Maintain offline backups of critical systems and regularly test restoration processes.",
+    "Monitor network traffic for indicators of unauthorized data exfiltration or command-and-control communication.",
+    "Patch systems promptly to mitigate the risk of exploitation through known vulnerabilities.",
+    "Use multi-factor authentication for sensitive accounts to prevent credential-based attacks."
+  ],
+  "campaignsText": "LockBit's campaigns are marked by their rapid operational tempo and precision targeting. The group has been particularly active in the healthcare, education, and manufacturing sectors, leveraging their affiliate network to maximize geographic and sectoral coverage. Notable past operations include attacks on European hospitals, U.S. educational institutions, and Asian manufacturing firms. LockBit's use of double extortion tactics—encrypting data and threatening to leak it unless a ransom is paid—has further increased its notoriety. The group's ability to adapt to new defenses and exploit zero-day vulnerabilities has contributed to their sustained success in the ransomware landscape.",
+  "description": "LockBit is a highly sophisticated criminal ransomware group operating as a Ransomware-as-a-Service (RaaS) platform. Known for its prolific activity, LockBit has been linked to numerous high-profile ransomware incidents globally. The group primarily focuses on financial gain through the encryption and subsequent decryption of victims' data in exchange for cryptocurrency payments. Operating with a structured affiliate model, LockBit has demonstrated significant adaptability and targeting precision across multiple sectors.",
+  "goals": "LockBit's primary strategic objective is financial gain through the deployment of ransomware. The group targets a wide range of sectors due to their affiliate model, which allows them to focus on high-value victims regardless of industry. Their targeting profile includes entities in healthcare, education, manufacturing, and government, as these often have valuable data or limited defenses. Affiliates are incentivized through a revenue-sharing model, making LockBit's operations both scalable and effective. The group's global reach is facilitated by its decentralized structure and the use of sophisticated tools to avoid detection while maximizing payout potential.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A483",
+  "sourceUrl": "https://threaticon.com/threat-actors/483"
+}

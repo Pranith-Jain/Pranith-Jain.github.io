@@ -1,0 +1,48 @@
+{
+  "slug": "mindware",
+  "id": 511,
+  "name": "mindware",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "financial-motivation", "cyber-criminal", "medium-sophistication", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Credential Access", "Data Exfiltration"],
+  "techniques": ["T1059.003", "T1486", "T1036", "T1070"],
+  "tools": ["Generic ransomware tools", "Custom or off-the-shelf malware"],
+  "iocPatterns": [
+    "Ransomware encryption patterns on local drives",
+    "Massive exfiltration of sensitive files across systems",
+    "Lack of operational activity after initial detection"
+  ],
+  "keyCapabilities": [
+    "Deployment of ransomware",
+    "File encryption",
+    "Network propagation techniques",
+    "Credential dumping via screenshot tools",
+    "Data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement strong email filtering and phishing awareness training",
+    "Maintain regularly tested backups and offline storage solutions",
+    "Enhance endpoint detection and response (EDR) capabilities",
+    "Conduct regular privileged account audits and MFA enforcement",
+    "Monitor for potential lateral movement indicators",
+    "Establish robust incident response plans"
+  ],
+  "campaignsText": "Mindware has not been linked to any major campaigns, and their operational activity appears limited to a single instance in May 2022. The group's modus operandi likely involves spear-phishing attacks with malicious links or attachments, followed by ransomware deployment and victim system encryption. Their limited visibility suggests they may be less active or operating under the radar.",
+  "description": "Mindware is a medium-sophistication threat actor group primarily associated with ransomware activity, targeting organizations for financial gain. First observed in May 2022, the group has not been active since, raising questions about its current operational status.",
+  "goals": "Mindware's strategic objectives align with typical ransomware operators, aiming to maximize financial gain through targeted disruptions. While specific targeting criteria are unclear, they likely focus on sectors with high recovery costs and limited visibility into attacks, such as healthcare, education, and manufacturing. The actor's geographic reach appears unrestricted, though more information is needed to confirm their specific target countries.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A511",
+  "sourceUrl": "https://threaticon.com/threat-actors/511"
+}

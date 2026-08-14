@@ -1,0 +1,46 @@
+{
+  "slug": "cmdorganization",
+  "id": 383,
+  "name": "cmdorganization",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "financial-motivation", "healthcare-targeting", "education-sector-threat"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Credential Access", "Execution", "Defense Evasion", "Collection"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1485", "T1547.004"],
+  "tools": ["General-purpose ransomware (e.g., EncryptXXX)", "Exploitation frameworks like Mimikatz variants"],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious Office documents",
+    "C2 communications via HTTP/HTTPS protocols",
+    "Encrypted files following ransomware deployment",
+    "Presence of custom registry entries or Task Scheduler jobs"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing with macro-laced Office documents",
+    "Exploitation of software vulnerabilities",
+    "Persistence techniques such as registry modifications and Task Scheduler entries",
+    "Ransomware deployment for financial gain"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect spear-phishing attempts",
+    "Enforce regular patch management to mitigate known vulnerabilities",
+    "Deploy endpoint detection and response (EDR) solutions to monitor for malicious activities",
+    "Conduct user training programs to reduce the risk of falling victim to social engineering attempts"
+  ],
+  "campaignsText": "cmdorganization has launched several campaigns targeting small-to-medium businesses across various sectors. The actor's operational tempo suggests a focus on quick infections and monetization, with victims ranging from healthcare providers to educational institutions. Notable past operations include attacks on JG Stewart Construction and Cytek Biosciences, demonstrating cmdorganization's versatility in targeting industries.",
+  "description": "cmdorganization is an emerging cyber threat actor specializing in corporate system security vulnerabilities and ransomware attacks. With a primary motivation of financial gain, cmdorganization has targeted multiple industries globally since its first sighting in early 2026. This group leverages sophisticated tactics to penetrate organizational systems and encrypt data for ransom, posing significant risks to businesses and their operational continuity.",
+  "goals": "cmdorganization targets organizations with significant financial resources or sensitive data to maximize ransom payout potential. The actor's broad targeting across sectors suggests a strategic focus on accessibility rather than sector-specific expertise. Victims include businesses like construction firms, educational institutions, and healthcare providers, indicating cmdorganization seeks high-value yet potentially vulnerable targets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A383",
+  "sourceUrl": "https://threaticon.com/threat-actors/383"
+}

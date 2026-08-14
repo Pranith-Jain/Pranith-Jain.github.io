@@ -1,0 +1,61 @@
+{
+  "slug": "ta577",
+  "id": 30,
+  "name": "TA577",
+  "mitreId": "G1037",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "Initial Access Broker",
+    "Malware Distribution",
+    "QakBot",
+    "Pikabot",
+    "Latrodectus",
+    "Spearfishing",
+    "Email Account Compromise",
+    "Initial Access",
+    "Critical Infrastructure"
+  ],
+  "aliases": ["Hive0118"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Command & Control"],
+  "techniques": ["T1027.009", "T1059.007", "T1566.002", "T1586.002", "T1059.003", "T1204.001"],
+  "tools": ["QakBot", "Pikabot", "Latrodectus", "Compromised Email Accounts"],
+  "iocPatterns": [
+    "Spear‑phishing Links with Embedded JavaScript Payloads",
+    "Delivery of Malicious Web Pages via Short URLs",
+    "Use of Compromised Email Accounts to Launch Campaigns"
+  ],
+  "keyCapabilities": [
+    "Distributes QakBot, Pikabot, and Latrodectus malware",
+    "Sells compromised email accounts for use in phishing campaigns",
+    "Creates spear‑phishing links containing embedded JavaScript payloads",
+    "Utilizes malicious links to deliver drive‑by downloads via web browsers",
+    "Employs obfuscated or embedded payload delivery (T1027.009)",
+    "Registers or leverages domains for command and control",
+    "Leverages Windows PowerShell / Command Shell for execution"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering and block malicious URL shorteners; use DMARC, DKIM, and SPF to prevent spoofed emails.",
+    "Deploy user‑training focused on spear‑phishing awareness and safe browsing practices.",
+    "Enable endpoint detection & response solutions that detect QakBot, Pikabot or Latrodectus indicators of compromise.",
+    "Apply timely patches for browser and JavaScript engine vulnerabilities; disable legacy scripting features where possible.",
+    "Limit administrative rights and enforce least privilege to reduce the impact of discovered web‑based exploits.",
+    "Monitor network traffic for anomalous outbound connections to known malicious domains or repeated C2 patterns."
+  ],
+  "campaignsText": "Since its first public detection in 2023, TA577 has operated on a broker model, distributing high‑profile backdoors and compromised credentials to clients worldwide. The actor’s operational tempo appears consistent, with monthly updates of new or variant malware kits distributed via short URL links and phishing email campaigns. While precise campaign targets are not known, the use of JavaScript payloads and spear‑phishing indicates a preference for web‑based compromise vectors that can reach broad audiences without specialized intrusion methods.",
+  "description": "TA577, also known as Hive0118, operates as an initial access broker (IAB) that has distributed the QakBot, Pikabot, and Latrodectus malware families. First noted in 2023, the group supplies malicious payloads and compromised email accounts to buyers, facilitating entry into target networks via spear‑phishing links and embedded JavaScript. Its exact origin, sector focus, and strategic motives remain largely unidentified.",
+  "goals": "TA577 appears motivated by commercial exploitation rather than geopolitical objectives. By distributing popular malware families such as QakBot and Pikabot, the actor targets organizations across multiple sectors—particularly those with high-value data or high connectivity that make them vulnerable to phishing vectors. The typical victims are enterprises lacking robust email security controls, making them ripe for spear‑phishing link delivery that injects JavaScript payloads into web pages. The broker’s goal is to provide adversaries with a ready‑made attack entry point, thereby increasing the likelihood of successful compromise and subsequent exploitation or resale.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A30",
+  "sourceUrl": "https://threaticon.com/threat-actors/30"
+}

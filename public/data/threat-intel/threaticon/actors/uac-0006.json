@@ -1,0 +1,49 @@
+{
+  "slug": "uac-0006",
+  "id": 960,
+  "name": "UAC-0006",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Financial Fraud", "Email Compromise", "Ukraine", "APT", "Malware", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Email Compromise", "Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": ["T1076", "T1058", "T1029", "T1543.001", "T1040"],
+  "tools": ["SmokeLoader malware", "Phishing email templates"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting accountants and financial staff",
+    "Malicious Office documents (e.g., .docx attachments) containing SmokeLoader payloads",
+    "C2 communication via hardcoded domains or IPs",
+    "Unusual financial transactions from compromised accounts",
+    "Backdoor processes with SmokeLoader signatures"
+  ],
+  "keyCapabilities": [
+    "Phishing campaigns using malicious email attachments",
+    "Deployment of SmokeLoader malware for credential theft",
+    "Unauthorized fund transfers via compromised accounts",
+    "Stealthy network propagation techniques",
+    "Persistent backdoor creation on infected systems"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions to detect and block phishing emails.",
+    "Educate employees on recognizing suspicious emails and attachment risks.",
+    "Monitor network traffic for signs of unauthorized access or data exfiltration.",
+    "Enhance account security measures, such as multi-factor authentication (MFA).",
+    "Conduct regular audits of financial transactions for anomalies."
+  ],
+  "campaignsText": "UAC-0006 has demonstrated a consistent operational tempo since their emergence in 2013, with a focus on stealth and persistence. Their campaigns often involve prolonged infection phases to maximize profit and avoid detection. Notable operations include multiple phishing campaigns targeting financial institutions and accounting firms in Ukraine. The group's ability to adapt their attack vectors indicates a capacity for continuous improvement and evolution in their tactics.",
+  "description": "UAC-0006 is a financially motivated cyber threat actor targeting Ukrainian organizations since at least 2013. They primarily use phishing emails containingSmokeLoader malware to compromise systems and execute unauthorized fund transfers. Their activities pose significant risks to financial systems and organizational stability.",
+  "goals": "UAC-0006's primary strategic objective appears to be financial gain through unauthorized fund transfers. They specifically target Ukrainian organizations, likely due to the country's active financial sector and the potential for high-value transactions. Their focus on accountants and financial institutions suggests an intent to disrupt financial operations while avoiding direct confrontation with critical infrastructure. Typical victims include accounting firms, businesses, and individuals handling sensitive financial data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A960",
+  "sourceUrl": "https://threaticon.com/threat-actors/960"
+}

@@ -1,0 +1,54 @@
+{
+  "slug": "rebornvc",
+  "id": 578,
+  "name": "rebornvc",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Extortion", "Double extortion", "Criminal", "Financial-gain"],
+  "aliases": ["RansomedVC2"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Persistence",
+    "Credential Access",
+    "Execution",
+    "Defense Evasion",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [],
+  "tools": ["Ransomware (encrypted files)", "Phishing tools (spear-phishing campaigns)"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting specific organizations",
+    "Encrypted files with ransom notes",
+    "Lateral movement within networks",
+    "Scheduled task creation for persistence"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Data auction techniques",
+    "Double extortion tactics",
+    "Geographically targeted campaigns"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect phishing attempts",
+    "Monitor for异常网络活动 indicative of extortion campaigns",
+    "Establish regular backups and ensure they are isolated from network access",
+    "Educate employees on recognizing phishing and extortion tactics"
+  ],
+  "campaignsText": "RebornVC has launched limited but impactful campaigns in the US and Brazil, targeting victims across industries. Their operational tempo suggests they are methodical in selecting targets and executing attacks, aiming for high-impact results rather than volume. The group's rebranding under new leadership indicates an effort to reinvent their operational model or avoid detection. Notable past operations include multiple extortion campaigns leveraging both data theft and encryption.",
+  "description": "RebornVC, a rebranded version of RansomedVC, has emerged in July 2025 under new leadership. The group specializes in ransomware attacks employing data auctions, direct extortion, and double extortion techniques. Their operations have already impacted victims in the US and Brazil, with ransom demands ranging from $10,000 to $1,000,000. This actor represents a medium-sophistication threat with a clear focus on financial gain through targeted extortion campaigns.",
+  "goals": "RebornVC appears to target sectors and countries with significant financial value or organizational complexity, leveraging both ransomware encryption and data extortion. Their focus on US and Brazilian victims suggests an initial emphasis on high-value targets in regions with potentially less mature cybersecurity defenses or higher payoffs. The group's strategic objectives align with maximizing financial gain through targeted extortion, likely selecting victims based on their ability to pay and the sensitivity of their data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A578",
+  "sourceUrl": "https://threaticon.com/threat-actors/578"
+}

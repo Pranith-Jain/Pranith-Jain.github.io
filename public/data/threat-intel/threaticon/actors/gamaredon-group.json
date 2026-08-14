@@ -1,0 +1,58 @@
+{
+  "slug": "gamaredon-group",
+  "id": 113,
+  "name": "Gamaredon Group",
+  "mitreId": "G0047",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government-targeted",
+    "Ukraine",
+    "Russia-linked",
+    "Initial Access",
+    "Government Targeting"
+  ],
+  "aliases": ["IRON TILDEN", "Primitive Bear", "ACTINIUM", "Armageddon"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": ["IR"],
+  "tactics": ["Collection", "Exfiltration", "Reconnaissance", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1566.001", "T1059.001", "T1480", "T1027", "T1113", "T1568.001", "T1016.001"],
+  "tools": ["QuietSieve", "Pteranodon", "PowerPunch"],
+  "iocPatterns": [
+    "Domain patterns with .trycloudflare.com subdomains",
+    "Use of specific IP addresses like 178.130.42.94",
+    "SHA-256 hashes associated with malware (e.g., 3afc8955057eb0bae8...)",
+    "URLs for file downloads and malicious scripts",
+    "Domestic Ukrainian domains for infrastructure"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Malware deployment",
+    "PowerShell-based activities",
+    "Cloud service abuse",
+    "Domain generation algorithms (DGAs)",
+    "Sophisticated persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement email filtering for spear-phishing attempts",
+    "Monitor for known Gamaredon-associated domain patterns in cloud services",
+    "Enhance VNC and remote access protocol monitoring",
+    "Conduct regular endpoint scanning for known malware hashes",
+    "Secure shared network drives against unauthorized access"
+  ],
+  "campaignsText": "Gamaredon Group's campaigns often involve long-term, persistent operations targeting critical infrastructure and government entities. Notable campaigns include OP Armageddon and Op Gamework, with the group frequently reusing or evolving tools like QuietSieve for data extraction. Their use of cloud services for infrastructure staging indicates a preference for low-profile operations that leverage legitimate service providers. Past activities have also included employment of fast-flux domains and VNC-based remote access.",
+  "description": "Gamaredon Group, a suspected Russian cyber espionage entity linked to the FSB's Center 18, has targeted Ukrainian government sectors since at least 2013. Known for sophisticated tactics including spear-phishing and malware deployment, the group has employed tools like QuietSieve and Pteranodon, often leveraging cloud services for infrastructure staging.",
+  "goals": "Gamaredon Group's primary strategic objective appears to be espionage against military, law enforcement, and government targets, likely to gather sensitive intelligence for Russian interests. The group focuses on sectors that provide valuable political and military information, with a particular emphasis on Ukraine due to its geopolitical significance. Their targeting of NGOs and non-profits suggests an interest in broader societal influence as well.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A113",
+  "sourceUrl": "https://threaticon.com/threat-actors/113"
+}

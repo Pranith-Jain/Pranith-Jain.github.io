@@ -1,0 +1,45 @@
+{
+  "slug": "dread",
+  "id": 422,
+  "name": "dread",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Organized-Crime", "Cyber-Extortion"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Potential use of spear-phishing emails with malicious attachments",
+    "Encrypted files with specific extensions following ransomware infection",
+    "Communications via dark web platforms to negotiate ransoms"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Financial extortion through encryption",
+    "Potential use of phishing for initial access",
+    "Encryption of victim data for coercive purposes"
+  ],
+  "recommendedActions": [
+    "Implement rigorous email filtering and endpoint detection to mitigate phishing attempts.",
+    "Monitor network traffic for signs of lateral movement or unauthorized access.",
+    "Regularly back up critical systems and test recovery processes to minimize ransomware impact.",
+    "Educate employees on recognizing suspicious communications and attachments."
+  ],
+  "campaignsText": "No confirmed campaigns have been attributed to Dread, and their operational patterns remain speculative. If active, they may employ stealthy tactics such as lateral movement within networks, data exfiltration, or system persistence before deploying ransomware. The group's potential inactivity suggests that they may be either preparing for future operations or engaged in less sophisticated attacks not tracked by major security vendors.",
+  "description": "Dread is a medium-sophistication criminal threat actor primarily motivated by organizational gain and financial exploitation through ransomware activities. Despite being tracked in security databases, no confirmed attacks or technical tactics have been publicly documented, raising questions about their operational maturity or potential inactivity.",
+  "goals": "Dread's primary goals appear to be organizational disruption and financial gain through ransomware deployment. While no specific sectors or countries have been identified as targets, their activities likely focus on industries where data breaches could lead to significant financial losses for victims, such as healthcare, education, or critical infrastructure. The group's targeting profile suggests a focus on organizations that may have limited cybersecurity defenses but possess the resources to pay ransoms.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A422",
+  "sourceUrl": "https://threaticon.com/threat-actors/422"
+}

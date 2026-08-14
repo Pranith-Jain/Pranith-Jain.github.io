@@ -1,0 +1,55 @@
+{
+  "slug": "storm-0501",
+  "id": 72,
+  "name": "Storm-0501",
+  "mitreId": "G1053",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "Ransomware",
+    "Financially Motivated",
+    "Mid-Sized Organizations",
+    "Cloud Infrastructure",
+    "Cobalt Strike",
+    "Initial Access"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Defense Evasion", "Discovery", "Execution", "Lateral Movement"],
+  "techniques": ["T1053.005", "T1490", "T1087.002", "T1003", "T1587.003"],
+  "tools": ["Cobalt Strike", "Embargo Ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "Use of Cobalt Strike for lateral movement",
+    "Scheduled task creation and modification",
+    "Encryption of files across network drives"
+  ],
+  "keyCapabilities": [
+    "Ransomware-as-a-Service (RaaS) operations",
+    "Use of commodity tools like Cobalt Strike",
+    "Spear-phishing campaigns",
+    "Cloud infrastructure exploitation",
+    "Data encryption for impact"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering solutions to detect phishing attempts",
+    "Enhance endpoint detection and response capabilities",
+    "Conduct regular backups of critical systems with offline storage options",
+    "Monitor for异常scheduled task activity on endpoints",
+    "Educate employees on identifying spear-phishing emails"
+  ],
+  "campaignsText": "Storm-0501 has been involved in numerous campaigns targeting mid-sized organizations, often employing phishing emails with malicious attachments or compromised credentials to gain initial access. Their campaigns typically involve the deployment of ransomware following extensive network enumeration and lateral movement. Notable incidents include attacks on healthcare providers, educational institutions, and manufacturing companies. The group has demonstrated a rapid operational tempo, launching multiple campaigns over short periods, particularly in 2023-2024.",
+  "description": "Storm-0501 is a financially motivated cybercriminal group known for using commodity and open-source tools in their ransomware operations. They have been active since 2021 and have associations with several Ransomware-as-a-Service (RaaS) variants including Hive, BlackCat, Hunters International, LockBit 3.0, and Embargo ransomware. Their targeting primarily focuses on sectors such as healthcare, education, manufacturing, and retail across North America, Europe, and parts of Asia.",
+  "goals": "Storm-0501's primary goal is financial gain through ransomware operations. They target sectors with higher organizational resilience, such as healthcare, education, manufacturing, and retail, which often have the resources to pay ransoms but may lack robust cybersecurity measures. The group's targeting of North America, Europe, and parts of Asia reflects their strategic focus on regions with a higher density of potential victims and economic capacity for ransom payments. Their preference for mid-sized organizations likely stems from easier infiltration and lower defensive barriers compared to larger enterprises.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A72",
+  "sourceUrl": "https://threaticon.com/threat-actors/72"
+}

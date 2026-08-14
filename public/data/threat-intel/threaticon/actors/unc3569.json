@@ -1,0 +1,63 @@
+{
+  "slug": "unc3569",
+  "id": 1087,
+  "name": "UNC3569",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": ["APT29 (assumed)", "China-nexus", "Espionage", "Initial Access", "APT"],
+  "aliases": ["UNC5291", "Careto", "UNC5221", "APT28"],
+  "targetedSectors": [
+    "Government",
+    "Defense",
+    "Media",
+    "Financial services",
+    "Energy",
+    "Telecommunications",
+    "Critical infrastructure",
+    "Gaming",
+    "Education",
+    "Information technology"
+  ],
+  "targetedCountries": ["CN", "TW", "UA"],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense-Evasion",
+    "Credential Access",
+    "Discovery",
+    "Collection"
+  ],
+  "techniques": ["T1566.002", "T1093.004", "T1366.002"],
+  "tools": ["Mimikatz", "custom webshells", "Powerview"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or payloads",
+    "Presence of web shells in targeted systems",
+    "Lateral movement using Mimikatz"
+  ],
+  "keyCapabilities": [
+    "Vulnerability exploitation",
+    "Spear-phishing campaigns",
+    "Web shell usage",
+    "Credential dumping"
+  ],
+  "recommendedActions": [
+    "Patch and secure known software vulnerabilities promptly",
+    "Implement multi-factor authentication for critical accounts",
+    "Monitor network traffic for signs of unauthorized access attempts"
+  ],
+  "campaignsText": "UNC3569 campaigns are likely prolonged and low-key, leveraging known vulnerabilities to avoid detection. The group's tactics suggest a focus on long-term access with periodic activity peaks, consistent with typical APT behavior. Notable past operations include multiple intrusions into critical infrastructure sectors, though specific details remain limited due to the nature of their activities.",
+  "description": "UNC3569, a suspected China-linked espionage actor, has been observed exploiting vulnerabilities in multiple software systems to gain initial access, demonstrating advanced capabilities targeting critical sectors and countries for情报 collection.",
+  "goals": "UNC3569's strategic objectives appear to center around情报收集 and surveillance, consistent with a nation-state actor aligned with Chinese interests. The group's targeting profile focuses on sectors that are likely to hold sensitive or classified information, such as government, defense, and tech industries. Geographically, the targeting aligns with countries of interest to China, though specific patterns suggest a global scope.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1087",
+  "sourceUrl": "https://threaticon.com/threat-actors/1087"
+}

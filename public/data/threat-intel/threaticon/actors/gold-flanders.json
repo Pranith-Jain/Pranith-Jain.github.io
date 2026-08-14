@@ -1,0 +1,45 @@
+{
+  "slug": "gold-flanders",
+  "id": 814,
+  "name": "GOLD FLANDERS",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Financially motivated", "DDOS", "Extortion", "Cybercrime", "零售业", "financial sector", "DDoS"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails demanding bitcoins after DDoS attacks",
+    "High volume DDoS traffic using UDP protocols",
+    "Encrypted communications via暗网 platforms or secure chat tools"
+  ],
+  "keyCapabilities": [
+    "Conducting large-scale DDoS attacks using fragmented UDP packets",
+    "Sending extortion emails synchronized with attack timing",
+    "Responding quickly to victim inquiries via email"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring and DDoS protection solutions",
+    "Train employees to recognize and report extortion emails promptly",
+    "Enhance email filtering to detect and block malicious messages",
+    "Secure backup systems to prevent ransomware infections",
+    "Conduct regular security drills focusing on incident response scenarios"
+  ],
+  "campaignsText": "GOLD FLANDERS' campaigns are characterized by their high-intensity DDoS attacks and rapid extortion efforts. Victims have reported receiving personalized responses when engaging with the group, indicating a structured operational approach. The group's focus on financial gain aligns with broader trends in cybercrime, but specific campaign patterns beyond the described TTPs remain unclear due to limited公开 reporting.",
+  "description": "GOLD FLANDERS is a financially motivated threat actor known for conducting Distributed Denial of Service (DDOS) attacks paired with extortion emails demanding bitcoins. The group's operations involve high-intensity DDoS campaigns using fragmented UDP packets and other traffic types, often targeting specific ASNs or IP groups. Victims have reported receiving personalized replies from the actors within minutes of contacting them via extortion emails.",
+  "goals": "GOLD FLANDERS' primary strategic objective appears to be financial gain through extortion and disruption. Their targeting profile suggests a focus on industries where high-profile attacks could yield significant ransom payments, such as large enterprises in the retail, healthcare, or financial sectors. The group's global operational reach implies that any country hosting high-value targets is at risk.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A814",
+  "sourceUrl": "https://threaticon.com/threat-actors/814"
+}

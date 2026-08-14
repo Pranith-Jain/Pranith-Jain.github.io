@@ -1,0 +1,61 @@
+{
+  "slug": "operation-shadow-force",
+  "id": 793,
+  "name": "Operation Shadow Force",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Nation-state",
+    "Esperón",
+    "Financial sector",
+    "Manufacturing",
+    "South Korea",
+    "Critical Infrastructure"
+  ],
+  "aliases": ["TA-ShadowCricket", "Larva-24013"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Collection", "Exfiltration", "Impact"],
+  "techniques": [
+    "T1059.003 - Spear Phishing Attachment",
+    "T1003 - Keylogging",
+    "T1566.001 - Exfiltration Over Network - Encrypted Channels"
+  ],
+  "tools": ["Shadow Force malware", "Custom-backdoor implants", "Remote access tools (RAT)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office document attachments",
+    "Presence of Shadow Force malware components in network traffic",
+    "Use of custom scripts or DLLs dropped during infection",
+    "Encrypted communication channels for command and control",
+    "Specific timestamps related to Shadow Force malware activity"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns using malicious email attachments",
+    "Deployment of custom malware for persistence and data exfiltration",
+    "Use of backdoors and remote access tools to maintain control over infected systems",
+    "Sophisticated data collection and exfiltration techniques",
+    "Long-term operational persistence across targeted organizations"
+  ],
+  "recommendedActions": [
+    "Implement rigorous email filtering and detection mechanisms for malicious attachments",
+    "Monitor network traffic for signs of data exfiltration, particularly encrypted transfers",
+    "Deploy endpoint detection and response (EDR) solutions to detect custom malware signatures",
+    "Conduct regular security audits on critical sector organizations",
+    "Educate employees regarding phishing and social engineering tactics"
+  ],
+  "campaignsText": "Operation Shadow Force has demonstrated a consistent focus on South Korean targets, suggesting a geographically constrained campaign strategy. Their campaigns often involve prolonged periods of lateral movement and data collection within compromised networks, indicative of an intent to maximize the value of stolen information. Notable past operations include attacks that have affected high-profile companies in manufacturing and finance sectors.",
+  "description": "Operation Shadow Force is a cyber threat actor targeting primarily South Korean companies and organizations since at least 2013. The group is associated with the Shadow Force malware family and has demonstrated persistence in attacking critical sectors such as manufacturing and finance. While their exact motivations are unclear, they appear to focus on strategic or financial gains through targeted attacks.",
+  "goals": "Operation Shadow Force's strategic objectives remain somewhat ambiguous but are likely centered on either financial gain or gathering sensitive information from targeted sectors. Their primary victims tend to be large corporations in manufacturing, finance, and technology industries within South Korea. This suggests the group is highly focused geographically and sectorally, possibly indicating a nation-state actor or a financially motivated group exploiting regional vulnerabilities for maximum impact.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A793",
+  "sourceUrl": "https://threaticon.com/threat-actors/793"
+}

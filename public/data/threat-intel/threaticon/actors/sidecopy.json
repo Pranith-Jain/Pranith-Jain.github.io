@@ -1,0 +1,69 @@
+{
+  "slug": "sidecopy",
+  "id": 135,
+  "name": "SideCopy",
+  "mitreId": "G1008",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "P",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government targeting",
+    "financial-sector attacks",
+    "South Asia",
+    "Initial Access",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Government", "Financial services"],
+  "targetedCountries": [],
+  "tactics": ["Email compromise", "Exfiltration", "Defense evasion", "Discovery", "Lateral movement"],
+  "techniques": [
+    "T1566.001",
+    "T1204.002",
+    "T1584.001",
+    "T1036.005",
+    "T1218.005",
+    "T1614",
+    "T1574.001",
+    "T1518.001",
+    "T1598.002",
+    "T1082",
+    "T1105"
+  ],
+  "tools": ["Action RAT", "AuTo Stealer"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments targeting government and financial-sector employees",
+    "Use of legitimate tools like mshta.exe to execute malicious code",
+    "Deployment of malicious DLL files in the infection chain",
+    "C2 communication channels emulating legitimate traffic",
+    "Staging infrastructure using compromised domains"
+  ],
+  "keyCapabilities": [
+    "使用 spearphishing 和恶意附件进行初始入侵",
+    "部署恶意 DLL 文件以 persistence 和提升权限",
+    "利用合法工具如 mshta.exe 执行恶意代码",
+    "具备避免检测的反取证技术",
+    "针对政府和金融机构的高级持续性威胁能力"
+  ],
+  "recommendedActions": [
+    "Implement email filtering and detection for spear-phishing attacks targeting government and financial-sector personnel.",
+    "Monitor for unusual mshta.exe activity and process execution patterns.",
+    "Conduct regular vulnerability assessments on systems to detect potential malicious DLL injection techniques.",
+    "Enhance endpoint protection to identify and block known malware families like Action RAT and AuTo Stealer.",
+    "Establish robust intelligence sharing with regional cybersecurity organizations to track SideCopy's evolving TTPs."
+  ],
+  "campaignsText": "SideCopy 的活动模式表明其攻击具有一定的周期性， targeting 南亚地区的政府和金融机构。该组织的 campaign 可能与 region-specific的政治事件或经济目标相关。已知的受害者包括印度和阿富汗的政府人员，这表明其对政府机构的情报收集兴趣。该团体还可能利用长时间潜伏期来逃避检测，并在其目标网络中执行进一步的侦察和数据收集。",
+  "description": "SideCopy is a Pakistani-based cyber threat group primarily targeting South Asian governments and financial institutions since 2019. Known for mimicking another suspected Indian threat group, SideCopy employs sophisticated phishing and malware techniques to compromise targets. The group's activities suggest a focus on intelligence gathering or disruptive operations against critical infrastructure in the region.",
+  "goals": "SideCopy 的目标集中在政府和金融服务部门，这表明其主要兴趣可能在于情报收集或扰乱关键基础设施。特别针对阿富汗等南亚国家，可能反映了对地区政治动态或特定组织的兴趣。该团体的攻击向量和技术选择表明，他们寻求的是高价值目标，可能是为了获取敏感信息或破坏目标系统。",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A135",
+  "sourceUrl": "https://threaticon.com/threat-actors/135"
+}

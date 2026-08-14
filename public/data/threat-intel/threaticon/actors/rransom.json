@@ -1,0 +1,55 @@
+{
+  "slug": "rransom",
+  "id": 587,
+  "name": "rransom",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Organized Crime",
+    "Low-Profile Operations",
+    "Financial Exploitation",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": ["T1059.003", "T1066.004", "T1095", "T1005", "T1566.001"],
+  "tools": [
+    "Custom ransomware (possibly file-encrypting)",
+    "Phishing email templates with malicious macros",
+    "C2 tools for remote control and data exfiltration"
+  ],
+  "iocPatterns": [
+    "Spear-phishing email campaigns with attachments",
+    "Encrypted files following .RRansom extension",
+    "Anomalous network traffic patterns indicating C2 communications"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Phishing campaigns with malicious attachments",
+    "Encryption of sensitive data",
+    "C2 communications via fast-flux domains"
+  ],
+  "recommendedActions": [
+    "Implement training programs to identify phishing attempts",
+    "Use endpoint detection solutions to monitor for malicious file activities",
+    "Segment critical business units from less secure areas of the network",
+    "Regularly update and patch systems to counter known vulnerabilities"
+  ],
+  "campaignsText": "RRansom's campaigns are characterized by their stealthy approach, often targeting specific geographic regions or sectors. Notable for their use of dark web infrastructures, they have demonstrated the ability to maintain persistence in targeted networks, leveraging sophisticated tactics to avoid detection.",
+  "description": "RRansom is a low-profile ransomware group operating with medium sophistication, primarily aiming for financial gain through organizational ransom demands. Despite limited public intelligence, their activities pose a significant risk due to their discreet operations and focus on financial收益.",
+  "goals": "RRansom's objectives center around financial gain through coercive ransom demands. They target industries and organizations where the potential for significant financial recovery is high and visibility into their activities is low, possibly including healthcare, education, or small to medium businesses.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A587",
+  "sourceUrl": "https://threaticon.com/threat-actors/587"
+}

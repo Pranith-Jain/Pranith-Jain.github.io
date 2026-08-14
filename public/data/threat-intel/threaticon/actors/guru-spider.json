@@ -1,0 +1,44 @@
+{
+  "slug": "guru-spider",
+  "id": 757,
+  "name": "GURU SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Crimeware", "Malware loader", "Unknown motivation"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Quant Loader"],
+  "iocPatterns": [
+    "Use of Quant Loader as a malware delivery tool",
+    "Spear-phishing emails with malicious attachments",
+    "Network traffic associated with C2 servers"
+  ],
+  "keyCapabilities": [
+    "Development and deployment of malware loaders",
+    "Support for multiple crimeware families",
+    "Spear-phishing campaigns",
+    "Payload delivery mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement endpoint detection and response (EDR) solutions to detect and block Quant Loader.",
+    "Monitor for phishing attempts and educate employees on threat awareness.",
+    "Conduct regular vulnerability assessments to strengthen perimeter defenses."
+  ],
+  "campaignsText": "GURU SPIDER's campaign patterns are not extensively documented, but its sustained activity since 2018 indicates operational stability. The actor likely targets organizations with weak perimeter defenses and uses Quant Loader to deliver malicious payloads. Notable operations remain unclear due to limited intelligence exposure.",
+  "description": "GURU SPIDER is an identified threat actor associated with the distribution of crimeware families through its flagship malware loader, Quant Loader. The actor has been observed since early 2018 and primarily focuses on delivering malicious payloads to target systems. Its activities suggest a focus on financial or data-rich sectors, though specific motivations remain unclear due to limited intelligence availability.",
+  "goals": "GURU SPIDER appears to operate with the primary goal of advancing crimeware distribution, likely for financial gain. The actor’s targeting profile suggests a focus on sectors with high financial value or access to sensitive data, such as financial services or corporate enterprises. While no specific countries have been conclusively linked to GURU SPIDER, its global presence and use of Quant Loader suggest a potential interest in broad geographic reach.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A757",
+  "sourceUrl": "https://threaticon.com/threat-actors/757"
+}

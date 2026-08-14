@@ -16,6 +16,8 @@
  *   GET  /threat-intel/threatcluster/* — ThreatCluster feeds (clusters, vulns,
  *                                        exploits, victims, iocs, misp,
  *                                        entities)
+ *   GET  /threat-intel/threaticon/*    — Threaticon actor catalog, malware
+ *                                        dictionary, detection coverage, map
  *
  * The actual logic lives in worker/lib/threat-intel-manifest.ts (symlinked).
  * Routes read from env.ASSETS — no D1, no KV, no public fetch.
@@ -609,6 +611,140 @@ threatIntelRouter.get('/threat-intel/threatcluster/entities/:type/:slug', async 
   }
 });
 
+// ─── Threaticon (threaticon.com) ────────────────────────────────────────
+//
+// A replicated threat-actor catalog + malware dictionary + ATT&CK
+// detection-coverage dataset + country-level threat map. Data ships in
+// public/data/threat-intel/threaticon/. Build: scripts/sync-threaticon.mjs
+// && scripts/build-threaticon.mjs.
+
+threatIntelRouter.get('/threat-intel/threaticon', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreaticonIndex(c.env.ASSETS);
+    const stats = mod.tiCacheStats().threaticon;
+    return c.json({
+      source: idx.source,
+      url: idx.url,
+      description: idx.description,
+      syncedAt: idx.syncedAt,
+      builtAt: idx.builtAt,
+      counts: idx.counts,
+      cache: { indexLoaded: stats.indexLoaded, actorsLoaded: stats.actors.size > 0 },
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/actors', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreaticonIndex(c.env.ASSETS);
+    const keyword = c.req.query('q');
+    const type = c.req.query('type') || undefined;
+    const country = c.req.query('country') || undefined;
+    const tlp = c.req.query('tlp') || undefined;
+    const status = c.req.query('status') || undefined;
+    const hasMitre = c.req.query('has_mitre') === 'true';
+    const limit = c.req.query('limit') ? Math.min(1000, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
+    const actors = mod.filterThreaticonActors(idx, {
+      type,
+      country,
+      tlp,
+      status,
+      hasMitre,
+      keyword: keyword || undefined,
+      limit,
+    });
+    return c.json({
+      total: idx.counts.actors,
+      returned: actors.length,
+      filters: { type, country, tlp, status, hasMitre, keyword: keyword || undefined },
+      actors,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_actors_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/actors/:slug', async (c) => {
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getThreaticonActor(c.env.ASSETS, slug);
+    if (!body) return notFound(c, `ti_threaticon_actor_not_found: ${slug}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_actor_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/malware', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.loadThreaticonMalware(c.env.ASSETS);
+    if (!body) return notFound(c, 'ti_threaticon_malware_not_found: run scripts/build-threaticon.mjs');
+    const category = c.req.query('category') || undefined;
+    const keyword = c.req.query('q') || undefined;
+    const minConfidenceRaw = c.req.query('min_confidence');
+    const minConfidence = minConfidenceRaw ? Math.max(0, Number(minConfidenceRaw) || 0) : undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(2000, Math.max(1, Number(limitRaw) || 200)) : undefined;
+    const families = mod.filterThreaticonMalware(body, { category, keyword, minConfidence, limit });
+    return c.json({
+      syncedAt: body.syncedAt,
+      familyCount: body.familyCount,
+      byCategory: body.byCategory,
+      returned: families.length,
+      families,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_malware_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/coverage', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.loadThreaticonCoverage(c.env.ASSETS);
+    if (!body) return notFound(c, 'ti_threaticon_coverage_not_found: run scripts/build-threaticon.mjs');
+    const tactic = c.req.query('tactic') || undefined;
+    const minRulesRaw = c.req.query('min_rules');
+    const minRules = minRulesRaw ? Math.max(0, Number(minRulesRaw) || 0) : undefined;
+    const keyword = c.req.query('q') || undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(5000, Math.max(1, Number(limitRaw) || 500)) : undefined;
+    const techniques = mod.filterThreaticonCoverage(body, { tactic, minRules, keyword, limit });
+    return c.json({
+      syncedAt: body.syncedAt,
+      techniqueCount: body.techniqueCount,
+      tactics: body.tactics,
+      returned: techniques.length,
+      techniques,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_coverage_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/map', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.loadThreaticonMap(c.env.ASSETS);
+    if (!body) return notFound(c, 'ti_threaticon_map_not_found: run scripts/build-threaticon.mjs');
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_map_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
 // ─── Live enrichment search routes ──────────────────────────────────────
 const SEARCH_TIMEOUT_MS = 20_000;
 
@@ -789,3 +925,75 @@ threatIntelRouter.get('/threat-intel/search/ransomware-live', async (c) => {
 // ── Entity relationship graph ──────────────────────────────────────────
 import { registerEntityGraphRoute } from './entity-graph';
 registerEntityGraphRoute(threatIntelRouter as any);
+
+// ── STIX 2.1 export ────────────────────────────────────────────────────
+//
+// Bundles the replicated verticals (ThreatCluster entities + IOC
+// blocklist, Daily-Hunt IOC families, darknet directory, Threaticon
+// catalog) into a STIX 2.1 bundle with deterministic object ids.
+// Built on the fly from env.ASSETS — no storage write, no external call.
+//
+//   GET /threat-intel/export/stix?include=entities,iocs&max=200
+//   GET /threat-intel/export/stix?format=stix2.1&download=1
+
+const STIX_SOURCE_IDS = ['entities', 'iocs', 'darknet', 'threaticon'] as const;
+
+threatIntelRouter.get('/threat-intel/export/stix', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const stix = await import('../lib/stix-export');
+
+    const includeRaw = c.req.query('include');
+    const include = includeRaw
+      ? (includeRaw.split(',').filter((s) => (STIX_SOURCE_IDS as readonly string[]).includes(s)) as Array<
+          (typeof STIX_SOURCE_IDS)[number]
+        >)
+      : undefined;
+    const maxRaw = c.req.query('max');
+    const max = maxRaw ? Math.min(2000, Math.max(1, Number(maxRaw) || 500)) : 500;
+
+    const sources: {
+      threatcluster?: {
+        entities: Awaited<ReturnType<typeof mod.loadTcEntities>>;
+        iocs: NonNullable<Awaited<ReturnType<typeof mod.loadTcIocs>>>['iocs'];
+      };
+      iocFamilies?: NonNullable<Awaited<ReturnType<typeof mod.getTiIoc>>>[];
+      darknet?: NonNullable<Awaited<ReturnType<typeof mod.loadDarknetIndex>>>;
+      threaticon?: Awaited<ReturnType<typeof mod.loadThreaticonIndex>>;
+    } = {};
+
+    if (!include || include.includes('entities') || include.includes('iocs')) {
+      const tcIndex = await mod.loadTcEntities(c.env.ASSETS);
+      const tcIocs = await mod.loadTcIocs(c.env.ASSETS);
+      if (tcIocs) sources.threatcluster = { entities: tcIndex, iocs: tcIocs.iocs };
+    }
+    if (!include || include.includes('iocs')) {
+      const tiIndex = await mod.loadTiIndex(c.env.ASSETS);
+      const iocBodies: NonNullable<Awaited<ReturnType<typeof mod.getTiIoc>>>[] = [];
+      const cap = Math.min(max, 25);
+      for (const entry of tiIndex.iocIndex.slice(0, cap)) {
+        const body = await mod.getTiIoc(c.env.ASSETS, entry.slug);
+        if (body) iocBodies.push(body);
+      }
+      if (iocBodies.length > 0) sources.iocFamilies = iocBodies;
+    }
+    if (!include || include.includes('darknet')) {
+      const dn = await mod.loadDarknetIndex(c.env.ASSETS);
+      if (dn) sources.darknet = dn;
+    }
+    if (!include || include.includes('threaticon')) {
+      const ti = await mod.loadThreaticonIndex(c.env.ASSETS);
+      if (ti) sources.threaticon = ti;
+    }
+
+    const bundle = await stix.buildStixBundle(sources, { include, maxPerSource: max });
+    const json = JSON.stringify(bundle, null, 2);
+    if (c.req.query('download') === '1') {
+      c.header('content-disposition', 'attachment; filename="threat-intel-bundle.json"');
+    }
+    return c.body(json, 200, { 'content-type': 'application/json; charset=utf-8' });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `stix_export_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});

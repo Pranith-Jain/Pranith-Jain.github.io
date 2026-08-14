@@ -1,0 +1,72 @@
+{
+  "slug": "fin13",
+  "id": 86,
+  "name": "FIN13",
+  "mitreId": "G1016",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "financial theft",
+    "PII theft",
+    "Latin America",
+    "Initial Access",
+    "Healthcare Targeting",
+    "Data Exfiltration"
+  ],
+  "aliases": ["Elephant Beetle", "TG2003"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Lateral Movement", "Defense Evasion", "Credential Access", "Discovery", "Exfiltration", "Impact"],
+  "techniques": [
+    "T1053.005",
+    "T1560.001",
+    "T1133",
+    "T1074.001",
+    "T1016.001",
+    "T1069",
+    "T1003.002",
+    "T1036",
+    "T1005",
+    "T1190",
+    "T1574.001",
+    "T1588.002",
+    "T1036.004",
+    "T1589",
+    "T1090.001",
+    "T1519",
+    "T1657"
+  ],
+  "tools": [],
+  "iocPatterns": [
+    "Use of Web shells for long-term access",
+    "LSASS memory dumping for credential extraction",
+    "Pass-the-Hash attacks using NTLM hashes",
+    "Scheduled tasks for persistence"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent cyberattacks focusing on data theft",
+    "Lateral movement via compromised accounts and LSASS memory dumping",
+    "Web shell creation for long-term access",
+    "Pass-the-Hash techniques to maintain persistence"
+  ],
+  "recommendedActions": [
+    "Implement user account control (UAC) and monitor scheduled task creation.",
+    "Segment sensitive network segments, such as those holding financial data, from general network access.",
+    "Enforce multi-factor authentication (MFA) for all accounts.",
+    "Conduct regular audits of active directory groups to identify unauthorized permissions."
+  ],
+  "campaignsText": "FIN13's activities suggest a long-term presence in targeted regions, with operations spanning multiple years. While specific campaigns remain un detailed, the group's use of advanced techniques indicates a capability for sustained and stealthy campaigns. The targeting of financial data suggests that FIN13 may be linked to organized crime or financial fraud networks.",
+  "description": "FIN13, also known as Elephant Beetle or TG2003, is a financially motivated cyber threat group targeting the financial, retail, and hospitality sectors in Mexico and Latin America since at least 2016. The group specializes in stealing intellectual property, financial data, mergers and acquisition information, and personally identifiable information (PII). FIN13 exhibits advanced technical capabilities, leveraging a range of MITRE ATT&CK techniques to compromise systems and exfiltrate sensitive data.",
+  "goals": "FIN13's strategic objectives appear to be primarily financial, targeting sectors with high-value data such as financial transactions, intellectual property, and merger information. The group's focus on Mexico and Latin America suggests a regional emphasis for targeting, potentially due to weaker cybersecurity measures or lucrative industries in these regions. FIN13 achieves its goals by compromising systems to exfiltrate sensitive data, which is likely sold or exploited for monetary gain.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A86",
+  "sourceUrl": "https://threaticon.com/threat-actors/86"
+}

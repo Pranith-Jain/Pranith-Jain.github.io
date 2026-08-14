@@ -1,0 +1,58 @@
+{
+  "slug": "argonauts",
+  "id": 336,
+  "name": "argonauts",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "ransomware",
+    "double extortion",
+    "logistics",
+    "healthcare",
+    "energy",
+    "cybercrime",
+    "financial-gain",
+    "Ransomware",
+    "Healthcare Targeting",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Cyber Espionage", "Disruption"],
+  "techniques": ["T1078", "T1567.002", "T1566"],
+  "tools": ["Custom ransomware", "Spear-phishing tools", "Exfiltration scripts"],
+  "iocPatterns": [
+    "Spear-phishing email campaigns with malicious attachments",
+    "TOR-based communication channels for extortion demands",
+    "Exfiltrated data posted on leaking sites"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing emails with malicious attachments",
+    "Double-extortion tactics (data encryption and leak threats)",
+    "Ransomware deployment for financial gain",
+    "Targeting critical infrastructure sectors"
+  ],
+  "recommendedActions": [
+    "Enhance phishing detection and email filtering mechanisms",
+    "Implement user training programs to recognize social engineering tactics",
+    "Conduct regular backups of critical systems with offline storage solutions",
+    "Monitor network traffic for signs of exfiltration attempts or unauthorized data transfers",
+    "Patch systems promptly to mitigate vulnerabilities that may be exploited",
+    "Establish incident response plans tailored to ransomware scenarios"
+  ],
+  "campaignsText": "Argonauts has exhibited a dynamic operational tempo, rapidly expanding their attack campaigns. Their targeting of healthcare and energy sectors suggests an intent to maximize disruption and financial yield. Notable past operations include several high-profile ransomware incidents impacting logistics and telecom companies. The group's use of a TOR-based leak site indicates an attempt to obscure their identity while maintaining pressure on victims.",
+  "description": "Argonauts is a recently emerged ransomware group operating a double-extortion model since September 2024. Targeting critical sectors such as logistics, healthcare, energy, and telecom, they have claimed approximately 13 victims, leveraging a TOR-based leak site to pressure organizations into paying ransoms under threat of data exposure.",
+  "goals": "Argonauts' primary objective is financial gain through ransom payouts. Their targeting strategy focuses on sectors where data breaches could cause significant reputational and operational damage, such as healthcare and energy. The group's geographic reach is broad, but specific regions or countries targeted remain unclear from available intelligence. Their victims are typically organizations that lack strong cybersecurity measures, allowing easy infiltration and high ransom demands.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A336",
+  "sourceUrl": "https://threaticon.com/threat-actors/336"
+}

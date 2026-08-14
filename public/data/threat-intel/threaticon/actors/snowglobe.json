@@ -1,0 +1,45 @@
+{
+  "slug": "snowglobe",
+  "id": 254,
+  "name": "Snowglobe",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "F",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "government-targeted"],
+  "aliases": ["Animal Farm", "Snowglobe", "ATK8"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Exfiltration"],
+  "techniques": ["T1059", "T1059.003", "T1566", "T1566.004"],
+  "tools": ["Babar", "Bunny", "Dino", "Casper", "Tafacalou", "NBot", "Chocopop"],
+  "iocPatterns": [
+    "Use of custom malware for initial access",
+    "Spear-phishing emails with malicious attachments",
+    "Lateral movement within networks post-initial breach"
+  ],
+  "keyCapabilities": [
+    "Develops and deploys sophisticated malware",
+    "Engages in persistent cyber espionage",
+    "Targets government and possibly related sectors",
+    "Uses multiple tools/malware for varied attack vectors"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear-phishing attempts",
+    "Monitor for unusual network activity indicative of C2 communication",
+    "Deploy endpoint detection and response (EDR) solutions to identify malicious processes",
+    "Conduct regular audits of software supply chains for potential compromises"
+  ],
+  "campaignsText": "Snowglobe's campaigns likely involve targeted attacks using their malware toolset, focusing on long-term persistence to exfiltrate sensitive data. While specific campaign details are scarce, the group’s activity suggests a focus on governmental targets, possibly linked to French strategic interests.",
+  "description": "Snowglobe is suspected to be a nation-state threat actor likely of French origin, primarily involved in espionage activities targeting government sectors. Known for using sophisticated malware such as Babar and Bunny, Snowglobe poses a significant threat to national security through persistent cyber operations.",
+  "goals": "Snowglobe's primary motivation is espionage, targeting government sectors to collect intelligence. While their specific targeting by country isn't detailed, the toolset suggests they focus on high-value, sensitive sectors where information would be most beneficial to a nation-state's interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A254",
+  "sourceUrl": "https://threaticon.com/threat-actors/254"
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "hagga",
+  "id": 875,
+  "name": "Hagga",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cyber_crime", "malware"],
+  "aliases": ["Aggah", "TH-157"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Data Exfiltration"],
+  "techniques": ["T1566.003", "T1059.002", "T1055", "T1566.001"],
+  "tools": ["Agent Tesla"],
+  "iocPatterns": [
+    "Use of phishing emails containing malicious links",
+    "Distribution of malware via social engineering tactics"
+  ],
+  "keyCapabilities": [
+    "Information stealing via malware deployment",
+    "Phishing campaigns to distribute malicious payloads",
+    "Persistence mechanisms for long-term access",
+    "Credential theft and unauthorized financial transactions"
+  ],
+  "recommendedActions": [
+    "Implement rigorous user training on phishing detection",
+    "Enhance network monitoring for suspicious activities",
+    "Apply endpoint detection and response solutions to identify and mitigate Agent Tesla-like activity"
+  ],
+  "campaignsText": "Hagga's campaigns are ongoing and appear to be associated with the use of Agent Tesla since late 2021. Specific campaign details, including targeted sectors or countries, remain unclear due to limited available intelligence.",
+  "description": "Hagga, also known as Aggah or TH-157, is an unidentified threat actor suspected of utilizing Agent Tesla since late 2021 to steal sensitive information from victims. The actor's primary activities appear to involve deploying this malware to infiltrate systems, with a focus on data exfiltration.",
+  "goals": "Hagga's strategic objectives appear to center around financial gain through the theft of sensitive financial information and credentials, which could be used for fraudulent transactions or sold on the dark web. The targeting profile suggests a focus on individuals or organizations with accessible financial data, though specific sectors or countries targeted are not definitively known.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A875",
+  "sourceUrl": "https://threaticon.com/threat-actors/875"
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "void-balaur",
+  "id": 860,
+  "name": "Void Balaur",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Cyber Espionage", "Hack-for-hire", "Financial Motivations"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access (TA0001)", "Execution (TA0002)"],
+  "techniques": ["T1057", "T1064", "T1572.001"],
+  "tools": ["Phishing Kits", "Custom Malware for Persistence"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting personal and business accounts",
+    "Unusual login attempts from unfamiliar locations or devices",
+    "Presence of unauthorized access tools in target networks"
+  ],
+  "keyCapabilities": [
+    "Phishing attacks targeting social media and email platforms",
+    "Unauthorized access to online accounts",
+    "Data collection and exfiltration",
+    "Maintaining persistence via compromised accounts"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for all critical accounts",
+    "Conduct regular employee training to recognize phishing attempts",
+    "Monitor network traffic for signs of unauthorized access or data exfiltration",
+    "Deploy endpoint detection and response (EDR) solutions to identify malicious activity"
+  ],
+  "campaignsText": "Void Balaur has been active since at least 2016 and is known to target a wide range of victims globally. Their campaigns often involve compromising personal and business email accounts, leveraging social engineering techniques to gain access. Notable past operations include the compromise of numerous accounts across various platforms. The group's persistent activity suggests a high level of organizational resilience and adaptability in their operations.",
+  "description": "Void Balaur is a highly active hack-for-hire group that offers cyber mercenary services to collect private data and gain access to various online platforms such as email and social media. They have been operational since at least 2016, targeting individuals and organizations globally. Their primary activities include cyber espionage and data theft, which poses significant risks to personal and organizational security.",
+  "goals": "Void Balaur appears to target individuals and organizations across multiple sectors globally, suggesting no specific sector or country preference. Their goals primarily seem to involve financial gain through data collection and unauthorized access. They likely cater to clients seeking to gather competitive intelligence, disrupt business operations, or engage in personal or organizational espionage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A860",
+  "sourceUrl": "https://threaticon.com/threat-actors/860"
+}

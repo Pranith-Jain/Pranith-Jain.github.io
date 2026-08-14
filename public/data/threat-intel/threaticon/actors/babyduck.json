@@ -1,0 +1,46 @@
+{
+  "slug": "babyduck",
+  "id": 349,
+  "name": "babyduck",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Crime", "Medium-Sophistication", "Global"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Credential Access", "Execution", "Defense Evasion"],
+  "techniques": ["T1566.001", "T1207.001", "T1059.003", "T1046"],
+  "tools": ["Covenant", "Zoeller Tools", "Common Ransomware Payloads"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Files encrypted with .babyduck extension",
+    "Network lateral movement tools",
+    "Ransomware-related network traffic spikes"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "File encryption with .babyduck extension",
+    "Spear phishing campaigns",
+    "Phishing emails with malicious links or attachments"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint detection and response (EDR) solutions to monitor for known ransomware patterns.",
+    "Conduct regular backups of critical systems and store them offline or in secure cloud repositories.",
+    "Educate employees on phishing tactics and suspicious emails that could signal a BabyDuck attack.",
+    "Apply patches and updates promptly to mitigate vulnerabilities exploited by ransomware groups."
+  ],
+  "campaignsText": "BabyDuck has shown a steady operational tempo, conducting campaigns that target multiple victims within short timeframes. Their campaigns often involve a mix of phishing emails and direct network infiltration, aiming to compromise systems quickly. The group's focus on financial gain is evident in their selection of victims and the pressure tactics used during ransom negotiations. Notable past operations include numerous attacks across Europe and North America, with no major high-profile incidents reported thus far, indicating a cautious approach to avoid law enforcement attention.",
+  "description": "BabyDuck is a medium-sophistication ransomware group known for targeting organizations globally. The group operates with a primary motivation of financial gain, using ransomware to extort victims by appending files with the .babyduck extension. As a relatively less-notorious group compared to others like Babuk, BabyDuck has demonstrated moderate organizational capabilities and focuses on maximizing financial returns through widespread campaigns.",
+  "goals": "BabyDuck's strategic objectives are centered on financial gain through ransomware activities. The group targets industries with high business continuity costs, such as healthcare, education, and retail, where downtime can lead to significant monetary losses. Their targeting profile reflects a global approach, with no specific country or sector preferences evident in available data. The primary motivation is organizational-gain, focusing on maximizing the number of victims while minimizing operational risks. Their attack patterns suggest they seek out organizations with weaker cybersecurity measures, making them more vulnerable to such attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A349",
+  "sourceUrl": "https://threaticon.com/threat-actors/349"
+}

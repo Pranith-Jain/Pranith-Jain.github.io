@@ -1,0 +1,38 @@
+{
+  "slug": "lamashtu",
+  "id": 479,
+  "name": "lamashtu",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Extortion", "Ransomware", "Criminal", "Healthcare Targeting", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Credential Access", "Data Exfiltration"],
+  "techniques": ["T1059.003", "T1078.001", "T1040.004"],
+  "tools": ["Phishing Email Templates", "Raccoon Stealer", "Custom Malware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Use of RDP for lateral movement",
+    "Data exfiltration via encrypted channels"
+  ],
+  "keyCapabilities": ["Phishing", "Ransomware (suspected)", "Data Exfiltration", "Extortion Tactics"],
+  "recommendedActions": [
+    "Implement robust email filtering to detect phishing attempts",
+    "Regularly back up critical data and isolate backups"
+  ],
+  "campaignsText": "Lamashtu has conducted at least 19 campaigns since April 2026, targeting diverse industries across multiple countries. Notable operations include attacks against the Luna Group, Apple Film Group, and various pharmaceutical companies. Their methods remain largely elusive in detail, but their victims suggest a focus on inducing financial loss through extortion.",
+  "description": "Lamashtu is a newly emerged extortion group appearing in April 2026, targeting organizations across energy, pharmaceutical, and film sectors in France, Romania, and Thailand. Suspected to operate ransomware or engage in data-theft extortion, they have launched multiple campaigns with financial gain as their primary motive.",
+  "goals": "Lamashtu likely targets sectors and countries where successful extortion could yield significant financial returns or media attention. Their focus on energy suggests access to critical infrastructure, while pharmaceuticals may target sensitive research data. The film sector might be targeted for high-profile victims. Their cross-border approach indicates a broad operational reach.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A479",
+  "sourceUrl": "https://threaticon.com/threat-actors/479"
+}

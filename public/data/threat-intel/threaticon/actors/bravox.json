@@ -1,0 +1,42 @@
+{
+  "slug": "bravox",
+  "id": 370,
+  "name": "bravox",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "cybercrime", "financial-gain", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Custom ransomware (likely distributed as part of RaaS)", "Spear-phishing tools for initial access"],
+  "iocPatterns": [
+    "Ransomware payload distribution via phishing emails",
+    "Affiliate recruitment through underground forums"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Selective affiliate program management",
+    "Targeted sector-specific campaigns"
+  ],
+  "recommendedActions": [
+    "Implement robust backup solutions to protect against ransomware attacks",
+    "Enhance employee training to detect phishing attempts",
+    "Monitor for unusual network activity indicative of ransomware deployment"
+  ],
+  "campaignsText": "Bravox has demonstrated a structured approach to campaign management, with a focus on affiliates with proven track records. The group's campaigns have targeted various verticals, including healthcare providers and retail stores, indicating an intent to maximize the impact of their ransomware attacks. Notable past operations include compromises at Aculab, Soprolux, and Salvation Army, which suggest Bravox's ability to maintain persistence in victim networks and effectively exfiltrate or encrypt data for ransom purposes.",
+  "description": "Bravox is a ransomware-as-a-service (RaaS) operation identified as a medium-sophistication criminal threat actor primarily motivated by organizational gain. First observed in January 2026, Bravox has targeted US-based organizations in healthcare and retail sectors through selective affiliate programs requiring proof of access or financial deposits. The group exhibits organized operational patterns, focusing on financial gain through ransomware deployment.",
+  "goals": "Bravox's strategic objectives are centered around financial gain through widespread ransomware deployment. The group's selection of healthcare and retail sectors reflects an understanding of the high value of data in these industries and their likely willingness to pay ransoms quickly. The targeting of US-based organizations may also stem from the high density of lucrative business targets within that region, coupled with potentially weaker security postures. Affiliates are strictly vetted, indicating Bravox's intent to maintain a level of operational professionalism while minimizing risks associated with low-quality attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A370",
+  "sourceUrl": "https://threaticon.com/threat-actors/370"
+}

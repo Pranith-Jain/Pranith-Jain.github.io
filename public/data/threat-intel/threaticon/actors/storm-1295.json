@@ -1,0 +1,45 @@
+{
+  "slug": "storm-1295",
+  "id": 1023,
+  "name": "Storm-1295",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Phishing-As-A-Service", "Cybercrime Infrastructure", "Credential Thefts", "Financial Fraud", "Phishing"],
+  "aliases": ["DEV-1295"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Defense Evasion"],
+  "techniques": ["T1566.002", "T1689.001", "T1078.001"],
+  "tools": ["Greatness PhaaS Platform", "Synchronous relay server software", "Phishing email templates"],
+  "iocPatterns": [
+    "Phishing emails mimicking login pages",
+    "Malicious domains used in phishing campaigns",
+    "Spear-phishing with custom URLs leading to credential theft"
+  ],
+  "keyCapabilities": [
+    "Phishing-as-a-Service platform (Greatness)",
+    "Synchronous relay servers for creating replica sign-in pages",
+    "Credential harvesting through phishing techniques"
+  ],
+  "recommendedActions": [
+    "Enhance email filtering to detect malicious links",
+    "Conduct regular user training on phishing awareness",
+    "Monitor for domain name system (DNS) tunneling activities",
+    "Implement multi-factor authentication (MFA)",
+    "Regularly update and patch software vulnerabilities"
+  ],
+  "campaignsText": "Storm-1295's campaigns typically involve mass phishing attempts, leveraging their platform to distribute malicious links and payloads. Their operational tempo is moderate but effective due to their service-based model. Microsoft tracking indicates they have been active since mid-2022, with notable campaigns including those targeting financial institutions and healthcare sectors.",
+  "description": "Storm-1295, also known as DEV-1295, is a threat actor group operating since mid-2022 that provides phishing-as-a-service through the Greatness platform. They specialize in creating replica sign-in pages using synchronous relay servers to steal credentials and offer their services to other attackers. Their activities are tracked by Microsoft, highlighting their potential impact on various sectors.",
+  "goals": "Storm-1295 primarily targets sectors with valuable data or financial interests due to the nature of their phishing campaigns. Their strategic objective appears to be profit-driven, catering to other attackers by providing ready-to-use phishing tools. This makes them a significant threat to organizations across various industries, as they can facilitate large-scale credential theft and potential ransomware deployments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1023",
+  "sourceUrl": "https://threaticon.com/threat-actors/1023"
+}

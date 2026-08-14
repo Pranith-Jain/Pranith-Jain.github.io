@@ -1,0 +1,39 @@
+{
+  "slug": "magic-kitten",
+  "id": 718,
+  "name": "Magic Kitten",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["espionage", "中东 politics", "state-sponsored", "cyber espionage"],
+  "aliases": ["Group 42", "VOYEUR"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails targeting political activists",
+    "Use of custom or known malware variants",
+    "Compromise of communication platforms"
+  ],
+  "keyCapabilities": ["Spear-phishing", "Malware deployment", "Persistent threat campaigns", "Social engineering"],
+  "recommendedActions": [
+    "Implement rigorous email filtering and threat detection mechanisms",
+    "Monitor for suspicious activities in internal communication channels",
+    "Conduct regular employee training on social engineering tactics"
+  ],
+  "campaignsText": "Magic Kitten's campaign patterns suggest a focus on long-term, patient attacks to infiltrate and compromise targets. Their operational tempo appears sporadic but consistent with politically motivated campaigns in the region. Notable historical operations include targeted phishing campaigns and malware deployment against opposition figures, though specific details remain limited due to sparse reporting.",
+  "description": "Magic Kitten, also known as Group 42 and VOYEUR, is a cyber threat actor likely based in Iran with historical ties to politically motivated attacks, particularly targeting dissidents and opposition supporters since at least 2013.",
+  "goals": "Magic Kitten's strategic objectives appear to be tied to maintaining influence and control over domestic and regional politics, particularly within Iran. The group focuses on targeting sectors related to politics, civil society, and individuals associated with opposing views or activities against the Iranian government. Their victims are often high-value targets such as activists, journalists, and political dissidents, suggesting a focus on silencing opposition through cyber means.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A718",
+  "sourceUrl": "https://threaticon.com/threat-actors/718"
+}

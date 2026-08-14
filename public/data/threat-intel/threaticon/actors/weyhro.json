@@ -1,0 +1,66 @@
+{
+  "slug": "weyhro",
+  "id": 642,
+  "name": "weyhro",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "criminal",
+    "ransomware",
+    "data-theft",
+    "financial-gain",
+    "manufacturing-sector",
+    "financial-services",
+    "real-estate-sector",
+    "Ransomware",
+    "Data Exfiltration",
+    "Data extortion",
+    "Criminal",
+    "Manufacturing sector",
+    "Financial services",
+    "Real estate sector",
+    "North America"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration", "Command and Control"],
+  "techniques": ["T1136.001", "T1059.003", "T1566.001", "T1102.001"],
+  "tools": [
+    "Custom data-exfiltration malware",
+    "Tor-based C2 infrastructure",
+    "Phishing toolkits for initial compromise"
+  ],
+  "iocPatterns": [
+    "Spear-phishing with malicious payloads leading to data exfiltration",
+    "C2 infrastructure hosted on Tor or bulletproof hosting services",
+    "Lateral movement via IP-based network exploitation"
+  ],
+  "keyCapabilities": [
+    "Data exfiltration and leak threat operations",
+    "Use of Tor-based infrastructure for command and control (C2)",
+    "Targeted phishing or network infiltration tactics",
+    "Leveraging IP-based infrastructure for lateral movement or data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement strict network segmentation to limit data exfiltration pathways",
+    "Deploy advanced email filtering and employee training to detect phishing attempts",
+    "Monitor for unauthorized access to sensitive data repositories",
+    "Use threat intelligence feeds to track Tor-based C2 domains or IP addresses",
+    "Conduct regular backups and ensure offline storage to mitigate extortion demands"
+  ],
+  "campaignsText": "Weyhro’s campaigns revolve around data extortion via Tor-based leak sites, with a focus on manufacturing, financial services, and real estate. The group’s operational tempo appears moderate, with 14 confirmed victims since late 2024, suggesting a sustained but not highly aggressive campaign. Victim attribution to the US, Italy, and Canada indicates a pattern of targeting geographically dispersed but economically significant regions. Notably, the absence of encrypted files in reported incidents distinguishes Weyhro from traditional ransomware groups, aligning it with newer extortion models that prioritize data theft and disclosure.",
+  "description": "Weyhro is a data-extortion group leveraging Tor-based leak sites to threaten data publication rather than file encryption, targeting manufacturing, financial services, and real estate sectors in the US, Italy, and Canada. With 14 confirmed victims since late 2024, the group operates with medium sophistication and focuses on organizational gain through ransom demands.",
+  "goals": "Weyhro’s primary motivation is financial gain through ransom demands, targeting sectors with high-value data assets, including manufacturing, financial services, and real estate. The focus on these sectors may stem from their critical role in global supply chains, the sensitivity of financial data, and the potential for high ransom payouts. The group’s geographic targeting of the US, Italy, and Canada suggests a strategic focus on regions with strong economic infrastructure and potentially less robust cybersecurity defenses in targeted organizations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A642",
+  "sourceUrl": "https://threaticon.com/threat-actors/642"
+}

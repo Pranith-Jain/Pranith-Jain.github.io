@@ -1,0 +1,38 @@
+{
+  "slug": "smugx",
+  "id": 876,
+  "name": "SmugX",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Persistence"],
+  "techniques": [],
+  "tools": ["PlugX"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Network traffic associated with PlugX communication channels"
+  ],
+  "keyCapabilities": ["HTML Smuggling delivery method", "Deployment of PlugX implant"],
+  "recommendedActions": [
+    "Implement robust email filtering solutions to detect suspicious messages.",
+    "Use endpoint detection and response tools to monitor for known APT TTPs.",
+    "Conduct regular network monitoring and logs analysis."
+  ],
+  "campaignsText": "SmugX's campaigns are characterized by their use of novel techniques and low-detection payloads. The campaign has been observed maintaining persistence through implantation, suggesting long-term goals to gather intelligence or data from targeted systems. Specific operational patterns remain unclear due to limited reporting.",
+  "description": "The SmugX threat actor campaign employs novel delivery methods, notably HTML Smuggling, to deploy a new variant of the PlugX implant, which is commonly associated with Chinese APTs like RedDelta and Mustang Panda. Despite some overlap with these groups, there is insufficient evidence linking SmugX to Camaro Dragon. The use of low-detection-rate tactics allows SmugX to remain elusive, targeting sectors likely for espionage or data theft.",
+  "goals": "The SmugX campaign targets sectors that are likely to hold sensitive information, such as technology, defense, and government entities. While no specific countries have been confirmed as their primary focus, their connection to other Chinese APTs suggests a possible interest in global operations targeting similar interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A876",
+  "sourceUrl": "https://threaticon.com/threat-actors/876"
+}

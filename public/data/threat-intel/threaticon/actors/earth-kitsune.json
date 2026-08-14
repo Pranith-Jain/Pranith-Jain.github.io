@@ -1,0 +1,56 @@
+{
+  "slug": "earth-kitsune",
+  "id": 952,
+  "name": "Earth Kitsune",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "Custom Malware",
+    "Social Engineering",
+    "Ransomware",
+    "Critical Infrastructure",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion"],
+  "techniques": ["T1587.001", "T1684", "T1588.001", "T1059.003", "T1055", "T1566.001"],
+  "tools": ["WhiskerSpy", "SLUB", "Custom RAT"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Custom backdoor installation via compromised websites"
+  ],
+  "keyCapabilities": [
+    "Social Engineering",
+    "Custom Malware Development",
+    "Web Compromise",
+    "Backdoor Installation",
+    "Continuous Evolution of TTPs"
+  ],
+  "recommendedActions": [
+    "Enhance User Awareness Training",
+    "Implement Advanced Threat Detection Systems",
+    "Conduct Regular Network and System Audits",
+    "Utilize Secure Communication Channels",
+    "Keep All Software Up-to-Date"
+  ],
+  "campaignsText": "Earth Kitsune's campaign patterns are marked by a strategic and targeted approach, selecting victims based on their interests in North Korea. Their operational tempo is characterized by continuous evolution and adaptation, suggesting a sophisticated and well-resourced organization. Notable past operations include the distribution of custom backdoors through compromised websites and social engineering tactics, highlighting the group's ability to innovate and adjust their TTPs to evade detection.",
+  "description": "Earth Kitsune is an advanced persistent threat actor that has been active since at least 2019, primarily targeting individuals interested in North Korea with sophisticated tactics, including social engineering and custom backdoors. Their primary goal appears to be intelligence gathering, leveraging their technical proficiency to evolve their tools and procedures. Continuous monitoring and adaptation are necessary to counter their evolving threats.",
+  "goals": "Earth Kitsune's strategic objectives appear to be centered around intelligence gathering, with a particular focus on individuals interested in North Korea. Their targeting profile suggests a deliberate approach, aiming to exploit vulnerabilities in human factors and technology to achieve access to sensitive information. The typical victims of Earth Kitsune are likely to be individuals or organizations with interests or ties to North Korea, indicating a tailored approach to their operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A952",
+  "sourceUrl": "https://threaticon.com/threat-actors/952"
+}

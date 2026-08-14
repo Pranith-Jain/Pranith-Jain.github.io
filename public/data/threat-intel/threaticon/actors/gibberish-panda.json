@@ -1,0 +1,69 @@
+{
+  "slug": "gibberish-panda",
+  "id": 211,
+  "name": "Gibberish Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "nation-state", "government targeting", "Eastern Europe"],
+  "aliases": ["Gibberish Panda"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1059.003 - Remote.desktop wish protocol attack with a dropped file",
+    "T1055 - Process injection",
+    "T1566.002 - Exfiltration over encoded communications",
+    "T1074 - Alternate authentication mechanisms"
+  ],
+  "tools": [
+    "Custom malware (e.g., backdoors)",
+    "Cobalt Strike",
+    "Process injection tools",
+    "Encoded communication tools",
+    "PowerShell scripts"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "Network traffic anomalies consistent with C2 communication protocols",
+    "Presence of custom malware binaries in system logs",
+    "Encoded network communications indicative of exfiltration attempts",
+    "Unusual process injection activities in legitimate applications"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Custom malware development",
+    "Spear-phishing campaigns",
+    "Lateral movement techniques",
+    "Data exfiltration",
+    "Use of legitimate tools for malicious purposes"
+  ],
+  "recommendedActions": [
+    "Implement strong email filtering and detection for malicious attachments.",
+    "Monitor for unusual process injection activities and encoded network traffic.",
+    "Enhance endpoint detection and response (EDR) capabilities to identify custom malware.",
+    "Conduct regular security audits of government and defense sector infrastructure.",
+    "Establish proactive threat hunting to detect APT-like behavior in the network."
+  ],
+  "campaignsText": "Gibberish Panda has been observed in multiple campaigns targeting Eastern European countries, with a focus on government and defense sectors. Campaigns are characterized by long-term驻留, patient lateral movement, and stealthy exfiltration techniques. Notable past operations include targeted attacks against diplomatic entities and defense contractors, often involving spear-phishing emails and weaponized documents to gain initial access.",
+  "description": "Gibberish Panda is a nation-state threat actor primarily engaged in espionage activities targeting sensitive sectors such as government and defense. Known for sophisticated tactics, this group is highly effective at compromising systems to gather intelligence, making them a significant risk to national security and critical infrastructure.",
+  "goals": "Gibberish Panda's primary objective appears to be espionage, with a focus on collecting sensitive political, military, and strategic information. The group targets government agencies, defense contractors, and critical infrastructure in specific regions, likely to support the interests of its nation-state sponsor. Its targeting strategy is highly strategic, aiming for high-value data rather than disruptive activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A211",
+  "sourceUrl": "https://threaticon.com/threat-actors/211"
+}

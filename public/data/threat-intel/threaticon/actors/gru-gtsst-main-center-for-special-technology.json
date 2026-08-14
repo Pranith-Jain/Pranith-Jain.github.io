@@ -1,0 +1,58 @@
+{
+  "slug": "gru-gtsst-main-center-for-special-technology",
+  "id": 190,
+  "name": "GRU GTsST (Main Center for Special Technology)",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "government-sector", "energy-sector", "Ukraine", "Wiper / Destructive"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access (TA0001)",
+    "Defense Evasion (TA0002)",
+    "Credential Access (TA0003)",
+    "Discovery (TA0004)",
+    "Lateral Movement (TA0005)",
+    "Exfiltration (TA0006)"
+  ],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1566.002", "T1485", "T1070"],
+  "tools": ["NotPetya", "Mimikatz", "Empire", "Custom-backdoors"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting government or corporate employees",
+    "Use of encrypted/encoded C2 communication channels",
+    "Vncключи (malware-related indicators)",
+    "Meterpreter logs indicating remote access",
+    "Network anomalies such as traffic spikes to known GRU C2 domains"
+  ],
+  "keyCapabilities": [
+    "Destructive malware deployment (e.g., NotPetya)",
+    "Spear-phishing attacks",
+    "Credential dumping via Mimikatz-like tools",
+    "Network persistence and lateral movement",
+    "Data exfiltration using custom tools",
+    "Disruption of critical infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement robust email security measures to detect phishing emails",
+    "Monitor for unusual network activity using SIEM tools",
+    "Use endpoint detection and response (EDR) solutions to identify malicious processes",
+    "Regularly patch systems and maintain offline backups",
+    "Conduct employee training on identifying spear-phishing attempts",
+    "Leverage threat intelligence feeds to block C2 domains"
+  ],
+  "campaignsText": "GRU GTsST's campaigns are characterized by a combination of destructive malware and espionage activities. Notable operations include the 2017 NotPetya outbreak, which targeted Ukrainian government, energy, and financial sectors. The group has also been implicated in other incidents involving data breaches and network disruptions. Their operational tempo is highly variable, depending on geopolitical developments. GRU GTsST often targets organizations with weak perimeter security and poor patching practices.",
+  "description": "GRU GTsST (Main Center for Special Technology) is a nation-state threat actor linked to advanced persistent threat (APT) activities primarily focused on espionage. Known for using the NotPetya malware, GRU GTsST has demonstrated capabilities in destructive cyberattacks and data exfiltration. The group targets critical sectors, including government, defense, and energy, particularly in Eastern European countries such as Ukraine. Their operations are sophisticated, leveraging well-known tools like Mimikatz and Empire alongside custom malware.",
+  "goals": "GRU GTsST's strategic goals are aligned with broader Russian geopolitical interests, including undermining the stability of adversarial nations and gathering military, economic, and political intelligence. The group primarily targets sectors such as government, defense, energy, and telecommunications, with a notable focus on Ukraine and other Eastern European countries. Their targeting reflects both retaliatory motives, particularly against perceived adversaries like Ukraine, and broader aspirations to destabilize Western interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A190",
+  "sourceUrl": "https://threaticon.com/threat-actors/190"
+}

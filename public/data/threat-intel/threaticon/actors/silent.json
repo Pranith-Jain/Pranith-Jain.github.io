@@ -1,0 +1,56 @@
+{
+  "slug": "silent",
+  "id": 603,
+  "name": "silent",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "financial-gain", "espionage", "cybercrime", "data-theft", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration", "Lateral Movement", "Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": [
+    "T1564.001 - Collection via ProcCESSing Memory",
+    "T1078.001 - Exfiltration Over Web Service Communication Channels",
+    "T1030.001 - Credential Dumping",
+    "T1105 - Application Layer Interception"
+  ],
+  "tools": [
+    "Custom malware for data exfiltration",
+    "Phishing tools for initial compromise",
+    "C2 frameworks for command and control"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails targeting corporate employees",
+    "Stolen credentials used for unauthorized access",
+    "Data exfiltration via encrypted channels",
+    "Presence of custom malware on compromised systems"
+  ],
+  "keyCapabilities": [
+    "Data theft and exfiltration",
+    "Covert communication channels",
+    "Confidential information handling",
+    "Monetization through sale or selective publication"
+  ],
+  "recommendedActions": [
+    "Enhance network monitoring to detect suspicious activities and data movements.",
+    "Implement robust access controls and encryption for sensitive data repositories.",
+    "Conduct regular employee training to识别 phishing attempts and other social engineering attacks.",
+    "Maintain offline backups of critical systems to mitigate ransomware risks.",
+    "Monitor dark web activity for potential leaks of stolen corporate information."
+  ],
+  "campaignsText": "Silent's campaign patterns suggest a relatively limited operational window, with activity observed between March 2025 and May 2025. Their victims include at least six entities, likely selected based on the potential value of their data assets. The actor’s focus on stealth implies they may use novel attack vectors or tools not widely observed in other campaigns, making them challenging to detect without tailored defenses.",
+  "description": "Silent is a medium-sophistication criminal threat actor primarily motivated by organizational gain through ransomware activities and financial exploitation. They focus on stealing confidential corporate information, which they either sell on the dark web or selectively publish to maximize profit.",
+  "goals": "Silent’s strategic objectives are centered around financial gain through the theft and monetization of corporate secrets. Their victims are likely to be in industries where confidential information is highly valued, such as finance or technology sectors. The actor's targeting approach, coupled with their focus on minimal data encryption, indicates a preference for high-value, low-risk targets to maximize profit without drawing too much attention.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A603",
+  "sourceUrl": "https://threaticon.com/threat-actors/603"
+}

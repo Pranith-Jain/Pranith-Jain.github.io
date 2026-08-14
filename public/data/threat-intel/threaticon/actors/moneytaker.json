@@ -1,0 +1,66 @@
+{
+  "slug": "moneytaker",
+  "id": 735,
+  "name": "MoneyTaker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Financial-sector", "Espionage", "Card-Processing-Exploitation", "Financial Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Collection",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1210.001 - Exploit Public-Facing Application (Card Processing System Vulnerabilities)",
+    "T1071.001 - Proxy (C2 Communication via Encrypted Channels)",
+    "T1059.003 - Command and Scripting Interpreter",
+    "T1566.001 - Phishing (Targeted Email Campaigns)"
+  ],
+  "tools": [
+    "Custom malware for financial system exploitation",
+    "Malicious Office documents with embedded macros",
+    "Exploitation frameworks for card processing systems"
+  ],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents targeting financial sector employees",
+    "C2 communication using encrypted protocols (e.g., HTTPS, DNS tunneling)",
+    "Staging infrastructure on bulletproof hosting services",
+    "Indicator of compromise (IOC) patterns linked to card processing system vulnerabilities"
+  ],
+  "keyCapabilities": [
+    "Targeted spear-phishing campaigns with malicious document payloads",
+    "Exploitation of vulnerabilities in card processing and financial systems",
+    "Network infiltration and lateral movement within enterprise environments",
+    "Data exfiltration techniques tailored for financial data theft"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection and employee training programs",
+    "Conduct regular vulnerability assessments of card processing systems",
+    "Deploy network segmentation to isolate financial systems",
+    "Monitor for anomalous DNS or encrypted traffic patterns indicative of C2 activity",
+    "Enforce multi-factor authentication for critical financial applications"
+  ],
+  "campaignsText": "MoneyTaker’s campaigns exhibit a high operational tempo, with over 20 successful attacks in two years, primarily targeting financial institutions in the USA, UK, and Russia. The group’s campaigns likely involve spear-phishing, exploitation of card processing infrastructures, and lateral movement within compromised networks. Notable operations include alleged intrusions into SWIFT systems in the US and the Russian Interbank System (AWS CBR), with potential interest in LATAM institutions using STAR systems. Campaigns appear to prioritize stealth and persistence to avoid detection.",
+  "description": "MoneyTaker is a threat actor targeting financial institutions and legal firms in the USA, UK, Russia, and potentially LATAM, with a focus on card processing systems such as AWS CBR and SWIFT. Over 20 successful attacks in two years indicate a high operational tempo and significant capability to exploit financial infrastructure vulnerabilities.",
+  "goals": "MoneyTaker’s targeting of financial institutions and legal firms suggests a primary motivation of financial gain, data exfiltration, or disruption of critical infrastructure. The focus on card processing systems such as SWIFT and AWS CBR indicates an interest in exploiting high-value financial data flows, potentially for monetary theft or to destabilize financial systems. Legal firms may be targeted for sensitive client data or to facilitate fraud. The inclusion of Russia and LATAM as potential targets highlights a strategic interest in regions with significant financial transaction volumes and potentially weaker cybersecurity postures.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A735",
+  "sourceUrl": "https://threaticon.com/threat-actors/735"
+}

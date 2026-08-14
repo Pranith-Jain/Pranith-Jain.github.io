@@ -1,0 +1,45 @@
+{
+  "slug": "gold-northfield",
+  "id": 818,
+  "name": "GOLD NORTHFIELD",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Financial Motivation", "Ransomware", "Cybercriminal Group"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Communication"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078"],
+  "tools": ["REvil ransomware (modified)", "Phishing tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "Encrypted network traffic indicative of C2 channels",
+    "Presence of 'LV ransomware' file signatures"
+  ],
+  "keyCapabilities": [
+    "Modification of REvil ransomware into 'LV ransomware'",
+    "Phishing campaigns with malicious attachments",
+    "Exploitation of system vulnerabilities",
+    "Use of encrypted C2 communication channels"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect phishing attempts.",
+    "Regularly patch systems to mitigate vulnerabilities.",
+    "Monitor network traffic for signs of encrypted command-and-control communication.",
+    "Establish data backups to ensure business continuity in the event of a ransomware attack."
+  ],
+  "campaignsText": "GOLD NORTHFIELD's campaigns exhibit a methodical approach, with phishing emails as their entry vector and encrypted communication for C2. They have demonstrated the ability to adapt their methods to enhance stealth and effectiveness, likely evolving their tactics over time based on victim responses and security measures.",
+  "description": "GOLD NORTHFIELD is a financially motivated cybercriminal threat group operational since October 2020, known for repurposing REvil ransomware to create the 'LV ransomware' variant. Their primary focus is financial gain through targeted ransomware campaigns, often employing sophisticated tactics to disrupt operations and demand ransoms.",
+  "goals": "GOLD NORTHFIELD's primary motivation is financial gain through ransomware attacks. They target sectors with high financial stakes and sensitive data, such as healthcare and finance, to maximize disruption and potential payouts. Their victims are typically organizations where operational continuity is critical, making them more likely to pay ransoms.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A818",
+  "sourceUrl": "https://threaticon.com/threat-actors/818"
+}

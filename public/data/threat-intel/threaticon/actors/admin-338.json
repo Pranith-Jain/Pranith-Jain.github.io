@@ -1,0 +1,66 @@
+{
+  "slug": "admin-338",
+  "id": 22,
+  "name": "admin@338",
+  "mitreId": "G0018",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "malware",
+    "China",
+    "government",
+    "defense",
+    "finance",
+    "Initial Access",
+    "Backdoor / C2"
+  ],
+  "aliases": ["Temper Panda", "Admin338", "Team338", "admin@338"],
+  "targetedSectors": ["Defense", "Think tank", "Government"],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration"
+  ],
+  "techniques": ["T1036.005", "T1204.002", "T1087.001", "T1566.001", "T1007", "T1082", "T1059.003"],
+  "tools": ["PoisonIvy RAT", "BUBBLEWRAP", "LOWBALL", "Windows Command Shell"],
+  "iocPatterns": [
+    "Spear-phishing emails referencing newsworthy events",
+    "Malware dropped via malicious Office documents",
+    "Establishment of C2 communication using legitimate channels",
+    "Usage of known RATs and backdoors"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing with malicious attachments",
+    "Use of RATs (e.g., PoisonIvy)",
+    "Deployment of backdoors (BUBBLEWRAP, LOWBALL)",
+    "System information discovery",
+    "Network configuration discovery",
+    "Local account management"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect spear-phishing attempts.",
+    "Monitor for MITRE ATT&CK techniques T1566.001 and T1059.003 in network traffic.",
+    "Deploy endpoint detection and response (EDR) solutions for early threat identification.",
+    "Conduct regular phishing simulation exercises to enhance employee awareness."
+  ],
+  "campaignsText": "admin@338's longest-known campaign, 'Umbrella Revolution,' occurred between 2015 and 2016. Their activities suggest a focus on long-term objectives with occasional high-profile operations, indicating persistence despite low media coverage post-2017.",
+  "description": "admin@338, also known as Temper Panda and 338 Team, is a suspected China-based cyber threat group primarily motivated by espionage. This group has targeted defense, government, and financial sectors, utilizing tools like PoisonIvy RAT. Their TTPs include spear-phishing campaigns leveraging current events, making them a persistent and evolving threat.",
+  "goals": "admin@338 targets sectors with strategic significance, focusing on defense and government for sensitive data. They also target financial institutions and think tanks involved in policy-making, suggesting an aim to influence economic strategies and gain political advantages through espionage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A22",
+  "sourceUrl": "https://threaticon.com/threat-actors/22"
+}

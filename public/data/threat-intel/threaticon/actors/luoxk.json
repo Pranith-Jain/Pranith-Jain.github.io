@@ -1,0 +1,40 @@
+{
+  "slug": "luoxk",
+  "id": 782,
+  "name": "luoxk",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Malware", "Web Servers", "Global Threat"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1003.001", "T1566"],
+  "tools": ["Custom WebShells", "Backdoors"],
+  "iocPatterns": [
+    "Malicious scripts injected into legitimate web services",
+    "Unusual network traffic from known servers",
+    "Presence of custom backdoors or WebShells"
+  ],
+  "keyCapabilities": ["Web server exploitation", "Persistence mechanisms", "Network enumeration"],
+  "recommendedActions": [
+    "Monitor for unusual activity in internet-facing services",
+    "Implement regular patch management for web servers",
+    "Use intrusion detection systems to detect WebShell activity",
+    "Conduct periodic security audits to identify vulnerabilities"
+  ],
+  "campaignsText": "Luoxk's campaigns appear to focus on global reach, with a pattern of targeting across multiple regions. The exact operational tempo and attack vectors remain speculative, but the malware suggests a capability for prolonged persistence and lateral movement within compromised networks. Notable past operations include multiple successful breaches of web server environments, though specific details are not well-documented.",
+  "description": "Luoxk is a malware campaign targeting web servers across Asia, Europe, and North America. While details about its primary motivation, goals, or intended outcomes are not well-documented, it represents a significant threat to critical infrastructure and commercial enterprises.",
+  "goals": "The targeting of web servers across diverse regions implies that Luoxk's operators may seek to maximize their attack surface for potential gain or intelligence collection. The lack of specificity in primary motivation suggests a multifaceted approach, possibly aimed at financial gain through data exfiltration or disruption services. Victims are likely selected based on the availability of exploitable vulnerabilities rather than specific industries, though high-value targets such as critical infrastructure or financial institutions may be prioritized.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A782",
+  "sourceUrl": "https://threaticon.com/threat-actors/782"
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "shamoon-group",
+  "id": 713,
+  "name": "Shamoon Group",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cyber espionage", "energy sector", "中东", "Critical Infrastructure", "Wiper / Destructive"],
+  "aliases": ["Cutting Sword of Justice"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Execution"],
+  "techniques": ["T1566.001", "T1070"],
+  "tools": ["ShamCC wiper malware"],
+  "iocPatterns": [
+    "Custom wiper malware signatures",
+    "Network indicators related to command-and-control infrastructure"
+  ],
+  "keyCapabilities": [
+    "Development and deployment of wiper malware",
+    "Custom tools for data destruction",
+    "Targeted attacks against critical infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring for suspicious traffic",
+    "Use endpoint detection and response (EDR) solutions",
+    "Conduct regular patching and system updates",
+    "Educate employees on phishing awareness"
+  ],
+  "campaignsText": "Known for long-term campaigns against energy targets, Shamoon Group has demonstrated persistence and adaptability. Their operations may align with geopolitical events.",
+  "description": "Shamoon Group, also known as Cutting Sword of Justice, is a destructive cyber threat actor linked to Iran, primarily targeting Middle Eastern energy sectors with wiper malware operations.",
+  "goals": "Shamoon Group targets Middle Eastern energy organizations to disrupt critical infrastructure, likely driven by geopolitical motivations. Their attacks are aligned with strategic interests in the region, focusing on sectors key to national security and economic stability.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A713",
+  "sourceUrl": "https://threaticon.com/threat-actors/713"
+}

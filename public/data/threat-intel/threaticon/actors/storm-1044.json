@@ -1,0 +1,48 @@
+{
+  "slug": "storm-1044",
+  "id": 1026,
+  "name": "Storm-1044",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "ransomware", "collaborative attacks", "Ransomware"],
+  "aliases": ["DEV-1044"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Execution", "Lateral Movement", "Defense Evasion"],
+  "techniques": ["T1021.003", "T1097", "T1566"],
+  "tools": ["DanaBot", "CACTUS Ransomware", "Malvertising Infrastructure"],
+  "iocPatterns": [
+    "Malicious links in malvertising campaigns",
+    "DanaBot infection signatures on endpoints",
+    "CACTUS ransomware payloads detection",
+    "RDP sign-in attempts from high-numbered ports"
+  ],
+  "keyCapabilities": [
+    "Initial Access Trojan (IAT): DanaBot",
+    "Lateral Movement via RDP Sign-ins",
+    "CACTUS Ransomware Deployment",
+    "Malvertising Campaigns"
+  ],
+  "recommendedActions": [
+    "Monitor and restrict external RDP access points.",
+    "Enhance ad network monitoring for suspicious domains.",
+    "Implement multi-layer security defenses around endpoints.",
+    "Regularly test backup processes to ensure data integrity.",
+    "Educate users on avoiding malicious phishing links.",
+    "Conduct proactive threat hunting for known IATs and ransomware."
+  ],
+  "campaignsText": "Storm-1044's attacks are part of an ongoing campaign, with collaborative efforts enhancing their operational reach. Targeting organizations via malvertising and IAT deployment, they have been detected by Microsoft but specific targets remain unclear.",
+  "description": "Storm-1044 is a cyber threat actor collaborating with Twisted Spider, targeting endpoints through DanaBot for initial access, lateral movement via RDP, and deploying CACTUS ransomware. Their malvertising campaigns distribute malware leading to ransomware deployment, detected by Microsoft.",
+  "goals": "Storm-1044's primary goal is likely financial gain through ransomware activity. Targeting sectors with high payouts, such as finance and healthcare, they exploit human error and system vulnerabilities to compromise endpoints and deploy CACTUS ransomware.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1026",
+  "sourceUrl": "https://threaticon.com/threat-actors/1026"
+}

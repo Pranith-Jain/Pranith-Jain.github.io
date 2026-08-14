@@ -1,0 +1,49 @@
+{
+  "slug": "toxic-panda",
+  "id": 226,
+  "name": "Toxic Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "dissident targeting"],
+  "aliases": ["Toxic Panda"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Collection", "Exfiltration", "Impact"],
+  "techniques": ["T1036.004 - Exfiltration Over Alternative Protocols", "T1197 - Account Access Removal"],
+  "tools": ["Custom malware", "Spear-phishing tools", "Zero-day exploits"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting specific individuals",
+    "Malware downloads from legitimate-looking domains",
+    "DNS queries for C2 communication",
+    "Unusual network activity during working hours",
+    "Anomalies in system logs related to user accounts"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Malware development and deployment",
+    "Spear-phishing campaigns",
+    "Zero-day exploit utilization",
+    "Covert surveillance operations"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering and threat detection mechanisms.",
+    "Conduct regular employee training on phishing awareness.",
+    "Monitor network traffic for unusual patterns, especially DNS anomalies.",
+    "Use endpoint detection solutions to identify potential malware signatures.",
+    "Limit privileged access and implement account monitoring for suspicious activities."
+  ],
+  "campaignsText": "Toxic Panda has been observed launching targeted campaigns against individuals and groups perceived as threats to government stability. Their operations exhibit a patient, methodical approach, often holding compromised systems for extended periods before deploying final payloads or exfiltrating data. Notable past operations have involved tailored malware used to target specific dissidents, highlighting their ability to adapt techniques to the needs of their campaigns.",
+  "description": "Toxic Panda is a nation-state threat actor primarily involved in espionage activities targeting dissident groups. Their operations are characterized by sophisticated tactics and tools, often linked to cyber-surveillance and intelligence-gathering efforts to suppress political opposition.",
+  "goals": "Toxic Panda's strategic objectives appear to center around intelligence gathering for the purposes of national security, likely in support of political suppression. Their targeting profile focuses on dissident groups, opposition figures, and organizations critical of the sponsoring nation-state. This suggests a focus on maintaining control over domestic narratives and eliminating external threats to government stability.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A226",
+  "sourceUrl": "https://threaticon.com/threat-actors/226"
+}

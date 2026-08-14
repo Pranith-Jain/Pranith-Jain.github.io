@@ -1,0 +1,55 @@
+{
+  "slug": "everest",
+  "id": 430,
+  "name": "everest",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-gain", "Data-theft", "Extortion", "Darknet", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Exfiltration", "Ransomware Activity", "Credential Access", "Defense Evasion"],
+  "techniques": ["T1566.001", "T1566.003", "T1078", "T1552", "T1546"],
+  "tools": [
+    "Custom ransomware",
+    "Network exfiltration tools",
+    "Darknet marketplace tools",
+    "Information theft utilities"
+  ],
+  "iocPatterns": [
+    "Spear-phishing campaigns targeting senior executives",
+    "Use of custom ransomware with encryption capabilities",
+    "Lateral movement within a network using compromised credentials",
+    "Data exfiltration via encrypted channels to external servers",
+    "Presence of known Everest-related file hashes or domains"
+  ],
+  "keyCapabilities": [
+    "Data collection and analysis",
+    "Ransomware deployment",
+    "Data exfiltration",
+    "Darknet market exposure of stolen data",
+    "Persistent targeting of high-value organizations"
+  ],
+  "recommendedActions": [
+    "Implement strong access controls and multi-factor authentication for sensitive systems.",
+    "Encrypt sensitive data at rest and in transit.",
+    "Monitor network traffic for signs of lateral movement and data exfiltration attempts.",
+    "Conduct regular backups of critical systems and isolate backup files from network access.",
+    "Train employees to recognize and report potential phishing attempts.",
+    "Establish a robust incident response plan to address potential ransomware incidents."
+  ],
+  "campaignsText": "Everest has been involved in numerous campaigns targeting organizations globally. Their operations include attacks on financial institutions, logistics companies, and healthcare providers, among others. Notable campaigns involve the Fiserv, Symcor, TSYS, and Epiq Global incidents, where they successfully exfiltrated large volumes of sensitive data. The group's operational tempo is characterized by methodical targeting, persistent data collection, and follow-up extortion efforts. Their victims frequently include high-profile organizations in sectors where data leakage would have severe reputational and financial impacts.",
+  "description": "The Everest ransomware group is a medium-sophisticated criminal threat actor primarily motivated by financial gain. They specialize in targeting organizations across various sectors for ransomware attacks, focusing on collecting sensitive data such as customer privacy information, financial records, and credit card details. Known for leaking stolen data on the darknet if their victims fail to pay ransoms, Everest poses a significant threat due to their ability to persistently target global organizations and their use of extortion tactics to maximize financial gains.",
+  "goals": "The primary goal of the Everest group is to generate financial gain through ransomware attacks and the sale of stolen data. They target organizations across multiple sectors, including finance, healthcare, logistics, and technology, due to the high value of sensitive information in these industries. Their targeting profile indicates a preference for large or medium-sized enterprises that are likely to have significant amounts of valuable data and the financial capacity to pay ransoms. The group's strategic objective is to maximize their profit by combining immediate revenue from ransom payments with long-term gains through data monetization.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A430",
+  "sourceUrl": "https://threaticon.com/threat-actors/430"
+}

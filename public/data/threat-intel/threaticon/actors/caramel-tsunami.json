@@ -1,0 +1,65 @@
+{
+  "slug": "caramel-tsunami",
+  "id": 1015,
+  "name": "Caramel Tsunami",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "Surveillance",
+    "Financial Sector",
+    "Middle East",
+    "Government Agencies",
+    "Zero-day Exploits",
+    "Supply Chain Attack",
+    "Zero-Day Exploitation"
+  ],
+  "aliases": ["SOURGUM", "Candiru"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Resource Development", "Initial Access", "Defense Evasion", "Collection"],
+  "techniques": ["T1059.003", "T1564", "T1217", "T1003", "T1055"],
+  "tools": [
+    "Custom browser exploit code",
+    "Third-party signed drivers for kernel access",
+    "Surveillance malware (possibly linked to other vendors)",
+    "Watering hole domain generation tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing attacks leveraging browser vulnerabilities",
+    "Watering hole domains redirecting to malicious sites",
+    "Use of third-party signed drivers for persistence",
+    "C2 communication via encrypted channels or legitimate protocols",
+    "Targeted sectors: government, defense, and financial services"
+  ],
+  "keyCapabilities": [
+    "Use of zero-day exploits in browser vulnerabilities",
+    "Kernel-level persistence via third-party signed drivers",
+    "Watering hole attack techniques",
+    "espionage and surveillance tool development",
+    "Potential collaboration with other spyware vendors"
+  ],
+  "recommendedActions": [
+    "Apply patches for known browser vulnerabilities immediately",
+    "Monitor network traffic for signs of watering hole attacks",
+    "Implement kernel-level protection mechanisms",
+    "Conduct regular threat hunting for Indicators of Compromise",
+    "Enhance phishing detection capabilities",
+    "Collaborate with intelligence-sharing communities for real-time threat updates"
+  ],
+  "campaignsText": "Caramel Tsunami's campaigns are characterized by their precision and technical depth. They appear to operate with a measured operational tempo, focusing on high-value targets rather than broad campaigns. Notable past operations include targeting financial institutions and government agencies in the Middle East, where they have demonstrated persistence and lateral movement within networks. The group's ability to exploit unpatched vulnerabilities underscores their capability for strategic, long-term operations.",
+  "description": "Caramel Tsunami, also known as SOURGUM or Candiru, is a threat actor reemerging with updated toolsets and zero-day exploits. Known for sophisticated spyware attacks, they primarily target specific sectors through advanced tactics such as watering hole attacks and browser exploitation. Their activities pose significant risks to targeted organizations, particularly in regions like the Middle East and North Africa.",
+  "goals": "Caramel Tsunami's primary goal appears to be intelligence collection and surveillance, likely for espionage purposes. Their targeting focuses on sectors that would yield sensitive information, such as government agencies, defense contractors, and financial institutions. The group has demonstrated a preference for specific regions, including the Middle East and North Africa, possibly due to geopolitical interests or operational ease. Its victims are typically selected based on their ability to provide actionable intelligence or disrupt critical operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1015",
+  "sourceUrl": "https://threaticon.com/threat-actors/1015"
+}

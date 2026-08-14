@@ -1,0 +1,59 @@
+{
+  "slug": "daixin-team",
+  "id": 980,
+  "name": "Daixin Team",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Ransomware",
+    "Healthcare sector targeting",
+    "Critical Infrastructure",
+    "Phishing",
+    "Healthcare Targeting",
+    "Data Exfiltration"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Piracy", "Exfiltration", "Defense Evasion", "Disruption"],
+  "techniques": ["T1059.003", "T1078", "T1021", "T1566", "T1055"],
+  "tools": [
+    "Ransomware (未知具体名称)",
+    "Phishing tools (e.g., QakBot, Trickbot})",
+    "Custom exploit code for VPN vulnerabilities"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "Exploits targeting VPN server vulnerabilities",
+    "Network traffic anomalies consistent with lateral movement",
+    "Ransomware encryption patterns in file systems"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Vulnerability exploitation",
+    "Phishing campaigns",
+    "VPN server compromise",
+    "Data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for remote access and VPN services.",
+    "Conduct regular vulnerability scans and penetration testing to identify and patch vulnerabilities.",
+    "Enhance email filtering and user training to mitigate phishing risks.",
+    "Monitor network traffic for signs of unauthorized access or lateral movement.",
+    "Maintain offline backups of critical data and establish an incident response plan for ransomware events."
+  ],
+  "campaignsText": "Daixin Team's campaign patterns indicate a focus on critical infrastructure and data-rich industries. They have demonstrated the ability to successfully compromise organizations such as municipal water districts and healthcare providers, suggesting a capability to target both public and private sector entities. Their operational tempo suggests they are active and adaptive, with campaigns likely coordinated to maximize impact. Notable past operations include attacks targeting municipal services in North Texas and healthcare organizations where sensitive patient data was stolen. These actions underscore their intent to disrupt victim organizations while exploiting fear of data exposure to coerce payments.",
+  "description": "Daixin Team is an active cyber threat actor primarily targeting healthcare, aerospace, automotive, and packaged foods sectors with ransomware attacks. They exploit vulnerabilities or use phishing to gain initial access through VPN servers, steal sensitive data, and demand ransoms for its release. Their activities have impacted critical infrastructure organizations如 the North Texas Municipal Water District and TransForm Shared Service Org.",
+  "goals": "Daixin Team's strategic objectives appear to be primarily financial in nature, leveraging ransomware to extort payments from victims. Their targeting profile demonstrates a focus on sectors with sensitive or valuable data, such as healthcare, which holds personally identifiable information (PII) and patient records. By preying on industries like aerospace and automotive, Da Xin Team may be seeking high-value intellectual property (IP) or operational data that could also be used for economic gain through sale on the black market or disruption of service.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A980",
+  "sourceUrl": "https://threaticon.com/threat-actors/980"
+}

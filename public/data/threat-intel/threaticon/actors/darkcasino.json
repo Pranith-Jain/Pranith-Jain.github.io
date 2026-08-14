@@ -1,0 +1,56 @@
+{
+  "slug": "darkcasino",
+  "id": 942,
+  "name": "DarkCasino",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Financial Sector",
+    "Cyber Crime",
+    "Stolen Credentials",
+    "Exploit",
+    "Financial Targeting",
+    "Phishing"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Credential Access", "Persistent Access"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["WinRAR Exploit (CVE-2023-38831)", "Phishing Tools", "Lateral Movement Tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting online traders",
+    "Exploitation of WinRAR vulnerability (CVE-2023-38831)",
+    "Stolen credentials and unauthorized access to online accounts",
+    "Lateral movement within compromised networks"
+  ],
+  "keyCapabilities": [
+    "Credential theft through phishing and vulnerability exploitation",
+    "Exploitation of known vulnerabilities like CVE-2023-38831",
+    "Sophisticated persistence techniques to maintain access",
+    "Targeted attacks against online trading platforms",
+    "Use of phishing campaigns to compromise accounts"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for critical systems and user accounts",
+    "Conduct regular network monitoring for signs of persistent threats",
+    "Patch and mitigate known vulnerabilities, especially in commonly used software like WinRAR",
+    "Educate users about phishing attacks and suspicious emails",
+    "Use endpoint detection and response (EDR) solutions to identify malicious activity"
+  ],
+  "campaignsText": "DarkCasino has been active for over a year, with campaigns targeting online trading platforms and financial institutions. Their operations suggest a patient and methodical approach to infiltrating systems and maintaining long-term access. Notable past operations include the exploitation of payment processing systems and cryptocurrency exchanges, where they have successfully stolen sensitive data. The group's persistence indicates a focus on prolonged engagement with targeted industries for sustained financial gain.",
+  "description": "DarkCasino is an economically motivated advanced persistent threat (APT) group targeting online trading platforms, including cryptocurrencies, online casinos, and financial services. They are known for exploiting vulnerabilities such as the WinRAR vulnerability CVE-2023-38831 to steal credentials and access victims' accounts. Active for over a year, DarkCasino poses a significant threat to organizations in the financial sector.",
+  "goals": "DarkCasino's strategic objectives appear to be centered on economic gain through the compromise of online trading platforms. They specifically target sectors where financial value can be directly extracted, such as cryptocurrencies and online casinos. This targeting indicates a focus on high-reward industries where stolen credentials or access to systems can yield significant monetary benefits. Their victims are typically individuals or organizations with substantial digital assets, making them prime targets for financial exploitation.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A942",
+  "sourceUrl": "https://threaticon.com/threat-actors/942"
+}

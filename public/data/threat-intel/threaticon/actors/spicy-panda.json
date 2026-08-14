@@ -1,0 +1,43 @@
+{
+  "slug": "spicy-panda",
+  "id": 224,
+  "name": "Spicy Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["Nation-State", "Espionage", "APT"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing campaigns targeting government or corporate entities",
+    "Use of custom malware for espionage purposes",
+    "Staging infrastructure within hostile territories"
+  ],
+  "keyCapabilities": [
+    "Espionage and intelligence gathering",
+    "Targeted attacks against high-value institutions",
+    "Potential use of custom tools for data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email security measures to detect spear-phishing attempts.",
+    "Conduct regular network monitoring for signs of persistent threats and unauthorized access.",
+    "Apply strict access controls and encryption to sensitive data repositories."
+  ],
+  "campaignsText": "Spicy Panda's operational tempo suggests a focus on stealth and long-term access, consistent with nation-state espionage objectives. The group likely employs advanced persistent threat (APT) tactics to maintain undetected presence in targeted networks over extended periods. Notable past operations remain unclear due to the limited available data, but their inclusion in historical threat reports indicates continued activity through at least 2014.",
+  "description": "Spicy Panda is a suspected nation-state threat actor primarily engaged in espionage activities. The group has been observed targeting critical sectors and geopolitical interests, likely aiming to gather sensitive information for strategic advantage. While details about their specific campaigns and techniques are limited, their activity suggests a moderate level of sophistication with a focus on long-term operational persistence.",
+  "goals": "Spicy Panda's primary objective appears to be espionage, likely targeting sectors that hold strategic or political value. Their targeting profile suggests an interest in government agencies, defense contractors, and critical infrastructure organizations, particularly within regions of geopolitical interest. The actors' long-term operational patterns indicate a focus on stealth and persistence rather than immediate damage or notoriety.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A224",
+  "sourceUrl": "https://threaticon.com/threat-actors/224"
+}

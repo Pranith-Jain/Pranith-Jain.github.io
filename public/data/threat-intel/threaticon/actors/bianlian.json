@@ -1,0 +1,48 @@
+{
+  "slug": "bianlian",
+  "id": 353,
+  "name": "bianlian",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Crime", "Extortion", "TOR", "I2P", "Data Exfiltration"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Defense-Evasion", "Discovery", "Execution", "Exfiltration", "Impact"],
+  "techniques": ["T1059.003", "T1078", "T1064", "T1566.001", "T1562"],
+  "tools": ["Custom ransomware", "Phishing tools"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "TOR-based communication channels",
+    "IP addresses associated with C2 servers (e.g., 88.212.241.105, 91.245.255.27)",
+    "MD5 hashes of ransomware binaries and related tools"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment with encryption",
+    "Data exfiltration with public shaming",
+    "Use of advanced persistence techniques",
+    "Multi-channel communication (TOR, I2P)",
+    "Sophisticated extortion tactics"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint detection and response solutions",
+    "Harden RDP access controls to prevent brute-force attacks",
+    "Monitor for unusual network activity, including TOR traffic",
+    "Conduct regular backups of critical systems, stored offline",
+    "Educate employees on phishing prevention techniques"
+  ],
+  "campaignsText": "BianLian's campaigns involve targeted deployment of ransomware followed by rapid data exfiltration and public shaming via their TOR blog. The group has demonstrated a preference for smaller to medium-sized enterprises and industries with less mature cybersecurity practices. Notable patterns include the use of multiple extortion tactics (ransomware and stolen data release threats) and persistence in victim targeting across geographic regions.",
+  "description": "BianLian is a medium-sophistication ransomware group operating since July 2022 with a primary focus on financial gain through multi-pronged extortion tactics. The group uses a TOR-based blog to post victim data and demands, including the unique inclusion of an I2P mirror for their site. BianLian has targeted at least 552 victims across various industries, employing advanced techniques and tools to execute their ransomware campaigns.",
+  "goals": "BianLian's primary objective is to maximize financial gain through ransomware campaigns and data extortion. While specific targeting by sector or country is not explicitly noted, their broad victim count (over 552) suggests they focus on sectors where victims have higher incentives to pay ransoms quickly, such as healthcare, education, and small-to-medium enterprises (SMEs). The group's multi-pronged extortion approach indicates a strategic focus on extracting maximum value from each compromise.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A353",
+  "sourceUrl": "https://threaticon.com/threat-actors/353"
+}

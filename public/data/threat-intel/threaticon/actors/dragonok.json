@@ -1,0 +1,90 @@
+{
+  "slug": "dragonok",
+  "id": 1620,
+  "name": "DragonOK",
+  "mitreId": "G0017",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "Jul 21, 2026",
+  "tags": [
+    "APT",
+    "DragonOK",
+    "China-state-sponsored",
+    "Phishing",
+    "RTF-exploit",
+    "CVE-2015-1641",
+    "Office document vulnerability",
+    "Custom backdoor",
+    "PlugX",
+    "Poison Ivy",
+    "FormerFirstRAT",
+    "SysGet",
+    "HelloBridge",
+    "C2 domain",
+    "Japanese-targeting"
+  ],
+  "aliases": ["DragonOK", "Moafee", "BRONZE OVERBROOK", "G0017"],
+  "targetedSectors": [
+    "Telecommunications",
+    "Manufacturing",
+    "Government",
+    "Defense",
+    "Critical infrastructure",
+    "Financial services",
+    "Media",
+    "Aerospace"
+  ],
+  "targetedCountries": ["JP", "TW", "RU", "KR", "IR", "CN", "US"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Command and Control"
+  ],
+  "techniques": ["T1566.001", "T1203", "T1027", "T1583", "T1583.001", "T1584", "T1068", "T1204.001", "T1071", "T1199"],
+  "tools": [
+    "SysGet",
+    "HelloBridge",
+    "PlugX",
+    "Poison Ivy",
+    "FormerFirstRAT",
+    "NFlog",
+    "NewCT",
+    "IsSpace",
+    "Rambo",
+    "TidePool",
+    "Metasploit"
+  ],
+  "iocPatterns": [
+    "Phishing email attachments",
+    "Malicious RTF document exploiting CVE-2015-1641",
+    "Obfuscated binaries via binary padding or altered icons",
+    "C2 domain biosnews.info",
+    "HTTP-based command and control traffic"
+  ],
+  "keyCapabilities": [
+    "Phishing emails with malicious attachments",
+    "Exploits CVE-2015-1641 via RTF documents",
+    "Deploys custom malware families (SysGet/HelloBridge, PlugX, Poison Ivy, FormerFirstRAT)",
+    "Uses HTTP-based command and control to dedicated domains",
+    "Implements persistence through Windows services and registry Run keys",
+    "Employs obfuscation techniques such as binary padding and icon spoofing"
+  ],
+  "recommendedActions": [
+    "Patch all systems against the CVE‑2015‑1641 Office exploit promptly; maintain up‑to‑date KBs for Windows and Office."
+  ],
+  "campaignsText": "DragonOK demonstrates a high operational tempo with repeated, well‑planned campaigns that span several years. Each campaign typically begins with a focused spearphishing push, followed by the execution of the RTF exploit or delivery of the custom backdoor. The group’s use of dedicated C2 domains and HTTP traffic indicates a preference for stable infrastructure that can be easily switched or replicated across campaigns. Victims are primarily high‑tech manufacturers in Japan for early operations, but subsequent attacks have broadened to include telecommunications firms, defense contractors, and critical infrastructure providers in Taiwan and Russia, suggesting an expanding asset map while maintaining core espionage objectives.",
+  "description": "DragonOK is a sophisticated, China‑state sponsored APT that conducts large‑scale phishing campaigns to deploy custom backdoors and RATs. The group primarily targets Japanese manufacturing and high‑tech firms while also expanding its reach to Taiwan, Russia, Tibet and other regions. Its operations rely on Microsoft Office exploits (CVE‑2015‑1641), heavily obfuscated binaries and HTTP‑based command & control sites.",
+  "goals": "DragonOK’s strategic objective appears to be corporate espionage aimed at acquiring proprietary technical information from high‑value sectors such as manufacturing, aerospace, defense, telecommunications, and critical infrastructure. Their targeting model focuses on geographically relevant entities—primarily Japan—but has demonstrably expanded to Taiwan, Russia, Tibet, Cambodia, and the United States, employing regionally themed decoy documents to entice local targets. The group seeks to maintain long‑term persistence by implanting backdoors that can be reused across campaigns, thereby facilitating repeated data exfiltration with minimal detection risk.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1620",
+  "sourceUrl": "https://threaticon.com/threat-actors/1620"
+}

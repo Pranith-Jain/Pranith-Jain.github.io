@@ -1,0 +1,45 @@
+{
+  "slug": "wildpressure",
+  "id": 977,
+  "name": "WildPressure",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Industrial Espionage", "Middle East", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Persistence"],
+  "techniques": ["T1566.003", "T1028"],
+  "tools": ["Custom malware (likely)", "Compromised WordPress sites (C2 infrastructure)"],
+  "iocPatterns": [
+    "Network traffic originating from known VPS providers",
+    "Compromised WordPress sites used for C2 communication",
+    "Malware payloads delivered via custom scripts or tools"
+  ],
+  "keyCapabilities": [
+    "Development of custom malware using C++, VBScript, and Python",
+    "Use of compromised VPS and WordPress sites for infrastructure",
+    "Potential use of common attack tools and frameworks"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring to detect anomalies in VPS usage",
+    "Regularly update and patch WordPress installations on all hosted platforms",
+    "Monitor for signs of brute-force attacks (T1566.003)",
+    "Enhance access controls on industrial systems",
+    "Conduct regular employee training on phishing and malware awareness"
+  ],
+  "campaignsText": "WildPressure's campaigns exhibit a pattern of targeting industrial and energy sector entities in the Middle East. Their use of compromised VPS and WordPress sites suggests an emphasis on resource acquisition over long-term persistence, which may indicate a lower level of operational security or a focus on short-term gains. While no specific campaigns have been widely reported, their activity demonstrates a consistent presence over time, suggesting ongoing operations.",
+  "description": "WildPressure is a suspected advanced persistent threat (APT) group targeting industrial entities in the Middle East. They employ multiple programming languages to develop malware and use compromised infrastructure, including WordPress websites, for command-and-control communication. While their specific motivations remain unclear, their activities suggest a focus on espionage or sabotage.",
+  "goals": "WildPressure appears to target industrial entities in the Middle East, likely aiming to gather sensitive information, disrupt operations, or gain a foothold for potential sabotage. Their targeting strategy suggests a focus on sectors that could provide economic or strategic leverage. Victims are primarily entities within the industrial and energy sectors across the Middle East, though specifics vary based on available intelligence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A977",
+  "sourceUrl": "https://threaticon.com/threat-actors/977"
+}

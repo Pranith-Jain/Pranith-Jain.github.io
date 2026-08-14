@@ -1,0 +1,52 @@
+{
+  "slug": "scattered-spider",
+  "id": 96,
+  "name": "Scattered Spider",
+  "mitreId": "G1015",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial-Sector",
+    "Cloud-Attack",
+    "Social-Engineering",
+    "Financial Targeting",
+    "Healthcare Targeting",
+    "Supply Chain Attack"
+  ],
+  "aliases": ["Roasted 0ktapus", "Octo Tempest", "Storm-0875", "UNC3944"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1490", "T1685", "T1018", "T1539"],
+  "tools": ["BlackCat", "Raccoon Stealer", "WarzoneRAT"],
+  "iocPatterns": [
+    "Spear-phishing emails mimicking IT staff",
+    "Exfiltration over cloud services",
+    "Malware signatures detected in files"
+  ],
+  "keyCapabilities": [
+    "Social engineering via impersonation",
+    "Bypassing MFA",
+    "Ransomware deployment",
+    "Cloud environment exploitation"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered MFA solutions",
+    "Monitor for known tools like BlackCat and Raccoon Stealer",
+    "Conduct regular threat hunting exercises focusing on cloud environments"
+  ],
+  "campaignsText": "Scattered Spider has demonstrated a persistent campaign pattern, evolving from targeting specific sectors to a broader approach. Their operations include high-profile attacks on CRM providers and MSPs, showcasing their capability to adapt and expand their attack vectors.",
+  "description": "Scattered Spider is a cybercriminal group known for sophisticated social engineering attacks, targeting various sectors including finance and cloud environments. They employ ransomware and tools like BlackCat to achieve financial gains.",
+  "goals": "The group targets diverse industries to maximize financial gain and avoid detection. Their focus on cloud environments indicates a strategic shift towards higher-value assets, expanding their geographic reach beyond initial regions for broader impact.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A96",
+  "sourceUrl": "https://threaticon.com/threat-actors/96"
+}

@@ -1,0 +1,62 @@
+{
+  "slug": "scarleteel",
+  "id": 932,
+  "name": "SCARLETEEL",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Cloud Threats",
+    "Data Theft",
+    "Intellectual Property Theft",
+    "Cryptomining",
+    "Misconfiguration Exploitation",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Defense Evasion", "Lateral Movement", "Exfiltration", "Disruption"],
+  "techniques": ["T1566.001", "T1203", "T1078", "T1545", "T1091"],
+  "tools": [
+    "AWS CLI abuse for credential escalation",
+    "Custom credential dumping tools",
+    "Cryptomining software (e.g., GPU-mining tools)",
+    "Cloud service exploitation scripts"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails targeting cloud administrators with malicious links",
+    "Compromised AWS access keys in system logs",
+    "Unusual API calls within AWS infrastructure resembling data exfiltration",
+    "Crypto-mining processes running on Kubernetes nodes",
+    "Outbound network traffic from infected systems to known SCARLETEEL domains"
+  ],
+  "keyCapabilities": [
+    "Exploitation of containerized workloads",
+    "AWS policy misconfiguration exploitation",
+    "Credential dumping techniques",
+    "Cloud environment compromise for unauthorized access",
+    "Cryptomining operation deployment"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for all cloud accounts and services.",
+    "Conduct regular audits of AWS policies and configurations to identify and remediate misconfigurations.",
+    "Monitor for unusual API activity within the cloud environment.",
+    "Deploy network traffic analysis tools to detect anomalous patterns indicative of SCARLETEEL's tactics.",
+    "Educate employees, particularly those in IT and security roles, about phishing attempts and suspicious activities."
+  ],
+  "campaignsText": "SCARLETEEL has demonstrated consistent operational activity, with a focus on exploiting vulnerabilities in cloud environments. Their campaigns typically involve identifying misconfigured AWS policies and containerized workloads as entry points. Once inside, they establish persistence mechanisms and deploy tools for data exfiltration and cryptomining. Campaigns often exhibit low noise but high impact operations, leveraging advanced techniques to avoid detection. Notable patterns include the use of encrypted communication channels for command-and-control (C2) and the establishment of long-term persistence within compromised systems.",
+  "description": "SCARLETEEL is a sophisticated threat actor primarily targeting cloud environments, specifically AWS and Kubernetes. They employ advanced tactics to exploit vulnerabilities in containerized workloads and misconfigurations in AWS policies to steal proprietary data and intellectual property, as well as conduct cryptomining operations.",
+  "goals": "SCARLETEEL's strategic objectives appear to be primarily motivated by financial gain and the acquisition of sensitive information. Their targeting of cloud environments, particularly AWS and Kubernetes, indicates a focus on sectors that heavily rely on these technologies. The choice of victims suggests an interest in organizations with significant cloud infrastructure, including technology firms and software-as-a-Service (SaaS) providers. This aligns with their goal of stealing proprietary data and conducting cryptomining operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A932",
+  "sourceUrl": "https://threaticon.com/threat-actors/932"
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "blackgear",
+  "id": 288,
+  "name": "Blackgear",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["nation-state", "APT", "espionage", "South Korea", "Japan"],
+  "aliases": ["Topgear", "Comnie", "BLACKGEAR"],
+  "targetedSectors": [],
+  "targetedCountries": ["TW", "KR", "JP"],
+  "tactics": ["Espionage", "Initial Access", "Defense Evasion", "Network Operations"],
+  "techniques": ["T1059", "T1233", "T1815", "T1087"],
+  "tools": ["Protux", "Eliriks"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Network traffic anomalies associated with Protux/Eliriks",
+    "Unusual domain name registration patterns linked to the malware"
+  ],
+  "keyCapabilities": [
+    "Development and use of custom malware (Protux, Eliriks)",
+    "Advanced persistent threat (APT) tactics",
+    "Possibly long-term, stealthy campaigns"
+  ],
+  "recommendedActions": [
+    "Monitor for spear-phishing attempts and suspicious email activity.",
+    "Implement strong authentication measures for sensitive systems.",
+    "Regularly update and patch software to mitigate known vulnerabilities."
+  ],
+  "campaignsText": "Blackgear's campaigns likely involve prolonged and targeted operations, leveraging custom tools to gain unauthorized access. Limited details on specific campaigns suggest a focus on stealth and long-term goals, possibly avoiding high-profile incidents to maintain operational security.",
+  "description": "Blackgear, a suspected nation-state threat actor with ties to espionage activities, primarily targets South Korea, Taiwan, and Japan. The group utilizes custom tools such as Protux and Eliriks, suggesting advanced capabilities. Despite its historical activity dating back to 2008, limited information on specific tactics and campaigns poses challenges in comprehensive threat assessment.",
+  "goals": "Blackgear's strategic objectives likely center around intelligence gathering to support state-sponsored activities. The targeting of South Korea, Taiwan, and Japan may reflect geopolitical priorities or sector-specific interests, such as government agencies, technology, or defense industries. This aligns with common nation-state espionage goals.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A288",
+  "sourceUrl": "https://threaticon.com/threat-actors/288"
+}

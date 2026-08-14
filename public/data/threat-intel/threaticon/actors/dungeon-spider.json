@@ -1,0 +1,48 @@
+{
+  "slug": "dungeon-spider",
+  "id": 769,
+  "name": "DUNGEON SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Ransomware", "Criminal", "Locky", "Financial Gain", "Spam Campaign", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Collection"],
+  "techniques": ["T1059.003", "T1566.001", "T1040", "T1566.002"],
+  "tools": ["Locky Ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "Large-scale email campaigns delivering Locky ransomware",
+    "Encryption of numerous file types and network drives",
+    "Deletion of Shadow Volume Copies post-infection"
+  ],
+  "keyCapabilities": [
+    "Ransomware distribution via malicious email attachments",
+    "Advanced encryption using RSA/AES algorithms",
+    "Targeting shared network drives to maximize file destruction",
+    "Deletion of Shadow Volume Copies to prevent data recovery",
+    "Sophisticated spam campaign infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block phishing messages",
+    "Regularly back up data and store copies offline or in secure cloud storage",
+    "Deploy endpoint detection and response (EDR) solutions to monitor for suspicious activities",
+    "Educate employees about phishing attempts and document attachments from unknown senders",
+    "Segment network drives and implement access controls to mitigate lateral movement"
+  ],
+  "campaignsText": "DUNGEON SPIDER's campaigns are characterized by their broad reach and reliance on spam distribution. The group operates with significant volume, targeting numerous victims across various industries. Notable patterns include the use of malicious Office documents as delivery vectors and a focus on encrypting network-attached storage solutions. Despite their activity being last observed in late 2017, DUNGEON SPIDER's operational model may persist through affiliate programs or infrastructure reuse by other actors.",
+  "description": "DUNGEON SPIDER is a cybercriminal group known for operating the Locky ransomware, which has been active since February 2016. The group primarily distributes Locky through broad spam campaigns using malicious attachments. Locky encryption employs RSA (2,048 bits) and AES (128 bits) algorithms and targets numerous file extensions, including data on shared network drives. The ransomware also deletes Shadow Volume Copies to prevent file recovery. DUNGEON SPIDER's activity has been observed until late 2017.",
+  "goals": "DUNGEON SPIDER's primary goal appears to be financial gain through the deployment of Locky ransomware. The group targets a broad range of industries, with no specific sector appearing to be the sole focus, though organizations with significant shared network drive usage are particularly at risk. The targeting strategy relies on large-scale spam campaigns, suggesting an intent to maximize victim numbers rather than focusing on high-value niche targets. This approach underscores DUNGEON SPIDER's operational adaptability and capacity for disrupting victims across multiple sectors.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A769",
+  "sourceUrl": "https://threaticon.com/threat-actors/769"
+}

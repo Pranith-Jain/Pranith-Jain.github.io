@@ -1,0 +1,45 @@
+{
+  "slug": "circus-spider",
+  "id": 809,
+  "name": "CIRCUS SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Ransomware", "Russian_speaker", "Healthcare"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credentialed Access", "Execution", "Persistence", "Defense Evasion"],
+  "techniques": ["T1057.002", "T1021", "T1486", "T1505.003"],
+  "tools": ["NetWalker Ransomware", "Phishing Email Templates", "Exploit Kits"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents",
+    "Use of encrypted communication channels for C2",
+    "Ransomware encryption patterns targeting files on network shares"
+  ],
+  "keyCapabilities": [
+    "Ransomware distribution",
+    "Phishing campaigns",
+    "Affiliate network management",
+    "Big Game Hunting (BGH) tactics"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and endpoint detection to block phishing attempts",
+    "Conduct regular backups of critical systems and ensure they are isolated from the network",
+    "Monitor for unusual activity in network logs, especially during off-hours",
+    "Train employees to recognize and report suspicious emails"
+  ],
+  "campaignsText": "CIRCUS SPIDER has been active since late 2019, with campaigns targeting various industries through both phishing and direct exploit attempts. Their use of an affiliate program indicates a focus on scalability and geographic diversity in their attacks. Notable campaigns have targeted healthcare facilities, educational institutions, and municipal organizations, resulting in significant disruptions. The group's operational tempo appears to be opportunistic, with increased activity during periods when targets are more vulnerable or less prepared.",
+  "description": "CIRCUS SPIDER is a Russian-speaking threat actor associated with the NetWalker ransomware. The group operates as an affiliate program, targeting high-value organizations in sectors like healthcare and education through phishing campaigns and Big Game Hunting (BGH) tactics. Their activities have been observed since September 2019, with ongoing operations primarily focused on financial gain through ransomware deployment.",
+  "goals": "CIRCUS SPIDER's primary goal appears to be financial gain through ransomware operations. They focus on high-value targets in sectors such as healthcare, education, and local government, which are often attractive due to the critical nature of their services and potential for large financial payouts. The group's targeting strategy likely involves identifying organizations with weaker cybersecurity measures and limited resources to respond effectively to incidents. Their affiliate program model suggests an interest in maximizing reach and impact while maintaining a degree of operational separation from direct involvement in attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A809",
+  "sourceUrl": "https://threaticon.com/threat-actors/809"
+}

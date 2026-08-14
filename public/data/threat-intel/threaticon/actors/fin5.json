@@ -1,0 +1,58 @@
+{
+  "slug": "fin5",
+  "id": 133,
+  "name": "FIN5",
+  "mitreId": "G0053",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "financial-fraud", "retail-sector", "cybercrime", "Financial Targeting", "Data Exfiltration"],
+  "aliases": ["G0053"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Execution", "Defense Evasion", "Discovery", "Lateral Movement", "Exfiltration"],
+  "techniques": [
+    "T1059.003",
+    "T1074.001",
+    "T1119",
+    "T1685.005",
+    "T1588.002",
+    "T1070.004",
+    "T1018",
+    "T1090.002",
+    "T1078"
+  ],
+  "tools": ["FLIPSIDE", "RawPOS"],
+  "iocPatterns": [
+    "Deployment of FLIPSIDE or RawPOS malware on compromised POS systems",
+    "Network traffic anomalies consistent with command-and-control (C2) servers using fast-flux domains",
+    "Unusual process activity indicative of credential dumping tools",
+    "Large-scale exfiltration of payment card data in compressed file formats"
+  ],
+  "keyCapabilities": [
+    "Development and deployment of POS malware (e.g., RawPOS)",
+    "Credential collection frameworks (e.g., FLIPSIDE)",
+    "External remote services access",
+    "Local data staging techniques",
+    "Automated collection mechanisms",
+    "Clearing Windows Event Logs"
+  ],
+  "recommendedActions": [
+    "Implement rigorous monitoring for POS systems and related network traffic.",
+    "Conduct periodic security assessments to identify vulnerabilities in payment processing infrastructure.",
+    "Enforce multi-factor authentication (MFA) for all critical systems and network access points.",
+    "Enhance log analysis capabilities to detect unusual patterns associated with FIN5's TTPs, such as bulk data transfers or process injection events."
+  ],
+  "campaignsText": "FIN5 campaigns have been observed since at least 2015, with a focus on compromising payment card data from the retail and hospitality sectors. The group's tactics include initial access via phishing or compromised third-party vendors, followed by internal network exploration, credential collection, and exfiltration of stolen data over extended periods. Notable campaigns involve large-scale compromises of POS systems, indicating a patient and methodical approach to maximize data yield without immediate detection. Victims have included mid-sized businesses with less mature cybersecurity defenses.",
+  "description": "FIN5, a financially motivated threat group, targets sensitive financial data from sectors like hospitality and retail using advanced tactics such as POS malware and credential dumping. Known since at least 2008, the group has persisted in compromising payment card information, likely linked to Russian-speaking actors.",
+  "goals": "FIN5's strategic objectives appear to center around maximizing the extraction and monetization of personally identifiable information (PII) and payment card data from targeted industries. Their focus on sectors like hospitality and retail indicates an understanding of where such data is most abundant and easily exploitable. The group likely targets countries with high e-commerce activity and mature financial systems, enabling easier monetization of stolen data through fraud or dark web markets. Typical victims include businesses with POS systems vulnerable to malware deployment, as well as organizations with weak network segmentation and monitoring.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A133",
+  "sourceUrl": "https://threaticon.com/threat-actors/133"
+}

@@ -1,0 +1,51 @@
+{
+  "slug": "morpheus",
+  "id": 517,
+  "name": "morpheus",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Organized Crime", "Financial Gain", "Manufacturing Sector Targeting", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Data Exfiltration", "Defense Evasion", "Impact Tools"],
+  "techniques": ["T1053", "T1078", "T1249", "T1059"],
+  "tools": [
+    "HellCat Ransomware",
+    "Mimikatz for credential extraction",
+    "Custom tools for initial access and lateral movement"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Office documents",
+    "Use of shared payloads similar to HellCat ransomware",
+    "Lateral movement using SMB or RDP protocols",
+    "Data encryption targeting sensitive directories"
+  ],
+  "keyCapabilities": [
+    "Affiliation with the HellCat ransomware group",
+    "Deployment capability via a semi-private RaaS model",
+    "Expertise in compromising diverse industrial and organizational targets",
+    "Experience in multi-sector campaigns, indicating operational versatility"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering and threat detection for phishing attempts.",
+    "Monitor file-sharing and network drives for unauthorized access and anomalies.",
+    "Enhance endpoint detection to identify known HellCat and Morpheus ransomware signatures.",
+    "Enforce strict backup protocols to mitigate potential ransomware impacts.",
+    "Conduct regular training sessions to recognize spear-phishing campaigns."
+  ],
+  "campaignsText": "Morpheus has conducted campaigns targeting GGI Group, Hansa Research, and others. Their approach includes prolonged dwell time to ensure effective data exfiltration before ransomware deployment. The actor's campaigns demonstrate a focus on high-value victims across various industries, indicating an operational model designed for scalability and profitability.",
+  "description": "Morpheus, identified as a semi-private ransomware-as-a-service (RaaS) operation, has emerged as a significant threat actor targeting pharmaceutical, manufacturing, legal, and Italian ESXi environments. Primarily motivated by financial gain, Morpheus affiliates share payloads with the HellCat ransomware group, demanding ransoms up to 32 BTC (~$3M USD). With known victims across diverse sectors, Morpheus poses a growing risk, particularly to organizations operating in high-value industries.",
+  "goals": "Morpheus primarily aims for financial gain via ransomware deployment. Their targeting strategy focuses on sectors with significant financial resources or sensitive data, such as pharmaceuticals (due to research value) and legal industries (with Intellectual Property). Italian ESXi environments suggest a regional interest. Morpheus' choice of victims reflects their objective to maximize ransom payments, preferring organizations where downtime incurs high costs.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A517",
+  "sourceUrl": "https://threaticon.com/threat-actors/517"
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "cyclops",
+  "id": 397,
+  "name": "cyclops",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "financial-gain", "cybercrime"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Custom ransomware"],
+  "iocPatterns": ["Spear-phishing with malicious links", "Distribution of cross-platform ransomware payloads"],
+  "keyCapabilities": [
+    "Ransomware development",
+    "Cross-platform attacks (Windows, macOS, Linux)",
+    "Rebranding for continued operations",
+    "Affiliate program management"
+  ],
+  "recommendedActions": [
+    "Enhance visibility and logging for lateral movement and data exfiltration attempts",
+    "Implement strong email security measures against phishing campaigns",
+    "Patch systems regularly to mitigate vulnerabilities exploited in attacks"
+  ],
+  "campaignsText": "Cyclops' campaigns are characterized by their rapid operational evolution and shift to more established RaaS platforms. Their rebranding as 'Knight' suggests attempts to expand their affiliate network after selling their original codebase, indicating a pragmatic approach to sustaining operations.",
+  "description": "Cyclops is a medium-sophistication criminal threat actor group operational since June 2023, primarily targeting Ransomware-as-a-Service (RaaS) operations. They initially targeted Windows systems but expanded to macOS and Linux before rebranding as 'Knight' in August 2023. The group focuses on financial gain through ransomware campaigns, leveraging their cross-platform capabilities to maximize impact.",
+  "goals": "Cyclops primarily targets organizations for financial gain through ransomware payloads. Their cross-platform approach indicates targeting of diverse industries and regions, likely focusing on sectors with higher organizational assets and slower patch management cycles. The group's rebranding suggests an attempt to expand their operational reach and affiliate base.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A397",
+  "sourceUrl": "https://threaticon.com/threat-actors/397"
+}

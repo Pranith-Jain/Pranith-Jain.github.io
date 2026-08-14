@@ -1,0 +1,68 @@
+{
+  "slug": "dark-basin",
+  "id": 797,
+  "name": "Dark Basin",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "hack-for-hire",
+    "phishing",
+    "espionage",
+    "non-profit sector",
+    "government",
+    "India-linked",
+    "Ransomware",
+    "Phishing",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration", "Impact"],
+  "techniques": [
+    "T1566.001 - Phishing",
+    "T1195 - Exploit Public-Facing Application",
+    "T1071.001 - Application Layer Protocol",
+    "T1059.003 - Command and Scripting Interpreter"
+  ],
+  "tools": [
+    "Custom phishing kits",
+    "Tailored malware for data exfiltration",
+    "Cobalt Strike (likely for C2 infrastructure)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious document attachments",
+    "C2 communication via compromised domains linked to India-based infrastructure",
+    "Use of stolen credentials from nonprofit and advocacy group networks",
+    "Malware payloads tailored for data extraction from high-profile targets"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns with tailored email lures",
+    "Compromise of nonprofit and advocacy group infrastructures",
+    "Exploitation of insider access or compromised credentials",
+    "Use of financially motivated extortion tactics",
+    "Targeted data exfiltration from high-value individuals"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection systems with user behavior analytics",
+    "Conduct regular security awareness training focused on spear-phishing and social engineering",
+    "Monitor network traffic for anomalies in C2 patterns associated with India-based domains",
+    "Enforce strict access controls and multi-factor authentication for sensitive systems",
+    "Collaborate with threat intelligence platforms to share indicators linked to hack-for-hire groups"
+  ],
+  "campaignsText": "Dark Basin's campaigns exhibit a pattern of targeting advocacy groups and nonprofit organizations involved in high-profile social or environmental campaigns. Their operations often involve prolonged engagement with victims, with a focus on extracting sensitive information or leveraging compromised systems for financial gain. The group's association with BellTroX InfoTech Services in India suggests possible use of local infrastructure for command-and-control operations, though their global reach indicates a capacity for cross-border targeting. Notable past operations include the compromise of net neutrality advocates and the #ExxonKnow campaign, highlighting their interest in disrupting public discourse on politically sensitive topics.",
+  "description": "Dark Basin is a hack-for-hire group with global operational reach, targeting advocacy groups, journalists, government officials, and financial institutions. With high confidence linked to BellTroX InfoTech Services in India, the group has been implicated in spear-phishing campaigns against net neutrality advocates and environmental organizations like those involved in the #ExxonKnew initiative. Their activities suggest a mix of politically motivated and financially driven objectives.",
+  "goals": "Dark Basin's targeting profile reflects a strategic focus on sectors and individuals involved in politically sensitive campaigns, including environmental advocacy, government oversight, and financial institutions. By targeting organizations like those in the #ExxonKnew initiative and net neutrality advocates, the group likely seeks to undermine public campaigns, access confidential data, or extort financial compensation. Their selection of victims—ranging from journalists to hedge funds—suggests a dual motivation: ideological influence and monetary gain. The inclusion of government officials and nonprofits in their attack surface further implies an intent to destabilize institutions that challenge corporate or political interests, leveraging cyber operations as a tool for both disruption and intelligence gathering.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A797",
+  "sourceUrl": "https://threaticon.com/threat-actors/797"
+}

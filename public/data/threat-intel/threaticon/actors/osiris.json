@@ -1,0 +1,48 @@
+{
+  "slug": "osiris",
+  "id": 540,
+  "name": "osiris",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Criminal", "Medium Sophistication", "Organizational Gain"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom ransomware", "Vulnerable drivers for BYOVD"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Use of custom or commodity ransomware"
+  ],
+  "keyCapabilities": [
+    "Ransomware development and deployment",
+    "Use of Bring Your Own Vulnerable Driver (BYOVD) technique",
+    "Hybrid encryption (ECC + AES-128-CTR)",
+    "Endpoint detection evasion",
+    "Potential for customized attacks based on victim profile"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint security controls",
+    "Regularly update and patch vulnerable software",
+    "Conduct thorough vulnerability assessments",
+    "Enhance employee cybersecurity awareness training",
+    "Consider implementing a ransomware incident response plan"
+  ],
+  "campaignsText": "Osiris has been active since November 2025, with a notable campaign pattern involving the use of its BYOVD technique to gain initial access to target networks. The operational tempo of Osiris suggests a consistent effort to identify and exploit potential victims, with an observed increase in activity through January 2026. Notable past operations include the compromise of at least three known victims, although the full scope of its campaigns is not publicly disclosed.",
+  "description": "Osiris is a medium-sophistication ransomware-as-a-service operation that uses a Bring Your Own Vulnerable Driver technique to disable endpoint detection tools before deploying hybrid encryption. The group was first observed in November 2025 and has been linked to former INC ransomware affiliates. Osiris operators aim to achieve financial gain through ransomware attacks.",
+  "goals": "Osiris targets organizations with the strategic objective of achieving financial gain through ransomware attacks. By using a ransomware-as-a-service model, the group seeks to maximize its returns by exploiting vulnerabilities across various sectors and geographies. The typical victims of Osiris are likely those who can afford to pay a ransom, suggesting that the group focuses on mid-to-large sized enterprises, potentially with less robust cybersecurity defenses or a higher willingness to pay ransoms to minimize downtime and protect sensitive data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A540",
+  "sourceUrl": "https://threaticon.com/threat-actors/540"
+}

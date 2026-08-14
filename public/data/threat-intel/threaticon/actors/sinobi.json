@@ -1,0 +1,46 @@
+{
+  "slug": "sinobi",
+  "id": 605,
+  "name": "sinobi",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "financial-gain", "US-focused", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Ransomware", "Credential Access", "Persistence", "Lateral Movement"],
+  "techniques": ["T1566.001", "T1078", "T1233", "T1059"],
+  "tools": ["Cobalt Strike", "Mimikatz", "SonicWall VPN exploitation tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Use of legitimate tools like PsExec or WMI for lateral movement",
+    "Encryption of files using Sinobi ransomware and creation of specific decryptor notes"
+  ],
+  "keyCapabilities": [
+    "Deploying double-extortion ransomware",
+    "Compromising network credentials through phishing attempts",
+    "Leveraging compromised VPN access points",
+    "Conducting lateral movement within networks"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for VPN access",
+    "Conduct ongoing phishing awareness training for employees",
+    "Segment network infrastructure to limit lateral movement",
+    "Monitor network traffic, especially during off-hours",
+    "Patch systems regularly and maintain offline backups"
+  ],
+  "campaignsText": "Sinobi operates with a consistent double-extortion model, targeting US organizations across diverse sectors. Their campaigns demonstrate a preference for weekend deployments to evade detection. Notable victims include Elgi Electric & Industries, Amerinational Management Services (AMS), and Summa Energy, among others.",
+  "description": "Sinobi is a medium-sophisticated criminal threat actor, operating as a Ransomware-as-a-Service (RaaS) group emerged in mid-2025. They are known for double-extortion attacks targeting US mid-market organizations through compromised SonicWall VPN credentials, with over 268 victims identified by May 2026.",
+  "goals": "Sinobi’s primary objectives are financial gain through ransomware activities. Their targeting profile focuses on US-based mid-market organizations due to their accessibility via network credentials and the potential for higher ransom payments. The group's victims span various sectors, suggesting a focus on industries with less robust security measures or higher perceived赎金价值.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A605",
+  "sourceUrl": "https://threaticon.com/threat-actors/605"
+}

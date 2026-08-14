@@ -1,0 +1,56 @@
+{
+  "slug": "radiant",
+  "id": 560,
+  "name": "radiant",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "ransomware",
+    "double-extortion",
+    "financial-motivation",
+    "healthcare-sector",
+    "education-sector",
+    "Ransomware"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Data Exfiltration", "Defense Evasion", "Discovery", "Lateral Movement", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078", "T1040"],
+  "tools": ["Ransomware (likely custom or unspecified)", "Cobalt Strike (for some attacks)", "Qbot (as a linked TTP)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Ransomware payloads delivered via C2 servers",
+    "Exfiltration of sensitive data before encryption",
+    "Use of established malware frameworks like Qbot",
+    "Encryption of files with custom or known ransomware"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment with double-extortion tactics",
+    "Data exfiltration and victim shaming techniques",
+    "Lateral movement within networks to identify high-value data",
+    "Use of custom ransomware or known ransomware families",
+    "Staging infrastructure for command-and-control (C2) communication"
+  ],
+  "recommendedActions": [
+    "Implement robust backup and recovery solutions to minimize the impact of ransomware attacks.",
+    "Conduct regular employee training on identifying phishing attempts and suspicious emails.",
+    "Monitor for unusual network activity, particularly lateral movement and data exfiltration patterns.",
+    "Apply endpoint detection and response (EDR) solutions to identify and block known ransomware behaviors.",
+    "Ensure strong access controls and encryption practices for sensitive data repositories."
+  ],
+  "campaignsText": "Radiant's campaigns demonstrate a focus on high-impact targets with the potential for significant reputational damage. The group's operational timeline is still emerging, but their targeting of healthcare and education sectors suggests an intent to maximize emotional and financial pressure on victims. Radiant appears to favor persistent access and lateral movement within networks to identify and exfiltrate sensitive data before initiating encryption and demanding ransoms. Notable past operations include the Kido International attack, which highlighted their preference for victim shaming alongside traditional ransom demands.",
+  "description": "Radiant is a financially motivated ransomware group that emerged in September 2025. Known for conducting double- and single-extortion attacks, Radiant gained notoriety after attacking the UK childcare provider Kido International, exposing sensitive information of over 8,000 children. The group operates without known affiliates and has demonstrated a clear focus on maximizing financial gain through ransomware campaigns.",
+  "goals": "Radiant's primary motivation is financial gain, achieved through the deployment of ransomware and double-extortion schemes. The group targets sectors where data sensitivity and potential for victim shaming can maximize pressure to pay ransoms. Their selection of Kido International as a target highlights an apparent preference for industries with significant public exposure and high stakes—such as healthcare or education—and where data breaches could cause widespread harm. Radiant's targeting appears geographically unrestricted, but their attacks have occurred predominantly in regions with weaker cybersecurity defenses, particularly in Europe and North America.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A560",
+  "sourceUrl": "https://threaticon.com/threat-actors/560"
+}

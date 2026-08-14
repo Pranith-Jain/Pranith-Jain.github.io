@@ -1,0 +1,91 @@
+{
+  "slug": "skidsec",
+  "id": 1159,
+  "name": "SkidSec",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "influence operations",
+    "espionage",
+    "finance‑gain",
+    "North Korea",
+    "China",
+    "printer exploitation",
+    "Ransomware"
+  ],
+  "aliases": ["SkidSec Leaks", "APT28", "Pawn Storm", "Fancy Bear"],
+  "targetedSectors": ["Defense", "Government", "Education", "Energy", "Financial services", "Nuclear"],
+  "targetedCountries": ["KP", "CN"],
+  "tactics": [
+    "Discovery",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Collection",
+    "Command and Control",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1047",
+    "T1564.008",
+    "T1530",
+    "T1059",
+    "T1114.003",
+    "T1059.001",
+    "T1027",
+    "T1204.004",
+    "T1105",
+    "T1078.004"
+  ],
+  "tools": [
+    "PowerShell",
+    "Cobalt Strike",
+    "Quasar RAT",
+    "Agent Tesla",
+    "Havex RAT",
+    "Crimson",
+    "Gootloader",
+    "IcedID",
+    "SocGholish",
+    "Babuk",
+    "netsh"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "Exploiting exposed network printers and unauthorized access",
+    "Domain-based C2 via fast‑flux DNS (e.g., demo-cloud.space, ransomlook.io)",
+    "Email forwarding rules used to obfuscate legitimate traffic",
+    "Use of bulletproof hosting for staging infrastructure (skidsec.org, cnc.smokemethallday.tk)",
+    "Malicious copy & paste technique for lateral movement"
+  ],
+  "keyCapabilities": [
+    "Exploits of unmanaged network printers",
+    "Social engineering via spear‑phishing and deceptive email forwarding rules",
+    "Use of Windows Management Instrumentation for lateral movement",
+    "Obfuscated PowerShell scripts and command line execution",
+    "Ingress tool transfer via legitimate utilities (BITS, netsh)",
+    "“Fast‑flux”-like domain churn in C2 communication",
+    "Data staging on cloud or bulletproof hosting domains",
+    "Potential use of credential dumping tools such as Mimikatz"
+  ],
+  "recommendedActions": [
+    "Implement strict access controls and logging on all network printers; disable remote printing from external sources.",
+    "Apply MFA to cloud accounts and monitor for anomalous API activities. Enforce least‑privilege for email routing and delete default forwarding rules at install. Deploy endpoint protection that flags obfuscated PowerShell scripts and unknown download tools. Block known malicious domains and IPs listed in IOC tables; continuously update threat feeds. Educate staff on spear-phishing and the risks of unsolicited attachments. Patch printers and network infrastructure promptly to close publicly exposed vulnerabilities."
+  ],
+  "campaignsText": "SkidSec’s campaigns are sporadic but strategically targeted, often coinciding with politically relevant events. They mobilize a network of followers who contribute custom scripts or additional delivery mechanisms. The group demonstrates an ability to adapt rapidly following leadership changes, sustaining activity by leveraging shared infrastructure and commonly‑used malware libraries. Their operational tempo has shown bursts corresponding to geopolitical tensions, suggesting a link between state objectives and attack frequency.",
+  "description": "SkidSec is a financially‑motivated group with strong ties to North Korean propaganda efforts, targeting exposed network printers and high‑value sectors such as defense, government, energy, and finance in North Korea and China. Their operations blend technical exploits – notably printer exploitation – with social engineering and the use of common malware tools to collect evidence and potentially leak sensitive data.",
+  "goals": "SkidSec seeks to amplify North Korean propaganda influence by reaching audiences in South Korea while simultaneously exploiting high‑value targets in defense, government, education, energy, finance, and nuclear sectors across North Korea and China. The group’s financial motive drives them to monetize compromised systems through data theft or ransomware, but their political objective is evident in the targeting of political messages and evidence collection for potential blackmail or influence operations. Typical victims are organizations exposed to publicly reachable printers and those lacking robust endpoint detection; they also target users who may comply with social engineering emails that deliver malicious attachments or links.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1159",
+  "sourceUrl": "https://threaticon.com/threat-actors/1159"
+}

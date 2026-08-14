@@ -1,0 +1,44 @@
+{
+  "slug": "hive0137",
+  "id": 1135,
+  "name": "Hive0137",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": ["malware", "phishing", "ransomware", "GenAI", "Initial Access", "Ransomware", "Phishing"],
+  "aliases": ["APT28", "Pawn Storm", "Fancy Bear", "Sednit"],
+  "targetedSectors": ["Media", "Financial services", "Defense", "Energy", "Information technology", "Government"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution"],
+  "techniques": ["T1059.003", "T1055"],
+  "tools": ["GenAI tools potentially linked to TA577 campaigns", "Qbot malware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "Phishing campaigns using GenAI for improved payload delivery",
+    "Ransomware payloads linked to known TA577 campaigns"
+  ],
+  "keyCapabilities": [
+    "Phishing campaign orchestration",
+    "Use of GenAI in malicious activities",
+    "Spear-phishing with Office document payloads",
+    "Ransomware deployment through affiliate programs"
+  ],
+  "recommendedActions": [
+    "Implement email filtering solutions targeting malicious Office document attachments.",
+    "Monitor network traffic for indicators of AI-based phishing attempts.",
+    "Enhance multi-factor authentication (MFA) on sensitive financial accounts."
+  ],
+  "campaignsText": "Hive0137 has demonstrated an aggressive operational tempo with campaigns increasingly tying them to the broader TA577 operation sphere. Their targets include financial institutions across multiple regions, leveraging phishing as their primary means of initial access. Notable past operations involve coordinating malicious activity with other high-profile ransomware groups.",
+  "description": "Hive0137 emerges as a notable malware distributor leveraging cutting-edge technologies like GenAI to advance their operations. They have positioned themselves on par with high-profile groups such as TA577, posing a significant threat through phishing campaigns and enabling ransomware affiliates.",
+  "goals": "Hive0137's strategic objectives likely center around financial gain through large-scale campaigns targeting sectors with high financial value, such as finance and healthcare. They demonstrate an ability to quickly adapt and integrate new technologies, making them a versatile threat capable of evading traditional security measures. Their choice of victims aligns with the broader trend of cybercriminal groups focusing on industries where sensitive data is abundant and can be monetized effectively.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1135",
+  "sourceUrl": "https://threaticon.com/threat-actors/1135"
+}

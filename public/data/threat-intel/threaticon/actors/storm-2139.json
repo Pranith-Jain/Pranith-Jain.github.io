@@ -1,0 +1,61 @@
+{
+  "slug": "storm-2139",
+  "id": 1215,
+  "name": "Storm-2139",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "generative‑AI abuse",
+    "cybercrime‑as‑a‑service",
+    "illicit synthetic media",
+    "credential theft",
+    "image‑based sexual abuse",
+    "Microsoft OpenAI infiltration",
+    "sinkhole deployment",
+    "digital crime unit"
+  ],
+  "aliases": ["tracked as", "China"],
+  "targetedSectors": ["Defense", "Education", "Critical infrastructure", "Government", "Non profit"],
+  "targetedCountries": ["US", "JP"],
+  "tactics": ["Initial Access", "Credential Access", "Defense Evasion", "Impact"],
+  "techniques": ["T1542", "T1078"],
+  "tools": ["Storm‑2139", "Custom AI abuse tools"],
+  "iocPatterns": [
+    "exposed credentials from public sources",
+    "illicit tool distribution for AI abuse",
+    "ill‑sourced non-consensual synthetic imagery of celebrities",
+    "illegal usage of Azure OpenAI Service",
+    "sinkhole domain usage"
+  ],
+  "keyCapabilities": [
+    "Exploited exposed customer credentials scraped from public sources to gain illegitimate access to generative AI services",
+    "Modified and disabled guardrails of Azure OpenAI Service for unrestricted content creation",
+    "Produced illicit tools that enable exploitation of AI services for harmful non‑consensual sexual content",
+    "Sold access to abused AI services to other malicious actors",
+    "Utilized reverse‑proxy infrastructure and custom software to bypass Microsoft’s GenAI safeguards",
+    "Employed sinkhole domains to capture malicious traffic for real-time threat intelligence sharing",
+    "Collaborated with DCU and international partners to disrupt tech support scams and large infostealer operations"
+  ],
+  "recommendedActions": [
+    "Enforce strict authentication controls (multi‑factor, least privilege) for cloud APIs and monitor for credential leaks",
+    "Deploy guardrails and safety checks on generative AI platforms to restrict content creation",
+    "Implement SIEM/SOC capabilities with AI‑driven threat detection focusing on domain impersonation and unauthorized access patterns",
+    "Establish sinkhole infrastructure for malicious traffic capture and share findings via CERT, ISACs, and partner agencies",
+    "Pursue legal actions (civil lawsuits, injunctions) against operators of illicit AI abuse services",
+    "Coordinate with international partners such as Japan Cybercrime Control Center to disrupt supply chains"
+  ],
+  "campaignsText": "The actor operates on a rapid, repeatable basis, leveraging stolen credentials to rapidly breach new accounts and establish footholds. Its operations are characterized by a clear supply chain: credential acquisition → guardrail bypass → content production → marketplace resale. Victims range from large enterprises to small government entities in the US and Japan, with a particular emphasis on organizations with exposed API keys for Azure OpenAI Service. Microsoft’s recent lawsuit and the seizure of an operational website illustrate the group’s willingness to adopt infrastructure as a service models that are quick to set up but leave identifiable digital footprints, allowing coordinated takedown efforts through legal and technical measures.",
+  "description": "Storm‑2139 is a financially motivated cybercrime syndicate that hijacks stolen Azure OpenAI Service credentials to generate non‑consensual sexual imagery using DALL‑E and sells access to these abused services. Microsoft’s Digital Crimes Unit has taken legal action against key actors, disrupting their supply chain by seizing a domain and filing restraining orders.",
+  "goals": "Storm‑2139 seeks to monetize illicit generative‑AI services by exploiting vulnerable cloud accounts in high‑value sectors—defense, education, critical infrastructure, government and non‑profits—in the United States and Japan. By bypassing AI guardrails, the group generates valuable sexual content that they sell on underground markets, thereby funding further credential‑stealing operations and expanding their reach to new victim populations. Their targeting profile reflects a focus on organizations with publicly available API keys or weak authentication controls, enabling them to infiltrate multiple enterprises with a single compromise point.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1215",
+  "sourceUrl": "https://threaticon.com/threat-actors/1215"
+}

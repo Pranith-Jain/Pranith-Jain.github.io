@@ -1,0 +1,49 @@
+{
+  "slug": "sandcat",
+  "id": 299,
+  "name": "Sandcat",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "nation-state", "defense", "government"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Exfiltration", "Persistence"],
+  "techniques": ["T1003.001", "T1078.001", "T1566.002", "T1055", "T1059.003"],
+  "tools": ["CHAINSHOT", "FinFisher/FinSpy", "CVE-2018-8589 exploitation tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting specific organizations",
+    "Malware dropped via weaponized documents or exploits",
+    "Registry-based indicators associated with persistence mechanisms",
+    "Network traffic anomalies indicative of command-and-control (C2) communications",
+    "Exfiltration of sensitive data through encrypted channels"
+  ],
+  "keyCapabilities": [
+    "State-sponsored espionage activities",
+    "Deployment of advanced malware (CHAINSHOT, FinFisher/FinSpy)",
+    "Exploitation of known vulnerabilities (e.g., CVE-2018-8589)",
+    "Persistent access and data exfiltration techniques",
+    "Targeted attacks on government, defense, and healthcare sectors"
+  ],
+  "recommendedActions": [
+    "Implement strong email filtering to detect and block spear-phishing attempts.",
+    "Conduct regular vulnerability scans to mitigate known exploits like CVE-2018-8589.",
+    "Monitor for registry changes and process injections indicative of Sandcat's malware activity.",
+    "Use endpoint detection and response (EDR) solutions to identify and block malicious processes.",
+    "Establish data loss prevention (DLP) policies to detect and prevent exfiltration of sensitive information."
+  ],
+  "campaignsText": "Sandcat's campaign patterns involve long-term, targeted operations to achieve persistent access and Intelligence Collection. The actor demonstrates patience and operational discipline, likely allowing them to maintain undetected presence within target networks for extended periods. Notable past operations include high-profile compromises of government agencies and defense contractors, with an emphasis on stealthy communication and data extraction.",
+  "description": "Sandcat is a sophisticated nation-state threat actor primarily engaged in espionage activities. Known for deploying advanced malware such as CHAINSHOT and FinFisher, Sandcat targets critical sectors including defense, government, and healthcare to achieve intelligence collection objectives. Their operations demonstrate high technical proficiency and persistence.",
+  "goals": "Sandcat's primary motivation is espionage, with a focus on gathering sensitive information from targeted sectors. The actor likely prioritizes industries that hold critical data relevant to national security, such as defense contractors, government agencies, and healthcare organizations. Their targeting of specific countries aligns with geopolitical interests, suggesting they operate under the direction or support of a state or state-aligned entity.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A299",
+  "sourceUrl": "https://threaticon.com/threat-actors/299"
+}

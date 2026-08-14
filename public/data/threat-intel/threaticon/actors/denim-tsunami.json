@@ -1,0 +1,44 @@
+{
+  "slug": "denim-tsunami",
+  "id": 1010,
+  "name": "Denim Tsunami",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "A",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Espionage", "Malware", "Zero-Day Exploitation", "Data Exfiltration"],
+  "aliases": ["KNOTWEED", "DSIRF"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Exfiltration"],
+  "techniques": ["T1205", "T1075", "T1284"],
+  "tools": ["Subzero", "DSIRF spyware"],
+  "iocPatterns": [
+    "Use of zero-day exploits for initial access",
+    "Network traffic anomalies due to C2 communications",
+    "Unusual system activity indicative of keylogging or screenshot capture"
+  ],
+  "keyCapabilities": [
+    "Development and deployment of zero-day exploits",
+    "Custom malware development (Subzero)",
+    "Spear-phishing campaigns with exploit-laced documents"
+  ],
+  "recommendedActions": [
+    "Conduct regular vulnerability management to address未公开的漏洞",
+    "Implement EDR solutions to detect custom malware activities",
+    "Monitor network traffic for suspicious data transfer patterns",
+    "Educate users on phishing emails targeting sector-specific information"
+  ],
+  "campaignsText": "Denim Tsunami has conducted campaigns exploiting零日漏洞 and deploying custom malware. Their operations often involve sophisticated techniques to maintain persistence and stealthily exfiltrate data, targeting industries with high-value intellectual property or sensitive information.",
+  "description": "Denim Tsunami, also known as KNOTWEED or DSIRF, is a sophisticated cyber threat actor primarily targeting European and Central American regions through advanced tactics including 0-day exploits and custom malware. Their operations suggest a focus on espionage or financial gain, leveraging tools like Subzero to infiltrate systems for data exfiltration. This group represents a significant risk to sectors with sensitive information.",
+  "goals": "Denim Tsunami's strategic objectives appear centered around intelligence gathering or financial gain through targeted attacks. Their focus on European and Central American regions suggests they may target government, defense, or corporate entities to acquire sensitive data. The use of advanced exploits indicates a high level of sophistication aiming to disrupt operations or steal information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1010",
+  "sourceUrl": "https://threaticon.com/threat-actors/1010"
+}

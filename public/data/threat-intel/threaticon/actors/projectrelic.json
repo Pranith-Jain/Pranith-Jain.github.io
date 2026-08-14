@@ -1,0 +1,54 @@
+{
+  "slug": "projectrelic",
+  "id": 549,
+  "name": "projectrelic",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial-Crime",
+    "Double-Extortion",
+    "Cross-platform",
+    "Network-Persistence",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Defense Evasion", "Lateral Movement", "Credential Access"],
+  "techniques": ["T1036", "T1566.003", "T1021", "T1078"],
+  "tools": ["Custom Golang ransomware", "Mimikatz-like tools for credential dumping"],
+  "iocPatterns": [
+    "Presence of Golang binaries associated with ransomware activity",
+    "Tor network traffic related to data leak sites",
+    "Encryption of files using specific cipher patterns",
+    "Ransom notes left in encrypted directories"
+  ],
+  "keyCapabilities": [
+    "Golang-based ransomware development",
+    "Double extortion tactics",
+    "Tor-based data leak site operation",
+    "Network dwelling for prolonged periods before encryption"
+  ],
+  "recommendedActions": [
+    "Enhance network monitoring for suspicious Golang-based activity",
+    "Secure RDP access to prevent brute-force attacks",
+    "Implement robust backup solutions with air-gapped storage",
+    "Monitor for and block Tor exits nodes linked to known threat actors",
+    "Conduct regular employee training on phishing and extortion threats"
+  ],
+  "campaignsText": "Project Relic's campaigns are characterized by their double-extortion model and use of a Tor-based infrastructure. They maintain a low-profile operational tempo with limited but impactful campaigns since their emergence in 2022. Known victims include diverse sectors, though specifics remain scarce.",
+  "description": "Project Relic is a medium-sophistication criminal threat actor targeting both Windows and Linux systems with Golang-based ransomware. Employing double-extortion tactics via a Tor-based data leak site, they seek financial gain by encrypting data and threatening to leak it unless ransoms are paid. Their patient network-dwelling behavior poses significant risks to targeted organizations.",
+  "goals": "Project Relic's strategic objectives revolve around generating significant financial returns through ransomware campaigns. Their targeting approach has been relatively broad so far, but they appear to focus on sectors where data sensitivity and potential for financial loss are high. Sectors like healthcare, education, and utilities may be particularly vulnerable, though more specific patterns will emerge with additional campaign analysis.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A549",
+  "sourceUrl": "https://threaticon.com/threat-actors/549"
+}

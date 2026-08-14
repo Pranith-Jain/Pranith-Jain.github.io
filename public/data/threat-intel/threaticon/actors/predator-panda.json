@@ -1,0 +1,45 @@
+{
+  "slug": "predator-panda",
+  "id": 221,
+  "name": "Predator Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "nation-state", "espionage", "Southeast Asia"],
+  "aliases": ["Predator Panda"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Exfiltration"],
+  "techniques": ["T1505.002", "T1093", "T1078"],
+  "tools": ["PlugX", "Custom malware for initial access and persistence"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "C2 communication via HTTPS or custom domains",
+    "Presence of PlugX backdoor files"
+  ],
+  "keyCapabilities": [
+    "PlugX malware deployment",
+    "Spear-phishing campaigns",
+    "Data exfiltration via backdoors",
+    "Persistent system access"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and phishing detection solutions.",
+    "Monitor network traffic for indicators of C2 communication patterns.",
+    "Enhance endpoint protection to detect and block known malware signatures.",
+    "Conduct regular security audits focusing on potential APT-related anomalies."
+  ],
+  "campaignsText": "Predator Panda's campaigns are covert, often involving prolonged periods of access to ensure data theft without detection. Their operations have targeted high-profile institutions in Southeast Asia, highlighting their intention to gather critical national security information.",
+  "description": "Predator Panda is a state-sponsored threat actor originating from Southeast Asia, primarily targeting government agencies and private sector organizations for espionage activities. Known for deploying PlugX malware, they have demonstrated advanced capabilities in compromising systems to gather sensitive information. Their operations are a significant concern for national security and cybersecurity frameworks across the region.",
+  "goals": "Predator Panda's strategic objectives are centered on espionage to gather strategic intelligence for their nation-state sponsor. Their targeting profile focuses on Southeast Asian countries likely due to regional geopolitical interests. Typical victims include government agencies, military installations, and diplomatic institutions, reflecting a focus on high-value targets with sensitive information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A221",
+  "sourceUrl": "https://threaticon.com/threat-actors/221"
+}

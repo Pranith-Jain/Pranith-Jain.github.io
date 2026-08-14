@@ -1,0 +1,64 @@
+{
+  "slug": "arcanedoor",
+  "id": 1092,
+  "name": "ArcaneDoor",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Espionage",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "国家支持的威胁",
+    "关键基础设施",
+    "间谍活动",
+    "Initial Access",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": ["UAT4356 by Talos"],
+  "targetedSectors": [
+    "Government",
+    "Energy",
+    "Aviation",
+    "Healthcare",
+    "Maritime",
+    "Defense",
+    "Telecommunications",
+    "Critical infrastructure"
+  ],
+  "targetedCountries": ["CN"],
+  "tactics": ["信息收集 (Information Collection)", "数据外发 (Data Exfiltration)", "破坏 (Disruption)"],
+  "techniques": [
+    "T1193.001 - Exploitation of Network Device漏洞利用",
+    "T1048 - 数据外发技术",
+    "T1055 - 供应链攻击",
+    "T1253 - 使用第三方供应商进行访问"
+  ],
+  "tools": ["Custom network device backdoors", "Network traffic monitoring tools"],
+  "iocPatterns": ["异常流量模式在网络边界设备", "网络设备配置更改", "针对供应商员工的鱼叉式钓鱼邮件"],
+  "keyCapabilities": [
+    "Advanced network device exploitation",
+    "Network traffic manipulation",
+    "Persistent network presence",
+    "Espionage activities"
+  ],
+  "recommendedActions": [
+    "实施网络周边设备的安全强化措施，包括定期软件更新和补丁管理",
+    "监控边界设备上的异常活动和配置变化",
+    "执行持续网络流量分析以识别潜在的横向移动",
+    "加强第三方供应商网络安全 posture的审查",
+    "建立零信任模型以限制未经授权的网络访问"
+  ],
+  "campaignsText": "ArcaneDoor has demonstrated a sustained and deliberate campaign targeting critical infrastructure sectors. Their operations likely focus on long-term access to maintain persistence and facilitate espionage activities. Notable past operations include multiple attacks on telecommunications providers and energy sector organizations, indicating a strategic interest in these industries.",
+  "description": "ArcaneDoor is a state-sponsored threat actor targeting critical infrastructure sectors such as telecommunications and energy. Their primary focus is on exploiting perimeter network devices for espionage purposes, enabling them to gain network access and disrupt operations. This group has exhibited advanced technical capabilities and has been consistently active over the past two years.",
+  "goals": "ArcaneDoor's objectives appear to be centered on intelligence gathering and network espionage, likely for strategic or geopolitical advantages. The targeting of critical infrastructure sectors suggests a focus on gaining access to sensitive information and disrupting essential services. Their victims are primarily organizations within telecommunications and energy sectors, which are considered critical for national security.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1092",
+  "sourceUrl": "https://threaticon.com/threat-actors/1092"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "nb65",
+  "id": 901,
+  "name": "NB65",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Hacktivism", "Political Motivation", "Energy Sector", "Russia-focused"],
+  "aliases": ["Network Battalion 65"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Impact"],
+  "techniques": ["T1076.001", "T1485", "T1210", "T1003"],
+  "tools": ["Generic DDoS tools", "Phishing kits", "Custom-built hacking tools for specific campaigns"],
+  "iocPatterns": [
+    "Use of DDoS botnets",
+    "Phishing emails with malicious links or attachments",
+    "Unusual network traffic patterns",
+    "Exfiltration of large data volumes from targeted networks"
+  ],
+  "keyCapabilities": [
+    "Conducting DDoS attacks",
+    "Launching phishing campaigns",
+    "Performing hack-and-leak operations",
+    "Using leaked data for extortion or disruption"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts.",
+    "Harden network infrastructure against DDoS attacks using techniques like load balancing and traffic scrubbing.",
+    "Conduct regular backups and ensure recovery processes are robust in case of data breaches.",
+    "Monitor dark web activity for signs of leaked organizational data or threats from NB65."
+  ],
+  "campaignsText": "NB65 has been observed targeting energy companies, financial institutions, and government agencies in Russia. Their campaign patterns suggest a focus on high-profile victims to maximize the impact of their attacks. Campaign activity often spikes during periods of geopolitical tension, such as during conflicts involving Ukraine and Russia, indicating a possible alignment with broader political motivations.",
+  "description": "NB65, an Anonymous-affiliated hacktivist group, targets Russian companies with DDoS and hack-and-leak attacks, aiming to disrupt operations and leak sensitive data.",
+  "goals": "NB65 appears to target sectors in Russia that are critical to national stability, such as energy, finance, and technology. The group's motivations likely stem from a dissatisfaction with Russian policies or political actions, particularly those with international repercussions. Their attacks are concentrated on Russian entities, suggesting a focus on impacting the country's economic and operational landscape through cybermeans.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A901",
+  "sourceUrl": "https://threaticon.com/threat-actors/901"
+}

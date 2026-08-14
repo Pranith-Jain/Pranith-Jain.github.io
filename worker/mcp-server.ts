@@ -49,6 +49,11 @@ import {
   filterTcVictims,
   filterTcIocs,
   filterTcEntities,
+  loadThreaticonIndex,
+  getThreaticonActor,
+  loadThreaticonCoverage,
+  filterThreaticonActors,
+  filterThreaticonCoverage,
   type TiSeverity,
   type TiIocIndexEntry,
   type TcEntityType,
@@ -2921,6 +2926,110 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           }
           if (activityLimit) ent.recentActivity = ent.recentActivity.slice(0, activityLimit);
           return untrustedToolResult(ent);
+        }
+      );
+
+      // ── Threaticon (threaticon.com) ────────────────────────────────
+      // Replicated STIX 2.1 actor catalog + malware dictionary + ATT&CK
+      // detection-coverage dataset + country-level threat map. Data ships
+      // in public/data/threat-intel/threaticon/ (own sync + build scripts).
+
+      this.tools(
+        'ti_list_threaticon_actors',
+        'List threat-actor profiles from the Threaticon catalog (threaticon.com): name, MITRE ATT&CK ID, status, TLP, confidence, types, origin country, and per-actor technique/tool/geo counts. Filter by type, country, TLP, status, MITRE presence, or keyword. Use ti_get_threaticon_actor to fetch the full profile.',
+        {
+          type: z
+            .string()
+            .optional()
+            .describe('Substring filter on actor types (e.g. "nation", "criminal", "hacktivist")'),
+          country: z
+            .string()
+            .optional()
+            .describe('Two-letter origin country code (case-insensitive), e.g. "ru", "cn", "kp", "ir"'),
+          tlp: z.enum(['white', 'green', 'amber', 'red']).optional().describe('Traffic-light-protocol level'),
+          status: z.string().optional().describe('Activity status (e.g. "active", "dormant", "unknown")'),
+          hasMitre: z.boolean().optional().describe('Only actors that map to a MITRE ATT&CK group ID'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against name, MITRE ID, types, or origin'),
+          limit: z.number().int().min(1).max(1000).optional().describe('Max actors to return (default 100)'),
+        },
+        async ({ type, country, tlp, status, hasMitre, keyword, limit }) => {
+          const idx = await loadThreaticonIndex(ASSETS);
+          const actors = filterThreaticonActors(idx, {
+            type,
+            country,
+            tlp,
+            status,
+            hasMitre,
+            keyword,
+            limit: limit ?? 100,
+          });
+          return untrustedToolResult({
+            source: idx.source,
+            syncedAt: idx.syncedAt,
+            total: idx.counts.actors,
+            returned: actors.length,
+            filters: { type, country, tlp, status, hasMitre, keyword },
+            actors,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_threaticon_actor',
+        'Return the full Threaticon actor profile: executive summary, key capabilities, goals & targeting, MITRE ATT&CK tactics and techniques (T-numbers), software/tooling, IOC patterns, recommended actions, campaigns & victims, targeted sectors and countries, aliases, and confidence. Use ti_list_threaticon_actors to discover slugs.',
+        {
+          slug: z.string().describe('Actor slug, e.g. "lazarus-group", "apt41" (case-insensitive)'),
+        },
+        async ({ slug }) => {
+          const actor = await getThreaticonActor(ASSETS, slug);
+          if (!actor) {
+            return untrustedToolResult({
+              error: 'threaticon_actor_not_found',
+              slug,
+              hint: 'Call ti_list_threaticon_actors to see available slugs.',
+            });
+          }
+          return untrustedToolResult(actor);
+        }
+      );
+
+      this.tools(
+        'ti_threaticon_coverage',
+        'Return the Threaticon ATT&CK detection-coverage dataset: every technique the platform ships detection content for, its tactic, and the number of detection rules, plus per-tactic coverage percentages. Filter by tactic, minimum rule count, or keyword. Use for gap analysis when planning detection coverage.',
+        {
+          tactic: z
+            .string()
+            .optional()
+            .describe('Restrict to one tactic (case-insensitive), e.g. "reconnaissance", "execution"'),
+          minRules: z
+            .number()
+            .int()
+            .min(0)
+            .optional()
+            .describe('Only techniques with at least this many detection rules'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against technique ID or name'),
+          limit: z.number().int().min(1).max(5000).optional().describe('Max techniques to return (default 500)'),
+        },
+        async ({ tactic, minRules, keyword, limit }) => {
+          const body = await loadThreaticonCoverage(ASSETS);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'threaticon_coverage_not_found',
+              hint: 'Run node scripts/sync-threaticon.mjs && node scripts/build-threaticon.mjs.',
+            });
+          }
+          const techniques = filterThreaticonCoverage(body, { tactic, minRules, keyword, limit: limit ?? 500 });
+          return untrustedToolResult({
+            source: body.source,
+            syncedAt: body.syncedAt,
+            techniqueCount: body.techniqueCount,
+            tactics: body.tactics,
+            returned: techniques.length,
+            techniques,
+          });
         }
       );
 

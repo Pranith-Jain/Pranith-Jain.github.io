@@ -1,0 +1,58 @@
+{
+  "slug": "vault-7-8",
+  "id": 774,
+  "name": "[Vault 7/8]",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "Cyber-arms dealing",
+    "WikiLeaks",
+    "CIA leaks",
+    "Nation-state actors",
+    "Zero-Day Exploitation",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Exfiltration", "Persistence", "Defense Evasion"],
+  "techniques": ["T1566.001", "T1003.001"],
+  "tools": ["CIA malware and hacking tools", "Zero-day exploits"],
+  "iocPatterns": [
+    "Spear-phishing campaigns using leaked documents",
+    "Use of leaked zero-day exploits by other actors",
+    "Unpatched vulnerabilities linked to the leaks",
+    "WikiLeaks publication patterns"
+  ],
+  "keyCapabilities": [
+    "0-day exploits",
+    "Advanced malware",
+    "Nation-state grade cyber weapons",
+    "Document leakage techniques",
+    "Insider knowledge of intelligence operations"
+  ],
+  "recommendedActions": [
+    "Strengthen patch management programs",
+    "Monitor for IOC patterns in network traffic",
+    "Enhance threat detection with advanced analytics",
+    "Educate employees on phishing and document exposure risks",
+    "Collaborate with industry peers for intelligence sharing",
+    "Implement robust supply chain security"
+  ],
+  "campaignsText": "Vault 7/8's campaign involved systematic leaks through WikiLeaks, with weekly disclosures starting in March 2017. The disclosures targeted the CIA's cyber capabilities, affecting global tech companies. Notable operations include exposure of tools targeting iPhones, Android devices, and Samsung TVs.",
+  "description": "Vault 7/8, a former CIA software engineer, emerged as a significant threat actor through their leak of over 10,000 classified documents from March 2017 to 2018 via WikiLeaks. These leaks exposed numerous zero-day vulnerabilities and tools, profoundly impacting global cybersecurity by enabling other actors to exploit these weaknesses.",
+  "goals": "Vault 7/8's primary objective appears to be揭露ing CIA activities and capabilities, targeting critical sectors such as technology and national security. Their leaks have implications for global cybersecurity, affecting major corporations and potentially destabilizing international relations through exposure of state-sponsored espionage tools. The targeting reflects a focus on compromising the efficacy of intelligence operations, leveraging insider knowledge.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A774",
+  "sourceUrl": "https://threaticon.com/threat-actors/774"
+}

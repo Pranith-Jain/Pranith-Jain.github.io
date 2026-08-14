@@ -1,0 +1,72 @@
+{
+  "slug": "securotrop",
+  "id": 594,
+  "name": "securotrop",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Financially Motivated",
+    "Criminal Group",
+    "Commercial Sectors",
+    "Healthcare Targeting",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Lateral Movement",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078", "T1218", "T1040"],
+  "tools": [
+    "Ransomware (specific strain not identified)",
+    "Phishing toolset",
+    "Remote Access Tools (RAT)",
+    "Network scanning tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails targeting corporate employees",
+    "Ransomware payload delivery via malicious attachments or links",
+    "Encrypted files with specific extensions (e.g., .securotrop)",
+    "Network traffic异常 communication channels, potentially using暗网 services for C2",
+    "Unusual file activity and encryption across networked systems"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Lateral movement within networks",
+    "Encryption of sensitive data",
+    "Phishing or spear-phishing attacks",
+    "Command-and-control (C2) communication",
+    "Data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect phishing attempts.",
+    "Enhance endpoint detection and response (EDR) solutions to identify and block known ransomware indicators.",
+    "Regularly back up critical data and store backups offline or in secure cloud storage.",
+    "Conduct employee training to mitigate the risk of falling for phishing campaigns.",
+    "Monitor network traffic for unusual patterns indicative of C2 communication.",
+    "Segment networks to limit lateral movement potential in case of a breach."
+  ],
+  "campaignsText": "Securotrop has conducted a series of campaigns targeting commercial businesses, with notable operations including the attack on Thompson Builders Corporation and Synergy Engineering. The group's operational tempo suggests periodic but steady activity, consistent with financially motivated actors seeking quick returns. Victims have included small to medium-sized enterprises across diverse industries, indicating an adaptable approach to target selection. While specific tools or malware strains have not been identified, Securotrop's campaigns align with common ransomware patterns, including the use of phishing emails and encrypted payloads.",
+  "description": "Securotrop is a medium-sophistication ransomware group launched in early 2025, operating within the Qilin affiliate network while maintaining an independent public identity. The group focuses exclusively on commercial targets, avoiding healthcare and government entities, and has documented over 35 victims across various industries. Their primary motivation is financial gain, achieved through ransomware campaigns.",
+  "goals": "Securotrop's strategic objectives are centered on financial gain through ransomware campaigns. By focusing on commercial sectors and avoiding sensitive industries like healthcare and government, the group aims to reduce operational risks while maximizing opportunities for successful negotiations and payouts. The actor's targeting profile suggests a preference for businesses with robust IT infrastructure, as evidenced by its attacks on sectors such as construction (Thompson Builders), engineering (Synergy Engineering), financial services (Tax Prep and More), law (Jones Haber Law), media (Charisma Media), logistics (Kriete Truck Centers), and oil/gas (ProDirectional Drilling). This indicates a focus on industries where disruptions could directly impact revenue and reputation, making them more likely to comply with ransom demands.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A594",
+  "sourceUrl": "https://threaticon.com/threat-actors/594"
+}

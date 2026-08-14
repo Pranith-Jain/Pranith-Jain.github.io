@@ -1,0 +1,37 @@
+{
+  "slug": "ranstreet",
+  "id": 574,
+  "name": "ranstreet",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "APT", "finance-sector", "emerging_threat", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [],
+  "keyCapabilities": [
+    "Possibly employs common ransomware techniques such as encryption, double extortion, and payload delivery mechanisms"
+  ],
+  "recommendedActions": [
+    "Enhance email and phishing detection to prevent potential ransomware campaigns",
+    "Implement robust backup strategies to mitigate ransomware impacts",
+    "Monitor network traffic for signs of double extortion tactics"
+  ],
+  "campaignsText": "Ranstreet was first observed in December 2023 with only one known victim detected. The group's campaign patterns are not well-documented, and their operational tempo is unclear. Despite its low profile, Ranstreet's emergence indicates potential targeting activity that could escalate in the coming months.",
+  "description": "Ranstreet is a recently emerged ransomware group observed for the first time in December 2023. Despite its presence on threat tracking lists, there is limited public information available about its operations, victims, or specific tactics. The group's low profile and minimal documented history make it challenging to assess their full capabilities, but their focus on financial gain through ransomware deployment poses a potential risk to targeted organizations.",
+  "goals": "Ranstreet's strategic objectives are centered around financial gain through ransomware deployment. Given the absence of specific targeting data, it is difficult to determine whether they have favored sectors or countries for their operations. As a newly observed threat actor, their victimology and geographic targeting remain opaque, but their focus on organizational gain suggests a potential interest in maximizing profit through efficient attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A574",
+  "sourceUrl": "https://threaticon.com/threat-actors/574"
+}

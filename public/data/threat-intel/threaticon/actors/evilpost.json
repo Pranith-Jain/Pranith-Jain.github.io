@@ -1,0 +1,45 @@
+{
+  "slug": "evilpost",
+  "id": 307,
+  "name": "EvilPost",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "nation-state", "defense-sector", "Backdoor / C2", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": ["Defense"],
+  "targetedCountries": ["JP"],
+  "tactics": ["Reconnaissance", "Espionage"],
+  "techniques": ["T1059", "T1566", "T1203", "T1572"],
+  "tools": ["Adjudication Framework (Apt)"],
+  "iocPatterns": [
+    "Use of phishing emails targeting defense sector employees",
+    "Exploitation of CVE-2015-2545 in Microsoft products",
+    "Command and control infrastructure located within Japan"
+  ],
+  "keyCapabilities": [
+    "Exploitation of known vulnerabilities (e.g., CVE-2015-2545)",
+    "Advanced persistent threat (APT) tactics",
+    "Lateral movement within networks",
+    "Command and control (C2) infrastructure"
+  ],
+  "recommendedActions": [
+    "Monitor for email communication patterns indicative of phishing campaigns.",
+    "Enforce strict controls on external device usage to prevent unauthorized access.",
+    "Implement endpoint detection and response (EDR) solutions to identify malicious activity.",
+    "Conduct regular network traffic analysis to detect异常通信 patterns."
+  ],
+  "campaignsText": "EvilPost has demonstrated a persistent and targeted approach to compromising Japanese defense organizations. The group's campaigns have been characterized by patient reconnaissance, tailored exploit development, and long-term persistence within target networks. While specific details of their past operations remain limited, EvilPost's activities suggest an ongoing interest in maintaining access to critical defense systems.",
+  "description": "EvilPost is a nation-state level threat actor primarily focused on espionage activities targeting Japanese defense organizations. The group has demonstrated advanced capabilities, leveraging known vulnerabilities and employing sophisticated tactics to maintain persistence within targeted networks.",
+  "goals": "EvilPost appears to be motivated by strategic espionage objectives, likely aligned with the interests of a nation-state. The sustained targeting of Japanese defense sector entities suggests an intent to gather classified information on military capabilities, defense policies, and technological advancements. This focus aligns with the broader goals of nation-state actors seeking to gain strategic advantages through intelligence acquisition.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A307",
+  "sourceUrl": "https://threaticon.com/threat-actors/307"
+}

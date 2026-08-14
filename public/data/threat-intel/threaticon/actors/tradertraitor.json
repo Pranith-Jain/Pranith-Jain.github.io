@@ -1,0 +1,42 @@
+{
+  "slug": "tradertraitor",
+  "id": 920,
+  "name": "TraderTraitor",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "K",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Blockchain", "Spear-Phishing", "Phishing"],
+  "aliases": ["Jade Sleet", "UNC4899", "Pukchong"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Exfiltration"],
+  "techniques": ["T1059.003", "T1003", "T1566"],
+  "tools": ["Custom malware likely linked to APT38"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "Lateral movement within internal networks"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Infection via malicious Office documents",
+    "Undetected persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection solutions",
+    "Conduct regular employee training on identifying spear-phishing attempts",
+    "Monitor for suspicious network activity related to known APT38 TTPs"
+  ],
+  "campaignsText": "TraderTraitor's campaigns are observed targeting system administrators and developers, with a focus on blockchain companies. While no specific campaigns have been confirmed, their operational style suggests a patient and deliberate approach, consistent with state-sponsored or well-organized cybercriminal activity.",
+  "description": "TraderTraitor, also known as Jade Sleet or Pukchong (UNC4899), is suspected to be linked to APT38 operators targeting blockchain companies. The group employs spear-phishing attacks to compromise system administrators and software developers, aiming to infiltrate high-tech start-ups. While their exact motivations remain unclear, they pose a significant risk to the cryptocurrency sector.",
+  "goals": "TraderTraitor appears to target sectors with rapid technological advancements, notably blockchain companies, which are often less mature in their cybersecurity practices. The targeting of system administrators and software developers indicates an operational focus on gaining initial access through trusted roles. Their long-term goals likely include data theft, financial gain, or disruption of critical operations, though specific motivations remain unclear.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A920",
+  "sourceUrl": "https://threaticon.com/threat-actors/920"
+}

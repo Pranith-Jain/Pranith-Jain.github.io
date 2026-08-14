@@ -1,0 +1,101 @@
+{
+  "slug": "jinx-0126",
+  "id": 1239,
+  "name": "JINX-0126",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "crypto-mining",
+    "fileless",
+    "PostgreSQL exploitation",
+    "financial gain",
+    "multisector",
+    "Brazil",
+    "United States",
+    "malware",
+    "PG_MEM",
+    "XMRig-C3",
+    "Cryptomining",
+    "Database exploitation",
+    "Defense evasion"
+  ],
+  "aliases": ["tracked as", "fractionators"],
+  "targetedSectors": [
+    "Financial services",
+    "Mining",
+    "Healthcare",
+    "Energy",
+    "Manufacturing",
+    "Government",
+    "Gaming",
+    "Transportation"
+  ],
+  "targetedCountries": ["BR", "US"],
+  "tactics": [
+    "Credential Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Command and Control",
+    "Collection"
+  ],
+  "techniques": [
+    "T1078.001 Valid Accounts",
+    "T1086 PowerShell (used for shell integration)",
+    "T1059.004 Command Shell",
+    "T1102.002 Web Application Layer Protocols",
+    "T1027.001 Obfuscated Files or Information",
+    "T1133 External Remote Services",
+    "T1204.004 User Execution"
+  ],
+  "tools": [
+    "XMRig-C3",
+    "PG_MEM",
+    "postmaster (Golang mimicking PostgreSQL)",
+    "cpu_hu",
+    "GitHub XMRig fetching script",
+    "COPY … FROM PROGRAM exploit"
+  ],
+  "iocPatterns": [
+    "Exploitation of weak PostgreSQL credentials",
+    "COPY … FROM PROGRAM shell injection",
+    "Fileless execution via memfd",
+    "PG_MEM binary deployment",
+    "Unique miner worker ID per host"
+  ],
+  "keyCapabilities": [
+    "Exploitation of weak or default PostgreSQL credentials",
+    "Use of COPY … FROM PROGRAM to execute arbitrary shell commands",
+    "Fileless deployment via Linux memfd technique",
+    "Custom binary hash randomization per victim",
+    "Persistence through cron jobs and creation of privileged local accounts",
+    "Unique mining worker ID assignment for each infected host",
+    "Automated discovery of existing miners and self‑cleanup"
+  ],
+  "recommendedActions": [
+    "Enforce strong, unique passwords on all PostgreSQL instances",
+    "Restrict external network access to databases using firewall rules or VPN only",
+    "Disable the COPY … FROM PROGRAM command in production environments",
+    "Enable PostgreSQL audit logging and monitor for unusual \"COPY\" statements",
+    "Deploy database activity monitoring tools that flag remote shell execution attempts",
+    "Block execution of non‑whitelisted binaries at host level and use endpoint detection capabilities to watch for memfd usage",
+    "Implement a patch management process for all database servers",
+    "Conduct regular security posture assessments on publicly exposed services"
+  ],
+  "campaignsText": "Since August 2024, JINX-0126 has conducted a large‑scale cryptomining operation that has compromised an estimated 1,500+ exposed PostgreSQL servers. Each victim receives a unique miner worker and binary hash, allowing the actor to evade detection by traditional file‑hash based security tools. The actors prefer a stealthy fileless execution model, leveraging Linux memfd and custom binaries that remain in memory, which has made traffic-based detection more difficult. Operations are sporadic but coordinated, focusing on servers with weak credentials; there is no evidence yet of lateral movement beyond the database host itself.",
+  "description": "JINX-0126 is a low‑but stealthy cryptojacking actor that abuses exposed PostgreSQL servers by abusing weak credentials and the SQL COPY ... FROM PROGRAM command to execute fileless miners. The campaign, first documented in August 2024, has compromised more than 1,500 databases worldwide and assigns unique mining worker IDs and binary hashes per victim to evade detection. The primary motive is financial gain via large‑scale XMRig-C3 cryptocurrency mining, with victims spanning multiple sectors including finance, healthcare, energy, and government.",
+  "goals": "JINX-0126 operates with a primary financial incentive: to monetize compromised systems through anonymous cryptocurrency mining. By targeting misconfigured PostgreSQL databases—common in public‑cloud and remote‑desktop deployments— the actor can infiltrate high‑value enterprise environments across finance, energy, healthcare, manufacturing, gaming, transportation, and government sectors. The focus on Brazil (BR) and the United States (US) reflects both the prevalence of openly accessible Postgres services there and the large addressable market for cryptomining revenue.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1239",
+  "sourceUrl": "https://threaticon.com/threat-actors/1239"
+}

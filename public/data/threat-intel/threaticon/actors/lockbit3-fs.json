@@ -1,0 +1,53 @@
+{
+  "slug": "lockbit3-fs",
+  "id": 486,
+  "name": "lockbit3_fs",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Crime", "Global-Targeting", "Sophisticated-Malware", "Encryption-Based-Attack"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement"],
+  "techniques": ["T1078.001", "T1204.001", "T1562.003", "T1070.001", "T1566.001", "T1059.003"],
+  "tools": [
+    "LockBit 3.0 Ransomware Platform",
+    "BlackMatter Code Framework",
+    "Custom Malware Tools (e.g., payload delivery mechanisms)",
+    "RaaS Infrastructure Management Software"
+  ],
+  "iocPatterns": [
+    "Ransomware payloads targeting Windows/VMware environments",
+    "Use of VNC protocol for C2 communication",
+    "Presence of encrypted files renamed with '.locked' extension",
+    "Spear-phishing emails with malicious links or attachments"
+  ],
+  "keyCapabilities": [
+    "Modular encrypted payloads",
+    "Ransomware-as-a-Service (RaaS) platform",
+    "Targeting Windows and VMware ESXi environments",
+    "Use of BlackMatter ransomware code",
+    "Global targeting across all sectors"
+  ],
+  "recommendedActions": [
+    "Monitor network traffic for anomalies related to VNC usage",
+    "Regularly back up critical systems and store backups offline",
+    "Enhance endpoint detection capabilities to identify malicious payloads",
+    "Educate employees on phishing attacks and suspicious email activity",
+    "Implement strong multi-factor authentication (MFA) for sensitive accounts"
+  ],
+  "campaignsText": "LockBit3_FS has been involved in multiple high-profile campaigns targeting industries globally, including energy and healthcare sectors. Notable past operations include attacks leveraging VNC-based command-and-control (C2) infrastructure, rapid encryption of targeted systems, and demand for large-scale ransoms. Their operational tempo is consistent, with frequent attacks indicating a mature capability set.",
+  "description": "LockBit3_FS, operating as part of the LockBit 3.0 ransomware family, is a sophisticated cybercriminal group known for its modular encrypted payloads and aggressive global targeting across various sectors. Active since June 2022, they leverage Ransomware-as-a-Service (RaaS) models to maximize financial gains through large-scale ransom demands.",
+  "goals": "The primary objective of LockBit3_FS is to generate significant financial gains through ransomware operations. They are known to target organizations across all industries, focusing on those with potentially high ransom payment capabilities, regardless of geographical or sectoral boundaries. Their targeting strategy emphasizes maximizing the impact and profitability of each attack.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A486",
+  "sourceUrl": "https://threaticon.com/threat-actors/486"
+}

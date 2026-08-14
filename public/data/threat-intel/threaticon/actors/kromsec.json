@@ -1,0 +1,46 @@
+{
+  "slug": "kromsec",
+  "id": 912,
+  "name": "KromSec",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Hacktivism", "Cyber espionage", "Political Motivation", "Government Sector", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Cyber espionage", "Disruption/ Destruction", "Data Exfiltration"],
+  "techniques": [],
+  "tools": ["Custom malware for database breaches", "Hacking tools for network intrusion"],
+  "iocPatterns": [
+    "Spear-phishing emails masquerading as political activists",
+    "Leaked data dumps on hacker forums",
+    "Infrastructures used for storing exfiltrated data"
+  ],
+  "keyCapabilities": [
+    "Cyberattack coordination",
+    "Data exfiltration",
+    "High-profile targeting",
+    "Spear-phishing attacks"
+  ],
+  "recommendedActions": [
+    "Monitor for nation-state level attack patterns",
+    "Enhance database security with encryption and access controls",
+    "Implement regular software patching cycles",
+    "Conduct user training on phishing emails",
+    "Establish data loss prevention measures"
+  ],
+  "campaignsText": "KromSec's campaigns target government and state-run institutions, often with the goal of leaking sensitive data. Their operations demonstrate a focus on high-value targets in politically charged environments. Notable past operations include attacks on Iranian governmental entities, indicating a pattern of targeting states perceived as adversarial to their ideological positions.",
+  "description": "KromSec is a hacktivist group known for high-profile cyberattacks, including an offensive against Iran in September 2022 and the sale of sensitive databases. The group's activities target governments and organizations, often with disruptive and/or leak-focused objectives.",
+  "goals": "KromSec's strategic objectives appear to focus on disrupting state activities and embarrassing governments through data leaks. Their targeting profile is concentrated on high-profile political and governmental entities, suggesting a desire to influence public perception and policy through cyber means.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A912",
+  "sourceUrl": "https://threaticon.com/threat-actors/912"
+}

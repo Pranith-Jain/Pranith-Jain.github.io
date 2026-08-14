@@ -1,0 +1,75 @@
+{
+  "slug": "fin4",
+  "id": 101,
+  "name": "FIN4",
+  "mitreId": "G0085",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "Financially motivated APT",
+    "Healthcare Sector Targeting",
+    "Email Compromise",
+    "Credential Theft",
+    "Market manipulation risks",
+    "Initial Access",
+    "Healthcare Targeting",
+    "Critical Infrastructure"
+  ],
+  "aliases": ["FIN4", "G0085"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Email Collection", "Spearphishing", "Disruption", "Exfiltration"],
+  "techniques": [
+    "T1056.001",
+    "T1204.002",
+    "T1566.002",
+    "T1114.002",
+    "T1071.001",
+    "T1204.001",
+    "T1564.008",
+    "T1566.001",
+    "T1056.002",
+    "T1078",
+    "T1090.003"
+  ],
+  "tools": [
+    "Custom credential-harvesting tools",
+    "Spearphishing email templates",
+    "Multi-hop proxy chains",
+    "Email account compromise frameworks"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Email account compromises via credential theft",
+    "Use of multi-hop proxies for C2 communication",
+    "GUI input capture during login processes",
+    "Email header manipulation to hide sender information"
+  ],
+  "keyCapabilities": [
+    "Credential harvesting via email compromise",
+    "Spearphishing campaigns targeting financial stakeholders",
+    "Email account compromise and unauthorized access",
+    "Use of keylogging and GUI input capture techniques",
+    "Multi-hop proxy chaining for C2 communication"
+  ],
+  "recommendedActions": [
+    "Implement strong email authentication protocols (e.g., DMARC, SPF, DKIM)",
+    "Monitor for异常 login attempts from multiple geographic locations",
+    "Educate employees on recognizing spearphishing tactics",
+    "Use endpoint detection and response (EDR) tools to identify credential-harvesting activities",
+    "Conduct regular audits of access controls for email accounts with high-level information"
+  ],
+  "campaignsText": "FIN4 has demonstrated a sustained focus on the healthcare and pharmaceutical sectors, with activity spanning at least nine years. The group’s campaigns typically involve long-term surveillance and credential theft to gain access to email accounts of key personnel. Notable patterns include targeting during earnings announcements, mergers and acquisitions, and other market-moving events. FIN4's operational tempo is likely influenced by financial windows, such as quarterly reporting cycles.",
+  "description": "FIN4, also known as G0085, is a financially motivated threat group that has targeted sensitive information in the healthcare and pharmaceutical sectors since at least 2013. Unlike many APTs, FIN4 focuses on credential theft rather than deploying persistent malware, targeting authorized access to emails and non-public communications for financial gain.",
+  "goals": "FIN4's primary motivation is financial gain, targeting industries where market-sensitive information can provide a competitive edge in trading activities. Their focus on healthcare and pharmaceutical companies suggests an interest in intellectual property, merger and acquisition activity, and other financially lucrative information. The group likely targets specific individuals within these sectors who have access to non-public communications, such as executives or employees involved in strategic decision-making.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A101",
+  "sourceUrl": "https://threaticon.com/threat-actors/101"
+}

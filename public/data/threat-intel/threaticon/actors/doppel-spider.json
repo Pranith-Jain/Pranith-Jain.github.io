@@ -1,0 +1,76 @@
+{
+  "slug": "doppel-spider",
+  "id": 788,
+  "name": "DOPPEL SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "financial-sector",
+    "espionage",
+    "criminal-group",
+    "Ransomware",
+    "Critical Infrastructure"
+  ],
+  "aliases": ["GOLD HERON"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1192.001 - Web Shell",
+    "T1190 - Exploit Public-Facing Application",
+    "T1204.002 - Malicious File",
+    "T1053.005 - Registry Run Keys / Path",
+    "T1068 - Privilege Escalation",
+    "T1027 - Bootkit",
+    "T1056.001 - Dumping Passwords",
+    "T1018.001 - Query Registry",
+    "T1040 - Exfiltration over C2 Channel"
+  ],
+  "tools": ["DoppelPaymer", "DoppelDridex", "Cobalt Strike", "Mimikatz", "Custom Exploit Kits"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 communication over DNS using fast-flux domains",
+    "Staging of payloads on bulletproof hosting services",
+    "Use of stolen credentials for lateral movement",
+    "Unusual process injection techniques"
+  ],
+  "keyCapabilities": [
+    "Development and deployment of custom ransomware variants (DoppelPaymer, DoppelDridex)",
+    "Network reconnaissance and mapping",
+    "Advanced phishing and social engineering",
+    "Exploitation of zero-day vulnerabilities",
+    "Use of compromised infrastructure for command-and-control operations"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect macro-laced documents",
+    "Deploy endpoint detection and response (EDR) tools to monitor for process injection",
+    "Conduct regular network segmentation and limit lateral movement capabilities",
+    "Maintain offline backups of critical data and test recovery procedures",
+    "Train employees on phishing detection and incident reporting protocols"
+  ],
+  "campaignsText": "DOPPEL SPIDER's campaigns began in 2019 with the deployment of DoppelPaymer, evolving to DoppelDridex as the group's capabilities advanced. The group operates with a high operational tempo, targeting a wide range of sectors with tailored phishing techniques and custom malware. Notable operations include large-scale ransomware events with demands as high as 250 BTC, indicating a focus on high-value targets. The group's evolution from INDRIK SPIDER suggests a connection to broader networks of cybercriminal activity, potentially leveraging shared infrastructure or tactics.",
+  "description": "DOPPEL SPIDER is a ransomware group that split from INDRIK SPIDER, known for developing the DoppelPaymer and DoppelDridex variants. The group conducts targeted attacks with varying ransom demands, indicating strategic reconnaissance of victim networks to assess value. Their operations are linked to significant ransomware incidents, including the largest known demand of 250 BTC.",
+  "goals": "DOPPEL SPIDER seeks financial gain through ransomware attacks, targeting organizations with high-value data or critical infrastructure. The group's ransom demands vary, suggesting a preference for targeting entities with significant financial resources or operational importance. Their operations indicate a focus on sectors such as healthcare, manufacturing, and finance, which are likely to have valuable data and a higher capacity to pay ransoms. The group's reconnaissance phase highlights an intent to assess victim networks for vulnerabilities and potential data value before initiating attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A788",
+  "sourceUrl": "https://threaticon.com/threat-actors/788"
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "vfokx",
+  "id": 636,
+  "name": "vfokx",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial Crime", "Crypto Extortion", "Criminal Actor"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [
+    "Custom ransomware",
+    "Phishing tools",
+    "Covenant or other I2P-based C2 frameworks",
+    "Adopted TTPs from known ransomware groups"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Encrypted files with .vfokx or similar extensions",
+    "Network traffic anomalies indicating lateral movement",
+    "Scheduled task creation for persistence",
+    "Use of virtual private networks (VPNs) for C2 communication"
+  ],
+  "keyCapabilities": [
+    "Ability to deploy ransomware payloads",
+    "Spear-phishing and social engineering",
+    "Network intrustion techniques",
+    "Lateral movement within networks",
+    "Credential dumping",
+    "Persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement robust backup and recovery solutions to mitigate ransomware impacts.",
+    "Conduct regular employee training on phishing and social engineering vectors.",
+    "Monitor network traffic for known indicators of ransomware activity.",
+    "Enhance endpoint detection and response capabilities.",
+    "Review incident response plans to address potential ransomware incidents."
+  ],
+  "campaignsText": "vfokx's campaigns likely involve targeted phishing attempts, followed by rapid encryption of compromised systems. The group's lack of high-profile victims suggests a deliberate focus on smaller or less fortified targets, possibly to minimize operational risk. Campaigns may employ short-lived infrastructure and avoid direct compromise of highly sensitive data to reduce the likelihood of attribution. Despite limited visibility, vfokx appears to adapt its tactics based on evolving defensive measures.",
+  "description": "vfokx is an unidentified ransomware group operating with moderate sophistication, primarily targeting organizations for financial gain through cryptocurrency extortions. Despite limited public documentation, the group appears to focus on discrete operations, leveraging evasive tactics to avoid detection.",
+  "goals": "vfokx's primary objectives are financial gain through ransomware deployment and the disruption of targeted organizations' operations. The group appears to prioritize sectors with high recovery costs and vulnerability to coercion, such as healthcare providers or educational institutions. The targeting strategy likely focuses on geographic regions where crypto-ransomware activity is prevalent and law enforcement capabilities may be limited.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A636",
+  "sourceUrl": "https://threaticon.com/threat-actors/636"
+}

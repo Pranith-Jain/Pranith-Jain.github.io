@@ -1,0 +1,41 @@
+{
+  "slug": "redalpha",
+  "id": 737,
+  "name": "RedAlpha",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "government", "NGO", "regional Threat"],
+  "aliases": ["DeepCliff", "Red Dev 3"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Data Collection"],
+  "techniques": [
+    "T1566 Spear-Phishing via Email",
+    "T1046.configuration信息收集",
+    "T1059-Malware infection via document files"
+  ],
+  "tools": ["Custom RAT", "C2 Frameworks", "Malicious Excel/Word documents"],
+  "iocPatterns": ["Phishing emails", "Malicious Office documents", "Encrypted C2 communication"],
+  "keyCapabilities": ["Custom malware development", "Spear-phishing campaigns", "Diverse malicious tooling"],
+  "recommendedActions": [
+    "Enhance email security filtering",
+    "Implement user training on phishing识别",
+    "Monitor network traffic异常情况",
+    "Use endpoint detection tools for file analysis",
+    "Share threat intelligence with regional law enforcement"
+  ],
+  "campaignsText": "RedAlpha's campaigns are persistent and tailored, with a focus on evading detection. The actor likely reuses malware frameworks but customizes each campaign to avoid suspicion. Notable operations include multiple waves of phishing attacks targeting specific individuals within the Tibetan community.",
+  "description": "RedAlpha is a cyberespionage threat actor targeting the Tibetan community with campaigns observed over the past two years by Insikt Group. The group employs diverse malicious tooling and tactics to gather intelligence, likely focusing on sensitive sectors such as government or non-governmental organizations in India.",
+  "goals": "RedAlpha's primary motivation appears to be intelligence gathering on the Tibetan community. Targeted sectors likely include government agencies, NGOs, and private entities interacting with Tibetan groups. Countries targeted are mainly India and China, reflecting the geographical focus of affected communities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A737",
+  "sourceUrl": "https://threaticon.com/threat-actors/737"
+}

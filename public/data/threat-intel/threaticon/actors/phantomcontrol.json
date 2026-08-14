@@ -1,0 +1,64 @@
+{
+  "slug": "phantomcontrol",
+  "id": 995,
+  "name": "PhantomControl",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "financial-fraud",
+    "cyber-espionage",
+    "ransomware",
+    "critical-infrastructure-targeting",
+    "financial-sector",
+    "Phishing"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Discovery", "Lateral Movement"],
+  "techniques": ["T1059.003", "T1055", "T1284.001", "T1077.001", "T1068.001"],
+  "tools": [
+    "ScreenConnect",
+    "VBS script malware",
+    "Phishing emails",
+    "Custom Powershell scripts",
+    "Image-based data retrieval tool (possibly custom)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails mimicking trusted entities",
+    "ScreenConnect client activity on compromised systems",
+    "Base64-encoded data within VBS scripts",
+    "Image files containing embedded malicious payloads",
+    "Phishing URLs redirecting to malicious domains"
+  ],
+  "keyCapabilities": [
+    "Phishing emails as initial infection vector",
+    "ScreenConnect client for C2 communication",
+    "VBS script-based malware with embedded PowerShell functionality",
+    "Image-based data retrieval mechanisms",
+    "Use of remote access tools for persistence"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems",
+    "Educate users about phishing red flags and suspicious emails",
+    "Monitor for unusual remote desktop activity and lateral movement",
+    "Deploy endpoint detection and response (EDR) solutions",
+    "Review and update email filtering policies to detect malicious attachments"
+  ],
+  "campaignsText": "PhantomControl's campaigns demonstrate a focus on stealth and persistence, with victims likely experiencing prolonged compromises undetected. Their modus operandi includes the use of legitimate tools like Remote Desktop Services for lateral movement, making them challenging to detect without advanced monitoring. Campaigns may involve targeting high-value assets within financial institutions or critical infrastructure sectors.",
+  "description": "PhantomControl is a sophisticated threat actor emerging in late 2023, employing phishing and remote access tools to target victims. Their activities suggest potential ties to other groups like Blind Eagle, indicating a versatile operational capability focused on espionage or financial gain.",
+  "goals": "PhantomControl's strategic objectives appear to focus on intelligence gathering and financial gain, targeting sectors such as finance, healthcare, and critical infrastructure. Their use of sophisticated malware suggests they target organizations with high-value data or those operating in industries prone to large-scale impact. The actor's geographic reach remains unclear but their association with Blind Eagle indicates a potential Middle Eastern or Eastern European origin.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A995",
+  "sourceUrl": "https://threaticon.com/threat-actors/995"
+}

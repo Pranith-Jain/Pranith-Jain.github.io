@@ -1,0 +1,39 @@
+{
+  "slug": "guacamaya",
+  "id": 911,
+  "name": "Guacamaya",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Hacktivism", "Environmental activism", "Latin America", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1059.003", "T1566", "T1078"],
+  "tools": ["Custom tools for data exfiltration and network intrusion", "Potential use of phishing tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting military and police sectors",
+    "Use of custom tools for network intrusion"
+  ],
+  "keyCapabilities": ["Cyberattack execution", "Data exfiltration", "Spear-phishing campaigns", "Network intrusion"],
+  "recommendedActions": [
+    "Monitor spear-phishing attempts targeting state institutions",
+    "Enhance access controls and implement multi-factor authentication",
+    "Conduct regular security audits and vulnerability assessments",
+    "Implement log monitoring and analysis capabilities to detect potential intrusions"
+  ],
+  "campaignsText": "Guacamaya's campaigns are characterized by their focus on Latin American targets. Their operational strategy involves compromising systems, extracting sensitive data, and leaking it to the public, often through forums or news outlets. Notable past operations include attacks against mining companies and law enforcement agencies in countries where environmental issues are prominent.",
+  "description": "Guacamaya represents a cyber threat group conducting hack-and-leak operations primarily in Latin America. They target military, police, and mining sectors, aiming to expose information to reveal ties between these entities and environmental degradation and repression of native populations. The group's activities are regionally focused but have significant implications for targeted organizations.",
+  "goals": "Guacamaya targets sectors they believe contribute to environmental degradation and social repression, such as military, police agencies, and mining companies. Their focus is on Latin American countries involved in these industries. By targeting these sectors, the group seeks to influence public perception, drive policy changes, and promote social justice through the exposure of sensitive information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A911",
+  "sourceUrl": "https://threaticon.com/threat-actors/911"
+}

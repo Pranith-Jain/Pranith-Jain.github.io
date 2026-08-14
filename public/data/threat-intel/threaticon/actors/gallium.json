@@ -1,0 +1,80 @@
+{
+  "slug": "gallium",
+  "id": 89,
+  "name": "GALLIUM",
+  "mitreId": "G0093",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "State-sponsored",
+    "Espionage",
+    "Telecommunications sector",
+    "Financial sector",
+    "Initial Access",
+    "Financial Targeting",
+    "Government Targeting"
+  ],
+  "aliases": ["Granite Typhoon", "Red Dev 4", "Alloy Taurus", "PHANTOM PANDA"],
+  "targetedSectors": ["Telecommunications"],
+  "targetedCountries": [],
+  "tactics": [
+    "Reconnaissance",
+    "Exfiltration",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "External Communication"
+  ],
+  "techniques": [
+    "T1053.005",
+    "T1560.001",
+    "T1133",
+    "T1074.001",
+    "T1003.002",
+    "T1553.002",
+    "T1574.001",
+    "T1005",
+    "T1190",
+    "T1505.003"
+  ],
+  "tools": ["PingPull", "China Chopper", "BlackMould", "PlugX", "PoisonIvy"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Scheduled task creation for persistence",
+    "C2 communication channels",
+    "DLL injection",
+    "Use of legitimate utilities for malicious purposes"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Use of custom malware and tools like PingPull, China Chopper, BlackMould, PlugX, PoisonIvy",
+    "Data exfiltration through C2 channels",
+    "Local data staging and external remote services exploitation",
+    "DLL injection and code signing techniques",
+    "Windows Management Instrumentation (WMI) usage"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered network monitoring to detect C2 activities and scheduled tasks.",
+    "Conduct regular user training to identify spear-phishing attempts.",
+    "Monitor for unauthorized access to sensitive systems using WMI or LSASS memory dumping techniques.",
+    "Apply patches and updates to mitigate known vulnerabilities exploited by the group.",
+    "Use endpoint detection solutions to identify malicious tools like PlugX and China Chopper."
+  ],
+  "campaignsText": "GALLIUM is known for Operation Soft Cell, a long-term campaign targeting telecommunications providers. The group employs sophisticated techniques such as scheduled tasks, archive utilities, and external remote services to achieve persistence and data exfiltration. Campaign patterns include initial access via phishing or exploit of public-facing applications, followed by lateral movement within networks using tools like PlugX and PoisonIvy. Recent observations suggest increased focus on Southeast Asian countries, with campaigns extending into 2023.",
+  "description": "GALLIUM, also known as Granite Typhoon, Red Dev 4, Alloy Taurus, and PHANTOM PANDA, is a cyberespionage group active since at least 2012. The group primarily targets telecommunications companies, financial institutions, and government entities across Afghanistan, Australia, Belgium, Cambodia, Malaysia, Mozambique, the Philippines, Russia, and Vietnam. GALLIUM is suspected to be a state-sponsored Chinese threat actor based on its tools and tactics, with notable operations such as Operation Soft Cell targeting telecommunications providers.",
+  "goals": "GALLIUM's strategic objectives appear to be primarily focused on espionage, targeting sectors that hold sensitive information such as telecommunications, finance, and government. The group's targeting profile suggests a focus on countries with significant geopolitical interests or where influence can be maximized through cyberespionage activities. The choice of victims indicates an intent to gather classified information, disrupt critical infrastructure, or gain strategic advantages.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A89",
+  "sourceUrl": "https://threaticon.com/threat-actors/89"
+}

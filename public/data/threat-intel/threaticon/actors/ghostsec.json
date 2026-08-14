@@ -1,0 +1,47 @@
+{
+  "slug": "ghostsec",
+  "id": 902,
+  "name": "GhostSec",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Hacktivism", "Terrorism-related", "DDoS", "Botnets", "Critical Infrastructure"],
+  "aliases": ["Ghost Security"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Network Operations", "Disruption", "Exfiltration"],
+  "techniques": [
+    "T1045.004 - Botnet Communication C2/Dropzone Creation/Artifacts Generation",
+    "T1486 - Use of Cloud Compute Infrastructure for Malicious Activities",
+    "T1071.001 - Email Spear Phishing Attachment"
+  ],
+  "tools": ["Botnet malware (based on sample hashes)", "Custom C2 tools"],
+  "iocPatterns": [
+    "Hashes associated with botnet malware: a1b468e9550f9960c5e60f7c52ca3c058de19d42eafa760b9d5282eb24b7c55f, 8fa28795e4cd95e6c78c4a1308ea80674102669f9980b2006599d82eff6237b3",
+    "IP addresses linked to C2 servers: 94.103.91.246"
+  ],
+  "keyCapabilities": [
+    "Advanced botnet infrastructure",
+    "DDoS attacks",
+    "Data exfiltration",
+    "Spear-phishing campaigns"
+  ],
+  "recommendedActions": [
+    "Monitor network traffic for botnet-like activities on listed IPs",
+    "Implement email filtering to detect spear-phishing attempts",
+    "Secure web applications against C2 server impersonation"
+  ],
+  "campaignsText": "Known for high-profile campaigns post-Paris attacks, with sustained activity targeting terrorism-associated groups. Campaigns often involve coordinated DDoS and data dumps to disrupt operations.",
+  "description": "GhostSec is a hacktivist group emerging from Anonymous, focusing on counterterrorism and online surveillance post-2015 Paris attacks. They use cyber means to disrupt groups they oppose, with activities linked to specific domains and hashes indicating botnet C2 infrastructure.",
+  "goals": "They aim to disrupt terrorist activities and promote transparency by targeting groups linked to terrorism or those aiding them. Typically targeting sectors related to security, media, and government entities that align with their counterterrorism goals.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A902",
+  "sourceUrl": "https://threaticon.com/threat-actors/902"
+}

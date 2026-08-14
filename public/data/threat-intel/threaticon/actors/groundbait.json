@@ -1,0 +1,66 @@
+{
+  "slug": "groundbait",
+  "id": 732,
+  "name": "Groundbait",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "U",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "geopolitical",
+    "disinformation",
+    "cyber-PSYOP",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Use of encrypted communication channels",
+    "Sophisticated spear-phishing with geopolitical themes",
+    "Disinformation campaigns via social media or local press",
+    "Targeted phone calls or in-person interactions"
+  ],
+  "keyCapabilities": [
+    "Conducting disinformation campaigns",
+    "Targeted phishing",
+    "Social engineering",
+    "Psychological operations (PSYOPs)",
+    "Influence operations"
+  ],
+  "recommendedActions": [
+    "Enhance monitoring of social media and communications platforms for signs of coordinated disinformation campaigns.",
+    "Implement employee training programs to identify and report potential PSYOPs tactics.",
+    "Strengthen internal controls around sensitive discussions and information sharing.",
+    "Monitor for unusual spikes in specific regional communication patterns."
+  ],
+  "campaignsText": "Groundbait’s operations suggest a focus on long-term influence campaigns, targeting specific individuals or groups over extended periods. Their methods likely involve careful reconnaissance, tailored messaging, and the exploitation of social and political dynamics within targeted communities. While no specific tools have been attributed to Groundbait, their campaigns exhibit characteristics similar to those used in nation-state sponsored Influence operations.",
+  "description": "Groundbait is a threat actor targeting anti-government separatists in the self-declared Donetsk and Luhansk People’s Republics. The group appears to focus on influencing or controlling these separatist groups through cyber-enabled disinformation campaigns and psychological operations, likely with political or influence-based motives.",
+  "goals": "Groundbait appears motivated by the goal of influencing or controlling separatist movements in conflict zones, potentially to undermine regional stability or advance specific political agendas. Their targeting is geographically focused, concentrating on individuals and groups within the Donetsk and Luhansk People’s Republics who oppose government authority. The group likely seeks to achieve its objectives through manipulation, disinformation, and targeted psychological operations rather than direct destruction or theft of data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A732",
+  "sourceUrl": "https://threaticon.com/threat-actors/732"
+}

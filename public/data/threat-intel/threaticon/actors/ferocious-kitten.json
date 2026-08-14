@@ -1,0 +1,48 @@
+{
+  "slug": "ferocious-kitten",
+  "id": 159,
+  "name": "Ferocious Kitten",
+  "mitreId": "G0137",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "Iran", "malware", "Initial Access"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Impact", "Disruption"],
+  "techniques": ["T1036.005", "T1204.002", "T1583.001", "T1588.002", "T1566.001"],
+  "tools": ["MarkiRAT"],
+  "iocPatterns": [
+    "Spear-phishing with attachments",
+    "Malicious file downloads",
+    "Right-to-left (RLO) override attacks",
+    "Abuse of legitimate domain names",
+    "C2 communications via compromised domains"
+  ],
+  "keyCapabilities": [
+    "Use of MarkiRAT malware",
+    "Right-to-left (RLO) text spoofing attacks",
+    "Domain name abuse for command and control",
+    "Spear-phishing via malicious files"
+  ],
+  "recommendedActions": [
+    "Implement RTO detection mechanisms to identify RLO attacks.",
+    "Monitor for suspicious activity using known MarkiRAT indicators.",
+    "Enhance user training on identifying phishing attempts and RTO spoofing.",
+    "Conduct regular network monitoring for unusual file downloads or domain usage.",
+    "Apply multi-factor authentication (MFA) where possible."
+  ],
+  "campaignsText": "Ferocious Kitten has conducted persistent campaigns targeting Persian-speaking individuals in Iran since at least 2015. Their operations are characterized by their use of RLO attacks and MarkiRAT malware, suggesting a focus on long-term intelligence gathering. Despite their longevity, little is known about their specific campaigns or victims beyond their primary geographic focus.",
+  "description": "Ferocious Kitten is a cyber threat group primarily targeting Persian-speaking individuals in Iran since at least 2015. The group has demonstrated persistence over time, focusing on discreetly gathering information and maintaining operational security. Their activities align with data collection and espionage objectives, making them a significant concern for organizations and individuals within their target demographic.",
+  "goals": "Ferocious Kitten's strategic objectives likely include intelligence collection and surveillance, targeting individuals and entities in Iran that could provide sensitive information. Their focus on Persians speaking indicates a regional or cultural specificity in their operations. The group's victims appear to be concentrated in Iran, implying a potential state-backed operation or a highly targeted criminal endeavor focused on discreetly gathering information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A159",
+  "sourceUrl": "https://threaticon.com/threat-actors/159"
+}

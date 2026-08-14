@@ -1,0 +1,56 @@
+{
+  "slug": "temp-heretic",
+  "id": 957,
+  "name": "TEMP_Heretic",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT-like",
+    "Espionage",
+    "Intelligence Gathering",
+    "Data Exfiltration",
+    "Government Targeting",
+    "Military Targeting",
+    "Media Targeting",
+    "Phishing"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Collection Activities"],
+  "techniques": ["T1566.001", "T1036.004", "T1059", "T1055", "T1486", "T1048"],
+  "tools": ["Zimbra email platform exploits", "Custom phishing tools", "Email exfiltration tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting specific individuals",
+    "Exfiltration of large volumes of email data via compromised Zimbra accounts",
+    "Use of multiple Outlook.com accounts for phishing attempts",
+    "Inclusion of malicious links or attachments in crafted messages"
+  ],
+  "keyCapabilities": [
+    "Targeted spear-phishing campaigns",
+    "Exploitation of email platform vulnerabilities",
+    "Manual crafting of phishing emails",
+    "Data exfiltration",
+    "Use of compromised email accounts"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block spear-phishing attempts.",
+    "Conduct regular user training on identifying phishing emails.",
+    "Monitor network traffic for signs of data exfiltration.",
+    "Patch and secure email platforms like Zimbra to mitigate known vulnerabilities."
+  ],
+  "campaignsText": "TEMP_Heretic has been active since at least 2017, targeting high-value individuals within government and military organizations. Their campaigns often involve long-term operational planning, with a focus on maintaining persistence and avoiding detection. The actor's use of Outlook.com accounts suggests an effort to blend in with legitimate email traffic while conducting their activities.",
+  "description": "TEMP_Heretic is a moderate-level threat actor known for conducting targeted spear-phishing campaigns against government, military, and media organizations. Their primary method involves exploiting vulnerabilities in email platforms like Zimbra to exfiltrate sensitive communications. TEMP_Heretic's activities are indicative of an organized effort to gather intelligence, likely for espionage or strategic gain.",
+  "goals": "TEMP_Heretic likely operates with the goal of collecting intelligence and maintaining access to critical communications channels. Their targeting of government and military organizations indicates an intent to gather information of national security importance, while their focus on media organizations may suggest an interest in disseminating or controlling sensitive information. The actor's targeting profile aligns with a moderate-level threat group seeking to impact specific high-value sectors.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A957",
+  "sourceUrl": "https://threaticon.com/threat-actors/957"
+}

@@ -1,0 +1,54 @@
+{
+  "slug": "the-mask",
+  "id": 259,
+  "name": "The Mask",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "E",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "government", "nation-state"],
+  "aliases": ["Careto", "The Mask", "Mask", "Ugly Face"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": [
+    "Reconnaissance",
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery"
+  ],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Cobalt Strike", "Mimikatz"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Lateral movement across network segments",
+    "Exfiltration of sensitive data using encrypted channels"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Sophisticated malware development",
+    "Network infiltration and lateral movement",
+    "Data exfiltration techniques",
+    "Prolonged undetected presence in target networks"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email security to detect and block phishing attempts.",
+    "Monitor for signs of persistent threats, including unusual account activity and network anomalies.",
+    "Conduct regular vulnerability assessments and penetration testing.",
+    "Educate employees about phishing and social engineering tactics."
+  ],
+  "campaignsText": "The Mask has likely been involved in multiple campaigns targeting government entities and possibly other sectors of interest. Their operations may involve prolonged periods within networks to gather extensive intelligence. Specific campaign patterns include targeted attacks on Spanish-speaking countries, indicating a strategic focus on particular geographic regions or interests.",
+  "description": "The Mask (also known as Careto, Ugly Face, and other aliases) is a sophisticated nation-state threat actor primarily engaged in espionage activities targeting government sectors. This group has demonstrated significant technical expertise, leveraging advanced persistent threat (APT) tactics to compromise sensitive systems for intelligence gathering purposes.",
+  "goals": "The strategic objectives of The Mask likely center on espionage and intelligence gathering, particularly against government entities. This aligns with their targeting profile, which focuses on sectors that hold sensitive information or national security interests. The geographic scope appears to be broad, though Spanish-speaking countries may be of particular interest given the group's noted operational patterns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A259",
+  "sourceUrl": "https://threaticon.com/threat-actors/259"
+}

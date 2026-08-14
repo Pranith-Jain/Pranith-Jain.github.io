@@ -260,6 +260,67 @@ frequency chart, relationship chips, victim table).
 - `iocs.json` — whole IOC blocklist (38+ indicators with sources)
 - `misp.json` — slim MISP manifest pass-through (uuid, title, tags, threat level)
 
+### Threaticon — Threat-Actor Catalog, Malware Dictionary, Detection Coverage, Threat Map
+
+A replicated vertical from [threaticon.com](https://threaticon.com) (STIX 2.1/TAXII
+platform, public server-rendered preview, no API key): ~1,500 threat-actor profiles,
+~9,200 malware family entries, an ATT&CK detection-coverage dataset (493 techniques /
+13 tactics with per-technique rule counts), and a country-level threat map
+(actor origins × targeted countries × sectors). Also feeds the ThreatCluster entity
+dictionary (malware family names merged at build time).
+
+**3 MCP tools** (registered on `DFIR_MCP`): `ti_list_threaticon_actors`,
+`ti_get_threaticon_actor`, `ti_threaticon_coverage`
+
+**6 REST routes** under `/api/v1/threat-intel/threaticon/*`:
+`/` (index + counts + cache), `/actors` (q, type, country, tlp, status, has_mitre, limit),
+`/actors/:slug`, `/malware` (category, q, min_confidence, limit), `/coverage`
+(tactic, min_rules, q, limit), `/map`
+
+**1 SPA route** at `/threatintel/feeds/threaticon` (4 tabs: Threat Actors /
+Malware / Detection Coverage / Threat Map; actor cards expand to full profiles
+with MITRE IDs, tools, IOCs, and kill-chain links).
+
+**Files**:
+
+- `scripts/sync-threaticon.mjs` — fetches coverage + malware + actor list pages (`?page=N`) + actor details (sitemap ids) into `threat-intel-staging/threaticon/`; resumable, 429 backoff, `--skip-details`/`--malware-pages N`/`--actors-pages N`/`--actors-limit N`/`--concurrency N`
+- `scripts/build-threaticon.mjs` — slices staging into `public/data/threat-intel/threaticon/` (index + actors/ + malware.json + coverage.json + map.json)
+- `worker/lib/threat-intel-manifest.ts` — `TiThreaticon*` types + `loadThreaticonIndex`/`getThreaticonActor`/`loadThreaticonMalware`/`loadThreaticonCoverage`/`loadThreaticonMap` + `filterThreaticon*` helpers; `tiCacheStats().threaticon`
+- `worker/lib/stix-export.ts` (+ symlink `api/src/lib/stix-export.ts`) — STIX 2.1 bundle builder with deterministic UUIDv5 ids
+- `worker/mcp-server.ts` — 3 `ti_*threaticon*` tool registrations; `api/src/lib/agent/mcp-bridge.ts` mirrors
+- `api/src/routes/threat-intel-edge-tools.ts` — 6 threaticon route handlers + `GET /threat-intel/export/stix` (STIX 2.1 bundle, `include`/`max`/`download` params)
+- `src/pages/threatintel/Threaticon.tsx` — SPA page
+- `public/data/threat-intel/threaticon/` — generated tree
+
+**To rebuild**: `node scripts/sync-threaticon.mjs && node scripts/build-threaticon.mjs`
+
+**Data layout**:
+
+- `index.json` — slim actor index + counts + per-tactic coverage summary
+- `actors/<slug>.json` — full actor profiles (MITRE ID, types, origin, confidence, aliases, sectors/countries, tactics/techniques, tools, IOC patterns, key capabilities, campaigns)
+- `malware.json` — family dictionary (name, category, TLP, confidence, status) — consumed by `build-tc-entities.mjs`
+- `coverage.json` — 493 techniques (patternId, techniqueId, name, tactic, rules) + per-tactic coverage %s
+- `map.json` — origin/targeted country counts + sector counts
+
+**Upstream quirks tolerated**: dirty origin values ("R"), dominant Type "Unknown",
+future-ish "added" dates (platform test/seed data). Parser notes live in
+`scripts/sync-threaticon.mjs` (section-boundary scoping for actor details).
+
+### STIX 2.1 export (cross-vertical)
+
+`GET /api/v1/threat-intel/export/stix` maps the replicated verticals to STIX 2.1
+SDOs: ThreatCluster entities → threat-actor/intrusion-set/malware + victims feed
+groups → intrusion-set + IOC blocklist → indicator; Daily-Hunt IOC families →
+indicator (with MITRE kill-chain phases); darknetlist → infrastructure;
+Threaticon actors → threat-actor (with ATT&CK external references). Deterministic
+UUIDv5 object ids (same data → same bundle, safe to cache/diff). Identity +
+TLP:CLEAR marking included. Params: `include=entities,iocs,darknet,threaticon`,
+`max` (default 500), `download=1`.
+
+**Files**: `worker/lib/stix-export.ts` (builders + `buildStixBundle`),
+`api/src/routes/threat-intel-edge-tools.ts` (route),
+`api/test/routes/threat-intel-stix.test.ts` (4 tests).
+
 ## WinReg DFIR — Windows Registry Forensic Artifact Reference
 
 A data vertical replicating the SI pattern for the upstream Windows Registry

@@ -1,0 +1,64 @@
+{
+  "slug": "operation-parliament",
+  "id": 739,
+  "name": "Operation Parliament",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government targeting",
+    "nation-state",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2",
+    "Government Targeting",
+    "Hacktivism"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Lateral Movement", "Credential Access", "Exfiltration"],
+  "techniques": [
+    "T1059.003 - Spear phishing Attachment",
+    "T1078 - Valid Accounts",
+    "T1003.001 - Keylogger",
+    "T1566.001 - Intercept Data",
+    "T1203 - Credential Access from Files"
+  ],
+  "tools": ["Custom phishing malware", "Backdoors for persistence", "Keylogging tools", "C2 Infrastructure"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "C2 communication using encrypted protocols",
+    "Presence of custom malware related to the group's campaigns",
+    "Unusual network traffic during business hours"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing with malware payloads",
+    "Custom-built backdoors for persistence",
+    "Network lateral movement techniques",
+    "Credential dumping operations",
+    "Data exfiltration via encrypted channels"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering and phishing detection solutions.",
+    "Conduct regular employee training on identifying spear-phishing attempts.",
+    "Enhance network monitoring for异常流量 and lateral movement indicators.",
+    "Use MFA for critical systems and accounts to mitigate credential dumping risks",
+    "Regularly update and patch systems to defend against known vulnerabilities."
+  ],
+  "campaignsText": "Operation Parliament has demonstrated a patient and persistent approach in their campaigns, focusing on specific targets rather than broad撒布。他们的活动在2018年初逐渐放缓，可能表明他们已经达到了既定目标或改变了策略。该组织的战术手法显示出高度的专业性和对目标的深入研究，这与其 nation-state 份相符。",
+  "description": "Operation Parliament is a nation-state cyber threat actor conducting targeted espionage campaigns primarily in the Middle East. They use sophisticated spear-phishing techniques to gain access to sensitive government and organizational data, with a focus on ministries related to critical infrastructure.",
+  "goals": "Operation Parliament's primary goal is intelligence gathering for geopolitical purposes. They specifically target sectors such as telecommunications, energy, health, and finance in the Middle East, indicating a focus on gaining strategic advantages over adversaries involved in regional tensions. The group's targeting strategy suggests they have access to detailed information on organizational structures and personnel in sensitive roles, making them highly effective at compromising their targets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A739",
+  "sourceUrl": "https://threaticon.com/threat-actors/739"
+}

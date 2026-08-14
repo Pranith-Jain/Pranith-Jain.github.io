@@ -1,0 +1,45 @@
+{
+  "slug": "vanhelsing",
+  "id": 633,
+  "name": "vanhelsing",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "crime", "multiplatform", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Vanhelsing Ransomware", "Multi-vector attack tools", "Affiliate distribution mechanisms"],
+  "iocPatterns": [
+    "Hash-MD5 patterns associated with their ransomware",
+    "IP-v4 addresses linked to their infrastructure"
+  ],
+  "keyCapabilities": [
+    "Multi-platform ransomware development",
+    "Affiliate program exploitation model",
+    "Rapid deployment capabilities",
+    "Geographic targeting across multiple regions"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring for multi-platform threats",
+    "Enhance endpoint protection with specialized ransomware detection tools",
+    "Conduct regular data backups and ensure offsite storage security",
+    "Increase user awareness training on phishing attempts",
+    "Monitor网络 traffic for known Vanhelsing IP addresses"
+  ],
+  "campaignsText": "Vanhelsing's campaigns show a focus on rapid deployment and broad targeting. Their first campaign affected eight victims in four countries, indicating a quick scaling strategy. The use of multiple platforms suggests operational flexibility and an aim to maximize impact across diverse industries. Future campaign patterns may involve increased affiliate activity and geographic expansion.",
+  "description": "Vanhelsing emerges as a medium sophistication cybercriminal group leveraging ransomware attacks for financial gain. This threat actor operates a multi-platform Ransomware-as-a-Service (RaaS) model, targeting various industries across multiple countries since early 2025. With an affiliate program and rapid expansion, Vanhelsing poses a significant risk to organizations worldwide.",
+  "goals": "Vanhelsing's strategic objectives center on financial gain through ransomware distribution. Their targeting profile is broad, focusing on industries across multiple countries without specific sector preference. This indicates a tactical approach to exploit any vulnerable organization, leveraging global reach for maximum impact. Victims include various sectors in the US, France, Italy, and Australia, suggesting an initial phase of testing and expansion.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A633",
+  "sourceUrl": "https://threaticon.com/threat-actors/633"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "ransomcortex",
+  "id": 569,
+  "name": "ransomcortex",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["apt", "ransomware", "healthcare-sectors", "south-america", "north-america", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Data Destruction", "Financial Gain", "Lateral Movement"],
+  "techniques": ["T1078", "T1566.001", "T1059", "T1566.003"],
+  "tools": ["Custom ransomware", "Email phishing templates (likely)", "File encryption tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting healthcare employees",
+    "Distribution of macro-laced Office documents",
+    "File encryption with unique ransom notes",
+    "Encrypted communication channels for C2"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Quick-strike campaign tactics",
+    "Focused geographic targeting",
+    "Email-based phishing attacks"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering and phishing detection solutions.",
+    "Enhance endpoint detection and response (EDR) capabilities to detect and block known ransomware behaviors.",
+    "Encrypt critical data backups and ensure they are isolated from network access.",
+    "Conduct regular employee training on identifying suspect emails and attachments.",
+    "Monitor for signs of lateral movement and file encryption activities across the network."
+  ],
+  "campaignsText": "RansomCortex’s early campaigns have been characterized by quick strike operations, suggesting an emphasis on rapid victimization and monetization. The group appears to target healthcare facilities specifically, with a focus on Brazil and Canada as initial geographic targets. While the actor is relatively new, its ability to compromise multiple victims quickly indicates a level of operational maturity beyond its small size. Notable past operations include four confirmed attacks within the first week of activity in July 2024.",
+  "description": "RansomCortex is a newly emerged ransomware group targeting healthcare facilities globally. The threat actor has demonstrated rapid operational tempo, attacking four victims within days of its first appearance, with initial activity focused on Brazil and Canada. While the group appears to be small and niche, it poses a significant risk to critical healthcare infrastructure due to its focus on disruption and financial gain through ransomware.",
+  "goals": "RansomCortex’s primary goals are organizational disruption and financial gain through the deployment of ransomware. The group appears focused on healthcare facilities, likely due to their high sensitivity to downtime, critical nature of services, and potential willingness to pay ransoms quickly. The targeting of Brazil and Canada in its initial campaigns suggests either regional expertise or a language-aligned operational focus.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A569",
+  "sourceUrl": "https://threaticon.com/threat-actors/569"
+}

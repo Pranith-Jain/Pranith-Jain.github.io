@@ -1,0 +1,53 @@
+{
+  "slug": "cuba",
+  "id": 396,
+  "name": "cuba",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "double extortion", "financial-gain", "Ransomware"],
+  "aliases": ["Colddraw"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access (TA0001)", "Execution (TA0002)", "Lateral Movement (TA0003)"],
+  "techniques": [
+    "T1059.003 - Cobalt Strike usage",
+    "T1055 - Process Injection for privilege escalation",
+    "T1566.001 - Data Exfiltration via network share"
+  ],
+  "tools": ["Cobalt Strike", "Metasploit", "Colddraw Ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "Use of Cobalt Strike for compromising systems",
+    "Encrypted files marked with '.Fidel' suffix",
+    "Ransom notes demanding cryptocurrency payments"
+  ],
+  "keyCapabilities": [
+    "Double extortion ransomware",
+    "Use of Cobalt Strike for initial access",
+    "Encryption leveraging LOLBins and process injection techniques",
+    "Data exfiltration via established marketplaces",
+    "Russian-language communication among operators"
+  ],
+  "recommendedActions": [
+    "Implement endpoint detection to monitor Cobalt Strike TTPs.",
+    "Prevent macro-based attacks in Office documents.",
+    "Secure RDP access and eliminate excessive administrative privileges.",
+    "Establish offline backups regularly tested for integrity.",
+    "Deploy multi-factor authentication for critical accounts.",
+    "Educate users on phishing signs."
+  ],
+  "campaignsText": "The group has demonstrated a steady operational tempo since 2019, with campaigns peaking in mid-2022 where 101 entities were targeted. Their victims include businesses and organizations from various industries globally, leveraging double extortion to coerce higher ransom payments ($60M-$145M). Notable for adapting their techniques minimally yet effectively each year.",
+  "description": "The Cuba Ransomware group, also known as Colddraw, is a sophisticated cybercriminal organization specializing in ransomware attacks. They use double extortion tactics to maximize payouts and have targeted numerous victims across various industries, resulting in significant financial losses.",
+  "goals": "Cuba Ransomware's primary goals are financial gain through ransoms and secondary gains from data exfiltration for sale or public release. The group likely targets sectors with significant financial value or sensitive information, such as healthcare, education, energy, and manufacturing. Their broad targeting strategy reflects a focus on maximizing revenue rather than sector-specific interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A396",
+  "sourceUrl": "https://threaticon.com/threat-actors/396"
+}

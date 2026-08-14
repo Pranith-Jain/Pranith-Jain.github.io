@@ -1,0 +1,60 @@
+{
+  "slug": "uac-0226",
+  "id": 703,
+  "name": "uac-0226",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 14, 2026",
+  "tags": [
+    "Cyberespionage",
+    "Government Sector",
+    "Geopolitical",
+    "Ukraine",
+    "APT-like",
+    "Malware Campaign",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Proling", "Obfuscation", "Lateral Movement", "Collection", "Exfiltration"],
+  "techniques": ["T1065.003", "T1087", "T1055", "T1036", "T1005", "T1048"],
+  "tools": ["GIFTEDCROOK stealer", "RAR archives", "LNK files", "PowerShell code"],
+  "iocPatterns": [
+    "Spear-phishing emails containing RAR archives",
+    "Obfuscated PowerShell scripts executing via LNK files",
+    "HTTP traffic to domains associated with C2 servers",
+    "Registry entries for persistence"
+  ],
+  "keyCapabilities": [
+    "Exploitation via CVE-2025-6218 and CVE-2025-8088",
+    "Weaponized RAR archive creation with decoy PDFs",
+    "Obfuscated PowerShell execution",
+    "RC4 encryption for data protection",
+    "Chunked exfiltration of stolen information",
+    "HTTP-based C2 communication",
+    "Spear-phishing campaign targeting government employees"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered network defense, including email filtering and endpoint detection",
+    "Train users to recognize phishing attempts, especially those targeting government employees",
+    "Monitor for RAR attachments in emails originating from internal Ukraine-related topics",
+    "Deploy scripts to detect obfuscated PowerShell activity within the network",
+    "Conduct regular audits of account access and data integrity",
+    "Maintain robust backups to mitigate potential ransomware activity"
+  ],
+  "campaignsText": "UAC-0226's campaign in Ukraine demonstrates a focused targeting strategy, leveraging known vulnerabilities and psychological manipulation to gain initial access. The group appears to focus on compromising government systems, likely for intelligence gathering or disruptive purposes. Notable for its simplicity in malware architecture compared to more sophisticated actors, UAC-0226 compensates with effective deployment techniques.",
+  "description": "UAC-0226, a suspected cyber threat actor, has been observed targeting Ukrainian government entities through a campaign employing a GIFTEDCROOK stealer variant. The group's attack chain begins with weaponized RAR archives exploiting CVE-2025-6218 and CVE-2025-8088, followed by the deployment of malware via obfuscated PowerShell code. Despite its simplicity, UAC-0226 demonstrates effective persistence techniques, including RC4 encryption for stolen data and HTTP-based C2 communication.",
+  "goals": "UAC-0226 appears to target government entities in Ukraine, likely with the goal of cyberespionage or disruption. The choice of targeting suggests a focus on gathering sensitive information or undermining governmental operations. The use of military-themed phishing attempts indicates an effort to compromise individuals within defense or related sectors.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A703",
+  "sourceUrl": "https://threaticon.com/threat-actors/703"
+}

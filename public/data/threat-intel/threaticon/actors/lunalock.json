@@ -1,0 +1,46 @@
+{
+  "slug": "lunalock",
+  "id": 493,
+  "name": "lunalock",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "ransomware",
+    "cybercrime",
+    "financial-gain",
+    "intellectual-property-theft",
+    "Ransomware",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Email Delivery", "Infection & Execution"],
+  "techniques": ["T1059.003"],
+  "tools": ["Malicious Email Payloads", "(Possibly) Phishing Campaign Tools"],
+  "iocPatterns": ["Spear-phishing via malicious email attachments", "Email-based C2 communications"],
+  "keyCapabilities": [
+    "Sophisticated use of phishing techniques",
+    "Distribution of ransomware through malicious email payloads",
+    "Threatening data exposure for coercive purposes"
+  ],
+  "recommendedActions": [
+    "Enhance email filtering and threat detection capabilities",
+    "Conduct regular user training on phishing awareness",
+    "Monitor for异常 network traffic patterns indicative of lateral movement and ransomware deployment"
+  ],
+  "campaignsText": "LunaLock's known campaigns include at least one successful phishing attack with ransomware distribution. They have demonstrated the ability to target specific sectors, including creative industries and ISPs. Notably, their campaign involving an illustrator marketplace highlights their understanding of data leverage for extortion. Despite emerging in September 2025, LunaLock's relatively short operational timeline indicates early-stage activity that may evolve over time.",
+  "description": "LunaLock, identified as a medium-sophistication criminal threat actor emerging in September 2025, primarily operates through ransomware campaigns targeting creative and digital sectors. Known for breaching an illustrator marketplace and a Mexican ISP, LunaLock utilizes threatening strategies to coerce victims into paying ransoms. Their operations are limited but demonstrate moderate technical proficiency, focusing on financial gain through extortion.",
+  "goals": "LunaLock's primary objectives revolve around organizational and financial gains through ransomware activities. Their targeting strategy focuses on creative and digital sectors, likely due to the high value of intellectual property and the potential for severe reputational damage when stolen data is involved. By selecting specific victims within these industries, LunaLock aims to maximize leverage and minimize detection risk. The choice of sectors and countries seems calculated, potentially reflecting operational capabilities or strategic interests that are still under development.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A493",
+  "sourceUrl": "https://threaticon.com/threat-actors/493"
+}

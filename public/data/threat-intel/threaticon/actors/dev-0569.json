@@ -1,0 +1,46 @@
+{
+  "slug": "dev-0569",
+  "id": 987,
+  "name": "DEV-0569",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Ransomware", "Malvertising", "Phishing", "Healthcare", "Manufacturing", "Healthcare Targeting"],
+  "aliases": ["Storm-0569"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Ransomware", "Initial Access", "Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": ["T1566.002", "T1485.002", "T1574", "T1569.001", "T1055.003"],
+  "tools": ["Royal Ransomware", "Batloader", "Mimikatz-like credential dumping tools", "Cobalt Strike (potential)"],
+  "iocPatterns": [
+    "Malicious ad network traffic",
+    "Script-based malware delivery",
+    "Cobalt Strike-like C2 communications",
+    "Anomalous RDP sessions"
+  ],
+  "keyCapabilities": [
+    "Malware distribution via malvertising",
+    "Phishing email campaigns",
+    "Ransomware deployment (Royal)",
+    "Collaborations with other threat actors"
+  ],
+  "recommendedActions": [
+    "Enhance email filtering to block phishing attempts.",
+    "Monitor for malvertising campaigns on public websites.",
+    "Secure remote access points, such as RDP, with multi-factor authentication.",
+    "Implement network monitoring for unusual lateral movement patterns."
+  ],
+  "campaignsText": "Campaigns by DEV-0569 often involve multi-vector attacks, combining malvertising with targeted phishing. Their operations typically aim for high-value targets within critical infrastructure sectors. Notable past campaigns include healthcare-focused deployments in late 2023.",
+  "description": "DEV-0569, also known as Storm-0569, is a threat actor group specializing in ransomware deployments, leveraging malicious ads and phishing techniques. They collaborate with other groups and target sectors including healthcare, communications, manufacturing, and education in the United States and Brazil.",
+  "goals": "Dev-0569's primary motivation appears to be financial gain through ransom operations. Their targeting of healthcare, manufacturing, and education sectors suggests an interest in verticals where operational disruption can yield high payouts. The focus on both the U.S. and Brazil indicates a geographically diverse but region-specific approach.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A987",
+  "sourceUrl": "https://threaticon.com/threat-actors/987"
+}

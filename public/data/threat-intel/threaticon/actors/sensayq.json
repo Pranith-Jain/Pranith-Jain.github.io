@@ -1,0 +1,45 @@
+{
+  "slug": "sensayq",
+  "id": 595,
+  "name": "sensayq",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "double extortion", "financial-gain", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["ansomware", "Persistence", "Credential Access", "Exfiltration"],
+  "techniques": ["T1567.001", "T1059", "T1204", "T1543"],
+  "tools": ["LockBit Ransomware", "Brain Cipher Tools"],
+  "iocPatterns": [
+    "Ransomware execution scripts detected in systems",
+    "Exfiltration attempts via encrypted channels",
+    "Spear-phishing emails with malicious attachments"
+  ],
+  "keyCapabilities": [
+    "Use of leaked LockBit 3.0 builder",
+    "Double-extortion tactics",
+    "Persistent network presence",
+    "Encryption and decryption capabilities"
+  ],
+  "recommendedActions": [
+    "Implement endpoint detection and response (EDR) solutions",
+    "Conduct regular user awareness training on phishing and ransomware",
+    "Enhance network monitoring for unusual lateral movement activity",
+    "Backup critical systems regularly and test recovery processes"
+  ],
+  "campaignsText": "SenSayQ has conducted at least two successful ransomware attacks, targeting different sectors and geographies. The actor employs a structured campaign approach, leveraging the LockBit builder for rapid deployment and double extortion tactics to maximize proceeds. Campaigns show moderate volume but high impact, with potential to disrupt victims' operations significantly.",
+  "description": "SenSayQ is an emerging ransomware actor leveraging a leaked LockBit 3.0 builder for double-extortion attacks. Associated with Brain Cipher group and its affiliates, SenSayQ targets organizations seeking financial gain through加密勒索. Emerging in mid-2024, this threat actor demonstrates 中等 sophistication with a focus on organizational-gain motivations.",
+  "goals": "SenSayQ's strategic objectives are centered on financial gain through ransom demands. The actor targets organizations across various sectors, focusing on those with potentially high-value data or less robust security measures. Their choice of victims likely includes industries like healthcare, education, and small businesses, where the impact of an attack is severe, and the likelihood of paying ransoms increases.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A595",
+  "sourceUrl": "https://threaticon.com/threat-actors/595"
+}

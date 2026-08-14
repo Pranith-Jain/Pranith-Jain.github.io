@@ -1,0 +1,56 @@
+{
+  "slug": "tracer-kitten",
+  "id": 799,
+  "name": "TRACER KITTEN",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "Critical Infrastructure",
+    "Telecommunications",
+    "Region-EMEA",
+    "Phishing",
+    "Backdoor / C2",
+    "Data Exfiltration"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Credential Access", "Discovery", "Exfiltration", "Persistence"],
+  "techniques": ["T1078", "T1548.001", "T1197", "T1003", "T1566"],
+  "tools": ["Custom SSH tunneling tools", "Custom backdoor malware", "Valid account access tools"],
+  "iocPatterns": [
+    "Custom backdoor binaries",
+    "SSH tunnel anomalies",
+    "Unusual account activity",
+    "Lateral movement patterns"
+  ],
+  "keyCapabilities": [
+    "Custom backdoors",
+    "SSH tunnels for C2",
+    "Valid user account compromise",
+    "Credential harvesting",
+    "Network reconnaissance"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical accounts",
+    "Monitor network traffic for SSH tunnel anomalies",
+    "Conduct regular system audits and update firmware/software",
+    "Enhance network segmentation to limit lateral movement"
+  ],
+  "campaignsText": "TRACER KITTEN operates with a focus on long-term access and data gathering, targeting critical sectors. Campaigns likely involve prolonged presence to facilitate data exfiltration, suggesting state-sponsored activity. Notable for their blend of custom tools and persistence mechanisms, they pose risks to telecommunications globally.",
+  "description": "TRACER KITTEN is an Iran-based adversary conducting malicious activities against telecommunications companies in the EMEA region. Using valid user accounts and custom backdoors with SSH tunnels, they compromise systems for reconnaissance, credential harvesting, and potential data exfiltration, posing significant risks to critical infrastructure.",
+  "goals": "TRACER KITTEN likely targets the telecommunications sector to gain access to critical infrastructure, potentially for economic advantage, espionage, or strategic disruption. Their focus on EMEA regions may be linked to geopolitical interests or regional influence, aiming to gather sensitive information or disrupt services.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A799",
+  "sourceUrl": "https://threaticon.com/threat-actors/799"
+}

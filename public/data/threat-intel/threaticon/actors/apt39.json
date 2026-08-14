@@ -1,0 +1,55 @@
+{
+  "slug": "apt39",
+  "id": 51,
+  "name": "APT39",
+  "mitreId": "G0087",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "Iran (IR)",
+  "originCode": "IR",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "Iran",
+    "cyber threat",
+    "Initial Access",
+    "Healthcare Targeting",
+    "Government Targeting"
+  ],
+  "aliases": ["ITG07", "Chafer", "Remix Kitten", "Cadelle"],
+  "targetedSectors": ["Energy", "Critical infrastructure", "Transportation"],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Resource Development", "Initial Access", "Execution", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1005", "T1204"],
+  "tools": ["Custom malware", "Off-the-shelf malware", "Social engineering tools", "Network exploitation tools"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Use of encryption and decryption tools"
+  ],
+  "keyCapabilities": [
+    "Social engineering",
+    "Malware development and deployment",
+    "Network exploitation",
+    "Data exfiltration",
+    "Encryption and decryption"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and sandboxing solutions",
+    "Conduct regular security awareness training for employees",
+    "Implement a robust incident response plan",
+    "Use threat intelligence to inform security decisions"
+  ],
+  "campaignsText": "APT39 has been observed conducting campaigns that involve spear-phishing, social engineering, and exploitation of publicly available information. The group's operational tempo is often characterized by a high degree of persistence and stealth, with APT39 using various techniques to maintain access to compromised networks and systems. Notable past operations include the targeting of the travel, hospitality, and telecommunications industries, as well as the use of fake social media profiles and other social engineering tactics to gather intelligence.",
+  "description": "APT39, also known as Chafer, is a cyber espionage group sponsored by the Iranian Ministry of Intelligence and Security (MOIS), primarily targeting the travel, hospitality, academic, and telecommunications industries across the globe. The group's primary motivation is espionage, and they have been active since at least 2014. APT39's activities pose a significant threat to organizations and individuals considered a threat by the MOIS.",
+  "goals": "APT39's strategic objectives are centered around gathering intelligence on individuals and entities that are considered a threat to the MOIS. The group primarily targets the travel, hospitality, academic, and telecommunications industries, as these sectors often provide valuable information on potential security risks. APT39's typical victims include individuals and organizations that are involved in activities that are deemed a threat to the Iranian government, such as dissidents, activists, and journalists.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A51",
+  "sourceUrl": "https://threaticon.com/threat-actors/51"
+}

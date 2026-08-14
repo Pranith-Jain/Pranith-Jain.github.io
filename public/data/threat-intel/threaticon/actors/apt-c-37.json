@@ -1,0 +1,46 @@
+{
+  "slug": "apt-c-37",
+  "id": 302,
+  "name": "APT-C-37",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Nation-state", "Espionage", "Malware"],
+  "aliases": ["Pat Bear", "Racquet Bear"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom malware", "Malware frameworks", "Exploit kits"],
+  "iocPatterns": [
+    "Spear-phishing with malicious attachments",
+    "Drive-by downloads",
+    "Malware communicating with command and control servers"
+  ],
+  "keyCapabilities": [
+    "Malware development and modification",
+    "Network exploitation",
+    "Social engineering",
+    "Code reuse and modification",
+    "Evasion techniques"
+  ],
+  "recommendedActions": [
+    "Implement robust malware detection and prevention measures",
+    "Conduct regular network and system audits",
+    "Implement a comprehensive incident response plan",
+    "Provide regular security awareness training to employees"
+  ],
+  "campaignsText": "APT-C-37's campaign patterns are likely characterized by a high degree of adaptability and sophistication. The group may use advanced techniques, such as code reuse and modification, to stay ahead of their targets and evade detection. Notable past operations may include targeted attacks on organizations in the technology, finance, and government sectors, particularly those with sensitive information or critical infrastructure. The group's operational tempo is likely to be moderate to high, with a focus on gathering intelligence and disrupting the operations of their targets",
+  "description": "APT-C-37, also known as Pat Bear and Racquet Bear, is a nation-state threat actor primarily motivated by espionage. The group has been observed targeting various malware families, including DroidJack, SpyNote, and NJRAT. APT-C-37's activities pose a significant threat to organizations worldwide, particularly those in targeted sectors and countries.",
+  "goals": "APT-C-37's strategic objectives are likely focused on gathering intelligence and disrupting the operations of their targets. The group's targeting of specific malware families suggests an interest in mobile devices and general-purpose malware, which may be used to gain access to sensitive information or disrupt critical infrastructure. Typical victims of APT-C-37 may include organizations in the technology, finance, and government sectors, particularly those with sensitive information or critical infrastructure",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A302",
+  "sourceUrl": "https://threaticon.com/threat-actors/302"
+}

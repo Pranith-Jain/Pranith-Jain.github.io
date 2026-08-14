@@ -1,0 +1,61 @@
+{
+  "slug": "unc5337",
+  "id": 1085,
+  "name": "UNC5337",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "China-nexus", "critical-infrastructure", "malware", "Initial Access", "Backdoor / C2"],
+  "aliases": ["CVE-2025-0282", "UNC5291", "targeting U.S", "IF-T"],
+  "targetedSectors": [
+    "Financial services",
+    "Healthcare",
+    "Government",
+    "Critical infrastructure",
+    "Manufacturing",
+    "Defense",
+    "Education",
+    "Hospitality",
+    "Energy",
+    "Gaming",
+    "Telecommunications"
+  ],
+  "targetedCountries": ["CN", "GB", "IR", "FR", "JP", "RU"],
+  "tactics": ["Initial Access", "Defence Evasion", "Credential Access", "Persistent Access", "Exfiltration/Collection"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1014", "T1003.001"],
+  "tools": ["SPAWNNSNAIL", "SPAWNMOLE", "SPAWNANT", "SPWNSLOTH"],
+  "iocPatterns": [
+    "Spear-phishing with targeted exploits",
+    "Use of CVE-2023-46805 and CVE-2024-21887",
+    "Deployment of custom malware families like SPAWNSNAIL and SPAWNMOLE",
+    "Signatures related to VPN appliance compromise",
+    "Log tampering on compromised systems"
+  ],
+  "keyCapabilities": [
+    "Exploitation of specificCVEs (e.g., CVE-2023-46805, CVE-2024-21887)",
+    "Deployment of custom malware families",
+    "Backdoor creation and persistence mechanisms",
+    "Command and control (C2) communication via tunnelling tools",
+    "Log tampering to obscure malicious activity"
+  ],
+  "recommendedActions": [
+    "Patch all systems against known CVEs (e.g., CVE-2023-46805, CVE-2024-21887)",
+    "Monitor for unusual activity in VPN appliances and network logs",
+    "Implement multi-factor authentication to mitigate authentication bypass risks",
+    "Conduct regular security audits of third-party software",
+    "Use endpoint detection and response (EDR) solutions to identify custom malware activity"
+  ],
+  "campaignsText": "UNC5337 has demonstrated a campaign pattern focused on compromising secure communication systems, with activity first observed in January 2024. The actor's operational tempo suggests a methodical approach, leveraging custom tools to establish persistence and exfiltrate data. While specific campaigns remain unclear, the targeting of critical infrastructure aligns with state-sponsored espionage tactics. Notable past operations include the exploitation of Ivanti Connect Secure appliances.",
+  "description": "UNC5337 is a suspected China-nexus espionage actor that has compromised Ivanti Connect Secure VPN appliances since January 2024. The group is associated with medium-confidence links to UNC5221 and has demonstrated the ability to exploit specific vulnerabilities (CVE-2023-46805 and CVE-2024-21887) using a suite of custom malware tools, including SPAWNSNAIL, SPAWNMOLE, SPAWNANT, and SPAWNSLOTH. This actor's targeting of critical infrastructure suggests a focus on espionage or intelligence gathering.",
+  "goals": "UNC5337's primary objective appears to be espionage, targeting sectors that rely on secure network communication systems, such as government agencies, critical infrastructure providers, and private enterprises. The actor’s focus on compromising VPN appliances suggests an interest in gaining unauthorized access to sensitive networks and intercepting communications. Their targeting of specific CVEs indicates a preference for vulnerabilities that allow persistence and privilege escalation, aligning with the goals of a nation-state threat group aiming to maintain long-term access to strategic systems.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1085",
+  "sourceUrl": "https://threaticon.com/threat-actors/1085"
+}

@@ -1,0 +1,48 @@
+{
+  "slug": "dagonlocker",
+  "id": 399,
+  "name": "dagonlocker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "cybercrime", "financial-motivation", "double-extortion", "IcedID", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Execution", "Discovery", "Data Exfiltration", "ransomware"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["IcedID RAT", "Custom ransomware (double extortion)", "Malicious script files (ChaCha20+RSA payloads)"],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious Office documents",
+    "IcedID RAT activity indicating botnet compromise",
+    "Network traffic associated with IcedID C2 servers",
+    "Encrypted files using ChaCha20+RSA-2048 encryption"
+  ],
+  "keyCapabilities": [
+    "Leverages IcedID malware for initial access",
+    "Employs double extortion tactics with ChaCha20+RSA-2048 encryption",
+    "Deploys custom ransomware with encrypted payloads",
+    "Operates within the IcedID botnet framework",
+    "Uses phishing emails and malicious Office documents as attack vectors"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and endpoint detection to block phishing attempts",
+    "Monitor for signs of IcedID activity on the network",
+    "Regularly back up critical systems and test backup recoverability",
+    "Train employees to recognize suspicious emails and attachments",
+    "Segment networks to limit ransomware lateral movement"
+  ],
+  "campaignsText": "Dagon Locker's campaign patterns remain largely undefined due to its recent emergence in early 2023. Its operators appear to focus on rapid deployment and financial gain, targeting systems with limited resistance to IcedID attacks. Notable past operations are not publicly documented, but the group's reliance on established attack frameworks suggests it may affiliate or collaborate with other ransomware operators. The use of double extortion indicates a shift toward more aggressive tactics compared to its predecessors.",
+  "description": "Dagon Locker is a medium-sophistication ransomware strain linked to the MountLocker/Quantum lineage, utilizing IcedID for initial access and employing double extortion tactics through ChaCha20+RSA-2048 encryption. Its primary motivation is financial gain, targeting unspecified sectors with a focus on disrupting operations through data encryption. The group operates with moderate technical capabilities but has demonstrated adaptability by leveraging established ransomware infrastructure.",
+  "goals": "Dagon Locker's strategic objectives revolve around financial gain through ransomware operations. It targets unspecified sectors, but its use of double extortion and encryption suggests a focus on industries with high data sensitivity and recovery costs. The group likely selects victims based on ease of access, system criticality, and potential for significant financial impact. Typical victims may include businesses reliant on IT infrastructure, such as healthcare, manufacturing, or logistics, where operational downtime could lead to substantial economic losses.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A399",
+  "sourceUrl": "https://threaticon.com/threat-actors/399"
+}

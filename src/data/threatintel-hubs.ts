@@ -452,6 +452,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'ThreatClusterEntities',
         badge: 'live',
       },
+      {
+        path: '/threatintel/feeds/threaticon',
+        tabId: 'threaticon',
+        label: 'Threaticon',
+        desc: 'Replicated threaticon.com STIX 2.1 catalog - threat-actor profiles, malware family dictionary, ATT&CK detection coverage, and a country-level threat map.',
+        compVar: 'ThreaticonFeeds',
+        badge: 'live',
+      },
     ],
   },
   {

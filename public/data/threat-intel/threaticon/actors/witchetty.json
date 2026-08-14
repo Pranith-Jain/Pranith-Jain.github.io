@@ -1,0 +1,39 @@
+{
+  "slug": "witchetty",
+  "id": 900,
+  "name": "Witchetty",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "government", "Backdoor / C2", "Government Targeting"],
+  "aliases": ["LookingFrog"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage/Collections", "Exfiltration"],
+  "techniques": ["T1566.003", "T1082.001", "T1070"],
+  "tools": ["X4 Backdoor", "LookBack Malware"],
+  "iocPatterns": ["X4 backdoor signatures", "LookBack payload hashes"],
+  "keyCapabilities": [
+    "State-sponsored espionage activities",
+    "Two-stage malware deployment (X4 and LookBack)",
+    "Targeted attacks against critical infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering",
+    "Monitor for unknown remote access tools",
+    "Enhance endpoint detection capabilities"
+  ],
+  "campaignsText": "Witchetty's campaigns likely involve long-term, targeted operations for data collection. Their malware deployment suggests a patient approach to achieve persistence and stealth. Past activities include compromising diplomatic communications and industrial designs, necessitating robust defensive measures.",
+  "description": "Witchetty, also known as LookingFrog, is a sub-group of TA410 associated with Cicada (APT10) involved in cyber-espionage. They use X4 and LookBack malware targeting governments, diplomatic missions, charities, and industrial sectors globally. Their activities pose risks to sensitive data and require attention to advanced attack techniques.",
+  "goals": "Witchetty likely aims to gather intelligence and steal sensitive data from targeted sectors, aligning with broader TA410 operations. Their victims include government agencies and industrial organizations, suggesting an intent to undermine national security and economic interests through espionage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A900",
+  "sourceUrl": "https://threaticon.com/threat-actors/900"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "ailock",
+  "id": 327,
+  "name": "ailock",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Extortion", "AI-Enabled Threats", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Execution"],
+  "techniques": ["T1059.003", "T1078.002"],
+  "tools": ["AI-assisted ransomware (custom)"],
+  "iocPatterns": [
+    "Ransomware infection via phishing emails with malicious links or attachments",
+    "Double-extortion tactics involving data theft and encryption",
+    "Use of hybrid encryption algorithms in malware"
+  ],
+  "keyCapabilities": [
+    "Advanced encryption using ChaCha20/NTRUEncrypt algorithms",
+    "Double-extortion tactics to increase pressure on victims",
+    "AI-assisted ransomware operations",
+    "Ransomware-as-a-Service (RaaS) model for affiliate recruitment",
+    "Persistent and long-term campaign activity"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring to detect suspicious activity.",
+    "Regularly back up critical systems and secure backups offline.",
+    "Educate employees on phishing and ransomware threats.",
+    "Segregate sensitive data from general networks.",
+    "Monitor for cryptocurrency transactions linked to known ransomware groups."
+  ],
+  "campaignsText": "AiLock has demonstrated a consistent operational tempo, targeting small to medium-sized businesses across various sectors. Notable campaigns include attacks on healthcare providers, educational institutions, and technology companies. The group's victims span regions including North America, Europe, and Asia, indicating a global targeting strategy.",
+  "description": "AiLock is a medium-sophistication ransomware operation known since 2015 but became active in early 2025. It uses AI-assisted encryption and double-extortion tactics to target organizations for financial gain. The group has successfully targeted multiple victims across various industries, including retail, healthcare, education, and technology.",
+  "goals": "AiLock's primary motivation is financial gain, achieved through ransom payments and affiliate recruitment fees. The group targets industries with potentially high-value assets or sensitive data, such as retail, healthcare, education, and technology. Its broad targeting approach suggests it seeks the maximum number of victims rather than focusing on specific sectors or geographies.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A327",
+  "sourceUrl": "https://threaticon.com/threat-actors/327"
+}

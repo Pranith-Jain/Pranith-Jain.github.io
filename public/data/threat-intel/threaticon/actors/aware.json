@@ -1,0 +1,47 @@
+{
+  "slug": "aware",
+  "id": 345,
+  "name": "aware",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "cybercrime", "data_leak_site", "financial_motivation", "medium_sophistication", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Use of Tor-based data leak sites",
+    "Potential phishing or social engineering attempts",
+    "Ransomware-related network intrusions and lateral movement",
+    "Data exfiltration to external servers"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Data encryption and exfiltration tools",
+    "Tor-based communication infrastructure",
+    "Operational security measures to avoid detection"
+  ],
+  "recommendedActions": [
+    "Implement advanced threat detection for Tor-based communications",
+    "Strengthen backup and recovery mechanisms to prevent data loss",
+    "Conduct regular employee training on phishing and social engineering",
+    "Monitor for known ransomware TTPs in network traffic",
+    "Prepare incident response plans for potential ransom demands"
+  ],
+  "campaignsText": "Aware's campaign patterns are not well-documented due to the lack of victims or tools linked in public reports. Their limited activity may suggest a focus on targeting high-value, low-profile organizations to avoid attracting attention from law enforcement and cybersecurity experts. If they follow typical ransomware group behaviors, they might exhibit periodic operations with varying intervals between campaigns, adjusting their tactics based on victim response.",
+  "description": "Aware is a medium-sophistication criminal threat actor specializing in ransomware activities with the primary goal of financial gain. Operating a Tor-based data leak site, this group has not disclosed specific victims or tools in public records, indicating a potential emphasis on maintaining operational security. While their tactics and techniques remain underdocumented, they are likely to leverage standard ransomware TTPs to target organizations for monetary extortion.",
+  "goals": "Aware's strategic focus appears centered around maximizing financial gain through ransomware部署。Their targeting profile likely includes sectors and organizations that are perceived to have significant data value or financial resilience to pay ransoms. However, due to the lack of publicly available information on their specific victims or targeted industries/countries, their exact patterns remain unclear. It is reasonable to assume they may target a wide range of industries with high data sensitivity or financial capacity for ransom payment, consistent with other ransomware groups.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A345",
+  "sourceUrl": "https://threaticon.com/threat-actors/345"
+}

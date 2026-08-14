@@ -1,0 +1,65 @@
+{
+  "slug": "apt3",
+  "id": 123,
+  "name": "APT3",
+  "mitreId": "G0022",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "defense sector",
+    "US-targeted attacks",
+    "China-linked",
+    "Initial Access",
+    "Government Targeting"
+  ],
+  "aliases": ["Gothic Panda", "Pirpi", "UPS Team", "Buckeye"],
+  "targetedSectors": [
+    "Defense",
+    "Energy",
+    "Technology",
+    "Telecommunications",
+    "Aerospace & defense",
+    "Transportation",
+    "Ngo"
+  ],
+  "targetedCountries": ["US", "GB"],
+  "tactics": ["Collection", "Credential Access", "Exfiltration", "Defense Evasion", "Discovery"],
+  "techniques": ["T1053.005", "T1560.001", "T1059.003", "T1041", "T1485.004"],
+  "tools": ["PlugX", "SHOTPUT", "RemoteCMD", "Cobalt Strike-like frameworks (potential)"],
+  "iocPatterns": [
+    "DLL side-loading via legitimate executables (e.g., Chrome.exe)",
+    "Scheduled tasks created for persistence",
+    "Staged exfiltration via web-based command and control (C2)",
+    "Presence of custom malware components in network traffic",
+    "Abnormal process activity linked to known APT3 tools"
+  ],
+  "keyCapabilities": [
+    "DLL side-loading for persistence",
+    "Credential harvesting via custom malware (e.g., PlugX)",
+    "Remote command and control using RemoteCMD",
+    "Information collection and exfiltration through staged infrastructure",
+    "Lateral movement within compromised networks"
+  ],
+  "recommendedActions": [
+    "Monitor for scheduled tasks and unusual process activity on endpoints.",
+    "Implement strong email filtering to detect and block phishing attempts.",
+    "Use endpoint detection and response (EDR) solutions to identify malicious processes like those related to PlugX or SHOTPUT.",
+    "Conduct regular system updates and patch management to mitigate known vulnerabilities exploited by APT actors.",
+    "Limit user privileges and adopt least-privilege principles to reduce lateral movement opportunities."
+  ],
+  "campaignsText": "APT3 has been involved in multiple high-profile campaigns targeting government and private sector entities. These campaigns often involve initial compromise via phishing or supply chain attacks, followed by stealthy data gathering over extended periods. Notable operations include Clandestine Wolf, where APT3 targeted US defense contractors, and Double Tap, which focused on Hong Kong-based political organizations. The group’s operational tempo appears to align with strategic geopolitical interests, often pausing activity during sensitive diplomatic events.",
+  "description": "APT3, also known as Gothic Panda or Pirpi, is a Chinese state-sponsored cyber threat group linked to espionage activities targeting defense, energy, technology, and other sectors in the US and UK. The group employs sophisticated tactics including DLL side-loading and credential harvesting to achieve long-term access and data exfiltration.",
+  "goals": "APT3's primary motivation is espionage, seeking sensitive information from defense contractors, energy companies, and technology firms to support national security interests in China. The group primarily targets the US and UK, focusing on sectors that provide strategic value such as aerospace, telecommunications, and defense. Victims include government agencies, NGOs operated within China or by Chinese stakeholders, and think tanks associated with Chinese policy matters.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A123",
+  "sourceUrl": "https://threaticon.com/threat-actors/123"
+}

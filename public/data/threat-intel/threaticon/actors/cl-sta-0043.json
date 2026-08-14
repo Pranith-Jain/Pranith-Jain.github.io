@@ -1,0 +1,45 @@
+{
+  "slug": "cl-sta-0043",
+  "id": 955,
+  "name": "CL-STA-0043",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Government Targeting", "Middle East", "Africa", "Exploitation"],
+  "aliases": ["TGR-STA-0043", "Phantom Taurus"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Privilege Escalation"],
+  "techniques": ["T1059.003", "T1068", "T1566.001"],
+  "tools": ["Windows native tools (e.g., built-in utilities)", "Exploitation frameworks (possibly custom)"],
+  "iocPatterns": [
+    "Exploit scripts targeting IIS vulnerabilities",
+    "Web shell establishment in IIS logs",
+    "Custom or known malware using C2 channels over HTTPS"
+  ],
+  "keyCapabilities": [
+    "Exploitation of IIS and Microsoft Exchange vulnerabilities",
+    "Reconnaissance within target networks",
+    "Privilege escalation using native Windows tools",
+    "Long-term campaign persistence"
+  ],
+  "recommendedActions": [
+    "Conduct regular vulnerability scans for IIS and Exchange server weaknesses",
+    "Implement strict access controls and monitoring for native Windows tools usage",
+    "Enhance network traffic analysis to detect anomaly patterns linked to nation-state actors",
+    "Apply defensive techniques to counteract process injection and credential dumping"
+  ],
+  "campaignsText": "CL-STA-0043 has demonstrated a consistent targeting pattern, focusing on governmental sectors over several years. Their campaigns are characterized by patient reconnaissance and low-noise operations to avoid detection. Notable past activities include prolonged access to target networks for data collection. The group's use of common Windows tools makes their activity challenging to detect, relying instead on process injection and credential dumping techniques.",
+  "description": "CL-STA-0043, also known as Phantom Taurus, is a highly skilled threat actor believed to be a nation-state targeting governmental entities in the Middle East and Africa. The group exploits vulnerabilities in on-premises Internet Information Services (IIS) and Microsoft Exchange servers to gain initial access. Once inside, they conduct reconnaissance, identify critical assets, and escalate privileges using native Windows tools.",
+  "goals": "CL-STA-0043 likely operates with strategic objectives aligned with nation-state interests, possibly including espionage or destabilization of target governments. Their focus on governmental entities suggests a desire to acquire sensitive information, disrupt services, or influence political processes. The targeting of the Middle East and Africa indicates regional geopolitical priorities, potentially linked to economic, security, or territorial interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A955",
+  "sourceUrl": "https://threaticon.com/threat-actors/955"
+}

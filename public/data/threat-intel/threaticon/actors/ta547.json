@@ -1,0 +1,45 @@
+{
+  "slug": "ta547",
+  "id": 653,
+  "name": "TA547",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": ["Banking Trojan", "Geographically Targeted", "Financial Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["ZLoader", "Gootkit", "Ursnif", "Corebot", "Panda Banker", "Atmos", "Mazar Bot"],
+  "iocPatterns": [
+    "Spear-phishing emails delivering malicious URLs",
+    "Domain registration patterns consistent with known campaigns (e.g., indscpm.xyz)",
+    "IP addresses associated with command and control servers"
+  ],
+  "keyCapabilities": [
+    "Phishing campaigns",
+    "Malware distribution (ZLoader, Gootkit, Ursnif)",
+    "Credential theft",
+    "Financial fraud"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for financial accounts",
+    "Educate users on phishing email awareness",
+    "Monitor network traffic for known TA547-related domains and IP addresses",
+    "Use anti-phishing tools to detect malicious URLs"
+  ],
+  "campaignsText": "TA547's campaigns have been observed targeting German organizations, likely due to the high concentration of financial institutions and individuals in those regions. The group's use of Rhadamanthys Stealer indicates a focus on sophisticated credential theft operations. TA547's operational tempo appears steady, with periodic activity over several years indicating some level of resource availability.",
+  "description": "TA547 is a cybercriminal threat actor known for conducting campaigns targeting various sectors and countries since at least November 2017. The group primarily uses malware such as ZLoader, Gootkit, Ursnif, and others to compromise systems, often through phishing and other attack vectors.",
+  "goals": "TA547's strategic objectives appear to be primarily financial, focusing on stealing sensitive information such as banking credentials. The group targets individuals and organizations across multiple sectors but has shown a particular interest in financially motivated compromises. Its victims are typically located in highly developed economies where online financial transactions are prevalent, making it easier to monetize stolen data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A653",
+  "sourceUrl": "https://threaticon.com/threat-actors/653"
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "interlock",
+  "id": 463,
+  "name": "interlock",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Criminal",
+    "Double-Extortion",
+    "Data Breach",
+    "Critical Infrastructure",
+    "Healthcare Targeting",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1204", "T1552.001"],
+  "tools": ["Custom Ransomware", "Data Exfiltration Tools", "Social Engineering Kits"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Unusual network activity indicative of data exfiltration"
+  ],
+  "keyCapabilities": [
+    "Ransomware Development",
+    "Double-Extortion Tactics",
+    "Data Exfiltration",
+    "Social Engineering",
+    "Network Exploitation"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and user education programs",
+    "Enhance network monitoring for signs of unauthorized access or data transfers",
+    "Regularly back up critical data to secure, isolated storage",
+    "Deploy anti-ransomware solutions and keep all software up-to-date"
+  ],
+  "campaignsText": "Interlock's campaign patterns are marked by a consistent approach to targeting critical infrastructure sectors across North America and Europe. Their operational tempo appears to be sustained, with new victims being added over time. Notable past operations include the compromise of a major US dialysis provider, resulting in the exposure of over two million patient records. This incident, among others, highlights Interlock's capacity for causing significant disruption and data leakage, underscoring the need for proactive defense measures by potential targets.",
+  "description": "Interlock is a medium-sophistication criminal threat actor primarily motivated by organizational gain, focusing on ransomware and financial gain. They have been active since 2023, targeting critical infrastructure sectors in North America and Europe. With over 105 known victims, their tactics include double-extortion, posing a significant risk to sensitive data.",
+  "goals": "Interlock's strategic objectives are centered around achieving financial gain through ransomware attacks, with a particular focus on sectors that are critical to societal functioning, such as healthcare, government, education, and technology. Their targeting of these sectors in North America and Europe suggests an aim to maximize the impact of their attacks, both in terms of the potential for financial return and the disruption caused to essential services. Typical victims of Interlock include organizations within these sectors that possess sensitive data and are likely to pay ransoms to protect their stakeholders' information and maintain operational continuity.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A463",
+  "sourceUrl": "https://threaticon.com/threat-actors/463"
+}

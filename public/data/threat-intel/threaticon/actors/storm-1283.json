@@ -1,0 +1,47 @@
+{
+  "slug": "storm-1283",
+  "id": 992,
+  "name": "Storm-1283",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cloud-attack", "cryptomining", "financial-motivations"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Persistence", "Defense Evasion", "Exfiltration"],
+  "techniques": ["T1059.003", "T1003", "T1078", "T1576", "T1091"],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing attempts targeting Azure administrators",
+    "Unusual OAuth application creation in Microsoft Azure accounts",
+    "Unauthorized virtual machine deployments in Azure environments",
+    "High volume of cryptocurrency transactions from targeted accounts"
+  ],
+  "keyCapabilities": [
+    "Cloud infrastructure exploitation",
+    "OAuth application abuse",
+    "Credential theft and impersonation",
+    "Virtual machine deployment for cryptomining"
+  ],
+  "recommendedActions": [
+    "Enhance Azure security monitoring to detect unauthorized OAuth applications and VM deployments",
+    "Implement multi-factor authentication (MFA) for critical cloud accounts",
+    "Conduct regular audits of Azure AD permissions and applications",
+    "Monitor for unusual outbound network traffic indicative of cryptomining activities",
+    "Educate employees about phishing attempts targeting cloud credentials"
+  ],
+  "campaignsText": "Storm-1283 has been observed in multiple campaigns targeting Azure environments to establish persistence and deploy cryptomining infrastructure. Their operations demonstrate a consistent modus operandi, focusing on credential compromise to gain unauthorized access and maintain control over victim resources. Campaign patterns include the creation of malicious OAuth applications to enable long-term access, which is then used to deploy VMs for mining operations. The actor has shown adaptability in operational tempo, with attacks occurring sporadically but persistently. Notable past operations include incidents where high-value Azure subscriptions were exploited to maximize cryptomining output.",
+  "description": "Storm-1283 is a threat actor targeting Microsoft Azure cloud platforms by compromising user accounts and deploying cryptomining activities through unauthorized OAuth applications. Their primary objective appears to be financial gain, with targeted organizations suffering losses ranging from $10,000 to $1.5 million. The group has demonstrated a focus on exploiting cloud infrastructure for malicious activities, making it a significant concern for organizations reliant on Azure services.",
+  "goals": "Storm-1283's strategic objective is centered on financial gain through unauthorized resource utilization within Microsoft Azure. Their targeting profile focuses on organizations that operate within sectors where cloud services are critical, such as technology, finance, and education. The actor likely selects victims based on the availability of exploitable cloud resources and the potential for high returns from cryptomining activities. Typical victims include businesses with insufficient cloud security measures, making them vulnerable to credential theft and unauthorized access.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A992",
+  "sourceUrl": "https://threaticon.com/threat-actors/992"
+}

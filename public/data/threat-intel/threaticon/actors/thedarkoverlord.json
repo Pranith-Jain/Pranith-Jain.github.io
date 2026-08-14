@@ -1,0 +1,53 @@
+{
+  "slug": "thedarkoverlord",
+  "id": 921,
+  "name": "TheDarkOverlord",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["ransomware", "financial-motivation", "media-sector", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Intrusion Execution", "Defense Evasion", "Credential Access", "Discovery", "Impact"],
+  "techniques": ["T1078", "T1566.001", "T1059.POWLOP", "T1036", "T1284"],
+  "tools": [
+    "Ryuk ransomware",
+    "Phishing emails with malicious attachments",
+    "Custom ransomware variants",
+    "Lateral movement tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails targeting high-level executives",
+    "Delivery of encrypted files with specific extensions (e.g., .ryuk, .dark)",
+    "Network traffic anomalies due to lateral movement and encryption activities",
+    "Use of third-party tools or infrastructure for C2 communication"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Spear-phishing campaigns",
+    "Data encryption",
+    "High-profile victim targeting",
+    "Leverage business disruption for extortion"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems",
+    "Monitor for known indicators of ransomware activity, including file extensions and process names",
+    "Regularly back up data and ensure backups are isolated from network access to prevent encryption",
+    "Conduct employee training on phishing and social engineering tactics",
+    "Apply patches and updates promptly to address vulnerabilities that may be exploited"
+  ],
+  "campaignsText": "TheDarkOverlord's campaigns are characterized by their focus on high-value targets and their ability to disrupt business operations. They have demonstrated a preference for large organizations in the media and entertainment sectors, likely due to the availability of sensitive data and the potential for significant financial gain. Notable past operations include attacks on Netflix and other major entertainment companies, which have resulted in significant ransom payments or data leaks. The group's operational tempo appears to be opportunistic, with no fixed frequency but a clear focus on maximizing returns from each campaign.",
+  "description": "TheDarkOverlord is a financially motivated ransomware group active since 2016, primarily targeting large organizations in the media and entertainment sectors. The group has conducted high-profile attacks, including against Netflix, ABC network, and Miramax, using extortion tactics to coerce victims into paying ransoms. Their operations suggest a focus on disrupting business continuity through data encryption and勒索ware payload deployment.",
+  "goals": "TheDarkOverlord's primary strategic objective is financial gain through the deployment of ransomware. Their targeting profile focuses on large organizations in industries such as media and entertainment, where data breaches can have significant reputational and financial impacts. The group's choice of victims suggests a preference for high-value targets that are likely to pay ransoms quickly, often with minimal negotiation. The geographic reach of their attacks appears broad, though their operations may focus on English-speaking countries or regions with weaker cybersecurity posture. By focusing on sectors with large data stores and customer bases, TheDarkOverlord aims to maximize the disruption and financial pressure on its victims.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A921",
+  "sourceUrl": "https://threaticon.com/threat-actors/921"
+}

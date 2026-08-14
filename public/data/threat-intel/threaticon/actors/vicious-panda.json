@@ -1,0 +1,60 @@
+{
+  "slug": "vicious-panda",
+  "id": 847,
+  "name": "Vicious Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "public sector",
+    "COVID-19 related threats",
+    "Central Asia",
+    "Eastern Europe",
+    "Backdoor / C2",
+    "Hacktivism"
+  ],
+  "aliases": ["SixLittleMonkeys"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1003.001", "T1566.001"],
+  "tools": [
+    "Custom malware implants",
+    "Cobalt Strike (if inferred from TTPs)",
+    "Malicious email attachments (e.g., Office documents)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with COVID-19 related lures",
+    "Malicious Microsoft Office documents delivered via email",
+    "C2 infrastructure using domain generation algorithms",
+    "Staging servers linked to known threat actor infrastructure"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing attacks with COVID-19 themed lures",
+    "Delivery of novel malware implants",
+    "Use of custom恶意软件 for persistence and data exfiltration",
+    "Long-term operational persistence across multiple campaigns"
+  ],
+  "recommendedActions": [
+    "Implement email filtering and anti-phishing solutions",
+    "Train employees to recognize COVID-themed phishing attempts",
+    "Monitor for unusual network activity matching Vicious Panda's TTPs",
+    "Deploy endpoint detection and response (EDR) tools",
+    "Conduct regular threat hunting focused on APT indicators"
+  ],
+  "campaignsText": "Vicious Panda's campaigns demonstrate a patient and methodical approach to compromising targets. Their use of COVID-themed phishing emails indicates an understanding of current events for weaponizing attacks. Notable operations include targeting Mongolian public sector entities in recent months, as well as earlier campaigns in Ukraine, Russia, and Belarus. The group's operational tempo appears deliberate, focusing on establishing long-term access rather than immediate exfiltration.",
+  "description": "Vicious Panda, also known as SixLittleMonkeys, is a cyber threat actor targeting public sector entities in Mongolia and other regions, leveraging the COVID-19 pandemic to deliver novel malware. The group has been active since at least 2016, with operations spanning multiple countries including Ukraine, Russia, and Belarus. Their activities suggest a focus on state-sponsored or politically motivated cyber espionage.",
+  "goals": "Vicious Panda appears to target sectors such as public administration and possibly other government-related entities, indicating a strategic focus on intelligence collection. Their geographic targeting of regions like Central Asia and Eastern Europe may be tied to political or economic interests. The group's campaigns are likely aimed at achieving long-term access to sensitive systems, consistent with espionage or disruption activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A847",
+  "sourceUrl": "https://threaticon.com/threat-actors/847"
+}

@@ -1,0 +1,73 @@
+{
+  "slug": "uat-8616",
+  "id": 1346,
+  "name": "UAT-8616",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "Network Edge Device Targeting",
+    "Zero-Day Exploit",
+    "Cisco Catalyst SD-WAN Vulnerability",
+    "Privilege Escalation via Downgrade",
+    "Rogue Peering",
+    "UAT-8616",
+    "CVE‑2026‑20127",
+    "CVE‑2022‑20775",
+    "Cisco SD-WAN",
+    "Financial Gain",
+    "Initial Access",
+    "Critical Infrastructure",
+    "APT",
+    "Espionage",
+    "Network Provider"
+  ],
+  "aliases": ["CVE-2026-20127", "tracked as", "UAT-8616 by Cisco Talos", "Silence.Downloader"],
+  "targetedSectors": [
+    "Critical infrastructure",
+    "Financial services",
+    "Healthcare",
+    "Defense",
+    "Energy",
+    "Nuclear",
+    "Government"
+  ],
+  "targetedCountries": ["UA", "CN", "RU"],
+  "tactics": ["Initial Access", "Privilege Escalation", "Lateral Movement"],
+  "techniques": ["T1190", "T1068", "T1021.004"],
+  "tools": ["ARToken", "PathWiper", "TetraLoader"],
+  "iocPatterns": [
+    "Domain names containing 'Silence.Downloader'",
+    "IP addresses within the 20.x.x.x range used by actor",
+    "CVE identifiers CVE-2026-20127 and CVE-2022-20775",
+    "Path traversal strings such as '/../../' or '\\n&../\\n&..'"
+  ],
+  "keyCapabilities": [
+    "Exploitation of CVE‑2026‑20127 (zero‑day authentication bypass) in Cisco Catalyst SD‑WAN controllers and managers",
+    "Privilege escalation via software downgrade leveraging CVE‑2022‑20775 to gain root access",
+    "Establishment of unauthorized rogue peer connections within the SD‑WAN management plane to control adjacent devices",
+    "Creation of local administrative accounts after exploitation",
+    "Lateral movement via NETCONF and SSH protocols"
+  ],
+  "recommendedActions": [
+    "Monitor network logs for unexpected vManage peering events and verify legitimacy of new peer connections",
+    "Implement alerting for authentication bypass attempts against Cisco SD‑WAN Controllers (vSmart)",
+    "Enforce firmware updates and block downgrade paths, logging any attempted downgrades",
+    "Apply patches for CVE‑2026‑20127 and CVE‑2022‑20775 immediately",
+    "Strengthen authentication controls on all SD‑WAN controllers and management planes",
+    "Monitor devices for unauthorized NETCONF/SSH activity and rogue peer additions"
+  ],
+  "campaignsText": "UAT‑8616’s campaign patterns exhibit a steady operational tempo, with zero‑day exploitation followed by rapid lateral movement and removal of footprints. Victim selection focuses on network edge devices in sectors where data exfiltration or ransomware holds high economic value. Past operations have included the silent installation of PathWiper components and documented use of legitimate Cisco management interfaces to conceal activity.",
+  "description": "UAT‑8616 is a sophisticated threat actor that has leveraged zero‑day CVE‑2026‑20127 in Cisco SD‑WAN controllers and the older CVE‑2022‑20775 to gain privileged access. Their tactics focus on exploiting network edge devices, establishing rogue peer connections and performing lateral movement to reach critical infrastructure. The group appears motivated by financial gain, targeting sectors such as energy, government, healthcare, defense and finance.",
+  "goals": "UAT‑8616’s primary motivation is financial gain, evidenced by ransomware components (e.g., PathWiper) referenced in the context. Their targeting profile includes critical infrastructure, finance, healthcare, defense and energy sectors, with a geographic focus on Ukraine, China and Russia. By compromising network edge devices they seek to enable broader attacks or establish high‑value persistence for subsequent exploitation campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1346",
+  "sourceUrl": "https://threaticon.com/threat-actors/1346"
+}

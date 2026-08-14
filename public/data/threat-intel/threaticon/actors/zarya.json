@@ -1,0 +1,56 @@
+{
+  "slug": "zarya",
+  "id": 941,
+  "name": "Zarya",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "hacktivist group",
+    "cyberactivism",
+    "data泄露",
+    "geopolitical",
+    "Critical Infrastructure",
+    "Government Targeting",
+    "Hacktivism"
+  ],
+  "aliases": ["UAC-0109"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Disruption", "Collection"],
+  "techniques": ["T1566.001", "T1485"],
+  "tools": ["Low Orbit Ion Cannon (LOIC)", "Custom DDoS tools", "Scripting frameworks for website defacements"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "DDoS attack campaigns using botnets",
+    "Website defacements with political messaging",
+    "Data leaks via dark web platforms"
+  ],
+  "keyCapabilities": [
+    "Conducting large-scale DoS attacks",
+    "Website defacement campaigns",
+    "Data exfiltration and leaks",
+    "Use of distributed networks for coordinated strikes"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered DDoS protection solutions",
+    "Monitor for unusual traffic patterns indicative of DoS attacks",
+    "Conduct regular vulnerability assessments on web assets",
+    "Enhance incident response plans for data leak scenarios",
+    "Educate employees about phishing and social engineering tactics"
+  ],
+  "campaignsText": "Zarya's campaigns typically exhibit rapid targeting and execution, often during periods of geopolitical紧张. Their operations are characterized byDoS attacks followed by data leaks or defacements to maximize publicity and impact. Notable past operations include coordinated strikes against government websites in multiple countries, disrupting online services and drawing significant media attention. The group operates with a clear pattern of selecting high-profile targets to maximize their disruptive potential.",
+  "description": "Zarya (UAC-0109), a pro-Russian hacktivist group emerged in March 2022. Initially part of Killnet's special forces but now independent, Zarya primarily engages in DoS attacks, website defacements, and data leaks targeting government agencies, service providers, critical infrastructure, and civil employees globally.",
+  "goals": "Zarya's primary goal appears to be disrupting adversaries through high-profile attacks that羞辱 and destabilize targets. Their targeting of government agencies and critical infrastructure suggests a focus on impacting national security and public services. The group's international reach indicates an aim to influence geopolitical dynamics, potentially amplifying pro-Russian narratives. Zarya's choice of victims—government bodies, service providers, and civil employees—points to a desire to undermine trust in institutional systems and create fear among targeted populations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A941",
+  "sourceUrl": "https://threaticon.com/threat-actors/941"
+}

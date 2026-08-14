@@ -1,0 +1,61 @@
+{
+  "slug": "interlock-ransomware-group",
+  "id": 701,
+  "name": "interlock ransomware group",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 14, 2026",
+  "tags": [
+    "Ransomware",
+    "APT",
+    "Financial Motivation",
+    "Healthcare Sector",
+    "Technology Sector",
+    "Zero-Day Exploitation",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Disruption", "Exfiltration", "Malware", "Initial Access"],
+  "techniques": ["T1059.003", "T1021", "T1566", "T1071", "T1394", "T1588"],
+  "tools": [
+    "Custom remote access trojans",
+    "DarkSword exploit kit",
+    "Coruna exploit kit",
+    "GHOSTKNIFE/GHOSTSABER/GHOSTBLADE payloads",
+    "PlasmaLoader malware",
+    "Mimikatz",
+    "Cobalt Strike"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails related to patch management",
+    "Network activity from known C2 domains",
+    "Unusual RDP session origins",
+    "Presence of Mimikatz in Event Viewer logs"
+  ],
+  "keyCapabilities": [
+    "Custom remote access trojans",
+    "Exploit kits (DarkSword, Coruna)",
+    "Zero-day vulnerability exploitation",
+    "Ransomware deployment via HTTP requests"
+  ],
+  "recommendedActions": [
+    "Implement proactive patch management and MFA for critical systems",
+    "Deploy SIEM for threat detection and response",
+    "Segment sensitive networks to limit lateral movement"
+  ],
+  "campaignsText": "Interlock operates with rapid campaign deployment, targeting multiple sectors and regions. Notable operations include early 2026 attacks using Cisco vulnerabilities and subsequent campaigns leveraging DarkSword and Coruna exploit kits.",
+  "description": "The Interlock Ransomware Group emerged in March 2026, exploiting zero-day vulnerabilities and deploying sophisticated ransomware campaigns targeting critical sectors globally. Their primary goal is financial gain through disrupting businesses and extorting ransoms.",
+  "goals": "The group targets critical infrastructure and enterprise networks across various sectors to achieve financial gains via ransomware extortion. Their victims include high-profile organizations in the US, EU, Japan, and India, focusing on disrupting business continuity.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A701",
+  "sourceUrl": "https://threaticon.com/threat-actors/701"
+}

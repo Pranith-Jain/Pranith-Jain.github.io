@@ -1,0 +1,41 @@
+{
+  "slug": "badrory",
+  "id": 909,
+  "name": "BadRory",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Russian-speaking actors",
+    "National Security Threat",
+    "Healthcare Targeting",
+    "Phishing",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Discovery", "Lateral Movement"],
+  "techniques": ["T1566.001 Spear Phishing via Email (Weaponized Document)", "T1553 Phishing - Content Isolation"],
+  "tools": ["Custom Malware"],
+  "iocPatterns": ["Spear-phishing emails with malicious Office attachments", "Presence of custom malware payloads"],
+  "keyCapabilities": ["Spear-phishing via Office documents", "Malware deployment", "Staging infrastructure"],
+  "recommendedActions": [
+    "Enhance email filtering and content isolation for suspected phishing attempts",
+    "Implement strong endpoint detection and response (EDR) solutions to detect malicious activity"
+  ],
+  "campaignsText": "BadRory's campaigns have demonstrated a methodical approach, with specific targeting of high-value Russian institutions over multiple waves. The group appears to operate with moderate sophistication and demonstrates persistence in achieving its objectives. Notable operations include the 2022 and 2023 spear-phishing campaigns, which targeted a range of sectors including government and military contractors.",
+  "description": "BadRory is a suspected APT group observed conducting spear-phishing campaigns against Russian government entities, military contractors, universities, and hospitals through boobytrapped Office documents. The group has demonstrated moderate sophistication, focusing on state-related targets and leveraging phishing as its primary attack vector.",
+  "goals": "BadRory appears to be targeting sectors critical to national security and societal stability, such as government, military, education, and healthcare. This suggests the group's primary goal may involve intelligence gathering, surveillance, or disruption of state functions. The targeting of Russian entities specifically indicates a potential alignment with Russian interests or internal priorities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A909",
+  "sourceUrl": "https://threaticon.com/threat-actors/909"
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "prolific-puma",
+  "id": 943,
+  "name": "Prolific Puma",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Malware Distribution", "Domain Generation", "Criminal Services"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Network Access Persistence Mechanisms", "Credential Access", "Execution", "Lateral Movement"],
+  "techniques": ["T1569.001", "T1072", "T1055", "T1087"],
+  "tools": ["Custom DGAs", "Link shortening service infrastructure"],
+  "iocPatterns": [
+    "Shortened URLs from Prolific Puma's service",
+    "Domain names generated via DGA techniques",
+    "High volumes of domain registrations across multiple TLDs"
+  ],
+  "keyCapabilities": [
+    "Domain Generation Algorithms (DGAs)",
+    "Large-scale domain registration",
+    "Link shortening service for malicious purposes"
+  ],
+  "recommendedActions": [
+    "Monitor for shortened links in emails or messages",
+    "Implement policies to block access to known malicious link shortening services",
+    "Use threat intelligence feeds to detect and block Prolific Puma domains"
+  ],
+  "campaignsText": "Prolific Puma has been observed using domain generation to create numerous domains, facilitating the distribution of malicious content. Their campaigns appear to target a broad range of sectors and countries, indicating a global focus. They are likely involved in various criminal activities, including malware distribution and phishing operations.",
+  "description": "Prolific Puma is a threat actor known for providing an underground link shortening service to criminals. They use domain generation algorithms (DGAs) to register large volumes of domains, potentially facilitating malicious activities such as phishing or malware distribution. Their operations suggest a focus on financial gain through the provision of infrastructure for criminal activities.",
+  "goals": "Prolific Puma's strategic objective seems centered around facilitating large-scale cybercriminal operations. By offering a link shortening service with domain generation capabilities, they provide infrastructure support to other malicious actors, enabling campaigns that would otherwise be difficult to sustain. Their targeting likely extends across multiple sectors and geographies due to the global nature of their services.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A943",
+  "sourceUrl": "https://threaticon.com/threat-actors/943"
+}

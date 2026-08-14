@@ -1,0 +1,53 @@
+{
+  "slug": "solntsepek",
+  "id": 993,
+  "name": "Solntsepek",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "State-Sponsored",
+    "Cyber Espionage",
+    "Critical Infrastructure",
+    "Government Targeting",
+    "Wiper / Destructive"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion"],
+  "techniques": ["T1505", "T1562.004"],
+  "tools": ["Custom C2 Frameworks", "Phishing Email Templates", "Destructive Malware"],
+  "iocPatterns": [
+    "Large-scale DDoS traffic originating from Eastern Europe",
+    "Phishing emails mimicking government officials or IT support teams",
+    "Malicious scripts dropped via spear-phishing campaigns"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) campaigns",
+    "Destructive malware deployment",
+    "Spear-phishing attacks",
+    "Credential harvesting via keyloggers",
+    "Disinformation campaigns"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for异常traffic patterns linked to DDoS and APT activities.",
+    "Adopt email filtering solutions with AI/ML capabilities to detect phishing attempts.",
+    "Enforce multi-factor authentication for critical systems.",
+    "Regularly back up critical infrastructure against potential destructive attacks."
+  ],
+  "campaignsText": "Solntsepek has conducted multiple campaigns targeting Ukrainian infrastructure, including the attack on Kyivstar. Their methods involve long-term infiltration using APT tactics to gather intelligence and disrupt operations. Notable activities include data exposure of military personnel and disruptive attacks post-elections in Ukraine.",
+  "description": "Solntsepek is a state-sponsored cyber threat group linked to the Russian GRU, known for targeting Ukrainian infrastructure with destructive attacks such as NotPetya. Their activities include phishing, credential harvesting, and DDoS campaigns, posing significant risks to critical sectors in Ukraine.",
+  "goals": "Solntsepek's strategic objectives appear to align with broader Russian interests in destabilizing Ukraine. Their targeting focuses on sectors critical to national defense and public stability, such as telecommunications and energy infrastructure. The group likely aims to achieve political influence, demonstrate military capabilities, and sow discord within Ukrainian society through disruptive cyber activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A993",
+  "sourceUrl": "https://threaticon.com/threat-actors/993"
+}

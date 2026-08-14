@@ -1,0 +1,59 @@
+{
+  "slug": "bibigun",
+  "id": 991,
+  "name": "BiBiGun",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "P",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "cyber-physical",
+    "hactivism",
+    "Ransomware",
+    "Data Exfiltration",
+    "Hacktivism",
+    "Wiper / Destructive"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Initial Access", "Credential Access", "Exfiltration"],
+  "techniques": [
+    "T1485.001 - Delete System Files/Directories",
+    "T1547.003 - Create Account for Future Access",
+    "T1098.001 - OS Credential Dumping"
+  ],
+  "tools": ["BiBi-Linux malware", "BiBi-Windows malware", "Spear-phishing emails with malicious attachments"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments (e.g., 'Diplomatic Communication')",
+    "Presence of BiBi-Linux/BiBi-Windows malware artifacts on systems",
+    "Network traffic anomalies from C2 domains",
+    "File deletion patterns in targeted directories"
+  ],
+  "keyCapabilities": [
+    "Development of wiper malware (BiBi-Linux and BiBi-Windows)",
+    "Spear-phishing attacks",
+    "Targeted supply chain compromises",
+    "Persistent lateral movement within networks"
+  ],
+  "recommendedActions": [
+    "Monitor for known IOCs related to wiper malware activity.",
+    "Implement robust backup and disaster recovery plans for critical systems.",
+    "Conduct regular security audits and incident response drills focusing on data integrity.",
+    "Block execution of untrusted scripts and limit privilege escalation vectors."
+  ],
+  "campaignsText": "BiBiGun has been involved in several campaigns targeting Middle Eastern sectors, particularly Israel. Their operations demonstrate a pattern of focusing on high-value targets within energy, telecom, and government sectors. Campaigns often involve extensive lateral movement and persistence mechanisms, suggesting a patient approach to maximize damage.",
+  "description": "BiBiGun is a pro-Hamas hacktivist group known for developing wiper malware targeting Israeli systems. Their primary activity involves deploying BiBi-Linux and BiBi-Windows malware to corrupt and delete data, with no evidence of data theft. The group's tactics resemble those of Moses Staff, suggesting potential Iranian influence.",
+  "goals": "BiBiGun's objectives are likely aligned with Hamas' geopolitical agenda, targeting Israeli entities to disrupt and damage critical infrastructure. Their specific targeting of sectors under Hamas influence, such as energy and communications, indicates a strategic focus on undermining Israeli stability and sovereignty. The group's operational choices, focusing on data destruction rather than theft, suggest a long-term disruption strategy.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A991",
+  "sourceUrl": "https://threaticon.com/threat-actors/991"
+}

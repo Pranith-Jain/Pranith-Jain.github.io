@@ -1,0 +1,43 @@
+{
+  "slug": "rook",
+  "id": 585,
+  "name": "rook",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "financial-motivation", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Encryption", "Data Removal/Exfiltration"],
+  "techniques": ["T1059.003", "T1204"],
+  "tools": ["Cobalt Strike (phishing)", "Phishing emails with malicious attachments"],
+  "iocPatterns": [
+    "Spear-phishing emails with attachment macros",
+    "Encrypted files with .Rook extension",
+    "Presence of HowToRestoreYourFiles.txt"
+  ],
+  "keyCapabilities": [
+    "File encryption using .Rook extension",
+    "Deployment of ransom notes (HowToRestoreYourFiles.txt)",
+    "Targeting vulnerabilities in network security"
+  ],
+  "recommendedActions": [
+    "Enhance email filtering to detect phishing attempts",
+    "Regularly back up data offsite",
+    "Implement endpoint detection tools"
+  ],
+  "campaignsText": "Rook campaigns often involve large-scale phishing attempts. Their operational tempo suggests a focus on quick infections to maximize impact before detection. Known attacks have led to significant financial losses and data breaches for victims, highlighting their aggressive tactics.",
+  "description": "Rook is a ransomware威胁 actor that emerged in late 2021, known for its Babuk variant. It targets victims by encrypting their files and demanding decryption ransoms. Its activities pose significant risks to organizations due to data loss and operational disruption.",
+  "goals": "Rook's objectives focus on generating financial profits through ransom payments. They typically target organizations with limited cybersecurity measures, such as healthcare or educational institutions. Their victims are usually those who cannot easily replace encrypted data and thus are more likely to pay the demanded ransoms.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A585",
+  "sourceUrl": "https://threaticon.com/threat-actors/585"
+}

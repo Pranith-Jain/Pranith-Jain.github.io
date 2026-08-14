@@ -1,0 +1,64 @@
+{
+  "slug": "bronze-spiral",
+  "id": 845,
+  "name": "BRONZE SPIRAL",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "State-sponsored",
+    "Advanced Persistent Threat (APT)",
+    "Espionage",
+    "IT Management Software",
+    "APT",
+    "Supply Chain Attack",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Intrusion Toolkit", "Collection", "Lateral Movement"],
+  "techniques": [
+    "T1058.002 - Application Window Stealing",
+    "T1093.001 - OS Credential Dumping",
+    "T1510.004 - Exfiltration Over Alternative Protocols",
+    "T1574 - Data Destruction",
+    "T1566.002 - Pass the Hash"
+  ],
+  "tools": ["SUPERNOVA Web Shell", "SolarWinds Orion Platform Exploit (CVE-2020-10148)", "Native system tools"],
+  "iocPatterns": [
+    "Exploitation attempts targeting CVE-2020-10148",
+    "Web shell activity indicative of SUPERNOVA deployment",
+    "Unusual system administrator account activity",
+    "Registry modifications related to credential dumping",
+    "Scheduled task creation for persistence"
+  ],
+  "keyCapabilities": [
+    "Web shell deployment",
+    "'Living off the land' techniques",
+    "Credential dumping",
+    "Lateral movement within networks",
+    "Data exfiltration",
+    "Long-term persistence"
+  ],
+  "recommendedActions": [
+    "Patch all known vulnerabilities in SolarWinds Orion Platform and other IT management software.",
+    "Monitor for unusual activity indicative of web shell deployments or 'living off the land' tactics.",
+    "Implement multi-factor authentication for high-value accounts to mitigate credential dumping risks.",
+    "Conduct regular network traffic analysis to detect data exfiltration activities.",
+    "Enhance logging and monitoring of system administrator tools and their usage patterns."
+  ],
+  "campaignsText": "BRONZE SPIRAL's campaign patterns suggest a focus on targeted attacks with long-term operational persistence. Known campaigns include the December 2020 SolarWinds attack and intrusions involving ManageEngine servers. The group demonstrates patient hunting behavior, scanning for high-value targets before deploying SUPERNOVA and establishing persistence. Notable operations involve credential dumping, lateral movement, and prolonged data exfiltration efforts.",
+  "description": "BRONZE SPIRAL is an unidentified threat actor believed with low confidence to be of Chinese origin. The group targeted SolarWinds through a vulnerability in their Orion Platform, deploying a web shell named SUPERNOVA. BRONZE SPIRAL's activities include long-term access to victim networks for credential harvesting and data exfiltration, likely focusing on espionage or intellectual property theft.",
+  "goals": "BRONZE SPIRAL's strategic objectives appear to focus on espionage or theft of intellectual property, likely targeting sectors with significant technological or sensitive information, such as government entities, defense contractors, and telecommunications companies. The group's observed behavior suggests they prioritize high-value victims that provide access to valuable data or infrastructure. Their operational focus on IT management software providers like SolarWinds and ManageEngine indicates a sector-specific targeting approach.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A845",
+  "sourceUrl": "https://threaticon.com/threat-actors/845"
+}

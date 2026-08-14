@@ -1,0 +1,39 @@
+{
+  "slug": "uac-0094",
+  "id": 919,
+  "name": "UAC-0094",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["cyber espionage", "phishing", "Ukraine"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Collection"],
+  "techniques": ["T1566.001 - Exfiltration Over Network Server", "T1547.003 - Social Media Phishing"],
+  "tools": ["Custom phishing scripts", "SMS intercept malware"],
+  "iocPatterns": ["Phishing links embedded in Telegram messages", "Unusual login attempts from non-standard IPs"],
+  "keyCapabilities": [
+    "Spear-phishing via Telegram messages",
+    "Malware deployment for SMS code interception",
+    "Social engineering techniques"
+  ],
+  "recommendedActions": [
+    "Educate users on phishing risks via messaging apps",
+    "Implement multi-factor authentication for sensitive accounts",
+    "Monitor for anomalies in SMS-based transactions"
+  ],
+  "campaignsText": "UAC-0094's campaigns exhibit consistent targeting of Telegram users, likely individuals and small businesses. Their operational tempo is steady but not widely documented beyond the initial reports.",
+  "description": "The threat actor UAC-0094 is targeting Telegram users through phishing attacks, aiming to steal SMS-based one-time codes for potential financial gain or espionage.",
+  "goals": "UAC-0094 likely targets individuals and possibly businesses using Telegram in Ukraine and potentially other regions. Their primary goals appear to include financial gain through identity theft or fraud, with possible secondary objectives such as espionage if targeting specific groups or sensitive information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A919",
+  "sourceUrl": "https://threaticon.com/threat-actors/919"
+}

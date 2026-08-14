@@ -1,0 +1,38 @@
+{
+  "slug": "mountlocker",
+  "id": 519,
+  "name": "mountlocker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["apt", "ransomware", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Attack Preparation & Exploitation", "Credential Access"],
+  "techniques": ["T1072.001", "T1566.001"],
+  "tools": [],
+  "iocPatterns": ["RDP brute-force attempts", "Unusual Active Directory queries"],
+  "keyCapabilities": [
+    "Compromise of RDP credentials",
+    "Windows Active Directory lateral movement",
+    "Broad file extension targeting"
+  ],
+  "recommendedActions": [
+    "Hardening RDP access with multi-factor authentication",
+    "Monitoring for AD enumeration activity"
+  ],
+  "campaignsText": "MountLocker's campaigns often involve initial RDP compromise, followed by lateral movement within networks using AD APIs. Their activities are characterized by high-volume file encryption targeting critical data types. Notable for their longevity and adaptability in a changing ransomware landscape.",
+  "description": "MountLocker is a medium-sophistication criminal ransomware-as-a-service (RaaS) group operational since July 2020. Primarily motivated by financial gain, MountLocker targets over 2,600 file extensions using compromised RDP credentials and lateral movement via Windows Active Directory APIs, making them a significant threat to sectors with exposed RDP services.",
+  "goals": "MountLocker's primary objectives are financial gain through ransomware deployments. They target organizations with exposed or weakly secured RDP services, leveraging lateral movement capabilities via AD APIs to maximize encryption impact. Their targeting is not sector-specific but tends to focus on entities where data value and RDP exposure create higher opportunities for successful campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A519",
+  "sourceUrl": "https://threaticon.com/threat-actors/519"
+}

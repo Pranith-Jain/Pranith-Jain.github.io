@@ -1,0 +1,53 @@
+{
+  "slug": "watchdog",
+  "id": 850,
+  "name": "Watchdog",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT-like", "Cryptojacking", "Cloud Threat", "Financial Motivation", "Opportunistic Threat Group"],
+  "aliases": ["Thief Libra"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Credential Access", "Execution", "Collection", "Exfiltration"],
+  "techniques": ["T1594.003", "T1078.002"],
+  "tools": [
+    "Custom Go scripts",
+    "Repurposed cryptojacking tools (e.g., TeamTNT)",
+    "Open-source mining tools",
+    "Cloud credential scraping tools"
+  ],
+  "iocPatterns": [
+    "Presence of unauthorized mining processes",
+    "Unusual network traffic from cloud resources",
+    "Exfiltration of cloud credentials via API or network channels",
+    "Signs of brute-force attempts on cloud service access points"
+  ],
+  "keyCapabilities": [
+    "Cryptojacking operations",
+    "Credential scraping from cloud instances",
+    "Custom-built Go scripts for exploitation",
+    "Repurposed cryptojacking tools (e.g., TeamTNT)",
+    "Targeting misconfigured cloud services"
+  ],
+  "recommendedActions": [
+    "Implement strict security configurations for cloud services to prevent misconfigurations",
+    "Monitor for signs of unauthorized resource utilization and credential theft",
+    "Use endpoint detection and response (EDR) tools to identify malicious scripts",
+    "Conduct regular audits of cloud environments to identify and patch vulnerabilities",
+    "Educate employees on recognizing phishing attempts and suspicious activities"
+  ],
+  "campaignsText": "Watchdog has demonstrated a consistent focus on cloud service providers and exposed infrastructure. Their campaigns often involve identifying vulnerable entry points, leveraging custom scripts to extract credentials or mine cryptocurrencies directly from targeted systems. Notable operations include incidents where they exploited misconfigured cloud instances to deploy cryptojacking malware and harvest sensitive data. The group's operational tempo is driven by the availability of targets, with a preference for low-hanging fruit in terms of exposed cloud services.",
+  "description": "Watchdog, also known as Thief Libra, is a cloud-focused threat group primarily involved in cryptojacking and credential scraping. They leverage custom Go scripts and repurposed tools from other groups like TeamTNT to exploit exposed cloud instances and applications. Their opportunistic nature targets sectors with misconfigured cloud services, focusing on financial gain through unauthorized resource utilization and data theft.",
+  "goals": "Watchdog's strategic objectives are centered around financial gain. They target sectors with exposed cloud services, particularly those with misconfigured or under-secured infrastructure. The group's targeting profile suggests a global reach, focusing on opportunities where cloud environments are vulnerable to exploitation. Their victims are typically organizations that lack robust cloud security measures, with a particular emphasis on sectors where cloud-based resources are critical and potentially valuable for monetization.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A850",
+  "sourceUrl": "https://threaticon.com/threat-actors/850"
+}

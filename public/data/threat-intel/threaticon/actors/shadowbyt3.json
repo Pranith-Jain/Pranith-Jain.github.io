@@ -1,0 +1,49 @@
+{
+  "slug": "shadowbyt3",
+  "id": 597,
+  "name": "shadowbyt3$",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Cyber Crime", "Organized Crime", "Financial Gain", "Education Sector", "Retail Sector"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Credential Access", "Discovery", "Lateral Movement"],
+  "techniques": ["T1566", "T1567.001", "T1036", "T1021"],
+  "tools": ["Telegram", "Tox", "Proprietary Ransomware (assumed)", "Cobalt Strike (speculative)"],
+  "iocPatterns": [
+    "Ransomware deployment across multiple sectors",
+    "Use of Telegram and Tox for communication channels",
+    "Multi-phishing campaigns targeting high-profile organizations",
+    "Potential use of bulletproof hosting infrastructure for C2 servers"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Multi-method extortion tactics",
+    "Use of Telegram and Tox for communication",
+    "Early-stage operational capability with limited confirmed victims",
+    "Focus on high-profile targets in education, retail, tech sectors"
+  ],
+  "recommendedActions": [
+    "Enhance email security to mitigate phishing attempts",
+    "Implement multi-factor authentication for critical systems",
+    "Monitor network traffic for signs of Tox/Telegram-based C2 communications",
+    "Conduct regular backups of critical data and isolate backup systems",
+    "Train employees on recognizing spear-phishing attempts",
+    "Segment network infrastructure to limit lateral movement"
+  ],
+  "campaignsText": "ShadowByt3$ has conducted multiple campaigns targeting educational institutions, tech companies, and retail sectors. Their operations suggest a focus on disrupting high-impact organizations with the potential for significant financial losses. Notable campaigns include attacks on University of Georgia, StarBucks, Nintendo, and several other unnamed entities. The group appears to be in an early operational phase but demonstrates a clear intent to scale their activities.",
+  "description": "ShadowByt3$ is a medium-sophisticated ransomware-as-a-service (RaaS) threat actor group observed since February 2026. Primarily motivated by financial gain, the group employs multi-method extortion tactics and communicates via Telegram and Tox. Despite their early-stage operational profile, they have targeted several high-profile sectors including education, hospitality, technology, and retail, with notable campaigns against institutions like University of Georgia, StarBucks, and Nintendo.",
+  "goals": "ShadowByt3$'s primary goal is financial gain through ransomware campaigns. They target sectors that are likely to have significant data or operational disruption value while also being less defended against cyberattacks. Their choice of victims reflects a focus on industries with high public visibility and potential for widespread impact, such as higher education institutions (e.g., University of Georgia) and major retail brands (StarBucks). The group's targeting strategy appears to be evolving but remains somewhat opportunistic.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A597",
+  "sourceUrl": "https://threaticon.com/threat-actors/597"
+}

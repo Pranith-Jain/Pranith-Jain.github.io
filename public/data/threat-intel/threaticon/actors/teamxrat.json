@@ -1,0 +1,59 @@
+{
+  "slug": "teamxrat",
+  "id": 725,
+  "name": "TeamXRat",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cybercrime", "espionage", "malware", "Latin America", "Backdoor / C2"],
+  "aliases": ["CorporacaoXRat", "CorporationXRat"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1059.003", "T1055", "T1486", "T1047", "T1546", "T1567.004", "T1567.005"],
+  "tools": ["Grine RAT", "Cobalt Strike", "Custom remote access tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents",
+    "RDP brute-force attempts",
+    "Scheduled task persistence techniques",
+    "Registry-based malware injection",
+    "C2 communication over fast-flux domains"
+  ],
+  "keyCapabilities": [
+    "Remote Access Trojans (RATs) such as Grine, Cobalt Strike",
+    "Spear-phishing emails with malicious Office documents",
+    "Persistence techniques including registry and fileless malware injection",
+    "Lateral movement via RDP and scheduled tasks"
+  ],
+  "recommendedActions": [
+    "Implement strong email filtering and DMARC policies to block phishing emails",
+    "Monitor network traffic for signs of C2 activity (e.g., unusual DNS queries)",
+    "Segment critical systems from less secure perimeters",
+    "Regularly audit and patch RDP services",
+    "Enhance user training on recognizing phishing attempts"
+  ],
+  "campaignsText": "TeamXRat has been observed in multiple campaigns since at least 2018, targeting corporate environments across Latin America. Their activities include spear-phishing email campaigns distributing malicious Office documents as payloads, followed by post-compromise activities such as lateral movement via RDP and the deployment of persistent backdoors. While specific campaign details are sparse, their operational consistency suggests a focused effort to infiltrate targeted organizations for prolonged periods. Notable past operations have included the use of fast-flux domains for command-and-control infrastructure and encrypted payload delivery, though exact campaign names or operational specifics remain unclear.",
+  "description": "TeamXRat is an unidentified cyber threat actor observed leveraging remote access trojans (RAT) for data exfiltration and surveillance activities. The group primarily targets corporate environments across Latin America, employing sophisticated tactics to maintain persistence and evade detection.",
+  "goals": "TeamXRat's strategic objectives likely include corporate espionage and data theft, targeting sectors with sensitive information that could be monetized or leveraged strategically. The group's geographic focus on Latin America suggests they may have regional interests or operational capabilities concentrated in this area, potentially aligning with organized crime networks or financially motivated actors seeking to exploit local corporate environments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A725",
+  "sourceUrl": "https://threaticon.com/threat-actors/725"
+}

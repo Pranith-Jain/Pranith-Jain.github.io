@@ -1,0 +1,40 @@
+{
+  "slug": "alp-001",
+  "id": 329,
+  "name": "alp-001",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial Crime", "Criminal Activity", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion"],
+  "techniques": ["T1059", "T1566.002", "T1485"],
+  "tools": ["Ransomware (assumed)", "Phishing Tools", "Malware Payloads"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting specific organizations",
+    "Malicious links or attachments in phishing campaigns",
+    "Ransomware encryption on compromised systems"
+  ],
+  "keyCapabilities": ["Spear-phishing campaigns", "Ransomware deployment", "Malicious software distribution"],
+  "recommendedActions": [
+    "Enhance employee training on phishing and social engineering attacks",
+    "Implement robust network segmentation strategies",
+    "Monitor for unusual network activity indicative of attacker presence",
+    "Regularly update and patch software to mitigate vulnerabilities"
+  ],
+  "campaignsText": "alp-001's campaign patterns are difficult to ascertain due to the lack of verified cases. Notable linked campaigns include potential attacks on inatech.com, nepgroup.com, aviwest.com, and others, though these remain unconfirmed. The actor appears to maintain operational consistency but lacks a distinct pattern or signature, making it challenging to track their activities effectively.",
+  "description": "The alp-001 threat actor appears to be a medium-sophistication criminal group primarily motivated by organizational gain and financial profit through ransomware activities. Despite claims of multiple victims, there is significant uncertainty about the validity of their operations due to unverified claims and the removal of associated data entries. The group targets various sectors and countries but lacks confirmed patterns of attack.",
+  "goals": "alp-001's strategic objectives appear focused on financial gain through ransomware operations. The actor targets a variety of sectors and countries without any discernible preference or pattern, suggesting a broader focus on easy-to-exploit victims rather than specific industries or geographies. Their targeting profile likely includes medium-sized organizations with vulnerabilities that can be exploited quickly for financial payout.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A329",
+  "sourceUrl": "https://threaticon.com/threat-actors/329"
+}

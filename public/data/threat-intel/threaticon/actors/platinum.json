@@ -1,0 +1,68 @@
+{
+  "slug": "platinum",
+  "id": 88,
+  "name": "PLATINUM",
+  "mitreId": "G0068",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government",
+    "defense",
+    "Southeast Asia",
+    "cyber-espionage",
+    "Initial Access",
+    "Government Targeting"
+  ],
+  "aliases": ["TwoForOne", "DeadlyKiss", "South East Asia", "Singapore"],
+  "targetedSectors": ["Government", "Defense", "Telecommunications"],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration", "Lateral Movement", "Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": [
+    "T1056.001",
+    "T1204.002",
+    "T1036",
+    "T1055",
+    "T1003.001",
+    "T1068",
+    "T1056.004",
+    "T1566.001",
+    "T1095",
+    "T1189",
+    "T1105"
+  ],
+  "tools": ["Hellsing", "adbupd", "JPIN", "Dipsind"],
+  "iocPatterns": [
+    "Spearphishing campaigns using malicious Office documents",
+    "Malicious processes leveraging process injection techniques",
+    "Use of custom tools like adbupd and JPIN",
+    "Network traffic indicative of C2 communication over non-standard protocols"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing attacks using malicious Office documents",
+    "Credential harvesting via keylogging and API hooking",
+    "Process injection for malware persistence",
+    "Use of custom tools like adbupd and JPIN",
+    "Ingress tool transfer for lateral movement"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering to detect and block spear-phishing attempts",
+    "Monitor for unusual process activity indicating potential process injection attacks",
+    "Conduct regular network monitoring for known malicious file hashes associated with PLATINUM campaigns",
+    "Enforce least privilege principles to mitigate the risk of lateral movement within networks"
+  ],
+  "campaignsText": "PLATINUM's campaigns are characterized by a prolonged period of activity and a focus on maintaining persistence within targeted networks. The group is known to deploy custom tools like adbupd and JPIN, which suggest a high level of technical proficiency. Their use of Spearphishing Attachment (T1566.001) indicates an initial access vector through malicious emails with attachments. Campaigns have been observed targeting Southeast Asian governments, defense contractors, and telecommunications firms. Notable past operations include the Hellsing campaign, which utilized a range of TTPs including keylogging and credential harvesting.",
+  "description": "PLATINUM, also known as TwoForOne or DeadlyKiss, is a long-active cyber threat actor primarily involved in espionage activities targeting government, defense, and telecommunications sectors in Southeast Asia since at least 2016. Known for their use of sophisticated tactics including spear-phishing and credential harvesting, PLATINUM has demonstrated persistence and technical proficiency in compromising high-value targets.",
+  "goals": "PLATINUM's primary strategic objective appears to be espionage, with a focus on collecting sensitive information from government and defense sectors in Southeast Asia. Their targeting of telecommunications companies may indicate an interest in surveillance capabilities or strategic infrastructure. The group's sustained activity over years suggests a long-term commitment to gathering intelligence for either diplomatic or military advantage, possibly in support of a nation-state agenda. victims are typically high-value targets within critical national infrastructure sectors.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A88",
+  "sourceUrl": "https://threaticon.com/threat-actors/88"
+}

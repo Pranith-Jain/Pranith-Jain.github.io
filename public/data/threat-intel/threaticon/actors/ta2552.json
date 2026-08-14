@@ -1,0 +1,64 @@
+{
+  "slug": "ta2552",
+  "id": 1039,
+  "name": "TA2552",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "Phishing",
+    "Spear Phishing",
+    "Office 365 Abuse",
+    "Financial Espionage",
+    "Language-based TTP",
+    "Financial Targeting",
+    "Supply Chain Attack"
+  ],
+  "aliases": ["APT28", "Pawn Storm", "Fancy Bear", "Sednit"],
+  "targetedSectors": ["Government", "Non profit", "Think tank", "Defense", "Energy"],
+  "targetedCountries": ["IR", "IL", "SA", "US"],
+  "tactics": ["Credential Access", "Collection", "Reconnaissance"],
+  "techniques": [
+    "T1098.003 - Valid Accounts",
+    "T1134 - Social Engineering Phishing via Email",
+    "T1059 - External Remote Console Access",
+    "T1566.002 - Account Access Removal"
+  ],
+  "tools": [
+    "Custom phishing templates",
+    "Third-party O365 application interfaces",
+    "Social engineering tools to craft Spanish language lures"
+  ],
+  "iocPatterns": [
+    "Phishing emails sent from legitimate domains but containing malicious links",
+    "Redirects to Microsoft O365 third-party app consent pages",
+    "Unusual OAuth token grant requests for read-only user permissions",
+    "Scheduled spikes in login attempts or application access attempts"
+  ],
+  "keyCapabilities": [
+    "OAuth2-based phishing",
+    "Third-party application abuse",
+    "Language-specific spear-phishing campaigns",
+    "Credential harvesting via social engineering"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for Office 365 accounts",
+    "Monitor login activity, especially during off-hours",
+    "Educate users about phishing tactics, particularly language-based spear-phishing campaigns",
+    "Use email filtering to detect and block suspicious emails",
+    "Conduct regular audits of third-party app permissions in O365"
+  ],
+  "campaignsText": "TA2552 has demonstrated persistence and operational security in their campaigns. Their targeting of Spanish-speaking individuals across various global sectors suggests a broad but focused approach, likely aiming for maximal access while minimizing detection. The use of legitimate OAuth consent flows makes their activities harder to detect compared to traditional malware-based attacks. Notable past operations include multiple waves of phishing campaigns tracked by Proofpoint since August 2019, with a steady increase in activity through early 2020.",
+  "description": "TA2552 is a threat actor exploiting Microsoft Office 365 third-party application access since January 2020. They use Spanish-language phishing lures to deceive users into granting unauthorized access to their O365 accounts, enabling reconnaissance and data theft. This actor targets individuals likely fluent in Spanish, leveraging language-specific tactics to compromise user credentials and intercept sensitive communications.",
+  "goals": "TA2552's strategic objectives appear centered on gaining unauthorized access to Microsoft Office 365 accounts for intelligence gathering and potential data exfiltration. Their targeting profile focuses on users who are Spanish speakers, likely due to the effectiveness of language-based phishing in reducing victim suspicion. The group's narrow focus on O365 third-party application abuse suggests they aim to operate under the radar while maximizing access to sensitive corporate and personal communications.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1039",
+  "sourceUrl": "https://threaticon.com/threat-actors/1039"
+}

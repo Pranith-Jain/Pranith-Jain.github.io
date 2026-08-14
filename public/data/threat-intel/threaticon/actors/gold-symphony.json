@@ -1,0 +1,74 @@
+{
+  "slug": "gold-symphony",
+  "id": 821,
+  "name": "GOLD SYMPHONY",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "financial-motivated",
+    "malware-as-a-service",
+    "Russia-based",
+    "TrickBot",
+    "Cobalt Strike",
+    "Ransomware",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Impact"
+  ],
+  "techniques": [
+    "T1197.001 - Software Deployment Tools",
+    "T1059.003 - Command and Scripting Interpreter",
+    "T1055 - Process Injection",
+    "T1566.001 - Phishing",
+    "T1112 - Modify Boot Configuration Data"
+  ],
+  "tools": ["Buer Loader", "Cobalt Strike", "TrickBot", "Emotet (possible overlap with infrastructure)"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents containing Buer Loader payloads",
+    "C2 communication over DNS using fast-flux infrastructure",
+    "Staging of malware components on bulletproof hosting services",
+    "Presence of Buer Loader hashes in memory dumps or network traffic",
+    "Indicators of TrickBot and Cobalt Strike beacons in compromised systems"
+  ],
+  "keyCapabilities": [
+    "Development and distribution of Buer Loader as a malware-as-a-service (MasS)",
+    "Collaboration with operators of TrickBot and Cobalt Strike for post-intrusion ransomware operations",
+    "Deployment of phishing campaigns to deliver initial payloads",
+    "Use of underground forums for malware sales and coordination",
+    "Integration with ransomware toolchains for financial exploitation"
+  ],
+  "recommendedActions": [
+    "Monitor for spear-phishing campaigns targeting users with malicious Office documents",
+    "Implement network-level filtering to detect and block Buer Loader C2 traffic",
+    "Deploy endpoint detection and response (EDR) tools to identify anomalous process injection (e.g., Cobalt Strike)",
+    "Segment networks to limit lateral movement post-compromise",
+    "Regularly update endpoint protection platforms with Buer Loader and TrickBot signatures",
+    "Conduct employee training on recognizing phishing attempts and reporting suspicious activity"
+  ],
+  "campaignsText": "GOLD SYMPHONY operates as a modular cybercrime group, leveraging Buer Loader as a foundational component for broader malware campaigns. Their campaigns often begin with spear-phishing targeting organizations, followed by the deployment of Buer Loader to establish persistent access. The group's activities align with ransomware-as-a-service (RaaS) models, where they may not directly execute ransomware but enable partners to do so. Their presence in underground forums suggests operational tempo aligned with the demand for malware tools, with campaigns likely recurring in waves tied to new ransomware variants or vulnerabilities.",
+  "description": "GOLD SYMPHONY is a financially motivated cybercrime group, likely based in Russia, known for developing and selling the Buer Loader malware-as-a-service (MasS) on underground forums. The group has collaborated with operators of TrickBot and Cobalt Strike, indicating ties to advanced ransomware operations. Their activities pose a significant threat to organizations in sectors vulnerable to ransomware attacks.",
+  "goals": "GOLD SYMPHONY's primary objective is financial gain through the sale of malware and potential involvement in ransomware operations. They target organizations in sectors vulnerable to cyberattacks, including those with high-value data or the capacity to pay ransoms, such as healthcare, finance, and government entities. Their operations may focus on countries with less robust cybersecurity defenses or where regulatory enforcement is weak, enabling them to operate with reduced risk of detection. Their ties to TrickBot and Cobalt Strike indicate a focus on enabling persistent access and lateral movement within compromised networks to facilitate data extortion or theft.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A821",
+  "sourceUrl": "https://threaticon.com/threat-actors/821"
+}

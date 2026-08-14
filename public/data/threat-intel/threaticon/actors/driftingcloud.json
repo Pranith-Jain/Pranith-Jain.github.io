@@ -1,0 +1,47 @@
+{
+  "slug": "driftingcloud",
+  "id": 948,
+  "name": "DriftingCloud",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "network-attacks", "zero-day exploits", "espionage", "Zero-Day Exploitation"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Persistence", "Defense evasion", "Credential access"],
+  "techniques": ["T1059", "T1055", "T1078", "T1566"],
+  "tools": ["Custom RAT", "Zero-day exploit tools", "Network monitoring software"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting network administrators",
+    "Exploitation attempts against known or unknown vulnerabilities",
+    "Unusual network traffic from gateway devices",
+    "Presence of custom malware on compromised systems"
+  ],
+  "keyCapabilities": [
+    "Development/acquisition of zero-day exploits",
+    "Compromise of gateway devices",
+    "Network persistence and lateral movement",
+    "Possibly ransomware deployment or data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement regular patch management to mitigate zero-day risks.",
+    "Monitor network traffic for unusual patterns, especially around gateway devices.",
+    "Conduct periodic security audits and phishing simulations to identify vulnerabilities.",
+    "Use endpoint detection and response (EDR) solutions to detect potential APT activity.",
+    "Segment critical networks to limit lateral movement in case of compromise."
+  ],
+  "campaignsText": "DriftingCloud's campaigns likely involve long-term, patient intelligence-gathering or disruptive activities. Their use of zero-day exploits suggests a focus on maintaining undetected presence in targeted networks for extended periods. Victim types include organizations with exposed gateway devices, such as critical infrastructure providers, healthcare institutions, and financial services.",
+  "description": "DriftingCloud is a persistent threat actor known for leveraging zero-day exploits and targeting gateway devices. Their primary focus appears to be on compromising network infrastructure, which indicates a high level of technical sophistication. They are likely associated with advanced persistent威胁 (APT) activity, potentially linked to nation-state actors or highly organized cybercriminal groups.",
+  "goals": "DriftingCloud's strategic objectives likely include gaining unauthorized access to sensitive networks and data to achieve long-term operational goals. Their targeting of gateway devices suggests an intent to control or disrupt critical infrastructure, which could indicate a preference for sectors like energy, healthcare, or finance. The actor may be motivated by espionage, financial gain, or nation-state interests, depending on their affiliations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A948",
+  "sourceUrl": "https://threaticon.com/threat-actors/948"
+}

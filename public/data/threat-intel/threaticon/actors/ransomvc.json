@@ -1,0 +1,42 @@
+{
+  "slug": "ransomvc",
+  "id": 896,
+  "name": "RansomVC",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "ransomware", "GDPR"],
+  "aliases": ["Ransomed.vc"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Disruption"],
+  "techniques": ["T1566.002", "T1547"],
+  "tools": ["Phishing-as-a-Service platforms", "Custom ransomware"],
+  "iocPatterns": [
+    "Spear-phishing emails containing links to their clearnet site",
+    "Encrypted communications over the dark web"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Data exfiltration techniques",
+    "Encrypted communications for extortion ransoms"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions for phishing detection",
+    "Enforce strong encryption protocols on data at rest and in transit",
+    "Monitor public domains and forums for mentions of GDPR-related extortion attempts"
+  ],
+  "campaignsText": "RansomVC has initiated several campaigns targeting organizations with exposed data. Their modus operandi involves identifying sensitive information, threatening exposure unless a ransom is paid, and employing encrypted communication channels to maintain anonymity.",
+  "description": "RansomVC has emerged as a new extortion-focused threat actor leveraging GDPR penalties for financial gain. Their operations are characterized by sophisticated public relations campaigns and targeted threats against organizations holding sensitive data.",
+  "goals": "RansomVC's strategic objective is financial gain through extortion, targeting sectors such as healthcare, finance, and retail where sensitive data exposure can result in significant penalties. Their global reach is evident in their use of diverse communication channels, suggesting a broad targeting strategy across various countries to maximize potential victims.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A896",
+  "sourceUrl": "https://threaticon.com/threat-actors/896"
+}

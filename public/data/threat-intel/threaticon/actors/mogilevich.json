@@ -1,0 +1,47 @@
+{
+  "slug": "mogilevich",
+  "id": 514,
+  "name": "mogilevich",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "fraud", "criminal", "e-commerce", "technology", "gaming sector"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Custom social engineering tools", "Phishing kits"],
+  "iocPatterns": [
+    "Spear-phishing emails claiming data breaches",
+    "Fraudulent offers for RaaS panel access",
+    "Non-functional breach reporting websites",
+    "Loyalty to criminal fraud schemes over actual exploitation"
+  ],
+  "keyCapabilities": [
+    "Social engineering",
+    "Phishing (via email or messaging platforms)",
+    "Pretexting",
+    "Fraudulent breach claims",
+    "Fake Ransomware as a Service (RaaS) offerings"
+  ],
+  "recommendedActions": [
+    "Educate employees about phishing and social engineering attempts",
+    "Monitor for unusual network activity related to data breaches",
+    "Verify any claims of breaches or unauthorized access with internal security teams",
+    "Engage ethical hacking exercises to test organizational resilience against fraud"
+  ],
+  "campaignsText": "Mogilevich's campaign was short-lived, with activity observed between February and March 2024. The group targeted high-profile organizations across multiple industries, leveraging the credibility of these companies to maximize their fraudulent efforts. The quick exposure of their operations suggests a lack of operational discipline and genuine technical capability, focusing instead on deceptive marketing tactics.",
+  "description": "Mogilevich emerged in February 2024 as a threat actor claiming high-profile breaches of major companies. However, the group was quickly exposed as fraudsters, with their operator admitting to selling fake breach data and access to a non-existent RaaS panel. The threat actor has targeted sectors including gaming, technology, and e-commerce, seeking financial gain through fraudulent activities.",
+  "goals": "Mogilevich primarily targets sectors with significant public exposure and potential for financial leverage, such as gaming (Epic Games), technology (DJI), e-commerce (Shein), and online marketplaces (Kick.com). The threat actor's strategic focus appears to be on creating panic and distrust in organizations by falsely claiming breaches. Their goal is to monetize through the sale of fake breach data or fraudulent RaaS access, rather than deploying actual ransomware or conducting damaging attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A514",
+  "sourceUrl": "https://threaticon.com/threat-actors/514"
+}

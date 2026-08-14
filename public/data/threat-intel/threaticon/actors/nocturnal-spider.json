@@ -1,0 +1,44 @@
+{
+  "slug": "nocturnal-spider",
+  "id": 789,
+  "name": "NOCTURNAL SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "ransomware", "cybercrime", "MaaS", "global_threat"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Proprietary Ransomware tools", "Potential use of common ransomware frameworks"],
+  "iocPatterns": [
+    "Presence of encrypted files on affected systems",
+    "Network traffic indicating communication with known ransomware domains",
+    "Potential use of file-sharing or payment platforms commonly associated with ransomware groups"
+  ],
+  "keyCapabilities": [
+    "Potential expertise in ransomware distribution",
+    "Possibly operates as a service provider (MaaS) for other actors",
+    "Capable of launching campaigns targeting multiple sectors globally"
+  ],
+  "recommendedActions": [
+    "Enhance endpoint detection and response capabilities",
+    "Implement robust backup and recovery processes to mitigate against data loss from ransomware attacks",
+    "Monitor for unusual network activity indicative of lateral movement within the network",
+    "Educate employees about phishing attempts and suspicious emails that may serve as entry vectors"
+  ],
+  "campaignsText": "NOCTURNAL SPIDER's campaign patterns are not well-documented, but their suspected involvement in MaaS suggests they may facilitate attacks rather than directly execute them. Campaigns may involve lateral movement within networks to deploy ransomware, followed by data encryption and exfiltration. Their operational tempo likely aligns with the rapid deployment of ransomware tools to maximize impact.",
+  "description": "NOCTURNAL SPIDER is a suspected cyber Threat Actor potentially involved in Ransomware-as-a-Service (MaaS) operations, as referenced in CrowdStrike's 2020 Report. Limited data suggests involvement in global cybercriminal activities targeting multiple sectors and countries. The actor's operational techniques and objectives remain under investigation.",
+  "goals": "The strategic objectives of NOCTURNAL SPIDER are likely aligned with financial gain through ransomware distribution or extortion. Their targeting profile suggests a focus on sectors with high operational continuity requirements and valuable data, such as healthcare, finance, and energy. The global reach and activity over multiple years indicate a preference for large-scale impact, potentially exploiting vulnerabilities across industries to maximize revenue.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A789",
+  "sourceUrl": "https://threaticon.com/threat-actors/789"
+}

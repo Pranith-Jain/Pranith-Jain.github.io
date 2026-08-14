@@ -1,0 +1,56 @@
+{
+  "slug": "linkc",
+  "id": 482,
+  "name": "linkc",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-gain", "Criminal", "Double-Extortion", "US-targeted", "Critical Infrastructure"],
+  "aliases": ["LinkC"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [
+    "Ransomware (Encrypts files)",
+    "Phishing tools (Spear-phishing campaigns)",
+    "C2 infrastructure (Tor-based)",
+    "Data exfiltration utilities",
+    "Network traversal tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with attachments",
+    "C2 communication over Tor",
+    "Ransomware encryption patterns",
+    "Phishing URLs linked to known campaigns",
+    "Encrypts files with specific extensions"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Double extortion operations",
+    "Tor-based data leak site management",
+    "Spear-phishing attacks",
+    "Data exfiltration",
+    "High-value target identification"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering and endpoint detection for spear-phishing attempts.",
+    "Conduct regular network segmentation and privileged access management.",
+    "Monitor for unusual network traffic indicative of data exfiltration.",
+    "Backup critical systems regularly and test recovery processes.",
+    "Consider deploying Zero Trust Architecture to mitigate internal lateral movement."
+  ],
+  "campaignsText": "Linkc has conducted several notable campaigns, including targeting H2O.ai and other mid-sized tech companies. Their operations typically involve initial access via phishing emails or network exploitation, followed by data encryption and exfiltration. The group's operational tempo appears to be opportunistic, with a focus on striking high-impact targets in sectors with deep intellectual property and customer trust dependencies. Their campaigns often feature prolonged lateral movement within networks to gather sensitive information before deploying ransomware.",
+  "description": "Linkc is a medium-sophistication ransomware group operating since late January 2025. They primarily target US-based AI, cloud computing, aerospace, and manufacturing industries using double-extortion tactics to demand ransoms up to $15 million. Their operations have already affected at least four organizations, including H2O.ai.",
+  "goals": "Linkc targets US-based AI, cloud computing, aerospace, and manufacturing industries likely due to the high value of their intellectual property and data. These sectors represent attractive opportunities for financial gain through ransom demands and data resale. The group's double-extortion tactics reflect a strategic focus on maximizing both immediate ransom payments and long-term revenue streams from stolen data. Their choice of victims suggests an operational focus on mid-sized organizations with potentially weaker security postures but sufficient assets to meet high ransom demands.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A482",
+  "sourceUrl": "https://threaticon.com/threat-actors/482"
+}

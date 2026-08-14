@@ -1,0 +1,73 @@
+{
+  "slug": "magic-hound",
+  "id": 45,
+  "name": "Magic Hound",
+  "mitreId": "G0059",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "Iran (IR)",
+  "originCode": "IR",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "State-sponsored",
+    "Social engineering",
+    "Phishing",
+    "Initial Access",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": ["TA453", "COBALT ILLUSION", "Charming Kitten", "ITG18"],
+  "targetedSectors": [
+    "Government",
+    "Transportation",
+    "Energy",
+    "Defense",
+    "Financial services",
+    "Healthcare",
+    "Pharmaceutical",
+    "Telecommunications",
+    "Media",
+    "Non profit",
+    "Legal services",
+    "Education",
+    "Research",
+    "Critical infrastructure"
+  ],
+  "targetedCountries": ["US", "SA", "IL", "IR"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1204", "T1550", "T1595"],
+  "tools": ["Custom malware", "Phishing kits", "Social engineering frameworks", "C2 frameworks"],
+  "iocPatterns": [
+    "Spear-phishing with fake social media accounts",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Email spoofing with typo-squatted domain names"
+  ],
+  "keyCapabilities": [
+    "Social engineering",
+    "Fake social media account creation",
+    "Email spoofing",
+    "Phishing",
+    "Credential harvesting",
+    "Network exploitation"
+  ],
+  "recommendedActions": [
+    "Implement robust social media account verification processes",
+    "Conduct regular security awareness training for employees",
+    "Utilize advanced email filtering solutions to detect spoofed emails",
+    "Monitor network traffic for suspicious C2 activity",
+    "Implement a threat intelligence-driven defense strategy"
+  ],
+  "campaignsText": "Magic Hound's campaigns are characterized by their long-term, resource-intensive nature, often spanning several months or even years. Their operations typically involve a combination of social engineering tactics, including fake social media accounts, email spoofing, and phishing, to establish an initial foothold within the target network. The group's activities have been linked to various high-profile operations, including the targeting of government officials, academics, and journalists, and have demonstrated an ability to adapt their tactics to evade detection.",
+  "description": "Magic Hound, an Iranian-sponsored threat group, conducts long-term cyber espionage operations targeting government, transportation, energy, and defense sectors in the US and SA. They utilize complex social engineering campaigns, including fake social media accounts, to compromise high-value targets. Their primary motivation is espionage, likely on behalf of the Islamic Revolutionary Guard Corps.",
+  "goals": "Magic Hound's primary objective is to conduct cyber espionage operations on behalf of the Islamic Revolutionary Guard Corps, targeting high-value individuals and organizations in the government, transportation, energy, and defense sectors. Their targeting profile suggests a focus on extracting sensitive information, likely for strategic or tactical gain. The group's activities are often tailored to support Iranian national interests, and their operations have been linked to various state-sponsored initiatives.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A45",
+  "sourceUrl": "https://threaticon.com/threat-actors/45"
+}

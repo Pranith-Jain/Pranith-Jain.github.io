@@ -1,0 +1,71 @@
+{
+  "slug": "bronze-butler",
+  "id": 56,
+  "name": "BRONZE BUTLER",
+  "mitreId": "G0060",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "espionage",
+    "cyber espionage",
+    "Japan-focused",
+    "electronics manufacturing",
+    "biotechnology",
+    "Initial Access",
+    "APT",
+    "Healthcare Targeting",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": ["REDBALDKNIGHT", "Tick", "BRONZE BUTLER", "Nian"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration", "Impact", "Lateral Movement", "Defense Evasion", "Discovery"],
+  "techniques": [
+    "T1566.001",
+    "T1059.003",
+    "T1550.003",
+    "T1078.001",
+    "T1027.003",
+    "T1007",
+    "T1036.005",
+    "T1548.002",
+    "T1105"
+  ],
+  "tools": ["ShadowPad", "Daserf", "Avenger", "down_new", "ABK", "build_downer", "Trend Micro Daserf", "BBK"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments (e.g., DOC files containing embedded scripts)",
+    "Scheduled tasks created by legitimate-looking utilities",
+    "Malicious processes using legitimate command-line tools",
+    "Fileless malware leveraging Windows commands and PowerShell",
+    "Binary padding and obfuscation techniques in malware"
+  ],
+  "keyCapabilities": [
+    "Cyber espionage",
+    "Custom malware development (ShadowPad, Daserf)",
+    "Spear-phishing campaigns",
+    "Lateral movement within networks",
+    "Data exfiltration via encryption techniques",
+    "Credential dumping using tools like Avenger"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect spear-phishing attempts.",
+    "Enhance endpoint detection and response (EDR) solutions to identify malicious processes like ShadowPad.",
+    "Monitor network traffic for indicators of exfiltration activities, such as encrypted data transfers or unusual patterns.",
+    "Conduct regular audits of system accounts and permissions to prevent unauthorized access.",
+    "Use network segmentation to limit lateral movement within critical networks."
+  ],
+  "campaignsText": "BRONZE BUTLER is known for the ENDTRADE campaign, which targeted Japanese organizations with tailored spear-phishing emails and malicious software. The group frequently uses legitimate-looking tools and techniques to avoid detection while compromising systems and extracting data. Campaigns often leverage custom malware to establish persistence and facilitate long-term espionage activities. Notable for its focus on Japan's critical sectors, BRONZE BUTLER has demonstrated a consistent operational tempo over the years.",
+  "description": "BRONZE BUTLER is a suspected Chinese-origin cyber espionage group targeting Japanese organizations since at least 2008. Known for sophisticated campaigns using malware such as ShadowPad and Daserf, the group primarily focuses on stealing sensitive information from government, biotechnology, electronics manufacturing, and industrial chemistry sectors.",
+  "goals": "BRONZE BUTLER's strategic objectives appear to be centered around intelligence-gathering and espionage against key sectors in Japan. This alignment suggests a focus on obtaining technological and industrial advantages through the compromise of biotechnology, electronics manufacturing, and industrial chemistry industries. The group’s targeting of Japan indicates a potential nation-state interest in gaining strategic insights into Japanese industries and government operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A56",
+  "sourceUrl": "https://threaticon.com/threat-actors/56"
+}

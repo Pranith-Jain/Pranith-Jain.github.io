@@ -1,0 +1,60 @@
+{
+  "slug": "haron",
+  "id": 449,
+  "name": "haron",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Motivation", "Enterprise-Targeting", "Data-Theft"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Execution Protection Evasion", "Exfiltration", "Impact", "Defense-Evasion"],
+  "techniques": [
+    "T1566.001 - Data Encrypted for Impact",
+    "T1249.001 - PowerShell for Scripting",
+    "T1485 - Credential Dumping",
+    "T1538.001 - Use of Account Access Removal Tools",
+    "T1071 - Email Collection"
+  ],
+  "tools": [
+    "Thanos ransomware builder",
+    "Custom Ransomware",
+    "Encryptions scripts",
+    "Kill Switch Mechanisms",
+    "Decryptor Tools"
+  ],
+  "iocPatterns": [
+    "Ransomware encryption of files with specific extensions",
+    "Use of Thanos builder features for kill switches and payload delivery",
+    "Spear-phishing emails with malicious links or attachments",
+    "C2 communication over HTTP/HTTPS channels",
+    "Lateral movement within networks using common tools"
+  ],
+  "keyCapabilities": [
+    "Ransomware creation and distribution",
+    "Use ofThanos ransomware builder features (e.g., kill switch, decryptor functionality)",
+    "Encryption of victim data with a specific extension",
+    "Negotiation framework to pressure quick payouts"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear-phishing attempts.",
+    "Deploy endpoint detection and response (EDR) solutions to monitor for encryption scripts and unusual processes.",
+    "Conduct regular data backups stored offline or in isolated environments as a recovery option.",
+    "Educate employees on recognizing suspicious emails and the risks of opening unknown links.",
+    "Enhance network segmentation to limit lateral movement potential."
+  ],
+  "campaignsText": "Haron's campaigns typically involve a rapid encryption process targeting enterprise networks, followed by a six-day window during which victims are pressured to contact the attackers for decryption keys. The group appears to favor established ransomware practices by leveraging known infrastructure and tools from previous operations like Avaddon. While their operational output has not been extensively documented, Haron's campaigns have caused significant disruptions in sectors where downtime equates to financial loss.",
+  "description": "Haron is a medium-sophistication criminal ransomware-as-a-service (RaaS) threat actor that emerged in July 2021. Operating as a RaaS group, they leverage the Thanos ransomware builder and mimic the defunct Avaddon ransomware operation's structure. Haron targets enterprise organizations with a six-day negotiation window to pressure victims into prompt payment of ransoms. The group's primary focus is financial gain through encryption-based extortion andansom demands.",
+  "goals": "Haron's strategic objectives are centered around financial gain through the deployment of ransomware against enterprise targets. Their targeting profile appears to prioritize organizations where ransom payment is more likely due to high operational disruption costs, such as sectors like healthcare, education, or finance. The group's choice to mimic Avaddon and leverage the Thanos builder indicates a focus on efficiency over innovation, aiming to maximize their criminal enterprise through proven methods. By selecting enterprise targets, Haron seeks to maximize the potential payout while ensuring sufficient resources are available for negotiation.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A449",
+  "sourceUrl": "https://threaticon.com/threat-actors/449"
+}

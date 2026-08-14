@@ -1,0 +1,58 @@
+{
+  "slug": "xinof",
+  "id": 646,
+  "name": "xinof",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Motivation", "Cybercrime", "Service-Provider"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Execution",
+    "Defense Evasion",
+    "Impact"
+  ],
+  "techniques": ["T1003.001", "T1048.002", "T1078.001", "T1566.001", "T1566.002"],
+  "tools": ["Cobalt Strike", "Mimikatz", "Custom Ransomware", "Rundll32"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links/scripts",
+    "Use of virtual private networks (VPNs) for C2 communication",
+    "Encrypted communications over HTTPS/DNS tunnels",
+    "Unusual system activity during encryption processes"
+  ],
+  "keyCapabilities": [
+    "Ransomware development and distribution",
+    "Affiliate-based campaigns with no upfront cost",
+    "Multi-method file encryption",
+    "Customer support infrastructure for decryption keys",
+    "Data exfiltration techniques",
+    "Network persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect spear-phishing attempts.",
+    "Monitor network traffic for signs of data exfiltration or unusual behavior.",
+    "Patch systems regularly and maintain up-to-date software versions.",
+    "Encrypt sensitive data at rest and implement multi-factor authentication (MFA).",
+    "Conduct regular backups and test restore processes to mitigate ransomware impact."
+  ],
+  "campaignsText": "Xinof's campaigns typically involved low-cost entry for affiliates, with a focus on rapid deployment and decentralized operations. The group's shutdown in January 2021 raised questions about their long-term viability but may indicate internal challenges or pressure from law enforcement. Despite this, Xinof's operational model suggests potential future campaigns if the group reorganizes.",
+  "description": "Xinof (also known as Fonix/FonixCrypter) is a Ransomware-as-a-Service (RaaS) operation that emerged in June 2020, offering four encryption methods per file and no upfront affiliate cost. The group gained attention by shutting down their service in January 2021 and releasing the master decryption key, enabling free decryption for all victims. Despite this shutdown, Xinof poses a notable threat to organizations due to its operational model and potential re-emergence.",
+  "goals": "Xinof's primary objective is financial gain through ransomware attacks. The group targeted organizations across various sectors, leveraging their RaaS model to extend their reach through affiliates. Despite not specifying particular sectors or countries, Xinof demonstrated a focus on maximizing revenue by allowing low-barrier entry for new affiliates to join their campaign.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A646",
+  "sourceUrl": "https://threaticon.com/threat-actors/646"
+}

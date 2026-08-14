@@ -1,0 +1,49 @@
+{
+  "slug": "radio-panda",
+  "id": 222,
+  "name": "Radio Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "government-targeted", "nation-state", "cyber-espionage"],
+  "aliases": ["Radio Panda", "Shrouded Crossbow"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Information Gathering", "Lateral Movement", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078", "T1233", "T1217"],
+  "tools": ["Custom malware frameworks", "Covenant or similar advanced C2 tools", "Spear-phishing tools"],
+  "iocPatterns": [
+    "Spear-phishing campaigns targeting government or defense sector employees",
+    "Custom malware embedded in Office documents or email attachments",
+    "C2 communication via encrypted channels or domain fronting",
+    "Lateral movement across network segments using tools like Mimikatz",
+    "Staging infrastructure hosted on bulletproof web hosting providers"
+  ],
+  "keyCapabilities": [
+    "State-sponsored espionage capabilities",
+    "Advanced persistent threat (APT) tactics",
+    "Sophisticated malware development and deployment",
+    "Network intrusions and data exfiltration",
+    "Persistent adversary engagement, long-term campaigns"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block spear-phishing attempts.",
+    "Monitor for unusual network activity indicative of lateral movement or data exfiltration.",
+    "Conduct regular vulnerability scans and apply patches to mitigate potential attack vectors.",
+    "Deploy endpoint detection and response (EDR) solutions to identify and neutralize custom malware.",
+    "Strengthen incident response capabilities to quickly detect and contain APT-related threats."
+  ],
+  "campaignsText": "Radio Panda has been linked to several high-profile campaigns targeting government and defense sectors globally. Their operations are characterized by stealth and precision, often involving initial access vectors such as phishing and the use of custom malware for persistence. The group's operational tempo is typically low but sustained, with long-term engagement within target networks to maximize intelligence yield.",
+  "description": "Radio Panda, also known as Shrouded Crossbow, is a nation-state cyber threat actor primarily involved in espionage activities. The group has demonstrated sophisticated capabilities targeting critical sectors globally, focusing on intelligence gathering and data exfiltration. Their operations are conducted with precision, leveraging advanced tactics and tools to achieve their strategic objectives.",
+  "goals": "Radio Panda's strategic objectives appear to center around the acquisition of sensitive intelligence through espionage. The group targets sectors such as government, defense, and technology where they can extract politically or militarily valuable information. Their targeting profile suggests a focus on specific geopolitical regions, potentially aligned with the interests of their nation-state sponsor.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A222",
+  "sourceUrl": "https://threaticon.com/threat-actors/222"
+}

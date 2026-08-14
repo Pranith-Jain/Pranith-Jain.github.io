@@ -1,0 +1,55 @@
+{
+  "slug": "larva-25012",
+  "id": 1286,
+  "name": "Larva‑25012",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": ["APT", "Proxyware", "Malvertising"],
+  "aliases": ["tracked as", "the", "the Newscaster Team", "the euechinoids"],
+  "targetedSectors": [
+    "Education",
+    "Financial services",
+    "Aviation",
+    "Government",
+    "Telecommunications",
+    "Manufacturing",
+    "Defense",
+    "Food agriculture",
+    "Mining",
+    "Transportation"
+  ],
+  "targetedCountries": ["GB", "US"],
+  "tactics": ["Reconnaissance", "Exfiltration"],
+  "techniques": ["T1059", "T1566"],
+  "tools": ["DigitalPulse", "Honeygain", "Infatica", "Notepad++ (malicious installer)"],
+  "iocPatterns": [
+    "Spear-phishing campaigns via malicious advertisements",
+    "Payload delivered via Notepad++ installer",
+    "Windows process injection into explorer.exe"
+  ],
+  "keyCapabilities": [
+    "Proxyware deployment",
+    "Notepad++ installer disguise",
+    "Windows process injection",
+    "Python-based loader usage"
+  ],
+  "recommendedActions": [
+    "Enhance network monitoring to detect suspicious processes and outbound communications from infected systems.",
+    "Educate users on the risks of downloading software from untrusted sources or engaging with pop-up ads on questionable websites.",
+    "Implement endpoint detection and response (EDR) solutions to identify and block malicious Python-based loaders and process injection activities."
+  ],
+  "campaignsText": "Larva-25012 has been active since at least 2024, with campaigns focusing on distributing Proxyware through malicious advertisements. Their targeting appears to be broad, with a focus on users visiting websites offering free YouTube video downloads or cracked software. Despite their activity since 2024, there is limited information about specific campaigns, victimology, or the geographic scope of their operations.",
+  "description": "Larva-25012 is an unidentified threat actor known for deploying Proxyware through malicious Notepad++ installers. They inject Proxyware into the Windows Explorer process, use Python-based loaders to evade detection, and distribute their payloads via advertisements on websites offering free YouTube video downloads or fake cracked software. The actor has been active since at least 2024, targeting users in an unspecified manner with multiple types of Proxyware.",
+  "goals": "The strategic objectives of Larva-25012 remain unclear due to limited available intelligence. However, their use of Proxyware suggests a focus on establishing long-term control over targeted systems for potential surveillance or data theft. Their targeting appears to be indiscriminate, as they distribute malware through general-interest websites, preying on users seeking free content or software cracks. This broad targeting indicates that Larva-25012 is likely not limited to specific sectors or regions.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1286",
+  "sourceUrl": "https://threaticon.com/threat-actors/1286"
+}

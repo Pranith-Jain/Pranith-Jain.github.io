@@ -1,0 +1,45 @@
+{
+  "slug": "storm-1101",
+  "id": 1030,
+  "name": "Storm-1101",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cybercrime", "Phishing"],
+  "aliases": ["DEV-1101"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Impact"],
+  "techniques": ["T1566.001", "T1059.003"],
+  "tools": ["Storm-1101 Phishing Kit"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting users with access to sensitive systems",
+    "Use of macro-laced Office documents for payload delivery",
+    "C2 communication via compromised domains using fast-flux networks"
+  ],
+  "keyCapabilities": [
+    "Development and distribution of phishing kits capable of bypassing MFA",
+    "Sophisticated features such as mobile device management and CAPTCHA evasion",
+    "Open-source kit with rental and premium VIP license options",
+    "High-volume phishing campaign capabilities"
+  ],
+  "recommendedActions": [
+    "Enhance MFA implementations beyond the phishing-bypass capabilities of available kits",
+    "Monitor for indicators associated with known phishing campaigns linked to Storm-1101",
+    "Educate users on recognizing and reporting suspicious emails",
+    "Implement email filtering solutions to block phishing attempts"
+  ],
+  "campaignsText": "Storm-1101's campaigns are characterized by their scalability and adaptability, as the phishing kits can be customized for various attack vectors. The actor has been linked to multiple high-profile campaigns, particularly in sectors with weak email security posture. The use of rental models allows the actor to maintain operational distance from direct campaign activities, making attribution challenging.",
+  "description": "Storm-1101, also known as DEV-1101, is a threat actor associated with Microsoft, specializing in the development and distribution of phishing kits that bypass multifactor authentication (MFA). These kits have been used by other actors, such as DEV-0928, and are available for purchase or rental, including an open-source version with advanced features like mobile device management and CAPTCHA evasion. Storm-1101's activities pose significant risks to organizations due to their ability to facilitate large-scale phishing campaigns.",
+  "goals": "Storm-1101 appears to be motivated primarily by financial gain, targeting sectors where high-value assets or sensitive data can be exploited. This likely includes industries such as finance, healthcare, and technology, where phishing campaigns can yield significant returns. The actor's victims are typically organizations with vulnerabilities in email security, MFA implementations, or user training. Their approach to selling kits suggests a focus on maximizing reach rather than selecting specific high-profile targets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1030",
+  "sourceUrl": "https://threaticon.com/threat-actors/1030"
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "tridentlocker",
+  "id": 625,
+  "name": "tridentlocker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Double-extortion",
+    "Data breach",
+    "Financially motivated",
+    "Critical Infrastructure",
+    "Supply Chain Attack",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom ransomware", "Potential use of publicly available exploit kits"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "Potential use of RDP brute-force attacks",
+    "C2 communication over encrypted channels"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Data encryption",
+    "Double-extortion tactics",
+    "Social engineering",
+    "Vulnerability exploitation"
+  ],
+  "recommendedActions": [
+    "Implement robust backup and recovery processes",
+    "Conduct regular vulnerability assessments and patching",
+    "Enhance employee awareness of phishing tactics",
+    "Deploy advanced threat detection tools",
+    "Establish incident response plans for ransomware attacks"
+  ],
+  "campaignsText": "TridentLocker's campaign patterns indicate a preference for targeting organizations with high-value data, employing double-extortion tactics to increase the likelihood of ransom payment. Their operational tempo seems to be steady, with a notable presence since mid-2025. The actor's ability to operate across multiple countries and sectors suggests a level of adaptability and resourcefulness. Notable past operations include the compromise of 16 known organizations, primarily from the government services, telecom, and engineering sectors.",
+  "description": "TridentLocker is a medium-sophistication ransomware group that has emerged since mid-2025, primarily targeting organizations handling sensitive data across various sectors in the US, Canada, UK, and Asia. Their operations involve double-extortion tactics, significantly impacting government services, telecom, and engineering firms. With 16 known victims, TridentLocker poses a considerable threat to data security and organizational stability.",
+  "goals": "TridentLocker's strategic objectives appear to be financially motivated, with a focus on targeting organizations that can yield significant ransom payments due to the sensitivity and volume of the data they manage. The actor seems to prioritize sectors and countries where the potential for lucrative payouts is higher, and the impact of double-extortion tactics can be maximized. Typical victims include government services, telecom companies, and engineering firms, which often handle regulated, third-party, or otherwise sensitive data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A625",
+  "sourceUrl": "https://threaticon.com/threat-actors/625"
+}

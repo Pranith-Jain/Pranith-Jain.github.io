@@ -1,0 +1,44 @@
+{
+  "slug": "hezb",
+  "id": 668,
+  "name": "Hezb",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": ["Cryptomining", "Exploit", "Vulnerability", "Criminal"],
+  "aliases": ["Mimo"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Execution", "Persistence", "Privilege Escalation"],
+  "techniques": ["T1190", "T1204", "T1059.003", "T1055"],
+  "tools": ["Custom cryptominer", "Exploit kits"],
+  "iocPatterns": [
+    "Spear-phishing with exploit-laced Office documents",
+    "C2 over HTTP/HTTPS using compromised websites",
+    "Staging infrastructure on compromised systems"
+  ],
+  "keyCapabilities": [
+    "Exploit development and utilization",
+    "Cryptomining and cryptocurrency manipulation",
+    "Vulnerability scanning and exploitation",
+    "System compromise and persistence"
+  ],
+  "recommendedActions": [
+    "Implement robust patch management and vulnerability remediation",
+    "Monitor for suspicious system activity and cryptomining behavior",
+    "Utilize threat intelligence to inform defensive strategies"
+  ],
+  "campaignsText": "Hezb's campaign patterns are characterized by a rapid response to newly discovered vulnerabilities, often utilizing publicly available exploit code to compromise target systems. The group's operational tempo is marked by a focus on exploiting vulnerabilities before patches are widely applied, indicating a focus on ease of exploitation. Notable past operations have involved the exploitation of high-profile vulnerabilities, such as those in common software frameworks or libraries.",
+  "description": "Hezb, also known as Mimo, is a criminal threat actor that deploys cryptominers when new exploits become available for public-facing vulnerabilities. The group's primary motivation is financial gain through unauthorized cryptocurrency mining. Hezb's activities pose a significant risk to organizations with unpatched vulnerabilities.",
+  "goals": "Hezb's strategic objectives are centered around financial gain through cryptomining. The group targets sectors with vulnerable public-facing infrastructure, seeking to exploit newly discovered vulnerabilities to establish a foothold. Typical victims include organizations with unpatched systems, which are then commandeered for cryptocurrency mining. Hezb's targeting profile suggests a focus on ease of exploitation and potential revenue generation, rather than specific industry or geographic targeting.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A668",
+  "sourceUrl": "https://threaticon.com/threat-actors/668"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "nomadic-octopus",
+  "id": 121,
+  "name": "Nomadic Octopus",
+  "mitreId": "G0133",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "government", "Central Asia", "Russia", "Initial Access", "Government Targeting"],
+  "aliases": ["DustSquad", "Nomadic Octopus"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": ["RU"],
+  "tactics": ["Collection", "Exfiltration", "Lateral Movement", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1204.002", "T1036", "T1059.001", "T1059.003", "T1566.001", "T1564.003"],
+  "tools": ["Octopus malware", "Cobalt Strike (inferred from linked TTPs)", "Hidden Window technique tools"],
+  "iocPatterns": [
+    "Spearphishing attachments with malicious links",
+    "Malicious files dropped from compromised email accounts",
+    "Windows-based malware using Delphi programming language",
+    "Hidden window creation to avoid detection"
+  ],
+  "keyCapabilities": [
+    "Custom Android malware",
+    "Custom Windows malware using Delphi",
+    "Spear-phishing campaigns",
+    "Malicious file distribution via email attachments"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering solutions to detect spear-phishing attempts.",
+    "Monitor for PowerShell and command-line tool activity indicative of malicious behavior.",
+    "Conduct regular updates and patches on all operating systems to mitigate known vulnerabilities.",
+    "Use endpoint detection and response (EDR) tools to identify hidden or anomalous processes."
+  ],
+  "campaignsText": "Nomadic Octopus has conducted long-term campaigns targeting Central Asian governments, indicating a patient and strategic approach. The group's use of custom malware suggests a high level of technical expertise tailored to specific operations. Campaign patterns include the deployment of malicious files through spear-phishing emails, often leveraging Windows PowerShell or command-line tools for execution.",
+  "description": "Nomadic Octopus is a Russian-speaking cyber espionage threat group targeting Central Asian governments, diplomatic missions, and individuals since at least 2014. Known for using custom Android and Windows malware built with the Delphi programming language, the group has demonstrated sophisticated capabilities tailored to espionage objectives.",
+  "goals": "Nomadic Octopus's primary motivation appears to be espionage, with a focus on compromising diplomatic and governmental entities in Central Asia. By targeting these sectors, the group likely seeks to obtain classified or sensitive data that could provide geopolitical advantages to its sponsors. The geographic focus on Russia and Central Asian countries aligns with potential state-backed operations aiming to influence regional dynamics.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A121",
+  "sourceUrl": "https://threaticon.com/threat-actors/121"
+}

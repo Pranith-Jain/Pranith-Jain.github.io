@@ -1,0 +1,38 @@
+{
+  "slug": "oilalpha",
+  "id": 903,
+  "name": "OilAlpha",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Social engineering", "Regional threat actor", "Middle East", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["WhatsApp", "URL shorteners"],
+  "iocPatterns": ["Encrypted chat messenger usage (e.g., WhatsApp)", "URL shortener domains"],
+  "keyCapabilities": [
+    "Social engineering via encrypted messaging platforms",
+    "Use of URL shorteners for malicious links",
+    "Targeting Android devices"
+  ],
+  "recommendedActions": [
+    "Monitor for suspicious activity related to Arabic-language communications",
+    "Implement strict controls on the use of messaging platforms for business communications"
+  ],
+  "campaignsText": "OilAlpha's campaigns appear to be regionally focused, leveraging Yemeni infrastructure and targeting Arabic speakers. Their use of social engineering suggests a focus on human interaction as an attack vector, possibly indicating lower technical sophistication but effective in their operational environment.",
+  "description": "OilAlpha appears to be a threat actor focusing on Arabic-speaking individuals in regions such as the Middle East or North Africa. They utilize encrypted communication platforms like WhatsApp for social engineering and have employed URL shorteners in their campaigns, targeting Yemeni government infrastructure associated with the Houthi authorities.",
+  "goals": "It is unclear whatOilAlpha aims to achieve due to insufficient data; however, the group’s targeting of Yemeni government infrastructure suggests a potential focus on espionage or disruption activities in politically volatile regions. Their focus on Arabic speakers indicates that their operations are likely geographically constrained to areas such as the Middle East and North Africa.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A903",
+  "sourceUrl": "https://threaticon.com/threat-actors/903"
+}

@@ -1,0 +1,49 @@
+{
+  "slug": "moustachedbouncer",
+  "id": 154,
+  "name": "MoustachedBouncer",
+  "mitreId": "G1019",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "B",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "government", "Initial Access"],
+  "aliases": [],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Initial Access", "Persistence", "Exfiltration"],
+  "techniques": ["T1113", "T1059.007", "T1074.002", "T1659", "T1059.001", "T1068", "T1027.002", "T1090"],
+  "tools": ["SharpDisco", "NightClub", "Disco"],
+  "iocPatterns": [
+    "Spear-phishing with malicious links or attachments",
+    "Use of custom tools for persistence and credential dumping",
+    "Remotely hosted command-and-control communications",
+    "Lateral movement within victim networks"
+  ],
+  "keyCapabilities": [
+    "Sophisticated cyberespionage tactics",
+    "Use of custom tools (SharpDisco, NightClub, Disco)",
+    "Remotely staging data for exfiltration",
+    "Screen capture capabilities",
+    "JavaScript-based and PowerShell-based activities",
+    "Exploitation of software vulnerabilities"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for unusual external access patterns.",
+    "Conduct regular vulnerability assessments on diplomatic IT infrastructure.",
+    "Educate employees about phishing and social engineering attacks.",
+    "Deploy email filtering solutions to block malicious links or attachments.",
+    "Monitor for the use of known threat actor tools like SharpDisco."
+  ],
+  "campaignsText": "MoustachedBouncer has demonstrated a sustained presence in the cyberespionage landscape, with activity tracked as early as 2014. Their campaigns likely involve targeted attacks against diplomatic missions in Belarus, focusing on data exfiltration and intelligence collection. Notable past operations include compromises of foreign embassy networks, though specific campaign details remain limited due to the secretive nature of their activities.",
+  "description": "MoustachedBouncer is a cyberespionage threat actor targeting foreign embassies in Belarus since at least 2014. Their activities involve sophisticated tactics such as screen capture, remote data staging, and content injection, suggesting a high level of technical proficiency. The group's operations are likely aimed at gathering sensitive diplomatic information for intelligence purposes.",
+  "goals": "MoustachedBouncer's targeting strategy focuses on foreign embassies, likely aiming to gather sensitive diplomatic information. Their choice of victims suggests a focus on情报 collection for broader political or strategic purposes. The group's long-term activity and sophisticated techniques indicate a high level of planning and resource allocation, possibly aligned with state-sponsored espionage goals.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A154",
+  "sourceUrl": "https://threaticon.com/threat-actors/154"
+}

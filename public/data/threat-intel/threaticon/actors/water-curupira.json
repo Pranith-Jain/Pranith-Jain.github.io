@@ -1,0 +1,47 @@
+{
+  "slug": "water-curupira",
+  "id": 1002,
+  "name": "Water Curupira",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Ransomware", "APT", "Espionage", "Financial Sector", "Critical Infrastructure", "Data Exfiltration"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1003.001", "T1004.004"],
+  "tools": ["Pikabot", "Cobalt Strike", "Black Basta", "Qakbot"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "C2 communications via DNS or tracking domains",
+    "Network shares accessed post-compromise"
+  ],
+  "keyCapabilities": [
+    "Social engineering campaigns",
+    "Malware deployment (Black Basta, Cobalt Strike)",
+    "Pikabot loader use for infiltration",
+    "Ransomware-based extortion",
+    "Credential harvesting"
+  ],
+  "recommendedActions": [
+    "Implement endpoint detection solutions to monitor for known threats like Cobalt Strike and Pikabot.",
+    "Enhance email security protocols to detect and block phishing attempts with malicious attachments.",
+    "Educate users on spotting social engineering tactics to prevent initial breaches.",
+    "Conduct regular backups and isolate critical systems to mitigate ransomware impact.",
+    "Segment networks to limit lateral movement of threat actors post-compromise."
+  ],
+  "campaignsText": "Water Curupira operates with a focus on South America and Europe, utilizing phishing campaigns and malware to compromise targets. Their use of the Pikabot loader in 2023 reflects evolving tactics alongside known groups using similar loaders. Notable operations involve targeting financial sectors for data theft and ransom demands, indicating a strategic approach to maximize payout potential.",
+  "description": "Water Curupira is a sophisticated ransomware operator targeting South American and European organizations since 2022. Their campaigns involve social engineering, malware deployment including Black Basta and Cobalt Strike, and leveraging Pikabot loader for network infiltration.",
+  "goals": "Water Curupira's strategic objectives likely include lucrative financial gain through ransomware extorsion, targeting sectors with high organizational value such as healthcare, finance, and logistics. Their focus on South America and Europe suggests a potential regional emphasis aligned with their operational capacity or possible affiliations. The choice of tools like Cobalt Strike indicates an interest not only in immediate profit but also in maintaining persistence within networks for prolonged data theft.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1002",
+  "sourceUrl": "https://threaticon.com/threat-actors/1002"
+}

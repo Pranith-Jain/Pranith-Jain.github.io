@@ -1,0 +1,45 @@
+{
+  "slug": "storm-1113",
+  "id": 997,
+  "name": "Storm-1113",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "malware_as_a_service", "advertising_fraud", "retail_sector"],
+  "aliases": ["APOTHECARY SPIDER"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access (TA0001)", "Defense Evasion (TA0005)", "Credential Access (TA0006)"],
+  "techniques": [],
+  "tools": ["EugenLoader", "Malicious MSI files"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Ad-based campaigns distributing MSI files",
+    "C2 communication via hardcoded domains"
+  ],
+  "keyCapabilities": [
+    "Malware distribution via search ads and malicious landing pages",
+    "Development and distribution of EugenLoader malware",
+    "Operation as a 'tool-as-a-service' provider",
+    "Spear-phishing through fake software updates"
+  ],
+  "recommendedActions": [
+    "Implement endpoint detection and response (EDR) to identify malicious MSI file executions",
+    "Monitor and block known ad injection campaigns and suspicious search engine activity",
+    "Enhance user education on recognizing fake software download pages",
+    "Conduct regular supply chain security reviews for software providers"
+  ],
+  "campaignsText": "Storm-1113's campaigns typically involve large-scale ad injection and malicious software distribution. Their operational tempo appears steady, with activity observed since November 2022. Victims are likely to include individuals and organizations exposed through popular search engines or ad networks. Notable past operations include the use of EugenLoader in fraudulent software update campaigns targeting users seeking free tools or cracked software.",
+  "description": "Storm-1113 is an access broker and 'as-a-service' threat actor known for distributing malware through search advertisements and providing malicious installers. They are associated with the EugenLoader malware, a commodity first seen in November 2022, which targets users via fake software update pages leading to malicious MSI file downloads.",
+  "goals": "Storm-1113's strategic objectives appear to focus on financial gain through the distribution of malware and provision of malicious tools. Their targeting profile likely includes sectors with high consumer-facing exposure, such as retail, e-commerce, or any industry where ad-based campaigns can effectively reach a broad audience. The absence of specific data on targeted countries suggests a global approach, possibly focusing on regions with active ad networks or less mature cybersecurity defenses.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A997",
+  "sourceUrl": "https://threaticon.com/threat-actors/997"
+}

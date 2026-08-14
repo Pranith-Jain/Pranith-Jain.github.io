@@ -1,0 +1,64 @@
+{
+  "slug": "gold-garden",
+  "id": 816,
+  "name": "GOLD GARDEN",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial Motive",
+    "Eastern European (likely origin)",
+    "Cybercriminal Organization",
+    "RaaS",
+    "Backdoor / C2",
+    "DDoS"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Ransomware Deployment", "Exfiltration", "Lateral Movement", "Defense Evasion"],
+  "techniques": [
+    "T1485.001 - Cryptocurrency mining malware deployment",
+    "T1566.001 - Exfiltration over lawful intercept tools",
+    "T1078.001 - Registry-run keys",
+    "T1069.002 - Windows Admin Shares"
+  ],
+  "tools": [
+    "GandCrab ransomware",
+    "Cloudflare services (used by affiliates)",
+    "Kakadu exploit kit",
+    "Various payloads for spear-phishing campaigns"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious macro-laced Office documents",
+    "Distribution via web exploit kits targeting known vulnerabilities",
+    "Use of legitimate cloud services for C2 communication",
+    "Encrypted payloads delivered through HTTP"
+  ],
+  "keyCapabilities": [
+    "Development of GandCrab ransomware",
+    "Ransomware-as-a-Service (RaaS) operation management",
+    "Affiliate recruitment and coordination",
+    "Control over C2 infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts",
+    "Enforce strict patch management to mitigate exploit kit attacks",
+    "Monitor network traffic for signs of brute-force attacks or unusual patterns",
+    "Train employees to recognize和社会工程攻击迹象"
+  ],
+  "campaignsText": "GOLD GARDEN's campaigns were characterized by a high volume of attacks, leveraging multiple distribution methods to maximize their reach. The group's affiliates operated independently but under the central control of GOLD GARDEN, which managed the ransomware's C2 infrastructure and collected payments. Notable campaigns included large-scale attacks on healthcare providers in the U.S. and Europe, leading to significant financial losses for victims. The abrupt shutdown of operations in May 2019 remains unexplained but may have been due to internal disputes or law enforcement pressure. Their transition of operations to GOLD SOUTHFIELD highlights their ability to adapt to changing circumstances.",
+  "description": "GOLD GARDEN was a financially motivated cybercriminal group known for operating the GandCrab ransomware from January 2018 to May 2019. The group used a ransomware-as-a-service (RaaS) model, allowing affiliates to distribute the malware in exchange for a share of the loot. Their operations spanned multiple sectors and countries until they abruptly ceased activities in May 2019. The group's shutdown remains unresolved, though its source code was later transferred to GOLD SOUTHFIELD, who used it to launch the REvil ransomware operation.",
+  "goals": "GOLD GARDEN's primary goal was to generate profit through ransomware attacks, targeting organizations that could afford to pay large sums for decryption keys. The group specifically targeted sectors such as healthcare, education, and logistics, where system downtime could lead to significant financial losses. Their global targeting reflects a strategic approach to maximize their attack surface, though their operations were heavily concentrated in regions with high internet usage and weaker security measures. Affiliates played a crucial role in expanding their reach, enabling the group to victimize numerous organizations worldwide.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A816",
+  "sourceUrl": "https://threaticon.com/threat-actors/816"
+}

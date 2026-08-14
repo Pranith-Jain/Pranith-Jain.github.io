@@ -1,0 +1,65 @@
+{
+  "slug": "ta2725",
+  "id": 1054,
+  "name": "TA2725",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "Spain (ES)",
+  "originCode": "ES",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Ransomware",
+    "Banking malware",
+    "Financial Fraud",
+    "Geographically Targeted",
+    "Spanish-Speaking Countries",
+    "Financial Targeting",
+    "Phishing"
+  ],
+  "aliases": ["ConnectWise Control", "Synaptics worm", "services", "public key cryptography"],
+  "targetedSectors": [
+    "Financial services",
+    "Media",
+    "Defense",
+    "Government",
+    "Transportation",
+    "Manufacturing",
+    "Information technology",
+    "Energy"
+  ],
+  "targetedCountries": ["BR", "MX", "ES", "US", "UA"],
+  "tactics": ["Reconnaissance", "Credential Access", "Execution"],
+  "techniques": ["T1566.001", "T1078"],
+  "tools": ["Brazilian Banking Malware", "Phishing Kits"],
+  "iocPatterns": [
+    "Spear-phishing campaigns with Brazilian banking malware",
+    "Use of legitimate cloud services for malicious activity hosting",
+    "Spoofing legitimate company domains",
+    "Credential theft via phishing"
+  ],
+  "keyCapabilities": [
+    "Use of Brazilian banking malware",
+    "Phishing campaigns mimicking legitimate companies",
+    "Leverage legitimate cloud service providers for infrastructure",
+    "Spoofing tactics"
+  ],
+  "recommendedActions": [
+    "Monitor for phishing attempts mimicking financial institutions",
+    "Enforce multi-factor authentication (MFA) in financial sectors",
+    "Block known malicious domains and IPs associated with TA2725 campaigns",
+    "Conduct regular employee training on phishing detection",
+    "Apply updates to banking software and infrastructure"
+  ],
+  "campaignsText": "TA2725's campaigns are characterized by their persistence and adaptability. They have been active across multiple regions, indicating a capability for geographic expansion. Notable operations include simultaneous attacks in Mexico and Brazil, highlighting a potential shift towards bulk targeting to maximize their campaign reach.",
+  "description": "TA2725 is a threat actor active since March 2022, primarily targeting financial institutions in Brazil and Mexico, with recent expansion to Spain using sophisticated malware and phishing techniques.",
+  "goals": "TA2725 appears to have a primary motivation centered around financial gain, targeting sectors where monetary theft is feasible. Their focus on banking institutions in Brazil, Mexico, and Spain suggests an interest in exploiting financial systems for profit. The group's strategic choice of regions may be influenced by the presence of financial services with weaker cybersecurity defenses or easier access to targets due to language and cultural familiarity.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1054",
+  "sourceUrl": "https://threaticon.com/threat-actors/1054"
+}

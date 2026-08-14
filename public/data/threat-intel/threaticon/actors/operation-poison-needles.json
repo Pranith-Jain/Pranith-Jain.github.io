@@ -1,0 +1,44 @@
+{
+  "slug": "operation-poison-needles",
+  "id": 752,
+  "name": "Operation Poison Needles",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "nation-state", "healthcare", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Resource Development", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom malware (inferred from campaign patterns)", "Spear-phishing tools", "living-off-the-land behavior"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting medical or government employees",
+    "Malicious Office documents attached to phishing emails",
+    "Unusual network activity from compromised systems"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing with malicious Office documents",
+    "Compromise of web infrastructure",
+    "Highly targeted attack methodology"
+  ],
+  "recommendedActions": [
+    "Monitor for spear-phishing attempts with malicious Office attachments",
+    "Enhance email security measures with tools like Microsoft 365 Defender",
+    "Conduct regular audits of web infrastructure for vulnerabilities",
+    "Implement strict access controls for sensitive medical data"
+  ],
+  "campaignsText": "Operation Poison Needles demonstrates a patient and targeted approach to compromising sensitive systems. The attack's timing during the Kerch Strait Incident suggests possible关联性with broader geopolitical events. Future operations may target similar high-value institutions in politically sensitive sectors, leveraging sophisticated methods to avoid detection.",
+  "description": "Operation Poison Needles is a suspected advanced persistent threat (APT) targeting a sensitive medical institution in Russia, potentially linked to state-sponsored activity. The attack was notable for its timing during the Kerch Strait Incident and its highly targeted approach to compromising an organization with ties to Russian executive and legislative authorities.",
+  "goals": "The primary objective appears to be compromising sensitive information from a highly protected medical institution serving influential figures in Russia. The targeting of such a specific, high-value organization suggests a focus on intelligence gathering or disruption of state-related activities. Potential long-term goals may include embarrassing the Russian government or influencing geopolitical dynamics.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A752",
+  "sourceUrl": "https://threaticon.com/threat-actors/752"
+}

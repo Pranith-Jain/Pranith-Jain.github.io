@@ -1,0 +1,54 @@
+{
+  "slug": "viceleaker",
+  "id": 775,
+  "name": "ViceLeaker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Mobile Threat",
+    "Surveillance Malware",
+    "Geographic Targeting (Israel)",
+    "Spyware",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Information Gathering", "Persistence"],
+  "techniques": [
+    "T1566.001 - Exfiltration Over Alternative Protocol",
+    "T1572.001 - Data Transfer to Cloud Account",
+    "T1185 - Use of Programming Scripting Language for Credential Access"
+  ],
+  "tools": ["ViceLeaker Malware", "Custom Android Spyware"],
+  "iocPatterns": [
+    "Android APKs with embedded malicious payloads",
+    "Network traffic originating from known ViceLeaker C2 servers",
+    "Spear-phishing attempts delivering malicious mobile apps"
+  ],
+  "keyCapabilities": [
+    "Delivery of mobile spyware via malicious APKs",
+    "Embedding payloads within legitimate application code",
+    "Information exfiltration from compromised devices"
+  ],
+  "recommendedActions": [
+    "Monitor for Android applications linked to ViceLeaker hash signatures",
+    "Educate users on the risks of downloading unknown or suspicious apps",
+    "Implement YARA-based detection rules in SIEM solutions to identify VPSC-related threats",
+    "Enhance app store scanning to detect malicious updates"
+  ],
+  "campaignsText": "ViceLeaker's campaign was initially limited to targeting Android users in Israel, suggesting a geographically focused approach. The use of private threat intelligence reports and YARA rules indicates an effort to contain the threat and prevent widespread dissemination of their tools. Notable for its targeting precision, ViceLeaker remains a potentially serious threat to individual privacy and national security interests.",
+  "description": "ViceLeaker is a mobile-focused threat actor identified in May 2018 targeting Android users in Israel. The group uses sophisticated mobile spyware embedded in malicious APK files to exfiltrate sensitive information, likely for surveillance or espionage purposes.",
+  "goals": "ViceLeaker appears to target individuals or organizations likely of interest for surveillance, with a particular focus on Israeli citizens during initial sightings. Their strategic goal may involve gathering sensitive data or conducting espionage activities against high-value targets in specific regions. The limited but targeted campaign suggests a focus on discrete operations rather than large-scale disruption.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A775",
+  "sourceUrl": "https://threaticon.com/threat-actors/775"
+}

@@ -1,0 +1,39 @@
+{
+  "slug": "shaoleaks",
+  "id": 598,
+  "name": "shaoleaks",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Extortion", "Ransomware", "Data Leak", "Low-Profile Actor"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Data Exfiltration", "Defense Evasion"],
+  "techniques": ["T1057", "T1060", "T1005", "T1048"],
+  "tools": ["Custom Phishing Tools", "Encryption Software for Data Leak Sites", "Ransomware Frameworks"],
+  "iocPatterns": [
+    "Phishing emails mimicking legitimate communications",
+    "Encrypted orTor-based communication channels for extortion demands",
+    "Domains associated with leak sites hosted on bulletproof hosting services"
+  ],
+  "keyCapabilities": ["Phishing", "Data Exfiltration", "Ransomware Distribution", "Anonymous Communication Channels"],
+  "recommendedActions": [
+    "Implement advanced phishing detection tools",
+    "Enhance incident response protocols for quick ransomware and data exfiltration events",
+    "Monitor for unusual network traffic indicative of data leaks"
+  ],
+  "campaignsText": "SHAOleaks operates with limited, but targeted campaigns. Their victims include businesses that would suffer significantly from data exposure. Campaign patterns suggest an emphasis on quick strikes to avoid prolonged detection, possibly linked to emerging extortion groups within the cybercrime ecosystem.",
+  "description": "SHAOleaks is a low-profile cyber threat actor involved in data leak and extortion activities. They operate discreetly with minimal documentation, suggesting possible short-lived operations. Their primary tactic involves threatening to release sensitive information unless ransoms are paid.",
+  "goals": "SHAOleaks aims to achieve financial gain through extortion by threatening data leaks. Their targeting likely focuses on sectors where information loss would cause significant reputational or financial damage. Despite their operational obscurity, they demonstrate a clear intent to exploit sensitive data for profit, with victims possibly including mid-sized businesses in critical infrastructure areas.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A598",
+  "sourceUrl": "https://threaticon.com/threat-actors/598"
+}

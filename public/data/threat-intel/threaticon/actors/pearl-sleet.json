@@ -1,0 +1,56 @@
+{
+  "slug": "pearl-sleet",
+  "id": 1012,
+  "name": "Pearl Sleet",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "K",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Nation-state", "Cyber Espionage", "North Korea", "Media Organizations", "APT"],
+  "aliases": ["DEV-0215", "LAWRENCIUM"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Reconnaissance",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": [],
+  "tools": ["Custom malware", "Spear phishing tools"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting defectors",
+    "Malware embedded in malicious attachments or links",
+    "C2 infrastructure communication patterns"
+  ],
+  "keyCapabilities": [
+    "Spear phishing attacks",
+    "Malware development/deployment",
+    "Data exfiltration",
+    "C2 infrastructure management"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions to detect spear-phishing attempts.",
+    "Monitor for unusual network activity indicative of persistent threats.",
+    "Conduct regular security training on recognizing phishing emails.",
+    "Segment networks and apply least privilege principles to mitigate lateral movement."
+  ],
+  "campaignsText": "Pearl Sleet has conducted long-term campaigns targeting specific individuals and organizations. Their operations suggest a focus on maintaining persistence and secrecy, aligning with typical nation-state espionage tactics.",
+  "description": "Pearl Sleet (DEV-0215, LAWRENCIUM) is a North Korea-based cyber espionage group targeting defectors and media organizations. They have been active since at least 2012, focusing on intelligence gathering likely linked to political or internal security objectives.",
+  "goals": "Pearl Sleet targets defectors and media organizations to gather intelligence that could be used for political manipulation or national security in North Korea. Their targeting strategy reflects a focus on sectors likely to hold sensitive information regarding the regime or its citizens.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1012",
+  "sourceUrl": "https://threaticon.com/threat-actors/1012"
+}

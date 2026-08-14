@@ -1,0 +1,59 @@
+{
+  "slug": "costaricto",
+  "id": 969,
+  "name": "CostaRicto",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cyber-espionage", "mercenary-group", "south-asia-focused", "custom-malware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Command and Control", "Data Exfiltration"],
+  "techniques": [
+    "T1055.003 - Peer-to-Peer Communication",
+    "T1071.001 - Proxy",
+    "T1573 - Encrypted Channel",
+    "T1059.003 - Command-Line Interface",
+    "T1219 - Exploit Public-Facing Application"
+  ],
+  "tools": [
+    "Bespoke Malware (Custom-built tools with no public attribution)",
+    "SSH-based tunneling infrastructure",
+    "Custom C2 servers with domain generation algorithms (DGAs)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Microsoft Office documents",
+    "C2 communication over SSH tunnelling and commercial VPN services",
+    "Staged infrastructure on bulletproof hosting platforms",
+    "Domain generation algorithms with geopolitical-related keywords",
+    "Unusual network traffic patterns during off-peak hours"
+  ],
+  "keyCapabilities": [
+    "Use of custom-developed malware with anti-forensic features",
+    "SSH tunnelling and VPN proxy techniques for command-and-control (C2) obfuscation",
+    "Sophisticated network infiltration and lateral movement within compromised environments",
+    "Targeted spear-phishing campaigns with tailored payloads",
+    "Data exfiltration using stealthy, encrypted channels"
+  ],
+  "recommendedActions": [
+    "Monitor for anomalous SSH and VPN tunneling activity originating from South Asian IP ranges",
+    "Implement advanced email filtering with sandboxing for malicious document attachments",
+    "Deploy endpoint detection and response (EDR) tools to identify custom malware behavior",
+    "Conduct regular network traffic analysis for encrypted channel anomalies",
+    "Perform red-team exercises targeting South Asian-specific attack vectors"
+  ],
+  "campaignsText": "CostaRicto's campaigns exhibit a low operational tempo but high precision, suggesting a focus on stealth and long-term access. Operations often involve multi-stage implants and staged infrastructure deployment, with a preference for bulletproof hosting services to avoid detection. Notable past activities include targeting South Asian energy firms and diplomatic institutions, though no major publicly known breaches have been directly attributed to the group. Their reliance on manual exploitation techniques and lack of automated tools indicates a highly tailored approach to each operation.",
+  "description": "CostaRicto is a mercenary cyber-espionage group operating globally with a focus on South Asia. The group employs sophisticated techniques such as SSH tunnelling and bespoke malware to exfiltrate sensitive information from high-value targets. Their activities suggest alignment with clients seeking strategic intelligence, though their exact motivations remain unclear.",
+  "goals": "CostaRicto's primary objective appears to be the acquisition of sensitive information for financial or strategic gain, given their mercenary model. Their focus on South Asia suggests an interest in regions with emerging digital economies, critical infrastructure, or political instability that could be exploited for intelligence purposes. Typical victims include organizations in government, energy, and defense sectors, where access to classified or proprietary data would hold significant value to paying clients. The group's lack of overt ideological alignment suggests a transactional approach to targeting, prioritizing client demands over geopolitical motives.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A969",
+  "sourceUrl": "https://threaticon.com/threat-actors/969"
+}

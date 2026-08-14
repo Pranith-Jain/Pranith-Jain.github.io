@@ -1,0 +1,50 @@
+{
+  "slug": "gray-sandstorm",
+  "id": 999,
+  "name": "Gray Sandstorm",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "State-sponsored", "Cyber Espionage", "Maritime Sector", "Defense Sector"],
+  "aliases": ["DEV-0343"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Initial Access", "Credential Access"],
+  "techniques": [
+    "T1097 - Valid Accounts",
+    "T1078 -Credential Access",
+    "T1082 -System Information Discovery",
+    "T1576 - Exfiltration Over Alternative Protocol"
+  ],
+  "tools": ["o365spray", "Mimikatz", "PsInject", "Custom credential-dumping tools"],
+  "iocPatterns": [
+    "Password spray attempts across O365 accounts",
+    "Use of o365spray tool in phishing emails or scripts",
+    "Credential dumping activities post-compromise",
+    "Exfiltration via unexpected protocols"
+  ],
+  "keyCapabilities": [
+    "Password spraying attacks",
+    "Use of tools like o365spray for credential access",
+    "Potential use of additional espionage or lateral movement tools"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for O365 and other critical systems.",
+    "Monitor for and block suspicious brute-force attempts on RDP and email services.",
+    "Conduct regular credential audits to identify weak or reused passwords.",
+    "Deploy network traffic analysis tools to detect anomalies indicative of Gray Sandstorm's TTPs."
+  ],
+  "campaignsText": "Gray Sandstorm's campaigns have consistently targeted defense and maritime sectors in the U.S. and Israel, suggesting a sustained focus on critical infrastructure. Their operational tempo appears methodical, with a preference for password spraying as an initial access vector. No specific high-profile campaigns have been publicly identified, but their activity indicates a long-term, persistent threat to these regions.",
+  "description": "Gray Sandstorm, also known as DEV-0343, is an Iran-linked cyber threat actor group observed since at least 2012. They primarily target defense technology companies, maritime transportation firms, and Persian Gulf ports in the U.S. and Israel. Their main tactic involves password spraying, often utilizing tools like o365spray, to compromise systems for potential espionage or disruption activities.",
+  "goals": "Gray Sandstorm appears to target specific sectors that align with Iran's geopolitical interests, such as defense technology and maritime infrastructure in the U.S. and Israel. Their focus on these regions suggests a strategic goal to weaken adversaries' capabilities or gather intelligence that could benefit Iranian interests. The group's targeting of corporate and critical infrastructure sectors indicates a long-term operational strategy aimed at destabilizing adversaries' economic and military capacities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A999",
+  "sourceUrl": "https://threaticon.com/threat-actors/999"
+}

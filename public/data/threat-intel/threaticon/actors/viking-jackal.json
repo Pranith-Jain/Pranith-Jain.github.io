@@ -1,0 +1,62 @@
+{
+  "slug": "viking-jackal",
+  "id": 721,
+  "name": "Viking Jackal",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "A",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "ransomware", "financial-sector", "espionage", "persistent-threat"],
+  "aliases": ["Vikingdom"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Credential Access",
+    "Defense Evasion",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": ["T1059", "T1047", "T1055", "T1003", "T1566"],
+  "tools": [
+    "RagnarLocker ransomware",
+    "Cobalt Strike (suspected)",
+    "Mimikatz (credential dumping tool)",
+    "Custom backdoors",
+    "Radmin remote administration tool"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious macros",
+    "Legitimate-looking files (e.g., DLLs) hosting malicious code",
+    "C2 communications using HTTPS or legitimate services",
+    "Ransomware encryption patterns consistent with RagnarLocker"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment (RagnarLocker)",
+    "Spear phishing campaigns",
+    "Watering hole attacks",
+    "Legitimate tool abuse (e.g., Radmin RAT)",
+    "Credential harvesting and lateral movement within networks"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear phishing attempts.",
+    "Monitor for unusual network activity, particularly related to known C2 domains.",
+    "Conduct regular backups of critical systems and ensure they are offline from the network.",
+    "Train employees to recognize suspicious emails and attachments.",
+    "Patch all systems regularly to mitigate potential exploitation vectors."
+  ],
+  "campaignsText": "Viking Jackal has been linked to multiple attacks targeting financial institutions across Europe and North America. Their campaigns often involve a phased approach, starting with spear-phishing emails containing malicious macros or legitimate-looking files. Once inside the network, the actors establish persistence and move laterally to identify high-value assets before deploying ransomware or exfiltrating data. Notable campaigns include those involving the RagnarLocker variant that includes a kill-switch mechanism tied to specific domains.",
+  "description": "Viking Jackal, also known as Vikingdom, is suspected to be an advanced persistent threat (APT) group targeting financial institutions globally. The group likely employs sophisticated tactics such as spear phishing, credential harvesting, and ransomware deployment. Their operations suggest a focus on high-value assets and data theft for potential financial gain or espionage.",
+  "goals": "Viking Jackal's strategic objectives likely center on financial gain through ransomware campaigns and potential espionage activities targeting sensitive sector information. Their targeting of financial institutions suggests a focus on high-value assets and the disruption of critical services. The group appears to prioritize English-speaking countries, possibly due to weaker organizational security frameworks or easier access vectors.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A721",
+  "sourceUrl": "https://threaticon.com/threat-actors/721"
+}

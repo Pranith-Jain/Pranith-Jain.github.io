@@ -1,0 +1,55 @@
+{
+  "slug": "gold-skyline",
+  "id": 820,
+  "name": "GOLD SKYLINE",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "financial-motivation",
+    "business-email-compromise",
+    "malware",
+    "east african cybercrime",
+    "Financial Targeting",
+    "Phishing"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Infiltration", "Initial Access"],
+  "techniques": ["T1059.003", "T1486.001", "T1078", "T1566.001"],
+  "tools": ["Spear-phishing", "Malware (likely custom or repurposed)", "Fast-Flux C2 infrastructure"],
+  "iocPatterns": [
+    "Spear-phishing with email-based social engineering",
+    "C2 communication via Fast-Flux domains",
+    "Compromised email accounts used for wire transfers",
+    "Use of malware to facilitate account access"
+  ],
+  "keyCapabilities": [
+    "Social engineering via business email compromise (BEC)",
+    "Account spoofing and impersonation",
+    "Use of malware for compromising systems",
+    "Exploitation of supply chain vulnerabilities",
+    "Targeting high-value wire transfers"
+  ],
+  "recommendedActions": [
+    "Enhance employee training on BEC and phishing indicators",
+    "Implement multi-factor authentication (MFA) for critical financial systems",
+    "Monitor for unusual wire transfer activity with automated alerting",
+    "Conduct regular internal security audits focused on supply chain vulnerabilities",
+    "Adopt threat intelligence feeds to identify potential GOLD SKYLINE tactics"
+  ],
+  "campaignsText": "GOLD SKYLINE’s campaigns typically involve long-term operational cycles, with a focus on maintaining persistence and avoiding detection. Their use of BEC and spoofing techniques suggests an emphasis on low-technical infrastructure requirements, making them accessible to a broader range of targets. Notable past operations include numerous cases of successful wire fraud against financial institutions and multinational corporations. The group’s campaigns often exhibit a slow-burn approach, where they gather sufficient intelligence before executing the fraudulent transfer.",
+  "description": "GOLD SKYLINE is a financially motivated cybercriminal group based in Nigeria, known for high-value wire fraud using business email compromise (BEC) and spoofing (BES). Active since at least 2016, the group has evolved its tactics to include malware alongside traditional social engineering techniques. Their primary targets are financial institutions, supply chains, and international businesses.",
+  "goals": "GOLD SKYLINE’s strategic objective is to maximize financial gain through the unauthorized diversion of funds. Their targeting profile focuses on industries with high transaction volumes and weak internal controls, such as financial services, energy, and logistics. The group appears to prioritize targets based on the ease of exploitation rather than specific geographic or sectoral preferences beyond their operational capabilities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A820",
+  "sourceUrl": "https://threaticon.com/threat-actors/820"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "scarab",
+  "id": 831,
+  "name": "Scarab",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Nation-State", "Cyber-Espionage", "Targeted Attacks", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Data Theft and Exfiltration", "Persistence"],
+  "techniques": ["T1059.003", "T1233", "T1185", "T1490", "T1566.001"],
+  "tools": ["Scieron Backdoor", "Custom Spear-Phishing Tools", "Malware Development Frameworks"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "C2 communication via custom protocols or domains",
+    "Use of domain generation algorithms for persistence",
+    "Custom payloads dropped during initial access"
+  ],
+  "keyCapabilities": [
+    "Custom malware development (Scieron backdoor)",
+    "Spear-phishing campaigns",
+    "Persistent network access and data exfiltration",
+    "Geopolitical targeting",
+    "Sophisticated TTPs for avoiding detection"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear-phishing attempts.",
+    "Monitor network traffic for signs of C2 communication channels.",
+    "Conduct regular endpoint detection and response (EDR) scans."
+  ],
+  "campaignsText": "Scarab has demonstrated a patient, long-term operational approach, with sustained campaigns targeting specific individuals and sectors. The group’s use of Scieron backdoor indicates an emphasis on maintaining persistence and evading detection while exfiltrating sensitive data. Notable past operations include attacks against Russian and U.S.-based targets, suggesting a focus on strategic geopolitical interests.",
+  "description": "Scarab is a highly sophisticated nation-state threat actor active since at least 2012, with significant operations observed as early as 2015. Known for surgical attacks targeting specific individuals and sectors in Russia and the United States, Scarab employs custom malware such as Scieron to infiltrate targets, likely for espionage or strategic data collection purposes.",
+  "goals": "Scarab’s strategic objectives appear to align with the interests of its nation-state sponsor(s), likely targeting high-value individuals or organizations in sectors such as finance, defense, and energy. The group’s focus on surgical attacks indicates a preference for precision over volume, suggesting an intent to gather specific, sensitive information rather than conducting widespread destruction or notoriety-seeking operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A831",
+  "sourceUrl": "https://threaticon.com/threat-actors/831"
+}

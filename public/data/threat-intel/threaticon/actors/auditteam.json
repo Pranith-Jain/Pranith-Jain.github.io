@@ -1,0 +1,60 @@
+{
+  "slug": "auditteam",
+  "id": 340,
+  "name": "auditteam",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Double extortion",
+    "Financial gain",
+    "East Asia",
+    "Technology sector",
+    "Manufacturing sector"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [
+    "Ransomware (specific type unknown)",
+    "Phishing tools",
+    "Data exfiltration tools",
+    "Encryption software for data leak sites"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails mimicking legitimate communications",
+    "Presence of encrypted files indicating ransomware activity",
+    "Network indicators like unusual outbound traffic to known malicious domains",
+    "Use of payment methods such as cryptocurrency wallets for ransoms"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Double extortion tactics (data encryption and leak threats)",
+    "Spear-phishing attacks using social engineering",
+    "Network persistence techniques",
+    "Data exfiltration methods"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for RDP and email access",
+    "Conduct regular phishing simulations to enhance user awareness",
+    "Enhance network monitoring for异常 outbound traffic",
+    "Secure backups with air-gapped solutions to prevent data loss",
+    "Deploy endpoint detection and response (EDR) tools"
+  ],
+  "campaignsText": "AuditTeam has demonstrated a focused approach with five known victims, indicating a measured campaign strategy. Their operational period from February to June 2026 suggests they are actively adapting their tactics to avoid detection. Victims include Kawasaki Motors Philippines Corporation and several unnamed organizations in tech and retail sectors. These campaigns often involve rapid encryption followed by data leak threats, targeting both the victim's reputation and financial stability.",
+  "description": "AuditTeam is a medium-sophistication ransomware group specializing in double-extortion tactics. Operating primarily in East and Southeast Asia, they target sectors like technology and manufacturing, leveraging financial gain through加密和数据泄露。Their activity spans from February 2026, impacting five known victims with a focus on organizational extorsion.",
+  "goals": "AuditTeam aims to achieve significant financial gains through ransomware campaigns, leveraging double-extortion to maximize their returns. Their targeting strategy focuses on sectors with valuable or sensitive data that can be leaked, such as technology and manufacturing companies. The group's geographic focus indicates an understanding of regional vulnerabilities or potential higher success rates in East and Southeast Asia. Typical victims include mid-to-large sized organizations with weaker cybersecurity measures, making them easier to breach and more likely to pay ransoms.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A340",
+  "sourceUrl": "https://threaticon.com/threat-actors/340"
+}

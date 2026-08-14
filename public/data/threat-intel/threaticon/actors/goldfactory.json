@@ -1,0 +1,63 @@
+{
+  "slug": "goldfactory",
+  "id": 1061,
+  "name": "GoldFactory",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "malware",
+    "banking",
+    "Asia-Pacific",
+    "espionage",
+    "Initial Access",
+    "Financial Targeting",
+    "Critical Infrastructure",
+    "Phishing"
+  ],
+  "aliases": ["UNC961", "Prophet Spider", "Iron Hunter", "Venomous Bear"],
+  "targetedSectors": [
+    "Government",
+    "Financial services",
+    "Energy",
+    "Transportation",
+    "Healthcare",
+    "Non profit",
+    "Manufacturing",
+    "Defense",
+    "Retail",
+    "Critical infrastructure"
+  ],
+  "targetedCountries": ["VN", "GB", "KP", "BR", "MX", "RU", "US", "DE", "UA"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Credential Access"],
+  "techniques": ["T1059", "T1663", "T1584", "T1078"],
+  "tools": ["GoldPickaxe", "GoldDigger", "Gigabud Malware Family"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or QR codes",
+    "Fake login pages mimicking legitimate banking services",
+    "Command-and-control domains resembling genuine financial institutions",
+    "Distribution of mobile malware via SMS or email attachments"
+  ],
+  "keyCapabilities": [],
+  "recommendedActions": [
+    "Implement advanced mobile device management solutions to detect and block suspicious apps",
+    "Educate employees about social engineering tactics through regular training programs",
+    "Monitor network traffic for signs of command-and-control communication patterns",
+    "Use threat intelligence feeds specifically tailored to mobile banking malware threats",
+    "Regularly update and patch mobile devices and financial applications"
+  ],
+  "campaignsText": "GoldFactory has been observed conducting long-term campaigns across the Asia-Pacific region, leveraging diverse tactics to evade detection. Their operations typically involve targeting financial institutions and mobile banking users through sophisticated phishing attacks that exploit human error. The group's malware evolves frequently, indicating a capacity for rapid adaptability and innovation in attack techniques, making them challenging to counter.",
+  "description": "GoldFactory is a sophisticated mobile banking malware threat group targeting primarily Asia-Pacific regions, including Vietnam and Thailand. They employ social engineering tactics to distribute malware through smishing and phishing, compromising devices to steal sensitive financial information. Their strategic targeting of key sectors in emerging economies poses significant risks to financial stability and organizational security.",
+  "goals": "GoldFactory's primary objectives appear to be financial gain through the theft of sensitive information, with a focus on sectors such as financial services that hold valuable data. They target countries like Indonesia, Peru, Philippines, South Africa, and Thailand, potentially due to their mobile-first banking environments and varying levels of cybersecurity maturity. This strategic targeting allows them to maximize their attack success rates while minimizing detection risks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1061",
+  "sourceUrl": "https://threaticon.com/threat-actors/1061"
+}

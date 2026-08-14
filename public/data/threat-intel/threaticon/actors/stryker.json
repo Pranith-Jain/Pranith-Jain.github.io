@@ -1,0 +1,50 @@
+{
+  "slug": "stryker",
+  "id": 692,
+  "name": "stryker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 7, 2026",
+  "tags": [
+    "APT",
+    "Nation-state",
+    "Destructive malware",
+    "Corporate/government targeting",
+    "Hacktivism",
+    "Wiper / Destructive"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Disruption", "Exfiltration"],
+  "techniques": ["T1078 (Account Access Removal)", "T1024 (Credentials Obtainment)"],
+  "tools": ["Custom wiper malware", "MDM abuse tools"],
+  "iocPatterns": [
+    "Abnormal MDM infrastructure activity",
+    "unauthorized access attempts via legitimate IT tools",
+    "Signs of internal communications disruption"
+  ],
+  "keyCapabilities": [
+    "Destructive wiper malware",
+    "Abuse of legitimate MDM infrastructure",
+    "High-sophistication attacks suggesting nation-state sponsorship"
+  ],
+  "recommendedActions": [
+    "Monitor MDM systems for suspicious activities",
+    "Enhance third-party vendor security practices",
+    "Implement network segmentation to mitigate spread"
+  ],
+  "campaignsText": "Stryker's campaign against the US highlights strategic targeting of critical infrastructure. Their use of novel attack vectors and rapid operational tempo suggests alignment with state-sponsored objectives.",
+  "description": "The Stryker threat actor represents a significant Iranian cyber capability, likely state-sponsored. Known for sophisticated attacks including wiper malware incidents targeting US corporate infrastructure, they demonstrate advanced operational capabilities. Their use of legitimate MDM tools for destructive purposes underscores their ability to adapt and escalate operations.",
+  "goals": "Stryker targets sectors like government and corporate infrastructure, likely aiming to achieve strategic disruption or damage. Their focus on high-value Western targets aligns with broader geopolitical objectives, possibly for influence or economic gain.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A692",
+  "sourceUrl": "https://threaticon.com/threat-actors/692"
+}

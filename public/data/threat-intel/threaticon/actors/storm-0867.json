@@ -1,0 +1,54 @@
+{
+  "slug": "storm-0867",
+  "id": 1016,
+  "name": "Storm-0867",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "E",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Phishing", "Cyber Espionage", "Social Engineering"],
+  "aliases": ["DEV-0867"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Credential Access"],
+  "techniques": [
+    "T1059.003 - Remote Access Tools",
+    "T1078 - Phishing",
+    "T1091 - Office Document Malware",
+    "T1566.001 - Credentials from Browser"
+  ],
+  "tools": ["Caffeine (PhaaS platform)", "Custom phishing tools", "Social engineering kits"],
+  "iocPatterns": [
+    "Phishing emails with malicious links or attachments",
+    "Intercepted authentication sessions via communication interception",
+    "Use of Caffeine PhaaS platform for phishing campaigns",
+    "Manipulation of legitimate service communication flows"
+  ],
+  "keyCapabilities": [
+    "Sophisticated phishing campaigns",
+    "Social engineering techniques",
+    "Phishing-as-a-service (Caffeine platform)",
+    "Credential harvesting via intercepted communications",
+    "Bypass of multifactor authentication (MFA)",
+    "Modification of authentication methods"
+  ],
+  "recommendedActions": [
+    "Implement and enforce multifactor authentication (MFA) across all critical systems.",
+    "Conduct regular user training on recognizing phishing attempts and suspicious activities.",
+    "Monitor network traffic for signs of intercepted or manipulated communications.",
+    "Deploy endpoint detection and response (EDR) solutions to detect malicious activity.",
+    "Perform periodic threat hunting exercises focusing on phishing-related IOC patterns."
+  ],
+  "campaignsText": "Storm-0867 has conducted long-term campaigns since 2012, indicating a patient and methodical approach. Their operations typically involve targeted phishing attacks against organizations to harvest credentials and circumvent security measures. The group's use of a dedicated PhaaS platform suggests an organized operational model, enabling efficient attack planning and execution. Campaign patterns include continuous evolution of tactics to avoid detection and maintain persistence in target networks.",
+  "description": "Storm-0867, also known as DEV-0867, is a sophisticated cyber threat actor active since 2012, primarily targeting multiple industries and regions through advanced phishing campaigns and social engineering techniques. The group utilizes a phishing-as-a-service platform called Caffeine to intercept and manipulate user communications, enabling credential theft, MFA bypass, and unauthorized access.",
+  "goals": "Storm-0867's strategic objectives likely include espionage, financial gain, or disrupting targeted organizations. The actor's choice of victims spans multiple industries, indicating a broad targeting strategy without sector-specific preference. Their geographic reach across regions implies a global focus, with no apparent restriction to specific countries. Typical victims are organizations with significant digital assets, sensitive data, or strong authentication mechanisms that the group aims to bypass.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1016",
+  "sourceUrl": "https://threaticon.com/threat-actors/1016"
+}

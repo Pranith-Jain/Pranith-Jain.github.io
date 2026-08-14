@@ -1,0 +1,46 @@
+{
+  "slug": "kryptos",
+  "id": 476,
+  "name": "kryptos",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Motivation", "Sector-specific targeting", "North-America", "Oceania"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Persistence", "Lateral Movement", "Exfiltration", "Collection Activity"],
+  "techniques": ["T1078.001", "T1568.004", "T1093.005", "T1562.003"],
+  "tools": ["Ransomware Toolkits", "Phishing Email Templates", "Lateral Movement Tools", "C2 Communication Frameworks"],
+  "iocPatterns": [
+    "Encrypted files with .kryptos extension",
+    "Ransomnotes delivered via encrypted email attachments",
+    "C2 communication channels using Fast-Flux domains",
+    "Phishing campaigns targeting sector-specific email addresses"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Phishing/spear-phishing attacks",
+    "Lateral movement within networks",
+    "Credential dumping techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect and block phishing attempts.",
+    "Enable regular backups with offline storage for critical systems to mitigate ransomware impact.",
+    "Monitor network traffic for indicators of lateral movement and credential dumping activities.",
+    "Adopt a Zero Trust model within professional services to reduce attack surface exposure."
+  ],
+  "campaignsText": "Kryptos has demonstrated a methodical approach to campaign planning, with initial operations focusing on specific sectors and regions. The group appears to be honing its skills, as evidenced by the limited number of known victims compared to more established ransomware groups. Their operational tempo suggests they are either small in size or highly selective about their targets. Notable past operations include attacks on legal and professional service providers during their debut month.",
+  "description": "Kryptos is an emerging ransomware group observed in October 2025, conducting simultaneous attacks across North America and Oceania targeting professional, technical, and legal services sectors. The group operates with medium sophistication, focusing on organizational gain and financial exploitation through ransomware activities.",
+  "goals": "Kryptos appears to target industries with high financial value and sensitive data, such as legal and professional services, where ransomware can demand significant ransoms for decrypted files. Their targeting of North America and Oceania suggests an initial focus on English-speaking regions, possibly due to familiarity or ease of communication within those areas. The group's victims are likely selected based on the ease of infiltration and the potential financial return from encrypting critical data. Small-to-medium-sized businesses (SMBs) within these sectors may also be targeted if they lack robust security measures.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A476",
+  "sourceUrl": "https://threaticon.com/threat-actors/476"
+}

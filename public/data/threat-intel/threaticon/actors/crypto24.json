@@ -1,0 +1,47 @@
+{
+  "slug": "crypto24",
+  "id": 395,
+  "name": "crypto24",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "double extortion", "cybercrime-as-a-service", "Ransomware", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1059.003", "T1055", "T1078"],
+  "tools": ["Ransomware payload delivery framework"],
+  "iocPatterns": [
+    "Spear-phishing emails mimicking trusted entities",
+    "Distribution of malicious Office documents with embedded scripts (e.g., VBA)",
+    "C2 communication via hardcoded domains or IPs (e.g., 45.63.9.192:5050)",
+    "Encrypted files with specific extension patterns"
+  ],
+  "keyCapabilities": [
+    "Double-extortion ransomware deployment",
+    "Sophisticated phishing campaigns",
+    "Exploitation of software vulnerabilities",
+    "Encryption of sensitive data for monetary extortion"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for critical systems",
+    "Monitor for suspicious network traffic originating from known Crypto24 IOCs",
+    "Conduct regular backups of critical data and isolate backup servers",
+    "Enhance employee training on identifying phishing attempts",
+    "Deploy endpoint detection and response (EDR) solutions"
+  ],
+  "campaignsText": "Crypto24's campaigns exhibit a pattern of targeting large, geographically dispersed enterprises. Their operational tempo is steady with periodic spikes in activity following major incidents. Notable campaigns include attacks on CMC Group and other high-profile organizations. The group leverages both custom malware and existing ransomware frameworks, often supported by robust command-and-control infrastructure.",
+  "description": "Crypto24 is a mid-sophistication ransomware-as-a-service (RaaS) group emerged in mid-2024, specializing in double-extortion campaigns targeting large enterprises across financial services, healthcare, manufacturing, and technology sectors globally. Operating with high organizational efficiency, the group has demonstrated significant operational persistence since their first detection in December 2023, with a notable victim list including major corporates like CMC Group and Vietnam's second-largest ICT company. Their primary modus operandi involves encrypting victims' data and demanding substantial ransoms for decryption keys, often coupled with threats to leak sensitive information unless paid.",
+  "goals": "Crypto24's strategic objectives are centered around maximizing financial gain through high-impact ransomware campaigns. They target sectors with significant data and revenue exposure, including financial services, healthcare, manufacturing, and technology. Their global reach across Asia, Europe, and North America suggests a focus on densely populated industrial regions to maximize attack surface and victim pool. The choice of victims reflects a balance between organizational size and criticality of operations to ensure successful ransom payments while avoiding excessive attention from law enforcement.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A395",
+  "sourceUrl": "https://threaticon.com/threat-actors/395"
+}

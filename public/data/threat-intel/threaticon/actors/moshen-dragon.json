@@ -1,0 +1,66 @@
+{
+  "slug": "moshen-dragon",
+  "id": 966,
+  "name": "Moshen Dragon",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "China-aligned",
+    "Cyberespionage",
+    "Telecommunication Sector",
+    "Nation-state",
+    "Backdoor / C2",
+    "Data Exfiltration"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Data Theft", "Network Access Maintenance"],
+  "techniques": [
+    "T1059.003 - Remote Command and Control over .NET Remoting",
+    "T1055 - Process Injection",
+    "T1566.001 - OS Credential Dumping"
+  ],
+  "tools": [
+    "ShadowPad Malware",
+    "PlugX Backdoors",
+    "Impacket Framework",
+    "GUNTERS Passive Backdoor",
+    "LSA Notification Packages"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious .LNK files ormacro-laced Office documents",
+    "DLL search order hijacking for fileless malware delivery",
+    "Unusual network traffic indicative of C2 communication using known ports",
+    "Use of LSA notification packages in system processes"
+  ],
+  "keyCapabilities": [
+    "DLL search order hijacking for malware deployment",
+    "Use of ShadowPad and PlugX malware variants",
+    "LSA notification package exploitation",
+    "Passive backdoor creation (GUNTERS)",
+    "Leveraging Impacket for lateral movement and data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement strong perimeter and endpoint detection mechanisms to detect DLL injection and .NET Remoting activity.",
+    "Monitor for unusual process behavior and network anomalies associated with Impacket usage.",
+    "Enhance logging capabilities to track LSA notifications and identify unauthorized backdoor activities.",
+    "Conduct regular patch management to mitigate vulnerabilities exploited by Moshen Dragon's tools.",
+    "Educate employees about phishing tactics and implement email filtering to block malicious payloads."
+  ],
+  "campaignsText": "Moshen Dragon has been active in Central Asia, conducting targeted campaigns against telecom entities. Their operations demonstrate a patient and methodical approach, often utilizing off-the-shelf tools and frameworks like Impacket for both persistence and lateral movement. The actor's campaigns are likely linked to broader Chinese state-sponsored espionage efforts.",
+  "description": "Moshen Dragon is a Chinese-aligned cyberespionage threat actor targeting Central Asia, primarily focusing on the telecommunication sector. They employ advanced tactics such as DLL search order hijacking, LSA notification packages, and passive backdoors like GUNTERS. Their activities include deploying malware triads and leveraging tools like PlugX and ShadowPad for long-term access.",
+  "goals": "Moshen Dragon's strategic objectives appear to revolve around cyberespionage and potentially disruptive activities in the telecommunication sector, likely to bolster Chinese geopolitical interests in Central Asia. The targeting of this specific sector suggests a focus on gaining access to critical infrastructure and sensitive communications data. Their victims are primarily located in regions aligned with or adjacent to China's Belt and Road Initiative, indicating a geostrategic targeting approach.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A966",
+  "sourceUrl": "https://threaticon.com/threat-actors/966"
+}

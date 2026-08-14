@@ -1,0 +1,49 @@
+{
+  "slug": "entropy",
+  "id": 427,
+  "name": "entropy",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Ransomware", "Dridex", "Banking Trojan", "Criminal", "Financial Fraud", "Custom Malware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Encryption", "Malware Deployment"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1070.004", "T1002"],
+  "tools": ["Dridex Trojan", "Custom packer (malware)", "Entropy ransomware family"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Script-based malware delivery",
+    "Dridex-related indicators of compromise (IoCs)",
+    "Custom packer signatures in executable files",
+    "Ransomware payload deployment after initial infection"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment with custom packers",
+    "Use of Dridex banking Trojan in infection chains",
+    "sophisticated persistence mechanisms",
+    "Lateral movement and data exfiltration techniques",
+    "Spear-phishing campaigns with malicious payloads"
+  ],
+  "recommendedActions": [
+    "Enhance email filtering to detect spear-phishing attempts",
+    "Monitor for unusual script activity and process execution",
+    "Implement endpoint detection solutions focusing on custom packer and Dridex-related patterns",
+    "Segment network access to limit lateral movement potential",
+    "Conduct regular training sessions on phishing awareness"
+  ],
+  "campaignsText": "Entropy's campaigns exhibit a clear pattern of integrating Dridex infections to facilitate ransomware deployment. The group targets organizations globally, suggesting an opportunistic approach rather than sector-specific focus. Initial infection vectors include phishing emails and malicious scripts. Notable past operations have involved high-profile victims in multiple industries, with a focus on maximizing payout potential through targeted encryption.",
+  "description": "Entropy is a ransomware threat actor first observed in early 2022, linked to the Dridex banking Trojan. The group uses custom packers for their malware and has targeted organizations globally for financial gain through ransom demands.",
+  "goals": "Entropy's strategic focus is on generating direct financial profit through ransomware campaigns. The group targets organizations across multiple sectors, leveraging Dridex to gain initial access. Their victims are typically chosen based on high-value data or assets that would maximize the potential for payout during a ransom event. There is no specific sector or geographic targeting observed thus far.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A427",
+  "sourceUrl": "https://threaticon.com/threat-actors/427"
+}

@@ -1,0 +1,62 @@
+{
+  "slug": "riddle-spider",
+  "id": 806,
+  "name": "RIDDLE SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Ransomware",
+    "Double extortion",
+    "Sector-specific targeting",
+    "Healthcare sector",
+    "Education sector",
+    "Global threat actor"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Impact"],
+  "techniques": ["T1566.001", "T1485", "T5001", "T1078.001"],
+  "tools": [
+    "Avaddon Ransomware",
+    "Cobalt Strike (potential usage)",
+    "Mimikatz",
+    "Trickbot/Qbot (potential for initial access)"
+  ],
+  "iocPatterns": [
+    "Ransomware encryption patterns matching Avaddon",
+    "Creation of new user accounts with high privileges",
+    "External communication channels for ransom negotiations",
+    "Lateral movement via RDP or WMI",
+    "Encrypting backup files and systems"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment (Avaddon)",
+    "Double extortion tactics",
+    "Spear-phishing campaigns",
+    "Exploitation of remote desktop services (T5001)",
+    "Lateral movement within networks",
+    "Data encryption for disruption and extortion"
+  ],
+  "recommendedActions": [
+    "Implement robust patch management to address remote desktop service vulnerabilities (T5001)",
+    "Deploy endpoint detection and response (EDR) solutions to monitor for Cobalt Strike and Mimikatz activity",
+    "Conduct user training on phishing awareness to mitigate potential spear-phishing attempts",
+    "Encrypt backups and ensure they are air-gapped from the network",
+    "Monitor for unusual lateral movement activities within the network"
+  ],
+  "campaignsText": "RIDDLE SPIDER's campaigns demonstrate a focus on sectors with high recovery costs and data sensitivity. The group has been observed targeting healthcare organizations globally, causing significant disruptions. Notable operations include large-scale ransomware deployments that have resulted in data leaks and financial losses for victims. Campaign patterns indicate a preference for double extortion tactics, where encrypted data is also exfiltrated and released unless ransoms are paid.",
+  "description": "RIDDLE SPIDER is a threat actor associated with the Avaddon ransomware family, which employs double extortion tactics. The group primarily targets healthcare, education, and other sectors globally, leveraging sophisticated techniques to breach organizations and encrypt sensitive data for financial gain.",
+  "goals": "RIDDLE SPIDER's strategic objectives are centered around financial gain through ransomware deployments. The group primarily targets sectors with high data sensitivity and recovery costs, such as healthcare and education, where the impact of disruptions can be severe. RIDDLE SPIDER's global reach suggests a focus on broad geographic targeting to maximize victim pools.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A806",
+  "sourceUrl": "https://threaticon.com/threat-actors/806"
+}

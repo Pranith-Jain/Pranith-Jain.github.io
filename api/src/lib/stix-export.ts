@@ -1,0 +1,1 @@
+../../../worker/lib/stix-export.ts

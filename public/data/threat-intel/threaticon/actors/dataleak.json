@@ -1,0 +1,52 @@
+{
+  "slug": "dataleak",
+  "id": 411,
+  "name": "dataleak",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["cybercrime", "cybercriminal", "ransomware", "data_theft", "拉丁美洲 (Latin America)", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Data Breach", "Operations Security"],
+  "techniques": ["T1075", "T1097", "T1204", "T1536"],
+  "tools": [
+    "Ransomware payload delivery",
+    "File encryption tools",
+    "Possibly generic attack frameworks like Cobalt Strike (though unconfirmed)",
+    "Zip compression for data exfiltration"
+  ],
+  "iocPatterns": [
+    "Ransomware-related file encryption patterns",
+    "Presence of unknown executables on systems",
+    "Encrypted files with appended extensions",
+    "Network lateral movement within infected networks"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Data exfiltration techniques",
+    "Basic initial access mechanisms",
+    "Encryption of stolen data"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint detection and response (EDR) solutions to detect ransomware activity.",
+    "Monitor for unusual network behavior, including lateral movements and data exfiltration attempts.",
+    "Enforce multi-factor authentication (MFA) for critical systems to mitigate unauthorized access.",
+    "Conduct regular backups of sensitive data and ensure they are stored offline or in secure cloud storage.",
+    "Educate employees about phishing and social engineering tactics to reduce the risk of initial compromise."
+  ],
+  "campaignsText": "Dataleak's campaign patterns remain largely unknown due to the lack of publicly available intelligence. They appear to have targeted six victims in Brazil, which suggests a local or regional focus. Their operational tempo is low but active, with activity identified around 2022-12-02. Given their limited visibility, Dataleak may be a smaller or emerging threat group attempting to establish itself in the ransomware ecosystem.",
+  "description": "Dataleak is a low-profile ransomware group identified as criminal actors with medium sophistication. Their primary motivation appears to be organizational gain, targeting victims for financial profit through ransomware attacks. Despite limited public intelligence, they have demonstrated some operational capability, particularly in Brazil, though their exact tools and origins remain unclear.",
+  "goals": "Dataleak appears to target sectors where financial gain is achievable through ransomware attacks. While no specific industries have been identified, common targets for such groups often include healthcare, education, and small-to-medium enterprises due to their reliance on data and limited defensive measures. The targeting of Brazil suggests a focus on regional or language-specific victims, possibly leveraging local tools or communication channels. Their objectives are centered on stealing sensitive data and extorting payments through encryption.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A411",
+  "sourceUrl": "https://threaticon.com/threat-actors/411"
+}

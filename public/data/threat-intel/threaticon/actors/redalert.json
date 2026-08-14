@@ -1,0 +1,55 @@
+{
+  "slug": "redalert",
+  "id": 579,
+  "name": "redalert",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Gain", "Organizational-Intelligence", "Critical Infrastructure Attack"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Lateral Movement", "Data Destruction"],
+  "techniques": [
+    "T1059.003 - Obfuscated Files or Information",
+    "T1070 - Lateral Movement across a Network",
+    "T1566 - Data Exfiltration through Rogue Web Servers",
+    "T1204.002 - Data Encoding/Alias creation foransomware negotiation"
+  ],
+  "tools": ["N13V Ransomware"],
+  "iocPatterns": [
+    "Ransomware file hashes associated with N13V",
+    "Monero wallet addresses used inprevious negotiations",
+    "Kill switch domains registered by the group",
+    "Network_traffic indicators linked to their killswitchmechanism"
+  ],
+  "keyCapabilities": [
+    "Ransomware targeting VMware ESXi servers",
+    "Encryption using NTRUEncrypt algorithm",
+    "Double extortion tactics (data exfiltration + encryption)",
+    "Payment in Monero cryptocurrency",
+    "Lateral movement within networks",
+    "Kill switch functionality in ransomware"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for unusual lateral movement patterns",
+    "Patch VMware environments against known vulnerabilities immediately",
+    "Enforce multi-factor authentication for all critical access points",
+    "Conduct regular backups and store them offline/air-gapped",
+    "Use EDR solutions to detect suspicious file encryption",
+    "Educate users about phishing attempts targetingVMware administrators"
+  ],
+  "campaignsText": "Redalert's campaigns between July and September2022 suggest a targeted approach, with known victims in sectors like Education and Critical Infrastructure. Their use ofdouble extortion indicates a sophisticated approach beyond simply encrypting data. Thegroup appears to have a quick operationaltempo based on their short firstand last seen windows, possibly indicating either focusedcampaigns or limited resources. Notable for their relatively small numberofknown victims and lack of large-scale campaigns typical of higher-tiergroups.",
+  "description": "RedAlert, also known as N13V, is amedium-tier ransomware group targeting Windows and Linux VMware ESXi servers. First observed in July 2022, they encrypt VM files using the NTRUEncrypt algorithm and demand Monero for decryption. Theiroperations are notable for their double-extortion tactics and limited targeting scope to date.",
+  "goals": "RedAlert's strategic goals appear to be primarily financiallymotivated, with a focus on disrupting victims' operations through encryptionand extracting ransoms as the main revenue source. Thetargetingprofile focuses on corporate networks running VMware ESXi, suggestinga technical expertise in exploiting virtualization environments.The choice ofVMware likely reflects both ease of access and high value targetsdue to the critical nature of server infrastructure.Arrays andIndustries Critical Infrastructure, Financial Services, and Education sectorsare most exposed due to their reliance on virtualized environments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A579",
+  "sourceUrl": "https://threaticon.com/threat-actors/579"
+}

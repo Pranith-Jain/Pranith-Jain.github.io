@@ -1,0 +1,50 @@
+{
+  "slug": "bluesky",
+  "id": 366,
+  "name": "bluesky",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financially Motivated", "Russian-Origin", "Windows Targeting", "Affiliate Group"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Ransomware", "Lateral Movement", "Defense Evasion"],
+  "techniques": ["T1502.003", "T1040"],
+  "tools": [
+    "BlueSky ransomware",
+    "Windows Management Instrumentation (WMI)",
+    "Covenant or Empire for payloads delivery"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious Office documents or scripts",
+    "Encrypting files using ChaCha20/Curve25519 ciphers with specific file extensions (e.g., .encrypted)",
+    "Network indicators such as brute-force attempts on RDP, SMB, or other services"
+  ],
+  "keyCapabilities": [
+    "Multi-threaded ChaCha20/Curve25519 encryption for file locking",
+    "Affiliation with established Russian-origin threat groups (e.g., Conti, Babuk)",
+    "Efficient deployment of ransomware to maximize operational impact",
+    "Use of shared tools and infrastructure within the RaaS ecosystem"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block phishing emails",
+    "Monitor for unusual network activity indicative of lateral movement",
+    "Encrypt sensitive data with strong encryption and maintain offline backups",
+    "Conduct regular employee training on identifying ransomware-related threats",
+    "Patch systems promptly and employ endpoint detection solutions"
+  ],
+  "campaignsText": "BlueSky's campaign patterns include targeting organizations with phishing emails containing malicious attachments, such as compressed files or scripts. They may also leverage compromised credentials or initial access frameworks to deploy their ransomware. Their operational tempo appears to be opportunistic but structured, potentially linked to broader affiliate groups. Notable past operations include attacks on educational institutions and healthcare providers during the active period of mid-2022 to early 2023.",
+  "description": "BlueSky is a financially motivated ransomware group active since mid-2022. They target organizations globally using multi-threaded encryption for rapid file locking on Windows systems. Their operations suggest ties to other Russian-origin threat groups like Conti and Babuk, indicating medium sophistication and organizational-gain objectives.",
+  "goals": "BlueSky targets sectors with high data sensitivity and significant financial resources, such as healthcare, education, manufacturing, and government entities. This aligns with their organizational-gain motivation, as these industries often have large datasets or critical information that, when encrypted, would necessitate rapid payment to avoid prolonged downtime. Their victims are typically organizations that cannot afford extended disruptions and may lack robust backup solutions. The group's focus on financial gain is evident in their use of ransomware, which is a highly lucrative tactic for extorting money from businesses, hospitals, schools, and other institutions.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A366",
+  "sourceUrl": "https://threaticon.com/threat-actors/366"
+}

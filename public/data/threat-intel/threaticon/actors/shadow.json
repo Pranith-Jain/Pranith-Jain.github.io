@@ -1,0 +1,58 @@
+{
+  "slug": "shadow",
+  "id": 596,
+  "name": "shadow",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-motives", "Stealthy-activity", "Low-profile-group"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Cyber Exploitation",
+    "Defense Evasion",
+    "Discovery",
+    "Exfiltration",
+    "Impact",
+    "Initial Access",
+    "Persistence"
+  ],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078", "T1003.001", "T1485"],
+  "tools": ["Cobalt Strike", "Mimikatz", "Zerologon toolset", "Custom backdoors", "Ransomware crypters"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting employees",
+    "Document-based exploits using macros",
+    "C2 communication via encrypted channels",
+    "Presence of custom or known ransomware binaries",
+    "Encrypted files with specific file extensions"
+  ],
+  "keyCapabilities": [
+    "Experience in deploying ransomware for financial gain",
+    "Capability to encrypt victim data using strong encryption techniques",
+    "Possibility of using phishing or social engineering tactics",
+    "Network propagation mechanisms",
+    "Data exfiltration capabilities",
+    "Persistence and lateral movement within networks"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts",
+    "Enhance network segmentation to limit lateral movement",
+    "Regularly backup critical data and store offline",
+    "Monitor for unusual system behavior using EDR tools",
+    "Conduct phishing simulations to improve employee awareness"
+  ],
+  "campaignsText": "Shadow's campaign patterns remain speculative due to their low profile. It is inferred that they may conduct prolonged campaigns targeting a variety of industries, especially those with slower incident response times. Campaigns likely involve targeted phishing attempts or exploitation of vulnerabilities to gain entry into networks, followed by methodical data encryption and exfiltration. Shadow's victims are not limited to specific regions or sectors, but rather appear to be selected based on their ability to pay ransoms without resorting to law enforcement intervention. No major campaigns have been publicly linked to Shadow, which suggests either a small operational footprint or highly effective at remaining under the radar.",
+  "description": "Shadow is a medium-sophistication ransomware group suspected of employing organizational-gain tactics to achieve financial goals through cyberattacks on unspecified targets in various sectors and countries. While the lack of specific targeting data leaves gaps in understanding their operational scope, Shadow's focus on profitability aligns with their criminal nature.",
+  "goals": "Shadow's strategic objectives are primarily financial in nature. The group appears to target any sector that it deems capable of paying large ransoms without resorting to law enforcement intervention. Organizational-gain motives suggest premeditation, targeting businesses or institutions where the impact of a ransomware attack could be maximized. While precise victimology is not available,Shadow likely prioritizes industries with high financial stakes and slow recovery times, such as healthcare, manufacturing,or critical infrastructure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A596",
+  "sourceUrl": "https://threaticon.com/threat-actors/596"
+}

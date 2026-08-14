@@ -1,0 +1,83 @@
+{
+  "slug": "patchwork",
+  "id": 36,
+  "name": "Patchwork",
+  "mitreId": "G0040",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government",
+    "defense",
+    "NGO",
+    "south_asia",
+    "Initial Access",
+    "Critical Infrastructure",
+    "Phishing",
+    "Government Targeting"
+  ],
+  "aliases": ["Hangover Group", "Dropping Elephant", "Chinastrats", "MONSOON"],
+  "targetedSectors": ["Defense", "Government", "Ngo"],
+  "targetedCountries": ["IN", "SA"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1053.005",
+    "T1132.001",
+    "T1074.001",
+    "T1036.005",
+    "T1204.002",
+    "T1553.002",
+    "T1587.002",
+    "T1059.001",
+    "T1027.001",
+    "T1070.004",
+    "T1083",
+    "T1027.002",
+    "T1055.012"
+  ],
+  "tools": ["TINYTYPHON", "Unknown Logger", "BackConfig", "NDiskMonitor", "BADNEWS", "AutoIt backdoor"],
+  "iocPatterns": [
+    "Spearphishing campaigns with malicious links",
+    "Use of scheduled tasks for persistence",
+    "Code signing certificates for malicious binaries",
+    "Distribution of malicious files via phishing emails"
+  ],
+  "keyCapabilities": [
+    "Use of basic tools and techniques often sourced from online forums",
+    "Spearphishing campaigns targeting specific sectors",
+    "Distribution of malicious links via phishing emails",
+    "Use of scheduled tasks for persistence",
+    "Code signing to enhance campaign credibility",
+    "Removal of indicators of compromise from tools"
+  ],
+  "recommendedActions": [
+    "Monitor for suspicious scheduled task activity",
+    "Enhance email filtering to detect spearphishing links",
+    "Implement endpoint detection and response (EDR) solutions",
+    "Conduct regular audits of system configurations for signs of unauthorized changes",
+    "Educate employees on phishing tactics and suspicious emails"
+  ],
+  "campaignsText": "Patchwork has been involved in several notable campaigns, including Operation Hangover and Monsoon. These campaigns have targeted U.S. think tanks and Indian government agencies, respectively. The group is known for its persistence and ability to remain active despite being monitored by cybersecurity researchers. Patchwork's operations often involve spearphishing links targeting victims in the defense and diplomatic sectors.",
+  "description": "Patchwork, also known as Hangover Group or Dropping Elephant, is a cyber espionage group targeting defense, government, and NGO sectors globally. The group has been active since December 2015 and is suspected to have ties to an Indian pro-Indian entity. Patchwork uses basic tools and techniques, often sourced from online forums, but remains effective due to its operational stealth and persistence.",
+  "goals": "Patchwork's primary motivation appears to be espionage, with a focus on collecting sensitive information from government and defense sector targets. The group's global targeting across regions like India, the Middle East, Europe, and South Asia suggests a broad intelligence-gathering objective. Typical victims include diplomatic agencies, think tanks, and organizations involved in geopolitical activities, aligning with its suspected pro-Indian or Indian entity origins.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A36",
+  "sourceUrl": "https://threaticon.com/threat-actors/36"
+}

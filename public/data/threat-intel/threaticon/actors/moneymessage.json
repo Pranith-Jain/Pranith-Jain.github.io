@@ -1,0 +1,55 @@
+{
+  "slug": "moneymessage",
+  "id": 515,
+  "name": "moneymessage",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "ransomware",
+    "APT",
+    "critical-infrastructure",
+    "banking",
+    "transportation",
+    "Ransomware",
+    "Financial Targeting",
+    "Data Exfiltration"
+  ],
+  "aliases": ["ThreatLabz"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Lateral Movement"],
+  "techniques": ["T1053.002", "T1078.001", "T1091.004"],
+  "tools": ["Cerber Ransomware (hypothetical, based on common TTPs)"],
+  "iocPatterns": [
+    "Spear-phishing campaigns targeting sector-specific industries",
+    "Use of custom malware for ransomware deployment",
+    "Encrypted communication channels for C2"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Data exfiltration",
+    "Lateral movement within networks",
+    "Credential dumping"
+  ],
+  "recommendedActions": [
+    "Implement rigorous patch management practices",
+    "Enhance employee training on phishing detection",
+    "Segment sensitive network areas to limit lateral movement",
+    "Deploy advanced endpoint protection solutions",
+    "Strengthen incident response capabilities including regular simulations"
+  ],
+  "campaignsText": "moneymessage has been involved in multiple campaigns, including those targeting Forestdale, Envision Unlimited, and Yourway Transportation. Their operational tempo suggests a steady engagement in cyberattacks over several years, indicating a well-organized group capable of sustained activity. Campaigns have historically targeted critical infrastructure and professional services firms, with the intent to disrupt operations and extort substantial ransoms.",
+  "description": "moneymessage, also known as ThreatLabz, is a medium-sophistication criminal threat actor primarily motivated by organizational-gain and financial profit. Specializing in ransomware attacks, moneymessage has targeted sectors including banking, transportation, and professional services, particularly in the United States. Known for demanding significant ransoms and publishing stolen data on their blog if payments are not made, this group poses a substantial threat to organizations managing critical infrastructure and sensitive data.",
+  "goals": "moneymessage targets industries where data breaches and ransomware attacks can have significant financial and reputational impacts, such as banking and professional services, while also targeting transportation for potential operational disruption. Their primary motivation is organizational-gain and financial profit, with campaigns focusing on sectors that offer high rewards. The group's geographic focus is primarily in the US, suggesting a strategic targeting of regional vulnerabilities and higher ransom-paying capabilities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A515",
+  "sourceUrl": "https://threaticon.com/threat-actors/515"
+}

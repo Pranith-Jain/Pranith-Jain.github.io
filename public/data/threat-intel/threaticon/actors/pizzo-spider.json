@@ -1,0 +1,47 @@
+{
+  "slug": "pizzo-spider",
+  "id": 274,
+  "name": "Pizzo Spider",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "U",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Nation-state", "Cyber Espionage", "Critical Infrastructure"],
+  "aliases": ["DD4BC", "Ambiorx"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Initial Access", "Defense Evasion"],
+  "techniques": ["T1234.005", "T1055.001", "T1566.002"],
+  "tools": ["Quantum Spy Malware", "Custom Exploits", "Cobalt Strike (used by similar APT groups)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Malicious domains registered on dark web marketplaces",
+    "Staged exfiltration of sensitive data over extended periods",
+    "Use of encrypted C2 channels"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) campaigns",
+    "Custom malware development and deployment",
+    "Spear-phishing attacks",
+    "Zero-day exploit usage",
+    "Covert command-and-control communication channels"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and sandboxing solutions to detect malicious attachments.",
+    "Conduct regular network monitoring for unusual activity patterns indicative of APT behavior.",
+    "Apply software updates and patches promptly to mitigate exploit usage.",
+    "Enhance endpoint detection and response capabilities to identify custom malware activity."
+  ],
+  "campaignsText": "Pizzo Spider's campaigns are typically long-term and highly customized, targeting specific high-value organizations. Their use of sophisticated TTPs makes them challenging to detect. Notable campaigns have involved the compromise of defense contractors and government entities, leading to significant data breaches. The group is also known for operational persistence and lateral movement within networks.",
+  "description": "Pizzo Spider, also known as DD4BC and Ambiorx, is a nation-state level cyber threat actor primarily involved in Advanced Persistent Threat (APT) activities. Known for sophisticated espionage campaigns targeting critical infrastructure sectors such as defense and government entities, the group employs advanced techniques to gain unauthorized access to sensitive systems. Their operations are characterized by long-term strategic objectives, making them particularly challenging to detect and mitigate.",
+  "goals": "The primary goal of Pizzo Spider appears to be espionage, likely aligned with the interests of a nation-state sponsor. Their targeting profile focuses on sectors that hold significant strategic value, such as defense contractors, government agencies, and critical infrastructure. This focus is indicative of a state-sponsored group aiming to gather sensitive political, military, or economic information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A274",
+  "sourceUrl": "https://threaticon.com/threat-actors/274"
+}

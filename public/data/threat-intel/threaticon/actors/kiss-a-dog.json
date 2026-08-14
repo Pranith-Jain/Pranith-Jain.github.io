@@ -1,0 +1,54 @@
+{
+  "slug": "kiss-a-dog",
+  "id": 925,
+  "name": "Kiss-a-Dog",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cryptojacking", "cloud-sector", "container-escape"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration"],
+  "techniques": [
+    "T1132.001 - Exploit Public-Facing Application - Web Application",
+    "T1059.003 - Command and Scripting Interpreter",
+    "T1566.001 - Phishing - Spearphishing Attachment",
+    "T1026 - Exploitation of Vulnerability",
+    "T1547.001 - Child Process"
+  ],
+  "tools": ["Custom cryptojacking malware", "Container escape exploits", "Anonymized mining pool infrastructure"],
+  "iocPatterns": [
+    "Spear-phishing with malicious Office documents targeting DevOps personnel",
+    "C2 communication over DNS with fast-flux infrastructure",
+    "Staging of infrastructure on bulletproof hosting services",
+    "Use of mining pools with names containing 'dog' (e.g., 'dog-pool.com')"
+  ],
+  "keyCapabilities": [
+    "Container escape exploits",
+    "Exploitation of Docker/Kubernetes vulnerabilities",
+    "Use of obscure, anonymized domains for command-and-control (C2)",
+    "Deployment of cryptocurrency mining payloads",
+    "Obfuscation of infrastructure via anonymized mining pools"
+  ],
+  "recommendedActions": [
+    "Audit and patch Docker/Kubernetes configurations to prevent container escape",
+    "Implement network segmentation to isolate container hosts from critical infrastructure",
+    "Monitor for anomalous CPU usage patterns indicative of cryptojacking",
+    "Deploy endpoint detection tools with container-specific threat signatures",
+    "Blocking domains associated with anonymized mining pools in network firewalls"
+  ],
+  "campaignsText": "Kiss-a-Dog's campaigns are characterized by a focus on containerized infrastructure, leveraging misconfigurations and unpatched vulnerabilities in Docker and Kubernetes environments. The actor's use of obscure domains and anonymized pools suggests an effort to operate covertly and avoid attribution. Operational tempo appears to be low-and-slow, prioritizing stealth over rapid lateral movement. Notably, no prior campaigns or actor affiliations have been publicly attributed to this group, indicating it may be an emerging threat.",
+  "description": "Kiss-a-Dog is a threat actor linked to a cryptojacking campaign targeting vulnerable Docker and Kubernetes infrastructure. The actor exploits container vulnerabilities and uses obscure domains and anonymized mining pools to evade detection. This campaign highlights risks to cloud-native environments and underscores the need for robust container security measures.",
+  "goals": "Kiss-a-Dog's primary objective appears to be financial gain through cryptocurrency mining. The actor specifically targets sectors heavily reliant on containerized infrastructure, such as cloud services, DevOps, and software development, where vulnerabilities in Docker and Kubernetes configurations are prevalent. By exploiting these environments, the group can leverage the computational resources of victim systems to mine cryptocurrency without direct interaction from victims. The lack of known geopolitical motives suggests a criminally motivated approach focused on monetizing infrastructure weaknesses.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A925",
+  "sourceUrl": "https://threaticon.com/threat-actors/925"
+}

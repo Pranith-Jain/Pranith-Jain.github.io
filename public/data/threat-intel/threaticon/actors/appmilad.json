@@ -1,0 +1,55 @@
+{
+  "slug": "appmilad",
+  "id": 953,
+  "name": "AppMilad",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Cyber Espionage",
+    "Middle East Targeting",
+    "Corporate Espionage",
+    "Fake App Distribution",
+    "Financial Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Surveillance", "Network investigation discovery"],
+  "techniques": ["T1055", "T1003.001", "T1059"],
+  "tools": ["RatMilad spyware", "Fake apps (likely custom built)"],
+  "iocPatterns": [
+    "Spear-phishing emails with fake app download links",
+    "Malicious app distribution via compromised or legitimate-looking stores",
+    "C2 communication over HTTPS (potential anomalies)",
+    "Registry entries or file patterns indicative of malware persistence"
+  ],
+  "keyCapabilities": [
+    "Developing custom spyware (RatMilad)",
+    "Distribution via fake applications",
+    "Data exfiltration capabilities",
+    "Persistent backdoor creation",
+    "Surveillance toolkit implementation"
+  ],
+  "recommendedActions": [
+    "Implement rigorous application vetting processes for enterprise devices.",
+    "Monitor network traffic for unusual outbound communications, especially from internal systems.",
+    "Educate users on the risks of downloading applications from unverified sources.",
+    "Conduct regular endpoint detection and response (EDR) checks for signs of RatMilad infection indicators.",
+    "Develop an incident response plan tailored to potential spyware incidents."
+  ],
+  "campaignsText": "AppMilad has been observed targeting Middle Eastern businesses over several years. Their campaigns typically involve initial infection through app distribution, followed by lateral movement within networks and data exfiltration. No specific high-profile campaigns have been widely reported beyond their use of RatMilad spyware.",
+  "description": "AppMilad is an Iranian hacking group known for the RatMilad spyware campaign. They target primarily Middle Eastern enterprises through fake apps, aiming to gather corporate and personal information.",
+  "goals": "AppMilad's goals appear to be centered around the acquisition of sensitive corporate information and personal data. By targeting Middle Eastern enterprises, they may be seeking to gather intelligence relevant to political or economic interests, possibly aligned with broader Iranian espionage objectives. Their choice of fake apps as a delivery mechanism indicates an understanding of target demographics and a desire for stealthy infiltration.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A953",
+  "sourceUrl": "https://threaticon.com/threat-actors/953"
+}

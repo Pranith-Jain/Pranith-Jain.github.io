@@ -1,0 +1,55 @@
+{
+  "slug": "thegreenbloodgroup",
+  "id": 621,
+  "name": "thegreenbloodgroup",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Gain", "Criminal", "Emerging-THREAT", "India", "Senegal"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1059.003", "T1055", "T1486", "T1566.001"],
+  "tools": ["Ransomwarepayload-Go-based ChaCha8 variant", "Phishing Tools", "Network Lateral Movement Tools"],
+  "iocPatterns": [
+    "Spear-phishing with email-based campaigns",
+    "Use of OnionMail domains for C2 communications",
+    "Go-based payload distribution via malicious attachments"
+  ],
+  "keyCapabilities": [
+    "Go-based ransomware payload",
+    "ChaCha8 encryption implementation",
+    "Backup file destruction techniques",
+    "Laterally moving within networks"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection solutions",
+    "Monitor for suspicious emails from domains like onionmail.org",
+    "Regularly backup critical systems and isolate backup data",
+    "Enforce multi-factor authentication (MFA) on RDP and network access points"
+  ],
+  "campaignsText": "The Green Blood Group appears to be an emerging actor with limited operational history as of February 2026. Their campaigns demonstrate a focus on specific geographic regions, suggesting an initial targeting strategy based on either opportunity or organizational maturity in those areas. The group's use of aggressive backup destruction indicates a sophisticated approach for disrupting recovery efforts. Notable past operations include targeted ransomware attacks against education, healthcare, and small to medium enterprises (SMEs) in the identified countries.",
+  "description": "The Green Blood Group (aka TheGreenBlood) is an emerging ransomware operation identified in early 2026. Primarily targeting organizations in India, Senegal, Egypt, Colombia, and Belgium, the group employs a Go-based Windows payload utilizing ChaCha8 encryption and destructive backup deletion techniques. Unlike many ransomware groups, they exhibit medium sophistication with a focus on financial gain through organizational disruption.",
+  "goals": "The Green Blood Group's strategic objectives align closely with typical ransomware operations, focusing on disrupting business continuity to coerce victims into paying ransoms for decrypted data. Their targeting strategy appears geographically diverse but may reflect a broader focus on sectors or regions where defensive measures are weaker or backup systems are less mature. The group's activities so far suggest an early-stage operation that is still establishing its campaign patterns and victimology.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A621",
+  "sourceUrl": "https://threaticon.com/threat-actors/621"
+}

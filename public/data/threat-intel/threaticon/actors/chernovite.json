@@ -1,0 +1,48 @@
+{
+  "slug": "chernovite",
+  "id": 946,
+  "name": "Chernovite",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Critical Infrastructure", "Malware", "ICS/SCADA", "State-Sponsored", "Espionage"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Network Intrusion", "Exfiltration / Collection", "Lateral Access", "Impact Infrastructure"],
+  "techniques": ["T1070", "T1485", "T1059", "T1267"],
+  "tools": ["PIPEDREAM ICS Malware", "Custom tools for ICS protocol exploitation"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting ICS personnel",
+    "Network traffic from/to known ICS protocols (e.g., Modbus/TCP)",
+    "Presence of PIPEDREAM-related binaries in industrial systems",
+    "Lateral movement across ICS networks",
+    "Unusual command-and-control communication patterns"
+  ],
+  "keyCapabilities": [
+    "Develops and deploys modular ICS malware (PIPEDREAM)",
+    "Exploits zero-day vulnerabilities",
+    "Highly skilled in ICS protocol manipulation",
+    "Conducts extensive pre-attack research on target environments"
+  ],
+  "recommendedActions": [
+    "Deploy network monitoring for ICS protocols",
+    "Implement strict access controls on OT/ICS networks",
+    "Regularly update and patch ICS software/hardware",
+    "Conduct employee training to identify phishing attempts",
+    "Establish incident response plans specific to ICS compromise"
+  ],
+  "campaignsText": "Chernovite’s campaigns are characterized by targeted attacks against critical infrastructure, with an emphasis on operational disruption. The group demonstrates a patient and methodical approach in compromising their targets, likely indicating a long-term strategic vision. Notable past operations include the deployment of PIPEDREAM malware to compromise ICS environments. Their targeting patterns suggest a focus on industrial sectors globally, but especially in regions where critical infrastructure is vulnerable or strategically significant.",
+  "description": "Chernovite is a sophisticated cyber threat actor known for developing and deploying the PIPEDREAM malware framework, targeting industrial control systems (ICS) to disrupt critical infrastructure. Their operations pose significant risks to sectors like energy and utilities, making them a high-priority threat to organizations in these industries.",
+  "goals": "Chernovite’s primary strategic objective appears to be the compromise of industrial control systems (ICS), likely with the intent to cause operational disruptions or physical damage. Their targeting focus on critical infrastructure sectors such as energy, utilities, and manufacturing, suggesting an interest in strategic industries that underpin national security and economic stability. The group’s victims are typically organizations operating in ICS environments, including those in the public and private sectors。",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A946",
+  "sourceUrl": "https://threaticon.com/threat-actors/946"
+}

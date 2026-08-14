@@ -1,0 +1,52 @@
+{
+  "slug": "scarred-manticore",
+  "id": 883,
+  "name": "Scarred Manticore",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Eionage", "Data Theft", "Persistence", "Lateral Movement", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Lateral Movement", "Exfiltration", "Privilege Escalation", "Defense Evasion", "Initial Access"],
+  "techniques": ["T1059.003", "T1078", "T1005", "T1093", "T1566.002"],
+  "tools": ["Cobalt Strike", "China Chopper-web shell", "Webmin-shell", "AdFind", "Custom RATs", "Lazarus group tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Web shell activity (e.g., China Chopper)",
+    "DLL injection attempts",
+    "Unexpected file creation in IIS folders",
+    "Base64-encoded communications",
+    "AdFind.exe presence in logs"
+  ],
+  "keyCapabilities": [
+    "IIS-based backdoor implants",
+    "Custom web shells",
+    "Driver-based implants",
+    "Persistent access via DLL injection",
+    "Lateral movement using tools like AdFind",
+    "Credential dumping techniques"
+  ],
+  "recommendedActions": [
+    "Harden IIS server configurations and regularly update software",
+    "Monitor for suspicious web shell activity using network sensors",
+    "Implement strict access controls for administrative privileges",
+    "Deploy Yara signatures to detect known malicious file patterns",
+    "Conduct regular endpoint detection exercises focusing on DLL injection",
+    "Enhance phishing awareness training for employees"
+  ],
+  "campaignsText": "Scarred Manticore has been linked to multiple campaigns targeting global organizations. Their operations often involve long-term persistence, with attacks lasting several months before exfiltration begins. Notable past operations include campaigns resembling those attributed to APT29 or APT35, focusing on sectors like aerospace and defense. The group's operational tempo is methodical, with a focus on stealth and maintaining access for prolonged periods.",
+  "description": "Scarred Manticore is a cyber threat actor targeting high-value victims, primarily focusing on Windows servers and IIS-based backdoors. They have demonstrated advanced persistence techniques, including custom web shells and driver-based implants, which align with APT-like activity. Their operations are likely linked to broader espionage or data theft campaigns.",
+  "goals": "Scarred Manticore appears to target sectors with high-value data, including technology, healthcare, energy, and financial services, particularly in the United States, United Kingdom, Japan, and Germany. Their strategic objectives likely involve情报收集 and data theft, targeting organizations that could provide sensitive information for economic or political gain. The actor's focus on Windows servers suggests a preference for infrastructure that is both widely used and less frequently secured against such attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A883",
+  "sourceUrl": "https://threaticon.com/threat-actors/883"
+}

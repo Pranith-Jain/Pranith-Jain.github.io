@@ -1,0 +1,48 @@
+{
+  "slug": "flocker",
+  "id": 434,
+  "name": "flocker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "espionage", "financial-sector", "Ransomware", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Encryption", "Defense-Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom ransomware", "Exploit kits", "Phishing toolkits"],
+  "iocPatterns": [
+    "Spear-phishing via email attachments",
+    "Malicious scripts execution (e.g., PowerShell)",
+    "C2 communications over Caddy-based platforms or custom tools",
+    "RDP brute-force attempts"
+  ],
+  "keyCapabilities": [
+    "Ransomware distribution via phishing campaigns",
+    "Exploitation using exploit kits",
+    "Compromised RDP access for initial breach",
+    "Double extortion tactics",
+    "Collaboration with other threat groups (e.g., FunkSec)"
+  ],
+  "recommendedActions": [
+    "Implement strict RDP access controls and multi-factor authentication.",
+    "Monitor for suspicious script executions in IT environments.",
+    "Encrypt sensitive data at rest with strong encryption standards.",
+    "Enhance email filtering to detect phishing campaigns.",
+    "Conduct regular security audits and patch management."
+  ],
+  "campaignsText": "Flocker's campaign patterns include a focus on stealing sensitive data and encrypting systems, often followed by demands for cryptocurrency payments. The group has been active since April 2024, with operations observed in collaboration with FunkSec. Notable victims number 59 to date, primarily across sectors with high data value. Their operational tempo is moderate but persistent.",
+  "description": "Flocker, also linked to the FSociety brand, is a ransomware-as-a-service (RaaS) group identified since April 2024. The group primarily targets Windows and Linux systems through phishing, compromised RDP connections, and exploit kits, employing a double extortion model. Collaborating with FunkSec, Flocker has demonstrated medium sophistication, focusing on financial gain and organizational disruption.",
+  "goals": "Flocker's primary objectives revolve around financial gain through ransomware operations. The group targets organizations across multiple sectors, particularly those with weaker cybersecurity measures or high data sensitivity. Their victims include healthcare, finance, and educational institutions. The choice of targets suggests a focus on maximizing impact while minimizing detection risk.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A434",
+  "sourceUrl": "https://threaticon.com/threat-actors/434"
+}

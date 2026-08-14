@@ -1,0 +1,40 @@
+{
+  "slug": "flax-typhoon",
+  "id": 1005,
+  "name": "Flax Typhoon",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "Taiwan"],
+  "aliases": ["Ethereal Panda", "Storm-0919"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Lateral Movement"],
+  "techniques": ["T1059.003", "T1003", "T1078"],
+  "tools": ["Windows Built-in Tools", "Legitimate Software"],
+  "iocPatterns": ["Exploitation of public-facing servers", "C2 via VPN connections", "Leveraging OS tools"],
+  "keyCapabilities": [
+    "Exploitation via server vulnerabilities",
+    "Living-off-the-land techniques",
+    "Use of VPNs for C2"
+  ],
+  "recommendedActions": [
+    "Monitor OS tool activity",
+    "Segment critical networks",
+    "Patch server vulnerabilities",
+    "Implement EDR solutions"
+  ],
+  "campaignsText": "Flax Typhoon is active with noted campaigns in Taiwan, focusing on long-term access. Their operations include OS tool abuses and VPN usage, likely maintaining persistence across multiple targets.",
+  "description": "Flax Typhoon is a suspected Chinese state-sponsored threat actor primarily targeting organizations in Taiwan through espionage campaigns. The group focuses on long-term network access using minimal malware and operates discreetly by leveraging built-in OS tools and legitimate software.",
+  "goals": "Flax Typhoon's primary goal appears to be espionage, targeting sectors in Taiwan likely related to government, military, or business. Their targeting of public-facing servers suggests a focus on gaining access to sensitive information while remaining undetected.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1005",
+  "sourceUrl": "https://threaticon.com/threat-actors/1005"
+}

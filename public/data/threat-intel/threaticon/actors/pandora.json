@@ -1,0 +1,46 @@
+{
+  "slug": "pandora",
+  "id": 541,
+  "name": "pandora",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Criminal", "Financial Threat", "Medium Sophistication"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1071", "T1027"],
+  "tools": ["Custom ransomware (Pandora)", "Potential use of publicly available exploit tools"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 communication over non-standard ports",
+    "Usage of temporary or disposable email addresses for ransom demands"
+  ],
+  "keyCapabilities": [
+    "Ransomware Development",
+    "Social Engineering",
+    "Network Exploitation",
+    "Data Encryption",
+    "Financial Extortion"
+  ],
+  "recommendedActions": [
+    "Enhance email filters to block suspicious attachments",
+    "Implement regular backups and ensure data redundancy",
+    "Conduct vulnerability assessments and patch critical vulnerabilities",
+    "Train staff on recognizing and reporting phishing attempts"
+  ],
+  "campaignsText": "Pandora's campaign patterns indicate a brief but potentially impactful operational tempo, with all known activity condensed into a two-week period in March 2022. Their victim profile includes at least 5 organizations, suggesting a methodical approach to targeting. Notable past operations would be characterized by the abrupt appearance of ransomware demands following an initial compromise. The group's operational pace and the fact that they were able to obtain and distribute their ransomware tool suggest a level of planning and resources, though the short duration of observed activity leaves many questions about their long-term strategies and capabilities.",
+  "description": "The Pandora ransomware threat actor is a medium-sophistication criminal group primarily motivated by organizational gain, focusing on ransomware and financial gain. Active between March 17, 2022, and March 30, 2022, they have compromised at least 5 known victims. Their operations indicate a targeted approach, likely seeking financial benefits from compromised organizations.",
+  "goals": "Pandora's strategic objectives are centered around achieving significant financial gains through ransomware attacks. They target organizations that are likely to pay the ransom to retrieve their encrypted data, typically sectors with sensitive information or those that heavily rely on continuous operation, such as healthcare, finance, or manufacturing. Their typical victims would be organizations with inadequate cybersecurity measures in place, making them vulnerable to the group's tactics. Pandora's targeting profile suggests they prioritize accessibility and potential payout over specific sectoral or geographical preferences, though their activities could evolve to include more targeted approaches as they gain experience and sophistication.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A541",
+  "sourceUrl": "https://threaticon.com/threat-actors/541"
+}

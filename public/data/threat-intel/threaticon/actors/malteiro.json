@@ -1,0 +1,51 @@
+{
+  "slug": "malteiro",
+  "id": 25,
+  "name": "Malteiro",
+  "mitreId": "G1026",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "Financially motivated",
+    "MaaS",
+    "Banking trojan",
+    "Latin America",
+    "Europe",
+    "Initial Access",
+    "Financial Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Mispadu banking trojan"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "Deployment of the Mispadu trojan via exploit kits"
+  ],
+  "keyCapabilities": [
+    "Advanced social engineering tactics",
+    "Deployment and management of the Mispadu banking trojan",
+    "Malware-as-a-Service (MaaS) operations",
+    "Financial data exfiltration and exploitation"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and phishing detection",
+    "Regularly update and patch banking and financial software",
+    "Conduct thorough security audits and penetration testing"
+  ],
+  "campaignsText": "Malteiro's campaign patterns are characterized by a high level of adaptability and the strategic use of the Mispadu trojan to target financial institutions and individuals in Latin America and Europe. Their operational tempo suggests a well-organized and planned approach, with the potential for rapid scaling of their operations. Notable past operations have included targeted phishing campaigns and the exploitation of vulnerabilities in banking software, indicating a preference for exploiting human factors and technical vulnerabilities.",
+  "description": "Malteiro is a financially motivated crime group operating out of Brazil, active since at least November 2019, with a focus on distributing the Mispadu banking trojan through a Malware-as-a-Service (MaaS) model. They primarily target victims in Latin America and Europe. Their operations pose a significant threat to financial institutions and individuals in these regions.",
+  "goals": "Malteiro's strategic objectives are centered around financial gain, primarily through the theft of banking and financial information. They target specific sectors such as banking and financial institutions in Latin America and Europe, aiming to exploit vulnerabilities and capitalize on the wealth present in these regions. Their typical victims include individuals and businesses with considerable financial assets, whom they target through sophisticated social engineering tactics and the deployment of the Mispadu trojan.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A25",
+  "sourceUrl": "https://threaticon.com/threat-actors/25"
+}

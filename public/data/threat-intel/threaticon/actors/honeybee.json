@@ -1,0 +1,52 @@
+{
+  "slug": "honeybee",
+  "id": 766,
+  "name": "Honeybee",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Spear-phishing",
+    "Humanitarian Sector Targeting",
+    "North Korea Thematic",
+    "Critical Infrastructure",
+    "Backdoor / C2"
+  ],
+  "aliases": ["G0072"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Adversary Persistance", "Credential Access", "Exfiltration"],
+  "techniques": ["T1056.002", "T1036"],
+  "tools": ["Malicious Microsoft Word Documents", "Custom Malware (inferred from campaign TTPs)"],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious Microsoft Word attachments",
+    "Document names referencing North Korean political themes",
+    "Use of macro-based infections for payload delivery"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing attacks using malicious Microsoft Word documents",
+    "Use of macros to deliver payloads",
+    "Shifts in tactics to avoid detection (e.g., removing traditional lures in favor of compatibility messages)",
+    "Focused operational activity within specific geographies"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and anti-macro protections in Microsoft Office documents",
+    "Educate users to recognize suspicious emails and document inconsistencies",
+    "Monitor network traffic for signs of lateral movement and exfiltration attempts",
+    "Conduct regular security audits on organizational assets, especially those within targeted sectors"
+  ],
+  "campaignsText": "Honeybee’s campaign demonstrates a sophisticated understanding of targeting specific sectors and geographies. Their shift in战术 suggests an adaptive approach to evade detection, with limited but significant activity observed in Southeast Asia. The focus on humanitarian aid groups indicates a potential interest in sensitive data or operational disruption.",
+  "description": "Honeybee, an unidentified cyber threat actor, primarily targets humanitarian aid organizations using North Korean政治 topics as bait. They employ malicious Microsoft Word documents to compromise victims, with observed activity in Vietnam around January 2023.",
+  "goals": "Honeybee’s primary objective appears to be infiltrating humanitarian aid organizations, possibly for intelligence collection or disruption. Their use of North Korean political themes suggests a potential nexus with groups interested in that region's activities. The targeting of Vietnam highlights a strategic focus on Southeast Asian geographies, though broader regional interests cannot be ruled out.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A766",
+  "sourceUrl": "https://threaticon.com/threat-actors/766"
+}

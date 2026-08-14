@@ -1,0 +1,60 @@
+{
+  "slug": "cryptochameleon",
+  "id": 1315,
+  "name": "CryptoChameleon",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "North Korea (KP)",
+  "originCode": "KP",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "Initial Access",
+    "Financial Targeting",
+    "Critical Infrastructure",
+    "Phishing",
+    "APT",
+    "Ransomware",
+    "Cybercrime",
+    "Financial",
+    "Cryptocurrency"
+  ],
+  "aliases": ["UNC5356", "tracked as", "Octo Tempest", "UNC3944"],
+  "targetedSectors": ["Financial services", "Manufacturing", "Defense", "Retail", "Government"],
+  "targetedCountries": ["CA", "US", "GB", "KP"],
+  "tactics": ["Initial Access", "Execution", "Credential Access", "Exfiltration"],
+  "techniques": ["T1566.001", "T1566.002"],
+  "tools": ["Phishing kit (LastPass inheritance façade)", "Custom PHP web shells"],
+  "iocPatterns": [
+    "Spear‑phishing emails with death‑inheritance claims",
+    "Phishing sites mimicking LastPass, 1Password or other password managers",
+    "Bullet‑proof hosting domains (e.g., NICENIC-based sites)",
+    "Rapid cash‑out via anonymous crypto wallet transfers",
+    "Manual victim interaction to evade automated scanners"
+  ],
+  "keyCapabilities": [
+    "VIP spear‑phishing with legitimate brand spoofing",
+    "Custom phishing kit distribution targeting password managers",
+    "SIM swapping to hijack two‑factor authentication",
+    "Manual victim manipulation during phishing flows",
+    "Use of bullet‑proof hosting infrastructure for rapid deployment",
+    "Rapid cash‑out via anonymous cryptocurrency wallets",
+    "Social engineering to bypass automated scanners"
+  ],
+  "recommendedActions": [
+    "Deploy and enforce multi‑factor authentication for all employee accounts including password managers and crypto wallets.",
+    "Conduct targeted phishing awareness training that stresses emotional bait tactics such as inheritance notices.",
+    "Implement web filtering and anti‑phishing solutions capable of detecting fake login pages that bypass legitimate brand cues.",
+    "Monitor outbound cryptocurrency traffic to detect rapid transfers from organizational accounts. Enforce strict segmentation for custodial wallets, limiting access to a small set of hardened devices. Use threat intelligence feeds to block known CryptoChameleon C2 domains and bullet‑proof hosting IP ranges. Regularly audit password manager configuration to ensure passkey fallback routes are disabled and require MFA.”],"
+  ],
+  "campaignsText": "CryptoChameleon consistently operates in high‑value, fast‑cash scenarios. Their campaigns typically begin with engineered spear‑phishing emails that lure users into click‑throughs on phishing sites hosted on bullet‑proof domains. Once a user reveals credentials – often through fake inheritance or emergency‑access requests – the operator manually assists to ensure credential capture and immediate exfiltration of crypto assets. The actor has demonstrated an ability to pivot across multiple cryptocurrency targets within a single operational window, as evidenced by their April 2024 LastPass campaign that yielded several million dollars in stolen coins. Operational tempo is relatively rapid; campaigns are launched shortly before the launch of new phishing kits and conclude when the stolen assets have been moved. CryptoChameleon favors manual interaction to reduce detection risk, which distinguishes it from fully automated supply‑chain or credential‑dumping threats.",
+  "description": "CryptoChameleon is a financially motivated cybercriminal group that specializes in targeting cryptocurrency exchanges, wallets, and users through sophisticated phishing campaigns that exploit legitimate services such as LastPass and 1Password. They frequently employ VIP spear‑phishing, SIM swapping, and manual victim manipulation to bypass automated defenses, rapidly cashing out stolen assets via anonymous crypto wallets.",
+  "goals": "CryptoChameleon’s primary objective is the direct financial enrichment of its operators through theft of digital assets. The group strategically targets entities with high cryptocurrency exposure – such as exchanges (Coinbase, Ledger) and individual users who rely on password managers that store wallet credentials – because successful breaches can yield large payouts in minutes. Although the actor’s publicly documented focus is the cryptocurrency domain, broader sector coverage including financial services, retail, defense, manufacturing, and government indicates a willingness to infiltrate any organization where digital currencies or valuable data are stored. Typical victims include high‑net‑worth individuals, institutional custodial wallets, and exchanges whose infrastructure is not hardened against sophisticated phishing. By exploiting authentic brand assets (e.g., LastPass) and psychological hooks such as inheritance notices, CryptoChameleon achieves high success rates while maintaining low operational risk.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1315",
+  "sourceUrl": "https://threaticon.com/threat-actors/1315"
+}

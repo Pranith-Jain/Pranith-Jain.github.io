@@ -1,0 +1,54 @@
+{
+  "slug": "earth-wendigo",
+  "id": 842,
+  "name": "Earth Wendigo",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government-targeted",
+    "education-sector",
+    "political-motivation",
+    "Phishing",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Government", "Education"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution"],
+  "techniques": ["T1067.002", "T1184.001", "T1091.001"],
+  "tools": ["Custom JavaScript backdoor", "Spear-phishing toolset"],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious links",
+    "Injected JavaScript in webmail systems",
+    "Malicious scripts targeting email exfiltration"
+  ],
+  "keyCapabilities": [
+    "Injection of JavaScript backdoors into webmail systems",
+    "Spear-phishing campaigns with embedded malicious links",
+    "Compromise of email accounts for data exfiltration",
+    "Potential use of custom malware frameworks"
+  ],
+  "recommendedActions": [
+    "Implement robust anti-spam and phishing filters to detect malicious emails",
+    "Monitor for script injection attempts on webmail platforms",
+    "Conduct regular security audits of educational and government IT infrastructure",
+    "Educate users on spotting phishing attempts and suspicious emails"
+  ],
+  "campaignsText": "Earth Wendigo has demonstrated consistent activity since 2019, primarily targeting Taiwan's government and education sectors. Campaign patterns include prolonged email compromise operations and targeted phishing attempts against specific individuals. Their operational tempo suggests a structured approach to long-term intelligence gathering, possibly with an aim to remain undetected for extended periods.",
+  "description": "Earth Wendigo, a suspected state-sponsored threat actor originating from China, has been actively targeting government and educational institutions in Taiwan since May 2019. The group employs sophisticated techniques including spear-phishing campaigns and JavaScript-based backdoor injections to gain unauthorized access to webmail systems, aiming to exfiltrate sensitive emails for potential espionage purposes.",
+  "goals": "Earth Wendigo's primary objectives appear to be intelligence collection and espionage, particularly targeting individuals and organizations involved in politically sensitive issues. Their focus on Taiwan, along with their interest in movements related to Tibet, Uyghur regions, and Hong Kong, indicates possible state-sponsored activities aimed at gathering information that could influence China's geopolitical strategies or undermine opposition groups.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A842",
+  "sourceUrl": "https://threaticon.com/threat-actors/842"
+}

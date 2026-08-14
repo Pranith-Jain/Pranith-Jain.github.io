@@ -1,0 +1,60 @@
+{
+  "slug": "uac-0050",
+  "id": 989,
+  "name": "UAC-0050",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Government targeting",
+    "State-sponsored espionage",
+    "Ukraine-focused",
+    "APT",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Resource Development", "Initial Access", "Defense Evasion"],
+  "techniques": [
+    "T1059.003 - Email collection from compromised mailbox",
+    "T1078 - Valid accounts",
+    "T1490 - Content scraping from web servers",
+    "T1568.002 - Non-state affiliated cyber espionage"
+  ],
+  "tools": ["Remcos RAT", "Remote Utilities", "Phishing Email Templates"],
+  "iocPatterns": [
+    "Phishing emails purporting to come from Ukrainian security services",
+    "Malicious Office document attachments in email campaigns",
+    "Use of Remcos RAT malware",
+    "Command and control (C2) infrastructure linked to known threat actors"
+  ],
+  "keyCapabilities": [
+    "Phishing campaigns using malicious Office documents",
+    "Remcos RAT distribution",
+    "Social engineering tactics",
+    "Impersonation of state security services"
+  ],
+  "recommendedActions": [
+    "Implement advanced phishing detection solutions to identify malicious email campaigns.",
+    "Monitor for suspicious activity in emails, especially from domains mimicking government services or security agencies.",
+    "Conduct regular user training on social engineering tactics and phishing awareness.",
+    "Apply network monitoring for indicators of Remcos RAT and related malware signatures."
+  ],
+  "campaignsText": "UAC-0050's campaigns typically involve a slow, persistent approach targeting specific sectors and countries. They have demonstrated the ability to maintain long-term access within targeted networks for espionage purposes. Notable operations include the distribution of Remcos RAT via phishing emails that impersonate the Security Service of Ukraine. The group's operational tempo appears to be synchronized with regional events, suggesting potential alignment with a state-sponsored agenda.",
+  "description": "UAC-0050 is a threat actor targeting government agencies in Ukraine since 2020. They use phishing campaigns with malware like Remcos RAT and have been linked to other hacking groups such as UAC-0096. Their primary tactic involves impersonating Ukrainian security services and distributing malicious attachments, likely for espionage purposes.",
+  "goals": "UAC-0050's strategic objectives appear to center around intelligence gathering and espionage. Their targeting of Ukrainian government agencies suggests a focus on gaining access to sensitive information that could include diplomatic, military, or internal communications. By mimicking official security services and leveraging the trust of their targets, UAC-0050 can effectively compromise high-value systems. Their campaigns demonstrate a regional focus but may expand based on operational success and shared infrastructure with other groups.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A989",
+  "sourceUrl": "https://threaticon.com/threat-actors/989"
+}

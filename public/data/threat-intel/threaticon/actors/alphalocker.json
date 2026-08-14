@@ -1,0 +1,63 @@
+{
+  "slug": "alphalocker",
+  "id": 330,
+  "name": "alphalocker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Double Extortion",
+    "Financial Motivation",
+    "Criminal Activity",
+    "Entry-Level Actors",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Defense Evasion", "Discovery"],
+  "techniques": [
+    "T1485 - Encrypting Data on the Device",
+    "T1078 - Account Access Removal",
+    "T1027.003 - Use of Programming Script Language for Command and Control Communication",
+    "T1233 - Collection of Information from Systems"
+  ],
+  "tools": [
+    "AlphaLocker Ransomware (based on EDA2)",
+    "Admin Panel for affiliate management",
+    "Decryption Key Generator"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Encrypted files with .alphalocker extension",
+    "C2 communication channels for command and control",
+    "Data exfiltration via encrypted protocols"
+  ],
+  "keyCapabilities": [
+    "Double-extortion tactics involving data encryption and leakage threats",
+    "Ransomware-as-a-Service (RaaS) model with an affiliate program",
+    "EDA2-based ransomware deployment via phishing or malicious links",
+    "Data exfiltration and credential dumping techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems",
+    "Conduct regular backups stored offline or in secure cloud storage",
+    "Educate users on recognizing phishing attempts",
+    "Deploy endpoint detection and response (EDR) solutions",
+    "Segment networks to limit lateral movement in case of breach"
+  ],
+  "campaignsText": "AlphaLocker's campaigns often target industries with sensitive data and less robust security measures. Known victims include healthcare providers and educational institutions, though their broad targeting approach means any sector is at risk. Their operational persistence since 2024 highlights adaptability in evading detection and maintaining efficacy.",
+  "description": "AlphaLocker is a medium-sophistication criminal threat actor operating as a ransomware-as-a-service (RaaS) provider, leveraging double-extortion tactics for financial gain. They provide an accessible platform for entry-level cybercriminals, offering tools like admin panels and decryption key generators to lower barriers for attacks.",
+  "goals": "AlphaLocker's primary goal is financial gain through ransom payments. They target sectors across healthcare, education, and small to medium-sized businesses (SMBs), which are more likely to pay ransoms due to data sensitivity and limited defenses. Their broad targeting approach aims to maximize opportunities for high payout scenarios.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A330",
+  "sourceUrl": "https://threaticon.com/threat-actors/330"
+}

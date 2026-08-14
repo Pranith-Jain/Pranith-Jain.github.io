@@ -1,0 +1,61 @@
+{
+  "slug": "unc215",
+  "id": 986,
+  "name": "UNC215",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "nation-state",
+    "espionage",
+    "economic espionage",
+    "Healthcare Targeting",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Credential Access", "Discovery", "Lateral Movement", "Collection"],
+  "techniques": [
+    "T1059.003 - Windows Local Job Scheduling",
+    "T1021.004 - Remote Services Session Hijacking",
+    "T1078.001 - Account Access Removal/Modification",
+    "T1566.001 - Collection Activities"
+  ],
+  "tools": ["Mimikatz", "FOCUSFJORD", "HYPERBRO"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office documents",
+    "Lateral movement across internal networks using remote services",
+    "Credential dumping via Windows registry keys or LSASS memory extraction",
+    "Data exfiltration via encrypted channels or legitimate third-party services"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns using malicious attachments",
+    "Credential extraction via Mimikatz",
+    "Implant deployment for persistent access",
+    "Use of trusted third-party relationships for initial access",
+    "False flag operations to misattribute attacks",
+    "Evasion techniques to minimize forensic evidence"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint detection and response (EDR) solutions to detect and respond to such tactics.",
+    "Conduct regular security training to mitigate spear-phishing attempts and raise awareness among employees.",
+    "Monitor network traffic for signs of lateral movement and data exfiltration activities, including encrypted communications.",
+    "Apply strong access controls and regularly review user accounts for unauthorized access or privileges."
+  ],
+  "campaignsText": "UNC215's campaigns are characterized by their persistence and global reach. The group has demonstrated a preference for long-term operations, often establishing persistent access to networks before extracting valuable intelligence. Their use of false flags suggests an attempt to misdirect attribution efforts, possibly to avoid direct confrontation or to shift blame elsewhere. Notable past operations have targeted high-value sectors, reflecting a strategic focus on maximizing the impact of their activities.",
+  "description": "UNC215 is identified as a Chinese nation-state threat actor that has been active since at least 2014. They primarily target multiple sectors including government, technology, telecommunications, defense, finance, entertainment, and healthcare. Their activities are characterized by the use of sophisticated tools such as Mimikatz, FOCUSFJORD, and HYPERBRO for initial access and post-compromise operations. UNC215 employs evasion techniques to avoid detection, leveraging trusted third parties, minimizing forensic evidence, and incorporating false flags.",
+  "goals": "UNC215's strategic objectives appear to align with those of a Chinese state-sponsored actor, focusing on economic and military espionage to support national interests. By targeting diverse sectors such as defense, government, and technology, the group likely seeks to accumulate sensitive information, technological advancements, and geopolitical intelligence. Their global reach, particularly in regions with strategic or economic significance, underscores an intent to maximize their intelligence yield without being constrained by geographic limitations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A986",
+  "sourceUrl": "https://threaticon.com/threat-actors/986"
+}

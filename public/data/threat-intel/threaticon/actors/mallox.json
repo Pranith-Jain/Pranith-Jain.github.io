@@ -1,0 +1,46 @@
+{
+  "slug": "mallox",
+  "id": 501,
+  "name": "mallox",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "financial-gain", "mid-sized business targeting", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["RansomToolXOR"],
+  "iocPatterns": [
+    "Phishing emails with malicious attachments",
+    "Encrypted files with company-specific extensions",
+    "Network traffic anomalies during encryption"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Advanced encryption techniques",
+    "Spear-phishing campaigns",
+    "Negotiation tactics",
+    "Data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement strict phishing email filters",
+    "Segment networks to limit lateral movement",
+    "Monitor for encrypted file patterns",
+    "Establish incident response plans for ransomware events"
+  ],
+  "campaignsText": "Millox has been active since mid-2021, with confirmed operations from November 2022 to July 2024. Their campaigns typically involve targeted phishing attempts, encrypted file exfiltration, and structured negotiations. Notable patterns include the use of .<target_company> file extensions for encrypted files and potential DDoS threats if ransoms are not paid.",
+  "description": "The mallox threat actor is a medium-sophistication criminal group primarily involved in ransomware activities, targeting organizations for financial gain. Known since November 2022, this actor has demonstrated the ability to compromise victim systems through a combination of advanced cryptographic methods and targeted campaigns.",
+  "goals": "Millox's primary objectives are financial gain through ransom payments and organizational disruption. They typically target mid-sized businesses across various sectors, focusing on regions where ransom支付 demands are feasible without attracting excessive law enforcement attention.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A501",
+  "sourceUrl": "https://threaticon.com/threat-actors/501"
+}

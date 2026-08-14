@@ -1,0 +1,45 @@
+{
+  "slug": "dunghill",
+  "id": 423,
+  "name": "dunghill",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["APT", "ransomware", "extortion", "healthcare", "finance", "Ransomware", "Healthcare Targeting"],
+  "aliases": ["darkangel"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access (TA0046)", "Lateral Movement (TA0054)", "Exfiltration (TA0048)"],
+  "techniques": ["T1566.001", "T1037", "T1566.002", "T1059.006"],
+  "tools": ["Custom ransomware", "Data exfiltration tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Network横向 movement indicators",
+    "Ransomware deployment markers"
+  ],
+  "keyCapabilities": [
+    "Advanced ransomware deployment",
+    "Data exfiltration and extortion tactics",
+    "Targeted attack planning",
+    "Sophisticated network infiltration techniques"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring for anomalous activities",
+    "Regularly backup critical systems and test restoration processes",
+    "Educate employees on phishing and social engineering tactics",
+    "Enhance incident response plans to address ransomware scenarios"
+  ],
+  "campaignsText": "Dunghill's campaigns typically involve targeted attacks on high-value enterprises, leveraging sophisticated tactics to infiltrate networks and deploy ransomware. Their use of a non-affiliate model allows for a slower but more focused attack pattern, aiming for long-term financial gain rather than rapid deployment. Notable activity includes the $75 million ransom payment in 2024, highlighting their success in targeting financially significant organizations. Campaign patterns suggest a preference for quiet infiltration and persistent attacks to ensure maximum disruption before demanding ransoms.",
+  "description": "Dunghill, also known as Dark Angel, is a medium-sophisticated criminal threat actor primarily motivated by organizational gain through ransomware activities and financial exploitation. Operating since April 2023, they have targeted large enterprises across healthcare, finance, industrial, and technology sectors with a highly selective non-affiliate model. Known for demanding significant ransoms, including a record-breaking $75 million in 2024, Dunghill poses a substantial threat to victimized organizations.",
+  "goals": "Dunghill's strategic objectives center around maximizing financial gain through ransom payments and data extortion. They target large enterprises in sectors with high potential for financial loss and reputational damage, such as healthcare, finance, industrial, and technology. Their selection of victims suggests a focus on industries where downtime or data exposure could lead to significant financial penalties. The group's non-affiliate model indicates an operational preference to avoid associations that might increase their visibility, allowing them to maintain persistence and adaptability in their campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A423",
+  "sourceUrl": "https://threaticon.com/threat-actors/423"
+}

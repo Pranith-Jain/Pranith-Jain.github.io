@@ -1,0 +1,58 @@
+{
+  "slug": "kazu",
+  "id": 469,
+  "name": "kazu",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Organized Crime",
+    "Double extortion",
+    "Financial gain",
+    "Government sector",
+    "Southeast Asia",
+    "Middle East",
+    "Latin America",
+    "Healthcare Targeting",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Data Exfiltration", "Encryption", "Lateral Movement", "Defense Evasion"],
+  "techniques": [
+    "T1005.001 - Data Exfiltration",
+    "T1485 - System Component Modification",
+    "T1021 -横向Movement",
+    "T1568.001 - Use of Anti-Forensics to Prevent Artifact Creation"
+  ],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "C2 communication via domain generation algorithms (DGA)",
+    "Lateral movement across networks using legitimate protocols"
+  ],
+  "keyCapabilities": ["Double extortion tactics", "Data exfiltration", "Ransomware deployment"],
+  "recommendedActions": [
+    "Implement regular backups and test restoration processes",
+    "Educate users on phishing and suspicious emails",
+    "Segment critical systems to limit lateral movement",
+    "Monitor for异常网络活动, especially encrypted traffic",
+    "Encrypt sensitive data at rest"
+  ],
+  "campaignsText": "Kazu's campaigns have targeted critical infrastructure, leveraging the high stakes of their victims to demand ransoms. Their operational timeline from September 2025 to January 2026 suggests a focused and evolving threat, with notable success in breaches affecting significant economic hubs.",
+  "description": "Kazu is an emerging ransomware group employing double extortion tactics. Targeting primarily government, healthcare, and financial organizations in Southeast Asia, the Middle East, and Latin America, Kazu has achieved notable breaches, including Dubai's Ports, Customs, and Free Zone Corporation.",
+  "goals": "Kazu targets sectors like government, healthcare, and finance due to their high data value and ability to disrupt operations, making them ideal for double extortion. Their focus on Southeast Asia, Middle East, and Latin America may reflect lower cybersecurity maturity or active criminal infrastructure in these regions.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A469",
+  "sourceUrl": "https://threaticon.com/threat-actors/469"
+}

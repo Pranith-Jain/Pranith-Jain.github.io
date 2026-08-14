@@ -1,0 +1,55 @@
+{
+  "slug": "fastcash",
+  "id": 747,
+  "name": "FASTCash",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "North Korea",
+    "Banking Sector",
+    "Financial Fraud",
+    "Ransomware",
+    "Financial Targeting",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Post-Compromise Activity"],
+  "techniques": ["T1059", "T1078", "T1204"],
+  "tools": ["Mirai variant malware (linked to North Korean actors)", "Custom-built financial fraud tools"],
+  "iocPatterns": [
+    "Unusual spikes in ATM transaction volumes",
+    "Network traffic anomalies within payment systems",
+    "Presence of custom malware linked to North Korean APT groups"
+  ],
+  "keyCapabilities": [
+    "Remote compromise of payment switch application servers",
+    "Execution of fraudulent transactions through compromised systems",
+    "Persistence in target networks for prolonged periods",
+    "Use of malware linked to North Korean state-sponsored actors",
+    "Targeting vulnerable retail payment systems"
+  ],
+  "recommendedActions": [
+    "Implement robust security measures for retail payment systems and ATM networks",
+    "Monitor for unusual patterns in financial transaction logs",
+    "Conduct regular penetration testing on payment switch servers",
+    "Adopt MITRE ATT&CK-based detection mechanisms to identify potential compromises",
+    "Enhance network segmentation to limit lateral movement by attackers"
+  ],
+  "campaignsText": "FASTCash has demonstrated a persistent and evolving approach to targeting financial systems. The campaign's longevity since late 2016 indicates a well-planned operational strategy, with operators likely refining their techniques over time. Targeting of banks in Africa and Asia suggests an understanding of regional cybersecurity gaps. Notable operations include high-profile ATM cash-outs, which indicate both technical proficiency and an ability to exploit systemic vulnerabilities in payment infrastructure.",
+  "description": "FASTCash is a sophisticated cyber-enabled ATM cash-out campaign identified by the Treasury and FBI as linked to North Korean state-sponsored actors. This campaign has targeted banks in Africa and Asia since late 2016, compromising payment switch application servers to steal tens of millions of dollars through fraudulent transactions.",
+  "goals": "FASTCash's primary goal appears to be the theft of significant financial resources through fraudulent transactions, with a focus on targeting banking systems in Africa and Asia. The campaign exploits vulnerabilities in payment switch servers, enabling unauthorized access and manipulation of ATM networks. The choice of sectors and regions likely reflects opportunities for high-value targets with weaker cybersecurity defenses. Victims have included banks and financial institutions vulnerable to remote exploitation, making them attractive for large-scale fraud.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A747",
+  "sourceUrl": "https://threaticon.com/threat-actors/747"
+}

@@ -1,0 +1,56 @@
+{
+  "slug": "shadow-earth-053",
+  "id": 688,
+  "name": "shadow-earth-053",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": [
+    "APT",
+    "cyber espionage",
+    "government targeting",
+    "defense",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": ["Government", "Defense", "Transportation"],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Discovery", "Exfiltration"],
+  "techniques": ["T1078.001", "T1566", "T1214.003"],
+  "tools": ["Evil-CreateDump", "IOX proxy", "GOST", "Wstunnel"],
+  "iocPatterns": [
+    "Exploitation ofCVE-2021-268XX ProxyLogon",
+    "GODZILLA web shell activity",
+    "Spear-phishing emails",
+    "Use of GOST and Wstunnel C2 channels"
+  ],
+  "keyCapabilities": [
+    "Exploitation via ProxyLogon chain",
+    "Deployment of GODZILLA web shells for persistence",
+    "ShadowPad deployment through DLL sideloading",
+    "Evil-CreateDump for lateral movement",
+    "IOX proxy tool usage"
+  ],
+  "recommendedActions": [
+    "Patch MS Exchange vulnerabilities immediately.",
+    "Implement multi-factor authentication on critical accounts.",
+    "Monitor network traffic for C2 toolkits like Gost and Wstunnel.",
+    "Conduct regular backups to mitigate potential data breaches."
+  ],
+  "campaignsText": "Campaigns involve extensive Active Directory reconnaissance, credential harvesting, and mailbox exfiltration. Notable for overlapping activities with SHADOW-EARTH-054, indicating toolkits are reused.",
+  "description": "Shadow-Earth-053 is a China-aligned threat group conducting cyberespionage across multiple countries since December 2024. Targeting government, defense, and transportation sectors, they exploit Microsoft Exchange vulnerabilities and use web shells for persistence.",
+  "goals": "Targeting government entities suggests a focus on espionage and geopolitical interests. The choice of sectors and countries aligns with China's strategic interests in regional influence and military intelligence, possibly linked to its Belt and Road Initiative.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A688",
+  "sourceUrl": "https://threaticon.com/threat-actors/688"
+}

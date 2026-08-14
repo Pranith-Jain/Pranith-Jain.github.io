@@ -1,0 +1,45 @@
+{
+  "slug": "team-pcp",
+  "id": 687,
+  "name": "team pcp",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": ["APT", "Supply Chain Attack", "Espionage", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Invasion of Privacy: Data Access", "Subversion of Systems: Disruption", "Credential Access"],
+  "techniques": ["T1566.001", "T1566.002", "T1055.003", "T1049.001"],
+  "tools": ["Custom payload delivery via PyPI packages", "Obfuscation tools (not specified)", "Bun JavaScript runtime"],
+  "iocPatterns": [
+    "Malicious PyPI package downloads",
+    "Large obfuscated payload execution via JavaScript runtime",
+    "Unusual activity in GitHub branches",
+    "Tampered npm tarballs"
+  ],
+  "keyCapabilities": [
+    "Supply chain compromise",
+    "Obfuscation techniques",
+    "Credential harvesting",
+    "GitHub repository manipulation",
+    "CI/CD environment targeting"
+  ],
+  "recommendedActions": [
+    "Implement rigorous supply chain security measures for software dependencies.",
+    "Use automated tools (e.g., Snyk) to scan for malicious packages."
+  ],
+  "campaignsText": "Team Pcp's campaign demonstrates a focus on disrupting critical software supply chains. They likely use compromised maintainer accounts to insert malicious code, as seen with GitHub account 'pl-ghost'. This incident highlights their ability to manipulate trusted repositories and packages, suggesting ongoing operations beyond this event.",
+  "description": "Team Pcp is a sophisticated threat actor targeting supply chains through PyPI packages, compromising widely used libraries like Lightning to inject malicious code. Their primary focus appears to be credential harvesting and disrupting CI/CD environments, with similarities to the Shai-Hulud campaign.",
+  "goals": "Team Pcp aims to harvest credentials and disrupt software supply chains, likely to gain long-term access or intelligence. Their targeting of widely used libraries suggests a focus on maximizing impact and persistence in critical IT ecosystems. Typical victims include organizations utilizing popular Python packages and CI/CD tools.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A687",
+  "sourceUrl": "https://threaticon.com/threat-actors/687"
+}

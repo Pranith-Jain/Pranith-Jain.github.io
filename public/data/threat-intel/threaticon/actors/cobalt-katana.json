@@ -1,0 +1,92 @@
+{
+  "slug": "cobalt-katana",
+  "id": 796,
+  "name": "COBALT KATANA",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "Iran-linked",
+    "government-sector",
+    "logistics-sector",
+    "Kuwait",
+    "Critical Infrastructure",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": ["Hive0081 (IBM)", "SectorD01 (NHSC)", "xHunt campaign (Palo Alto)", "Hunter Serpens"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Reconnaissance",
+    "Lateral Movement"
+  ],
+  "techniques": [
+    "T1566.001 - DNS Tunneling",
+    "T1137.001 - SMB Execution",
+    "T1110.001 - Brute Force",
+    "T1071.006 - DNS for C2",
+    "T1210 - Web Shell",
+    "T1078.003 - Network Services",
+    "T1059.003 - Command-Line Interface"
+  ],
+  "tools": [
+    "Sakabota Framework",
+    "Sakabota Core",
+    "Gon",
+    "Hisoka",
+    "Hisoka Netero",
+    "Killua",
+    "Diezen",
+    "Eye",
+    "HyphenShell"
+  ],
+  "iocPatterns": [
+    "DNS hijacking for C2 redirection",
+    "SMB-based forced authentication exploitation",
+    "Brute-force attacks targeting weak credentials",
+    "Deployment of custom web shells (e.g., HyphenShell)",
+    "DNS tunnelling for data exfiltration",
+    "Staging infrastructure on bulletproof hosting services"
+  ],
+  "keyCapabilities": [
+    "DNS hijacking for initial access",
+    "SMB forced authentication exploitation",
+    "Password brute-force attacks",
+    "Deployment of the Sakabota Framework (custom malware platform)",
+    "Use of modular backdoors (e.g., Hisoka, Killua)",
+    "DNS tunnelling for C2 communication",
+    "Implementation of the HyphenShell web shell for persistence",
+    "Strategic web compromise techniques"
+  ],
+  "recommendedActions": [
+    "Implement DNS monitoring and anomaly detection to identify hijacking attempts",
+    "Enforce multi-factor authentication (MFA) to mitigate brute-force risks",
+    "Deploy endpoint detection and response (EDR) solutions to detect Sakabota Framework activity",
+    "Segment networks to limit lateral movement post-compromise",
+    "Conduct regular vulnerability assessments for SMB and web application interfaces",
+    "Monitor for DNS tunnelling and irregular C2 traffic patterns",
+    "Incorporate threat intelligence feeds focusing on Iranian-linked groups and Kuwaiti targets"
+  ],
+  "campaignsText": "COBALT KATANA's campaigns are characterized by a focus on Kuwaiti targets, with operations involving DNS manipulation, SMB exploitation, and custom malware deployment. The group's tactics suggest a preference for stealthy, long-term access rather than rapid disruption. Campaigns often leverage overlapping infrastructure with other Iranian-aligned groups like COBALT GYPSY and COBALT EDGEWATER, indicating possible coordination or shared operational frameworks. Notable past operations include strategic web compromises and the use of modular backdoors to maintain access across multiple victim environments.",
+  "description": "COBALT KATANA is a threat actor active since at least March 2018, primarily targeting organizations in Kuwait, including government, logistics, and shipping sectors. The group employs advanced techniques such as DNS hijacking, SMB-based attacks, and custom malware frameworks. CTU researchers link the actor to Iran, citing operational overlaps with other Iranian-aligned groups.",
+  "goals": "COBALT KATANA's targeting of Kuwaiti organizations likely reflects geopolitical interests aligned with Iran, aiming to gather intelligence, disrupt critical infrastructure, or undermine regional stability. The focus on government and logistics sectors suggests intent to infiltrate state systems or interfere with transportation networks, which could be leveraged for espionage, sabotage, or influence operations. The group's use of advanced tools and C2 methods indicates a strategic objective to maintain long-term access and avoid detection, aligning with state-sponsored cyber operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A796",
+  "sourceUrl": "https://threaticon.com/threat-actors/796"
+}

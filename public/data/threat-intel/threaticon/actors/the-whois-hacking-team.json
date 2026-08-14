@@ -1,0 +1,48 @@
+{
+  "slug": "the-whois-hacking-team",
+  "id": 303,
+  "name": "The Whois Hacking Team",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["nation-state", "cyberespionage", "APT", "government-targeted", "critical-infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Collection", "Exfiltration"],
+  "techniques": ["T1059.003", "T1046", "T1566.001", "T1203", "T1078"],
+  "tools": ["Spear-phishing tools", "Custom malware frameworks", "Common exploit kits", "LOLBin techniques"],
+  "iocPatterns": [
+    "Spear-phishing emails originating from compromised or spoofed domains",
+    "Malicious scripts embedded in legitimate documents (e.g., PDFs, Word files)",
+    "Use of encrypted communication channels for command and control",
+    "Anomalous network traffic patterns consistent with data exfiltration"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) campaign execution",
+    "Use of zero-day exploits",
+    "Spear-phishing attacks with customized payloads",
+    "Data exfiltration using compromised legitimate tools",
+    "Nation-state-sponsored cyberespionage operations"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear-phishing attempts",
+    "Monitor for the use of LOLBin techniques in network traffic",
+    "Conduct regular threat hunting exercises focusing on nation-state APT indicators",
+    "Apply multi-factor authentication (MFA) to critical systems",
+    "Enhance incident response capabilities to quickly identify and contain threats"
+  ],
+  "campaignsText": "The Whois Hacking Team has been observed in multiple long-term campaigns targeting specific regions and sectors. Their operational tempo is methodical, with a focus on maintaining persistence within networks rather than rapid exfiltration. Notable past operations include targeted attacks against diplomatic missions and government departments.",
+  "description": "The Whois Hacking Team is a nation-state-sponsored threat actor primarily engaged in cyberespionage activities. They are known to target government agencies and critical infrastructure sectors, focusing on data exfiltration and intelligence gathering.",
+  "goals": "The Whois Hacking Team's strategic objectives revolve around gathering sensitive information to advance the interests of their sponsoring nation. Their targeting profile focuses on government agencies, diplomatic sectors, and critical infrastructure in specific countries believed to be adversaries or strategic competitors. The group's victims are typically high-value institutions that hold valuable intelligence or strategic assets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A303",
+  "sourceUrl": "https://threaticon.com/threat-actors/303"
+}

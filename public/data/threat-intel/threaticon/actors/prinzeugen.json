@@ -1,0 +1,53 @@
+{
+  "slug": "prinzeugen",
+  "id": 548,
+  "name": "prinzeugen",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Criminal", "Medium Sophistication", "Financial Gain"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": [
+    "Custom ransomware variants",
+    "Potential use of publicly available exploit tools",
+    "Mimikatz or similar credential harvesting tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Unusual network traffic patterns indicative of lateral movement"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Lateral movement within networks",
+    "Data encryption",
+    "Extortion",
+    "Potential vulnerability exploitation",
+    "Phishing or social engineering"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to block phishing attempts",
+    "Regularly update and patch software vulnerabilities",
+    "Use anti-ransomware solutions and ensure backups are regularly made and stored securely",
+    "Enhance network segmentation to limit lateral movement",
+    "Conduct regular security awareness training for employees"
+  ],
+  "campaignsText": "The campaign patterns of the prinzeugen actor are not well-documented due to the limited availability of data. However, based on the goals of financial gain through ransomware, it can be speculated that their operations might follow a pattern of initial access, network exploration, data encryption, and then extortion. The operational tempo could be moderate to slow, given the reported single victim and the medium level of sophistication. Notable past operations are not detailed, but the actor's potential for growth and adaptation in tactics is a concern for future operations.",
+  "description": "The prinzeugen threat actor is a medium-sophistication criminal group primarily motivated by organizational gain, with goals of deploying ransomware for financial gain. First seen in February 2026, this actor has limited known activity, with only one reported victim. Their operations and tactics are still evolving, requiring close monitoring.",
+  "goals": "The prinzeugen actor's strategic objectives appear to be centered around achieving financial gain through the deployment of ransomware. This suggests that they are likely targeting organizations with valuable data or those that can afford to pay significant ransoms. Without specific information on targeted sectors or countries, it can be inferred that the actor might focus on sectors known for their liquidity and ability to pay, such as financial institutions, healthcare, or large enterprises. Their typical victims could be organizations with weaker cybersecurity postures, making them more vulnerable to ransomware attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A548",
+  "sourceUrl": "https://threaticon.com/threat-actors/548"
+}

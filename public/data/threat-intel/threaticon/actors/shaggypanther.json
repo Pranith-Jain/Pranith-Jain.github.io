@@ -1,0 +1,60 @@
+{
+  "slug": "shaggypanther",
+  "id": 1044,
+  "name": "ShaggyPanther",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Government-targeted",
+    "Registry-based attacks",
+    "Encryption",
+    "Initial Access",
+    "Government Targeting"
+  ],
+  "aliases": ["LummaC2 Stealer", "APT28", "Pawn Storm", "Fancy Bear"],
+  "targetedSectors": [
+    "Media",
+    "Defense",
+    "Government",
+    "Financial services",
+    "Think tank",
+    "Transportation",
+    "Information technology"
+  ],
+  "targetedCountries": ["TW", "KP", "CN"],
+  "tactics": ["Espionage", "Initial Access", "Persistence"],
+  "techniques": [],
+  "tools": ["Custom malware (encrypted payloads)", "Registry-based persistence"],
+  "iocPatterns": [
+    "Registry key modifications indicative of hidden payloads",
+    "Encrypted files associated with malicious activity",
+    "Unusual network traffic patterns linked to command and control"
+  ],
+  "keyCapabilities": [
+    "Windows registry manipulation",
+    "Encrypted payload delivery",
+    "Persistent system access",
+    "Stealthy C2 communication"
+  ],
+  "recommendedActions": [
+    "Implement enhanced monitoring for Windows Registry changes using SIEM tools",
+    "Conduct regular vulnerability assessments on governmental IT systems",
+    "Deploy endpoint detection and response (EDR) solutions to identify registry-based anomalies",
+    "Monitor network traffic for signs of encrypted or unusual data transfers"
+  ],
+  "campaignsText": "ShaggyPanther's campaigns have demonstrated a long-term operational footprint, with activity tracing back to at least 2008. The actor has shown adaptability by targeting diverse geographic regions and maintaining low-profile operations through registry-based techniques. Notable past operations include detections in Taiwan, Malaysia, Indonesia, and Syria, indicating a broad operational reach with potential ties to state-sponsored activities or organized espionage groups.",
+  "description": "ShaggyPanther is a persistent threat actor targeting government entities primarily in Taiwan and Malaysia since 2008. Their operations involve sophisticated techniques such as hiding encrypted payloads in registry keys, indicating a level of technical expertise aimed at maintaining long-term access and persistence.",
+  "goals": "ShaggyPanther's strategic objectives appear to revolve around gaining unauthorized access to sensitive data within governmental organizations. Their targeting of specific sectors suggests a focus on espionage or information theft, particularly in regions with significant geopolitical interest. The actor likely seeks to achieve persistence and long-term access to their targets, enabling sustained operations and the ability to exfiltrate data over time.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1044",
+  "sourceUrl": "https://threaticon.com/threat-actors/1044"
+}

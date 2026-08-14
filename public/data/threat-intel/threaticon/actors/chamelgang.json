@@ -1,0 +1,45 @@
+{
+  "slug": "chamelgang",
+  "id": 869,
+  "name": "Chamelgang",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "cyber espionage", "energy sector", "Data Exfiltration"],
+  "aliases": ["CamoFei"],
+  "targetedSectors": ["Energy"],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1078.004"],
+  "tools": ["Custom malware disguised as legitimate services", "PowerShell scripting for command and control"],
+  "iocPatterns": [
+    "Use of legitimate-looking domain names for C2",
+    "Scheduled task creation for persistence",
+    "Abnormal network traffic mimicking normal service updates"
+  ],
+  "keyCapabilities": [
+    "Advanced data exfiltration tactics",
+    "Living off the land (LOLBin usage)",
+    "sophisticated disguise techniques to mimic legitimate services",
+    "Network persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement network segmentation to isolate critical systems",
+    "Monitor for LOLBin and unusual PowerShell activity",
+    "Ensure regular patching of systems",
+    "Enforce multi-factor authentication (MFA) for sensitive accounts"
+  ],
+  "campaignsText": "Chamelgang has been observed in a single campaign during Q2 2021, focusing on data theft from energy companies. Their operations suggest they may target similar industries with slow-moving campaigns to avoid detection. Monitoring of their activity is essential due to their sophisticated techniques.",
+  "description": "Chamelgang, also known as CamoFei, is a sophisticated cyber threat actor targeting the energy sector primarily for data theft. Disguising their activities under legitimate services of major companies like Microsoft and TrendMicro, they employ advanced tactics to avoid detection, making them a significant threat to critical infrastructure.",
+  "goals": "Chamelgang's primary goal appears to be data theft, targeting the energy sector, which holds sensitive information and strategic infrastructure. Their focus on this sector may stem from either financial motives or espionage aims, though their broader targets remain unclear outside of the energy industry.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A869",
+  "sourceUrl": "https://threaticon.com/threat-actors/869"
+}

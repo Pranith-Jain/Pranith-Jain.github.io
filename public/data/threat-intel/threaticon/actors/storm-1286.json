@@ -1,0 +1,54 @@
+{
+  "slug": "storm-1286",
+  "id": 1029,
+  "name": "Storm-1286",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Email Fraud", "Credential Theft", "Spam Campaign", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Defense Evasion", "Discovery", "Execution"],
+  "techniques": ["T1024.004", "T1059.003", "T1078", "T1685", "T1133"],
+  "tools": [
+    "Mimikatz (credential dumping)",
+    "Custom password spraying scripts",
+    "Cobalt Strike (potential C2 framework)",
+    "Cloud-based access tools (e.g., Meltable Sheep)"
+  ],
+  "iocPatterns": [
+    "Spikes in failed IMAP/S authentication attempts",
+    "Unusual emails originating from compromised domains",
+    "Sudden creation of administrative LOB applications",
+    "High volumes of unsolicited email traffic"
+  ],
+  "keyCapabilities": [
+    "Password spraying attacks",
+    "Exploitation of legacy authentication protocols (IMAP/S)",
+    "Brute-force credential testing",
+    "Admin account compromise and privilege escalation",
+    "Email spoofing and fraudulent transactions",
+    "Establishment of backdoors via Line of Business applications"
+  ],
+  "recommendedActions": [
+    "Implement MFA for all critical accounts, especially admin-level access to email and cloud platforms.",
+    "Monitor network traffic for spikes in IMAP/S or SMTP authentication attempts indicative of password spraying.",
+    "Use threat detection tools to identify and block credential dumping activities targeting cloud services.",
+    "Conduct regular pen testing focusing on email infrastructure vulnerabilities and legacy protocol usage.",
+    "Educate users on recognizing phishing emails and suspicious account activity."
+  ],
+  "campaignsText": "Storm-1286 has demonstrated persistent campaign activity, including attempts to establish long-term spamming platforms within targeted organizations. Their campaigns are characterized by attempts to leverage non-privileged user accounts and escalate privileges. Past operations include the compromise of admin accounts in email systems to create new LOB applications for malicious purposes. Notable past actions include large-scale unauthorized access attempts leading to email fraud and potential financial losses. The group's resilience indicates a commitment to maintaining operational persistence despite countermeasures.",
+  "description": "Storm-1286 is a threat actor engaged primarily in large-scale spamming activities. They exploit accounts without multifactor authentication (MFA) through password spraying attacks, leveraging legacy authentication protocols like IMAP and SMTP to gain unauthorized access. Despite efforts by Microsoft Threat Intelligence, Storm-1286 continues to develop new methods to establish scalable spamming platforms within targeted organizations.",
+  "goals": "Storm-1286's primary objective is to conduct large-scale spamming activities. They target sectors with weaker email security measures, particularly those where unauthorized access can lead to high volumes of unsolicited emails. Their global targeting suggests they seek opportunities across regions with vulnerable infrastructure or higher concentrations of unsecured accounts. The targeted countries likely include regions with less stringent cybersecurity practices, allowing for easier exploitation and spam dissemination. The sector focus is broad but may emphasize industries like finance, retail, or e-commerce, where email-based scams can yield high returns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1029",
+  "sourceUrl": "https://threaticon.com/threat-actors/1029"
+}

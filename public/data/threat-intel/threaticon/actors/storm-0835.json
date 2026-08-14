@@ -1,0 +1,67 @@
+{
+  "slug": "storm-0835",
+  "id": 1037,
+  "name": "Storm-0835",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "Iran (IR)",
+  "originCode": "IR",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "May 17, 2026",
+  "tags": ["Cybercrime", "Phishing", "Financial Fraud", "Corporate Espionage", "Financial Targeting"],
+  "aliases": ["LummaC2 Stealer", "APT28", "Pawn Storm", "Fancy Bear"],
+  "targetedSectors": [
+    "Defense",
+    "Healthcare",
+    "Financial services",
+    "Government",
+    "Manufacturing",
+    "Energy",
+    "Media",
+    "Non profit",
+    "Education",
+    "Telecommunications",
+    "Retail",
+    "Aerospace",
+    "Think tank",
+    "Critical infrastructure"
+  ],
+  "targetedCountries": ["IR", "IL", "AE", "US", "KP", "RU", "UA", "PK", "TW", "IN", "IQ"],
+  "tactics": ["Credential Access", "Execution", "Phishing"],
+  "techniques": [
+    "T1059.003 - Spear Phishing with Attachment",
+    "T1566.001 - Credential Harvesting via Reverse Proxy",
+    "T1194 - Exploitation for Credential Access"
+  ],
+  "tools": ["EvilProxy", "Custom Phishing Tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with links to Indeed.com",
+    "Malicious domains mimicking Microsoft login pages",
+    "Reverse proxy traffic patterns intercepting session data"
+  ],
+  "keyCapabilities": [
+    "Phishing campaign orchestration",
+    "Exploitation of open redirection vulnerabilities",
+    "Use of EvilProxy for credential interception",
+    "Reverse proxy techniques",
+    "High-level social engineering"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA)",
+    "Conduct regular phishing awareness training for executives",
+    "Monitor network traffic for suspicious activity from known phishing domains",
+    "Secure third-party vendor services like Indeed.com",
+    "Enhance employee training on identifying phishing attempts",
+    "Perform regular risk assessments of sensitive corporate accounts"
+  ],
+  "campaignsText": "Storm-0835 has been observed in an active campaign since July 2023, primarily targeting executives in the U.S. Their campaigns show a high level of organization, using phishing emails and malicious redirects to compromise credentials. The group's services being sold under a cybercriminal-as-a-service model indicates potential widespread adoption of their tools across multiple actors, making long-term tracking difficult. Notable past operations include credential harvesting from financial institutions and real estate companies via EvilProxy.",
+  "description": "Storm-0835, a cybercriminal group identified by Microsoft, operates using the EvilProxy phishing toolkit to target senior executives in U.S. firms across banking, financial services, and manufacturing sectors. Their campaign exploits vulnerabilities on job platforms like Indeed.com for credential harvesting and account takeovers, leveraging reverse proxy techniques to intercept login details and session cookies.",
+  "goals": "Storm-0835's primary goal appears to be financial gain through credential harvesting and account takeovers. They specifically target senior executives due to their access to sensitive corporate data and high-value accounts in sectors with significant financial stakes. The group's focus on U.S.-based firms suggests a strategic approach to capitalize on the lucrative nature of these industries.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1037",
+  "sourceUrl": "https://threaticon.com/threat-actors/1037"
+}

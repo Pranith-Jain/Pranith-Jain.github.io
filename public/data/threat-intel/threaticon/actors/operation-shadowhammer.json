@@ -1,0 +1,45 @@
+{
+  "slug": "operation-shadowhammer",
+  "id": 661,
+  "name": "Operation ShadowHammer",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": ["APT", "Supply Chain Attack", "MAC Address Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Discovery", "Lateral Movement"],
+  "techniques": ["T1594", "T1053.002"],
+  "tools": [],
+  "iocPatterns": [
+    "Presence of specific hash values in file downloads",
+    "Network connections to asushotfix.com or related domains",
+    "Unusual activity in ASUS update processes",
+    "Execution of rundll32.exe with unexpected parameters"
+  ],
+  "keyCapabilities": [
+    "Supply chain compromise",
+    "Precision targeting via MAC filtering",
+    "Use of legitimate update channels",
+    "Custom malware distribution"
+  ],
+  "recommendedActions": [
+    "Validate software updates through multiple independent sources before deployment.",
+    "Implement endpoint detection solutions to monitor for suspicious script executions.",
+    "Monitor network traffic for connections to known malicious IPs and domains associated with ShadowHammer."
+  ],
+  "campaignsText": "Operation ShadowHammer's campaign patterns include a focus on targeted precision rather than broad dissemination. The attackers likely compiled a list of MAC addresses over time, possibly through prior network reconnaissance or compromised systems. Known campaigns suggest a slow operational tempo with patient targeting to maximize effectiveness. Notable operations include the compromise of ASUS Live Update files and distribution via legitimate update servers.",
+  "description": "Operation ShadowHammer is a sophisticated cyber threat actor conducting supply chain attacks targeting users via ASUS Live Update software. The operation leverages hardcoded MAC addresses to precisely target specific individuals or organizations, indicating a high level of technical expertise and strategic focus.",
+  "goals": "Operation ShadowHammer's strategic objectives appear focused on disrupting specific targets within the technology sector. The targeting of users through hardcoded MAC addresses suggests an intention to cause maximum disruption with minimal exposure, possibly aiming for espionage or infrastructure sabotage. The choice of ASUS as a vector indicates an interest in high-profile victims who rely on their software updates, making the operation both precise and potentially damaging.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A661",
+  "sourceUrl": "https://threaticon.com/threat-actors/661"
+}

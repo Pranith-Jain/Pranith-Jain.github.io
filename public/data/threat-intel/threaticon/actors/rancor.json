@@ -1,0 +1,93 @@
+{
+  "slug": "rancor",
+  "id": 116,
+  "name": "Rancor",
+  "mitreId": "G0075",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "government",
+    "Southeast Asia",
+    "spear-phishing",
+    "malicious documents",
+    "Initial Access"
+  ],
+  "aliases": ["Rancor group", "Rancor", "Rancor Group", "G0075"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Command and Control"
+  ],
+  "techniques": [
+    "T1566.001",
+    "T1204.002",
+    "T1059.001",
+    "T1055",
+    "T1071.001",
+    "T1041",
+    "T1036",
+    "T1086",
+    "T1110.001",
+    "T1027"
+  ],
+  "tools": [
+    "Weaponized Office macros",
+    "PowerShell Empire",
+    "Cobalt Strike",
+    "Mimikatz",
+    "Custom RAT (RancorDropper)",
+    "Windows Script Host"
+  ],
+  "iocPatterns": [
+    "Spear‑phishing emails with political or election‑related subject lines",
+    "Malicious Office documents containing embedded PowerShell macros",
+    "C2 servers hosted on bullet‑proof domains with fast‑flux DNS",
+    "Encrypted HTTP/HTTPS traffic to staging servers",
+    "Use of encoded PowerShell commands in command lines",
+    "Credential dumping artifacts (Mimikatz logs) in temporary directories"
+  ],
+  "keyCapabilities": [
+    "Spear‑phishing with weaponized Office attachments",
+    "Macro‑based execution of PowerShell and Windows Script Host",
+    "Credential dumping (e.g., Mimikatz)",
+    "Use of remote access frameworks (Cobalt Strike, custom RAT)",
+    "Process injection and DLL side‑loading",
+    "Encrypted C2 communication over HTTP/HTTPS",
+    "Living‑off‑the‑land binary usage",
+    "Data exfiltration via staged web servers"
+  ],
+  "recommendedActions": [
+    "Implement robust email security with attachment sandboxing and macro blocking",
+    "Conduct regular security awareness training focused on spear‑phishing and political lures",
+    "Enforce least‑privilege access and network segmentation for government systems",
+    "Deploy endpoint detection and response (EDR) solutions to monitor PowerShell and script execution",
+    "Block known malicious domains and IP ranges associated with Rancor’s C2 infrastructure",
+    "Establish threat‑hunting queries for indicators such as encoded PowerShell strings and Mimikatz artifacts",
+    "Maintain up‑to‑date patching of Office suites and disable unnecessary macro functionality"
+  ],
+  "campaignsText": "Rancor’s known campaign, highlighted in the Unit42 June 2018 report, employed political narratives relevant to Southeast Asian audiences to increase click‑through rates. The operation used a low‑volume, high‑value approach, delivering malicious documents to a select list of government officials. Infrastructure was hosted on bullet‑proof providers, with domains frequently rotated to avoid detection. Subsequent activity appears sporadic, suggesting a focus on strategic intelligence gathering rather than continuous disruption. No ransomware or extortion behavior has been observed, reinforcing a pure espionage motive.",
+  "description": "Rancor is a government‑focused espionage group operating primarily against Southeast Asian nations. The group employs politically‑charged spear‑phishing lures to deliver malicious Office documents, aiming to exfiltrate sensitive state information. Their activity was first publicly documented by Unit42 in June 2018.",
+  "goals": "Rancor’s strategic objective is the acquisition of political, diplomatic, and strategic intelligence from Southeast Asian governments. By focusing on ministries, defense agencies, and policy‑making bodies, the group seeks to gain insight into regional decision‑making processes, military planning, and foreign policy stances. Their typical victims are senior officials, policy analysts, and IT staff with privileged access, chosen because compromise of these accounts provides the most valuable data and the greatest potential for lateral movement within government networks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A116",
+  "sourceUrl": "https://threaticon.com/threat-actors/116"
+}

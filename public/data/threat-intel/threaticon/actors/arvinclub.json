@@ -1,0 +1,52 @@
+{
+  "slug": "arvinclub",
+  "id": 338,
+  "name": "arvinclub",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Hacktivist",
+    "Critical Infrastructure",
+    "Financial Targeting",
+    "Data Exfiltration",
+    "Government Targeting",
+    "Hacktivism"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Infiltration", "Exfiltration", "Data Destruction"],
+  "techniques": ["T1059.003", "T1078.004", "T1233.001"],
+  "tools": ["Phishing Email Templates", "Custom Malware for Ransomware"],
+  "iocPatterns": [
+    "Phishing emails mimicking official communications",
+    "TOR-based C2 channels for command and control",
+    "Ransomware infection markers in targeted systems"
+  ],
+  "keyCapabilities": [
+    "Ransomware Deployment",
+    "Data Exfiltration",
+    "Spear-phishing Campaigns",
+    "TOR-based Communication"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to block phishing attempts.",
+    "Monitor network traffic for anomalies indicative of data exfiltration.",
+    "Educate employees about recognizing spear-phishing attempts."
+  ],
+  "campaignsText": "Arvin Club operates with a moderate operational tempo, focusing on sectors where disruption has high visibility. Campaigns likely involve multi-stage attacks starting with phishing to establish presence, followed by data collection and exfiltration before ransom demands are made.",
+  "description": "Arvin Club (arvinclub) is a medium-sophistication threat actor with hacktivist tendencies, primarily involved in ransomware incidents and financial gain through cyberattacks. Targeting government, education, banking sectors globally, including Iranian entities, they have been active since 2021. Their activities include data exfiltration and dissemination via platforms like TOR and Telegram, alongside ransom demands.",
+  "goals": "Arvin Club's primary goals align with ransomware deployment and financial enrichment, targeting sectors where data breaches yield significant political or economic leverage. The choice of victims reflects a strategic focus on government entities, educational institutions, and financial organizations, which also provides high-value data for extortion purposes.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A338",
+  "sourceUrl": "https://threaticon.com/threat-actors/338"
+}

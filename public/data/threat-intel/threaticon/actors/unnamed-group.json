@@ -1,0 +1,54 @@
+{
+  "slug": "unnamed-group",
+  "id": 768,
+  "name": "[Unnamed group]",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Iranian Cyber Threat",
+    "Cyber Espionage",
+    "Disruption Campaign",
+    "Backdoor / C2",
+    "Government Targeting",
+    "Hacktivism"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Disruption"],
+  "techniques": ["T1056.002", "T1078", "T1003", "T1564", "T1259"],
+  "tools": ["Telegram channels", "Anonymous communication tools", "Information exfiltration frameworks"],
+  "iocPatterns": [
+    "Use of Telegram channels for information dissemination",
+    "Sudden appearance of confidential documents online",
+    "Exposure of APT toolkits through publicly accessible platforms"
+  ],
+  "keyCapabilities": [
+    "Highly sophisticated operational security",
+    "Proficient in leaking confidential documents",
+    "Expertise in exposing APT tools and techniques",
+    "Use of anonymous communication platforms (Telegram)",
+    "Strategic targeting of sensitive information"
+  ],
+  "recommendedActions": [
+    "Monitor Telegram channels for potential leaks related to your organization.",
+    "Enhance internal security protocols to prevent unauthorized data exposure.",
+    "Conduct regular audits of sensitive systems and communications tools.",
+    "Implement employee training to recognize phishing attempts or suspicious activity."
+  ],
+  "campaignsText": "The Unnamed group has demonstrated a persistent and methodical approach to leaking information. Their campaign patterns include the strategic timing of leaks, particularly around significant events such as political protests in Iran. Notable operations include the exposure of high-confidentiality documents on 'Black Box' Telegram channel and the leak of OilRig and MuddyWatter tools on other channels.",
+  "description": "The Unnamed group, a sophisticated actor believed to be targeting Iranian Advanced Persistent Threat (APT) groups, has emerged as a significant threat due to their ability to leak sensitive information and disrupt operations. Their activities, particularly the exposure of attack tools and confidential documents through Telegram channels, have caused considerable harm to targeted groups, potentially reducing threat activity in the near term.",
+  "goals": "The Unnamed group likely targets Iranian APTs to disrupt their operations and reduce their effectiveness as a threat actor. Their focus on exposing sensitive information suggests an intent to discredit these groups and limit their ability to carry out attacks. The leaks posted on Telegram channels indicate a strategic approach to targeting sectors involved in cyber espionage and potentially politically sensitive activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A768",
+  "sourceUrl": "https://threaticon.com/threat-actors/768"
+}

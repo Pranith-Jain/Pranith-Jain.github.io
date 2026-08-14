@@ -1,0 +1,43 @@
+{
+  "slug": "budminer",
+  "id": 784,
+  "name": "Budminer",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cyberespionage", "malware", "Critical Infrastructure"],
+  "aliases": ["Budminer cyberespionage group"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Exploitation", "Post-Ex"],
+  "techniques": [],
+  "tools": ["Dripion", "Taidoor"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using domain generation algorithms (DGA)"
+  ],
+  "keyCapabilities": [
+    "Developing custom malware",
+    "Advanced persistence techniques",
+    "Tactic evolution to avoid detection"
+  ],
+  "recommendedActions": [
+    "Enhance email filtering for phishing detection",
+    "Implement endpoint protection against known tools",
+    "Monitor network traffic for suspicious C2 activity",
+    "Engage threat intelligence feeds for Budminer alerts"
+  ],
+  "campaignsText": "Budminer has historically used malware in campaigns but ceased Taidoor activity by 2014. Their adaptation suggests a shift in methods to evade detection, though recent operations are unclear. Targets may include those holding sensitive information, requiring vigilance despite no new campaigns observed.",
+  "description": "Budminer is a cyberespionage group known for using Dripion malware. They shifted tactics post-exposure, discontinuing Taidoor campaigns since 2014 to avoid detection.",
+  "goals": "Budminer likely aims to gather sensitive information through espionage activities. Their targeting may focus on regions or sectors with strategic importance, driven by competitive or political motives. The group's shift in tactics post-exposure highlights their goal of maintaining operational security while achieving their objectives.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A784",
+  "sourceUrl": "https://threaticon.com/threat-actors/784"
+}

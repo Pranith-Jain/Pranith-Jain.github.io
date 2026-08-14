@@ -1,0 +1,45 @@
+{
+  "slug": "sowbug",
+  "id": 130,
+  "name": "Sowbug",
+  "mitreId": "G0054",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "Espionage", "Government Sector", "South America", "Southeast Asia", "Government Targeting"],
+  "aliases": ["G0054"],
+  "targetedSectors": ["Government"],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Command and Control"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom RAT", "Commodity Malware"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Social Engineering",
+    "Network Exploitation",
+    "Custom Malware Development",
+    "Use of Commodity Malware",
+    "Evasion Techniques"
+  ],
+  "recommendedActions": [
+    "Implement robust email security measures to combat spear-phishing",
+    "Enhance network monitoring for signs of unauthorized access",
+    "Conduct regular security audits and penetration testing"
+  ],
+  "campaignsText": "Sowbug's campaign patterns are characterized by targeted attacks against government entities in specific geographic regions. Their operational tempo seems to be deliberate and prolonged, with activities spanning several years. This suggests a well-planned and executed strategy, possibly involving extensive reconnaissance, tailored social engineering campaigns, and the use of bespoke malware. Notable past operations include their targeted attacks in South America and Southeast Asia, as documented by Symantec in 2017.",
+  "description": "Sowbug, also known as G0054, is a threat actor that primarily targets government entities in South America and Southeast Asia for espionage purposes. Their operations have been observed since at least 2015, indicating a long-term commitment to their objectives. The group's focus on government sectors suggests they are seeking sensitive information that could provide strategic advantages.",
+  "goals": "Sowbug's strategic objectives appear to be centered on gathering sensitive information from government entities in South America and Southeast Asia. This focus suggests they are targeting these sectors to achieve specific geopolitical or strategic advantages, possibly on behalf of a sponsoring nation-state. Their typical victims are government organizations, which they likely attack to acquire classified or sensitive information that could be used to influence regional policies or support national interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A130",
+  "sourceUrl": "https://threaticon.com/threat-actors/130"
+}

@@ -1,0 +1,58 @@
+{
+  "slug": "ta2719",
+  "id": 1041,
+  "name": "TA2719",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Espionage",
+  "added": "May 17, 2026",
+  "tags": ["Cybercrime", "Financially motivated", "Phishing", "RAT", "Geographically diverse", "Backdoor / C2"],
+  "aliases": ["a mortgage closing scam", "APT28", "Pawn Storm", "Fancy Bear"],
+  "targetedSectors": [
+    "Government",
+    "Defense",
+    "Aerospace",
+    "Energy",
+    "Non profit",
+    "Think tank",
+    "Financial services",
+    "Retail"
+  ],
+  "targetedCountries": ["TW", "US", "SA", "NL", "ES", "IT", "IR", "IL"],
+  "tactics": ["Email Compromise", "Credential Access", "Lateral Movement", "Collection", "Exfiltration"],
+  "techniques": ["T1057", "T1566.003", "T1212.001", "T1046", "T1398"],
+  "tools": ["NanoCore RAT", "AsyncRAT", "Custom phishing email templates"],
+  "iocPatterns": [
+    "Phishing emails containing malicious Office attachments",
+    "Network traffic indicative of远程访问木马 (RAT)通信",
+    "Spear-phishing with localized/lured content",
+    "Use of commodity RATs like NanoCore and AsyncRAT",
+    "Potential C2 infrastructure using compromised or legitimate services"
+  ],
+  "keyCapabilities": [
+    "Use of commodity remote access trojans (RATs) such as NanoCore and AsyncRAT",
+    "Localized phishing campaigns with malicious email attachments",
+    "Impersonation of local banks, law enforcement, and shipping services",
+    "Low-volume targeting across multiple countries",
+    "Sophisticated campaign operations to avoid detection"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block phishing emails with malicious attachments or links.",
+    "Monitor for unusual network activity indicative of RAT communication patterns.",
+    "Educate employees about spear-phishing tactics, especially those involving local institutions.",
+    "Apply regular updates and patches to systems to mitigate known vulnerabilities exploited by RATs.",
+    "Use multi-factor authentication (MFA) to secure sensitive accounts and reduce the impact of credential theft."
+  ],
+  "campaignsText": "TA2719's campaign patterns involve low-volume, geographically diverse attacks that may be designed to evade detection. The group's focus on localized lures suggests an understanding of cultural and regional factors that could enhance the success rate of their campaigns. Despite the use of common tools like RATs, TA2719 demonstrates a level of operational maturity consistent with more advanced actors, particularly in their targeting and delivery mechanisms. Notable operations include phishing campaigns impersonating local banks and law enforcement agencies across multiple countries, indicating a broad and flexible approach to victim selection.",
+  "description": "TA2719 is a cyber threat actor identified by Proofpoint in late March 2020, known for leveraging commodity remote access trojans (RATs) such as NanoCore and AsyncRAT. The group employs localized phishing campaigns with malicious emails impersonating local banks, law enforcement, and shipping services, targeting individuals across multiple countries including Austria, Chile, Greece, Hungary, Italy, North Macedonia, Netherlands, Spain, Sweden, Taiwan, United States, and Uruguay. Despite its use of commonly available tools, TA2719 demonstrates a sophisticated approach to campaign operations, focusing on low-volume attacks that may be designed to evade detection while achieving financial gain or data theft objectives.",
+  "goals": "TA2719's strategic objectives appear to be primarily financial, as evidenced by their use of malicious tools like RATs, which are often associated with data theft and fraudulent activities. The group's targeting of individuals in multiple countries suggests a global operational scope, possibly aiming to maximize their reach and opportunities for gain. Their focus on impersonating local institutions may indicate an attempt to exploit trust in familiar brands or services to increase the success rate of their campaigns. The sectors targeted by TA2719—banking, law enforcement, shipping—suggest a desire to access sensitive data or disrupt specific industries. Typical victims include individuals in both private and corporate settings who receive these phishing emails, making organizations across all sectors potentially at risk.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1041",
+  "sourceUrl": "https://threaticon.com/threat-actors/1041"
+}

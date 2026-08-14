@@ -1,0 +1,46 @@
+{
+  "slug": "stealth-falcon",
+  "id": 78,
+  "name": "Stealth Falcon",
+  "mitreId": "G0038",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "A",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "Middle East", "Critical Infrastructure", "Government Targeting"],
+  "aliases": ["FruityArmor", "G0038"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Initial Access", "Collection"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom spyware", "Social engineering tools"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Sophisticated spyware development and deployment",
+    "Targeted social engineering and phishing attacks",
+    "Ability to evade detection by traditional security measures",
+    "Infiltration and monitoring of digital activities",
+    "Data exfiltration and analysis"
+  ],
+  "recommendedActions": [
+    "Implement robust email and social media security measures",
+    "Use secure communication protocols and encryption",
+    "Monitor for suspicious digital activity",
+    "Implement regular security updates and patches"
+  ],
+  "campaignsText": "Stealth Falcon's campaign patterns suggest a highly targeted and sophisticated approach to espionage, with a focus on infiltrating and monitoring the digital activities of Emirati journalists, activists, and dissidents. The group's operational tempo appears to be relatively low, with a focus on long-term surveillance and intelligence gathering rather than short-term disruption or sabotage. Notable past operations include the group's targeting of Emirati journalists and activists in 2012 and 2016, as documented by the Citizen Lab.",
+  "description": "Stealth Falcon, also known as FruityArmor or G0038, is a threat group that has been conducting targeted spyware attacks against Emirati journalists, activists, and dissidents since at least 2012, with a primary motivation of espionage. The group's activities suggest a possible link to the United Arab Emirates (UAE) government, but this has not been confirmed. Stealth Falcon's operations pose a significant threat to individuals and organizations in the Middle East, particularly those involved in journalism, activism, or dissident activities.",
+  "goals": "Stealth Falcon's strategic objectives appear to be focused on gathering intelligence on potential threats to the UAE government, as well as suppressing dissent and monitoring the activities of Emirati journalists, activists, and dissidents. The group's targeting of these individuals and groups suggests a desire to identify and disrupt potential sources of opposition to the UAE government, as well as to gather intelligence on the activities and plans of these individuals and groups. Stealth Falcon's typical victims are Emirati journalists, activists, and dissidents, although the group may also target other individuals and organizations in the Middle East who are perceived as threats to the UAE government.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A78",
+  "sourceUrl": "https://threaticon.com/threat-actors/78"
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "moafee",
+  "id": 171,
+  "name": "Moafee",
+  "mitreId": "G0002",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["cybercrime", "espionage", "pharmaceutical-sector", "gaming-sector"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Adversary Persistence", "Credential Access"],
+  "techniques": ["T1027.001", "T1203"],
+  "tools": ["PoisonIvy", "Custom Binary Padding toolset"],
+  "iocPatterns": [
+    "Presence of PoisonIvy RAT",
+    "Binary Padding anomalies in legitimate software",
+    "Phishing emails targeting pharmaceutical/gaming sectors"
+  ],
+  "keyCapabilities": [
+    "Custom malware development",
+    "Binary Padding technique (T1027.001)",
+    "Remote Access Trojan deployment (e.g., PoisonIvy)",
+    "Spear phishing campaigns",
+    "Supply chain compromise"
+  ],
+  "recommendedActions": [
+    "Monitor for Binary Padding indicators using endpoint detection tools.",
+    "Implement supply chain security measures to detect and prevent malicious updates.",
+    "Conduct regular network traffic analysis to identify suspicious domains or IPs linked to Moafee activity."
+  ],
+  "campaignsText": "Moafee's campaigns exhibit a focus on sectors with valuable data, using phishing and malware deployment. While specific campaign details are limited, their activities align with those of DragonOK, indicating a focus on long-term access and strategic data extraction.",
+  "description": "Moafee is an active threat actor suspected to operate from Guangdong Province, China. Linked with the DragonOK group due to similar TTPs and tools, Moafee targets various sectors including healthcare, pharmaceuticals, and gaming. They employ custom malware like PoisonIvy and use Binary Padding techniques, posing risks through phishing and supply chain attacks.",
+  "goals": "Moafee likely targets sectors with high intellectual property value and sensitive data, such as healthcare, pharmaceuticals, and government. Their geographical focus includes the U.S., Japan, South Korea, and other countries, particularly those in which DragonOK has been active. The group's operational goals appear to align with financial gain, industrial espionage, or nation-state interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A171",
+  "sourceUrl": "https://threaticon.com/threat-actors/171"
+}

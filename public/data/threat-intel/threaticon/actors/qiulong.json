@@ -1,0 +1,46 @@
+{
+  "slug": "qiulong",
+  "id": 555,
+  "name": "qiulong",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Financial-Gain", "Geographic-Specific", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Exfiltration"],
+  "techniques": ["T1059", "T1027", "T1548"],
+  "tools": [
+    "Custom ransomware tools possibly with script-based execution (e.g., Poshmamo-like scripts), credential dumping utilities, and file encryption mechanisms"
+  ],
+  "iocPatterns": [
+    "Encrypted files following specific naming conventions",
+    "RDP brute-force attempts targeting Brazilian IP ranges",
+    "Web-based communication channels for further instructions post-infection"
+  ],
+  "keyCapabilities": [
+    "Double extortion tactics",
+    "Ransomware deployment with encryption capabilities",
+    "Sensitive information extraction and publication"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication for all RDP access points",
+    "Monitor network traffic for anomalies, especially within the Brazilian sector",
+    "Conduct regular backups of critical data and ensure they are offline and secure",
+    "Train employees to recognize phishing attempts and suspicious emails"
+  ],
+  "campaignsText": "Since their emergence in April 2024, Qiulong has targeted at least eight organizations within Brazil. Their campaigns involve identifying high-value assets for both encryption and data extraction, with a focus on pressuring victims through public humiliation tactics. Notable past operations include multiple extortion attempts, emphasizing quick actions and high-pressure demands to expedite payments.",
+  "description": "Qiulong is a newly emerged ransomware group targeting Brazilian organizations with double extortion tactics and threats to publish sensitive victim data. They surfaced in April 2024, aiming for financial gain through ransom payments.",
+  "goals": "The primary goal of Qiulong is financial gain via ransom payments. While specific targeted sectors have not been explicitly detailed, the targeting is geographically concentrated in Brazil, indicating potential language or cultural considerations. Victims are likely businesses that hold sensitive data and could be pressured into complying due to reputational damage risks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A555",
+  "sourceUrl": "https://threaticon.com/threat-actors/555"
+}

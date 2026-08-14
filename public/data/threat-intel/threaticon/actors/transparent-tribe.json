@@ -1,0 +1,40 @@
+{
+  "slug": "transparent-tribe",
+  "id": 54,
+  "name": "Transparent Tribe",
+  "mitreId": "G0134",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "P",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "government-sector", "Initial Access", "Government Targeting"],
+  "aliases": ["COPPER FIELDSTONE", "APT36", "Mythic Leopard", "ProjectM"],
+  "targetedSectors": ["Government", "Defense"],
+  "targetedCountries": ["IN"],
+  "tactics": ["Collection", "Exfiltration", "Persistent Access"],
+  "techniques": ["T1059.003", "T1204.002", "T1568", "T1203", "T1189"],
+  "tools": ["DarkComet", "ObliqueRAT", "njRAT"],
+  "iocPatterns": [
+    "Spear-phishing campaigns leveraging Visual Basic scripting",
+    "Encrypted/encoded communication channels",
+    "Malicious Office documents"
+  ],
+  "keyCapabilities": ["Crimson", "DarkComet", "ObliqueRAT", "Peppy", "njRAT"],
+  "recommendedActions": [
+    "Implement advanced phishing detection solutions",
+    "Monitor for encrypted or unusual file activities",
+    "Conduct regular network traffic analysis",
+    "Patch systems and maintain updated software versions"
+  ],
+  "campaignsText": "Transparent Tribe has conducted several campaigns targeting South Asian diplomatic and defense institutions. The group's operational tempo appears to be event-driven, with increased activity during key geopolitical events. Notable campaigns include Operation Transparent Tribe, which involved spear-phishing attacks using encrypted files and malicious macros to compromise systems in India.",
+  "description": "Transparent Tribe, also known as COPPER FIELDSTONE or APT36, is an advanced persistent threat (APT) group suspected to be based in Pakistan. Primarily involved in espionage activities, the group has targeted government and defense sectors in India and Afghanistan since at least 2013. Known for using sophisticated tactics such as spear-phishing campaigns, malware deployment, and domain spoofing, Transparent Tribe poses a significant risk to diplomatic and military organizations.",
+  "goals": "Transparent Tribe's primary motivation appears to be espionage, focusing on gathering sensitive information from government and defense sectors. The targeting of specific countries like India and Afghanistan suggests a strategic interest in South Asian geopolitical dynamics. The group likely aims to achieve long-term access to critical infrastructure to facilitate intelligence collection, influence decision-making processes, or support national security interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A54",
+  "sourceUrl": "https://threaticon.com/threat-actors/54"
+}

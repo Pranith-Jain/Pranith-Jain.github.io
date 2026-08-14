@@ -1,0 +1,53 @@
+{
+  "slug": "blacksuit",
+  "id": 361,
+  "name": "blacksuit",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["crime", "ransomware", "malware", "financial-gain", "organizational-gain", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Data Encirclement", "Impact"],
+  "techniques": ["T1500.001", "T1070", "T1233", "T1548"],
+  "tools": [
+    "RoyalRAT",
+    "Phishing Email Kits (e.g., for spear-phishing)",
+    "Exploit Kit (for payload delivery)",
+    "Custom Ransomware",
+    "Hardcoded C2 IP Tools"
+  ],
+  "iocPatterns": [
+    "Use of hardcoded C2 IPs (e.g., 104.244.75.168)",
+    "Phishing emails with malicious attachments",
+    "Lateral movement within a network post-compromise",
+    "Ransomware encryption of critical files"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment via phishing",
+    "Use of exploit kits for initial access",
+    "Encryption of victim data",
+    "Command and control infrastructure using hardcoded IPs"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts",
+    "Monitor network traffic for connections to known C2 IPs and domains",
+    "Regularly back up data and store backups offline",
+    "Patch systems promptly to mitigate exploit risks",
+    "Use endpoint detection and response (EDR) tools for early threat detection"
+  ],
+  "campaignsText": "Blacksuit has conducted campaigns targeting numerous victims, with patterns suggesting a focus on deploying ransomware through phishing emails and exploiting vulnerabilities. While their exact campaign tactics are not fully documented beyond the known victims and sample IP, they likely follow well-known methods used in similar threats. Their operational tempo has been moderate but persistent, with notable activity peaks based on the provided timeline.",
+  "description": "Blacksuit is a medium-sophistication cybercriminal threat actor primarily involved in ransomware activities for financial gain. They were first observed on 2023-06-12 and last seen on 2025-05-29, targeting 184 victims. Blacksuit's ransomware shares code similarities with Royal Ransomware, suggesting potential use of similar tactics such as phishing emails and exploit kits. Their operations are detectable through known IP addresses used in command and control communications.",
+  "goals": "Blacksuit's primary goal is financial gain through ransomware operations. They target a broad range of potential victims, likely selecting based on susceptibility rather than specific sectors or regions. The group's targeting approach suggests they may aim for organizations with high data value to maximize the potential payout when encrypting systems.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A361",
+  "sourceUrl": "https://threaticon.com/threat-actors/361"
+}

@@ -1,0 +1,48 @@
+{
+  "slug": "electric-powder",
+  "id": 298,
+  "name": "Electric Powder",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["Nation-state", "Espionage", "Energy sector", "Malware", "Social engineering", "APT"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": ["IL"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1190", "T1204"],
+  "tools": ["Custom malware", "Downloader", "Keylogger", "Phishing kits"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting",
+    "Malware communication via social media platforms"
+  ],
+  "keyCapabilities": [
+    "Malware development and distribution",
+    "Social engineering and phishing",
+    "Website compromise and exploitation",
+    "Cloud-based infrastructure utilization",
+    "Data exfiltration and espionage"
+  ],
+  "recommendedActions": [
+    "Implement robust email and social media filtering",
+    "Conduct regular security awareness training",
+    "Utilize anti-malware and anti-virus software",
+    "Monitor for suspicious network activity",
+    "Implement a zero-trust security model"
+  ],
+  "campaignsText": "The Electric Powder threat actor's campaign patterns suggest a focus on long-term espionage and data gathering. Their operational tempo is likely to be slow and deliberate, with a focus on establishing a foothold within target systems and extracting sensitive information over time. The group's victims are typically organizations within the energy sector, and their campaigns may involve multiple phases and tactics to achieve their objectives. Notable past operations have involved the use of fake social media profiles and compromised websites to distribute malware.",
+  "description": "The Electric Powder threat actor is a nation-state sponsored group primarily motivated by espionage, targeting the Israel Electric Company. Their operations involve spreading malware through fake social media profiles, compromised websites, and self-hosted/cloud-based sites. This poses a significant threat to the energy sector and national security.",
+  "goals": "The Electric Powder threat actor's strategic objectives appear to be focused on gathering sensitive information from the energy sector, particularly in Israel. Their targeting profile suggests that they are seeking to compromise systems and extract data that could be used for strategic or economic gain. The group's typical victims are likely to be organizations within the energy sector, including utilities and infrastructure providers. The actor's nation-state sponsorship indicates that their goals are likely aligned with those of their sponsoring nation, and their operations may be driven by a desire to advance national interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A298",
+  "sourceUrl": "https://threaticon.com/threat-actors/298"
+}

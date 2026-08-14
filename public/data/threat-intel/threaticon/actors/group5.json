@@ -1,0 +1,92 @@
+{
+  "slug": "group5",
+  "id": 87,
+  "name": "Group5",
+  "mitreId": "G0043",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "Iran",
+    "Syria",
+    "RAT",
+    "Android",
+    "phishing",
+    "political‑opposition",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2"
+  ],
+  "aliases": ["G0043"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Command and Control",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1566.001",
+    "T1566.002",
+    "T1189",
+    "T1059.001",
+    "T1055",
+    "T1071.001",
+    "T1071.004",
+    "T1105",
+    "T1027",
+    "T1041"
+  ],
+  "tools": [
+    "njRAT",
+    "NanoCore",
+    "DroidJack",
+    "Custom PowerShell scripts (observed in delivery)",
+    "Open-source C2 frameworks (e.g., PHP web shells)"
+  ],
+  "iocPatterns": [
+    "Spear‑phishing emails with Syrian or Iranian political themes and malicious Office attachments",
+    "Links to compromised web pages hosting njRAT or NanoCore download bundles",
+    "Android APKs signed with generic certificates containing DroidJack binaries",
+    "C2 domains using fast‑flux DNS and hosting on bullet‑proof providers",
+    "PowerShell command strings obfuscated with base64 encoding"
+  ],
+  "keyCapabilities": [
+    "Spear‑phishing with malicious Office documents and links",
+    "Watering‑hole compromise of sites frequented by Syrian opposition",
+    "Deployment of off‑the‑shelf Windows RATs (njRAT, NanoCore)",
+    "Use of Android RAT (DroidJack) for mobile device compromise",
+    "Credential harvesting and exfiltration via RAT C2 channels",
+    "Basic network reconnaissance and lateral movement",
+    "Command‑and‑control over HTTP/HTTPS and DNS"
+  ],
+  "recommendedActions": [
+    "Implement advanced email security with attachment sandboxing and URL rewriting",
+    "Conduct regular phishing awareness training focused on region‑specific lure content",
+    "Deploy endpoint detection and response (EDR) rules to detect njRAT, NanoCore, and DroidJack behaviors",
+    "Monitor network traffic for anomalous HTTP/HTTPS and DNS queries to known malicious domains",
+    "Enforce mobile device management (MDM) policies to restrict installation of unknown APKs",
+    "Block outbound connections to identified C2 infrastructure and use DNS sinkholing for fast‑flux domains",
+    "Perform periodic threat‑hunts for indicators of RAT persistence mechanisms on Windows and Android devices"
+  ],
+  "campaignsText": "Group5’s campaigns have been observed intermittently since at least 2018, with peaks coinciding with heightened political activity in Syria. The actor typically stages infrastructure on bullet‑proof hosting services, using fast‑flux DNS to mask C2 servers. Campaigns are short‑lived, often lasting weeks, after which the infrastructure is abandoned and re‑registered under new domains. Victim enumeration shows a concentration on Syrian opposition activists, NGOs, and diaspora journalists, with occasional spill‑over to regional diplomatic personnel. Notable operations include a 2020 watering‑hole compromise of a Syrian diaspora forum that delivered NanoCore payloads to over 150 users.",
+  "description": "Group5 is a suspected Iranian‑linked threat actor that has focused on individuals associated with the Syrian opposition. It employs spear‑phishing and watering‑hole campaigns using culturally resonant themes and leverages publicly available remote access tools such as njRAT, NanoCore, and the Android RAT DroidJack.",
+  "goals": "Group5’s strategic objective appears to be intelligence gathering and surveillance of Syrian opposition figures and their support networks. By compromising both desktop and mobile devices, the actor can monitor communications, harvest credentials, and potentially influence or disrupt opposition activities. The targeting profile is narrow—primarily activists, journalists, and diaspora members linked to the Syrian opposition—suggesting a motive aligned with state‑sponsored espionage or influence operations rather than financial gain. The group’s choice of culturally specific lures indicates a deep understanding of the target audience, aiming to maximize click‑through rates and successful payload execution.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A87",
+  "sourceUrl": "https://threaticon.com/threat-actors/87"
+}

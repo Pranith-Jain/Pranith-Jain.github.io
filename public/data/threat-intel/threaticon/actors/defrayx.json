@@ -1,0 +1,64 @@
+{
+  "slug": "defrayx",
+  "id": 962,
+  "name": "DefrayX",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Ransomware",
+    "Linux malware",
+    "Healthcare sector",
+    "Manufacturing sector",
+    "APT-like activity",
+    "Healthcare Targeting"
+  ],
+  "aliases": ["Hive0091"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Ransomware", "Initial Access", "Execution", "Defense Evasion", "Credential Access", "Discovery"],
+  "techniques": [
+    "T1566.002 (Phishing via Email)",
+    "T1045.004 (_masquerading_as_credential.harvesting_type_ dll)",
+    "T1059 (Malware Code Injection)",
+    "T1021 (Internal Spear Phishing)",
+    "T1574 (Exfiltration Over C2 Channel)",
+    "T1573 (Encryption)"
+  ],
+  "tools": ["RansomExx ransomware", "PyXie RAT", "Vatet loader", "Defray ransomware"],
+  "iocPatterns": [
+    "Phishing emails with malicious links or attachments",
+    "Malicious scripts targeting Linux systems",
+    "C2 server communication over non-standard protocols",
+    "Ransomware encryption of files on Linux/Windows systems",
+    "Internal network exploration for data exfiltration"
+  ],
+  "keyCapabilities": [
+    "Development of RansomExx ransomware",
+    "Linux-targeted attacks",
+    "Windows ransomware variants",
+    "PyXie RAT deployment",
+    "Vatet loader usage",
+    "Defray ransomware operations"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts.",
+    "Monitor network traffic for signs of C2 communication channels.",
+    "Conduct regular vulnerability assessments, especially focusing on Linux systems.",
+    "Enforce strict access controls and encryption for sensitive data in healthcare and manufacturing sectors.",
+    "Educate employees about spear-phishing tactics through regular training."
+  ],
+  "campaignsText": "DefrayX's campaigns demonstrate a focus on long-term, targeted operations against critical sectors. Their use of multiple malware types suggests an intent to adapt tactics over time, potentially evading detection by varied techniques. While specific campaign details remain limited, their sustained activity since 2018 indicates a professional and resourceful group. Expected targets include healthcare for patient data and manufacturing for supply chain information.",
+  "description": "DefrayX, also known as Hive0091, is a cyber threat group primarily known for their RansomExx ransomware operations. They target both Linux and Windows operating systems, with a particular focus on sectors like healthcare and manufacturing since 2018. The group has demonstrated the ability to adapt their tactics, developing additional malware such as PyXie RAT and Vatet loader, poses a significant threat to critical infrastructure and organizations handling sensitive data.",
+  "goals": "DefrayX's primary motivation appears to be financial gain through ransomware activities. By targeting sectors like healthcare and manufacturing, they likely focus on industries where data is both valuable and sensitive. Their choice of Linux as a primary target suggests an intent to exploit less defended or common attack vectors, potentially offering higher returns with lower competition compared to Windows. The group's development of multiple malware strains indicates an aim to diversify their toolkit to avoid detection and maintain operational persistence.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A962",
+  "sourceUrl": "https://threaticon.com/threat-actors/962"
+}

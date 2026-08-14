@@ -1,0 +1,39 @@
+{
+  "slug": "dev-0928",
+  "id": 956,
+  "name": "DEV-0928",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["Phishing", "Sectors: Multiple", "Volume-Based Attacks"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access"],
+  "techniques": ["T1566.002 - Phishing via Email Attachment (Spear-Phishing)"],
+  "tools": ["Email spoofing tools", "DEV-1101-provided kits"],
+  "iocPatterns": ["Spear-phishing emails with malicious links"],
+  "keyCapabilities": [
+    "High-volume phishing campaigns",
+    "Email spoofing and spam distribution tools",
+    "Redirection techniques to evade detection"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and anti-phishing solutions",
+    "Conduct regular employee training to recognize phishing attempts",
+    "Monitor network traffic for spikes indicating large-scale campaigns"
+  ],
+  "campaignsText": "DEV-0928's campaigns are marked by their volume and use of phishing tactics. Their operations since September 2022 have targeted a wide range of sectors, suggesting an intent to maximize opportunities rather than focusing on specific industries. While exact campaign specifics are limited, the group demonstrates scalability in their approach.",
+  "description": "DEV-0928 is a recently identified threat actor tracked by Microsoft since September 2022. They primarily engage in large-scale phishing campaigns, leveraging tools from DEV-1101 to target numerous sectors through high-volume email distribution and basic evasion techniques.",
+  "goals": "DEV-0928's strategic objectives likely include data theft and financial gain, given their reliance on phishing for large-scale campaigns. Their targeting profile is not sector-specific but rather volume-focused, potentially seeking to compromise any organization within their reach that offers viable opportunities for exploitation. This broad approach allows them to operate across industries with significant email traffic.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A956",
+  "sourceUrl": "https://threaticon.com/threat-actors/956"
+}

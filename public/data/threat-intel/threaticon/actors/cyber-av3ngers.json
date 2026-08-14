@@ -1,0 +1,56 @@
+{
+  "slug": "cyber-av3ngers",
+  "id": 913,
+  "name": "Cyber Av3ngers",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Hacktivist Group",
+    "Critical Infrastructure Targeting",
+    "DDoS Activity",
+    "Data Breach",
+    "Critical Infrastructure",
+    "DDoS",
+    "Hacktivism"
+  ],
+  "aliases": ["CyberAv3ngers", "Shahid Kaveh Group"],
+  "targetedSectors": ["Government", "Energy"],
+  "targetedCountries": [],
+  "tactics": ["Disruption", "Data Collection", "Clandestine Communication"],
+  "techniques": ["T1059", "T1059.003", "T1046", "T1248", "T1566", "T1566.001"],
+  "tools": ["DDoS tools (e.g., Low Orbit Ion Cannon)", "Basic exploit kits", "Custom scripts for network disruption"],
+  "iocPatterns": [
+    "DDoS attack patterns",
+    "Presence of data exfiltration tools",
+    "Network scanning and probing",
+    "Use of exploit scripts"
+  ],
+  "keyCapabilities": [
+    "Conducting DDoS attacks",
+    "Initiating data breaches",
+    "Supporting attacks with data leaks",
+    "Possibly using basic social engineering techniques"
+  ],
+  "recommendedActions": [
+    "Implement robust DDoS protection measures",
+    "Monitor for signs of unauthorized access to critical systems",
+    "Conduct regular employee training on phishing and social engineering threats",
+    "Enhance network segmentation to limit lateral movement",
+    "Maintain strong patch management practices",
+    "Consider threat hunting to detect potential advanced attackers"
+  ],
+  "campaignsText": "Cyber Av3ngers appears to target sectors where high-impact disruptions can be achieved, with a focus on critical infrastructure and government entities. The group's operations in the United States suggest an expansion beyond their traditional Middle Eastern theater, potentially indicating evolving strategic priorities.",
+  "description": "Cyber Av3ngers, also known as CyberAv3ngers or Shahid Kaveh Group, is a hacktivist group primarily targeting government and energy sectors in the United States. Known for conducting DDoS attacks and claiming breaches of critical infrastructure with supporting data leaks, this group’s activities suggest a focus on disrupting operations and making political statements.",
+  "goals": "The group's goals appear to align with disruptive activities against perceived adversaries, targeting critical infrastructure sectors such as government and energy where impact is likely maximized. Their focus on the United States suggests a broader geopolitical agenda or response to specific policies.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A913",
+  "sourceUrl": "https://threaticon.com/threat-actors/913"
+}

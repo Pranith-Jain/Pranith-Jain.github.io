@@ -1,0 +1,46 @@
+{
+  "slug": "miolab",
+  "id": 690,
+  "name": "miolab",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": ["malware", "espionage", "financial-sector", "ransomware", "Financial Targeting", "Data Exfiltration"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Impact"],
+  "techniques": ["T1078.001", "T1566.002"],
+  "tools": [
+    "Custom MioLab malware (C-based)",
+    "DMG builder payloads",
+    "ClickFix integration",
+    "Bulletproof hosting services"
+  ],
+  "iocPatterns": [
+    "Malware-laced DMG files",
+    "Safari cookie exfiltration scripts",
+    "Hardware wallet seed phrase interception attempts",
+    "Customized social engineering payloads"
+  ],
+  "keyCapabilities": [],
+  "recommendedActions": [
+    "Implement multi-factor authentication for cryptocurrency wallets",
+    "Educate users on recognizing and avoiding malicious social engineering attempts",
+    "Monitor network traffic for signs of data exfiltration patterns linked to MioLab",
+    "Regularly update macOS systems and software extensions"
+  ],
+  "campaignsText": "MioLab's campaigns are characterized by their rapid development and continuous feature updates. The group's use of customizable payloads, advanced social engineering tactics, and targeting of high-value assets suggests a professional, financially motivated operation. While specific campaign details are limited, recent developments indicate an evolving threat with significant potential for financial harm to individuals and organizations handling cryptocurrency assets.",
+  "description": "MioLab, also known as Nova, is a sophisticated Malware-as-a-Service (MaaS) platform targeting macOS environments. The actor leverages advanced social engineering techniques and lightweight C-based payloads to compromise browser credentials, cryptocurrency wallets, and hardware wallets like Ledger and Trezor. MioLab's rapid development and use of bulletproof hosting services pose significant risks to users in the financial sector.",
+  "goals": "MioLab's primary objectives appear to be financial gain through the theft of sensitive information, particularly targeting cryptocurrency assets. The actor's targeting of macOS users suggests a focus on individuals and organizations with significant digital asset holdings. Cryptocurrency exchanges, wallet manufacturers, and users with high-value assets are likely priority targets. MioLab's use of hardware wallet compromise techniques highlights an advanced understanding of cybersecurity threats and underscores the group's intent to exploit even the most secure digital asset storage methods.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A690",
+  "sourceUrl": "https://threaticon.com/threat-actors/690"
+}

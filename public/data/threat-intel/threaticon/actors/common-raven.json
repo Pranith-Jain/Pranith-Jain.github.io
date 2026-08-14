@@ -1,0 +1,66 @@
+{
+  "slug": "common-raven",
+  "id": 826,
+  "name": "Common Raven",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "financial-sector", "SWIFT-compromise", "financial-gain", "cybercrime", "Financial Targeting"],
+  "aliases": ["OPERA1ER", "NXSMS", "DESKTOP-GROUP"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Discovery",
+    "Lateral Movement",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1059.003 - Spearphishing via malicious documents",
+    "T1040 - Exfiltration over DNS",
+    "T1105 - Use of remote access tools",
+    "T1552.002 - Kerberos service ticket manipulation",
+    "T1078 - Valid accounts for initial access",
+    "T1055 - Use of non-standard binaries"
+  ],
+  "tools": ["Custom SWIFT manipulation malware", "Cobalt Strike", "Mimikatz", "PowerSploit", "Remote access trojans"],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Office documents",
+    "C2 communication over DNS using fast-flux infrastructure",
+    "Staging of malicious payloads on bulletproof hosting services",
+    "Abnormal SWIFT message patterns with irregular transaction metadata",
+    "Unusual network traffic to obscure IP ranges in compromised regions"
+  ],
+  "keyCapabilities": [
+    "Exploitation of SWIFT system vulnerabilities",
+    "Custom malware deployment for financial system manipulation",
+    "Spear-phishing campaigns targeting financial sector personnel",
+    "Network infiltration techniques for long-term persistence",
+    "Credential harvesting for elevated system access"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering for macro-laced documents",
+    "Monitor SWIFT transaction metadata for anomalies",
+    "Deploy network traffic analysis for DNS-based C2 detection",
+    "Conduct regular phishing simulations for financial staff",
+    "Implement multi-factor authentication for SWIFT system access",
+    "Perform penetration testing of SWIFT infrastructure components"
+  ],
+  "campaignsText": "Common Raven's campaigns appear to follow a slow, stealthy pattern, prioritizing long-term access over immediate exfiltration. Operations typically begin with spear-phishing to gain initial access, followed by lateral movement to reach SWIFT systems. The group's focus on financial institutions and infrastructure suggests a high level of technical expertise and a clear understanding of banking system architectures. While no specific campaigns have been publicly attributed to this group, their methods align with known SWIFT compromise patterns observed in other cybercriminal operations.",
+  "description": "Common Raven is a threat actor targeting financial institutions, exploiting SWIFT infrastructure to divert funds through fraudulent payments. This group's operations suggest a focus on stealthy, persistent access to enable long-term financial exploitation. The lack of confirmed aliases or full TTPs highlights the need for further analysis to fully understand their capabilities and affiliations.",
+  "goals": "Common Raven's primary objective appears to be monetary gain through fraudulent financial transactions, targeting SWIFT systems due to their central role in global banking operations. The group focuses on financial institutions, particularly those with international transaction capabilities, as these provide access to large sums of money with potential for global movement. The lack of geographic constraints in targeting suggests a broad operational interest in any institution with SWIFT access, emphasizing the need for enhanced defenses across the global financial sector.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A826",
+  "sourceUrl": "https://threaticon.com/threat-actors/826"
+}

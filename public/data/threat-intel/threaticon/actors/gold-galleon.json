@@ -1,0 +1,62 @@
+{
+  "slug": "gold-galleon",
+  "id": 815,
+  "name": "GOLD GALLEON",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Fraud",
+    "Maritime sector",
+    "Business Email Compromise",
+    "Financial Fraud",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Social Engineering", "Credential Access", "Persistence", "Exfiltration", "Collection"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078", "T1076"],
+  "tools": [
+    "Remote access trojans (RATs)",
+    "Publicly available crypters",
+    "Spear-phishing tools",
+    "Email spoofing infrastructure"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with urgent payment requests",
+    "Email spoofing using domains mimicking legitimate companies",
+    "Use of compromised accounts for fraudulent wire transfers",
+    "Leverage cheap and readily available malware-as-a-service (MaaS) offerings"
+  ],
+  "keyCapabilities": [
+    "Business Email Compromise (BEC)",
+    "Email Spoofing",
+    "Use of commodity malware and remote access trojans",
+    "Spoofing attacks targeting maritime organizations",
+    "Leverage publicly available tools for campaigns"
+  ],
+  "recommendedActions": [
+    "Implement stricter email authentication protocols (e.g., DKIM, SPF, DMARC)",
+    "Educate employees on identifying BEC and BES attempts",
+    "Enhance fraud detection mechanisms for wire transfers",
+    "Conduct regular security audits of maritime supply chain partners",
+    "Monitor for异常交易 patterns in financial systems"
+  ],
+  "campaignsText": "GOLD GALLEON's campaigns are characterized by their use of BEC and BES tactics, often involving well-crafted email lures and domain spoofing. Their operational tempo appears steady, with sustained activity across multiple geographies. Notable past operations include numerous successful fund transfers from maritime organizations to fraudulent accounts, leveraging the trust established within these sectors. The group's ability to adapt their targeting while maintaining a focus on cost-effective tools underscores their effectiveness as a financially motivated threat actor.",
+  "description": "GOLD GALLEON is a financially motivated cybercriminal group targeting maritime organizations through business email compromise (BEC) and spoofing campaigns. They have demonstrated significant activity across multiple countries, including South Korea, Japan, Singapore, Norway, and the U.S., among others. The group leverages commodity malware and tools similar to other BEC groups, such as GOLD SKYLINE, indicating a focus on cost-effective yet effective operational tradecraft.",
+  "goals": "GOLD GALLEON's strategic objectives appear to center on financial gain through fraudulent activities. Their targeting of maritime organizations suggests a focus on industries with significant financial transactions and global supply chains. This approach allows them to maximize their return on investment by exploiting the trust relationships within these sectors. The group's international reach indicates a potential intent to diversify victim bases, reducing detection risk while maintaining profitability.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A815",
+  "sourceUrl": "https://threaticon.com/threat-actors/815"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "operation-comando",
+  "id": 762,
+  "name": "Operation Comando",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Cybercrime", "Financial Espionage", "Hospitality Sector Threats", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Exfiltration"],
+  "techniques": ["T1059.003", "T1070"],
+  "tools": ["Public remote access tools", "VB.NET-based malware", "Domain Name Services (DDNS)"],
+  "iocPatterns": [
+    "Spear-phishing emails with VB.NET-based attachments",
+    "Use of remote desktop protocol (RDP) for initial access and lateral movement",
+    "Domain name system (DNS) tunneling or fast-flux domains for command and control",
+    "Presence of known remote access tools in the network"
+  ],
+  "keyCapabilities": [
+    "Use of public remote access tools",
+    "Spear-phishing with VB.NET-based malware distribution",
+    "Persistent operations using low-cost infrastructure (e.g., DDNS)",
+    "Ability to exfiltrate sensitive financial data"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering to detect and block spear-phishing attempts",
+    "Monitor RDP traffic for unauthorized access and implement multi-factor authentication",
+    "Conduct regular vulnerability assessments on hospitality sector assets",
+    "Enhance logging and monitoring of DNS queries for potential tunneling activities",
+    "Educate employees on phishing signs and implement user awareness training"
+  ],
+  "campaignsText": "Operation Comando has demonstrated a clear pattern of targeting hospitality organizations for extended periods. The campaign's longevity may be attributed to its cautious use of basic yet effective tools and tactics, which allow it to evade detection while maintaining access to victim networks. Notable past operations include multiple hotel property infiltrations in Latin America and possibly Europe.",
+  "description": "Operation Comando is a cybercrime campaign suspected to originate from Brazil, focusing on the hospitality sector, likely with the goal of stealing credit card information and other sensitive data. The threat actor operates with low sophistication but has demonstrated persistence, using freely available tools and services to maintain an extended presence in target networks.",
+  "goals": "Operation Comando's primary motivation appears to be financially driven, targeting the hospitality sector to gain access to credit card information and other valuable data. The group likely selects its victims based on the ease of access and the potential for significant financial gains, making it a highly targeted industry despite its lack of sophistication.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A762",
+  "sourceUrl": "https://threaticon.com/threat-actors/762"
+}

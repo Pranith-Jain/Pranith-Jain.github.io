@@ -1,0 +1,47 @@
+{
+  "slug": "xcatze",
+  "id": 928,
+  "name": "Xcatze",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT group", "Cloud compromise", "Credential theft", "Email abuse"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Discovery", "Email/Social Media"],
+  "techniques": ["T1003.001", "T1217", "T1078", "T1566.001"],
+  "tools": ["AndroxGh0st"],
+  "iocPatterns": [
+    "Search for exposed configuration files in Laravel applications",
+    "Unusual AWS API calls indicative of credential misuse",
+    "Presence of AndroxGh0st malware scripts in log files",
+    "Abnormal email traffic from compromised accounts"
+  ],
+  "keyCapabilities": [
+    "AndroxGh0st malware for credential theft",
+    "Exfiltration of AWS, SendGrid, and Twilio credentials",
+    "Abuse of email servers for spam campaigns",
+    "Laravel web application targeting"
+  ],
+  "recommendedActions": [
+    "Implement stringent cloud security measures, including encryption and access controls for configuration files.",
+    "Monitor for unusual login patterns or API calls indicative of credential misuse.",
+    "Enhance logging capabilities to detect and respond to anomalies promptly.",
+    "Deploy AI-driven email filtering solutions to counter spam campaigns.",
+    "Educate employees on recognizing suspicious phishing attempts related to cloud services."
+  ],
+  "campaignsText": "Xcatze has been observed operating since mid-2023, with ongoing campaigns focused on compromising cloud credentials and leveraging email infrastructure for spam distribution. Their campaigns typically target industries and organizations with prominent AWS usage. Notable operations include high-volumespam attacks that have disrupted targeted services. Xcatze's operational pattern suggests a focus on quick credential theft followed by rapid deployment of spam campaigns.",
+  "description": "Xcatze is a threat actor group identified by Lacework that leverages the AndroxGh0st Python malware to compromise AWS servers and conduct large-scale email spam campaigns. They exploit exposed configuration files in Laravel web applications to steal credentials, particularly targeting cloud service providers and email platforms.",
+  "goals": "Xcatze's primary objectives appear to be financial gain through unauthorized access to cloud resources and the distribution of spam campaigns, which may generate revenue or disrupt services. They specifically target sectors that rely on AWS, SendGrid, and Twilio, making them a risk to businesses across various industries. Their targeting is geographically broad but focuses on regions with high email service usage, potentially impacting global communications.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A928",
+  "sourceUrl": "https://threaticon.com/threat-actors/928"
+}

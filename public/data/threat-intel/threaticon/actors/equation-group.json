@@ -1,0 +1,59 @@
+{
+  "slug": "equation-group",
+  "id": 253,
+  "name": "Equation Group",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "U",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "government", "defense"],
+  "aliases": ["Tilded Team", "EQGRP", "Housefly", "Remsec"],
+  "targetedSectors": ["Government", "Defense"],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": [
+    "Regin",
+    "Flame",
+    "Stuxnet",
+    "EquationLaser",
+    "EquationDrug",
+    "DoubleFantasy",
+    "TripleFantasy",
+    "Fanny",
+    "Grayfish",
+    "RemSec",
+    "Gauss",
+    "Duqu"
+  ],
+  "iocPatterns": [
+    "Spear-phishing with malware payloads",
+    "Use of custom backdoors (e.g., EquationDrug)",
+    "Command-and-control communication channels",
+    "Presence of known Regin or Stuxnet artifacts"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) operations",
+    "Development and deployment of state-sponsored malware",
+    "Targeted espionage against government and defense sectors",
+    "Use of sophisticated persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement robust network monitoring for detecting advanced persistent threats",
+    "Enhance software patch management to mitigate known vulnerabilities exploited by Equation Group tools",
+    "Deploy endpoint detection and response (EDR) solutions to identify and block malicious activity",
+    "Conduct regular threat intelligence reviews focusing on nation-state actors"
+  ],
+  "campaignsText": "Equation Group's campaigns are long-term and highly targeted, often involving the establishment of persistent footholds in victim networks. Their operations include Project Sauron/Strider, which utilized backdoors to maintain access to compromised systems, and Olympic Games, which used Stuxnet to disrupt Iranian nuclear centrifuges. The group is known for its ability to remain undetected for extended periods, leveraging sophisticated tools and techniques. Notable victims have included defense contractors, government agencies, and critical infrastructure entities.",
+  "description": "Equation Group, also known as Tilded Team or EQGRP, is a highly sophisticated state-sponsored cyber threat actor specializing in espionage. Known for leveraging advanced malware tools such as Regin and Stuxnet, Equation Group has targeted government and defense sectors globally. Their operations are linked to high-profile campaigns like Project Sauron and Olympic Games, showcasing their ability to infiltrate critical infrastructure and maintain long-term persistence.",
+  "goals": "Equation Group's primary motivation is espionage, with a focus on gathering sensitive political, military, and intelligence-related information. Their targeting profile emphasizes sectors such as government, defense, and critical infrastructure, particularly in countries of interest to their sponsoring nation. The group's strategic objectives likely align with broader national security interests, aiming to gain strategic advantages through the acquisition of classified data. Their victims include foreign governments, diplomatic entities, and organizations involved in sensitive research or development.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A253",
+  "sourceUrl": "https://threaticon.com/threat-actors/253"
+}

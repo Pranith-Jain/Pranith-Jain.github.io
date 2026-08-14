@@ -1,0 +1,101 @@
+{
+  "slug": "cylindricalcanine",
+  "id": 1611,
+  "name": "cylindricalcanine",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "Jul 17, 2026",
+  "tags": [
+    "APT",
+    "Cybercrime",
+    "Finance Sector Targeting",
+    "Code Signing Fraud",
+    "RAT",
+    "Spear-Phishing",
+    "China",
+    "Initial Access",
+    "Critical Infrastructure",
+    "Phishing",
+    "Backdoor / C2",
+    "Data Exfiltration",
+    "cybercrime",
+    "financial-sector",
+    "malware"
+  ],
+  "aliases": ["header", "tracked as", "Broomstick", "GoldenEyeDog"],
+  "targetedSectors": [
+    "Financial services",
+    "Media",
+    "Government",
+    "Defense",
+    "Telecommunications",
+    "Information technology",
+    "Energy",
+    "Manufacturing"
+  ],
+  "targetedCountries": ["CN", "US", "RO", "AU", "JP", "TW"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Command and Control",
+    "Collection",
+    "Exfiltration"
+  ],
+  "techniques": [
+    "T1071.004 (Websocket)",
+    "T1059.001 (PowerShell)",
+    "T1126 (Execution through legitimate binaries)",
+    "T1547.003 (Boot or Logon Autostart Execution",
+    "T1068 (Exploitation for Privilege Escalation)",
+    "T1086 (PowerShell)",
+    "T1072 (Signed Binary Proxy Execution)",
+    "T1565.001 (Data Manipulation",
+    "T1540 (Inhibit System Recovery)"
+  ],
+  "tools": [
+    "Golden Gh0st RAT (modified)",
+    "Golden Gh0st Loader",
+    "Rundll32",
+    "Msiexec",
+    "netsh",
+    "BITS",
+    "PsExec",
+    "Custom WebSocket C2 server"
+  ],
+  "iocPatterns": [
+    "Compromise of code‑signing certificates via support portal infiltration",
+    "DLL sideloading using legitimate system binaries",
+    "WebSocket based command and control",
+    "Spear‑phishing emails with macro‑laced or link attachments",
+    "Use of stolen certificates to bypass SmartScreen",
+    "Staging infrastructure on bulletproof hosting to host malicious binaries"
+  ],
+  "keyCapabilities": [
+    "Legitimate executable DLL sideloading",
+    "Malware signing with stolen code‑signing certificates",
+    "Custom WebSocket C2 protocol",
+    "RAT with remote desktop, keylogging and SOCKS proxy features",
+    "Credential theft via credential dumping and Keylogger"
+  ],
+  "recommendedActions": [
+    "Implement multi‑factor authentication for all administrative accounts, especially those used for certificate issuance; monitor and enforce policy against unauthorized code signing; deploy continuous monitoring to detect anomalies in DLL loading from legitimate system binaries; use network segmentation and outbound filtering to block unexpected WebSocket traffic; conduct regular penetration tests focused on credential harvesting scenarios; maintain up‑to‑date revocation lists of compromised certificates and configure systems to reject them; enable logging for privilege escalation events to quickly identify lateral movement."
+  ],
+  "campaignsText": "CylindricalCanine has conducted at least three confirmed campaigns between 2025 and 2026, focusing on finance organizations in APAC. Their operational tempo varies from low‑frequency, highly tailored spear‑phishing to quick certificate hijack incidents. The DigiCert breach is a standout event that showcases the group’s ability to leverage third‑party infrastructure for mass credential theft and distribution of signed malware, enabling large‑scale persistence across targeted networks.",
+  "description": "CylindricalCanine is a sub‑unit of the GoldenEyeDog Chinese cybercrime collective that surfaced in 2026 after hijacking a DigiCert support portal to exfiltrate code‑signing certificates. Using these stolen credentials, the group signs and distributes custom variants of the Golden Gh0st RAT, targeting finance institutions across Asia‑Pacific through spear‑phishing campaigns and DLL sideloading techniques that evade SmartScreen protection.",
+  "goals": "CylindricalCanine’s strategic objectives revolve around financial gain through the theft of trade secrets, intellectual property and access to proprietary banking data. The group focuses on finance, media, defense, telecommunications, IT, energy and manufacturing sectors in the Asia‑Pacific region, exploiting the high-value nature of these industries while leveraging their familiarity with the Golden Gh0st RAT platform. Victims are typically mid‑to‑large enterprises with complex network infrastructures where credential harvesting can yield large payouts or facilitate further lateral movement.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1611",
+  "sourceUrl": "https://threaticon.com/threat-actors/1611"
+}

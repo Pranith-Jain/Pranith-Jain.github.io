@@ -1,0 +1,46 @@
+{
+  "slug": "boulder-bear",
+  "id": 722,
+  "name": "Boulder Bear",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 50,
+  "types": [],
+  "countryOfOrigin": "R",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Espionage", "Critical Infrastructure", "Government"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Initial Access", "Execution", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1078"],
+  "tools": ["Custom malware", "Spear-phishing tools", "Lateral movement tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "C2 communication over commonly used protocols (e.g., HTTP)",
+    "Staging infrastructure in compromised hosting environments",
+    "Scheduled activities during off-hours to avoid detection"
+  ],
+  "keyCapabilities": [
+    "- Spear-phishing campaigns",
+    "- Malware development/deployment",
+    "- Lateral movement within networks",
+    "- Persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement robust phishing detection mechanisms.",
+    "Monitor for unusual network activity during off-hours.",
+    "Conduct regular vulnerability assessments on critical systems.",
+    "Enhance employee training on identifying spear-phishing attempts."
+  ],
+  "campaignsText": "Boulder Bear's campaigns have shown a steady operational tempo, with activity observed across multiple years. The group typically targets high-value targets in government and critical infrastructure sectors, suggesting a focus on long-term objectives. Notable past operations include spear-phishing campaigns targeting defense contractors and energy firms.",
+  "description": "Boulder Bear is a persistent cyber threat actor observed since December 2013. While specific details about this group are limited, they have demonstrated moderate sophistication with a focus on targeting government and critical infrastructure sectors. Likely motivated by espionage or long-term strategic interests, Boulder Bear employs tactics that suggest familiarity with common attack techniques and tools.",
+  "goals": "Boulder Bear appears to target sectors that hold strategic or sensitive information, with a primary focus on governments and critical infrastructure organizations. The group's objectives likely include intelligence gathering or disruption of national-level systems. Their targeting of specific countries suggests a potential regional or geopolitical focus.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A722",
+  "sourceUrl": "https://threaticon.com/threat-actors/722"
+}

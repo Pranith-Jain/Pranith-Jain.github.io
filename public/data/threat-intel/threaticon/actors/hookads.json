@@ -1,0 +1,45 @@
+{
+  "slug": "hookads",
+  "id": 751,
+  "name": "HookAds",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["malware", "exploit_kit", "malvertising", "drive-by_downloads"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Collection"],
+  "techniques": ["T1068.004", "T1539.001"],
+  "tools": ["Fallout Exploit Kit"],
+  "iocPatterns": [
+    "Malicious ad placements leading to redirection chains",
+    "JavaScript injection in legitimate-looking websites",
+    "Presence of known Fallout exploit kit components"
+  ],
+  "keyCapabilities": [
+    "Malvertising campaigns",
+    "Browser exploit kits (e.g., Fallout)",
+    "Drive-by download attacks",
+    "Multi-stage redirects"
+  ],
+  "recommendedActions": [
+    "Implement ad-blocking technologies and browser extensions for end-users",
+    "Monitor network traffic for unusual domains associated with adult websites or gaming platforms",
+    "Educate users on the risks of clicking on suspicious ads or pop-ups",
+    "Enforce strict software updates and patching schedules to reduce exploit success rates"
+  ],
+  "campaignsText": "HookAds operates campaigns that involve distributing malicious ads across multiple ad networks. The campaign's operational tempo is focused on volume, targeting users with high susceptibility to such attacks. Past operations have shown a preference for redirecting users through layers of decoy sites before deploying the exploit kit. Notable campaigns include those using adult content and online gaming sites as entry points.",
+  "description": "HookAds is a malvertising campaign targeting victims through low-quality ad networks. It redirects users to decoy sites and deploys the Fallout exploit kit to deliver malware payloads. The campaign primarily operates across various sectors, including adult websites and online gaming platforms, aiming to infect devices for malicious purposes.",
+  "goals": "HookAds targets sectors with high ad traffic but lower security standards, such as adult content, online gaming, and blackhat SEO sites. The campaign likely seeks to maximize reach while minimizing detection by targeting platforms that are more susceptible to exploitation. Victims are typically end-users visiting these compromised websites, making the attack vector both broad and targeted in terms of user behavior.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A751",
+  "sourceUrl": "https://threaticon.com/threat-actors/751"
+}

@@ -1,0 +1,56 @@
+{
+  "slug": "fulcrumsec",
+  "id": 439,
+  "name": "fulcrumsec",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Crime", "Data Extortion", "Ransomware", "Cloud Security", "Financial Crime"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Data Exfiltration", "Lateral Movement", "Discovery"],
+  "techniques": [
+    "T1078.005 - OS Credential Dumping",
+    "T1603.001 - Exploit Public-Facing Misconfigurations",
+    "T1091 - Data Exfiltration Using DNS",
+    "T1021.004 - Internal Spear Phishing"
+  ],
+  "tools": [
+    "Custom cloud configuration exploitation tools",
+    "API key management utilities",
+    "Network monitoring and data transfer scripts"
+  ],
+  "iocPatterns": [
+    "Exploitation of unrotated API keys in cloud environments",
+    "Misconfigured cloud permissions leading to unauthorized access",
+    "High volume data transfers from cloud infrastructure without encryption"
+  ],
+  "keyCapabilities": [
+    "High-speed cloud database exfiltration via API key exploitation",
+    "Exploitation of misconfigured cloud permissions",
+    "Data extortion without encryption deployment",
+    "Efficient attack lifecycle for rapid victim identification and data theft"
+  ],
+  "recommendedActions": [
+    "Implement strict rotation policies for API keys and service accounts",
+    "Conduct regular audits of cloud permissions and configurations",
+    "Migrate sensitive assets to secure, private locations with least privilege applied",
+    "Monitor for unusual network activity indicative of data exfiltration",
+    "Leverage automated tools to detect misconfigurations in cloud services",
+    "Enhance incident response plans focusing on rapid detection of unauthorized access"
+  ],
+  "campaignsText": "FulcrumSec has launched multiple campaigns targeting over two dozen organizations, including fintech, healthcare, AI startups, and education sectors. Their operational tempo suggests a focus on quick hits with minimal dwell time, exploiting easy-to-reach vulnerabilities. Campaign patterns indicate a preference for smaller to medium-sized enterprises with significant cloud assets but weaker security controls.",
+  "description": "FulcrumSec is a medium-sophistication cybercrime group specializing in data extortion through rapid cloud database exfiltration via unrotated API keys and misconfigured permissions. Active since September 2025, they have targeted over 21 organizations across multiple sectors, including fintech, healthcare, and AI, without encrypting stolen data. Their operations have raised concerns due to their efficient attack methods and focus on financial gain.",
+  "goals": "FulcrumSec's strategic objectives center around maximizing financial gain through the rapid exfiltration and sale of sensitive data. Their targeting profile focuses on sectors with abundant digital assets stored in cloud environments, particularly those with weaker security postures, such as misconfigured APIs and unmanaged access keys. The group selects victims based on their susceptibility to such exploits rather than specific industries or geographies, but financial and healthcare sectors have been heavily targeted due to the high value of their data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A439",
+  "sourceUrl": "https://threaticon.com/threat-actors/439"
+}

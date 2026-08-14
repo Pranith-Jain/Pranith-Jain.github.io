@@ -1,0 +1,44 @@
+{
+  "slug": "wild-neutron",
+  "id": 260,
+  "name": "Wild Neutron",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "nation-state", "government", "Critical Infrastructure"],
+  "aliases": ["Jripbot", "Morpho", "Butterfly", "Sphinx Moth"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Intrusion Execution", "Collection"],
+  "techniques": ["T1566.001", "T1078.001", "T1233", "T1229"],
+  "tools": ["Jiripbot", "Hesperbot"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Malware-related C2 communication channels",
+    "Network traffic anomalies indicative of lateral movement"
+  ],
+  "keyCapabilities": [
+    "Custom malware (Jiripbot, Hesperbot)",
+    "Advanced persistence",
+    "Spear-phishing campaigns",
+    "Data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement advanced threat detection solutions for email and network traffic.",
+    "Conduct regular security audits and monitoring for signs of persistent threats.",
+    "Educate employees on phishing techniques and suspicious email patterns."
+  ],
+  "campaignsText": "Wild Neutron is known for its long-term operational persistence, often maintaining access to compromised networks for extended periods. The group's campaigns are likely tied to specific geopolitical events or intelligence-gathering objectives. Notable past operations include targeted attacks against government and defense sector entities, with a focus on data collection and exfiltration.",
+  "description": "Wild Neutron, an APT group linked to nation-state activities, primarily focuses on espionage through the use of malware such as Jiripbot and Hesperbot. This actor exhibits a high level of technical proficiency, targeting critical sectors in select countries with sophisticated attack vectors. Their operations are characterized by long-term campaigns aimed at data exfiltration and intelligence gathering.",
+  "goals": "Wild Neutron’s primary motivation appears to be espionage, with a focus on gathering sensitive information from targeted industries. The group selects victims based on their ability to provide valuable intelligence to the nation-state sponsor. Their targeting strategy likely aligns with national security priorities, focusing on sectors such as government, defense, and critical infrastructure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A260",
+  "sourceUrl": "https://threaticon.com/threat-actors/260"
+}

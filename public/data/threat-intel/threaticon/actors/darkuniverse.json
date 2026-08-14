@@ -1,0 +1,46 @@
+{
+  "slug": "darkuniverse",
+  "id": 234,
+  "name": "DarkUniverse",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Espionage", "Nation-state", "Spearphishing", "Phishing"],
+  "aliases": ["DarkUniverse", "SIG27"],
+  "targetedSectors": [],
+  "targetedCountries": ["RU", "IR"],
+  "tactics": ["Initial Access", "Defense Evasion", "Credential Access"],
+  "techniques": ["T1566.001", "T1059.003", "T1055", "T1204"],
+  "tools": ["ItaDuke", "CVE-2013-0640 exploit kit"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "Use of weaponized PDFs exploiting known vulnerabilities like CVE-2013-0640",
+    "Command and Control (C2) communications over HTTP or DNS"
+  ],
+  "keyCapabilities": [
+    "Spearphishing with exploit kits",
+    "Use of customized malware (ItaDuke)",
+    "Social engineering",
+    "Exploitation of known vulnerabilities",
+    "Advanced persistent threat (APT) operations"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and inspection to detect spearphishing attempts",
+    "Regularly update and patch software to prevent exploitation of known vulnerabilities",
+    "Conduct user awareness training on social engineering tactics",
+    "Deploy advanced threat detection systems capable of identifying customized malware"
+  ],
+  "campaignsText": "DarkUniverse's campaign patterns indicate a consistent focus on espionage, with operations potentially triggered by geopolitical events or shifts in international relations. Their operational tempo seems to be steady, with a continuous effort to compromise targets across various sectors and regions. Notable past operations include spearphishing campaigns targeting Tibet and Uyghur activists, as well as governmental and diplomatic entities in multiple countries. The actor's ability to adapt and evolve their tactics, particularly in the use of social engineering and exploit kits, suggests a mature and well-resourced campaign structure.",
+  "description": "DarkUniverse is a nation-state threat actor primarily motivated by espionage, targeting various sectors and countries including Tibet and Uyghur activists, Syria, Iran, and others. They utilize spearphishing attacks with weaponized PDFs exploiting CVE-2013-0640. The group's activities have been observed targeting multiple regions, indicating a wide-ranging intelligence gathering effort.",
+  "goals": "DarkUniverse's strategic objectives appear to be centered on gathering intelligence from a wide array of sources, including but not limited to geopolitical, social, and potentially economic targets. Their targeting profile suggests an interest in both regional stability and the activities of specific ethnic and national groups. The actor seeks to achieve a deep understanding of the political, social, and military landscapes of their targets, which could be used to inform decision-making at a national level. Typical victims of DarkUniverse include political activists, government entities, and potentially organizations involved in international relations or strategic industries.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A234",
+  "sourceUrl": "https://threaticon.com/threat-actors/234"
+}

@@ -1,0 +1,67 @@
+{
+  "slug": "storm-1811",
+  "id": 61,
+  "name": "Storm-1811",
+  "mitreId": "G1046",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial Crime",
+    "Email Compromise",
+    "Social Engineering",
+    "Cobalt Strike",
+    "QakBot",
+    "Initial Access",
+    "Phishing"
+  ],
+  "aliases": ["Storm-1811", "CURLY SPIDER", "STAC5777", "Cardinal"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1667", "T1566.002", "T1059.003", "T1056", "T1087.002"],
+  "tools": ["Black Basta ransomware", "Cobalt Strike", "QakBot malware"],
+  "iocPatterns": [
+    "Spear-phishing emails with fake helpdesk links or attachments",
+    "Presence of Cobalt Strike or QakBot malware on systems",
+    "Encrypted files indicating Black Basta ransomware activity",
+    "Network traffic indicative of encrypted C2 channels"
+  ],
+  "keyCapabilities": [
+    "Advanced phishing and social engineering techniques, including email bombing",
+    "Deployment of Black Basta ransomware",
+    "Use of Cobalt Strike for initial access and credential dumping",
+    "Lateral movement using QakBot malware",
+    "Data encryption and exfiltration techniques"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block phishing attempts",
+    "Monitor for suspicious network activities, such as encrypted channels or domain queries",
+    "Enhance user training programs to mitigate social engineering risks",
+    "Secure remote access points like RDP with strong authentication measures",
+    "Conduct regular hunts for indicators of lateral movement and exfiltration"
+  ],
+  "campaignsText": "Storm-1811 has been observed targeting mid-sized organizations across various industries. Their campaigns involve overwhelming victims with emails to induce a response, followed by the deployment of malicious tools. The group demonstrates patience by waiting for victim interaction before deploying ransomware. Notable operations include the use of legitimate-looking domains for C2 communication and encryption of stolen data for subsequent ransom demands.",
+  "description": "Storm-1811 is a financially motivated threat actor known for deploying Black Basta ransomware. The group uniquely uses email bombing techniques to overwhelm victim inboxes with non-malicious spam, prompting victims to interact with fake helpdesk links or emails leading to tool deployment.",
+  "goals": "The group's strategic objectives revolve around financial gain through ransomware deployments. Their targeting focuses on sectors with high data value, such as healthcare, education, and manufacturing. They target organizations across multiple countries, particularly those with less mature cybersecurity defenses. The choice of victims is likely based on the ease of initial compromise and the potential for significant ransom payouts.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A61",
+  "sourceUrl": "https://threaticon.com/threat-actors/61"
+}

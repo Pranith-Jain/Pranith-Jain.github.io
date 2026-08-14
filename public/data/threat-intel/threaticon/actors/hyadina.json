@@ -1,0 +1,69 @@
+{
+  "slug": "hyadina",
+  "id": 1534,
+  "name": "hyadina",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Financial gain",
+  "added": "Jul 12, 2026",
+  "tags": [
+    "APT",
+    "Ransomware",
+    "Critical Infrastructure",
+    "Energy Sector",
+    "HealthcareSector",
+    "Phishing",
+    "Data Exfiltration"
+  ],
+  "aliases": ["user mode", "tracked as"],
+  "targetedSectors": [
+    "Defense",
+    "Healthcare",
+    "Financial services",
+    "Manufacturing",
+    "Education",
+    "Government",
+    "Critical infrastructure",
+    "Energy",
+    "Food agriculture"
+  ],
+  "targetedCountries": ["US"],
+  "tactics": ["Credential Access", "Execution", "Lateral Movement", "Defense Evasion", "Collection"],
+  "techniques": ["T1070.003", "T1082", "T1566.001", "T1093", "T1566.004"],
+  "tools": ["AnyDesk", "PoisonX Kernel Driver", "PsExec", "NirSoft tools", "Custom credential theft toolkit"],
+  "iocPatterns": [
+    "Remotefile dropped with AnyDesk remote access tool",
+    "Malicious Microsoft-signed kernel driver activity (PoisonX)",
+    "Lateral movement using PsExec over command-line interface",
+    "Spear-phishing emails with malicious Office documents",
+    "Encrypted files renamed with victim organization names as extensions"
+  ],
+  "keyCapabilities": [
+    "Developing advanced ransomware iterations",
+    "Using AnyDesk for remote access",
+    "Employing the PoisonX kernel driver for defense evasion",
+    "Deploying comprehensive credential theft toolkits",
+    "Leveraging PsExec for lateral movement",
+    "Spear-phishing with malicious Office documents",
+    "Kernel-level persistence techniques"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for AnyDesk-related processes",
+    "Enhance kernel-level security to detect malicious drivers",
+    "Conduct regular backups and ensure air-gapped storage",
+    "Enforce multi-factor authentication (MFA) for critical systems",
+    "Monitor for异常 process termination patterns indicative of PoisonX"
+  ],
+  "campaignsText": "Hyadina's campaigns are characterized by prolonged dwell periods, sophisticated toolkits, and targeting high-value sectors. Their June 2026 attack highlights the use of multiple techniques to achieve persistence and maximize damage. Notable past operations include the deployment of GodDamn ransomware in large-scale attacks against energy and healthcare organizations.",
+  "description": "Hyadina, operating under the alias associated with the GodDamn ransomware, represents a sophisticated threat actor demonstrating advanced tactics in ransomware development and deployment. The group has evolved through iterations including Monster (2022) and Beast (2024), showcasing increasing technical complexity. Their recent attack in June 2026 exhibited the use of AnyDesk for remote access, PoisonX kernel driver for defense evasion, and comprehensive credential harvesting tools, highlighting their capability to disrupt critical operations.",
+  "goals": "Hyadina's primary goal appears to be financial gain through ransom demands, targeting sectors and organizations that offer high-value assets for encryption. While exact motivations are unclear, their focus on kernel-level persistence and sophisticated tools suggests a strategic approach to maximize data loss and disruption. The targeted sectors include energy and healthcare, which are critical and often have stringent recovery requirements.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1534",
+  "sourceUrl": "https://threaticon.com/threat-actors/1534"
+}

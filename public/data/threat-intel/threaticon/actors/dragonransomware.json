@@ -1,0 +1,46 @@
+{
+  "slug": "dragonransomware",
+  "id": 421,
+  "name": "dragonransomware",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "cybercrime", "financial-gain", "customizable-ransomware", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [],
+  "techniques": [],
+  "tools": ["Dragon Ransomware Builder Tool"],
+  "iocPatterns": [
+    "Ransomware samples with unique encryption signatures",
+    "Outbound communication from infected systems resembling C2 protocols",
+    "Presence of Dragon Ransomware builder tool components"
+  ],
+  "keyCapabilities": [
+    "Compact (50KB) ransomware file size",
+    "Ultra-fast encryption capabilities",
+    "Customizable configurations via builder tool",
+    "Potential for versatile attack vectors"
+  ],
+  "recommendedActions": [
+    "Implement endpoint detection and response (EDR) solutions",
+    "Enhance network segmentation to limit lateral movement",
+    "Conduct regular backup verification exercises",
+    "Monitor for unusual process creations or file changes",
+    "Educate users on phishing防范 to reduce potential infection vectors"
+  ],
+  "campaignsText": "Dragon Ransomware has launched39 successful attacks between October and December2024. Their campaigns are likely characterized by high-speed encryption and rapid deployment, making detection challenging.Historically unknown prior to October2024, they appear to bebuilding their operational capacity.",
+  "description": "Dragon Ransomware is a medium-sophistication threat actor group targeting organizations for financial gain through customizable ransomware operations. With a compact, fast-acting tool and plans to release a builder kit upon reaching 1,000 subscribers, they pose an emerging risk to various sectors.",
+  "goals": "Dragon Ransomware focuses on financial gain through high-impact ransomware campaigns. While their specific targeting by sector and geography is currently unclear, emerging data suggests they may target diverse industries with high-value assets. TheirBuilder tool indicates potential versatility in attacking different sectors once released publicly.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A421",
+  "sourceUrl": "https://threaticon.com/threat-actors/421"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "suckfly",
+  "id": 32,
+  "name": "Suckfly",
+  "mitreId": "G0039",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["espionage", "nation-state", "asia-pacific", "government-targeting", "APT"],
+  "aliases": ["G0039", "Suckfly", "BRONZE OLIVE", "Group 46"],
+  "targetedSectors": [],
+  "targetedCountries": ["IN", "CN", "KR"],
+  "tactics": ["Credential Access", "Discovery", "Lateral Movement", "Defense Evasion"],
+  "techniques": ["T1003", "T1553.002", "T1059.003", "T1046", "T1078"],
+  "tools": ["Nidiran", "Custom credential-dumping tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Backdoored Office documents",
+    "Network lateral movement using Windows Command Shell",
+    "Use of custom credential-dumping tools"
+  ],
+  "keyCapabilities": [
+    "Espionage",
+    "Persistent network presence",
+    "Credential dumping via custom tools (e.g., Nidiran)",
+    "CodeSigning for tool deployment",
+    "Windows Command Shell usage"
+  ],
+  "recommendedActions": [
+    "Implement strict email filtering and DMARC policies to detect phishing attempts.",
+    "Monitor for signs of credential dumping and unauthorized access in Active Directory environments.",
+    "Segment critical networks and apply micro-segmentation to limit lateral movement.",
+    "Deploy endpoint detection and response (EDR) solutions to identify异常processes and TTPs."
+  ],
+  "campaignsText": "Suckfly has conducted multiple campaigns targeting government and corporate entities. While specific details are limited, the group's campaigns suggest a long-term adversarial engagement strategy, often deploying custom tools for persistence and data exfiltration. The group's ability to remain undetected for prolonged periods indicates advanced tradecraft.",
+  "description": "Suckfly is a China-based threat group active since at least 2014, primarily engaged in espionage activities targeting India, China, and South Korea. The group has demonstrated significant operational persistence and focuses on infiltrating government, defense, and critical infrastructure sectors to gather sensitive information.",
+  "goals": "Suckfly's primary objective appears to be espionage, targeting sectors such as government, defense, and telecommunications in India, China, and South Korea. The group likely seeks to acquire sensitive geopolitical information, intellectual property, and communications data to support Chinese strategic interests. Their focus on Asia-Pacific countries suggests a regional or state-sponsored mandate.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A32",
+  "sourceUrl": "https://threaticon.com/threat-actors/32"
+}

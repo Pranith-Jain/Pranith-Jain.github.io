@@ -1,0 +1,40 @@
+{
+  "slug": "madi",
+  "id": 241,
+  "name": "Madi",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Iran (IR)",
+  "originCode": "IR",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Financial gain",
+  "added": "May 4, 2026",
+  "tags": ["Nation-state", "Financial-gain", "Government-targeting", "Espionage", "APT", "Government Targeting"],
+  "aliases": [],
+  "targetedSectors": ["Government", "Financial services", "Education"],
+  "targetedCountries": ["US", "IL", "IR"],
+  "tactics": ["Collection", "Exfiltration"],
+  "techniques": [],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails targeting government employees",
+    "Social engineering campaigns with tailored messages",
+    "C2 communication using encrypted protocols"
+  ],
+  "keyCapabilities": ["Social engineering", "Spear-phishing", "Data exfiltration"],
+  "recommendedActions": [
+    "Enhance email filtering and phishing detection mechanisms.",
+    "Implement training programs to mitigate social engineering risks.",
+    "Monitor for unusual system activity indicative of data exfiltration.",
+    "Conduct regular security audits of critical systems and networks."
+  ],
+  "campaignsText": "Madi's campaign patterns suggest a focus on long-term, persistent operations targeting critical sectors. Their use of social engineering indicates a preference for low-cost yet effective methods to gain initial access. Campaigns are likely conducted at a steady pace with no apparent peak activity, maintaining a prolonged presence in targeted networks to maximize data extraction and financial gain.",
+  "description": "Madi is a financially motivated nation-state threat actor known for targeting government entities, financial institutions, and educational organizations across the United States, Israel, Iran, and Pakistan. Operating primarily through social engineering tactics, Madi has demonstrated a focus on compromising sensitive systems to achieve financial gain while disrupting critical infrastructure.",
+  "goals": "Madi's strategic objectives are centered on achieving financial gain through the compromise of high-value targets. Their targeting profile reflects a focus on sectors that hold sensitive data, such as government and financial services, which can yield significant financial rewards. The selection of specific countries like the US, Israel, Iran, and Pakistan may indicate either geopolitical motivations or an interest in regions with critical infrastructure or valuable intellectual property. Typical victims include engineering firms, government agencies, and academic institutions.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A241",
+  "sourceUrl": "https://threaticon.com/threat-actors/241"
+}

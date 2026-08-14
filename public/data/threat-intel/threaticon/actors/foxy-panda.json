@@ -1,0 +1,45 @@
+{
+  "slug": "foxy-panda",
+  "id": 210,
+  "name": "Foxy Panda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "technology-sector", "nation-state"],
+  "aliases": ["Foxy Panda"],
+  "targetedSectors": ["Technology"],
+  "targetedCountries": [],
+  "tactics": ["Reconnaissance", "Resource Development", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom malware frameworks", "Spear-phishing tools", "Lateral movement utilities"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Presence of custom malware payloads in network traffic",
+    "Unusual process creation or file activity indicative of lateral movement"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Custom malware development",
+    "Lateral movement techniques",
+    "Data exfiltration operations"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect spear-phishing attempts",
+    "Monitor for unusual external data movements and implement data loss prevention (DLP) measures",
+    "Conduct regular network monitoring for known indicators of APT campaigns",
+    "Enhance endpoint detection and response capabilities"
+  ],
+  "campaignsText": "Foxy Panda has been associated with several long-term campaigns targeting technology companies. The group appears to favor slow, careful infiltration to avoid detection, often using internal communication channels and file-sharing services for command-and-control (C2). Campaign patterns indicate a focus on high-value targets, with initial access vectors including phishing emails and supply chain attacks.",
+  "description": "Foxy Panda is a nation-state threat actor primarily engaged in espionage activities targeting the technology sector. Known for its strategic focus on sensitive information and infrastructure, Foxy Panda operates with high sophistication and has demonstrated persistence over time. Its targeting patterns suggest a focus on advancing national interests through intelligence gathering.",
+  "goals": "Foxy Panda’s primary goal appears to be espionage, with a focus on extracting sensitive information from the technology sector. The choice of targets suggests a strategic interest in advancing national technological capabilities or gaining a competitive advantage through intelligence. While no specific countries are listed as targeted, the group's TTPs and victimology align with patterns seen in nation-state actors targeting global technology and communications industries.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A210",
+  "sourceUrl": "https://threaticon.com/threat-actors/210"
+}

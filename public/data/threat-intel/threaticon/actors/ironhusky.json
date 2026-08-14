@@ -1,0 +1,66 @@
+{
+  "slug": "ironhusky",
+  "id": 917,
+  "name": "IronHusky",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "Espionage",
+    "China-based",
+    "Aviation-sector",
+    "Government-targeting",
+    "Backdoor / C2",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration"],
+  "techniques": [
+    "T1192.003 - Exploit Public-Facing Application (Web Applications)",
+    "T1204.002 - User Execution (Malicious Documents)",
+    "T1053 - Scheduled Task/Job",
+    "T1567 - Data Exfiltration via DNS",
+    "T1071.001 - Application Layer Protocol (HTTP)"
+  ],
+  "tools": [
+    "MysterySnail (Custom RAT)",
+    "Mimikatz (Credential Dumping)",
+    "PowerSploit (PowerShell-based Exploitation)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Microsoft Office documents",
+    "C2 communication via encrypted HTTP or DNS tunneling",
+    "Staging of malware on compromised cloud infrastructure",
+    "Use of domain generation algorithms (DGAs) for C2 resilience"
+  ],
+  "keyCapabilities": [
+    "Development of custom remote access trojans (e.g., MysterySnail)",
+    "Sophisticated spear-phishing and social engineering campaigns",
+    "Use of multi-stage malware for persistence and data exfiltration",
+    "Exploitation of zero-day vulnerabilities in targeted sectors",
+    "Deployment of encrypted command-and-control (C2) channels"
+  ],
+  "recommendedActions": [
+    "Monitor for unusual DNS traffic or exfiltration patterns indicative of MysterySnail",
+    "Implement advanced email filtering to block macro-enabled documents from untrusted sources",
+    "Conduct regular vulnerability assessments in aviation and research systems",
+    "Deploy endpoint detection and response (EDR) solutions to detect anomalous process behaviors",
+    "Analyze network traffic for signs of C2 activity using HTTP or DNS-based tunneling"
+  ],
+  "campaignsText": "IronHusky's campaigns exhibit a pattern of intermittent activity, with a primary focus on high-value targets in Russia, Mongolia, and aviation sectors. Historical operations involved multi-stage attacks leveraging spear-phishing and exploit kits, while recent efforts emphasize the deployment of MysterySnail for stealthy, long-term access. The group's operational tempo appears low, with campaigns spaced over years, suggesting a focus on covert, resource-constrained operations rather than widespread exploitation.",
+  "description": "IronHusky is a Chinese-based threat actor with a history of targeting Russian and Mongolian governments, aviation entities, and research institutes. After a hiatus between 2018 and 2023, the group has resurfaced with a new remote access trojan (RAT) called MysterySnail, suggesting evolving capabilities and continued interest in strategic sectors. Their activities indicate a blend of state-sponsored espionage and advanced persistent threat (APT) tactics.",
+  "goals": "IronHusky's targeting of Russian and Mongolian governments, along with aviation and research sectors, likely reflects geopolitical interests, such as gathering intelligence on infrastructure vulnerabilities or technological advancements. The group's focus on aviation may aim to exploit critical systems for strategic advantage, while targeting research institutes could seek intellectual property or academic data. Their reactivation after a multiyear gap suggests a long-term strategic objective, possibly tied to broader Chinese national interests in regional influence or economic competition.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A917",
+  "sourceUrl": "https://threaticon.com/threat-actors/917"
+}

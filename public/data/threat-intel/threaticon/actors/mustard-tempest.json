@@ -1,0 +1,62 @@
+{
+  "slug": "mustard-tempest",
+  "id": 74,
+  "name": "Mustard Tempest",
+  "mitreId": "G1020",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["Initial Access Broker", "Ransomware", "SocGholish", "Malvertising", "Drive-by Attack", "Initial Access"],
+  "aliases": ["DEV-0206", "TA569", "GOLD PRELUDE", "UNC1543"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Persistence", "Exfiltration", "Defense Evasion"],
+  "techniques": [
+    "T1584.001",
+    "T1036.005",
+    "T1566.002",
+    "T1583.004",
+    "T1204.001",
+    "T1583.008",
+    "T1608.004",
+    "T1082",
+    "T1608.001",
+    "T1608.006",
+    "T1189",
+    "T1105"
+  ],
+  "tools": ["SocGholish", "Cobalt Strike", "LockBit", "WastedLocker", "Custom RAT"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Malicious domains associated with SocGholish campaigns",
+    "Drive-by compromise through compromised websites",
+    "Malvertising campaigns redirecting to exploit sites",
+    "Delivery of Cobalt Strike payloads for post-exploitation"
+  ],
+  "keyCapabilities": [
+    "SocGholish malware distribution",
+    "Collaboration with Indrik Spider",
+    "Ransomware deployment (LockBit、WastedLocker)",
+    "Malvertising and drive-by attacks",
+    "Initial access brokering"
+  ],
+  "recommendedActions": [
+    "Monitor formalicious links and domains linked to Mustard Tempest campaigns.",
+    "Implement anti-malware tools to detect SocGholish-related activity.",
+    "Enhance email filtering to block phishing attempts with malicious links.",
+    "Conduct regular vulnerability assessments to mitigate drive-by attack risks.",
+    "Train employees to recognize spear-phishing attempts and malicious content."
+  ],
+  "campaignsText": "Mustard Tempest has been active since at least 2017, with campaigns involving SocGholish updates and partnerships with other ransomware operators. Their operational tempo appears steady, with continuous efforts to distribute malware through various channels such as malvertising、drive-by attacks、and phishing。Notable past operations include the distribution of LockBit and WastedLocker ransomware, targeting organizations globally across multiple industries。",
+  "description": "Mustard Tempest is an initial access broker known since at least 2017, operating the SocGholish malware distribution network. The group has collaborated with Indrik Spider to provide access to additional恶意软件如LockBit和WastedLocker. Their primary activities involve delivering ransomware and remote access tools through various campaigns.",
+  "goals": "Mustard Tempest's strategic objectives appear to focus on maximizing financial gain through the distribution of恶意软件, particularly ransomware. They target victims across multiple sectors, likely selecting based on opportunities for successful infection and high revenue potential。Their broad targeting approach suggests they seek out vulnerable organizations regardless of industry, with a particular emphasis on entities that can be compromised through their chosen attack vectors such as SocGholish campaigns.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A74",
+  "sourceUrl": "https://threaticon.com/threat-actors/74"
+}

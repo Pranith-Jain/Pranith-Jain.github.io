@@ -1,0 +1,69 @@
+{
+  "slug": "unc5266",
+  "id": 1083,
+  "name": "UNC5266",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "China (CN)",
+  "originCode": "CN",
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Espionage",
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "enterprise-targeting", "malware", "China-nexus", "Initial Access", "Backdoor / C2"],
+  "aliases": ["TAG-100", "Storm-2077", "UNC5291", "UNC5221"],
+  "targetedSectors": [
+    "Government",
+    "Defense",
+    "Financial services",
+    "Aerospace",
+    "Energy",
+    "Education",
+    "Legal services",
+    "Transportation",
+    "Manufacturing",
+    "Media",
+    "Healthcare",
+    "Nuclear",
+    "Telecommunications",
+    "Utilities",
+    "Critical infrastructure",
+    "Gaming",
+    "Non profit"
+  ],
+  "targetedCountries": ["US", "CN", "TW", "KR", "GB", "JP", "KP"],
+  "tactics": ["Exploitation", "Lateral Movement", "Defense Evasion", "Exfiltration"],
+  "techniques": ["T1055", "T1486", "T1566.002"],
+  "tools": [
+    "SLIVER Implant",
+    "WARPWIRE Variant",
+    "TERRIBLETEA Malware",
+    "Aspera Faspex Exploit",
+    "Microsoft Exchange Exploit"
+  ],
+  "iocPatterns": [
+    "Spear phishing emails with malicious attachments or links",
+    "Network traffic to domains associated with known TTPs"
+  ],
+  "keyCapabilities": [
+    "Exploits known vulnerabilities in enterprise software",
+    "Deploying custom malware frameworks (SLIVER, WARPWIRE, TERRIBLETEA)",
+    "Spear phishing campaigns",
+    "Lateral movement within networks",
+    "Establishing persistence"
+  ],
+  "recommendedActions": [
+    "Patch all enterprise software regularly",
+    "Monitor network traffic for indicators of compromise",
+    "Implement multi-layered cybersecurity solutions",
+    "Conduct regular user training on phishing simulations"
+  ],
+  "campaignsText": "UNC5266 has been observed deploying custom malware frameworks and exploiting known vulnerabilities to gain initial access. The group likely maintains long-term access once inside a network, aligning with the espionage tradecraft of UNC3569.",
+  "description": "UNC5266 is suspected to be an advanced persistent threat (APT) group linked to Chinese state-sponsored espionage activity. The group has demonstrated the ability to exploit known vulnerabilities in enterprise software, deploy custom malware frameworks, and maintain long-term access within compromised networks.",
+  "goals": "UNC5266 likely has espionage objectives, aiming to gain unauthorized access to sensitive data from targeted sectors such as technology, defense, or government. The group’s focus on exploiting vulnerabilities in widely used enterprise software suggests an effort to compromise high-value targets regardless of geography, though its exact targeting criteria remain under investigation.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1083",
+  "sourceUrl": "https://threaticon.com/threat-actors/1083"
+}

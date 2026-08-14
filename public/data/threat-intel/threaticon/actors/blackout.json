@@ -1,0 +1,53 @@
+{
+  "slug": "blackout",
+  "id": 358,
+  "name": "blackout",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "CyberCrime", "Double-Extortion", "Financial-Gain", "Healthcare Targeting"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Encryption", "Credential Access", "Disruption", "Defense-Evasion"],
+  "techniques": ["T1059.003", "T1078.002", "T1046.004", "T1070", "T1566.001"],
+  "tools": [
+    "Custom ransomware family",
+    "Phishing toolset with macro-laced documents",
+    "C2 infrastructure (e.g., domains like yano.tokyo)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious Office attachments",
+    "Ransomware-related file encryption (e.g., .blackout extension)",
+    "C2 communications via known domains like yano.tokyo",
+    "Lateral movement within the network using common protocols",
+    "Web traffic spikes on targeted sites during campaigns"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Data exfiltration and leak site operations",
+    "Double extortion tactics",
+    "Email phishing campaigns with malicious attachments",
+    "Sophisticated network persistence techniques"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering to detect phishing attempts",
+    "Enhance endpoint detection and response capabilities",
+    "Regularly back up critical systems and store backups offline",
+    "Monitor for unusual authentication or file activity",
+    "Conduct employee training on recognizing ransomware threats"
+  ],
+  "campaignsText": "Blackout's campaigns exhibit a pattern of initial attacks on high-value targets in regulated sectors, then expanding to broader industries. Their operational tempo is steady but not rapid, suggesting careful targeting and patiententerprise compromise. Known campaigns include operations against yano.tokyo, miatech.net, and bluebellgroup.com, indicating a focus on corporate websites for potentially strategic C2 communication points.",
+  "description": "Blackout is a ransomware group active since early 2024, targeting primarily healthcare and later expanding to telecommunications, mining, and manufacturing sectors across multiple countries. They operate using a double extortion model, encrypting victim data and threatening泄露 unless ransoms are paid.",
+  "goals": "Blackout's primary objectives are financial gain through ransom payments and the disruption of targeted organizations' operations. They appear to focus on sectors where operational downtime can lead to significant revenue loss or regulatory scrutiny, such as healthcare. Their targeting strategy suggests an interest in geographies with a mix of institutional vulnerabilities and economic potential, including North America, Europe, and parts of Asia. Typical victims are medium to large enterprises with weaker cybersecurity postures, though recent activity indicates they may be expanding their scope to include smaller businesses.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A358",
+  "sourceUrl": "https://threaticon.com/threat-actors/358"
+}

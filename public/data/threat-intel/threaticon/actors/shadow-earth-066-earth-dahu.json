@@ -1,0 +1,52 @@
+{
+  "slug": "shadow-earth-066-earth-dahu",
+  "id": 1538,
+  "name": "shadow-earth-066, earth dahu",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "Jul 12, 2026",
+  "tags": ["APT", "Espionage", "Ukraine", "Government Targeting", "Russia-aligned", "Ransomware", "Backdoor / C2"],
+  "aliases": ["tracked as"],
+  "targetedSectors": ["Government", "Defense", "Financial services", "Mining"],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Persistence", "Defense Evasion", "Lateral Movement", "Discovery"],
+  "techniques": ["T1566.001", "T1218", "T1071.001", "T1078", "T1485", "T1394"],
+  "tools": ["GIFTEDCROOK", "Cloudflare Workers", "HTA files", "RC4 encryption", "Compiled C++ tools", "Dynamic DNS"],
+  "iocPatterns": [
+    "Network traffic associated with Cloudflare Workers infrastructure",
+    "In-memory DLL loading via NT system calls",
+    "Exploitation of CVE-2025-8088 in WinRAR files",
+    "Spear-phishing emails with malicious HTA files or Office documents",
+    "Dynamic DNS domain generation activity",
+    "Signs of RC4-encrypted command and control traffic"
+  ],
+  "keyCapabilities": [
+    "Exploitation of CVE-2025-8088",
+    "In-memory DLL loading via NT system calls",
+    "GIFTEDCROOK information stealer deployment",
+    "Cloudflare Workers infrastructure exploitation",
+    "RC4-encrypted C&C communication",
+    "Dynamic DNS usage for persistence",
+    "HTA-based infection chain"
+  ],
+  "recommendedActions": [
+    "Patch all instances of software utilizing the CVE-2025-8088 vulnerability as soon as possible.",
+    "Monitor for signs of HTA file execution or suspicious in-memory DLL activity on endpoints.",
+    "Implement logging and monitoring for network traffic to Cloudflare Workers infrastructure and Dynamic DNS domains.",
+    "Enhance patch management processes to ensure timely updates across all systems, particularly for high-risk vulnerabilities.",
+    "Use YARA rules or other signature-based detection to identify potential GIFTEDCROOK-related activity."
+  ],
+  "campaignsText": "Both Shadow-Earth-066 and Earth Dahu have demonstrated a persistent attack strategy, focusing on the same vulnerability for over a year. Their campaigns highlight the importance of patch management and software update mechanisms in defending against such threats. Notable operations include targeted attacks against Ukrainian government and defense organizations from April 2025 through mid-2026.",
+  "description": "Shadow-Earth-066 and Earth Dahu are Russia-aligned cyber threat actors targeting Ukrainian government and defense sectors using CVE-2025-8088, a WinRAR path traversal vulnerability. Their campaigns feature advanced information-stealing tools and persistent exploitation techniques despite patch availability. The actors demonstrate high sophistication in tool development and exploit persistence.",
+  "goals": "These actors appear to have a strategic focus on targeting乌克兰's government and defense sectors, likely to support broader Russian geopolitical objectives or to facilitate espionage activities. Their selection of Ukrainian organizations suggests an intent to gain access to sensitive information, disrupt national security, and potentially influence ongoing conflicts in the region.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1538",
+  "sourceUrl": "https://threaticon.com/threat-actors/1538"
+}

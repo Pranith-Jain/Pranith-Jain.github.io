@@ -1,0 +1,52 @@
+{
+  "slug": "avos",
+  "id": 343,
+  "name": "avos",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "ransomware",
+    "financial-sector",
+    "critical-infrastructure",
+    "Ransomware",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Persistence", "Credential Access", "Lateral Movement", "Destruction"],
+  "techniques": ["T1059.003", "T1078.001", "T1021.004", "T1566.002"],
+  "tools": ["AvosLocker ransomware", "Cobalt Strike (Potential TTPs)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Lateral movement across networks",
+    "File encryption patterns indicative of ransomware"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Affiliate recruitment model",
+    "Targeting of critical infrastructure",
+    "Operation through RaaS"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for signs of lateral movement",
+    "Enhance email filtering to detect phishing attempts",
+    "Regularly patch systems against known vulnerabilities",
+    "Secure backups to protect against ransomware encryption"
+  ],
+  "campaignsText": "Avos has been active for over a year, targeting critical sectors with significant geographic reach. Their campaigns likely involve high operational tempo due to their RaaS model, allowing frequent attacks through different affiliates. Notable operations may include incidents against US financial institutions and European manufacturing.",
+  "description": "Avos is a medium-sophistication criminal threat actor group operating since June 2021, primarily involved in ransomware activities through AvosLocker. They employ a Ransomware as a Service (RaaS) model, recruiting affiliates to target critical infrastructure across the financial, manufacturing, and government sectors globally. Their operations focus on generating financial gains via ransom payments.",
+  "goals": "Avos operates with the strategic goal of generating profits through ransomware attacks. Their targeting strategy focuses on sectors where data breaches or system downtimes can lead to substantial financial repercussions. This includes critical infrastructure in finance, manufacturing, and government, which are also less likely to publicize breaches due to potential reputational damage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A343",
+  "sourceUrl": "https://threaticon.com/threat-actors/343"
+}

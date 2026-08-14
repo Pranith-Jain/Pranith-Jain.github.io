@@ -1,0 +1,55 @@
+{
+  "slug": "cobalt-group",
+  "id": 48,
+  "name": "Cobalt Group",
+  "mitreId": "G0080",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": ["APT", "financial sector", "banking fraud", "Initial Access", "Financial Targeting"],
+  "aliases": ["GOLD KINGSWOOD", "Cobalt Gang", "Cobalt Spider", "Magecart Group 4"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Credential Access", "Execution", "Exfiltration"],
+  "techniques": [
+    "T1053.005",
+    "T1059.007",
+    "T1204.002",
+    "T1566.002",
+    "T1055",
+    "T1572",
+    "T1218.008",
+    "T1059.001",
+    "T1027.010"
+  ],
+  "tools": ["SpicyOmelette", "Cobalt Strike", "More_eggs"],
+  "iocPatterns": [
+    "Scheduled tasks created via Odbcconf.exe",
+    "Malicious files dropped during initial infection",
+    "Spear-phishing attachments"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) tactics",
+    "Financial fraud through SWIFT and ATM systems",
+    "sophisticated malware deployment",
+    "Supply chain attacks"
+  ],
+  "recommendedActions": [
+    "Monitor for scheduled tasks and unusual RDP activity",
+    "Implement APT detection policies",
+    "Secure SWIFT systems with MFA",
+    "Enhance software supply chain security"
+  ],
+  "campaignsText": "The Cobalt Group is known for prolonged campaigns targeting financial sectors, using techniques like supply chain compromise and persistence mechanisms. Notable operations include attacks on banks in Eastern Europe and Southeast Asia.",
+  "description": "The Cobalt Group is a prominent cyber threat actor targeting financial institutions globally since at least 2016. Known for sophisticated attacks on financial systems, including ATM networks and SWIFT systems, the group primarily operates in Eastern Europe, Central Asia, and Southeast Asia despite leadership changes.",
+  "goals": "The group targets financial institutions for monetary gain, focusing on regions with less robust cybersecurity measures. Their primary objectives include infiltrating banking systems to steal sensitive financial data and facilitate unauthorized transactions, leveraging their access to compromise additional victims.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A48",
+  "sourceUrl": "https://threaticon.com/threat-actors/48"
+}

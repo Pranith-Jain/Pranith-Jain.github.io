@@ -1,0 +1,82 @@
+{
+  "slug": "ref7707",
+  "id": 1234,
+  "name": "REF7707",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Espionage",
+  "added": "May 17, 2026",
+  "tags": [
+    "APT",
+    "China‑aligned",
+    "Backdoor",
+    "C2 Relay",
+    "IIS Vulnerability Exploit",
+    "Windows",
+    "Government Targeting",
+    "Espionage",
+    "China State‑Sponsored",
+    "PRC‑aligned",
+    "Telecom Targeting",
+    "Public Sector Targeting",
+    "ShadowPad",
+    "ToolShell Exploit",
+    "FinalDraft Malware"
+  ],
+  "aliases": ["CL-STA-0049", "Jewelbug", "Shadow-Earth-053", "Ink Dragon"],
+  "targetedSectors": [
+    "Government",
+    "Defense",
+    "Telecommunications",
+    "Education",
+    "Non profit",
+    "Media",
+    "Transportation",
+    "Maritime"
+  ],
+  "targetedCountries": ["CN", "RU", "JP"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Privilege Escalation",
+    "Credential Access",
+    "Lateral Movement",
+    "Persistence",
+    "Defense Evasion",
+    "Exfiltration"
+  ],
+  "techniques": ["T1005", "T1078", "T1071.001", "T1027", "T1041", "T1190", "T1203", "T1552.001"],
+  "tools": ["NANOREMOTE", "FINALDRAFT", "ShadowPad IIS Listener", "ShadowPad", "ToolShell"],
+  "iocPatterns": [
+    "ASP.NET machineKey ViewState deserialization exploitation",
+    "IIS server leveraged as a covert C2 relay node via ShadowPad IIS Listener",
+    "Windows backdoor deployment via NANOREMOTE",
+    "Vulnerability exploitation of CVE‑2025‑49706/CVE‑2025‑53771 (SharePoint) for initial access",
+    "Mass scanning for ToolShell vulnerability"
+  ],
+  "keyCapabilities": [
+    "Deploys a Windows backdoor called NANOREMOTE (FINALDRAFT variant) for persistence and lateral movement",
+    "Creates victim‑based relay networks by exploiting IIS misconfigurations such as ASP.NET machineKey ViewState deserialization via the ShadowPad IIS Listener module",
+    "Blends malicious traffic with legitimate Microsoft Graph API communications to evade detection",
+    "Utilizes staged loaders delivered through encoded command documents pushed to victim mailboxes or scheduled tasks",
+    "Performs aggressive credential harvesting, including LSASS dumps and domain admin theft",
+    "Employs wildcard HTTP(S) endpoints registered via HttpAddUrl for covert C2 channels",
+    "Exploits SharePoint ToolShell vulnerabilities (CVE‑2025‑49706/CVE‑2025‑53771) for initial access",
+    "Conducts reconnaissance of host identifiers, network adapters, installed software and system IDs"
+  ],
+  "recommendedActions": [
+    "Apply timely patches for IIS and SharePoint to address known machineKey misconfiguration vulnerabilities Validate and securely generate ASP.NET machineKeys on all web servers Monitor HTTP traffic for atypical command‑and‑control patterns originating from internal servers Deploy endpoint detection solutions capable of detecting NANOREMOTE behaviors (staged loaders, registry writes, network tunneling) Block or restrict communication on ports commonly used by known backdoor implants Patch all SharePoint installations against CVE‑2025‑49706, CVE‑2025‑53771, CVE‑2025‑49704 and CVE‑2025‑53770 Monitor IIS logs for unexpected HttpAddUrl API calls and wildcard URL registrations indicating ShadowPad modules Implement network segmentation and strict access controls to limit lateral movement within domain environments Employ behavioral analytics to detect unusual command‑and‑control traffic patterns and multi‑hop relay behavior Enforce least privilege policies and proactive credential monitoring to mitigate domain dominance tactics"
+  ],
+  "campaignsText": "REF7707 campaigns exhibit a multi‑stage approach with rapid deployment of loaders that pivot through compromised IIS servers into a distributed relay mesh. Operational tempo is high, with new variants and exploit techniques (e.g., SharePoint CVE exploitation) introduced on a quarterly basis. Victim profiles include government ministries, defense contractors, telecom operators, education institutions and non‑profits in target countries CN, RU, JP as well as Europe, Southeast Asia and South America. Notable past operations involve the infiltration of a South American foreign ministry through a legitimate Microsoft Graph API‑based C2 channel and subsequent exfiltration of AD domain data.",
+  "description": "REF7707 is a Chinese‑linked espionage actor that targets government, defense and telecom entities across Europe, Southeast Asia, South America, China, Russia and Japan. It deploys a sophisticated Windows backdoor called NANOREMOTE (an evolution of FINALDRAFT) and uses compromised IIS servers as covert C2 relays through the ShadowPad IIS Listener module. The actor blends malicious traffic with legitimate Microsoft Graph API communications to evade detection while aggressively harvesting credentials for domain dominance.",
+  "goals": "REF7707’s strategic objective is prolonged espionage of foreign policy and defense information. By infiltrating government ministries, telecom operators and public infrastructures in target countries, the actor seeks to exfiltrate privileged data such as passwords, Active Directory domain credentials, configuration files and sensitive communications. The focus on multinational adversaries—China, Russia, Japan—highlights a geopolitical imperative to support state‑level intelligence operations aligned with Chinese strategic interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1234",
+  "sourceUrl": "https://threaticon.com/threat-actors/1234"
+}

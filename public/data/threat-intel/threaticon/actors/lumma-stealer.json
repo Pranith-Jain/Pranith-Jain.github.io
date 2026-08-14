@@ -1,0 +1,57 @@
+{
+  "slug": "lumma-stealer",
+  "id": 693,
+  "name": "lumma stealer",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 55,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 10, 2026",
+  "tags": [
+    "Malware Family",
+    "Infostealer",
+    "Financial Espionage",
+    "Financial Targeting",
+    "Critical Infrastructure",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Defense Evasion", "Credential Access", "Exfiltration"],
+  "techniques": ["T1057 - Anti-Debugging", "T1055 - Process Injection", "T1566.001 - Account Access Removal"],
+  "tools": ["Remus Infostealer", "Custom malware family Lumma Stealer"],
+  "iocPatterns": [
+    "Infostealing malware activity",
+    "Blockchain-based C2 infrastructure",
+    "Enhanced anti-analysis techniques"
+  ],
+  "keyCapabilities": [
+    "64-bit infostealing malware",
+    "String obfuscation techniques",
+    "AntiVM checks",
+    "Direct syscall/sysenter handling",
+    "Indirect control flow obfuscation",
+    "Unique Application-Bound Encryption bypass",
+    "Blockchain-based C2 resolution via EtherHiding",
+    "Enhanced anti-sandbox and anti-analysis checks",
+    "Device fingerprinting capabilities"
+  ],
+  "recommendedActions": [
+    "Implement robust endpoint detection solutions",
+    "Monitor network traffic for blockchain-exiting behaviors",
+    "Update anti-VM and AntiDebugging measures",
+    "Conduct regular user training on phishing and safe browsing practices"
+  ],
+  "campaignsText": "Campaigns observed since February 2026 focus on infostealing via Remus, utilizing blockchain C2 and anti-analysis measures. Notable for targeting individuals across sectors, particularly crypto users.",
+  "description": "Lumma Stealer has emerged with a new variant, Remus, following the takedown of its parent group. This infostealer targets financial information using advanced obfuscation and blockchain-based C2 infrastructure.",
+  "goals": "The actor likely aims to steal financial credentials for monetization. While no specific sectors or countries are targeted explicitly, the use of advanced techniques suggests targeting individuals across various sectors using digital assets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A693",
+  "sourceUrl": "https://threaticon.com/threat-actors/693"
+}

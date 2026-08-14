@@ -1,0 +1,45 @@
+{
+  "slug": "pear",
+  "id": 546,
+  "name": "pear",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Ransomware", "Email-Based Threats", "Negotiation Tactics"],
+  "aliases": ["Pure Extraction And Ransom"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Lateral Movement", "Exfiltration", "Ingress-Egress"],
+  "techniques": ["T1566.004"],
+  "tools": [],
+  "iocPatterns": [
+    "Spear-phishing emails with threats of data exfiltration or destruction",
+    "Use of onion-silo email domains for communication"
+  ],
+  "keyCapabilities": [
+    "Ransomware distribution",
+    "Email-based phishing campaigns",
+    "Negotiation tactics post-compromise",
+    "Use of encrypted communication channels"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for sensitive accounts",
+    "Monitor for异常outgoing network traffic indicative of C2 communications",
+    "Conduct regular employee training on phishing detection",
+    "Patch systems and maintain up-to-date software versions",
+    "Use endpoint detection and response solutions to identify potential ransomware activity"
+  ],
+  "campaignsText": "PEAR's campaign patterns reflect a focus on quantity over quality, targeting numerous victims without deeply embedding into particular industries. Their operational tempo indicates continuous activity across multiple sectors, suggesting a scalable and efficient approach to attacks. While specific tools are not documented, their reliance on email-based phishing aligns with many modern ransomware groups.",
+  "description": "The PEAR (Pure Extraction And Ransom) threat actor is a medium-sophistication criminal group primarily motivated by organizational-gain and financial objectives. Known for ransomware campaigns, PEAR has targeted various sectors through email-based attacks, leveraging negotiation tactics to maximize profits.",
+  "goals": "PEAR operates with clear strategic objectives centered around financial gain through ransomware activities. Their targeting profile appears indiscriminate, as evidenced by their diverse list of victims across sectors such as healthcare, education, legal services, and manufacturing. This broad approach suggests that PEAR is not constrained by specific industries or geographies but focuses on vulnerabilities in various organizational settings to maximize their attack potential. The group likely selects targets based on ease of compromise, the presence of valuable data for ransom, and the ability to negotiate effectively with victims.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A546",
+  "sourceUrl": "https://threaticon.com/threat-actors/546"
+}

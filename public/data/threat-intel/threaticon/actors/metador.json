@@ -1,0 +1,49 @@
+{
+  "slug": "metador",
+  "id": 125,
+  "name": "Metador",
+  "mitreId": "G1013",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": ["APT", "espionage", "cyber espionage", "Middle East targets", "telecommunications", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Execution", "Credential Access"],
+  "techniques": [
+    "T1588.001",
+    "T1588.002",
+    "T1059.003",
+    "T1070.004",
+    "T1071.001",
+    "T1027.013",
+    "T1546.003",
+    "T1095",
+    "T1105"
+  ],
+  "tools": ["Mafalda", "metaMain"],
+  "iocPatterns": [
+    "Malware using 'I am meta' string",
+    "Encrypted/encoded files",
+    "Command and control (C2) via non-standard protocols"
+  ],
+  "keyCapabilities": ["Advanced malware", "Encrypted file usage", "Command shell utilization"],
+  "recommendedActions": [
+    "Monitor for advanced persistent threat (APT) activities",
+    "Implement robust endpoint detection and response (EDR) solutions",
+    "Conduct regular user training on phishing and malware awareness"
+  ],
+  "campaignsText": "Metador's campaigns appear to be limited in scope but highly targeted. They have shown sustained activity over time, with a focus on long-term data collection rather than immediate damage. Notable operations include malware deployments that leverage encrypted communication channels.",
+  "description": "Metador is a suspected cyber espionage group targeting telecommunication companies, internet service providers, and universities in the Middle East and Africa since September 2022. The group uses sophisticated malware and tools to conduct its activities, posing significant risks to critical infrastructure and sensitive data.",
+  "goals": "Metador likely aims to gather sensitive information for espionage purposes by targeting sectors with strategic significance in specific regions. Their focus on telecom and ISPs suggests an interest in communications data, while targeting universities may indicate a desire for intellectual property or research data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A125",
+  "sourceUrl": "https://threaticon.com/threat-actors/125"
+}

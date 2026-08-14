@@ -1,0 +1,41 @@
+{
+  "slug": "pysa",
+  "id": 553,
+  "name": "pysa",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "financial-motivation", "cryptocurrency-derives-name", "cybercrime", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Data Destruction"],
+  "techniques": ["T1566.001", "T1078"],
+  "tools": ["Pysa ransomware"],
+  "iocPatterns": [
+    "Spear-phishing campaigns",
+    "Asymmetric encryption signatures",
+    ".pysa file extension patterns",
+    "Ransom payment portal URLs"
+  ],
+  "keyCapabilities": ["Asymmetric encryption", "File-based extortion", "Decryption payload delivery"],
+  "recommendedActions": [
+    "Implement robust user training programs to mitigate phishing attempts.",
+    "Use endpoint detection and response (EDR) solutions to monitor for asymmetric encryption signatures.",
+    "Encrypt critical data at rest and ensure regular, isolated backups are maintained.",
+    "Monitor for suspicious domain registration activities linked to ransomware groups."
+  ],
+  "campaignsText": "The Pysa campaigns have been observed to target organizations in an indiscriminate manner, utilizing various infection vectors such as phishing emails and malicious links. Their operational tempo indicates active campaigns since 2020, with a steady increase in victim count over time. Notable past operations include multiple ransomware incidents across different countries, primarily targeting critical infrastructure sectors.",
+  "description": "Pysa is a ransomware threat actor that encrypts files using asymmetric encryption and appends the .pysa extension to encrypted files. The group primarily operates with financial gain as their main motivation, targeting organizations for ransom payment. Pysa has been active since July 2020 and continues to pose a significant threat to various industries, particularly those with high financial value.",
+  "goals": "Pysa’s strategic objectives are focused on maximizing financial gain through the deployment of ransomware. The group targets sectors with significant data value and operational disruption potential, such as healthcare and education, where the need for rapid data recovery is critical. Their targeting profile suggests a preference for mid-sized organizations with weaker cybersecurity defenses but high recovery costs to increase the likelihood of successful ransom payments.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A553",
+  "sourceUrl": "https://threaticon.com/threat-actors/553"
+}

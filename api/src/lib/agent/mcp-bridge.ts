@@ -4,8 +4,8 @@
  * The investigator agent (InvestigatorAgentDO) and the MCP server
  * (DfirMcpServer / DFIR_MCP) are two parallel tool surfaces. The agent
  * builds its own AgentTool[] registry in tools.ts (124 tools, each
- * calling a REST route via self.fetch). The MCP server registers 291
- * tools via this.tools(...) on the DFIR_MCP Durable Object. ~158 MCP
+ * calling a REST route via self.fetch). The MCP server registers 294
+ * tools via this.tools(...) on the DFIR_MCP Durable Object. ~161 MCP
  * tools are invisible to the agent — including every ti_*, si_*,
  * nhi_*, winreg_*, depx_*, traceix, whoxy, breach_vip, and Tor tool.
  *
@@ -59,6 +59,9 @@ import {
   filterTcVictims,
   filterTcIocs,
   filterTcEntities,
+  loadThreaticonIndex,
+  getThreaticonActor,
+  filterThreaticonActors,
   type TiSeverity,
   type TiIocIndexEntry,
   type TcEntityType,
@@ -693,6 +696,67 @@ export function bridgeMcpTools(
       const activityLimit = (args.activityLimit as number | undefined) ?? 12;
       body.recentActivity = body.recentActivity.slice(0, activityLimit);
       return body;
+    },
+  });
+
+  add({
+    name: 'ti_list_threaticon_actors',
+    description:
+      'List threat-actor profiles from the Threaticon catalog: name, MITRE ATT&CK ID, status, TLP, confidence, types, origin country, per-actor technique/tool/geo counts. Filter by type, country, TLP, status, MITRE presence, or keyword.',
+    params: [
+      { name: 'type', type: 'string', description: 'Substring filter on actor types', required: false },
+      {
+        name: 'country',
+        type: 'string',
+        description: 'Two-letter origin country code, e.g. "ru", "cn", "kp"',
+        required: false,
+      },
+      { name: 'tlp', type: 'string', description: 'TLP level (white/green/amber/red)', required: false },
+      { name: 'status', type: 'string', description: 'Activity status', required: false },
+      { name: 'hasMitre', type: 'boolean', description: 'Only actors with a MITRE group ID', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against name, MITRE ID, types, origin',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max actors (default 100, max 1000)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadThreaticonIndex(assets);
+      return {
+        source: idx.source,
+        syncedAt: idx.syncedAt,
+        total: idx.counts.actors,
+        actors: filterThreaticonActors(idx, {
+          type: args.type as string | undefined,
+          country: args.country as string | undefined,
+          tlp: args.tlp as string | undefined,
+          status: args.status as string | undefined,
+          hasMitre: args.hasMitre as boolean | undefined,
+          keyword: args.keyword as string | undefined,
+          limit: (args.limit as number) ?? 100,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'ti_get_threaticon_actor',
+    description:
+      'Return the full Threaticon actor profile: executive summary, key capabilities, goals & targeting, MITRE ATT&CK tactics and techniques, software/tooling, IOC patterns, recommended actions, campaigns & victims, targeted sectors and countries, aliases, confidence.',
+    params: [
+      {
+        name: 'slug',
+        type: 'string',
+        description: 'Actor slug, e.g. "lazarus-group", "apt41"',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getThreaticonActor(assets, args.slug as string);
     },
   });
 

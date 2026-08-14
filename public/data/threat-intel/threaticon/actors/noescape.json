@@ -1,0 +1,58 @@
+{
+  "slug": "noescape",
+  "id": 532,
+  "name": "noescape",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Criminal",
+    "Organizational-gain",
+    "Healthcare",
+    "Manufacturing",
+    "Professional services",
+    "Healthcare Targeting",
+    "Data Exfiltration",
+    "DDoS"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1204", "T1555"],
+  "tools": ["Custom ransomware", "Data exfiltration tools", "DDoS botnets", "Virtual private networks (VPNs)"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over HTTP/HTTPS using compromised websites",
+    "Staging infrastructure on virtual private servers (VPS)",
+    "Data exfiltration via FTP/FTPS"
+  ],
+  "keyCapabilities": [
+    "Ransomware development and deployment",
+    "Data exfiltration and extortion",
+    "DDoS capabilities",
+    "Negotiation and ransom payment handling",
+    "Victim profiling and targeting"
+  ],
+  "recommendedActions": [
+    "Implement robust email security controls to prevent spear-phishing attacks",
+    "Use endpoint detection and response (EDR) tools to detect and block ransomware",
+    "Conduct regular backups and ensure data availability",
+    "Implement a incident response plan for ransomware attacks",
+    "Provide training to employees on recognizing and reporting suspicious activity"
+  ],
+  "campaignsText": "NoEscape's campaign patterns were characterized by a high volume of attacks against a broad range of targets, with a focus on maximizing financial returns through efficient and effective extortion tactics. The group's operational tempo was marked by a steady stream of attacks throughout its active period, with some variability in terms of targeting and tactics. Notable past operations include the compromise of 126 organizations, with many of these incidents involving triple-extortion tactics and significant ransom demands.",
+  "description": "The NoEscape ransomware operation, believed to be a rebrand of Avaddon, targeted professional services, manufacturing, and healthcare sectors with triple-extortion capabilities from May to December 2023. The group abruptly shut down in an apparent exit scam, but not before compromising 126 organizations. NoEscape's activities highlight the ongoing threat of ransomware operations and the need for vigilance among potential targets.",
+  "goals": "NoEscape's strategic objectives were centered on achieving financial gain through ransom payments, with a focus on targeting sectors that are likely to have valuable data and a willingness to pay to avoid the consequences of a breach. The group's typical victims were organizations within the professional services, manufacturing, and healthcare sectors, where data confidentiality and availability are critical. By targeting these sectors, NoEscape aimed to maximize its potential returns while minimizing the risks associated with targeting more resilient or well-protected organizations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A532",
+  "sourceUrl": "https://threaticon.com/threat-actors/532"
+}

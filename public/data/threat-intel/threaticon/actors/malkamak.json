@@ -1,0 +1,48 @@
+{
+  "slug": "malkamak",
+  "id": 973,
+  "name": "MalKamak",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "I",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APC", "Espionage", "Aerospace", "Telecommunications", "Cyber_Espionage", "APT", "Backdoor / C2"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Network", "Reconnaissance", "Exfiltration", "Credential Access"],
+  "techniques": ["T1074", "T1562.003", "T1566", "T1059"],
+  "tools": ["ShellClient RAT"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting specific industries",
+    "Malicious Office documents as payload delivery vehicles",
+    "C2 communication via legitimate cloud services",
+    "Abnormal file uploads or network traffic associated with ShellClient"
+  ],
+  "keyCapabilities": [
+    "Sophisticated remote access Trojan (RAT) deployment",
+    "Cloud service abuse for command and control",
+    "Advanced evasion techniques to bypass antivirus tools",
+    "Targeted phishing campaigns with malicious payloads"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and phishing detection solutions",
+    "Monitor for suspicious activity in cloud service accounts",
+    "Conduct regular security audits and vulnerability assessments",
+    "Enhance network monitoring for异常external communication patterns",
+    "Educate employees on identifying targeted phishing attempts",
+    "Incorporate advanced threat detection tools to identify RAT activities"
+  ],
+  "campaignsText": "MalKamak has been linked to multiple cyber espionage campaigns since 2018, primarily targeting aerospace and telecommunications companies. Their campaigns exhibit a patient and calculated approach, with a focus on long-term access and data collection. The actor's use of cloud-based command and control infrastructure suggests an effort to avoid traditional detection mechanisms while maintaining persistent access.",
+  "description": "MalKamak is an Iranian threat actor known for conducting cyber espionage campaigns targeting global aerospace and telecommunications companies. They employ a sophisticated remote access Trojan (RAT) called ShellClient, which evades antivirus detection and leverages cloud services like Dropbox for command and control. MalKamak's activities have been ongoing since at least 2018, and their operations suggest a high level of technical expertise.",
+  "goals": "MalKamak's primary goal appears to be cyber espionage, with an emphasis on stealing sensitive data from targeted industries. Their selection of aerospace and telecommunications sectors suggests a desire to acquire strategic information that could impact national security and global market dynamics. The actor likely targets these sectors due to the high value of intellectual property and the potential for significant disruption if such information were compromised.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A973",
+  "sourceUrl": "https://threaticon.com/threat-actors/973"
+}

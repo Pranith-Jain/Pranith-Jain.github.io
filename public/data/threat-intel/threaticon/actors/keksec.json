@@ -1,0 +1,47 @@
+{
+  "slug": "keksec",
+  "id": 884,
+  "name": "Keksec",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Banking Trojan", "Financial Fraud", "Advanced Malware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Lateral Movement", "Credential Access"],
+  "techniques": ["T1078", "T1566"],
+  "tools": ["EnemyBot", "Custom malware frameworks"],
+  "iocPatterns": [
+    "Spear-phishing emails targeting financial sector employees",
+    "Distribution of malicious links leading to EnemyBot download",
+    "Use of fast-flux domain generation for command-and-control infrastructure"
+  ],
+  "keyCapabilities": [
+    "Highly sophisticated malware development",
+    "Daily updates and improvement of their malware arsenal",
+    "Advanced persistence techniques",
+    "Effective use of phishing campaigns",
+    "Banking Trojan distribution at scale"
+  ],
+  "recommendedActions": [
+    "Enhance network traffic monitoring for signs of malicious activity",
+    "Implement multi-factor authentication for financial accounts",
+    "Conduct regular employee training on phishing and social engineering tactics",
+    "Monitor for indicators of EnemyBot activity in network logs",
+    "Establish and maintain a robust incident response plan"
+  ],
+  "campaignsText": "Keksec's campaigns frequently involve the distribution of EnemyBot via phishing emails and malicious links, targeting individuals with access to financial accounts. The group operates with a high degree of persistence and has demonstrated an ability to adapt quickly to defensive measures. Notable past operations include large-scale phishing campaigns in [affected regions or sectors], leading to significant financial losses for victims. Keksec's operational tempo remains active, with frequent updates to its malware and attack vectors.",
+  "description": "Keksec, the cyber threat actor behind the EnemyBot malware, is a well-resourced group known for its ability to rapidly update and enhance its malicious capabilities. Targeting primarily financial sectors globally, Keksec poses a significant risk due to its sophisticated tactics and continuous evolution of malware tools.",
+  "goals": "Keksec's primary motivation appears to be financial gain, achieved through the theft of personal and banking credentials from individuals and organizations. The group targets sectors with high financial transaction volumes, such as retail banking and e-commerce, where stolen credentials can be monetized effectively. Keksec's victims are typically located in regions with less robust cybersecurity defenses, allowing the group to operate with lower risk of detection. The actor's strategic focus on these sectors underscores its intent to maximize financial harm while minimizing operational exposure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A884",
+  "sourceUrl": "https://threaticon.com/threat-actors/884"
+}

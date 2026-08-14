@@ -1,0 +1,49 @@
+{
+  "slug": "carberb",
+  "id": 188,
+  "name": "Carberb",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Espionage", "Nation-state", "US_Government", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": ["US"],
+  "tactics": ["Email Compromise", "Initial Access", "Persistance", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1248"],
+  "tools": ["Custom malware", "Ransomware (human-operated)", "Spear-phishing tools", "Cobalt Strike"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments or links",
+    "Network-based C2 communications encrypted using HTTPS",
+    "DNS queries for command-and-control infrastructure",
+    "Presence of custom malware binaries in targeted systems",
+    "Staging infrastructure utilizing bulletproof hosting services"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threats (APTs)",
+    "Custom malware development",
+    "Spear-phishing campaigns",
+    "Human-operated ransomware",
+    "Lateral movement and persistence"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block spear-phishing attempts.",
+    "Monitor network traffic for异常 DNS queries and HTTPS communication patterns indicative of C2 activity.",
+    "Conduct regular endpoint detection and response (EDR) to identify custom malware artifacts.",
+    "Segment critical networks to limit lateral movement in case of a breach.",
+    "Train employees to recognize phishing attempts through simulated exercises."
+  ],
+  "campaignsText": "Carberb has been linked to a series of targeted campaigns against U.S. entities, employing patient hunting tactics and long-term dwell time to maximize data collection. Campaign patterns suggest high operational security (OPSEC) discipline, with minimal observable indicators of compromise (IOCs). Their use of human-operated ransomware adds complexity to detection and response.",
+  "description": "Carberb is a suspected nation-state threat actor primarily targeting United States interests for espionage purposes. Known for sophisticated cyber operations, Carberb has demonstrated the ability to infiltrate high-value targets through advanced persistent threat (APT) tactics, including custom malware and targeted phishing campaigns.",
+  "goals": "Carberb's strategic objectives appear to center on espionage to获取 sensitive information for geopolitical or economic gain. The targeting profile focuses exclusively on U.S.-based entities, particularly in sectors where competitive intelligence and national security data are concentrated. This suggests the group is likely aligned with a threat actor seeking to undermine or gather intelligence against American interests.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A188",
+  "sourceUrl": "https://threaticon.com/threat-actors/188"
+}

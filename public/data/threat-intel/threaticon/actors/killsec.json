@@ -1,0 +1,57 @@
+{
+  "slug": "killsec",
+  "id": 471,
+  "name": "killsec",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Financial gain",
+    "Healthcare sector",
+    "Government sector",
+    "RaaS",
+    "Criminal group",
+    "Healthcare Targeting",
+    "Government Targeting",
+    "Hacktivism"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Credential Access", "Exfiltration", "Impact"],
+  "techniques": ["T1059.003", "T1046", "T1078.001", "T1284", "T1566.001", "T1003.001"],
+  "tools": ["KillSec ransomware (hypothetical)", "Third-party encryption tools", "Phishing payloads"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Encrypted files with '.killsec' extension",
+    "Lateral movement across networks"
+  ],
+  "keyCapabilities": [
+    "Ransomware development",
+    "Ransomware-as-a-Service (RaaS) operations",
+    "High-volume campaign orchestration",
+    "Sophisticated targeting strategy"
+  ],
+  "recommendedActions": [
+    "Implement anti-phishing training for employees",
+    "Deploy advanced threat detection solutions focusing on anomaly detection",
+    "Regularly back up critical data offline",
+    "Enforce multi-factor authentication (MFA) across all systems",
+    "Monitor for KillSec campaign patterns using threat intelligence feeds",
+    "Segment network access to limit lateral movement"
+  ],
+  "campaignsText": "KillSec's affiliate program has significantly amplified their operational reach, enabling a high volume of attacks across various industries. Campaigns often involve large-scale data encryption and demands for substantial ransoms. Notable victims include healthcare providers such as MedicalGPT and MyFair, demonstrating their focus on sectors with critical data vulnerabilities. KillSec's campaigns have shown adaptability in delivery methods but remain less sophisticated than state-sponsored actors.",
+  "description": "KillSec, originating from a hacktivist group linked with Anonymous, has transitioned into a sophisticated ransomware operation. Launching their Ransomware-as-a-Service (RaaS) platform in June 2024, they primarily target healthcare, financial, and government sectors. With over 250 documented victims by late 2025, KillSec poses a significant threat to these industries with their affiliate-friendly revenue model.",
+  "goals": "KillSec's strategic objectives center on generating substantial financial returns through ransomware campaigns. Targeting sectors with high recovery costs and potential for quick payouts, such as healthcare and financial services, aligns with their goal of maximizing profit. Their selection of victims reflects a calculated approach to exploit critical infrastructure while avoiding prolonged operational exposure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A471",
+  "sourceUrl": "https://threaticon.com/threat-actors/471"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "sharppanda",
+  "id": 910,
+  "name": "SharpPanda",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "C",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Spear-phishing", "Backdoor malware", "Phishing", "Backdoor / C2"],
+  "aliases": ["Sharp Dragon"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["Custom backdoor malware", "Exploit kits"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing",
+    "Exploitation of Microsoft Office vulnerabilities",
+    "Novel evasion techniques",
+    "Backdoor malware deployment",
+    "Social engineering"
+  ],
+  "recommendedActions": [
+    "Implement robust email security controls to detect and block spear-phishing attempts",
+    "Regularly update and patch Microsoft Office software",
+    "Use advanced threat detection tools to identify and respond to potential intrusions",
+    "Conduct regular security awareness training for employees"
+  ],
+  "campaignsText": "SharpPanda's campaign patterns suggest a high degree of planning and coordination. They likely conduct targeted operations, focusing on specific sectors or countries, and use customized tools and tactics to achieve their objectives. The group's operational tempo is moderate to high, with a steady stream of attacks reported since 2018. Notable past operations include the exploitation of Microsoft Office vulnerabilities to gain initial access and the use of novel evasion techniques to maintain persistence.",
+  "description": "SharpPanda, a Chinese APT group, has been conducting cyber-attack operations since at least 2018, targeting various sectors using spear-phishing techniques and exploiting Microsoft Office vulnerabilities. The group employs novel evasion techniques and potent backdoor malware to establish a foothold in targeted systems. Their increasing activity poses a significant threat to organizations worldwide.",
+  "goals": "SharpPanda's strategic objectives appear to focus on gathering sensitive information, disrupt operations, and establish a foothold in targeted systems. They likely target sectors that hold strategic or economic value, such as finance, government, or technology. Their typical victims are organizations with valuable data or systems that can be exploited for economic or political gain. By targeting specific countries or regions, SharpPanda may be seeking to achieve geopolitical objectives or acquire intellectual property.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A910",
+  "sourceUrl": "https://threaticon.com/threat-actors/910"
+}

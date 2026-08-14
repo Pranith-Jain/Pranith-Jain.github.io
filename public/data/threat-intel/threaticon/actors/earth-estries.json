@@ -1,0 +1,55 @@
+{
+  "slug": "earth-estries",
+  "id": 889,
+  "name": "Earth Estries",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT group",
+    "Cyberespionage",
+    "Ransomware",
+    "Malware Frameworks",
+    "Critical Infrastructure",
+    "Corporate Espionage",
+    "Cybercrime",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Exfiltration", "Lateral Movement", "Defense Evasion"],
+  "techniques": ["T1574.001 -DLL Side-loading", "T1568 -Process Injection", "T1685 -Execution"],
+  "tools": ["Cobalt Strike", "PlugX", "Meterpreter Stager", "Custom Loader DLLs"],
+  "iocPatterns": [
+    "Encrypted payloads delivered via DLL sideloading",
+    "Remote control tools launched via encrypted communication channels",
+    "Custom loaderDLLs injected into legitimate processes",
+    "Network traffic anomalies associated with Cobalt Strike or PlugX frameworks"
+  ],
+  "keyCapabilities": [
+    "DLL sideloading to load malicious payloads",
+    "Utilization of Cobalt Strike for remote control",
+    "Deployment of PlugX and Meterpreter stagers",
+    "Encrypted payload delivery via custom loader DLLs"
+  ],
+  "recommendedActions": [
+    "Monitor network traffic forknown Remote Access Tool (RAT) C2 signatures (e.g., HTTPS on non-standard ports)",
+    "Implement endpoint detection and response (EDR) to detect and block process injection activities",
+    "Regularly update software to mitigate known vulnerabilities exploited by sideloading techniques",
+    "Conduct threat hunting campaigns focusing on signs of prolonged access and lateral movement within the network"
+  ],
+  "campaignsText": "Earth Estries has been observed in campaigns since at least 2020, targeting multiple sectors, including energy, healthcare, and financial services. Their operations often involve multi-stage attacks with encrypted communication channels to evade detection. Notable past activities include the deployment of persistent backdoors to establish long-term access. The group’s reliance on established frameworks like PlugX suggests a focus on reliability over custom development. Campaign patterns indicate geographically dispersed operations without a clear regional bias, which could signal either a global targeting strategy or multipleactors operational autonomy.",
+  "description": "Earth Estries is a threat actor known for employing DLL sideloading techniques to load malicious tools such as Cobalt Strike, PlugX, and Meterpreter stagers. The group demonstrates intermediate sophistication, likely targeting sectors with high strategic or financial value. Their use of encrypted payloads and remote access tools indicates a focus on stealthy and persistent operations.",
+  "goals": "Earth Estries’ strategic objectives are not explicitly detailed in the available data. However, their use of advanced tools like Cobalt Strike and Meterpreter suggests targeting sectors where prolonged access and data exfiltration could provide significant value. Likely targets include critical infrastructure, financial institutions, or government entities. The group's indiscriminate targeting across multiple regions may indicate a broad focus on systemic disruption, potential financial gain, or espionage activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A889",
+  "sourceUrl": "https://threaticon.com/threat-actors/889"
+}

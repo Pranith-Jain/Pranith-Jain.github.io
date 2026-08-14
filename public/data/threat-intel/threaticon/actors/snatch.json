@@ -1,0 +1,44 @@
+{
+  "slug": "snatch",
+  "id": 608,
+  "name": "snatch",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["Crime", "Ransomware", "Encryption", "Packers", "Critical Infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Exfiltration", "Encryption"],
+  "techniques": ["T1070.001", "T1566.001", "T1003.001"],
+  "tools": ["UPX (packer)", "Ransomware payload"],
+  "iocPatterns": [
+    "Malicious file creation during Safe Mode",
+    "Network communication patterns indicative of command-and-control (C2) infrastructure"
+  ],
+  "keyCapabilities": [
+    "Ransomware development",
+    "Malware infection techniques",
+    "Encryption of files during Safe Mode",
+    "Use of packers to avoid detection"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems",
+    "Monitor network traffic for signs of encryption activities",
+    "Regularly back up critical data and segregate backup servers",
+    "Patch systems to address known vulnerabilities promptly"
+  ],
+  "campaignsText": "Snatch's campaigns are characterized by high volume, targeting numerous victims across various industries. The group demonstrates a preference for infecting systems in Safe Mode to avoid detection and maximize operational success. Notable operations include large-scale encryption attacks, focusing on sectors where data value is high to extract maximum ransom.",
+  "description": "Snatch is a medium-sophistication criminal threat actor primarily involved in ransomware activities for financial gain. The group targets various sectors globally, leveraging safe-mode infections and encryption techniques to disrupt organizations. With 142 known victims and continuous operations since November 2021, Snatch poses a significant risk through its strategic approach to evade detection and maximize impact.",
+  "goals": "Snatch's objectives are centered around financial gain through ransomware activities. They target organizations across multiple sectors globally, exploiting vulnerabilities that provide high potential for payout without over-specific exposure risks. The choice of sectors is strategic, focusing on entities with valuable data or assets where disruption can yield significant ransoms.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A608",
+  "sourceUrl": "https://threaticon.com/threat-actors/608"
+}

@@ -1,0 +1,59 @@
+{
+  "slug": "gc01",
+  "id": 753,
+  "name": "GC01",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "MaaS", "cyber espionage", "financial sector", "critical infrastructure", "persistence"],
+  "aliases": ["Golden Chickens", "Golden Chickens01", "Golden Chickens 01", "Golden Chickens02"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "credential access"],
+  "techniques": [
+    "T1059.003 - Command-Line Interface Tools",
+    "T1055 - Process Injection",
+    "T1566 - System Account Access",
+    "T1284 - Web Shell Creation",
+    "T1093 - Registry Run Keys / Startup Folder"
+  ],
+  "tools": [
+    "Webshells for remote access and control",
+    "Custom malware or tools from the MaaS provider",
+    "Credential stealers",
+    "Lateral movement tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Network traffic anomalies suggesting C2 communication",
+    "Unusual account activity during business hours",
+    "Presence of new or unknown scripts in server environments"
+  ],
+  "keyCapabilities": [
+    "Use of MaaS provider for campaign operations",
+    "Spear-phishing with malicious payloads",
+    "Exploitation of vulnerabilities via purchased tools",
+    "Lateral movement within targeted networks",
+    "Data exfiltration or persistence mechanisms"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for MaaS-related IP addresses",
+    "Enhance email filtering to detect phishing attempts",
+    "Conduct regular endpoint scanning for known恶意脚本 signatures associated with MaaS tools",
+    "Adopt strict access controls and monitor account activities for anomalies",
+    "Review logs for signs of persistent threats or lateral movement"
+  ],
+  "campaignsText": "GC01's campaigns demonstrate a focus on persistence and long-term access. Their use of a MaaS provider suggests cost-effective and modular operational capabilities. Campaign patterns include targeted use of malicious scripts and possibly custom tools, making them challenging to detect without advanced monitoring. Notable past operations include multiple incidents across 2017-2018 that likely aimed at financial gain or data theft.",
+  "description": "GC01, also known as Golden Chickens and its variants, is a threat actor group observed from November 2017 to October 2018. They are linked to 14 campaigns using a specific MaaS provider, suggesting a focus on prolonged and coordinated activities that could pose risks to targeted sectors.",
+  "goals": "GC01's strategic objectives remain unclear based on the available data but show signs of targeting sectors with significant financial or sensitive digital assets. Their campaigns likely aim to achieve long-term access or data exfiltration, making them a potential risk for industries with valuable intellectual property or financial systems. Sectors such as critical infrastructure, government entities, and financial institutions may be particularly at risk.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A753",
+  "sourceUrl": "https://threaticon.com/threat-actors/753"
+}

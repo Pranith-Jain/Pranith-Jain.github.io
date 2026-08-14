@@ -1,0 +1,64 @@
+{
+  "slug": "helldown",
+  "id": 451,
+  "name": "helldown",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "Ransomware",
+    "Financially-motivated",
+    "US-focused",
+    "Critical Infrastructure Targeted",
+    "Healthcare Targeting",
+    "Data Exfiltration"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Exfiltration", "Encryption"],
+  "techniques": [
+    "T1568.003 - Use of Known Vulnerabilities",
+    "T1201 - Data Exfiltration via Network Tools",
+    "T1566.001 - Ransomware"
+  ],
+  "tools": [
+    "Exploit for Zyxel vulnerability",
+    "Custom ransomware toolset",
+    "Network tools for data transfer",
+    "Lateral movement tools (e.g., PSExec-like utilities)"
+  ],
+  "iocPatterns": [
+    "Zyxel firewall exploitation attempts",
+    "Large-scale data exfiltration over network protocols (e.g., HTTPS or custom TCP/UDP ports)",
+    "Presence of custom exe/dll files related to Helldown ransomware",
+    "Encrypted files with specific extensions"
+  ],
+  "keyCapabilities": [
+    "Zyxel firewall exploitation",
+    "Large-scale data exfiltration (70 GB average per victim)",
+    "$Ransomware deployment and encryption",
+    "Lateral movement within networks",
+    "Command and control communication"
+  ],
+  "recommendedActions": [
+    "Harden Zyxel firewall configurations and apply patches immediately.",
+    "Implement EDR solutions to detect anomalous processes and network traffic patterns indicative of Helldown's TTPs.",
+    "Conduct regular backups and store them offline, encrypted.",
+    "Train employees on identifying phishing attempts connected to ransomware campaigns.",
+    "Monitor network traffic for indicators of known Helldown C2 infrastructure."
+  ],
+  "campaignsText": "Helldown operates with a high volume of attacks, targeting mid-sized organizations in the US. Their campaign patterns include rapid deployment, quick encryption, and large-scale exfiltration before victims even notice the breach. Notable for their initial focus on vulnerable firewalls, Helldown has demonstrated the ability to adapt quickly, suggesting potential future use of other exploit vectors.",
+  "description": "Helldown is an emerging ransomware group targeting critical sectors in the US. They exploit vulnerabilities in Zyxel firewalls, exfiltrate large datasets (70 GB on average), and demand ransoms for decryption keys. First seen in August 2024, they have conducted over 36 attacks within three months.",
+  "goals": "Helldown targets sectors with significant data value to maximize ransom payouts. Their focus on US-based organizations suggests a strategic decision to exploit high GDP industries, ensuring higher financial recovery potential for victims willing to pay ransoms. The group's choice of IT services, telecommunications, manufacturing, and healthcare indicates an interest in critical infrastructure and sensitive data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A451",
+  "sourceUrl": "https://threaticon.com/threat-actors/451"
+}

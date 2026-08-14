@@ -1,0 +1,46 @@
+{
+  "slug": "newspenguin",
+  "id": 961,
+  "name": "NewsPenguin",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "Pakistan", "maritime", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Espionage"],
+  "techniques": [],
+  "tools": ["Spear-phishing toolset", "Custom malware", "Phishing email templates"],
+  "iocPatterns": [
+    "Phishing emails with malicious Office attachments",
+    "C2 communication channels via non-standard protocols"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Weaponized Office documents (e.g., .doc, .xls)",
+    "Advanced espionage tools deployment",
+    "Lateral movement techniques",
+    "Data exfiltration"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering solutions to detect phishing attempts",
+    "Educate employees on spear-phishing tactics and social engineering",
+    "Monitor for异常 network traffic indicative of C2 activities",
+    "Conduct regular vulnerability assessments on critical systems",
+    "Establish a robust incident response plan"
+  ],
+  "campaignsText": "NewsPenguin's campaigns are characterized by their use of timely, event-based lures such as the Pakistan International Maritime Expo & Conference. Their phishing emails contain weaponized Office documents that deliver payloads upon execution. Targets include government agencies and critical infrastructure entities in Pakistan. Campaigns appear to be ongoing, with recent activity suggesting adaptation to current events for social engineering purposes.",
+  "description": "NewsPenguin is a threat actor targeting organizations in Pakistan through sophisticated phishing campaigns, leveraging the Pakistan International Maritime Expo & Conference as a lure. Their primary methods include spear-phishing emails and weaponized documents to deliver advanced espionage tools, likely aiming to gather sensitive information for political or economic gain.",
+  "goals": "NewsPenguin likely operates with goals aligned with espionage or disruptive purposes, targeting sectors critical to Pakistan's national interests. Their focus on defense, maritime, and energy suggests an intent to gather strategic information or disrupt operations. The group targets government agencies and critical infrastructure organizations within Pakistan, possibly to gain a competitive advantage or support broader geopolitical objectives.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A961",
+  "sourceUrl": "https://threaticon.com/threat-actors/961"
+}

@@ -1,0 +1,53 @@
+{
+  "slug": "temp-veles",
+  "id": 142,
+  "name": "TEMP.Veles",
+  "mitreId": "G0088",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "espionage",
+    "critical-infrastructure",
+    "energy-sector",
+    "Critical Infrastructure",
+    "cyber_espionage",
+    "critical_infrastructure",
+    "energy_sector",
+    "ICS_attacks"
+  ],
+  "aliases": ["XENOTIME", "Triton", "TRISIS", "G0088"],
+  "targetedSectors": ["Energy"],
+  "targetedCountries": [],
+  "tactics": ["Espionage", "Disruption"],
+  "techniques": ["T1059.003", "T1055", "T1566.001"],
+  "tools": ["TRITON malware", "Custom ICS-targeted tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Malicious payload delivery via email",
+    "C2 infrastructure for ICS manipulation"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) group",
+    "TRITON malware deployment for ICS manipulation",
+    "State-sponsored espionage activities"
+  ],
+  "recommendedActions": [
+    "Implement robust security measures around industrial control systems",
+    "Conduct regular threat hunting for ICS-specific attacks",
+    "Monitor network traffic for anomalies indicative of APT activity"
+  ],
+  "campaignsText": "TEMP.Veles has been active since at least 2018, with notable campaigns targeting energy companies. Their operations have featured spear-phishing attacks and sophisticated malware deployment to compromise ICS. Notable incidents include attempts to infiltrate TRITON into systems, which could lead to operational disruption or sabotage.",
+  "description": "TEMP.Veles, also known as XENOTIME, Triton, or TRISIS, is a Russia-based threat group known for targeting critical energy infrastructure. They primarily conduct espionage activities using the TRITON malware framework to manipulate industrial control systems (ICS), posing significant risks to global energy security.",
+  "goals": "TEMP.Veles' strategic objectives center on espionage, targeting energy sector entities that operate critical infrastructure. Their focus on industrial systems suggests an intent to disrupt or gain control over processes vital to national stability. By compromising ICS, they can potentially alter operational parameters, leading to significant physical and economic damage.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A142",
+  "sourceUrl": "https://threaticon.com/threat-actors/142"
+}

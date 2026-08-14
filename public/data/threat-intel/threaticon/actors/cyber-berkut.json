@@ -1,0 +1,45 @@
+{
+  "slug": "cyber-berkut",
+  "id": 189,
+  "name": "Cyber Berkut",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["Nation-state", "Espionage", "Cyber-espionage", "Advanced Persistent Threat (APT)", "Media sector", "APT"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": ["GB"],
+  "tactics": ["Espionage", "Collection Activities"],
+  "techniques": [],
+  "tools": ["Custom malware frameworks", "Spear-phishing tools", "Lateral movement tools"],
+  "iocPatterns": [
+    "Spear-phishing emails with geopolitical themes",
+    "C2 communications via encrypted channels",
+    "Signs of lateral movement within networks"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) campaigns",
+    "Spear-phishing attacks",
+    "Zero-day exploits",
+    "Data exfiltration techniques"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect spear-phishing attempts",
+    "Monitor network traffic for signs of APT activities and data exfiltration",
+    "Conduct regular vulnerability assessments and patch management",
+    "Train employees to recognize geopolitical-themed phishing attacks"
+  ],
+  "campaignsText": "Cyber Berkut is known for sustained campaigns targeting media entities like Bellingcat, aiming to disrupt and gather intelligence. Their activity during the Ukrainian Revolution underscores their long-term operational strategy. The group employs patient tactics, often maintaining access over extended periods to facilitate data exfiltration. While specifics are limited, they demonstrate adaptability in attack vectors and target selection.",
+  "description": "Cyber Berkut is a nation-state threat actor known for its advanced persistent threat (APT) capabilities primarily engaging in espionage activities. Targeting sectors such as media, government, and defense, particularly in the United Kingdom, Cyber Berkut poses significant risks to sensitive data and national security through sophisticated attack methods.",
+  "goals": "Cyber Berkut's strategic objectives center on espionage for political and military advantage, targeting sectors likely to hold sensitive information relevant to Russia's interests. The group's focus on the UK suggests a geopolitical rivalry or intelligence-gathering on Western policies affecting Ukraine. Their victims include high-value targets in media, government, and defense sectors where data breaches offer maximum impact.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A189",
+  "sourceUrl": "https://threaticon.com/threat-actors/189"
+}

@@ -1,0 +1,65 @@
+{
+  "slug": "mallard-spider",
+  "id": 805,
+  "name": "MALLARD SPIDER",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "APT Group",
+    "Banking Trojan",
+    "Financial Sector Targeting",
+    "Spear-Phishing",
+    "Malware",
+    "Critical Infrastructure"
+  ],
+  "aliases": ["GOLD LAGOON"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Lateral Movement"],
+  "techniques": ["T1566.001", "T1059.003", "T1548.002", "T1055", "T1546.004"],
+  "tools": [
+    "Qbot/TRickBot",
+    "rundll32.exe",
+    "Microsoft PSCommand",
+    "kill.exe",
+    "netsh.exe",
+    "Windows utilities for persistence and lateral movement"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails containing malicious URLs or macro-laced documents",
+    "File dropped from initial infection: *.exe or *.dll related to Qbot/TRickBot family",
+    "Registry entries associated with known persistence mechanisms (e.g., Run key modifications)",
+    "Network traffic to and from command-and-control (C2) servers via HTTP/HTTPS protocols"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Use of Qbot/TRickBot malware for banking Trojan activities",
+    "Spear-phishing campaigns utilizing malicious emails and URLs",
+    "Payload deployment via .dll files dropped from initial infection vectors",
+    "Credential theft through mimicked Windows processes",
+    "Persistence mechanisms including registry entries and WMI persistence",
+    "Lateral movement using PSCommand and other tools"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered email filtering to detect phishing attempts",
+    "Monitor for suspicious activity in banking applications and network endpoints",
+    "Deploy endpoint detection and response (EDR) solutions to identify and block known malicious processes",
+    "Conduct regular user training on phishing awareness",
+    "Enforce strong password policies and multi-factor authentication where possible",
+    "Monitor for indicators of compromise related to Qbot/TRickBot activity"
+  ],
+  "campaignsText": "MALLARD SPIDER has been involved in numerous campaigns targeting financial institutions, often using Qbot as the primary payload. Their operations demonstrate a focus on long-term access to compromised networks, with indicators of espionage activity. Notable past operations include compromises affecting North American and European financial entities, leveraging TrickBot's capabilities for large-scale banking fraud.",
+  "description": "MALLARD SPIDER, also known as GOLD LAGOON, is a sophisticated threat actor associated with the Qbot malware family. This group primarily targets financial institutions through phishing campaigns and malware deployments, aiming to steal sensitive data and disrupt operations. Their activities demonstrate advanced persistent threat (APT) capabilities.",
+  "goals": "MALLARD SPIDER's primary objectives appear to be the compromise of financial institutions, likely for financial gain and intelligence gathering. They exhibit a preference for targeting sectors with high economic value, such as banking and finance, and show no apparent geographic limitations in their operations. Their victims are typically selected based on industry sector rather than specific geographies.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A805",
+  "sourceUrl": "https://threaticon.com/threat-actors/805"
+}

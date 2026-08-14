@@ -1,0 +1,64 @@
+{
+  "slug": "sweed",
+  "id": 776,
+  "name": "SWEED",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "Malware campaigns",
+    "Financial malware",
+    "Retail sector attacks",
+    "Phishing",
+    "Information theft",
+    "Critical Infrastructure",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration"
+  ],
+  "techniques": ["T1066.001", "T1059.003", "T1566.002", "T1078", "T1003.001", "T1074"],
+  "tools": ["Formbook", "Lokibot", "Agent Tesla", "Malicious Office document templates"],
+  "iocPatterns": [
+    "Spear-phishing emails with macro-laced Office document attachments",
+    "Distribution of malware via malicious URLs or links in phishing emails",
+    "Binary packing techniques for malware distribution"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing emails with malicious Office document attachments",
+    "Distribution of Remote Access Trojans (RATs)",
+    "Use of custom packing techniques for malware delivery",
+    "Ability to persist on compromised systems"
+  ],
+  "recommendedActions": [
+    "Implement advanced email filtering to detect and block spear-phishing attempts",
+    "Deploy endpoint detection and response (EDR) solutions to monitor for known malware families like Formbook and Agent Tesla",
+    "Conduct regular user training on phishing recognition and safe email handling practices",
+    "Enhance network monitoring for signs of C2 communication or data exfiltration attempts",
+    "Use application whitelisting to prevent execution of unauthorized binaries",
+    "Apply robust patching management to mitigate vulnerabilities exploited by the actor"
+  ],
+  "campaignsText": "SWEED has been involved in numerous campaigns targeting individuals and organizations across various industries, with a particular emphasis on sectors where sensitive information is stored. The consistent use of spear-phishing emails with malicious attachments suggests a deliberate operational strategy to maximize infection rates while minimizing detection. Campaigns have varied in their specific tactics but have remained true to the core methodology of delivering known malware families like Agent Tesla. Notable past operations include the distribution of Formbook and Lokibot, with campaigns often leveraging different malwares to evase detection. The actor's operational tempo appears steady, with ongoing activity observed across multiple years.",
+  "description": "The SWEED threat actor has been actively distributing malware campaigns since at least 2017, primarily targeting victims with information stealers like Formbook and Agent Tesla through spear-phishing emails. The actor is known for consistently using malicious attachments to deliver payloads, focusing on sectors such as retail and finance in the United States and European Union. SWEED's operations demonstrate a moderate level of sophistication, with a focus on stealing credentials and financial data.",
+  "goals": "SWEED's primary objective appears to be the theft of sensitive information, including credentials and financial data, from targeted individuals and organizations. The actor's focus on retail and financial sectors suggests an interest in accessing personally identifiable information (PII) and financial records. By leveraging spear-phishing campaigns, SWEED aims to compromise end-users within target organizations, allowing for the deployment of remote access trojans and information stealers. The consistent use of malicious Office document attachments indicates a preference for methods that can bypass basic email filtering mechanisms while remaining somewhat stealthy.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A776",
+  "sourceUrl": "https://threaticon.com/threat-actors/776"
+}

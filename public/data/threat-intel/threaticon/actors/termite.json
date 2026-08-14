@@ -1,0 +1,47 @@
+{
+  "slug": "termite",
+  "id": 619,
+  "name": "termite",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "financial-gain", "supply-chain", "retail", "healthcare", "Ransomware"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Data Destruction", "Credential Access", "Discovery", "Lateral Movement", "Exfiltration"],
+  "techniques": ["T1566.001", "T1078", "T1091", "T1483.001", "T1049", "T1270"],
+  "tools": ["Babuk Ransomware (modified)", "Custom tools for lateral movement and credential dumping"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Use of MD5 hashes for payload signatures",
+    "Command-and-control (C2) communication over specific IP addresses",
+    "Lateral movement using compromised credentials"
+  ],
+  "keyCapabilities": [
+    "Spear-phishing campaigns",
+    "Ransomware deployment (modified Babuk variant)",
+    "Data exfiltration",
+    "Credential compromise and lateral movement within networks"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical accounts",
+    "Monitor network traffic for known Termite C2 IPs: 193.43.104.153, 87.121.45.33",
+    "Conduct regular backups and store them offline or in secure cloud storage",
+    "Educate employees on spear-phishing tactics and suspicious emails",
+    "Enhance endpoint detection and response (EDR) capabilities"
+  ],
+  "campaignsText": "Termite has been active since May 2023, with a notable spike in campaign activity starting in late 2024. The group primarily targets North American and European organizations, leveraging supply chain attacks to maximize impact. Their campaigns often involve compromising third-party vendors to infiltrate primary targets, as seen in the Blue Yonder attack. Notable operations include attacks on Millennium Dental Technologies, City of Huntington, and multiple manufacturing and retail firms.",
+  "description": "Termite is a ransomware group identified as a threat actor targeting various sectors through malicious activities. Originating from a modified version of the Babuk ransomware, Termite has demonstrated significant operational capability since its first appearance in May 2023. Their primary motivation revolves around financial gain through the deployment of ransomware and disruption of businesses.",
+  "goals": "Termite targets a broad range of industries, including software providers, retail, healthcare, education, and manufacturing, among others. Their choice of victims suggests a focus on organizations that are critical to supply chains or have significant financial exposure. The primary motivation for Termite is financial gain through ransom payments, with a secondary objective of disrupting operations to coerce timely payouts.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A619",
+  "sourceUrl": "https://threaticon.com/threat-actors/619"
+}

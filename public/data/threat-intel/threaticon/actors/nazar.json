@@ -1,0 +1,46 @@
+{
+  "slug": "nazar",
+  "id": 795,
+  "name": "Nazar",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "espionage", "surveillance", "low_confidence_geographic_targeting"],
+  "aliases": ["SIG37"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Exfiltration", "Defense Evasion"],
+  "techniques": ["T1566.003", "T1070", "T1055"],
+  "tools": ["Nazar Dropper", "MicroOlap Packet Sniffer", "Custom OLE Controls Registry Malware"],
+  "iocPatterns": [
+    "Registry entries with OLE controls",
+    "File hashes associated with Nazar dropper",
+    "Network traffic patterns indicative of packet sniffer usage",
+    "MicroOlap process or DLL activity"
+  ],
+  "keyCapabilities": [
+    "Modular malware toolkit with OLE control registry manipulation",
+    "Keylogging functionality for credential theft",
+    "Screen and sound recording capabilities",
+    "Network traffic capture using MicroOlap"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for anomalous traffic patterns that may indicate the use of a packet sniffer.",
+    "Conduct regular audits of system registries to identify and remove malicious OLE controls.",
+    "Enhance email filtering and endpoint protection to detect potential payloads from phishing or other delivery mechanisms.",
+    "Monitor for and block communication to domains associated with known threat actor infrastructure."
+  ],
+  "campaignsText": "To date, specific campaigns attributed to Nazar remain undefined. The actor's operational activity during 2010-2013 suggests a focus on establishing persistence in targeted systems and conducting long-term surveillance activities. While the exact scope of their operations is unclear, the use of MicroOlap Packet Sniffer indicates potential interest in monitoring network traffic for sensitive information.",
+  "description": "Nazar, also known as SIG37, is a potentially long-standing cyber threat actor identified through the ShadowBrokers' 'Lost in Translation' leak. The actor has been observed since 2008 but was most active between 2010 and 2013. Nazar employs a modular toolkit for surveillance activities including keylogging, screen and sound capture, and network traffic interception using the MicroOlap Packet Sniffer library.",
+  "goals": "While Nazar's broader targeting strategy remains unclear, there is low-confidence intelligence suggesting an interest in victims within Iran. The actor's modular toolkit suggests a focus on surveillance and espionage activities, potentially targeting individuals or organizations involved in sensitive sectors. The specific motivation and strategic objectives of Nazar remain underdetermined due to limited available information.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A795",
+  "sourceUrl": "https://threaticon.com/threat-actors/795"
+}

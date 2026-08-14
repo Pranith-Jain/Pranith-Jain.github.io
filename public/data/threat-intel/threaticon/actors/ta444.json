@@ -1,0 +1,73 @@
+{
+  "slug": "ta444",
+  "id": 959,
+  "name": "TA444",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": "K",
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": [
+    "State-sponsored",
+    "Financial TTPs",
+    "Cryptocurrency attacks",
+    "APT",
+    "Ransomware",
+    "North Korea",
+    "Financial Targeting",
+    "Backdoor / C2"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Initial Access",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1078.001", "T1564", "T1059.003", "T1040", "T1214", "T1095", "T1036", "T1518"],
+  "tools": ["Custom RATs", "Information-stealing malware", "Ransomware (likely)", "Crypto-mining software"],
+  "iocPatterns": [
+    "Phishing emails targeting financial sector employees",
+    "Malware distribution via compromised websites or links",
+    "C2 communication channels using encrypted protocols",
+    "Unusual network traffic related to mining operations",
+    "Spike in DDoS attacks against financial institutions",
+    "Lateral movement across internal networks"
+  ],
+  "keyCapabilities": [
+    "Custom malware development",
+    "Ransomware deployment",
+    "Crypto-mining activities",
+    "Information stealing",
+    "Persistent backdoors",
+    "Network reconnaissance",
+    "Sophisticated exfiltration techniques"
+  ],
+  "recommendedActions": [
+    "Implement multi-layered threat detection systems to monitor for TA444's TTPs.",
+    "Conduct regular employee training on phishing and social engineering tactics.",
+    "Secure cryptocurrency assets with multiple layers of authentication and encryption.",
+    "Monitor network traffic for signs of lateral movement and data exfiltration.",
+    "Establish incident response plans tailored to crypto-related threats.",
+    "Use threat intelligence feeds to track TA444's infrastructure and tools."
+  ],
+  "campaignsText": "TA444 is known for several high-profile campaigns targeting cryptocurrency exchanges and financial institutions. Their campaigns often involve a combination of phishing, social engineering, and malware deployment to gain access to victim networks. Once inside, they establish persistence and exfiltrate sensitive data or directly steal cryptocurrencies. One notable pattern in their operations is the use of DDoS attacks combined with extortion demands, particularly against financial institutions. TA444's operational tempo appears steady, with occasional periods of increased activity following major crypto market events.",
+  "description": "TA444 is a North Korea state-sponsored threat actor known for financially motivated operations targeting cryptocurrency and financial sectors. They have been active since at least 2017, employing sophisticated malware and infection techniques to steal hundreds of millions in cryptocurrencies. Their recent focus on crypto assets indicates a strategic shift to capitalize on emerging digital financial systems.",
+  "goals": "TA444's primary strategic objective appears to be financial gain, with a focus on obtaining sensitive information or directly extracting cryptocurrencies from victims. The group's targeting profile centers on sectors where financial assets can be easily misappropriated, such as banks, cryptocurrency exchanges, and tech firms handling digital payments. Their geographic targeting has included regions with active crypto markets, including South Korea, Japan, and other Asian countries, but they are not limited to these areas. Victims typically include financial institutions, cryptocurrency businesses, and high-net-worth individuals holding significant digital assets.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A959",
+  "sourceUrl": "https://threaticon.com/threat-actors/959"
+}

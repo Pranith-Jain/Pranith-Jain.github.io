@@ -1,0 +1,53 @@
+{
+  "slug": "void-rabisu",
+  "id": 881,
+  "name": "Void Rabisu",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "Ransomware", "Geopolitical Espionage", "Critical Infrastructure"],
+  "aliases": ["Tropical Scorpius"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Credential Access", "Discovery", "Execution", "Lateral Movement", "Exfiltration"],
+  "techniques": ["T1057", "T1566.003", "T1078", "T1003.004", "T1059.003"],
+  "tools": [
+    "Qbot banking Trojan",
+    "Cobalt Strike imitative frameworks",
+    "Custom ransomware",
+    "Phishing email toolkits"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Use of Qbot or similar banking Trojans",
+    "Malicious DLLs dropped via double-pulse SMB exploit (T1057)",
+    "C2 communication over HTTP/HTTPS protocols"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Targeted campaign execution",
+    "Spear-phishing with malicious payloads",
+    "Malware-based data exfiltration",
+    "Command and Control (C2) infrastructure"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for critical systems.",
+    "Enhance email filtering to detect and block spear-phishing attempts.",
+    "Monitor network traffic for signs of lateral movement and unusual patterns.",
+    "Conduct regular employee training on phishing awareness.",
+    "Encrypt backups and store them offline to prevent ransomware encryption."
+  ],
+  "campaignsText": "Void Rabisu has conducted multiple campaigns targeting energy, government, and healthcare sectors in Ukraine and its allies. The group's operations often involve spear-phishing emails with macro-laced Office documents to deliver payloads. Campaigns are typically prolonged and patient, indicating a focus on long-term strategic gains rather than rapid financial extraction. Notable operations include high-profile ransomware attacks leading to significant data breaches and operational disruptions.",
+  "description": "Void Rabisu is a financially motivated threat actor group known for ransomware attacks and targeted campaigns against Ukraine and its allies. The group has demonstrated advanced capabilities in compromising critical sectors, including energy, government, and healthcare, using both traditional and novel attack vectors.",
+  "goals": "Void Rabisu's strategic goals appear to align with both financial motivations and geopolitical objectives. By targeting Ukraine and countries supporting it, the group likely seeks to disrupt national interests while simultaneously generating revenue through ransomware campaigns. The actor's focus on sectors such as energy, government, and healthcare indicates an intent to maximize impact by compromising critical infrastructure.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A881",
+  "sourceUrl": "https://threaticon.com/threat-actors/881"
+}

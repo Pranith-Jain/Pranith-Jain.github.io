@@ -1,0 +1,51 @@
+{
+  "slug": "magecart",
+  "id": 746,
+  "name": "MageCart",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "card Theft", "e-commerce threats", "financial Fraud"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Collection", "Lateral Movement"],
+  "techniques": [
+    "T1059.003 - Remote access tools used as a payload to execute arbitrary commands via web shells",
+    "T1566.001 -Credential dumpers such as Mimikatz or similar tools for capturing username/password information from memory or other sources"
+  ],
+  "tools": [
+    "Malicious scripts used to inject card skimmers into websites",
+    "Remote access tools for establishing persistence"
+  ],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux domains",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Web-based card skimming",
+    "Injection of malicious scripts into websites",
+    "Stealing payment card information",
+    "持久化攻击 capabilities"
+  ],
+  "recommendedActions": [
+    "Implement strict web application security policies to detect and block malicious scripts injected into websites",
+    "Monitor for suspicious activity in online payment systems and e-commerce platforms",
+    "Use threat detection tools capable of identifying MageCart's known IOC patterns",
+    "Conduct regular security audits of third-party vendor integrations"
+  ],
+  "campaignsText": "MageCart's campaigns are characterized by their long operational timeline and consistent activity over several years. Their attack patterns typically involve compromising third-party services or vendors to inject their skimming code into otherwise legitimate websites. MageCart has been linked to numerous data breaches affecting online stores globally, with a particular focus on large-scale deployments of their skimming tools.",
+  "description": "MageCart is a persistent cyber threat actor known for deploying web-based card skimmers to compromise payment card data. Their activities have been tracked since at least 2016, with a focus on compromising e-commerce platforms and financial services. MageCart's operations are primarily financially motivated, aiming to steal sensitive information for fraudulent purposes.",
+  "goals": "MageCart's strategic objectives appear to be primarily financially motivated, focusing on the theft of sensitive financial information from e-commerce platforms and online payment services. Their targeting profile suggests an emphasis on industries where card data is集中, such as retail and banking. While no specific sectors or countries have been explicitly targeted, their campaigns frequently occur in regions with high e-commerce activity.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A746",
+  "sourceUrl": "https://threaticon.com/threat-actors/746"
+}

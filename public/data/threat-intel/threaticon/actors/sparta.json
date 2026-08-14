@@ -1,0 +1,45 @@
+{
+  "slug": "sparta",
+  "id": 611,
+  "name": "sparta",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": ["ransomware", "cybercrime", "Spain", "Ransomware", "Phishing"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Credential Access", "Exfiltration", "Impact"],
+  "techniques": ["T1068.001", "T1059", "T1003", "T1203"],
+  "tools": ["Phishing email tools", "Exploit code", "Ransomware encryption tool"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links or attachments",
+    "Exploitation attempts against unpatched systems",
+    "Ransomware-related encryption activities"
+  ],
+  "keyCapabilities": [
+    "Phishing campaigns",
+    "Exploitation of unpatched systems",
+    "Double extortion tactics",
+    "Ransomware deployment"
+  ],
+  "recommendedActions": [
+    "Enhance email security protocols (SPF, DKIM, DMARC)",
+    "Conduct regular employee training on phishing recognition",
+    "Patch systems promptly to mitigate exploit risks",
+    "Implement network monitoring for suspicious activities"
+  ],
+  "campaignsText": "Sparta's short operational window and focus on Spanish targets indicate a potentially specialized or localized approach. Their reliance on phishing and exploits suggests they targeted organizations with weaker security postures, maximizing accessibility. While their campaign was brief, the high-pressure tactics of double extortion may have led to notable financial gains.",
+  "description": "Sparta emerged in September 2022 as a short-lived ransomware group targeting organizations in Spain through double extortion attacks. Initially gaining access via phishing and unpatched系统 exploits, Sparta's operations highlight the need for heightened vigilance against such threats.",
+  "goals": "Sparta's primary objective was financial gain through ransomware activities, with an emphasis on organizational impact to maximize their illegal profits. The targeting of organizations in Spain suggests either specific regional interests or operational limitations, though broader targets were not evident during their active period. Their use of double extortion techniques underscores a strategic approach to maximizing victim response time and payment likelihood.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A611",
+  "sourceUrl": "https://threaticon.com/threat-actors/611"
+}

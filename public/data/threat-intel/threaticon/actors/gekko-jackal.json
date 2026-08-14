@@ -1,0 +1,46 @@
+{
+  "slug": "gekko-jackal",
+  "id": 284,
+  "name": "Gekko Jackal",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "espionage", "critical-infrastructure", "cyber-espionage"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Credential Access", "Lateral Movement"],
+  "techniques": ["T1059.003", "T1566.001", "T1201", "T1485"],
+  "tools": ["Custom malware for espionage", "Cobalt Strike (for C2 infrastructure)", "Mimikatz (for persistence)"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "DLL files dropped in system directories",
+    "C2 communication via HTTPS masking as legitimate traffic",
+    "Staging infrastructure hosted on public cloud services with obfuscated domains"
+  ],
+  "keyCapabilities": [
+    "Persistent network presence",
+    "Data exfiltration via C2 channels",
+    "Lateral movement within compromised networks",
+    "Use of custom malware"
+  ],
+  "recommendedActions": [
+    "Implement network monitoring for signs of lateral movement and C2 activities.",
+    "Enforce strict access controls and monitor privilege escalation attempts.",
+    "Conduct regular updates and patches to mitigate known vulnerabilities.",
+    "Use endpoint detection and response (EDR) solutions to identify custom malware signatures."
+  ],
+  "campaignsText": "Gekko Jackal has been involved in multiple campaigns targeting critical infrastructure and government agencies. The group's operational tempo is patient, often maintaining long-term access to networks to maximize data collection. Notable past operations include multi-stage attacks on defense contractors and energy companies, where the actor demonstrated advanced persistence techniques.",
+  "description": "Gekko Jackal is a nation-state level threat actor primarily engaged in espionage activities. The group targets sensitive sectors such as technology, defense, and government to gather intelligence and achieve strategic objectives. Gekko Jackal has demonstrated advanced capabilities in cyber operations, including the use of sophisticated tools and techniques to compromise systems while remaining elusive.",
+  "goals": "Gekko Jackal's primary motivation is espionage, with a focus on collecting sensitive information from targeted sectors such as technology, energy, and defense industries. The group primarily targets countries involved in strategic competitions or geopolitical tensions, indicating its alignment with national interests. Gekko Jackal’s targeting profile suggests it is highly selective, focusing on organizations that hold critical intellectual property and classified data.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A284",
+  "sourceUrl": "https://threaticon.com/threat-actors/284"
+}

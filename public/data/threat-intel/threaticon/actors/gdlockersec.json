@@ -1,0 +1,52 @@
+{
+  "slug": "gdlockersec",
+  "id": 441,
+  "name": "gdlockersec",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "APT",
+    "ransomware",
+    "financial-motivation",
+    "emerging-group",
+    "Healthcare Targeting",
+    "Critical Infrastructure"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Ransomware", "Persistence", "Exfiltration"],
+  "techniques": ["T1486.001", "T1567.001", "T1055", "T1218"],
+  "tools": ["Custom ransomware variant", "Phishing emails with malicious attachments"],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious attachments",
+    "Encrypted files with specific extension patterns (e.g., .gdlockersec)",
+    "Command-and-control communication over暗网 or encrypted channels"
+  ],
+  "keyCapabilities": [
+    "Ransomware deployment",
+    "Phishing and social engineering",
+    "Encryption of victim data",
+    "Command-and-control communication"
+  ],
+  "recommendedActions": [
+    "Implement robust email filtering and phishing detection mechanisms to mitigate spear-phishing attempts.",
+    "Conduct regular vulnerability assessments and apply patches to systems to reduce attack surface.",
+    "Monitor for unusual file encryption patterns and implement data backup solutions with air-gapped storage.",
+    "Establish incident response plans tailored to ransomware scenarios, including communication with law enforcement."
+  ],
+  "campaignsText": "gdlockersec has demonstrated early-stage campaign activity, with only five known victims identified so far. The group's adherence to operational rules suggests a structured approach to campaign management, including avoiding re-targeting organizations that have paid ransoms. While their geographic and sectoral targeting is not yet fully defined, the emphasis on financial gain indicates a focus on industries and regions where ransom payment compliance is higher.",
+  "description": "gdlockersec is a newly emerged medium-sophistication threat actor with a primary motivation of organizational gain through ransomware activity and financial exploitation. The group exhibits strategic operational practices, including targeting restrictions for certain regions (e.g., CIS, Cuba, North Korea, and China) and avoiding re-targeting organizations that have already paid ransoms. While their activities are limited to date, they demonstrate a clear focus on financial gain through ransomware deployment.",
+  "goals": "gdlockersec's strategic goals are centered on financial gain through ransomware deployment. While no specific sectors or countries have been explicitly targeted yet, the group has imposed restrictions on targeting certain regions (CIS, Cuba, North Korea, and China) and non-profit entities such as hospitals. This indicates a deliberate approach to minimize operational risks and avoid high-profile targets that could attract significant attention from law enforcement and international bodies. The group's focus on revictimization avoidance also reflects an attempt to maintain a sustained revenue stream without provoking retaliatory measures against their victims.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A441",
+  "sourceUrl": "https://threaticon.com/threat-actors/441"
+}

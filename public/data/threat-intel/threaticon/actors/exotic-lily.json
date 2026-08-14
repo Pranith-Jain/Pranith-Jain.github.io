@@ -1,0 +1,54 @@
+{
+  "slug": "exotic-lily",
+  "id": 47,
+  "name": "EXOTIC LILY",
+  "mitreId": "G1011",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "Ransomware",
+    "Financially motivated",
+    "Initial access broker",
+    "Initial Access",
+    "Healthcare Targeting"
+  ],
+  "aliases": ["DEV-0413"],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1204", "T1547.001"],
+  "tools": ["Conti ransomware", "Diavol ransomware", "Custom malware"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Initial access brokering",
+    "Ransomware deployment",
+    "Network exploitation",
+    "Data exfiltration",
+    "Lateral movement"
+  ],
+  "recommendedActions": [
+    "Implement robust email security controls to prevent spear-phishing",
+    "Conduct regular network vulnerability assessments",
+    "Enforce strong password policies and multi-factor authentication",
+    "Monitor for suspicious DNS activity",
+    "Implement a robust incident response plan"
+  ],
+  "campaignsText": "EXOTIC LILY's campaign patterns are characterized by their opportunistic and adaptable nature, with the group pursuing a wide range of industries and organizations. Their operational tempo is likely to be high, with multiple concurrent campaigns and operations. Notable past operations include the deployment of Conti and Diavol ransomware, highlighting the group's focus on financial gain. The group's activities have been observed since at least September 2021, with a potential increase in activity in recent months.",
+  "description": "EXOTIC LILY, also known as DEV-0413, is a financially motivated threat actor closely linked with Wizard Spider, known for deploying ransomware such as Conti and Diavol. The group has been active since at least September 2021, targeting various industries including IT, cybersecurity, and healthcare. EXOTIC LILY's activities suggest they may be acting as an initial access broker for other malicious actors.",
+  "goals": "EXOTIC LILY's strategic objectives are centered around gaining initial access to target networks and exploiting them for financial gain. The group targets a wide range of industries, including IT, cybersecurity, and healthcare, in pursuit of lucrative paydays. Their typical victims are organizations with valuable data or systems that can be compromised for ransom, highlighting the importance of robust cybersecurity measures to prevent such attacks.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A47",
+  "sourceUrl": "https://threaticon.com/threat-actors/47"
+}

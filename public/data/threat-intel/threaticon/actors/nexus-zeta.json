@@ -1,0 +1,67 @@
+{
+  "slug": "nexus-zeta",
+  "id": 659,
+  "name": "Nexus Zeta",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 6, 2026",
+  "tags": [
+    "APT",
+    "botnet",
+    "IoT",
+    "exploit-kit",
+    "telecom-sector",
+    "router-exploit",
+    "Critical Infrastructure",
+    "DDoS"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Command and Control", "Exfiltration"],
+  "techniques": [
+    "T1210.001 - Exploit Public-Facing Application (SOAP-based)",
+    "T1573.003 - DNS Tunneling (for C2)",
+    "T1102 - Substitute Legitimate Software",
+    "T1059.003 - Command and Scripting Interpreter",
+    "T1060 - Exploit Public-Facing Application"
+  ],
+  "tools": [
+    "Satori botnet",
+    "Custom IoT malware leveraging TR-069 protocol",
+    "Exploit code targeting EDB-38722 vulnerability"
+  ],
+  "iocPatterns": [
+    "Spear-phishing with malicious URLs targeting network administrators",
+    "C2 communication over DNS using domain fronting techniques",
+    "Staging infrastructure on compromised IoT device IP ranges",
+    "Exploit payloads targeting SOAP endpoints in routers"
+  ],
+  "keyCapabilities": [
+    "Exploitation of SOAP-based vulnerabilities in IoT devices",
+    "Deployment and management of large-scale botnets (e.g., Satori)",
+    "Use of C2 infrastructure via malicious domains and URLs",
+    "Custom development of exploit code for router-specific vulnerabilities",
+    "Persistence mechanisms through compromised device firmware"
+  ],
+  "recommendedActions": [
+    "Patch all network devices with known SOAP vulnerability exposures (e.g., CVE-2014–8361, CVE-2017–17215)",
+    "Monitor DNS traffic for anomalous domain queries related to 'nexusiotsolutions.net' or similar malicious domains",
+    "Implement network segmentation to isolate IoT devices from critical systems",
+    "Deploy intrusion detection systems to identify payloads targeting TR-069 or SOAP endpoints",
+    "Conduct regular vulnerability assessments for legacy network equipment"
+  ],
+  "campaignsText": "Nexus Zeta operates with a high operational tempo, frequently updating botnet infrastructure and exploiting newly disclosed vulnerabilities. Their campaigns, such as the Masuta botnet linked to Satori creators, demonstrate a focus on IoT device compromise, often targeting consumer-grade routers and network appliances. Notable past operations include weaponizing previously unpatched SOAP exploits, with a clear strategy of repurposing known vulnerabilities across multiple botnet iterations. Their campaigns typically involve multi-stage attacks, starting with initial compromise via unpatched devices, followed by lateral movement and C2 establishment.",
+  "description": "Nexus Zeta is a criminal threat actor actively exploiting SOAP-related vulnerabilities in IoT devices to deploy botnets, with a focus on router and network equipment vulnerabilities. Their Satori botnet has previously leveraged CVE-2014–8361, CVE-2017–17215, and the TR-069 bug, with recent activity linked to EDB-38722. Their operations involve persistent infrastructure use and targeted IoCs, including suspicious domains and URLs.",
+  "goals": "Nexus Zeta's primary objective appears to be financial gain through botnet monetization, likely via DDoS services, data exfiltration, or ransomware deployment. They target sectors with high concentrations of IoT devices, particularly in telecommunications, manufacturing, and small-to-midsize enterprises relying on legacy network equipment. Their focus on SOAP-based exploits in routers and network devices indicates a strategic interest in compromising systems with weak patch management practices, enabling long-term infrastructure control and large-scale botnet operations.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A659",
+  "sourceUrl": "https://threaticon.com/threat-actors/659"
+}

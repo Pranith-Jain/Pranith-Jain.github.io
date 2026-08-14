@@ -1,0 +1,57 @@
+{
+  "slug": "dextorous-spider",
+  "id": 265,
+  "name": "Dextorous Spider",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 70,
+  "types": ["Nation-State"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": "Unknown",
+  "motivation": "Espionage",
+  "added": "May 4, 2026",
+  "tags": ["APT", "Espionage", "Retail", "Supply Chain"],
+  "aliases": [],
+  "targetedSectors": ["Retail"],
+  "targetedCountries": [],
+  "tactics": ["Lateral Movement", "Credential Access", "Exfiltration", "Initial Access"],
+  "techniques": ["T1059.003", "T1078.001", "T1259", "T1566.001"],
+  "tools": [
+    "PowerShell (for command and control)",
+    "Mimikatz (for credential dumping)",
+    "Custom malware for persistence and data theft",
+    "Cobalt Strike imposter tools"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails targeting retail employees",
+    "Phishing campaigns using malicious Excel files or documents",
+    "Use of legitimate domain names for command and control (C2) servers",
+    "Lateral movement across network segments via compromised credentials",
+    "Encrypted channels for data exfiltration"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Spear-phishing campaigns using phishing emails or malicious attachments",
+    "Exploit kits targeting known vulnerabilities",
+    "Lateral movement within networks using compromised credentials",
+    "Data exfiltration via custom malware or tools",
+    "Operational persistence over extended periods",
+    "Targeted attacks on supply chain and e-commerce systems"
+  ],
+  "recommendedActions": [
+    "Implement multi-factor authentication (MFA) for access to critical systems.",
+    "Enhance email filtering to detect and block phishing attempts.",
+    "Monitor network traffic for signs of lateral movement or unauthorized access.",
+    "Regularly patch systems to mitigate known vulnerabilities.",
+    "Conduct targeted threat hunting for indicators tied to Dextorous Spider's TTPs.",
+    "Segment networks to limit potential damage in case of breach."
+  ],
+  "campaignsText": "Dextorous Spider has been observed conducting multiple campaigns targeting retailers over an extended period. Their operations demonstrate a patient, long-term approach to achieving their objectives, with a focus on maintaining stealth and avoiding detection. Notable past operations include attacks that compromised supply chain systems and e-commerce platforms.",
+  "description": "Dextorous Spider is a nation-state level threat actor primarily engaged in espionage activities targeting the retail sector. Their operations are characterized by advanced tactics, techniques, and procedures (TTPs), including targeted attacks on supply chains and e-commerce platforms. This group poses a significant risk to global businesses, leveraging sophisticated tools and long-term operational persistence to achieve their objectives.",
+  "goals": "Dextorous Spider's primary motivation appears to be espionage, with a focus on extracting valuable商业 and operational data from the retail sector. The choice of targeting the retail industry may stem from its strategic importance in global economic activities. Their victims are likely large retailers with extensive supply chains and international footprints, offering high-value targets for intelligence gathering.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A265",
+  "sourceUrl": "https://threaticon.com/threat-actors/265"
+}

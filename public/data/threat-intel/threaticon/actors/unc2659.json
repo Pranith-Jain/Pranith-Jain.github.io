@@ -1,0 +1,55 @@
+{
+  "slug": "unc2659",
+  "id": 982,
+  "name": "UNC2659",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 60,
+  "types": [],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": null,
+  "added": "May 17, 2026",
+  "tags": ["APT", "cyber_espionage", "nation-state", "critical_infrastructure"],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": ["Initial Access", "Defense Evasion", "Lateral Movement", "Exfiltration"],
+  "techniques": ["T1203", "T1070", "T1566", "T1584", "T1048"],
+  "tools": [
+    "Regsvr32 (used for persistence)",
+    "Cobalt Strike (potentially used in campaigns)",
+    "Custom DLLs and scripts",
+    "Mimikatz-like tools",
+    "PoshSpider"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with attachments containing known exploits",
+    "Download activity from legitimate software vendor sites during attack periods",
+    "Encrypted command-and-control (C2) communication channels",
+    "DLL injection or fileless persistence techniques"
+  ],
+  "keyCapabilities": [
+    "Advanced persistent threat (APT) capabilities",
+    "Exploit development and deployment",
+    "Quick attack lifecycle execution",
+    "Tool download from legitimate websites",
+    "Persistent access tactics",
+    "Data exfiltration operations"
+  ],
+  "recommendedActions": [
+    "Patch all known vulnerabilities in SonicWall devices and other critical assets.",
+    "Monitor network traffic for unusual patterns, particularly during off-hours.",
+    "Implement strict access controls on sensitive systems and data repositories.",
+    "Deploy YARA rules to detect potential UNC2659-related file hashes or indicators.",
+    "Consider endpoint detection and response (EDR) solutions to monitor for in-memory attacks."
+  ],
+  "campaignsText": "UNC2659's campaigns are characterized by their rapid execution, often completed within days. The group appears to target high-value assets across government, defense, and energy sectors. Their use of legitimate websites to download tools suggests an effort to operate under the radar. Notable past operations include the exploitation of SonicWall vulnerabilities and the deployment of custom malware to achieve long-term access.",
+  "description": "UNC2659 is a highly sophisticated cyber threat actor linked to Russian state-sponsored activity. Operating since at least January 2021, UNC2659 has demonstrated rapid attack campaigns, leveraging exploits in SonicWall SMA100 SSL VPN products and downloading tools directly from legitimate websites. Their activities pose significant risks to critical infrastructure sectors.",
+  "goals": "UNC2659's primary strategic objective appears to be the collection of sensitive information and intelligence from targeted organizations, likely for geopolitical advantage. Their focus on sectors such as government, defense, and energy suggests a desire to influence policy decisions or gain insights into critical infrastructure operations. The group's targeting of specific countries aligns with broader Russian foreign policy interests and its history of cyber espionage activities.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A982",
+  "sourceUrl": "https://threaticon.com/threat-actors/982"
+}

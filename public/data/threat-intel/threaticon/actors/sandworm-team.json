@@ -1,0 +1,56 @@
+{
+  "slug": "sandworm-team",
+  "id": 29,
+  "name": "Sandworm Team",
+  "mitreId": "G0034",
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 90,
+  "types": [],
+  "countryOfOrigin": "Russia (RU)",
+  "originCode": "RU",
+  "sophistication": null,
+  "resourceLevel": "Government",
+  "motivation": "Disruption",
+  "added": "May 2, 2026",
+  "tags": [
+    "APT",
+    "Destruction",
+    "Disruption",
+    "Energy",
+    "Government",
+    "Critical Infrastructure",
+    "Initial Access",
+    "Government Targeting",
+    "Wiper / Destructive"
+  ],
+  "aliases": ["ELECTRUM", "Telebots", "IRON VIKING", "BlackEnergy (Group)"],
+  "targetedSectors": ["Energy", "Government", "Defense", "Critical infrastructure"],
+  "targetedCountries": ["GB", "CN"],
+  "tactics": ["Defense Evasion", "Execution", "Persistence", "Privilege Escalation", "Exfiltration"],
+  "techniques": ["T1059.003", "T1055", "T1566.001", "T1190", "T1204"],
+  "tools": ["Black Energy", "NotPetya", "Olympic Destroyer"],
+  "iocPatterns": [
+    "Spear-phishing with macro-laced Office documents",
+    "C2 over DNS using fast-flux",
+    "Staging infrastructure on bulletproof hosting"
+  ],
+  "keyCapabilities": [
+    "Custom malware development",
+    "Social engineering",
+    "Network exploitation",
+    "System compromise",
+    "Data destruction"
+  ],
+  "recommendedActions": [
+    "Implement robust network security measures, including firewalls and intrusion detection systems",
+    "Conduct regular security audits and vulnerability assessments",
+    "Implement a robust incident response plan",
+    "Provide regular security awareness training to employees"
+  ],
+  "campaignsText": "The Sandworm Team's campaign patterns have been characterized by their use of custom malware and social engineering tactics to gain initial access to their targets' systems. They have been known to target various sectors, including energy, government, and critical infrastructure, and have been associated with several high-profile attacks. The group's operational tempo has been noted for its complexity and sophistication, with their attacks often involving multiple stages and the use of various tools and techniques.",
+  "description": "The Sandworm Team is a highly destructive threat group attributed to Russia's General Staff Main Intelligence Directorate, with a primary motivation of disruption. They have been active since at least 2009, targeting various sectors including energy, government, and critical infrastructure. Their targets have included Ukraine, the US, and European countries, with notable attacks such as the 2017 NotPetya attack and the 2018 Olympic Destroyer attack.",
+  "goals": "The Sandworm Team's strategic objectives appear to be focused on disruption and destruction, with a particular emphasis on targeting critical infrastructure and government organizations. They have targeted various countries, including Ukraine, the US, and European nations, and have been associated with several high-profile attacks. The group's typical victims include energy companies, government organizations, and critical infrastructure providers, and their attacks have been characterized by their use of custom malware and social engineering tactics.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A29",
+  "sourceUrl": "https://threaticon.com/threat-actors/29"
+}

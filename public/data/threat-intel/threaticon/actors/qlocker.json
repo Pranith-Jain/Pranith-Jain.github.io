@@ -1,0 +1,70 @@
+{
+  "slug": "qlocker",
+  "id": 556,
+  "name": "qlocker",
+  "mitreId": null,
+  "status": "Active",
+  "tlp": "white",
+  "confidence": 80,
+  "types": ["Criminal"],
+  "countryOfOrigin": null,
+  "originCode": null,
+  "sophistication": null,
+  "resourceLevel": null,
+  "motivation": "Organizational gain",
+  "added": "May 4, 2026",
+  "tags": [
+    "ransomware",
+    "financial-motivation",
+    "iot-malware",
+    "hardware-targeted",
+    "2021-activity",
+    "asia-pacific",
+    "Ransomware"
+  ],
+  "aliases": [],
+  "targetedSectors": [],
+  "targetedCountries": [],
+  "tactics": [
+    "Ransomware",
+    "Exploitation for Privileges Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement"
+  ],
+  "techniques": ["T1500.001", "T1513.001", "T1503.004", "T1547.002", "T1548.001", "T1055", "T1021"],
+  "tools": [
+    "Custom ransomware",
+    "Hard-coded credential exploitation tools",
+    "7-Zip encryption",
+    "Cobalt Strike (potentially)"
+  ],
+  "iocPatterns": [
+    "Spear-phishing emails with malicious links",
+    "Encrypted 7-Zip archives attached to ransom notes",
+    "Command-and-control communications via email-based drop mechanisms",
+    "Presence of specific file hashes associated with QLocker ransomware",
+    "Network traffic originating from known QNAP NAS IP addresses"
+  ],
+  "keyCapabilities": [
+    "Exploitation of hard-coded credentials in QNAP NAS devices",
+    "Ransomware deployment using 7-Zip encrypted archives",
+    "Phishing emails with malicious links for initial access",
+    "Basic command-and-control (C2) communication mechanisms",
+    "Lateral movement within compromised networks"
+  ],
+  "recommendedActions": [
+    "Patch all QNAP NAS devices and verify no hard-coded credentials are exposed",
+    "Monitor network traffic for signs of unauthorized access to NAS devices",
+    "Educate users on phishing email red flags and suspicious links",
+    "Segment critical data from external network exposure",
+    "Develop an incident response plan for potential encryptive malware attacks",
+    "Use endpoint detection and response (EDR) tools to identify malicious activity"
+  ],
+  "campaignsText": "QLocker's campaign activity was highly focused on QNAP NAS devices, leveraging known vulnerabilities and exploiting the exposed nature of these systems. The group demonstrated a high level of efficiency in executing their attacks, with victims reported across various geographies and sectors. Notable patterns include the use of 7-Zip archives for ransomware delivery and phishing emails to spread initial infection vectors. QLocker's operations were active primarily during late 2021, though their targeting approach suggests potential long-term operational goals in exploiting NAS devices.",
+  "description": "QLocker is a medium-sophistication criminal threat actor primarily motivated by financial gain through ransomware activities. They exclusively targeted QNAP NAS devices in 2021, exploiting hard-coded credentials to encrypt files into password-protected 7-Zip archives and demanding approximately $400 per victim, generating around $350,000 in a single month.",
+  "goals": "QLocker's strategic focus is on maximizing financial profit through ransomware campaigns. Their targeting profile is highly specific, concentrating on QNAP NAS devices due to their known vulnerabilities and frequent exposure to the internet. This approach allows them to bypass traditional corporate security measures more easily compared to attacking larger enterprise networks. The group primarily targets individuals and businesses that rely on QNAP NAS for data storage, highlighting their focus on sectors where such systems are commonly deployed, including small to medium-sized enterprises (SMEs) and home users.",
+  "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A556",
+  "sourceUrl": "https://threaticon.com/threat-actors/556"
+}
