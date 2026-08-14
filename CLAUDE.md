@@ -277,9 +277,11 @@ dictionary (malware family names merged at build time).
 `/actors/:slug`, `/malware` (category, q, min_confidence, limit), `/coverage`
 (tactic, min_rules, q, limit), `/map`
 
-**1 SPA route** at `/threatintel/feeds/threaticon` (4 tabs: Threat Actors /
-Malware / Detection Coverage / Threat Map; actor cards expand to full profiles
-with MITRE IDs, tools, IOCs, and kill-chain links).
+**1 SPA route** at `/threatintel/feeds/threaticon` (9 tabs: Threat Actors / Malware /
+Detection Coverage / Threat Map / Campaigns / Attack Patterns / Vulnerabilities /
+Controls Catalog / Indicators; actor + catalog cards expand to full bodies on
+demand — never fetch details for closed cards, the upstream rate bucket is ~30
+requests/min and a full-profile storm 429s every list fetch).
 
 **Files**:
 
@@ -305,6 +307,66 @@ with MITRE IDs, tools, IOCs, and kill-chain links).
 **Upstream quirks tolerated**: dirty origin values ("R"), dominant Type "Unknown",
 future-ish "added" dates (platform test/seed data). Parser notes live in
 `scripts/sync-threaticon.mjs` (section-boundary scoping for actor details).
+
+### Threaticon Extended Catalog (round 2) — Controls, Campaigns, Attack Patterns, CVEs, IOC Dictionary
+
+A second manifest tree under `public/data/threat-intel/threaticon-catalog/`
+replicating the remaining public-preview sections: tools (95), mitigations (44),
+data-sources (106), detection-strategies (697), campaigns (7,748), attack-patterns
+(3,087), vulnerabilities (22,190), and a chunked 480k-indicator dictionary.
+Login-gated sections (intrusion-sets, observed-data, analysis) are skipped; the
+graph is client-rendered and not replicated.
+
+**3 MCP tools** (registered on `DFIR_MCP`): `ti_threaticon_catalog`,
+`ti_get_threaticon_catalog_item`, `ti_threaticon_indicators`
+
+**4 REST routes** under `/api/v1/threat-intel/threaticon/*`:
+`GET /catalog` (index counts + section meta), `GET /catalog/:section` (q, limit
+≤1000, sections: tools|mitigations|data-sources|detection-strategies|campaigns|
+attack-patterns|vulnerabilities), `GET /catalog/:section/:id` (full body),
+`GET /indicators` (types catalog without `type`; with `type`+`chunk`+q/tlp/
+min_confidence/limit → up to 1,000 records per chunk)
+
+**1 SPA route** at `/threatintel/feeds/threaticon` — tabs: Campaigns,
+Attack Patterns, Vulnerabilities (severity filter), Controls Catalog (4-section
+select), Indicators (type select + chunk paging, search within chunk).
+
+**Files**:
+
+- `scripts/sync-threaticon-catalog.mjs` — 8-section crawler into `threat-intel-staging/threaticon-catalog/`; per-page/per-detail caching (resumable), 429 backoff, `--only`/`--concurrency`/`--gap-ms 1300`/`--list-only`/`--details-only`/`--limit-pages`. **Pace matters**: the free tier rate-limits at ~1 req/s sustained — run `--concurrency 1 --gap-ms 1300`; bursts 429 and the 15/30/45s retries make a fast crawl slower than a slow one.
+- `scripts/build-threaticon-catalog.mjs` — slices staging into `public/data/threat-intel/threaticon-catalog/` (index.json + `<section>/<id>.json` + `indicators/<type>[.N].json` 50k/chunk)
+- `worker/lib/threat-intel-manifest.ts` — `TiCatalog*`/`TiThreaticonCatalogIndex` types, `loadThreaticonCatalogIndex`/`getThreaticonCatalogBody`/`loadThreaticonIndicators` + `filterThreaticonCatalog`/`filterThreaticonIndicators`/`threaticonIndicatorTypes`; `tiCacheStats().threaticon.catalog`
+- `worker/mcp-server.ts` — 3 `ti_*` tool registrations; `api/src/lib/agent/mcp-bridge.ts` mirrors
+- `api/src/routes/threat-intel-edge-tools.ts` — 4 catalog route handlers (after `/threaticon/map`)
+- `api/test/routes/threat-intel-catalog.test.ts` — 4 route tests
+- `src/pages/threatintel/Threaticon.tsx` — 5 catalog SPA tabs
+- `public/data/threat-intel/threaticon-catalog/` — generated tree (~35 MB, ~33k bodies + ~10k indicator chunk files)
+
+**To rebuild**: `node scripts/sync-threaticon-catalog.mjs --concurrency 1 --gap-ms 1300 && node scripts/build-threaticon-catalog.mjs`
+
+**Data layout**:
+
+- `index.json` — counts + per-section meta (syncedAt, detailCount, slim items,
+  indicator type catalog with per-type count/chunks)
+- `<section>/<id>.json` — bodies: per-section detail fields (tools: category/
+  aliases; mitigations: M###/STIX id/technique coverage; data-sources: DC###/
+  analytic+strategy counts/AN### analytics; detection-strategies: DET###/analytics;
+  campaigns: status/confidence/first+last-seen; attack-patterns: CAPEC/A### ids;
+  vulnerabilities: CVSS score+vector/severity/status/CWE/references)
+- `indicators/<type>.json` / `indicators/<type>.N.json` — IOC records
+  (value/tlp/confidence/added), 50k per chunk; type keys are slugified
+  (`ipv4-address`, `domain`, `sha-256-hash`, …)
+
+**Crawl footguns** (learned the hard way):
+
+- Stale-cache trap: cached pages are parsed _once_ and merged — if you fix a
+  parser mid-crawl, delete `pages/` + `list.json` + `details/` for the affected
+  section before re-running, or the old parse poisons the build.
+- threaticon.com may answer HTTP 200 with a ~7.5 KB "Too Many Requests" body
+  instead of 429 — a page with zero parsed cards ends the list loop early.
+- Attack-pattern cards carry their id in a mono span as either `CAPEC-N` or
+  `A#### - <name>` — the techniqueId regex captures the `[A-Za-z]+\d+(?:-\d+)?`
+  prefix, there is no CAPEC field in the page markup per se.
 
 ### STIX 2.1 export (cross-vertical)
 
