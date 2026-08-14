@@ -630,6 +630,7 @@ threatIntelRouter.get('/threat-intel/threaticon', async (c) => {
       syncedAt: idx.syncedAt,
       builtAt: idx.builtAt,
       counts: idx.counts,
+      tactics: idx.tactics,
       cache: { indexLoaded: stats.indexLoaded, actorsLoaded: stats.actors.size > 0 },
     });
   } catch (e) {

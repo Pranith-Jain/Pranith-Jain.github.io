@@ -850,7 +850,7 @@ export default function ThreaticonFeeds() {
                 </select>
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                {Object.entries(idx.tactics).map(([tactic, meta]) => (
+                {Object.entries(idx.tactics ?? {}).map(([tactic, meta]) => (
                   <span
                     key={tactic}
                     className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
