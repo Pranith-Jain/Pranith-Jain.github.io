@@ -62,6 +62,12 @@ import {
   loadThreaticonIndex,
   getThreaticonActor,
   filterThreaticonActors,
+  loadThreaticonCatalogIndex,
+  getThreaticonCatalogBody,
+  loadThreaticonIndicators,
+  filterThreaticonCatalog,
+  filterThreaticonIndicators,
+  threaticonIndicatorTypes,
   type TiSeverity,
   type TiIocIndexEntry,
   type TcEntityType,
@@ -757,6 +763,113 @@ export function bridgeMcpTools(
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getThreaticonActor(assets, args.slug as string);
+    },
+  });
+
+  add({
+    name: 'ti_threaticon_catalog',
+    description:
+      'List or search the extended Threaticon catalog: tools used by threat actors, MITRE mitigations, ATT&CK data components, detection strategies, coordinated attack campaigns, CAPEC-style attack patterns, and CVEs. Pick a section and optionally filter by keyword.',
+    params: [
+      {
+        name: 'section',
+        type: 'string',
+        description:
+          'One of: tools, mitigations, data-sources, detection-strategies, campaigns, attack-patterns, vulnerabilities',
+        required: true,
+      },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against name, ID, or any text field',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max items (default 100, max 1000)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadThreaticonCatalogIndex(assets);
+      if (!idx) return null;
+      return {
+        source: idx.source,
+        builtAt: idx.builtAt,
+        section: args.section,
+        total: idx.counts[args.section as string] ?? 0,
+        items: filterThreaticonCatalog(idx, args.section as never, {
+          keyword: args.keyword as string | undefined,
+          limit: (args.limit as number) ?? 100,
+        }),
+      };
+    },
+  });
+
+  add({
+    name: 'ti_get_threaticon_catalog_item',
+    description:
+      'Return the full Threaticon catalog body for one item: description, TLP, status, IDs (CAPEC/CVE/MITRE), CVSS, first/last-seen, references, and section-specific fields. Use ti_threaticon_catalog to discover ids.',
+    params: [
+      {
+        name: 'section',
+        type: 'string',
+        description:
+          'One of: tools, mitigations, data-sources, detection-strategies, campaigns, attack-patterns, vulnerabilities',
+        required: true,
+      },
+      { name: 'id', type: 'number', description: 'Numeric id of the item', required: true },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getThreaticonCatalogBody(assets, args.section as never, Number(args.id));
+    },
+  });
+
+  add({
+    name: 'ti_threaticon_indicators',
+    description:
+      'Search the Threaticon IOC dictionary (480k+ indicators). Pass a type key (e.g. "ipv4-address", "domain", "url", "sha-256-hash", "filename", "cidr") plus optional value substring, TLP, or confidence floor. Call without type to see the type catalog.',
+    params: [
+      {
+        name: 'type',
+        type: 'string',
+        description: 'IOC type key; omit to list available types',
+        required: false,
+      },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against the indicator value',
+        required: false,
+      },
+      { name: 'tlp', type: 'string', description: 'TLP level (white/green/amber/red)', required: false },
+      {
+        name: 'minConfidence',
+        type: 'number',
+        description: 'Only indicators at or above this confidence %',
+        required: false,
+      },
+      { name: 'chunk', type: 'number', description: 'Chunk index for large types (default 0)', required: false },
+      { name: 'limit', type: 'number', description: 'Max indicators (default 100, max 1000)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadThreaticonCatalogIndex(assets);
+      if (!idx) return null;
+      const type = args.type as string | undefined;
+      if (!type) return { total: idx.counts.indicators ?? 0, types: threaticonIndicatorTypes(idx) };
+      const recs = await loadThreaticonIndicators(assets, type, (args.chunk as number) ?? 0);
+      if (!recs) return null;
+      return {
+        total: idx.counts.indicators ?? 0,
+        type,
+        typeTotal: idx.sections?.indicators?.types?.[type]?.count ?? 0,
+        chunks: idx.sections?.indicators?.types?.[type]?.chunks ?? 1,
+        indicators: filterThreaticonIndicators(recs, {
+          keyword: args.keyword as string | undefined,
+          tlp: args.tlp as string | undefined,
+          minConfidence: args.minConfidence as number | undefined,
+          limit: (args.limit as number) ?? 100,
+        }),
+      };
     },
   });
 

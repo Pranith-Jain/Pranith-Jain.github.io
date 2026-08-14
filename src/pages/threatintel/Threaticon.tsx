@@ -1,13 +1,37 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { Bug, Check, Copy, Crosshair, ExternalLink, Globe, Map as MapIcon, Search, Skull, Target } from 'lucide-react';
+import {
+  Bug,
+  Check,
+  Copy,
+  Crosshair,
+  Database,
+  ExternalLink,
+  Globe,
+  Map as MapIcon,
+  Radar,
+  Search,
+  Shield,
+  Skull,
+  Target,
+  TriangleAlert,
+} from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /*  Types (mirror the API JSON)                                        */
 /* ------------------------------------------------------------------ */
 
-type TabId = 'actors' | 'malware' | 'coverage' | 'map';
+type TabId =
+  | 'actors'
+  | 'malware'
+  | 'coverage'
+  | 'map'
+  | 'campaigns'
+  | 'attack-patterns'
+  | 'vulnerabilities'
+  | 'catalog'
+  | 'indicators';
 
 interface TiIndex {
   source: string;
@@ -97,6 +121,66 @@ interface TiMapBody {
   sectors: { sector: string; count: number }[];
 }
 
+type CatalogSectionId =
+  | 'tools'
+  | 'mitigations'
+  | 'data-sources'
+  | 'detection-strategies'
+  | 'campaigns'
+  | 'attack-patterns'
+  | 'vulnerabilities';
+
+interface TiCatalogItem {
+  id: number;
+  name: string;
+  tlp: string | null;
+  status?: string | null;
+  confidence?: number | null;
+  category?: string | null;
+  mitreId?: string | null;
+  dcId?: string | null;
+  detId?: string | null;
+  techniqueId?: string | null;
+  severity?: string | null;
+  productCwe?: string | null;
+  firstSeen?: string | null;
+  lastSeen?: string | null;
+  added?: string | null;
+  analyticCount?: number | null;
+  description?: string | null;
+}
+
+interface TiCatalogDetail extends TiCatalogItem {
+  description: string | null;
+  sourceUrl: string;
+  cvssScore?: string | null;
+  cvssVector?: string | null;
+  stixId?: string | null;
+  techniqueCoverage?: number | null;
+  published?: string | null;
+  lastModified?: string | null;
+  aliases?: string[];
+  analytics?: string[];
+  references?: { url: string; label: string }[];
+  [k: string]: unknown;
+}
+
+interface TiCatalogIndex {
+  source: string;
+  url: string;
+  description: string;
+  builtAt: string;
+  counts: Record<string, number>;
+  sections: Record<string, { syncedAt?: string; detailCount: number }>;
+}
+
+interface TiIndicator {
+  value: string;
+  tlp: string | null;
+  confidence: number | null;
+  added: string | null;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Shared bits                                                        */
 /* ------------------------------------------------------------------ */
@@ -106,7 +190,51 @@ const TABS: { id: TabId; label: string; icon: typeof Globe }[] = [
   { id: 'malware', label: 'Malware', icon: Bug },
   { id: 'coverage', label: 'Detection Coverage', icon: Crosshair },
   { id: 'map', label: 'Threat Map', icon: MapIcon },
+  { id: 'campaigns', label: 'Campaigns', icon: Radar },
+  { id: 'attack-patterns', label: 'Attack Patterns', icon: Target },
+  { id: 'vulnerabilities', label: 'Vulnerabilities', icon: TriangleAlert },
+  { id: 'catalog', label: 'Controls Catalog', icon: Shield },
+  { id: 'indicators', label: 'Indicators', icon: Database },
 ];
+
+const CATALOG_TAB_IDS = new Set<TabId>(['campaigns', 'attack-patterns', 'vulnerabilities', 'catalog', 'indicators']);
+
+const SMALL_CATALOG_SECTIONS: {
+  id: 'tools' | 'mitigations' | 'data-sources' | 'detection-strategies';
+  label: string;
+  hint: string;
+}[] = [
+  { id: 'tools', label: 'Tools', hint: 'adversary tool objects' },
+  { id: 'mitigations', label: 'Mitigations', hint: 'ATT&CK mitigations' },
+  { id: 'data-sources', label: 'Data Sources', hint: 'ATT&CK data components' },
+  { id: 'detection-strategies', label: 'Detection Strategies', hint: 'ATT&CK detection strategies' },
+];
+
+const CATALOG_CODE_LABEL: Record<CatalogSectionId, string | null> = {
+  campaigns: null,
+  'attack-patterns': 'techniqueId',
+  vulnerabilities: null,
+  tools: null,
+  mitigations: 'mitreId',
+  'data-sources': 'dcId',
+  'detection-strategies': 'detId',
+};
+
+const SEVERITY_STYLES: Record<string, string> = {
+  Critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  High: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  Medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  Low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+  Info: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+};
+
+function statusCls(status: string | null | undefined): string {
+  if (!status) return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+  const s = status.toLowerCase();
+  if (s === 'active' || s === 'open')
+    return 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
+  return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
+}
 
 const TLP_STYLES: Record<string, string> = {
   red: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
@@ -525,6 +653,199 @@ function SectorList({ sectors }: { sectors: { sector: string; count: number }[] 
   );
 }
 
+function CatalogCard({ item, section }: { item: TiCatalogItem; section: CatalogSectionId }) {
+  const [open, setOpen] = useState(false);
+  const codeField = CATALOG_CODE_LABEL[section];
+  const code = codeField ? (item[codeField as keyof TiCatalogItem] as string | null) : null;
+  return (
+    <details
+      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30"
+      open={open}
+      onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}
+    >
+      <summary className="cursor-pointer list-none">
+        <div className="flex items-start justify-between gap-2 mb-1.5">
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug break-all">{item.name}</h3>
+            {code && <span className="text-mini font-mono text-slate-500">{code}</span>}
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+            {item.severity && (
+              <Badge cls={SEVERITY_STYLES[item.severity] ?? statusCls(item.severity)}>{item.severity}</Badge>
+            )}
+            {item.status && <Badge cls={statusCls(item.status)}>{item.status}</Badge>}
+            {item.tlp && (
+              <Badge
+                cls={
+                  TLP_STYLES[item.tlp.toLowerCase()] ??
+                  'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                }
+              >
+                {item.tlp.toUpperCase()}
+              </Badge>
+            )}
+          </div>
+        </div>
+        {(item.category || item.productCwe) && (
+          <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+            {item.category && (
+              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                {item.category}
+              </span>
+            )}
+            {item.productCwe && (
+              <span className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300">
+                {item.productCwe}
+              </span>
+            )}
+          </div>
+        )}
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mt-1.5">
+          {item.confidence != null && <Confidence value={item.confidence} />}
+          {item.firstSeen && <span className="text-mini font-mono text-slate-500">first {item.firstSeen}</span>}
+          {item.lastSeen && <span className="text-mini font-mono text-slate-500">last {item.lastSeen}</span>}
+          {item.analyticCount != null && (
+            <span className="text-mini font-mono text-slate-500">{item.analyticCount} analytics</span>
+          )}
+          {item.added && <span className="text-mini font-mono text-slate-500">added {item.added}</span>}
+        </div>
+        {item.description && (
+          <p className="text-mini text-slate-500 mt-1.5 leading-snug line-clamp-2">{item.description}</p>
+        )}
+        <span className="inline-block font-mono text-micro text-slate-400 group-open:text-rose-500 mt-1">details</span>
+      </summary>
+      {open && <CatalogDetailBody section={section} id={item.id} />}
+    </details>
+  );
+}
+
+const SKIP_DETAIL_FIELDS = new Set([
+  'id',
+  'name',
+  'description',
+  'tlp',
+  'sourceUrl',
+  'badges',
+  'columns',
+  'references',
+  'aliases',
+  'analytics',
+]);
+
+function CatalogDetailBody({ section, id }: { section: CatalogSectionId; id: number }) {
+  const { body, loading } = useDetail<TiCatalogDetail>(`/api/v1/threat-intel/threaticon/catalog/${section}/${id}`);
+  if (loading) return <p className="text-mini text-slate-500 font-mono mt-3">loading details…</p>;
+  if (!body)
+    return (
+      <p className="text-mini text-slate-500 font-mono mt-3">detail unavailable (is the sync covered this record?)</p>
+    );
+  const rows = Object.entries(body).filter(([k, v]) => {
+    if (SKIP_DETAIL_FIELDS.has(k)) return false;
+    if (v == null) return false;
+    return typeof v !== 'object';
+  });
+  return (
+    <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-sm">
+      {body.description && <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>}
+      {Array.isArray(body.aliases) && body.aliases.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-mini text-slate-500 font-mono mr-1">aliases:</span>
+          {body.aliases.map((a) => (
+            <span
+              key={a}
+              className="px-1.5 py-0.5 text-micro font-mono rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
+            >
+              {a}
+            </span>
+          ))}
+        </div>
+      )}
+      {Array.isArray(body.analytics) && body.analytics.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-mini text-slate-500 font-mono mr-1">analytics:</span>
+          {body.analytics.map((a) => (
+            <span
+              key={a}
+              className="px-1.5 py-0.5 text-micro font-mono rounded bg-sky-500/10 text-sky-700 dark:text-sky-300"
+            >
+              {a}
+            </span>
+          ))}
+        </div>
+      )}
+      {rows.length > 0 && (
+        <div className="grid sm:grid-cols-2 gap-1.5 text-mini font-mono text-slate-500">
+          {rows.map(([k, v]) => (
+            <div key={k} className="min-w-0 break-all">
+              <span className="text-slate-600 dark:text-slate-400">{k}: </span>
+              {String(v)}
+            </div>
+          ))}
+        </div>
+      )}
+      {Array.isArray(body.references) && body.references.length > 0 && (
+        <div className="flex flex-wrap gap-2 text-mini">
+          {body.references.map((r) => (
+            <a
+              key={r.url}
+              href={sanitizeUrl(r.url) ?? undefined}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="inline-flex items-center gap-0.5 text-sky-600 dark:text-sky-400 hover:underline"
+            >
+              {r.label}
+              <ExternalLink className="w-2.5 h-2.5" />
+            </a>
+          ))}
+        </div>
+      )}
+      {body.sourceUrl && (
+        <a
+          href={sanitizeUrl(body.sourceUrl) ?? undefined}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          className="inline-flex items-center gap-0.5 text-sky-600 dark:text-sky-400 hover:underline text-mini"
+        >
+          threaticon.com record
+          <ExternalLink className="w-2.5 h-2.5" />
+        </a>
+      )}
+    </div>
+  );
+}
+
+function IndicatorCard({ ind, copied, onCopy }: { ind: TiIndicator; copied: boolean; onCopy: () => void }) {
+  return (
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
+      <div className="flex items-start justify-between gap-2 mb-1.5">
+        <p className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ind.value}</p>
+        {ind.tlp && (
+          <Badge
+            cls={
+              TLP_STYLES[ind.tlp.toLowerCase()] ??
+              'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+            }
+          >
+            {ind.tlp.toUpperCase()}
+          </Badge>
+        )}
+      </div>
+      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+        <Confidence value={ind.confidence} />
+        {ind.added && <span className="text-mini font-mono text-slate-500">added {ind.added}</span>}
+        <button
+          onClick={onCopy}
+          className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+          title="Copy indicator value"
+        >
+          {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+          {copied ? 'Copied!' : 'copy'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /*  Page                                                               */
 /* ------------------------------------------------------------------ */
@@ -539,6 +860,21 @@ export default function ThreaticonFeeds() {
   const [families, setFamilies] = useState<TiMalwareFamily[]>([]);
   const [coverage, setCoverage] = useState<TiCoverageTechnique[]>([]);
   const [mapBody, setMapBody] = useState<TiMapBody | null>(null);
+
+  const [catalogIdx, setCatalogIdx] = useState<TiCatalogIndex | null>(null);
+  const [campaigns, setCampaigns] = useState<TiCatalogItem[]>([]);
+  const [attackPatterns, setAttackPatterns] = useState<TiCatalogItem[]>([]);
+  const [vulns, setVulns] = useState<TiCatalogItem[]>([]);
+  const [catalogItems, setCatalogItems] = useState<TiCatalogItem[]>([]);
+  const [catalogSection, setCatalogSection] = useState<
+    'tools' | 'mitigations' | 'data-sources' | 'detection-strategies'
+  >('tools');
+  const [indicators, setIndicators] = useState<TiIndicator[]>([]);
+  const [indicatorTypes, setIndicatorTypes] = useState<Record<string, { count: number; chunks: number }>>({});
+  const [indicatorType, setIndicatorType] = useState<string | null>(null);
+  const [indicatorChunk, setIndicatorChunk] = useState(0);
+  const [sevFilter, setSevFilter] = useState('all');
+  const [indCopied, setIndCopied] = useState<string | null>(null);
 
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
@@ -565,6 +901,26 @@ export default function ThreaticonFeeds() {
     } finally {
       setLoading(false);
     }
+    try {
+      const cRes = await fetch('/api/v1/threat-intel/threaticon/catalog');
+      if (cRes.ok) setCatalogIdx((await cRes.json()) as TiCatalogIndex);
+    } catch {
+      /* extended catalog not built yet — tabs will note it */
+    }
+    try {
+      const iRes = await fetch('/api/v1/threat-intel/threaticon/indicators');
+      if (iRes.ok) {
+        const ij = (await iRes.json()) as { types?: Record<string, { count: number; chunks: number }> };
+        const types = ij.types ?? {};
+        if (Object.keys(types).length > 0) {
+          setIndicatorTypes(types);
+          const first = Object.entries(types).sort((a, b) => b[1].count - a[1].count)[0];
+          if (first) setIndicatorType((prev) => prev ?? first[0]);
+        }
+      }
+    } catch {
+      /* indicator dictionary unavailable */
+    }
   }
 
   const loadedTabs = useRef<Set<TabId>>(new Set());
@@ -580,7 +936,17 @@ export default function ThreaticonFeeds() {
           ? `${base}/malware?limit=10000`
           : tab === 'coverage'
             ? `${base}/coverage?limit=5000`
-            : `${base}/map`;
+            : tab === 'map'
+              ? `${base}/map`
+              : tab === 'campaigns'
+                ? `${base}/catalog/campaigns?limit=1000`
+                : tab === 'attack-patterns'
+                  ? `${base}/catalog/attack-patterns?limit=1000`
+                  : tab === 'vulnerabilities'
+                    ? `${base}/catalog/vulnerabilities?limit=1000`
+                    : tab === 'catalog'
+                      ? `${base}/catalog/${catalogSection}?limit=1000`
+                      : '';
     (async () => {
       try {
         const r = await fetch(endpoint);
@@ -590,11 +956,52 @@ export default function ThreaticonFeeds() {
         else if (tab === 'malware') setFamilies((json.families as TiMalwareFamily[]) ?? []);
         else if (tab === 'coverage') setCoverage((json.techniques as TiCoverageTechnique[]) ?? []);
         else if (tab === 'map') setMapBody(json as unknown as TiMapBody);
+        else if (tab === 'campaigns') setCampaigns((json.items as TiCatalogItem[]) ?? []);
+        else if (tab === 'attack-patterns') setAttackPatterns((json.items as TiCatalogItem[]) ?? []);
+        else if (tab === 'vulnerabilities') setVulns((json.items as TiCatalogItem[]) ?? []);
+        else if (tab === 'catalog') setCatalogItems((json.items as TiCatalogItem[]) ?? []);
       } catch {
         /* list fetch failure is non-fatal */
       }
     })();
-  }, [tab]);
+  }, [tab, catalogSection]);
+
+  useEffect(() => {
+    if (tab !== 'catalog') return;
+    const ctl = new AbortController();
+    (async () => {
+      try {
+        const r = await fetch(`/api/v1/threat-intel/threaticon/catalog/${catalogSection}?limit=1000`, {
+          signal: ctl.signal,
+        });
+        if (!r.ok) return;
+        setCatalogItems(((await r.json()) as { items?: TiCatalogItem[] }).items ?? []);
+      } catch {
+        /* non-fatal */
+      }
+    })();
+    return () => ctl.abort();
+  }, [tab, catalogSection]);
+
+  useEffect(() => {
+    if (tab !== 'indicators') return;
+    if (!indicatorType) return;
+    const ctl = new AbortController();
+    (async () => {
+      try {
+        const r = await fetch(
+          `/api/v1/threat-intel/threaticon/indicators?type=${encodeURIComponent(indicatorType)}&chunk=${indicatorChunk}&limit=1000`,
+          { signal: ctl.signal }
+        );
+        if (!r.ok) return;
+        const json = (await r.json()) as { indicators?: TiIndicator[] };
+        setIndicators(json.indicators ?? []);
+      } catch {
+        /* non-fatal */
+      }
+    })();
+    return () => ctl.abort();
+  }, [tab, indicatorType, indicatorChunk]);
 
   const actorTypes = useMemo(() => {
     const m = new Map<string, number>();
@@ -651,6 +1058,40 @@ export default function ThreaticonFeeds() {
     });
   }, [coverage, query, tacticFilter]);
 
+  const filteredCampaigns = useMemo(() => {
+    const n = query.toLowerCase().trim();
+    return campaigns.filter((c) => !n || `${c.name} ${c.status ?? ''}`.toLowerCase().includes(n));
+  }, [campaigns, query]);
+
+  const filteredPatterns = useMemo(() => {
+    const n = query.toLowerCase().trim();
+    return attackPatterns.filter((a) => !n || `${a.name} ${a.techniqueId ?? ''}`.toLowerCase().includes(n));
+  }, [attackPatterns, query]);
+
+  const filteredVulns = useMemo(() => {
+    const n = query.toLowerCase().trim();
+    return vulns.filter((v) => {
+      if (sevFilter !== 'all' && v.severity?.toLowerCase() !== sevFilter) return false;
+      if (n && !`${v.name} ${v.productCwe ?? ''}`.toLowerCase().includes(n)) return false;
+      return true;
+    });
+  }, [vulns, query, sevFilter]);
+
+  const filteredCatalogItems = useMemo(() => {
+    const n = query.toLowerCase().trim();
+    const codeField = CATALOG_CODE_LABEL[catalogSection];
+    return catalogItems.filter((i) => {
+      if (!n) return true;
+      const code = codeField ? ((i[codeField as keyof TiCatalogItem] as string | null) ?? '') : '';
+      return `${i.name} ${code} ${i.status ?? ''}`.toLowerCase().includes(n);
+    });
+  }, [catalogItems, query, catalogSection]);
+
+  const filteredIndicators = useMemo(() => {
+    const n = query.toLowerCase().trim();
+    return indicators.filter((i) => !n || i.value.toLowerCase().includes(n));
+  }, [indicators, query]);
+
   async function copyText(slug: string) {
     const a = actors.find((x) => x.slug === slug);
     if (!a) return;
@@ -663,11 +1104,34 @@ export default function ThreaticonFeeds() {
     }
   }
 
-  const COUNT_KEY: Record<TabId, keyof TiIndex['counts']> = {
+  async function copyIndicator(value: string) {
+    try {
+      await navigator.clipboard.writeText(value);
+      setIndCopied(value);
+      setTimeout(() => setIndCopied(null), 1500);
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
+
+  const COUNT_KEY: Record<'actors' | 'malware' | 'coverage' | 'map', keyof TiIndex['counts']> = {
     actors: 'actors',
     malware: 'malwareFamilies',
     coverage: 'techniques',
     map: 'targetedCountries',
+  };
+
+  const catalogTabCount = (id: TabId): number | null => {
+    if (id === 'catalog') {
+      if (!catalogIdx) return null;
+      return (
+        (catalogIdx.counts.tools ?? 0) +
+        (catalogIdx.counts.mitigations ?? 0) +
+        (catalogIdx.counts['data-sources'] ?? 0) +
+        (catalogIdx.counts['detection-strategies'] ?? 0)
+      );
+    }
+    return catalogIdx?.counts[id] ?? null;
   };
 
   return (
@@ -688,7 +1152,8 @@ export default function ThreaticonFeeds() {
             threaticon.com
           </a>
           — a STIX 2.1 actor catalog, malware family dictionary, ATT&CK detection-coverage dataset, and a country-level
-          threat map.
+          threat map, plus the extended public-preview catalog: campaigns, attack patterns, vulnerabilities, ATT&CK
+          controls, and a 480k IOC dictionary.
         </>
       }
       loading={loading && !idx}
@@ -723,7 +1188,9 @@ export default function ThreaticonFeeds() {
             {TABS.map((t) => {
               const Icon = t.icon;
               const active = tab === t.id;
-              const count = idx.counts[COUNT_KEY[t.id]];
+              const count = CATALOG_TAB_IDS.has(t.id)
+                ? catalogTabCount(t.id)
+                : idx.counts[COUNT_KEY[t.id as keyof typeof COUNT_KEY]];
               return (
                 <button
                   key={t.id}
@@ -736,7 +1203,7 @@ export default function ThreaticonFeeds() {
                 >
                   <Icon className="w-3.5 h-3.5" />
                   {t.label}
-                  <span className="opacity-60">{count}</span>
+                  {count != null && <span className="opacity-60">{count}</span>}
                 </button>
               );
             })}
@@ -888,6 +1355,198 @@ export default function ThreaticonFeeds() {
                 <CountryList title="Targeted countries" entries={mapBody.targeted} tone="bg-sky-500" />
               </div>
               <SectorList sectors={mapBody.sectors} />
+            </>
+          )}
+
+          {/* Campaigns tab */}
+          {tab === 'campaigns' && (
+            <>
+              <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                <SearchBox query={query} setQuery={setQuery} placeholder="Search campaigns…" />
+              </div>
+              <div className="text-xs text-slate-500 font-mono mb-3">
+                {catalogIdx
+                  ? `Showing ${filteredCampaigns.length} of ${catalogIdx.counts.campaigns ?? campaigns.length} campaign objects`
+                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredCampaigns.map((c) => (
+                  <CatalogCard key={c.id} item={c} section="campaigns" />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Attack patterns tab */}
+          {tab === 'attack-patterns' && (
+            <>
+              <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                <SearchBox query={query} setQuery={setQuery} placeholder="Search attack patterns (name, CAPEC)…" />
+              </div>
+              <div className="text-xs text-slate-500 font-mono mb-3">
+                {catalogIdx
+                  ? `Showing ${filteredPatterns.length} of ${catalogIdx.counts['attack-patterns'] ?? attackPatterns.length} attack patterns`
+                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredPatterns.map((a) => (
+                  <CatalogCard key={a.id} item={a} section="attack-patterns" />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Vulnerabilities tab */}
+          {tab === 'vulnerabilities' && (
+            <>
+              <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                <SearchBox query={query} setQuery={setQuery} placeholder="Search vulnerabilities (CVE, product)…" />
+                <select
+                  value={sevFilter}
+                  onChange={(e) => setSevFilter(e.target.value)}
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                >
+                  <option value="all">All severities</option>
+                  {['Critical', 'High', 'Medium', 'Low'].map((s) => (
+                    <option key={s} value={s.toLowerCase()}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={tlpFilter}
+                  onChange={(e) => setTlpFilter(e.target.value)}
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                >
+                  <option value="all">All TLP</option>
+                  {['red', 'amber', 'green', 'white'].map((t) => (
+                    <option key={t} value={t}>
+                      {t.toUpperCase()}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="text-xs text-slate-500 font-mono mb-3">
+                {catalogIdx
+                  ? `Showing ${filteredVulns.length} of ${catalogIdx.counts.vulnerabilities ?? vulns.length} vulnerabilities`
+                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredVulns.map((v) => (
+                  <CatalogCard key={v.id} item={v} section="vulnerabilities" />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Controls catalog tab */}
+          {tab === 'catalog' && (
+            <>
+              <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                <SearchBox
+                  query={query}
+                  setQuery={setQuery}
+                  placeholder="Search tools, mitigations, sources, strategies…"
+                />
+                <select
+                  value={catalogSection}
+                  onChange={(e) => setCatalogSection(e.target.value as typeof catalogSection)}
+                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                >
+                  {SMALL_CATALOG_SECTIONS.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.label} ({catalogIdx?.counts[s.id] ?? 0})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="text-xs text-slate-500 font-mono mb-3">
+                {catalogIdx
+                  ? `Showing ${filteredCatalogItems.length} of ${catalogIdx.counts[catalogSection] ?? catalogItems.length} ${
+                      SMALL_CATALOG_SECTIONS.find((s) => s.id === catalogSection)?.hint ?? ''
+                    }`
+                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredCatalogItems.map((i) => (
+                  <CatalogCard key={i.id} item={i} section={catalogSection} />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Indicators tab */}
+          {tab === 'indicators' && (
+            <>
+              {!indicatorType ? (
+                <div className="text-xs text-slate-500 font-mono mb-3">
+                  Indicator dictionary not available yet — run scripts/sync-threaticon-catalog.mjs &&
+                  scripts/build-threaticon-catalog.mjs
+                </div>
+              ) : (
+                <>
+                  <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                    <SearchBox query={query} setQuery={setQuery} placeholder="Search within current chunk…" />
+                    <select
+                      value={indicatorType}
+                      onChange={(e) => {
+                        setIndicatorType(e.target.value);
+                        setIndicatorChunk(0);
+                      }}
+                      className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
+                    >
+                      {Object.entries(indicatorTypes)
+                        .sort((a, b) => b[1].count - a[1].count)
+                        .map(([t, meta]) => (
+                          <option key={t} value={t}>
+                            {t} ({meta.count.toLocaleString()})
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <button
+                      disabled={indicatorChunk <= 0}
+                      onClick={() => setIndicatorChunk((c) => Math.max(0, c - 1))}
+                      className="px-3 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 disabled:opacity-40 disabled:hover:border-slate-200 dark:disabled:hover:border-[rgb(var(--border-400))] transition"
+                    >
+                      ‹ prev chunk
+                    </button>
+                    {(() => {
+                      const meta = indicatorTypes[indicatorType];
+                      const chunkSize = Math.max(1, Math.ceil((meta?.count ?? 0) / (meta?.chunks ?? 1)));
+                      return (
+                        <span className="text-mini font-mono text-slate-500">
+                          records {(indicatorChunk * chunkSize + 1).toLocaleString()}–
+                          {Math.min((indicatorChunk + 1) * chunkSize, meta?.count ?? 0).toLocaleString()} of{' '}
+                          {(meta?.count ?? 0).toLocaleString()} · chunk {indicatorChunk + 1}/{meta?.chunks ?? 1}
+                        </span>
+                      );
+                    })()}
+                    <button
+                      disabled={indicatorChunk + 1 >= (indicatorTypes[indicatorType]?.chunks ?? 1)}
+                      onClick={() => setIndicatorChunk((c) => c + 1)}
+                      className="px-3 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 disabled:opacity-40 disabled:hover:border-slate-200 dark:disabled:hover:border-[rgb(var(--border-400))] transition"
+                    >
+                      next chunk ›
+                    </button>
+                  </div>
+                  <div className="text-xs text-slate-500 font-mono mb-3">
+                    Showing {filteredIndicators.length} of {indicatorTypes[indicatorType]?.count ?? 0} {indicatorType}{' '}
+                    indicators · browsing this dictionary locally, 1,000 records per fetch
+                  </div>
+                  <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    {filteredIndicators.map((i) => (
+                      <IndicatorCard
+                        key={i.value}
+                        ind={i}
+                        copied={indCopied === i.value}
+                        onCopy={() => copyIndicator(i.value)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </>
           )}
 

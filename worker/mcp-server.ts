@@ -54,6 +54,14 @@ import {
   loadThreaticonCoverage,
   filterThreaticonActors,
   filterThreaticonCoverage,
+  loadThreaticonCatalogIndex,
+  getThreaticonCatalogBody,
+  loadThreaticonIndicators,
+  filterThreaticonCatalog,
+  filterThreaticonIndicators,
+  threaticonIndicatorTypes,
+  type TiCatalogSection,
+  type TiCatalogBody,
   type TiSeverity,
   type TiIocIndexEntry,
   type TcEntityType,
@@ -3029,6 +3037,138 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             tactics: body.tactics,
             returned: techniques.length,
             techniques,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_threaticon_catalog',
+        'List or search the extended Threaticon catalog (threaticon.com public preview): tools used by threat actors, MITRE mitigations (course-of-action), ATT&CK data components, detection strategies, coordinated attack campaigns, CAPEC-style attack patterns, and CVEs. Pick a section and optionally filter by keyword. Use ti_get_threaticon_catalog_item to fetch the full body for an id.',
+        {
+          section: z
+            .enum([
+              'tools',
+              'mitigations',
+              'data-sources',
+              'detection-strategies',
+              'campaigns',
+              'attack-patterns',
+              'vulnerabilities',
+            ])
+            .describe('Catalog section to list'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against name, ID, and any text field'),
+          limit: z.number().int().min(1).max(1000).optional().describe('Max items to return (default 100)'),
+        },
+        async ({ section, keyword, limit }) => {
+          const idx = await loadThreaticonCatalogIndex(ASSETS);
+          if (!idx) {
+            return untrustedToolResult({
+              error: 'threaticon_catalog_not_found',
+              hint: 'Run node scripts/sync-threaticon-catalog.mjs && node scripts/build-threaticon-catalog.mjs.',
+            });
+          }
+          const items = filterThreaticonCatalog(idx, section as TiCatalogSection, {
+            keyword,
+            limit: limit ?? 100,
+          });
+          return untrustedToolResult({
+            source: idx.source,
+            builtAt: idx.builtAt,
+            section,
+            total: idx.counts[section] ?? 0,
+            returned: items.length,
+            filters: { keyword },
+            items,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_threaticon_catalog_item',
+        'Return the full Threaticon catalog body for one item: description, TLP, status, IDs (CAPEC/CVE/MITRE), CVSS, first/last-seen, references, and section-specific fields. Use ti_threaticon_catalog to discover ids.',
+        {
+          section: z
+            .enum([
+              'tools',
+              'mitigations',
+              'data-sources',
+              'detection-strategies',
+              'campaigns',
+              'attack-patterns',
+              'vulnerabilities',
+            ])
+            .describe('Catalog section the id belongs to'),
+          id: z.number().int().min(1).describe('Numeric id of the item'),
+        },
+        async ({ section, id }) => {
+          const body = await getThreaticonCatalogBody(ASSETS, section as TiCatalogSection, id);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'threaticon_catalog_item_not_found',
+              section,
+              id,
+              hint: 'Call ti_threaticon_catalog to see available ids.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'ti_threaticon_indicators',
+        'Search the Threaticon IOC dictionary (480k+ indicators: IPv4/IPv6, domain, URL, MD5/SHA-1/SHA-256/SHA-512, filename, CIDR, email, mutex, registry key, user agent, certificate, CVE). Pass a type key (e.g. "ipv4-address", "domain", "url", "sha-256-hash") plus optional value substring, TLP, or confidence floor. Call without type to see the type catalog.',
+        {
+          type: z
+            .string()
+            .optional()
+            .describe(
+              'IOC type key (e.g. "ipv4-address", "domain", "url", "md5-hash", "sha-256-hash", "filename", "cidr"). Omit to list available types'
+            ),
+          keyword: z.string().optional().describe('Case-insensitive substring match against the indicator value'),
+          tlp: z.enum(['white', 'green', 'amber', 'red']).optional().describe('Traffic-light-protocol level'),
+          minConfidence: z
+            .number()
+            .int()
+            .min(0)
+            .max(100)
+            .optional()
+            .describe('Only indicators at or above this confidence %'),
+          chunk: z.number().int().min(0).optional().describe('Chunk index for large types (0-based; default 0)'),
+          limit: z.number().int().min(1).max(1000).optional().describe('Max indicators to return (default 100)'),
+        },
+        async ({ type, keyword, tlp, minConfidence, chunk, limit }) => {
+          const idx = await loadThreaticonCatalogIndex(ASSETS);
+          if (!idx) {
+            return untrustedToolResult({
+              error: 'threaticon_catalog_not_found',
+              hint: 'Run node scripts/sync-threaticon-catalog.mjs && node scripts/build-threaticon-catalog.mjs.',
+            });
+          }
+          const types = threaticonIndicatorTypes(idx);
+          if (!type) {
+            return untrustedToolResult({ total: idx.counts.indicators ?? 0, types });
+          }
+          const recs = await loadThreaticonIndicators(ASSETS, type, chunk ?? 0);
+          if (!recs) {
+            return untrustedToolResult({
+              error: 'threaticon_indicators_type_not_found',
+              type,
+              hint: `Known types: ${Object.keys(types).join(', ')}`,
+            });
+          }
+          const items = filterThreaticonIndicators(recs, { keyword, tlp, minConfidence, limit: limit ?? 100 });
+          return untrustedToolResult({
+            total: idx.counts.indicators ?? 0,
+            type,
+            typeTotal: types[type]?.count ?? 0,
+            chunks: types[type]?.chunks ?? 1,
+            chunk: chunk ?? 0,
+            returned: items.length,
+            filters: { keyword, tlp, minConfidence },
+            indicators: items,
           });
         }
       );

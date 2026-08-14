@@ -72,6 +72,15 @@ import {
   type TiThreaticonMalwareBody,
   type TiThreaticonCoverageBody,
   type TiThreaticonMapBody,
+  loadThreaticonCatalogIndex,
+  getThreaticonCatalogBody,
+  loadThreaticonIndicators,
+  filterThreaticonCatalog,
+  filterThreaticonIndicators,
+  threaticonIndicatorTypes,
+  type TiThreaticonCatalogIndex,
+  type TiCatalogBody,
+  type TiCatalogIndicator,
 } from './threat-intel-manifest';
 
 function makeAssetsFixture() {
@@ -767,6 +776,107 @@ function makeAssetsFixture() {
     sectors: [{ sector: 'Financial', count: 1 }],
   };
   data.set('/data/threat-intel/threaticon/map.json', tiMap);
+
+  const tiCatIdx: TiThreaticonCatalogIndex = {
+    source: 'threaticon.com',
+    url: 'https://threaticon.com/',
+    description: 'Extended threaticon public-preview catalog',
+    builtAt: '2026-08-14T00:00:00Z',
+    counts: { tools: 2, campaigns: 1, vulnerabilities: 1, indicators: 3 },
+    sections: {
+      tools: {
+        syncedAt: '2026-08-14T00:00:00Z',
+        detailCount: 1,
+        items: [
+          { id: 1, name: 'Cobalt Strike', tlp: 'amber', status: 'Active', category: 'C2', confidence: 90 },
+          { id: 2, name: 'Mimikatz', tlp: 'red', status: 'Active', category: 'Credential Access', confidence: 95 },
+        ],
+      },
+      campaigns: {
+        syncedAt: '2026-08-14T00:00:00Z',
+        detailCount: 1,
+        items: [{ id: 11, name: 'Operation Cloud Hood', tlp: 'amber', status: 'Active', confidence: 80 }],
+      },
+      vulnerabilities: {
+        syncedAt: '2026-08-14T00:00:00Z',
+        detailCount: 1,
+        items: [
+          {
+            id: 501,
+            name: 'CVE-2026-5555',
+            tlp: 'red',
+            severity: 'Critical',
+            status: 'Open',
+            productCwe: 'Acme Widget',
+            confidence: 90,
+          },
+        ],
+      },
+      indicators: {
+        syncedAt: '2026-08-14T00:00:00Z',
+        detailCount: 0,
+        items: [],
+        types: {
+          'ipv4-address': { count: 2, chunks: 1 },
+          domain: { count: 150_000, chunks: 3 },
+        },
+      },
+    },
+  };
+  data.set('/data/threat-intel/threaticon-catalog/index.json', tiCatIdx);
+
+  const tiCatTool: TiCatalogBody = {
+    id: 1,
+    name: 'Cobalt Strike',
+    tlp: 'amber',
+    status: 'Active',
+    category: 'C2',
+    confidence: 90,
+    aliases: ['CS'],
+    description: 'Commercial C2 framework.',
+    sourceUrl: 'https://threaticon.com/tools/1',
+  };
+  data.set('/data/threat-intel/threaticon-catalog/tools/1.json', tiCatTool);
+
+  const tiCatCampaign: TiCatalogBody = {
+    id: 11,
+    name: 'Operation Cloud Hood',
+    tlp: 'amber',
+    status: 'Active',
+    confidence: 80,
+    firstSeen: '2026-07-01',
+    lastSeen: '2026-08-01',
+    description: 'Cloud infrastructure targeting',
+    sourceUrl: 'https://threaticon.com/campaigns/11',
+  };
+  data.set('/data/threat-intel/threaticon-catalog/campaigns/11.json', tiCatCampaign);
+
+  const tiCatVuln: TiCatalogBody = {
+    id: 501,
+    name: 'CVE-2026-5555',
+    tlp: 'red',
+    severity: 'Critical',
+    status: 'Open',
+    productCwe: 'Acme Widget',
+    confidence: 90,
+    cvssScore: '9.6',
+    cvssVector: 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H',
+    description: 'RCE in widget parser',
+    references: [{ url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-5555', label: 'NVD' }],
+    sourceUrl: 'https://threaticon.com/vulnerabilities/501',
+  };
+  data.set('/data/threat-intel/threaticon-catalog/vulnerabilities/501.json', tiCatVuln);
+
+  const tiCatIocs: TiCatalogIndicator[] = [
+    { value: '1.2.3.4', tlp: 'red', confidence: 80, added: '2026-08-14' },
+    { value: '5.6.7.8', tlp: 'amber', confidence: 60, added: '2026-08-14' },
+  ];
+  data.set('/data/threat-intel/threaticon-catalog/indicators/ipv4-address.json', tiCatIocs);
+
+  const tiCatDomainChunk1: TiCatalogIndicator[] = [
+    { value: 'evil.example', tlp: 'red', confidence: 90, added: '2026-08-14' },
+  ];
+  data.set('/data/threat-intel/threaticon-catalog/indicators/domain.1.json', tiCatDomainChunk1);
 
   const assets = {
     fetch: vi.fn(async (req: Request) => {
@@ -1581,5 +1691,103 @@ describe('tiCacheStats (threaticon)', () => {
     expect(s.threaticon.actors.size).toBe(1);
     expect(s.threaticon.actors.hits).toBe(1);
     expect(s.threaticon.actors.misses).toBe(2);
+  });
+});
+
+describe('threaticon catalog index + bodies', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('loads and caches the catalog index', async () => {
+    const { assets } = makeAssetsFixture();
+    const a = await loadThreaticonCatalogIndex(assets);
+    const b = await loadThreaticonCatalogIndex(assets);
+    expect(a).toBe(b);
+    expect(a!.counts.tools).toBe(2);
+    expect(a!.counts.indicators).toBe(3);
+    expect(a!.sections.tools!.items).toHaveLength(2);
+    expect(threaticonIndicatorTypes(a)).toEqual({
+      'ipv4-address': { count: 2, chunks: 1 },
+      domain: { count: 150_000, chunks: 3 },
+    });
+  });
+
+  it('returns null when the catalog index is missing', async () => {
+    const emptyAssets = { fetch: vi.fn(async () => new Response('', { status: 404 })) } as unknown as Fetcher;
+    expect(await loadThreaticonCatalogIndex(emptyAssets)).toBeNull();
+  });
+
+  it('loads per-section bodies with cache hits', async () => {
+    const { assets } = makeAssetsFixture();
+    const tool = await getThreaticonCatalogBody(assets, 'tools', 1);
+    expect(tool!.name).toBe('Cobalt Strike');
+    expect(tool!.aliases).toEqual(['CS']);
+    expect(tool!.sourceUrl).toBe('https://threaticon.com/tools/1');
+    expect(await getThreaticonCatalogBody(assets, 'tools', 1)).toBe(tool);
+    expect(await getThreaticonCatalogBody(assets, 'tools', 999)).toBeNull();
+    const vuln = await getThreaticonCatalogBody(assets, 'vulnerabilities', 501);
+    expect(vuln!.cvssScore).toBe('9.6');
+    expect((vuln!.references as Array<{ url: string; label: string }>)[0]!.label).toBe('NVD');
+    const campaign = await getThreaticonCatalogBody(assets, 'campaigns', 11);
+    expect(campaign!.lastSeen).toBe('2026-08-01');
+  });
+
+  it('loads chunked indicator files (per-type chunk naming)', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadThreaticonCatalogIndex(assets);
+    const iocs = await loadThreaticonIndicators(assets, 'ipv4-address');
+    expect(iocs).toHaveLength(2);
+    const chunked = await loadThreaticonIndicators(assets, 'domain', 1);
+    expect(chunked!.map((i) => i.value)).toEqual(['evil.example']);
+    expect(await loadThreaticonIndicators(assets, 'domain', 0)).toBeNull();
+    expect(await loadThreaticonIndicators(assets, 'unknown-type')).toBeNull();
+  });
+});
+
+describe('threaticon catalog filters', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('filters catalog sections by keyword + limit', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadThreaticonCatalogIndex(assets);
+    expect(filterThreaticonCatalog(idx!, 'tools', { limit: 10 }).map((i) => i.name)).toEqual([
+      'Cobalt Strike',
+      'Mimikatz',
+    ]);
+    expect(filterThreaticonCatalog(idx!, 'tools', { keyword: 'mimi' }).map((i) => i.name)).toEqual(['Mimikatz']);
+    expect(filterThreaticonCatalog(idx!, 'tools', { limit: 1 })).toHaveLength(1);
+    expect(filterThreaticonCatalog(idx!, 'campaigns', { keyword: 'cloud' })).toHaveLength(1);
+    expect(filterThreaticonCatalog(idx!, 'vulnerabilities', { keyword: 'CVE-2026-5555' }).map((i) => i.name)).toEqual([
+      'CVE-2026-5555',
+    ]);
+  });
+
+  it('filters indicators by tlp / minConfidence / keyword / limit', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadThreaticonCatalogIndex(assets);
+    const iocs = (await loadThreaticonIndicators(assets, 'ipv4-address'))!;
+    expect(filterThreaticonIndicators(iocs, { tlp: 'red' }).map((i) => i.value)).toEqual(['1.2.3.4']);
+    expect(filterThreaticonIndicators(iocs, { minConfidence: 90 })).toHaveLength(0);
+    expect(filterThreaticonIndicators(iocs, { minConfidence: 70 }).map((i) => i.value)).toEqual(['1.2.3.4']);
+    expect(filterThreaticonIndicators(iocs, { keyword: '5.6' }).map((i) => i.value)).toEqual(['5.6.7.8']);
+    expect(filterThreaticonIndicators(iocs, { limit: 1 })).toHaveLength(1);
+  });
+});
+
+describe('tiCacheStats (threaticon catalog)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports catalog index + body + indicator chunk cache stats', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadThreaticonCatalogIndex(assets);
+    await getThreaticonCatalogBody(assets, 'tools', 1);
+    await getThreaticonCatalogBody(assets, 'tools', 1);
+    await loadThreaticonIndicators(assets, 'ipv4-address');
+    const s = tiCacheStats();
+    expect(s.threaticon.catalog.indexLoaded).toBe(true);
+    expect(s.threaticon.catalog.indexAgeMs).toBeGreaterThanOrEqual(0);
+    expect(s.threaticon.catalog.bodies.size).toBe(1);
+    expect(s.threaticon.catalog.bodies.hits).toBe(1);
+    expect(s.threaticon.catalog.bodies.misses).toBe(1);
+    expect(s.threaticon.catalog.indicatorChunks.size).toBe(1);
   });
 });

@@ -746,6 +746,133 @@ threatIntelRouter.get('/threat-intel/threaticon/map', async (c) => {
   }
 });
 
+// ─── Threaticon catalog (extended sections) ─────────────────────────────
+//
+// tools, mitigations, data components, detection strategies, campaigns,
+// attack patterns, vulnerabilities, and a chunked IOC dictionary. Data ships
+// in public/data/threat-intel/threaticon-catalog/. Build:
+// scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs.
+
+const CATALOG_SECTIONS = new Set([
+  'tools',
+  'mitigations',
+  'data-sources',
+  'detection-strategies',
+  'campaigns',
+  'attack-patterns',
+  'vulnerabilities',
+]);
+
+threatIntelRouter.get('/threat-intel/threaticon/catalog', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreaticonCatalogIndex(c.env.ASSETS);
+    if (!idx) return notFound(c, 'ti_threaticon_catalog_not_found: run scripts/build-threaticon-catalog.mjs');
+    const stats = mod.tiCacheStats().threaticon.catalog;
+    return c.json({
+      source: idx.source,
+      url: idx.url,
+      description: idx.description,
+      builtAt: idx.builtAt,
+      counts: idx.counts,
+      sections: Object.fromEntries(
+        Object.entries(idx.sections).map(([k, v]) => [k, { syncedAt: v.syncedAt, detailCount: v.detailCount }])
+      ),
+      cache: { indexLoaded: stats.indexLoaded, bodiesLoaded: stats.bodies.size },
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_catalog_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/catalog/:section', async (c) => {
+  const section = c.req.param('section') as string;
+  if (!CATALOG_SECTIONS.has(section)) {
+    return badRequest(c, `unknown catalog section: ${section}`);
+  }
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreaticonCatalogIndex(c.env.ASSETS);
+    if (!idx) return notFound(c, 'ti_threaticon_catalog_not_found: run scripts/build-threaticon-catalog.mjs');
+    const keyword = c.req.query('q') || undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(1000, Math.max(1, Number(limitRaw) || 100)) : undefined;
+    const items = mod.filterThreaticonCatalog(idx, section as never, { keyword, limit });
+    const total = idx.counts[section] ?? 0;
+    return c.json({
+      section,
+      total,
+      returned: items.length,
+      filters: { keyword: keyword || undefined },
+      items,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_catalog_${section}_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/catalog/:section/:id', async (c) => {
+  const section = c.req.param('section') as string;
+  const id = Number(c.req.param('id'));
+  if (!CATALOG_SECTIONS.has(section) || !Number.isInteger(id)) {
+    return badRequest(c, `invalid catalog path: ${section}/${c.req.param('id')}`);
+  }
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getThreaticonCatalogBody(c.env.ASSETS, section as never, id);
+    if (!body) return notFound(c, `ti_threaticon_catalog_not_found: ${section}/${id}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(
+      c,
+      `ti_threaticon_catalog_${section}_${id}_failed: ${e instanceof Error ? e.message : String(e)}`
+    );
+  }
+});
+
+threatIntelRouter.get('/threat-intel/threaticon/indicators', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadThreaticonCatalogIndex(c.env.ASSETS);
+    if (!idx) return notFound(c, 'ti_threaticon_catalog_not_found: run scripts/build-threaticon-catalog.mjs');
+    const types = mod.threaticonIndicatorTypes(idx);
+    const type = c.req.query('type') || undefined;
+    if (!type) {
+      return c.json({
+        total: idx.counts.indicators ?? 0,
+        types,
+        returned: 0,
+        note: 'pass ?type=<key> to list records',
+      });
+    }
+    const chunk = Math.max(0, Number(c.req.query('chunk')) || 0);
+    const recs = await mod.loadThreaticonIndicators(c.env.ASSETS, type, chunk);
+    if (!recs) return notFound(c, `ti_threaticon_indicators_not_found: unknown type ${type}`);
+    const keyword = c.req.query('q') || undefined;
+    const tlp = c.req.query('tlp') || undefined;
+    const minConfidenceRaw = c.req.query('min_confidence');
+    const minConfidence = minConfidenceRaw ? Math.max(0, Number(minConfidenceRaw) || 0) : undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(1000, Math.max(1, Number(limitRaw) || 100)) : undefined;
+    const items = mod.filterThreaticonIndicators(recs, { keyword, tlp, minConfidence, limit });
+    return c.json({
+      type,
+      typeTotal: types[type]?.count ?? 0,
+      chunks: types[type]?.chunks ?? 1,
+      chunk,
+      returned: items.length,
+      filters: { keyword: keyword || undefined, tlp, minConfidence },
+      indicators: items,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_threaticon_indicators_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
 // ─── Live enrichment search routes ──────────────────────────────────────
 const SEARCH_TIMEOUT_MS = 20_000;
 

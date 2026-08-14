@@ -885,6 +885,109 @@ export async function loadThreaticonMap(
   return body;
 }
 
+export async function loadThreaticonCatalogIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TiThreaticonCatalogIndex | null> {
+  if (cachedTiCatalogIndex && !opts.forceRefresh) return cachedTiCatalogIndex;
+  const idx = await fetchJson<TiThreaticonCatalogIndex>(assets, `${DATA_PREFIX}/threaticon-catalog/index.json`);
+  if (!idx) return null;
+  cachedTiCatalogIndex = idx;
+  cachedTiCatalogIndexAt = Date.now();
+  return idx;
+}
+
+export async function getThreaticonCatalogBody(
+  assets: Fetcher,
+  section: TiCatalogSection,
+  id: number
+): Promise<TiCatalogBody | null> {
+  const cache = tiCatalogCaches[section] ?? (tiCatalogCaches[section] = { map: new Map(), hits: 0, misses: 0 });
+  const key = `${section}/${id}`;
+  const hit = trackHit(cache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TiCatalogBody>(assets, `${DATA_PREFIX}/threaticon-catalog/${section}/${id}.json`);
+  if (!body) return null;
+  return recordHit(cache, key, body);
+}
+
+export async function loadThreaticonIndicators(
+  assets: Fetcher,
+  typeKey: string,
+  chunk = 0
+): Promise<TiCatalogIndicator[] | null> {
+  const cache = tiIndicatorCaches[typeKey] ?? (tiIndicatorCaches[typeKey] = { map: new Map(), hits: 0, misses: 0 });
+  const key = `${typeKey}/${chunk}`;
+  const hit = trackHit(cache, key);
+  if (hit) return hit;
+  const meta = cachedTiCatalogIndex?.sections?.indicators?.types?.[typeKey];
+  const fileName = meta && meta.chunks > 1 ? `${typeKey}.${chunk}.json` : `${typeKey}.json`;
+  const body = await fetchJson<TiCatalogIndicator[]>(
+    assets,
+    `${DATA_PREFIX}/threaticon-catalog/indicators/${fileName}`
+  );
+  if (!body) return null;
+  return recordHit(cache, key, body);
+}
+
+export interface TiListCatalogOptions {
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterThreaticonCatalog(
+  idx: TiThreaticonCatalogIndex,
+  section: TiCatalogSection,
+  opts: TiListCatalogOptions = {}
+): TiCatalogSlimEntry[] {
+  const { keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const items = idx.sections?.[section]?.items ?? [];
+  const out: TiCatalogSlimEntry[] = [];
+  for (const it of items) {
+    if (needle) {
+      const hay = Object.values(it)
+        .filter((v): v is string => typeof v === 'string')
+        .join(' ')
+        .toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(it);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export interface TiListIndicatorsOptions {
+  keyword?: string;
+  tlp?: string;
+  minConfidence?: number;
+  limit?: number;
+}
+
+export function filterThreaticonIndicators(
+  recs: TiCatalogIndicator[],
+  opts: TiListIndicatorsOptions = {}
+): TiCatalogIndicator[] {
+  const { keyword, tlp, minConfidence, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TiCatalogIndicator[] = [];
+  for (const r of recs) {
+    if (tlp && r.tlp?.toUpperCase() !== tlp.toUpperCase()) continue;
+    if (minConfidence !== undefined && (r.confidence ?? 0) < minConfidence) continue;
+    if (needle && !r.value.toLowerCase().includes(needle)) continue;
+    out.push(r);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function threaticonIndicatorTypes(
+  idx: TiThreaticonCatalogIndex | null
+): Record<string, { count: number; chunks: number }> {
+  return idx?.sections?.indicators?.types ?? {};
+}
+
 // ─── Filter helpers ─────────────────────────────────────────────────────
 
 export interface TiListCvesOptions {
@@ -1256,6 +1359,65 @@ export function filterThreaticonCoverage(
   return out;
 }
 
+// ─── Threaticon catalog (extended sections) ─────────────────────────────
+//
+// A second threaticon manifest tree under /data/threat-intel/threaticon-catalog/
+// covering tools, mitigations, data components, detection strategies,
+// campaigns, attack patterns, vulnerabilities, and a chunked IOC dictionary.
+
+export type TiCatalogSection =
+  | 'tools'
+  | 'mitigations'
+  | 'data-sources'
+  | 'detection-strategies'
+  | 'campaigns'
+  | 'attack-patterns'
+  | 'vulnerabilities';
+
+export interface TiCatalogSlimEntry {
+  id: number;
+  name: string;
+  tlp: string | null;
+  [key: string]: string | number | boolean | null;
+}
+
+export interface TiCatalogSectionMeta {
+  syncedAt: string;
+  detailCount: number;
+  items: TiCatalogSlimEntry[];
+  types?: Record<string, { count: number; chunks: number }>;
+}
+
+export interface TiThreaticonCatalogIndex {
+  source: string;
+  url: string;
+  description: string;
+  builtAt: string;
+  counts: Record<string, number>;
+  sections: Record<string, TiCatalogSectionMeta>;
+}
+
+export interface TiCatalogBody {
+  id: number;
+  name: string;
+  description: string | null;
+  tlp: string | null;
+  sourceUrl: string;
+  [key: string]: string | number | boolean | null | string[] | { url: string; label: string }[];
+}
+
+export interface TiCatalogIndicator {
+  value: string;
+  tlp: string | null;
+  confidence: number | null;
+  added: string | null;
+}
+
+const tiCatalogCaches: Record<string, BodyCache<TiCatalogBody>> = {};
+const tiIndicatorCaches: Record<string, BodyCache<TiCatalogIndicator[]>> = {};
+let cachedTiCatalogIndex: TiThreaticonCatalogIndex | null = null;
+let cachedTiCatalogIndexAt: number | null = null;
+
 // ─── Priority scoring ───────────────────────────────────────────────────
 
 /**
@@ -1335,6 +1497,12 @@ export function tiCacheStats(): {
     coverageLoaded: boolean;
     mapLoaded: boolean;
     actors: { size: number; hits: number; misses: number };
+    catalog: {
+      indexLoaded: boolean;
+      indexAgeMs: number | null;
+      bodies: { size: number; hits: number; misses: number };
+      indicatorChunks: { size: number; hits: number; misses: number };
+    };
   };
 } {
   return {
@@ -1376,6 +1544,18 @@ export function tiCacheStats(): {
       coverageLoaded: cachedTiCoverage !== null,
       mapLoaded: cachedTiMap !== null,
       actors: { size: tiActorCache.map.size, hits: tiActorCache.hits, misses: tiActorCache.misses },
+      catalog: {
+        indexLoaded: cachedTiCatalogIndex !== null,
+        indexAgeMs: cachedTiCatalogIndexAt ? Date.now() - cachedTiCatalogIndexAt : null,
+        bodies: Object.values(tiCatalogCaches).reduce(
+          (acc, c) => ({ size: acc.size + c.map.size, hits: acc.hits + c.hits, misses: acc.misses + c.misses }),
+          { size: 0, hits: 0, misses: 0 }
+        ),
+        indicatorChunks: Object.values(tiIndicatorCaches).reduce(
+          (acc, c) => ({ size: acc.size + c.map.size, hits: acc.hits + c.hits, misses: acc.misses + c.misses }),
+          { size: 0, hits: 0, misses: 0 }
+        ),
+      },
     },
   };
 }
@@ -1422,6 +1602,16 @@ export function _resetTiCacheForTests(): void {
   cachedTiMalware = null;
   cachedTiCoverage = null;
   cachedTiMap = null;
+  cachedTiCatalogIndex = null;
+  cachedTiCatalogIndexAt = null;
+  for (const c of Object.values(tiCatalogCaches)) {
+    c.map.clear();
+    c.hits = c.misses = 0;
+  }
+  for (const c of Object.values(tiIndicatorCaches)) {
+    c.map.clear();
+    c.hits = c.misses = 0;
+  }
 }
 
 export { severityFromScore };
