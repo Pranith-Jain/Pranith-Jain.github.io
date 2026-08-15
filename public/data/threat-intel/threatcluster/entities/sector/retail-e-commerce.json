@@ -4,66 +4,66 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-12T15:32:34.000Z",
-  "lastSeen": "2026-08-12T15:43:39.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 1 ransomware group and 5 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-08-14T05:56:08.000Z",
+  "lastSeen": "2026-08-14T05:59:51.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 2 ransomware groups and 5 countries.",
   "frequency": [
     {
-      "date": "2026-08-12",
-      "count": 7
+      "date": "2026-08-14",
+      "count": 6
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "lifestraw-com-3c80",
-      "title": "LIFESTRAW.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:43:39.000Z"
+      "slug": "carhartt-inc-0e6c",
+      "title": "Carhartt, Inc. — claimed by shinyhunters",
+      "pubDate": "2026-08-14T05:59:51.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "thermos-com-4b63",
-      "title": "THERMOS.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:41:22.000Z"
+      "slug": "gravity-coffee-74fd",
+      "title": "Gravity Coffee — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:59:12.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "clover-com-ad5a",
-      "title": "CLOVER.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:37:19.000Z"
+      "slug": "ollies-place-kidswear-51c7",
+      "title": "Ollies Place Kidswear — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:58:51.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "brillonconsumer-com-brillonconsumer-com-60f9",
-      "title": "BRILLONCONSUMER.COM (BRILLONCONSUMER.COM) — claimed by clop",
-      "pubDate": "2026-08-12T15:36:06.000Z"
+      "slug": "the-coffee-bean-18a5",
+      "title": "The Coffee Bean — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:58:30.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "suunto-cn-suunto-com-2414",
-      "title": "SUUNTO.CN (SUUNTO.COM) — claimed by clop",
-      "pubDate": "2026-08-12T15:35:32.000Z"
+      "slug": "retail-business-management-systems-bd01",
+      "title": "Retail Business Management Systems — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:57:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mamasandpapas-com-c63f",
-      "title": "MAMASANDPAPAS.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:33:46.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "mammut-com-6c92",
-      "title": "MAMMUT.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:32:34.000Z"
+      "slug": "plaza-auto-mall-520f",
+      "title": "Plaza Auto Mall — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:56:08.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "clop",
-      "name": "clop",
-      "weight": 7
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 5
+    },
+    {
+      "type": "group",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
+      "weight": 1
     }
   ],
   "mitreTechniques": []

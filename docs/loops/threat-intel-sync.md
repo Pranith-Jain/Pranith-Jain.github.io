@@ -1,6 +1,6 @@
 # Loop: Threat Intel sync
 
-Kick off when **`public/data/threat-intel/`** needs rebuilding — either because the weekly cron ran, or because you manually synced from upstream sources (NVD, CISA KEV, Daily-Hunt).
+Kick off when **`public/data/threat-intel/`** needs rebuilding — either because the daily cron ran, or because you manually synced from upstream sources (NVD, CISA KEV, Daily-Hunt).
 
 ## Kickoff Prompt
 
@@ -46,4 +46,4 @@ If typecheck fails, fix and re-run. Never weaken the check.
 3. Run `node scripts/build-threat-intel.mjs`, `node scripts/build-darknetlist.mjs`, and `node scripts/build-threatcluster.mjs` (slice staged data into `public/data/threat-intel/` per-slug JSON).
 4. Run the between-iteration check (typecheck + vitest).
 5. Verify exit conditions. Report counts.
-6. If all green: commit, push, and PR per the weekly workflow.
+6. If all green: commit, push, and PR per the daily workflow.

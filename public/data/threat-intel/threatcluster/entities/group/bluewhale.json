@@ -1,0 +1,56 @@
+{
+  "type": "group",
+  "slug": "bluewhale",
+  "name": "BlueWhale",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-14T11:20:51.000Z",
+  "lastSeen": "2026-08-14T11:21:21.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-14",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "fiferfox-minecraft-server-dc0a",
+      "title": "FiferFox Minecraft Server — claimed by BlueWhale",
+      "pubDate": "2026-08-14T11:21:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "satellite-developer-server-4220",
+      "title": "Satellite Developer Server — claimed by BlueWhale",
+      "pubDate": "2026-08-14T11:20:51.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 2
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "fiferfox-minecraft-server-dc0a",
+      "victim": "FiferFox Minecraft Server — claimed by BlueWhale",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-08-14T11:21:21.000Z"
+    },
+    {
+      "id": "satellite-developer-server-4220",
+      "victim": "Satellite Developer Server — claimed by BlueWhale",
+      "sector": "Technology",
+      "country": null,
+      "pubDate": "2026-08-14T11:20:51.000Z"
+    }
+  ]
+}

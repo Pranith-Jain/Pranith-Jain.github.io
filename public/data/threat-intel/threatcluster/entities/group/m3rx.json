@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "m3rx",
+  "name": "m3rx",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-14T07:56:05.000Z",
+  "lastSeen": "2026-08-14T07:56:05.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-14",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "tecnoabi-com-9576",
+      "title": "tecnoabi.com — claimed by m3rx",
+      "pubDate": "2026-08-14T07:56:05.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "tecnoabi-com-9576",
+      "victim": "tecnoabi.com — claimed by m3rx",
+      "sector": "Technology",
+      "country": "BR",
+      "pubDate": "2026-08-14T07:56:05.000Z"
+    }
+  ]
+}

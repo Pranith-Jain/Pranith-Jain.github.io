@@ -1,0 +1,11 @@
+{
+  "slug": "adobe-commerce-account-takeover-apsb26-92-64052776",
+  "title": "Critical Adobe Commerce Flaw Allows Account Takeover",
+  "link": "https://threatcluster.io/cluster/adobe-commerce-account-takeover-apsb26-92-64052776?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/adobe-commerce-account-takeover-apsb26-92-64052776",
+  "pubDate": "2026-08-12T21:32:31.000Z",
+  "sourceCount": 5,
+  "categories": ["5 Sources"],
+  "description": "A critical vulnerability (CVE-2026-71362) in Adobe Commerce and Magento platforms has been exploited, allowing unauthenticated attackers to hijack customer accounts. The flaw, rated 9.1 on the CVSS scale, enables attackers to switch customer sessions without needing existing accounts or user interaction. Adobe released isolated patches on August 11, 2026, addressing this and six other vulnerabilities. Sansec's Shield WAF is actively blocking exploitation attempts. Website administrators are urged to apply the latest security updates to protect sensitive customer data. The vulnerability was confirmed by Sansec, which noted that it could lead to unauthorized access to private information. As of now, exploitation attempts are ongoing, although Adobe claims no known exploits were in the wild at the time of the advisory.\n\nKey Points:\n• CVE-2026-71362 allows unauthenticated account takeover in Adobe Commerce.\n• Sansec's Shield WAF is blocking exploitation attempts of this vulnerability.\n• Adobe released patches on August 11, 2026, but active exploitation is reported.",
+  "sizeBytes": 1077
+}

@@ -1,0 +1,139 @@
+{
+  "type": "group",
+  "slug": "storm",
+  "name": "Storm",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 7,
+  "firstSeen": "2026-08-14T07:10:07.000Z",
+  "lastSeen": "2026-08-14T07:13:12.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 4 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-14",
+      "count": 7
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "hinman-straub-4d57",
+      "title": "Hinman Straub — claimed by Storm",
+      "pubDate": "2026-08-14T07:13:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "3-point-australia-db84",
+      "title": "3-point Australia — claimed by Storm",
+      "pubDate": "2026-08-14T07:12:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "rood-amp-riddle-equine-hospital-c570",
+      "title": "Rood &amp; Riddle Equine Hospital — claimed by Storm",
+      "pubDate": "2026-08-14T07:12:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "canadian-mental-health-association-7dfe",
+      "title": "Canadian Mental Health Association — claimed by Storm",
+      "pubDate": "2026-08-14T07:11:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tapper-cuddy-llp-904e",
+      "title": "Tapper Cuddy LLP — claimed by Storm",
+      "pubDate": "2026-08-14T07:11:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "integra-castings-63d1",
+      "title": "Integra Castings — claimed by Storm",
+      "pubDate": "2026-08-14T07:10:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "southern-metals-company-148e",
+      "title": "Southern Metals Company — claimed by Storm",
+      "pubDate": "2026-08-14T07:10:07.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "hinman-straub-4d57",
+      "victim": "Hinman Straub — claimed by Storm",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-14T07:13:12.000Z"
+    },
+    {
+      "id": "3-point-australia-db84",
+      "victim": "3-point Australia — claimed by Storm",
+      "sector": "Other",
+      "country": "AU",
+      "pubDate": "2026-08-14T07:12:41.000Z"
+    },
+    {
+      "id": "rood-amp-riddle-equine-hospital-c570",
+      "victim": "Rood &amp; Riddle Equine Hospital — claimed by Storm",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-14T07:12:10.000Z"
+    },
+    {
+      "id": "canadian-mental-health-association-7dfe",
+      "victim": "Canadian Mental Health Association — claimed by Storm",
+      "sector": "Healthcare",
+      "country": "CA",
+      "pubDate": "2026-08-14T07:11:39.000Z"
+    },
+    {
+      "id": "tapper-cuddy-llp-904e",
+      "victim": "Tapper Cuddy LLP — claimed by Storm",
+      "sector": "Professional Services",
+      "country": "CA",
+      "pubDate": "2026-08-14T07:11:09.000Z"
+    },
+    {
+      "id": "integra-castings-63d1",
+      "victim": "Integra Castings — claimed by Storm",
+      "sector": "Manufacturing",
+      "country": "CA",
+      "pubDate": "2026-08-14T07:10:37.000Z"
+    },
+    {
+      "id": "southern-metals-company-148e",
+      "victim": "Southern Metals Company — claimed by Storm",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-14T07:10:07.000Z"
+    }
+  ]
+}

@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-12T15:36:39.000Z",
-  "lastSeen": "2026-08-12T15:36:39.000Z",
+  "firstSeen": "2026-08-14T13:51:46.000Z",
+  "lastSeen": "2026-08-14T13:51:46.000Z",
   "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-12",
+      "date": "2026-08-14",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "jpmgroup-co-in-397b",
-      "title": "JPMGROUP.CO.IN — claimed by clop",
-      "pubDate": "2026-08-12T15:36:39.000Z"
+      "slug": "cozad-asset-management-d11e",
+      "title": "Cozad Asset Management — claimed by akira",
+      "pubDate": "2026-08-14T13:51:46.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "clop",
-      "name": "clop",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     }
   ],

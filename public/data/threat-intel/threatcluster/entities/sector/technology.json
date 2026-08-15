@@ -4,105 +4,71 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 11,
-  "firstSeen": "2026-08-12T15:32:00.000Z",
-  "lastSeen": "2026-08-13T00:22:25.000Z",
-  "summary": "Sector hit by 11 leak-site victims across 3 ransomware groups and 6 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-08-14T06:01:01.000Z",
+  "lastSeen": "2026-08-14T13:52:06.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-12",
-      "count": 10
-    },
-    {
-      "date": "2026-08-13",
-      "count": 1
+      "date": "2026-08-14",
+      "count": 5
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "portable-intelligence-inc-www-portable-intelligence-com-serviced-by-an-i-1552",
-      "title": "Portable Intelligence Inc www.portable-intelligence.com serviced by an IT company Computer... — claimed by blacknevas",
-      "pubDate": "2026-08-13T00:22:25.000Z"
+      "slug": "keystops-9122",
+      "title": "Keystops — claimed by akira",
+      "pubDate": "2026-08-14T13:52:06.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "gamaus-com-c4a8",
-      "title": "gamaus.com — claimed by incransom",
-      "pubDate": "2026-08-12T19:25:55.000Z"
+      "slug": "fiferfox-minecraft-server-dc0a",
+      "title": "FiferFox Minecraft Server — claimed by BlueWhale",
+      "pubDate": "2026-08-14T11:21:21.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "aol-com-7885",
-      "title": "AOL.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:52:07.000Z"
+      "slug": "satellite-developer-server-4220",
+      "title": "Satellite Developer Server — claimed by BlueWhale",
+      "pubDate": "2026-08-14T11:20:51.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "nuvitia-com-d946",
-      "title": "NUVITIA.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:49:44.000Z"
+      "slug": "tecnoabi-com-9576",
+      "title": "tecnoabi.com — claimed by m3rx",
+      "pubDate": "2026-08-14T07:56:05.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "stnet-it-af49",
-      "title": "STNET.IT — claimed by clop",
-      "pubDate": "2026-08-12T15:48:04.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "fluidlogic-com-5670",
-      "title": "FLUIDLOGIC.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:46:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "itkholding-hu-b83c",
-      "title": "ITKHOLDING.HU — claimed by clop",
-      "pubDate": "2026-08-12T15:45:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "ivaluesys-com-e204",
-      "title": "IVALUESYS.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:42:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "9altitudes-com-d7ff",
-      "title": "9ALTITUDES.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:40:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "honghe-tech-com-4fc3",
-      "title": "HONGHE-TECH.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:38:27.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "partech-com-57e5",
-      "title": "PARTECH.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:32:00.000Z"
+      "slug": "metabase-2b6c",
+      "title": "Metabase — claimed by shinyhunters",
+      "pubDate": "2026-08-14T06:01:01.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "clop",
-      "name": "clop",
-      "weight": 9
+      "slug": "bluewhale",
+      "name": "BlueWhale",
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "blacknevas",
-      "name": "blacknevas",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
+      "slug": "m3rx",
+      "name": "m3rx",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
       "weight": 1
     }
   ],

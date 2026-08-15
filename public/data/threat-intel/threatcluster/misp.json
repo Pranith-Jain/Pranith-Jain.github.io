@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-13T05:31:26.669Z",
-  "eventCount": 5,
+  "syncedAt": "2026-08-15T05:59:42.517Z",
+  "eventCount": 6,
   "events": [
     {
       "uuid": "31fc2385-a89e-5ffa-af2e-e4bcd29facde",
@@ -25,25 +25,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "ba6fab69-679e-5598-bfac-b8e65d860910",
-      "info": "CISA Warns of Critical Exploits in Langflow, Tomcat, and N-central Flaws",
-      "date": "2026-08-07",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1786091335",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:ransomware",
-        "type:malware",
-        "type:vulnerability",
-        "misp-galaxy:threat-actor=\"Salt Typhoon\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "7033c078-aa7d-556c-9767-7f759f7fa1ce",
       "info": "Head Mare Hackers Exploit TrueConf Vulnerabilities to Deploy Backdoors",
       "date": "2026-08-08",
@@ -58,6 +39,34 @@
         "type:malware",
         "type:vulnerability"
       ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "6670a23d-1445-5df6-bc4a-801317308cdc",
+      "info": "Cl0p Ransomware Group Claims Data Theft from Nearly 50 Companies",
+      "date": "2026-08-14",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786708394",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:medium",
+        "type:ransomware",
+        "type:vulnerability",
+        "misp-galaxy:ransomware=\"Cl0p\"",
+        "misp-galaxy:ransomware=\"Clop\""
+      ],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "7a507015-6172-56be-9c25-d7fa059f1fb7",
+      "info": "Apple Alerts Users of Targeted Mercenary Spyware Attacks in 110 Countries",
+      "date": "2026-08-13",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786662602",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:malware"],
       "orgc": "ThreatCluster"
     },
     {

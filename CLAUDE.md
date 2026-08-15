@@ -147,7 +147,7 @@ A second data vertical replicating the SI pattern (`public/data/threat-intel/`, 
 - `api/src/routes/threat-intel-edge-tools.ts` — 9 REST route handlers
 - `api/src/lib/threat-intel-manifest.ts` — symlink to `worker/lib/threat-intel-manifest.ts`
 - `src/pages/ThreatIntel.tsx` — SPA dashboard
-- `.github/workflows/threat-intel-sync.yml` — weekly sync workflow (Mon + Thu 05:30 UTC)
+- `.github/workflows/threat-intel-sync.yml` — daily sync workflow (05:30 UTC)
 - `docs/loops/threat-intel-sync.md` — loop template for manual sync
 - `public/data/threat-intel/` — generated manifest tree (not committed empty; populate via sync + build)
 

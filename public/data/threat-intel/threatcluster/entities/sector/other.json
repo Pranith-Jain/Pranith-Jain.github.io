@@ -4,71 +4,65 @@
   "name": "Other",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-12T15:33:09.000Z",
-  "lastSeen": "2026-08-12T15:57:32.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 2 ransomware groups and 3 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-14T05:56:28.000Z",
+  "lastSeen": "2026-08-14T14:32:04.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-12",
-      "count": 7
+      "date": "2026-08-14",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "united-association-local-union-345-aaf3",
-      "title": "United Association Local Union 345 — claimed by qilin",
-      "pubDate": "2026-08-12T15:57:32.000Z"
+      "slug": "connell-enterprises-llc-6a51",
+      "title": "Connell Enterprises LLC — claimed by interlock",
+      "pubDate": "2026-08-14T14:32:04.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "eccellent-com-ff0e",
-      "title": "ECCELLENT.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:48:38.000Z"
+      "slug": "urban-worldwide-e0ce",
+      "title": "Urban Worldwide — claimed by qilin",
+      "pubDate": "2026-08-14T08:31:03.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "archergrey-com-b7d0",
-      "title": "ARCHERGREY.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:44:44.000Z"
+      "slug": "3-point-australia-db84",
+      "title": "3-point Australia — claimed by Storm",
+      "pubDate": "2026-08-14T07:12:41.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "nuovacmm-com-99b6",
-      "title": "NUOVACMM.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:41:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "waterlandpe-com-608b",
-      "title": "WATERLANDPE.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:40:47.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tristar-com-2c1e",
-      "title": "TRISTAR.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:34:20.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "cornelius-com-b54a",
-      "title": "CORNELIUS.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:33:09.000Z"
+      "slug": "tempel-c0d8",
+      "title": "Tempel — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:56:28.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "clop",
-      "name": "clop",
-      "weight": 6
+      "slug": "interlock",
+      "name": "interlock",
+      "weight": 1
     },
     {
       "type": "group",
       "slug": "qilin",
       "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "Storm",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

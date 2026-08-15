@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "safepay",
+  "name": "safepay",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-14T17:28:25.000Z",
+  "lastSeen": "2026-08-14T17:28:25.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-14",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "granjarinya-com-bc77",
+      "title": "granjarinya.com — claimed by safepay",
+      "pubDate": "2026-08-14T17:28:25.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "granjarinya-com-bc77",
+      "victim": "granjarinya.com — claimed by safepay",
+      "sector": "Agriculture and Food Production",
+      "country": "ES",
+      "pubDate": "2026-08-14T17:28:25.000Z"
+    }
+  ]
+}

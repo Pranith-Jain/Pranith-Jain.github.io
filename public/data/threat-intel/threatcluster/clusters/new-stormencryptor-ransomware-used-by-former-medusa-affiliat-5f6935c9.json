@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/new-stormencryptor-ransomware-used-by-former-medusa-affiliat-5f6935c9?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/new-stormencryptor-ransomware-used-by-former-medusa-affiliat-5f6935c9",
   "pubDate": "2026-08-10T17:42:00.000Z",
-  "sourceCount": 8,
-  "categories": ["8 Sources"],
+  "sourceCount": 10,
+  "categories": ["10 Sources"],
   "description": "A financially motivated threat actor, Storm-1175, previously linked to Medusa ransomware, has begun deploying a new ransomware strain named StormEncryptor. This campaign was initiated after exploiting an authentication-bypass vulnerability (CVE-2026-18577) in the N-central remote monitoring tool. The ransomware, written in C++, encrypts files and appends the '.encrypted' extension, dropping a ransom note demanding payment within three days. Storm-1175 is believed to be based in China and has rapidly transitioned from initial access to data exfiltration and ransomware deployment. Microsoft Threat Intelligence has confirmed that this is the first activity observed from Storm-1175 since April 2026. N-able, the vendor of N-central, released a hotfix for the CVE on August 2, 2026, urging immediate installation. Organizations are advised to monitor for signs of Storm-1175 activity and apply security patches promptly.\n\nKey Points:\n• Storm-1175 has shifted from Medusa ransomware to deploying StormEncryptor.\n• The ransomware exploits CVE-2026-18577 in N-central, with attacks starting on August 2, 2026.\n• N-able has released a hotfix for the vulnerability, urging immediate action from system administrators.",
   "sizeBytes": 1216
 }
