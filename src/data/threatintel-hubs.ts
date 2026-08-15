@@ -1205,6 +1205,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'IntelDashboard',
       },
       {
+        path: '/threatintel/soc-dashboard',
+        tabId: 'soc-dashboard',
+        label: 'SOC Dashboards',
+        desc: 'Red/cyan/purple panels - ransomware activity, vulnerability index, and IOC stream with consensus scoring.',
+        compVar: 'SocDashboard',
+        keywords: ['soc', 'security operations', 'ransomware', 'vulnerability', 'ioc', 'stream', 'dashboard'],
+      },
+      {
         path: '/threatintel/predictive/global-pulse',
         tabId: 'global-pulse',
         label: 'Global Pulse',
