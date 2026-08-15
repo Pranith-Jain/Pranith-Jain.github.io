@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9421eb8a-4d98-4add-a315-b51c4c706e40",
+  "description": "TARGET: wondrdiamonds.com & gemmount.com REVENUE: $12m USD EMPLOYEES: 200+ [LEAK / 247 FILES]",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

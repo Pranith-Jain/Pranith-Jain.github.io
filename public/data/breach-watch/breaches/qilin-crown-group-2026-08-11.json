@@ -2,14 +2,14 @@
   "slug": "qilin-crown-group-2026-08-11",
   "title": "Crown Group",
   "group": "qilin",
-  "discovered": "2026-08-11T17:05:07.000Z",
+  "discovered": "2026-08-11T17:28:38.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "PK",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=6072235c-e4c9-4151-b086-8e83ed5b9fd7",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Other",
+  "references": ["ransomware.live"]
 }

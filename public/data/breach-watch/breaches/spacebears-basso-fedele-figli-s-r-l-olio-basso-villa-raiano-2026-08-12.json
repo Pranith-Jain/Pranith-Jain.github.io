@@ -2,14 +2,14 @@
   "slug": "spacebears-basso-fedele-figli-s-r-l-olio-basso-villa-raiano-2026-08-12",
   "title": "Basso Fedele & Figli S.r.l. (Olio Basso) / Villa Raiano",
   "group": "spacebears",
-  "discovered": "2026-08-12T03:06:44.000Z",
+  "discovered": "2026-08-12T02:36:31.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "IT",
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion/companies/68/basso-fedele-figli-srl-olio-basso-villa-raiano",
+  "description": "Basso Fedele & Figli S.r.l. is a historic Italian family company founded in 1904 in San Michele di Serino, in the Irpinia region of Campania. For over a century, the Basso family has been dedicated to the production and bottling of high-quality olive oil. Today, the company is a leading name in the Italian olive oil sector, exporting its products under the Basso® brand to more than 90 countries worldwide. Combining tradition with modern technology, Basso offers a wide range of oils, including extra virgin olive oil, seed oils, and specialty blends. The company also produces private-label oils for major retail chains, maintaining a strong commitment to quality, traceability, and authenticity.https://www.villaraiano.com/Villa Raiano is the wine estate of the Basso family, established in 1996 as a natural extension of their agricultural heritage in Irpinia, Campania. The winery focuses on producing premium organic wines from indigenous grape varieties, particularly Fiano di Avellino, Greco di Tufo, and Aglianico. With approximately 27 hectares of certified organic vineyards, Villa Raiano combines traditional winemaking with modern techniques, including gravity-flow processing and minimal batonnage to preserve freshness and minerality. In 2018, the new generation of the Basso family took over management, and in 2024, a state-of-the-art underground cellar was opened for aging. Villa Raiano is now recognized as one of the most dynamic and respected wineries in southern Italy.-Personal information of employees and clients -Financial documents -Other files https://oliobasso.com/",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["space bears"],
-  "activity": null,
-  "references": ["CTI.FYI"]
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
 }

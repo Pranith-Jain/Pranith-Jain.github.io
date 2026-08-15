@@ -5,11 +5,11 @@
   "discovered": "2026-08-14T13:55:21.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": "IL",
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e835eb54-2830-4221-8086-a86c8614caf8",
+  "description": "[AI generated] Serruya Private Equity is a Canadian private equity firm based in Toronto, Ontario. Founded by the Serruya family, known for their background in the franchise and consumer goods industry, the firm focuses on investments in consumer brands, retail, and food and beverage sectors. The company acquires and grows established brands, leveraging operational expertise to drive value creation across its portfolio companies in North America.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["coinbase cartel"],
-  "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
 }

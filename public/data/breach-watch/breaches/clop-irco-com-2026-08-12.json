@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f4156140-51b1-4633-ae57-cb66154c6c15",
+  "description": "Data exfiltrated included the following: Cad-files, PDF drawings, diagrams, product presentations, specifications, manuals and instructions Total size: 5564Gb Revenue: $7,800,000,000",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Cl0p"],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

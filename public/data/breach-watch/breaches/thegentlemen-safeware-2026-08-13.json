@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a7e64351-c0a2-48ba-9655-1907cbe3b18b",
+  "description": "safewareinc.com Safeware Inc. is a national leader providing safety and security solutions for first responders, schools, and government agencies.\nFor over 40 years, they have supplied advanced protective equipment and public preparedness training across the United States.\nThe company simplifies government purchasing by offering specialized gear through competitive cooperative contract pricing.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0c8c3786-7df4-4577-8063-54924e70b2e2",
+  "description": "Hinman Straub is a full-service law firm located in Albany, New York, offering a comprehensive range of legal and lobbying services. The firm caters to a diverse clientele, including Fortune 500 companies, associations, and local governments, providing expertise in areas such as Labor and Employment, Corporate Law, Real Estate, and Healthcare. With a team of experienced professionals, they guide clients through complex legal matters at various governmental levels, leveraging strong relationships with key decision-makers. Additionally, their public affairs partner, Corning Place Communications, enhances their clients' communication strategies to effectively convey their messages to the public. \nThe company headquarters is located in 121 State Street, Albany, NY 12207, United States. 51-200 Employees",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

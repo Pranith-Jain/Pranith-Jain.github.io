@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/cc60c06f-4fe0-477c-8fbb-2e2805e85c12",
+  "description": "Philadelphia Insurance Companies (phly.com) is a premier national Property/Casualty and Professional Liability insurance carrier that designs",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

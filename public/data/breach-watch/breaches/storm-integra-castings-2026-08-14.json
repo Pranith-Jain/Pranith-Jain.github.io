@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/fcefa5cf-c10d-4ce1-b6bb-f7e498ccf55c",
+  "description": "Integra Castings is an ISO 9001:2015 certified gray and ductile iron foundry that specializes in melting, molding, and core-making a variety of materials. As a division of The CTD Group, they focus on producing customized solutions for clients while adhering to strict quality assurance guidelines. Their capabilities include high production No-Bake lines for castings weighing up to 4,500 lbs and advanced quality control processes. Integra Castings serves industries requiring high-quality iron castings, including those needing specific material grades for structural and high tensile strength applications. \nThe company headquarters is located in 200 Pacific Street, Winkler, MB R6W 0K2, Canada. 51-200 Employees",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

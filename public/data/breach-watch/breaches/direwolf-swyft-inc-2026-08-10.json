@@ -1,0 +1,15 @@
+{
+  "slug": "direwolf-swyft-inc-2026-08-10",
+  "title": "Swyft Inc.",
+  "group": "direwolf",
+  "discovered": "2026-08-10T19:34:50.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Retail Technology &amp; SaaS",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

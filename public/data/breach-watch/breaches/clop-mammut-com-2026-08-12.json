@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "CH",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d2ff1bae-3bfc-47b0-9e3e-66cb282addc1",
+  "description": "Data exfiltrated included the following: .png files, files Windchil Total size: 136Gb Revenue: $281,000,000",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Cl0p"],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

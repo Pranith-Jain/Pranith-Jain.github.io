@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f36b0787-c0c7-40cd-a488-71d3e726b2ff",
+  "description": "[AI generated] Turner and Townsend is a global professional services company headquartered in the United Kingdom. Founded in 1946, it operates in the construction, real estate, infrastructure, and natural resources sectors. The firm provides project management, cost management, and programme management services. It operates in over 50 countries, serving both public and private sector clients across major capital investment programmes worldwide.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["coinbase cartel"],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

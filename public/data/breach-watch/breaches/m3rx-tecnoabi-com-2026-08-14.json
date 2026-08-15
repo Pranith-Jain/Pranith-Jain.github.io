@@ -1,15 +1,15 @@
 {
   "slug": "m3rx-tecnoabi-com-2026-08-14",
   "title": "tecnoabi.com",
-  "group": "M3rx",
-  "discovered": "2026-08-14T00:00:00.000Z",
+  "group": "m3rx",
+  "discovered": "2026-08-14T07:56:05.000Z",
   "category": "ransomware",
   "severity": "high",
-  "country": null,
+  "country": "BR",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/tecnoabi-com-m3rx-2026-08",
+  "description": "Tecnologías de Código Abierto S.L., trading as Tecnoabi, is a Málaga, Spain-based B2B software development firm registered in 2008 that specializes in Java, .NET, and proprietary solutions such as VirtRoom and CMMS software. Located in Málaga TechPark, the company maintains extensive expertise in after-sales management systems and is an official Google Play developer. For more details, visit the official website at tecnoabi.com. Stolen: 300 GB 63,434 Files",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Technology",
+  "references": ["ransomware.live"]
 }

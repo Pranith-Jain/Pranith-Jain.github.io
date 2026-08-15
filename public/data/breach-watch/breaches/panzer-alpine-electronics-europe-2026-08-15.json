@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/05b91110-eac0-4696-9032-50006bc44c54",
+  "description": "Alpine Electronics Europe specializes in the distribution of automotive electronics and audio products. The company offers a range of products and support services tailored for various European markets. Their intended clients include automotive manufacturers and consumers seeking high-quality audio solutions. Alpine is committed to providing innovative technology and exceptional customer service across multiple countries in Europe.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

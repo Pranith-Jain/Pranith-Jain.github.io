@@ -7,9 +7,9 @@
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d8ae582d-ed9a-41fa-9dbe-5e3bdb4ad4ed",
+  "description": "Redacted entry - full company name pending disclosure (FULL DATA TIMER active).",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

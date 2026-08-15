@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d4519f04-39d7-4a60-920d-cde8abbb7299",
+  "description": "DAISEN is a leading manufacturer specializing in greenhouses, vinyl houses, and daylight architecture.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }
