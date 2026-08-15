@@ -391,6 +391,26 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   const cache = caches.default;
   const cacheReq = new Request(GLOBAL_PULSE_CACHE);
 
+  // ── Self-heal nudge (no cron) ──────────────────────────────────────────
+  // When the payload we're about to serve is stale, ask the GlobalPulse DO to
+  // run an on-demand full rebuild (in-process, 30s CPU budget — a browser
+  // `?force=1` can't survive the stateless 10ms cap, the DO can). That
+  // rebuild populates every layer — including the external-fetcher ones the
+  // sync build skips — so visitor traffic drives freshness instead of the
+  // hourly/30-min crons. The DO throttles to ~1 rebuild/8 min and skips when
+  // its data is already fresh, so this is a cheap no-op on warm traffic.
+  const maybeNudgeDo = (p: { generated_at?: string } | null | undefined): void => {
+    if (!c.env.GLOBAL_PULSE_DO || !p?.generated_at) return;
+    const ageMs = Date.now() - new Date(p.generated_at).getTime();
+    if (ageMs < 10 * 60_000) return;
+    const doId = c.env.GLOBAL_PULSE_DO.idFromName('global');
+    c.executionCtx.waitUntil(
+      c.env.GLOBAL_PULSE_DO.get(doId)
+        .fetch(new Request('https://global-pulse-do.internal/rebuild-if-stale', { method: 'POST' }))
+        .catch(() => {})
+    );
+  };
+
   if (!force) {
     const cached = await cache.match(cacheReq);
     if (cached) return new Response(cached.body, cached);
@@ -402,6 +422,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const cachedBody = await routeCacheGet<unknown>(GP_RESPONSE_KEY);
     if (cachedBody) {
       const kvBody = JSON.stringify(cachedBody);
+      maybeNudgeDo(cachedBody as { generated_at?: string } | null);
       c.executionCtx.waitUntil(
         cache.put(cacheReq, new Response(kvBody, { headers: { 'content-type': 'application/json' } })).catch(() => {})
       );
@@ -474,6 +495,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   ) {
     payload = lastGood;
   }
+
+  // Self-heal: a stale served payload (cold colo, or the crons lagging)
+  // kicks the DO to rebuild on-demand so the next poll/WS push is live.
+  maybeNudgeDo(payload);
 
   const json = JSON.stringify(payload);
   const response = new Response(json, {
