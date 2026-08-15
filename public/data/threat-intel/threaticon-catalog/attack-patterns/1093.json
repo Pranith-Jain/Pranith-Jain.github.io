@@ -1,0 +1,9 @@
+{
+  "id": 1093,
+  "name": "Local Execution of Code",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary installs and executes malicious code on the target system in an effort to achieve a negative technical impact. Examples include rootkits, ransomware, spyware, adware, and others.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1093"
+}

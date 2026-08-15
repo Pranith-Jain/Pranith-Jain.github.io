@@ -460,6 +460,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'ThreaticonFeeds',
         badge: 'live',
       },
+      {
+        path: '/threatintel/feeds/dphish',
+        tabId: 'dphish',
+        label: 'dPhish Phishing Feed',
+        desc: 'Public dPhish TAXII 2.1 phishing indicator feed - malicious domains, phishing URLs, sender IPs, phone numbers, and attachment rules with active/revoked status.',
+        compVar: 'DphishFeeds',
+        badge: 'live',
+      },
     ],
   },
   {

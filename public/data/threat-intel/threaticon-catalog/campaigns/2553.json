@@ -1,11 +1,11 @@
 {
   "id": 2553,
   "name": "OSINT - Fareit Spam: Rocking Out to a New File Type",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 24, 2016",
+  "lastSeen": "Nov 24, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #927 (58369d20-cb08-4d10-9e08-45e802de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2553"

@@ -1,0 +1,9 @@
+{
+  "id": 2188,
+  "name": "T1098 - Use of credentials brute force",
+  "techniqueId": "T1098",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2188"
+}

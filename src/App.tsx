@@ -238,6 +238,7 @@ const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const FeedSources = lazy(() => import('./pages/threatintel/FeedSources'));
 const ThreatClusterFeeds = lazy(() => import('./pages/threatintel/ThreatCluster'));
 const ThreaticonFeeds = lazy(() => import('./pages/threatintel/Threaticon'));
+const DphishFeeds = lazy(() => import('./pages/threatintel/Dphish'));
 const ThreatClusterEntities = lazy(() => import('./pages/threatintel/ThreatClusterEntities'));
 
 const GithubAdvisories = lazy(() => import('./pages/threatintel/GithubAdvisories'));
@@ -630,6 +631,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
     Component: ThreatClusterEntities,
   },
   { path: '/threatintel/feeds/threaticon', Component: ThreaticonFeeds },
+  { path: '/threatintel/feeds/dphish', Component: DphishFeeds },
   { path: '/threatintel/feeds/threatfeeds', Component: ThreatFeeds },
   { path: '/threatintel/feeds/mythreatintel', Component: MyThreatIntel },
   { path: '/threatintel/infra/cloud', Component: CloudThreatLandscape },

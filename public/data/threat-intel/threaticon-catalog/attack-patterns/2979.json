@@ -1,0 +1,9 @@
+{
+  "id": 2979,
+  "name": "T1036 – Masquerading",
+  "techniqueId": "T1036",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2979"
+}

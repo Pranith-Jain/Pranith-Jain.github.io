@@ -3,9 +3,9 @@
   "name": "thegentlemen: BRC Biotechnology",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 14, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: brcbiotech.com | Infostealer data confirmed. | brcbiotech.com BRC Biotechnology is a biopharmaceutical contract development and manufacturing company that strictly adheres to GMP standards from China, the USA, and Europe. It holds certifications including EU GMP QP compliance, US FDA FEI registration, and ISO 9001:2015, offering professional risk assessments, customized biomanufacturing solutions, and welcoming regular client audits. | Source: https://www.ransomware.live/id/QlJDIEJpb3RlY2hub2xvZ3lAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/793"

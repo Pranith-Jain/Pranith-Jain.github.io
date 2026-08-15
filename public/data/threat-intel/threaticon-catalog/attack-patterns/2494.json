@@ -1,0 +1,9 @@
+{
+  "id": 2494,
+  "name": "T1053.005 - Persistence: Rootkit Installation",
+  "techniqueId": "T1053",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2494"
+}

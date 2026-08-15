@@ -3,10 +3,10 @@
   "name": "akira: Mooers Immigration",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 24, 2026",
+  "lastSeen": "Mar 24, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: mooers.net | Infostealer data confirmed. | Mooers Immigration is dedicated to the practice of immigration an d nationality law, offering services such as employment-based and family-based immigration, naturalization, and strategic complian ce planning. The firm focuses on delivering cost-effective soluti ons to help individuals and families achieve their American dream s and navigate complex immigration processes. We will upload 138gb of corporate data soon. Lots of client docum ents (passports (LIONEL MESSI, LUCIANO ACOSTA passports and visas and other interesting documents), DLs, SSNs, visas, credit cards and so on), financials, confidential docs, NDAs, etc. | Source: https://www.ransomware.live/id/TW9vZXJzIEltbWlncmF0aW9uQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1364"
 }

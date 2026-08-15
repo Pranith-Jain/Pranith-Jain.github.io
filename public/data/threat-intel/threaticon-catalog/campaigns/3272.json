@@ -1,11 +1,11 @@
 {
   "id": 3272,
   "name": "OSINT - TWO BYTES TO $951M (SWIFT payment system abuse)",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 25, 2016",
+  "lastSeen": "Apr 25, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #472 (571de51c-4f04-491f-b34a-4567950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3272"

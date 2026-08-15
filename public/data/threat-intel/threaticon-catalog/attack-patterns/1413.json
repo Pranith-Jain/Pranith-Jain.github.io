@@ -1,0 +1,9 @@
+{
+  "id": 1413,
+  "name": "T1486.002 - Exfiltration over cloud services",
+  "techniqueId": "T1486",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1413"
+}

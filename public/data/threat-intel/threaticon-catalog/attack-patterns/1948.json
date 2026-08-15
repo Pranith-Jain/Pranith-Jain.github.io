@@ -1,0 +1,9 @@
+{
+  "id": 1948,
+  "name": "T1595 Network Access Persistence Malware",
+  "techniqueId": "T1595",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1948"
+}

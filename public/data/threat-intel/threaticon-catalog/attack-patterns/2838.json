@@ -1,0 +1,9 @@
+{
+  "id": 2838,
+  "name": "T1077 - Windows Admin Shares (Remote Services)",
+  "techniqueId": "T1077",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2838"
+}

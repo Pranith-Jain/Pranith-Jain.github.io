@@ -3,9 +3,9 @@
   "name": "play: DFW Aero Mechanix",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Feb 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to play. | Country: US | Sector: Transportation/Logistics | Website: www.dfwaero.com | United States | Source: https://www.ransomware.live/id/REZXIEFlcm8gTWVjaGFuaXhAcGxheQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1760"

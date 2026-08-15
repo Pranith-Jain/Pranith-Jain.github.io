@@ -1,11 +1,11 @@
 {
   "id": 3244,
   "name": "Analysis of Storm-0558 techniques for unauthorized email access",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 16, 2023",
+  "lastSeen": "Jul 16, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #418 (45ab9141-de79-4492-974b-1504bd6dfa13).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3244"

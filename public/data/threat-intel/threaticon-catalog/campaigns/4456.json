@@ -3,9 +3,9 @@
   "name": "pear: Spector and Lenz, PC",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 30, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: spectorandlenz.com | Infostealer data confirmed. | Firm provides legal representation to clients facing disability, injury, or serious illness | Source: https://www.ransomware.live/id/U3BlY3RvciBhbmQgTGVueiwgUENAcGVhcg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4456"

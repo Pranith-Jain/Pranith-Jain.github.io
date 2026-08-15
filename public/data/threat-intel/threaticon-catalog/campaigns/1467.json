@@ -3,9 +3,9 @@
   "name": "thegentlemen: Cerio",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 19, 2026",
+  "lastSeen": "Mar 19, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: TW | Sector: Technology | Website: cerio.io | Infostealer data confirmed. | cerio.io zoominfo.com/c/rockport-networks-inc/1330256755 Cerio is an accelerated computing platform focused on next-generation data center infrastructure for AI workloads . The company specialises in disaggregated infrastructure — decoupling compute, memory, and storage resources beyond a single PCIe domain to enable elastic capacity and optimized data movement at scale . Their approach aims to eliminate the \"capacity trap\" of traditional tightly integrated systems, making AI infrastructure more agile and efficient | Source: https://www.ransomware.live/id/Q2VyaW9AdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1467"

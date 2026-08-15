@@ -1,0 +1,9 @@
+{
+  "id": 1960,
+  "name": "T1059.003 - Command and Control via C2 Beaconing (Cobalt Strike Beacons)",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1960"
+}

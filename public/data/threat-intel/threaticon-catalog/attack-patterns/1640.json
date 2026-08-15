@@ -1,0 +1,9 @@
+{
+  "id": 1640,
+  "name": "T1086 - Non-Default Port HTTP Request",
+  "techniqueId": "T1086",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1640"
+}

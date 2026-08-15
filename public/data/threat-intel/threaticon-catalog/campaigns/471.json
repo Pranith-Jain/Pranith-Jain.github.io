@@ -3,9 +3,9 @@
   "name": "payload: Rural Municipality of Gimli",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payload. | Country: CA | Sector: Public Sector | Website: gimli.ca | Infostealer data confirmed. | The Rural Municipality of Gimli is a local government district in the province of Manitoba, Canada. Situated on the western shore of Lake Winnipeg, it administers a region known for its Icelandic heritage, recreational tourism, and lakefront economy. Gimli serves as both a residential community and a cultural hub for the Interlake area. | Press: https://www.cbc.ca/news/canada/manitoba/gimli-cyberattack-9.7181371 | Source: https://www.ransomware.live/id/UnVyYWwgTXVuaWNpcGFsaXR5IG9mIEdpbWxpQHBheWxvYWQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/471"

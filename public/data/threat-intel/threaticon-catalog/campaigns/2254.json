@@ -1,11 +1,11 @@
 {
   "id": 2254,
   "name": "OSINT - Most prevalent Android ransomware in the West arrives in Japan",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 7, 2016",
+  "lastSeen": "Apr 7, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #388 (570611e3-9f58-493b-8760-3510950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2254"

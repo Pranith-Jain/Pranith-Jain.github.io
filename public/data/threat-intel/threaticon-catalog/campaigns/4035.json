@@ -3,9 +3,9 @@
   "name": "akira: Function Enterprises",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 22, 2026",
+  "lastSeen": "May 22, 2026",
+  "added": "May 26, 2026",
   "description": "Ransomware attack attributed to akira. | Sector: Not Found | Function Enterprises, Inc. is a trusted roofing company based in Springfield, VA, offering a ra nge of services including roofing construction, commercial roofing, infrared inspection, and du mpster rentals. They prioritize client trust and satisfaction, providing a free one-hour consul tation for new clients. We will upload corporate data soon. Employee personal information (passports, DLs), contracts a nd agreements, clients info, financials, projects, etc. | Source: https://www.ransomware.live/id/RnVuY3Rpb24gRW50ZXJwcmlzZXNAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4035"

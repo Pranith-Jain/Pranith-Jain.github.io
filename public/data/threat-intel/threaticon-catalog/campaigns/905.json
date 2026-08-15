@@ -3,9 +3,9 @@
   "name": "ALP-001: inatech.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to ALP-001. | Country: GB | Sector: Technology | Website: inatech.com | Infostealer data confirmed. | Country: United Kingdom Revenue: $31.6 Million Storage: 51GB Description: Inatech is a cloud provider of Energy Trading and Risk Management (ETRM) and fuel management software, focusing on automating processes in the energy sector ** WE UPLOADED 61-File As Samples ** ** You Can Download Samples From Leak Page ** Deadline: 2026-04-18 17:30:58 | Source: https://www.ransomware.live/id/aW5hdGVjaC5jb21AQUxQLTAwMQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/905"

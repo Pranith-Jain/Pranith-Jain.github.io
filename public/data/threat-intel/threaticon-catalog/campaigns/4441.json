@@ -3,9 +3,9 @@
   "name": "shinyhunters: Ingram Content Group, Inc.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Business Services | Website: ingramcontent.com | Infostealer data confirmed. | The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Updated: 02 July 2026 | SHA256: f3c961b709bcff8f70dbb8361116831d2c86361754a09658115b9efed39308e5 | Source: https://www.ransomware.live/id/SW5ncmFtIENvbnRlbnQgR3JvdXAsIEluYy5Ac2hpbnlodW50ZXJz",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4441"

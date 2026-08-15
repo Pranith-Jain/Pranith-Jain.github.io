@@ -1,0 +1,9 @@
+{
+  "id": 1069,
+  "name": "Rogue Integration Procedures",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An attacker alters or establishes rogue processes in an integration facility in order to insert maliciously altered components into the system. The attacker would then supply the malicious components. This would allow for malicious disruption or additional compromise when the system is deployed.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1069"
+}

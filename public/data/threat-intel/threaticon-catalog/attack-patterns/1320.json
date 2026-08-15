@@ -1,0 +1,9 @@
+{
+  "id": 1320,
+  "name": "T1078.001 -ansomware: Ransomware Execution",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1320"
+}

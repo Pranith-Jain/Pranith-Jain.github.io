@@ -1,11 +1,11 @@
 {
   "id": 2232,
   "name": "Threat Analysis: MSI - Masquerading as a Software Installer",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 7, 2022",
+  "lastSeen": "Dec 7, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #340 (d917ff47-81e7-40fe-826a-b6ffecf3aa26).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2232"

@@ -1,11 +1,11 @@
 {
   "id": 2551,
   "name": "OSINT - New Carbanak / Anunak Attack Methodology",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 16, 2016",
+  "lastSeen": "Nov 16, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #923 (582c134f-c358-455c-935e-4598950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2551"

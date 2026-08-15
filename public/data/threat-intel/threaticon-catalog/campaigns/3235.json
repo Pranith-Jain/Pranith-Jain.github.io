@@ -1,11 +1,11 @@
 {
   "id": 3235,
   "name": "CrowdStrike Falcon Platform Detects and Prevents Active Intrusion Campaign Targeting 3CXDesktopApp Customers",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 29, 2023",
+  "lastSeen": "Mar 29, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #403 (2d2af096-edea-4dde-8be3-0224205b1074).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3235"

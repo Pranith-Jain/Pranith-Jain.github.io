@@ -3,9 +3,9 @@
   "name": "thegentlemen: Greenpharma",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 19, 2026",
+  "lastSeen": "Apr 15, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: BR | Sector: Healthcare | Website: greenpharma.com.br | Infostealer data confirmed. | greenpharma.com.br zoominfo.com/c/greenpharma-química-e-farmacêutica-eireli/558034818 Greenpharma Química & Farmaceutica is a Brazilian pharmaceutical manufacturer founded in 1989 in Anapolis, Goiás, acquired in 1995 by industrial pharmacist Eduardo Gonçalves. The company produces generic and OTC medicines, distributes across all Brazilian states through pharmacy and hospital channels, and operates its own certified pharmaceutical equivalence laboratory (EQFAR-21) accredited by ANVISA | Source: https://www.ransomware.live/id/R3JlZW5waGFybWFAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/636"

@@ -1,0 +1,9 @@
+{
+  "id": 1240,
+  "name": "DHCP Spoofing",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An adversary masquerades as a legitimate Dynamic Host Configuration Protocol (DHCP) server by spoofing DHCP traffic, with the goal of redirecting network traffic or denying service to DHCP.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1240"
+}

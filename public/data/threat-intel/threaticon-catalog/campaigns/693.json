@@ -3,10 +3,10 @@
   "name": "dragonforce: Empower Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 16, 2026",
+  "lastSeen": "Apr 15, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: goempowergroup.com | Infostealer data confirmed. | Empower Group has positioned itself in this space as a hub for it's clients to access these different types of funding products. Empower Group has leveraged partnerships with the top lenders in the space to better service Empower Group's client's specific needs. Through Empower Group's relationships, with access to more than 40 private finance institutions, Empower Group prides ourselves at being able to meet Empower Group's clients right where they are to service their specific needs for working capital. Empower Group is committed to continually growing and evolving with the industry as a service to Empower Group's partners; both business owners and lenders alike. | Source: https://www.ransomware.live/id/RW1wb3dlciBHcm91cEBkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/693"
 }

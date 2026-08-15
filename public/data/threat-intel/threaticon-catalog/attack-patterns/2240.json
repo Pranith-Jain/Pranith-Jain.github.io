@@ -1,0 +1,9 @@
+{
+  "id": 2240,
+  "name": "T1043.004",
+  "techniqueId": "T1043",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2240"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 712,
+  "name": "T1140: Deobfuscate/Decode Files or Information",
+  "techniqueId": "T1140",
+  "added": "May 18, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/712"
+}

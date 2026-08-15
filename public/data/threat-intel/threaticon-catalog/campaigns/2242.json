@@ -1,11 +1,11 @@
 {
   "id": 2242,
   "name": "Dossier Center Investigation: Prigozhin's Cyber ​​Troops",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 23, 2023",
+  "lastSeen": "Mar 23, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #367 (5c94adad-f4e8-4410-812a-604ffa9137a7).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2242"

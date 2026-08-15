@@ -1,0 +1,9 @@
+{
+  "id": 2844,
+  "name": "T1059.003: Command & Scripting Interpreter ‑ PowerShell",
+  "techniqueId": "T1059",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2844"
+}

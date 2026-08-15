@@ -3,9 +3,9 @@
   "name": "dragonforce: pridesol.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 26, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: BD | Sector: Technology | Website: pridesol.com | Infostealer data confirmed. | Pride Solvents & Chemical Co. is an authorized distributor of the largest and most reputable global manufacturers of chemical products and solvents. This list includes companies such as Dow, Exxon, BASF, Sasol, ADM, Penreco, P&G, and Stepan—just to name a few. With an advanced production facility, a fully equipped analytical laboratory, extensive warehouse inventory, and a modern transportation fleet, the company is able to provide an unmatched level of service to customers across all industries—from the state of Maine to Virginia, and westward as far as Ohio. | Source: https://www.ransomware.live/id/cHJpZGVzb2wuY29tQGRyYWdvbmZvcmNl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1329"

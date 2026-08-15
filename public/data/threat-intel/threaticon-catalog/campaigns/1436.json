@@ -3,9 +3,9 @@
   "name": "akira: INP Schweiz",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 20, 2026",
+  "lastSeen": "Feb 25, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: CH | Sector: Energy | Website: inp-e.ch | Infostealer data confirmed. | INP Schweiz AG partners with leading companies in the energy gene ration and transmission sector, providing comprehensive engineeri ng services that include concept development, planning, commissio ning, and testing. We will upload 9gb of corporate data soon. Employee personal info rmation (passports, DLs and os on), HR files, financials, client files, contracts with Siemens and others, etc. | Press: https://www.inside-it.ch/cyberangriff-auf-inp-schweiz-20260325 | Source: https://www.ransomware.live/id/SU5QIFNjaHdlaXpAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1436"

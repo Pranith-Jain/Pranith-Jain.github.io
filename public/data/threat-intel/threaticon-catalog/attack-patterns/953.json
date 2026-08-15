@@ -1,0 +1,9 @@
+{
+  "id": 953,
+  "name": "Magnetic Strip Card Brute Force Attacks",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "An adversary analyzes the data on two or more magnetic strip cards and is able to generate new cards containing valid sequences that allow unauthorized access and/or impersonation of individuals.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/953"
+}

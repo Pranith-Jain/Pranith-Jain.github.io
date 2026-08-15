@@ -1,0 +1,9 @@
+{
+  "id": 2589,
+  "name": "T1040 - Exfiltration over C2",
+  "techniqueId": "T1040",
+  "added": "Aug 1, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2589"
+}

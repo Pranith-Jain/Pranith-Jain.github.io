@@ -1,0 +1,9 @@
+{
+  "id": 1667,
+  "name": "T1559.001: Component Object Model",
+  "techniqueId": "T1559",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1667"
+}

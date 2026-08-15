@@ -1,0 +1,9 @@
+{
+  "id": 1604,
+  "name": "T1110.003: Password Spraying",
+  "techniqueId": "T1110",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1604"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2002,
+  "name": "T1485 - Encrypting Data on the Device",
+  "techniqueId": "T1485",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2002"
+}

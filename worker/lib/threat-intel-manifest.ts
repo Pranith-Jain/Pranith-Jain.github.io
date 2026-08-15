@@ -521,6 +521,61 @@ export interface TiThreaticonMapBody {
   sectors: { sector: string; count: number }[];
 }
 
+// ─── dPhish phishing feed (dphish.com, TAXII 2.1) ───────────────────────
+//
+// A separate manifest tree under /data/threat-intel/dphish/ with its own
+// lazy index: the public dPhish TAXII 2.1 collection of phishing
+// indicators (malicious domains, phishing URLs, sender IPs, phone
+// numbers, attachment rules). Mirrors the darknet/threatcluster pattern
+// (own sync + build scripts, read through env.ASSETS).
+
+export type DphishCategory = 'domain' | 'ipv4' | 'ipv6' | 'url' | 'phone' | 'file' | 'email' | 'other';
+
+export interface DphishIndexEntry {
+  slug: string;
+  stixId: string | null;
+  value: string | null;
+  category: DphishCategory;
+  mainObservableType: string | null;
+  active: boolean;
+  revoked: boolean;
+  confidence: number | null;
+  score: number | null;
+  created: string | null;
+  modified: string | null;
+  validUntil: string | null;
+  description: string | null;
+  sizeBytes: number;
+}
+
+export interface DphishIndex {
+  source: string;
+  sourceUrl: string;
+  collectionId: string;
+  collectionUrl: string;
+  description: string;
+  license: string;
+  syncedAt: string;
+  counts: {
+    indicators: number;
+    active: number;
+    revoked: number;
+    byCategory: Record<string, number>;
+  };
+  indicators: DphishIndexEntry[];
+}
+
+export interface DphishIndicatorBody extends DphishIndexEntry {
+  name: string | null;
+  observableValues: { type: string; value: string }[];
+  pattern: string | null;
+  patternType: string | null;
+  validFrom: string | null;
+  labels: string[];
+  indicatorTypes: string[];
+  detection: boolean | null;
+}
+
 const DATA_PREFIX = '/data/threat-intel';
 const MAX_BODY_CACHE = 200;
 
@@ -542,6 +597,7 @@ const tcExploitCache: BodyCache<TcExploitBody> = { map: new Map(), hits: 0, miss
 const tcVictimCache: BodyCache<TcVictimBody> = { map: new Map(), hits: 0, misses: 0 };
 const tcEntityCache: BodyCache<TcEntityBody> = { map: new Map(), hits: 0, misses: 0 };
 const tiActorCache: BodyCache<TiThreaticonActorBody> = { map: new Map(), hits: 0, misses: 0 };
+const dphishBodyCache: BodyCache<DphishIndicatorBody> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: TiIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedKev: TiKevEntry[] | null = null;
@@ -557,6 +613,8 @@ let cachedTiIndexAt: number | null = null;
 let cachedTiMalware: TiThreaticonMalwareBody | null = null;
 let cachedTiCoverage: TiThreaticonCoverageBody | null = null;
 let cachedTiMap: TiThreaticonMapBody | null = null;
+let cachedDphishIndex: DphishIndex | null = null;
+let cachedDphishIndexAt: number | null = null;
 
 function safeFilename(slug: string): string {
   return slug.replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
@@ -930,6 +988,34 @@ export async function loadThreaticonIndicators(
   return recordHit(cache, key, body);
 }
 
+// ─── dPhish loaders ──────────────────────────────────────────────────
+
+export async function loadDphishIndex(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<DphishIndex> {
+  if (cachedDphishIndex && !opts.forceRefresh) return cachedDphishIndex;
+  const idx = await fetchJson<DphishIndex>(assets, `${DATA_PREFIX}/dphish/index.json`);
+  if (!idx) {
+    throw new Error(
+      `dPhish manifest not found at ${DATA_PREFIX}/dphish/index.json — ` +
+        'did the build run? Run `node scripts/sync-dphish.mjs && node scripts/build-dphish.mjs`.'
+    );
+  }
+  cachedDphishIndex = idx;
+  cachedDphishIndexAt = Date.now();
+  return idx;
+}
+
+export async function getDphishIndicator(assets: Fetcher, slug: string): Promise<DphishIndicatorBody | null> {
+  const key = slug.toLowerCase();
+  const hit = trackHit(dphishBodyCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<DphishIndicatorBody>(
+    assets,
+    `${DATA_PREFIX}/dphish/indicators/${safeFilename(key)}.json`
+  );
+  if (!body) return null;
+  return recordHit(dphishBodyCache, key, body);
+}
+
 export interface TiListCatalogOptions {
   keyword?: string;
   limit?: number;
@@ -986,6 +1072,40 @@ export function threaticonIndicatorTypes(
   idx: TiThreaticonCatalogIndex | null
 ): Record<string, { count: number; chunks: number }> {
   return idx?.sections?.indicators?.types ?? {};
+}
+
+// ─── dPhish filter helpers ──────────────────────────────────────────────
+
+export interface TiListDphishOptions {
+  category?: string;
+  /** Only indicators that are live right now (not revoked, within validity window if set). */
+  activeOnly?: boolean;
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterDphishIndicators(idx: DphishIndex, opts: TiListDphishOptions = {}): DphishIndexEntry[] {
+  const { category, activeOnly, keyword, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const now = Date.now();
+  const out: DphishIndexEntry[] = [];
+  for (const i of idx.indicators) {
+    if (category && i.category !== category) continue;
+    if (activeOnly) {
+      if (i.revoked) continue;
+      if (i.validUntil) {
+        const until = Date.parse(i.validUntil);
+        if (!isNaN(until) && until < now) continue;
+      }
+    }
+    if (needle) {
+      const hay = `${i.value ?? ''} ${i.slug} ${i.mainObservableType ?? ''} ${i.description ?? ''}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(i);
+    if (out.length >= limit) break;
+  }
+  return out;
 }
 
 // ─── Filter helpers ─────────────────────────────────────────────────────
@@ -1504,6 +1624,11 @@ export function tiCacheStats(): {
       indicatorChunks: { size: number; hits: number; misses: number };
     };
   };
+  dphish: {
+    indexLoaded: boolean;
+    indexAgeMs: number | null;
+    bodies: { size: number; hits: number; misses: number };
+  };
 } {
   return {
     indexLoaded: cachedIndex !== null,
@@ -1556,6 +1681,11 @@ export function tiCacheStats(): {
           { size: 0, hits: 0, misses: 0 }
         ),
       },
+    },
+    dphish: {
+      indexLoaded: cachedDphishIndex !== null,
+      indexAgeMs: cachedDphishIndexAt ? Date.now() - cachedDphishIndexAt : null,
+      bodies: { size: dphishBodyCache.map.size, hits: dphishBodyCache.hits, misses: dphishBodyCache.misses },
     },
   };
 }
@@ -1612,6 +1742,10 @@ export function _resetTiCacheForTests(): void {
     c.map.clear();
     c.hits = c.misses = 0;
   }
+  dphishBodyCache.map.clear();
+  dphishBodyCache.hits = dphishBodyCache.misses = 0;
+  cachedDphishIndex = null;
+  cachedDphishIndexAt = null;
 }
 
 export { severityFromScore };

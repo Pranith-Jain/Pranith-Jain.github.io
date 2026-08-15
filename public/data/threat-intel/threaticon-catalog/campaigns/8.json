@@ -1,11 +1,11 @@
 {
   "id": 8,
   "name": "2026-02-04 (Wednesday): Contagious Interview Campaign Activity",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 4, 2026",
+  "lastSeen": "Feb 4, 2026",
+  "added": "May 3, 2026",
   "description": "2026-02-04 (Wednesday): Contagious Interview Campaign Activity. References: https://www.linkedin.com/posts/unit42_contagiousinterview-invisibleferret-activity-7425286615109132290-VUog/, https://x.com/Unit42_Intel/status/2019520975985840599",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/8"

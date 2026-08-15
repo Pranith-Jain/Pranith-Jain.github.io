@@ -3,9 +3,9 @@
   "name": "stormous: monoprix.tn",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 28, 2026",
+  "lastSeen": "Jun 28, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to stormous. | Country: TN | Sector: Consumer Services | Website: monoprix.tn | Infostealer data confirmed. | Data description: Pending update | Source: https://www.ransomware.live/id/bW9ub3ByaXgudG5Ac3Rvcm1vdXM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4505"

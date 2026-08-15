@@ -68,6 +68,9 @@ import {
   filterThreaticonCatalog,
   filterThreaticonIndicators,
   threaticonIndicatorTypes,
+  loadDphishIndex,
+  getDphishIndicator,
+  filterDphishIndicators,
   type TiSeverity,
   type TiIocIndexEntry,
   type TcEntityType,
@@ -870,6 +873,68 @@ export function bridgeMcpTools(
           limit: (args.limit as number) ?? 100,
         }),
       };
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  DPHISH PHISHING FEED — ti_*dphish* (dphish.com, TAXII 2.1)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'ti_list_dphish',
+    description:
+      'List phishing indicators from the dPhish public TAXII 2.1 collection (dphish.com): malicious domains, phishing URLs, sender IPs, phone numbers, and attachment rules — with active/revoked status, category, confidence, score, and validity window.',
+    params: [
+      {
+        name: 'category',
+        type: 'string',
+        description: 'Filter by category: domain, ipv4, ipv6, url, phone, file, email, other',
+        required: false,
+      },
+      {
+        name: 'activeOnly',
+        type: 'boolean',
+        description: 'Only indicators live right now (not revoked, within validity window)',
+        required: false,
+      },
+      { name: 'keyword', type: 'string', description: 'Substring match against value / description', required: false },
+      { name: 'limit', type: 'number', description: 'Max indicators (default 100, max 1000)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadDphishIndex(assets);
+      const indicators = filterDphishIndicators(idx, {
+        category: args.category as string | undefined,
+        activeOnly: args.activeOnly as boolean | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 100,
+      });
+      return {
+        source: idx.source,
+        sourceUrl: idx.sourceUrl,
+        syncedAt: idx.syncedAt,
+        counts: idx.counts,
+        returned: indicators.length,
+        indicators,
+      };
+    },
+  });
+
+  add({
+    name: 'ti_get_dphish_indicator',
+    description:
+      'Return the full dPhish indicator body for one slug: STIX id, observable value, category, pattern (STIX or YARA), description, dates, validity window, revoked status, confidence, score, labels, indicator types.',
+    params: [
+      {
+        name: 'slug',
+        type: 'string',
+        description: 'Indicator slug (lowercased, e.g. "185.225.19.240-59c41c") from ti_list_dphish',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getDphishIndicator(assets, args.slug as string);
     },
   });
 

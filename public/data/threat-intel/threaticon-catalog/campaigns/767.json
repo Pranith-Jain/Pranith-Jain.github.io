@@ -3,9 +3,9 @@
   "name": "lockbit5: mesto-jemnice.cz",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: CZ | Sector: Public Sector | Website: mesto-jemnice.cz | Infostealer data confirmed. | Historie města Jemnice Město Jemnice je správním, hospodářským a kulturním střediskem kraje mezi Da... | Source: https://www.ransomware.live/id/bWVzdG8tamVtbmljZS5jekBsb2NrYml0NQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/767"

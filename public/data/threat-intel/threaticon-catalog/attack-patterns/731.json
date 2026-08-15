@@ -1,0 +1,9 @@
+{
+  "id": 731,
+  "name": "JSON Hijacking (aka JavaScript Hijacking)",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. An attacker targets a system that uses JavaScript Object Notation (JSON) as a transport mechanism between the client and the server (common in Web 2.0 systems using AJAX) to steal possibly confidential information transmitted from the server back to the client inside the JSON object by taking advantage of the loophole in the browser's Same Origin Policy that does not prohibit JavaScript from one website to be included and executed in the context of another website.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/731"
+}

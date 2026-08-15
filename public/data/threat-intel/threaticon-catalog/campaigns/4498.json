@@ -3,9 +3,9 @@
   "name": "payload: Villea Hotels in AttanaHo",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 29, 2026",
+  "lastSeen": "Jun 29, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to payload. | Sector: Hospitality and Tourism | [AI generated] N/A | Source: https://www.ransomware.live/id/VmlsbGVhIEhvdGVscyBpbiBBdHRhbmFIb0BwYXlsb2Fk",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4498"

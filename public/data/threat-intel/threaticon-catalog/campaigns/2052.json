@@ -1,11 +1,11 @@
 {
   "id": 2052,
   "name": "Malware used in the Cyberespionage against RUAG",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 23, 2016",
+  "lastSeen": "May 23, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #68 (574403bc-df24-4575-a198-04cac0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2052"

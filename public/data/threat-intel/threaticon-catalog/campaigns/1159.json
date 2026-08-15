@@ -3,9 +3,9 @@
   "name": "everest: PT Brantas Abipraya",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 31, 2026",
+  "lastSeen": "Mar 31, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to everest. | Country: ID | Sector: Construction | Website: brantas-abipraya.co.id | Infostealer data confirmed. | [AI generated] PT Brantas Abipraya is a state-owned Indonesian construction company. It was established in 1980 with the main objective to develop water infrastructure including dams, irrigation systems, and hydroelectric power plants. In recent years, the company has expanded its scope to cover other construction works such as airports, roads, bridges, buildings, and other civil infrastructure projects. | Source: https://www.ransomware.live/id/UFQgQnJhbnRhcyBBYmlwcmF5YUBldmVyZXN0",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1159"

@@ -3,9 +3,9 @@
   "name": "akira: Wills Point Chevrolet",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 13, 2026",
+  "lastSeen": "Mar 13, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Consumer Services | Website: willspointchevrolet.com | Infostealer data confirmed. | Wills Point Chevrolet is a dealership located in Wills Point, Tex as, serving clients from Forney, Mineola, and Terrell. They offer a wide selection of new and pre-owned Chevrolet vehicles, includ ing electric models, along with financing options and certified s ervice. We will upload corporate data soon. Lots of scanned personal empl oyee docs (passports, Dls, w9 forms, bank statements and other do cs), financials, various agreements and so on. | Source: https://www.ransomware.live/id/V2lsbHMgUG9pbnQgQ2hldnJvbGV0QGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1601"

@@ -1,0 +1,9 @@
+{
+  "id": 928,
+  "name": "ICMP Error Message Quoting Probe",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Medium. An adversary uses a technique to generate an ICMP Error message (Port Unreachable, Destination Unreachable, Redirect, Source Quench, Time Exceeded, Parameter Problem) from a target and then analyze the amount of data returned or \"Quoted\" from the originating request that generated the ICMP error message.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/928"
+}

@@ -1,11 +1,11 @@
 {
   "id": 2203,
   "name": "APT Actors Exploiting Fortinet Vulnerabilities to Gain Access for Malicious Activity",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 27, 2021",
+  "lastSeen": "May 27, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #260 (98c0be2f-eadc-4ce5-9072-82ceacaea9c6).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2203"

@@ -1,11 +1,11 @@
 {
   "id": 2932,
   "name": "Remcos RAT New TTPS – Detection & Response",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 29, 2022",
+  "lastSeen": "Aug 29, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1691 (be8c3307-4b09-4ddf-af24-41c2385d8036).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2932"

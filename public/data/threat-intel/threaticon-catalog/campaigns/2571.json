@@ -1,11 +1,11 @@
 {
   "id": 2571,
   "name": "OSINT - 2016 Updates to Shifu Banking Trojan",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 7, 2017",
+  "lastSeen": "Jan 7, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #955 (5870f2f5-5744-4ded-a6f5-469c950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2571"

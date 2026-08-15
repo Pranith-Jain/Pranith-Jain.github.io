@@ -1,11 +1,11 @@
 {
   "id": 3208,
   "name": "Alert (AA23-025A) - Protecting Against Malicious Use of Remote Monitoring and Management Software",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 26, 2023",
+  "lastSeen": "Jan 26, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #345 (7bf1cd5f-1f26-47b9-aed8-0e6275996aa1).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3208"

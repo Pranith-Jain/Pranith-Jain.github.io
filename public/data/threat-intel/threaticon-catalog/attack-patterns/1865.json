@@ -1,0 +1,9 @@
+{
+  "id": 1865,
+  "name": "T1802 - Ransomware",
+  "techniqueId": "T1802",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1865"
+}

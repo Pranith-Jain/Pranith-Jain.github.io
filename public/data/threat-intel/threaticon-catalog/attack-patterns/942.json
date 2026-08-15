@@ -1,0 +1,9 @@
+{
+  "id": 942,
+  "name": "Navigation Remapping To Propagate Malicious Content",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An adversary manipulates either egress or ingress data from a client within an application framework in order to change the content of messages and thereby circumvent the expected application logic.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/942"
+}

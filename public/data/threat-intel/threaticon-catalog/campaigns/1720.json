@@ -3,9 +3,9 @@
   "name": "akira: WEDGE",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 9, 2026",
+  "lastSeen": "Mar 9, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: wedgegroup.com | Infostealer data confirmed. | WEDGE Group specializes in private investments and the management of commercial real estate properties. They offer a range of offi ce spaces in various locations, including Houston, Sugar Land, Au stin, Irving, and McKinney. We will upload 15gb of corporate data soon. Employee passports, D Ls, SSNs, w9, I9 forms. Lots of financial information, investment projects, client information, NDAs, etc. | Source: https://www.ransomware.live/id/V0VER0VAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1720"

@@ -3,9 +3,9 @@
   "name": "akira: Pipestone",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 5, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Energy | ATF Aerospace specializes in aerospace manufacturing and distribution, offering high-quality me chanical and electrical components sourced from leading manufacturers. Their manufacturing capa bilities focus on CNC milling and lathe operations, emphasizing short runs and quick turnaround projects. We will upload 137gb of corporate data soon. Detailed client and employee personal documents (p assports, SSNs, DLs, financial and medical information), DBs with personal info, litigation doc s, contracts and agreements, insurance files, NDAs, etc. | Source: https://www.ransomware.live/id/UGlwZXN0b25lQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1990"

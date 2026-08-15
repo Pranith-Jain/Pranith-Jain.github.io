@@ -1,0 +1,9 @@
+{
+  "id": 1386,
+  "name": "T1594.001 - Compromise certificates",
+  "techniqueId": "T1594",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1386"
+}

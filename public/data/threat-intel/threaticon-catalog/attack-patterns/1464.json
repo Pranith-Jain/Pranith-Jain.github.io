@@ -1,0 +1,9 @@
+{
+  "id": 1464,
+  "name": "T1574.001 -DLL Side-loading:Load Commonly Used Tools",
+  "techniqueId": "T1574",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1464"
+}

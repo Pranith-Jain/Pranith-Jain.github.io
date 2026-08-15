@@ -1,0 +1,9 @@
+{
+  "id": 1869,
+  "name": "T1566.003 - Account Access Removal or Modification",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1869"
+}

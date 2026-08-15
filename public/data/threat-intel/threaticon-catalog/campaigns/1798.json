@@ -3,9 +3,9 @@
   "name": "killsec: yurdriversnetwork",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 6, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to killsec. | Country: US | Sector: Transportation/Logistics | Website: yurdriversnetwork.com | Infostealer data confirmed. | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/eXVyZHJpdmVyc25ldHdvcmtAa2lsbHNlYw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1798"

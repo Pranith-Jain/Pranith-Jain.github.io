@@ -1,0 +1,9 @@
+{
+  "id": 2500,
+  "name": "T1190.001 - Exploit Public-Facing Application (SQL Injection)",
+  "techniqueId": "T1190",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2500"
+}

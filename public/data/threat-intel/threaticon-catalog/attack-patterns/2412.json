@@ -1,0 +1,9 @@
+{
+  "id": 2412,
+  "name": "T1071.001: Use of standard non-secure protocols (SSH, DNS)",
+  "techniqueId": "T1071",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2412"
+}

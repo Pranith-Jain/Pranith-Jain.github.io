@@ -1,0 +1,9 @@
+{
+  "id": 2322,
+  "name": "T1557.001: Exfiltration Over Physical Media",
+  "techniqueId": "T1557",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2322"
+}

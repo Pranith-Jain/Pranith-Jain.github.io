@@ -3,10 +3,10 @@
   "name": "akira: Vacu - Lug",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 18, 2026",
+  "lastSeen": "May 18, 2026",
+  "added": "May 21, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: GB | Sector: Manufacturing | Website: vaculug.com | Infostealer data confirmed. | Founded in 1950, Vaculug is a long-established commercial tyre retreading specialist based in G rantham. Vacu-Lug distributes Westlake light truck tyres, including the WTX1 trailer axle tyre for Max Load application, the WSR 1 steer axle tyre and the WDR 1 drive axle tyre to suit rims of 17.5\" and 19.5\". In addition to supplying a range of Westlake light commercial vehicle tyres , Vacu-Lug's has its own light truck tyre range. We will upload 40gb of corporate data soon. Employee personal information (financial and other docs), contracts and agreements, financials, NDA and other confidential docs. | Source: https://www.ransomware.live/id/VmFjdSAtIEx1Z0Bha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3919"
 }

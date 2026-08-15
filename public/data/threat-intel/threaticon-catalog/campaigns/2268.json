@@ -1,11 +1,11 @@
 {
   "id": 2268,
   "name": "CloudWizard APT: the bad magic story goes on",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 21, 2023",
+  "lastSeen": "May 21, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #410 (87b36dbe-fb5a-46a0-97ba-e15adcbe785e).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2268"

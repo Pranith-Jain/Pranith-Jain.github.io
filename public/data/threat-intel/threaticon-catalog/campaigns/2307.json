@@ -1,11 +1,11 @@
 {
   "id": 2307,
   "name": "Starry Addax targets human rights defenders in North Africa with new malware",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 10, 2024",
+  "lastSeen": "Apr 10, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #488 (6c0a9fa1-e516-4825-abf8-6692d34ac9b6).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2307"

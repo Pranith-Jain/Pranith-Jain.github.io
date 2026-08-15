@@ -3,9 +3,9 @@
   "name": "fulcrumsec: JOT",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to fulcrumsec. | Country: JP | Sector: Not Found | Website: jotnw.or.jp | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/Sk9UQGZ1bGNydW1zZWM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/223"

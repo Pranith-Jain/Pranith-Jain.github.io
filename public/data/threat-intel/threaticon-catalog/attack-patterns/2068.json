@@ -1,0 +1,9 @@
+{
+  "id": 2068,
+  "name": "T1047 - Masquerading",
+  "techniqueId": "T1047",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2068"
+}

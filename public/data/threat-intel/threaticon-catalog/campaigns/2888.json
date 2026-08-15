@@ -1,11 +1,11 @@
 {
   "id": 2888,
   "name": "2019-07-18: Newer \"PoSeidon\" aka \"FindPOS\" aka \"FindStr\" 15.10 Point-of-Sale Malware",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 19, 2019",
+  "lastSeen": "Jul 19, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1541 (5d3145a8-b2c4-49d7-9b5c-4f4368f8e8cf).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2888"

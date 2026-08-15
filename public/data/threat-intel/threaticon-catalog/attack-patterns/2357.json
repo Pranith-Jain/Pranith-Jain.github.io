@@ -1,0 +1,9 @@
+{
+  "id": 2357,
+  "name": "T1059.003 - Command and Scripting Interpreter: Windows Command Prompt",
+  "techniqueId": "T1059",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2357"
+}

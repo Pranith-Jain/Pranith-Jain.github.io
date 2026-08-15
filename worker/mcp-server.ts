@@ -60,6 +60,9 @@ import {
   filterThreaticonCatalog,
   filterThreaticonIndicators,
   threaticonIndicatorTypes,
+  loadDphishIndex,
+  getDphishIndicator,
+  filterDphishIndicators,
   type TiCatalogSection,
   type TiCatalogBody,
   type TiSeverity,
@@ -3170,6 +3173,61 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             filters: { keyword, tlp, minConfidence },
             indicators: items,
           });
+        }
+      );
+
+      // ── dPhish phishing feed (dphish.com, TAXII 2.1) ────────────────
+      // Public TAXII 2.1 collection of phishing indicators: malicious
+      // domains, phishing URLs, sender IPs, phone numbers, and
+      // attachment rules. Data ships in public/data/threat-intel/dphish/.
+
+      this.tools(
+        'ti_list_dphish',
+        'List phishing indicators from the dPhish public TAXII 2.1 collection (dphish.com): malicious domains, phishing URLs, sender IPs, phone numbers, and attachment detection rules — with active/revoked status, STIX observable type, confidence, OpenCTI score, and validity window. Filter by category, active-only, or keyword. Use ti_get_dphish_indicator to fetch the full STIX body (pattern, description, labels).',
+        {
+          category: z
+            .enum(['domain', 'ipv4', 'ipv6', 'url', 'phone', 'file', 'email', 'other'])
+            .optional()
+            .describe('Filter by indicator category'),
+          activeOnly: z
+            .boolean()
+            .optional()
+            .describe('Only indicators that are live right now (not revoked, within validity window)'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against value / description'),
+          limit: z.number().int().min(1).max(1000).optional().describe('Max indicators to return (default 100)'),
+        },
+        async ({ category, activeOnly, keyword, limit }) => {
+          const idx = await loadDphishIndex(ASSETS);
+          const indicators = filterDphishIndicators(idx, { category, activeOnly, keyword, limit: limit ?? 100 });
+          return untrustedToolResult({
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            syncedAt: idx.syncedAt,
+            counts: idx.counts,
+            returned: indicators.length,
+            indicators,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_dphish_indicator',
+        'Return the full dPhish indicator body for one slug: STIX id, observable value, category, pattern (STIX or YARA), description, created/modified dates, validity window, revoked status, confidence, OpenCTI score, labels, and indicator types. Use ti_list_dphish to discover slugs (e.g. "melbetegypt.com-1a2b3c").',
+        {
+          slug: z
+            .string()
+            .describe('Indicator slug (lowercased, e.g. "185.225.19.240-59c41c"). Get these from ti_list_dphish.'),
+        },
+        async ({ slug }) => {
+          const body = await getDphishIndicator(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'dphish_indicator_not_found',
+              slug,
+              hint: 'Call ti_list_dphish to see available indicator slugs.',
+            });
+          }
+          return untrustedToolResult(body);
         }
       );
 

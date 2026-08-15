@@ -1,0 +1,9 @@
+{
+  "id": 1228,
+  "name": "Subvert Code-signing Facilities",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: Low. Many languages use code signing facilities to vouch for code's identity and to thus tie code to its assigned privileges within an environment. Subverting this mechanism can be instrumental in an attacker escalating privilege. Any means of subverting the way that a virtual machine enforces code signing classifies for this style of attack.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1228"
+}

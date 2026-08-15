@@ -1,0 +1,9 @@
+{
+  "id": 1436,
+  "name": "T1003.001 - Keylogging: Custom Malware",
+  "techniqueId": "T1003",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1436"
+}

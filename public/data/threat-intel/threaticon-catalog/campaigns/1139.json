@@ -3,9 +3,9 @@
   "name": "genesis: Modern Advanced Print Solutions (MAPS, Inc.)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 31, 2026",
+  "lastSeen": "Feb 16, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Manufacturing | Website: mapsweb.com | Infostealer data confirmed. | Modern Advanced Print Solutions (MAPS, Inc.). | Source: https://www.ransomware.live/id/TW9kZXJuIEFkdmFuY2VkIFByaW50IFNvbHV0aW9ucyAoTUFQUywgSW5jLilAZ2VuZXNpcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1139"

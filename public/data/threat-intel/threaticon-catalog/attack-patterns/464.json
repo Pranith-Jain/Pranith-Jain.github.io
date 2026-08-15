@@ -1,0 +1,9 @@
+{
+  "id": 464,
+  "name": "Browser Fingerprint",
+  "techniqueId": "DET0898",
+  "added": "May 2, 2026",
+  "description": "Adversaries may attempt to blend in with legitimate traffic by spoofing browser and system attributes like operating system, system language, platform, user-agent string, resolution, time zone, etc. The HTTP User-Agent request header is a string that lets servers and network peers identify the application, operating system, vendor, and/or version of the requesting user agent.(Citation: Mozilla User Agent) Adversaries may gather this information through System Information Discovery or by users navigating to adversary-controlled websites, and then use that information to craft their web traffic to evade defenses.(Citation: Gummy Browsers Targeted Browser Spoofing against State-of-the-Art Fingerprinting Techniques)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/464"
+}

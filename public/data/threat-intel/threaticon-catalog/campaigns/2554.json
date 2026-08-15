@@ -1,11 +1,11 @@
 {
   "id": 2554,
   "name": "OSINT - New SmsSecurity Variant Roots Phones, Abuses Accessibility Features and TeamViewer",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 1, 2016",
+  "lastSeen": "Dec 1, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #929 (584003cf-ec58-48c8-933e-4172950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2554"

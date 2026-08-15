@@ -1,11 +1,11 @@
 {
   "id": 2173,
   "name": "This Is Not a Test: APT41 Initiates Global Intrusion Campaign Using Multiple Exploits",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 26, 2020",
+  "lastSeen": "Mar 26, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #217 (5e7d198f-c638-46ad-b4f7-b3f0c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2173"

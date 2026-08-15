@@ -1,0 +1,9 @@
+{
+  "id": 1863,
+  "name": "T1137.002 - Discovery Remote System Utilities",
+  "techniqueId": "T1137",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1863"
+}

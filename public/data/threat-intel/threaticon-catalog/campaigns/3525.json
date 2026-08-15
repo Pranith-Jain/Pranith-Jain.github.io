@@ -3,9 +3,9 @@
   "name": "dragonforce: Advanced Medical Consultants",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 15, 2026",
+  "lastSeen": "May 14, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Healthcare | Website: ouradvancedhealth.com | Infostealer data confirmed. | The leak contains 2,300,000 Lines of FULL patient data, partner agreements, management, payroll and HR files. Screenshot attached :) We Will Leak 1,000 Lines of patient data a day, until we've been paid or the timer hits 0. Check this description for Fresh leaks everyday. Day 1 : https://temp.sh/aLnBB/ADI-Day1.zip | Source: https://www.ransomware.live/id/QWR2YW5jZWQgTWVkaWNhbCBDb25zdWx0YW50c0BkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3525"

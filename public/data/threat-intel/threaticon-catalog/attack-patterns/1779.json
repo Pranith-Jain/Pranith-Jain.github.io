@@ -1,0 +1,9 @@
+{
+  "id": 1779,
+  "name": "T1059.007: JavaScript - Delivering payloads using JavaScript code",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1779"
+}

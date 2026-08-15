@@ -3,9 +3,9 @@
   "name": "worldleaks: Peak Toolworks",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 11, 2026",
+  "lastSeen": "Mar 11, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Manufacturing | Website: www.peaktoolworks.com | [AI generated] Peak Toolworks is a North American company specializing in the design, manufacture, and servicing of high-quality cutting tools. Their product portfolio includes carbide saws, routers, insert tools, and diamond tooling used across a variety of industries, from woodworking and metalworking to plastics and composites. They have multiple locations throughout the U.S. and Canada. | Source: https://www.ransomware.live/id/UGVhayBUb29sd29ya3NAd29ybGRsZWFrcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1657"

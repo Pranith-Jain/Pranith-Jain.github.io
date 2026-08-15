@@ -3,9 +3,9 @@
   "name": "ALP-001: hikvision.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 21, 2026",
+  "lastSeen": "Mar 21, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to ALP-001. | Country: CN | Sector: Technology | Website: hikvision.com | Infostealer data confirmed. | Country: China Revenue: $13.1 Billion Storage: 19.9 TB Ready: 19.9 TB Deadline: 2026-03-30 00:20:04 | Source: https://www.ransomware.live/id/aGlrdmlzaW9uLmNvbUBBTFAtMDAx",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1411"

@@ -1,0 +1,9 @@
+{
+  "id": 2099,
+  "name": "T1603.001 - Exploit Public-Facing Misconfigurations",
+  "techniqueId": "T1603",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2099"
+}

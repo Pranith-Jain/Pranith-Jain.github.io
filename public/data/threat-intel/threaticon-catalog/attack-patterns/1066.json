@@ -1,0 +1,9 @@
+{
+  "id": 1066,
+  "name": "Hardware Design Specifications Are Altered",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An attacker with access to a manufacturer's hardware manufacturing process documentation alters the design specifications, which introduces flaws advantageous to the attacker once the system is deployed.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1066"
+}

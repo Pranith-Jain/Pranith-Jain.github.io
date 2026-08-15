@@ -3,9 +3,9 @@
   "name": "lockbit5: elmwoodhomecare.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 5, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: GB | Sector: Healthcare | Website: elmwoodhomecare.com | Infostealer data confirmed. | Elmwood Healthcare is a Medicare certified, nationally accredited home-based care organization opera... | Source: https://www.ransomware.live/id/ZWxtd29vZGhvbWVjYXJlLmNvbUBsb2NrYml0NQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1220"

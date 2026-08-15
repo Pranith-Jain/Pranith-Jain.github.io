@@ -1,11 +1,11 @@
 {
   "id": 2470,
   "name": "Rule to detect KirBi ticket for Mimikatz by Benjamin Delpy with Contribution of Didier Stevens",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 13, 2016",
+  "lastSeen": "Aug 13, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #807 (57b3273b-7588-4042-9276-4eb4950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2470"

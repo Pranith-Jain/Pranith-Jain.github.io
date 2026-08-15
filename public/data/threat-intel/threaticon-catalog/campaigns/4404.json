@@ -3,9 +3,9 @@
   "name": "thegentlemen: EMAS Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: CZ | Sector: Energy | Website: emas.cz | Infostealer data confirmed. | ***.cz zoominfo.com/c/janča--emas-group-sro/532190785 JANCA & EMAS group s.r.o., one of the largest wholesale distributors of electrical equipment and materials in the Czech Republic. The company supplies a comprehensive range of electrical components, including switches, sockets, and smart home automation systems, primarily serving professional electricians and businesses. They operate an extensive network of physical branches across the country and offer a dedicated mobile app for quick ordering and inventory management. | Source: https://www.ransomware.live/id/RU1BUyBHcm91cEB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4404"

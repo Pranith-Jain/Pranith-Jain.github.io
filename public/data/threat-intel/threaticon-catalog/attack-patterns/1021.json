@@ -1,0 +1,9 @@
+{
+  "id": 1021,
+  "name": "Signature Spoofing by Improper Validation",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An adversary exploits a cryptographic weakness in the signature verification algorithm implementation to generate a valid signature without knowing the key.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1021"
+}

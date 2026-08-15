@@ -3,9 +3,9 @@
   "name": "akira: Moorman Harting",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "May 6, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: moormanharting.com | Infostealer data confirmed. | Moorman, Harting & Company is a comprehensive wealthcare firm that provides a variety of soluti ons for tax, accounting, and financial needs. Their services include accounting, payroll, tax p reparation, retirement planning, and personalized financial coaching. We will upload 21gb of corporate data soon. Employee personal information (passport numbers, Dl s, SSNs and other sensitive information), client files, financials, contracts and agreements, i nternal confidential files, NDAs and so on. | Source: https://www.ransomware.live/id/TW9vcm1hbiBIYXJ0aW5nQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3771"

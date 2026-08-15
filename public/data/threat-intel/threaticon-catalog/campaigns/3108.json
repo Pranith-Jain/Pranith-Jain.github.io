@@ -1,11 +1,11 @@
 {
   "id": 3108,
   "name": "OSINT - Packrat: Seven Years of a South American Threat Actor",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 9, 2015",
+  "lastSeen": "Dec 9, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #55 (5667e3ea-cec4-4a67-b7c0-f7a9950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3108"

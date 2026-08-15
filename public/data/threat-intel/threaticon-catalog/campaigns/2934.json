@@ -1,11 +1,11 @@
 {
   "id": 2934,
   "name": "[OSINT] No Honor Among Thieves - Prynt Stealer’s Backdoor Exposed",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 1, 2022",
+  "lastSeen": "Sep 1, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1701 (b7a486af-8b67-4f58-873b-0ae25fea43e9).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2934"

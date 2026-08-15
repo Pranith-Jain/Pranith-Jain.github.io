@@ -1,0 +1,9 @@
+{
+  "id": 701,
+  "name": "T1112: Modify Registry",
+  "techniqueId": "T1112",
+  "added": "May 18, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/701"
+}

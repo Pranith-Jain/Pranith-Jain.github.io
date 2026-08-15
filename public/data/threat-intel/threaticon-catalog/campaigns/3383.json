@@ -1,11 +1,11 @@
 {
   "id": 3383,
   "name": "OSINT Chinese Taomike Monetization Library Steals SMS Messages by AlienVault and Palo Alto networks",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 22, 2015",
+  "lastSeen": "Oct 22, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #658 (56313c70-0d5c-43d9-9e27-47c6950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3383"

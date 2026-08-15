@@ -1,0 +1,9 @@
+{
+  "id": 1629,
+  "name": "T1070 - Data Transfer Utilities",
+  "techniqueId": "T1070",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1629"
+}

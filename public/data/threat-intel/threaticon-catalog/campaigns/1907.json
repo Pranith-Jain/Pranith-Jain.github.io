@@ -3,9 +3,9 @@
   "name": "AiLock: Revival Animal Health",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Apr 29, 2015",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Consumer Services | Website: revivalanimal.com | Infostealer data confirmed. | Revival Animal Health was founded in 1989 by Dr. Roy Nielsen, Jr., affectionately known as \"Doc Roy.\"Quickly the company expanded from pet vaccines to an extensive line of pet healthcare products. | Source: https://www.ransomware.live/id/UmV2aXZhbCBBbmltYWwgSGVhbHRoQEFpTG9jaw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1907"

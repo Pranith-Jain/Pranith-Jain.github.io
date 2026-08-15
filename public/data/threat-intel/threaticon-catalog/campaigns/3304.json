@@ -1,11 +1,11 @@
 {
   "id": 3304,
   "name": "Threat analysis: Beast Ransomware",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 20, 2024",
+  "lastSeen": "Oct 20, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #526 (24335590-bc71-4db5-ac0a-9026d6b2f4d3).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3304"

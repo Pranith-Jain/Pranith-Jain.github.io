@@ -3,9 +3,9 @@
   "name": "lamashtu: Acros Sport GmbH",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 8, 2026",
+  "lastSeen": "May 8, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to lamashtu. | Country: DE | Sector: Manufacturing | Website: acros-components.com | Infostealer data confirmed. | Acros Sport GmbH is a high-end German bicycle component manufacturer based in Renningen, near Stuttgart. Founded in 1999, the company is a specialist in precision bearing technology for cycling | Source: https://www.ransomware.live/id/QWNyb3MgU3BvcnQgR21iSEBsYW1hc2h0dQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3705"

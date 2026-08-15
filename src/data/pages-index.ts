@@ -3584,6 +3584,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     ],
   },
   {
+    path: '/threatintel/feeds/dphish',
+    label: 'dPhish Phishing Feed',
+    description:
+      'Public dPhish TAXII 2.1 phishing indicator feed - malicious domains, phishing URLs, sender IPs, phone numbers, and attachment detection rules, with active/revoked status, confidence, STIX patterns, and validity windows.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: ['dphish', 'phishing', 'taxii', 'stix', 'domain', 'url', 'ioc', 'indicator', 'attachment', 'feed'],
+  },
+  {
     path: '/threatintel/feeds/threatfeeds',
     label: 'Threat Feeds',
     description: 'Threat intelligence feeds.',

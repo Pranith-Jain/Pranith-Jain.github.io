@@ -3,9 +3,9 @@
   "name": "apt73: talonsolutions.co.uk",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to apt73. | Country: GB | Sector: Business Services | Website: talonsolutions.co.uk | Infostealer data confirmed. | Talon Solutions Ltd was formed by Vince Cluderay in 2002 for the purpose of selling document mana... | Source: https://www.ransomware.live/id/dGFsb25zb2x1dGlvbnMuY28udWtAYXB0NzM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/394"

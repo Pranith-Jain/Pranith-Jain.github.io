@@ -1,11 +1,11 @@
 {
   "id": 2281,
   "name": "A hack in hand is worth two in the bush",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 16, 2023",
+  "lastSeen": "Oct 16, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #447 (f9308085-291a-42b5-869d-d9b60620468d).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2281"

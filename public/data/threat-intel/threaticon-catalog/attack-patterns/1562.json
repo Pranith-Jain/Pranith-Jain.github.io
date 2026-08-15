@@ -1,0 +1,9 @@
+{
+  "id": 1562,
+  "name": "T1566.001 - Web shell deployment for persistence",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1562"
+}

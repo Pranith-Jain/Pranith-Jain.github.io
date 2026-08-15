@@ -1,11 +1,11 @@
 {
   "id": 3293,
   "name": "MuddyWater replaces Atera by custom MuddyRot implant in a recent campaign",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 15, 2024",
+  "lastSeen": "Jul 15, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #512 (01ae246a-a5af-4f86-94b4-b574812e56e9).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3293"

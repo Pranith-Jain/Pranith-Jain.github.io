@@ -1,11 +1,11 @@
 {
   "id": 2213,
   "name": "Log4j2 In The Wild | Iranian-Aligned Threat Actor “TunnelVision” Actively Exploiting VMware Horizon",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 20, 2022",
+  "lastSeen": "Feb 20, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #290 (496e1602-ea94-4556-b4cc-9a11a54bd730).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2213"

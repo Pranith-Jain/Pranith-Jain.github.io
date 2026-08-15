@@ -1,0 +1,9 @@
+{
+  "id": 2354,
+  "name": "T1102 - Web Shell",
+  "techniqueId": "T1102",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2354"
+}

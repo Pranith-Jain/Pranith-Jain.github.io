@@ -1,0 +1,9 @@
+{
+  "id": 1318,
+  "name": "T1069: Permission Groups Discovery",
+  "techniqueId": "T1069",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1318"
+}

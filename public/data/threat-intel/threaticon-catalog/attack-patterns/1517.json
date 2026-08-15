@@ -1,0 +1,9 @@
+{
+  "id": 1517,
+  "name": "T1486: Data Encrypted for Impact",
+  "techniqueId": "T1486",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1517"
+}

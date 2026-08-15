@@ -1,0 +1,9 @@
+{
+  "id": 1527,
+  "name": "T1546.003: Windows Management Instrumentation Event Subscription",
+  "techniqueId": "T1546",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1527"
+}

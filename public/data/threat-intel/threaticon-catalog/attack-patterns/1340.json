@@ -1,0 +1,9 @@
+{
+  "id": 1340,
+  "name": "T1510.004 - Exfiltration Over Alternative Protocols",
+  "techniqueId": "T1510",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1340"
+}

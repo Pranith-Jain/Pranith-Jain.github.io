@@ -1,11 +1,11 @@
 {
   "id": 3313,
   "name": "CVE-2025-0411: Ukrainian Organizations Targeted in Zero-Day Campaign and Homoglyph Attacks",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 8, 2025",
+  "lastSeen": "Feb 8, 2025",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #535 (72704237-fe6e-45df-9d6f-f12f9cb65dfc).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3313"

@@ -3,9 +3,9 @@
   "name": "play: Morphosis",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 6, 2026",
+  "lastSeen": "Apr 6, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to play. | Country: US | Sector: Technology | Website: www.morphosis.com | United States | Source: https://www.ransomware.live/id/TW9ycGhvc2lzQHBsYXk=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/990"

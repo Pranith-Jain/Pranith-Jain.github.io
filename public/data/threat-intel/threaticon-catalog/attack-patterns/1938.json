@@ -1,0 +1,9 @@
+{
+  "id": 1938,
+  "name": "T1587.001 Internal reconnaissance via query language (e.g., SQL queries or AD CSOM queries).",
+  "techniqueId": "T1587",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1938"
+}

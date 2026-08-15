@@ -44,6 +44,9 @@ jobs:
       - name: Sync ThreatCluster feeds
         run: node scripts/sync-threatcluster.mjs
 
+      - name: Sync dPhish phishing feed (TAXII 2.1)
+        run: node scripts/sync-dphish.mjs
+
       - name: Build manifest
         run: node scripts/build-threat-intel.mjs
 
@@ -52,6 +55,9 @@ jobs:
 
       - name: Build ThreatCluster manifest
         run: node scripts/build-threatcluster.mjs
+
+      - name: Build dPhish manifest
+        run: node scripts/build-dphish.mjs
 
       - name: Show diff stat
         run: |
@@ -72,9 +78,11 @@ jobs:
             Daily-Hunt sparse git clone + mthcht/awesome-lists detection CSVs)
             and `scripts/build-threat-intel.mjs` (manifest rebuild). Also syncs
             the darknetlist.is Tor site directory
-            (`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs`)
-            and the ThreatCluster public feeds
-            (`scripts/sync-threatcluster.mjs` + `scripts/build-threatcluster.mjs`).
+            (`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs`),
+            the ThreatCluster public feeds
+            (`scripts/sync-threatcluster.mjs` + `scripts/build-threatcluster.mjs`),
+            and the dPhish public TAXII 2.1 phishing feed
+            (`scripts/sync-dphish.mjs` + `scripts/build-dphish.mjs`).
             Review the diff in `public/data/threat-intel/` and merge if the
             data looks correct.
 
@@ -86,6 +94,8 @@ jobs:
             - darknetlist.is (Tor site directory, 108 sites across 9 categories)
             - threatcluster.io (5 public feeds: trending clusters, vulnerabilities,
               exploits, dark-web victims, IOC blocklist + MISP manifest)
+            - dphish.com (public TAXII 2.1 collection: phishing domains, URLs,
+              sender IPs, phone numbers, attachment rules)
 
             Trigger: `${{ github.event_name }}`
             Run:     `${{ github.run_id }}`

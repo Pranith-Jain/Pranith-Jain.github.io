@@ -1,11 +1,11 @@
 {
   "id": 2210,
   "name": "Destructive malware targeting Ukrainian organizations",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 16, 2022",
+  "lastSeen": "Jan 16, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #283 (67d11e59-bda7-4258-a5c4-b6efb280bb89).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2210"

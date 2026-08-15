@@ -3,9 +3,9 @@
   "name": "lockbit5: irestal.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: ES | Sector: Business Services | Website: irestal.com | Infostealer data confirmed. | Irestal Group has over 80 years of experience providing stainless steel solutions, with a service ce... | Source: https://www.ransomware.live/id/aXJlc3RhbC5jb21AbG9ja2JpdDU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/244"

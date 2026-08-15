@@ -1,0 +1,9 @@
+{
+  "id": 2203,
+  "name": "T1003 - Brute force credential access",
+  "techniqueId": "T1003",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2203"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 3001,
+  "name": "T1055.001 Process Injection",
+  "techniqueId": "T1055",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/3001"
+}

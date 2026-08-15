@@ -1,0 +1,9 @@
+{
+  "id": 2936,
+  "name": "T1040 – Network Sniffing",
+  "techniqueId": "T1040",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2936"
+}

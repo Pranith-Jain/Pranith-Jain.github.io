@@ -1,11 +1,11 @@
 {
   "id": 2158,
   "name": "Divergent: \"Fileless\" NodeJS Malware Burrows Deep Within the Host",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 26, 2019",
+  "lastSeen": "Sep 26, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #199 (5d9094f3-4d08-4248-9f13-7d8cc0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2158"

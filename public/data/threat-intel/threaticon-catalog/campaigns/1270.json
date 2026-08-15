@@ -3,9 +3,9 @@
   "name": "qilin: IBB Institut für Bildung und Beratung",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 28, 2026",
+  "lastSeen": "Mar 28, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Education | Website: www.ibb-dresden.de | Source: https://www.ransomware.live/id/SUJCIEluc3RpdHV0IGbDvHIgQmlsZHVuZyB1bmQgQmVyYXR1bmdAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1270"

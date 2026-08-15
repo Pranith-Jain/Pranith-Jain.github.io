@@ -1,0 +1,9 @@
+{
+  "id": 1786,
+  "name": "T1064.003 - Ad Fraud using malicious apps with hidden functionality",
+  "techniqueId": "T1064",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1786"
+}

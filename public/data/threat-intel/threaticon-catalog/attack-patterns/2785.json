@@ -1,0 +1,9 @@
+{
+  "id": 2785,
+  "name": "T1547: Boot or Logon Autostart Execution",
+  "techniqueId": "T1547",
+  "added": "Aug 9, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2785"
+}

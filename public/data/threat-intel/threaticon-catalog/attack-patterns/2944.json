@@ -1,0 +1,9 @@
+{
+  "id": 2944,
+  "name": "T1134 - Exfiltration Over Alternative Protocols",
+  "techniqueId": "T1134",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2944"
+}

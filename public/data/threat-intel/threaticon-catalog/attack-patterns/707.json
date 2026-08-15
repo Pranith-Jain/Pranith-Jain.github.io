@@ -1,0 +1,9 @@
+{
+  "id": 707,
+  "name": "T1218.011: Rundll32",
+  "techniqueId": "T1218",
+  "added": "May 18, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/707"
+}

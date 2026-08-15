@@ -1,0 +1,9 @@
+{
+  "id": 1744,
+  "name": "T1059-Malware infection via document files",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1744"
+}

@@ -3,9 +3,9 @@
   "name": "payload: Better House",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 20, 2026",
+  "lastSeen": "Apr 20, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payload. | Sector: Consumer Services | Better House Development specializes in real estate projects, offering a wide range of properties including residential apartments, villas, and various types of houses such as Twin Houses and Town Houses. The company has successfully implemented over 150 projects, focusing on providing high-quality service and maximizing return on investment for its clients. Their developments are located in prominent areas such as New Capital, Sky Capital, and Galala City. | Source: https://www.ransomware.live/id/QmV0dGVyIEhvdXNlQHBheWxvYWQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/612"

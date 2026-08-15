@@ -3,9 +3,9 @@
   "name": "anubis: Ladue Family Dental",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 7, 2026",
+  "lastSeen": "Mar 7, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: laduedental.com | Infostealer data confirmed. | A major leak of smiles. | Source: https://www.ransomware.live/id/TGFkdWUgRmFtaWx5IERlbnRhbEBhbnViaXM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1749"

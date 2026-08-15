@@ -368,6 +368,45 @@ select), Indicators (type select + chunk paging, search within chunk).
   `A#### - <name>` — the techniqueId regex captures the `[A-Za-z]+\d+(?:-\d+)?`
   prefix, there is no CAPEC field in the page markup per se.
 
+### dPhish — Phishing Threat-Intel Feed (TAXII 2.1)
+
+A live phishing-IOC vertical from [dphish.com](https://dphish.com/feeds/): a public
+OpenCTI-backed TAXII 2.1 collection (STIX 2.1 indicators) covering malicious domains,
+phishing URLs, sender IPs, phone numbers, and attachment detection rules. **The
+collection endpoint requires no auth even though the discovery/root endpoints 401.**
+Indicators carry OpenCTI extension fields (score, detection, main observable type +
+`observable_values`); category mapping: `Domain-Name→domain`, `IPv4/IPv6-Addr→ipv4/ipv6`,
+`Url→url`, `Phone-Number→phone`, `StixFile→file`, `Email-Addr→email`, else `other`.
+
+**2 MCP tools** (registered on `DFIR_MCP` + mirrored in `api/src/lib/agent/mcp-bridge.ts`):
+`ti_list_dphish` (category / activeOnly / keyword / limit filters),
+`ti_get_dphish_indicator` (full STIX body by slug)
+
+**3 REST routes** under `/api/v1/threat-intel/dphish/*`:
+`GET /dphish` (index + counts + cache), `GET /dphish/indicators`
+(category, active_only, q, limit), `GET /dphish/indicators/:slug`
+
+**1 SPA route** at `/threatintel/feeds/dphish` (expandable indicator cards: value,
+category, active/revoked, confidence, score, STIX pattern, labels, validity).
+
+**Files**:
+
+- `scripts/sync-dphish.mjs` — TAXII 2.1 paginated fetch (`next` cursors, `added_after`
+  incremental ~24h overlap), normalized → `threat-intel-staging/dphish/indicators.json`
+  (merge by stixId keeps newest `modified`); `scripts/sync-dphish.test.mjs` unit-tests
+  the pure functions (`npm run test:dphish`)
+- `scripts/build-dphish.mjs` — slices into `public/data/threat-intel/dphish/`
+  (index.json + per-slug bodies)
+- `worker/lib/threat-intel-manifest.ts` — `Dphish*` types + `loadDphishIndex` /
+  `getDphishIndicator` / `filterDphishIndicators` + `tiCacheStats().dphish`
+- `api/src/routes/threat-intel-edge-tools.ts` — 3 route handlers
+- `api/test/routes/dphish.test.ts` — 3 route tests
+- `src/pages/threatintel/Dphish.tsx` — SPA page
+
+**To rebuild**: `node scripts/sync-dphish.mjs && node scripts/build-dphish.mjs`
+**Tests**: `npx vitest run worker/lib/threat-intel-manifest.test.ts` (dphish suites) +
+`cd api && npx vitest run test/routes/dphish.test.ts`
+
 ### STIX 2.1 export (cross-vertical)
 
 `GET /api/v1/threat-intel/export/stix` maps the replicated verticals to STIX 2.1

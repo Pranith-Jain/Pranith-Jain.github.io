@@ -3,9 +3,9 @@
   "name": "apt73: bms.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to apt73. | Country: US | Sector: Healthcare | Website: bms.com | Infostealer data confirmed. | Pharmaceutical company. personal data - 302 lines | Press: https://ago.vermont.gov/document/2025-06-23-bms-holdings-data-breach-notice-consumers | Source: https://www.ransomware.live/id/Ym1zLmNvbUBhcHQ3Mw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/410"

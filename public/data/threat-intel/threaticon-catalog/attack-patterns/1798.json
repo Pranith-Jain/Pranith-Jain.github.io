@@ -1,0 +1,9 @@
+{
+  "id": 1798,
+  "name": "T1095 -redential Dumping: OS Credential Hash Collection",
+  "techniqueId": "T1095",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1798"
+}

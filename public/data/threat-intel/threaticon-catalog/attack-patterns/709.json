@@ -1,0 +1,9 @@
+{
+  "id": 709,
+  "name": "T1543.003: Windows Service",
+  "techniqueId": "T1543",
+  "added": "May 18, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/709"
+}

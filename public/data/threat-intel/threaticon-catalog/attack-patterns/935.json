@@ -1,0 +1,9 @@
+{
+  "id": 935,
+  "name": "Using Unpublished Interfaces or Functionality",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary searches for and invokes interfaces or functionality that the target system designers did not intend to be publicly available. If interfaces fail to authenticate requests, the attacker may be able to invoke functionality they are not authorized for.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/935"
+}

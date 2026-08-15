@@ -3,9 +3,9 @@
   "name": "pear: Office Furniture Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 9, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to pear. | Country: US | Sector: Manufacturing | Website: ofginc.com | Infostealer data confirmed. | Interior workplace solutions provider | Source: https://www.ransomware.live/id/T2ZmaWNlIEZ1cm5pdHVyZSBHcm91cEBwZWFy",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3689"

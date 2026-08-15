@@ -1,11 +1,11 @@
 {
   "id": 2494,
   "name": "Malware Posing as Human Rights Organizations and Commercial Software Targeting Iranians, Foreign Policy Institutions and Middle Eastern Countries (ExtremeDownloader and Strealer)",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 1, 2016",
+  "lastSeen": "Sep 1, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #847 (57c8398d-2238-41df-bbc7-45b7950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2494"

@@ -1,11 +1,11 @@
 {
   "id": 2321,
   "name": "Houken seeking a path by living on the edge with zero-days",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2025",
+  "lastSeen": "Jul 1, 2025",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #538 (c4ff8fa3-9860-48da-a74a-f087aa0a76dd).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2321"

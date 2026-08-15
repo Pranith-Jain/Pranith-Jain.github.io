@@ -1,0 +1,9 @@
+{
+  "id": 2866,
+  "name": "T1071.004 – Application Layer Protocol: Web Traffic (HTTP/HTTPS) for C2",
+  "techniqueId": "T1071",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2866"
+}

@@ -3,9 +3,9 @@
   "name": "thegentlemen: CTM India Limited motherson INDIA",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: IN | Sector: Manufacturing | Website: dnb.com | Infostealer data confirmed. | ***.com/business-directory/company-profiles.ctm_india_limited.c67e34c4f71f7ed11aaf1dc39e0e10a6.html CTM India Limited is located in New Delhi, Delhi, India and is part of the Metalworking Machinery Manufacturing industry. CTM India Limited is associated with the global Motherson Group, focusing on producing specialized equipment and forms essential for industrial manufacturing processes. The company is led by key principal Bimal Dhar and operates within the broader machinery manufacturing sector | Source: https://www.ransomware.live/id/Q1RNIEluZGlhIExpbWl0ZWQgbW90aGVyc29uIElORElBQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4375"

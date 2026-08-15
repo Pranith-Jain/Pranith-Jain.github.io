@@ -1,11 +1,11 @@
 {
   "id": 2930,
   "name": "CSSF - Warnings",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 8, 2022",
+  "lastSeen": "Jul 8, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1686 (f1bb8c57-f133-449e-974d-4fb0156050e1).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2930"

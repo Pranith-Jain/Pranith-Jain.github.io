@@ -3,10 +3,10 @@
   "name": "incransom: glenmarkpharma.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 25, 2026",
+  "lastSeen": "Mar 25, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: IN | Sector: Healthcare | Website: glenmarkpharma.com | Infostealer data confirmed. | Glenmark Pharmaceuticals, founded in 1977 and headquartered in Mumbai, India, is a global pharmaceutical company that develops, manufactures, and markets pharmaceutical products. The company operates in over 25 countries across North America, South America, Europe, Asia, Africa, and the Middle East, with a strong focus on research and development of innovative medications. Glenmark specializes in various therapeutic areas and maintains a diverse portfolio of pharmaceutical products serving both business and consumer markets worldwide. Rajeev Sharma Senior Vice President and Chief Financial Officer - North America Laura Lester Senior Vice President & General Counsel - North America Jim Brown Senior Vice President Firas B Abulaban Senior Vice President and Corporate Quality Head of North America Bradley Nowels Vice President Institutional...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1336"
 }

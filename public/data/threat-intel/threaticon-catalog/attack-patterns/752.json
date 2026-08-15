@@ -1,0 +1,9 @@
+{
+  "id": 752,
+  "name": "Symlink Attack",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An adversary positions a symbolic link in such a manner that the targeted user or application accesses the link's endpoint, assuming that it is accessing a file with the link's name.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/752"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 972,
+  "name": "Influence Perception of Scarcity",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: High. The adversary leverages a perception of scarcity to persuade the target to perform an action or divulge information that is advantageous to the adversary. By conveying a perception of scarcity, or a situation of limited supply, the adversary aims to create a sense of urgency in the context of a target's decision-making process.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/972"
+}

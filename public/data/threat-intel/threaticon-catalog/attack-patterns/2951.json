@@ -1,0 +1,9 @@
+{
+  "id": 2951,
+  "name": "T1005 - Data from Local System",
+  "techniqueId": "T1005",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2951"
+}

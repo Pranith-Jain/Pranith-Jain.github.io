@@ -1,0 +1,9 @@
+{
+  "id": 867,
+  "name": "Remote Code Inclusion",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "The attacker forces an application to load arbitrary code files from a remote location. The attacker could use this to try to load old versions of library files that have known vulnerabilities, to load malicious files that the attacker placed on the remote machine, or to otherwise change the functionality of the targeted application in unexpected ways.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/867"
+}

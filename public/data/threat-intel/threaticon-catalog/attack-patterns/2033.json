@@ -1,0 +1,9 @@
+{
+  "id": 2033,
+  "name": "T1064.001: Exploitation of CVE-2023-28252 (Windows CLFS Driver)",
+  "techniqueId": "T1064",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2033"
+}

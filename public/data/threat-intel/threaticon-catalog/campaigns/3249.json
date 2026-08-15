@@ -1,11 +1,11 @@
 {
   "id": 3249,
   "name": "MuddyWater eN-Able spear-phishing with new TTPs",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 7, 2023",
+  "lastSeen": "Nov 7, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #425 (43ea5673-3bd8-4996-8d2f-66e5d6e75914).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3249"

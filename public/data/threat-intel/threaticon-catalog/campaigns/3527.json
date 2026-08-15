@@ -3,9 +3,9 @@
   "name": "krybit: wwag.org",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 15, 2026",
+  "lastSeen": "May 15, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to krybit. | Country: AT | Sector: Not Found | Website: wwag.org | Infostealer data confirmed. | An organization known as Wa Wai Assembly of God Church, an entity located in Hong Kong 🇭🇰 and operating under a na... | Source: https://www.ransomware.live/id/d3dhZy5vcmdAa3J5Yml0",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3527"

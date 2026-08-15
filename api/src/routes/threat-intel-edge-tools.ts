@@ -18,6 +18,8 @@
  *                                        entities)
  *   GET  /threat-intel/threaticon/*    — Threaticon actor catalog, malware
  *                                        dictionary, detection coverage, map
+ *   GET  /threat-intel/dphish/*        — dPhish phishing indicators
+ *                                        (TAXII 2.1 collection)
  *
  * The actual logic lives in worker/lib/threat-intel-manifest.ts (symlinked).
  * Routes read from env.ASSETS — no D1, no KV, no public fetch.
@@ -870,6 +872,67 @@ threatIntelRouter.get('/threat-intel/threaticon/indicators', async (c) => {
   } catch (e) {
     logError('handler failed', e);
     return internalError(c, `ti_threaticon_indicators_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+// ─── dPhish phishing feed (dphish.com, TAXII 2.1) ───────────────────────
+// Public TAXII 2.1 collection of phishing indicators (malicious domains,
+// phishing URLs, sender IPs, phone numbers, attachment rules). Data ships
+// in public/data/threat-intel/dphish/. Build: scripts/sync-dphish.mjs &&
+// scripts/build-dphish.mjs.
+
+threatIntelRouter.get('/threat-intel/dphish', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDphishIndex(c.env.ASSETS);
+    return c.json({
+      source: idx.source,
+      sourceUrl: idx.sourceUrl,
+      collectionId: idx.collectionId,
+      description: idx.description,
+      license: idx.license,
+      syncedAt: idx.syncedAt,
+      counts: idx.counts,
+      stats: mod.tiCacheStats().dphish,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_dphish_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/dphish/indicators', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDphishIndex(c.env.ASSETS);
+    const category = c.req.query('category') || undefined;
+    const activeOnly = c.req.query('active_only') === 'true';
+    const keyword = c.req.query('q') || undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(1000, Math.max(1, Number(limitRaw) || 100)) : undefined;
+    const indicators = mod.filterDphishIndicators(idx, { category, activeOnly, keyword, limit });
+    return c.json({
+      total: idx.counts.indicators,
+      returned: indicators.length,
+      filters: { category, active_only: activeOnly || undefined, keyword },
+      indicators,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_dphish_indicators_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/dphish/indicators/:slug', async (c) => {
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getDphishIndicator(c.env.ASSETS, slug);
+    if (!body) return notFound(c, `ti_dphish_indicator_not_found: ${slug}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_dphish_indicator_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
 

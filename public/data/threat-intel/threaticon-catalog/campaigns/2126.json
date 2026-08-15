@@ -1,11 +1,11 @@
 {
   "id": 2126,
   "name": "Hawkeye Keylogger - Reborn v8: An in-depth campaign analysis",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 11, 2018",
+  "lastSeen": "Jul 11, 2018",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #153 (5b4787b2-e904-4a11-8e41-1e69c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2126"

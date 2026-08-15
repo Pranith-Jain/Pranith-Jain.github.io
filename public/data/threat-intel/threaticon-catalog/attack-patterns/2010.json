@@ -1,0 +1,9 @@
+{
+  "id": 2010,
+  "name": "T1566.001 - Data Encrypted for Impact",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2010"
+}

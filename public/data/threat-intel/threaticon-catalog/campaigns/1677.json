@@ -3,9 +3,9 @@
   "name": "incransom: Teknopres_TR",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 10, 2026",
+  "lastSeen": "Mar 10, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to incransom. | Country: TR | Sector: Manufacturing | Website: teknopres.com.tr | Infostealer data confirmed. | Our company Teknopres, which was founded in 1978, serves injection casting, mould design and mould construction for the internal and the external markets. Teknopres has the principles of Qualificated Customer Focusing Production. Teknopres has the developing and constantly renewed technology in all departments. The company mainly works for the automotive, construction and electronics sectors. | Source: https://www.ransomware.live/id/VGVrbm9wcmVzX1RSQGluY3JhbnNvbQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1677"

@@ -3,9 +3,9 @@
   "name": "threeam: aceforwarding.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "Nov 19, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to threeam. | Sector: Transportation/Logistics | Website: aceforwarding.com | Infostealer data confirmed. | Ace Forwarding started out in 1994 as a small operation with a single truck picking up and delivering to and from the Detroit airport, fulfilling our customers time-critical shipments and becoming the go-to logistics operation when time was of the | Source: https://www.ransomware.live/id/YWNlZm9yd2FyZGluZy5jb21AdGhyZWVhbQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/237"

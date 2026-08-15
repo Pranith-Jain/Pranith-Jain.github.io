@@ -1,0 +1,9 @@
+{
+  "id": 1377,
+  "name": "T1505.003: Web Shell",
+  "techniqueId": "T1505",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1377"
+}

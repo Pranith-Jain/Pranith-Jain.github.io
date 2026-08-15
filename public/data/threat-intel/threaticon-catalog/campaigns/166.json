@@ -3,9 +3,9 @@
   "name": "qilin: City of Sandstone",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 4, 2026",
+  "lastSeen": "May 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Public Sector | Website: sandstone.govoffice.com | Infostealer data confirmed. | N/A | Source: https://www.ransomware.live/id/Q2l0eSBvZiBTYW5kc3RvbmVAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/166"

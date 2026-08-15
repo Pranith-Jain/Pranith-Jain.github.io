@@ -3,9 +3,9 @@
   "name": "qilin: Fusion Superplex",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 2, 2026",
+  "lastSeen": "Mar 2, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: BS | Sector: Hospitality and Tourism | Website: www.fusionsuperplex.com | Press: https://www.facebook.com/fusionsuperplex/posts/pfbid08RGuv8M88iRKFdVFY1a6WPhg9hB276EN8RUdYDLN7PnF69GAYV2uoqpspKtP1yq7l?rdid=FIg12jWuH9tkOZs8 | Source: https://www.ransomware.live/id/RnVzaW9uIFN1cGVycGxleEBxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1917"

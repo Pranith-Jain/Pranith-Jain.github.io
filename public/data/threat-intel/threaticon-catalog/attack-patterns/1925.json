@@ -1,0 +1,9 @@
+{
+  "id": 1925,
+  "name": "T1070.005 - Social engineering over voicephishing",
+  "techniqueId": "T1070",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1925"
+}

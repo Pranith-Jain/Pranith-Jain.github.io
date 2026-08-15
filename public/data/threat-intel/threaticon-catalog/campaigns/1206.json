@@ -3,9 +3,9 @@
   "name": "clop: AIGHEALTHCARE.IN",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 30, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to clop. | Country: IN | Sector: Healthcare | Website: AIGHEALTHCARE.IN | [AI generated] N/A | Source: https://www.ransomware.live/id/QUlHSEVBTFRIQ0FSRS5JTkBjbG9w",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1206"

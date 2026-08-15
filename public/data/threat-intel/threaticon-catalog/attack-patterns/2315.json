@@ -1,0 +1,9 @@
+{
+  "id": 2315,
+  "name": "T1098: Network-Service Enumeration",
+  "techniqueId": "T1098",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2315"
+}

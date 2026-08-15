@@ -3,9 +3,9 @@
   "name": "akira: Transworld Signs",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 13, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to akira. | Country: CA | Sector: Business Services | Website: transworldsigns.com | Infostealer data confirmed. | Transworld Signs produces and sources a complete range of promotional and POP graphics. The com pany offers digital and standard menu boards, large scale graphics and any other interior graph ics or signage to support the company's customers' needs. We will upload 17gb of corporate data soon. Employee personal information (names, DOB and so on ), projects files, financials, client internal information, contracts and agreements and so on. | Source: https://www.ransomware.live/id/VHJhbnN3b3JsZCBTaWduc0Bha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4059"

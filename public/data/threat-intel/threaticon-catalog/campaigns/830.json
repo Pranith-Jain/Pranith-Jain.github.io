@@ -3,9 +3,9 @@
   "name": "akira: DeMera DeMera Cameron",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 13, 2026",
+  "lastSeen": "Apr 13, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: ddccpa.com | Infostealer data confirmed. | DDC CPA is a trusted CPA firm based in Fresno, specializing in co rporate tax services and audit advisory for businesses across var ious industries. With over 80 years of experience, they provide a comprehensive range of accounting services including bookkeeping , tax planning, and financial forecasting. We will upload 260gb of corporate data soon. A bit of personal da ta, financials, client financials (international ones), contracts and agreements, corporate confidential documents, NDAs and so on . | Source: https://www.ransomware.live/id/RGVNZXJhIERlTWVyYSBDYW1lcm9uQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/830"

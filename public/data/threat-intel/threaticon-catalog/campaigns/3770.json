@@ -3,10 +3,10 @@
   "name": "incransom: Aerodiagnostics",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "May 6, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: aerodiagnostics.com | Infostealer data confirmed. | Aerodiagnostics, LLC is a Massachusetts-based laboratory specializing in advanced diagnostic testing for gastrointestinal disorders, including Small Intestinal Bacterial Overgrowth (SIBO), fructose malabsorption, sucrose intolerance, and lactose intolerance. The company utilizes state-of-the-art technology and non-invasive breath tests to provide accurate results while ensuring a high level of customer service Laek: 50GB WE HAS COLLECTED SUCH DATA AS: - Confidential documents - Clients Data - NDA - Financial data - Operations - Corporate data - Business Agreements - Development - Financial databases, all transactions, all clients And a lot of other VERY IMPORTANT information! | Source: https://www.ransomware.live/id/QWVyb2RpYWdub3N0aWNzQGluY3JhbnNvbQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3770"
 }

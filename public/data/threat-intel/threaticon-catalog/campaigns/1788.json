@@ -3,10 +3,10 @@
   "name": "dragonforce: C.A. LINDMAN Inc.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 6, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Construction | Website: www.calindman.com | Numerous data items, including financial and project details, were leaked from servers located at the company's headquarters in Florida, Maryland, and North Carolina. C.A. Lindman, Inc., founded in 1990, has grown from a small restoration company with less than 10 employees, into one of the top 20 national firms specializing in exterior concrete and masonry repairs over the last 30 years. The founders, Rob Pusheck and Jeff Procter, have kept Lindman focused on meeting all of their clients’ needs and expectations. The “Lindman Difference” is the company’s motto and delivering this superior service is the company-wide goal every day. | Source: https://www.ransomware.live/id/Qy5BLiBMSU5ETUFOIEluYy5AZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1788"
 }

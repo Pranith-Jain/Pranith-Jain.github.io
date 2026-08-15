@@ -3,10 +3,10 @@
   "name": "dragonforce: phoenixlabs.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 13, 2026",
+  "lastSeen": "Mar 13, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: CA | Sector: Technology | Website: phoenixlabs.com | Infostealer data confirmed. | Phoenix Environmental Laboratories specializes in high-quality analysis of soil, water, air, sediment, and solids, complying with EPA, state environmental protection agency, and health department requirements. The company serves a diverse clientele, including small businesses, large engineering firms, and state and federal agencies. They offer competitive pricing and standard turnaround times of 7 to 10 business days, as well as priority, expedited, and emergency response services. Phoenix strives to collaborate with consulting and municipal partners in an effort to create a cleaner and safer environment. | Source: https://www.ransomware.live/id/cGhvZW5peGxhYnMuY29tQGRyYWdvbmZvcmNl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1605"
 }

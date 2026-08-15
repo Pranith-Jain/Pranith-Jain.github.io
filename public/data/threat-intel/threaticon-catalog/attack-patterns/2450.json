@@ -1,0 +1,9 @@
+{
+  "id": 2450,
+  "name": "T1098.001 - Non-Standard Port - Custom C2 Communication",
+  "techniqueId": "T1098",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2450"
+}

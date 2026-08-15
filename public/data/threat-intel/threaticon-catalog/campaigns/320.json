@@ -3,9 +3,9 @@
   "name": "payoutsking: Englewood Lab",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 30, 2026",
+  "lastSeen": "Mar 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Healthcare | Website: englewoodlab.com | Infostealer data confirmed. | [AI generated] Englewood Lab is a contract development and manufacturing organization (CDMO) based in the United States, operating out of Englewood, New Jersey. The company specializes in the development and manufacturing of topical, sterile, and liquid pharmaceutical products. It serves clients in the pharmaceutical and personal care industries, offering formulation development, stability testing, and regulatory support services. | Source: https://www.ransomware.live/id/RW5nbGV3b29kIExhYkBwYXlvdXRza2luZw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/320"

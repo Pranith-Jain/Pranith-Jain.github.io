@@ -3,9 +3,9 @@
   "name": "akira: Nicholas & Tangeman",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 4, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: wyolegal.com | Infostealer data confirmed. | Nicholas & Tangeman, LLC is a general practice law firm based in Laramie, Wyoming, serving clients in Wyoming and Colorado. The fi rm offers a wide range of legal services including civil litigati on, criminal law, personal injury, estate planning, and corporate business planning. We will upload over 100gb of corporate data soon. Lots of clients ' personal files (passports, DLs, medical record), NDA, police re ports, court files, and other confidential files. | Source: https://www.ransomware.live/id/TmljaG9sYXMgJiBUYW5nZW1hbkBha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1843"

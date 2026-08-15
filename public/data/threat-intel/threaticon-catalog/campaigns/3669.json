@@ -3,9 +3,9 @@
   "name": "fulcrumsec: Arup Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "May 10, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to fulcrumsec. | Country: GB | Sector: Business Services | Website: arup.com | Infostealer data confirmed. | [AI generated] Arup Group is a British multinational professional services firm headquartered in London, United Kingdom. Founded in 1946, it operates in the engineering, design, planning, and consulting industries. The firm provides structural, civil, mechanical, and electrical engineering services, alongside architecture and project management. Arup works across sectors including infrastructure, buildings, transport, and energy, delivering projects in over 140 countries worldwide. | Source: https://www.ransomware.live/id/QXJ1cCBHcm91cEBmdWxjcnVtc2Vj",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3669"

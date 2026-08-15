@@ -1,0 +1,9 @@
+{
+  "id": 1015,
+  "name": "Buffer Overflow via Parameter Expansion",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. In this attack, the target software is given input that the adversary knows will be modified and expanded in size during processing. This attack relies on the target software failing to anticipate that the expanded data may exceed some internal limit, thereby creating a buffer overflow.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1015"
+}

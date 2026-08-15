@@ -1,11 +1,11 @@
 {
   "id": 2014,
   "name": "Maldoc Cybersecurity in the EU Common Security and Defense Policy",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 11, 2021",
+  "lastSeen": "Sep 11, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #19 (199f8987-8a33-44ce-943a-a4b0482a950e).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2014"

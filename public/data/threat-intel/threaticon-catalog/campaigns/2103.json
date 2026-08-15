@@ -1,11 +1,11 @@
 {
   "id": 2103,
   "name": "Microsoft Office Vulnerabilities Used to Distribute Zyklon Malware in Recent Campaign",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 17, 2018",
+  "lastSeen": "Jan 17, 2018",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #128 (5a5fc388-48c8-48b8-9f08-043bc0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2103"

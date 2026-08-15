@@ -3,9 +3,9 @@
   "name": "payload: Inteceng.com.my (+ Tsksynergy.com.my + Amemanufacturing.com.my + Woodnova.com.my)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 13, 2026",
+  "lastSeen": "May 13, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to payload. | Country: MY | Sector: Manufacturing | Website: Inteceng.com.my | These websites represent a synergistic group of Malaysian companies, such as AME Elite and TSK Synergy, specializing in integrated industrial construction and engineering solutions. They provide end-to-end services, including the design and fabrication of steel structures, mechanical engineering, and the development of large-scale industrial parks. Together, they leverage their combined expertise to deliver \"turnkey\" manufacturing facilities and infrastructure projects across the region. | Source: https://www.ransomware.live/id/SW50ZWNlbmcuY29tLm15ICgrIFRza3N5bmVyZ3kuY29tLm15ICsgQW1lbWFudWZhY3R1cmluZy5jb20ubXkgKyBXb29kbm92YS5jb20ubXkpQHBheWxvYWQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3572"

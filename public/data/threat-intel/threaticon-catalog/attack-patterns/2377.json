@@ -1,0 +1,9 @@
+{
+  "id": 2377,
+  "name": "T1110.001 - Brute Force",
+  "techniqueId": "T1110",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2377"
+}

@@ -3,9 +3,9 @@
   "name": "Deadlock: Optimal Care SA",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to Deadlock. | Country: AR | Sector: Healthcare | Website: www.optimalcaresa.com | Optimal Care Sociedad Anonima manufactures cleaning applications. The Company offers wet wipes for personal care, baby wipes, make-up remover, multipurpose wipes, and cleaning applications. Optimal Care serves customers in Spain. | Source: https://www.ransomware.live/id/T3B0aW1hbCBDYXJlIFNBQERlYWRsb2Nr",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4140"

@@ -3,10 +3,10 @@
   "name": "dragonforce: Vega",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 20, 2026",
+  "lastSeen": "May 20, 2026",
+  "added": "May 21, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Sector: Not Found | Website: vega-corp.com | Infostealer data confirmed. | Vega combines elite technical skills with personalized customer service and environmental stewardship to excel in the industrial and manufacturing sector. From the loading docks through the warehouse, assembly line, raw product processing, storage, distribution and into the administration areas, the company's work is designed to support the company's customer's operations in the production of everything from fabrication to perishables. \"I/the company continue to use Vega not because the company has to but because the company want to. Vega brings a lot of knowledge and experience with them to the table and adds a great amount of value to the company's projects. The company value the company's relationship with them and expect it to continue for a long, long time | Source: https://www.ransomware.live/id/VmVnYUBkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3868"
 }

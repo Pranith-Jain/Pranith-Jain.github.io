@@ -1,11 +1,11 @@
 {
   "id": 3021,
   "name": "KRVTZ-NET IDS alerts for 2026-03-18",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 18, 2026",
+  "lastSeen": "Mar 18, 2026",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1910 (21c6f416-d1c2-4a84-8ebb-c189b4bf5c5d).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3021"

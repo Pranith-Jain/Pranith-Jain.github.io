@@ -1,11 +1,11 @@
 {
   "id": 3188,
   "name": "Targeted attack on industrial enterprises and public institutions",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 12, 2022",
+  "lastSeen": "Aug 12, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #312 (28219fd4-56f3-470c-90ae-bdaeb006502e).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3188"

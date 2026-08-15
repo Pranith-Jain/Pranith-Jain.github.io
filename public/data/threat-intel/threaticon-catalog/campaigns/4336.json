@@ -3,9 +3,9 @@
   "name": "Blackfield: redeplastrs.com.br",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 3, 2026",
+  "lastSeen": "Jul 3, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to Blackfield. | Country: BR | Sector: Manufacturing | Website: redeplastrs.com.br | Infostealer data confirmed. | Redeplast is a Brazilian footwear manufacturer with over 20 years of experience in the industry. The... | Source: https://www.ransomware.live/id/cmVkZXBsYXN0cnMuY29tLmJyQEJsYWNrZmllbGQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4336"

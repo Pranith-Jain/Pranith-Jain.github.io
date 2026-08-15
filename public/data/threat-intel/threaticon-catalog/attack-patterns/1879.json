@@ -1,0 +1,9 @@
+{
+  "id": 1879,
+  "name": "T1078 - Valid Accounts for Lateral Movement",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1879"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1714,
+  "name": "T1096.001 - OS Credential Dumping: Windows Credentials via LSASS Memory",
+  "techniqueId": "T1096",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1714"
+}

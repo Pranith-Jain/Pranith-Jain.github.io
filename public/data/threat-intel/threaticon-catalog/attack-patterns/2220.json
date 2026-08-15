@@ -1,0 +1,9 @@
+{
+  "id": 2220,
+  "name": "T1070 - Lateral Movement across a Network",
+  "techniqueId": "T1070",
+  "added": null,
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2220"
+}

@@ -3,9 +3,9 @@
   "name": "ALP-001: kyoceradocumentsolutions.eu",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 29, 2026",
+  "lastSeen": "Mar 31, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to ALP-001. | Country: EU | Sector: Technology | Website: kyoceradocumentsolutions.eu | Infostealer data confirmed. | Country: United Kingdom Revenue: $154.1 Million Storage: 75GB Description: Kyocera (Kyocera Document Solutions Europe Management BV is a company that operates in the Office Products Retail & Distribution industry. It employs 250to499 people and has 100MMto250M of revenue. The company is headquartered in Reading, Berkshire, United Kingdom. Deadline: 2026-04-07 23:54:11 | Source: https://www.ransomware.live/id/a3lvY2VyYWRvY3VtZW50c29sdXRpb25zLmV1QEFMUC0wMDE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1264"

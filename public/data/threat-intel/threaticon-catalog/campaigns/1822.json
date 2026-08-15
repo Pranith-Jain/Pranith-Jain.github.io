@@ -3,10 +3,10 @@
   "name": "incransom: piglerautomation.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 5, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Technology | Website: piglerautomation.com | Infostealer data confirmed. | Pigler Automation specializes in Industrial Automation System Integration, helping clients streamline and modernize their operations to enhance efficiency and productivity. Their services include control system consultation, project planning, and support for various industries such as biopharma, oil and gas, and energy. With over 20 years of experience, their team of certified engineers offers expertise in SCADA design, PLC programming, and system integration. Pigler Automation aims to bridge the gap between legacy systems and cutting-edge automation, ensuring clients can optimize performance and stay ahead of industry challenges. Employees: 50 Revenue: $5 Million Industry: Industrial Machinery & Equipment Phone Number: (866) 871-1456 | Source: https://www.ransomware.live/id/cGlnbGVyYXV0b21hdGlvbi5jb21AaW5jcmFuc29t",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1822"
 }

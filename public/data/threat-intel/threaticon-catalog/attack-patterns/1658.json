@@ -1,0 +1,9 @@
+{
+  "id": 1658,
+  "name": "T1566.001 -Credential dumpers such as Mimikatz or similar tools for capturing username/password information from memory or other sources",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1658"
+}

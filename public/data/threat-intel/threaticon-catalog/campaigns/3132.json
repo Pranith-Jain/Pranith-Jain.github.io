@@ -1,11 +1,11 @@
 {
   "id": 3132,
   "name": "New Mirai Variant Targets Enterprise Wireless Presentation & Display Systems",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 18, 2019",
+  "lastSeen": "Mar 18, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #180 (5c93d7f7-7de4-4548-ae4c-403ec0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3132"

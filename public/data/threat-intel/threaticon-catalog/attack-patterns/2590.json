@@ -1,0 +1,9 @@
+{
+  "id": 2590,
+  "name": "T1486 - Data Encrypted for Impact (Ransomware encryption)",
+  "techniqueId": "T1486",
+  "added": "Aug 1, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2590"
+}

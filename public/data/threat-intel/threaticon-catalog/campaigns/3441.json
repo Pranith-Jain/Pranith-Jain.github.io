@@ -1,11 +1,11 @@
 {
   "id": 3441,
   "name": "Malspam 2016-08-24 (.js in .zip) - campaign: \"Statement\"",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 24, 2016",
+  "lastSeen": "Aug 24, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #828 (57bd7251-390c-4ee2-accd-4f69950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3441"

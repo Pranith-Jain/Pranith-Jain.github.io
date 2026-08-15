@@ -1,0 +1,9 @@
+{
+  "id": 2759,
+  "name": "T1193: Spearphishing Attachment",
+  "techniqueId": "T1193",
+  "added": "Aug 9, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2759"
+}

@@ -3,9 +3,9 @@
   "name": "linkc: StrongLink",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Feb 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to linkc. | Country: US | Sector: Not Found | Website: stronglink.com | Infostealer data confirmed. | DOWNLOAD SAMPLE: https://amber-wooden-prawn-35.mypinata.cloud/ipfs/bafybeian2lxaye6gwvi2kztzfpyr2lokzfngai3d4zjmtgqhhv74ixsvi4 | Source: https://www.ransomware.live/id/U3Ryb25nTGlua0BsaW5rYw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/910"

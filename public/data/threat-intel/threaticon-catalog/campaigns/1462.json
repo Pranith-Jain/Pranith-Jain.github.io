@@ -3,9 +3,9 @@
   "name": "nitrogen: ENENSYS Technologies",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 19, 2026",
+  "lastSeen": "Mar 19, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nitrogen. | Country: FR | Sector: Technology | Website: www.enensys.com | One of the leaders in video stream optimization, security, and content monetization. Offers advanced solutions for efficient video delivery across all digital ecosystems. | Source: https://www.ransomware.live/id/RU5FTlNZUyBUZWNobm9sb2dpZXNAbml0cm9nZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1462"

@@ -3,9 +3,9 @@
   "name": "thegentlemen: Da Guan Technology",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "May 6, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: TW | Sector: Technology | Website: daguan-tech.com.tw | Infostealer data confirmed. | daguan-tech.com.tw Da Guan Technology serves as the official distributor of two major brands: Mitsubishi Electric (Japan) and Lifegear (Taiwan) — offering a full range of products including heat recovery ventilators (HRV), bathroom warm-air dryers, ultra-quiet exhaust fans, circulation fans, and fresh-air systems. Their primary sales channels include construction companies, interior designers, plumbing distributors, and premium bathroom retailers | Source: https://www.ransomware.live/id/RGEgR3VhbiBUZWNobm9sb2d5QHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3757"

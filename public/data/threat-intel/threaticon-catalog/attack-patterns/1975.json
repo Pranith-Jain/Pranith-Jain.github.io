@@ -1,0 +1,9 @@
+{
+  "id": 1975,
+  "name": "A0002 - Attack on Data through Network",
+  "techniqueId": "A0002",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1975"
+}

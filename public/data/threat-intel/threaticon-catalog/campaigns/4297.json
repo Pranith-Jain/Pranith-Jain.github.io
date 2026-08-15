@@ -3,9 +3,9 @@
   "name": "Booba Project: Upstaging",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to Booba Project. | Country: US | Sector: Business Services | Website: www.upstaging.com | Entertainment Providers Stolen data: 10 GB | Source: https://www.ransomware.live/id/VXBzdGFnaW5nQEJvb2JhIFByb2plY3Q=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4297"

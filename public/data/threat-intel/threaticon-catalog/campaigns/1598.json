@@ -3,9 +3,9 @@
   "name": "nightspire: **n*a**t** **o*p",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 13, 2026",
+  "lastSeen": "Mar 13, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nightspire. | Sector: Transportation/Logistics | Data is not available now. | Source: https://www.ransomware.live/id/KipuKmEqKnQqKiAqKm8qcEBuaWdodHNwaXJl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1598"

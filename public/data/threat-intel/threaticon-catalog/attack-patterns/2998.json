@@ -1,0 +1,9 @@
+{
+  "id": 2998,
+  "name": "T1190 Exploit Public-Facing Application",
+  "techniqueId": "T1190",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2998"
+}

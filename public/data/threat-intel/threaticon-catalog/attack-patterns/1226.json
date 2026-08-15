@@ -1,0 +1,9 @@
+{
+  "id": 1226,
+  "name": "System Build Data Maliciously Altered",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. During the system build process, the system is deliberately misconfigured by the alteration of the build data. Access to system configuration data files and build processes is susceptible to deliberate misconfiguration of the system.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1226"
+}

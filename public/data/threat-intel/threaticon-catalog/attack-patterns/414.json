@@ -1,0 +1,9 @@
+{
+  "id": 414,
+  "name": "Gather Victim Org Information",
+  "techniqueId": "T1591",
+  "added": "May 2, 2026",
+  "description": "Adversaries may gather information about the victim's organization that can be used during targeting. Information about an organization may include a variety of details, including the names of divisions/departments, specifics of business operations, as well as the roles and responsibilities of key employees. Adversaries may gather this information in various ways, such as direct elicitation via Phishing for Information. Information about an organization may also be exposed to adversaries via online or other accessible data sets (ex: Social Media or Search Victim-Owned Websites).(Citation: ThreatPost Broadvoice Leak)(Citation: SEC EDGAR Search) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: Phishing for Information or Search Open Websites/Domains), establishing operational resources (ex: Establish Accounts or Compromise Accounts), and/or initial access (ex: Phishing or Trusted Relationship).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/414"
+}

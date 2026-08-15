@@ -1,11 +1,11 @@
 {
   "id": 2786,
   "name": "OSINT - Locky Ransomware Pushed Alongside FakeGlobe in Upgraded Spam Campaigns",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 18, 2017",
+  "lastSeen": "Sep 18, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1279 (5a3bd35f-7140-48d0-8b88-4555950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2786"

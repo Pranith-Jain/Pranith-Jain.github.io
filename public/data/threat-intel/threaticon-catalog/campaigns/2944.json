@@ -1,11 +1,11 @@
 {
   "id": 2944,
   "name": "BiBi-Linux: A New Wiper Dropped By Pro-Hamas Hacktivist Group",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 21, 2023",
+  "lastSeen": "Nov 21, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1735 (276f7055-c5e0-4b14-8645-c7028d0c74aa).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2944"

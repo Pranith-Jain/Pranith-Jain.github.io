@@ -1,0 +1,9 @@
+{
+  "id": 1329,
+  "name": "T1048 - 数据外发技术",
+  "techniqueId": "T1048",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1329"
+}

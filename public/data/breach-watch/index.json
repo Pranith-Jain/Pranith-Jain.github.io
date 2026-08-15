@@ -1,9 +1,9 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-08-15T05:07:47.315Z",
+  "replicatedAt": "2026-08-15T06:02:01.902Z",
   "counts": { "breaches": 358, "groups": 58, "categories": 3 },
-  "lastSyncedAt": "2026-08-15T05:07:47.315Z",
+  "lastSyncedAt": "2026-08-15T06:02:01.902Z",
   "categories": [
     { "key": "data_breach", "label": "Data Breach", "count": 189 },
     { "key": "ransomware", "label": "Ransomware", "count": 167 },

@@ -3,9 +3,9 @@
   "name": "thegentlemen: Medic Rescue",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 7, 2026",
+  "lastSeen": "Jul 4, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Sector: Healthcare | Website: www.medicrescue.org | https://www.***.org/ https://www.zoominfo.com/c/medic-rescue/47367866 Medic Rescue Services has been providing trusted emergency medical services to Beaver County since 1978. They offer a range of services including on-site emergency care, non-emergency transports, stretcher van trips, and wheelchair van services, all available 24/7. Their dedicated team and extensive fleet ensure swift and effective responses to medical needs. Medic Rescue aims to prioritize health and safety while fostering community trust through their reliable service | Source: https://www.ransomware.live/id/TWVkaWMgUmVzY3VlQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4231"

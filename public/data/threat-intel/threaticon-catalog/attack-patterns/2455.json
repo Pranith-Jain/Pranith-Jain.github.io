@@ -1,0 +1,9 @@
+{
+  "id": 2455,
+  "name": "T1573.003 - DNS Tunneling",
+  "techniqueId": "T1573",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2455"
+}

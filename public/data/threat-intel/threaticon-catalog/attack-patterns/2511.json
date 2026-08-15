@@ -1,0 +1,9 @@
+{
+  "id": 2511,
+  "name": "T1011 - Native API",
+  "techniqueId": "T1011",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2511"
+}

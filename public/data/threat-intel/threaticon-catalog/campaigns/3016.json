@@ -1,11 +1,11 @@
 {
   "id": 3016,
   "name": "KadNap botnet IOC (mainly Asus router)",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 13, 2026",
+  "lastSeen": "Mar 13, 2026",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1900 (2bd1fa00-6450-479c-9387-3a7fcb5e15a9).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3016"

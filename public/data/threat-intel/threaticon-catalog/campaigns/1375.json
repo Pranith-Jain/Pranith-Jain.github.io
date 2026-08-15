@@ -3,9 +3,9 @@
   "name": "akira: Rioja Motor",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 23, 2026",
+  "lastSeen": "Mar 16, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: ES | Sector: Consumer Services | Website: riojamotor.com | Infostealer data confirmed. | Riojamotor specializes in the sale of new and used vehicles, incl uding brands such as Volkswagen, Audi, Seat, Skoda, and Cupra. Th ey offer financing options and vehicle appraisal services, cateri ng to clients looking for both personal and commercial vehicles. We will upload 17gb of corporate data soon. Employee personal inf ormation (passports, IDs, address, emails and so on), medical inf ormation, client personal docs, financials, lots of projects, cor respondence, etc. | Source: https://www.ransomware.live/id/UmlvamEgTW90b3JAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1375"

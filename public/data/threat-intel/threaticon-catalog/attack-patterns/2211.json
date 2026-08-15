@@ -1,0 +1,9 @@
+{
+  "id": 2211,
+  "name": "T1053.001 - Scheduled Task Creation for persistence",
+  "techniqueId": "T1053",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2211"
+}

@@ -1,11 +1,11 @@
 {
   "id": 3415,
   "name": "OSINT A Fast and Furious Drive-By: Uncovering PTDark Attack Sites by Fortinet",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 22, 2015",
+  "lastSeen": "Sep 22, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #690 (5614b358-9c54-4b33-96f6-742d950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3415"

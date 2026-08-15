@@ -1,0 +1,9 @@
+{
+  "id": 1249,
+  "name": "URL Encoding",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. This attack targets the encoding of the URL. An adversary can take advantage of the multiple way of encoding an URL and abuse the interpretation of the URL.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1249"
+}

@@ -3,9 +3,9 @@
   "name": "lockbit5: fiepe.org.br",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Education | Website: fiepe.org.br | Infostealer data confirmed. | Fiepe is an industrial organization that helps local businesses grow and succeed. They work directly... | Source: https://www.ransomware.live/id/ZmllcGUub3JnLmJyQGxvY2tiaXQ1",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1248"

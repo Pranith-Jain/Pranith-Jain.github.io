@@ -1,11 +1,11 @@
 {
   "id": 2365,
   "name": "OSINT - NANHAISHU RATing the South China Sea",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 4, 2016",
+  "lastSeen": "Aug 4, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #622 (57a33020-bc70-4f69-96f9-118b950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2365"

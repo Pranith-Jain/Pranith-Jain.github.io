@@ -3,9 +3,9 @@
   "name": "chaos: coastappliances.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 14, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Consumer Services | Website: www.coastappliances.com | It offers refrigerators, freezers, wall ovens, washers, and electric ranges. | Source: https://www.ransomware.live/id/Y29hc3RhcHBsaWFuY2VzLmNvbUBjaGFvcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/733"

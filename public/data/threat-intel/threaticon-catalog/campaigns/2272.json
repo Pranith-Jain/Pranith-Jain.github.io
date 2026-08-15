@@ -1,11 +1,11 @@
 {
   "id": 2272,
   "name": "ToddyCat: Keep calm and check logs",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 15, 2023",
+  "lastSeen": "Oct 15, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #423 (7c045c5e-dd4d-4cbc-b654-0866e380a521).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2272"

@@ -1,0 +1,9 @@
+{
+  "id": 1051,
+  "name": "Task Impersonation",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary, through a previously installed malicious application, impersonates an expected or routine task in an attempt to steal sensitive information or leverage a user's privileges.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1051"
+}

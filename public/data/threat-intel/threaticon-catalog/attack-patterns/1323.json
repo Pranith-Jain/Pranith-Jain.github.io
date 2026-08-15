@@ -1,0 +1,9 @@
+{
+  "id": 1323,
+  "name": "T1555.003: Credentials from Web Browsers",
+  "techniqueId": "T1555",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1323"
+}

@@ -3,9 +3,9 @@
   "name": "incransom: delapazlaw.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 31, 2026",
+  "lastSeen": "Mar 31, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: delapazlaw.com | Infostealer data confirmed. | When you work with the Law Office of Michael R. De La Paz, the only thing you have to worry about is recovering from your injuries. Mr. De La Paz will go to bat for you with the insurance companies and fight them in court to get you the compensation you deserve. | Source: https://www.ransomware.live/id/ZGVsYXBhemxhdy5jb21AaW5jcmFuc29t",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1143"

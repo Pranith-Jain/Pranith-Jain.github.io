@@ -1,0 +1,9 @@
+{
+  "id": 1959,
+  "name": "T1253 - Windows Administrative Shares Access",
+  "techniqueId": "T1253",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1959"
+}

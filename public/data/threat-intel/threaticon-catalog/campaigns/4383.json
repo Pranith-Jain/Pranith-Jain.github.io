@@ -3,9 +3,9 @@
   "name": "thegentlemen: Al Dhow Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: AE | Sector: Transportation/Logistics | Website: al-dhow.com | Infostealer data confirmed. | ***.com zoominfo.com/c/al-dhow/345585723 Dhow International Holding is a diversified group of companies with a portfolio spanning high-growth and high-impact industries across the GCC region.Their extensive operations encompass a wide range of sectors, including engineering, architectural solutions, hospitality, food & beverage, logistics, healthcare, and venture capital. The group is committed to delivering integrated, end-to-end services while fostering long-term sustainable growth across all its businesses | Source: https://www.ransomware.live/id/QWwgRGhvdyBHcm91cEB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4383"

@@ -3,9 +3,9 @@
   "name": "thegentlemen: Ferretería Scopazzo",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 11, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: AR | Sector: Consumer Services | Website: scopazzo.com.ar | Infostealer data confirmed. | ***.com.ar rocketreach.co/ferreteria-scopazzo-profile_b7dd5f00c0ca3ccc Ferretería Scopazzo is a prominent family-owned hardware and industrial tools retailer based in Buenos Aires, Argentina, boasting over 60 years of market experience.They specialize in supplying electrical, pneumatic, and household equipment from major global brands like Makita, DeWalt, and Bosch to both individuals and businesses | Source: https://www.ransomware.live/id/RmVycmV0ZXLDrWEgU2NvcGF6em9AdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4097"

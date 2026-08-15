@@ -3,9 +3,9 @@
   "name": "ALP-001: aviwest.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to ALP-001. | Country: FR | Sector: Technology | Website: aviwest.com | Infostealer data confirmed. | Country: France Revenue: $17.3 Million Storage: 118GB Description: Haivision is a leading global provider of mission-critical, real-time video networking and visual collaboration solutions. The company offers a comprehensive portfolio of broadcast solutions for live news, sports, and events, including the Pro series of mobile encoders and transmitters designed for newsgathering and streaming over 4G and 5G networks. Trusted by broadcasters worldwide ** WE UPLOADED 34GB As Samples ** ** You Can Download Samples From Leak Page ** Deadline: 2026-04-18 17:05:35 | Source: https://www.ransomware.live/id/YXZpd2VzdC5jb21AQUxQLTAwMQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/907"

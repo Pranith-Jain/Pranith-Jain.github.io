@@ -1,0 +1,9 @@
+{
+  "id": 1895,
+  "name": "T1040.005 - Keylogging as a credential access method",
+  "techniqueId": "T1040",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1895"
+}

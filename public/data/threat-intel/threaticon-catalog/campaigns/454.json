@@ -3,9 +3,9 @@
   "name": "qilin: TokyoHosoKogyo Corporation",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: JP | Sector: Manufacturing | Website: www.tokyohoso.co.jp | N/A | Source: https://www.ransomware.live/id/VG9reW9Ib3NvS29neW8gQ29ycG9yYXRpb25AcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/454"

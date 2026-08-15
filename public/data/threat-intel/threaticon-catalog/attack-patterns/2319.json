@@ -1,0 +1,9 @@
+{
+  "id": 2319,
+  "name": "T1025: Remote Services: RDP",
+  "techniqueId": "T1025",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2319"
+}

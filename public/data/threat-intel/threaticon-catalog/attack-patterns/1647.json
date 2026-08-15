@@ -1,0 +1,9 @@
+{
+  "id": 1647,
+  "name": "T1553.002: Code Signing",
+  "techniqueId": "T1553",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1647"
+}

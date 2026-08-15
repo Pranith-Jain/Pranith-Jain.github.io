@@ -1,11 +1,11 @@
 {
   "id": 2929,
   "name": "[NCSC-UK] Cyclops blink",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 23, 2022",
+  "lastSeen": "Feb 23, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1674 (62167543-c4e0-4f39-a23e-c09f0abe1822).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2929"

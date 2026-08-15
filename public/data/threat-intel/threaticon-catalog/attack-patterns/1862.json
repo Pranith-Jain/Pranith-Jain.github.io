@@ -1,0 +1,9 @@
+{
+  "id": 1862,
+  "name": "T1078 - OS Credential Dumping (Persistence with Extortion Email Campaign)",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1862"
+}

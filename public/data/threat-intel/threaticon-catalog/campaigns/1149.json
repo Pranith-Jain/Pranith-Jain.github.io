@@ -3,9 +3,9 @@
   "name": "embargo: https://www.lagoonpark.com/",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 31, 2026",
+  "lastSeen": "Mar 31, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to embargo. | Country: US | Sector: Hospitality and Tourism | Website: lagoonpark.com | Infostealer data confirmed. | Lagoon Amusement Park , located in Farmington, Utah, is a historic family-owned park operating since 1886. It features a combination of roller coasters (includ... - TOTAL QUANTITY 6 TB | Source: https://www.ransomware.live/id/aHR0cHM6Ly93d3cubGFnb29ucGFyay5jb20vQGVtYmFyZ28=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1149"

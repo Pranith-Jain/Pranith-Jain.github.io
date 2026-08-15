@@ -1,0 +1,9 @@
+{
+  "id": 2428,
+  "name": "T1018.001 - Query Registry",
+  "techniqueId": "T1018",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2428"
+}

@@ -3,10 +3,10 @@
   "name": "dragonforce: Innovision Holdings",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 5, 2026",
+  "lastSeen": "Apr 5, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: CA | Sector: Consumer Services | Website: ivcorp.com | Infostealer data confirmed. | Founded in 2004, InnoVision Holdings Corporation is a group of apparel and accessories companies that focus on brand developments, product innovation, global sales, marketing and distribution. From the company's luxury fashion division to the company's mass market fan wear subsidiary, InnoVisions companies combine innovative designs, high quality, utility with respected brands in their respective markets. Through its portfolio of brands, be it its fully owned or licensed, created or acquired, InnoVision designs, manufacture and distribute to a diverse base of retailers in luxury lifestyle, outdoor, speciality and mass markets in over 30 countries. To create and develop premium leading global lifestyle brands by focusing on product design and innovation, and developing global sales, marketing and distribution capabilities. Innovation is a core valu...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1006"
 }

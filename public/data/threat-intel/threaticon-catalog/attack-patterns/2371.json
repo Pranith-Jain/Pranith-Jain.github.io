@@ -1,0 +1,9 @@
+{
+  "id": 2371,
+  "name": "T1103.001 - Data Encrypted for Exfiltration",
+  "techniqueId": "T1103",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2371"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1075,
+  "name": "Altered Installed BIOS",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An attacker with access to download and update system software sends a maliciously altered BIOS to the victim or victim supplier/integrator, which when installed allows for future exploitation.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1075"
+}

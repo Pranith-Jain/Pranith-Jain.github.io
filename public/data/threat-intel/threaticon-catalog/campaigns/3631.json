@@ -3,9 +3,9 @@
   "name": "lamashtu: Sistemas Electrónicos y de Telecomunicaciones",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to lamashtu. | Country: MX | Sector: Telecommunication | Website: sertes.com.mx | Infostealer data confirmed. | Sertes is a Mexican company specializing in industrial automation, control systems, and telecommunications solutions. They provide PLC programming, SCADA systems, IoT integration... | Source: https://www.ransomware.live/id/U2lzdGVtYXMgRWxlY3Ryw7NuaWNvcyB5IGRlIFRlbGVjb211bmljYWNpb25lc0BsYW1hc2h0dQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3631"

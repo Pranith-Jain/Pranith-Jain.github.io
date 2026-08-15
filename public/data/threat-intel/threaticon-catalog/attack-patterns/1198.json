@@ -1,0 +1,9 @@
+{
+  "id": 1198,
+  "name": "Upload a Web Shell to a Web Server",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. By exploiting insufficient permissions, it is possible to upload a web shell to a web server in such a way that it can be executed remotely. This shell can have various capabilities, thereby acting as a \"gateway\" to the underlying web server. The shell might execute at the higher permission level of the web server, providing the ability the execute malicious code at elevated levels.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1198"
+}

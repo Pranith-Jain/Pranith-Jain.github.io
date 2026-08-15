@@ -1,0 +1,9 @@
+{
+  "id": 1851,
+  "name": "T1217 - Email Header Injection",
+  "techniqueId": "T1217",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1851"
+}

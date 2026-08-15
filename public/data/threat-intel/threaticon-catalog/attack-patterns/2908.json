@@ -1,0 +1,9 @@
+{
+  "id": 2908,
+  "name": "T1134.003 – Make/Impersonate Token",
+  "techniqueId": "T1134",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2908"
+}

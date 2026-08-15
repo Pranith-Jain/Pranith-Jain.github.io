@@ -1,0 +1,9 @@
+{
+  "id": 1705,
+  "name": "T1056.004: Credential API Hooking",
+  "techniqueId": "T1056",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1705"
+}

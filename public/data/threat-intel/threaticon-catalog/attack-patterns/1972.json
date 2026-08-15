@@ -1,0 +1,9 @@
+{
+  "id": 1972,
+  "name": "T1087 - Discovery through Search",
+  "techniqueId": "T1087",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1972"
+}

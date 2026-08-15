@@ -1,0 +1,9 @@
+{
+  "id": 2495,
+  "name": "T1055 - Use of Software Components (open-source tools)",
+  "techniqueId": "T1055",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2495"
+}

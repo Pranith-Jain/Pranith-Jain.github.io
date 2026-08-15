@@ -3,9 +3,9 @@
   "name": "anubis: Samuel I. White, PC",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 21, 2026",
+  "lastSeen": "Apr 21, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Business Services | Website: siwpc.net | Infostealer data confirmed. | Significant breach at a law firm. | Source: https://www.ransomware.live/id/U2FtdWVsIEkuIFdoaXRlLCBQQ0BhbnViaXM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/590"

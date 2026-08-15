@@ -3,9 +3,9 @@
   "name": "Deadlock: Finam Gabon",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to Deadlock. | Country: GA | Sector: Energy | Website: finamgabon.com | Infostealer data confirmed. | The leaked files will be available for download on May 15, 2026. Finam Gabon (Financière Africaine de Micro-projets) is a microfinance institution operating in Gabon since 2005, with over 150,000 clients. It provides a range of savings, loans and mobile banking services. | Source: https://www.ransomware.live/id/RmluYW0gR2Fib25ARGVhZGxvY2s=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4180"

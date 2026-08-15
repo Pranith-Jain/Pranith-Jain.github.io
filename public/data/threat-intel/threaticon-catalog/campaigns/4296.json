@@ -3,9 +3,9 @@
   "name": "apt73: azarestan.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to apt73. | Country: IR | Sector: Not Found | Website: azarestan.com | Infostealer data confirmed. | azarestan.com (Azarestan Business Development Group) is a holding company based in Iran. Azaresta... | Source: https://www.ransomware.live/id/YXphcmVzdGFuLmNvbUBhcHQ3Mw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4296"

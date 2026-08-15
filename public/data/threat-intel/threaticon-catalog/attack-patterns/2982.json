@@ -1,0 +1,9 @@
+{
+  "id": 2982,
+  "name": "T1194.001 PowerShell execution (T1059.001)",
+  "techniqueId": "T1194",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2982"
+}

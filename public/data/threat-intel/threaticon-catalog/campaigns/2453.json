@@ -1,11 +1,11 @@
 {
   "id": 2453,
   "name": "OSINT Cheshire Cat",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 20, 2015",
+  "lastSeen": "Aug 20, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #787 (55d58a12-3644-4378-8ca9-44a6950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2453"

@@ -1,11 +1,11 @@
 {
   "id": 3479,
   "name": "OSINT - PROMETHIUM and NEODYMIUM: Parallel zeroday attacks targeting individuals in Europe",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 16, 2016",
+  "lastSeen": "Dec 16, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #945 (58539031-aa78-4da1-9289-487102de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3479"

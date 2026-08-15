@@ -1,11 +1,11 @@
 {
   "id": 2508,
   "name": "Malspam 2016-09-12 (.js in .zip) - campaign: \"Budget report\"",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 12, 2016",
+  "lastSeen": "Sep 12, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #864 (57d6b9d9-5b3c-4d03-b7a7-4ed2950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2508"

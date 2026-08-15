@@ -3,10 +3,10 @@
   "name": "Deadlock: SKK Networks Sp. z o.o. and UNICARD Systems Sp. z o. o. and SKK SA",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: PL | Sector: Business Services | Website: www.skk-networks.com/en | SKK Networks is a specialized IT infrastructure provider based in Kraków, Poland, that designs, builds, and maintains professional LAN and WLAN networks. They focus on creating high-performance connectivity solutions for challenging environments like high-bay warehouses, cold storage facilities, and industrial plants. Unicard Systems is a Polish manufacturer and integrator of security and building automation systems with over 30 years of experience. Based in Kraków, the company specializes in designing and implementing proprietary hardware and software solutions for business and public infrastructure. SKK Labels , a prominent Polish label manufacturer and printing company based in Kraków. With over 30 years of experience, the company provides comprehensive product marking solutions across various industries, including pharmaceutical, automotive, and logistics. | Sour...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4171"
 }

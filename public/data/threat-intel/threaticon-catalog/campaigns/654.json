@@ -3,9 +3,9 @@
   "name": "qilin: HS Technology Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 18, 2026",
+  "lastSeen": "Apr 18, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.hstechgroup.com | Source: https://www.ransomware.live/id/SFMgVGVjaG5vbG9neSBHcm91cEBxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/654"

@@ -1,0 +1,9 @@
+{
+  "id": 1848,
+  "name": "T1204.001: System Network Configuration Discovery via DNS",
+  "techniqueId": "T1204",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1848"
+}

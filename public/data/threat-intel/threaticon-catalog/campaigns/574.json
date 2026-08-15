@@ -3,9 +3,9 @@
   "name": "qilin: Heartland Steel Products",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 21, 2026",
+  "lastSeen": "Apr 21, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.heartlandsteel.com | Source: https://www.ransomware.live/id/SGVhcnRsYW5kIFN0ZWVsIFByb2R1Y3RzQHFpbGlu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/574"

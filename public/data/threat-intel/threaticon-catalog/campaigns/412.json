@@ -3,9 +3,9 @@
   "name": "apt73: prixet.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to apt73. | Sector: Technology | Website: prixet.com | Infostealer data confirmed. | We are a technology company based in Europe and the Caribbean. We are dedicated to data creation ... | Source: https://www.ransomware.live/id/cHJpeGV0LmNvbUBhcHQ3Mw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/412"

@@ -1,0 +1,9 @@
+{
+  "id": 2771,
+  "name": "T1086 Windows Command Shell",
+  "techniqueId": "T1086",
+  "added": "Aug 9, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2771"
+}

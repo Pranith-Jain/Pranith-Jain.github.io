@@ -3,10 +3,10 @@
   "name": "thegentlemen: Qatar National Broadband",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 12, 2026",
+  "lastSeen": "May 12, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: QA | Sector: Telecommunication | Website: qnbn.qa | Infostealer data confirmed. | qnbn.qa zoominfo.com/c/qatar-national-broadband-network-qnbn/1121927707 Qatar National Broadband Network is a government-owned leader in passive fiber infrastructure, established in 2011 to power Qatar's digital transformation and National Vision 2030. With nationwide fiber-optic coverage, QNBN enables ultra-fast, secure connectivity for homes, businesses, and government through open access for all licensed service providers. Strategic partnerships with Microsoft and Carnegie Mellon Qatar underscore its commitment to innovation, AI readiness, and cyber-resilient infrastructure — all delivered with sustainability and future-ready excellence | Source: https://www.ransomware.live/id/UWF0YXIgTmF0aW9uYWwgQnJvYWRiYW5kQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3588"
 }

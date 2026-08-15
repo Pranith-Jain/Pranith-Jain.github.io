@@ -1,11 +1,11 @@
 {
   "id": 3422,
   "name": "OSINT The Dyre Wolf report from IBM",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 3, 2015",
+  "lastSeen": "Apr 3, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #697 (551e8745-ace0-461c-b9eb-ce36950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3422"

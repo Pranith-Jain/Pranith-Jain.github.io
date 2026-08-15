@@ -1,0 +1,9 @@
+{
+  "id": 1308,
+  "name": "T1123: Audio Capture",
+  "techniqueId": "T1123",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1308"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1315,
+  "name": "T1014: Rootkit",
+  "techniqueId": "T1014",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1315"
+}

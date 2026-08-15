@@ -1,11 +1,11 @@
 {
   "id": 3139,
   "name": "Operation Ghost - White Paper",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 7, 2019",
+  "lastSeen": "Oct 7, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #208 (5d9b516c-e5f0-4e7c-a958-5d8c0a019371).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3139"

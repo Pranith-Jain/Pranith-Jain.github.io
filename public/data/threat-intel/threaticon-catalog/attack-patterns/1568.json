@@ -1,0 +1,9 @@
+{
+  "id": 1568,
+  "name": "T1055 - Process Injection from .NET",
+  "techniqueId": "T1055",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1568"
+}

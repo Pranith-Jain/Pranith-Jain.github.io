@@ -1,11 +1,11 @@
 {
   "id": 2367,
   "name": "OSINT Group5: Syria and the Iranian Connection by Citizen Lab",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 8, 2016",
+  "lastSeen": "Aug 8, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #625 (57a89edc-e184-41da-8e51-4f98950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2367"

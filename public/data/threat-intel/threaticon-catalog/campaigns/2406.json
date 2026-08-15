@@ -1,11 +1,11 @@
 {
   "id": 2406,
   "name": "OSINT Threat Research Team Goes â€œBeyond the Exploitâ€ in Search of Payloads from MS15-093 by bit9",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 4, 2015",
+  "lastSeen": "Sep 4, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #734 (55ed7c41-5a68-4307-8184-43bc950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2406"

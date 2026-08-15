@@ -1,0 +1,9 @@
+{
+  "id": 530,
+  "name": "Data Transfer Size Limits",
+  "techniqueId": "T1030",
+  "added": "May 2, 2026",
+  "description": "An adversary may exfiltrate data in fixed size chunks instead of whole files or limit packet sizes below certain thresholds. This approach may be used to avoid triggering network data transfer threshold alerts.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/530"
+}

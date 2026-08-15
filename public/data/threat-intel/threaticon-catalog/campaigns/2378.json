@@ -1,11 +1,11 @@
 {
   "id": 2378,
   "name": "OSINT The Curious Case of the Document Exploiting an Unknown Vulnerability â€“ Part 2: RATs, Hackers and Rihanna by Fortinet",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 24, 2015",
+  "lastSeen": "Aug 24, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #706 (55dc3064-fb18-481a-b837-58f2950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2378"

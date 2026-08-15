@@ -3,9 +3,9 @@
   "name": "play: GapVax",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Feb 18, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to play. | Country: US | Sector: Manufacturing | Website: www.gapvax.com | United States | Source: https://www.ransomware.live/id/R2FwVmF4QHBsYXk=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1880"

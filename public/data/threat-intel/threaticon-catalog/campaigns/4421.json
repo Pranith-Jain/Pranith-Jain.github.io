@@ -3,9 +3,9 @@
   "name": "worldleaks: Starpool",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: IT | Sector: Consumer Services | Website: www.starpool.com | [AI generated] Starpool is an Italian company specializing in wellness and relaxation solutions, primarily designing and manufacturing saunas, steam rooms, and spa equipment. Founded in Italy, the company operates in the luxury wellness industry, supplying high-end products to hotels, spas, and private clients. Starpool is known for blending design with technology to promote physical and mental wellbeing, and distributes its products internationally while maintaining its headquarters in Italy. | Source: https://www.ransomware.live/id/U3RhcnBvb2xAd29ybGRsZWFrcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4421"

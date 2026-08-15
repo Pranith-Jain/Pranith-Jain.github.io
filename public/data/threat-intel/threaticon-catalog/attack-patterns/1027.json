@@ -1,0 +1,9 @@
+{
+  "id": 1027,
+  "name": "Escaping Virtualization",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: Low. An adversary gains access to an application, service, or device with the privileges of an authorized or privileged user by escaping the confines of a virtualized environment. The adversary is then able to access resources or execute unauthorized code within the host environment, generally with the privileges of the user running the virtualized process. Successfully executing an attack of this type is often the first step in executing more complex attacks.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1027"
+}

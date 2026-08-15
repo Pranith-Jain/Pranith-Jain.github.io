@@ -1,0 +1,9 @@
+{
+  "id": 760,
+  "name": "Client-side Injection-induced Buffer Overflow",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. This type of attack exploits a buffer overflow vulnerability in targeted client software through injection of malicious content from a custom-built hostile service. This hostile service is created to deliver the correct content to the client software. For example, if the client-side application is a browser, the service will host a webpage that the browser loads.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/760"
+}

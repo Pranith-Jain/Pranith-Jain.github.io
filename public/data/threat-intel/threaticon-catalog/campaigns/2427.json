@@ -1,11 +1,11 @@
 {
   "id": 2427,
   "name": "OSINT The Sofacy plot thickens by PwC",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 20, 2015",
+  "lastSeen": "Apr 20, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #755 (55355951-0354-4d8a-8148-1bf9950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2427"

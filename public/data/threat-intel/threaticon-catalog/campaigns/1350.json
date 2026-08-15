@@ -3,9 +3,9 @@
   "name": "incransom: PWNA Plains",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 24, 2026",
+  "lastSeen": "Mar 24, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Energy | Website: nativepartnership.org | Infostealer data confirmed. | Partnership With Native Americans is a 501 (c)(3) nonprofit organization committed to championing hope for a brighter future for Native Americans living on remote, isolated and impoverished reservations | Source: https://www.ransomware.live/id/UFdOQSBQbGFpbnNAaW5jcmFuc29t",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1350"

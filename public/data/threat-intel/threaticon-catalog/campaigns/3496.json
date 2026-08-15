@@ -1,11 +1,11 @@
 {
   "id": 3496,
   "name": "OSINT - Who Ran Leakedsource.com?",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 15, 2017",
+  "lastSeen": "Feb 15, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #994 (58a4aa5c-29c4-4034-9ad4-426002de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3496"

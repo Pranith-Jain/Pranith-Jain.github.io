@@ -1,0 +1,9 @@
+{
+  "id": 1305,
+  "name": "T1041: Exfiltration Over C2 Channel",
+  "techniqueId": "T1041",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1305"
+}

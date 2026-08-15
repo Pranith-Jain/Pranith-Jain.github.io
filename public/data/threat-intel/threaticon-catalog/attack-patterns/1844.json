@@ -1,0 +1,9 @@
+{
+  "id": 1844,
+  "name": "T1070 - Application Layer Protocol隧道",
+  "techniqueId": "T1070",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1844"
+}

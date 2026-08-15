@@ -1,0 +1,9 @@
+{
+  "id": 2932,
+  "name": "T1072 (Software Deployment Tools)",
+  "techniqueId": "T1072",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2932"
+}

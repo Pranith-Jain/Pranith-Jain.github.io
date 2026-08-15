@@ -3,9 +3,9 @@
   "name": "interlock: YMCA of Western North Carolina",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 7, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Consumer Services | Website: ymcawnc.org | Infostealer data confirmed. | The YMCA of Western North Carolina operates seven fitness centers, a summer camp, dozens of food trucks, youth sports programs, and many other initiatives. They are also the state's largest provider of licensed school-age childcare. However, they don't ensure security and aren't responsible for it, and you can gain access to confidential client information (complete sets of documents, even fingerprints), contracts, and incidents (of which they have many!), as well as to employee personal data and financial documents. | Source: https://www.ransomware.live/id/WU1DQSBvZiBXZXN0ZXJuIE5vcnRoIENhcm9saW5hQGludGVybG9jaw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4259"

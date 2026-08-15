@@ -3,9 +3,9 @@
   "name": "worldleaks: City of Los Angeles (LA)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 20, 2026",
+  "lastSeen": "Mar 20, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Public Sector | Website: lacity.gov | Infostealer data confirmed. | [AI generated] The City of Los Angeles, often referred to as \"LA,\" is the largest city in the state of California, USA. It is governed as a municipal corporation known for its extensive services including housing, transportation, and public safety. LA has diverse economies ranging from entertainment (Hollywood) to technology and is a major cultural, financial, and commercial center. | Source: https://www.ransomware.live/id/Q2l0eSBvZiBMb3MgQW5nZWxlcyAoTEEpQHdvcmxkbGVha3M=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1445"

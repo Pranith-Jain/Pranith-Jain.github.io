@@ -3,9 +3,9 @@
   "name": "AiLock: Piet Vijverberg",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: NL | Sector: Agriculture and Food Production | Website: pietvijverberg.nl | Infostealer data confirmed. | Piet Vijverberg specializes in the innovative cultivation of colorful Phalaenopsis and Dracaena varieties. | Source: https://www.ransomware.live/id/UGlldCBWaWp2ZXJiZXJnQEFpTG9jaw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1067"

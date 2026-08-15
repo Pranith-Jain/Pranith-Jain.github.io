@@ -1,0 +1,9 @@
+{
+  "id": 3012,
+  "name": "T1213 Data from Information Repositories",
+  "techniqueId": "T1213",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/3012"
+}

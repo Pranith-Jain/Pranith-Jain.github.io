@@ -1,0 +1,9 @@
+{
+  "id": 2555,
+  "name": "T1566.001 - Phishing - Spearphishing Link",
+  "techniqueId": "T1566",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2555"
+}

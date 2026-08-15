@@ -3,9 +3,9 @@
   "name": "payoutsking: Florida East Coast Railway",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 30, 2026",
+  "lastSeen": "Mar 2, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Transportation/Logistics | Website: fecrwy.com | Infostealer data confirmed. | [AI generated] Florida East Coast Railway is a regional freight railroad operating in the United States, primarily serving the state of Florida. Founded in the 1890s by Henry Flagler, it runs approximately 351 miles of track along Florida's eastern corridor from Jacksonville to Miami. The company transports intermodal containers, vehicles, and various commodities, playing a key role in Florida's freight logistics and supply chain infrastructure. | Source: https://www.ransomware.live/id/RmxvcmlkYSBFYXN0IENvYXN0IFJhaWx3YXlAcGF5b3V0c2tpbmc=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/316"

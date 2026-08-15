@@ -1,0 +1,9 @@
+{
+  "id": 2227,
+  "name": "T1092.001 (C2 over protocol)",
+  "techniqueId": "T1092",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2227"
+}

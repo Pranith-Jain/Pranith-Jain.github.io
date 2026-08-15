@@ -1,11 +1,11 @@
 {
   "id": 3166,
   "name": "SQUIRRELWAFFLE Leverages malspam to deliver Qakbot, Cobalt Strike",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 27, 2021",
+  "lastSeen": "Oct 27, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #278 (a80e5be0-fedf-4d0a-b364-58e22b936b94).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3166"

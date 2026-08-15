@@ -3,10 +3,10 @@
   "name": "kairos: Arwini",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to kairos. | Country: DE | Sector: Not Found | Arbeitsgemeinschaft Wirtschaftlichkeitsprüfung Niedersachsen e.V. (ARWINI) is a registered association in Lower Saxony, Germany, whose public role is to host the joint Wirtschaftlichkeitsprüfung setup for statutory health insurance under SGB V. It brings together the KVN (the regional association of panel physicians) and the health insurers in a shared inspection / audit structure for contractual outpatient care. Day-to-day work covers procedures, consultations with physicians where relevant, and formal processes linked to efficiency and appropriateness of care and billing. The brand ARWINI is the short name used in official documents and online; arwini.de is the domain commonly associated with that name. Operationally the body sits in the social health sector rather than ordinary consumer or tech markets. | Source: https://www.ransomware.live/id/QXJ3aW5pQGthaXJvcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3622"
 }

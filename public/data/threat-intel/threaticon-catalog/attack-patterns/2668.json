@@ -1,0 +1,9 @@
+{
+  "id": 2668,
+  "name": "T1049 – System Network Connections Discovery",
+  "techniqueId": "T1049",
+  "added": "Aug 5, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2668"
+}

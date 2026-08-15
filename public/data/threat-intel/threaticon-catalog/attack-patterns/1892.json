@@ -1,0 +1,9 @@
+{
+  "id": 1892,
+  "name": "T1490 - Content scraping from web servers",
+  "techniqueId": "T1490",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1892"
+}

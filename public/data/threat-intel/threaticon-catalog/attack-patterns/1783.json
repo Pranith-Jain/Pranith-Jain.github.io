@@ -1,0 +1,9 @@
+{
+  "id": 1783,
+  "name": "T1093.001 - Valid Accounts; credential dumping via mimikatz",
+  "techniqueId": "T1093",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1783"
+}

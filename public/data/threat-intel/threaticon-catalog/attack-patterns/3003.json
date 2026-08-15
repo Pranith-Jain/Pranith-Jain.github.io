@@ -1,0 +1,9 @@
+{
+  "id": 3003,
+  "name": "T1090 Connection Proxy",
+  "techniqueId": "T1090",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/3003"
+}

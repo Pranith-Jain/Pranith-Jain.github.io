@@ -3,10 +3,10 @@
   "name": "incransom: thethibeauxfirm.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 11, 2026",
+  "lastSeen": "Mar 11, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: thethibeauxfirm.com | Infostealer data confirmed. | At The Thibeaux Firm, our top priority is you. We are a Lafayette, Louisiana-based personal injury law firm committed to high-quality representation, outstanding client support, and the pursuit of maximum compensation for accident victims. Omar Thibeaux started our law firm on the belief that advocacy means more than just negotiating a settlement from those responsible for your accident. It also involves listening to you, understanding your problems, keeping in frequent contact with you, and never losing sight of what your case is worth. Our goal is to get the most return on your accident claim — and to never charge excessive fees in doing so. Whether you’ve been in an accident in Lafayette, New Orleans, Baton Rouge, or anywhere else in the Pelican State, you’re never another claim number to us. You’re part of our community and our fa...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1651"
 }

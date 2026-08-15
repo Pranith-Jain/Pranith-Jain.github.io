@@ -1,0 +1,9 @@
+{
+  "id": 1378,
+  "name": "T1585.002: Email Accounts",
+  "techniqueId": "T1585",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1378"
+}

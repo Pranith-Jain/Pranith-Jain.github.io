@@ -3,9 +3,9 @@
   "name": "shinyhunters: Aura Group, Inc. (aura.com)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 15, 2026",
+  "lastSeen": "Mar 15, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Technology | Website: aura.com | Infostealer data confirmed. | Over 2M records containing PII and other internal corporate data have been compromised. The company failed to reach an agreement with us despite all the chances and offers we made. They don't care. | Size: 12GB (compressed) | Updated: 15 Mar 2026 | SHA256: 0d5bf85c7865b023266adc95a7449dd1bff6b208b4634976441ce5ee650894d0 | Source: https://www.ransomware.live/id/QXVyYSBHcm91cCwgSW5jLiAoYXVyYS5jb20pQHNoaW55aHVudGVycw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1564"

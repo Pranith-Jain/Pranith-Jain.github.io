@@ -1,0 +1,9 @@
+{
+  "id": 1573,
+  "name": "T1074 - Alternate authentication mechanisms",
+  "techniqueId": "T1074",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1573"
+}

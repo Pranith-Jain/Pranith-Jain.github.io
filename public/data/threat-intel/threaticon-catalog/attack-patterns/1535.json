@@ -1,0 +1,9 @@
+{
+  "id": 1535,
+  "name": "T1572: Protocol Tunneling",
+  "techniqueId": "T1572",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1535"
+}

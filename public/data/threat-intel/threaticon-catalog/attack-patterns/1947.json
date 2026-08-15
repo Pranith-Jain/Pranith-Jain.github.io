@@ -1,0 +1,9 @@
+{
+  "id": 1947,
+  "name": "T1036 Reconnaissance Using Open Source Intelligence",
+  "techniqueId": "T1036",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1947"
+}

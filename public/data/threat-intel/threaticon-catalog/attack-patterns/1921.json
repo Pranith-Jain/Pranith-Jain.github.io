@@ -1,0 +1,9 @@
+{
+  "id": 1921,
+  "name": "T1073 - Use of legitimate remote access tools",
+  "techniqueId": "T1073",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1921"
+}

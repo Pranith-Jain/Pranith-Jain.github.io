@@ -1,0 +1,9 @@
+{
+  "id": 1736,
+  "name": "T1566.001 - Communication Through Alternate Protocol: DNS, HTTP/HTTPS, or Other Protocol",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1736"
+}

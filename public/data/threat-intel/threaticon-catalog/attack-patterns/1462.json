@@ -1,0 +1,9 @@
+{
+  "id": 1462,
+  "name": "T1040.003 - Internal RAT Communication via Remote Desktop Protocol",
+  "techniqueId": "T1040",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1462"
+}

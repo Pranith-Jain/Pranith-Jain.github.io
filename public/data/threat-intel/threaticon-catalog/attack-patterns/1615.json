@@ -1,0 +1,9 @@
+{
+  "id": 1615,
+  "name": "T1078.004 - Application Programming Interfaces: DLL Search Order Hijacking",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1615"
+}

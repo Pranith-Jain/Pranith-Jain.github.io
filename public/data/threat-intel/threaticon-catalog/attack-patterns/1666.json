@@ -1,0 +1,9 @@
+{
+  "id": 1666,
+  "name": "T1652: Device Driver Discovery",
+  "techniqueId": "T1652",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1666"
+}

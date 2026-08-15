@@ -3,9 +3,9 @@
   "name": "thegentlemen: jrk.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 4, 2026",
+  "lastSeen": "Apr 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Business Services | Website: jrk.com | Infostealer data confirmed. | A leading real estate investment and property management company specializing in multifamily and commercial assets. The data includes a breach involving 111,000 Social Security numbers from the company jrk.com. Responsibility for the publication will lie with both the company itself and the insurance providers servicing it - mash.com (the intermediary) and the primary insurer beazley.com - which fails to properly value its clients’ data and is deliberately ignoring communications in an attempt to avoid payment, thereby putting the company at risk. | Source: https://www.ransomware.live/id/anJrLmNvbUB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1025"

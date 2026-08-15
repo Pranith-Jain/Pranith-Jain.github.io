@@ -1,0 +1,9 @@
+{
+  "id": 2072,
+  "name": "T1572 - Adversary-in-the-Cloud: Command and Control (C2) communication via cloud services",
+  "techniqueId": "T1572",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2072"
+}

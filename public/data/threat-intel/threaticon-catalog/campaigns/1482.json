@@ -3,10 +3,10 @@
   "name": "dragonforce: Dynex/Rivett",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 18, 2026",
+  "lastSeen": "Mar 18, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: dynextechnologies.com | Infostealer data confirmed. | Dynex/Rivett Inc. specializes in high-pressure hydraulic components and systems, including piston pumps, power units, motors, and valves, designed for demanding applications. Their products are rated from 6000 psi to 20,000 psi and are utilized across various industries such as oil and gas, aerospace, and heavy lifting. With over 60 years of experience, Dynex offers both standard and custom hydraulic solutions to meet the specific needs of their clients. The company is committed to providing reliable and efficient hydraulic solutions for mobile and industrial machinery worldwide | Source: https://www.ransomware.live/id/RHluZXgvUml2ZXR0QGRyYWdvbmZvcmNl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1482"
 }

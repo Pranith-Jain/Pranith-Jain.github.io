@@ -3,9 +3,9 @@
   "name": "coinbasecartel: Kemenpppa",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 15, 2026",
+  "lastSeen": "Apr 15, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to coinbasecartel. | Country: ID | Sector: Public Sector | Website: keemenpppa.go.id | Infostealer data confirmed. | [AI generated] Kemenpppa, short for Kementerian Pemberdayaan Perempuan dan Perlindungan Anak, is an Indonesian government ministry responsible for empowering women and protecting children. Operating in Indonesia, it develops and oversees policies related to gender equality, women's rights, child protection, and social welfare. The ministry works to eliminate discrimination, violence, and exploitation affecting women and children across the country. | Source: https://www.ransomware.live/id/S2VtZW5wcHBhQGNvaW5iYXNlY2FydGVs",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/713"

@@ -1,11 +1,11 @@
 {
   "id": 2910,
   "name": "KuGou trojan backdoor campaign aim RDP on HFS panels",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 18, 2020",
+  "lastSeen": "May 18, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1611 (5ec2382b-1f78-40cf-b07b-4d5d950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2910"

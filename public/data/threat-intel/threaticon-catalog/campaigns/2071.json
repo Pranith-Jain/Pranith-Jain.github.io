@@ -1,11 +1,11 @@
 {
   "id": 2071,
   "name": "Carbanak group uses Google for malware command-and-control",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 18, 2017",
+  "lastSeen": "Jan 18, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #93 (587fa022-52ac-485f-85cb-079ac0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2071"

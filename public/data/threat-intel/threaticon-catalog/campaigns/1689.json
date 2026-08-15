@@ -3,9 +3,9 @@
   "name": "handala: Unprecedented Disclosure of 50 Senior Israeli Air Force Officers’ Information",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 9, 2026",
+  "lastSeen": "Mar 9, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Public Sector | In response to the ongoing brutal crimes of the occupying regime against the people of the resistance, Handala Hack has delivered an unprecedented blow to Tel Aviv’s security apparatus. For the first time, the complete details of 50 senior officers serving in the Israeli Air Force, who are directly involved in bombing innocent civilians and… | Source: https://www.ransomware.live/id/VW5wcmVjZWRlbnRlZCBEaXNjbG9zdXJlIG9mIDUwIFNlbmlvciBJc3JhZWxpIEFpciBGb3JjZSBPZmZpY2Vyc+KAmSBJbmZvcm1hdGlvbkBoYW5kYWxh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1689"

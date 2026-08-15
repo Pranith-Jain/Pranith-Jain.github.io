@@ -3,9 +3,9 @@
   "name": "payload: Tscherne Consulting Steuerberatung GmbH",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payload. | Country: AT | Sector: Financial Services | Website: tscherne.info | Infostealer data confirmed. | Tscherne Consulting Steuerberatung GmbH is an Austrian tax consulting firm based in Graz. The company specializes in services for small and medium-sized businesses, including bookkeeping, tax planning, payroll processing, and business consulting. | Source: https://www.ransomware.live/id/VHNjaGVybmUgQ29uc3VsdGluZyBTdGV1ZXJiZXJhdHVuZyBHbWJIQHBheWxvYWQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1072"

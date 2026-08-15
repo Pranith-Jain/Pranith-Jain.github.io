@@ -1,0 +1,9 @@
+{
+  "id": 1579,
+  "name": "T1284 - Web-based Communication",
+  "techniqueId": "T1284",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1579"
+}

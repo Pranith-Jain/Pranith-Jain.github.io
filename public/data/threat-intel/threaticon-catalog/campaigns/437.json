@@ -3,9 +3,9 @@
   "name": "apt73: phb.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to apt73. | Country: DE | Sector: Manufacturing | Website: phb.com | Infostealer data confirmed. | PHB Inc. is an industrial company in the United States that manufactures equipment and metal stru... | Source: https://www.ransomware.live/id/cGhiLmNvbUBhcHQ3Mw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/437"

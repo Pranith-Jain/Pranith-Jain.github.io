@@ -1,11 +1,11 @@
 {
   "id": 2566,
   "name": "OSINT - Danger Close: Fancy Bear Tracking of Ukrainian Field Artillery Units",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 22, 2016",
+  "lastSeen": "Dec 22, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #948 (585bd19b-43a4-4b35-9023-4d60950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2566"

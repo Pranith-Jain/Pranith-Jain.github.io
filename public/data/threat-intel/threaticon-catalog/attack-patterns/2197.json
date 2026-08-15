@@ -1,0 +1,9 @@
+{
+  "id": 2197,
+  "name": "T1078.004 - Phishing as a Service",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2197"
+}

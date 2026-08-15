@@ -1,0 +1,9 @@
+{
+  "id": 1116,
+  "name": "Account Footprinting",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Low. An adversary exploits functionality meant to identify information about the domain accounts and their permissions on the target system to an authorized user. By knowing what accounts are registered on the target system, the adversary can inform further and more targeted malicious behavior. Example Windows commands which can acquire this information are: \"net user\" and \"dsquery\".",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1116"
+}

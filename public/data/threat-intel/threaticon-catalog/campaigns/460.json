@@ -3,9 +3,9 @@
   "name": "dragonforce: ibswebsite.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: ibswebsite.com | Infostealer data confirmed. | The company helps commercial organizations invest in technology solutions for their businesses by offering technology consulting, as well as the design and integration of solutions for voice communications, data transmission, video, and security. | Source: https://www.ransomware.live/id/aWJzd2Vic2l0ZS5jb21AZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/460"

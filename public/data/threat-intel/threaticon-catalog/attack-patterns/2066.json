@@ -1,0 +1,9 @@
+{
+  "id": 2066,
+  "name": "T1003.001 - Windows Remote Management (WinRM)",
+  "techniqueId": "T1003",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2066"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2193,
+  "name": "T1053 - Scheduled Task Injection",
+  "techniqueId": "T1053",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2193"
+}

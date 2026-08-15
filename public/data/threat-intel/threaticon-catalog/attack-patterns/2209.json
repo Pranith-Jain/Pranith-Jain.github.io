@@ -1,0 +1,9 @@
+{
+  "id": 2209,
+  "name": "T1284.002 - Account Access Removal of legitimate accounts",
+  "techniqueId": "T1284",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2209"
+}

@@ -1,11 +1,11 @@
 {
   "id": 3436,
   "name": "OSINT - Operation Ghoul: targeted attacks on industrial and engineering organizations",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 17, 2016",
+  "lastSeen": "Aug 17, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #811 (57b4b374-aa14-40c1-9518-4dde02de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3436"

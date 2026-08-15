@@ -3,9 +3,9 @@
   "name": "tengu: DAINTY CLOUD INC",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 1, 2026",
+  "lastSeen": "Mar 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to tengu. | Country: US | Sector: Technology | Website: daintycloud.com | Infostealer data confirmed. | DaintyCloud offers a variety of affordable virtual private server (VPS) solutions including Windows, Linux, and GPU servers across more than 34 data centers worldwide. Their services cater to clients who require high performance for applications such as gaming, video processing, and cloud computing. With competitive pricing and features like one-click deployment and easy management, DaintyCloud is geared towards both individual users and businesses seeking reliable cloud services. Additionally, they provide proxy services, ensuring clients have access to high-speed, dedicated IP options | Source: https://www.ransomware.live/id/REFJTlRZIENMT1VEIElOQ0B0ZW5ndQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1973"

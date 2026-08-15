@@ -3,9 +3,9 @@
   "name": "sinobi: Summa Energy",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 18, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to sinobi. | Country: US | Sector: Energy | Website: www.summaenergy.com | Summa Energy Fuel Services specializes in providing 24/7 on-site fueling solutions, including tank sales and leasing, bulk fueling, and emergency fueling services. They cater to various industries such as transportation, logistics, aviation, and infrastructure, offering customized solutions to meet diverse business needs. The company is dedicated to optimizing fuel delivery and pricing, ensuring timely service and cost savings for their clients. With a strong focus on customer satisfaction and innovative practices, Summa Energy is recognized as a trusted partner for reliable fuel management. | Source: https://www.ransomware.live/id/U3VtbWEgRW5lcmd5QHNpbm9iaQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1507"

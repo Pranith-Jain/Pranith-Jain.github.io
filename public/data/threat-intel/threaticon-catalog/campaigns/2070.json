@@ -1,11 +1,11 @@
 {
   "id": 2070,
   "name": "The rise of TeleBots: Analyzing disruptive KillDisk attacks",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 13, 2016",
+  "lastSeen": "Dec 13, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #90 (5850fd1c-9d34-4983-ad28-06f6c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2070"

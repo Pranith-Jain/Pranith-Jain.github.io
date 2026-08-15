@@ -1,11 +1,11 @@
 {
   "id": 2672,
   "name": "HackShit phishing as a service",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 12, 2017",
+  "lastSeen": "Jul 12, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1113 (596c6ae1-d4f0-4d84-8718-4a50950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2672"

@@ -1,11 +1,11 @@
 {
   "id": 2296,
   "name": "OSINT - New Poison Ivy RAT Variant Targets Hong Kong Pro-Democracy Activists",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 22, 2016",
+  "lastSeen": "Apr 22, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #467 (571a87f2-13e0-4396-83e5-4780950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2296"

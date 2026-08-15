@@ -3,9 +3,9 @@
   "name": "handala: Stryker Hit by Unprecedented 12-Petabyte Data Wipe",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 16, 2026",
+  "lastSeen": "Mar 16, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to handala. | Country: US | Sector: Technology | Today, for the first time, we proudly release the documentation of a unique cyber operation, an operation that will etch the name Handala Hack into the minds of all players in the global cybersecurity arena. In a swift and calculated attack, we succeeded in penetrating the deepest layers of the network belonging to the medical… | Source: https://www.ransomware.live/id/U3RyeWtlciBIaXQgYnkgVW5wcmVjZWRlbnRlZCAxMi1QZXRhYnl0ZSBEYXRhIFdpcGVAaGFuZGFsYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1556"

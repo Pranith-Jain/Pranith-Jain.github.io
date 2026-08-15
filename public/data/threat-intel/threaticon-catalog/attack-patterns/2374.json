@@ -1,0 +1,9 @@
+{
+  "id": 2374,
+  "name": "T1203 - Exploit Public-Facing Application",
+  "techniqueId": "T1203",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2374"
+}

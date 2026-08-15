@@ -3,10 +3,10 @@
   "name": "dragonforce: Health Management Systems",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 19, 2026",
+  "lastSeen": "Mar 19, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Healthcare | Website: hms.com.au | Infostealer data confirmed. | Health Management Systems provides tailored health care software designed to enhance business processes and improve staff management for service providers in community health, aged care, and related sectors. Their solutions are NDIS ready and focus on automating scheduling, tracking budgets, and improving client care through efficient practice management. The software aims to maximize staff productivity, reduce client wait times, and ensure compliance with various funding portals. Their target clients include organizations supporting clients with government-funded schemes and packages, ensuring better care delivery | Source: https://www.ransomware.live/id/SGVhbHRoIE1hbmFnZW1lbnQgU3lzdGVtc0BkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1465"
 }

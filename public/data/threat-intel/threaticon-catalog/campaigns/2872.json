@@ -1,11 +1,11 @@
 {
   "id": 2872,
   "name": "LockerGoga - yara rules",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 19, 2019",
+  "lastSeen": "Mar 19, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1491 (5c912339-5ab4-4226-a5b2-9fc2950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2872"

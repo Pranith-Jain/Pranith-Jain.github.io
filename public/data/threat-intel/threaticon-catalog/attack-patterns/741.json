@@ -1,0 +1,9 @@
+{
+  "id": 741,
+  "name": "Privilege Abuse",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: High. An adversary is able to exploit features of the target that should be reserved for privileged users or administrators but are exposed to use by lower or non-privileged accounts. Access to sensitive information and functionality must be controlled to ensure that only authorized users are able to access these resources.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/741"
+}

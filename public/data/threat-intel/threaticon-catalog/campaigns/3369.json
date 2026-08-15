@@ -1,11 +1,11 @@
 {
   "id": 3369,
   "name": "OSINT SSH Scanning activity by Andrew Morris",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 9, 2014",
+  "lastSeen": "Dec 9, 2014",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #644 (54dc65bf-37a4-45b5-abd2-a7c3950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3369"

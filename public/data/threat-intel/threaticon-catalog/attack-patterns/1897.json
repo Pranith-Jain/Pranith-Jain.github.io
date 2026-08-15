@@ -1,0 +1,9 @@
+{
+  "id": 1897,
+  "name": "T1284.001 - Indicators of Brute Force Credential Access",
+  "techniqueId": "T1284",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1897"
+}

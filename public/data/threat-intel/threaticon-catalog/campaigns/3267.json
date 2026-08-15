@@ -1,11 +1,11 @@
 {
   "id": 3267,
   "name": "Zip uploaded from Iran exploiting cve-2023-38831",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 13, 2024",
+  "lastSeen": "Feb 13, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #458 (1f2aa510-a8d2-43e5-9796-d170f21e5917).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3267"

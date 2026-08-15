@@ -1,0 +1,9 @@
+{
+  "id": 1983,
+  "name": "T1022.001 - Internal AD Query - DC_sync",
+  "techniqueId": "T1022",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1983"
+}

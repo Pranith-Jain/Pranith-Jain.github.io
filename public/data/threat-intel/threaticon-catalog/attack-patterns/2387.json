@@ -1,0 +1,9 @@
+{
+  "id": 2387,
+  "name": "T1553.001 - Data destruction",
+  "techniqueId": "T1553",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2387"
+}

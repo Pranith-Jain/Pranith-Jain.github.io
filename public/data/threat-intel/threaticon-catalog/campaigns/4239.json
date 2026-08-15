@@ -3,9 +3,9 @@
   "name": "thegentlemen: Keifert",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 7, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Not Found | Website: keifert.de | Infostealer data confirmed. | ***.de zoominfo.com/c/keifert-gmbh/429980133 Keifert GmbH master-certified building cleaning company based in Schallstadt, Germany, with over 35 years of industry experience.They offer a comprehensive range of professional services, including office, industrial, and specialized cleaning, as well as janitorial services across the Southern Baden region.As a quality-focused enterprise, the company is certified according to DIN EN ISO 9001 and 14001 standards, ensuring reliable and environmentally conscious solutions for their clients | Source: https://www.ransomware.live/id/S2VpZmVydEB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4239"

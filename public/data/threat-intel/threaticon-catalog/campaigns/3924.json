@@ -3,9 +3,9 @@
   "name": "AuditTeam: Trésor Public",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 18, 2026",
+  "lastSeen": "May 10, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to AuditTeam. | Country: SN | Sector: Public Sector | DGCPT (Direction Générale de la Comptabilité Publique et du Trésor) is Senegal's public treasury authority under the Ministry of Finance, responsible for public accounting, government fund management, cash flow, and public debt operations. | Source: https://www.ransomware.live/id/VHLDqXNvciBQdWJsaWNAQXVkaXRUZWFt",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3924"

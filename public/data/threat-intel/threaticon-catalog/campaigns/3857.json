@@ -3,9 +3,9 @@
   "name": "qilin: Porter W Yett",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 20, 2026",
+  "lastSeen": "May 20, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: www.porteryett.com | N/A | Source: https://www.ransomware.live/id/UG9ydGVyIFcgWWV0dEBxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3857"

@@ -1,0 +1,9 @@
+{
+  "id": 2006,
+  "name": "T1028.003",
+  "techniqueId": "T1028",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2006"
+}

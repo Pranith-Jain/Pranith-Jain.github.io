@@ -1,0 +1,9 @@
+{
+  "id": 2206,
+  "name": "T1055.002 - Alternate Protocol Data Transfer via DNS Queries",
+  "techniqueId": "T1055",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2206"
+}

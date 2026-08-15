@@ -1,0 +1,9 @@
+{
+  "id": 1350,
+  "name": "T1547.003 - Create Account for Future Access",
+  "techniqueId": "T1547",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1350"
+}

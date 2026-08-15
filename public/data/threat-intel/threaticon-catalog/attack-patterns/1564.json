@@ -1,0 +1,9 @@
+{
+  "id": 1564,
+  "name": "T1045.004 - Botnet Communication C2/Dropzone Creation/Artifacts Generation: Web Request",
+  "techniqueId": "T1045",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1564"
+}

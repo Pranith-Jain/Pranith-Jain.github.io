@@ -3,9 +3,9 @@
   "name": "moneymessage: X-Copper Professional",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 2, 2026",
+  "lastSeen": "Jul 2, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to moneymessage. | Country: US | Sector: Manufacturing | Website: xcopper.com | Infostealer data confirmed. | [AI generated] X-Copper Professional is a Canadian legal and paralegal services firm specializing in traffic ticket defense and driving-related legal matters. Based in Ontario, Canada, the company represents clients facing speeding tickets, careless driving charges, and other Highway Traffic Act violations. It employs licensed paralegals and lawyers to help clients reduce or dismiss charges, minimizing fines, demerit points, and insurance premium impacts. | Source: https://www.ransomware.live/id/WC1Db3BwZXIgUHJvZmVzc2lvbmFsQG1vbmV5bWVzc2FnZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4356"

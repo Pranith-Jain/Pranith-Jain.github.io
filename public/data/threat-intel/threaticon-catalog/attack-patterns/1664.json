@@ -1,0 +1,9 @@
+{
+  "id": 1664,
+  "name": "T1490: Inhibit System Recovery",
+  "techniqueId": "T1490",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1664"
+}

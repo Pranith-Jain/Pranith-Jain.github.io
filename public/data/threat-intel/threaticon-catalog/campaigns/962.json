@@ -3,9 +3,9 @@
   "name": "worldleaks: Deaconess Health System",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Healthcare | Website: deaconess.com | Infostealer data confirmed. | [AI generated] Deaconess Health System is a nonprofit regional health care organization based in Evansville, Indiana, United States. It operates hospitals, clinics, and specialty care centers across the tri-state area of Indiana, Illinois, and Kentucky. Services include emergency care, oncology, cardiology, orthopedics, and behavioral health. Founded in 1892, it remains one of the largest employers in southwestern Indiana. | Source: https://www.ransomware.live/id/RGVhY29uZXNzIEhlYWx0aCBTeXN0ZW1Ad29ybGRsZWFrcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/962"

@@ -1,11 +1,11 @@
 {
   "id": 3177,
   "name": "Mars, a red-hot information stealer",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2022",
+  "lastSeen": "Apr 8, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #294 (5faf0670-ffa6-4da9-8329-935f9d48a687).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3177"

@@ -3,10 +3,10 @@
   "name": "dragonforce: First Trinity Financial",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Financial Services | Website: firsttrinityfinancial.com | Infostealer data confirmed. | FTFC is an insurance holding company based in Tulsa, Oklahoma. FTFC operates two life insurance companies, Trinity Life Insurance Company (TLIC), Tulsa, Oklahoma and Family Benefit Life Insurance Company (FBLIC), Jefferson City, Missouri. In a series of stock offerings FTFC successfully raised $26,475,000 through Private Placement and public stock offerings. FTFC is currently owned by over 4,000 Oklahoma residents. Since inception FTFC has dedicated itself to help stem the outflow of capital from the company's state by providing a broadly held Oklahoma financial services corporation offering innovative, attractive and competitive financial products and financial services | Source: https://www.ransomware.live/id/Rmlyc3QgVHJpbml0eSBGaW5hbmNpYWxAZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1116"
 }

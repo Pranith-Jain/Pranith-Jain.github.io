@@ -3,9 +3,9 @@
   "name": "thegentlemen: Teleos Systems",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 19, 2026",
+  "lastSeen": "Apr 19, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: GB | Sector: Technology | Website: teleosvet.co.uk | Infostealer data confirmed. | teleosvet.co.uk Teleos Systems Limited is a UK-based software company founded on 14 November 1997, headquartered in St. Neots, Cambridgeshire, and is the largest independent supplier of Veterinary Practice Management Systems (VPMS) in the UK and Ireland. The company has been developing and supporting its flagship veterinary management software for over 20 years, serving small independent practices as well as large multi-site veterinary groups. | Source: https://www.ransomware.live/id/VGVsZW9zIFN5c3RlbXNAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/648"

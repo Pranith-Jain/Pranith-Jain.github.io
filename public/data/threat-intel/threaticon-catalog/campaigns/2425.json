@@ -1,11 +1,11 @@
 {
   "id": 2425,
   "name": "OSINT Targeted Malware Attacks against NGO Linked to Attacks on Burmese Government Websites by Citizen Labs",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 16, 2015",
+  "lastSeen": "Oct 16, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #753 (56240d98-a524-4386-8e43-8371950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2425"

@@ -3,9 +3,9 @@
   "name": "akira: School Health",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 7, 2026",
+  "lastSeen": "Apr 7, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: schoolhealth.com | Infostealer data confirmed. | School Health was founded in 1957. This company provides the reta iling of health and wellness supplies to K-12 schools. Their head quarters are located in rolling Meadows, Illinois. We will upload 15gb of corporate data soon. Financials, a bit of HR files, drawings, projects, customer info, etc. | Source: https://www.ransomware.live/id/U2Nob29sIEhlYWx0aEBha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/983"

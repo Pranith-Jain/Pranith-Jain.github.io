@@ -1,0 +1,9 @@
+{
+  "id": 2094,
+  "name": "T1572.001 - Account Access Removal or Disabling via Legitimate Account",
+  "techniqueId": "T1572",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2094"
+}

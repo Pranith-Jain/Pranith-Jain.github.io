@@ -1,0 +1,9 @@
+{
+  "id": 1370,
+  "name": "T1003.001 - OS Credential Dumping: Unix-Linux lsmod",
+  "techniqueId": "T1003",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1370"
+}

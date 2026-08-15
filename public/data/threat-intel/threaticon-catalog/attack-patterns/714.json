@@ -1,0 +1,9 @@
+{
+  "id": 714,
+  "name": "T1485: Data Destruction",
+  "techniqueId": "T1485",
+  "added": "May 25, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/714"
+}

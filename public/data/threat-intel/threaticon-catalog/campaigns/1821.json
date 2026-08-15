@@ -3,9 +3,9 @@
   "name": "nightspire: N*X*** ** I**r****c****",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 5, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/TipYKioqICoqIEkqKnIqKioqYyoqKipAbmlnaHRzcGlyZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1821"

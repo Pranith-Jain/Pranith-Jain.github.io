@@ -34,6 +34,12 @@ import {
   type TiDarknetIndex,
   type TiDarknetSiteBody,
   type TiDarknetCategoryBody,
+  loadDphishIndex,
+  getDphishIndicator,
+  filterDphishIndicators,
+  type DphishIndex,
+  type DphishIndicatorBody,
+  type DphishIndexEntry,
   loadThreatClusterIndex,
   getTcCluster,
   getTcVuln,
@@ -877,6 +883,87 @@ function makeAssetsFixture() {
     { value: 'evil.example', tlp: 'red', confidence: 90, added: '2026-08-14' },
   ];
   data.set('/data/threat-intel/threaticon-catalog/indicators/domain.1.json', tiCatDomainChunk1);
+
+  // ── dPhish (dphish.com TAXII 2.1 collection) ────────────────────────
+  const dphishIdx: DphishIndex = {
+    source: 'dphish.com',
+    sourceUrl: 'https://dphish.com/feeds/',
+    collectionId: '68f57461-5c20-451d-ab32-6357d1fbef0b',
+    collectionUrl: 'https://tip.dphish.live/taxii2/root/collections/68f57461-5c20-451d-ab32-6357d1fbef0b/objects/',
+    description: 'Phishing threat-intel feed — malicious domains, phishing URLs, sender IPs.',
+    license: 'Public feed (no registration required)',
+    syncedAt: '2026-08-15T00:00:00.000Z',
+    counts: {
+      indicators: 3,
+      active: 2,
+      revoked: 1,
+      byCategory: { domain: 2, url: 1 },
+    },
+    indicators: [
+      {
+        slug: 'melbetegypt.com-1a2b3c',
+        stixId: 'indicator--11111111-1111-4111-8111-111111111111',
+        value: 'melbetegypt.com',
+        category: 'domain',
+        mainObservableType: 'Domain-Name',
+        active: true,
+        revoked: false,
+        confidence: 100,
+        score: 20,
+        created: '2025-05-27T16:28:59.074Z',
+        modified: '2025-05-27T16:28:59.074Z',
+        validUntil: '2027-02-15T12:09:24.192Z',
+        description: 'Credential-harvesting domain impersonating Melbet.',
+        sizeBytes: 512,
+      },
+      {
+        slug: 'phish.example.com-4d5e6f',
+        stixId: 'indicator--22222222-2222-4222-8222-222222222222',
+        value: 'phish.example.com',
+        category: 'domain',
+        mainObservableType: 'Domain-Name',
+        active: true,
+        revoked: false,
+        confidence: 100,
+        score: 30,
+        created: '2026-08-01T10:00:00.000Z',
+        modified: '2026-08-01T10:00:00.000Z',
+        validUntil: null,
+        description: null,
+        sizeBytes: 480,
+      },
+      {
+        slug: 'https:__dtec.com.my_ash-7g8h9i',
+        stixId: 'indicator--33333333-3333-4333-8333-333333333333',
+        value: 'https://dtec.com.my/ash?email=brad@example.net',
+        category: 'url',
+        mainObservableType: 'Url',
+        active: false,
+        revoked: true,
+        confidence: 100,
+        score: 20,
+        created: '2025-05-15T11:16:37.466Z',
+        modified: '2025-06-16T13:54:27.452Z',
+        validUntil: '2025-06-16T13:54:22.410Z',
+        description: 'Phishing URL with email parameter.',
+        sizeBytes: 900,
+      },
+    ],
+  };
+  data.set('/data/threat-intel/dphish/index.json', dphishIdx);
+
+  const dphishBody: DphishIndicatorBody = {
+    ...dphishIdx.indicators[0]!,
+    name: 'melbetegypt.com',
+    observableValues: [{ type: 'Domain-Name', value: 'melbetegypt.com' }],
+    pattern: "[domain-name:value = 'melbetegypt.com']",
+    patternType: 'stix',
+    validFrom: '2025-05-27T16:28:59.000Z',
+    labels: ['phishing'],
+    indicatorTypes: ['malicious-activity'],
+    detection: false,
+  };
+  data.set('/data/threat-intel/dphish/indicators/melbetegypt.com-1a2b3c.json', dphishBody);
 
   const assets = {
     fetch: vi.fn(async (req: Request) => {
@@ -1789,5 +1876,98 @@ describe('tiCacheStats (threaticon catalog)', () => {
     expect(s.threaticon.catalog.bodies.hits).toBe(1);
     expect(s.threaticon.catalog.bodies.misses).toBe(1);
     expect(s.threaticon.catalog.indicatorChunks.size).toBe(1);
+  });
+});
+
+describe('dPhish (loadDphishIndex)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('fetches and caches the dphish index', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    expect(idx.source).toBe('dphish.com');
+    expect(idx.counts.indicators).toBe(3);
+    expect(idx.counts.active).toBe(2);
+    expect(idx.counts.byCategory.domain).toBe(2);
+    const again = await loadDphishIndex(assets);
+    expect(again).toBe(idx);
+  });
+
+  it('throws with a build hint when the manifest is missing', async () => {
+    const empty = {
+      fetch: vi.fn(async () => new Response('not found', { status: 404 })),
+    } as unknown as Fetcher;
+    await expect(loadDphishIndex(empty)).rejects.toThrow(/sync-dphish\.mjs/);
+  });
+});
+
+describe('dPhish (getDphishIndicator)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns the full body and caches it', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    expect(body).not.toBeNull();
+    expect(body!.pattern).toBe("[domain-name:value = 'melbetegypt.com']");
+    expect(body!.patternType).toBe('stix');
+    expect(body!.indicatorTypes).toContain('malicious-activity');
+    const again = await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    expect(again).toBe(body);
+  });
+
+  it('returns null for an unknown slug', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getDphishIndicator(assets, 'nope')).toBeNull();
+  });
+});
+
+describe('dPhish (filterDphishIndicators)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('filters by category', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { category: 'url' });
+    expect(out).toHaveLength(1);
+    expect(out[0]!.value).toContain('dtec.com.my');
+  });
+
+  it('activeOnly excludes revoked and expired indicators', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { activeOnly: true });
+    expect(out).toHaveLength(2);
+    expect(out.every((i) => i.active)).toBe(true);
+  });
+
+  it('matches keyword against value and description', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { keyword: 'melbet' });
+    expect(out.map((i: DphishIndexEntry) => i.value)).toEqual(['melbetegypt.com']);
+  });
+
+  it('respects limit', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { limit: 1 });
+    expect(out).toHaveLength(1);
+  });
+});
+
+describe('tiCacheStats (dphish)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports dphish index + body cache stats', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadDphishIndex(assets);
+    await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    const s = tiCacheStats();
+    expect(s.dphish.indexLoaded).toBe(true);
+    expect(s.dphish.indexAgeMs).toBeGreaterThanOrEqual(0);
+    expect(s.dphish.bodies.size).toBe(1);
+    expect(s.dphish.bodies.hits).toBe(1);
+    expect(s.dphish.bodies.misses).toBe(1);
   });
 });

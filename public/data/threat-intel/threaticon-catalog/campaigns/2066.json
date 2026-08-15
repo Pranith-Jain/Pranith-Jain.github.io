@@ -1,11 +1,11 @@
 {
   "id": 2066,
   "name": "Ransoc Desktop Locking Ransomware Ransacks Local Files and Social Media Profiles",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 14, 2016",
+  "lastSeen": "Nov 14, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #86 (582b43a2-03f0-4dae-ae21-04e3c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2066"

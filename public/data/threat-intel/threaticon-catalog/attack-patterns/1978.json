@@ -1,0 +1,9 @@
+{
+  "id": 1978,
+  "name": "T1205: Obfuscation via Encrypted Files/binaries/subprocessescripts",
+  "techniqueId": "T1205",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1978"
+}

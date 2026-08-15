@@ -1,0 +1,9 @@
+{
+  "id": 851,
+  "name": "Oversized Serialized Data Payloads",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary injects oversized serialized data payloads into a parser during data processing to produce adverse effects upon the parser such as exhausting system resources and arbitrary code execution.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/851"
+}

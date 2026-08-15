@@ -30,6 +30,7 @@ If typecheck fails, fix and re-run. Never weaken the check.
 - `public/data/threat-intel/cves/kev.json` exists and is valid JSON
 - At least one sector brief file exists under `public/data/threat-intel/sectors/`
 - `public/data/threat-intel/threatcluster/index.json` reports non-zero counts in `clusters`, `vulnerabilities`, `exploits`, `victims`, `iocs`
+- `public/data/threat-intel/dphish/index.json` reports non-zero counts in `indicators`, `active`, `byCategory`
 - All three `tsc` projects pass
 - `npx vitest run worker/lib/threat-intel-manifest.test.ts` passes
 
@@ -43,7 +44,8 @@ If typecheck fails, fix and re-run. Never weaken the check.
 
 1. Run `node scripts/sync-threat-intel.mjs` (fetches NVD recent, CISA KEV, sparse Daily-Hunt clone into `threat-intel-staging/`).
 2. Run `node scripts/sync-darknetlist.mjs` (Tor site directory) and `node scripts/sync-threatcluster.mjs` (5 ThreatCluster feeds + MISP manifest).
-3. Run `node scripts/build-threat-intel.mjs`, `node scripts/build-darknetlist.mjs`, and `node scripts/build-threatcluster.mjs` (slice staged data into `public/data/threat-intel/` per-slug JSON).
-4. Run the between-iteration check (typecheck + vitest).
-5. Verify exit conditions. Report counts.
-6. If all green: commit, push, and PR per the daily workflow.
+3. Run `node scripts/sync-dphish.mjs` (dPhish public TAXII 2.1 phishing collection — incremental via `added_after`).
+4. Run `node scripts/build-threat-intel.mjs`, `node scripts/build-darknetlist.mjs`, `node scripts/build-threatcluster.mjs`, and `node scripts/build-dphish.mjs` (slice staged data into `public/data/threat-intel/` per-slug JSON).
+5. Run the between-iteration check (typecheck + vitest).
+6. Verify exit conditions. Report counts.
+7. If all green: commit, push, and PR per the daily workflow.

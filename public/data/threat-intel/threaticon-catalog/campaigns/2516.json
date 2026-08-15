@@ -1,11 +1,11 @@
 {
   "id": 2516,
   "name": "Malspam 2016-09-15 (.js in .zip) - campagin: \"Booking confirmation\"",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 16, 2016",
+  "lastSeen": "Sep 16, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #874 (57db9e5a-8178-469b-8e29-4e5d950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2516"

@@ -1,0 +1,9 @@
+{
+  "id": 2195,
+  "name": "T1078.001 - Spear-Phishing via Email",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2195"
+}

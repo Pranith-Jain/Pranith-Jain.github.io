@@ -3,9 +3,9 @@
   "name": "kairos: Institute of Social Security - Paraguay",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 10, 2026",
+  "lastSeen": "Mar 10, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to kairos. | Country: PY | Sector: Public Sector | Website: ips.gov.py | Infostealer data confirmed. | The Instituto de Previsión Social or IPS is the institution responsible for managing the social security system in Paraguay. It was created by Decree-Law No. 17071 on February 18, 1943, during the government of Higinio Morínigo. Later, Decree-Law No. | Source: https://www.ransomware.live/id/SW5zdGl0dXRlIG9mIFNvY2lhbCBTZWN1cml0eSAtIFBhcmFndWF5QGthaXJvcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1669"

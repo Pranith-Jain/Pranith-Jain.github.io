@@ -1,11 +1,11 @@
 {
   "id": 3303,
   "name": "AA24-290A Iranian Cyber Actors Brute Force and Credential Access Activity Compromises Critical Infrastructure Organizations",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 19, 2024",
+  "lastSeen": "Oct 19, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #525 (b891b584-a5bb-48d5-9b70-95cd02ac544c).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3303"

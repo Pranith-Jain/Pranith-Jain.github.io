@@ -1,0 +1,9 @@
+{
+  "id": 2588,
+  "name": "T1560.001 - Exploit Public-Facing Application (Ransomware delivery)",
+  "techniqueId": "T1560",
+  "added": "Aug 1, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2588"
+}

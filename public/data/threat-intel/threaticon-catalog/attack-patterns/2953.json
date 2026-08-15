@@ -1,0 +1,9 @@
+{
+  "id": 2953,
+  "name": "T1071.004 (Websocket)",
+  "techniqueId": "T1071",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2953"
+}

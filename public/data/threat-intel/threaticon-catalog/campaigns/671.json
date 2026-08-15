@@ -3,9 +3,9 @@
   "name": "safepay: abfall-kreis-kassel.de",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Feb 16, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Public Sector | Website: abfall-kreis-kassel.de | Infostealer data confirmed. | The website abfall-kreis-kassel.de represents the Abfallentsorgung Kreis Kassel, a publicly owned waste management entity (Eigenbetrieb) operated by the district of … | Source: https://www.ransomware.live/id/YWJmYWxsLWtyZWlzLWthc3NlbC5kZUBzYWZlcGF5",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/671"

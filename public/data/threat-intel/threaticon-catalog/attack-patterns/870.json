@@ -1,0 +1,9 @@
+{
+  "id": 870,
+  "name": "Fuzzing for garnering other adjacent user/sensitive data",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An adversary who is authorized to send queries to a target sends variants of expected queries in the hope that these modified queries might return information (directly or indirectly through error logs) beyond what the expected set of queries should provide.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/870"
+}

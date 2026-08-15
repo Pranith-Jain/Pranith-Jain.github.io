@@ -1,11 +1,11 @@
 {
   "id": 2590,
   "name": "OSINT - From RTF to Cobalt Strike passing via Flash",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 5, 2017",
+  "lastSeen": "Feb 5, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #985 (58975d16-ec0c-4d21-88bd-41eb02de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2590"

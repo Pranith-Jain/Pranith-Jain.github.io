@@ -3,9 +3,9 @@
   "name": "gunra: Diamond",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to gunra. | Country: FR | Sector: Not Found | Website: le-caillebotis-diamond.fr | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RGlhbW9uZEBndW5yYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/929"

@@ -1,11 +1,11 @@
 {
   "id": 2542,
   "name": "Yara Rule Set - detection of Empire by Florian Roth (PowerShell and Python post-exploitation agent.)",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 6, 2016",
+  "lastSeen": "Nov 6, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #912 (581efd8c-7320-42e1-93b6-430102de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2542"

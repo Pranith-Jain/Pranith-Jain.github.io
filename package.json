@@ -42,7 +42,8 @@
     "check:coverage": "node scripts/check-coverage.mjs",
     "check:all": "npm run lint && npm run typecheck && npm run typecheck:api && npm run test:run && npm run check:coverage",
     "test:cert-in": "node --test scripts/cert-in-diff.test.mjs",
-    "test:scripts": "npm run test:mcp && npm run test:cert-in"
+    "test:dphish": "node --test scripts/sync-dphish.test.mjs",
+    "test:scripts": "npm run test:mcp && npm run test:cert-in && npm run test:dphish"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

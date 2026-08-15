@@ -3,10 +3,10 @@
   "name": "akira: Vandalia Rental",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Consumer Services | Website: vandaliarental.com | Infostealer data confirmed. | Vandalia Rental has served the Greater Dayton and Greater Cincinnati and Northern Kentucky mark ets since 1961. Vandalia Rental proudly services construction rental accounts ranging from smal l businesses to large publicly traded corporations, government agencies, and municipalities thr oughout the Ohio, Indiana, and Kentucky regions, and sales accounts throughout the country. We will upload 40gb of corporate data soon. Detailed employee and client personal information ( SSN numbers, name, DOB and so on), projects files, financials, client internal information, con tracts and agreements and so on. | Source: https://www.ransomware.live/id/VmFuZGFsaWEgUmVudGFsQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4118"
 }

@@ -1,11 +1,11 @@
 {
   "id": 2139,
   "name": "OSINT - Shifting Tactics: Tracking changes in years-long espionage campaign against Tibetans",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 10, 2016",
+  "lastSeen": "Mar 10, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #171 (56e177ef-38cc-441b-a398-4f66950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2139"

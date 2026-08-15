@@ -1,0 +1,9 @@
+{
+  "id": 1312,
+  "name": "T1037: Boot or Logon Initialization Scripts",
+  "techniqueId": "T1037",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1312"
+}

@@ -1,11 +1,11 @@
 {
   "id": 2371,
   "name": "OSINT H-Worm IOCs from WooYun",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2016",
+  "lastSeen": "Jul 1, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #634 (57780118-b304-434e-b78f-478d950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2371"

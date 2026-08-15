@@ -3,9 +3,9 @@
   "name": "lockbit5: fondonorma.org.ve",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 9, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: VE | Sector: Financial Services | Website: fondonorma.org.ve | Infostealer data confirmed. | Fondonorma is a Venezuelan certification company that helps businesses prove they meet quality and s... | Source: https://www.ransomware.live/id/Zm9uZG9ub3JtYS5vcmcudmVAbG9ja2JpdDU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/779"

@@ -1,0 +1,9 @@
+{
+  "id": 1886,
+  "name": "T1680: Local Storage Discovery",
+  "techniqueId": "T1680",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1886"
+}

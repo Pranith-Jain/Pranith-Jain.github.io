@@ -1,0 +1,9 @@
+{
+  "id": 1328,
+  "name": "T1193.001 - Exploitation of Network Device漏洞利用",
+  "techniqueId": "T1193",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1328"
+}

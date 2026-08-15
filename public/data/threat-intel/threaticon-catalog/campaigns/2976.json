@@ -1,11 +1,11 @@
 {
   "id": 2976,
   "name": "KRVTZ-NET IDS alerts for 2026-01-31",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 31, 2026",
+  "lastSeen": "Jan 31, 2026",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1830 (68fb3161-a747-400c-89a9-32e3c16c353a).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2976"

@@ -3,9 +3,9 @@
   "name": "lamashtu: WOHA",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "May 6, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to lamashtu. | Country: SG | Sector: Hospitality and Tourism | Website: woha.net | Infostealer data confirmed. | WOHA is a renowned Singapore-based architectural practice founded in 1994 by Wong Mun Summ and Richard Hassell. The firm is globally recognized for its integration of environmental and social principles into high-density urban settings. | Source: https://www.ransomware.live/id/V09IQUBsYW1hc2h0dQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3801"

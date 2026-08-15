@@ -1,11 +1,11 @@
 {
   "id": 2447,
   "name": "OSINT APT Volatile Cedar APT yara rules by Florian Roth",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 3, 2015",
+  "lastSeen": "Apr 3, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #775 (551e7a4b-3774-4565-b850-7455950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2447"

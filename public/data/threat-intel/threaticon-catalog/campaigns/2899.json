@@ -1,11 +1,11 @@
 {
   "id": 2899,
   "name": "OSINT - Introducing BIOLOAD: FIN7 BOOSTWRITEâ€™s Lost Twin",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 30, 2019",
+  "lastSeen": "Dec 30, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1575 (5e0a3406-952c-49c8-b084-414002de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2899"

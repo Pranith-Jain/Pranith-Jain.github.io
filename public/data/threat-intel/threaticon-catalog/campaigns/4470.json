@@ -3,9 +3,9 @@
   "name": "cmdorganization: Medlink Georgia",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 30, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to cmdorganization. | Country: GE | Sector: Healthcare | Website: www.medlinkga.org | We have proudly been serving northeast Georgia since 1976. As a federally qualified health center, we are able to offer uninsured and underinsured patients a sliding fee scale. No one is denied services due to lack of income or insurance status.At MedLink Georgia, we strive to provide comprehensive, coordinated, and continuous care to all our patients. We offer a broad array of primary and preventive care services for patients of all ages, including screening, diagnosis, and management of chronic illnesses. | Source: https://www.ransomware.live/id/TWVkbGluayBHZW9yZ2lhQGNtZG9yZ2FuaXphdGlvbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4470"

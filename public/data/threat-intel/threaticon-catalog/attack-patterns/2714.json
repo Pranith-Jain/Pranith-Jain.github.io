@@ -1,0 +1,9 @@
+{
+  "id": 2714,
+  "name": "T1505.001: Server Software Components (Web Shell)",
+  "techniqueId": "T1505",
+  "added": "Aug 6, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2714"
+}

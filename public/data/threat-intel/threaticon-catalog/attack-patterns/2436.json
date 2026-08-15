@@ -1,0 +1,9 @@
+{
+  "id": 2436,
+  "name": "T1059.003 - spear-phishing via malicious documents",
+  "techniqueId": "T1059",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2436"
+}

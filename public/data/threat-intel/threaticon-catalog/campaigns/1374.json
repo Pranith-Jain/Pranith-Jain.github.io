@@ -3,9 +3,9 @@
   "name": "insomnia: Atlas Ocean Voyages",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 23, 2026",
+  "lastSeen": "Feb 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Hospitality and Tourism | Website: www.atlasoceanvoyages.com | Atlas Ocean Voyages offers year-round all-inclusive expedition cruises for under 200 guests, led by expert guides and caring crew. Luxurious yachts sail pole‑to‑pole to pristine, hard‑to‑reach destinations for nature, culture, and culinary exploration. | Source: https://www.ransomware.live/id/QXRsYXMgT2NlYW4gVm95YWdlc0BpbnNvbW5pYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1374"

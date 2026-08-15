@@ -1,11 +1,11 @@
 {
   "id": 2370,
   "name": "OSINT DarkHotel samples at WooYun",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 13, 2016",
+  "lastSeen": "May 13, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #633 (5778026d-9670-44e0-9c25-4751950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2370"

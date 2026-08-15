@@ -3,9 +3,9 @@
   "name": "akira: ABI and Ideal Tape",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "Apr 20, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: abitape.com | Infostealer data confirmed. | From the creation of our very first line of friction tapes in 1908, we have stuck to our belief in developing quality products, holding ourselves to the highest standards. ABI Tapes products are primarily sold through a worldwide network of select industry-focused distributors and con verters. ABI and Ideal Tape are subsidiaries of American Biltrite Inc. We will upload 11gb of corporate data soon. Employee personal information, customer files, proj ects, contracts, internal confidential files, etc. | Source: https://www.ransomware.live/id/QUJJIGFuZCBJZGVhbCBUYXBlQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3772"

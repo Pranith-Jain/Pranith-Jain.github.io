@@ -3,9 +3,9 @@
   "name": "thegentlemen: Fortray",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 11, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Sector: Not Found | Website: fortray.com | Infostealer data confirmed. | ***.com zoominfo.com/c/fortray-global-services-ltd/446823730 Fortray Global Services Limited is a UK-based IT company founded in 2011 that operates across tech education, managed IT services, and global recruitment.They offer specialized Tech and AI bootcamps with 1:1 mentorship to help individuals build in-demand digital skills and launch successful tech careers.Furthermore, they act as a Managed Service Provider (MSP) delivering scalable cloud solutions and cybersecurity to businesses.Simultaneously, their recruitment division connects ambitious IT professionals with top job opportunities worldwide | Source: https://www.ransomware.live/id/Rm9ydHJheUB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4098"

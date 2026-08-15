@@ -3,9 +3,9 @@
   "name": "worldleaks: Legacy Health LLC",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 20, 2026",
+  "lastSeen": "Mar 20, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Healthcare | Website: legacyhealthllc.com | Infostealer data confirmed. | [AI generated] \"Legacy Health LLC\" is a healthcare company that aims to provide high-quality healthcare services and improve health conditions. It offers a variety of healthcare services such as hospital care, medical clinics, home health services, and more. It focuses on promoting a healthy lifestyle, preventing disease, and managing chronic conditions. The company also emphasizes customer satisfaction, quality care, transparency, and integrity in their services. | Source: https://www.ransomware.live/id/TGVnYWN5IEhlYWx0aCBMTENAd29ybGRsZWFrcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1450"

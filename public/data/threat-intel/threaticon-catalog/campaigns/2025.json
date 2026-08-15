@@ -1,11 +1,11 @@
 {
   "id": 2025,
   "name": "DDOS.TF = (new) ELF & Win32 DDoS service with ASP + PHP/MySQL MOF webshells - MMD-0048-2016",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 4, 2016",
+  "lastSeen": "Jan 4, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #36 (56d76936-0d34-44ff-a8c5-5280c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2025"

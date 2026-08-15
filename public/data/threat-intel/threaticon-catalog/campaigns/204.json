@@ -3,9 +3,9 @@
   "name": "clop: INJURYLAWYERS.COM",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to clop. | Country: US | Sector: Business Services | Website: INJURYLAWYERS.COM | [AI generated] INJURYLAWYERS.COM is a US-based legal services platform that connects individuals who have suffered personal injuries with qualified attorneys. Operating in the legal referral and marketing industry, the platform helps accident victims find representation for cases involving car accidents, workplace injuries, medical malpractice, and similar claims. It primarily serves clients across the United States. | Source: https://www.ransomware.live/id/SU5KVVJZTEFXWUVSUy5DT01AY2xvcA==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/204"

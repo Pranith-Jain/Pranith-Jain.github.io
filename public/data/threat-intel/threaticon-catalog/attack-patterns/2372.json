@@ -1,0 +1,9 @@
+{
+  "id": 2372,
+  "name": "T1071.003 - Use Cloud-Based Storage for C2",
+  "techniqueId": "T1071",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2372"
+}

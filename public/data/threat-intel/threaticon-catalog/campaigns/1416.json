@@ -3,9 +3,9 @@
   "name": "nightspire: Fidanque Hermanos e Hijos, S.A",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 21, 2026",
+  "lastSeen": "Feb 26, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nightspire. | Country: PA | Sector: Transportation/Logistics | Website: www.fidanque.com | - Financial Documents- Internal Documents- MSSQL Database | Source: https://www.ransomware.live/id/RmlkYW5xdWUgSGVybWFub3MgZSBIaWpvcywgUy5BQG5pZ2h0c3BpcmU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1416"

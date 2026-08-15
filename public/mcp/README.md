@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**297 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**299 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (185)
+### other (187)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -148,12 +148,14 @@
 - `ti_get_darknet_category` - Return all sites in a darknetlist.is category (markets, search, forums, news, security, communications, crypto, tools, ai) with full details: onion URLs, status, latency, HTTP codes, fingerprints.
 - `ti_get_darknet_site` - Return the full site body from the darknetlist.is directory: name, DWD ID, category, onion URL, clearnet URL (if any), live status, mirror counts, latency, HTTP code, page size, and fingerprint. Use ti_list_darknet first to discover site slugs (DWD IDs).
 - `ti_get_detection_list` - Return the full detection list body with all entries (indicator values + metadata: description, tool, severity, category, reference, regex). Optionally search within the list by keyword or severity. Use ti_list_detection_lists first to discover slugs.
+- `ti_get_dphish_indicator` - Return the full dPhish indicator body for one slug: STIX id, observable value, category, pattern (STIX or YARA), description, created/modified dates, validity window, revoked status, confidence, OpenCTI score, labels, and indicator types. Use ti_list_dphish to discover slugs (e.g. "melbetegypt.com-1a2b3c").
 - `ti_get_ioc` - Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.
 - `ti_get_threaticon_actor` - Return the full Threaticon actor profile: executive summary, key capabilities, goals & targeting, MITRE ATT&CK tactics and techniques (T-numbers), software/tooling, IOC patterns, recommended actions, campaigns & victims, targeted sectors and countries, aliases, and confidence. Use ti_list_threaticon_actors to discover slugs.
 - `ti_get_threaticon_catalog_item` - Return the full Threaticon catalog body for one item: description, TLP, status, IDs (CAPEC/CVE/MITRE), CVSS, first/last-seen, references, and section-specific fields. Use ti_threaticon_catalog to discover ids.
 - `ti_list_cves` - List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.
 - `ti_list_darknet` - List Tor-accessible sites from the darknetlist.is directory (markets, forums, news, security, comms, crypto, tools, AI). Each site has live up/down status, onion URL, response code, and fingerprint. Filter by category, status, recommended, or keyword.
 - `ti_list_detection_lists` - List SOC/DFIR detection lists (suspicious named pipes, ports, user-agents, mutexes, ransomware extensions, etc.) sourced from mthcht/awesome-lists. Each list is a curated CSV of indicators with metadata (tool, severity, category, reference). Filter by category or keyword.
+- `ti_list_dphish` - List phishing indicators from the dPhish public TAXII 2.1 collection (dphish.com): malicious domains, phishing URLs, sender IPs, phone numbers, and attachment detection rules — with active/revoked status, STIX observable type, confidence, OpenCTI score, and validity window. Filter by category, active-only, or keyword. Use ti_get_dphish_indicator to fetch the full STIX body (pattern, description, labels).
 - `ti_list_iocs` - List IOC families (ransomware, malware, APT groups, C2 frameworks, stealers, phishing kits) from the threat-intel vertical, sourced from Daily-Hunt references and tracked by this Worker.
 - `ti_list_kev` - Return the full CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates. Each entry includes vendor, product, short description, required action, and due date.
 - `ti_list_threaticon_actors` - List threat-actor profiles from the Threaticon catalog (threaticon.com): name, MITRE ATT&CK ID, status, TLP, confidence, types, origin country, and per-actor technique/tool/geo counts. Filter by type, country, TLP, status, MITRE presence, or keyword. Use ti_get_threaticon_actor to fetch the full profile.

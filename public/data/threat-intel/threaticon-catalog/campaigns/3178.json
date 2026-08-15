@@ -1,11 +1,11 @@
 {
   "id": 3178,
   "name": "Malware analysis report on SparrowDoor malware",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 26, 2022",
+  "lastSeen": "Apr 26, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #297 (827e941e-4a99-4e2c-a578-bfcec2d40552).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3178"

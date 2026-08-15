@@ -1,11 +1,11 @@
 {
   "id": 2044,
   "name": "KillDisk and BlackEnergy Are Not Just Energy Sector Threats",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 29, 2016",
+  "lastSeen": "Feb 29, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #57 (56feb510-a81c-4bbb-b5c9-e4a6c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2044"

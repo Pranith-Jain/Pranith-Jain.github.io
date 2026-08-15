@@ -1,0 +1,9 @@
+{
+  "id": 1506,
+  "name": "T1620: Reflective Code Loading",
+  "techniqueId": "T1620",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1506"
+}

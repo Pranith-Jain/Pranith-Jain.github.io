@@ -1,11 +1,11 @@
 {
   "id": 88,
   "name": "Daybreak",
-  "status": null,
+  "status": "Active",
   "confidence": 60,
   "firstSeen": null,
   "lastSeen": null,
-  "added": null,
+  "added": "May 4, 2026",
   "description": null,
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/88"

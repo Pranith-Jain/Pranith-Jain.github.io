@@ -1,11 +1,11 @@
 {
   "id": 2354,
   "name": "OSINT - NetTraveler APT Targets Russian, European Interests",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 12, 2016",
+  "lastSeen": "Jul 12, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #604 (5784f9df-02ac-4e17-92bc-7e4502de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2354"

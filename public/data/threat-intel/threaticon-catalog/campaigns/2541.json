@@ -1,11 +1,11 @@
 {
   "id": 2541,
   "name": "OSINT - PSA: Conference Invite used as a Lure by Operation Lotus Blossom Actors",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 31, 2016",
+  "lastSeen": "Oct 31, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #910 (58179275-f030-4dce-a626-4c9802de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2541"

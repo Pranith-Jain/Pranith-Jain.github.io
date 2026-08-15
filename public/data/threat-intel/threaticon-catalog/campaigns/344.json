@@ -3,10 +3,10 @@
   "name": "aurora: Baresque Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 22, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: GB | Sector: Consumer Services | Website: baresquegroup.com | Infostealer data confirmed. | [design] Baresque Group — a respected commercial-interiors company headquartered in Perth, Australia, with offices in Dallas, Chicago, and Brussels. The exposed material includes: 100+ passport scans, 35 birth certificates, 60+ driver's licences, 50+ TFN declarations — the complete identity-theft toolkit for the entire workforce, spanning Australia, the US, and Europe. Plaintext credentials for every critical system — Microsoft 365, HR platform (Elmo Talent), remote-access gateway (LogMeIn), phone system (3CX), ERP (Jim2) — all in browser-export CSVs and an enterprise-wide Password_Listing.xls that had been sitting on a shared drive since at least 2017. 4 TLS private keys for customer-facing domains — enabling impersonation of the company's websites. 343 GB of product R&D — SolidWorks CAD files, manufacturing specifications, and product bluepr...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/344"
 }

@@ -3,9 +3,9 @@
   "name": "lapsus$: Lille University",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 1, 2026",
+  "lastSeen": "Mar 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lapsus$. | Country: FR | Sector: Education | Website: univ-lille.fr | Infostealer data confirmed. | [AI generated] Lille University, also known as University of Lille, is a well-recognized public university located in Lille, France. It was established in 1562 and offers a wide range of educational programs covering multiple disciplines. The university is known for its focus on research and innovation, and boasts a diverse student population from around the globe. In addition to its academic achievements, Lille University also encourages sports and cultural activities. | Source: https://www.ransomware.live/id/TGlsbGUgVW5pdmVyc2l0eUBsYXBzdXMk",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1968"

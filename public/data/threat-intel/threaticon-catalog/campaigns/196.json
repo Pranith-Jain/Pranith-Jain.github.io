@@ -3,9 +3,9 @@
   "name": "nightspire: A**** F***** Plas****",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 2, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nightspire. | Sector: Manufacturing | Data is not available now. | Source: https://www.ransomware.live/id/QSoqKiogRioqKioqIFBsYXMqKioqQG5pZ2h0c3BpcmU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/196"

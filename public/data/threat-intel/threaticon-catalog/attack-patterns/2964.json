@@ -1,0 +1,9 @@
+{
+  "id": 2964,
+  "name": "T1003.001 LSASS Memory",
+  "techniqueId": "T1003",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2964"
+}

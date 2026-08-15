@@ -3,9 +3,9 @@
   "name": "thegentlemen: Cosmo Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 19, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Manufacturing | Website: cosmo.co.th | Infostealer data confirmed. | cosmo.co.th zoominfo.com/c/cosmo-group-public-co/459326707 Cosmo Group PCL, founded in 1964 and headquartered in Bangkok (Sukhumvit), is a Thai luxury packaging manufacturer with over 60 years of experience. The company specializes in premium gift boxes, displays, watch dials, cases, and accessories for global luxury brands in jewelry, watches, cosmetics, and perfume. With 1,000–5,000 employees and a Swiss sales office (Cosmo Pusterla 1880), Cosmo serves top-tier international clients and holds multiple quality and sustainability certifications | Source: https://www.ransomware.live/id/Q29zbW8gR3JvdXBAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/630"

@@ -1,11 +1,11 @@
 {
   "id": 2949,
   "name": "OSINT - ConnectWise ScreenConnect attacks deliver malware",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 23, 2024",
+  "lastSeen": "Feb 23, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1752 (f8912a82-2870-4de2-9663-5fdbee0ed401).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2949"

@@ -3,9 +3,9 @@
   "name": "thegentlemen: Ciarus",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Technology | Website: ciarus.de | Infostealer data confirmed. | ciarus.de zoominfo.com/c/ciarus/1324145982 Ciarus Technologies is a software development company based in Germany that specializes in custom software development, web and mobile app development, IT outsourcing, and DevOps services. They cater to businesses looking for tailored IT solutions to enhance their competitiveness in the digital landscape. With a focus on exceptional customer service and technical expertise, Ciarus aims to help clients bring their ideas to life through reliable and cost-effective technology | Source: https://www.ransomware.live/id/Q2lhcnVzQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/954"

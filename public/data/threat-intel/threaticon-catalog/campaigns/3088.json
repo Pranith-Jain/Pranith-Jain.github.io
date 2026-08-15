@@ -3,9 +3,9 @@
   "name": "Icarus: Cazh.id",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 6, 2026",
   "description": "Ransomware attack attributed to Icarus. | Country: ID | Sector: Financial Services | Website: bkdp.cazh.id | Infostealer data confirmed. | - User DB: 300,000 Users (Email, Hash, Phone, Address, DOB) for https://bkdp.cazh.id/. - KYC Vault: 7,800 Government IDs + 4,200 Selfies (including \"Hold-to-Face\" ID selfies). - 34 SQL Databases for associated schools (Students/Parents/Staff). - Corporate/Financial: Full Investor Database + partner documents - Collateral documents (Vehicle Registration Documents & Property Deeds) - Billing Proofs - Full src code of their services Data stolen: PII, SOURCE CODE, KYC | Source: https://www.ransomware.live/id/Q2F6aC5pZEBJY2FydXM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3088"

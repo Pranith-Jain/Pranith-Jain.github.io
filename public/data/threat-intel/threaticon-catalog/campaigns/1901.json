@@ -3,9 +3,9 @@
   "name": "AiLock: Promotion Management Center",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Oct 14, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: JP | Sector: Business Services | Website: pmci.com | Infostealer data confirmed. | Founded in 1983, Promotion Management Center, Inc. (PMC) provides fulfillment services.The company specializes in customer incentives, loyalty rewards, employee recognition awards, rebates and third party logistics (3PL) orders your programs generate. | Source: https://www.ransomware.live/id/UHJvbW90aW9uIE1hbmFnZW1lbnQgQ2VudGVyQEFpTG9jaw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1901"

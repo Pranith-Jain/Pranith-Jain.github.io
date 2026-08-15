@@ -1,0 +1,9 @@
+{
+  "id": 1715,
+  "name": "T1538.001 - Pass the Ticket: Kerberos Tickets",
+  "techniqueId": "T1538",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1715"
+}

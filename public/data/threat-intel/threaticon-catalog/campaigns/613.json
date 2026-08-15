@@ -3,10 +3,10 @@
   "name": "payload: Al Sulaiti Law Firm",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 20, 2026",
+  "lastSeen": "Apr 20, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: QA | Sector: Business Services | Website: alsulaitilawfirm.com | Infostealer data confirmed. | Al Sulaiti Law Firm is one of the largest law firms in Qatar, established in 2002, offering a wide range of legal services including arbitration, banking, corporate, employment, energy, and intellectual property. The firm emphasizes teamwork and collaboration, aiming to build strong relationships with clients to exceed their expectations. With a diverse and innovative team, they provide high-quality professional services tailored to meet the unique needs of their clients. Their commitment to integrity and client satisfaction has earned them recognition and respect in the legal community. | Source: https://www.ransomware.live/id/QWwgU3VsYWl0aSBMYXcgRmlybUBwYXlsb2Fk",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/613"
 }

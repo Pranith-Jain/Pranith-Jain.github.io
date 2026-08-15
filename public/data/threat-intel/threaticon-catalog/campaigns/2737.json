@@ -1,11 +1,11 @@
 {
   "id": 2737,
   "name": "OSINT - Significant FormBook Distribution Campaigns Impacting the U.S. and South Korea",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 6, 2017",
+  "lastSeen": "Oct 6, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1208 (59d7d6ca-34f4-4bec-b700-4afa02de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2737"

@@ -1,0 +1,9 @@
+{
+  "id": 790,
+  "name": "Footprinting",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very Low. Likelihood of attack: High. An adversary engages in probing and exploration activities to identify constituents and properties of the target.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/790"
+}

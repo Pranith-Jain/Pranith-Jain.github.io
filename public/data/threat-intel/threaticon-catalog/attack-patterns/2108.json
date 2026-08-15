@@ -1,0 +1,9 @@
+{
+  "id": 2108,
+  "name": "T1064.002 - Exfiltration Over Web Service",
+  "techniqueId": "T1064",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2108"
+}

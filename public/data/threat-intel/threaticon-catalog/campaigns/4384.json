@@ -3,9 +3,9 @@
   "name": "thegentlemen: Beran Concrete",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: CZ | Sector: Construction | Website: beranconcrete.com | Infostealer data confirmed. | ***.com zoominfo.com/c/beran-concrete-inc/4424481 Beran Concrete is a premier concrete construction and ready-mix supplier serving commercial and residential projects across Wichita, Kansas, and the broader Midwest.Founded in 1980, the company is driven by a deep pride in quality workmanship and a proven ability to consistently meet strict client deadlines.To support its continued growth and better serve local communities, the business actively expands its regional footprint by integrating additional ready-mix plants | Source: https://www.ransomware.live/id/QmVyYW4gQ29uY3JldGVAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4384"

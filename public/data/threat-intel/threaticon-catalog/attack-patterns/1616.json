@@ -1,0 +1,9 @@
+{
+  "id": 1616,
+  "name": "T1068.004",
+  "techniqueId": "T1068",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1616"
+}

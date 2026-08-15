@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 297 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 299 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 297,
-  "generatedAt": "2026-08-15T05:07:17.080Z",
+  "toolCount": 299,
+  "generatedAt": "2026-08-15T09:03:36.834Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -1200,6 +1200,11 @@
       "category": "other"
     },
     {
+      "name": "ti_get_dphish_indicator",
+      "description": "Return the full dPhish indicator body for one slug: STIX id, observable value, category, pattern (STIX or YARA), description, created/modified dates, validity window, revoked status, confidence, OpenCTI score, labels, and indicator types. Use ti_list_dphish to discover slugs (e.g. \"melbetegypt.com-1a2b3c\").",
+      "category": "other"
+    },
+    {
       "name": "ti_get_ioc",
       "description": "Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.",
       "category": "other"
@@ -1227,6 +1232,11 @@
     {
       "name": "ti_list_detection_lists",
       "description": "List SOC/DFIR detection lists (suspicious named pipes, ports, user-agents, mutexes, ransomware extensions, etc.) sourced from mthcht/awesome-lists. Each list is a curated CSV of indicators with metadata (tool, severity, category, reference). Filter by category or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "ti_list_dphish",
+      "description": "List phishing indicators from the dPhish public TAXII 2.1 collection (dphish.com): malicious domains, phishing URLs, sender IPs, phone numbers, and attachment detection rules — with active/revoked status, STIX observable type, confidence, OpenCTI score, and validity window. Filter by category, active-only, or keyword. Use ti_get_dphish_indicator to fetch the full STIX body (pattern, description, labels).",
       "category": "other"
     },
     {

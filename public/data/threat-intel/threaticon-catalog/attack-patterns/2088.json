@@ -1,0 +1,9 @@
+{
+  "id": 2088,
+  "name": "T1218.003 -Credential Dumping via LSASS Memory",
+  "techniqueId": "T1218",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2088"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 811,
+  "name": "Embedding Scripts within Scripts",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. An adversary leverages the capability to execute their own script by embedding it within other scripts that the target software is likely to execute due to programs' vulnerabilities that are brought on by allowing remote hosts to execute scripts.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/811"
+}

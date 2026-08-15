@@ -1,0 +1,9 @@
+{
+  "id": 2414,
+  "name": "T1046: Native API",
+  "techniqueId": "T1046",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2414"
+}

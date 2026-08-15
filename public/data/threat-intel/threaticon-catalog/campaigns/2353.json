@@ -1,11 +1,11 @@
 {
   "id": 2353,
   "name": "Malspam 2016-07-05 (subject 'Scanned image'), .docm",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 5, 2016",
+  "lastSeen": "Jul 5, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #601 (577bcda2-5e64-43a9-9b1c-4609950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2353"

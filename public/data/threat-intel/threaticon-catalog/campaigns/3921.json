@@ -3,9 +3,9 @@
   "name": "AiLock: Design Engineering & Consulting",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 18, 2026",
+  "lastSeen": "May 18, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Business Services | Website: decusa.com | Infostealer data confirmed. | Design Engineering & Consulting provides façade system design, shop drawings, engineering, and consulting services in a cost – effective and professional manner across the world. | Source: https://www.ransomware.live/id/RGVzaWduIEVuZ2luZWVyaW5nICYgQ29uc3VsdGluZ0BBaUxvY2s=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3921"

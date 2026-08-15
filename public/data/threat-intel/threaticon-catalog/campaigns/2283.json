@@ -1,11 +1,11 @@
 {
   "id": 2283,
   "name": "Exploring the Latest Mispadu Stealer Variant",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 2, 2024",
+  "lastSeen": "Feb 2, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #449 (35a3073a-9193-4c4d-9b90-caeb2e44c06a).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2283"

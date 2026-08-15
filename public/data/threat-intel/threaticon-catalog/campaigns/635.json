@@ -3,10 +3,10 @@
   "name": "thegentlemen: Jati Tinggi",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 19, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: MY | Sector: Manufacturing | Website: jatitinggi.com | Infostealer data confirmed. | jatitinggi.com zoominfo.com/c/jati-tinggi-holding-sdn-bhd/399353498 Jati Tinggi Group Berhad, founded in 2003 and headquartered in Cheras, Selangor, Malaysia, is a publicly listed infrastructure utilities engineering company (KLSE: JTGROUP). The company specialises in underground and overhead utilities for electricity transmission & distribution, fiber optic networks, drainage, sewerage pipelines, substation EPCC services, and street lighting. It operates as a subsidiary of Broad River Capital Sdn Bhd, employs 51–200 people, and recently won an RM80 million contract from TNB (Tenaga Nasional Berhad) | Source: https://www.ransomware.live/id/SmF0aSBUaW5nZ2lAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/635"
 }

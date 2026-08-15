@@ -3,10 +3,10 @@
   "name": "thegentlemen: ACFA Regionale de Calgary",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Not Found | Website: acfa.ab.ca | Infostealer data confirmed. | acfa.ab.ca zoominfo.com/c/acfa-régionale-de-calgary/354494275 The ACFA (French Canadian Association of Alberta) was founded in 1926 and serves as the official political spokesperson for all French-speaking people in Alberta. Its core mission is to protect francophone linguistic rights, advance French-language education, and strengthen the cultural vitality of Alberta's Francophone communities across 13+ regional branches. The non-profit is headquartered in Edmonton and employs between 11–50 people. It is currently approaching its 100th anniversary, with the board actively planning centennial celebrations | Source: https://www.ransomware.live/id/QUNGQSBSZWdpb25hbGUgZGUgQ2FsZ2FyeUB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3780"
 }

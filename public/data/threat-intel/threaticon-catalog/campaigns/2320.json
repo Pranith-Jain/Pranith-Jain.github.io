@@ -1,11 +1,11 @@
 {
   "id": 2320,
   "name": "EastWind campaign: new CloudSorcerer attacks on government organizations in Russia",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 16, 2024",
+  "lastSeen": "Aug 16, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #518 (d84d38cc-1e9e-4edf-9f55-8be68e877583).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2320"

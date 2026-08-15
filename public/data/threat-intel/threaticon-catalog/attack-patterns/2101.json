@@ -1,0 +1,9 @@
+{
+  "id": 2101,
+  "name": "T1021.004 - Internal Spear Phishing",
+  "techniqueId": "T1021",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2101"
+}

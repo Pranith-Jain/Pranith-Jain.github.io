@@ -1,0 +1,9 @@
+{
+  "id": 1738,
+  "name": "T1566.002 - Communication Through Alternate Port",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1738"
+}

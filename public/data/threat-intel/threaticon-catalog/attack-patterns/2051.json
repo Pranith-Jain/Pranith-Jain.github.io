@@ -1,0 +1,9 @@
+{
+  "id": 2051,
+  "name": "T1059.003 - Persistence: Scheduled Task/Job (Persistence)",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2051"
+}

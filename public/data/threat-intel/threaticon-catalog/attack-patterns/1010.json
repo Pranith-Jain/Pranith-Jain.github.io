@@ -1,0 +1,9 @@
+{
+  "id": 1010,
+  "name": "Transparent Proxy Abuse",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. A transparent proxy serves as an intermediate between the client and the internet at large. It intercepts all requests originating from the client and forwards them to the correct location. The proxy also intercepts all responses to the client and forwards these to the client. All of this is done in a manner transparent to the client.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1010"
+}

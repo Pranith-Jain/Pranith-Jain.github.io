@@ -1,0 +1,9 @@
+{
+  "id": 2263,
+  "name": "T1024 (Credentials Obtainment)",
+  "techniqueId": "T1024",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2263"
+}

@@ -3,9 +3,9 @@
   "name": "safepay: brookercg.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 17, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Technology | Website: brookercg.com | Infostealer data confirmed. | Is a privately held general contracting and construction management company headquartered in Chattanooga, Tennessee, United States. The firm specializes in … | Source: https://www.ransomware.live/id/YnJvb2tlcmNnLmNvbUBzYWZlcGF5",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1514"

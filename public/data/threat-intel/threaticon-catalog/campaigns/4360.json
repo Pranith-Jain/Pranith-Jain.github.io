@@ -3,9 +3,9 @@
   "name": "anubis: Northeast Pediatrics & Adolescent Medicine",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 2, 2026",
+  "lastSeen": "Jul 2, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to anubis. | Sector: Healthcare | Website: northeastpeds.com | Infostealer data confirmed. | Data breach exposes employees and patients of a pediatric clinic. | Source: https://www.ransomware.live/id/Tm9ydGhlYXN0IFBlZGlhdHJpY3MgJiBBZG9sZXNjZW50IE1lZGljaW5lQGFudWJpcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4360"

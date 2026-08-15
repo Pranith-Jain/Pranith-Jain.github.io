@@ -1,11 +1,11 @@
 {
   "id": 2055,
   "name": "Windows Background Intelligent Transfer Service (BITS) used to download malware",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 6, 2016",
+  "lastSeen": "Jun 6, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #71 (575af97c-8ad0-4d72-9322-04a2c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2055"

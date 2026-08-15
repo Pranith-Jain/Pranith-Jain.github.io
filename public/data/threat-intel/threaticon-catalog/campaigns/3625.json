@@ -3,9 +3,9 @@
   "name": "cmdorganization: Advanced Software Products Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Technology | Website: www.aspg.com | ASPG Inc. specializes in enterprise and mainframe software solutions that focus on secure access, data protection, and system management. Their product offerings include comprehensive cryptography tools, access management solutions, and systems administration utilities tailored for various industries such as education, government, healthcare, and finance. Since 1986, ASPG has been dedicated to providing the IT community with cutting-edge software and support services. | Source: https://www.ransomware.live/id/QWR2YW5jZWQgU29mdHdhcmUgUHJvZHVjdHMgR3JvdXBAY21kb3JnYW5pemF0aW9u",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3625"

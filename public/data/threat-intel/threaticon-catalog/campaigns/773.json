@@ -3,9 +3,9 @@
   "name": "lockbit5: seleniaravenna.it",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Agriculture and Food Production | Website: seleniaravenna.it | Infostealer data confirmed. | Servizi all'avanguardia a Ravenna Nato nel 1992 dall'unione delle principali realtà coope... | Source: https://www.ransomware.live/id/c2VsZW5pYXJhdmVubmEuaXRAbG9ja2JpdDU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/773"

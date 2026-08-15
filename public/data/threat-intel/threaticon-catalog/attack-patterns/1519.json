@@ -1,0 +1,9 @@
+{
+  "id": 1519,
+  "name": "T1518.001: Security Software Discovery",
+  "techniqueId": "T1518",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1519"
+}

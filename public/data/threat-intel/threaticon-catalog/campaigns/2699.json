@@ -1,11 +1,11 @@
 {
   "id": 2699,
   "name": "OSINT - Threat actor goes on a Chrome extension hijacking spree",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 14, 2017",
+  "lastSeen": "Aug 14, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1155 (59aeaab2-3ea4-4b1a-b521-460a950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2699"

@@ -1,0 +1,9 @@
+{
+  "id": 2276,
+  "name": "T1059.004 - Powershell command line option - Use of encoded or Base64 arguments to execute code",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2276"
+}

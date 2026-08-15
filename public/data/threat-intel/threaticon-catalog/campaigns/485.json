@@ -3,9 +3,9 @@
   "name": "thegentlemen: Suzhou Yike Kejian",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 26, 2026",
+  "lastSeen": "Oct 7, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: CN | Sector: Manufacturing | Suzhou Yike Kejian Architectural Design Research Institute Co., Ltd. (Nanjing Branch) is a Chinese architectural design and research firm operating in the Residential Building Construction sector, classified under the Construction of Buildings industry. The company is registered in Nanjing, Jiangsu Province, and operates as a branch of the parent entity headquartered in Suzhou, Jiangsu. It is a small regional design institute serving the competitive Yangtze River Delta construction market, with professionally certified engineers on staff | Source: https://www.ransomware.live/id/U3V6aG91IFlpa2UgS2VqaWFuQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/485"

@@ -1,0 +1,9 @@
+{
+  "id": 2312,
+  "name": "T1202: User Execution",
+  "techniqueId": "T1202",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2312"
+}

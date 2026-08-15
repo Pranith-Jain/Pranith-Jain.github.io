@@ -3,9 +3,9 @@
   "name": "handala: Shock for Israeli Intelligence: 100,000 Classified Emails of Mossad’s Ex-Deputy Director S...",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 16, 2026",
+  "lastSeen": "Mar 16, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Public Sector | In an incident that sent shockwaves through the Israeli intelligence apparatus, the personal email of Sima Shine, the former Deputy Director for Research of Mossad, former Head of the Iran Desk, and current leader of one of Israel’s most secretive intelligence institutions, has been hacked. Now, over 100,000 of her ultra-classified emails are available for… | Source: https://www.ransomware.live/id/U2hvY2sgZm9yIElzcmFlbGkgSW50ZWxsaWdlbmNlOiAxMDAsMDAwIENsYXNzaWZpZWQgRW1haWxzIG9mIE1vc3NhZOKAmXMgRXgtRGVwdXR5IERpcmVjdG9yIFMuLi5AaGFuZGFsYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1557"

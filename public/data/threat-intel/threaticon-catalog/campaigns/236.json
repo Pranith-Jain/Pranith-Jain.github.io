@@ -3,9 +3,9 @@
   "name": "threeam: bun.nl",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to threeam. | Country: NL | Sector: Agriculture and Food Production | Website: bun.nl | Infostealer data confirmed. | Bun creëert woon-, werk- en leefruimte voor iedereen en van de beste kwaliteit. Wij spelen in op zaken die leven in de maatschappij. De behoefte hierin aan woningen in is groot. Daarom houden wij ons bezig met de ontwikkeling en het renoveren van | Source: https://www.ransomware.live/id/YnVuLm5sQHRocmVlYW0=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/236"

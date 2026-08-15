@@ -1,11 +1,11 @@
 {
   "id": 2297,
   "name": "OSINT The Ghost Dragon by Cylance",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 22, 2016",
+  "lastSeen": "Apr 22, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #469 (571bd702-031c-400b-a851-43ce02de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2297"

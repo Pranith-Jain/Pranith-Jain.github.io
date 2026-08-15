@@ -3,9 +3,9 @@
   "name": "dragonforce: Primius Law Firm",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 22, 2026",
+  "lastSeen": "Apr 22, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: GR | Sector: Business Services | Website: primiuslawfirm.gr | Infostealer data confirmed. | Primius Law Firm is a modern and effective legal firm established to provide holistic solutions to various legal issues. With a team of experienced professionals specializing in all branches of law, the firm has established itself as one of the best and most successful law firms in Greece. The firm is committed to continuous development and support for its clients. Its intended clients include individuals and businesses seeking reliable legal representation and expert advice | Source: https://www.ransomware.live/id/UHJpbWl1cyBMYXcgRmlybUBkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/566"

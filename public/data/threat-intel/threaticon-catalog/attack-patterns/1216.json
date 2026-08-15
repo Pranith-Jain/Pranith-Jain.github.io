@@ -1,0 +1,9 @@
+{
+  "id": 1216,
+  "name": "Alteration of a Software Update",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary with access to an organization’s software update infrastructure inserts malware into the content of an outgoing update to fielded systems where a wide range of malicious effects are possible. With the same level of access, the adversary can alter a software update to perform specific malicious acts including granting the adversary control over the software’s normal functionality.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1216"
+}
