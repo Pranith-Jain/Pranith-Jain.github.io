@@ -12,8 +12,10 @@
  *   4. detection-strategies  — 697 MITRE detection strategies
  *   5. campaigns             — 7,748 coordinated attack campaigns
  *   6. attack-patterns       — 3,087 CAPEC-style attack patterns
- *   7. vulnerabilities       — 22,190 CVEs
- *   8. indicators            — 480,188 IOCs (list pages only, no details)
+ *   7. vulnerabilities       — 22,190 CVEs  (DISABLED: +22k files would blow
+ *                                           the 20k static-asset free-plan cap)
+ *   8. indicators            — 480,188 IOCs (DISABLED: ~10k chunk files would
+ *                                           blow the 20k static-asset cap)
  *
  * List pages: /<section>?page=N (sizes 15/25/30/50 depending on section).
  * Detail pages: /<section>/<id> — parsed from the wire:name="<s>.show"
@@ -53,8 +55,9 @@ const SECTIONS = {
   'detection-strategies': { pageSize: 30, detail: true, table: true },
   campaigns: { pageSize: 15, detail: true, table: false },
   'attack-patterns': { pageSize: 20, detail: true, table: false },
-  vulnerabilities: { pageSize: 15, detail: true, table: false },
-  indicators: { pageSize: 50, detail: false, table: false },
+  // vulnerabilities (22,190 CVEs) and indicators (480,188 IOCs) are EXCLUDED:
+  // their per-CVE/per-chunk JSON bodies would push public/ past the 20,000
+  // static-asset limit of the Workers free plan (already ~18.5k files).
 };
 
 let fetched = 0;

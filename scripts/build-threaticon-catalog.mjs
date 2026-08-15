@@ -33,8 +33,9 @@ const SECTIONS = [
   'detection-strategies',
   'campaigns',
   'attack-patterns',
-  'vulnerabilities',
-  'indicators',
+  // vulnerabilities (22,190 CVEs) + indicators (480,188 IOCs) are EXCLUDED:
+  // their bodies would push public/ past the 20,000 static-asset cap of the
+  // Workers free plan (~18.5k files already). See sync-threaticon-catalog.mjs.
 ];
 
 if (existsSync(OUT)) rmSync(OUT, { recursive: true });
@@ -43,7 +44,7 @@ const index = {
   source: 'threaticon.com',
   url: 'https://threaticon.com/',
   description:
-    'Extended threaticon.com public-preview catalog: tools, mitigations, data components, detection strategies, campaigns, attack patterns, CVEs and indicators.',
+    'Extended threaticon.com public-preview catalog: tools, mitigations, data components, detection strategies, campaigns and attack patterns (vulnerabilities + IOC dictionary excluded — 20k static-asset free-plan cap).',
   builtAt: new Date().toISOString(),
   counts: {},
   sections: {},

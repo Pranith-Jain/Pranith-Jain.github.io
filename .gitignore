@@ -103,6 +103,12 @@ signature-base-replication/
 /Threat*
 .mimocode/
 
+# Threaticon catalog staging IS committed (resumable crawl for the GitHub
+# Actions sync — a fresh full crawl exceeds the 6h runner limit).
+!/threat-intel-staging/
+threat-intel-staging/*
+!/threat-intel-staging/threaticon-catalog/
+
 # Webamon DTB sync staging output
 webamon-dtb-staging/
 
