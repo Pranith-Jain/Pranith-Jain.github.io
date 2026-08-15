@@ -4,7 +4,7 @@
 
 @theme {
   --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Bricolage Grotesque', 'Hanken Grotesk', sans-serif;
+  --font-display: 'Bricolage Grotesque', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Tailwind v4 generates text-* utilities from the --text-* namespace, NOT

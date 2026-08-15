@@ -619,9 +619,10 @@ export async function fetchPrerenderedOrShell(
     // SPA shell references content-hashed JS/CSS chunks that are safe
     // to cache immutably, but the shell HTML itself must refresh on
     // every deploy so users pick up new lazy chunks (e.g. a new
-    // NotFound page, the React Router table). Use no-store to prevent
-    // CDN/browser caching that could serve stale chunk references.
-    h.set('cache-control', 'no-store, no-cache, must-revalidate');
+    // NotFound page, the React Router table). Use no-cache (not no-store)
+    // to force revalidation on every load while still allowing the page
+    // into the back/forward cache - no-store blocks bfcache restoration.
+    h.set('cache-control', 'no-cache, must-revalidate');
     h.set('pragma', 'no-cache');
     return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
@@ -635,8 +636,9 @@ export async function fetchPrerenderedOrShell(
     const body = injectScriptNonce(await r.text(), nonce);
     const h = new Headers(r.headers);
     h.set('x-ssr-source', 'shell-fallback-404');
-    // Use no-store to prevent CDN/browser caching of 404 shells
-    h.set('cache-control', 'no-store, no-cache, must-revalidate');
+    // no-cache forces revalidation (fresh shell on every load) without
+    // blocking back/forward cache restoration the way no-store does.
+    h.set('cache-control', 'no-cache, must-revalidate');
     h.set('pragma', 'no-cache');
     return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
@@ -651,8 +653,10 @@ export async function fetchPrerenderedOrShell(
   // above. The worker's own etag-keyed Cache API entry (see injectOgMeta)
   // is unaffected by this header, so server-side hit rate is preserved.
   headers.set('x-ssr-source', 'prerendered');
-  // Use no-store to prevent CDN/browser caching of prerendered shells
-  headers.set('cache-control', 'no-store, no-cache, must-revalidate');
+  // no-cache forces revalidation on every load (fresh shell, same as
+  // before) while allowing bfcache - no-store would block back/forward
+  // restoration for no freshness benefit.
+  headers.set('cache-control', 'no-cache, must-revalidate');
   headers.set('pragma', 'no-cache');
   return new Response(ogRewritten.body, {
     status: ogRewritten.status,

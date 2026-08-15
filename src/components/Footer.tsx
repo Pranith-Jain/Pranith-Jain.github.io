@@ -49,7 +49,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
             <Link
               to="/"
               className="group inline-flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-xl"
-              aria-label={`${personalInfo.name} - Back to home`}
+              aria-label={`PJ ${personalInfo.name} - Back to home`}
             >
               <span className="h-9 w-9 rounded-xl flex items-center justify-center overflow-hidden transition">
                 <PjMark className="h-full w-full" />
