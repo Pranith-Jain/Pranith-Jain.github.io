@@ -1,0 +1,12 @@
+{
+  "id": 225,
+  "fetchedAt": "2026-08-14T05:19:47.950Z",
+  "name": "Detect Persistence via Outlook Home Page Exploitation",
+  "tlp": null,
+  "detId": "DET0177",
+  "stixId": "x-mitre-detection-strategy--e55f4e4b-80c0-4a2b-8202-659d29bbba33",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0502", "AN0503"]
+}

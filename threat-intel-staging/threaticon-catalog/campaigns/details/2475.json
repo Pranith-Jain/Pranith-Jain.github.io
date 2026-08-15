@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:06:15.524Z",
+  "name": "OSINT Vawtrak C2 â€“ Pin it by Threat Geek",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 16, 2016",
+  "lastSeen": "Aug 16, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #813 (57b585fe-ae40-42d8-bdd7-49d9950d210f)."
+}

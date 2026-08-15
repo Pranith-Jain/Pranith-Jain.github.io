@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:12:08.739Z",
+  "name": "lynx: ACNHealthcare",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lynx. | Country: IN | Sector: Healthcare | Website: acnhealthcare.com | Infostealer data confirmed. | www.acnhealthcare.com | Source: https://www.ransomware.live/id/QUNOSGVhbHRoY2FyZUBseW54"
+}

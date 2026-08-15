@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:50:03.043Z",
+  "name": "chaos: smythco.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 20, 2026",
+  "lastSeen": "Feb 19, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Business Services | Website: smythco.com | Infostealer data confirmed. | Smyth Companies, LLC has failed to protect its infrastructure. We have successfully exfiltrated high-value corporate data, and the window for private negotiation is now closed. THE TERMS: You have 24 HOURS to finalize the settlement. If the deadline expires: FULL DISCLOSURE: 1000 GB of interna… | Source: https://www.ransomware.live/id/c215dGhjby5jb21AY2hhb3M="
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:13:15.919Z",
+  "name": "Thanksgiving 2023 security incident",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 1, 2024",
+  "lastSeen": "Feb 1, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #444 (11e6c3fa-f482-4c25-8cfa-d78cc4946af4)."
+}

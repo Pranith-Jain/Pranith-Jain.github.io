@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:06:21.016Z",
+  "name": "netrunner: Harman Fitness",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to netrunner. | Country: US | Sector: Consumer Services | Website: crunchfitness.com | Infostealer data confirmed. | Harman Fitness is a multi-unit franchise operator and management company that owns and runs dozens of Crunch Fitness clubs across the U.S. — operating Crunch locations under franchise agreements with over 40 gyms nationwide | Source: https://www.ransomware.live/id/SGFybWFuIEZpdG5lc3NAbmV0cnVubmVy"
+}

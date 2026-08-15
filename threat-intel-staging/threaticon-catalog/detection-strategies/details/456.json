@@ -1,0 +1,12 @@
+{
+  "id": 456,
+  "fetchedAt": "2026-08-14T06:01:49.302Z",
+  "name": "Detection of Unauthorized DCSync Operations via Replication API Abuse",
+  "tlp": null,
+  "detId": "DET0594",
+  "stixId": "x-mitre-detection-strategy--3796aa06-65fe-4b9d-9d31-e6491b722632",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1632"]
+}

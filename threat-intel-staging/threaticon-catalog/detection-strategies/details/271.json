@@ -1,0 +1,12 @@
+{
+  "id": 271,
+  "fetchedAt": "2026-08-14T05:55:40.037Z",
+  "name": "Brute Force Authentication Failures with Multi-Platform Log Correlation",
+  "tlp": null,
+  "detId": "DET0463",
+  "stixId": "x-mitre-detection-strategy--1439efe8-4d10-4ce8-8727-458db69bae85",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1275", "AN1276", "AN1277", "AN1278", "AN1279"]
+}

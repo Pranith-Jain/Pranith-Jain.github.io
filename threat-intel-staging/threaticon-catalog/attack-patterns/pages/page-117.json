@@ -1,0 +1,113 @@
+[
+  {
+    "id": 406,
+    "name": "Windows Management Instrumentation Event Subscription",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  {
+    "id": 1527,
+    "name": "T1546.003: Windows Management Instrumentation Event Subscription",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  {
+    "id": 487,
+    "name": "Unix Shell Configuration Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  { "id": 281, "name": "Trap", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  {
+    "id": 53,
+    "name": "LC_LOAD_DYLIB Addition",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  { "id": 671, "name": "Netsh Helper DLL", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  {
+    "id": 320,
+    "name": "Accessibility Features",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  { "id": 354, "name": "AppCert DLLs", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  { "id": 554, "name": "AppInit DLLs", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  {
+    "id": 207,
+    "name": "Application Shimming",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  {
+    "id": 309,
+    "name": "Image File Execution Options Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  {
+    "id": 45,
+    "name": "PowerShell Profile",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  { "id": 425, "name": "Emond", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  {
+    "id": 507,
+    "name": "Component Object Model Hijacking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  {
+    "id": 593,
+    "name": "Installer Packages",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  { "id": 667, "name": "Udev Rules", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  {
+    "id": 534,
+    "name": "Python Startup Hooks",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  { "id": 2799, "name": "T1546?", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  {
+    "id": 96,
+    "name": "Boot or Logon Autostart Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1547",
+    "status": null
+  },
+  {
+    "id": 431,
+    "name": "Registry Run Keys / Startup Folder",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1547",
+    "status": null
+  }
+]

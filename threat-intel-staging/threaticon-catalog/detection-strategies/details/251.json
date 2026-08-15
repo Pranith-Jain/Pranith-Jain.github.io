@@ -1,0 +1,12 @@
+{
+  "id": 251,
+  "fetchedAt": "2026-08-14T05:38:39.067Z",
+  "name": "Behavioral Detection Strategy for Network Service Discovery Across Platforms",
+  "tlp": null,
+  "detId": "DET0376",
+  "stixId": "x-mitre-detection-strategy--82e20b1f-300e-43cc-9259-1d506ef5d1f8",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1057", "AN1058", "AN1059", "AN1060"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:29:31.754Z",
+  "name": "payload: JOH Investments Limited",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 20, 2026",
+  "lastSeen": "Apr 20, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: JM | Sector: Financial Services | Website: myjohgroup.com | Infostealer data confirmed. | JOH Investments Limited is an officially registered financial entity based in Kingston, Jamaica, holding an active Legal Entity Identifier (LEI) for international operations. The company specializes in investment activities and asset management, maintaining integration with global banking systems for financial transactions. | Source: https://www.ransomware.live/id/Sk9IIEludmVzdG1lbnRzIExpbWl0ZWRAcGF5bG9hZA=="
+}

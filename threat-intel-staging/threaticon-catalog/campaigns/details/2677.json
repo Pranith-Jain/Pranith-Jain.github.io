@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:57:22.829Z",
+  "name": "OSINT - CowerSnail, from the creators of SambaCry",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 30, 2017",
+  "lastSeen": "Jul 30, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1119 (597e0ba4-29e0-4ae1-a8a3-ae4f02de0b81)."
+}

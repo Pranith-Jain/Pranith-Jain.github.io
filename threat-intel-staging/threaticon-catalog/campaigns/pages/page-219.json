@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4589,
+    "name": "nova: FTL-Fast Transit Line",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4583,
+    "name": "akira: IH Engineers",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: ihengineers.com | Infostealer data confirmed. | IH Engineers, P.C. is a consulting firm with over 25 years of experience, dedicated to providin g innovative and technically excellent services in design, construction, and structural evaluat ion. The firm operates primarily in New Jersey, New York, and Pennsylvania, serving a diverse r ange of clients. We will upload 65gb of corporate data soon. Employee personal docs (passports, SSNs, DLs and ot her HR information), confidential internal files, NDAs, projects, contracts and agreements, dra wings and so on. | Source: https://www.ransomware.live/id/SUggRW5naW5lZXJzQGFraXJh"
+  },
+  {
+    "id": 4584,
+    "name": "Icarus: H*",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Not Found | Salesforce data of H*. Data stolen: SF data - Compressed | Source: https://www.ransomware.live/id/SCpASWNhcnVz"
+  },
+  {
+    "id": 4582,
+    "name": "akira: Leo International",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Not Found | Website: leointernational.com | Infostealer data confirmed. | Leo International, established in 1986, serves as a comprehensive source for the PVF, HVAC, and Plumbing Industry. The company specializes in manufacturing products through Forging, Casting, and Injection Molding processes. We will upload 10gb of corporate data soon. Employee personal docs (passports, SSNs, DLs, medic al information, phones, photos, doc scans, addresses and so on), confidential internal files an d so on. | Source: https://www.ransomware.live/id/TGVvIEludGVybmF0aW9uYWxAYWtpcmE="
+  },
+  {
+    "id": 4585,
+    "name": "Icarus: H**",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Not Found | Salesforce data for this corp. Data stolen: SF data - compressed | Source: https://www.ransomware.live/id/SCoqQEljYXJ1cw=="
+  },
+  {
+    "id": 4579,
+    "name": "interlock: Reynella East College",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4580,
+    "name": "apt73: kliknklik.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: ID | Sector: Consumer Services | Website: kliknklik.com | Infostealer data confirmed. | KliknKlik.com — a company from Indonesia, an online retailer and distributor of computer equipm... | Source: https://www.ransomware.live/id/a2xpa25rbGlrLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 4581,
+    "name": "apt73: gov.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: BR | Sector: Public Sector | Website: gov.br | Infostealer data confirmed. | Gov.br — this is the official state digital platform and domain zone of the Brazilian Federal G... | Press: https://www.aliadosbrasiloficial.com.br/noticia/sistema-eletronico-de-informacoes-do-governo-sai-do-ar-suspeita-e-de-ataque-hacker | Source: https://www.ransomware.live/id/Z292LmJyQGFwdDcz"
+  },
+  {
+    "id": 4575,
+    "name": "qilin: Lee International",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: KR | Sector: Not Found | Website: www.leeinternational.com | N/A | Source: https://www.ransomware.live/id/TGVlIEludGVybmF0aW9uYWxAcWlsaW4="
+  },
+  {
+    "id": 4576,
+    "name": "lapsus$: AYA BANK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: MM | Sector: Financial Services | Website: ayabank.com | Infostealer data confirmed. | Everything for the main platform is there. Full dump and PII data's. If AYA Bank dont contact us or pay the ransom we will start sale | Press: https://www.chiba-tv.com/plus/detail/2026061795611 | Source: https://www.ransomware.live/id/QVlBIEJBTktAbGFwc3VzJA=="
+  },
+  {
+    "id": 4586,
+    "name": "Icarus: G*",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Not Found | Salesforce data for this corp. Data stolen: SF data - compressed | Source: https://www.ransomware.live/id/RypASWNhcnVz"
+  },
+  {
+    "id": 4577,
+    "name": "cmdorganization: Coldstat Refrigeration",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to cmdorganization. | Country: GB | Sector: Agriculture and Food Production | Website: www.coldstat.com | Coldstat Refrigeration offers a full range of industry-proven refrigeration services. From large restaurant chains to individual stores and cafes—Coldstat is ready to meet all your needs. The company’s qualified staff will help you determine the best solution based on your individual needs. Coldstat’s refrigeration services include: sales of commercial refrigeration equipment, installation, maintenance and repair, layout planning, custom system design, and removal of old equipment.Translated with DeepL.com (free version) | Source: https://www.ransomware.live/id/Q29sZHN0YXQgUmVmcmlnZXJhdGlvbkBjbWRvcmdhbml6YXRpb24="
+  },
+  {
+    "id": 4574,
+    "name": "bravox: Meta",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to bravox. | Country: BR | Sector: Technology | Website: www.metamed.com.br | Occupational health services, workplace safety, ergonomics, preventive healthcare. | Source: https://www.ransomware.live/id/TWV0YUBicmF2b3g="
+  },
+  {
+    "id": 4578,
+    "name": "nova: cloudquantum",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: CO | Sector: Technology | Website: cloudquantum.co | Infostealer data confirmed. | cloudquantum.co - software company that builds and delivers software solutions and products, such as an app for organizing activities and tools for automatically processing information from documents and media - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/Y2xvdWRxdWFudHVtQG5vdmE="
+  },
+  {
+    "id": 4569,
+    "name": "nova: transvill.com.pe",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: PE | Sector: Transportation/Logistics | Website: transvill.com.pe | Infostealer data confirmed. | Transvill SRL offers national and international road transport and logistics services for cargo shipments. Data profile will provided soon | Source: https://www.ransomware.live/id/dHJhbnN2aWxsLmNvbS5wZUBub3Zh"
+  }
+]

@@ -1,0 +1,155 @@
+[
+  {
+    "id": 2561,
+    "name": "T1038 - Access Token Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1038",
+    "status": null
+  },
+  {
+    "id": 2456,
+    "name": "T1038 - Data Extraction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1038",
+    "status": null
+  },
+  {
+    "id": 2489,
+    "name": "T1038 - Exploiting credentials through stolen password hashes",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1038",
+    "status": null
+  },
+  {
+    "id": 460,
+    "name": "Data from Network Shared Drive",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1039",
+    "status": null
+  },
+  {
+    "id": 1590,
+    "name": "T1039 (Internal Proxy/Domain Fronting)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1039",
+    "status": null
+  },
+  { "id": 150, "name": "Network Sniffing", "tlp": "white", "confidence": null, "techniqueId": "T1040", "status": null },
+  {
+    "id": 2554,
+    "name": "T1040 (Exfiltration Over C2 Channel)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2368,
+    "name": "T1040 (Exfiltration over C2)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2421,
+    "name": "T1040 (Exfiltration over Existing Communication Channels)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2462,
+    "name": "T1040 - Data exfiltration over C2 channels",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2558,
+    "name": "T1040 - Deletion of Logs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2510,
+    "name": "T1040 - Exfiltration Over C2 Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2589,
+    "name": "T1040 - Exfiltration over C2",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2429,
+    "name": "T1040 - Exfiltration over C2 Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2469,
+    "name": "T1040 - Exfiltration over C2 Channels",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2390,
+    "name": "T1040 - Exfiltration over DNS",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 1420,
+    "name": "T1040 - Network Sniffing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 1679,
+    "name": "T1040 - Remote access tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 1645,
+    "name": "T1040 - web shell creation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2936,
+    "name": "T1040 – Network Sniffing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  }
+]

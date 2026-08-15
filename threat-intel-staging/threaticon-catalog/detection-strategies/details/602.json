@@ -1,0 +1,12 @@
+{
+  "id": 602,
+  "fetchedAt": "2026-08-14T05:58:41.412Z",
+  "name": "Multi-Event Detection for SMB Admin Share Lateral Movement",
+  "tlp": null,
+  "detId": "DET0530",
+  "stixId": "x-mitre-detection-strategy--04cbfa17-64a5-454d-8734-cead02ba5c43",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1468"]
+}

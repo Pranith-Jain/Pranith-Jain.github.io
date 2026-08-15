@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:36:40.985Z",
+  "name": "chaos: aircreebec.ca",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to chaos. | Country: CA | Sector: Transportation/Logistics | Website: www.zoominfo.com/c/air-creebec-inc/901712 | Air Creebec, founded in 1982, is a regional airline company based Waskaganish, Quebec. The company provides regular flights, air charter, medical transportation, and cargo services. | Source: https://www.ransomware.live/id/YWlyY3JlZWJlYy5jYUBjaGFvcw=="
+}

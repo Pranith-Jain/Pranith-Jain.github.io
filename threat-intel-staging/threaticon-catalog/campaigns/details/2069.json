@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:22:20.589Z",
+  "name": "New wave of Mirai attacking home routers",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Dec 1, 2016",
+  "lastSeen": "Dec 1, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #89 (58408896-9290-4af1-8bc8-0b29c0a8ab16)."
+}

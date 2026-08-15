@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1157,
+    "name": "WiFi MAC Address Tracking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1158, "name": "WiFi SSID Tracking", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1159, "name": "Rooting SIM Cards", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1160,
+    "name": "Evil Twin Wi-Fi Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1161,
+    "name": "Establish Rogue Location",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1162,
+    "name": "Cellular Rogue Base Station",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1163,
+    "name": "Cellular Broadcast Message Request",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1164,
+    "name": "Signal Strength Tracking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1165,
+    "name": "Cross Site Request Forgery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1166,
+    "name": "Drop Encryption Level",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1167,
+    "name": "Analysis of Packet Timing and Sizes",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1168,
+    "name": "Electromagnetic Side-Channel Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1169,
+    "name": "Compromising Emanations Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1170,
+    "name": "Hardware Fault Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1171,
+    "name": "Mobile Device Fault Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1172, "name": "Smudge Attack", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1173,
+    "name": "Counterfeit GPS Signals",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1174,
+    "name": "Carry-Off GPS Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1175,
+    "name": "Cross-Site Scripting (XSS)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1176, "name": "TypoSquatting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

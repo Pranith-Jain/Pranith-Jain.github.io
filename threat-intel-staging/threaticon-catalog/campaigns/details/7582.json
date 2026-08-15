@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:40:13.286Z",
+  "name": "Global Secret Group: Coggins Insurance Agency",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Financial Services | Website: cogginsinsurance.com | Country: Florida, United States | Website: cogginsinsurance.com | Revenue: $5 Million | Industry: Insurance | Employees: 1-10 | Properties: 85.9 GB (245,768 Files, 26,563 Folders) | Source: https://www.ransomware.live/id/Q29nZ2lucyBJbnN1cmFuY2UgQWdlbmN5QEdsb2JhbCBTZWNyZXQgR3JvdXA="
+}

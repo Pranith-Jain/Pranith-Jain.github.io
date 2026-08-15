@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:13:13.146Z",
+  "name": "OSINT TorrentLocker Ransomware Email IoCs 8/16/2016 by neonPrimeTime user on AlienVault OTX",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 17, 2016",
+  "lastSeen": "Aug 17, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #817 (57b5a125-6cd0-4060-926d-4bf7950d210f)."
+}

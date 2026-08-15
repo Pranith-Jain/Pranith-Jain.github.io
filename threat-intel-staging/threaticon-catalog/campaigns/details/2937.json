@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:38:33.607Z",
+  "name": "OSINT - Godfather Trojan IOCs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jan 10, 2023",
+  "lastSeen": "Jan 10, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1707 (f6098894-bbc6-4ee8-adbb-fc99b4c86f04)."
+}

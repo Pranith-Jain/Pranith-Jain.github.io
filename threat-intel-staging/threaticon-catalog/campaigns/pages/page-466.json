@@ -1,0 +1,122 @@
+[
+  {
+    "id": 785,
+    "name": "thegentlemen: UK Electronics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: GB | Sector: Manufacturing | Website: ukelectronics.co.uk | Infostealer data confirmed. | ukelectronics.co.uk zoominfo.com/c/uk-electronics-ltd/51921022 UK Electronics specializes in the manufacture of high-quality electronic assemblies, offering a comprehensive range of services including PCB assembly, mechanical assembly, and testing. With over 40 years of experience, they provide full turnkey solutions from concept to manufacture, catering to various industries such as military, aviation, medical, and manufacturing | Source: https://www.ransomware.live/id/VUsgRWxlY3Ryb25pY3NAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 784,
+    "name": "thegentlemen: PsychPlus",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: psychplus.com | Infostealer data confirmed. | psychplus.com zoominfo.com/c/psychplus/1319245304 PsychPlus is a Houston-based mental health company founded in 2019–2020, offering virtual and in-person care via licensed psychiatrists and therapists. It focuses on accessibility by accepting 99% of commercial insurances (including Medicare/Medicaid), providing same/next-day appointments, and enabling 24/7 online booking through its app and EHR platform, with over 200 providers and plans to expand into 20 new U.S. markets in 2025 | Source: https://www.ransomware.live/id/UHN5Y2hQbHVzQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 783,
+    "name": "lockbit5: decaturdiagnosticlab.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Healthcare | Website: decaturdiagnosticlab.net | Infostealer data confirmed. | Located inside the Med-Surg Complex; Decatur Diagnostic Lab is a privately owned lab servicing the D... | Source: https://www.ransomware.live/id/ZGVjYXR1cmRpYWdub3N0aWNsYWIubmV0QGxvY2tiaXQ1"
+  },
+  {
+    "id": 782,
+    "name": "lockbit5: marti.do",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: DO | Sector: Manufacturing | Website: marti.do | Infostealer data confirmed. | ABOUT THE GROUP Somos un grupo empresarial con más de 60 años de experiencia, sirviendo con entusia... | Source: https://www.ransomware.live/id/bWFydGkuZG9AbG9ja2JpdDU="
+  },
+  {
+    "id": 781,
+    "name": "lockbit5: nucleodediagnostico.mx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: MX | Sector: Healthcare | Website: nucleodediagnostico.mx | Infostealer data confirmed. | Núcleo de Diagnóstico Núcleo de Diagnóstico es un laboratorio de análisis clínicos ubicado en Guada... | Source: https://www.ransomware.live/id/bnVjbGVvZGVkaWFnbm9zdGljby5teEBsb2NrYml0NQ=="
+  },
+  {
+    "id": 780,
+    "name": "lockbit5: cegasa.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: ES | Sector: Manufacturing | Website: cegasa.com | Infostealer data confirmed. | Cegasa is a leading European company specializing in innovative energy solutions, particularly lithi... | Source: https://www.ransomware.live/id/Y2VnYXNhLmNvbUBsb2NrYml0NQ=="
+  },
+  {
+    "id": 779,
+    "name": "lockbit5: fondonorma.org.ve",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: VE | Sector: Financial Services | Website: fondonorma.org.ve | Infostealer data confirmed. | Fondonorma is a Venezuelan certification company that helps businesses prove they meet quality and s... | Source: https://www.ransomware.live/id/Zm9uZG9ub3JtYS5vcmcudmVAbG9ja2JpdDU="
+  },
+  {
+    "id": 778,
+    "name": "lockbit5: comunidadandina.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: PE | Sector: Public Sector | Website: comunidadandina.org | Infostealer data confirmed. | La Comunidad Andina (CAN) es un organismo internacional de integración subregional fundado el 26 de... | Source: https://www.ransomware.live/id/Y29tdW5pZGFkYW5kaW5hLm9yZ0Bsb2NrYml0NQ=="
+  },
+  {
+    "id": 777,
+    "name": "lockbit5: wibeats.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Technology | Website: wibeats.it | Infostealer data confirmed. | WIBEATS is an independent Asset Management and Loans Service groups, highly specialised in the selec... | Source: https://www.ransomware.live/id/d2liZWF0cy5pdEBsb2NrYml0NQ=="
+  },
+  {
+    "id": 769,
+    "name": "lockbit5: pegasussrl.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Business Services | Website: pegasussrl.com | Infostealer data confirmed. | Agenzia Unipol Assicurazioni 39547 Prato - Pegasus srl Agenzia 39547 Prato R.U.I. N. A000671187- P.... | Source: https://www.ransomware.live/id/cGVnYXN1c3NybC5jb21AbG9ja2JpdDU="
+  },
+  {
+    "id": 776,
+    "name": "lockbit5: earthprotect.co.jp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: JP | Sector: Agriculture and Food Production | Website: earthprotect.co.jp | Infostealer data confirmed. | Earth Protect Co., Ltd Thinking about what we can do to protect and create tomorrow's global... | Source: https://www.ransomware.live/id/ZWFydGhwcm90ZWN0LmNvLmpwQGxvY2tiaXQ1"
+  },
+  {
+    "id": 775,
+    "name": "lockbit5: shunhinggroup.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: HK | Sector: Manufacturing | Website: shunhinggroup.com | Infostealer data confirmed. | The Shun Hing Group (信興集團) is a prominent Hong Kong-based conglomerate founded in 1953, primarily kn... | Source: https://www.ransomware.live/id/c2h1bmhpbmdncm91cC5jb21AbG9ja2JpdDU="
+  },
+  {
+    "id": 768,
+    "name": "lockbit5: meyzietp.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: FR | Sector: Construction | Website: meyzietp.com | Infostealer data confirmed. | Fondée en 1954, l’entreprise MEYZIE TP est spécialisée dans les travaux de terrassements routiers et... | Source: https://www.ransomware.live/id/bWV5emlldHAuY29tQGxvY2tiaXQ1"
+  },
+  {
+    "id": 773,
+    "name": "lockbit5: seleniaravenna.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Agriculture and Food Production | Website: seleniaravenna.it | Infostealer data confirmed. | Servizi all'avanguardia a Ravenna Nato nel 1992 dall'unione delle principali realtà coope... | Source: https://www.ransomware.live/id/c2VsZW5pYXJhdmVubmEuaXRAbG9ja2JpdDU="
+  },
+  {
+    "id": 772,
+    "name": "lockbit5: vitexpharma.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: AU | Sector: Healthcare | Website: vitexpharma.com | Infostealer data confirmed. | Vitex Pharmaceuticals is Australia's leading contract manufacturer specializing in vitamins, mi... | Source: https://www.ransomware.live/id/dml0ZXhwaGFybWEuY29tQGxvY2tiaXQ1"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:14.354Z",
+  "name": "Aoqin Dragon | Newly-Discovered Chinese-linked APT Has Been Quietly Spying On Organizations For 10 Years",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jun 21, 2022",
+  "lastSeen": "Jun 21, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #306 (abfb5a93-e695-4ee9-bc10-541290bcd663)."
+}

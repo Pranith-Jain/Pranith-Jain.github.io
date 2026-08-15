@@ -1,0 +1,9 @@
+{
+  "id": 2100,
+  "fetchedAt": "2026-08-15T07:35:22.412Z",
+  "name": "T1091 - Data Exfiltration Using DNS",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

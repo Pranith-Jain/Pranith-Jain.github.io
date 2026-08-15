@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:20:06.005Z",
+  "name": "Down but Not Out: A Look Into Recent Exploit Kit Activities",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 2, 2018",
+  "lastSeen": "Jul 2, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #149 (5b43862c-e934-4e53-aaa3-234dc0a8ab16)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:37:37.583Z",
+  "name": "payload: B&B Hydraulik",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Aug 11, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Manufacturing | B&B Hydraulik is a German company based in Hattingen that specializes in the development and manufacturing of hydraulic systems, power units, and specialized equipment. In cooperation with partner organizations, the enterprise supplies control blocks, valves, and components for both industrial and mobile hydraulics. Its engineering solutions are widely used across construction and agricultural machinery, lifting equipment, and shipbuilding. | Source: https://www.ransomware.live/id/QiZCIEh5ZHJhdWxpa0BwYXlsb2Fk"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 101,
+  "fetchedAt": "2026-08-14T05:22:11.934Z",
+  "name": "Detection Strategy for ESXi Administration Command",
+  "tlp": null,
+  "detId": "DET0232",
+  "stixId": "x-mitre-detection-strategy--c1d8aa38-aefb-4ea8-8c80-2dfa05eaaecb",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0646"]
+}

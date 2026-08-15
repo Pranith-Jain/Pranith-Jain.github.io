@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1569,
+    "name": "coinbasecartel: Augenomics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Healthcare | Website: autogenomics.com | Infostealer data confirmed. | [AI generated] \"Augenomics\" is a pioneering healthcare technology company. It uses Artificial Intelligence (AI) and genomics to transform how diseases are diagnosed and managed. Its advanced predictive models disentangle complex bio-information, enabling personalized therapeutic strategies and improving patient outcomes. | Source: https://www.ransomware.live/id/QXVnZW5vbWljc0Bjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 1568,
+    "name": "coinbasecartel: Dolby Laboratories - Sample",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: dolby.com | Infostealer data confirmed. | [AI generated] Dolby Laboratories, Inc. is an American company specializing in audio noise reduction and audio encoding/compression technologies. Known for its Dolby Noise-Reduction System, Dolby Surround, and Dolby Digital tech, it provides innovative solutions for cinemas, home theaters, PCs, mobile devices, and games. The company was founded by Ray Dolby in 1965 and is headquartered in San Francisco, California. | Source: https://www.ransomware.live/id/RG9sYnkgTGFib3JhdG9yaWVzIC0gU2FtcGxlQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 1567,
+    "name": "coinbasecartel: ILLUMINA - Data uploaded",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: illumina.com | Infostealer data confirmed. | [AI generated] Illumina Inc. is a leading global genomics company, focused on the development of innovative sequencing and array technologies. With their high-throughput sequencing and genotyping services, Illumina enables researchers from various fields to understand genetic variation and function effectively. The data uploaded by the company relates to these genetic studies and research outcomes. | Source: https://www.ransomware.live/id/SUxMVU1JTkEgLSBEYXRhIHVwbG9hZGVkQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 1565,
+    "name": "pear: Private University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Education | New Jersey Private University | Source: https://www.ransomware.live/id/UHJpdmF0ZSBVbml2ZXJzaXR5QHBlYXI="
+  },
+  {
+    "id": 1563,
+    "name": "payload: Royal Bahrain Hospital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1562,
+    "name": "handala: Laura Gilinski",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Sector: Not Found | Today, the iron walls of secrecy and the illusion of security within the Zionist regime have been shattered forever. One of Mossad’s most critical intelligence figures, Laura Gilinski, former Deputy Head of Planning & Strategy at Mossad and current Deputy Director of the Institute for National Security Studies (INSS), has been taken down by our… | Source: https://www.ransomware.live/id/TGF1cmEgR2lsaW5za2lAaGFuZGFsYQ=="
+  },
+  {
+    "id": 1566,
+    "name": "coinbasecartel: ATG - New samples added",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: SE | Sector: Not Found | Website: atg.se | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QVRHIC0gTmV3IHNhbXBsZXMgYWRkZWRAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 1551,
+    "name": "thegentlemen: Payap University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Education | Website: payap.ac.th | Infostealer data confirmed. | payap.ac.th zoominfo.com/c/payap-university/29803045 Payap University is an international educational institution offering a variety of programs, including interdisciplinary studies and multiple international programs. It provides services such as student exchange programs, language enhancement, and various proficiency testing centers. The university aims to cater to a diverse international clientele seeking higher education and innovation opportunities. Additionally, it hosts events like the International Conference on Lifespan Innovation | Source: https://www.ransomware.live/id/UGF5YXAgVW5pdmVyc2l0eUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 1561,
+    "name": "everest: Evaluate a Norstella company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: NO | Sector: Not Found | Website: norstella.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RXZhbHVhdGUgYSBOb3JzdGVsbGEgY29tcGFueUBldmVyZXN0"
+  },
+  {
+    "id": 1560,
+    "name": "play: Executive Aviation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Transportation/Logistics | Website: www.executive-aviation.com | United States | Source: https://www.ransomware.live/id/RXhlY3V0aXZlIEF2aWF0aW9uQHBsYXk="
+  },
+  {
+    "id": 1559,
+    "name": "qilin: Salag",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PL | Sector: Not Found | Website: www.salag.com | Source: https://www.ransomware.live/id/U2FsYWdAcWlsaW4="
+  },
+  {
+    "id": 1558,
+    "name": "qilin: Biogel",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SE | Sector: Manufacturing | Website: www.biogel.ch | Source: https://www.ransomware.live/id/QmlvZ2VsQHFpbGlu"
+  },
+  {
+    "id": 1557,
+    "name": "handala: Shock for Israeli Intelligence: 100,000 Classified Emails of Mossad’s Ex-Deputy Director S...",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Public Sector | In an incident that sent shockwaves through the Israeli intelligence apparatus, the personal email of Sima Shine, the former Deputy Director for Research of Mossad, former Head of the Iran Desk, and current leader of one of Israel’s most secretive intelligence institutions, has been hacked. Now, over 100,000 of her ultra-classified emails are available for… | Source: https://www.ransomware.live/id/U2hvY2sgZm9yIElzcmFlbGkgSW50ZWxsaWdlbmNlOiAxMDAsMDAwIENsYXNzaWZpZWQgRW1haWxzIG9mIE1vc3NhZOKAmXMgRXgtRGVwdXR5IERpcmVjdG9yIFMuLi5AaGFuZGFsYQ=="
+  },
+  {
+    "id": 1556,
+    "name": "handala: Stryker Hit by Unprecedented 12-Petabyte Data Wipe",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: US | Sector: Technology | Today, for the first time, we proudly release the documentation of a unique cyber operation, an operation that will etch the name Handala Hack into the minds of all players in the global cybersecurity arena. In a swift and calculated attack, we succeeded in penetrating the deepest layers of the network belonging to the medical… | Source: https://www.ransomware.live/id/U3RyeWtlciBIaXQgYnkgVW5wcmVjZWRlbnRlZCAxMi1QZXRhYnl0ZSBEYXRhIFdpcGVAaGFuZGFsYQ=="
+  },
+  {
+    "id": 1555,
+    "name": "qilin: Ruhnau Clarke",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.ruhnauclarke.com | Source: https://www.ransomware.live/id/UnVobmF1IENsYXJrZUBxaWxpbg=="
+  }
+]

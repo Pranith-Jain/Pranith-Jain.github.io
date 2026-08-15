@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:42:48.467Z",
+  "name": "medusalocker: Magnolia (Israel)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 6, 2026",
+  "description": "Ransomware attack attributed to medusalocker. | Country: IL | Sector: Not Found | Website: buyme.co.il | Infostealer data confirmed. | Israeli jewelry company. Silver & accessories, participates in Vicenza jewelry fair (2025/2026). Sells via buyme.co.il gift cards. ~38k files, invoices in Hebrew (SI/IN/OV prefix). | Source: https://www.ransomware.live/id/TWFnbm9saWEgKElzcmFlbClAbWVkdXNhbG9ja2Vy"
+}

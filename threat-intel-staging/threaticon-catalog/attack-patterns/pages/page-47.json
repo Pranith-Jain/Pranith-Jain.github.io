@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1485,
+    "name": "T1048 - Valid accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 1329,
+    "name": "T1048 - 数据外发技术",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 1949,
+    "name": "T1048 Data Transfer Encrypted通道数据传输",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 341,
+    "name": "Exfiltration Over Symmetric Encrypted Non-C2 Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 1717,
+    "name": "T1048.001 - Data Exfiltration via Network: Web Request Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 401,
+    "name": "Exfiltration Over Asymmetric Encrypted Non-C2 Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 1461,
+    "name": "T1048.002 - Exfiltration Over Web Service",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 1379,
+    "name": "T1048.002: Exfiltration Over Asymmetric Encrypted Non-C2 Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 685,
+    "name": "Exfiltration Over Unencrypted Non-C2 Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  {
+    "id": 1523,
+    "name": "T1048.003: Exfiltration Over Unencrypted Non-C2 Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1048",
+    "status": null
+  },
+  { "id": 1821, "name": "T1048.004", "tlp": "white", "confidence": null, "techniqueId": "T1048", "status": null },
+  { "id": 2649, "name": "T1048.006", "tlp": "white", "confidence": null, "techniqueId": "T1048", "status": null },
+  {
+    "id": 359,
+    "name": "System Network Connections Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1049",
+    "status": null
+  },
+  {
+    "id": 2339,
+    "name": "T1049 - File and Directory Permissions Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1049",
+    "status": null
+  },
+  {
+    "id": 2876,
+    "name": "T1049 - System Network Connections Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1049",
+    "status": null
+  },
+  {
+    "id": 2668,
+    "name": "T1049 – System Network Connections Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1049",
+    "status": null
+  },
+  { "id": 2279, "name": "T1049.001", "tlp": "white", "confidence": null, "techniqueId": "T1049", "status": null },
+  {
+    "id": 1881,
+    "name": "T1049: System Network Connections Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1049",
+    "status": null
+  },
+  { "id": 1288, "name": "T1050", "tlp": "white", "confidence": null, "techniqueId": "T1050", "status": null },
+  {
+    "id": 623,
+    "name": "Exfiltration Over Physical Medium",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1052",
+    "status": null
+  }
+]

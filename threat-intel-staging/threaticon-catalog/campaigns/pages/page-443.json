@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1142,
+    "name": "worldleaks: San Felipe Del Rio CISD School",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Education | Website: www.sfdr-cisd.org | [AI generated] San Felipe Del Rio CISD School is an educational institution located in Del Rio, Texas. It is a public school district that serves students from kindergarten through 12th grade. The district provides various academic programs and extracurricular activities, aiming to prepare its students for higher education and future careers. | Press: https://dysruptionhub.com/san-felipe-del-rio-cisd-network-outage-tx/ | Source: https://www.ransomware.live/id/U2FuIEZlbGlwZSBEZWwgUmlvIENJU0QgU2Nob29sQHdvcmxkbGVha3M="
+  },
+  {
+    "id": 1141,
+    "name": "beast: Xiamen Tungsten Co. (XTC)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1140,
+    "name": "genesis: Secure Health",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: shpg.com | Infostealer data confirmed. | Provides administrative, care management, and healthy lifestyle services to employers with self-funded, group health care plans | Source: https://www.ransomware.live/id/U2VjdXJlIEhlYWx0aEBnZW5lc2lz"
+  },
+  {
+    "id": 1139,
+    "name": "genesis: Modern Advanced Print Solutions (MAPS, Inc.)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Manufacturing | Website: mapsweb.com | Infostealer data confirmed. | Modern Advanced Print Solutions (MAPS, Inc.). | Source: https://www.ransomware.live/id/TW9kZXJuIEFkdmFuY2VkIFByaW50IFNvbHV0aW9ucyAoTUFQUywgSW5jLilAZ2VuZXNpcw=="
+  },
+  {
+    "id": 1138,
+    "name": "genesis: MC-Rx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: mc-rx.com | Infostealer data confirmed. | Formerly MC-21 and ProCare PBM | Source: https://www.ransomware.live/id/TUMtUnhAZ2VuZXNpcw=="
+  },
+  {
+    "id": 1137,
+    "name": "genesis: HMI Elements",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: GB | Sector: Technology | Website: hmielements.com | Infostealer data confirmed. | The production of reliable human-machine interfaces (HMIs) designed for use in hazardous environments | Source: https://www.ransomware.live/id/SE1JIEVsZW1lbnRzQGdlbmVzaXM="
+  },
+  {
+    "id": 1136,
+    "name": "genesis: Green Giftz",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Consumer Services | Website: greengiftz.com | Infostealer data confirmed. | A certified branded merchandise agency based. | Source: https://www.ransomware.live/id/R3JlZW4gR2lmdHpAZ2VuZXNpcw=="
+  },
+  {
+    "id": 1143,
+    "name": "incransom: delapazlaw.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: delapazlaw.com | Infostealer data confirmed. | When you work with the Law Office of Michael R. De La Paz, the only thing you have to worry about is recovering from your injuries. Mr. De La Paz will go to bat for you with the insurance companies and fight them in court to get you the compensation you deserve. | Source: https://www.ransomware.live/id/ZGVsYXBhemxhdy5jb21AaW5jcmFuc29t"
+  },
+  {
+    "id": 1135,
+    "name": "genesis: Raphael Ortho",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: morethanstraightteeth.com | Infostealer data confirmed. | A Dental Practice Management Company. | Source: https://www.ransomware.live/id/UmFwaGFlbCBPcnRob0BnZW5lc2lz"
+  },
+  {
+    "id": 1134,
+    "name": "genesis: B&R Sheet Metal",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Manufacturing | Website: brsheetmetal.com | Infostealer data confirmed. | Specializes in industrial construction projects, offering design, fabrication, and installation services for pneumatic, mechanical conveying, and filtration systems | Source: https://www.ransomware.live/id/QiZSIFNoZWV0IE1ldGFsQGdlbmVzaXM="
+  },
+  {
+    "id": 1133,
+    "name": "genesis: Catalyst Learning Company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Education | Website: catalystlearning.com | Infostealer data confirmed. | Specializes in healthcare training and employee development, aiming to empower staff for better patient outcomes and organizational success. | Source: https://www.ransomware.live/id/Q2F0YWx5c3QgTGVhcm5pbmcgQ29tcGFueUBnZW5lc2lz"
+  },
+  {
+    "id": 1132,
+    "name": "qilin: SERAM SpA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IT | Sector: Manufacturing | Website: www.seram-fco.it | Source: https://www.ransomware.live/id/U0VSQU0gU3BBQHFpbGlu"
+  },
+  {
+    "id": 1123,
+    "name": "nightspire: The GMP Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: SG | Sector: Financial Services | Website: gmprecruit.com | Infostealer data confirmed. | - Financial Documents- Salaries Documents- Resumes & CV | Source: https://www.ransomware.live/id/VGhlIEdNUCBHcm91cEBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1122,
+    "name": "nightspire: Ghazi Brothers",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: PK | Sector: Not Found | Website: ghazibrothers.com | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/R2hhemkgQnJvdGhlcnNAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 1129,
+    "name": "everest: Nissan",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: JP | Sector: Manufacturing | [AI generated] Nissan Motor Co., Ltd. is a leading Japanese multinational automotive manufacturer headquartered in Yokohama, Japan. It was established in 1933 and is known for producing a wide range of vehicles, such as SUVs, sedans, electric/ hybrid cars and commercial vehicles. It is part of the Renault–Nissan–Mitsubishi Alliance, which is one of the world's largest automotive partnerships. | Source: https://www.ransomware.live/id/Tmlzc2FuQGV2ZXJlc3Q="
+  }
+]

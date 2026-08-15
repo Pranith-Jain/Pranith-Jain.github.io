@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:07:19.602Z",
+  "name": "OSINT Trojanized PuTTY Software by Cisco CSIRT",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 18, 2015",
+  "lastSeen": "May 18, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #762 (555ddeca-3ecc-40e3-9ebd-177c950d210b)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 707,
+    "name": "coinbasecartel: Epoch Times",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Consumer Services | Website: epochtimes.com | Infostealer data confirmed. | [AI generated] Epoch Times is an American media company founded in 2000 by Chinese-American Falun Gong practitioners. It operates newspapers, websites, and video content across multiple countries, publishing in numerous languages. The company covers news, politics, health, and culture, but has drawn scrutiny from researchers and platforms for spreading misinformation and promoting far-right narratives. It is headquartered in New York, USA. | Source: https://www.ransomware.live/id/RXBvY2ggVGltZXNAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 705,
+    "name": "coinbasecartel: UOM University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: MT | Sector: Education | Website: www.uom.gr | [AI generated] N/A | Source: https://www.ransomware.live/id/VU9NIFVuaXZlcnNpdHlAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 704,
+    "name": "qilin: Gruppo ICM SPA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IT | Sector: Not Found | Website: www.gruppoicm.com | Source: https://www.ransomware.live/id/R3J1cHBvIElDTSBTUEFAcWlsaW4="
+  },
+  {
+    "id": 703,
+    "name": "akira: Truckload Carriers Association",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Transportation/Logistics | Website: truckload.org | Infostealer data confirmed. | Truckload Carriers Association is a national trade association fo cused on the truckload segment of the motor carrier industry. We will upload 21gb of corporate data soon. Personal data of empl oyees, detailed financials, contracts and agreements, customer an d partner files, projects, etc. | Source: https://www.ransomware.live/id/VHJ1Y2tsb2FkIENhcnJpZXJzIEFzc29jaWF0aW9uQGFraXJh"
+  },
+  {
+    "id": 702,
+    "name": "coinbasecartel: The Epoch Times",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Consumer Services | Website: theepochtimes.com | Infostealer data confirmed. | [AI generated] The Epoch Times is a American media company founded in 2000 by John Tang and other Falun Gong practitioners. It operates as a multi-platform news outlet publishing print and digital content in multiple languages across numerous countries. The company is known for promoting conservative viewpoints and has been associated with spreading misinformation. It operates primarily in the United States with a significant global reach. | Source: https://www.ransomware.live/id/VGhlIEVwb2NoIFRpbWVzQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 701,
+    "name": "qilin: Limkon",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Not Found | Website: www.limkon.com | Source: https://www.ransomware.live/id/TGlta29uQHFpbGlu"
+  },
+  {
+    "id": 700,
+    "name": "vect: guesty, LITELLM/TRIVY CAMPAIGN (TEAMPCP)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to vect. | Country: IL | Sector: Technology | Website: www.guesty.com | Status: STATUS: NEGOTIATING | Sector: property management | internal projects, 4 million sent/received mails with attachments, userbase, Airbnb and booking.com data stolen from guesty DATA SIZE: 700GB | Deadline: 9d 8h | Source: https://www.ransomware.live/id/Z3Vlc3R5LCBMSVRFTExNL1RSSVZZIENBTVBBSUdOIChURUFNUENQKUB2ZWN0"
+  },
+  {
+    "id": 699,
+    "name": "vect: S&PGLOBAL, LiteLLM/Trivy campaign (TeamPCP)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to vect. | Country: US | Sector: Technology | Website: www.spglobal.com/en | Status: STATUS: NEGOTIATING | Sector: Business Services | Internal projects, secrets, api keys etc DATA SIZE: 250GB | Deadline: 8d 8h | Source: https://www.ransomware.live/id/UyZQR0xPQkFMLCBMaXRlTExNL1RyaXZ5IGNhbXBhaWduIChUZWFtUENQKUB2ZWN0"
+  },
+  {
+    "id": 698,
+    "name": "interlock: Uniwersytet Warszawski",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to interlock. | Country: PL | Sector: Education | Website: uw.edu.pl | Infostealer data confirmed. | The Faculty of Management at the University of Warsaw is a leading institution in the field of business education, offering a wide range of undergraduate and graduate programs that combine theory with practical experience. However, it is not known for its high level of security and data storage reliability, resulting in the leak of data on students, instructors, and leading professors, as well as student projects and papers. | Press: https://naukawpolsce.pl/aktualnosci/news%2C111749%2Cgawkowski-zidentyfikowano-atak-hakerski-na-czesc-infrastruktury-it | Source: https://www.ransomware.live/id/VW5pd2Vyc3l0ZXQgV2Fyc3phd3NraUBpbnRlcmxvY2s="
+  },
+  {
+    "id": 697,
+    "name": "qilin: Clearwater Marine Aquarium",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.cmaquarium.org | Source: https://www.ransomware.live/id/Q2xlYXJ3YXRlciBNYXJpbmUgQXF1YXJpdW1AcWlsaW4="
+  },
+  {
+    "id": 696,
+    "name": "kairos: FriendlyCare Pharmacy",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to kairos. | Country: AU | Sector: Healthcare | Website: friendlycare.com.au | Infostealer data confirmed. | FriendlyCare Pharmacy offers a wide range of health and beauty products, including cosmetics, skincare, personal care, and medical devices. Their services cater to various health needs such as asthma care, diabetes management, and first aid supplies. The pharmacy targets a diverse clientele, including individuals seeking general health products, beauty enthusiasts, and families in need of baby care items. With multiple store locations and a commitment to customer satisfaction, they provide a price match guarantee and free shipping on orders over $99. | Source: https://www.ransomware.live/id/RnJpZW5kbHlDYXJlIFBoYXJtYWN5QGthaXJvcw=="
+  },
+  {
+    "id": 695,
+    "name": "SilentRansomGroup: Harris Beach Murtha",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: harrisbeachmurtha.com | Infostealer data confirmed. | [AI generated] Harris Beach Murtha is a full-service law firm operating in the United States, primarily in the northeastern region. Formed through the merger of Harris Beach and Murtha Cullina, the firm provides legal services across areas including corporate law, litigation, real estate, healthcare, and public finance. It serves clients ranging from businesses and municipalities to nonprofits and individuals across Connecticut, New York, and nearby states. | Source: https://www.ransomware.live/id/SGFycmlzIEJlYWNoIE11cnRoYUBTaWxlbnRSYW5zb21Hcm91cA=="
+  },
+  {
+    "id": 694,
+    "name": "lamashtu: Biotehnos",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: RO | Sector: Healthcare | Website: biotehnos.ro | Infostealer data confirmed. | Biotehnos is a Romanian pharmaceutical company founded in 1993 by Prof. Dr. Ioan Manzatu. It is currently headquartered in Otopeni, Ilfov County, near the country’s capital, Bucharest, and celebrated its 30th anniversary in 2023. | Source: https://www.ransomware.live/id/QmlvdGVobm9zQGxhbWFzaHR1"
+  },
+  {
+    "id": 693,
+    "name": "dragonforce: Empower Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 706,
+    "name": "coinbasecartel: Vluznet",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Not Found | Website: vluznet.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/Vmx1em5ldEBjb2luYmFzZWNhcnRlbA=="
+  }
+]

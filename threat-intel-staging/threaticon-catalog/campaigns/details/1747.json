@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:36:16.526Z",
+  "name": "AiLock: Eeyou Communications Network",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 7, 2026",
+  "lastSeen": "Mar 7, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: CA | Sector: Telecommunication | Website: eeyou.ca | Infostealer data confirmed. | Eeyou Communications Network operates a regional fibre optic network serving the James Bay and Eeyou Istchee regions, providing ultra-high-speed internet since 2004. | Source: https://www.ransomware.live/id/RWV5b3UgQ29tbXVuaWNhdGlvbnMgTmV0d29ya0BBaUxvY2s="
+}

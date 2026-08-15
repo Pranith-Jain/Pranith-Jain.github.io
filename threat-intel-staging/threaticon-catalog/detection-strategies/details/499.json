@@ -1,0 +1,12 @@
+{
+  "id": 499,
+  "fetchedAt": "2026-08-14T05:12:26.683Z",
+  "name": "Detection Strategy for Network Boundary Bridging",
+  "tlp": null,
+  "detId": "DET0006",
+  "stixId": "x-mitre-detection-strategy--f0f7aa93-71bc-4c55-9f96-9c74a7d45a83",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0015"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:17:35.488Z",
+  "name": "aurora: Allan Brothers Fruit",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 16, 2026",
+  "lastSeen": "Jun 16, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: US | Sector: Agriculture and Food Production | Website: Allan Brothers Fruit | [food] Allan Brothers, Inc. — a third-generation, family-owned tree-fruit operation headquartered in Naches, Washington. Allan Brothers packs and ships apples and cherries from a 300,000 sq ft cold-storage facility, employing roughly 45 full-time staff and up to 2,000 seasonal workers during peak harvest. Eight server volumes: 14,228 employee records from ADP Workforce Now — names, dates of birth, phone numbers, gender, employment history, photos — covering every person who has ever worked at Allan Brothers, including seasonal cherry pickers, H-2A visa workers, and office staff. W-2 tax filings with full Social Security Numbers for employees across eight legal entities (ALLAN, ABMEXICO, ABSAGE, ABSAGEMOOR, ABVINEYARD, ABAG, ABSHELTON, ABFROST). Direct deposit forms with bank routing numbers and account numbers for named individuals — the raw ingredients fo..."
+}

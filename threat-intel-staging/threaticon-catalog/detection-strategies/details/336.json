@@ -1,0 +1,12 @@
+{
+  "id": 336,
+  "fetchedAt": "2026-08-14T05:17:04.219Z",
+  "name": "Detect AS-REP Roasting Attempts (T1558.004)",
+  "tlp": null,
+  "detId": "DET0113",
+  "stixId": "x-mitre-detection-strategy--d881e35b-5401-46c0-b966-8880c64681ab",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0316"]
+}

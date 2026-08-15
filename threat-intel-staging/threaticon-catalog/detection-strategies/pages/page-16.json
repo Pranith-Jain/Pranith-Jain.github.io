@@ -1,0 +1,212 @@
+[
+  {
+    "id": 384,
+    "code": "DET0453",
+    "name": "Detection Strategy for SNMP (MIB Dump) on Network Devices",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 332,
+    "code": "DET0454",
+    "name": "Detect Malicious Modification of Pluggable Authentication Modules (PAM)",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 8,
+    "code": "DET0455",
+    "name": "Abuse of PowerShell for Arbitrary Execution",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 329,
+    "code": "DET0456",
+    "name": "Behavior-chain detection for T1134.002 Create Process with Token (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 504,
+    "code": "DET0457",
+    "name": "Detection of Non-Application Layer Protocols for C2",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 431,
+    "code": "DET0458",
+    "name": "Detection of Trust Relationship Modifications in Domain or Tenant Policies",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 163,
+    "code": "DET0459",
+    "name": "Detection Strategy for Build Image on Host",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 387,
+    "code": "DET0460",
+    "name": "Credential Stuffing Detection via Reused Breached Credentials Across Services",
+    "description": null,
+    "columns": ["9"]
+  },
+  {
+    "id": 578,
+    "code": "DET0461",
+    "name": "Detection Strategy for Hidden File System Abuse",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 438,
+    "code": "DET0462",
+    "name": "Detect LLMNR/NBT-NS Poisoning and SMB Relay on Windows",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 271,
+    "code": "DET0463",
+    "name": "Brute Force Authentication Failures with Multi-Platform Log Correlation",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 232,
+    "code": "DET0464",
+    "name": "Behavioral Detection of Wi-Fi Discovery Activity",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 175,
+    "code": "DET0465",
+    "name": "Detection of Default Account Abuse Across Platforms",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 305,
+    "code": "DET0466",
+    "name": "Detection of Script-Based Proxy Execution via Signed Microsoft Utilities",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 185,
+    "code": "DET0467",
+    "name": "Detection Strategy for TLS Callback Injection via PE Memory Modification and Hollowing",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 510,
+    "code": "DET0468",
+    "name": "Detect DHCP Spoofing Across Linux, Windows, and macOS",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 561,
+    "code": "DET0469",
+    "name": "Detection Strategy for Patch System Image on Network Devices",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 206,
+    "code": "DET0470",
+    "name": "Detecting Protocol or Service Impersonation via Anomalous TLS, HTTP Header, and Port Mismatch Correlation",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 661,
+    "code": "DET0471",
+    "name": "Detection of Tainted Content Written to Shared Storage",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 451,
+    "code": "DET0472",
+    "name": "Detect Malicious Password Filter DLL Registration",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 448,
+    "code": "DET0473",
+    "name": "Detect persistent or elevated container services via container runtime or cluster manipulation",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 469,
+    "code": "DET0474",
+    "name": "Environmental Keying Discovery-to-Decryption Behavioral Chain Detection Strategy",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 188,
+    "code": "DET0475",
+    "name": "Detection Strategy for T1218.011 Rundll32 Abuse",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 226,
+    "code": "DET0476",
+    "name": "Email Collection via Local Email Access and Auto-Forwarding Behavior",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 629,
+    "code": "DET0477",
+    "name": "Behavioral Detection of WinRM-Based Remote Access",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 335,
+    "code": "DET0478",
+    "name": "User Execution – multi-surface behavior chain (documents/links → helper/unpacker → LOLBIN/child → egress)",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 591,
+    "code": "DET0479",
+    "name": "Detection Strategy for Hijack Execution Flow using the Windows COR_PROFILER.",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 470,
+    "code": "DET0480",
+    "name": "Detection of Credential Harvesting via Web Portal Modification",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 673,
+    "code": "DET0481",
+    "name": "Windows COM Hijacking Detection via Registry and DLL Load Correlation",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 50,
+    "code": "DET0482",
+    "name": "Behavior-chain detection for T1134.001 Access Token Manipulation: Token Impersonation/Theft on Windows",
+    "description": null,
+    "columns": ["1"]
+  }
+]

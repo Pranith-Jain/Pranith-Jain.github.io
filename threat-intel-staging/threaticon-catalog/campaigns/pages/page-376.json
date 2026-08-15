@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2148,
+    "name": "New HawkEye Reborn Variant Emerges Following Ownership Change",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #184 (5cb5730d-220c-46d2-bd20-07fdc0a8ab16)."
+  },
+  {
+    "id": 2147,
+    "name": "Emotet Gang Switches to Highly Customized Templates Utilizing Stolen Email Content from Victims",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #183 (5cb4ac3f-28a0-4dd6-b4a7-4717c0a8ab16)."
+  },
+  {
+    "id": 2146,
+    "name": "Operation ShadowHammer",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #182 (5c94c07b-0944-4adf-9395-4e9ec0a8ab16)."
+  },
+  {
+    "id": 2145,
+    "name": "The Norsk Hydro ransomware attack: An in-depth look",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #181 (5c93da7f-9924-4959-9120-46edc0a8ab16)."
+  },
+  {
+    "id": 2143,
+    "name": "Malspam pushes Emotet with Qakbot as the follow-up malware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #178 (5c8a8971-cb7c-41dd-a7bb-413ec0a8ab16)."
+  },
+  {
+    "id": 2144,
+    "name": "New SLUB Backdoor Uses GitHub, Communicates via Slack",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #179 (5c8a8d0e-b1e8-4351-b8c2-4d24c0a8ab16)."
+  },
+  {
+    "id": 2142,
+    "name": "GlitchPOS: New PoS malware for sale",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #176 (5c8a866e-3d1c-48a6-872d-43e4c0a8ab16)."
+  },
+  {
+    "id": 2141,
+    "name": "More Russian language malspam pushing Shade (Troldesh) ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #173 (5c6e4888-92c4-480f-9bf5-4c63c0a8ab16)."
+  },
+  {
+    "id": 2140,
+    "name": "Beobank Phishing 20181203",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #172 (5c057cd6-5b1c-4481-aaa1-2f6fc0a8ab16)."
+  },
+  {
+    "id": 2139,
+    "name": "OSINT - Shifting Tactics: Tracking changes in years-long espionage campaign against Tibetans",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #171 (56e177ef-38cc-441b-a398-4f66950d210f)."
+  },
+  {
+    "id": 2138,
+    "name": "OceanLotus - WateringHole - Framework B 2018",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #170 (5bf300da-6438-4372-a069-0b7b0a016219)."
+  },
+  {
+    "id": 2137,
+    "name": "Hide and Script: Inserted Malicious URLs within Office Documentsâ€™ Embedded Videos",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #168 (5be9ac46-3c8c-45f4-b765-447fc0a8ab16)."
+  },
+  {
+    "id": 2136,
+    "name": "OSINT - The Cerber Ransomware not only Encrypts Your Data But Also Speaks to You",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #167 (56e123a7-dc1c-4c74-af4a-4d8b950d210f)."
+  },
+  {
+    "id": 2135,
+    "name": "PowerPool malware exploits ALPC LPE zero-day vulnerability",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #164 (5b9a1334-6460-47ad-b561-32aac0a8ab16)."
+  },
+  {
+    "id": 2134,
+    "name": "Apache Struts 2 Vulnerability (CVE-2018-11776) Exploited in CroniX Crypto-Mining Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #163 (5b91098e-5000-472d-8d74-2f72c0a8ab16)."
+  }
+]

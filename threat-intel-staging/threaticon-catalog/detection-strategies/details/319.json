@@ -1,0 +1,12 @@
+{
+  "id": 319,
+  "fetchedAt": "2026-08-14T05:14:32.485Z",
+  "name": "Internal Spearphishing via Trusted Accounts",
+  "tlp": null,
+  "detId": "DET0054",
+  "stixId": "x-mitre-detection-strategy--acc27d20-8aad-42ce-b928-6cda3c22e51b",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0147", "AN0148", "AN0149", "AN0150", "AN0151"]
+}

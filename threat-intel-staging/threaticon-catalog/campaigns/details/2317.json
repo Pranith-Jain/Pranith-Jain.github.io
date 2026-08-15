@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:11:32.411Z",
+  "name": "OSINT - New Downloader for Locky",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 22, 2016",
+  "lastSeen": "Apr 22, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #507 (5720bf21-9d4c-40b2-9088-45e6950d210f)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 371,
+    "name": "qilin: Construction Sciences",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.constructionsciences.net | N/A | Source: https://www.ransomware.live/id/Q29uc3RydWN0aW9uIFNjaWVuY2VzQHFpbGlu"
+  },
+  {
+    "id": 370,
+    "name": "worldleaks: Mediaworks Kft",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: HU | Sector: Business Services | Website: www.mediaworks.hu | N/A | Source: https://www.ransomware.live/id/TWVkaWF3b3JrcyBLZnRAd29ybGRsZWFrcw=="
+  },
+  {
+    "id": 369,
+    "name": "qilin: KarmaData",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.karmadata.com | N/A | Source: https://www.ransomware.live/id/S2FybWFEYXRhQHFpbGlu"
+  },
+  {
+    "id": 368,
+    "name": "qilin: Silicon Alley",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Technology | Website: www.siliconalley.co.uk | N/A | Source: https://www.ransomware.live/id/U2lsaWNvbiBBbGxleUBxaWxpbg=="
+  },
+  {
+    "id": 367,
+    "name": "insomnia: Nephrology Associates",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Healthcare | Website: www.arnapa.com | Nephrology Associates, PA is a leading central Arkansas nephrology practice with seven highly trained physicians across seven locations. They provide compassionate kidney care, accept all insurances, and aim to create a welcoming environment for patients. | Source: https://www.ransomware.live/id/TmVwaHJvbG9neSBBc3NvY2lhdGVzQGluc29tbmlh"
+  },
+  {
+    "id": 366,
+    "name": "chaos: cadencepetroleum.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Energy | Website: www.zoominfo.com/c/cadence-petroleum-group/476578914| | Company management has 48 hours to reach an agreement with us. If no agreement is reached, the files—totaling 400 GB—will be published. Our objective is to provide our customers with the best products and services. Cadence Petroleum and our suppliers stand behind the products we offer. Regardle… | Source: https://www.ransomware.live/id/Y2FkZW5jZXBldHJvbGV1bS5jb21AY2hhb3M="
+  },
+  {
+    "id": 365,
+    "name": "everest: Indonesia's Customs Analytics Platform",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: ID | Sector: Public Sector | [AI generated] N/A | Source: https://www.ransomware.live/id/SW5kb25lc2lhJ3MgQ3VzdG9tcyBBbmFseXRpY3MgUGxhdGZvcm1AZXZlcmVzdA=="
+  },
+  {
+    "id": 364,
+    "name": "incransom: nbd3pl.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Transportation/Logistics | Website: nbd3pl.com | Infostealer data confirmed. | North Bay Distribution has been in the warehousing, order fulfillment, and shipping industry for more than 30 years. They are a full service outsourcing logistics service provider. They are based in northern California's City of Vacaville. The proximity of their facility provides streamlined deliveries from the Port of Oakland for goods manufactured and arriving from the Pacific Rim | Source: https://www.ransomware.live/id/bmJkM3BsLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 363,
+    "name": "incransom: https://www.fulcrumre.com/",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: fulcrumre.com | Infostealer data confirmed. | 2tb data all company data | Source: https://www.ransomware.live/id/aHR0cHM6Ly93d3cuZnVsY3J1bXJlLmNvbS9AaW5jcmFuc29t"
+  },
+  {
+    "id": 362,
+    "name": "m3rx: boxtopia.co.uk",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: GB | Sector: Business Services | Website: boxtopia.co.uk | Infostealer data confirmed. | +44 1476576090 . Boxtopia is the UK's leading supplier of custom cardboard boxes and printed boxes, specializing in short runs for small businesses with no minimum order. Stolen: 166gb 280k files | Source: https://www.ransomware.live/id/Ym94dG9waWEuY28udWtAbTNyeA=="
+  },
+  {
+    "id": 361,
+    "name": "m3rx: osoftec.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: DE | Sector: Technology | Website: osoftec.com | Infostealer data confirmed. | +91 9717385459 . Optimization Software Technologies, LLP. is an advanced technology solutions development company that focuses on improving operational efficiency and profitability for its clients Stolen: 222gb 113k files | Source: https://www.ransomware.live/id/b3NvZnRlYy5jb21AbTNyeA=="
+  },
+  {
+    "id": 360,
+    "name": "m3rx: rotak.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: IT | Sector: Technology | Website: rotak.it | Infostealer data confirmed. | Rotak (specifically in the context of Rotak Instruments) focuses on the distribution of specialized medical and analytical instrumentation, with related entities in industrial engineering and automation Stolen: 22.5gb 20k files | Source: https://www.ransomware.live/id/cm90YWsuaXRAbTNyeA=="
+  },
+  {
+    "id": 359,
+    "name": "m3rx: rainforestclean.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: US | Sector: Consumer Services | Website: rainforestclean.com | Infostealer data confirmed. | Rainforest Carwash and Oil Change, along with it’s owner, enjoys giving back to our local community. Hopefully you are inspired to help after seeing the ways in which we try to help others. Stolen: 259gb 77k files | Source: https://www.ransomware.live/id/cmFpbmZvcmVzdGNsZWFuLmNvbUBtM3J4"
+  },
+  {
+    "id": 383,
+    "name": "qilin: Leone Film Group SpA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IT | Sector: Consumer Services | Website: www.leonefilmgroup.com | N/A | Source: https://www.ransomware.live/id/TGVvbmUgRmlsbSBHcm91cCBTcEFAcWlsaW4="
+  },
+  {
+    "id": 384,
+    "name": "ransomhouse: Cybersecurity Vendor",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Sector: Technology | Website: *********.*** | Infostealer data confirmed. | Source: https://www.ransomware.live/id/Q3liZXJzZWN1cml0eSBWZW5kb3JAcmFuc29taG91c2U="
+  }
+]

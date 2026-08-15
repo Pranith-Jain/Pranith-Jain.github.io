@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:22:38.430Z",
+  "name": "OSINT - Mofang: A politically motivated information stealing adversary",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 14, 2016",
+  "lastSeen": "Jun 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #578 (57608399-aa20-4d2c-b03d-4a69950d210f)."
+}

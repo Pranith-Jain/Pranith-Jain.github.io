@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:25.851Z",
+  "name": "OSINT Duuzer back door Trojan targets South Korea to take over computers by Symantec",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Oct 26, 2015",
+  "lastSeen": "Oct 26, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #675 (5631394c-b9b4-483b-9480-26bc950d210b)."
+}

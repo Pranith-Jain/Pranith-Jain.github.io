@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4268,
+    "name": "bravox: PB Fiduciaire SA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to bravox. | Country: CH | Sector: Financial Services | Website: www.pbfiduciaire.ch | Accounting, taxation, auditing, financial consulting for businesses. | Source: https://www.ransomware.live/id/UEIgRmlkdWNpYWlyZSBTQUBicmF2b3g="
+  },
+  {
+    "id": 4270,
+    "name": "AiLock: Richmont Graduate University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Education | Website: richmont.edu | Infostealer data confirmed. | Richmont Graduate University is a Christian graduate institution offering master's programs in counseling and ministry, available both online and on-campus. | Source: https://www.ransomware.live/id/UmljaG1vbnQgR3JhZHVhdGUgVW5pdmVyc2l0eUBBaUxvY2s="
+  },
+  {
+    "id": 4280,
+    "name": "safepay: knobel-bau.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Construction | Website: knobel-bau.de | Infostealer data confirmed. | Founded in 1947, the company has grown from a small sand and gravel business established after the Second World War … | Source: https://www.ransomware.live/id/a25vYmVsLWJhdS5kZUBzYWZlcGF5"
+  },
+  {
+    "id": 4271,
+    "name": "dragonforce: hive360.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Sector: Technology | Website: hive360.com | Infostealer data confirmed. | HIVE360 is a UK-based employment administration and employee benefits specialist. They help businesses streamline their payroll and HR operations while improving employee engagement | Source: https://www.ransomware.live/id/aGl2ZTM2MC5jb21AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 4272,
+    "name": "dragonforce: amplesurveyor.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: amplesurveyor.com | Infostealer data confirmed. | Ample Surveyor Services Limited is a professional property and construction consultancy firm based in Hong Kong. | Source: https://www.ransomware.live/id/YW1wbGVzdXJ2ZXlvci5jb21AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 4267,
+    "name": "akira: Stone Ridge Payments",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: stoneridgepayments.com | Infostealer data confirmed. | We will upload 67gb of corporate data soon. Employee personal information (400 passports and D L scans, SSNs, w9 forms and so on), financials, contracts and agreements, confidential document s, lots of NDAs, etc. | Source: https://www.ransomware.live/id/U3RvbmUgUmlkZ2UgUGF5bWVudHNAYWtpcmE="
+  },
+  {
+    "id": 4269,
+    "name": "AiLock: Studio Sardano",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: IT | Sector: Consumer Services | Website: studiosardano-riccione.com | Infostealer data confirmed. | Studio Sardano is a company that operates in the Repair Services industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Riccione, Emilia-Romagna, Italy. | Source: https://www.ransomware.live/id/U3R1ZGlvIFNhcmRhbm9AQWlMb2Nr"
+  },
+  {
+    "id": 4260,
+    "name": "Booba Project: URA Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Booba Project. | Country: RU | Sector: Business Services | Website: uragroup.com | Infostealer data confirmed. | Stolen data: 5 GB | Source: https://www.ransomware.live/id/VVJBIEdyb3VwQEJvb2JhIFByb2plY3Q="
+  },
+  {
+    "id": 4261,
+    "name": "krybit: seprec.gob.bo",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: BO | Sector: Public Sector | Website: seprec.gob.bo | Infostealer data confirmed. | SEPREC (Servicio Plurinacional de Registro de Comercio / Plurinational Commercial Registry Service) is a Bolivian decent... | Source: https://www.ransomware.live/id/c2VwcmVjLmdvYi5ib0BrcnliaXQ="
+  },
+  {
+    "id": 4262,
+    "name": "akira: RISE Architecture",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Business Services | RISE Architecture is a full-service architectural firm based in New York and New Jersey that sp ecializes in dynamic design solutions for complex real estate projects across residential, comm ercial, mixed-use, industrial, and institutional sectors. We will upload 57gb of corporate data soon. Employee personal information, a bit of client file s, projects files, financials, contracts and agreements and so on. | Source: https://www.ransomware.live/id/UklTRSBBcmNoaXRlY3R1cmVAYWtpcmE="
+  },
+  {
+    "id": 4264,
+    "name": "akira: Chisholm Persson & Ball",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Business Services | Chisholm, Persson & Ball, PC is a law firm located in Laconia, NH, specializing in various lega l services including Estate Planning, Probate Administration, Family Law, Business Law, and Civ il Litigation. The firm has been recognized for its excellence, winning multiple awards in the Lakes Region for Best Law Firm and other categories. We will upload 45gb of corporate data soon. Client and employee personal information (client pa ssports, visas, DLs, SSNs and so on), confidential client docs, financial, contracts and agreem ents, court files, police reports and other legal files. | Source: https://www.ransomware.live/id/Q2hpc2hvbG0gUGVyc3NvbiAmIEJhbGxAYWtpcmE="
+  },
+  {
+    "id": 4265,
+    "name": "akira: Excalibur Rentals",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Consumer Services | Excalibur Rentals is dedicated to providing reliable rental equipment services, ensuring that c lients can complete their jobs safely, on time, and within budget. They offer a range of equipm ent including boom lifts, telehandlers, and light towers. We will upload 45gb of corporate data soon. Employee personal information (name, addresses, SSN s and so on), contracts and agreements, a bit of financials, customers info, etc. | Source: https://www.ransomware.live/id/RXhjYWxpYnVyIFJlbnRhbHNAYWtpcmE="
+  },
+  {
+    "id": 4263,
+    "name": "qilin: Accelirate",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.accelirate.com | N/A | Source: https://www.ransomware.live/id/QWNjZWxpcmF0ZUBxaWxpbg=="
+  },
+  {
+    "id": 4278,
+    "name": "safepay: bmiprojects.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Construction | Website: bmiprojects.de | Infostealer data confirmed. | Originally operating under the name Bez Marine Interiors GmbH, the company built on decades of experience in the maritime industry … | Source: https://www.ransomware.live/id/Ym1pcHJvamVjdHMuZGVAc2FmZXBheQ=="
+  },
+  {
+    "id": 4266,
+    "name": "cmdorganization: Mount Royal University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to cmdorganization. | Country: CA | Sector: Education | Website: hhtps://library.mtroyal.ca | The university was established in 1910. Mount Royal University is a public university in Calgary, Canada. Its programs include bachelor of arts, bachelor of communication, bachelor of health & physical education, bachelor of interior design, bachelor of nursing, and bachelor of science.More than 10TB of data!!! | Source: https://www.ransomware.live/id/TW91bnQgUm95YWwgVW5pdmVyc2l0eUBjbWRvcmdhbml6YXRpb24="
+  }
+]

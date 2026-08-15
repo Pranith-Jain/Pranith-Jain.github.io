@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T10:03:27.090Z",
+  "name": "nightspire: TFG Benefits, Inc.",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Financial Services | Website: www.tfgbenefits.com | - Employee PII- Payroll- Benefits- Financials- Client HR- Identity Docs | Source: https://www.ransomware.live/id/VEZHIEJlbmVmaXRzLCBJbmMuQG5pZ2h0c3BpcmU="
+}

@@ -1,0 +1,12 @@
+{
+  "id": 581,
+  "fetchedAt": "2026-08-14T05:52:51.168Z",
+  "name": "Detection Strategy for Launch Daemon Creation or Modification (macOS)",
+  "tlp": null,
+  "detId": "DET0401",
+  "stixId": "x-mitre-detection-strategy--dcbcea6d-e822-4fe3-b9df-86d4d9cd5667",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1126"]
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4011,
+    "name": "thegentlemen: ACAM Systemautomation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: AT | Sector: Manufacturing | Website: acam.at | Infostealer data confirmed. | acam.at zoominfo.com/c/acam-systemautomation-gmbh/431028608 Austrian engineering firm with 30+ years of expertise, headquartered in Leoben. Delivers integrated solutions for product development and manufacturing, featuring Siemens Digital Industries Software (PLM), simulation tools, and manufacturing management systems. Serves SMEs to multinational corporations with comprehensive training and support, driving operational efficiency and transparency across the entire product lifecycle | Source: https://www.ransomware.live/id/QUNBTSBTeXN0ZW1hdXRvbWF0aW9uQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 4017,
+    "name": "incransom: Mecanizados y Montajes Aeronáuticos (mymgroup.es)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4021,
+    "name": "shinyhunters: Charter Communications, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Telecommunication | Website: charter.com | Infostealer data confirmed. | Over 42M records containing PII have been compromised. This is a final warning to reach out by 27 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 23 May 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/Q2hhcnRlciBDb21tdW5pY2F0aW9ucywgSW5jLkBzaGlueWh1bnRlcnM="
+  },
+  {
+    "id": 4010,
+    "name": "thegentlemen: TRANSSYSTEM Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Transportation/Logistics | Website: transsystem.pl | Infostealer data confirmed. | transsystem.pl Polish engineering powerhouse with 30+ years of expertise in designing and manufacturing advanced technological transport systems and steel structures. Delivers turnkey intralogistics solutions for automotive, tire, and industrial sectors, with 200+ successful projects across 30+ countries worldwide. Trusted by global leaders including Tesla, Goodyear, Michelin, Continental, and KUKA for innovation, precision, and operational excellence | Source: https://www.ransomware.live/id/VFJBTlNTWVNURU0gR3JvdXBAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 3992,
+    "name": "nightspire: Red-Line",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Not Found | - QuickBooks Files- Scanned tax returns- Proposal, Contrats- QuickBooks automated backups | Source: https://www.ransomware.live/id/UmVkLUxpbmVAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 3993,
+    "name": "nightspire: Qua****Pro",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/UXVhKioqKlByb0BuaWdodHNwaXJl"
+  },
+  {
+    "id": 3998,
+    "name": "nightspire: Papa John's Egypt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: EG | Sector: Hospitality and Tourism | Website: www.papajohnsegypt.com | - Banking & Financial Records- Personal data- Critical POS Data | Source: https://www.ransomware.live/id/UGFwYSBKb2huJ3MgRWd5cHRAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 3999,
+    "name": "nightspire: Rawaj Consumer Finance",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: EG | Sector: Financial Services | Website: www.rawaj-finance.com | - Sales Related Documents- Human Resources- Sensitive Employee Records- Email and SMS Data | Source: https://www.ransomware.live/id/UmF3YWogQ29uc3VtZXIgRmluYW5jZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 3997,
+    "name": "nightspire: Bresme Madrid S.L.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: ES | Sector: Business Services | Website: www.bresme.com/en | Data is not available now. | Source: https://www.ransomware.live/id/QnJlc21lIE1hZHJpZCBTLkwuQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 4000,
+    "name": "nightspire: Ueno Fine Chemicals Industry",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: TH | Sector: Manufacturing | Website: www.ueno-fc.co.jp/english | - Financial & Accounting Records- Human Resources- Sales & Marketing | Source: https://www.ransomware.live/id/VWVubyBGaW5lIENoZW1pY2FscyBJbmR1c3RyeUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 3995,
+    "name": "nightspire: Pat**** S.r.l",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/UGF0KioqKiBTLnIubEBuaWdodHNwaXJl"
+  },
+  {
+    "id": 3996,
+    "name": "nightspire: Si**** West J*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/U2kqKioqIFdlc3QgSioqKioqKipAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 3987,
+    "name": "qilin: Alpha Group Holdings",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: NZ | Sector: Not Found | Website: www.buy.alphagroup.nz | Infostealer data confirmed. | N/A | Source: https://www.ransomware.live/id/QWxwaGEgR3JvdXAgSG9sZGluZ3NAcWlsaW4="
+  },
+  {
+    "id": 3988,
+    "name": "qilin: Alpert Slobin & Rubenstein",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.asrllp.com | N/A | Source: https://www.ransomware.live/id/QWxwZXJ0IFNsb2JpbiAmIFJ1YmVuc3RlaW5AcWlsaW4="
+  },
+  {
+    "id": 3986,
+    "name": "qilin: Branded Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Consumer Services | Website: www.brandedproducts.com.au | N/A | Source: https://www.ransomware.live/id/QnJhbmRlZCBQcm9kdWN0c0BxaWxpbg=="
+  }
+]

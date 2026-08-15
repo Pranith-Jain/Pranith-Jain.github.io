@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:42:52.667Z",
+  "name": "#TrickBot banker updates to group_tag \"\"tt0002\" version \"1000206\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 5, 2018",
+  "lastSeen": "Jun 5, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1365 (5b167b4f-5038-42e4-9a45-dfd00acd0835)."
+}

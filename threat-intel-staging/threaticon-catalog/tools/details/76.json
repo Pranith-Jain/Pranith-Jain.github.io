@@ -1,0 +1,12 @@
+{
+  "id": 76,
+  "fetchedAt": "2026-08-14T05:00:08.916Z",
+  "name": "CrackMapExec",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "CrackMapExec, or CME, is a post-exploitation tool developed in Python and designed for penetration testing against networks. CrackMapExec collects Active Directory information to conduct lateral movement through targeted networks.(Citation: CME Github September 2018)"
+}

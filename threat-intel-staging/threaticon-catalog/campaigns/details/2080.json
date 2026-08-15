@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:21:52.032Z",
+  "name": "Kazuar: Multiplatform Espionage Backdoor with API Access",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 3, 2017",
+  "lastSeen": "May 3, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #103 (59124126-4c4c-4ef8-910b-4567c0a8ab16)."
+}

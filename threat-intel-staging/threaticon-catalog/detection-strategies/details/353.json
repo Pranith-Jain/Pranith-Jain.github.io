@@ -1,0 +1,12 @@
+{
+  "id": 353,
+  "fetchedAt": "2026-08-14T06:00:56.375Z",
+  "name": "Detection Strategy for Netsh Helper DLL Persistence via Registry and Child Process Monitoring (Windows)",
+  "tlp": null,
+  "detId": "DET0575",
+  "stixId": "x-mitre-detection-strategy--8d407bff-f721-4b74-a593-1e55c14c5263",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1588"]
+}

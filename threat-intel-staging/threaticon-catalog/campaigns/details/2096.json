@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:21:11.002Z",
+  "name": "New Targeted Attack in the Middle East by APT34, a Suspected Iranian Threat Group, Using CVE-2017-11882 Exploit",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 7, 2017",
+  "lastSeen": "Dec 7, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #120 (5a2b0fe8-6900-412e-a9b6-2facc0a8ab16)."
+}

@@ -1,0 +1,212 @@
+[
+  {
+    "id": 439,
+    "code": "DET0121",
+    "name": "Detection Strategy for T1547.015 – Login Items on macOS",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 36,
+    "code": "DET0122",
+    "name": "Detect Abuse of Windows Time Providers for Persistence",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 540,
+    "code": "DET0123",
+    "name": "Detection of Data Exfiltration via Removable Media",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 20,
+    "code": "DET0124",
+    "name": "Behavior-chain detection for T1132.001 Data Encoding: Standard Encoding (Base64/Hex/MIME) across Windows, Linux, macOS, ESXi",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 393,
+    "code": "DET0125",
+    "name": "Detect persistence via reopened application plist modification (macOS)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 484,
+    "code": "DET0126",
+    "name": "Detection Strategy for SSH Key Injection in Authorized Keys",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 671,
+    "code": "DET0127",
+    "name": "Behavioral Detection of Masquerading Across Platforms via Metadata and Execution Discrepancy",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 570,
+    "code": "DET0128",
+    "name": "Detection Strategy for Hidden Windows",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 46,
+    "code": "DET0129",
+    "name": "Domain Account Enumeration Across Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 614,
+    "code": "DET0130",
+    "name": "Detect Unauthorized Access to Cloud Secrets Management Stores",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 37,
+    "code": "DET0131",
+    "name": "Behavioral Detection Strategy for Exfiltration Over Alternative Protocol",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 694,
+    "code": "DET0132",
+    "name": "Detection of Mutex-Based Execution Guardrails Across Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 95,
+    "code": "DET0133",
+    "name": "IDE Tunneling Detection via Process, File, and Network Behaviors",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 564,
+    "code": "DET0134",
+    "name": "Detect Suspicious Access to Windows Credential Manager",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 489,
+    "code": "DET0135",
+    "name": "Detection of Mail Protocol-Based C2 Activity (SMTP, IMAP, POP3)",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 536,
+    "code": "DET0136",
+    "name": "Behavior-chain detection for T1134.005 Access Token Manipulation: SID-History Injection (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 152,
+    "code": "DET0137",
+    "name": "Detection Strategy for Disk Wipe via Direct Disk Access and Destructive Commands",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 468,
+    "code": "DET0138",
+    "name": "Detection of Malicious Code Execution via InstallUtil.exe",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 195,
+    "code": "DET0139",
+    "name": "Detection of Credential Harvesting via API Hooking",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 359,
+    "code": "DET0140",
+    "name": "Behavioral Detection of Malicious File Deletion",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 331,
+    "code": "DET0141",
+    "name": "Detect Time-Based Evasion via Sleep, Timer Loops, and Delayed Execution",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 475,
+    "code": "DET0142",
+    "name": "Behavioral Detection of CLI Abuse on Network Devices",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 268,
+    "code": "DET0143",
+    "name": "Detection Strategy for Encrypted Channel via Symmetric Cryptography across OS Platforms",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 454,
+    "code": "DET0144",
+    "name": "Detect Forged Kerberos Golden Tickets (T1558.001)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 383,
+    "code": "DET0145",
+    "name": "Detection of Disabled or Modified System Firewalls across OS Platforms.",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 156,
+    "code": "DET0146",
+    "name": "Detection of Data Destruction Across Platforms via Mass Overwrite and Deletion Patterns",
+    "description": null,
+    "columns": ["6"]
+  },
+  {
+    "id": 535,
+    "code": "DET0147",
+    "name": "Detection Strategy for Cloud Service Hijacking via SaaS Abuse",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 229,
+    "code": "DET0148",
+    "name": "Detection Strategy for Forged SAML Tokens",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 259,
+    "code": "DET0149",
+    "name": "Detection of Exfiltration Over Unencrypted Non-C2 Protocol",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 66,
+    "code": "DET0150",
+    "name": "Detection Strategy for File Creation or Modification of Boot Files",
+    "description": null,
+    "columns": ["2"]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 196,
+  "fetchedAt": "2026-08-14T05:57:18.542Z",
+  "name": "Detecting Abnormal SharePoint Data Mining by Privileged or Rare Users",
+  "tlp": null,
+  "detId": "DET0500",
+  "stixId": "x-mitre-detection-strategy--960d6663-6a7f-4f95-affe-a28d71afc7d9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1380"]
+}

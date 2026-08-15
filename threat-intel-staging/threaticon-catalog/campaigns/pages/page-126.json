@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5984,
+    "name": "qilin: Cano Industrial",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Manufacturing | Website: www.canoindustrial.com | N/A | Source: https://www.ransomware.live/id/Q2FubyBJbmR1c3RyaWFsQHFpbGlu"
+  },
+  {
+    "id": 5988,
+    "name": "qilin: Sunway Berhad",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MY | Sector: Hospitality | Website: www.sunway.com.my | N/A | Source: https://www.ransomware.live/id/U3Vud2F5IEJlcmhhZEBxaWxpbg=="
+  },
+  {
+    "id": 5982,
+    "name": "qilin: Corporate 360 Business Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Professional Services | Website: www.corporate360.ca | N/A | Source: https://www.ransomware.live/id/Q29ycG9yYXRlIDM2MCBCdXNpbmVzcyBTb2x1dGlvbnNAcWlsaW4="
+  },
+  {
+    "id": 5983,
+    "name": "qilin: Assos Pharmaceuticals",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Healthcare | Website: www.assospharma.com | N/A | Source: https://www.ransomware.live/id/QXNzb3MgUGhhcm1hY2V1dGljYWxzQHFpbGlu"
+  },
+  {
+    "id": 5986,
+    "name": "qilin: AppleOne Properties",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PH | Sector: Not Found | Website: www.api.com.ph | N/A | Source: https://www.ransomware.live/id/QXBwbGVPbmUgUHJvcGVydGllc0BxaWxpbg=="
+  },
+  {
+    "id": 5985,
+    "name": "qilin: Triton Trading",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PE | Sector: Financial Services | Website: www.triton.com.pe | N/A | Source: https://www.ransomware.live/id/VHJpdG9uIFRyYWRpbmdAcWlsaW4="
+  },
+  {
+    "id": 5979,
+    "name": "qilin: WellPerf",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Healthcare | Website: www.wellperf.com | N/A | Source: https://www.ransomware.live/id/V2VsbFBlcmZAcWlsaW4="
+  },
+  {
+    "id": 5976,
+    "name": "nightspire: Auto Royal Company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: IT | Sector: Manufacturing | Website: www.autoroyalcompany.it | More than 100GB of SQLInfinity Database | Source: https://www.ransomware.live/id/QXV0byBSb3lhbCBDb21wYW55QG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 5978,
+    "name": "settra: menlosystems.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: DE | Sector: Technology | Website: menlosystems.com | FREQUENCY COMB ON TWO FRONTS A German company synchronizes time for the Pentagon while simultaneousl... | Source: https://www.ransomware.live/id/bWVubG9zeXN0ZW1zLmNvbUBzZXR0cmE="
+  },
+  {
+    "id": 5975,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5974,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5973,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5972,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5971,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5970,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  }
+]

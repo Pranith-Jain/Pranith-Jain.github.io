@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:03:26.493Z",
+  "name": "OSINT - The new .LNK between spam and Locky infection",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 22, 2016",
+  "lastSeen": "Oct 22, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #903 (580b201b-3e30-4bb1-ac2e-427202de0b81)."
+}

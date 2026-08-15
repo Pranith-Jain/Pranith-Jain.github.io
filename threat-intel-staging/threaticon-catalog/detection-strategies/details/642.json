@@ -1,0 +1,12 @@
+{
+  "id": 642,
+  "fetchedAt": "2026-08-14T06:03:32.908Z",
+  "name": "Detection of Virtual Private Server",
+  "tlp": null,
+  "detId": "DET0838",
+  "stixId": "x-mitre-detection-strategy--6e53a352-9654-41fe-bf43-50e6b23a4ac1",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1970"]
+}

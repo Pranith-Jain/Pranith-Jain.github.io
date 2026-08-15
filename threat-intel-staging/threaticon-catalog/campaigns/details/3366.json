@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:21:33.106Z",
+  "name": "OSINT Cisco Talos Thwarts Access to Massive International Exploit Kit Generating $60M Annually From Ransomware Alone by Cisco Talos",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Oct 6, 2015",
+  "lastSeen": "Oct 6, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #641 (5614b57d-0f58-4c26-ad03-6aac950d210b)."
+}

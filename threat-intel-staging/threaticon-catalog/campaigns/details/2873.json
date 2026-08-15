@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:40:49.315Z",
+  "name": "OSINT - Operation ShadowHammer",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 25, 2019",
+  "lastSeen": "Mar 25, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1492 (5c9a14a9-fdb0-4cc9-bd13-4cbf950d210f)."
+}

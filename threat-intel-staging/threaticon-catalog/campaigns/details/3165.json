@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:58.439Z",
+  "name": "FontOnLake: Previously unknown malware family targeting Linux",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 8, 2021",
+  "lastSeen": "Oct 8, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #277 (5f17a0c6-7b04-4f05-9fda-b5d435a8d6a4)."
+}

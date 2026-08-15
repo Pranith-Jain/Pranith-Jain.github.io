@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:53:36.397Z",
+  "name": "lamashtu: ROTH‑TECHNIK AUSTRIA",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 19, 2026",
+  "lastSeen": "May 19, 2026",
+  "added": "May 21, 2026",
+  "description": "Ransomware attack attributed to lamashtu. | Country: AT | Sector: Manufacturing | Website: rothtechnik.eu | Infostealer data confirmed. | RTA GmbH manufacturer and distributor of metal pipe fittings, connectors, and forged components; operates in the pipeline fittings sector and provides related services, including import/export across Western Europe. | Source: https://www.ransomware.live/id/Uk9USOKAkVRFQ0hOSUsgQVVTVFJJQUBsYW1hc2h0dQ=="
+}

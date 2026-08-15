@@ -1,0 +1,12 @@
+{
+  "id": 630,
+  "fetchedAt": "2026-08-14T05:48:50.614Z",
+  "name": "Detect Evil Twin Wi-Fi Access Points on Network Devices",
+  "tlp": null,
+  "detId": "DET0379",
+  "stixId": "x-mitre-detection-strategy--b376d299-69ef-444a-8ba1-15a6c7049605",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1069"]
+}

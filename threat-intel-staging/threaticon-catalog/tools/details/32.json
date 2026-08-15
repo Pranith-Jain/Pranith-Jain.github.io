@@ -1,0 +1,12 @@
+{
+  "id": 32,
+  "fetchedAt": "2026-08-14T05:03:30.150Z",
+  "name": "netstat",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "netstat is an operating system utility that displays active TCP connections, listening ports, and network statistics. (Citation: TechNet Netstat)"
+}

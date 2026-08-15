@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:06:09.483Z",
+  "name": "qilin: Mediapost Spain",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 12, 2026",
+  "lastSeen": "May 12, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Business Services | Website: www.mediapost.es | N/A | Source: https://www.ransomware.live/id/TWVkaWFwb3N0IFNwYWluQHFpbGlu"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1214,
+  "fetchedAt": "2026-08-15T06:25:40.241Z",
+  "name": "Bluetooth Impersonation AttackS (BIAS)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary disguises the MAC address of their Bluetooth enabled device to one for which there exists an active and trusted connection and authenticates successfully. The adversary can then perform malicious actions on the target Bluetooth device depending on the target’s capabilities."
+}

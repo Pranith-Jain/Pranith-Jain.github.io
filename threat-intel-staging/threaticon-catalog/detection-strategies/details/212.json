@@ -1,0 +1,12 @@
+{
+  "id": 212,
+  "fetchedAt": "2026-08-14T05:24:21.009Z",
+  "name": "Detection Strategy for Compressed Payload Creation and Execution",
+  "tlp": null,
+  "detId": "DET0281",
+  "stixId": "x-mitre-detection-strategy--f3d5d1d5-3d80-46b2-be05-f0c438625230",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0782", "AN0783", "AN0784"]
+}

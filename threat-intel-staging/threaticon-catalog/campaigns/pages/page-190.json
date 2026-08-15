@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5019,
+    "name": "payload: Plaza Lama",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: DO | Sector: Hospitality and Tourism | Website: plazalama.com.do | Infostealer data confirmed. | Plaza Lama is a retail company based in the Dominican Republic that offers a wide range of products including electronics, home goods, clothing, and groceries. The company aims to provide quality products at competitive prices to meet the needs of its diverse clientele. Plaza Lama serves both individual consumers and businesses, making it a go-to destination for shopping in the region. With multiple locations, it strives to enhance the shopping experience through excellent customer service and a variety of offerings | Source: https://www.ransomware.live/id/UGxhemEgTGFtYUBwYXlsb2Fk"
+  },
+  {
+    "id": 5020,
+    "name": "payload: Hansoll Textile in Vietnam",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: VN | Sector: Manufacturing | Website: hansoll.com | Infostealer data confirmed. | Hansoll Textile, established in 1992, is a global textile manufacturer specializing in knit apparel production and export. The company serves markets in the United States, Europe, and Japan with operations across Asia and Central America. As a B2B enterprise, Hansoll Textile maintains manufacturing facilities and warehouses to support its international textile business. The company focuses on business integrity as a core value while maintaining a presence in both Asian and North American markets | Source: https://www.ransomware.live/id/SGFuc29sbCBUZXh0aWxlIGluIFZpZXRuYW1AcGF5bG9hZA=="
+  },
+  {
+    "id": 5021,
+    "name": "payload: Villea Hotels in AttanaHotels",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: MY | Sector: Hospitality and Tourism | Website: villea.attanahotels.com | Attana Hotels & Resorts is a premier Malaysian hospitality group that offers uniquely local experiences designed to make travelers feel at home. With a portfolio that includes various hotels and resorts, they focus on providing crafted experiences complemented by attentive service. Their target clients are guests seeking distinctive and memorable stays, enhanced by local culture and hospitality. Attana is committed to continuously evolving their offerings to inspire and energize their guests. | Source: https://www.ransomware.live/id/VmlsbGVhIEhvdGVscyBpbiBBdHRhbmFIb3RlbHNAcGF5bG9hZA=="
+  },
+  {
+    "id": 5036,
+    "name": "akira: Kennon Worldwide",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Business Services | Website: kennon.com | Infostealer data confirmed. | Kennon Worldwide offers a wide range of telecommunications services including PRI, VoIP, and in tegrated services, representing over 40 service providers to ensure the best pricing and soluti ons for clients. We will upload 30gb of corporate data soon. Contracts, client information, NDAs, and other inte rnal files. | Source: https://www.ransomware.live/id/S2Vubm9uIFdvcmxkd2lkZUBha2lyYQ=="
+  },
+  {
+    "id": 5018,
+    "name": "thegentlemen: WCM Remedium",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Healthcare | Website: wcm-remedium.pl | Infostealer data confirmed. | ***.pl WCM Remedium (Wielkopolskie Centra Medyczne Remedium) is a private healthcare provider based in Poznań and Śrem, Poland, offering comprehensive medical services to both public insurance (NFZ) and private patients. | Source: https://www.ransomware.live/id/V0NNIFJlbWVkaXVtQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 5040,
+    "name": "akira: T/CCI Manufacturing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Manufacturing | T/CCI is a world leader in compressor technology including reciprocating, swash plate, wobble p late, variable compressor and air brake compressor designs. We are an Original Equipment Manufa cturer for trucking, off-highway, agriculture/construction, specialty vehicle and transport ref rigeration markets. We will upload 35gb of corporate data soon. Employee personal docs (passports, DLs, SSNs, payme nt details, credit cards and so on), contracts and agreements, client and partners information, NDAs, financials, lots of confidential files, etc. | Source: https://www.ransomware.live/id/VC9DQ0kgTWFudWZhY3R1cmluZ0Bha2lyYQ=="
+  },
+  {
+    "id": 5041,
+    "name": "nightspire: Krum Public Library",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Public Sector | Website: www.krumlibrary.org | - Financial Documents- HR Data- Supervisor's Information | Press: https://dysruptionhub.com/krum-library-ransomware-wifi/ | Source: https://www.ransomware.live/id/S3J1bSBQdWJsaWMgTGlicmFyeUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 5035,
+    "name": "securotrop: Kriete Truck Centers",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to securotrop. | Country: US | Sector: Transportation/Logistics | Website: www.krietetrucks.com | Status: AWAITING Size: 221 GB | Source: https://www.ransomware.live/id/S3JpZXRlIFRydWNrIENlbnRlcnNAc2VjdXJvdHJvcA=="
+  },
+  {
+    "id": 5016,
+    "name": "thegentlemen: Goldlion",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: HK | Sector: Consumer Services | Website: goldlion.com | Infostealer data confirmed. | ***.com zoominfo.com/c/goldlion-holdings/43517873 Goldlion is a prominent Hong Kong-based investment holding company listed on the HKEX, primarily engaged in the design, manufacturing, and distribution of premium men's apparel and accessories. Operating under the renowned Goldlion brand, the company specializes in high-quality business formalwear, including ties, shirts, and leather goods, across mainland China, Hong Kong, and Singapore. With decades of industry presence, it remains a preferred choice for contemporary men's fashion and professional lifestyle products | Source: https://www.ransomware.live/id/R29sZGxpb25AdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 5013,
+    "name": "thegentlemen: The Clinic",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: GB | Sector: Healthcare | Website: wfsportscare.com | Infostealer data confirmed. | ***.com zoominfo.com/c/the-clinic/537916104 The Clinic: Family and Sports Chiropractic is a specialized healthcare facility located in West Fargo, North Dakota, dedicated to providing patient-focused chiropractic care | Source: https://www.ransomware.live/id/VGhlIENsaW5pY0B0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 5014,
+    "name": "thegentlemen: Integrated Distribution",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: GB | Sector: Transportation/Logistics | Website: int-dist.com | Infostealer data confirmed. | ***.com zoominfo.com/c/integrated-distribution-inc/348479499 ntegrated Distribution Inc. is a prominent industrial distributor based in Comstock Park, Michigan, serving local manufacturers since 1998. The company specializes in fast-response sourcing, technical support, and the supply of critical components such as bearings, belts, motors, and power transmission parts. With a strong focus on minimizing equipment downtime, IDI provides tailored industrial solutions for diverse sectors, including automotive, food processing, and packaging | Source: https://www.ransomware.live/id/SW50ZWdyYXRlZCBEaXN0cmlidXRpb25AdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 5015,
+    "name": "thegentlemen: Yao Yuan Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: TW | Sector: Technology | Website: ssat168.com.tw | Infostealer data confirmed. | ***.com.tw Yao Yuan Technology Co., Ltd. is a Taiwanese enterprise specializing in computer peripheral products, electronic components, and raw materials for the plastics and rubber industries. The company focuses on providing specialized plastic parts coating and comprehensive material solutions to support diverse manufacturing and technology sectors. Operating as a dedicated B2B supplier, they deliver reliable sourcing and distribution services tailored to the precise needs of industrial and electronic production | Source: https://www.ransomware.live/id/WWFvIFl1YW4gVGVjaG5vbG9neUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 5010,
+    "name": "thegentlemen: Jyharn Electronic",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5012,
+    "name": "thegentlemen: FESCO Adecco",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: RU | Sector: Business Services | Website: fescoadecco.com | Infostealer data confirmed. | ***.com zoominfo.com/c/fesco-adecco/345603628 FESCO Adecco is a leading human resources provider in China, established as a strategic joint venture between Beijing FESCO and the global Adecco Group. The company delivers comprehensive HR solutions, including talent acquisition, staffing, payroll outsourcing, and business process outsourcing for multinational and domestic enterprises. Backed by a vast nationwide network, it helps organizations navigate the complex Chinese labor market and optimize their workforce strategies | Source: https://www.ransomware.live/id/RkVTQ08gQWRlY2NvQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 5011,
+    "name": "thegentlemen: Trigon America",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Not Found | Website: trigonamerica.com | Infostealer data confirmed. | ***.com zoominfo.com/c/trigon-america/560898982 Trigon America is a premier contract manufacturer based in Aurora, Illinois, specializing in precision-machined complex components and assemblies. Founded in 2000, the company serves the highly regulated Medical Device and Aerospace industries, holding both ISO 13485 and AS9100 certifications. With decades of expertise, they focus on delivering world-class manufacturing solutions for intricate instrumentation and critical medical equipment | Source: https://www.ransomware.live/id/VHJpZ29uIEFtZXJpY2FAdGhlZ2VudGxlbWVu"
+  }
+]

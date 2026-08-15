@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:42:01.007Z",
+  "name": "lynx: Africa Insurance",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 13, 2026",
+  "lastSeen": "Mar 6, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lynx. | Country: ET | Sector: Financial Services | Website: www.africainsurance.com | Lion of Africa Insurance Company Ltd is a company that operates in the Insurance industry. It employs 100to249 people and has 10Mto25M of revenue. The company is headquartered in Sandton, South Africa. | Source: https://www.ransomware.live/id/QWZyaWNhIEluc3VyYW5jZUBseW54"
+}

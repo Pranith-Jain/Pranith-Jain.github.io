@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:18.469Z",
+  "name": "OSINT Additional yara rules for Equation Drug by Florian Roth",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Apr 3, 2015",
+  "lastSeen": "Apr 3, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #726 (551e7bc4-ed74-4ff2-aef7-1888950d210b)."
+}

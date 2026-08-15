@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:43:51.929Z",
+  "name": "OSINT - Dasan Unauthenticated Remote Code Execution - and ongoing abuse",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Feb 11, 2018",
+  "lastSeen": "Feb 11, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1306 (5a8042be-fe8c-4071-a140-414502de0b81)."
+}

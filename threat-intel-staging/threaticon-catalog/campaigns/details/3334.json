@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:22:43.658Z",
+  "name": "OSINT - Ð‘Ð°Ð½ÐºÐ¾Ð²ÑÐºÐ¸Ð¹ Ñ‚Ñ€Ð¾ÑÐ½ÐµÑ† Lurk: ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ Ð´Ð»Ñ Ð Ð¾ÑÑÐ¸Ð¸ (Banking Trojan Lurk: specially for Russia)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 1, 2016",
+  "lastSeen": "Jun 1, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #571 (574efbb3-e924-4d54-a701-43a1950d210f)."
+}

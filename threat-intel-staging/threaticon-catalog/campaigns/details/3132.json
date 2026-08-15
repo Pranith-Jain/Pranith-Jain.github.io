@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:31:19.629Z",
+  "name": "New Mirai Variant Targets Enterprise Wireless Presentation & Display Systems",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 18, 2019",
+  "lastSeen": "Mar 18, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #180 (5c93d7f7-7de4-4548-ae4c-403ec0a8ab16)."
+}

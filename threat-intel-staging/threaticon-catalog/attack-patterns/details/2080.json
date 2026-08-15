@@ -1,0 +1,9 @@
+{
+  "id": 2080,
+  "fetchedAt": "2026-08-15T07:14:07.200Z",
+  "name": "T1068 - Exfiltration Over C2 Channel: Data exfiltration via the command and control channel to avoid detection.",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:13:18.386Z",
+  "name": "anubis: Signature Healthcare",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 9, 2026",
+  "lastSeen": "Apr 9, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: signature-healthcare.org | Infostealer data confirmed. | Will there be a release? Keep an eye on the timer. | Press: https://www.wcvb.com/article/brockton-hospital-services-affected-by-cyber-incident/70944847 | Source: https://www.ransomware.live/id/U2lnbmF0dXJlIEhlYWx0aGNhcmVAYW51Ymlz"
+}

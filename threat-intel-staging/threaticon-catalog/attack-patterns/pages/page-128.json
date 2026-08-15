@@ -1,0 +1,155 @@
+[
+  {
+    "id": 2121,
+    "name": "T1566 - Supply Chain Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1544,
+    "name": "T1566 - System Account Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1400,
+    "name": "T1566 - System Account Access Through Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1644,
+    "name": "T1566 - impact processes and binaries",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1728,
+    "name": "T1566 - spear-phishing attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1733,
+    "name": "T1566 -_masquerade",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  { "id": 3007, "name": "T1566 Phishing", "tlp": "white", "confidence": null, "techniqueId": "T1566", "status": null },
+  {
+    "id": 1742,
+    "name": "T1566 Spear-Phishing via Email",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 136,
+    "name": "Spearphishing Attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1473,
+    "name": "T1566.001 (OS Credential dumping)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1448,
+    "name": "T1566.001 (OSINT Collection)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2877,
+    "name": "T1566.001 (Phish Email)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2573,
+    "name": "T1566.001 (Phishing - Spearphishing Attachment)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2269,
+    "name": "T1566.001 (Phishing)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2550,
+    "name": "T1566.001 (Phishing: Spearphishing Attachment)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2926,
+    "name": "T1566.001 (Spearphishing Link)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2153,
+    "name": "T1566.001 - Account Access Removal",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1569,
+    "name": "T1566.001 - Account Access Removal of Event Logs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1393,
+    "name": "T1566.001 - C2 Infrastructure Communication Over Alternative Channels",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2438,
+    "name": "T1566.001 - C2 over DNS for communication",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  }
+]

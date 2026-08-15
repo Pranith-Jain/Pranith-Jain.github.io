@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:03:40.035Z",
+  "name": "Spam 2016-10-14 (mule acquisition) - probably related to Locky resources",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 14, 2016",
+  "lastSeen": "Oct 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #898 (58007f1d-7a4c-4887-ba33-c28b950d210f)."
+}

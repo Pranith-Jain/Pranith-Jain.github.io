@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3205,
+    "name": "Always Another Secret: Lifting the Haze on China-nexus Espionage in Southeast Asia | Mandiant",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #341 (e3e245fa-1e8e-41db-94d3-6991edd0eaee)."
+  },
+  {
+    "id": 3204,
+    "name": "Ransomware wave RansomBoggs in Ukraine",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #338 (b2790e3f-e111-4755-b28f-ff902feabb17)."
+  },
+  {
+    "id": 3203,
+    "name": "Financially motivated, dangerously activated: OPERA1ER APT in Africa",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #337 (fe78f9f1-49e2-4e84-bad3-ae97b077d4f7)."
+  },
+  {
+    "id": 3202,
+    "name": "Scraper: Black Basta Ransomware | Attacks Deploy Custom EDR Evasion Tools Tied to FIN7 Threat Actor - SentinelOne",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #336 (99138053-ae5d-4bcf-b2f8-0954edb204bc)."
+  },
+  {
+    "id": 3201,
+    "name": "Scraper: DeftTorero: tactics, techniques and procedures of intrusions revealed",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #331 (636fd943-5631-4cc9-890a-4f400563533c)."
+  },
+  {
+    "id": 3200,
+    "name": "Scraper: Malicious WhatsApp mod distributed through legitimate apps",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #330 (86dec5f1-e2e0-4ab9-8511-422855d37b84)."
+  },
+  {
+    "id": 3199,
+    "name": "Scraper: Rising Tide: Chasing the Currents of Espionage in the South China Sea",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #327 (7f79ab3b-6744-4857-85a0-ec2803a67372)."
+  },
+  {
+    "id": 3198,
+    "name": "Scraper: Breaking Down the China Chopper Web Shell - Part I",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #326 (4c885688-92fe-4498-be89-69aa6bdcc5eb)."
+  },
+  {
+    "id": 3197,
+    "name": "TA505 Group’s TeslaGun In-Depth Analysis",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #324 (9db70e24-8bd4-4b1e-a13a-cd82cefb6947)."
+  },
+  {
+    "id": 3196,
+    "name": "Scraper: Talos Website",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #323 (c9aed93d-4023-40c3-92a4-7e8607cd6cb6)."
+  },
+  {
+    "id": 3195,
+    "name": "Potential SpamBots (2016-03-17)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #322 (56ea88b3-03a8-4a60-8b73-4b59950d210f)."
+  },
+  {
+    "id": 3194,
+    "name": "Preventing Black Basta Ransomware in 2022",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #321 (391357f3-d319-41f8-8525-ce2b083097b6)."
+  },
+  {
+    "id": 3193,
+    "name": "Ragnar Locker Ransomware Targeting the Energy Sector",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #319 (8dbeaaac-a671-4a02-8dab-5eec2a1c935b)."
+  },
+  {
+    "id": 3192,
+    "name": "OSINT - AceDeceiver: First iOS Trojan Exploiting Apple DRM Design Flaws to Infect Any iOS Device",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #318 (56e9b21a-98fc-4d0e-ae29-4e53950d210f)."
+  },
+  {
+    "id": 3191,
+    "name": "Locky (2016-03-16)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #317 (56e986fb-08c0-442c-a3f3-5390950d210f)."
+  }
+]

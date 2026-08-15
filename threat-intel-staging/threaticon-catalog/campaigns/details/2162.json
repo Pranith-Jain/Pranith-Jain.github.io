@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:18:21.937Z",
+  "name": "AutoIT-compiled Negasteal/Agent Tesla, Ave Maria Delivered via Malspam",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Oct 25, 2019",
+  "lastSeen": "Oct 25, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #204 (5da1e8e9-5614-4e68-b67a-a05dc0a8ab16)."
+}

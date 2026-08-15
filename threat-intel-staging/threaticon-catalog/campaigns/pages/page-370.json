@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2239,
+    "name": "OSINT - Petya Ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #364 (56f4132b-be7c-4d2a-a00c-4a91950d210f)."
+  },
+  {
+    "id": 2238,
+    "name": "Iran: State-Backed Hacking of Activists, Journalists, Politicians",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #362 (043d866e-0d37-4955-8666-ba98899f7ee7)."
+  },
+  {
+    "id": 2237,
+    "name": "OSINT - STOP SCANNING MY MACRO",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #355 (56f0302e-e494-494b-b012-42d7950d210f)."
+  },
+  {
+    "id": 2236,
+    "name": "Under the hood of a Doppelgänger",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #354 (97daee3e-020b-408b-bc9f-b058d42bb746)."
+  },
+  {
+    "id": 2235,
+    "name": "Untangling KNOTWEED: European private-sector offensive actor using 0-day exploits",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #349 (cc55d271-bff7-4045-b449-ee50dd0149e1)."
+  },
+  {
+    "id": 2234,
+    "name": "IcedID infection from fake Microsoft Teams page",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #347 (dcd04a4e-2e8e-4b48-9ab7-a454b66a4364)."
+  },
+  {
+    "id": 2233,
+    "name": "Unraveling the techniques of Mac ransomware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #343 (6e86d7e8-cdd6-4cfc-bdba-9e0176efc167)."
+  },
+  {
+    "id": 2232,
+    "name": "Threat Analysis: MSI - Masquerading as a Software Installer",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #340 (d917ff47-81e7-40fe-826a-b6ffecf3aa26)."
+  },
+  {
+    "id": 2231,
+    "name": "InfoSec Handlers Diary Blog - SANS Internet Storm Center",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #339 (e5b080c1-f3c1-49c3-a7bc-446d2d023830)."
+  },
+  {
+    "id": 2230,
+    "name": "Scraper: DiceyF deploys GamePlayerFramework in online casino development studio",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #335 (ee6d58e9-e09d-43d0-b364-93b509742247)."
+  },
+  {
+    "id": 2229,
+    "name": "Scraper: Black Basta Ransomware Gang Infiltrates Networks via QAKBOT, Brute Ratel, and Cobalt Strike",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #334 (ee37f554-11fc-4734-b338-60f8f74eeee8)."
+  },
+  {
+    "id": 2228,
+    "name": "Scraper: LV Ransomware Exploits ProxyShell in Attack on a Jordan-based Company",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #333 (90e532fb-4efa-4ff2-95ab-ddaf25454791)."
+  },
+  {
+    "id": 2227,
+    "name": "Scraper: Ransomware Actor Abuses Genshin Impact Anti-Cheat Driver to Kill Antivirus",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #332 (5c932f59-3013-44a5-8b85-1199e95db3ee)."
+  },
+  {
+    "id": 2226,
+    "name": "Obama207 QAKBOT (QBOT) infection with Cobalt Strike",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #329 (9a33a7ae-0632-44b1-abdd-abf4ec5bc58d)."
+  },
+  {
+    "id": 2225,
+    "name": "Chiseling In: Lorenz Ransomware Group Cracks MiVoice And Calls Back For Free",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #328 (1b221061-8be7-43a6-b576-a700dcd4ca8a)."
+  }
+]

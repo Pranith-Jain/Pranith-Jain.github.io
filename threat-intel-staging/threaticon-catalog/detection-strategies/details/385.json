@@ -1,0 +1,12 @@
+{
+  "id": 385,
+  "fetchedAt": "2026-08-14T05:20:48.120Z",
+  "name": "Indirect Command Execution – Windows utility abuse behavior chain",
+  "tlp": null,
+  "detId": "DET0200",
+  "stixId": "x-mitre-detection-strategy--f3cc2f0f-c657-4453-90a8-d7c9a59d6e37",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0576"]
+}

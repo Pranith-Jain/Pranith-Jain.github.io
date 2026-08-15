@@ -1,0 +1,9 @@
+{
+  "id": 1677,
+  "fetchedAt": "2026-08-15T07:08:28.219Z",
+  "name": "T1059.003 - Malware download via HTTP/HTTPS through a C2 server disguise",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

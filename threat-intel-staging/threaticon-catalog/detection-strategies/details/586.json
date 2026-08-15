@@ -1,0 +1,12 @@
+{
+  "id": 586,
+  "fetchedAt": "2026-08-14T06:03:35.735Z",
+  "name": "Detection of Stage Capabilities",
+  "tlp": null,
+  "detId": "DET0839",
+  "stixId": "x-mitre-detection-strategy--5a1ada5b-5729-45d5-8b3d-f6fa7d2a3352",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1971"]
+}

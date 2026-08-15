@@ -1,0 +1,12 @@
+{
+  "id": 130,
+  "fetchedAt": "2026-08-14T05:22:43.920Z",
+  "name": "Detection Strategy for Spearphishing Voice across OS platforms",
+  "tlp": null,
+  "detId": "DET0245",
+  "stixId": "x-mitre-detection-strategy--ec33e12c-e0f1-426d-a453-fa5ae4d3cf9a",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0683", "AN0684", "AN0685", "AN0686"]
+}

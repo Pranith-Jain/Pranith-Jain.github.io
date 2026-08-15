@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:59:25.581Z",
+  "name": "OSINT - Callisto Group",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 13, 2017",
+  "lastSeen": "Apr 13, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1041 (58f0bb56-ce80-4f18-88b6-4577950d210f)."
+}

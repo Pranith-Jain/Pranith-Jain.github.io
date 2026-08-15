@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6433,
+    "name": "Global Secret Group: Farmers Mutual Fire Insurance",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Financial Services | Website: farmersofmarble.com | Infostealer data confirmed. | Country: Pennsylvania, United States | Website: farmersofmarble.com | Revenue: $5.2 Million | Industry: Insurance | Employees: 11-50 | Properties: 5.72 GB (18,699 Files, 2,631 Folders) | Source: https://www.ransomware.live/id/RmFybWVycyBNdXR1YWwgRmlyZSBJbnN1cmFuY2VAR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6436,
+    "name": "Global Secret Group: Carpets Direct",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Retail & E-Commerce | Website: carpetsdirectfindlay.com | Country: Ohio, United States | Website: carpetsdirectfindlay.com | Revenue: $5 Million | Industry: Retail,Furniture | Employees: 11-50 | Properties: 31.1 GB (1,442 Files, 788 Folders) | Source: https://www.ransomware.live/id/Q2FycGV0cyBEaXJlY3RAR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6435,
+    "name": "Global Secret Group: Baker Business & Tax Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Professional Services | Website: bakerbusinessandtax.com | Country: Kentucky, United States | Website: bakerbusinessandtax.com | Revenue: $1 Million | Industry: Accounting for Legal Practices | Employees: 1-10 Employees | Properties: 213Gb (817,209 Files, 48,866 Folders) | Source: https://www.ransomware.live/id/QmFrZXIgQnVzaW5lc3MgJiBUYXggU29sdXRpb25zQEdsb2JhbCBTZWNyZXQgR3JvdXA="
+  },
+  {
+    "id": 6427,
+    "name": "Global Secret Group: Prism Telecom",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: FI | Sector: Technology | Website: prismtelecom.com | Backbone network traffic analysis and SS7 protocol vulnerability assessment across 3 continents. | Source: https://www.ransomware.live/id/UHJpc20gVGVsZWNvbUBHbG9iYWwgU2VjcmV0IEdyb3Vw"
+  },
+  {
+    "id": 6426,
+    "name": "Section9: ********.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Section9. | Country: BR | Sector: Not Found | MINING | Source: https://www.ransomware.live/id/KioqKioqKiouY29tLmJyQFNlY3Rpb245"
+  },
+  {
+    "id": 6431,
+    "name": "Global Secret Group: Vertex Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Technology | Website: vertexsystems.com | Infostealer data confirmed. | Ongoing analysis of cloud-native architecture and microservice communication protocols. | Source: https://www.ransomware.live/id/VmVydGV4IFN5c3RlbXNAR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6430,
+    "name": "Global Secret Group: OmniLink AG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: DE | Sector: Technology | Website: omnilink.software | Full-scope penetration testing of financial transaction processing pipeline and API gateway. | Source: https://www.ransomware.live/id/T21uaUxpbmsgQUdAR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6425,
+    "name": "Section9: ******.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Section9. | Country: BR | Sector: Other | MEDIA | Source: https://www.ransomware.live/id/KioqKioqLmNvbS5ickBTZWN0aW9uOQ=="
+  },
+  {
+    "id": 6428,
+    "name": "Global Secret Group: Cipher Dynamics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Technology | Website: cipherdyn.com | Infostealer data confirmed. | Zero-trust architecture review and cryptographic key management assessment. | Source: https://www.ransomware.live/id/Q2lwaGVyIER5bmFtaWNzQEdsb2JhbCBTZWNyZXQgR3JvdXA="
+  },
+  {
+    "id": 6429,
+    "name": "Global Secret Group: Stratos Network",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: AE | Sector: Technology | Website: stratosns.com | Satellite communication relay analysis with deep-packet inspection across 14 ground stations. | Source: https://www.ransomware.live/id/U3RyYXRvcyBOZXR3b3JrQEdsb2JhbCBTZWNyZXQgR3JvdXA="
+  },
+  {
+    "id": 6424,
+    "name": "Section9: ******.net.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Section9. | Country: BR | Sector: Financial Services | TAX | Source: https://www.ransomware.live/id/KioqKioqLm5ldC5ickBTZWN0aW9uOQ=="
+  },
+  {
+    "id": 6418,
+    "name": "Section9: *****.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Section9. | Country: BR | Sector: Financial Services | FINTECH | Source: https://www.ransomware.live/id/KioqKiouY29tLmJyQFNlY3Rpb245"
+  },
+  {
+    "id": 6423,
+    "name": "Section9: *****.com.cn",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Section9. | Country: CN | Sector: Financial Services | FINANCE | Source: https://www.ransomware.live/id/KioqKiouY29tLmNuQFNlY3Rpb245"
+  },
+  {
+    "id": 6422,
+    "name": "Section9: ********.com.jp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Section9. | Country: JP | Sector: Technology | SOFTWARE | Source: https://www.ransomware.live/id/KioqKioqKiouY29tLmpwQFNlY3Rpb245"
+  },
+  {
+    "id": 6420,
+    "name": "Section9: ****.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Section9. | Country: BE | Sector: Manufacturing | INDUSTRY | Source: https://www.ransomware.live/id/KioqKi5jb21AU2VjdGlvbjk="
+  }
+]

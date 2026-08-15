@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:53:28.466Z",
+  "name": "nova: RADWAG",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 19, 2026",
+  "lastSeen": "May 19, 2026",
+  "added": "May 21, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: PL | Sector: Manufacturing | Website: RADWAG.com | The website RADWAG.com is the home of RADWAG, a Polish manufacturer widely recognized as a global leader in the production of electronic weighing equipment, including balances, scales, and specialized measuring instruments - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/UkFEV0FHQG5vdmE="
+}

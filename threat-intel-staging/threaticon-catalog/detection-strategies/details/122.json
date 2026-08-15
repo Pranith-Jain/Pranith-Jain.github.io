@@ -1,0 +1,12 @@
+{
+  "id": 122,
+  "fetchedAt": "2026-08-14T06:05:03.163Z",
+  "name": "Detection of Server",
+  "tlp": null,
+  "detId": "DET0871",
+  "stixId": "x-mitre-detection-strategy--c377533f-702a-4e82-a254-9855b9362c22",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2003"]
+}

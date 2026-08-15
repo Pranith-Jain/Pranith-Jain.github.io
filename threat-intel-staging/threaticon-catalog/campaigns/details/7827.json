@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:30:54.485Z",
+  "name": "coinbasecartel: Hitachi High-Tech",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 13, 2026",
+  "lastSeen": "Aug 13, 2026",
+  "added": "Aug 14, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: JP | Sector: Manufacturing | [AI generated] Hitachi High-Tech is a Japanese technology company headquartered in Tokyo, Japan, and a subsidiary of Hitachi Ltd. It operates in the high-technology and precision equipment industry, specializing in semiconductor manufacturing equipment, analytical and medical instruments, and industrial systems. The company serves sectors including healthcare, electronics, and scientific research, supplying solutions globally across manufacturing and laboratory environments. | Source: https://www.ransomware.live/id/SGl0YWNoaSBIaWdoLVRlY2hAY29pbmJhc2VjYXJ0ZWw="
+}

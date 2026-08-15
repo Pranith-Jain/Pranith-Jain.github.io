@@ -1,0 +1,122 @@
+[
+  {
+    "id": 828,
+    "name": "securotrop: Tax Prep and More",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to securotrop. | Country: US | Sector: Business Services | Website: www.taxprepandmore.com | Status: AWAITING Size: 146 GB | Source: https://www.ransomware.live/id/VGF4IFByZXAgYW5kIE1vcmVAc2VjdXJvdHJvcA=="
+  },
+  {
+    "id": 827,
+    "name": "qilin: Basalt Dentistry",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.basaltdentistry.com | Source: https://www.ransomware.live/id/QmFzYWx0IERlbnRpc3RyeUBxaWxpbg=="
+  },
+  {
+    "id": 840,
+    "name": "coinbasecartel: Helzberg",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Consumer Services | Website: helzberg.com | Infostealer data confirmed. | [AI generated] Helzberg Diamonds is a American retail jewelry company headquartered in North Kansas City, Missouri. Founded in 1915, it operates a chain of jewelry stores across the United States, selling diamonds, engagement rings, wedding bands, and fine jewelry. The company is a subsidiary of Berkshire Hathaway, having been acquired in 1995. Helzberg operates hundreds of retail locations in shopping malls and centers nationwide. | Source: https://www.ransomware.live/id/SGVsemJlcmdAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 841,
+    "name": "coinbasecartel: Ralph Lauren",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Consumer Services | Website: www.ralphlauren.com | [AI generated] Ralph Lauren Corporation is an American fashion and lifestyle company headquartered in New York City. Founded in 1967 by designer Ralph Lauren, it designs, markets, and distributes luxury apparel, accessories, home furnishings, and fragrances. Operating globally across North America, Europe, and Asia, its portfolio includes brands such as Polo Ralph Lauren, Ralph Lauren Purple Label, and Lauren Ralph Lauren. | Source: https://www.ransomware.live/id/UmFscGggTGF1cmVuQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 842,
+    "name": "coinbasecartel: Carters",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Consumer Services | Website: carters.com | Infostealer data confirmed. | [AI generated] Carter's is a leading American children's apparel brand headquartered in Atlanta, Georgia. Founded in 1865, the company designs, sources, and markets clothing, accessories, and related products for babies and young children. It operates through multiple retail channels including its own stores, e-commerce platforms, and wholesale partnerships. Carter's also owns the OshKosh B'gosh brand and sells products across the United States, Canada, and internationally. | Source: https://www.ransomware.live/id/Q2FydGVyc0Bjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 843,
+    "name": "krybit: dencom.co.nz",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: NZ | Sector: Technology | Website: dencom.co.nz | Infostealer data confirmed. | Dencom New Zealand Limited has been delivering IT support and solutions for over 30 years, catering to a diverse range o... | Source: https://www.ransomware.live/id/ZGVuY29tLmNvLm56QGtyeWJpdA=="
+  },
+  {
+    "id": 844,
+    "name": "incransom: Straten & Kollegen",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 845,
+    "name": "shinyhunters: Rockstar Games",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Technology | Website: rockstargames.com | Infostealer data confirmed. | Your Snowflake instances metrics data was compromised thanks to Anodot.com. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Press: https://kotaku.com/rockstar-games-reportedly-hacked-massive-data-leak-ransom-gta-6-shinyhunters-2000686858 | Source: https://www.ransomware.live/id/Um9ja3N0YXIgR2FtZXNAc2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 846,
+    "name": "shinyhunters: Abrigo, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Financial Services | Over 1.7M Salesforce records containing PII and other internal corporate data have been compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/QWJyaWdvLCBJbmMuQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 847,
+    "name": "shinyhunters: Marcus & Millichap, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Financial Services | Over 30M Salesforce records containing PII and other internal corporate data have been compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/TWFyY3VzICYgTWlsbGljaGFwLCBJbmMuQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 848,
+    "name": "shinyhunters: Kemper Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Financial Services | Over 13M Salesforce records containing PII and other internal corporate data have been compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/S2VtcGVyIENvcnBvcmF0aW9uQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 849,
+    "name": "shinyhunters: Ryan, LLC.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Sector: Business Services | Over 4.8M Salesforce records containing PII and other internal corporate data have been compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/UnlhbiwgTExDLkBzaGlueWh1bnRlcnM="
+  },
+  {
+    "id": 850,
+    "name": "shinyhunters: McGraw Hill, Inc. (mheducation.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Education | Website: mheducation.com | Infostealer data confirmed. | Over 45M Salesforce records containing PII data have been compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/TWNHcmF3IEhpbGwsIEluYy4gKG1oZWR1Y2F0aW9uLmNvbSlAc2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 839,
+    "name": "dragonforce: Affordable Oil",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Energy | Website: affordableoil.com | Infostealer data confirmed. | The goal of Affordable Oil is in our name. We strive to provide the best heating oil delivery service at the lowest cost. Our friendly office staff is here Monday - Friday to help you with all your scheduling needs. We have our own on-site oil storage facility. This ensures that we can serve all our customers without interruption all year round. 24 hour emergency burner service is available through reliable independent contractors. | Source: https://www.ransomware.live/id/QWZmb3JkYWJsZSBPaWxAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 851,
+    "name": "shinyhunters: National Railroad Passenger Corporation (amtrak.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Transportation/Logistics | Website: amtrak.com | Infostealer data confirmed. | Over 9.4M Salesforce records containing PII and other internal corporate data have been compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/TmF0aW9uYWwgUmFpbHJvYWQgUGFzc2VuZ2VyIENvcnBvcmF0aW9uIChhbXRyYWsuY29tKUBzaGlueWh1bnRlcnM="
+  }
+]

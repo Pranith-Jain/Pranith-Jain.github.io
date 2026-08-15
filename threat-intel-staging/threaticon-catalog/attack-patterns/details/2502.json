@@ -1,0 +1,9 @@
+{
+  "id": 2502,
+  "fetchedAt": "2026-08-15T08:13:01.397Z",
+  "name": "T1552.002 - Credential Dumping (Exfiltration via Malware)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

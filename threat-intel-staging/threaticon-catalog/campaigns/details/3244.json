@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:35.917Z",
+  "name": "Analysis of Storm-0558 techniques for unauthorized email access",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jul 16, 2023",
+  "lastSeen": "Jul 16, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #418 (45ab9141-de79-4492-974b-1504bd6dfa13)."
+}

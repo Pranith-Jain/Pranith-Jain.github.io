@@ -1,0 +1,155 @@
+[
+  {
+    "id": 1725,
+    "name": "T1555.004 - Botnet Communication: IRC",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1555",
+    "status": null
+  },
+  {
+    "id": 145,
+    "name": "Password Managers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1555",
+    "status": null
+  },
+  {
+    "id": 1533,
+    "name": "T1555.005: Password Managers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1555",
+    "status": null
+  },
+  {
+    "id": 563,
+    "name": "Cloud Secrets Management Stores",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1555",
+    "status": null
+  },
+  {
+    "id": 666,
+    "name": "Modify Authentication Process",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 584,
+    "name": "Domain Controller Authentication",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 173,
+    "name": "Password Filter DLL",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 19,
+    "name": "Pluggable Authentication Modules",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 682,
+    "name": "Network Device Authentication",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 587,
+    "name": "Reversible Encryption",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 478,
+    "name": "Multi-Factor Authentication",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  { "id": 252, "name": "Hybrid Identity", "tlp": "white", "confidence": null, "techniqueId": "T1556", "status": null },
+  {
+    "id": 405,
+    "name": "Network Provider DLL",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 561,
+    "name": "Conditional Access Policies",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1556",
+    "status": null
+  },
+  {
+    "id": 11,
+    "name": "Adversary-in-the-Middle",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1557",
+    "status": null
+  },
+  {
+    "id": 2916,
+    "name": "T1557 – Steal or Forge Kerberos Ticket (AS-REP, Silver Ticket)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1557",
+    "status": null
+  },
+  {
+    "id": 288,
+    "name": "Name Resolution Poisoning and SMB Relay",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1557",
+    "status": null
+  },
+  {
+    "id": 2322,
+    "name": "T1557.001: Exfiltration Over Physical Media",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1557",
+    "status": null
+  },
+  {
+    "id": 546,
+    "name": "ARP Cache Poisoning",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1557",
+    "status": null
+  },
+  {
+    "id": 1652,
+    "name": "T1557.002: ARP Cache Poisoning",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1557",
+    "status": null
+  }
+]

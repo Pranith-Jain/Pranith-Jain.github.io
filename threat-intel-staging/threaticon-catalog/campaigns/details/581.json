@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:28:58.396Z",
+  "name": "akira: Alva Manufacturing",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 21, 2026",
+  "lastSeen": "Apr 21, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: alvamanufacturing.com | Infostealer data confirmed. | Alva Manufacturing specializes in CNC precision machining, focusi ng on milling and multi-axis turning for high-tech industries suc h as defense and space. They utilize state-of-the-art automated m achining centers and advanced measuring technology, including Hex agon CMM and Keyence systems. We will upload corporate data soon. Employee information (passpor ts, SSNs, addresses, phones, photos and so on), projects (BOEING and Lockheed Martin files and so on), financials, lots of NDAs an d so on. | Source: https://www.ransomware.live/id/QWx2YSBNYW51ZmFjdHVyaW5nQGFraXJh"
+}

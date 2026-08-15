@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:25:56.847Z",
+  "name": "Turkish espionage campaigns in the Netherlands",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 5, 2024",
+  "lastSeen": "Jan 5, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #439 (e101580d-ed36-40f4-b5ee-5a2d74673742)."
+}

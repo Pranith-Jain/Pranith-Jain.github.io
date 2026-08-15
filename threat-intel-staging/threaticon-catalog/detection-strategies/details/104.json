@@ -1,0 +1,12 @@
+{
+  "id": 104,
+  "fetchedAt": "2026-08-14T05:24:15.572Z",
+  "name": "Detection Strategy for System Services across OS platforms.",
+  "tlp": null,
+  "detId": "DET0279",
+  "stixId": "x-mitre-detection-strategy--38364d2d-7b25-4f75-9679-eca4dd18b213",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0778", "AN0779", "AN0780"]
+}

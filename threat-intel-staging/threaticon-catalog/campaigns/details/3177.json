@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:27.508Z",
+  "name": "Mars, a red-hot information stealer",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 8, 2022",
+  "lastSeen": "Apr 8, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #294 (5faf0670-ffa6-4da9-8329-935f9d48a687)."
+}

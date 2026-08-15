@@ -1,0 +1,12 @@
+{
+  "id": 653,
+  "fetchedAt": "2026-08-14T05:54:29.152Z",
+  "name": "Detection of LSA Secrets Dumping via Registry and Memory Extraction",
+  "tlp": null,
+  "detId": "DET0437",
+  "stixId": "x-mitre-detection-strategy--c29886a9-676a-441a-adcd-6f239f8eb6b0",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1212"]
+}

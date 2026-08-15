@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:24:40.942Z",
+  "name": "Maldoc Cybersecurity in the EU Common Security and Defense Policy",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Sep 11, 2021",
+  "lastSeen": "Sep 11, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #19 (199f8987-8a33-44ce-943a-a4b0482a950e)."
+}

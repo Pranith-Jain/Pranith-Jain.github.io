@@ -1,0 +1,9 @@
+{
+  "id": 1132,
+  "fetchedAt": "2026-08-15T06:22:04.739Z",
+  "name": "Session Credential Falsification through Prediction",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. This attack targets predictable session ID in order to gain privileges. The attacker can predict the session ID used during a transaction to perform spoofing and session hijacking."
+}

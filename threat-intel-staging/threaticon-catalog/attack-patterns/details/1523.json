@@ -1,0 +1,9 @@
+{
+  "id": 1523,
+  "fetchedAt": "2026-08-15T06:59:52.703Z",
+  "name": "T1048.003: Exfiltration Over Unencrypted Non-C2 Protocol",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

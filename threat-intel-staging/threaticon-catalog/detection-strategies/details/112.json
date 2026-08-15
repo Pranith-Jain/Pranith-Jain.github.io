@@ -1,0 +1,12 @@
+{
+  "id": 112,
+  "fetchedAt": "2026-08-14T05:21:27.244Z",
+  "name": "Detection of Multi-Platform File Encryption for Impact",
+  "tlp": null,
+  "detId": "DET0215",
+  "stixId": "x-mitre-detection-strategy--d080a1b1-5ad1-45a1-8f7b-b736986c20d9",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0602", "AN0603", "AN0604", "AN0605", "AN0606"]
+}

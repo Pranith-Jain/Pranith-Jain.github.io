@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:31.169Z",
+  "name": "OSINT - Evolution of SamSa Malware Suggests New Ransomware Tactics In Play",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 24, 2016",
+  "lastSeen": "Mar 24, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #369 (56f4497b-6134-468e-807e-fc08950d210f)."
+}

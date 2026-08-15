@@ -1,0 +1,12 @@
+{
+  "id": 255,
+  "fetchedAt": "2026-08-14T05:25:51.644Z",
+  "name": "Detect Persistence via Office Test Registry DLL Injection",
+  "tlp": null,
+  "detId": "DET0315",
+  "stixId": "x-mitre-detection-strategy--cb0a01e5-d88a-4ac8-a70a-1472c5dccd10",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0880", "AN0881"]
+}

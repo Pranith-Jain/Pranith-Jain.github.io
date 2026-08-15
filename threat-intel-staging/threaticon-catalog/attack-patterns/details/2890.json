@@ -1,0 +1,9 @@
+{
+  "id": 2890,
+  "fetchedAt": "2026-08-15T08:13:06.723Z",
+  "name": "T1552.002: Unsecured Credentials – .conf file extraction",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

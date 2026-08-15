@@ -1,0 +1,12 @@
+{
+  "id": 201,
+  "fetchedAt": "2026-08-14T05:20:14.293Z",
+  "name": "Detect Disabled Windows Event Log",
+  "tlp": null,
+  "detId": "DET0187",
+  "stixId": "x-mitre-detection-strategy--cfedfc6c-6e31-481b-be1e-e23a760fec44",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0535"]
+}

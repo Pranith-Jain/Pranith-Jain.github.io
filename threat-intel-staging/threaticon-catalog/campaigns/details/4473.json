@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:28:58.561Z",
+  "name": "embargo: www.maytrucking.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 30, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to embargo. | Country: US | Sector: Transportation/Logistics | Website: www.maytrucking.com | May Trucking Company is a family-owned interstate transport carrier founded in 1945, headquartered in Brooks, Oregon. They provide dry freight and temperature-c... - TOTAL QUANTITY OF DATA 1 TB | Source: https://www.ransomware.live/id/d3d3Lm1heXRydWNraW5nLmNvbUBlbWJhcmdv"
+}

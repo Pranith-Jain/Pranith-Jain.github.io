@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:32:56.437Z",
+  "name": "Looking Into a Cyber-Attack Facilitator in the Netherlands",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 21, 2016",
+  "lastSeen": "Apr 21, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #63 (571a5777-6664-46e9-8748-1478c0a8ab16)."
+}

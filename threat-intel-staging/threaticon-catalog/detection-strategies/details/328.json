@@ -1,0 +1,12 @@
+{
+  "id": 328,
+  "fetchedAt": "2026-08-14T05:13:58.523Z",
+  "name": "Detection of Lifecycle Policy Modifications for Triggered Deletion in IaaS Cloud Storage",
+  "tlp": null,
+  "detId": "DET0041",
+  "stixId": "x-mitre-detection-strategy--cfdf2a13-7059-4532-9d1c-f9129b0e3f7b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0117"]
+}

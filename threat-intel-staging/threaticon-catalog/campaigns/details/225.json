@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:46:47.880Z",
+  "name": "fulcrumsec: Crank Communications",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to fulcrumsec. | Country: US | Sector: Telecommunication | Website: crankcommunications.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/Q3JhbmsgQ29tbXVuaWNhdGlvbnNAZnVsY3J1bXNlYw=="
+}

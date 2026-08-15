@@ -1,0 +1,92 @@
+[
+  { "id": 2624, "name": "T1476", "tlp": "white", "confidence": null, "techniqueId": "T1476", "status": null },
+  { "id": 1332, "name": "T1476.002", "tlp": "white", "confidence": null, "techniqueId": "T1476", "status": null },
+  { "id": 2056, "name": "T1477", "tlp": "white", "confidence": null, "techniqueId": "T1477", "status": null },
+  {
+    "id": 383,
+    "name": "Execution Guardrails",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1480",
+    "status": null
+  },
+  {
+    "id": 656,
+    "name": "Environmental Keying",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1480",
+    "status": null
+  },
+  { "id": 222, "name": "Mutual Exclusion", "tlp": "white", "confidence": null, "techniqueId": "T1480", "status": null },
+  { "id": 3070, "name": "T1481", "tlp": "white", "confidence": null, "techniqueId": "T1481", "status": null },
+  { "id": 3087, "name": "T1481.002", "tlp": "white", "confidence": null, "techniqueId": "T1481", "status": null },
+  { "id": 2738, "name": "T1481.003", "tlp": "white", "confidence": null, "techniqueId": "T1481", "status": null },
+  {
+    "id": 331,
+    "name": "Domain Trust Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1482",
+    "status": null
+  },
+  {
+    "id": 1513,
+    "name": "T1482: Domain Trust Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1482",
+    "status": null
+  },
+  { "id": 2280, "name": "T1483.001", "tlp": "white", "confidence": null, "techniqueId": "T1483", "status": null },
+  {
+    "id": 638,
+    "name": "Domain or Tenant Policy Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1484",
+    "status": null
+  },
+  {
+    "id": 272,
+    "name": "Group Policy Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1484",
+    "status": null
+  },
+  {
+    "id": 114,
+    "name": "Trust Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1484",
+    "status": null
+  },
+  { "id": 582, "name": "Data Destruction", "tlp": "white", "confidence": null, "techniqueId": "T1485", "status": null },
+  {
+    "id": 1427,
+    "name": "T1485 (Network Denial-of-Service Exploitation)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1485",
+    "status": null
+  },
+  {
+    "id": 2104,
+    "name": "T1485 - Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1485",
+    "status": null
+  },
+  { "id": 1493, "name": "T1485 - DDoS", "tlp": "white", "confidence": null, "techniqueId": "T1485", "status": null },
+  {
+    "id": 1637,
+    "name": "T1485 - Data Destruction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1485",
+    "status": null
+  }
+]

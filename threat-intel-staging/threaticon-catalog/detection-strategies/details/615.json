@@ -1,0 +1,12 @@
+{
+  "id": 615,
+  "fetchedAt": "2026-08-14T05:56:33.645Z",
+  "name": "Detection of System Service Discovery Commands Across OS Platforms",
+  "tlp": null,
+  "detId": "DET0483",
+  "stixId": "x-mitre-detection-strategy--d8e8768e-34c1-45f4-95d2-fa7ba317b63a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1325", "AN1326", "AN1327"]
+}

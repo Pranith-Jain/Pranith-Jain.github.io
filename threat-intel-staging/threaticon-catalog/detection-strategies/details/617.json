@@ -1,0 +1,12 @@
+{
+  "id": 617,
+  "fetchedAt": "2026-08-14T05:27:15.399Z",
+  "name": "Detection Strategy for Masquerading via Legitimate Resource Name or Location",
+  "tlp": null,
+  "detId": "DET0347",
+  "stixId": "x-mitre-detection-strategy--b667390b-a805-401d-9e02-929204825114",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0983", "AN0984", "AN0985", "AN0986", "AN0987"]
+}

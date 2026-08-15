@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3652,
+    "name": "LeakBazaar: Disk Precision Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3672,
+    "name": "genesis: The American Board of Preventive Medicine",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: theabpm.org | Infostealer data confirmed. | A healthcare certification organization. | Source: https://www.ransomware.live/id/VGhlIEFtZXJpY2FuIEJvYXJkIG9mIFByZXZlbnRpdmUgTWVkaWNpbmVAZ2VuZXNpcw=="
+  },
+  {
+    "id": 3671,
+    "name": "genesis: CarePoint Health",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: CA | Sector: Healthcare | Website: carepointhealth.ca | Infostealer data confirmed. | CarePoint Health will provide all patients of the company's affiliated physicians who would benefit from team based care. | Source: https://www.ransomware.live/id/Q2FyZVBvaW50IEhlYWx0aEBnZW5lc2lz"
+  },
+  {
+    "id": 3670,
+    "name": "krybit: eclagestio360.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: ES | Sector: Business Services | Website: eclagestio360.com | Infostealer data confirmed. | ECLAGESTIÓ A Spanish company specializing in comprehensive management for businesses and individuals, operating in the... | Source: https://www.ransomware.live/id/ZWNsYWdlc3RpbzM2MC5jb21Aa3J5Yml0"
+  },
+  {
+    "id": 3651,
+    "name": "AuditTeam: Tr***ic",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AuditTeam. | Country: SN | Sector: Transportation/Logistics | Source: https://www.ransomware.live/id/VHIqKippY0BBdWRpdFRlYW0="
+  },
+  {
+    "id": 3650,
+    "name": "lynx: jacksoncountyin.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3649,
+    "name": "lynx: bayareaherbs.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lynx. | Country: US | Sector: Consumer Services | Website: bayareaherbs.com | Infostealer data confirmed. | Bay Area Herbs & Specialties is a leading supplier of fresh culinary herbs and specialty produce, serving the US market for nearly 20 years. They collaborate with top growers to provide high-quality products to retailers, foodservice distributors, and wholesalers. The company is committed to sustainability and innovative packaging, ensuring efficient delivery and customer satisfaction. Their expertise in the specialty produce category positions them as a trusted partner for chefs and businesses alike. | Source: https://www.ransomware.live/id/YmF5YXJlYWhlcmJzLmNvbUBseW54"
+  },
+  {
+    "id": 3648,
+    "name": "lynx: st-annes.uk.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3647,
+    "name": "lynx: lifelongaccess.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3645,
+    "name": "AiLock: Accretech America Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Manufacturing | Website: accretechsbs.com | Infostealer data confirmed. | Accretech America Inc. is the U.S. division of Tokyo Seimitsu Co., Ltd. of Japan, a Japanese corporation specialising in semiconductor equipment and precision instrumentation. | Source: https://www.ransomware.live/id/QWNjcmV0ZWNoIEFtZXJpY2EgSW5jLkBBaUxvY2s="
+  },
+  {
+    "id": 3644,
+    "name": "nitrogen: FOXCONN",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nitrogen. | Country: TW | Sector: Manufacturing | Website: www.foxconn.com | The world's largest contract electronics manufacturer, whose operations are officially divided into four key segments: consumer electronics, cloud and networking products, computing equipment, as well as components and other products. | Press: https://dysruptionhub.com/foxconn-wisconsin-cyber-outage/ | Source: https://www.ransomware.live/id/Rk9YQ09OTkBuaXRyb2dlbg=="
+  },
+  {
+    "id": 3643,
+    "name": "akira: Nijborg Staal",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: NL | Sector: Manufacturing | Website: nijborgstaal.nl | Infostealer data confirmed. | Nijborg Staal B.V. specializes in the delivery and installation of steel constructions, stairs, and railings, as well as various special metal works. The company prides itself on being a rel iable, flexible, and service-oriented partner, ensuring high-quality standards in all projects. We will upload 10gb of corporate data soon. Employee personal information (passports, ID cards and so on), contracts, projects information (drawings, specifications, etc), financials and so on. | Source: https://www.ransomware.live/id/TmlqYm9yZyBTdGFhbEBha2lyYQ=="
+  },
+  {
+    "id": 3642,
+    "name": "akira: Circle U Foods",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Agriculture and Food Production | Website: circleufoods.com | Infostealer data confirmed. | Circle U Foods, Inc. is a manufacturer of custom seasonings and flavored food grade oils based in Fort Worth, TX. The company serves domestic and international restaurant chains, distributor s, and food manufacturers. We will upload 13gb of corporate data soon. Employee personal information (phones, addresses, e mails, SSNs, passports numbers and so on), client data, financials, payment details, projects i nformation (drawings, specifications, etc), NDAs and so on. | Source: https://www.ransomware.live/id/Q2lyY2xlIFUgRm9vZHNAYWtpcmE="
+  },
+  {
+    "id": 3641,
+    "name": "akira: Clarkson Walsh & Coulter",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3640,
+    "name": "coinbasecartel: Cass information Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: cassinfo.com | Infostealer data confirmed. | [AI generated] Cass Information Systems is a US-based company specializing in payment and information services. It provides freight invoice processing, auditing, and payment solutions, along with utility and telecom expense management. Operating primarily in the financial technology and business process outsourcing industry, Cass serves large corporations across North America and globally, helping clients manage and analyze invoice data to optimize spending and operational efficiency. | Source: https://www.ransomware.live/id/Q2FzcyBpbmZvcm1hdGlvbiBTeXN0ZW1zQGNvaW5iYXNlY2FydGVs"
+  }
+]

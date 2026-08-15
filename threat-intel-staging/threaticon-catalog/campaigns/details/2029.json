@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:24:03.036Z",
+  "name": "New OS X Ransomware KeRanger Infected Transmission BitTorrent Client Installer",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 6, 2016",
+  "lastSeen": "Mar 6, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #41 (56dc8c8c-a3f4-4a60-9f4c-b375c0a8ab16)."
+}

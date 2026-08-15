@@ -1,0 +1,12 @@
+{
+  "id": 253,
+  "fetchedAt": "2026-08-14T06:06:03.337Z",
+  "name": "Detection of Link Target",
+  "tlp": null,
+  "detId": "DET0893",
+  "stixId": "x-mitre-detection-strategy--020447ec-f030-4b95-a187-255177b69d9f",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2025"]
+}

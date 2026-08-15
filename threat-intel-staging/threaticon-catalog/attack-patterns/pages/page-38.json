@@ -1,0 +1,127 @@
+[
+  {
+    "id": 216,
+    "name": "Direct Cloud VM Connections",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1021",
+    "status": null
+  },
+  {
+    "id": 2313,
+    "name": "T1021: Remote Services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1021",
+    "status": null
+  },
+  { "id": 2025, "name": "T1022", "tlp": "white", "confidence": null, "techniqueId": "T1022", "status": null },
+  {
+    "id": 1983,
+    "name": "T1022.001 - Internal AD Query - DC_sync",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1022",
+    "status": null
+  },
+  { "id": 2652, "name": "T1023", "tlp": "white", "confidence": null, "techniqueId": "T1023", "status": null },
+  {
+    "id": 2263,
+    "name": "T1024 (Credentials Obtainment)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1024",
+    "status": null
+  },
+  {
+    "id": 1808,
+    "name": "T1024 - Valid Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1024",
+    "status": null
+  },
+  { "id": 1815, "name": "T1024.004", "tlp": "white", "confidence": null, "techniqueId": "T1024", "status": null },
+  {
+    "id": 87,
+    "name": "Data from Removable Media",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1025",
+    "status": null
+  },
+  {
+    "id": 2440,
+    "name": "T1025 - Custom C2 Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1025",
+    "status": null
+  },
+  {
+    "id": 2155,
+    "name": "T1025 - Fraudulent Messages",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1025",
+    "status": null
+  },
+  {
+    "id": 2344,
+    "name": "T1025 - Kernel Driver",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1025",
+    "status": null
+  },
+  { "id": 1746, "name": "T1025.003", "tlp": "white", "confidence": null, "techniqueId": "T1025", "status": null },
+  {
+    "id": 2319,
+    "name": "T1025: Remote Services: RDP",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1025",
+    "status": null
+  },
+  {
+    "id": 2528,
+    "name": "T1026 - Exploitation of Vulnerability",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1026",
+    "status": null
+  },
+  {
+    "id": 477,
+    "name": "Obfuscated Files or Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1027",
+    "status": null
+  },
+  {
+    "id": 1799,
+    "name": "T1027 - Account Access Removal",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1027",
+    "status": null
+  },
+  { "id": 2426, "name": "T1027 - Bootkit", "tlp": "white", "confidence": null, "techniqueId": "T1027", "status": null },
+  {
+    "id": 2297,
+    "name": "T1027 - Obfuscated Files or Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1027",
+    "status": null
+  },
+  {
+    "id": 2925,
+    "name": "T1027 Hide Artifact (Obfuscated Files)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1027",
+    "status": null
+  }
+]

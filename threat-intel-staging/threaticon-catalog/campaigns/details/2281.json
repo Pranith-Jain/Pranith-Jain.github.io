@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:13:07.898Z",
+  "name": "A hack in hand is worth two in the bush",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Oct 16, 2023",
+  "lastSeen": "Oct 16, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #447 (f9308085-291a-42b5-869d-d9b60620468d)."
+}

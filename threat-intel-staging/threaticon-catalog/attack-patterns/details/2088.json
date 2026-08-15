@@ -1,0 +1,9 @@
+{
+  "id": 2088,
+  "fetchedAt": "2026-08-15T07:53:38.601Z",
+  "name": "T1218.003 -Credential Dumping via LSASS Memory",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4047,
+    "name": "qilin: Cemoi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Agriculture and Food Production | Website: www.cemoi.fr | N/A | Source: https://www.ransomware.live/id/Q2Vtb2lAcWlsaW4="
+  },
+  {
+    "id": 4046,
+    "name": "qilin: Jakub A.S.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CZ | Sector: Not Found | Website: www.jakub.cz | N/A | Source: https://www.ransomware.live/id/SmFrdWIgQS5TLkBxaWxpbg=="
+  },
+  {
+    "id": 4044,
+    "name": "qilin: Counts & Dobyns",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.countsanddobyns.com | N/A | Source: https://www.ransomware.live/id/Q291bnRzICYgRG9ieW5zQHFpbGlu"
+  },
+  {
+    "id": 4050,
+    "name": "titan: Ozmit s.r.o.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to titan. | Country: CZ | Sector: Not Found | [AI generated] N/A | Source: https://www.ransomware.live/id/T3ptaXQgcy5yLm8uQHRpdGFu"
+  },
+  {
+    "id": 4045,
+    "name": "qilin: Centro Científico e Cultural de Macau",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PT | Sector: Education | Website: www.cccm.gov.pt | N/A | Source: https://www.ransomware.live/id/Q2VudHJvIENpZW50w61maWNvIGUgQ3VsdHVyYWwgZGUgTWFjYXVAcWlsaW4="
+  },
+  {
+    "id": 4048,
+    "name": "qilin: Busscar de Colombia",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CO | Sector: Transportation/Logistics | Website: www.busscar.com.co | N/A | Source: https://www.ransomware.live/id/QnVzc2NhciBkZSBDb2xvbWJpYUBxaWxpbg=="
+  },
+  {
+    "id": 4043,
+    "name": "PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #80 (57cdf2a2-1abc-4e51-a31d-7e7dc0a8ab16)."
+  },
+  {
+    "id": 4042,
+    "name": "OSINT - PlugX-Ñ‚ Ó©Ñ€Ñ‚ÑÓ©Ð½ ÑÐ¸ÑÑ‚ÐµÐ¼Ð¸Ð¹Ð³ Ñ†ÑÐ²ÑÑ€Ð»ÑÑ… Ð½ÑŒ",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #58 (565d5025-a6bc-4a5f-b19b-a175950d210b)."
+  },
+  {
+    "id": 4041,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 4040,
+    "name": "nightspire: Cabinet d’Étude en Sécurité Pyrotechnique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.cespyro.com | Data is not available now. | Source: https://www.ransomware.live/id/Q2FiaW5ldCBk4oCZw4l0dWRlIGVuIFPDqWN1cml0w6kgUHlyb3RlY2huaXF1ZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 4039,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 4036,
+    "name": "incransom: threadinnovations",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: CA | Sector: Technology | Website: trendinnovations.ca | Infostealer data confirmed. | Thread has developed a proprietary technology for the production of cost-effective, efficient, and scalable carbon fiber. This process is based on utilizing the natural molecular structure of asphaltenes found in oil sands bitumen. Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&D, and financial documentation. | Source: https://www.ransomware.live/id/dGhyZWFkaW5ub3ZhdGlvbnNAaW5jcmFuc29t"
+  },
+  {
+    "id": 4037,
+    "name": "dragonforce: Le Pain Quotidien US",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Hospitality and Tourism | Website: lepainquotidien.com | Infostealer data confirmed. | Established in 1990 and headquartered in New York, New York, Le Pain Quotidien US is a chain of bakery restaurants specializing in baked goods, bread, salads, sandwiches, beverages, tartines, and more. | Source: https://www.ransomware.live/id/TGUgUGFpbiBRdW90aWRpZW4gVVNAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 4038,
+    "name": "apt73: tvnmedia.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: PL | Sector: Telecommunication | Website: tvnmedia.com | Infostealer data confirmed. | TVN Media is a multimedia company from Panama, engaged in broadcasting, radio, digital media and ... | Source: https://www.ransomware.live/id/dHZubWVkaWEuY29tQGFwdDcz"
+  },
+  {
+    "id": 4035,
+    "name": "akira: Function Enterprises",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Not Found | Function Enterprises, Inc. is a trusted roofing company based in Springfield, VA, offering a ra nge of services including roofing construction, commercial roofing, infrared inspection, and du mpster rentals. They prioritize client trust and satisfaction, providing a free one-hour consul tation for new clients. We will upload corporate data soon. Employee personal information (passports, DLs), contracts a nd agreements, clients info, financials, projects, etc. | Source: https://www.ransomware.live/id/RnVuY3Rpb24gRW50ZXJwcmlzZXNAYWtpcmE="
+  }
+]

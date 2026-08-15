@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:57:30.430Z",
+  "name": "OSINT - Unravelling .NET with the Help of WinDBG",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 19, 2017",
+  "lastSeen": "Jul 19, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1115 (596f7d10-18f4-44d9-ae66-48d3950d210f)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4624,
+    "name": "qilin: Pacific Lamp & Supply",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.pacificlamp.com | N/A | Source: https://www.ransomware.live/id/UGFjaWZpYyBMYW1wICYgU3VwcGx5QHFpbGlu"
+  },
+  {
+    "id": 4634,
+    "name": "nova: One Believing Interiors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Sector: Consumer Services | onebelieving.com One Believing is an interior design studio that specializes in creating inspiring built spaces. They offer a range of services aimed at enhancing the aesthetic and functional aspects of various environments. Their portfolio includes notable projects such as the National Gallery, showcasing their expertise in design. The company targets clients looking for innovative and creative interior design solutions - Nova Provide tree and samples from stolen data to the company with decrypt 1 file as sample when its get in touch with support department. | Source: https://www.ransomware.live/id/T25lIEJlbGlldmluZyBJbnRlcmlvcnNAbm92YQ=="
+  },
+  {
+    "id": 4635,
+    "name": "cmdorganization: Pinnacle Re-Tec",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4614,
+    "name": "qilin: Sivatel Bangkok",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TH | Sector: Telecommunication | Website: www.sivatelbangkok.com | N/A | Source: https://www.ransomware.live/id/U2l2YXRlbCBCYW5na29rQHFpbGlu"
+  },
+  {
+    "id": 4626,
+    "name": "worldleaks: Super Finishing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: BR | Sector: Manufacturing | Website: www.superfinishing.com.br | [AI generated] N/A | Source: https://www.ransomware.live/id/U3VwZXIgRmluaXNoaW5nQHdvcmxkbGVha3M="
+  },
+  {
+    "id": 4627,
+    "name": "payload: ENB Versicherungen | myenb.ch",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: CH | Sector: Financial Services | enb AG is an independent insurance broker that collaborates with leading insurance companies to provide tailored insurance solutions. They assist both private and corporate clients in navigating the complexities of insurance products, offering services such as health insurance, vehicle insurance, and liability insurance. The company emphasizes the importance of employee satisfaction and offers professional pension plans and collective accident insurance for businesses. | Source: https://www.ransomware.live/id/RU5CIFZlcnNpY2hlcnVuZ2VuIHwgbXllbmIuY2hAcGF5bG9hZA=="
+  },
+  {
+    "id": 4628,
+    "name": "payload: Editora Irmãos Vitale",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: BR | Sector: Education | Editora Irmãos Vitale is a traditional Brazilian music publisher specializing in music editions and printed music. They offer a range of products including musical works, archives, methods, songbooks, and e-books. Their services also encompass synchronization and licensing for artists and authors. | Source: https://www.ransomware.live/id/RWRpdG9yYSBJcm3Do29zIFZpdGFsZUBwYXlsb2Fk"
+  },
+  {
+    "id": 4609,
+    "name": "cmdorganization: Union Tractor",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4610,
+    "name": "aurora: NTP B.V. Civil Engineering Construction",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4611,
+    "name": "aurora: Kochs GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4612,
+    "name": "aurora: NationsBuilders Insurance Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to aurora. | Sector: Financial Services | Website: NationsBuilders Insurance Services | [insurance] *** (NBIS) is the premier US underwriter of crane & rigging, concrete-pumping, heavy-haul, and residential-builder insurance — a specialty managing general underwriter founded in Atlanta in 2001, acquired by Align Financial / DUAL North America (Howden Group) in August 2021. 2,748,845 filetree entries across 24 shares (AIM, IMAGERIGHT, the claims and policy-admin stores, HR, finance, IT, and a decade of M&A diligence rooms). | Source: https://www.ransomware.live/id/TmF0aW9uc0J1aWxkZXJzIEluc3VyYW5jZSBTZXJ2aWNlc0BhdXJvcmE="
+  },
+  {
+    "id": 4606,
+    "name": "qilin: Central Bank of Libya",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: LY | Sector: Financial Services | Website: www.cbl.gov.ly | N/A | Press: https://libyaobserver.ly/news/cbl-cyberattack-contained-investigations-ongoing-no-signs-impact-customer-accounts | Source: https://www.ransomware.live/id/Q2VudHJhbCBCYW5rIG9mIExpYnlhQHFpbGlu"
+  },
+  {
+    "id": 4607,
+    "name": "dragonforce: bits-pilani.ac.in",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: IN | Sector: Education | Website: bits-pilani.ac.in | Infostealer data confirmed. | BITS Pilani is a premier Indian private research university and \"Institution of Eminence\" known for elite engineering and science programs across five campuses. Founded in 1964, it is highly selective with a 1.47% acceptance rate and offers a 0% attendance policy with mandatory industry immersion. | Source: https://www.ransomware.live/id/Yml0cy1waWxhbmkuYWMuaW5AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 4608,
+    "name": "dragonforce: mihana-v.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: RU | Sector: Not Found | Website: mihana-v.com | Infostealer data confirmed. | Here is the comprehensive corporate overview of MIHANA Seisakusho Co., Ltd. based on their official company profiles, technical catalogs, and industrial registries | Source: https://www.ransomware.live/id/bWloYW5hLXYuY29tQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 4597,
+    "name": "Icarus: Gms-net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Technology | Salesforce data for this corp. Data stolen: SF data - compressed | Source: https://www.ransomware.live/id/R21zLW5ldEBJY2FydXM="
+  }
+]

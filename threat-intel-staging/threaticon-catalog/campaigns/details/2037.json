@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:23:41.735Z",
+  "name": "PETYA Crypto-ransomware Overwrites MBR to Lock Users Out of Their Computers",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 25, 2016",
+  "lastSeen": "Mar 25, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #49 (56f6f3e4-cdb8-4d6f-b5b1-c0cbc0a8ab16)."
+}

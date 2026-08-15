@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:13:10.471Z",
+  "name": "Malspam 2016-08-23 (.wsf in .zip) - campaign: \"New voice mail message from [RANDOM]\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 23, 2016",
+  "lastSeen": "Aug 23, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #827 (57bc3c97-4468-4077-b757-8d97950d210f)."
+}

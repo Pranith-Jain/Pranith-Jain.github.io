@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:50:01.280Z",
+  "name": "safepay: fital-treppenlifte.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 4, 2026",
+  "lastSeen": "May 4, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Consumer Services | Website: fital-treppenlifte.de | Infostealer data confirmed. | Is a German company specializing in stairlifts and mobility solutions for individuals with reduced mobility. The company operates in the … | Source: https://www.ransomware.live/id/Zml0YWwtdHJlcHBlbmxpZnRlLmRlQHNhZmVwYXk="
+}

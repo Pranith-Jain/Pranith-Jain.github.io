@@ -1,0 +1,9 @@
+{
+  "id": 2839,
+  "fetchedAt": "2026-08-15T06:47:08.032Z",
+  "name": "T1003.001 - Credential Dumping: Mimikatz",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

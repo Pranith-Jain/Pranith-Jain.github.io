@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:00:24.956Z",
+  "name": "Tech Support Scam Synchs Alerts with App Crashes in Windows Event Logs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 16, 2017",
+  "lastSeen": "Mar 16, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1013 (58cbac05-b7d0-4f38-84fb-0928950d210f)."
+}

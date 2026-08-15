@@ -1,0 +1,12 @@
+{
+  "id": 241,
+  "fetchedAt": "2026-08-14T05:27:26.343Z",
+  "name": "Unix-like File Permission Manipulation Behavioral Chain Detection Strategy",
+  "tlp": null,
+  "detId": "DET0351",
+  "stixId": "x-mitre-detection-strategy--3243e976-0cf8-4f18-8b50-38b9ee5bfc4c",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0998", "AN0999"]
+}

@@ -1,0 +1,115 @@
+[
+  { "id": 4064, "name": "D1R: ARM", "tlp": "white", "confidence": 80, "status": "Inactive", "description": null },
+  {
+    "id": 4059,
+    "name": "akira: Transworld Signs",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: CA | Sector: Business Services | Website: transworldsigns.com | Infostealer data confirmed. | Transworld Signs produces and sources a complete range of promotional and POP graphics. The com pany offers digital and standard menu boards, large scale graphics and any other interior graph ics or signage to support the company's customers' needs. We will upload 17gb of corporate data soon. Employee personal information (names, DOB and so on ), projects files, financials, client internal information, contracts and agreements and so on. | Source: https://www.ransomware.live/id/VHJhbnN3b3JsZCBTaWduc0Bha2lyYQ=="
+  },
+  {
+    "id": 4060,
+    "name": "akira: Ironmark",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: ironmarkusa.com | Infostealer data confirmed. | Founded and headquartered in Annapolis Junction, Maryland, Ironmark is a provider of marketing, creative, printing and communications services. They specialize in marketing strategy, creativ e & web development, digital marketing, printing services, and more. We will upload 190gb of corporate data soon. Employee personal information (passports, DLs and other personal information), projects information, detailed financials, client internal informa tion, contracts and agreements, NDAs and so on. | Source: https://www.ransomware.live/id/SXJvbm1hcmtAYWtpcmE="
+  },
+  {
+    "id": 4058,
+    "name": "dragonforce: Nicholson y Cano Abogados",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: AR | Sector: Business Services | Website: www.nicholsonycano.com.ar | Nicholson y Cano is a leading full-service law firm in Argentina, established in 1976, with a team of 29 partners and over 150 lawyers. The firm provides exceptional legal services to both local and international clients across all sectors of the economy, focusing on strategic solutions that drive business success. With expertise in 20 practice areas, they handle complex legal matters and transactions. Their commitment to client success is reflected in their personalized attention and innovative approaches. | Source: https://www.ransomware.live/id/TmljaG9sc29uIHkgQ2FubyBBYm9nYWRvc0BkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 4061,
+    "name": "spacebears: Techpol-System",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to spacebears. | Country: PL | Sector: Technology | Website: techpolsystem.pl | Infostealer data confirmed. | Techpol-System, based in Bieruń, Poland, is an engineering enterprise specializing in industrial power solutions, including traction battery maintenance, along with laser processing and steel structure fabrication. The company provides comprehensive, end-to-end services tailored to industrial clients through precision manufacturing and system integration.-Personal information of employees and clients -Financial documents -Other files https://***.pl/ | Source: https://www.ransomware.live/id/VGVjaHBvbC1TeXN0ZW1Ac3BhY2ViZWFycw=="
+  },
+  {
+    "id": 4055,
+    "name": "safepay: shuttlemeadowcc.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Consumer Services | Website: shuttlemeadowcc.com | Infostealer data confirmed. | Founded in 1917, the club is one of the oldest and most prestigious private golf clubs in New England. It … | Source: https://www.ransomware.live/id/c2h1dHRsZW1lYWRvd2NjLmNvbUBzYWZlcGF5"
+  },
+  {
+    "id": 4056,
+    "name": "dragonforce: Northeast Rescue Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4062,
+    "name": "spacebears: Turbosoft",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to spacebears. | Country: CM | Sector: Technology | Website: turbosoft.cm/en/home | We specialize in the design and construction of IT and management systems. With us, you manage your business efficiently. Whether for Payroll, Accounting, Human Resources, Finance or Health, many customers trust Turbosoft solutions in Cameroon.-Personal information of employees and clients -Financial documents -Other files https://***.cm/en/home/ | Source: https://www.ransomware.live/id/VHVyYm9zb2Z0QHNwYWNlYmVhcnM="
+  },
+  {
+    "id": 4057,
+    "name": "nightspire: Webosphere",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: IN | Sector: Technology | Website: webosphere.in | Infostealer data confirmed. | -SQL Database- Source Code | Source: https://www.ransomware.live/id/V2Vib3NwaGVyZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 4063,
+    "name": "D1R: Bosch",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to D1R. | Country: DE | Sector: Manufacturing | Website: bosch.de | Infostealer data confirmed. | Again, thanks to database Synopsys provided us with After analyzing technical leaks by other groups and cross-referencing targets from TARGETLIST.txt A company access was found and in the archives, a $10,000 gem: Bosch CAN module implementation Now it is going for free for every engineer and car enthusiast, thanks to Synopsys providing us with neat roadmap to tech sector Sorry, Bosch, you got third-partied! Call the Synopsys CEO and thank them for letting us all know where the valuable data is! | Source: https://www.ransomware.live/id/Qm9zY2hARDFS"
+  },
+  {
+    "id": 4052,
+    "name": "qilin: Hillebrand Home Health",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.hillebrandhomehealth.com | N/A | Source: https://www.ransomware.live/id/SGlsbGVicmFuZCBIb21lIEhlYWx0aEBxaWxpbg=="
+  },
+  {
+    "id": 4051,
+    "name": "titan: Cooperate consulting CZ s.r.o.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to titan. | Country: CZ | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/Q29vcGVyYXRlIGNvbnN1bHRpbmcgQ1ogcy5yLm8uQHRpdGFu"
+  },
+  {
+    "id": 4053,
+    "name": "qilin: URH Hoteliers",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Hospitality and Tourism | Website: www.urh-hoteliers.com | N/A | Source: https://www.ransomware.live/id/VVJIIEhvdGVsaWVyc0BxaWxpbg=="
+  },
+  {
+    "id": 4054,
+    "name": "qilin: TitanTV, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.titantvinc.com | N/A | Source: https://www.ransomware.live/id/VGl0YW5UViwgSW5jLkBxaWxpbg=="
+  },
+  {
+    "id": 4047,
+    "name": "qilin: Cemoi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Agriculture and Food Production | Website: www.cemoi.fr | N/A | Source: https://www.ransomware.live/id/Q2Vtb2lAcWlsaW4="
+  }
+]

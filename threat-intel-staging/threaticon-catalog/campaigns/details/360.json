@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:38:52.847Z",
+  "name": "m3rx: rotak.it",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 29, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: IT | Sector: Technology | Website: rotak.it | Infostealer data confirmed. | Rotak (specifically in the context of Rotak Instruments) focuses on the distribution of specialized medical and analytical instrumentation, with related entities in industrial engineering and automation Stolen: 22.5gb 20k files | Source: https://www.ransomware.live/id/cm90YWsuaXRAbTNyeA=="
+}

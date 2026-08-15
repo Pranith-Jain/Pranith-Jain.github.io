@@ -1,0 +1,9 @@
+{
+  "id": 2591,
+  "fetchedAt": "2026-08-15T07:07:42.039Z",
+  "name": "T1059.003 - Command and Scripting Interpreter: Windows Command Shell (post-compromise activities)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 1, 2026",
+  "description": null
+}

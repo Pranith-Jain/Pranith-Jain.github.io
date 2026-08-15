@@ -1,0 +1,12 @@
+{
+  "id": 487,
+  "fetchedAt": "2026-08-14T06:05:17.203Z",
+  "name": "Detection of Compromise Accounts",
+  "tlp": null,
+  "detId": "DET0876",
+  "stixId": "x-mitre-detection-strategy--a1d413d7-0a28-45ce-9e4d-d250b4b6a492",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2008"]
+}

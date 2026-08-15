@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:21:43.692Z",
+  "name": "Pivot on What's in a server name (on APT28/Sofacy) by ThreatConnect",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 11, 2016",
+  "lastSeen": "Jul 11, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #631 (5783a00e-27d8-4e5a-ac92-aec6950d210f)."
+}

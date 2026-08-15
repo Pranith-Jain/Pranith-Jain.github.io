@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:57:55.173Z",
+  "name": "lockbit5: briggsplc.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: GB | Sector: Manufacturing | Website: briggsplc.com | Briggs began operations in 1740. As a well-known UK-based company in the engineering equipment indus... | Source: https://www.ransomware.live/id/YnJpZ2dzcGxjLmNvbUBsb2NrYml0NQ=="
+}

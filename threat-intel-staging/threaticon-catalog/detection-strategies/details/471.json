@@ -1,0 +1,12 @@
+{
+  "id": 471,
+  "fetchedAt": "2026-08-14T06:06:11.995Z",
+  "name": "Detection of Web Services",
+  "tlp": null,
+  "detId": "DET0896",
+  "stixId": "x-mitre-detection-strategy--71b2e30c-f793-42a8-85be-f782c908772c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2028"]
+}

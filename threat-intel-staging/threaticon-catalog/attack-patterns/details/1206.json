@@ -1,0 +1,9 @@
+{
+  "id": 1206,
+  "fetchedAt": "2026-08-15T06:25:18.858Z",
+  "name": "SQL Injection",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. This attack exploits target software that constructs SQL statements based on user input. An attacker crafts input strings so that when the target software constructs SQL statements based on the input, the resulting SQL statement performs actions other than those the application intended. SQL Injection results from failure of the application to appropriately validate input."
+}

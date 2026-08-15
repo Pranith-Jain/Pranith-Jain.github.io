@@ -1,0 +1,12 @@
+{
+  "id": 134,
+  "fetchedAt": "2026-08-14T05:49:37.274Z",
+  "name": "Detect Access to macOS Keychain for Credential Theft",
+  "tlp": null,
+  "detId": "DET0396",
+  "stixId": "x-mitre-detection-strategy--cc6c18b5-1fa6-4e27-8c78-e479428bef44",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1112"]
+}

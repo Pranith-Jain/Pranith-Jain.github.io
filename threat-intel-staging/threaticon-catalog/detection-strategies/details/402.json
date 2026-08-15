@@ -1,0 +1,12 @@
+{
+  "id": 402,
+  "fetchedAt": "2026-08-14T05:59:08.570Z",
+  "name": "Multi-Platform Behavioral Detection for Compute Hijacking",
+  "tlp": null,
+  "detId": "DET0540",
+  "stixId": "x-mitre-detection-strategy--be288974-9b74-41c1-8c43-66aef169255a",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1489", "AN1490", "AN1491", "AN1492", "AN1493"]
+}

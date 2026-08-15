@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:54.155Z",
+  "name": "Banco Estado Chile REvil attack",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Sep 8, 2020",
+  "lastSeen": "Sep 8, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #232 (5f573f53-5ac0-44f3-9756-d686c0a8ab16)."
+}

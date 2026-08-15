@@ -1,0 +1,12 @@
+{
+  "id": 603,
+  "fetchedAt": "2026-08-14T05:58:38.668Z",
+  "name": "Behavioral Detection of Native API Invocation via Unusual DLL Loads and Direct Syscalls",
+  "tlp": null,
+  "detId": "DET0529",
+  "stixId": "x-mitre-detection-strategy--36654ec6-5019-4e79-b299-1fbf3a03e064",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1465", "AN1466", "AN1467"]
+}

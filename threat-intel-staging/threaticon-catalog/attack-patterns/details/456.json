@@ -1,0 +1,9 @@
+{
+  "id": 456,
+  "fetchedAt": "2026-08-15T07:54:36.423Z",
+  "name": "Remote Access Hardware",
+  "tlp": "white",
+  "techniqueId": "DET0159",
+  "added": "May 2, 2026",
+  "description": "An adversary may use legitimate remote access hardware to establish an interactive command and control channel to target systems within networks. These services, including IP-based keyboard, video, or mouse (KVM) devices such as TinyPilot and PiKVM, are commonly used as legitimate tools and may be allowed by peripheral device policies within a target environment. Remote access hardware may be physically installed and used post-compromise as an alternate communications channel for redundant access or as a way to establish an interactive remote session with the target system. Using hardware-based remote access tools may allow threat actors to bypass software security solutions and gain more control over the compromised device(s).(Citation: Palo Alto Unit 42 North Korean IT Workers 2024)(Citation: Google Cloud Threat Intelligence DPRK IT Workers 2024)"
+}

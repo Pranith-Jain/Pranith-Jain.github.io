@@ -1,0 +1,12 @@
+{
+  "id": 435,
+  "fetchedAt": "2026-08-14T05:57:51.730Z",
+  "name": "Detection of Exfiltration Over Asymmetric Encrypted Non-C2 Protocol",
+  "tlp": null,
+  "detId": "DET0512",
+  "stixId": "x-mitre-detection-strategy--d187b646-5fb3-4d65-a190-e25e2131f802",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1413", "AN1414", "AN1415", "AN1416"]
+}

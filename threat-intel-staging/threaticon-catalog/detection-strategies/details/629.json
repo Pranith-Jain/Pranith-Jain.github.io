@@ -1,0 +1,12 @@
+{
+  "id": 629,
+  "fetchedAt": "2026-08-14T05:56:17.469Z",
+  "name": "Behavioral Detection of WinRM-Based Remote Access",
+  "tlp": null,
+  "detId": "DET0477",
+  "stixId": "x-mitre-detection-strategy--7ff1f384-2373-4ea9-9311-1587b520a5c4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1313"]
+}

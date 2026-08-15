@@ -1,0 +1,12 @@
+{
+  "id": 627,
+  "fetchedAt": "2026-08-14T06:06:14.809Z",
+  "name": "Detection of Selective Exclusion",
+  "tlp": null,
+  "detId": "DET0897",
+  "stixId": "x-mitre-detection-strategy--7c1262bb-c0d1-4e0c-bab8-a232f7bed9d5",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2030"]
+}

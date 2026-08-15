@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:34:34.736Z",
+  "name": "dragonforce: mopec.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: mopec.com | Infostealer data confirmed. | Mopec supplies American-made medical equipment and laboratory products for pathological, histological, autopsy, and morgue services. | Source: https://www.ransomware.live/id/bW9wZWMuY29tQGRyYWdvbmZvcmNl"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:01:08.104Z",
+  "name": "Dark Project: Long-Lewis Automotive Group",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to Dark Project. | Country: US | Sector: Not Found | Website: www.longlewis.com | About Long-Lewis Automotive Group The Long-Lewis Auto Group is Alabama’s largest automotive retailer, with origins tracing back to a hardware store founded in Bessemer, Alabama, in 1887. It became one of the nation's very first Ford dealerships in 1915 and operates multiple dealerships across the state. Following a successful cyberattack on Long Lewis, more than 500 GB of confidential information was stolen. More than 15,000 records containing personal data of the organization’s customers and employees, important financial and banking documents, and other valuable company information were compromised. Currently, Long Lewis lost control of more than 650,000 files. | Source: https://www.ransomware.live/id/TG9uZy1MZXdpcyBBdXRvbW90aXZlIEdyb3VwQERhcmsgUHJvamVjdA=="
+}

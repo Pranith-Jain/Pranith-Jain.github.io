@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:13:32.778Z",
+  "name": "dragonforce: Ink",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 14, 2026",
+  "lastSeen": "Jun 14, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Not Found | Website: weareink.co.uk | Infostealer data confirmed. | (including internal documentation, counterparties, contractors, software, correspondence, and the like) INK is an award-winning production studio based in London specialising in CGI, Animation and Retouching. We combine the technical and the beautiful to bring ideas to life across film, print and interactive platforms. | Source: https://www.ransomware.live/id/SW5rQGRyYWdvbmZvcmNl"
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2057,
+    "name": "Group5: Syria and the Iranian Connection",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #76 (57a98a69-abbc-419b-bb34-21cfc0a8ab16)."
+  },
+  {
+    "id": 2056,
+    "name": "New Sofacy Attacks Against US Government Agency",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #72 (57607369-2490-444a-9034-049fc0a8ab16)."
+  },
+  {
+    "id": 2055,
+    "name": "Windows Background Intelligent Transfer Service (BITS) used to download malware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #71 (575af97c-8ad0-4d72-9322-04a2c0a8ab16)."
+  },
+  {
+    "id": 2054,
+    "name": "Neutrino EK and CryptXXX",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #70 (5759d4d5-adf0-4c4b-9016-0688c0a8ab16)."
+  },
+  {
+    "id": 2053,
+    "name": "The Kelihos & Severa; the \"All Out\" version",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #69 (57474fa7-6960-48e0-8f30-04c8c0a8ab16)."
+  },
+  {
+    "id": 2052,
+    "name": "Malware used in the Cyberespionage against RUAG",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #68 (574403bc-df24-4575-a198-04cac0a8ab16)."
+  },
+  {
+    "id": 2051,
+    "name": "EITest campaign still going strong",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #67 (573eb9bc-9ac0-43d9-b133-07a4c0a8ab16)."
+  },
+  {
+    "id": 2049,
+    "name": "Malware Takes Advantage of Windows â€˜God Modeâ€™",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #64 (5723c7b6-e900-4cf2-9ebf-07a2c0a8ab16)."
+  },
+  {
+    "id": 2050,
+    "name": "Operation Groundbait: Espionage in Ukrainian war zones",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #66 (573d66a1-cc94-41aa-9684-07a6c0a8ab16)."
+  },
+  {
+    "id": 2048,
+    "name": "Retefe is back in town",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #62 (571a5483-ccf8-416e-8679-1478c0a8ab16)."
+  },
+  {
+    "id": 2047,
+    "name": "Jigsaw Ransomware Decrypted: Will delete your files until you pay the Ransom",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #61 (570ddcea-682c-4b06-ab9e-080bc0a8ab16)."
+  },
+  {
+    "id": 2046,
+    "name": "Large malvertising campaign hits popular Dutch websites",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #59 (570bbac3-f198-4bae-86ff-080bc0a8ab16)."
+  },
+  {
+    "id": 2045,
+    "name": "OSINT - PlugX-Ñ‚ Ó©Ñ€Ñ‚ÑÓ©Ð½ ÑÐ¸ÑÑ‚ÐµÐ¼Ð¸Ð¹Ð³ Ñ†ÑÐ²ÑÑ€Ð»ÑÑ… Ð½ÑŒ",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #58 (565d5025-a6bc-4a5f-b19b-a175950d210b)."
+  },
+  {
+    "id": 2044,
+    "name": "KillDisk and BlackEnergy Are Not Just Energy Sector Threats",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #57 (56feb510-a81c-4bbb-b5c9-e4a6c0a8ab16)."
+  },
+  {
+    "id": 2043,
+    "name": "Meet Remaiten â€“ a Linux bot on steroids targeting routers and potentially other IoT devices",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #56 (56fe15ee-e478-459e-8cc4-c0cac0a8ab16)."
+  }
+]

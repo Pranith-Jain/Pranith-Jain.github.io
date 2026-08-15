@@ -1,0 +1,12 @@
+{
+  "id": 88,
+  "fetchedAt": "2026-08-14T05:10:37.824Z",
+  "name": "Volume Creation",
+  "tlp": null,
+  "dcId": "DC0097",
+  "analyticCount": 2,
+  "strategyCount": 2,
+  "added": null,
+  "description": "The initial provisioning of block storage volumes in cloud or on-prem environments, typically used for data storage, backup, or workload scaling.",
+  "analytics": ["AN0861", "AN1611"]
+}

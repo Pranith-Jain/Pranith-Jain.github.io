@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:41:34.244Z",
+  "name": "Deadlock: Integra and Operosa",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: IT | Sector: Business Services | Website: www.caa.it | The leaked files will be available for download on May 10, 2026. C.A.A. \"Giorgio Nicoli\" S.r.l. Integra S.r.l L'Operosa S.p.A. | Source: https://www.ransomware.live/id/SW50ZWdyYSBhbmQgT3Blcm9zYUBEZWFkbG9jaw=="
+}

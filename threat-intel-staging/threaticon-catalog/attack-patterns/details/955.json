@@ -1,0 +1,9 @@
+{
+  "id": 955,
+  "fetchedAt": "2026-08-15T06:14:23.955Z",
+  "name": "Using Alternative IP Address Encodings",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. This attack relies on the adversary using unexpected formats for representing IP addresses. Networked applications may expect network location information in a specific format, such as fully qualified domains names (FQDNs), URL, IP address, or IP Address ranges. If the location information is not validated against a variety of different possible encodings and formats, the adversary can use an alternate format to bypass application access control."
+}

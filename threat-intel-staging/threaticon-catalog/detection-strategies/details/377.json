@@ -1,0 +1,12 @@
+{
+  "id": 377,
+  "fetchedAt": "2026-08-14T05:58:46.695Z",
+  "name": "Detection of Event Log Clearing on Windows via Behavioral Chain",
+  "tlp": null,
+  "detId": "DET0532",
+  "stixId": "x-mitre-detection-strategy--d340864e-5685-48d5-8a78-3c55a7169207",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1472"]
+}

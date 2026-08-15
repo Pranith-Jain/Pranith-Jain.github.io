@@ -1,0 +1,12 @@
+{
+  "id": 693,
+  "fetchedAt": "2026-08-14T05:21:56.024Z",
+  "name": "Detection Strategy for Masquerading via File Type Modification",
+  "tlp": null,
+  "detId": "DET0226",
+  "stixId": "x-mitre-detection-strategy--e2d84c66-3647-4aab-962b-c1ad89455a18",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0630", "AN0631", "AN0632"]
+}

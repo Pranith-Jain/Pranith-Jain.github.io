@@ -1,0 +1,12 @@
+{
+  "id": 306,
+  "fetchedAt": "2026-08-14T05:19:13.093Z",
+  "name": "Detection Strategy for Network Address Translation Traversal",
+  "tlp": null,
+  "detId": "DET0163",
+  "stixId": "x-mitre-detection-strategy--218a24ca-9534-44e2-9282-fb08373e7845",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0465"]
+}

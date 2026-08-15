@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:23:56.414Z",
+  "name": "Secret Blizzard compromising Storm-0156 infrastructure for espionage / Snowblind: The Invisible Hand of Secret Blizzard",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Dec 5, 2024",
+  "lastSeen": "Dec 5, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #528 (f1d310ba-7e51-41d8-97a8-d9a7c1f973ab)."
+}

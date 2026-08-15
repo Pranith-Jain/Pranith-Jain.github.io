@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:57:23.712Z",
+  "name": "0day Syndicate: dxon.com.br",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to 0day Syndicate. | Country: BR | Sector: Business Services | Website: dxon.com.br | Infostealer data confirmed. | DXON is a Brazilian company that provides data intelligence and fraud prevention solutions. | Source: https://www.ransomware.live/id/ZHhvbi5jb20uYnJAMGRheSBTeW5kaWNhdGU="
+}

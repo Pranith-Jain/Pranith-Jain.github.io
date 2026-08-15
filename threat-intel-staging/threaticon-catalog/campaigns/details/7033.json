@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:05:53.084Z",
+  "name": "anubis: BLACKBURN'S",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 3, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: blackburnsmed.com | Major home healthcare provider data breach. | Source: https://www.ransomware.live/id/QkxBQ0tCVVJOJ1NAYW51Ymlz"
+}

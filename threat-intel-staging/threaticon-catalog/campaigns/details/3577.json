@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:07:07.375Z",
+  "name": "SilentRansomGroup: Marshall Dennehey",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 12, 2026",
+  "lastSeen": "May 12, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: marshalldennehey.com | Infostealer data confirmed. | They offered $100,000 to keep the data from being published. Founded in 1962 and headquartered in Phil… | Source: https://www.ransomware.live/id/TWFyc2hhbGwgRGVubmVoZXlAU2lsZW50UmFuc29tR3JvdXA="
+}

@@ -1,0 +1,12 @@
+{
+  "id": 236,
+  "fetchedAt": "2026-08-14T05:16:02.585Z",
+  "name": "Behavioral Detection of Keylogging Activity Across Platforms",
+  "tlp": null,
+  "detId": "DET0089",
+  "stixId": "x-mitre-detection-strategy--fe0d7d82-1575-4685-9a4f-4bf83e0227a0",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0243", "AN0244", "AN0245", "AN0246"]
+}

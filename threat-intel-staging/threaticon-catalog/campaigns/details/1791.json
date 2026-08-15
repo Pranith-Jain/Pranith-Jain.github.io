@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:34:44.719Z",
+  "name": "dragonforce: salfordcc.ac.uk",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 6, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Education | Website: salfordcc.ac.uk | Infostealer data confirmed. | Salford City College is one of the largest further education providers in Greater Manchester. It was established in 2009 following a merger between several predecessor colleges. | Source: https://www.ransomware.live/id/c2FsZm9yZGNjLmFjLnVrQGRyYWdvbmZvcmNl"
+}

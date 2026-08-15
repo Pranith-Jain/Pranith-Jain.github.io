@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:41:41.228Z",
+  "name": "Deadlock: FIRESTA",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: CZ | Sector: Not Found | Website: www.firesta.cz | Firesta-Fišer, a.s. is a Czech construction company based in Brno, established in 1990, specializing in transport infrastructure, including bridge, road, and railway construction. With over 600 employees, the company also operates in Slovakia, Poland, and Romania. | Source: https://www.ransomware.live/id/RklSRVNUQUBEZWFkbG9jaw=="
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3173,
+    "name": "ModifiedElephant APT and a Decade of Fabricating Evidence",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #289 (cb617be5-1f7e-4e1d-aff0-e654c1c75a8c)."
+  },
+  {
+    "id": 3172,
+    "name": "Indicators of Compromise Associated with LockBit 2.0 Ransomware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #288 (0b6a1b71-fdec-479e-9736-aa84db3aa8c8)."
+  },
+  {
+    "id": 3171,
+    "name": "Investigating APT36 or Earth Karkaddan’s Attack Chain and Malware Arsenal",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #287 (34582dfc-d0bf-403d-8419-2d4fa7a76466)."
+  },
+  {
+    "id": 3170,
+    "name": "Cyberattack on fuel supplier causes supply chain disruption",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #286 (cdc842aa-761d-48e2-9b97-c344bed8b3a8)."
+  },
+  {
+    "id": 3169,
+    "name": "The BlueNoroff cryptocurrency hunt is still on",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #282 (0ee87fb7-783d-40f5-824c-a334283d3809)."
+  },
+  {
+    "id": 3168,
+    "name": "Suspected Russian Activity Targeting Government and Business Entities Around the Globe",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #281 (13456cca-75ce-4443-bf65-90b13f6f7aab)."
+  },
+  {
+    "id": 3167,
+    "name": "PowerPoint attachments, Agent Tesla and code reuse in malware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #280 (3b79b739-7d41-4788-b4bb-5c8d3a6a0a26)."
+  },
+  {
+    "id": 3166,
+    "name": "SQUIRRELWAFFLE Leverages malspam to deliver Qakbot, Cobalt Strike",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #278 (a80e5be0-fedf-4d0a-b364-58e22b936b94)."
+  },
+  {
+    "id": 3165,
+    "name": "FontOnLake: Previously unknown malware family targeting Linux",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #277 (5f17a0c6-7b04-4f05-9fda-b5d435a8d6a4)."
+  },
+  {
+    "id": 3164,
+    "name": "Operation â€˜Harvestâ€™: A Deep Dive into a Long-term Campaign",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #276 (c1bd5026-520b-45bd-9a79-82d38cf96c7b)."
+  },
+  {
+    "id": 3163,
+    "name": "MeteorExpress | Mysterious Wiper Paralyzes Iranian Trains with Epic Troll",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #274 (fc8f98a6-daa5-42ef-b6f3-2db535c43c57)."
+  },
+  {
+    "id": 3161,
+    "name": "The SideWalk may be as dangerous as the CROSSWALK",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #268 (f35d4a9f-881b-46b7-9d8a-887a40bce133)."
+  },
+  {
+    "id": 3160,
+    "name": "FIN8 Threat Actor Spotted Once Again with New \"Sardonic\" Backdoor",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #267 (eb1da366-1255-4bc7-a85b-dd85c2efa66d)."
+  },
+  {
+    "id": 3159,
+    "name": "TA551 (Shathak) continues pushing BazarLoader, infections lead to Cobalt Strike",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #266 (f5281ebc-f6d7-48e5-8ced-375d21aec1ff)."
+  },
+  {
+    "id": 3158,
+    "name": "Malspam (2016-03-16) - Locky",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #265 (56e92123-fd6c-44cc-a842-42c0950d210f)."
+  }
+]

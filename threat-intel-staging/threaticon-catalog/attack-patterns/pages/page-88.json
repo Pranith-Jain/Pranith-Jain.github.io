@@ -1,0 +1,29 @@
+[
+  {
+    "id": 712,
+    "name": "T1140: Deobfuscate/Decode Files or Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1140",
+    "status": null
+  },
+  { "id": 2679, "name": "T1140?", "tlp": "white", "confidence": null, "techniqueId": "T1140", "status": null },
+  { "id": 3060, "name": "T1146?", "tlp": "white", "confidence": null, "techniqueId": "T1146", "status": null },
+  { "id": 3040, "name": "T1149", "tlp": "white", "confidence": null, "techniqueId": "T1149", "status": null },
+  { "id": 3027, "name": "T1150", "tlp": "white", "confidence": null, "techniqueId": "T1150", "status": null },
+  { "id": 2682, "name": "T1152.001", "tlp": "white", "confidence": null, "techniqueId": "T1152", "status": null },
+  { "id": 3039, "name": "T1153", "tlp": "white", "confidence": null, "techniqueId": "T1153", "status": null },
+  { "id": 3016, "name": "T1154?", "tlp": "white", "confidence": null, "techniqueId": "T1154", "status": null },
+  { "id": 2758, "name": "T1156", "tlp": "white", "confidence": null, "techniqueId": "T1156", "status": null },
+  { "id": 2627, "name": "T1157", "tlp": "white", "confidence": null, "techniqueId": "T1157", "status": null },
+  { "id": 2812, "name": "T1158", "tlp": "white", "confidence": null, "techniqueId": "T1158", "status": null },
+  { "id": 3013, "name": "T115?", "tlp": "white", "confidence": null, "techniqueId": "T115", "status": null },
+  { "id": 2862, "name": "T1160", "tlp": "white", "confidence": null, "techniqueId": "T1160", "status": null },
+  { "id": 3056, "name": "T1161", "tlp": "white", "confidence": null, "techniqueId": "T1161", "status": null },
+  { "id": 3047, "name": "T1167", "tlp": "white", "confidence": null, "techniqueId": "T1167", "status": null },
+  { "id": 2781, "name": "T1168", "tlp": "white", "confidence": null, "techniqueId": "T1168", "status": null },
+  { "id": 2647, "name": "T1170", "tlp": "white", "confidence": null, "techniqueId": "T1170", "status": null },
+  { "id": 2783, "name": "T1172", "tlp": "white", "confidence": null, "techniqueId": "T1172", "status": null },
+  { "id": 2697, "name": "T1173", "tlp": "white", "confidence": null, "techniqueId": "T1173", "status": null },
+  { "id": 3041, "name": "T1174", "tlp": "white", "confidence": null, "techniqueId": "T1174", "status": null }
+]

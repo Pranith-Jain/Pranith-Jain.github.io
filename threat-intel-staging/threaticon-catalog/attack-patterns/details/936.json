@@ -1,0 +1,9 @@
+{
+  "id": 936,
+  "fetchedAt": "2026-08-15T06:13:35.297Z",
+  "name": "Retrieve Embedded Sensitive Data",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: High. An attacker examines a target system to find sensitive data that has been embedded within it. This information can reveal confidential contents, such as account numbers or individual keys/credentials that can be used as an intermediate step in a larger attack."
+}

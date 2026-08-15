@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5534,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5527,
+    "name": "Booba Project: Jani-King",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Booba Project. | Country: US | Sector: Business Services | Website: www.janiking.com | Facilities Services Stolen data: 12 GB. | Source: https://www.ransomware.live/id/SmFuaS1LaW5nQEJvb2JhIFByb2plY3Q="
+  },
+  {
+    "id": 5529,
+    "name": "pear: South Plains Rural Health Services, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Healthcare | Website: sprhs.org | Infostealer data confirmed. | Comprehensive and family care in West Texas | Source: https://www.ransomware.live/id/U291dGggUGxhaW5zIFJ1cmFsIEhlYWx0aCBTZXJ2aWNlcywgSW5jLkBwZWFy"
+  },
+  {
+    "id": 5532,
+    "name": "AiLock: Ferrovial",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: ES | Sector: Construction | Website: ferrovial.com | Infostealer data confirmed. | Headquartered in Ferrovial operates as a global infrastructure and mobility operator. The company's services include the design and construction of public and private projects, and development, finance, and operation of toll road concessions. | Source: https://www.ransomware.live/id/RmVycm92aWFsQEFpTG9jaw=="
+  },
+  {
+    "id": 5528,
+    "name": "pear: Carient Heart & Vascular",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Healthcare | Website: carient.com | Infostealer data confirmed. | Expert resource for heart and vascular care in Northern Virginia | Source: https://www.ransomware.live/id/Q2FyaWVudCBIZWFydCAmIFZhc2N1bGFyQHBlYXI="
+  },
+  {
+    "id": 5533,
+    "name": "qilin: Feliubadaló",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Not Found | Website: www.feliubadalo.com | N/A | Source: https://www.ransomware.live/id/RmVsaXViYWRhbMOzQHFpbGlu"
+  },
+  {
+    "id": 5531,
+    "name": "AiLock: Solid Advance Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: JP | Sector: Business Services | Website: solid-adv.co.jp | Infostealer data confirmed. | Solid Advance Inc. is a Japanese software company, founded in 2004, based in Tokyo and Aomori. It develops and sells All Gather CRM, a fully in-house-built, integrated CRM package covering customer management, sales support (SFA), marketing, and call centers, available both in the cloud and on-premise. The company also provides network and cybersecurity services, including LAN/WAN design and security infrastructure. | Source: https://www.ransomware.live/id/U29saWQgQWR2YW5jZSBJbmMuQEFpTG9jaw=="
+  },
+  {
+    "id": 5530,
+    "name": "AiLock: Nihon Kotsu Co., Ltd.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: JP | Sector: Transportation/Logistics | Website: nihon-kotsu.co.jp | Infostealer data confirmed. | Nihon Kotsu Co., Ltd. is the largest taxi and limousine operator in Japan. For the fiscal year ending May 2025, the company reported an annual consolidated revenue of ¥103.445 billion, with group and partner company sales reaching ¥155.457 billion. | Source: https://www.ransomware.live/id/Tmlob24gS290c3UgQ28uLCBMdGQuQEFpTG9jaw=="
+  },
+  {
+    "id": 5526,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5525,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5524,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5523,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5522,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5521,
+    "name": "qilin: Levin Furniture",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.levinfurniture.com | N/A | Source: https://www.ransomware.live/id/TGV2aW4gRnVybml0dXJlQHFpbGlu"
+  },
+  {
+    "id": 5520,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  }
+]

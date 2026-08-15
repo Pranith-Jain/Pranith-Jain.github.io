@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3097,
+    "name": "The Dukes: 7 Years of Russian Espionage",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #2 (56ca367a-5a88-4925-a309-4cd69062e56a)."
+  },
+  {
+    "id": 3094,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 3093,
+    "name": "nightspire: Cabinet d’Étude en Sécurité Pyrotechnique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.cespyro.com | Data is not available now. | Source: https://www.ransomware.live/id/Q2FiaW5ldCBk4oCZw4l0dWRlIGVuIFPDqWN1cml0w6kgUHlyb3RlY2huaXF1ZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 3092,
+    "name": "sinobi: Unre3d",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to sinobi. | Sector: Not Found | Unre3d is a company that operates in the Information & Document Management industry. UNRE Technology was established in 2017.As a full-stack solution provider, we offer advanced 3D laser scanner, measurement and semantic modeling solutions.We specialize in making connections between the digital and physical worlds.Our mission is to give service throughout the whole life cycle of building projects, including civil construction,decoration and maintenance.We have successfully co-worked with more than 500 projects (more than 5 million square meters). | Source: https://www.ransomware.live/id/VW5yZTNkQHNpbm9iaQ=="
+  },
+  {
+    "id": 3091,
+    "name": "sinobi: Bay State Land Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to sinobi. | Country: US | Sector: Construction | Bay State Land Services Inc is a company that operates in the Architecture, Engineering & Design industry. | Source: https://www.ransomware.live/id/QmF5IFN0YXRlIExhbmQgU2VydmljZXNAc2lub2Jp"
+  },
+  {
+    "id": 3090,
+    "name": "sinobi: Celeris Networks",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to sinobi. | Sector: Technology | Celeris Networks is a business IT support provider based in Knoxville, specializing in managed IT services, cybersecurity solutions, and cloud managed services. The firm serves various industries, including accounting, distribution, legal services, nonprofits, and professional services. Composed of expert technology specialists, Celeris Networks aims to alleviate IT challenges and help local businesses maximize productivity. With a commitment to personalized service, they ensure that clients receive dedicated support tailored to their needs. | Source: https://www.ransomware.live/id/Q2VsZXJpcyBOZXR3b3Jrc0BzaW5vYmk="
+  },
+  {
+    "id": 3089,
+    "name": "sinobi: Positiwise Infotech Pvt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3088,
+    "name": "Icarus: Cazh.id",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Country: ID | Sector: Financial Services | Website: bkdp.cazh.id | Infostealer data confirmed. | - User DB: 300,000 Users (Email, Hash, Phone, Address, DOB) for https://bkdp.cazh.id/. - KYC Vault: 7,800 Government IDs + 4,200 Selfies (including \"Hold-to-Face\" ID selfies). - 34 SQL Databases for associated schools (Students/Parents/Staff). - Corporate/Financial: Full Investor Database + partner documents - Collateral documents (Vehicle Registration Documents & Property Deeds) - Billing Proofs - Full src code of their services Data stolen: PII, SOURCE CODE, KYC | Source: https://www.ransomware.live/id/Q2F6aC5pZEBJY2FydXM="
+  },
+  {
+    "id": 3087,
+    "name": "krybit: ovextech.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: US | Sector: Technology | Website: ovextech.com | Infostealer data confirmed. | Ovex Tech specializes in providing comprehensive BPO services and call center solutions, including inbound and outbound ... | Source: https://www.ransomware.live/id/b3ZleHRlY2guY29tQGtyeWJpdA=="
+  },
+  {
+    "id": 3086,
+    "name": "medusalocker: Raycolighting",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Country: GB | Sector: Manufacturing | Website: raycolighting.com | Infostealer data confirmed. | Organization with 2 emails extracted. Domain: raycolighting.com | Source: https://www.ransomware.live/id/UmF5Y29saWdodGluZ0BtZWR1c2Fsb2NrZXI="
+  },
+  {
+    "id": 3085,
+    "name": "medusalocker: CEAGESP / Netfeirasp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Country: BR | Sector: Agriculture and Food Production | Website: netfeirasp.ceagesp | Infostealer data confirmed. | Brazilian produce wholesale market network. Domain netfeirasp.ceagesp (CEAGESP). Also demarchibrasil.com.br accounts. | Source: https://www.ransomware.live/id/Q0VBR0VTUCAvIE5ldGZlaXJhc3BAbWVkdXNhbG9ja2Vy"
+  },
+  {
+    "id": 3083,
+    "name": "medusalocker: Académie de Montpellier / CSJM",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Country: FR | Sector: Education | Website: ac-montpellier.fr | Infostealer data confirmed. | French public school network. Domain CSJM.BEZIERS, part of Académie de Montpellier (ac-montpellier.fr). Occitanie region (laregion.fr). Teacher and admin staff credentials. | Source: https://www.ransomware.live/id/QWNhZMOpbWllIGRlIE1vbnRwZWxsaWVyIC8gQ1NKTUBtZWR1c2Fsb2NrZXI="
+  },
+  {
+    "id": 3082,
+    "name": "medusalocker: Palmers Relocations",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Country: GB | Sector: Transportation/Logistics | Australian international removals & relocation company. FIDI accredited, ISO 9001:2015 certified. Services: household moves, storage, customs, immigration (IMMI/VEVO). Operates Melbourne area (Pascoe Vale, Dandenong, Caulfield). | Source: https://www.ransomware.live/id/UGFsbWVycyBSZWxvY2F0aW9uc0BtZWR1c2Fsb2NrZXI="
+  },
+  {
+    "id": 3081,
+    "name": "medusalocker: ActionAid / TACOSA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Country: GB | Sector: Public Sector | Website: actionaid.org | Infostealer data confirmed. | NGO sector. Domains: actionaid.org, tacosa.org.za, immigration.go.tz. | Source: https://www.ransomware.live/id/QWN0aW9uQWlkIC8gVEFDT1NBQG1lZHVzYWxvY2tlcg=="
+  },
+  {
+    "id": 3080,
+    "name": "medusalocker: Hathcock (Personal)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Sector: Not Found | Personal comprehensive reports. Individuals: Noel Ray Hathcock, Trinity John Hathcock. | Source: https://www.ransomware.live/id/SGF0aGNvY2sgKFBlcnNvbmFsKUBtZWR1c2Fsb2NrZXI="
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:19:24.612Z",
+  "name": "OSINT Rex -Linux P2P Ransom botnet by This Is Security blog",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 17, 2016",
+  "lastSeen": "Aug 17, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #815 (57b5892a-bfd8-49f1-8d6b-4a3d950d210f)."
+}

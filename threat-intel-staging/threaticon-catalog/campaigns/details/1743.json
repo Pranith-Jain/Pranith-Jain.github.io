@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:36:06.212Z",
+  "name": "genesis: Sierra Management Group",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 7, 2026",
+  "lastSeen": "Mar 7, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: sierramanagementgroup.com | Infostealer data confirmed. | Provides comprehensive medical practice management | Source: https://www.ransomware.live/id/U2llcnJhIE1hbmFnZW1lbnQgR3JvdXBAZ2VuZXNpcw=="
+}

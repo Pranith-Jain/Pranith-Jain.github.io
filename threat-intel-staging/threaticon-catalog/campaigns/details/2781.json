@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:44:46.188Z",
+  "name": "OSINT - The Emotet Banking Trojan: Analysis of Dropped Malware Morphing at Scale",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 3, 2017",
+  "lastSeen": "Dec 3, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1272 (5a391a35-45c8-4e0b-b580-4cdc950d210f)."
+}

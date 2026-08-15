@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:17:55.311Z",
+  "name": "Operation Poisoned News: Hong Kong Users Targeted With Mobile Malware via Local News Links",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 24, 2020",
+  "lastSeen": "Mar 24, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #216 (5e7a8ebc-c808-488e-92b1-ad77c0a8ab16)."
+}

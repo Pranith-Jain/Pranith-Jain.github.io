@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:24:48.356Z",
+  "name": "payload: Sunlight Express Airways",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 16, 2026",
+  "lastSeen": "Apr 16, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: PH | Sector: Transportation/Logistics | Website: sunlightair.ph | Infostealer data confirmed. | Sunlight Air offers affordable flights to popular Philippine island destinations such as Cebu, Coron, Boracay, Siquijor, and Siargao. The airline provides various services including private charters, vacation packages, and a loyalty program called Sunlight Miles. Targeting both leisure and business travelers, Sunlight Air aims to enhance the travel experience with exclusive passenger perks and flexible booking options. With a commitment to expanding flight frequencies and routes, the company continues to facilitate convenient travel across the Philippines. | Source: https://www.ransomware.live/id/U3VubGlnaHQgRXhwcmVzcyBBaXJ3YXlzQHBheWxvYWQ="
+}

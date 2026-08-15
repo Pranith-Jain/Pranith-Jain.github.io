@@ -1,0 +1,12 @@
+{
+  "id": 246,
+  "fetchedAt": "2026-08-14T05:15:08.643Z",
+  "name": "Detection Strategy for T1505.004 - Malicious IIS Components",
+  "tlp": null,
+  "detId": "DET0068",
+  "stixId": "x-mitre-detection-strategy--32af4177-8c33-43d8-8e2c-9e11ac6dd451",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0184"]
+}

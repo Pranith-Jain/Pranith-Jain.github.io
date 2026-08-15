@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3295,
+    "name": "AA24-207A North Korea Cyber Group Conducts Global Espionage Campaign to Advance Regime\\'s Military and Nuclear Programs",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #516 (b4c819a4-f4df-4618-bb39-fa1d8365b7dd)."
+  },
+  {
+    "id": 3294,
+    "name": "Malicious Inauthentic Falcon Crash Reporter Installer Distributed to German Entity via Spearphishing Website",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #513 (b04ab590-aba2-4b73-a6b3-1331c8d5367c)."
+  },
+  {
+    "id": 3293,
+    "name": "MuddyWater replaces Atera by custom MuddyRot implant in a recent campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #512 (01ae246a-a5af-4f86-94b4-b574812e56e9)."
+  },
+  {
+    "id": 3292,
+    "name": "New North-Korean based backdoor packs a punch",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #511 (9ca40e0a-5249-4de0-885b-aa85bb7414c3)."
+  },
+  {
+    "id": 3291,
+    "name": "Malicious activities linked to the Nobelium intrusion set",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #510 (9ceb0659-15fc-4732-a8ef-bfcfebd1f068)."
+  },
+  {
+    "id": 3290,
+    "name": "Malspam (2016-04-28) - Locky",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #509 (5721bfc3-7090-4109-b492-453b950d210f)."
+  },
+  {
+    "id": 3289,
+    "name": "Operation Crimson Palace: Sophos threat hunting unveils multiple clusters of Chinese state-sponsored activity targeting Southeast Asian government",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #508 (f48f7c30-fe6f-4854-b27e-f86a308da714)."
+  },
+  {
+    "id": 3288,
+    "name": "TargetCompany’s Linux Variant Targets ESXi Environments",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #506 (7abd1104-926c-490e-8514-898affae1279)."
+  },
+  {
+    "id": 3287,
+    "name": "OSINT - RuMMS: The Latest Family of Android Malware Attacking Users in Russia Via SMS Phishing",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #505 (5720a8c0-9064-4e32-b7ad-4f7e950d210f)."
+  },
+  {
+    "id": 3286,
+    "name": "Malspam 2016-04-27 - Locky",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #504 (5720accd-dd28-45f8-80e5-4605950d210f)."
+  },
+  {
+    "id": 3285,
+    "name": "Phishing with Cloudflare Workers: Transparent Phishing and HTML Smuggling",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #503 (f65efb02-c563-44a7-9036-516219a24243)."
+  },
+  {
+    "id": 3284,
+    "name": "Tiny BackDoor Goes Undetected – Suspected Turla leveraging MSBuild to Evade detection",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #501 (cc90652d-048b-4e4d-923c-5ab8511ae51f)."
+  },
+  {
+    "id": 3283,
+    "name": "Analysis and Detection of CLOUD#REVERSER: An Attack Involving Threat Actors Compromising Systems Using A Sophisticated Cloud-Based Malware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #500 (a386441b-b2e5-406d-9e6c-69eec712e40c)."
+  },
+  {
+    "id": 3282,
+    "name": "Unplugging PlugX: Sinkholing the PlugX USB worm botnet",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #498 (f913a9b4-f577-43d5-ba87-f4b2a40eda1e)."
+  },
+  {
+    "id": 3281,
+    "name": "Securonix Threat Research Security Advisory: Analysis of Ongoing FROZEN#SHADOW Attack Campaign Leveraging SSLoad Malware and RMM Software for Domain Takeover",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #496 (88fc5757-d527-45b0-8666-0f7e3140408b)."
+  }
+]

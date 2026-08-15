@@ -1,0 +1,92 @@
+[
+  { "id": 567, "name": "Launch Agent", "tlp": "white", "confidence": null, "techniqueId": "T1543", "status": null },
+  {
+    "id": 2660,
+    "name": "T1543.001 – Create or Modify System Process: Windows Service",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1543",
+    "status": null
+  },
+  { "id": 604, "name": "Systemd Service", "tlp": "white", "confidence": null, "techniqueId": "T1543", "status": null },
+  { "id": 122, "name": "Windows Service", "tlp": "white", "confidence": null, "techniqueId": "T1543", "status": null },
+  {
+    "id": 2885,
+    "name": "T1543.003: Create or Modify System Process – cron job persistence",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1543",
+    "status": null
+  },
+  {
+    "id": 709,
+    "name": "T1543.003: Windows Service",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1543",
+    "status": null
+  },
+  { "id": 261, "name": "Launch Daemon", "tlp": "white", "confidence": null, "techniqueId": "T1543", "status": null },
+  {
+    "id": 2134,
+    "name": "T1543.004 - Exploit Public-S Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1543",
+    "status": null
+  },
+  {
+    "id": 1554,
+    "name": "T1543.004 - Ransom Note via Alternate Communication Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1543",
+    "status": null
+  },
+  {
+    "id": 468,
+    "name": "Container Service",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1543",
+    "status": null
+  },
+  { "id": 2747, "name": "T1544", "tlp": "white", "confidence": null, "techniqueId": "T1544", "status": null },
+  { "id": 3015, "name": "T1544.002", "tlp": "white", "confidence": null, "techniqueId": "T1544", "status": null },
+  {
+    "id": 2260,
+    "name": "T1544.004 - Network-Based File Transfer Tools: Encrypted ZIP",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1544",
+    "status": null
+  },
+  { "id": 1754, "name": "T1545", "tlp": "white", "confidence": null, "techniqueId": "T1545", "status": null },
+  { "id": 2630, "name": "T1545.002", "tlp": "white", "confidence": null, "techniqueId": "T1545", "status": null },
+  { "id": 1782, "name": "T1545.003", "tlp": "white", "confidence": null, "techniqueId": "T1545", "status": null },
+  {
+    "id": 486,
+    "name": "Event Triggered Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  {
+    "id": 420,
+    "name": "Change Default File Association",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  },
+  { "id": 560, "name": "Screensaver", "tlp": "white", "confidence": null, "techniqueId": "T1546", "status": null },
+  {
+    "id": 1931,
+    "name": "T1546.002 - System Account Access: Reusing Credentials for Lateral Movement",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1546",
+    "status": null
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:04:41.382Z",
+  "name": "Malspam 2016-09-13 (.hta in .zip) - campaign: \"Accounts Documentation - Invoices\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 13, 2016",
+  "lastSeen": "Sep 13, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #866 (57d8036b-cd24-431c-bfbf-4ff4950d210f)."
+}

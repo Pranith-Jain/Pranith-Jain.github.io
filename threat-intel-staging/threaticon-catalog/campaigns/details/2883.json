@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:40:23.187Z",
+  "name": "OSINT - Trojan downloader found on Google Play by @Maler360",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 12, 2019",
+  "lastSeen": "Jun 12, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1530 (5d01fda4-353c-4011-854f-459c950d210f)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2269,
+    "name": "AA23-136A StopRansomware BianLian Ransomware Group",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #411 (db3dfd75-681b-47e1-87bd-b72ba3c8a734)."
+  },
+  {
+    "id": 2268,
+    "name": "CloudWizard APT: the bad magic story goes on",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #410 (87b36dbe-fb5a-46a0-97ba-e15adcbe785e)."
+  },
+  {
+    "id": 2267,
+    "name": "Minas – on the way to complexity",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #409 (9770618c-2f2e-4330-8160-008246f76e0f)."
+  },
+  {
+    "id": 2266,
+    "name": "WIP26 Espionage | Threat Actors Abuse Cloud Infrastructure in Targeted Telco Attacks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #408 (27143d08-348b-4120-b285-063f6295259f)."
+  },
+  {
+    "id": 2265,
+    "name": "X_Trader Supply Chain Attack Affects Critical Infrastructure Organizations in U.S. and Europe",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #407 (a19c6aed-3c53-4597-971d-0bd01369f95d)."
+  },
+  {
+    "id": 2264,
+    "name": "DarkBit Ransomware Targets Israel with Command-Line Options and Optimized Encryption Routines",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #400 (2422c4bb-fdff-4d32-a479-b4bde43cce47)."
+  },
+  {
+    "id": 2263,
+    "name": "Rokku Ransomware shows possible link with Chimera",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #398 (570c9b9a-dc20-448a-8f24-443f950d210f)."
+  },
+  {
+    "id": 2262,
+    "name": "OSINT - New Locky Variant Implements Evasion Techniques",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #396 (570c9451-ec50-4ecc-b031-47b4950d210f)."
+  },
+  {
+    "id": 2261,
+    "name": "OSINT - Mobile Devices Used to Execute DNS Malware Against Home Routers",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #395 (570b9eee-6f60-41d4-bd1b-40d2950d210f)."
+  },
+  {
+    "id": 2260,
+    "name": "OSINT - Locky Ransomware Domains â€“ Followup Analysis Uncovers 130 New Indicators",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #394 (570b4c28-7480-4be0-b858-493e950d210f)."
+  },
+  {
+    "id": 2259,
+    "name": "OSINT - ModPOS: A Framework Lurking in Point-of-Sale System Kernels",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #393 (570982d2-f5bc-47e9-9b25-297702de0b81)."
+  },
+  {
+    "id": 2258,
+    "name": "OSINT - Locky: the encryptor taking the world by storm",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #392 (5707b73d-02e4-4c52-9eee-4872950d210f)."
+  },
+  {
+    "id": 2257,
+    "name": "Information stealer: Fareit",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #391 (57062927-2a54-4d6a-89c4-37ea950d210f)."
+  },
+  {
+    "id": 2256,
+    "name": "PWS: Win32/Kegotip.C",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #390 (5706756e-958c-4c53-8f77-45f4950d210f)."
+  },
+  {
+    "id": 2255,
+    "name": "Kegotip downloader",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #389 (570669fe-4138-40e0-ba49-4990950d210f)."
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:50:10.927Z",
+  "name": "payload: TS Lines Philippines",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 20, 2026",
+  "lastSeen": "Mar 20, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: PH | Sector: Transportation/Logistics | Website: tslines.com.ph | Infostealer data confirmed. | Trusted shipping and logistics partner in the Philippines offering container transport and vessel services. | Source: https://www.ransomware.live/id/VFMgTGluZXMgUGhpbGlwcGluZXNAcGF5bG9hZA=="
+}

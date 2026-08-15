@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:43:05.047Z",
+  "name": "Panda Malware Broadens - F5 Blog",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 14, 2018",
+  "lastSeen": "May 14, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1351 (5af9eb11-bba8-46ab-acc0-b75e0acd0835)."
+}

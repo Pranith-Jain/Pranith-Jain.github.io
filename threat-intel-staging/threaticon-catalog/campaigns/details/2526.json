@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:03:58.738Z",
+  "name": "Malspam 2016-09-29 (.xls) - campaign: \"Receipt\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 30, 2016",
+  "lastSeen": "Sep 30, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #887 (57ee18f8-a0c4-433a-b4fa-4e72950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:17.002Z",
+  "name": "Disgruntled ransomware affiliate leaks the Conti gangâ€™s technical manuals",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 6, 2021",
+  "lastSeen": "Aug 6, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #264 (0d93b9c2-9ee0-4527-b475-5b723666573b)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": 173,
+  "fetchedAt": "2026-08-14T05:59:38.921Z",
+  "name": "Password Guessing via Multi-Source Authentication Failure Correlation",
+  "tlp": null,
+  "detId": "DET0551",
+  "stixId": "x-mitre-detection-strategy--b3ce3826-401f-4549-92ce-c825b4ddafb0",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1521", "AN1522", "AN1523", "AN1524", "AN1525", "AN1526"]
+}

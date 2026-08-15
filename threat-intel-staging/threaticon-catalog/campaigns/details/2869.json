@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:41:09.908Z",
+  "name": "2019-01-31: ISFB v2 Installs Dridex \"3101\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 31, 2019",
+  "lastSeen": "Jan 31, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1478 (5c5331ac-c160-4a17-a34f-3da568f8e8cf)."
+}

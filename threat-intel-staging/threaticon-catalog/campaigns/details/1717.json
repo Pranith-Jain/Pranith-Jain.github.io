@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:37:00.581Z",
+  "name": "embargo: nch.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 9, 2026",
+  "lastSeen": "Mar 9, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to embargo. | Country: US | Sector: Technology | Website: nch.com | Infostealer data confirmed. | Your leading global experts in industrial solutions. At NCH Corporation, we don’t just sell products—we deliver solutions that keep businesses moving. For ov... - More than 7.3TB of data has been downloaded. | Source: https://www.ransomware.live/id/bmNoLmNvbUBlbWJhcmdv"
+}

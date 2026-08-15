@@ -1,0 +1,9 @@
+{
+  "id": 578,
+  "fetchedAt": "2026-08-15T06:55:24.544Z",
+  "name": "Masquerade Account Name",
+  "tlp": "white",
+  "techniqueId": "DET0383",
+  "added": "May 2, 2026",
+  "description": "Adversaries may match or approximate the names of legitimate accounts to make newly created ones appear benign. This will typically occur during Create Account, although accounts may also be renamed at a later date. This may also coincide with Account Access Removal if the actor first deletes an account before re-creating one with the same name.(Citation: Huntress MOVEit 2023) Often, adversaries will attempt to masquerade as service accounts, such as those associated with legitimate software, data backups, or container cluster management.(Citation: Elastic CUBA Ransomware 2022)(Citation: Aquasec Kubernetes Attack 2023) They may also give accounts generic, trustworthy names, such as “admin”, “help”, or “root.”(Citation: Invictus IR Cloud Ransomware 2024) Sometimes adversaries may model account names off of those already existing in the system, as a follow-on behavior to Account Discovery. Note that this is distinct from Impersonation, which describes impersonating specific trusted individuals or organizations, rather than user or service account names."
+}

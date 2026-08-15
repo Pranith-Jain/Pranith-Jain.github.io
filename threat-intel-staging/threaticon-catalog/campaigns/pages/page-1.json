@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7859,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 7858,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7857,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7856,
+    "name": "Deadlock: HİDROMEK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: www.hidromek.com | HİDROMEK is a leading Turkish manufacturer of heavy construction machinery recognized globally for its high-performance award-winning heavy equipment. Founded in Ankara in 1978 by mechanical engineer Hasan Basri Bozkurt the company operates six state-of-the-art production facilities across Turkey and Thailand. Its heavy machinery operates in more than 130 countries spanning six continents. Over 880 gigabytes of sensitive internal data were stolen from this company | Source: https://www.ransomware.live/id/SMSwRFJPTUVLQERlYWRsb2Nr"
+  },
+  {
+    "id": 7855,
+    "name": "Doommageddon: iw steelTEC Makine San. ve Tic. A.Ş.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Status: leaked | Data size: 100 GB | Files: 0 files | Deadline: 2026-03-08T00:00:00Z | Source: https://www.ransomware.live/id/aXcgc3RlZWxURUMgTWFraW5lIFNhbi4gdmUgVGljLiBBLsWeLkBEb29tbWFnZWRkb24="
+  },
+  {
+    "id": 7854,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 7853,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 7852,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 7851,
+    "name": "blacknevas: ASCOM S.p.A. ascom-italy.it serviced by an IT company Emilcom S.r.l.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7844,
+    "name": "thegentlemen: Plaza Auto Mall",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: MX | Sector: Retail & E-Commerce | Website: plazaautomall.com | plazaautomall.com zoominfo.com/c/plaza-auto-mall/194512238 Plaza Auto Mall is a family-owned dealership group based in Brooklyn, New York, that has been serving local drivers since 1975. They offer an extensive inventory of over 1,000 new, used, and certified pre-owned vehicles across multiple automotive brands all in one location. The platform also provides comprehensive automotive services, including financing options, vehicle maintenance, parts sales, and a dedicated body shop. | Source: https://www.ransomware.live/id/UGxhemEgQXV0byBNYWxsQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 7845,
+    "name": "thegentlemen: Avanta Maroc Ex Adecco",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: MA | Sector: Professional Services | Website: avanta.ma | avanta.ma rocketreach.co/avanta-maroc-ex-adecco-profile_b7352c87c4297b95 Avanta Maroc, formerly known as Adecco Maroc, is a prominent human resources and recruitment agency based in Casablanca, Morocco. The company specializes in connecting job seekers with top employers by offering tailored workforce solutions and staffing services. Their platform serves as a vital hub for career opportunities, professional development, and corporate HR management across various industries in the region. | Source: https://www.ransomware.live/id/QXZhbnRhIE1hcm9jIEV4IEFkZWNjb0B0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 7842,
+    "name": "thegentlemen: TOA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: JP | Sector: Not Found | Website: toa-const.co.jp | Infostealer data confirmed. | toa-const.co.jp zoominfo.com/c/toa-corp/425840057 TOA Corporation is a prominent Japanese general contractor specializing in marine civil engineering, land reclamation, and port infrastructure development. The company focuses on delivering high-quality, economically viable construction projects while prioritizing environmental sustainability and technological innovation. Through its corporate portal, stakeholders can access detailed information on their advanced engineering services, corporate philosophy, and investor relations. | Source: https://www.ransomware.live/id/VE9BQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 7846,
+    "name": "thegentlemen: EKEPIS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7849,
+    "name": "thegentlemen: Acli",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: IT | Sector: Not Found | Website: acli.it | Infostealer data confirmed. | acli.it zoominfo.com/c/acli/372618594 ACLI (Christian Associations of Italian Workers) is a major Italian Catholic social promotion organization founded in 1944 to advocate for labor rights and human dignity. Operating a vast network of local clubs, the association provides essential community services, including tax assistance, employment support, and vocational training. Today, it continues to champion social solidarity, democratic participation, and active citizenship across Italy and internationally. | Source: https://www.ransomware.live/id/QWNsaUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 7850,
+    "name": "thegentlemen: Vector Two Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: BR | Sector: Technology | Website: vtt.com.br | Infostealer data confirmed. | vtt.com.br zoominfo.com/c/vtt/372441609 VTT is a pioneering Brazilian technology company founded in 1996 that specializes in Digital Signage and Retail Media solutions. As a leading provider in Latin America, the company delivers innovative digital displays, menu boards, and interactive customer experience tools for the retail sector. Their platform also supports a robust channel partner program, helping businesses across the region modernize their visual communication and in-store marketing strategies. | Source: https://www.ransomware.live/id/VmVjdG9yIFR3byBUZWNobm9sb2d5QHRoZWdlbnRsZW1lbg=="
+  }
+]

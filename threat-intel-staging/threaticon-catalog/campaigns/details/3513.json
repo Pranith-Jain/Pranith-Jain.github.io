@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:10:00.145Z",
+  "name": "coinbasecartel: Zywave",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 15, 2026",
+  "lastSeen": "May 15, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: zywave.com | Infostealer data confirmed. | [AI generated] Zywave is a US-based software company headquartered in Milwaukee, Wisconsin. It operates in the insurance technology sector, providing cloud-based software solutions to insurance brokers, carriers, and agencies. Its platform offers tools for sales enablement, client delivery, analytics, and agency management. Zywave serves thousands of insurance professionals across North America, helping them streamline operations and improve client engagement. | Source: https://www.ransomware.live/id/Wnl3YXZlQGNvaW5iYXNlY2FydGVs"
+}

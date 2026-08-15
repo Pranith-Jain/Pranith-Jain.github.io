@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:37:08.843Z",
+  "name": "apt73: polleninformation.at",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to apt73. | Country: AT | Sector: Healthcare | Website: polleninformation.at | Infostealer data confirmed. | Pollen situation informational site. Personal info + Pass. 22140 lines | Source: https://www.ransomware.live/id/cG9sbGVuaW5mb3JtYXRpb24uYXRAYXB0NzM="
+}

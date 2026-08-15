@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:56:30.482Z",
+  "name": "lockbit5: luetz-binder.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Business Services | Website: luetz-binder.de | Infostealer data confirmed. | Bereits im Jahr 1972 gründete Bernd Lütz-Binder die Kanzlei in Landau in der Pfalz. Heute führt sein... | Source: https://www.ransomware.live/id/bHVldHotYmluZGVyLmRlQGxvY2tiaXQ1"
+}

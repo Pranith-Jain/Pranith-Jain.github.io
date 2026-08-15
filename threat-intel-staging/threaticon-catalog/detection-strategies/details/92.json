@@ -1,0 +1,12 @@
+{
+  "id": 92,
+  "fetchedAt": "2026-08-14T06:03:52.212Z",
+  "name": "Detection of Malware",
+  "tlp": null,
+  "detId": "DET0845",
+  "stixId": "x-mitre-detection-strategy--5c228796-349e-4d7e-a3ca-51a5f8cbf294",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1977"]
+}

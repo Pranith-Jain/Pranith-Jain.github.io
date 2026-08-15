@@ -1,0 +1,9 @@
+{
+  "id": 1131,
+  "fetchedAt": "2026-08-15T06:22:01.971Z",
+  "name": "DNS Blocking",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "An adversary intercepts traffic and intentionally drops DNS requests based on content in the request. In this way, the adversary can deny the availability of specific services or content to the user even if the IP address is changed."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:23:12.908Z",
+  "name": "Operation Groundbait: Espionage in Ukrainian war zones",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 19, 2016",
+  "lastSeen": "May 19, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #66 (573d66a1-cc94-41aa-9684-07a6c0a8ab16)."
+}

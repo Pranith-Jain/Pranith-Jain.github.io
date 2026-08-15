@@ -1,0 +1,12 @@
+{
+  "id": 616,
+  "fetchedAt": "2026-08-14T05:25:59.881Z",
+  "name": "Detection Strategy for T1136.003 - Cloud Account Creation across IaaS, IdP, SaaS, Office",
+  "tlp": null,
+  "detId": "DET0319",
+  "stixId": "x-mitre-detection-strategy--7ad75a00-94f0-4deb-8642-df227a2a8ac6",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0899", "AN0900", "AN0901", "AN0902"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:03:47.863Z",
+  "name": "genesis: CarePoint Health",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 9, 2026",
+  "lastSeen": "May 8, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: CA | Sector: Healthcare | Website: carepointhealth.ca | Infostealer data confirmed. | CarePoint Health will provide all patients of the company's affiliated physicians who would benefit from team based care. | Source: https://www.ransomware.live/id/Q2FyZVBvaW50IEhlYWx0aEBnZW5lc2lz"
+}

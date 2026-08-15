@@ -1,0 +1,12 @@
+{
+  "id": 621,
+  "fetchedAt": "2026-08-14T05:21:11.862Z",
+  "name": "Detection of Registry Query for Environmental Discovery",
+  "tlp": null,
+  "detId": "DET0209",
+  "stixId": "x-mitre-detection-strategy--106e32a9-29b7-4ec7-80cf-768662706490",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0589"]
+}

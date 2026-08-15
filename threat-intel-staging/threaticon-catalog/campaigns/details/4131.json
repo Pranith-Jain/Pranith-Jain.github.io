@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:43:00.654Z",
+  "name": "Deadlock: ACU - The Automobile Club of Uruguay",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: UY | Sector: Transportation/Logistics | Website: acu.com.uy | Infostealer data confirmed. | [AI generated] The Automobile Club of Uruguay (ACU) is a nonprofit organization based in Uruguay that provides services to motorists and travelers. It offers roadside assistance, vehicle inspections, travel planning, and tourism-related services. Operating within the automotive services and transportation industry, ACU also promotes road safety and mobility across Uruguay. It maintains affiliations with international automobile club networks, extending member benefits abroad. | Source: https://www.ransomware.live/id/QUNVIC0gVGhlIEF1dG9tb2JpbGUgQ2x1YiBvZiBVcnVndWF5QERlYWRsb2Nr"
+}

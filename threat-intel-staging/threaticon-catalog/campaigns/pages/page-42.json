@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7240,
+    "name": "clop: fis*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Financial Services | [CVE‑2026‑12569] Data exfiltrated included the following: Projects, Cad-files, files Windchil, Soft | Source: https://www.ransomware.live/id/ZmlzKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7239,
+    "name": "clop: phi*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: PDF drawings, diagrams, blueprints | Source: https://www.ransomware.live/id/cGhpKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7238,
+    "name": "clop: ald*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: TSV files, soft, Projects, Cad-files | Source: https://www.ransomware.live/id/YWxkKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7244,
+    "name": "lockbit5: briggsplc.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: GB | Sector: Manufacturing | Website: briggsplc.com | Briggs began operations in 1740. As a well-known UK-based company in the engineering equipment indus... | Source: https://www.ransomware.live/id/YnJpZ2dzcGxjLmNvbUBsb2NrYml0NQ=="
+  },
+  {
+    "id": 7243,
+    "name": "clop: net*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Projects, Cad-files, Backup files Windchil | Source: https://www.ransomware.live/id/bmV0KioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7241,
+    "name": "clop: g*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Technology | [CVE‑2026‑12569] Data exfiltrated included the following: Software backups, system files, projects | Source: https://www.ransomware.live/id/ZyoqKioqKipAY2xvcA=="
+  },
+  {
+    "id": 7242,
+    "name": "clop: sh*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Engineering drawings, photos of the facilities, scans of facility testing reports, project plans | Source: https://www.ransomware.live/id/c2gqKioqKioqQGNsb3A="
+  },
+  {
+    "id": 7236,
+    "name": "clop: toa*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: project, backup database, logs | Source: https://www.ransomware.live/id/dG9hKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7235,
+    "name": "clop: lar*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Project, Soft | Source: https://www.ransomware.live/id/bGFyKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7231,
+    "name": "clop: cor*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project, PDF, TXT, DOC - files | Source: https://www.ransomware.live/id/Y29yKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7232,
+    "name": "clop: mam*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: .png files, files Windchil | Source: https://www.ransomware.live/id/bWFtKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7233,
+    "name": "clop: par*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Technology | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project, Cad-files, Backups | Source: https://www.ransomware.live/id/cGFyKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7237,
+    "name": "clop: ir******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Cad-files, PDF drawings, diagrams, product presentations, specifications, manuals and instructions | Source: https://www.ransomware.live/id/aXIqKioqKipAY2xvcA=="
+  },
+  {
+    "id": 7234,
+    "name": "clop: sta*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project | Source: https://www.ransomware.live/id/c3RhKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7229,
+    "name": "clop: sma*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project - files | Source: https://www.ransomware.live/id/c21hKioqKioqKkBjbG9w"
+  }
+]

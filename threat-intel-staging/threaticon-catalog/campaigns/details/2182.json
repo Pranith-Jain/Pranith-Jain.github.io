@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:17:28.585Z",
+  "name": "OilRig Targets Middle Eastern Telecommunications Organization and Adds Novel C2 Channel with Steganography to Its Inventory",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jul 26, 2020",
+  "lastSeen": "Jul 26, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #226 (5f1d893c-e2c0-4b44-a767-cc46c0a8ab16)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:23:45.974Z",
+  "name": "UAC-0063: Cyber Espionage Operation Expanding from Central Asia",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 4, 2025",
+  "lastSeen": "Feb 4, 2025",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #532 (bb52569e-ddce-445c-8c24-c5f52dfdf9c0)."
+}

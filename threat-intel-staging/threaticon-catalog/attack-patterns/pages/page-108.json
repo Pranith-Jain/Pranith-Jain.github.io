@@ -1,0 +1,113 @@
+[
+  {
+    "id": 2590,
+    "name": "T1486 - Data Encrypted for Impact (Ransomware encryption)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  {
+    "id": 2490,
+    "name": "T1486 - Data encryption for impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  {
+    "id": 2536,
+    "name": "T1486 - MFA Bypass",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  {
+    "id": 1367,
+    "name": "T1486 - Modify Cloud Instance Configuration",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  {
+    "id": 1565,
+    "name": "T1486 - Use of Cloud Compute Infrastructure for Malicious Activities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  {
+    "id": 2673,
+    "name": "T1486 – Data Encrypted for Impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  { "id": 1410, "name": "T1486.001", "tlp": "white", "confidence": null, "techniqueId": "T1486", "status": null },
+  {
+    "id": 2356,
+    "name": "T1486.001 - Data Encrypted for Impact (Ransomware)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  { "id": 1326, "name": "T1486.002", "tlp": "white", "confidence": null, "techniqueId": "T1486", "status": null },
+  {
+    "id": 2293,
+    "name": "T1486.002 - Data Encrypted for Impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  {
+    "id": 1486,
+    "name": "T1486.002 - Disruptive Activities: DDoS Execution Through Traffic Flooding",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  {
+    "id": 1413,
+    "name": "T1486.002 - Exfiltration over cloud services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  { "id": 2217, "name": "T1486.003", "tlp": "white", "confidence": null, "techniqueId": "T1486", "status": null },
+  {
+    "id": 1517,
+    "name": "T1486: Data Encrypted for Impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1486",
+    "status": null
+  },
+  { "id": 2696, "name": "T1487", "tlp": "white", "confidence": null, "techniqueId": "T1487", "status": null },
+  { "id": 2695, "name": "T1488", "tlp": "white", "confidence": null, "techniqueId": "T1488", "status": null },
+  { "id": 101, "name": "Service Stop", "tlp": "white", "confidence": null, "techniqueId": "T1489", "status": null },
+  { "id": 1277, "name": "T1489.002", "tlp": "white", "confidence": null, "techniqueId": "T1489", "status": null },
+  {
+    "id": 1281,
+    "name": "T1489.002: T1489.002",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1489",
+    "status": null
+  },
+  {
+    "id": 1665,
+    "name": "T1489: Service Stop",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1489",
+    "status": null
+  }
+]

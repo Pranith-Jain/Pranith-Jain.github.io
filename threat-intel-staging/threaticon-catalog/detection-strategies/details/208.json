@@ -1,0 +1,12 @@
+{
+  "id": 208,
+  "fetchedAt": "2026-08-14T05:54:13.096Z",
+  "name": "Detection Strategy for Email Spoofing",
+  "tlp": null,
+  "detId": "DET0431",
+  "stixId": "x-mitre-detection-strategy--6dec9c28-6dcb-4470-ad69-6cdb520adb53",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1202", "AN1203", "AN1204", "AN1205"]
+}

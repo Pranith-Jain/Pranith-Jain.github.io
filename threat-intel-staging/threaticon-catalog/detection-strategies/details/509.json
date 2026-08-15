@@ -1,0 +1,12 @@
+{
+  "id": 509,
+  "fetchedAt": "2026-08-14T05:23:37.904Z",
+  "name": "Detection Strategy for System Services: Launchctl",
+  "tlp": null,
+  "detId": "DET0265",
+  "stixId": "x-mitre-detection-strategy--77078baf-96f1-413a-bf5b-96b42486e26c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0736"]
+}

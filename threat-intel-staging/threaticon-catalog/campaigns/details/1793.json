@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:34:36.990Z",
+  "name": "AiLock: Transsion",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 29, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: CN | Sector: Technology | Website: transsion.com | Infostealer data confirmed. | Transsion Holdings is a diversified international telecommunications manufacturing company founded in 2006, specializing in mobility solutions with operations in over 50 countries globally.The data contains git, git-ai, vendor proprietary code, NDA documents, and other internal documents. | Source: https://www.ransomware.live/id/VHJhbnNzaW9uQEFpTG9jaw=="
+}

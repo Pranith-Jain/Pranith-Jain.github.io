@@ -1,0 +1,122 @@
+[
+  {
+    "id": 853,
+    "name": "incransom: mastercom.com.au",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 852,
+    "name": "shinyhunters: Mytheresa",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: DE | Sector: Consumer Services | Sensitive customer PII data and transactional history data was compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/TXl0aGVyZXNhQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 869,
+    "name": "qilin: Sadtek",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Not Found | Website: www.sadtek.com | Source: https://www.ransomware.live/id/U2FkdGVrQHFpbGlu"
+  },
+  {
+    "id": 867,
+    "name": "qilin: HIGASHIYAMA INDUSTRIES Co.,Ltd.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: JP | Sector: Manufacturing | Website: www.higashiyama.com | Source: https://www.ransomware.live/id/SElHQVNISVlBTUEgSU5EVVNUUklFUyBDby4sTHRkLkBxaWxpbg=="
+  },
+  {
+    "id": 868,
+    "name": "qilin: Peuker & Alexander",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Business Services | Website: www.peuker.com.au | Source: https://www.ransomware.live/id/UGV1a2VyICYgQWxleGFuZGVyQHFpbGlu"
+  },
+  {
+    "id": 838,
+    "name": "incransom: bdac.com.au",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 837,
+    "name": "everest: K Subsea Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: SG | Sector: Energy | Website: ksubsea-group.com | Infostealer data confirmed. | K Subsea is a Singapore based company focused on providing integrated subsea solutions to the energy industry. We have over 800 employees across SEA, both on and offshore | Source: https://www.ransomware.live/id/SyBTdWJzZWEgR3JvdXBAZXZlcmVzdA=="
+  },
+  {
+    "id": 836,
+    "name": "dragonforce: www.sistemigestioneintegrata.eu",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 835,
+    "name": "ransomhouse: Transaction Packing Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: US | Sector: Business Services | Website: www.transactionpacking.com | Transaction Packing, Inc. (TPI) specializes in freight handling services, including receiving, packing, crating, locating, and shipping cargo. They focus on providing durable and dependable packaging solutions to ensure safe and timely transportation of goods. TPI operates multiple facilities in the Houston area, allowing for expedited transit of shipments. The company emphasizes strong customer partnerships and dedicated account management to enhance service quality. | Source: https://www.ransomware.live/id/VHJhbnNhY3Rpb24gUGFja2luZyBJbmNAcmFuc29taG91c2U="
+  },
+  {
+    "id": 834,
+    "name": "dragonforce: rudolf-med.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Healthcare | Website: rudolf-med.com | Infostealer data confirmed. | RUDOLF Medical GmbH + Co. KG specializes in providing medical products and services. They offer a range of items through E-catalogs and support their clients with various services. The company aims to cater to a diverse clientele in the medical field. For further engagement, they participate in trade fairs and provide career opportunities | Source: https://www.ransomware.live/id/cnVkb2xmLW1lZC5jb21AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 833,
+    "name": "dragonforce: Lift",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: CH | Sector: Transportation/Logistics | Website: liftag.int | Infostealer data confirmed. | Lift AG is a Swiss lift manufacturer established in 1958, specializing in high-quality elevator solutions for residential and commercial buildings. The company offers a wide range of products including new installations, replacement systems, modernization services, and maintenance contracts. With a commitment to flexibility and customer satisfaction, Lift AG caters to various client needs with tailored solutions. As an independent family business, it prides itself on its experienced team and strong service network across the German-speaking part of Switzerland | Source: https://www.ransomware.live/id/TGlmdEBkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 832,
+    "name": "dragonforce: Travel of America",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Hospitality and Tourism | Website: travelofamerica.com | Infostealer data confirmed. | Travel of America specializes in luxury ocean, river, and expedition cruises, as well as hotels, resorts, guided tours, and custom land arrangements for both individual and group travel. They offer a wide range of travel options including hosted cruises, shore excursions, and active adventures. Their services cater to clients seeking high-end travel experiences and personalized itineraries. With a focus on exceptional customer service, they provide exclusive offers and loyalty programs to enhance the travel experience. | Source: https://www.ransomware.live/id/VHJhdmVsIG9mIEFtZXJpY2FAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 831,
+    "name": "dragonforce: edtg.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: edtg.com | Infostealer data confirmed. | The Eldorado Trading Group is a company that operates in the Banking industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Mountain View, California | Source: https://www.ransomware.live/id/ZWR0Zy5jb21AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 830,
+    "name": "akira: DeMera DeMera Cameron",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: ddccpa.com | Infostealer data confirmed. | DDC CPA is a trusted CPA firm based in Fresno, specializing in co rporate tax services and audit advisory for businesses across var ious industries. With over 80 years of experience, they provide a comprehensive range of accounting services including bookkeeping , tax planning, and financial forecasting. We will upload 260gb of corporate data soon. A bit of personal da ta, financials, client financials (international ones), contracts and agreements, corporate confidential documents, NDAs and so on . | Source: https://www.ransomware.live/id/RGVNZXJhIERlTWVyYSBDYW1lcm9uQGFraXJh"
+  },
+  {
+    "id": 829,
+    "name": "SilentRansomGroup: T..t Ste..ius & Ho.i.ter LLP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/VC4udCBTdGUuLml1cyAmIEhvLmkudGVyIExMUEBTaWxlbnRSYW5zb21Hcm91cA=="
+  }
+]

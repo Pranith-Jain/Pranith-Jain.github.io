@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:45.357Z",
+  "name": "Cyberattack on fuel supplier causes supply chain disruption",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Feb 4, 2022",
+  "lastSeen": "Feb 4, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #286 (cdc842aa-761d-48e2-9b97-c344bed8b3a8)."
+}

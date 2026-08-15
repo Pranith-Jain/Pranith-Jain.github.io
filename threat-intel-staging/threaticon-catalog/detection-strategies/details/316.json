@@ -1,0 +1,12 @@
+{
+  "id": 316,
+  "fetchedAt": "2026-08-14T05:38:14.445Z",
+  "name": "Detect Network Logon Script Abuse via Multi-Event Correlation on Windows",
+  "tlp": null,
+  "detId": "DET0367",
+  "stixId": "x-mitre-detection-strategy--2f20791a-0c97-40c1-a09e-7925321f6f66",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1034"]
+}

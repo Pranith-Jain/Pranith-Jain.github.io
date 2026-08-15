@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:21:06.385Z",
+  "name": "OSINT Milano Hacking Team malware detection tool & IOCs by Rook Security",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 21, 2015",
+  "lastSeen": "Jul 21, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #655 (55bb38dc-bda8-4839-8b37-4fe1950d210b)."
+}

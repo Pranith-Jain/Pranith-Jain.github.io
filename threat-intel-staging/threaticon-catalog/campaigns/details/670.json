@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:25:35.665Z",
+  "name": "safepay: cheeky.com.ar",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Feb 5, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: AR | Sector: Consumer Services | Website: cheeky.com.ar | Infostealer data confirmed. | Cheeky is a well-established Argentine children’s fashion brand owned by CHEEK S.A., headquartered in Martínez, Buenos Aires Province. Founded in … | Source: https://www.ransomware.live/id/Y2hlZWt5LmNvbS5hckBzYWZlcGF5"
+}

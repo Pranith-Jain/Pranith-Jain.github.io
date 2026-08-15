@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:34:15.052Z",
+  "name": "medusalocker: Desert Christian Schools (DCS)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 6, 2026",
+  "description": "Ransomware attack attributed to medusalocker. | Country: US | Sector: Education | K-12 Christian school affiliated with First Baptist Church of Lancaster, CA. ADP payroll, DCFS childcare program, City of Lancaster Water Safety program. Financial docs: P&L, Balance Sheet, Trial Balance, 1099s. School Board minutes 2025. | Source: https://www.ransomware.live/id/RGVzZXJ0IENocmlzdGlhbiBTY2hvb2xzIChEQ1MpQG1lZHVzYWxvY2tlcg=="
+}

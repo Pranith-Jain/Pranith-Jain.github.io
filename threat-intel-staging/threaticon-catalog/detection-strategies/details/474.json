@@ -1,0 +1,12 @@
+{
+  "id": 474,
+  "fetchedAt": "2026-08-14T05:21:43.100Z",
+  "name": "Behavioral Detection Strategy for T1123 Audio Capture Across Windows, Linux, macOS",
+  "tlp": null,
+  "detId": "DET0221",
+  "stixId": "x-mitre-detection-strategy--c7471b0b-ac10-4eac-aae6-cfa821e707dd",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0619", "AN0620", "AN0621"]
+}

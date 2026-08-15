@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:14.963Z",
+  "name": "OSINT Expansion on hacking team VPS IPs using PassiveTotal by Brandon Dixon",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 6, 2015",
+  "lastSeen": "Jul 6, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #680 (5617efa2-569c-44f0-83d4-4d3d950d210b)."
+}

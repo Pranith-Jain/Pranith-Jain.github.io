@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:10:33.438Z",
+  "name": "OSINT - The Gamaredon Group Toolset Evolution",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Feb 28, 2017",
+  "lastSeen": "Feb 28, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1001 (58b532d4-db1c-4cdd-8615-4bb502de0b81)."
+}

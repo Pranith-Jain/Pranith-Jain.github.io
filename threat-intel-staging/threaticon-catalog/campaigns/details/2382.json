@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:50.700Z",
+  "name": "OSINT Pay No Attention to the Server Behind the Proxy: Mapping FinFisherâ€™s Continuing Proliferation by Citizen Lab",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Oct 15, 2015",
+  "lastSeen": "Oct 15, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #710 (56266091-a774-467e-b0f8-4d9c950d210b)."
+}

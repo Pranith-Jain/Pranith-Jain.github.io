@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:44:52.508Z",
+  "name": "lockbit5: giesdl.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 11, 2026",
+  "lastSeen": "Jun 29, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Not Found | Website: giesdl.de | Infostealer data confirmed. | Die Gies Dienstleistungen GmbH ist ein deutsches Gebäudedienstleistungsunternehmen. Sie hat 19 Niede... | Source: https://www.ransomware.live/id/Z2llc2RsLmRlQGxvY2tiaXQ1"
+}

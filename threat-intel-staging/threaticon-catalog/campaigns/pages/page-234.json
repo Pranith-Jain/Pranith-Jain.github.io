@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4355,
+    "name": "anubis: Quest Healthcare Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: questhcs.com | Infostealer data confirmed. | Employee data, internal files, and a few unexpected discoveries. | Source: https://www.ransomware.live/id/UXVlc3QgSGVhbHRoY2FyZSBTb2x1dGlvbnNAYW51Ymlz"
+  },
+  {
+    "id": 4356,
+    "name": "moneymessage: X-Copper Professional",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to moneymessage. | Country: US | Sector: Manufacturing | Website: xcopper.com | Infostealer data confirmed. | [AI generated] X-Copper Professional is a Canadian legal and paralegal services firm specializing in traffic ticket defense and driving-related legal matters. Based in Ontario, Canada, the company represents clients facing speeding tickets, careless driving charges, and other Highway Traffic Act violations. It employs licensed paralegals and lawyers to help clients reduce or dismiss charges, minimizing fines, demerit points, and insurance premium impacts. | Source: https://www.ransomware.live/id/WC1Db3BwZXIgUHJvZmVzc2lvbmFsQG1vbmV5bWVzc2FnZQ=="
+  },
+  {
+    "id": 4354,
+    "name": "worldleaks: Treet Group of Companies",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: PK | Sector: Business Services | Website: treetcorp.com | Infostealer data confirmed. | [AI generated] Treet Group of Companies is a Pakistani conglomerate headquartered in Lahore, Pakistan. It operates across multiple industries including razor blades and personal care products, textile manufacturing, and power generation. The group is best known for producing Treet razor blades, one of the most recognized brands in Pakistan. It is publicly listed and has been a significant industrial player in Pakistan for several decades. | Source: https://www.ransomware.live/id/VHJlZXQgR3JvdXAgb2YgQ29tcGFuaWVzQHdvcmxkbGVha3M="
+  },
+  {
+    "id": 4357,
+    "name": "qilin: Pennant Hills Golf Club",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Hospitality and Tourism | Website: www.pennanthillsgolfclub.com.au | N/A | Source: https://www.ransomware.live/id/UGVubmFudCBIaWxscyBHb2xmIENsdWJAcWlsaW4="
+  },
+  {
+    "id": 4360,
+    "name": "anubis: Northeast Pediatrics & Adolescent Medicine",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Sector: Healthcare | Website: northeastpeds.com | Infostealer data confirmed. | Data breach exposes employees and patients of a pediatric clinic. | Source: https://www.ransomware.live/id/Tm9ydGhlYXN0IFBlZGlhdHJpY3MgJiBBZG9sZXNjZW50IE1lZGljaW5lQGFudWJpcw=="
+  },
+  {
+    "id": 4372,
+    "name": "thegentlemen: Keywest Projects",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Construction | Website: keywestprojects.ca | Infostealer data confirmed. | ***.ca zoominfo.com/c/keywest-projects-ltd/354074136 KeyWest Projects Ltd. is a Canadian EPCM (Engineering, Procurement, Construction Management) company headquartered in Calgary, Alberta. It specializes in full-cycle project delivery for the energy sector — including oil and gas facilities, pipelines, and industrial infrastructure — primarily across Western Canada. The firm is recognized for its integrated, client-driven approach that emphasizes safety, efficiency, and technical reliability on complex energy projects | Source: https://www.ransomware.live/id/S2V5d2VzdCBQcm9qZWN0c0B0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 4358,
+    "name": "payload: Tofutown",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Agriculture and Food Production | TOFUTOWN is a traditional organic manufacturer specializing in plant-based foods, founded in 1981. The company offers a diverse range of products including vegan spreads, tofu, and seitan, all made from high-quality organic ingredients. With a commitment to sustainability and natural ingredients, TOFUTOWN caters to health-conscious consumers looking for convenient and delicious plant-based meal options. | Source: https://www.ransomware.live/id/VG9mdXRvd25AcGF5bG9hZA=="
+  },
+  {
+    "id": 4365,
+    "name": "medusalocker: Dadolighting",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Sector: Manufacturing | Website: dadolighting.com | Infostealer data confirmed. | Organization with 17 emails extracted. Domain: dadolighting.com | Source: https://www.ransomware.live/id/RGFkb2xpZ2h0aW5nQG1lZHVzYWxvY2tlcg=="
+  },
+  {
+    "id": 4352,
+    "name": "apt73: ritavo.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: AT | Sector: Not Found | Website: ritavo.com | Infostealer data confirmed. | ritavo.com is the website of Rita Võ Group, a private multidisciplinary holding company from Vie... | Source: https://www.ransomware.live/id/cml0YXZvLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 4364,
+    "name": "medusalocker: Sgs Gmbh",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Country: DE | Sector: Business Services | Website: sgs-gmbh.com | Infostealer data confirmed. | Organization with 933 emails extracted. Domain: sgs-gmbh.com | Source: https://www.ransomware.live/id/U2dzIEdtYmhAbWVkdXNhbG9ja2Vy"
+  },
+  {
+    "id": 4353,
+    "name": "worldleaks: Service IT",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: BR | Sector: Business Services | Website: www.service.com.br | [AI generated] N/A | Source: https://www.ransomware.live/id/U2VydmljZSBJVEB3b3JsZGxlYWtz"
+  },
+  {
+    "id": 4363,
+    "name": "medusalocker: Karneslegal",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Sector: Business Services | Website: karneslegal.com | Infostealer data confirmed. | Organization with 23 emails extracted. Domain: karneslegal.com | Source: https://www.ransomware.live/id/S2FybmVzbGVnYWxAbWVkdXNhbG9ja2Vy"
+  },
+  {
+    "id": 4366,
+    "name": "medusalocker: T Online",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to medusalocker. | Country: DE | Sector: Telecommunication | Website: t-online.de | Organization with 823 emails extracted. Domain: t-online.de | Source: https://www.ransomware.live/id/VCBPbmxpbmVAbWVkdXNhbG9ja2Vy"
+  },
+  {
+    "id": 4349,
+    "name": "incransom: hamilton-eye.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: hamilton-eye.com | Infostealer data confirmed. | Hamilton Eye Institute is a comprehensive vision care practice operating out of two Pennsylvania locations: Allentown and Easton. They provide routine eye exams, medical/surgical eye treatments, and an in-house MediSpa. | Source: https://www.ransomware.live/id/aGFtaWx0b24tZXllLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 4348,
+    "name": "incransom: ezortea.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: BR | Sector: Consumer Services | Website: ezortea.com.br | Infostealer data confirmed. | Estrutural Zortea is a Brazilian company founded in 1995, specializing in the design, fabrication, and assembly of large-scale metal structures. ISO 9001-2015 certified, they provide industrial, logistics, and port solutions throughout the country. Specialties include: roofing for grain warehouses and industrial sheds, hoppers, silos, metal towers, and buildings. | Source: https://www.ransomware.live/id/ZXpvcnRlYS5jb20uYnJAaW5jcmFuc29t"
+  }
+]

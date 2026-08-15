@@ -1,0 +1,12 @@
+{
+  "id": 175,
+  "fetchedAt": "2026-08-14T05:55:45.486Z",
+  "name": "Detection of Default Account Abuse Across Platforms",
+  "tlp": null,
+  "detId": "DET0465",
+  "stixId": "x-mitre-detection-strategy--cff5ca37-cc4a-431c-b481-d0ccabbf6980",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1283", "AN1284", "AN1285", "AN1286", "AN1287"]
+}

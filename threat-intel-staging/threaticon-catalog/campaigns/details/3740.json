@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:59:41.216Z",
+  "name": "SilentRansomGroup: Sandberg Phoenix Information",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "May 6, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: sandbergphoenix.com | Infostealer data confirmed. | Over 45 years providing superior legal services to clients of every size throughout the Midwest and ac… | Source: https://www.ransomware.live/id/U2FuZGJlcmcgUGhvZW5peCBJbmZvcm1hdGlvbkBTaWxlbnRSYW5zb21Hcm91cA=="
+}

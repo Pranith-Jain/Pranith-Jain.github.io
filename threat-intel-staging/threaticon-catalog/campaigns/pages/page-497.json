@@ -1,0 +1,122 @@
+[
+  {
+    "id": 332,
+    "name": "secpo: Color Communications LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to secpo. | Country: US | Sector: Telecommunication | Website: ccicolor.com | Infostealer data confirmed. | The exposed dataset includes over 200,000 unique files containing sensitive information on more than 4,500 individuals and over 5,500 organizations... | Source: https://www.ransomware.live/id/Q29sb3IgQ29tbXVuaWNhdGlvbnMgTExDQHNlY3Bv"
+  },
+  {
+    "id": 328,
+    "name": "payoutsking: F****p",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: fl****.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/RioqKipwQHBheW91dHNraW5n"
+  },
+  {
+    "id": 352,
+    "name": "lockbit5: pricon.com.ph",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: PH | Sector: Business Services | Website: pricon.com.ph | Infostealer data confirmed. | Pricon Microelectronics, Inc. (PMI) is an Original Equipment Manufacturer (OEM) and a subsidiary of... | Source: https://www.ransomware.live/id/cHJpY29uLmNvbS5waEBsb2NrYml0NQ=="
+  },
+  {
+    "id": 331,
+    "name": "payoutsking: N****a",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: n****.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/TioqKiphQHBheW91dHNraW5n"
+  },
+  {
+    "id": 327,
+    "name": "payoutsking: H****o",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: has****.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/SCoqKipvQHBheW91dHNraW5n"
+  },
+  {
+    "id": 305,
+    "name": "payoutsking: E****b",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: e****.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/RSoqKipiQHBheW91dHNraW5n"
+  },
+  {
+    "id": 323,
+    "name": "payoutsking: Epcon Communities",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Construction | Website: epconcommunities.com | Infostealer data confirmed. | [AI generated] Epcon Communities is a US-based homebuilding and franchise company founded in 1986 and headquartered in Dublin, Ohio. It specializes in developing and selling single-story, low-maintenance homes primarily targeting active adults aged 55 and older. Operating in the residential real estate and construction industry, Epcon also franchises its community development model to builders across the United States. | Source: https://www.ransomware.live/id/RXBjb24gQ29tbXVuaXRpZXNAcGF5b3V0c2tpbmc="
+  },
+  {
+    "id": 322,
+    "name": "payoutsking: SCS Engineers",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Business Services | Website: scsengineers.com | Infostealer data confirmed. | [AI generated] SCS Engineers is a United States-based environmental consulting and engineering firm. Founded in 1970, the company specializes in solid waste management, landfill design and operations, environmental remediation, and sustainability services. It serves municipal, industrial, and government clients across the country, offering technical solutions related to waste infrastructure, gas collection systems, and environmental compliance. | Source: https://www.ransomware.live/id/U0NTIEVuZ2luZWVyc0BwYXlvdXRza2luZw=="
+  },
+  {
+    "id": 321,
+    "name": "payoutsking: Lc Industries",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Manufacturing | Website: lcindustries.com | Infostealer data confirmed. | [AI generated] LC Industries is a nonprofit organization based in the United States that provides employment and training opportunities for people who are blind or visually impaired. Operating primarily in North Carolina, it manufactures and supplies a range of products including military and government goods, fulfilling contracts through the AbilityOne Program, which connects nonprofit agencies with federal procurement opportunities. | Source: https://www.ransomware.live/id/TGMgSW5kdXN0cmllc0BwYXlvdXRza2luZw=="
+  },
+  {
+    "id": 320,
+    "name": "payoutsking: Englewood Lab",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Healthcare | Website: englewoodlab.com | Infostealer data confirmed. | [AI generated] Englewood Lab is a contract development and manufacturing organization (CDMO) based in the United States, operating out of Englewood, New Jersey. The company specializes in the development and manufacturing of topical, sterile, and liquid pharmaceutical products. It serves clients in the pharmaceutical and personal care industries, offering formulation development, stability testing, and regulatory support services. | Source: https://www.ransomware.live/id/RW5nbGV3b29kIExhYkBwYXlvdXRza2luZw=="
+  },
+  {
+    "id": 319,
+    "name": "payoutsking: TESSCO",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Technology | Website: tessco.com | Infostealer data confirmed. | [AI generated] TESSCO Technologies is a United States-based company operating in the wireless technology distribution industry. Founded in 1982 and headquartered in Hunt Valley, Maryland, TESSCO serves as a value-added distributor and solutions provider for wireless networking products, infrastructure equipment, and mobile devices. The company supplies carriers, contractors, system integrators, and government agencies with products from leading manufacturers across the telecommunications sector. | Source: https://www.ransomware.live/id/VEVTU0NPQHBheW91dHNraW5n"
+  },
+  {
+    "id": 318,
+    "name": "payoutsking: Grace Design Studios",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Consumer Services | Website: grace-design.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/R3JhY2UgRGVzaWduIFN0dWRpb3NAcGF5b3V0c2tpbmc="
+  },
+  {
+    "id": 317,
+    "name": "payoutsking: Blanchard",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: blanchard.com | Infostealer data confirmed. | [AI generated] Blanchard is a US-based professional development and leadership training company founded by Ken Blanchard, co-author of \"The One Minute Manager.\" Operating in the corporate training and consulting industry, it offers leadership development programs, coaching services, and organizational effectiveness solutions to businesses worldwide. Headquartered in Escondido, California, the company serves clients across various sectors globally. | Source: https://www.ransomware.live/id/QmxhbmNoYXJkQHBheW91dHNraW5n"
+  },
+  {
+    "id": 316,
+    "name": "payoutsking: Florida East Coast Railway",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Transportation/Logistics | Website: fecrwy.com | Infostealer data confirmed. | [AI generated] Florida East Coast Railway is a regional freight railroad operating in the United States, primarily serving the state of Florida. Founded in the 1890s by Henry Flagler, it runs approximately 351 miles of track along Florida's eastern corridor from Jacksonville to Miami. The company transports intermodal containers, vehicles, and various commodities, playing a key role in Florida's freight logistics and supply chain infrastructure. | Source: https://www.ransomware.live/id/RmxvcmlkYSBFYXN0IENvYXN0IFJhaWx3YXlAcGF5b3V0c2tpbmc="
+  },
+  {
+    "id": 315,
+    "name": "payoutsking: Central National Gottesman",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: cng-inc.com | Infostealer data confirmed. | [AI generated] Central National Gottesman is a privately held global pulp and paper merchant headquartered in Purchase, New York, USA. Founded in 1886, the company distributes printing and writing papers, packaging materials, pulp, and tissue products. It operates across multiple continents, serving publishers, printers, and converters. It is one of the largest independent paper distribution companies in the world. | Source: https://www.ransomware.live/id/Q2VudHJhbCBOYXRpb25hbCBHb3R0ZXNtYW5AcGF5b3V0c2tpbmc="
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2178,
+    "name": "Grandoreiro: How engorged can an EXE get?",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #222 (5eb1b9a0-a1dc-46e9-8151-bcf2c0a8ab16)."
+  },
+  {
+    "id": 2177,
+    "name": "Newly uncovered DNS tunnelling technique, and new campaign against South Korean gaming company",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #221 (5ea14576-470c-4a13-8d17-ad77c0a8ab16)."
+  },
+  {
+    "id": 2176,
+    "name": "New RedLine Stealer Distributed Using Coronavirus-themed Email Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #220 (5e8b8ba5-df0c-4e7b-bfb4-b27ec0a8ab16)."
+  },
+  {
+    "id": 2175,
+    "name": "WildPressure targets industrial-related entities in the Middle East",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #219 (5e8b8990-909c-4875-8539-a755c0a8ab16)."
+  },
+  {
+    "id": 2174,
+    "name": "Attacks that exploit IE vulnerability (CVE-2020-0674) and Firefox vulnerability (CVE-2019-17026)",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #218 (5e8b8716-86b8-4cbf-882c-a754c0a8ab16)."
+  },
+  {
+    "id": 2173,
+    "name": "This Is Not a Test: APT41 Initiates Global Intrusion Campaign Using Multiple Exploits",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #217 (5e7d198f-c638-46ad-b4f7-b3f0c0a8ab16)."
+  },
+  {
+    "id": 2172,
+    "name": "Operation Poisoned News: Hong Kong Users Targeted With Mobile Malware via Local News Links",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #216 (5e7a8ebc-c808-488e-92b1-ad77c0a8ab16)."
+  },
+  {
+    "id": 2171,
+    "name": "Shlayer Trojan attacks one in ten macOS users",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #214 (5e5b9ed2-83f0-4a84-9356-a05fc0a8ab16)."
+  },
+  {
+    "id": 2170,
+    "name": "AZORult spreads as a fake ProtonVPN installer",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #213 (5e5b9e7e-65fc-40d5-8ae2-a05fc0a8ab16)."
+  },
+  {
+    "id": 2169,
+    "name": "BRONZE PRESIDENT Targets NGOs",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #212 (5e0f4cf1-d9d4-4243-b077-9c80c0a8ab16)."
+  },
+  {
+    "id": 2168,
+    "name": "German language malspam pushes yet another wave of Trickbot",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #211 (5df1e6c4-5340-4610-819b-a05fc0a8ab16)."
+  },
+  {
+    "id": 2167,
+    "name": "Dridex Malware - Alert (AA19-339A)",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #210 (5deffec0-ebec-439a-9a1b-a05ec0a8ab16)."
+  },
+  {
+    "id": 2166,
+    "name": "Mobile Cyberespionage Campaign Distributed Through CallerSpy Mounts Initial Phase of a Targeted Attack",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #209 (5de61dfc-1be0-468b-9a7e-9c81c0a8ab16)."
+  },
+  {
+    "id": 2165,
+    "name": "DarkUniverse â€“ the mysterious APT framework #27",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #207 (5dc5d7e8-ddf8-4963-bf12-a37bc0a8ab16)."
+  },
+  {
+    "id": 2164,
+    "name": "C2 With It All: From Ransomware To Carding",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #206 (5dc5cc9a-ce6c-4138-9afa-a37bc0a8ab16)."
+  }
+]

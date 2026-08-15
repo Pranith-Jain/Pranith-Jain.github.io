@@ -1,0 +1,85 @@
+[
+  { "id": 2118, "name": "T1582", "tlp": "white", "confidence": null, "techniqueId": "T1582", "status": null },
+  { "id": 2946, "name": "T1582.004", "tlp": "white", "confidence": null, "techniqueId": "T1582", "status": null },
+  {
+    "id": 13,
+    "name": "Acquire Infrastructure",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1583",
+    "status": null
+  },
+  { "id": 202, "name": "Domains", "tlp": "white", "confidence": null, "techniqueId": "T1583", "status": null },
+  {
+    "id": 1376,
+    "name": "T1583.001: Domains",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1583",
+    "status": null
+  },
+  { "id": 80, "name": "DNS Server", "tlp": "white", "confidence": null, "techniqueId": "T1583", "status": null },
+  {
+    "id": 343,
+    "name": "Virtual Private Server",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1583",
+    "status": null
+  },
+  {
+    "id": 1992,
+    "name": "T1583.003: Virtual Private Server",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1583",
+    "status": null
+  },
+  { "id": 276, "name": "Server", "tlp": "white", "confidence": null, "techniqueId": "T1583", "status": null },
+  { "id": 144, "name": "Botnet", "tlp": "white", "confidence": null, "techniqueId": "T1583", "status": null },
+  {
+    "id": 1603,
+    "name": "T1583.005: Botnet",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1583",
+    "status": null
+  },
+  { "id": 392, "name": "Web Services", "tlp": "white", "confidence": null, "techniqueId": "T1583", "status": null },
+  {
+    "id": 1847,
+    "name": "T1583.006: Web Service Malosteams",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1583",
+    "status": null
+  },
+  {
+    "id": 1761,
+    "name": "T1583.006: Web Services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1583",
+    "status": null
+  },
+  { "id": 16, "name": "Serverless", "tlp": "white", "confidence": null, "techniqueId": "T1583", "status": null },
+  { "id": 67, "name": "Malvertising", "tlp": "white", "confidence": null, "techniqueId": "T1583", "status": null },
+  {
+    "id": 360,
+    "name": "Compromise Infrastructure",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1584",
+    "status": null
+  },
+  { "id": 680, "name": "Domains", "tlp": "white", "confidence": null, "techniqueId": "T1584", "status": null },
+  {
+    "id": 2230,
+    "name": "T1584.001 - Defense Evasion via Driver",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1584",
+    "status": null
+  },
+  { "id": 526, "name": "DNS Server", "tlp": "white", "confidence": null, "techniqueId": "T1584", "status": null }
+]

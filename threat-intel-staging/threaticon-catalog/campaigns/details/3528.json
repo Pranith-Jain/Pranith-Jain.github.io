@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:09:17.737Z",
+  "name": "kairos: McCarthy Inc",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 15, 2026",
+  "lastSeen": "May 15, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to kairos. | Country: US | Sector: Construction | Website: mccarthyinc.com | Infostealer data confirmed. | McCarthy, Inc., based in Savannah, Georgia, has been providing quality doors, frames, hardware, and related products since 1955. The company specializes in metal and wood doors, including architectural-grade flush doors and custom stile and rail units, along with a variety of specialty items. McCarthy, Inc. offers comprehensive services from project inception to completion, aiming to build lasting relationships with clients across various industries such as healthcare, education, and hospitality. Their commitment to customer satisfaction is reflected in their extensive product offerings and dedicated service. | Source: https://www.ransomware.live/id/TWNDYXJ0aHkgSW5jQGthaXJvcw=="
+}

@@ -1,0 +1,12 @@
+{
+  "id": 323,
+  "fetchedAt": "2026-08-14T05:15:47.528Z",
+  "name": "Container CLI and API Abuse via Docker/Kubernetes (T1059.013)",
+  "tlp": null,
+  "detId": "DET0083",
+  "stixId": "x-mitre-detection-strategy--26580351-9bc3-4e03-b5ad-139d38303707",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0233"]
+}

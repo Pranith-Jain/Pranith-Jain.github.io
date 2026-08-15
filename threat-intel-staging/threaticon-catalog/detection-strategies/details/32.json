@@ -1,0 +1,12 @@
+{
+  "id": 32,
+  "fetchedAt": "2026-08-14T05:26:40.331Z",
+  "name": "Detection Strategy for T1525 – Implant Internal Image",
+  "tlp": null,
+  "detId": "DET0334",
+  "stixId": "x-mitre-detection-strategy--c08df366-fa5a-4f34-a27e-b28e756f09f0",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0946", "AN0947"]
+}

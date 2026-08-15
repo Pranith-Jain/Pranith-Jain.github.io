@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2746,
+    "name": "OSINT - JadeRAT mobile surveillanceware spikes in espionage activity",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1223 (59eb345d-34f0-4fc6-b785-2ace02de0b81)."
+  },
+  {
+    "id": 2745,
+    "name": "OSINT - IoT_reaper: A Rappid Spreading New IoT Botnet",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1222 (59e9ec59-a888-48e4-afb4-441602de0b81)."
+  },
+  {
+    "id": 2744,
+    "name": "M2M - Malspam 2017-10-19 \"Emailed Invoice - ******\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1221 (59e8c165-4460-4066-baa8-35d6950d210f)."
+  },
+  {
+    "id": 2743,
+    "name": "M2M - Locky 2017-10-18 : Affid=3, offline, \".asasin\" : \"Message from 02087654321\" - \"Voice Message.7z\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1220 (59e87459-58e8-486d-98ab-432c950d210f)."
+  },
+  {
+    "id": 2742,
+    "name": "OSINT - BlackOasis APT and new targeted attacks leveraging zero-day exploit",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1218 (59e4c923-a6e0-4894-a6a8-994d950d210f)."
+  },
+  {
+    "id": 2741,
+    "name": "M2M - Locky 2017-10-10 : Affid=3, offline, \".asasin\" : \"Voicemail From 845-551-1234\" - \"VMSG12345678_20171010.7z\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1214 (59ddbaf9-3874-405c-b2e7-4770950d210f)."
+  },
+  {
+    "id": 2740,
+    "name": "M2M - Locky Affid=3, \"asasin\" / Trickbot \"mac1\" 2017-10-10 : \"Status of invoice A2171234-56\" - \"A2171234-56.html\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1213 (59dce1ec-b998-42ad-ba4f-48a4950d210f)."
+  },
+  {
+    "id": 2739,
+    "name": "M2M - Locky 2017-10-10 : Affid=3, offline, \".asasin\" : \"Document ... is complete\" - \"invoice_1234_sign_and_return.7z\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1212 (59dc90da-d970-4168-901d-45c3950d210f)."
+  },
+  {
+    "id": 2738,
+    "name": "M2M - Locky 2017-10-09 : Affid=3, offline, \".ykcol\" : \"Invoice IP1234567\" - \"Invoice-IP1234567.7z\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1210 (59db5cbe-a944-425b-b60a-473b950d210f)."
+  },
+  {
+    "id": 2737,
+    "name": "OSINT - Significant FormBook Distribution Campaigns Impacting the U.S. and South Korea",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1208 (59d7d6ca-34f4-4bec-b700-4afa02de0b81)."
+  },
+  {
+    "id": 2736,
+    "name": "M2M - Locky 2017-10-06 : Affid=3, offline, \".ykcol\" : \"Your Remittance Advice\" - \"12345 Remittance.7z\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1207 (59d771e1-db74-4d94-97d4-d899950d210f)."
+  },
+  {
+    "id": 2735,
+    "name": "OSINT - FreeMilk: A Highly Targeted Spear Phishing Campaign",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1206 (59d68cfe-723c-4b5e-b737-fbfd02de0b81)."
+  },
+  {
+    "id": 2734,
+    "name": "M2M - Locky 2017-10-05 : Affid=3, offline, \".ykcol\" : \"Invoice\" - \"1234567.7z\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1205 (59d5fdbb-df78-497f-8037-4f11950d210f)."
+  },
+  {
+    "id": 2733,
+    "name": "M2M - Locky 2017-10-04 : Affid=3, offline, \".ykcol\" : \"Message from 02087654321\" - \"Voice Message.7z\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1204 (59d5e1fe-30f4-48ee-8b75-dabd950d210f)."
+  },
+  {
+    "id": 2732,
+    "name": "OSINT - Malicious Chrome Extensions Stealing Roblox In-Game Currency, Sending Cookies via Discord",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1203 (59d4e235-c71c-4d0e-8ba3-920c950d210f)."
+  }
+]

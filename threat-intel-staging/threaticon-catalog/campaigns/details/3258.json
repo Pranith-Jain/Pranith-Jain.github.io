@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:25:59.331Z",
+  "name": "ESET takes part in global operation to disrupt the Grandoreiro banking trojan",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 24, 2024",
+  "lastSeen": "Jan 24, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #438 (a22d9655-bcfe-4a7e-9fec-3cdbc7f1d4d8)."
+}

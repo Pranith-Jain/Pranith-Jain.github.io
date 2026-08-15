@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:04:05.507Z",
+  "name": "chaos: healthcarehighways.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Healthcare | Website: healthcarehighways.com | Infostealer data confirmed. | WARNING / DATA LEAK NOTICE Target: Healthcare Highways (healthcarehighways.com) Countdown: 24 Hours If corporate representatives do not establish contact via chat within the next 24 hours, a massive internal data cache comprising 235 GB of sensitive company and client records will be p… | Source: https://www.ransomware.live/id/aGVhbHRoY2FyZWhpZ2h3YXlzLmNvbUBjaGFvcw=="
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4689,
+    "name": "qilin: PJ Daly Contracting",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IE | Sector: Construction | Website: www.pjdalycontracting.com | N/A | Source: https://www.ransomware.live/id/UEogRGFseSBDb250cmFjdGluZ0BxaWxpbg=="
+  },
+  {
+    "id": 4690,
+    "name": "nova: Desert Micro",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Sector: Technology | DesertMicro.net is a Software & Internet based company located in Jacksonville, Florida, United States with over 25 - 100 employees, data included large sums of costumers data who use the company software service, such curbside waste company invoices and Storage data, foothillsSanitation + GreenEnviromnetal + InlandService + QC + FusionSite companies the same, credit cards Details and payments billings Documents, databases backups and more - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/RGVzZXJ0IE1pY3JvQG5vdmE="
+  },
+  {
+    "id": 4691,
+    "name": "qilin: Commune d'Eyguires",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Public Sector | Website: www.eyguieres.org | N/A | Press: https://www.ledauphine.com/faits-divers-justice/2026/05/22/la-mairie-du-village-cible-d-une-cyberattaque | Source: https://www.ransomware.live/id/Q29tbXVuZSBkJ0V5Z3VpcmVzQHFpbGlu"
+  },
+  {
+    "id": 4692,
+    "name": "aurora: Hagerman & Company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4693,
+    "name": "anubis: KTR Real Estate Advisors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Financial Services | Real estate client database exposed. | Source: https://www.ransomware.live/id/S1RSIFJlYWwgRXN0YXRlIEFkdmlzb3JzQGFudWJpcw=="
+  },
+  {
+    "id": 4686,
+    "name": "krybit: coemi.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: BR | Sector: Not Found | Website: coemi.com.br | Infostealer data confirmed. | Coemi Imóveis is a Brazilian real estate company with 41 years of tradition in Brasília, Distrito Federal, Brazil, fou... | Source: https://www.ransomware.live/id/Y29lbWkuY29tLmJyQGtyeWJpdA=="
+  },
+  {
+    "id": 4709,
+    "name": "pear: Kirbor Homes",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Construction | Website: kirbor.com | Infostealer data confirmed. | Kirbor Homes is a reputable home builder located in the Mid-Atlantic region | Source: https://www.ransomware.live/id/S2lyYm9yIEhvbWVzQHBlYXI="
+  },
+  {
+    "id": 4706,
+    "name": "qilin: Makel Companies Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Construction | Website: www.makel.com.tr | N/A | Source: https://www.ransomware.live/id/TWFrZWwgQ29tcGFuaWVzIEdyb3VwQHFpbGlu"
+  },
+  {
+    "id": 4707,
+    "name": "pear: B & B Trading",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: bandbtrading.com | Infostealer data confirmed. | Largest independent food wholesale distributors in New England | Source: https://www.ransomware.live/id/QiAmIEIgVHJhZGluZ0BwZWFy"
+  },
+  {
+    "id": 4708,
+    "name": "pear: Release Marine, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Transportation/Logistics | Website: releasemarine.com | Infostealer data confirmed. | Handmade sport fishing equipment and yacht furnishings | Source: https://www.ransomware.live/id/UmVsZWFzZSBNYXJpbmUsIEluYy5AcGVhcg=="
+  },
+  {
+    "id": 4705,
+    "name": "rhysida: Lawson Roofing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to rhysida. | Sector: Construction | Lawson Roofing | Source: https://www.ransomware.live/id/TGF3c29uIFJvb2ZpbmdAcmh5c2lkYQ=="
+  },
+  {
+    "id": 4704,
+    "name": "shinyhunters: icsecurity.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Technology | Website: icsecurity.com | Infostealer data confirmed. | Over 2.7 million records and other internal corporate data was compromised. This is a final warning to reach out by 22 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 19 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/aWNzZWN1cml0eS5jb21Ac2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 4703,
+    "name": "qilin: Skupina Don Don - GRUPO BIMBO",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SI | Sector: Agriculture and Food Production | Website: www.dondon.si | N/A | Source: https://www.ransomware.live/id/U2t1cGluYSBEb24gRG9uIC0gR1JVUE8gQklNQk9AcWlsaW4="
+  },
+  {
+    "id": 4698,
+    "name": "nightspire: legendsmn(Blue Ox, Paul Bunyan, Lumberjack Electric)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Energy | Website: legendsmn.com | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/bGVnZW5kc21uKEJsdWUgT3gsIFBhdWwgQnVueWFuLCBMdW1iZXJqYWNrIEVsZWN0cmljKUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 4699,
+    "name": "nightspire: dean cosmetic dentistry",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Healthcare | Website: deancosmeticdentistry.com | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/ZGVhbiBjb3NtZXRpYyBkZW50aXN0cnlAbmlnaHRzcGlyZQ=="
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 684,
+  "fetchedAt": "2026-08-14T05:54:31.892Z",
+  "name": "Detect Archiving via Custom Method (T1560.003)",
+  "tlp": null,
+  "detId": "DET0438",
+  "stixId": "x-mitre-detection-strategy--edf894b7-052a-4baf-8984-f01ec773c80c",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1213", "AN1214", "AN1215"]
+}

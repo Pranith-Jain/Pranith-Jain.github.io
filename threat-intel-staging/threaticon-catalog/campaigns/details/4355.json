@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:33:39.299Z",
+  "name": "anubis: Quest Healthcare Solutions",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 2, 2026",
+  "lastSeen": "Jul 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: questhcs.com | Infostealer data confirmed. | Employee data, internal files, and a few unexpected discoveries. | Source: https://www.ransomware.live/id/UXVlc3QgSGVhbHRoY2FyZSBTb2x1dGlvbnNAYW51Ymlz"
+}

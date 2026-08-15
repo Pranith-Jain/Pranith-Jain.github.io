@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:43:49.227Z",
+  "name": "OSINT - GandCrab Ransomware Distributed by Exploit Kits, Appends GDCB Extension",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 29, 2018",
+  "lastSeen": "Jan 29, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1308 (5a8aea46-0ad4-4b8a-9cfd-445b950d210f)."
+}

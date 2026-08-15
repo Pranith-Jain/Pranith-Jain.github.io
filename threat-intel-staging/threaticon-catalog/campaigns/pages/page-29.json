@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7439,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 7438,
+    "name": "incransom: ATMS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: IN | Sector: Transportation | Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&D, and financial documentation. | Source: https://www.ransomware.live/id/QVRNU0BpbmNyYW5zb20="
+  },
+  {
+    "id": 7430,
+    "name": "qilin: Astro Electroplating",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.astroelectroplating.com | N/A | Source: https://www.ransomware.live/id/QXN0cm8gRWxlY3Ryb3BsYXRpbmdAcWlsaW4="
+  },
+  {
+    "id": 7431,
+    "name": "qilin: Filtronic",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Manufacturing | Website: www.filtronic.com | N/A | Source: https://www.ransomware.live/id/RmlsdHJvbmljQHFpbGlu"
+  },
+  {
+    "id": 7433,
+    "name": "qilin: John C Saunders, CPA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Professional Services | Website: www.johncsaunderscpa.com | N/A | Source: https://www.ransomware.live/id/Sm9obiBDIFNhdW5kZXJzLCBDUEFAcWlsaW4="
+  },
+  {
+    "id": 7432,
+    "name": "qilin: EISNER ZT GMBH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AT | Sector: Professional Services | Website: www.zteisner.at | N/A | Source: https://www.ransomware.live/id/RUlTTkVSIFpUIEdNQkhAcWlsaW4="
+  },
+  {
+    "id": 7436,
+    "name": "clop: CONTINENTAL.AERO",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Country: US | Sector: Transportation | Website: CONTINENTAL.AERO | [AI generated] N/A | Source: https://www.ransomware.live/id/Q09OVElORU5UQUwuQUVST0BjbG9w"
+  },
+  {
+    "id": 7435,
+    "name": "qilin: Depona",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SE | Sector: Technology | Website: www.depona.se | N/A | Source: https://www.ransomware.live/id/RGVwb25hQHFpbGlu"
+  },
+  {
+    "id": 7437,
+    "name": "clop: MINDRAY.COM",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Country: CN | Sector: Healthcare | Website: MINDRAY.COM | [AI generated] Mindray is a Chinese medical device company headquartered in Shenzhen, China. It develops, manufactures, and markets medical equipment including patient monitoring systems, diagnostic imaging devices, in-vitro diagnostic instruments, and anesthesia machines. Founded in 1991, Mindray serves hospitals and healthcare providers globally across more than 190 countries, positioning itself as one of China's leading medical technology firms. | Source: https://www.ransomware.live/id/TUlORFJBWS5DT01AY2xvcA=="
+  },
+  {
+    "id": 7434,
+    "name": "qilin: Nikan Awasisak Agency",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Not Found | Website: www.nikanaa.ca | N/A | Source: https://www.ransomware.live/id/TmlrYW4gQXdhc2lzYWsgQWdlbmN5QHFpbGlu"
+  },
+  {
+    "id": 7429,
+    "name": "ransomhouse: Alya Construtora",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: BR | Sector: Manufacturing | Website: www.alyaconstrutora.com | Álya Construtora is one of Brazil's leading privately owned engineering and construction companies, specializing in complex infrastructure, industrial, energy, urban mobility, and building projects with more than 70 years of operating experience. | Source: https://www.ransomware.live/id/QWx5YSBDb25zdHJ1dG9yYUByYW5zb21ob3VzZQ=="
+  },
+  {
+    "id": 7426,
+    "name": "spacebears: Hitech Distribuzione Informatica S.r.l. (HTDI)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7427,
+    "name": "Storm: Pioneer Bank",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Storm. | Country: US | Sector: Financial Services | Website: pioneerny.com | Pioneer Bank is a leading financial institution in New York's Capital Region, recognized as one of the 'Best Places to Work' by the Albany Business Review. The bank is committed to providing a world-class working environment and continually evolves to meet customer needs by offering new products, services, and leading technologies. Through the Pioneer Bank Charitable Foundation, the bank supports nonprofit organizations that enhance the quality of life for children in the Capital Region. The company headquarters is located in 652 Albany Shaker Road, Albany, NY 12211, United States. 201-500 Employees | Source: https://www.ransomware.live/id/UGlvbmVlciBCYW5rQFN0b3Jt"
+  },
+  {
+    "id": 7425,
+    "name": "blacknevas: OTEGROUP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7428,
+    "name": "thegentlemen: Hartfiel Automation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Manufacturing | Website: hartfiel.com | Infostealer data confirmed. | hartfiel.com zoominfo.com/c/hartfiel-automation-inc/27608695 Hartfiel Automation is an industrial automation company providing comprehensive manufacturing solutions like pneumatics, robotics, motion control, and hydraulics. For over 60 years, they have been a specialized high-tech provider supporting the American manufacturing sector. Headquartered in Minnesota, the company employs hundreds of professionals dedicated to engineering and optimizing production processes | Source: https://www.ransomware.live/id/SGFydGZpZWwgQXV0b21hdGlvbkB0aGVnZW50bGVtZW4="
+  }
+]

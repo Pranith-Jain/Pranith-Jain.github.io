@@ -1,0 +1,12 @@
+{
+  "id": 120,
+  "fetchedAt": "2026-08-14T06:05:39.019Z",
+  "name": "Detection of Acquire Access",
+  "tlp": null,
+  "detId": "DET0884",
+  "stixId": "x-mitre-detection-strategy--4b5df4bb-4903-4c66-9900-30bc046447be",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2016"]
+}

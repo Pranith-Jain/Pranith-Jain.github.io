@@ -1,0 +1,9 @@
+{
+  "id": 1388,
+  "fetchedAt": "2026-08-15T08:27:40.287Z",
+  "name": "T1568 - Lateral movement via DNS",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

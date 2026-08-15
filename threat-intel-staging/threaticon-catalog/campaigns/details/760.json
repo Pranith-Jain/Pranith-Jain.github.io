@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:21:46.804Z",
+  "name": "lockbit5: gas.mercedes-benz.com.eg",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: EG | Sector: Transportation/Logistics | Website: gas.mercedes-benz.com.eg | Infostealer data confirmed. | Mercedes-Benz, founded in 1967 and headquartered in Giza, Egypt, is a automobile dealer and motor ve... | Source: https://www.ransomware.live/id/Z2FzLm1lcmNlZGVzLWJlbnouY29tLmVnQGxvY2tiaXQ1"
+}

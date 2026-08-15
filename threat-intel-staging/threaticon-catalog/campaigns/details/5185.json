@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:59:01.449Z",
+  "name": "0day Syndicate: Braincell Braincell.sa rfcargo.braincell.solutions rf.braincell.solutions governata.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 29, 2026",
+  "lastSeen": "May 29, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to 0day Syndicate. | Sector: Technology | Website: braincell.sa | Infostealer data confirmed. | Braincell is a Saudi technology startup that optimizes business decision-making through AI-powered automation and data integration | Source: https://www.ransomware.live/id/QnJhaW5jZWxsIEJyYWluY2VsbC5zYSByZmNhcmdvLmJyYWluY2VsbC5zb2x1dGlvbnMgcmYuYnJhaW5jZWxsLnNvbHV0aW9ucyBnb3Zlcm5hdGEuY29tQDBkYXkgU3luZGljYXRl"
+}

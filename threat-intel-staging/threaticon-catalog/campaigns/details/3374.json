@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:21:19.747Z",
+  "name": "OSINT Microsoft Word Intruder gets down to business: Operation Pony Express by Sophos",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 25, 2015",
+  "lastSeen": "Sep 25, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #649 (56095160-7848-4ce6-b0d4-4d2b950d210b)."
+}

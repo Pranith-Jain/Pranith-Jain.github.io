@@ -1,0 +1,12 @@
+{
+  "id": 90,
+  "fetchedAt": "2026-08-14T05:22:22.663Z",
+  "name": "Detection Strategy for Spearphishing Attachment across OS Platforms",
+  "tlp": null,
+  "detId": "DET0236",
+  "stixId": "x-mitre-detection-strategy--8d904004-e492-4f76-9f84-be75fc61e5c5",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0655", "AN0656", "AN0657"]
+}

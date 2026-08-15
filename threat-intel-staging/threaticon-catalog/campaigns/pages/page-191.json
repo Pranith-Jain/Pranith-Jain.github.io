@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5009,
+    "name": "thegentlemen: Empty",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5008,
+    "name": "thegentlemen: Institucion Cervantes",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: AR | Sector: Education | Website: cervantes.edu.ar | Infostealer data confirmed. | ***.edu.ar zoominfo.com/c/institución-cervantes/372383480 nstitucion Cervantes is a private higher education institution based in Córdoba, Argentina, with over 60 years of history and more than 3,000 students. The school specializes in short-term, future-oriented careers ranging from one to three years, focusing on practical fields like Business Administration, Data Science, IT, and Law. It is highly recognized in the region for its strong commitment to student development and rapid professional integration into the job market | Source: https://www.ransomware.live/id/SW5zdGl0dWNpb24gQ2VydmFudGVzQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 5003,
+    "name": "morpheus: 3I INFOTECH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to morpheus. | Country: IN | Sector: Technology | **Website**: 3i-infotech.com **Revenue**: $96.8 Million 3i Infotech, incorporated in 1993 as 'ICICI Investors Services Limited' and initially an ICICI subsidiary until 2002, is an Indian public glob | Source: https://www.ransomware.live/id/M0kgSU5GT1RFQ0hAbW9ycGhldXM="
+  },
+  {
+    "id": 5004,
+    "name": "thegentlemen: IP Rings",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: IE | Sector: Technology | Website: iprings.com | Infostealer data confirmed. | ***.com zoominfo.com/c/ip-rings-ltd/62719470 IP Rings Ltd is an India-based automotive component manufacturer and a member of the Amalgamations Group, founded in 1991. The company specializes in producing piston rings, high-precision forgings, and crank pins using advanced orbital cold forming technology. It is a publicly traded corporation with over 500 employees, serving global clients with cutting-edge surface treatments and high-quality parts | Source: https://www.ransomware.live/id/SVAgUmluZ3NAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 5005,
+    "name": "thegentlemen: Central Arkansas Pediatrics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: central-pediatrics.edan.io | Infostealer data confirmed. | ***.edan.io zoominfo.com/c/central-arkansas-pediatrics/1340337263 Central Arkansas Pediatrics is a specialized healthcare provider based in Conway, Arkansas, dedicated to pediatric special needs care. The clinic offers comprehensive services, including developmental preschool programs and therapy support for children across the state. Their digital presence is hosted on edan.io, a streamlined platform used by medical practices to provide accessible online resources for patients | Source: https://www.ransomware.live/id/Q2VudHJhbCBBcmthbnNhcyBQZWRpYXRyaWNzQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 5006,
+    "name": "thegentlemen: Metroply",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Sector: Not Found | Website: metroply.com | Infostealer data confirmed. | ***.com zoominfo.com/c/metroply/353622883 Metroply is one of the largest wood-based panel manufacturers in Thailand and Southeast Asia, boasting over 70 years of industry experience. The company specializes in producing a comprehensive range of engineered wood products, including particle board, MDF, plywood, hardboard, and doors. Utilizing reliable automated technology, Metroply is recognized as a regional leader in delivering world-class quality wood substitutes and building materials | Source: https://www.ransomware.live/id/TWV0cm9wbHlAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 5002,
+    "name": "nightspire: ASIA STRATEGIC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Business Services | Data is not available now. | Source: https://www.ransomware.live/id/QVNJQSBTVFJBVEVHSUNAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 4999,
+    "name": "nightspire: GRIP Outreach For Youth",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Education | Website: www.gripyouth.com | - Financial & Accounting Records- Sensitive Employee- Youth Participant & Child Protection Records- Governance & Legal Documents | Source: https://www.ransomware.live/id/R1JJUCBPdXRyZWFjaCBGb3IgWW91dGhAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 5000,
+    "name": "nightspire: Unique Litho, Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Manufacturing | Website: uniquelitho.com | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/VW5pcXVlIExpdGhvLCBJbmNAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 5001,
+    "name": "nightspire: A*** G*** A*S*",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/QSoqKiBHKioqIEEqUypAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 4996,
+    "name": "qilin: Opera Comique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Hospitality and Tourism | Website: www.opera-comique.com | N/A | Source: https://www.ransomware.live/id/T3BlcmEgQ29taXF1ZUBxaWxpbg=="
+  },
+  {
+    "id": 4997,
+    "name": "qilin: Shipping Association of NY and NJ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Transportation/Logistics | Website: www.sanynj.org | N/A | Source: https://www.ransomware.live/id/U2hpcHBpbmcgQXNzb2NpYXRpb24gb2YgTlkgYW5kIE5KQHFpbGlu"
+  },
+  {
+    "id": 4998,
+    "name": "akira: HRC Sicherheitsdienste",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Business Services | HRC Sicherheitsdienste is a family-owned security service provider with over 45 years of experi ence, offering a wide range of security solutions including object protection, construction sit e monitoring, reception services, and event security. They cater to various clients such as hos pitals, supermarkets, and museums, ensuring tailored security packages to meet specific needs. We will upload 24gb of corporate data soon. Employee information (German passports, IDs and so on), credit cards, payment details, financials, lots of agreements and contracts, confidential agreements and so on. | Source: https://www.ransomware.live/id/SFJDIFNpY2hlcmhlaXRzZGllbnN0ZUBha2lyYQ=="
+  },
+  {
+    "id": 5007,
+    "name": "thegentlemen: Tress",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Not Found | Website: tress.com | Infostealer data confirmed. | ***.com zoominfo.com/c/tress-as/430422624 Tress is a leading Scandinavian supplier of sports, play, and leisure equipment, headquartered in Denmark and operating across the Nordic countries. The company specializes in providing high-quality gear and playground solutions for schools, kindergartens, and sports clubs. With decades of industry experience, Tress focuses on creating active and inclusive environments for children and athletes through its comprehensive product range | Source: https://www.ransomware.live/id/VHJlc3NAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 4993,
+    "name": "ransomhouse: Ma Pak Leung Company Limited",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

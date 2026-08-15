@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:57:47.255Z",
+  "name": "lockbit5: sidercentersas.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: CO | Sector: Manufacturing | Website: sidercentersas.com | Infostealer data confirmed. | La Sider Center sas opera nella sua sede di Marcianise, Zona Industriale Asi Sud. La struttura lavo... | Source: https://www.ransomware.live/id/c2lkZXJjZW50ZXJzYXMuY29tQGxvY2tiaXQ1"
+}

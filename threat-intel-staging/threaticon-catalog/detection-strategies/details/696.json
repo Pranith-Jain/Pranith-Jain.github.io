@@ -1,0 +1,12 @@
+{
+  "id": 696,
+  "fetchedAt": "2026-08-14T06:02:47.394Z",
+  "name": "Detection of Search Closed Sources",
+  "tlp": null,
+  "detId": "DET0822",
+  "stixId": "x-mitre-detection-strategy--3f4c871c-9ddb-41da-accd-ff5bcbfe37d4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1954"]
+}

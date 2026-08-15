@@ -1,0 +1,12 @@
+{
+  "id": 675,
+  "fetchedAt": "2026-08-14T06:01:10.136Z",
+  "name": "Detect Network Provider DLL Registration and Credential Capture",
+  "tlp": null,
+  "detId": "DET0580",
+  "stixId": "x-mitre-detection-strategy--552a7d85-4ac4-48cd-9072-61a4c6b2c682",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1598"]
+}

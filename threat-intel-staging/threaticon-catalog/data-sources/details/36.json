@@ -1,0 +1,26 @@
+{
+  "id": 36,
+  "fetchedAt": "2026-08-14T05:07:11.325Z",
+  "name": "Cloud Storage Access",
+  "tlp": null,
+  "dcId": "DC0025",
+  "analyticCount": 13,
+  "strategyCount": 11,
+  "added": null,
+  "description": "Cloud storage access refers to the retrieval or interaction with data stored in cloud infrastructure. This data component includes activities such as reading, downloading, or accessing files and objects within cloud storage systems. Common examples include API calls like GetObject in AWS S3, which retrieves objects from cloud buckets. Examples: - AWS S3 Access: An adversary uses the `GetObject` API to retrieve sensitive data from an AWS S3 bucket. - Azure Blob Storage Access: A user accesses a blob in Azure Storage using `Get Blob` or `Get Blob Properties`. - Google Cloud Storage Access: An adversary uses `storage.objects.get` to download objects from - OpenStack Swift Storage Access: A user retrieves an object from OpenStack Swift using the `GET` method.",
+  "analytics": [
+    "AN0043",
+    "AN0198",
+    "AN0370",
+    "AN0666",
+    "AN0679",
+    "AN1160",
+    "AN1328",
+    "AN1329",
+    "AN1330",
+    "AN1426",
+    "AN1473",
+    "AN1594",
+    "AN1625"
+  ]
+}

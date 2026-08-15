@@ -1,0 +1,12 @@
+{
+  "id": 656,
+  "fetchedAt": "2026-08-14T06:02:53.017Z",
+  "name": "Detection of Upload Malware",
+  "tlp": null,
+  "detId": "DET0824",
+  "stixId": "x-mitre-detection-strategy--faa650c9-a469-45f1-870a-6acc448df9eb",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1956"]
+}

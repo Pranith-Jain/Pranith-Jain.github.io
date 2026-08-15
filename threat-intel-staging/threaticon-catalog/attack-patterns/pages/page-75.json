@@ -1,0 +1,120 @@
+[
+  {
+    "id": 347,
+    "name": "File and Directory Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1083",
+    "status": null
+  },
+  {
+    "id": 2937,
+    "name": "T1083 – File and Directory Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1083",
+    "status": null
+  },
+  { "id": 1908, "name": "T1083.001", "tlp": "white", "confidence": null, "techniqueId": "T1083", "status": null },
+  {
+    "id": 1540,
+    "name": "T1083: File and Directory Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1083",
+    "status": null
+  },
+  { "id": 1542, "name": "T1084", "tlp": "white", "confidence": null, "techniqueId": "T1084", "status": null },
+  { "id": 1286, "name": "T1085", "tlp": "white", "confidence": null, "techniqueId": "T1085", "status": null },
+  {
+    "id": 1392,
+    "name": "T1085 - .NET Framework Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1085",
+    "status": null
+  },
+  { "id": 1358, "name": "T1086", "tlp": "white", "confidence": null, "techniqueId": "T1086", "status": null },
+  {
+    "id": 2958,
+    "name": "T1086 (PowerShell)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 3023,
+    "name": "T1086 (not listed)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 1640,
+    "name": "T1086 - Non-Default Port HTTP Request",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 2943,
+    "name": "T1086 - PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 1749,
+    "name": "T1086 - Powershell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 1741,
+    "name": "T1086 - Use of CLI Tools for Configuration Credential Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 2801,
+    "name": "T1086 PowerShell (used for shell integration)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 2771,
+    "name": "T1086 Windows Command Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 2917,
+    "name": "T1086 – PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  {
+    "id": 1557,
+    "name": "T1086.001 - PsExec",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1086",
+    "status": null
+  },
+  { "id": 1713, "name": "T1086.002", "tlp": "white", "confidence": null, "techniqueId": "T1086", "status": null },
+  { "id": 1768, "name": "T1086.004", "tlp": "white", "confidence": null, "techniqueId": "T1086", "status": null }
+]

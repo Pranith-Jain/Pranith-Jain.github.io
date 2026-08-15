@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:35:13.399Z",
+  "name": "interlock: Centre for Newcomers",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 17, 2026",
+  "lastSeen": "Jul 17, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: CA | Sector: Public Sector | Website: centrefornewcomers.ca | Infostealer data confirmed. | The Newcomers Center provides immigration services aimed at supporting newcomers and creating a welcoming community. They maintain complete information about their clients in their databases, but they fail to ensure the security of this data. Due to their negligence toward their clients and employees, this data has been compromised. We offer you 380 GB of personal client data, company financial information, its current status and reporting, and human resources planning and policies. | Source: https://www.ransomware.live/id/Q2VudHJlIGZvciBOZXdjb21lcnNAaW50ZXJsb2Nr"
+}

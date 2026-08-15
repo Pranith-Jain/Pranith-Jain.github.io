@@ -1,0 +1,12 @@
+{
+  "id": 532,
+  "fetchedAt": "2026-08-14T05:20:58.705Z",
+  "name": "Detection Strategy for T1547.010 – Port Monitor DLL Persistence via spoolsv.exe (Windows)",
+  "tlp": null,
+  "detId": "DET0204",
+  "stixId": "x-mitre-detection-strategy--a62dbd10-5b61-489c-a465-8f792792778e",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0580"]
+}

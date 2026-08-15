@@ -1,0 +1,12 @@
+{
+  "id": 56,
+  "fetchedAt": "2026-08-14T05:49:42.124Z",
+  "name": "Detect Office Startup-Based Persistence via Macros, Forms, and Registry Hooks",
+  "tlp": null,
+  "detId": "DET0398",
+  "stixId": "x-mitre-detection-strategy--71a8576b-c9ef-4485-b461-d706fd757a67",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1116", "AN1117"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 202,
+  "fetchedAt": "2026-08-14T05:15:06.108Z",
+  "name": "Detection Strategy for Ignore Process Interrupts",
+  "tlp": null,
+  "detId": "DET0067",
+  "stixId": "x-mitre-detection-strategy--29d1e77a-a05e-4ead-8272-b254992cd2ba",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0181", "AN0182", "AN0183"]
+}

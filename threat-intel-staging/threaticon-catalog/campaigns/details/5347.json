@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:51:26.996Z",
+  "name": "2026-06-08 (Monday): Browser-In-The-Browser Phishing Campaign",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-06-08 (Monday): Browser-In-The-Browser Phishing Campaign. References: https://twitter.com/Unit42_Intel/status/2064105988383252853, https://www.linkedin.com/feed/update/urn:li:ugcPost:7469871641158774784"
+}

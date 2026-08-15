@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:31:50.704Z",
+  "name": "thegentlemen: Safeware",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 13, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Technology | Website: safewareinc.com | Infostealer data confirmed. | safewareinc.com Safeware Inc. is a national leader providing safety and security solutions for first responders, schools, and government agencies. For over 40 years, they have supplied advanced protective equipment and public preparedness training across the United States. The company simplifies government purchasing by offering specialized gear through competitive cooperative contract pricing. | Source: https://www.ransomware.live/id/U2FmZXdhcmVAdGhlZ2VudGxlbWVu"
+}

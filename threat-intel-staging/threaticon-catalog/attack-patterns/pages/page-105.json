@@ -1,0 +1,29 @@
+[
+  { "id": 2602, "name": "T1420", "tlp": "white", "confidence": null, "techniqueId": "T1420", "status": null },
+  { "id": 2603, "name": "T1421", "tlp": "white", "confidence": null, "techniqueId": "T1421", "status": null },
+  { "id": 2727, "name": "T1422", "tlp": "white", "confidence": null, "techniqueId": "T1422", "status": null },
+  { "id": 3083, "name": "T1424", "tlp": "white", "confidence": null, "techniqueId": "T1424", "status": null },
+  { "id": 2728, "name": "T1426", "tlp": "white", "confidence": null, "techniqueId": "T1426", "status": null },
+  { "id": 2730, "name": "T1429", "tlp": "white", "confidence": null, "techniqueId": "T1429", "status": null },
+  { "id": 2604, "name": "T1430", "tlp": "white", "confidence": null, "techniqueId": "T1430", "status": null },
+  { "id": 2744, "name": "T1432", "tlp": "white", "confidence": null, "techniqueId": "T1432", "status": null },
+  {
+    "id": 1812,
+    "name": "T1432.001 (Impersonation via False Flag)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1432",
+    "status": null
+  },
+  { "id": 2743, "name": "T1433", "tlp": "white", "confidence": null, "techniqueId": "T1433", "status": null },
+  { "id": 2607, "name": "T1437", "tlp": "white", "confidence": null, "techniqueId": "T1437", "status": null },
+  { "id": 2239, "name": "T1437.001", "tlp": "white", "confidence": null, "techniqueId": "T1437", "status": null },
+  { "id": 2746, "name": "T1438", "tlp": "white", "confidence": null, "techniqueId": "T1438", "status": null },
+  { "id": 3035, "name": "T1442", "tlp": "white", "confidence": null, "techniqueId": "T1442", "status": null },
+  { "id": 2739, "name": "T1444", "tlp": "white", "confidence": null, "techniqueId": "T1444", "status": null },
+  { "id": 2748, "name": "T1447", "tlp": "white", "confidence": null, "techniqueId": "T1447", "status": null },
+  { "id": 3068, "name": "T1456", "tlp": "white", "confidence": null, "techniqueId": "T1456", "status": null },
+  { "id": 3036, "name": "T1459", "tlp": "white", "confidence": null, "techniqueId": "T1459", "status": null },
+  { "id": 2686, "name": "T1460", "tlp": "white", "confidence": null, "techniqueId": "T1460", "status": null },
+  { "id": 3044, "name": "T1461", "tlp": "white", "confidence": null, "techniqueId": "T1461", "status": null }
+]

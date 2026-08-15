@@ -1,0 +1,12 @@
+{
+  "id": 397,
+  "fetchedAt": "2026-08-14T05:16:12.984Z",
+  "name": "Behavioral Detection of User Discovery via Local and Remote Enumeration",
+  "tlp": null,
+  "detId": "DET0093",
+  "stixId": "x-mitre-detection-strategy--050d236f-745a-4801-add6-50cb58248615",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0254", "AN0255", "AN0256", "AN0257"]
+}

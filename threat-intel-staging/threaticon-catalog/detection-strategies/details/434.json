@@ -1,0 +1,12 @@
+{
+  "id": 434,
+  "fetchedAt": "2026-08-14T05:15:32.596Z",
+  "name": "Detection of Exfiltration Over Alternate Network Interfaces",
+  "tlp": null,
+  "detId": "DET0077",
+  "stixId": "x-mitre-detection-strategy--9280a84d-bf77-4a86-a052-ce6ea0d50e72",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0212", "AN0213", "AN0214"]
+}

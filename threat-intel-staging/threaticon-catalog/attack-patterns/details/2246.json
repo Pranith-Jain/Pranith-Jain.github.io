@@ -1,0 +1,9 @@
+{
+  "id": 2246,
+  "fetchedAt": "2026-08-15T07:14:26.446Z",
+  "name": "T1068.004 - Exfiltration over Encrypted Channels (e.g., HTTPS)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

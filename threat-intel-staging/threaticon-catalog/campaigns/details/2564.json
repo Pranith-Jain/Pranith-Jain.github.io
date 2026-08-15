@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:02:17.121Z",
+  "name": "OSINT - One, if by email, and two, if by EK: The Cerbers are coming!",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 16, 2016",
+  "lastSeen": "Dec 16, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #944 (58538c11-4694-47ba-a01c-4cfe02de0b81)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:31:37.069Z",
+  "name": "Turla Outlook White Paper",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Aug 17, 2018",
+  "lastSeen": "Aug 17, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #161 (5b773e07-e694-458b-b99c-27f30a016219)."
+}

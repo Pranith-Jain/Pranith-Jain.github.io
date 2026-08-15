@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:38:17.355Z",
+  "name": "Spyware Telegram mod distributed via Google Play - Evil Telegram doppelganger attacks Chinese users",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 11, 2023",
+  "lastSeen": "Sep 11, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1733 (e3b6b6a1-fe4a-4475-948b-fe763b7254a4)."
+}

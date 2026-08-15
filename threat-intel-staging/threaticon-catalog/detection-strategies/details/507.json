@@ -1,0 +1,12 @@
+{
+  "id": 507,
+  "fetchedAt": "2026-08-14T05:14:58.473Z",
+  "name": "Detection Strategy for Hijack Execution Flow through Path Interception by Unquoted Path",
+  "tlp": null,
+  "detId": "DET0064",
+  "stixId": "x-mitre-detection-strategy--26a281d7-c49e-4e36-ab51-26a757559cf0",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0176"]
+}

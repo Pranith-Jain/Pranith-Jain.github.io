@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:19:51.061Z",
+  "name": "OSINT Phishing sites and exploit kits december 2015 - part 2 by TechHelpList",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Dec 15, 2015",
+  "lastSeen": "Dec 15, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #692 (56b06594-da3c-4126-bf81-4190950d210f)."
+}

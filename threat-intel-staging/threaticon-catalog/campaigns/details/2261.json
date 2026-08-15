@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:14:01.070Z",
+  "name": "OSINT - Mobile Devices Used to Execute DNS Malware Against Home Routers",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 11, 2016",
+  "lastSeen": "Apr 11, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #395 (570b9eee-6f60-41d4-bd1b-40d2950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:09:09.313Z",
+  "name": "OSINT Threat Group-4127 Targets Google Accounts by Secureworks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jun 26, 2016",
+  "lastSeen": "Jun 26, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #635 (57724297-147c-41e3-86f6-4586950d210f)."
+}

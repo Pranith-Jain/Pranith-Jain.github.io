@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:11:21.929Z",
+  "name": "OSINT - GRIZZLY STEPPE â€“ Additional expansion",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 31, 2016",
+  "lastSeen": "Dec 31, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #951 (5867a9dc-dde8-4877-b46f-42cc950d210f)."
+}

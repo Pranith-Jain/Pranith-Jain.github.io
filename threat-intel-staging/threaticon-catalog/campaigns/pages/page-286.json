@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3580,
+    "name": "play: Town Car International",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Transportation/Logistics | Website: www.towncarinternational.com | United States | Source: https://www.ransomware.live/id/VG93biBDYXIgSW50ZXJuYXRpb25hbEBwbGF5"
+  },
+  {
+    "id": 3579,
+    "name": "play: Infoworld Membership Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Sector: Technology | Website: www.imsmars.com | United States | Source: https://www.ransomware.live/id/SW5mb3dvcmxkIE1lbWJlcnNoaXAgU3lzdGVtc0BwbGF5"
+  },
+  {
+    "id": 3577,
+    "name": "SilentRansomGroup: Marshall Dennehey",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: marshalldennehey.com | Infostealer data confirmed. | They offered $100,000 to keep the data from being published. Founded in 1962 and headquartered in Phil… | Source: https://www.ransomware.live/id/TWFyc2hhbGwgRGVubmVoZXlAU2lsZW50UmFuc29tR3JvdXA="
+  },
+  {
+    "id": 3576,
+    "name": "SilentRansomGroup: Porter Wright",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: porterwright.com | Infostealer data confirmed. | Founded in 1846, Porter Wright is a full-service law firm offering legal helo for the community specia… | Source: https://www.ransomware.live/id/UG9ydGVyIFdyaWdodEBTaWxlbnRSYW5zb21Hcm91cA=="
+  },
+  {
+    "id": 3575,
+    "name": "qilin: The Gravity Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.thegravitygroup.com | N/A | Source: https://www.ransomware.live/id/VGhlIEdyYXZpdHkgR3JvdXBAcWlsaW4="
+  },
+  {
+    "id": 3574,
+    "name": "payoutsking: NTN Bearing Corporation of America",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Manufacturing | Website: ntnamericas.com | Infostealer data confirmed. | [AI generated] NTN Bearing Corporation of America is a US-based subsidiary of Japan's NTN Corporation, operating in the industrial manufacturing sector. The company produces and distributes precision bearings, driveshafts, and related mechanical components used in automotive, aerospace, and industrial machinery applications. Headquartered in Mount Prospect, Illinois, it serves customers across North America with engineering support and distribution services. | Source: https://www.ransomware.live/id/TlROIEJlYXJpbmcgQ29ycG9yYXRpb24gb2YgQW1lcmljYUBwYXlvdXRza2luZw=="
+  },
+  {
+    "id": 3573,
+    "name": "anubis: A.R.Ge.Co",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Website: A.R.Ge.Co | Accounting firm data breach. | Source: https://www.ransomware.live/id/QS5SLkdlLkNvQGFudWJpcw=="
+  },
+  {
+    "id": 3572,
+    "name": "payload: Inteceng.com.my (+ Tsksynergy.com.my + Amemanufacturing.com.my + Woodnova.com.my)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: MY | Sector: Manufacturing | Website: Inteceng.com.my | These websites represent a synergistic group of Malaysian companies, such as AME Elite and TSK Synergy, specializing in integrated industrial construction and engineering solutions. They provide end-to-end services, including the design and fabrication of steel structures, mechanical engineering, and the development of large-scale industrial parks. Together, they leverage their combined expertise to deliver \"turnkey\" manufacturing facilities and infrastructure projects across the region. | Source: https://www.ransomware.live/id/SW50ZWNlbmcuY29tLm15ICgrIFRza3N5bmVyZ3kuY29tLm15ICsgQW1lbWFudWZhY3R1cmluZy5jb20ubXkgKyBXb29kbm92YS5jb20ubXkpQHBheWxvYWQ="
+  },
+  {
+    "id": 3571,
+    "name": "payload: Gorey Community School",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: IE | Sector: Education | Website: goreycs.ie | Infostealer data confirmed. | Gorey Community School is a co-educational, multi-denominational institution located in Gorey, Co. Wexford, under the joint patronage of the Loreto Sisters and Waterford and Wexford ETB | Source: https://www.ransomware.live/id/R29yZXkgQ29tbXVuaXR5IFNjaG9vbEBwYXlsb2Fk"
+  },
+  {
+    "id": 3570,
+    "name": "akira: Institute of Private Enterprise Development",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3567,
+    "name": "qilin: Belz Institutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IL | Sector: Not Found | Website: www.worldofbelz.org | N/A | Source: https://www.ransomware.live/id/QmVseiBJbnN0aXR1dGlvbnNAcWlsaW4="
+  },
+  {
+    "id": 3566,
+    "name": "qilin: John G Yphantides A Professional Law",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.zoominfo.com/c/john-g-yphantides-a-professional-law-corp/1138559236 | N/A | Source: https://www.ransomware.live/id/Sm9obiBHIFlwaGFudGlkZXMgQSBQcm9mZXNzaW9uYWwgTGF3QHFpbGlu"
+  },
+  {
+    "id": 3565,
+    "name": "qilin: One Legal",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SG | Sector: Business Services | Website: www.onelegal.sg | N/A | Source: https://www.ransomware.live/id/T25lIExlZ2FsQHFpbGlu"
+  },
+  {
+    "id": 3578,
+    "name": "qilin: SHERIFF",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: UA | Sector: Public Sector | Website: sheriff.com.ua | Infostealer data confirmed. | N/A | Source: https://www.ransomware.live/id/U0hFUklGRkBxaWxpbg=="
+  },
+  {
+    "id": 3569,
+    "name": "akira: Allele Diagnostics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: FR | Sector: Healthcare | Website: allelediagnostics.com | Infostealer data confirmed. | Allele Diagnostics specializes in providing exceptional microarray and cytogenetic testing serv ices, including neonatal, pediatric, and prenatal testing. The company is dedicated to deliveri ng accurate, fast, and reliable results, leveraging the extensive experience of its laboratory staff to optimize testing performance. We will upload corporate data soon. Detailed employee personal information (passports, DLs, SSN s, I9 forms, credit card details and so on), patients information (personal docs and medical in formation), contracts and agreements, etc. | Source: https://www.ransomware.live/id/QWxsZWxlIERpYWdub3N0aWNzQGFraXJh"
+  }
+]

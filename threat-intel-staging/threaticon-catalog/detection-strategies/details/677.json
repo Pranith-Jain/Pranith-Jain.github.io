@@ -1,0 +1,12 @@
+{
+  "id": 677,
+  "fetchedAt": "2026-08-14T05:13:29.513Z",
+  "name": "Detect Conditional Access Policy Modification in Identity and Cloud Platforms",
+  "tlp": null,
+  "detId": "DET0030",
+  "stixId": "x-mitre-detection-strategy--4cd84c0e-b125-4576-9441-57c1664bf014",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0087", "AN0088"]
+}

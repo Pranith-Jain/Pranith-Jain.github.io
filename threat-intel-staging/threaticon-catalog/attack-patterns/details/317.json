@@ -1,0 +1,9 @@
+{
+  "id": 317,
+  "fetchedAt": "2026-08-15T08:31:16.828Z",
+  "name": "Delete Cloud Instance",
+  "tlp": "white",
+  "techniqueId": "DET0084",
+  "added": "May 2, 2026",
+  "description": "An adversary may delete a cloud instance after they have performed malicious activities in an attempt to evade detection and remove evidence of their presence. Deleting an instance or virtual machine can remove valuable forensic artifacts and other evidence of suspicious behavior if the instance is not recoverable. An adversary may also Create Cloud Instance and later terminate the instance after achieving their objectives.(Citation: Mandiant M-Trends 2020)"
+}

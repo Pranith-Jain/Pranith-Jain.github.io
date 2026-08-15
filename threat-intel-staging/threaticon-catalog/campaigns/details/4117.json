@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:43:20.623Z",
+  "name": "interlock: Borger ISD",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Education | Website: borgerisd.net | Infostealer data confirmed. | Borger Independent School District serves approximately 2,500 students on six campuses in Hutchinson County, Texas. The district fails to foster a collaborative environment for students, parents, and the community. They are not responsible or committed to ensuring the security of your data. This is not the first time they have neglected their students, with confidential information about staff, students, and their parents, as well as all incidents, the district's financial situation, and other information they concealed, leaking online. We offer you 330 GB of this information. | Source: https://www.ransomware.live/id/Qm9yZ2VyIElTREBpbnRlcmxvY2s="
+}

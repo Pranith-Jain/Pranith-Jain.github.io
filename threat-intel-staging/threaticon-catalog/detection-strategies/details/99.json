@@ -1,0 +1,12 @@
+{
+  "id": 99,
+  "fetchedAt": "2026-08-14T05:53:35.124Z",
+  "name": "Detection Strategy for Power Settings Abuse",
+  "tlp": null,
+  "detId": "DET0417",
+  "stixId": "x-mitre-detection-strategy--40701244-5af5-477f-a9a7-ba661907f318",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1174", "AN1175", "AN1176"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T00:54:28.446Z",
+  "name": "OSINT - ConnectWise ScreenConnect attacks deliver malware",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 23, 2024",
+  "lastSeen": "Feb 23, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1752 (f8912a82-2870-4de2-9663-5fdbee0ed401)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:03:14.926Z",
+  "name": "lynx: csb-battery.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "May 10, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to lynx. | Country: TW | Sector: Manufacturing | Website: csb-battery.com | Infostealer data confirmed. | CSB Energy Technology Co., Ltd. is a leading global manufacturer of Valve-Regulated Lead-Acid (VRLA) batteries, serving a diverse range of applications including stationary power, data center UPS, renewable energy, general purpose, e-mobility, and telecommunications. Their products are utilized in over 100 countries, supported by a trusted partner network for distribution and customer service. The company is committed to providing high-quality battery solutions to meet the needs of various industries. CSB Energy Technology aims to enhance user experience and technical support through their dedicated customer service team. | Source: https://www.ransomware.live/id/Y3NiLWJhdHRlcnkuY29tQGx5bng="
+}

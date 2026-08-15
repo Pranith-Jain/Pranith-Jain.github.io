@@ -1,0 +1,12 @@
+{
+  "id": 21,
+  "fetchedAt": "2026-08-14T05:00:11.560Z",
+  "name": "DCRAT",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "DCRAT is a variant of the open-source AsyncRAT developed in C# with additional capabilities such as patching Microsoft’s Antimalware Scan Interface (AMSI).(Citation: Zscaler BlindEagle DEC 2025)"
+}

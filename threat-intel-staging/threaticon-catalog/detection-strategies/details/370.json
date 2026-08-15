@@ -1,0 +1,12 @@
+{
+  "id": 370,
+  "fetchedAt": "2026-08-14T05:26:16.036Z",
+  "name": "External Proxy Behavior via Outbound Relay to Intermediate Infrastructure",
+  "tlp": null,
+  "detId": "DET0325",
+  "stixId": "x-mitre-detection-strategy--bfb5cb12-7025-44c3-9a2d-79cfe42ecf54",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0922", "AN0923", "AN0924", "AN0925", "AN0926"]
+}

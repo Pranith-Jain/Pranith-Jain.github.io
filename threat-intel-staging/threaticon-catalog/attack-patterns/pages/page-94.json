@@ -1,0 +1,141 @@
+[
+  {
+    "id": 2226,
+    "name": "T1204 (Use of cryptocurrency)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2147,
+    "name": "T1204 - File Transfer Encrypted withansomeware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 1902,
+    "name": "T1204 - Web Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2672,
+    "name": "T1204 – User Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  { "id": 2891, "name": "T1204.0", "tlp": "white", "confidence": null, "techniqueId": "T1204", "status": null },
+  { "id": 651, "name": "Malicious Link", "tlp": "white", "confidence": null, "techniqueId": "T1204", "status": null },
+  {
+    "id": 2420,
+    "name": "T1204.001 (User Execution via Malicious Documents)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2299,
+    "name": "T1204.001 - User Execution: Malicious Documents",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 1500,
+    "name": "T1204.001: Malicious Link",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 1848,
+    "name": "T1204.001: System Network Configuration Discovery via DNS",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  { "id": 108, "name": "Malicious File", "tlp": "white", "confidence": null, "techniqueId": "T1204", "status": null },
+  {
+    "id": 2571,
+    "name": "T1204.002 (User Execution - Malicious File)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2222,
+    "name": "T1204.002 - Data Encoding/Alias creation foransomware negotiation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2423,
+    "name": "T1204.002 - Malicious File",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2507,
+    "name": "T1204.002 - User Execution (Malicious Documents)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2347,
+    "name": "T1204.002 - User Execution - Malicious File",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2948,
+    "name": "T1204.002 - User Execution: Malicious File",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 2963,
+    "name": "T1204.002 Malicious File",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 699,
+    "name": "T1204.002: Malicious File",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  },
+  {
+    "id": 1781,
+    "name": "T1204.002: Malicious File - Distributing malicious files to compromise systems",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1204",
+    "status": null
+  }
+]

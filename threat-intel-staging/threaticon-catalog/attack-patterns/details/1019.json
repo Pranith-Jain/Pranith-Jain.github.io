@@ -1,0 +1,9 @@
+{
+  "id": 1019,
+  "fetchedAt": "2026-08-15T06:17:08.962Z",
+  "name": "Signature Spoof",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "An attacker generates a message or datablock that causes the recipient to believe that the message or datablock was generated and cryptographically signed by an authoritative or reputable source, misleading a victim or victim operating system into performing malicious actions."
+}

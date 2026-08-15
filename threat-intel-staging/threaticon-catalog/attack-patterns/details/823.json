@@ -1,0 +1,9 @@
+{
+  "id": 823,
+  "fetchedAt": "2026-08-15T06:08:39.201Z",
+  "name": "Encryption Brute Forcing",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Low. An attacker, armed with the cipher text and the encryption algorithm used, performs an exhaustive (brute force) search on the key space to determine the key that decrypts the cipher text to obtain the plaintext."
+}

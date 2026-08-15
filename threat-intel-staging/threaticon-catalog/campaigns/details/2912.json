@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T02:08:18.220Z",
+  "name": "OSINT - New Cyber Operation Targets Italy: Digging Into the Netwire Attack Chai",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 8, 2020",
+  "lastSeen": "Jun 8, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1614 (5ede1810-6cfc-4a01-adb0-470902de0b81)."
+}

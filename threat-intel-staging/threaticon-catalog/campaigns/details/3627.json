@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:04:56.066Z",
+  "name": "qilin: International Customer Care Services",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: iccs.global | Infostealer data confirmed. | N/A | Source: https://www.ransomware.live/id/SW50ZXJuYXRpb25hbCBDdXN0b21lciBDYXJlIFNlcnZpY2VzQHFpbGlu"
+}

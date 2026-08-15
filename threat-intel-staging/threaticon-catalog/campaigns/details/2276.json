@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:13:21.111Z",
+  "name": "Cutting Edge: Suspected APT Targets Ivanti Connect Secure VPN in New Zero-Day Exploitation",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 14, 2024",
+  "lastSeen": "Jan 14, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #434 (a9da4722-3b2c-42b6-9bb8-82f2162a171e)."
+}

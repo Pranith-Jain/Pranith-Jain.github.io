@@ -1,0 +1,12 @@
+{
+  "id": 256,
+  "fetchedAt": "2026-08-14T05:15:27.130Z",
+  "name": "Internal Proxy Behavior via Lateral Host-to-Host C2 Relay",
+  "tlp": null,
+  "detId": "DET0075",
+  "stixId": "x-mitre-detection-strategy--28630b41-d28f-4414-afc8-23cc9ce8696c",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0204", "AN0205", "AN0206", "AN0207", "AN0208"]
+}

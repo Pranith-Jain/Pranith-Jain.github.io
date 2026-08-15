@@ -1,0 +1,9 @@
+{
+  "id": 1982,
+  "fetchedAt": "2026-08-15T07:08:22.882Z",
+  "name": "T1059.003 - Malware Communication|Network Socket Inline Code Execution",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

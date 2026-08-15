@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:27:09.643Z",
+  "name": "krybit: rhode-hv.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Apr 16, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: DE | Sector: Manufacturing | Website: rhode-hv.de | Infostealer data confirmed. | iseg Spezialelektronik GmbH is a German company specializing in high-voltage microelectronics (high-voltage electronics)... | Source: https://www.ransomware.live/id/cmhvZGUtaHYuZGVAa3J5Yml0"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:45:19.185Z",
+  "name": "M2M - \"..doc\" 2017-11-30 : \"FL-123456 11.30.2017.7z\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 5, 2017",
+  "lastSeen": "Dec 5, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1256 (5a26b608-7e48-48c1-bf61-43a3950d210f)."
+}

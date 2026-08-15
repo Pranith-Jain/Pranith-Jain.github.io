@@ -1,0 +1,127 @@
+[
+  {
+    "id": 797,
+    "name": "Create files with the same name as files protected with a higher classification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 798, "name": "Cross-Site Flashing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 799,
+    "name": "Calling Micro-Services Directly",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 800,
+    "name": "XSS Targeting Non-Script Elements",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 801,
+    "name": "Exploiting Incorrectly Configured Access Control Security Levels",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 802, "name": "Flash File Overlay", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 803, "name": "Flash Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 804,
+    "name": "IMAP/SMTP Command Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 805,
+    "name": "Software Integrity Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 806,
+    "name": "Malicious Software Download",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 807,
+    "name": "Malicious Software Update",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 808,
+    "name": "Malicious Automated Software Update via Redirection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 809, "name": "Reverse Engineering", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 810,
+    "name": "Black Box Reverse Engineering",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 811,
+    "name": "Embedding Scripts within Scripts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 812,
+    "name": "Reverse Engineer an Executable to Expose Assumed Hidden Functionality",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 813,
+    "name": "Read Sensitive Constants Within an Executable",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 814, "name": "Protocol Analysis", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 815,
+    "name": "PHP Remote File Inclusion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 816,
+    "name": "Fake the Source of Data",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:46:19.312Z",
+  "name": "D1R: Bosch",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 13, 2026",
+  "lastSeen": "Jul 13, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to D1R. | Country: DE | Sector: Manufacturing | Website: bosch.de | Infostealer data confirmed. | Again, thanks to database Synopsys provided us with After analyzing technical leaks by other groups and cross-referencing targets from TARGETLIST.txt A company access was found and in the archives, a $10,000 gem: Bosch CAN module implementation Now it is going for free for every engineer and car enthusiast, thanks to Synopsys providing us with neat roadmap to tech sector Sorry, Bosch, you got third-partied! Call the Synopsys CEO and thank them for letting us all know where the valuable data is! | Source: https://www.ransomware.live/id/Qm9zY2hARDFS"
+}

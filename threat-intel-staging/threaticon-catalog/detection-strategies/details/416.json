@@ -1,0 +1,12 @@
+{
+  "id": 416,
+  "fetchedAt": "2026-08-14T06:05:44.627Z",
+  "name": "Detection of Spearphishing Voice",
+  "tlp": null,
+  "detId": "DET0886",
+  "stixId": "x-mitre-detection-strategy--ce26e75b-f8bf-45d5-b0fd-601e3d8fd800",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2018"]
+}

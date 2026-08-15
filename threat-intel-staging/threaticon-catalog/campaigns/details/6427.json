@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T11:26:28.843Z",
+  "name": "Global Secret Group: Prism Telecom",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: FI | Sector: Technology | Website: prismtelecom.com | Backbone network traffic analysis and SS7 protocol vulnerability assessment across 3 continents. | Source: https://www.ransomware.live/id/UHJpc20gVGVsZWNvbUBHbG9iYWwgU2VjcmV0IEdyb3Vw"
+}

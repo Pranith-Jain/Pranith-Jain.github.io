@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:45:55.082Z",
+  "name": "killsec: Medical PAY",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to killsec. | Country: JP | Sector: Financial Services | Website: medical-pay.jp | Infostealer data confirmed. | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/TWVkaWNhbCBQQVlAa2lsbHNlYw=="
+}

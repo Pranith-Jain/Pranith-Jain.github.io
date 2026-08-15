@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1855,
+    "name": "T1064.004 - Remote File Execution via mshta.exe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1064",
+    "status": null
+  },
+  {
+    "id": 2761,
+    "name": "T1064: Scripting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1064",
+    "status": null
+  },
+  { "id": 2832, "name": "T1064?", "tlp": "white", "confidence": null, "techniqueId": "T1064", "status": null },
+  { "id": 2791, "name": "T1064??", "tlp": "white", "confidence": null, "techniqueId": "T1064", "status": null },
+  { "id": 1343, "name": "T1065", "tlp": "white", "confidence": null, "techniqueId": "T1065", "status": null },
+  { "id": 2285, "name": "T1065.003", "tlp": "white", "confidence": null, "techniqueId": "T1065", "status": null },
+  {
+    "id": 2109,
+    "name": "T1065.003 - Credential Dumping via MFA Theft",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1065",
+    "status": null
+  },
+  { "id": 1838, "name": "T1066", "tlp": "white", "confidence": null, "techniqueId": "T1066", "status": null },
+  { "id": 1760, "name": "T1066.001", "tlp": "white", "confidence": null, "techniqueId": "T1066", "status": null },
+  { "id": 1636, "name": "T1066.004", "tlp": "white", "confidence": null, "techniqueId": "T1066", "status": null },
+  { "id": 1477, "name": "T1067", "tlp": "white", "confidence": null, "techniqueId": "T1067", "status": null },
+  {
+    "id": 1588,
+    "name": "T1067 (Malware Code Execution via Web Request)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1067",
+    "status": null
+  },
+  { "id": 1479, "name": "T1067.002", "tlp": "white", "confidence": null, "techniqueId": "T1067", "status": null },
+  { "id": 3057, "name": "T1067?", "tlp": "white", "confidence": null, "techniqueId": "T1067", "status": null },
+  {
+    "id": 473,
+    "name": "Exploitation for Privilege Escalation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  {
+    "id": 2957,
+    "name": "T1068 (Exploitation for Privilege Escalation)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  {
+    "id": 2080,
+    "name": "T1068 - Exfiltration Over C2 Channel: Data exfiltration via the command and control channel to avoid detection.",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  {
+    "id": 2857,
+    "name": "T1068 - Exploitation for Privilege Escalation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  {
+    "id": 2425,
+    "name": "T1068 - Privilege Escalation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  {
+    "id": 2352,
+    "name": "T1068 - Privilege Escalation through Exploited Vulnerabilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  }
+]

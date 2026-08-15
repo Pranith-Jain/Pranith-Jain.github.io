@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:09.907Z",
+  "name": "AA23-347A Russian Foreign Intelligence Service (SVR) Exploiting JetBrains TeamCity CVE Globally",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Dec 30, 2023",
+  "lastSeen": "Dec 30, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #432 (62e17cb7-ff23-48f1-b00d-227ff9248e83)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3568,
+    "name": "coinbasecartel: Buenos Aires Software",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: AR | Sector: Technology | Website: bas.com.ar | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QnVlbm9zIEFpcmVzIFNvZnR3YXJlQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 3564,
+    "name": "dragonforce: Tricon Infotech",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: IN | Sector: Technology | Website: triconinfotech.com | Infostealer data confirmed. | Tricon Infotech delivers efficient, automated solutions and full digital transformations through custom products and enterprise implementations. The company's worldwide clients include leaders in the publishing, educational technology, finance, and legal sectors | Source: https://www.ransomware.live/id/VHJpY29uIEluZm90ZWNoQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 3563,
+    "name": "dragonforce: Pamil Modulsystem",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: SE | Sector: Manufacturing | Website: pamil.se | Infostealer data confirmed. | Pamil Modulsystem specializes in renting flexible modular buildings tailored for various needs, including offices and schools. Established in 1963, the company focuses on providing high-quality, customizable solutions that enhance work and learning environments. They manage the entire process from planning and construction to maintenance, ensuring a seamless experience for their clients. Committed to sustainability, Pamil emphasizes circular building practices by renovating returned modules for future use. | Source: https://www.ransomware.live/id/UGFtaWwgTW9kdWxzeXN0ZW1AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 3562,
+    "name": "dragonforce: MicroMarketing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Sector: Business Services | Website: micromarketing.org | Infostealer data confirmed. | MicroMarketing specializes in expert title selections for books, audio CDs, and DVDs, catering primarily to librarians and libraries. The company is known for its personalized service, ensuring that clients receive timely and efficient support without automated responses. They offer valuable services such as downloadable invoices and MARC records, along with a strong price-value proposition. MicroMarketing's commitment to quality and customer satisfaction has garnered positive testimonials from clients who appreciate their reliable and responsive service | Source: https://www.ransomware.live/id/TWljcm9NYXJrZXRpbmdAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 3560,
+    "name": "qilin: Johnson Carter Architects",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.zoominfo.com/c/johnson-carter-architects-pc/1146336535 | N/A | Source: https://www.ransomware.live/id/Sm9obnNvbiBDYXJ0ZXIgQXJjaGl0ZWN0c0BxaWxpbg=="
+  },
+  {
+    "id": 3559,
+    "name": "qilin: LTJ Industrial Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: www.ltjindustrial.com | N/A | Source: https://www.ransomware.live/id/TFRKIEluZHVzdHJpYWwgU2VydmljZXNAcWlsaW4="
+  },
+  {
+    "id": 3558,
+    "name": "qilin: Brand X Hydrovac Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Energy | Website: www.brandx-hydro.com | N/A | Source: https://www.ransomware.live/id/QnJhbmQgWCBIeWRyb3ZhYyBTZXJ2aWNlc0BxaWxpbg=="
+  },
+  {
+    "id": 3557,
+    "name": "qilin: Bluize",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Technology | Website: www.bluize.com.au | N/A | Source: https://www.ransomware.live/id/Qmx1aXplQHFpbGlu"
+  },
+  {
+    "id": 3556,
+    "name": "qilin: Mayer",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.mayerllp.com | N/A | Source: https://www.ransomware.live/id/TWF5ZXJAcWlsaW4="
+  },
+  {
+    "id": 3555,
+    "name": "qilin: Spirit Medical Transport",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.spiritmedicaltransport.com | N/A | Source: https://www.ransomware.live/id/U3Bpcml0IE1lZGljYWwgVHJhbnNwb3J0QHFpbGlu"
+  },
+  {
+    "id": 3554,
+    "name": "incransom: Silergy Corp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Technology | Website: silergy.com | Infostealer data confirmed. | About Silergy Silergy Corp. specializes in the manufacture and sale of power integrated circuits. Silergy Corp. is headquartered in Hangzhou, Zhejiang, China. ---- More than 450 GB of personal data was leaked, along with a vast amount of financial and private information, including contracts containing non-disclosure clauses, passports, and customer and partner data. | Source: https://www.ransomware.live/id/U2lsZXJneSBDb3JwQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 3553,
+    "name": "stormous: vspsolutions.com.au SAMPLE-FREE 20GB",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to stormous. | Country: AU | Sector: Business Services | Website: vspsolutions.com.au | Infostealer data confirmed. | +40G Full Financial Backups (Quickbooks & Reckon)-Email Archives & Staff Personal Folders-Customer/Client Databases (Installers & Integrators nationwide)-Shipment & Order Tracking for major brands like Hikvision & Axis. | Source: https://www.ransomware.live/id/dnNwc29sdXRpb25zLmNvbS5hdSBTQU1QTEUtRlJFRSAyMEdCQHN0b3Jtb3Vz"
+  },
+  {
+    "id": 3552,
+    "name": "stormous: ttt.vn UPDATE-FULL DATA DUMP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3551,
+    "name": "killsec: dsdlawfirm.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to killsec. | Country: US | Sector: Business Services | Website: example.com | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/ZHNkbGF3ZmlybS5jb21Aa2lsbHNlYw=="
+  },
+  {
+    "id": 3550,
+    "name": "cmdorganization: Ira & Larry Goldberg Coins & Collectibles",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

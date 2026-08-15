@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:56:32.240Z",
+  "name": "2026-02-11 (Wednesday): Remote Access Trojan (Rat) Disguised As Ai-Based Browser Control Extension",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 11, 2026",
+  "lastSeen": "Feb 11, 2026",
+  "added": "May 3, 2026",
+  "description": "2026-02-11 (Wednesday): Remote Access Trojan (Rat) Disguised As Ai-Based Browser Control Extension. References: https://www.linkedin.com/posts/unit42_mcp-agentic-browsersecurity-activity-7427762221243621376-VaF8/, https://twitter.com/Unit42_Intel/status/2021996582481064327"
+}

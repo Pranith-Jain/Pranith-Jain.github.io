@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:50:43.806Z",
+  "name": "2026-04-28 (Tuesday): Fake Cloud Storage Full Emails",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 28, 2026",
+  "lastSeen": "Apr 28, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-04-28 (Tuesday): Fake Cloud Storage Full Emails. References: https://www.linkedin.com/posts/unit42_we-discovered-phishing-emails-falsely-warning-activity-7454968449711357952-gx44/, https://x.com/Unit42_Intel/status/2049202832247595440"
+}

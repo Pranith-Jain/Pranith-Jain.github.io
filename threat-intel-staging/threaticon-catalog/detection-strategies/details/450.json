@@ -1,0 +1,12 @@
+{
+  "id": 450,
+  "fetchedAt": "2026-08-14T05:26:51.265Z",
+  "name": "Behavioral Detection Strategy for Use Alternate Authentication Material (T1550)",
+  "tlp": null,
+  "detId": "DET0338",
+  "stixId": "x-mitre-detection-strategy--2b666abc-e642-4f40-abec-36bd48f1f15c",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0954", "AN0955", "AN0956", "AN0957", "AN0958", "AN0959", "AN0960"]
+}

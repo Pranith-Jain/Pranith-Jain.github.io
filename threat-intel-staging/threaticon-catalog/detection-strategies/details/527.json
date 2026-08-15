@@ -1,0 +1,12 @@
+{
+  "id": 527,
+  "fetchedAt": "2026-08-14T05:14:55.880Z",
+  "name": "Cross-Platform Behavioral Detection of Python Execution",
+  "tlp": null,
+  "detId": "DET0063",
+  "stixId": "x-mitre-detection-strategy--195e8d37-dfe6-4dc8-8012-dc80984872aa",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0172", "AN0173", "AN0174", "AN0175"]
+}

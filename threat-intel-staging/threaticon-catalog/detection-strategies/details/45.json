@@ -1,0 +1,12 @@
+{
+  "id": 45,
+  "fetchedAt": "2026-08-14T06:00:22.787Z",
+  "name": "Detection Strategy for Hijack Execution Flow using Path Interception by Search Order Hijacking",
+  "tlp": null,
+  "detId": "DET0564",
+  "stixId": "x-mitre-detection-strategy--9050bfb8-840d-4464-b4e8-7a0dbdece715",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1560"]
+}

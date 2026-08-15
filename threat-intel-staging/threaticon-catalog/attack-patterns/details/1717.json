@@ -1,0 +1,9 @@
+{
+  "id": 1717,
+  "fetchedAt": "2026-08-15T06:59:39.599Z",
+  "name": "T1048.001 - Data Exfiltration via Network: Web Request Protocol",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

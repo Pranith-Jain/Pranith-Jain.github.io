@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T10:25:22.925Z",
+  "name": "CRPxO: Summit Hill Insurance",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Financial Services | Sector: Insurance | Data leaked: 34.5 GB | Source: https://www.ransomware.live/id/U3VtbWl0IEhpbGwgSW5zdXJhbmNlQENSUHhP"
+}

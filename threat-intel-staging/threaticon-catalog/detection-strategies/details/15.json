@@ -1,0 +1,12 @@
+{
+  "id": 15,
+  "fetchedAt": "2026-08-14T05:18:52.154Z",
+  "name": "Detection Strategy for Modify Cloud Resource Hierarchy",
+  "tlp": null,
+  "detId": "DET0155",
+  "stixId": "x-mitre-detection-strategy--fdcd77fc-d6da-4692-a978-461a7f7dba61",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0442"]
+}

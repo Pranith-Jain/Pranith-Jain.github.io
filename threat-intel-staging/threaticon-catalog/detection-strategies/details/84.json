@@ -1,0 +1,12 @@
+{
+  "id": 84,
+  "fetchedAt": "2026-08-14T06:06:23.495Z",
+  "name": "Detection of Defense Impairment",
+  "tlp": null,
+  "detId": "DET0900",
+  "stixId": "x-mitre-detection-strategy--3a3820cd-260b-43d0-b5af-89b7ba81a044",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2038", "AN2039", "AN2040", "AN2041", "AN2042"]
+}

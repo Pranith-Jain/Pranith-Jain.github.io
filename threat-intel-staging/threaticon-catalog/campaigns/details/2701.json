@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:56:22.312Z",
+  "name": "OSINT - SynAck Ransomware Sees Huge Spike in Activity",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 5, 2017",
+  "lastSeen": "Sep 5, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1157 (59afe22a-a734-4729-ab8c-4489950d210f)."
+}

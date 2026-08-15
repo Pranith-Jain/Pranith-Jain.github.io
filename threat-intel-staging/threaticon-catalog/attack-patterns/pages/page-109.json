@@ -1,0 +1,120 @@
+[
+  {
+    "id": 670,
+    "name": "Inhibit System Recovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1490",
+    "status": null
+  },
+  {
+    "id": 1892,
+    "name": "T1490 - Content scraping from web servers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1490",
+    "status": null
+  },
+  {
+    "id": 2296,
+    "name": "T1490 - Ingress Tool Transfer",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1490",
+    "status": null
+  },
+  { "id": 1276, "name": "T1490.001", "tlp": "white", "confidence": null, "techniqueId": "T1490", "status": null },
+  {
+    "id": 1280,
+    "name": "T1490.001: T1490.001",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1490",
+    "status": null
+  },
+  {
+    "id": 1681,
+    "name": "T1490: Compromise Accounts via Email",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1490",
+    "status": null
+  },
+  {
+    "id": 1664,
+    "name": "T1490: Inhibit System Recovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1490",
+    "status": null
+  },
+  { "id": 265, "name": "Defacement", "tlp": "white", "confidence": null, "techniqueId": "T1491", "status": null },
+  { "id": 1729, "name": "T1491 - DDoS", "tlp": "white", "confidence": null, "techniqueId": "T1491", "status": null },
+  {
+    "id": 397,
+    "name": "Internal Defacement",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1491",
+    "status": null
+  },
+  {
+    "id": 2855,
+    "name": "T1491.001 System Resource Hijacking: Cryptomining",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1491",
+    "status": null
+  },
+  {
+    "id": 40,
+    "name": "External Defacement",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1491",
+    "status": null
+  },
+  { "id": 1621, "name": "T1492.001", "tlp": "white", "confidence": null, "techniqueId": "T1492", "status": null },
+  { "id": 1794, "name": "T1493.001", "tlp": "white", "confidence": null, "techniqueId": "T1493", "status": null },
+  {
+    "id": 669,
+    "name": "Firmware Corruption",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1495",
+    "status": null
+  },
+  {
+    "id": 556,
+    "name": "Resource Hijacking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1496",
+    "status": null
+  },
+  {
+    "id": 2941,
+    "name": "T1496 – Resource Hijacking (DDoS)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1496",
+    "status": null
+  },
+  {
+    "id": 450,
+    "name": "Compute Hijacking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1496",
+    "status": null
+  },
+  {
+    "id": 321,
+    "name": "Bandwidth Hijacking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1496",
+    "status": null
+  },
+  { "id": 59, "name": "SMS Pumping", "tlp": "white", "confidence": null, "techniqueId": "T1496", "status": null }
+]

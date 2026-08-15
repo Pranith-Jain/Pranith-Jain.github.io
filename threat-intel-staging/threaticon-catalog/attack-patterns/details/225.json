@@ -1,0 +1,9 @@
+{
+  "id": 225,
+  "fetchedAt": "2026-08-15T08:06:34.547Z",
+  "name": "Backup Software Discovery",
+  "tlp": "white",
+  "techniqueId": "DET0088",
+  "added": "May 2, 2026",
+  "description": "Adversaries may attempt to get a listing of backup software or configurations that are installed on a system. Adversaries may use this information to shape follow-on behaviors, such as Data Destruction, Inhibit System Recovery, or Data Encrypted for Impact. Commands that can be used to obtain security software information are netsh, `reg query` with Reg, `dir` with cmd, and Tasklist, but other indicators of discovery behavior may be more specific to the type of software or security system the adversary is looking for, such as Veeam, Acronis, Dropbox, or Paragon.(Citation: Symantec Play Ransomware 2023)"
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2855,
+    "name": "OSINT - New KeyPass Ransomware Campaign Underway",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1423 (5b718bda-8d9c-477f-bcd5-4634950d210f)."
+  },
+  {
+    "id": 2854,
+    "name": "powerpool-malware-exploits-zero-day-vulnerability",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1419 (5b9162c3-90b4-423b-bd69-28330acd0835)."
+  },
+  {
+    "id": 2853,
+    "name": "OSINT - New Bip Dharma Ransomware Variant Released",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1418 (5b84012a-f9d4-4d92-abb3-344f950d210f)."
+  },
+  {
+    "id": 2852,
+    "name": "OSINT - Microsoft Disrupts APT28 Hacking Campaign Aimed at US Midterm Elections",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1416 (5b7d1f89-9148-4961-b56f-9168950d210f)."
+  },
+  {
+    "id": 2851,
+    "name": "OSINT - SamSam Ransomware Crew Made Nearly $6 Million From Ransom Payments",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1411 (5b6c4a32-92cc-499d-9dd2-3989950d210f)."
+  },
+  {
+    "id": 2849,
+    "name": "Massive Malvertising Campaign Discovered Attempting 40,000 Infections per Week",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1401 (5b608c59-6328-49e7-af04-22de0acd0835)."
+  },
+  {
+    "id": 2848,
+    "name": "OSINT - Leafminer: New Espionage Campaigns Targeting Middle Eastern Regions",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1399 (5b58e29a-cb98-42a6-8b3b-4a6802de0b81)."
+  },
+  {
+    "id": 2846,
+    "name": "OVH Phishing",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1394 (5b4f5308-42c0-434a-a8c5-48ae950d210f)."
+  },
+  {
+    "id": 2845,
+    "name": "Trend Micro Blog: Malicious Macro Hijacks Desktop Shortcuts to Deliver Backdoor",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1393 (5b44a06a-d458-497b-b05e-0c1e0acd0835)."
+  },
+  {
+    "id": 2844,
+    "name": "Talos Blog - Smoking Guns - Smoke Loader learned new tricks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1391 (5b3e4d3d-0644-43ef-9ebd-30cd0acd0835)."
+  },
+  {
+    "id": 2843,
+    "name": "OSINT - Down but Not Out: A Look Into Recent Exploit Kit Activities",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1390 (5b3b7b6f-6234-45ea-be4f-ab8202de0b81)."
+  },
+  {
+    "id": 2842,
+    "name": "Clipboard CryptoCoin Hijacker",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1389 (5b3b7b62-5728-4980-937b-40240acd0835)."
+  },
+  {
+    "id": 2839,
+    "name": "Registrant Tracking for \"earthalgerrity@armyspy.com\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1383 (5b310846-157c-46d7-8141-89f00acd0835)."
+  },
+  {
+    "id": 2840,
+    "name": "bank phishing domains",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1384 (5b28113a-05b8-4913-8fdb-27410acd0835)."
+  },
+  {
+    "id": 2838,
+    "name": "OSINT - DBGer Ransomware Uses EternalBlue and Mimikatz to Spread Across Networks",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1380 (5b28d191-1100-4688-aa5d-48cd950d210f)."
+  }
+]

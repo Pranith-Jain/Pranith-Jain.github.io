@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:31:06.264Z",
+  "name": "coinbasecartel: Aptim",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 23, 2026",
+  "lastSeen": "Apr 23, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: aptim.com | Infostealer data confirmed. | $krb5pa$23$APTIM.COM$APTIM.COM$$9936cd67a6d3d8560aaa25bb4a7a03b0bb8dfbbdbac8fed06e9262c41dce5ee567d0f7b52928d3626e43c0a7cfac4fb1a9b90887 $krb5pa$23$aptim.com$aptim.com$f7a8e75a2c6d3610fe9f4b34bec2a... | Source: https://www.ransomware.live/id/QXB0aW1AY29pbmJhc2VjYXJ0ZWw="
+}

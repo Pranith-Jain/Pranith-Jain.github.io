@@ -1,0 +1,12 @@
+{
+  "id": 94,
+  "fetchedAt": "2026-08-14T05:10:32.483Z",
+  "name": "Volume Enumeration",
+  "tlp": null,
+  "dcId": "DC0095",
+  "analyticCount": 0,
+  "strategyCount": 0,
+  "added": null,
+  "description": "An extracted list of available volumes within a cloud environment (ex: AWS describe-volumes)",
+  "analytics": []
+}

@@ -1,0 +1,12 @@
+{
+  "id": 210,
+  "fetchedAt": "2026-08-14T05:24:54.474Z",
+  "name": "User Execution – Malicious File via download/open → spawn chain (T1204.002)",
+  "tlp": null,
+  "detId": "DET0294",
+  "stixId": "x-mitre-detection-strategy--e2023eb5-d813-4a08-985e-e8c998672037",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0819", "AN0820", "AN0821"]
+}

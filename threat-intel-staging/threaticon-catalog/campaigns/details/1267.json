@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:57:11.578Z",
+  "name": "shinyhunters: European Commission (*.europa.eu)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 28, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to shinyhunters. | Sector: Public Sector | Over 350 GB+ of data was compromised, including data dumps of mail servers, databases, confidential documents, contracts, and much more sensitive material. | Size: 350GB+ (uncompressed) | Updated: 28 Mar 2026 | SHA256: 697c5cfbc64fa5cfbe3dd59a5cb4a2ee10ade8c53ef4c36f3ab3c7e1e35ff66e | Source: https://www.ransomware.live/id/RXVyb3BlYW4gQ29tbWlzc2lvbiAoKi5ldXJvcGEuZXUpQHNoaW55aHVudGVycw=="
+}

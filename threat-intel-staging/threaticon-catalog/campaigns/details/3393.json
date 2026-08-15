@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:39.653Z",
+  "name": "OSINT Potao Express samples from contagiodump",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 12, 2015",
+  "lastSeen": "Aug 12, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #668 (55cc400a-ee68-4aaa-b144-4d73950d210b)."
+}

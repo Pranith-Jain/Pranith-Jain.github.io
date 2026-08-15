@@ -1,0 +1,162 @@
+[
+  {
+    "id": 2460,
+    "name": "T1566.001 - C2 over DNS tunneling",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1917,
+    "name": "T1566.001 - Collection Activities: Data Exfiltration",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1736,
+    "name": "T1566.001 - Communication Through Alternate Protocol: DNS, HTTP/HTTPS, or Other Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2116,
+    "name": "T1566.001 - Credential Access: OS Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1801,
+    "name": "T1566.001 - Credential Harvesting via Reverse Proxy",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1403,
+    "name": "T1566.001 - Credentials Obtained Via Email Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1806,
+    "name": "T1566.001 - Credentials from Browser",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2275,
+    "name": "T1566.001 - Credentials from Browser: Webrowser Stealing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2375,
+    "name": "T1566.001 - DNS Tunneling",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2247,
+    "name": "T1566.001 - Data Archiving as a Tool or Script for Data Exfiltration",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1419,
+    "name": "T1566.001 - Data Destruction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2181,
+    "name": "T1566.001 - Data Destruction as part of ransomware deployment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1719,
+    "name": "T1566.001 - Data Encrypted as Credential Dumping: Cloud Accounts via API",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2010,
+    "name": "T1566.001 - Data Encrypted for Impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2030,
+    "name": "T1566.001 - Data Exfiltration Over Command and Control Channels",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1785,
+    "name": "T1566.001 - Data Exfiltration over Network Boundary using APIs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2063,
+    "name": "T1566.001 - Data Exfiltration via network share",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2086,
+    "name": "T1566.001 - Data Exfiltration: Internal to Cloud",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2254,
+    "name": "T1566.001 - Data credential collection through credentials in clear text",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1942,
+    "name": "T1566.001 - Data transfer tools and techniques",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  }
+]

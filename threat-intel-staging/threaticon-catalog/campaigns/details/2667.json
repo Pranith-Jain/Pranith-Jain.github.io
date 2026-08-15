@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:57:48.344Z",
+  "name": "OSINT - New KONNI Campaign References North Korean Missile Capabilities",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 6, 2017",
+  "lastSeen": "Jul 6, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1107 (595dfe70-4ba8-4f83-8089-4a65950d210f)."
+}

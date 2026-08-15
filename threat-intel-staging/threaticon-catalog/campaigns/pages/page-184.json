@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5113,
+    "name": "safepay: iql-nog.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: ES | Sector: Not Found | Website: iql-nog.com | Infostealer data confirmed. | Founded in 1947, the company specializes in the production of oleochemical products, particularly fatty acid esters and specialty chemicals derived … | Source: https://www.ransomware.live/id/aXFsLW5vZy5jb21Ac2FmZXBheQ=="
+  },
+  {
+    "id": 5114,
+    "name": "qilin: Nova Medical Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.novajoy.com | N/A | Source: https://www.ransomware.live/id/Tm92YSBNZWRpY2FsIFByb2R1Y3RzQHFpbGlu"
+  },
+  {
+    "id": 5106,
+    "name": "qilin: Eat Salad",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: BR | Sector: Agriculture and Food Production | Website: www.eatsalad.com | N/A | Source: https://www.ransomware.live/id/RWF0IFNhbGFkQHFpbGlu"
+  },
+  {
+    "id": 5107,
+    "name": "qilin: MEISA - Sines",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PT | Sector: Energy | Website: www.meisa-e.com | N/A | Source: https://www.ransomware.live/id/TUVJU0EgLSBTaW5lc0BxaWxpbg=="
+  },
+  {
+    "id": 5108,
+    "name": "killsec: csinsurance.mx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to killsec. | Country: MX | Sector: Financial Services | Website: example.com | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/Y3NpbnN1cmFuY2UubXhAa2lsbHNlYw=="
+  },
+  {
+    "id": 5105,
+    "name": "qilin: MarketJoy",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Sector: Consumer Services | Website: www.marketjoy.com | N/A | Source: https://www.ransomware.live/id/TWFya2V0Sm95QHFpbGlu"
+  },
+  {
+    "id": 5109,
+    "name": "killsec: acehospital.in",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to killsec. | Country: IN | Sector: Healthcare | Website: example.com | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/YWNlaG9zcGl0YWwuaW5Aa2lsbHNlYw=="
+  },
+  {
+    "id": 5110,
+    "name": "shadowbyt3$: Lead Company (Leadership Boulevard)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5112,
+    "name": "incransom: trrac.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Transportation/Logistics | Website: trrac.net | Infostealer data confirmed. | 150gb | Source: https://www.ransomware.live/id/dHJyYWMubmV0QGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 5104,
+    "name": "qilin: JNP ENG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: KR | Sector: Manufacturing | Website: www.jnpeng.co.kr | N/A | Source: https://www.ransomware.live/id/Sk5QIEVOR0BxaWxpbg=="
+  },
+  {
+    "id": 5111,
+    "name": "stormous: katholiekamersfoort.nl",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to stormous. | Country: NL | Sector: Education | Website: katholiekamersfoort.nl | Infostealer data confirmed. | The church website's network (katholiekamersfoort.nl/) has been breached, resulting in the exfiltration of over 10 GB of data. This data pertains to donors, staff, and the personal information of a large number of individuals. The compromised data includes: Databases and Personally Identifiable Information (PII), internal network shares and document, contact lists, board and committee data, as well as system metadata. | Source: https://www.ransomware.live/id/a2F0aG9saWVrYW1lcnNmb29ydC5ubEBzdG9ybW91cw=="
+  },
+  {
+    "id": 5096,
+    "name": "akira: Sunrise, Toscana Country Club, AndalusiaCountry Club.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5095,
+    "name": "krybit: www.elumax.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: TW | Sector: Business Services | Website: www.elumax.com | Lumax is dedicated to maintaining high standards of ethics, corporate governance and effective accountability mechanisms... | Press: https://emops.twse.com.tw/server-java/t05sr01_1_e?&isNew=Y&seq_no=1&spoke_time=74158&spoke_date=20260602&co_id=6192 | Source: https://www.ransomware.live/id/d3d3LmVsdW1heC5jb21Aa3J5Yml0"
+  },
+  {
+    "id": 5097,
+    "name": "spacebears: Geske Haus- und Versorgungstechnik GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5098,
+    "name": "incransom: Colina Financial Advisors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

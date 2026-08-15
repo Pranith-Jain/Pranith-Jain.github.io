@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3490,
+    "name": "Malspam targeting github users",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #974 (588b3db6-d5d4-4e46-86d6-42b9950d210f)."
+  },
+  {
+    "id": 3489,
+    "name": "Malware 2017-01-26 (.js in .zip) - Cerber",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #971 (588a1640-bcac-4dc1-b9da-435802de0b81)."
+  },
+  {
+    "id": 3488,
+    "name": "OSINT - A Whale of a Tale: HummingBad Returns",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #968 (58867f60-ca5c-4658-a1d5-472f02de0b81)."
+  },
+  {
+    "id": 3487,
+    "name": "OSINT - Spora - the Shortcut Worm that is also a Ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #967 (5881bff7-0bd0-4c84-a206-4eb4950d210f)."
+  },
+  {
+    "id": 3486,
+    "name": "OSINT - Uncovering the Inner Workings of EyePyramid",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #965 (58806a6c-14a4-49a9-8d6c-49e6950d210f)."
+  },
+  {
+    "id": 3485,
+    "name": "OSINT - shadow-brokers-windows",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #961 (58787bf0-bf68-41ce-b679-457a950d210f)."
+  },
+  {
+    "id": 3484,
+    "name": "OSINT - Fancy Bear Source Code",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #958 (58724cbf-5508-4425-ab89-4f61950d210f)."
+  },
+  {
+    "id": 3483,
+    "name": "OSINT - MM Core In-Memory Backdoor Returns as \"BigBoss\" and \"SillyGoose\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #957 (58720d9e-8b54-40a9-9d80-42e7950d210f)."
+  },
+  {
+    "id": 3482,
+    "name": "OSINT - GRIZZLY STEPPE â€“ Additional expansion",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #951 (5867a9dc-dde8-4877-b46f-42cc950d210f)."
+  },
+  {
+    "id": 3481,
+    "name": "Android spyware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #950 (5864c43a-b9d0-4182-93c2-4557950d210f)."
+  },
+  {
+    "id": 3480,
+    "name": "Kaspersky Lab: Spearphishing attack hits industrial companies",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #946 (5857cf66-aa18-4681-bff7-08720a950b0c)."
+  },
+  {
+    "id": 3479,
+    "name": "OSINT - PROMETHIUM and NEODYMIUM: Parallel zeroday attacks targeting individuals in Europe",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #945 (58539031-aa78-4da1-9289-487102de0b81)."
+  },
+  {
+    "id": 3478,
+    "name": "Malspam 2016-12-15 (.js in .zip) - campaign: \"Amount Payable\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #943 (585251ea-ab8c-40bc-86e0-436b950d210f)."
+  },
+  {
+    "id": 3477,
+    "name": "OSINT - The rise of TeleBots: Analyzing disruptive KillDisk attacks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #941 (58503e2f-4c78-442d-833f-8ad202de0b81)."
+  },
+  {
+    "id": 3476,
+    "name": "OSINT - diamondfox panels",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #939 (584f1ea5-0d94-4052-9071-465502de0b81)."
+  }
+]

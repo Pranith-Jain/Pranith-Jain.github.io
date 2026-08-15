@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:00:41.217Z",
+  "name": "Sinkholes servers with http header Server: malware-sinkhole",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Feb 22, 2017",
+  "lastSeen": "Feb 22, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1000 (58ad5d57-3058-48b8-8c08-553602de0b81)."
+}

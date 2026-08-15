@@ -1,0 +1,12 @@
+{
+  "id": 497,
+  "fetchedAt": "2026-08-14T06:04:54.766Z",
+  "name": "Detection of Wordlist Scanning",
+  "tlp": null,
+  "detId": "DET0868",
+  "stixId": "x-mitre-detection-strategy--95d3b171-2fc3-4e58-a5c9-4d98c3691c88",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2000"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:43:13.583Z",
+  "name": "payload: Thai Solar Energy Public",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 14, 2026",
+  "lastSeen": "Mar 14, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: TH | Sector: Energy | Website: thaisolarenergy.com | Infostealer data confirmed. | Thai Solar Energy Public Company Limited (TSE) was established in 2008 based in Bangkok, Thailand. TSE is the first in Southeast Asia to have effectively applied an advanced technology to utilize the sun's radiation and converting it into green energy. TSE is in collaboration with several World renowned energy institutes and specialized energy companies to continuously evaluate our performance. | Source: https://www.ransomware.live/id/VGhhaSBTb2xhciBFbmVyZ3kgUHVibGljQHBheWxvYWQ="
+}

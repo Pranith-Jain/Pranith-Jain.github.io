@@ -1,0 +1,9 @@
+{
+  "id": 2887,
+  "fetchedAt": "2026-08-15T08:40:43.801Z",
+  "name": "T1659: Content Injection – compromised upstream traffic",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

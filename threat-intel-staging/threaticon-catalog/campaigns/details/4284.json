@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:36:54.338Z",
+  "name": "safepay: shw-fr.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: shw-fr.de | Infostealer data confirmed. | The company traces its origins to 1596, making it one of Germany's oldest industrial manufacturers, although its current corporate structure … | Source: https://www.ransomware.live/id/c2h3LWZyLmRlQHNhZmVwYXk="
+}

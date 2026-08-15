@@ -1,0 +1,12 @@
+{
+  "id": 62,
+  "fetchedAt": "2026-08-14T05:10:21.557Z",
+  "name": "Container Enumeration",
+  "tlp": null,
+  "dcId": "DC0091",
+  "analyticCount": 2,
+  "strategyCount": 2,
+  "added": null,
+  "description": "\"Container Enumeration\" data component captures events and actions related to listing and identifying active or available containers within a containerized environment. This includes information about running, stopped, or configured containers, such as their names, IDs, statuses, or associated images. Monitoring this activity is crucial for detecting unauthorized discovery or reconnaissance efforts. Examples: - Docker Example: `docker ps`, `docker ps -a` - Kubernetes Example: `kubectl get pods`, `kubectl get deployments` - Cloud Container Services Example - AWS ECS: API Call: ListTasks or ListContainers - Azure Kubernetes Service: API Call: List pod or container instances. - Google Kubernetes Engine (GKE): API Call: Retrieve deployments and their associated containers.",
+  "analytics": ["AN1352", "AN1422"]
+}

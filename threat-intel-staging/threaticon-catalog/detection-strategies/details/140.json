@@ -1,0 +1,12 @@
+{
+  "id": 140,
+  "fetchedAt": "2026-08-14T05:13:16.420Z",
+  "name": "Detecting Electron Application Abuse for Proxy Execution",
+  "tlp": null,
+  "detId": "DET0025",
+  "stixId": "x-mitre-detection-strategy--d41df11d-b2cd-4afc-89a5-9c77e7f31985",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0071", "AN0072", "AN0073"]
+}

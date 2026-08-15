@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2314,
+    "name": "ToddyCat is making holes in your infrastructure",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #497 (a16a2219-5b91-42e7-8128-60153a203554)."
+  },
+  {
+    "id": 2313,
+    "name": "Ransomware Evolution | How Cheated Affiliates Are Recycling Victim Data for Profit",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #495 (19b33a83-94b5-4071-ae44-4e77f875b8d4)."
+  },
+  {
+    "id": 2312,
+    "name": "OSINT - New Poison Ivy Activity Targeting Myanmar, Asian Countries",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #493 (5720669e-55ac-42ef-bc40-4b78950d210f)."
+  },
+  {
+    "id": 2311,
+    "name": "The New Version of JsOutProx is Attacking Financial Institutions in APAC and MENA via GitLab Abuse",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #492 (544d142b-7863-453c-a444-b00ab9aba56c)."
+  },
+  {
+    "id": 2310,
+    "name": "ScrubCrypt Deploys VenomRAT with an Arsenal of Plugins",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #491 (f1dd9c3d-94ae-4da4-8ef3-d967315f9810)."
+  },
+  {
+    "id": 2309,
+    "name": "OSINT - Malware Campaign Using Google Docs Intercepted, Thousands of Users Affected",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #490 (57205b50-c19c-4411-ae0e-4414950d210f)."
+  },
+  {
+    "id": 2308,
+    "name": "OSINT - Macro Malware Employs Advanced Obfuscation to Avoid Detection",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #489 (571fd18a-efc4-4099-93f5-447502de0b81)."
+  },
+  {
+    "id": 2307,
+    "name": "Starry Addax targets human rights defenders in North Africa with new malware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #488 (6c0a9fa1-e516-4825-abf8-6692d34ac9b6)."
+  },
+  {
+    "id": 2306,
+    "name": "TA547 Targets German Organizations with Rhadamanthys Stealer",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #486 (ddf7efba-eafd-445c-93b2-861b24257424)."
+  },
+  {
+    "id": 2305,
+    "name": "“Hey, This Isn’t the Right Site!” Distribution of Malware Exploiting Google Ads Tracking",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #485 (465bce70-94bb-49a2-99c6-b585210993e8)."
+  },
+  {
+    "id": 2304,
+    "name": "Distinctive Campaign Evolution of Pikabot Malware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #484 (097a9dd2-e8db-467a-acb3-907f41f27044)."
+  },
+  {
+    "id": 2303,
+    "name": "Inside the Rabbit Hole: BunnyLoader 3.0 Unveiled",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #481 (11ce94d4-6b47-4cc8-bade-531769bbf9d7)."
+  },
+  {
+    "id": 2302,
+    "name": "Coyote: A multi-stage banking Trojan abusing the Squirrel installer",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #478 (9912f2b3-3a2b-4b33-a3df-a3ed0ccdbc69)."
+  },
+  {
+    "id": 2301,
+    "name": "FakeBat delivered via several active malvertising campaigns",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #475 (c36977b6-fb28-4a34-b625-7b7d02d609cb)."
+  },
+  {
+    "id": 2300,
+    "name": "Magnet Goblin Targets Publicly Facing Servers Using 1-Day Vulnerabilities",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #474 (17a29b8e-11ca-42f7-9adf-886a25412b77)."
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 530,
+  "fetchedAt": "2026-08-14T05:56:55.582Z",
+  "name": "Peripheral Device Enumeration via System Utilities and API Calls",
+  "tlp": null,
+  "detId": "DET0491",
+  "stixId": "x-mitre-detection-strategy--f273ee4a-e468-4a01-bb1a-f3a687518ded",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1353", "AN1354", "AN1355"]
+}

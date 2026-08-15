@@ -1,0 +1,12 @@
+{
+  "id": 51,
+  "fetchedAt": "2026-08-14T05:06:14.305Z",
+  "name": "Scheduled Job Metadata",
+  "tlp": null,
+  "dcId": "DC0005",
+  "analyticCount": 9,
+  "strategyCount": 3,
+  "added": null,
+  "description": "Contextual data about a scheduled job, which may include information such as name, timing, command(s), etc.",
+  "analytics": ["AN0325", "AN0326", "AN0430", "AN0431", "AN0432", "AN0433", "AN1118", "AN1119", "AN1120"]
+}

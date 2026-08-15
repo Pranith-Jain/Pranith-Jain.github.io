@@ -1,0 +1,9 @@
+{
+  "id": 607,
+  "fetchedAt": "2026-08-15T07:43:48.000Z",
+  "name": "Create Account",
+  "tlp": "white",
+  "techniqueId": "T1136",
+  "added": "May 2, 2026",
+  "description": "Adversaries may create an account to maintain access to victim systems.(Citation: Symantec WastedLocker June 2020) With a sufficient level of access, creating such accounts may be used to establish secondary credentialed access that do not require persistent remote access tools to be deployed on the system. Accounts may be created on the local system or within a domain or cloud tenant. In cloud environments, adversaries may create accounts that only have access to specific services, which can reduce the chance of detection."
+}

@@ -1,0 +1,9 @@
+{
+  "id": 443,
+  "fetchedAt": "2026-08-15T07:00:22.027Z",
+  "name": "Exfiltration over USB",
+  "tlp": "white",
+  "techniqueId": "DET0220",
+  "added": "May 2, 2026",
+  "description": "Adversaries may attempt to exfiltrate data over a USB connected physical device. In certain circumstances, such as an air-gapped network compromise, exfiltration could occur via a USB device introduced by a user. The USB device could be used as the final exfiltration point or to hop between otherwise disconnected systems."
+}

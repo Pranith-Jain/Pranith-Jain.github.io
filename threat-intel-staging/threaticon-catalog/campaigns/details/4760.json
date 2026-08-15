@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:16:48.703Z",
+  "name": "spacebears: ECOVACS",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 16, 2026",
+  "lastSeen": "Jun 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to spacebears. | Country: CN | Sector: Consumer Services | Website: www.ecovacs.com | ECOVACS is a highly successful Chinese robotics company founded in 1998 in Suzhou. It has grown into a global leader in smart home cleaning solutions, with its products sold in over 145 countries and trusted by tens of millions of users worldwide.The company is best known for its award-winning DEEBOT robot vacuums, WINBOT window cleaners, GOAT robotic lawn mowers, and other intelligent cleaning devices powered by advanced AI and navigation technologies.Driven by the vision “Robotics for All”, ECOVACS continues to innovate and expand rapidly, making premium home robotics accessible and effective for everyday consumers.About 2 TB of stolen data. https://www.***.com/ | Source: https://www.ransomware.live/id/RUNPVkFDU0BzcGFjZWJlYXJz"
+}

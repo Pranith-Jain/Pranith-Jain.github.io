@@ -1,0 +1,12 @@
+{
+  "id": 381,
+  "fetchedAt": "2026-08-14T05:21:06.571Z",
+  "name": "Detect LSA Authentication Package Persistence via Registry and LSASS DLL Load",
+  "tlp": null,
+  "detId": "DET0207",
+  "stixId": "x-mitre-detection-strategy--1525b951-a0fb-42ac-97b7-05ac6f412020",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0583"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 557,
+  "fetchedAt": "2026-08-14T05:21:14.365Z",
+  "name": "Abuse of Domain Accounts",
+  "tlp": null,
+  "detId": "DET0210",
+  "stixId": "x-mitre-detection-strategy--ba7a75c6-fcf5-4f36-8908-1fe1c30f690f",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0590", "AN0591", "AN0592", "AN0593"]
+}

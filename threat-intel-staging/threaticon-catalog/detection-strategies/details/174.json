@@ -1,0 +1,12 @@
+{
+  "id": 174,
+  "fetchedAt": "2026-08-14T05:58:08.212Z",
+  "name": "Behavioral Detection of T1498 – Network Denial of Service Across Platforms",
+  "tlp": null,
+  "detId": "DET0518",
+  "stixId": "x-mitre-detection-strategy--8103189e-83c8-4246-a56c-193e19c98182",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1434", "AN1435"]
+}

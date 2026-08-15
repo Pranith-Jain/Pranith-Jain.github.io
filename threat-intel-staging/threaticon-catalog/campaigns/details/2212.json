@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:11.030Z",
+  "name": "Campaigns abusing corporate trusted infrastructure hunt for corporate credentials on ICS networks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 20, 2022",
+  "lastSeen": "Jan 20, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #285 (14e083b6-5d3f-4925-8b7c-19f1ec089859)."
+}

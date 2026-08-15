@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:39:43.555Z",
+  "name": "ransomhouse: Megawork",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to ransomhouse. | Country: BR | Sector: Business Services | Website: www.megawork.com.br | Megawork is a leading SAP consultancy specializing in the implementation, support, and optimization of technologies such as SAP S/4HANA and Microsoft Power Platform. They provide integrated solutions tailored for various sectors including services, wholesale, utilities, mining, and steel industries. The company offers a range of services including ERP system implementation, SAP S/4HANA migration, application management services, and IT professional allocation. Targeting medium and large enterprises, Megawork aims to enhance business management and delivers thorough support throughout the entire lifecycle of their clients' management systems. | Source: https://www.ransomware.live/id/TWVnYXdvcmtAcmFuc29taG91c2U="
+}

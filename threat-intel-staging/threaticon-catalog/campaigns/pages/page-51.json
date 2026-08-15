@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7108,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 7109,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 7106,
+    "name": "Orova: JK Capital Management Limited",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: HK | Sector: Financial Services | Website: jkcapitalmanagement.com | JK Capital Management Limited is an asset management company set up in Hong Kong in 1997 and regulated by the Securities and Futures Commission of Hong Kong. We are GIPS and MIFID II compliant. Our mutual funds are all registered with CSSF, the Luxembourg regulator. | Source: https://www.ransomware.live/id/SksgQ2FwaXRhbCBNYW5hZ2VtZW50IExpbWl0ZWRAT3JvdmE="
+  },
+  {
+    "id": 7102,
+    "name": "Orova: Sanrio Hong Kong Co., Ltd",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: HK | Sector: Retail & E-Commerce | Website: www.sanrio.com.hk | Sanrio is the global lifestyle brand best known for Hello Kitty who was created in 1974, and home to many other beloved character brands such as My Melody, Kuromi, Little Twin Stars, Cinnamoroll, Pompompurin, gudetama, Aggretsuko, Chococat, Bad Badtz-Maru and Kerokerokeroppi. | Source: https://www.ransomware.live/id/U2FucmlvIEhvbmcgS29uZyBDby4sIEx0ZEBPcm92YQ=="
+  },
+  {
+    "id": 7103,
+    "name": "Orova: Tat Fung Textile Co., Ltd.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: HK | Sector: Manufacturing | Website: www.tatfung-tex.com | Tat Fung & Panther Denim is a premium woven, denim, and print fabric mill established in 1986. The company specializes in producing high-quality denim and print fabrics, focusing on sustainability and innovation. | Source: https://www.ransomware.live/id/VGF0IEZ1bmcgVGV4dGlsZSBDby4sIEx0ZC5AT3JvdmE="
+  },
+  {
+    "id": 7105,
+    "name": "Orova: Conceptual Designs, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Other | Website: www.conceptualdesignsinc.com | Conceptual Designs, Inc. proudly provides interior design services for businesses across the Quad Cities from our studio in Bettendorf, Iowa. No matter what kind of business you own, we can help make your space match your company’s culture and values in a creative way. With over 35 years of experience, our team of designers can help bring your vision to life. | Source: https://www.ransomware.live/id/Q29uY2VwdHVhbCBEZXNpZ25zLCBJbmMuQE9yb3Zh"
+  },
+  {
+    "id": 7107,
+    "name": "Orova: Global Friction Products, Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Manufacturing | Website: globalfrictionproducts.com | GLOBAL FRICTION PRODUCTS, INC is a company that manufactures, repairs, and /or re-arcs brake and clutch bands back to original drum for even wear on friction material. We specialize in the construction, mining, marine and offshore industries, i.e., cranes, draglines, clamshells, barges, dredges, ships, tugs, winches and more. | Source: https://www.ransomware.live/id/R2xvYmFsIEZyaWN0aW9uIFByb2R1Y3RzLCBJbmNAT3JvdmE="
+  },
+  {
+    "id": 7104,
+    "name": "Orova: Integrated Site Management",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Professional Services | Website: www.ism-sc.com | Integrated Site Management is a full service site consulting company with our foundation reinforced by developing partnerships with clients, vendors & suppliers. Partnerships built from professionalism, honesty, integrity, respect, and open communication. Integrated Site Management listens, researches, identifies, and then provides solutions for our clients needs. | Source: https://www.ransomware.live/id/SW50ZWdyYXRlZCBTaXRlIE1hbmFnZW1lbnRAT3JvdmE="
+  },
+  {
+    "id": 7098,
+    "name": "Orova: Cardiology Associates",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Healthcare | Website: porthuronheartcenter.com | Serving the community for over 45 years, Cardiology Associates of Port Huron, P.C. offers the latest in cardiac procedures and technology, helping our qualified physicians to detect and provide comprehensive treatment for a wide variety of adult heart and artery conditions. | Source: https://www.ransomware.live/id/Q2FyZGlvbG9neSBBc3NvY2lhdGVzQE9yb3Zh"
+  },
+  {
+    "id": 7097,
+    "name": "Orova: Ultra Fame",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: TW | Sector: Other | Website: en.ufame.com.tw | As PCB design continues to evolve in complexity and customization, we believe that outstanding circuit layouts are built on a strong engineering foundation and a deep understanding of our clients’ needs. From simple double-layer boards to advanced multi-layer high-speed signal boards, we approach every project with professionalism and deliver reliable, high-quality layouts our clients can count on. | Source: https://www.ransomware.live/id/VWx0cmEgRmFtZUBPcm92YQ=="
+  },
+  {
+    "id": 7101,
+    "name": "Orova: SSI HOLDING (FAR EAST) LIMITED",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: HK | Sector: Other | Website: ssife.com/index.php | AIMING at streamlining all aspects of business, procuring excellent quality of management and strengthening connexion of our well established affilated companies, S.S.I. Holding (Far East) Limited was found in November of 1995 with association of Simex Sport GmbH, a German base corporation of over 30 years experience in sport related business when inception. | Source: https://www.ransomware.live/id/U1NJIEhPTERJTkcgKEZBUiBFQVNUKSBMSU1JVEVEQE9yb3Zh"
+  },
+  {
+    "id": 7099,
+    "name": "Orova: Yost Home Improvements",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Retail & E-Commerce | Website: yosthomeimprovements.com | Yost Home Improvements is a family-owned exterior remodeling and construction company based in Waterford, Connecticut, serving the southeastern CT region for over 50 years. They specialize in installing vinyl siding, windows, doors, gutters, roofing, and sunrooms. | Source: https://www.ransomware.live/id/WW9zdCBIb21lIEltcHJvdmVtZW50c0BPcm92YQ=="
+  },
+  {
+    "id": 7100,
+    "name": "Orova: KINGSSON",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: TW | Sector: Other | Website: www.kingsson.com.tw | KINGSSON primarily operates as an OEM/ODM manufacturer, supplying customized security sealing products under customers' own brands. The company markets mainly to distributors and industrial customers rather than retail consumers. | Source: https://www.ransomware.live/id/S0lOR1NTT05AT3JvdmE="
+  },
+  {
+    "id": 7095,
+    "name": "Orova: Agricultural Chemical Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Agriculture and Food Production | Website: agchemicalsolutions.com | Agricultural Chemical Solutions, Inc. provides high-quality agricultural chemicals and a comprehensive marketplace aimed at enhancing farming operations. They offer a wide range of products including pesticides, herbicides, fungicides, and micro nutrients, with competitive pricing and expert recommendations. | Source: https://www.ransomware.live/id/QWdyaWN1bHR1cmFsIENoZW1pY2FsIFNvbHV0aW9uc0BPcm92YQ=="
+  },
+  {
+    "id": 7096,
+    "name": "Orova: DBM Reflex",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: TW | Sector: Other | Website: dbmreflex.com.tw | DBM Technology Co., Ltd. is a leading brand in electroforming mold cores in Asia, established in 1999. With a team of over 70 professionals, the company specializes in mold core design and high-quality electroformed mold production, having produced more than 9,000 sets to date. Their services include feasibility assessments, optical design, mold core structure design, product testing, and light distribution testing, making them a preferred choice in the automotive industry. | Source: https://www.ransomware.live/id/REJNIFJlZmxleEBPcm92YQ=="
+  }
+]

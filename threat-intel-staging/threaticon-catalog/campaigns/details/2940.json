@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:38:25.452Z",
+  "name": "An Analysis of Infrastructure linked to the Hagga Threat Actor",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 12, 2022",
+  "lastSeen": "Jul 12, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1719 (a52a070a-6925-41ea-94d8-56f0d85dc268)."
+}

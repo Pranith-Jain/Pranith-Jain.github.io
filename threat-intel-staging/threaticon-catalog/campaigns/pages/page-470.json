@@ -1,0 +1,122 @@
+[
+  {
+    "id": 716,
+    "name": "coinbasecartel: Sampol",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: ES | Sector: Energy | Website: sampol.com | Infostealer data confirmed. | [AI generated] Sampol is a Spanish engineering and services company headquartered in Mallorca, Spain. It operates in the energy, industrial, and infrastructure sectors, offering services such as electrical installations, renewable energy solutions, facility management, and maintenance. The company works across multiple countries, primarily in Spain and international markets, serving both public and private clients in areas including smart grids, sustainability, and industrial automation. | Source: https://www.ransomware.live/id/U2FtcG9sQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 714,
+    "name": "coinbasecartel: Rogiken / institute of Science Tokyo",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: JP | Sector: Education | Website: rogiken.org | Infostealer data confirmed. | [AI generated] Rogiken is a research organization affiliated with the Institute of Science Tokyo, a Japanese national university formed through the merger of Tokyo Institute of Technology and Tokyo Medical and Dental University. It operates in Japan within the academic and scientific research sector, focusing on advanced engineering, natural sciences, and interdisciplinary studies. The institute supports innovation, technology development, and collaboration between academia and industry. | Source: https://www.ransomware.live/id/Um9naWtlbiAvIGluc3RpdHV0ZSBvZiBTY2llbmNlIFRva3lvQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 713,
+    "name": "coinbasecartel: Kemenpppa",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: ID | Sector: Public Sector | Website: keemenpppa.go.id | Infostealer data confirmed. | [AI generated] Kemenpppa, short for Kementerian Pemberdayaan Perempuan dan Perlindungan Anak, is an Indonesian government ministry responsible for empowering women and protecting children. Operating in Indonesia, it develops and oversees policies related to gender equality, women's rights, child protection, and social welfare. The ministry works to eliminate discrimination, violence, and exploitation affecting women and children across the country. | Source: https://www.ransomware.live/id/S2VtZW5wcHBhQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 724,
+    "name": "dragonforce: McCOR",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 723,
+    "name": "dragonforce: Curtis Design Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: curtisdesigngroup.com | Infostealer data confirmed. | Curtis Design Group specializes in home architecture and design, creating beautiful and livable spaces tailored to the needs of families and developers. They focus on understanding client dreams and site specifics to produce detailed blueprints that reflect those visions. The company emphasizes a collaborative approach, ensuring clients are delighted with the final designs before working with builders. Their services extend beyond Utah, aiming to create homes that endure and bring joy for generations. | Source: https://www.ransomware.live/id/Q3VydGlzIERlc2lnbiBHcm91cEBkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 722,
+    "name": "lamashtu: VOLTERRIES",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: FR | Sector: Energy | Website: volterres.fr | Infostealer data confirmed. | Volterres, a subsidiary of the Eiffage group, is reinventing the supply of green electricity for businesses and public sector players. | Source: https://www.ransomware.live/id/Vk9MVEVSUklFU0BsYW1hc2h0dQ=="
+  },
+  {
+    "id": 715,
+    "name": "coinbasecartel: La Maison Bleue France",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: FR | Sector: Hospitality and Tourism | Website: la-maison-bleue.fr | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/TGEgTWFpc29uIEJsZXVlIEZyYW5jZUBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 740,
+    "name": "krybit: secran.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: BR | Sector: Business Services | Website: secran.com.br | Infostealer data confirmed. | SECRAN Group is a trusted partner with over 40 years of experience, focusing on providing a comprehensive portfolio of b... | Source: https://www.ransomware.live/id/c2VjcmFuLmNvbS5ickBrcnliaXQ="
+  },
+  {
+    "id": 732,
+    "name": "dragonforce: Apply Capnor",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 739,
+    "name": "krybit: palladium.gen.tr",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: TR | Sector: Manufacturing | Website: palladium.gen.tr | Infostealer data confirmed. | Palladium Teknoloji ve Mühendislik Ltd. Şti. is a private Turkish company operating in the field of industrial enginee... | Source: https://www.ransomware.live/id/cGFsbGFkaXVtLmdlbi50ckBrcnliaXQ="
+  },
+  {
+    "id": 738,
+    "name": "krybit: unipest.co.th",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: TH | Sector: Consumer Services | Website: unipest.co.th | Infostealer data confirmed. | Unipest Company Limited specializes in pest control services, including the elimination of termites, ants, cockroaches, ... | Source: https://www.ransomware.live/id/dW5pcGVzdC5jby50aEBrcnliaXQ="
+  },
+  {
+    "id": 737,
+    "name": "krybit: asesoriauriel.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: MX | Sector: Business Services | Website: asesoriauriel.com | Infostealer data confirmed. | Asesoría Uriel is a consultancy and management firm located in Soria, specialized in providing services to individuals,... | Source: https://www.ransomware.live/id/YXNlc29yaWF1cmllbC5jb21Aa3J5Yml0"
+  },
+  {
+    "id": 721,
+    "name": "akira: Fletcher Chrysler Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: fletcherchrysler.com | Infostealer data confirmed. | Fletcher Chrysler Dodge Jeep Ram is a dealership located in Frank lin, IN, offering a wide selection of new and used Chrysler, Dodg e, Jeep, and Ram vehicles. They serve clients in Franklin, Indian apolis, Shelbyville, and surrounding areas, providing assistance in vehicle purchasing, financing options, and automotive services . We will upload 28gb of corporate data soon. Personal data of empl oyees (passports, DLs, SSNs and others), financials, contracts an d agreements, client files, and so on. | Source: https://www.ransomware.live/id/RmxldGNoZXIgQ2hyeXNsZXIgUHJvZHVjdHNAYWtpcmE="
+  },
+  {
+    "id": 720,
+    "name": "akira: INDESMALLA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: AR | Sector: Manufacturing | Website: indesmalla.com | Infostealer data confirmed. | Indesmalla is a family business with two production plants, one w ith raschel machines and the other with Ketten machines. It produ ces knitted weft (circular) fabric and knitted and finished weft fabrics in different weights, draws and elasticity. We will upload corporate data soon. Personal data of employees, f inancials, contracts and agreements, lots of client files, projec ts, NDA, internal confidential files and so on. | Source: https://www.ransomware.live/id/SU5ERVNNQUxMQUBha2lyYQ=="
+  },
+  {
+    "id": 734,
+    "name": "chaos: itc-group.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: DE | Sector: Business Services | Website: www.itc-group.com | Founded in 1983, ITC Construction Group is a Commercial and Residential Construction company that specializes in residential high rises, mixed-use developments, and select commercial projects. | Source: https://www.ransomware.live/id/aXRjLWdyb3VwLmNvbUBjaGFvcw=="
+  }
+]

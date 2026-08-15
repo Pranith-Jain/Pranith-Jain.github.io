@@ -1,0 +1,122 @@
+[
+  {
+    "id": 572,
+    "name": "securotrop: Synergy Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to securotrop. | Country: US | Sector: Business Services | Website: www.synergy-eng.com | Status: AWAITING Size: 2111 GB | Source: https://www.ransomware.live/id/U3luZXJneSBFbmdpbmVlcmluZ0BzZWN1cm90cm9w"
+  },
+  {
+    "id": 571,
+    "name": "qilin: Sea Air International Forwarders",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Transportation/Logistics | Website: www.seaair.ca | Source: https://www.ransomware.live/id/U2VhIEFpciBJbnRlcm5hdGlvbmFsIEZvcndhcmRlcnNAcWlsaW4="
+  },
+  {
+    "id": 570,
+    "name": "qilin: Kolin Turkey",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Manufacturing | Website: www.kolin.com.tr | Source: https://www.ransomware.live/id/S29saW4gVHVya2V5QHFpbGlu"
+  },
+  {
+    "id": 569,
+    "name": "qilin: Industrial Carrocera Arbuciense",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Manufacturing | Website: www.indcar.es | Source: https://www.ransomware.live/id/SW5kdXN0cmlhbCBDYXJyb2NlcmEgQXJidWNpZW5zZUBxaWxpbg=="
+  },
+  {
+    "id": 568,
+    "name": "genesis: K2 Electric, Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Energy | Website: k2elec.com | Infostealer data confirmed. | Commercial and industrial electrical contractor. | Source: https://www.ransomware.live/id/SzIgRWxlY3RyaWMsIEluY0BnZW5lc2lz"
+  },
+  {
+    "id": 567,
+    "name": "SilentRansomGroup: Rutan & Tucker, LLP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: rutan.com | Infostealer data confirmed. | Founded in 1909 and headquartered in Costa Mesa, California, Rutan & Tucker, LLP. is a law firm. The F… | Source: https://www.ransomware.live/id/UnV0YW4gJiBUdWNrZXIsIExMUEBTaWxlbnRSYW5zb21Hcm91cA=="
+  },
+  {
+    "id": 566,
+    "name": "dragonforce: Primius Law Firm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: GR | Sector: Business Services | Website: primiuslawfirm.gr | Infostealer data confirmed. | Primius Law Firm is a modern and effective legal firm established to provide holistic solutions to various legal issues. With a team of experienced professionals specializing in all branches of law, the firm has established itself as one of the best and most successful law firms in Greece. The firm is committed to continuous development and support for its clients. Its intended clients include individuals and businesses seeking reliable legal representation and expert advice | Source: https://www.ransomware.live/id/UHJpbWl1cyBMYXcgRmlybUBkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 565,
+    "name": "dragonforce: The Galliher Law Firm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 564,
+    "name": "AiLock: PremCom",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: GB | Sector: Technology | Website: premcom.co.uk | Infostealer data confirmed. | PremCom is a technology-driven company founded in 1990 that combines expertise in print and direct mail with digital solutions to deliver omnichannel communications. | Source: https://www.ransomware.live/id/UHJlbUNvbUBBaUxvY2s="
+  },
+  {
+    "id": 563,
+    "name": "worldleaks: Equatorial Coca-Cola Bottling",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: ES | Sector: Agriculture and Food Production | Website: www.eccbc.com | [AI generated] Equatorial Coca-Cola Bottling Company is a beverage manufacturer and distributor operating primarily in West and Central Africa, including countries such as Cameroon and Equatorial Guinea. It produces and distributes Coca-Cola branded soft drinks and related beverages under license from The Coca-Cola Company. The company operates within the non-alcoholic beverage industry, managing bottling plants and regional distribution networks across its operating territories. | Source: https://www.ransomware.live/id/RXF1YXRvcmlhbCBDb2NhLUNvbGEgQm90dGxpbmdAd29ybGRsZWFrcw=="
+  },
+  {
+    "id": 562,
+    "name": "akira: Kubiak Melton & Associates",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: tkm.cpa | Infostealer data confirmed. | Kubiak & Melton, LLC provides audit, tax and bookkeeping services . We prepare monthly financial statements, governmental complianc e forms, payroll, and tax returns. We will upload 12gb of corporate data soon. Client personal infor mation (passports, DLs, birth and death certs, SSNs, addresses, p hones, CC statements and much more), client financial information , financials, NDAs, numerous internal confidential files, etc. | Source: https://www.ransomware.live/id/S3ViaWFrIE1lbHRvbiAmIEFzc29jaWF0ZXNAYWtpcmE="
+  },
+  {
+    "id": 561,
+    "name": "akira: S4K Entertainment",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Consumer Services | Website: s4kinternational.com | Infostealer data confirmed. | S4K Entertainment is producing a series of Shakespeare 4 Kidz mov ies for theatrical release. We will upload 28gb of corporate data soon. Employee information (passports, DLs and so on), contracts and agreements, projects, f inancials, NDAs, partners and client data and so on. | Source: https://www.ransomware.live/id/UzRLIEVudGVydGFpbm1lbnRAYWtpcmE="
+  },
+  {
+    "id": 560,
+    "name": "dragonforce: INCYTE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Healthcare | Website: www.incyte.com | Incyte Corporation, a biopharmaceutical company, focuses on the discovery, development, and commercialization of various therapeutics in the United States. The company offers JAKAFI, a drug for the treatment of myelofibrosis and polycythemia vera cancers; and Iclusig, a kinase inhibitor to treat chronic myeloid leukemia and philadelphia-chromosome positive acute lymphoblastic leukemia. You have been given clear instructions, reach out to us before it's too late. | Source: https://www.ransomware.live/id/SU5DWVRFQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 559,
+    "name": "incransom: krwlawyers.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 558,
+    "name": "chaos: alexandergroup.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Business Services | Website: www.zoominfo.com/c/the-alexander-group-inc/3639791 | The company is disregarding its customers' data. If a deal is not reached within 48 hours, the files will be made public. The Alexander Group is a revenue growth and sales management consulting company. It is headquartered in Scottsdale, Arizona | Source: https://www.ransomware.live/id/YWxleGFuZGVyZ3JvdXAuY29tQGNoYW9z"
+  }
+]

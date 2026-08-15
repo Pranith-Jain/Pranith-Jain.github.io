@@ -1,0 +1,122 @@
+[
+  {
+    "id": 513,
+    "name": "qilin: Denso",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: JP | Sector: Manufacturing | Website: www.denso-ts.com | Source: https://www.ransomware.live/id/RGVuc29AcWlsaW4="
+  },
+  {
+    "id": 518,
+    "name": "qilin: Grupo ABC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Not Found | Website: www.grupoabc.mx | Source: https://www.ransomware.live/id/R3J1cG8gQUJDQHFpbGlu"
+  },
+  {
+    "id": 519,
+    "name": "insomnia: METO Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Technology | Website: www.metosystems.com | METO Systems designs and manufactures stainless-steel industrial material‑handling equipment for regulated industries. Products include lifts, blenders, transporters, and docking systems, they offer installation, training, customization, and support. | Source: https://www.ransomware.live/id/TUVUTyBTeXN0ZW1zQGluc29tbmlh"
+  },
+  {
+    "id": 512,
+    "name": "qilin: Point Four EPoS Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: www.pointfour.co.uk | Source: https://www.ransomware.live/id/UG9pbnQgRm91ciBFUG9TIFNvbHV0aW9uc0BxaWxpbg=="
+  },
+  {
+    "id": 511,
+    "name": "incransom: krauseundco",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: DE | Sector: Business Services | Provision of civil engineering services, renovation and restoration of all types of buildings, road and path construction, sewer construction, pipeline construction for gas, water, and district heating, plant construction, engineering services, specialized civil engineering services, concrete restoration, trade in building materials, and all activities conducive to furthering the company’s purpose. | Source: https://www.ransomware.live/id/a3JhdXNldW5kY29AaW5jcmFuc29t"
+  },
+  {
+    "id": 516,
+    "name": "qilin: Priests for Life",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.priestsforlife.org | Source: https://www.ransomware.live/id/UHJpZXN0cyBmb3IgTGlmZUBxaWxpbg=="
+  },
+  {
+    "id": 510,
+    "name": "lamashtu: Malaysian NPK Fertilizer Sdn. Bhd",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: MY | Sector: Agriculture and Food Production | Website: mnfsb.com.my | Infostealer data confirmed. | Malaysian NPK established in 2001 in Kedah, is a leading producer of high-quality NPK compound fertilizers. The company is a joint venture between NAFAS and Petronas Chemicals | Source: https://www.ransomware.live/id/TWFsYXlzaWFuIE5QSyBGZXJ0aWxpemVyIFNkbi4gQmhkQGxhbWFzaHR1"
+  },
+  {
+    "id": 509,
+    "name": "nightspire: The **u***y C*** o* **r**n",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/VGhlICoqdSoqKnkgQyoqKiBvKiAqKnIqKm5AbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 508,
+    "name": "nightspire: Swansea Ambulance Corps",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: GB | Sector: Healthcare | Data is not available now. | Source: https://www.ransomware.live/id/U3dhbnNlYSBBbWJ1bGFuY2UgQ29ycHNAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 507,
+    "name": "qilin: Mid Florida Dermatology & Plastic Surgery",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.midflmed.com | Source: https://www.ransomware.live/id/TWlkIEZsb3JpZGEgRGVybWF0b2xvZ3kgJiBQbGFzdGljIFN1cmdlcnlAcWlsaW4="
+  },
+  {
+    "id": 506,
+    "name": "qilin: Travel Expert",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: HK | Sector: Hospitality and Tourism | Website: www.travelexpert.com.hk | Source: https://www.ransomware.live/id/VHJhdmVsIEV4cGVydEBxaWxpbg=="
+  },
+  {
+    "id": 517,
+    "name": "qilin: Flipo Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IN | Sector: Manufacturing | Website: www.shopflipo.com | Source: https://www.ransomware.live/id/RmxpcG8gR3JvdXBAcWlsaW4="
+  },
+  {
+    "id": 490,
+    "name": "lockbit5: bladex.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: PA | Sector: Technology | Website: bladex.com | Infostealer data confirmed. | Bladex, a multinational bank originally established by the central banks of Latin-American and Carib... | Source: https://www.ransomware.live/id/YmxhZGV4LmNvbUBsb2NrYml0NQ=="
+  },
+  {
+    "id": 478,
+    "name": "krybit: Narteks Tekstil A.S",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: TR | Sector: Manufacturing | Website: narteks.com.tr | Infostealer data confirmed. | Narteks Tekstil Sanayi ve Ticaret A.Ş., one of the well-known Turkish companies in the cotton yarn and textile industry... | Source: https://www.ransomware.live/id/TmFydGVrcyBUZWtzdGlsIEEuU0BrcnliaXQ="
+  },
+  {
+    "id": 476,
+    "name": "qilin: A & A Building Material",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: arcadiabuildingmaterials.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/QSAmIEEgQnVpbGRpbmcgTWF0ZXJpYWxAcWlsaW4="
+  }
+]

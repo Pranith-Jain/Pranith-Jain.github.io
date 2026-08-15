@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T10:36:30.394Z",
+  "name": "Global Secret Group: Park Manufacturing Corp.",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Manufacturing | Website: parkmfg.com | Country: Cambridge, Minnesota 55008, US | Website: parkmfg.com | Revenue: $17.9 Million | Industry: Appliances, Electrical, and Electronics Manufacturing | Employees: 50-100 | Properties: 195 GB (411,109 Files, 48,413 Folders) | Source: https://www.ransomware.live/id/UGFyayBNYW51ZmFjdHVyaW5nIENvcnAuQEdsb2JhbCBTZWNyZXQgR3JvdXA="
+}

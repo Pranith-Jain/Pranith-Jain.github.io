@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:59:30.598Z",
+  "name": "2026-08-05 (Wednesday): New Clickfix Variant Abuses The Legitimate Binary And Webdav To Deploy Infostealer Capabilities",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 5, 2026",
+  "description": "2026-08-05 (Wednesday): New Clickfix Variant Abuses The Legitimate Binary And Webdav To Deploy Infostealer Capabilities."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:15:12.839Z",
+  "name": "IcedID infection from fake Microsoft Teams page",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 14, 2023",
+  "lastSeen": "Feb 14, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #347 (dcd04a4e-2e8e-4b48-9ab7-a454b66a4364)."
+}

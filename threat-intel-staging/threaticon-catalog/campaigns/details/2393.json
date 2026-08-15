@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:29.136Z",
+  "name": "OSINT Tinted CVE decoy spearphising attempt on Central Bank of Armenia employees by BlueCoat",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Aug 21, 2015",
+  "lastSeen": "Aug 21, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #721 (55dc126c-1580-44c0-a6bd-44ba950d210b)."
+}

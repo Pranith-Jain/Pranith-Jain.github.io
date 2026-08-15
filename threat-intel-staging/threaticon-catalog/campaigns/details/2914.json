@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:50:51.374Z",
+  "name": "Linux/CDRThief — Indicators of Compromise - Who is calling? CDRThief targets Linux VoIP softswitches",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 22, 2020",
+  "lastSeen": "Sep 22, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1619 (355c00b3-a85f-4a6c-850f-95bc7357abd1)."
+}

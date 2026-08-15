@@ -1,0 +1,12 @@
+{
+  "id": 273,
+  "fetchedAt": "2026-08-14T05:22:09.308Z",
+  "name": "Behavioral Detection of Systemd Timer Abuse for Scheduled Execution",
+  "tlp": null,
+  "detId": "DET0231",
+  "stixId": "x-mitre-detection-strategy--7578b2e3-2b9c-491d-9157-699a4bd6a136",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0645"]
+}

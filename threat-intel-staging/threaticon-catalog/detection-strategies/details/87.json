@@ -1,0 +1,12 @@
+{
+  "id": 87,
+  "fetchedAt": "2026-08-14T05:21:19.481Z",
+  "name": "Detection Strategy for T1505.005 – Terminal Services DLL Modification (Windows)",
+  "tlp": null,
+  "detId": "DET0212",
+  "stixId": "x-mitre-detection-strategy--d9073646-f875-4c38-9b37-e9ac11c40188",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0595"]
+}

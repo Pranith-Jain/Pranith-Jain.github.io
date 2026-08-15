@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2550,
+    "name": "OSINT - HackingTeam back for your Androids, now extra insecure!",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #922 (582adfcb-6640-46bf-ba1f-4aca950d210f)."
+  },
+  {
+    "id": 2549,
+    "name": "OSINT - Microsoft Word Intruder 8 Adds Support for Flash Vulnerability CVE-2016-4117",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #921 (582ab1cc-31a4-48f2-a0a1-4966950d210f)."
+  },
+  {
+    "id": 2548,
+    "name": "OSINT - Ransoc Desktop Locking Ransomware Ransacks Local Files and Social Media Profiles",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #920 (582ab037-052c-483d-803c-4174950d210f)."
+  },
+  {
+    "id": 2547,
+    "name": "OSINT - Hades Locker Ransomware Mimics Locky",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #919 (582aae88-202c-45ef-b8e9-4e61950d210f)."
+  },
+  {
+    "id": 2546,
+    "name": "OSINT - The first cryptor to exploit Telegram",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #917 (58259da4-7a10-4077-b31c-40cf950d210f)."
+  },
+  {
+    "id": 2545,
+    "name": "OSINT - Floki Bot and the stealthy dropper",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #916 (5824e43f-9370-463b-9681-452b950d210f)."
+  },
+  {
+    "id": 2544,
+    "name": "OSINT - Exaspy â€“ Commodity Android Spyware Targeting High-level Executives",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #914 (582176fc-def0-44a8-b435-4f66950d210f)."
+  },
+  {
+    "id": 2543,
+    "name": "OSINT - Veil-Framework Infects Victims of Targeted OWA Phishing Attack",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #913 (581fadbd-7acc-4907-9133-4380950d210f)."
+  },
+  {
+    "id": 2542,
+    "name": "Yara Rule Set - detection of Empire by Florian Roth (PowerShell and Python post-exploitation agent.)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #912 (581efd8c-7320-42e1-93b6-430102de0b81)."
+  },
+  {
+    "id": 2541,
+    "name": "OSINT - PSA: Conference Invite used as a Lure by Operation Lotus Blossom Actors",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #910 (58179275-f030-4dce-a626-4c9802de0b81)."
+  },
+  {
+    "id": 2540,
+    "name": "OSINT - Houdiniâ€™s Magic Reappearance",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #907 (580fcef3-28fc-42e2-aec1-4978950d210f)."
+  },
+  {
+    "id": 2539,
+    "name": "OSINT - TeamXRat: Brazilian cybercrime meets ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #904 (580dabb4-0938-48b7-abf9-4e37950d210f)."
+  },
+  {
+    "id": 2538,
+    "name": "OSINT - The new .LNK between spam and Locky infection",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #903 (580b201b-3e30-4bb1-ac2e-427202de0b81)."
+  },
+  {
+    "id": 2537,
+    "name": "OSINT - Malspam delivers NanoCore RAT",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #902 (5809fbe9-c034-41a2-999f-450a950d210f)."
+  },
+  {
+    "id": 2536,
+    "name": "Spam week 43 (mule acquisition) - probably related to Locky resources",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #901 (58046227-00a0-47fb-a125-c025950d210f)."
+  }
+]

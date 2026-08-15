@@ -1,0 +1,12 @@
+{
+  "id": 48,
+  "fetchedAt": "2026-08-14T05:02:04.481Z",
+  "name": "Remcos",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Remcos is a closed-source tool that is marketed as a remote control and surveillance software by a company called Breaking Security. Remcos has been observed being used in malware campaigns.(Citation: Riskiq Remcos Jan 2018)(Citation: Talos Remcos Aug 2018)"
+}

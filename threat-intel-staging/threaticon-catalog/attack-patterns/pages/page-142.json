@@ -1,0 +1,92 @@
+[
+  {
+    "id": 183,
+    "name": "Virtual Private Server",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1584",
+    "status": null
+  },
+  {
+    "id": 1451,
+    "name": "T1584.003 (False Flags)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1584",
+    "status": null
+  },
+  { "id": 609, "name": "Server", "tlp": "white", "confidence": null, "techniqueId": "T1584", "status": null },
+  { "id": 369, "name": "Botnet", "tlp": "white", "confidence": null, "techniqueId": "T1584", "status": null },
+  {
+    "id": 1606,
+    "name": "T1584.005: Botnet",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1584",
+    "status": null
+  },
+  { "id": 461, "name": "Web Services", "tlp": "white", "confidence": null, "techniqueId": "T1584", "status": null },
+  { "id": 600, "name": "Serverless", "tlp": "white", "confidence": null, "techniqueId": "T1584", "status": null },
+  { "id": 66, "name": "Network Devices", "tlp": "white", "confidence": null, "techniqueId": "T1584", "status": null },
+  {
+    "id": 558,
+    "name": "Establish Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1585",
+    "status": null
+  },
+  {
+    "id": 471,
+    "name": "Social Media Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1585",
+    "status": null
+  },
+  { "id": 287, "name": "Email Accounts", "tlp": "white", "confidence": null, "techniqueId": "T1585", "status": null },
+  {
+    "id": 1378,
+    "name": "T1585.002: Email Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1585",
+    "status": null
+  },
+  { "id": 410, "name": "Cloud Accounts", "tlp": "white", "confidence": null, "techniqueId": "T1585", "status": null },
+  {
+    "id": 367,
+    "name": "Compromise Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1586",
+    "status": null
+  },
+  {
+    "id": 118,
+    "name": "Social Media Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1586",
+    "status": null
+  },
+  { "id": 193, "name": "Email Accounts", "tlp": "white", "confidence": null, "techniqueId": "T1586", "status": null },
+  { "id": 192, "name": "Cloud Accounts", "tlp": "white", "confidence": null, "techniqueId": "T1586", "status": null },
+  {
+    "id": 645,
+    "name": "Develop Capabilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1587",
+    "status": null
+  },
+  { "id": 102, "name": "Malware", "tlp": "white", "confidence": null, "techniqueId": "T1587", "status": null },
+  {
+    "id": 1938,
+    "name": "T1587.001 Internal reconnaissance via query language (e.g., SQL queries or AD CSOM queries).",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1587",
+    "status": null
+  }
+]

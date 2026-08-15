@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7020,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 7018,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 7017,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 7014,
+    "name": "qilin: Service Electric",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Energy & Utilities | Website: www.secv.com | N/A | Source: https://www.ransomware.live/id/U2VydmljZSBFbGVjdHJpY0BxaWxpbg=="
+  },
+  {
+    "id": 7015,
+    "name": "akira: Albers Mechanical Contractors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: albersmechanicalcontractors.com | Albers Mechanical Contractors specializes in custom fabrication, welding, stainless steel fabri cation, and dust collection HVAC solutions. With over 54 years of experience, they provide desi gn and on-site consultations, positioning themselves as leaders in facility solutions. We will upload 30gb corporate data soon. Employee information, financials, contracts and agreem ents, NDA, customers information, etc. | Source: https://www.ransomware.live/id/QWxiZXJzIE1lY2hhbmljYWwgQ29udHJhY3RvcnNAYWtpcmE="
+  },
+  {
+    "id": 7011,
+    "name": "anubis: Winn-Dixie",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Retail & E-Commerce | Website: winndixie.com | Infostealer data confirmed. | Inside a multibillion-dollar retail giant. | Source: https://www.ransomware.live/id/V2lubi1EaXhpZUBhbnViaXM="
+  },
+  {
+    "id": 7016,
+    "name": "akira: Belasco Electric",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Energy & Utilities | Website: belascoelectric.com | Belasco Electric is a reliable electrical service provider based in Muskegon, Michigan, caterin g to both residential and commercial clients. They offer a wide range of services including eme rgency generator systems, fire alarm security systems, HVAC wiring, and EV installation. We will upload 16gb corporate data soon. Employee information (name, home addresses, passport, SSN, DL numbers, photos, credit card scans and so on), financials, contracts and agreements, ND A, etc. | Source: https://www.ransomware.live/id/QmVsYXNjbyBFbGVjdHJpY0Bha2lyYQ=="
+  },
+  {
+    "id": 7012,
+    "name": "anubis: BLACKBURN'S Physicians Pharmacy, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: blackburnsmed.com | Major home healthcare provider data breach. | Source: https://www.ransomware.live/id/QkxBQ0tCVVJOJ1MgUGh5c2ljaWFucyBQaGFybWFjeSwgSW5jLkBhbnViaXM="
+  },
+  {
+    "id": 7013,
+    "name": "ransomhouse: PCL Holding",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7008,
+    "name": "safepay: southshorerecycling.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Manufacturing | Website: southshorerecycling.com | The company specializes in metal recycling, concrete and asphalt recycling, aggregate production, and construction waste processing for commercial, industrial, and … | Source: https://www.ransomware.live/id/c291dGhzaG9yZXJlY3ljbGluZy5jb21Ac2FmZXBheQ=="
+  },
+  {
+    "id": 7007,
+    "name": "safepay: azn.co.jp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: JP | Sector: Retail & E-Commerce | Website: azn.co.jp | Founded in 1991, the company specializes in comprehensive asset management, inheritance planning, business succession consulting, real estate advisory services, and … | Source: https://www.ransomware.live/id/YXpuLmNvLmpwQHNhZmVwYXk="
+  },
+  {
+    "id": 7010,
+    "name": "safepay: multiaqua.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Agriculture and Food Production | Website: multiaqua.com | Founded in 1999, the company specializes in the design, engineering, and production of air-cooled water chillers, heat pump chillers, hydronic … | Source: https://www.ransomware.live/id/bXVsdGlhcXVhLmNvbUBzYWZlcGF5"
+  },
+  {
+    "id": 7009,
+    "name": "safepay: cpu-ag.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Manufacturing | Website: cpu-ag.com | Infostealer data confirmed. | Founded in 1981 and headquartered in Friedberg, Bavaria, the company has more than four decades of experience developing specialized software … | Source: https://www.ransomware.live/id/Y3B1LWFnLmNvbUBzYWZlcGF5"
+  },
+  {
+    "id": 7006,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 7004,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

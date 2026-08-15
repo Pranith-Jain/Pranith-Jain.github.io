@@ -1,0 +1,120 @@
+[
+  {
+    "id": 176,
+    "name": "Software Extensions",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1176",
+    "status": null
+  },
+  {
+    "id": 119,
+    "name": "Browser Extensions",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1176",
+    "status": null
+  },
+  { "id": 291, "name": "IDE Extensions", "tlp": "white", "confidence": null, "techniqueId": "T1176", "status": null },
+  { "id": 2847, "name": "T1177?", "tlp": "white", "confidence": null, "techniqueId": "T1177", "status": null },
+  {
+    "id": 2348,
+    "name": "T1178 - Software Deployment Tool",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1178",
+    "status": null
+  },
+  { "id": 2466, "name": "T1179", "tlp": "white", "confidence": null, "techniqueId": "T1179", "status": null },
+  { "id": 2861, "name": "T1181", "tlp": "white", "confidence": null, "techniqueId": "T1181", "status": null },
+  { "id": 2289, "name": "T1182", "tlp": "white", "confidence": null, "techniqueId": "T1182", "status": null },
+  {
+    "id": 1841,
+    "name": "T1184 - Remote File Hash Calculation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1184",
+    "status": null
+  },
+  { "id": 1480, "name": "T1184.001", "tlp": "white", "confidence": null, "techniqueId": "T1184", "status": null },
+  {
+    "id": 249,
+    "name": "Browser Session Hijacking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1185",
+    "status": null
+  },
+  {
+    "id": 1966,
+    "name": "T1185 - Use of Programming Scripting Language for Credential Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1185",
+    "status": null
+  },
+  {
+    "id": 2042,
+    "name": "T1185.001 - Web Shell Usage for Lateral Movement",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1185",
+    "status": null
+  },
+  {
+    "id": 488,
+    "name": "Forced Authentication",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1187",
+    "status": null
+  },
+  {
+    "id": 590,
+    "name": "Drive-by Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1189",
+    "status": null
+  },
+  {
+    "id": 1662,
+    "name": "T1189 - Phishing for creds via malicious links",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1189",
+    "status": null
+  },
+  {
+    "id": 2920,
+    "name": "T1189 Drive-by Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1189",
+    "status": null
+  },
+  {
+    "id": 2899,
+    "name": "T1189 – Drive‑by Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1189",
+    "status": null
+  },
+  {
+    "id": 1707,
+    "name": "T1189: Drive-by Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1189",
+    "status": null
+  },
+  {
+    "id": 197,
+    "name": "Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  }
+]

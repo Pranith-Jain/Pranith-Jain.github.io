@@ -1,0 +1,12 @@
+{
+  "id": 10,
+  "fetchedAt": "2026-08-14T06:03:10.091Z",
+  "name": "Detection of Active Scanning",
+  "tlp": null,
+  "detId": "DET0830",
+  "stixId": "x-mitre-detection-strategy--7bbdcd3b-241e-4ec8-ab43-6bd2c34ae77d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1962"]
+}

@@ -1,0 +1,113 @@
+[
+  {
+    "id": 2984,
+    "name": "T1114 Email Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1114",
+    "status": null
+  },
+  {
+    "id": 94,
+    "name": "Local Email Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1114",
+    "status": null
+  },
+  {
+    "id": 1988,
+    "name": "T1114.001: Local Email Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1114",
+    "status": null
+  },
+  {
+    "id": 479,
+    "name": "Remote Email Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1114",
+    "status": null
+  },
+  {
+    "id": 1499,
+    "name": "T1114.002: Remote Email Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1114",
+    "status": null
+  },
+  {
+    "id": 355,
+    "name": "Email Forwarding Rule",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1114",
+    "status": null
+  },
+  { "id": 142, "name": "Clipboard Data", "tlp": "white", "confidence": null, "techniqueId": "T1115", "status": null },
+  {
+    "id": 2843,
+    "name": "T1115 - Clipboard Data Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1115",
+    "status": null
+  },
+  { "id": 2813, "name": "T1116", "tlp": "white", "confidence": null, "techniqueId": "T1116", "status": null },
+  { "id": 2721, "name": "T1117", "tlp": "white", "confidence": null, "techniqueId": "T1117", "status": null },
+  { "id": 2792, "name": "T1118?", "tlp": "white", "confidence": null, "techniqueId": "T1118", "status": null },
+  {
+    "id": 140,
+    "name": "Automated Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1119",
+    "status": null
+  },
+  {
+    "id": 2537,
+    "name": "T1119 - Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1119",
+    "status": null
+  },
+  {
+    "id": 1602,
+    "name": "T1119: Automated Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1119",
+    "status": null
+  },
+  {
+    "id": 2318,
+    "name": "T1119: Input Capture",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1119",
+    "status": null
+  },
+  {
+    "id": 156,
+    "name": "Peripheral Device Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1120",
+    "status": null
+  },
+  {
+    "id": 1309,
+    "name": "T1120: Peripheral Device Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1120",
+    "status": null
+  },
+  { "id": 2892, "name": "T1121", "tlp": "white", "confidence": null, "techniqueId": "T1121", "status": null },
+  { "id": 3061, "name": "T1122", "tlp": "white", "confidence": null, "techniqueId": "T1122", "status": null },
+  { "id": 50, "name": "Audio Capture", "tlp": "white", "confidence": null, "techniqueId": "T1123", "status": null }
+]

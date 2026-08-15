@@ -1,0 +1,12 @@
+{
+  "id": 463,
+  "fetchedAt": "2026-08-14T05:19:32.356Z",
+  "name": "Detection Strategy for Forged Web Cookies",
+  "tlp": null,
+  "detId": "DET0171",
+  "stixId": "x-mitre-detection-strategy--e1854c9f-2b70-4311-9a46-a420f6c0b6d0",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0483", "AN0484", "AN0485", "AN0486", "AN0487"]
+}

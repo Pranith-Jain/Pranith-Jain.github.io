@@ -1,0 +1,66 @@
+[
+  {
+    "id": 151,
+    "name": "safepay: fital-treppenlifte.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Consumer Services | Website: fital-treppenlifte.de | Infostealer data confirmed. | Is a German company specializing in stairlifts and mobility solutions for individuals with reduced mobility. The company operates in the … | Source: https://www.ransomware.live/id/Zml0YWwtdHJlcHBlbmxpZnRlLmRlQHNhZmVwYXk="
+  },
+  {
+    "id": 150,
+    "name": "safepay: zonaovest.to.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Not Found | Website: zonaovest.to.it | Infostealer data confirmed. | Is likely an Italian regional organization or consortium based in the Turin (Torino) area. Entities with similar naming conventions in … | Source: https://www.ransomware.live/id/em9uYW92ZXN0LnRvLml0QHNhZmVwYXk="
+  },
+  {
+    "id": 149,
+    "name": "safepay: maiadouro.pt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: PT | Sector: Agriculture and Food Production | Website: maiadouro.pt | Infostealer data confirmed. | Appears to be a Portuguese company connected to the Douro region, which is internationally known for wine production and agriculture. … | Source: https://www.ransomware.live/id/bWFpYWRvdXJvLnB0QHNhZmVwYXk="
+  },
+  {
+    "id": 147,
+    "name": "safepay: bootstransport.ca",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: CA | Sector: Transportation/Logistics | Website: bootstransport.ca | Infostealer data confirmed. | Is a Canadian transportation and logistics company specializing in freight delivery and supply chain services. The company primarily operates in … | Source: https://www.ransomware.live/id/Ym9vdHN0cmFuc3BvcnQuY2FAc2FmZXBheQ=="
+  },
+  {
+    "id": 145,
+    "name": "securotrop: Thompson Builders Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to securotrop. | Country: US | Sector: Construction | Website: www.tbcorp.com | Status: AWAITING Size: 3633 GB | Source: https://www.ransomware.live/id/VGhvbXBzb24gQnVpbGRlcnMgQ29ycG9yYXRpb25Ac2VjdXJvdHJvcA=="
+  },
+  {
+    "id": 146,
+    "name": "safepay: hokuyo2006.co.jp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: JP | Sector: Manufacturing | Website: hokuyo2006.co.jp | Infostealer data confirmed. | Is a Japanese company that operates as part of a larger industrial group connected to packaging, logistics, and housing-related businesses. … | Source: https://www.ransomware.live/id/aG9rdXlvMjAwNi5jby5qcEBzYWZlcGF5"
+  },
+  {
+    "id": 148,
+    "name": "safepay: dahlgrenscement.se",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: SE | Sector: Manufacturing | Website: dahlgrenscement.se | Infostealer data confirmed. | Is a Swedish company operating in the construction materials sector, particularly focused on cement and related building products. Companies in … | Source: https://www.ransomware.live/id/ZGFobGdyZW5zY2VtZW50LnNlQHNhZmVwYXk="
+  },
+  { "id": 142, "name": "Waterbear", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 143, "name": "Shaheen", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 144, "name": "SingHealth", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 139, "name": "Olympic Destroyer", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 140, "name": "PLEAD", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 141, "name": "Shrouded Crossbow", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 135, "name": "Blue Termite", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 138, "name": "Operation Ghoul", "tlp": "white", "confidence": 60, "status": null, "description": null }
+]

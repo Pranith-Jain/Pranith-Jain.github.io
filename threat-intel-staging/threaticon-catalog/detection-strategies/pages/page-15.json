@@ -1,0 +1,212 @@
+[
+  {
+    "id": 145,
+    "code": "DET0423",
+    "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Create Snapshot",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 41,
+    "code": "DET0424",
+    "name": "Detection Strategy for Disable or Modify Cloud Firewall",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 237,
+    "code": "DET0425",
+    "name": "Suspicious Use of Web Services for C2",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 301,
+    "code": "DET0426",
+    "name": "Detection of Direct Volume Access for File System Evasion",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 29,
+    "code": "DET0427",
+    "name": "Detection Strategy for Hijack Execution Flow through Service Registry Premission Weakness.",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 235,
+    "code": "DET0428",
+    "name": "Detection Strategy for Bind Mounts on Linux",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 485,
+    "code": "DET0429",
+    "name": "Detect Modification of macOS Startup Items",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 589,
+    "code": "DET0430",
+    "name": "Detect Credentials Access from Password Stores",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 208,
+    "code": "DET0431",
+    "name": "Detection Strategy for Email Spoofing",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 94,
+    "code": "DET0432",
+    "name": "Detection Strategy for NTFS File Attribute Abuse (ADS/EAs)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 533,
+    "code": "DET0433",
+    "name": "Detecting Code Injection via mavinject.exe (App-V Injector)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 53,
+    "code": "DET0434",
+    "name": "Detection of Launch Agent Creation or Modification on macOS",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 337,
+    "code": "DET0435",
+    "name": "Detection Strategy for Hijack Execution Flow: Dynamic Linker Hijacking",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 245,
+    "code": "DET0436",
+    "name": "Detection Strategy for Hijack Execution Flow through Services File Permissions Weakness.",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 653,
+    "code": "DET0437",
+    "name": "Detection of LSA Secrets Dumping via Registry and Memory Extraction",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 684,
+    "code": "DET0438",
+    "name": "Detect Archiving via Custom Method (T1560.003)",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 150,
+    "code": "DET0439",
+    "name": "Detection of Malware Relocation via Suspicious File Movement",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 545,
+    "code": "DET0440",
+    "name": "Detecting PowerShell Execution via SyncAppvPublishingServer.vbs Proxy Abuse",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 214,
+    "code": "DET0441",
+    "name": "Detection of Suspicious Scheduled Task Creation and Execution on Windows",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 71,
+    "code": "DET0442",
+    "name": "Detection Strategy for Subvert Trust Controls using SIP and Trust Provider Hijacking.",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 563,
+    "code": "DET0443",
+    "name": "Detection Strategy for Masquerading via Breaking Process Trees",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 144,
+    "code": "DET0444",
+    "name": "Detection of Command and Control Over Application Layer Protocols",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 103,
+    "code": "DET0445",
+    "name": "Detection of Proxy Infrastructure Setup and Traffic Bridging",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 213,
+    "code": "DET0446",
+    "name": "Credential Access via /etc/passwd and /etc/shadow Parsing",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 276,
+    "code": "DET0447",
+    "name": "T1136.001 Detection Strategy - Local Account Creation Across Platforms",
+    "description": null,
+    "columns": ["6"]
+  },
+  {
+    "id": 423,
+    "code": "DET0448",
+    "name": "Detection Strategy for VDSO Hijacking on Linux",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 269,
+    "code": "DET0449",
+    "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Create Cloud Instance",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 55,
+    "code": "DET0450",
+    "name": "Detection Strategy for Kernel Modules and Extensions Autostart Execution",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 521,
+    "code": "DET0451",
+    "name": "Detection Strategy for PowerShell Profile Persistence via profile.ps1 Modification",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 441,
+    "code": "DET0452",
+    "name": "Detect Subversion of Trust Controls via Certificate, Registry, and Attribute Manipulation",
+    "description": null,
+    "columns": ["3"]
+  }
+]

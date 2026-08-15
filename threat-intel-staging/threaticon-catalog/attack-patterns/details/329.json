@@ -1,0 +1,9 @@
+{
+  "id": 329,
+  "fetchedAt": "2026-08-15T08:34:12.694Z",
+  "name": "Employee Names",
+  "tlp": "white",
+  "techniqueId": "DET0857",
+  "added": "May 2, 2026",
+  "description": "Adversaries may gather employee names that can be used during targeting. Employee names be used to derive email addresses as well as to help guide other reconnaissance efforts and/or craft more-believable lures. Adversaries may easily gather employee names, since they may be readily available and exposed via online or other accessible data sets (ex: Social Media or Search Victim-Owned Websites).(Citation: OPM Leak) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: Search Open Websites/Domains or Phishing for Information), establishing operational resources (ex: Compromise Accounts), and/or initial access (ex: Phishing or Valid Accounts)."
+}

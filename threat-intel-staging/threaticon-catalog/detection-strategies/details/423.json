@@ -1,0 +1,12 @@
+{
+  "id": 423,
+  "fetchedAt": "2026-08-14T05:54:59.140Z",
+  "name": "Detection Strategy for VDSO Hijacking on Linux",
+  "tlp": null,
+  "detId": "DET0448",
+  "stixId": "x-mitre-detection-strategy--b511a320-18a6-46ff-9588-85065c44312f",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1241"]
+}

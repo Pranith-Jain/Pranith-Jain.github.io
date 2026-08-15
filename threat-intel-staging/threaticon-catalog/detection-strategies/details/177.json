@@ -1,0 +1,12 @@
+{
+  "id": 177,
+  "fetchedAt": "2026-08-14T05:24:46.492Z",
+  "name": "Detection of Cloud Service Dashboard Usage via GUI-Based Cloud Access",
+  "tlp": null,
+  "detId": "DET0291",
+  "stixId": "x-mitre-detection-strategy--e2bf0a76-b5e4-4a23-adbb-024454f5dbdc",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0808", "AN0809", "AN0810", "AN0811"]
+}

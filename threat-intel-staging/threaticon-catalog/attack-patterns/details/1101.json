@@ -1,0 +1,9 @@
+{
+  "id": 1101,
+  "fetchedAt": "2026-08-15T06:20:41.824Z",
+  "name": "Replace Trusted Executable",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An adversary exploits weaknesses in privilege management or access control to replace a trusted executable with a malicious version and enable the execution of malware when that trusted executable is called."
+}

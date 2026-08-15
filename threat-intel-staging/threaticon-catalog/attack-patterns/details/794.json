@@ -1,0 +1,9 @@
+{
+  "id": 794,
+  "fetchedAt": "2026-08-15T06:07:23.006Z",
+  "name": "Flash Parameter Injection",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: High. An adversary takes advantage of improper data validation to inject malicious global parameters into a Flash file embedded within an HTML document. Flash files can leverage user-submitted data to configure the Flash document and access the embedding HTML document."
+}

@@ -1,0 +1,12 @@
+{
+  "id": 668,
+  "fetchedAt": "2026-08-14T05:20:03.822Z",
+  "name": "Detection Strategy for Lateral Tool Transfer across OS platforms",
+  "tlp": null,
+  "detId": "DET0183",
+  "stixId": "x-mitre-detection-strategy--156ddd81-b3ae-4a79-8c4e-7a75b6fd994c",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0516", "AN0517", "AN0518", "AN0519"]
+}

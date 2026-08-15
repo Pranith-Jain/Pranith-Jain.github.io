@@ -1,0 +1,12 @@
+{
+  "id": 221,
+  "fetchedAt": "2026-08-14T05:26:13.375Z",
+  "name": "Detection Strategy for Polymorphic Code Mutation and Execution",
+  "tlp": null,
+  "detId": "DET0324",
+  "stixId": "x-mitre-detection-strategy--380da3b2-d92f-4361-b187-cedc8a118e0f",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0919", "AN0920", "AN0921"]
+}

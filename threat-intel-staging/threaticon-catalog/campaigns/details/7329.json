@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:54:28.791Z",
+  "name": "qilin: Crystal Pharmatech",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.crystalpharmatech.com | N/A | Source: https://www.ransomware.live/id/Q3J5c3RhbCBQaGFybWF0ZWNoQHFpbGlu"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 379,
+  "fetchedAt": "2026-08-14T05:49:01.567Z",
+  "name": "Detection Strategy for Masquerading via Account Name Similarity",
+  "tlp": null,
+  "detId": "DET0383",
+  "stixId": "x-mitre-detection-strategy--f1f9b6fc-a261-4bcf-a0c0-3ae42cdc28fc",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1077", "AN1078", "AN1079", "AN1080"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 519,
+  "fetchedAt": "2026-08-14T06:01:18.643Z",
+  "name": "Detection Strategy for T1136 - Create Account across platforms",
+  "tlp": null,
+  "detId": "DET0583",
+  "stixId": "x-mitre-detection-strategy--552bacaa-9df5-4c95-83de-a7d1948003b5",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1604", "AN1605", "AN1606", "AN1607", "AN1608"]
+}

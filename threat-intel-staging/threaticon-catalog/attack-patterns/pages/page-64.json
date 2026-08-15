@@ -1,0 +1,99 @@
+[
+  { "id": 1293, "name": "T1068.001", "tlp": "white", "confidence": null, "techniqueId": "T1068", "status": null },
+  { "id": 2287, "name": "T1068.003", "tlp": "white", "confidence": null, "techniqueId": "T1068", "status": null },
+  {
+    "id": 1586,
+    "name": "T1068.003 (Email Phishing)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  { "id": 1616, "name": "T1068.004", "tlp": "white", "confidence": null, "techniqueId": "T1068", "status": null },
+  {
+    "id": 2246,
+    "name": "T1068.004 - Exfiltration over Encrypted Channels (e.g., HTTPS)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  {
+    "id": 1516,
+    "name": "T1068: Exploitation for Privilege Escalation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1068",
+    "status": null
+  },
+  { "id": 2796, "name": "T1068?", "tlp": "white", "confidence": null, "techniqueId": "T1068", "status": null },
+  {
+    "id": 68,
+    "name": "Permission Groups Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1069",
+    "status": null
+  },
+  { "id": 434, "name": "Local Groups", "tlp": "white", "confidence": null, "techniqueId": "T1069", "status": null },
+  { "id": 126, "name": "Domain Groups", "tlp": "white", "confidence": null, "techniqueId": "T1069", "status": null },
+  {
+    "id": 1552,
+    "name": "T1069.002 - Windows Admin Shares: Exploitation of shared drives for lateral movement and persistence.",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1069",
+    "status": null
+  },
+  {
+    "id": 1624,
+    "name": "T1069.002: Domain Groups",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1069",
+    "status": null
+  },
+  { "id": 74, "name": "Cloud Groups", "tlp": "white", "confidence": null, "techniqueId": "T1069", "status": null },
+  { "id": 1541, "name": "T1069.004", "tlp": "white", "confidence": null, "techniqueId": "T1069", "status": null },
+  {
+    "id": 1318,
+    "name": "T1069: Permission Groups Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1069",
+    "status": null
+  },
+  { "id": 2973, "name": "T1069?", "tlp": "white", "confidence": null, "techniqueId": "T1069", "status": null },
+  {
+    "id": 340,
+    "name": "Indicator Removal",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1070",
+    "status": null
+  },
+  {
+    "id": 2225,
+    "name": "T1070 (Exploit public facing RPC service)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1070",
+    "status": null
+  },
+  {
+    "id": 2453,
+    "name": "T1070 (Indicator Removal on Host)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1070",
+    "status": null
+  },
+  {
+    "id": 1844,
+    "name": "T1070 - Application Layer Protocol隧道",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1070",
+    "status": null
+  }
+]

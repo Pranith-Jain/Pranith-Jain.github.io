@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:20:47.413Z",
+  "name": "Argenta phishing website",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 31, 2018",
+  "lastSeen": "Jan 31, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #131 (5a722b97-31d8-4e4c-b860-03a7c0a8ab16)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:41.760Z",
+  "name": "Bad magic: new APT found in the area of Russo-Ukrainian conflict",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 22, 2023",
+  "lastSeen": "Mar 22, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #360 (defe99ff-e92c-4267-b446-0686d2c00559)."
+}

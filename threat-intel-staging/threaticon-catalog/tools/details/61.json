@@ -1,0 +1,12 @@
+{
+  "id": 61,
+  "fetchedAt": "2026-08-14T05:03:35.528Z",
+  "name": "pwdump",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "pwdump is a credential dumper. (Citation: Wikipedia pwdump)"
+}

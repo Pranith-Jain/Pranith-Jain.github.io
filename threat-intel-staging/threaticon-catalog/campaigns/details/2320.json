@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:11:24.372Z",
+  "name": "EastWind campaign: new CloudSorcerer attacks on government organizations in Russia",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Aug 16, 2024",
+  "lastSeen": "Aug 16, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #518 (d84d38cc-1e9e-4edf-9f55-8be68e877583)."
+}

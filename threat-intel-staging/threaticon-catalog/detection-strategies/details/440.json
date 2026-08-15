@@ -1,0 +1,12 @@
+{
+  "id": 440,
+  "fetchedAt": "2026-08-14T05:57:40.844Z",
+  "name": "Behavioral Detection of Process Injection Across Platforms",
+  "tlp": null,
+  "detId": "DET0508",
+  "stixId": "x-mitre-detection-strategy--9833b57b-4c83-4f58-b4cf-76f041b29273",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1399", "AN1400", "AN1401"]
+}

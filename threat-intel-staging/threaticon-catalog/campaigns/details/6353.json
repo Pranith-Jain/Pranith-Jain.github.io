@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T12:19:53.483Z",
+  "name": "ExfilSquad: Microsoft",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to ExfilSquad. | Country: US | Sector: Technology | Website: microsoft.com | Infostealer data confirmed. | Revenue: $318B DATA SUMMARY: 8M~ records containing: significant PII, employee and customer contact information, authentication data, password hashes, portal identities, corporate account information, business leads, facilities management records, internal service tickets, and access permissions. | Source: https://www.ransomware.live/id/TWljcm9zb2Z0QEV4ZmlsU3F1YWQ="
+}

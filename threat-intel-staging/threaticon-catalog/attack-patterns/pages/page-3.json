@@ -1,0 +1,113 @@
+[
+  { "id": 757, "name": "Parameter Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 758,
+    "name": "Reflection Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 759,
+    "name": "Relative Path Traversal",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 760,
+    "name": "Client-side Injection-induced Buffer Overflow",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 761,
+    "name": "Bypassing of Intermediate Forms in Multiple-Form Sets",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 762, "name": "Cache Poisoning", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 763, "name": "DNS Cache Poisoning", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 764,
+    "name": "Detect Unpublicized Web Pages",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 765,
+    "name": "Detect Unpublicized Web Services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 766, "name": "Checksum Spoofing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 767,
+    "name": "XML Schema Poisoning",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 768,
+    "name": "XML Ping of the Death",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 769, "name": "Content Spoofing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 770,
+    "name": "Explore for Predictable Temporary File Names",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 771, "name": "Command Delimiters", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 772,
+    "name": "Collect Data from Common Resource Locations",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 773, "name": "Identity Spoofing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 774,
+    "name": "Input Data Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 775,
+    "name": "Resource Location Spoofing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 776,
+    "name": "Screen Temporary Files for Sensitive Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

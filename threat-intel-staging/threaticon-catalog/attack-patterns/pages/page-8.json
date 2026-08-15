@@ -1,0 +1,120 @@
+[
+  { "id": 857, "name": "Code Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 858,
+    "name": "XSS Targeting HTML Attributes",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 859,
+    "name": "XSS Targeting URI Placeholders",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 860,
+    "name": "XSS Using Doubled Characters",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 861,
+    "name": "XSS Using Invalid Characters",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 862, "name": "Command Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 863, "name": "Forced Deadlock", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 864, "name": "XML Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 865,
+    "name": "Local Code Inclusion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 866,
+    "name": "PHP Local File Inclusion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 867,
+    "name": "Remote Code Inclusion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 868, "name": "SOAP Array Overflow", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 869,
+    "name": "Leveraging Race Conditions",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 870,
+    "name": "Fuzzing for garnering other adjacent user/sensitive data",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 871,
+    "name": "Force Use of Corrupted Files",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 872,
+    "name": "Leverage Alternate Encoding",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 873,
+    "name": "Audit Log Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 874,
+    "name": "Leveraging Race Conditions via Symbolic Links",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 875,
+    "name": "Modification of Registry Run Keys",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 876, "name": "Schema Poisoning", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

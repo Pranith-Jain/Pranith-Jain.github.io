@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:13:44.750Z",
+  "name": "lapsus$: GITHUB INTERNAL",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 13, 2026",
+  "lastSeen": "Jun 13, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lapsus$. | Country: US | Sector: Technology | Website: github.com | Infostealer data confirmed. | Everything for the main platform is there. No ransom, we do not care about extorting Github. If no buyer is found, we leak for free. | Press: https://www.minsimnews.com/news/articleView.html?idxno=50678 | Source: https://www.ransomware.live/id/R0lUSFVCIElOVEVSTkFMQGxhcHN1cyQ="
+}

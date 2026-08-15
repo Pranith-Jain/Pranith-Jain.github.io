@@ -1,0 +1,12 @@
+{
+  "id": 644,
+  "fetchedAt": "2026-08-14T06:03:04.513Z",
+  "name": "Detection of Network Trust Dependencies",
+  "tlp": null,
+  "detId": "DET0828",
+  "stixId": "x-mitre-detection-strategy--d50064d2-b166-4da7-9f9b-b56b7cf16e0a",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1960"]
+}

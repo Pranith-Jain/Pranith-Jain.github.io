@@ -1,0 +1,120 @@
+[
+  { "id": 676, "name": "Junk Data", "tlp": "white", "confidence": null, "techniqueId": "T1001", "status": null },
+  { "id": 650, "name": "Steganography", "tlp": "white", "confidence": null, "techniqueId": "T1001", "status": null },
+  {
+    "id": 528,
+    "name": "Protocol or Service Impersonation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1001",
+    "status": null
+  },
+  { "id": 2083, "name": "T1002", "tlp": "white", "confidence": null, "techniqueId": "T1002", "status": null },
+  { "id": 2027, "name": "T1002.001", "tlp": "white", "confidence": null, "techniqueId": "T1002", "status": null },
+  { "id": 1913, "name": "T1002.004", "tlp": "white", "confidence": null, "techniqueId": "T1002", "status": null },
+  {
+    "id": 29,
+    "name": "OS Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1472,
+    "name": "T1003 (Keyboard Dumping)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2203,
+    "name": "T1003 - Brute force credential access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1431,
+    "name": "T1003 - Creation/Compromise of Accounts for Persistence",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2178,
+    "name": "T1003 - Credential Dumping via Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2265,
+    "name": "T1003 - Credential Dumping: OS credential dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1402,
+    "name": "T1003 - Keylogging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1954,
+    "name": "T1003 - Keylogging/Monitoring Software",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1397,
+    "name": "T1003 - Malware Execution: Script-Based Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1364,
+    "name": "T1003 -Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2235,
+    "name": "T1003 -Credential dumping via Registry tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1937,
+    "name": "T1003 Credential dumping on remote systems to gather credentials.",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2671,
+    "name": "T1003 – Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  { "id": 290, "name": "LSASS Memory", "tlp": "white", "confidence": null, "techniqueId": "T1003", "status": null }
+]

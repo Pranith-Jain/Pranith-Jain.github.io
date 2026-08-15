@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2103,
+    "name": "Microsoft Office Vulnerabilities Used to Distribute Zyklon Malware in Recent Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #128 (5a5fc388-48c8-48b8-9f08-043bc0a8ab16)."
+  },
+  {
+    "id": 2101,
+    "name": "Korea In The Crosshairs",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #126 (5a5e9125-fde0-4139-8668-03a7c0a8ab16)."
+  },
+  {
+    "id": 2100,
+    "name": "BadMirror: New Android Malware Family Spotted by SherlockDroid",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #125 (56df115b-5030-4328-a9ee-4484950d210f)."
+  },
+  {
+    "id": 2099,
+    "name": "Update on Pawn Storm: New Targets and Politically Motivated Campaigns",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #124 (5a5a0acb-a374-415e-b88f-8d1ec0a8ab16)."
+  },
+  {
+    "id": 2098,
+    "name": "Sneaky *.BAT File Leads to Spoofed Banking Page",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #122 (5a37a494-4030-4f5c-a710-8d1dc0a8ab16)."
+  },
+  {
+    "id": 2097,
+    "name": "Criminals in a festive mood",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #121 (5a30207d-92d8-4817-9060-8d1bc0a8ab16)."
+  },
+  {
+    "id": 2096,
+    "name": "New Targeted Attack in the Middle East by APT34, a Suspected Iranian Threat Group, Using CVE-2017-11882 Exploit",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #120 (5a2b0fe8-6900-412e-a9b6-2facc0a8ab16)."
+  },
+  {
+    "id": 2095,
+    "name": "RickRolled by none other than IoTReaper",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #118 (5a047586-ade8-410e-a6af-2fadc0a8ab16)."
+  },
+  {
+    "id": 2094,
+    "name": "Silence â€“ a new Trojan attacking financial organizations",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #117 (59fb893d-fce4-4005-a1c3-2facc0a8ab16)."
+  },
+  {
+    "id": 2093,
+    "name": "Poisoning the Well: Banking Trojan Targets Google Search Results",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #116 (59f835da-4aa0-4a5b-b187-2f0ac0a8ab16)."
+  },
+  {
+    "id": 2092,
+    "name": "Gaza Cybergang â€“ updated 2017 activity",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #115 (59f6f87b-868c-4d04-846f-052ec0a8ab16)."
+  },
+  {
+    "id": 2091,
+    "name": "Real News, Fake Flash: Mac OS X Users Targete",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #114 (59777604-0414-4444-a3bb-53a1c0a8ab16)."
+  },
+  {
+    "id": 2090,
+    "name": "New KONNI Campaign References North Korean Missile Capabilities",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #113 (595df32b-59f0-4cb3-b235-52e3c0a8ab16)."
+  },
+  {
+    "id": 2089,
+    "name": "Following the Trail of BlackTechâ€™s Cyber Espionage Campaigns",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #112 (594cc2fe-ab30-4c34-a009-5a57c0a8ab16)."
+  },
+  {
+    "id": 2088,
+    "name": "McAfee Discovers Pinkslipbot Exploiting Infected Machines as Control Servers; Releases Free Tool to Detect, Disable Trojan",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #111 (5948b857-278c-4b90-b08d-53a1c0a8ab16)."
+  }
+]

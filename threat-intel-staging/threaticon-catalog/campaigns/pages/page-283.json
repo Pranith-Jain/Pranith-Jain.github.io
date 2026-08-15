@@ -1,0 +1,115 @@
+[
+  {
+    "id": 3625,
+    "name": "cmdorganization: Advanced Software Products Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Technology | Website: www.aspg.com | ASPG Inc. specializes in enterprise and mainframe software solutions that focus on secure access, data protection, and system management. Their product offerings include comprehensive cryptography tools, access management solutions, and systems administration utilities tailored for various industries such as education, government, healthcare, and finance. Since 1986, ASPG has been dedicated to providing the IT community with cutting-edge software and support services. | Source: https://www.ransomware.live/id/QWR2YW5jZWQgU29mdHdhcmUgUHJvZHVjdHMgR3JvdXBAY21kb3JnYW5pemF0aW9u"
+  },
+  {
+    "id": 3624,
+    "name": "incransom: lalsgroup.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: AE | Sector: Not Found | Website: lalsgroup.com | Infostealer data confirmed. | Lals Group is a large UAE-based family business group operating in retail, FMCG, distribution, home goods, and lifestyle brands across the GCC region. Founded in 1979, the company manages well-known brands and retail chains including Homes r Us, Daiso Japan, Carter’s, Mom Store, and others. Lals Group operates across the UAE, Qatar, Bahrain, Oman, Kuwait, and Saudi Arabia, with activities spanning retail stores, shopping malls, and logistics services. -- 400 gb | Source: https://www.ransomware.live/id/bGFsc2dyb3VwLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 3623,
+    "name": "kairos: Ayuntamiento de Valdemoro",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  { "id": 3622, "name": "kairos: Arwini", "tlp": "white", "confidence": 80, "status": "Inactive", "description": null },
+  {
+    "id": 3621,
+    "name": "qilin: AppDirect",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Technology | Website: www.appdirect.com | N/A | Source: https://www.ransomware.live/id/QXBwRGlyZWN0QHFpbGlu"
+  },
+  {
+    "id": 3620,
+    "name": "stormous: arc-reins.com + fidelityunited.ae UPDATE-FULL DATA DUMP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3619,
+    "name": "stormous: FANASA.COM UPDATE-FULL DATA DUMP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to stormous. | Sector: Not Found | Website: FANASA.COM | Personally Identifiable Information (PII), ​Electronic Fiscal Documents (CFDI/XML), ​Financial Transaction Records, ​Commercial Invoices & Billing Data, ​Taxpayer Identification Numbers (RFC), ​Client & Vendor Database/​Internal Corporate Documentation | Source: https://www.ransomware.live/id/RkFOQVNBLkNPTSBVUERBVEUtRlVMTCBEQVRBIERVTVBAc3Rvcm1vdXM="
+  },
+  {
+    "id": 3616,
+    "name": "genesis: Ben F. Barcus and associates pllc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: usattorneys.com | Infostealer data confirmed. | A law firm from Tacoma, WA. | Source: https://www.ransomware.live/id/QmVuIEYuIEJhcmN1cyBhbmQgYXNzb2NpYXRlcyBwbGxjQGdlbmVzaXM="
+  },
+  {
+    "id": 3615,
+    "name": "genesis: Integrated Process Engineers & Constructors.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Construction | Website: ipec-inc.com | Infostealer data confirmed. | Specializes in custom modular process systems, offering a wide range of products including bioreactors, filtration systems, and utility stations. | Source: https://www.ransomware.live/id/SW50ZWdyYXRlZCBQcm9jZXNzIEVuZ2luZWVycyAmIENvbnN0cnVjdG9ycy5AZ2VuZXNpcw=="
+  },
+  {
+    "id": 3614,
+    "name": "genesis: Fargo Moorhead West Fargo Chamber",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: fmwfchamber.com | Infostealer data confirmed. | A business services provider. | Source: https://www.ransomware.live/id/RmFyZ28gTW9vcmhlYWQgV2VzdCBGYXJnbyBDaGFtYmVyQGdlbmVzaXM="
+  },
+  {
+    "id": 3613,
+    "name": "genesis: Casino Gaming Commission",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: JM | Sector: Public Sector | Website: cgc.gov.jm | Infostealer data confirmed. | Official Casino Gaming Commission of Jamaica. | Source: https://www.ransomware.live/id/Q2FzaW5vIEdhbWluZyBDb21taXNzaW9uQGdlbmVzaXM="
+  },
+  {
+    "id": 3612,
+    "name": "incransom: Bideawee",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Consumer Services | Website: bideawee.org | Infostealer data confirmed. | Bideawee is a no-kill animal rescue and shelter located in NYC, Wantagh, and Westhampton. The organization offers a variety of services including adoptions, medical care, pet therapy, and fostering opportunities. Bideawee aims to strengthen the human-animal bond through compassionate care for both pets and their owners. Its targeted clients include individuals and families seeking to adopt or foster pets, as well as volunteers looking to support animal welfare. | Source: https://www.ransomware.live/id/QmlkZWF3ZWVAaW5jcmFuc29t"
+  },
+  {
+    "id": 3618,
+    "name": "genesis: HostBooks (HOT!)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: hostbooks.com | Infostealer data confirmed. | An accounting software provider. | Source: https://www.ransomware.live/id/SG9zdEJvb2tzIChIT1QhKUBnZW5lc2lz"
+  },
+  {
+    "id": 3617,
+    "name": "genesis: Palo",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Technology | Website: palo.us | Infostealer data confirmed. | Architecture and Planning. | Source: https://www.ransomware.live/id/UGFsb0BnZW5lc2lz"
+  },
+  {
+    "id": 3611,
+    "name": "incransom: rbh aerospace inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

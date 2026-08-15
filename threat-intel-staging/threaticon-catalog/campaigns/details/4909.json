@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:10:24.439Z",
+  "name": "lockbit5: shougang.com.pe",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "Apr 14, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: PE | Sector: Manufacturing | Website: shougang.com.pe | Infostealer data confirmed. | SHOUGANG HIERRO PERU S.A.A. is a civil association focused on iron production. The company is involv... | Source: https://www.ransomware.live/id/c2hvdWdhbmcuY29tLnBlQGxvY2tiaXQ1"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:58:11.685Z",
+  "name": "OSINT - FIREBALL â€“ The Chinese Malware of 250 Million Computers Infected",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 9, 2017",
+  "lastSeen": "Jun 9, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1085 (593a99c5-79cc-411c-ac6d-3089950d210f)."
+}

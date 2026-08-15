@@ -1,0 +1,12 @@
+{
+  "id": 477,
+  "fetchedAt": "2026-08-14T05:49:04.329Z",
+  "name": "Behavioral Detection of Unix Shell Execution",
+  "tlp": null,
+  "detId": "DET0384",
+  "stixId": "x-mitre-detection-strategy--4a89bf52-7be1-405d-8d02-462e52553bc5",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1081", "AN1082", "AN1083", "AN1084"]
+}

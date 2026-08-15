@@ -1,0 +1,12 @@
+{
+  "id": 88,
+  "fetchedAt": "2026-08-14T05:02:58.013Z",
+  "name": "cipher.exe",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "cipher.exe is a native Microsoft utility that manages encryption of directories and files on NTFS (New Technology File System) partitions by using the Encrypting File System (EFS).(Citation: cipher.exe)"
+}

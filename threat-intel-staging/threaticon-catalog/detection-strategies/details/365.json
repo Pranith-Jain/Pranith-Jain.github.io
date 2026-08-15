@@ -1,0 +1,12 @@
+{
+  "id": 365,
+  "fetchedAt": "2026-08-14T05:23:48.623Z",
+  "name": "Behavioral Detection Strategy for Remote Service Logins and Post-Access Activity",
+  "tlp": null,
+  "detId": "DET0269",
+  "stixId": "x-mitre-detection-strategy--d33ffd4e-6328-4b10-84c0-7ad4a241b02d",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0750", "AN0751", "AN0752", "AN0753", "AN0754"]
+}

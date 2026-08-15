@@ -1,0 +1,12 @@
+{
+  "id": 228,
+  "fetchedAt": "2026-08-14T05:22:01.386Z",
+  "name": "Detect Multi-Stage Command and Control Channels",
+  "tlp": null,
+  "detId": "DET0228",
+  "stixId": "x-mitre-detection-strategy--6368178a-04c5-490b-96d5-f12dcccd0497",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0637", "AN0638", "AN0639", "AN0640"]
+}

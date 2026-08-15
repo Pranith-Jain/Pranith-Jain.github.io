@@ -1,0 +1,122 @@
+[
+  {
+    "id": 356,
+    "name": "m3rx: anvilarts.org.uk",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: GB | Sector: Consumer Services | Website: anvilarts.org.uk | Infostealer data confirmed. | Anvil Arts is the largest performing arts organization in Hampshire, operating as an independent charitable trust. It manages three venues in Basingstoke, including The Anvil and The Haymarket, providing a diverse range of performances and cultural events. Stolen: 480gb 299k files | Source: https://www.ransomware.live/id/YW52aWxhcnRzLm9yZy51a0BtM3J4"
+  },
+  {
+    "id": 382,
+    "name": "worldleaks: Birtcher Anderson & Davis",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Business Services | Website: www.birtcherandersondavis.com | A fully integrated commercial real estate investment and management company | Source: https://www.ransomware.live/id/QmlydGNoZXIgQW5kZXJzb24gJiBEYXZpc0B3b3JsZGxlYWtz"
+  },
+  {
+    "id": 381,
+    "name": "everest: Super AI",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: DE | Sector: Technology | Website: super.ai | Infostealer data confirmed. | Automate business processes end-to-end with guaranteed results using super.AI Intelligent Document Processing (IDP). Quickly extract data from complex documents using the latest AI models. | Source: https://www.ransomware.live/id/U3VwZXIgQUlAZXZlcmVzdA=="
+  },
+  {
+    "id": 380,
+    "name": "shinyhunters: Vimeo, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Technology | Website: vimeo.com | Infostealer data confirmed. | Your Snowflake and Bigquery instances data was compromised thanks to Anodot.com. Pay or Leak. This is a final warning to reach out by 30 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 28 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/VmltZW8sIEluYy5Ac2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 358,
+    "name": "m3rx: airdriephysio.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: GB | Sector: Healthcare | Website: airdriephysio.com | Infostealer data confirmed. | Airdrie Physiotherapy & Massage is a multi-disciplinary clinic located in Airdrie, Alberta, offering a range of services including physiotherapy, massage therapy, acupuncture, and laser therapy Stolen: 54gb 116k files | Source: https://www.ransomware.live/id/YWlyZHJpZXBoeXNpby5jb21AbTNyeA=="
+  },
+  {
+    "id": 357,
+    "name": "m3rx: primeproperties.com.au",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: AU | Sector: Consumer Services | Website: primeproperties.com.au | Infostealer data confirmed. | Prime Properties (NSW) P/L is a privately owned company based in Sydney, Australia, established in 1982, specializing in property investment, building management, and management consultancy services Stolen: 100gb 81k files | Source: https://www.ransomware.live/id/cHJpbWVwcm9wZXJ0aWVzLmNvbS5hdUBtM3J4"
+  },
+  {
+    "id": 333,
+    "name": "incransom: Iowa Spring Manufacturing & Sales",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 355,
+    "name": "m3rx: dmschweiz.ch",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: CH | Sector: Business Services | Website: dmschweiz.ch | Infostealer data confirmed. | Sie haben im Katalog unsere Angebote von installierten und betriebsbereiten Gerten. Die Installationen können nach Ihren Wünschen angepasst werden. DM Standard-Installation ist optimiert und ohne Herstellerwerbung. Stolen: 120gb 100k files | Source: https://www.ransomware.live/id/ZG1zY2h3ZWl6LmNoQG0zcng="
+  },
+  {
+    "id": 354,
+    "name": "lockbit5: stllc.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Not Found | Website: stllc.org | Infostealer data confirmed. | Welcome to St. Luke Lutheran Community St. Luke Lutheran Community is a not-for-profit, continuing... | Source: https://www.ransomware.live/id/c3RsbGMub3JnQGxvY2tiaXQ1"
+  },
+  {
+    "id": 329,
+    "name": "payoutsking: S****p",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: s****.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/UyoqKipwQHBheW91dHNraW5n"
+  },
+  {
+    "id": 351,
+    "name": "lockbit5: planetsport.ma",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: MA | Sector: Consumer Services | Website: planetsport.ma | Infostealer data confirmed. | Planet Sport is your go-to online store for sports gear in Morocco. They help athletes and fitness f... | Source: https://www.ransomware.live/id/cGxhbmV0c3BvcnQubWFAbG9ja2JpdDU="
+  },
+  {
+    "id": 350,
+    "name": "lockbit5: defcon5italy.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Not Found | Website: defcon5italy.com | Infostealer data confirmed. | DEFCON, the U.S. acronym for DEFense CONdition, tells of the highest degree of protection and effica... | Source: https://www.ransomware.live/id/ZGVmY29uNWl0YWx5LmNvbUBsb2NrYml0NQ=="
+  },
+  {
+    "id": 349,
+    "name": "aurora: Bayou Title, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 348,
+    "name": "aurora: Costa Solutions, LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 347,
+    "name": "aurora: Atlas Metal Industries Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

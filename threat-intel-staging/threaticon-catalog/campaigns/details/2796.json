@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:44:07.702Z",
+  "name": "M2M - GlobeImposter \"..doc\" 2018-01-12 : \"Unpaid invoice \" - \"1234567.7z\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 18, 2018",
+  "lastSeen": "Jan 18, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1294 (5a607314-de88-4309-ba06-c4a9950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:05:11.290Z",
+  "name": "qilin: AppDirect",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Technology | Website: www.appdirect.com | N/A | Source: https://www.ransomware.live/id/QXBwRGlyZWN0QHFpbGlu"
+}

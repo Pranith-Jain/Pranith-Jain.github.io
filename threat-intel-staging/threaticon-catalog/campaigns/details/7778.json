@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:32:37.484Z",
+  "name": "SilentRansomGroup: Riker Danzig LLP",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 13, 2026",
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Professional Services | [AI generated] Riker Danzig LLP is a prominent full-service law firm based in the United States, primarily operating in New Jersey. Founded in 1882, the firm provides legal services across a wide range of practice areas including litigation, corporate law, real estate, environmental law, and insurance. It serves clients spanning industries such as finance, healthcare, and manufacturing, and is recognized as one of New Jersey's leading law firms. | Source: https://www.ransomware.live/id/UmlrZXIgRGFuemlnIExMUEBTaWxlbnRSYW5zb21Hcm91cA=="
+}

@@ -1,0 +1,85 @@
+[
+  {
+    "id": 352,
+    "name": "Plist File Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1647",
+    "status": null
+  },
+  {
+    "id": 628,
+    "name": "Serverless Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1648",
+    "status": null
+  },
+  {
+    "id": 357,
+    "name": "Steal or Forge Authentication Certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1649",
+    "status": null
+  },
+  { "id": 571, "name": "Acquire Access", "tlp": "white", "confidence": null, "techniqueId": "T1650", "status": null },
+  {
+    "id": 592,
+    "name": "Cloud Administration Command",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1651",
+    "status": null
+  },
+  {
+    "id": 103,
+    "name": "Device Driver Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1652",
+    "status": null
+  },
+  {
+    "id": 1666,
+    "name": "T1652: Device Driver Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1652",
+    "status": null
+  },
+  { "id": 632, "name": "Power Settings", "tlp": "white", "confidence": null, "techniqueId": "T1653", "status": null },
+  { "id": 386, "name": "Log Enumeration", "tlp": "white", "confidence": null, "techniqueId": "T1654", "status": null },
+  { "id": 2848, "name": "T1654?", "tlp": "white", "confidence": null, "techniqueId": "T1654", "status": null },
+  { "id": 2731, "name": "T1655", "tlp": "white", "confidence": null, "techniqueId": "T1655", "status": null },
+  { "id": 1282, "name": "T1656", "tlp": "white", "confidence": null, "techniqueId": "T1656", "status": null },
+  { "id": 382, "name": "Financial Theft", "tlp": "white", "confidence": null, "techniqueId": "T1657", "status": null },
+  {
+    "id": 2882,
+    "name": "T1657 (Financial Theft)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1657",
+    "status": null
+  },
+  { "id": 3081, "name": "T1658", "tlp": "white", "confidence": null, "techniqueId": "T1658", "status": null },
+  {
+    "id": 212,
+    "name": "Content Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1659",
+    "status": null
+  },
+  {
+    "id": 2887,
+    "name": "T1659: Content Injection – compromised upstream traffic",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1659",
+    "status": null
+  },
+  { "id": 2634, "name": "T1660", "tlp": "white", "confidence": null, "techniqueId": "T1660", "status": null },
+  { "id": 2795, "name": "T1660??", "tlp": "white", "confidence": null, "techniqueId": "T1660", "status": null },
+  { "id": 1577, "name": "T1663", "tlp": "white", "confidence": null, "techniqueId": "T1663", "status": null }
+]

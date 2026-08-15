@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1486,
+    "name": "chaos: loopcap.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Technology | Website: www.zoominfo.com/c/loop-capital-holdings-llc/70616391 | We provided the management of Loop Capital with ample time and opportunity to protect their clients, their employees, and their shareholders. However, the company chose a path of total ignorance, opting for silence and bureaucratic delays instead of accountability. For an investment firm of this ca… | Source: https://www.ransomware.live/id/bG9vcGNhcC5jb21AY2hhb3M="
+  },
+  {
+    "id": 1485,
+    "name": "dragonforce: Conrad Capital Management",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1484,
+    "name": "dragonforce: HARTMANN BAU",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1483,
+    "name": "dragonforce: Flexform",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: IT | Sector: Manufacturing | Website: www.flexform.it | Flexform SpA is an Italian company with its head office in Meda, Italy, at the centre of the furniture production district of La Brianza. Founded in 1959 by the Galimberti brothers, the company designs, produces and markets furniture and furnishing accessories for residential and public use | Source: https://www.ransomware.live/id/RmxleGZvcm1AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 1482,
+    "name": "dragonforce: Dynex/Rivett",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1481,
+    "name": "interlock: Delta Manufacturing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Manufacturing | Website: deltamfg.com | Infostealer data confirmed. | Delta Manufacturing specializes in custom electric heating elements. They serve a variety of industries, including aerospace, medical, food, and chemical, ensuring fast turnaround of custom orders. However, they failed to prioritize security, resulting in the compromise of customer and employee data and contracts, as well as the exposure of all accounting records and invoices. | Source: https://www.ransomware.live/id/RGVsdGEgTWFudWZhY3R1cmluZ0BpbnRlcmxvY2s="
+  },
+  {
+    "id": 1480,
+    "name": "dragonforce: Construction Equipment Parts",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: ceparts.com | Infostealer data confirmed. | Construction Equipment Parts, LLC is a dismantler specializing in heavy equipment parts for various brands, including wheel loaders, excavators, and articulated haulers. They provide a broad selection of new, used, rebuilt, and aftermarket parts tailored to clients who prioritize economic and environmental considerations. With over 200,000 parts available for shipping and expert sales support, they cater to all heavy equipment part needs. The company serves a diverse clientele in the construction industry, ensuring access to reliable equipment components | Source: https://www.ransomware.live/id/Q29uc3RydWN0aW9uIEVxdWlwbWVudCBQYXJ0c0BkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 1479,
+    "name": "dragonforce: gasteiger.design",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1478,
+    "name": "sinobi: Amerinational Management Services (AMS)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1477,
+    "name": "sinobi: Elgi Electric & Industries",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1476,
+    "name": "spacebears: Bonheure",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1474,
+    "name": "coinbasecartel: Ariston",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: IT | Sector: Manufacturing | Website: ariston.com | Infostealer data confirmed. | [AI generated] Ariston is a renowned Italian company that manufactures state-of-the-art home appliances such as heating systems and water heaters. Established in 1930, Ariston is recognized for its quality products worldwide, especially its flagship water heating products. It is a part of the Ariston Thermo Group, which is a global leader in thermal comfort solutions for domestic, commercial, and industrial spaces. | Source: https://www.ransomware.live/id/QXJpc3RvbkBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 1473,
+    "name": "coinbasecartel: Verimatrix",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: verimatrix.com | Infostealer data confirmed. | [AI generated] Verimatrix is a global company that specializes in securing digital content. It offers user-specific data security solutions across numerous devices and networks. Their services are primarily centered around video content, including live, streaming, and on-demand videos. Verimatrix's security solutions include watermarking, analytics, multi-DRM, anti-piracy, and secure delivery of video content. | Source: https://www.ransomware.live/id/VmVyaW1hdHJpeEBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 1472,
+    "name": "coinbasecartel: Tecnocap Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: IT | Sector: Manufacturing | Website: tecnocapgroup.com | Infostealer data confirmed. | [AI generated] Tecnocap Group is a global provider of metal packaging for different industries. With operations in Europe, North America, and Asia, they specialize in the production of metal closures for glass containers and metal tins. Their products cater to the food and beverage, cosmetics, and pharmaceutical sectors. They are committed to sustainable practices, persistently offering environmentally-friendly packaging solutions. | Source: https://www.ransomware.live/id/VGVjbm9jYXAgR3JvdXBAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 1471,
+    "name": "coinbasecartel: Onyx Graphics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: onyxgfx.com | Infostealer data confirmed. | [AI generated] Onyx Graphics is a technology company that specializes in developing software solutions for wide and grand-format digital color printers. Founded in 1989, the company's core products include Onyx production and RIP software that optimize output and provide end-to-end control for print applications. The company serves a global market through an extensive network of authorized resellers. | Source: https://www.ransomware.live/id/T255eCBHcmFwaGljc0Bjb2luYmFzZWNhcnRlbA=="
+  }
+]

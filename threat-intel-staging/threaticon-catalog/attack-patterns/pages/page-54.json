@@ -1,0 +1,148 @@
+[
+  {
+    "id": 2228,
+    "name": "T1059 (Lateral access via remote services)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1441,
+    "name": "T1059 (Malware Code Injection)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2942,
+    "name": "T1059 - Command and Scripting Interpreter",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2281,
+    "name": "T1059 - Command-Line Interface",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1825,
+    "name": "T1059 - External Remote Console Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2145,
+    "name": "T1059 - Malware Code Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2154,
+    "name": "T1059 - Phishing via Spear-Phishing Attachments",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2107,
+    "name": "T1059 - Social Engineering Other Than Phishing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1850,
+    "name": "T1059 - Spear Phishing via Email",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1689,
+    "name": "T1059 - Spear-phishing via email",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1744,
+    "name": "T1059-Malware infection via document files",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 419, "name": "PowerShell", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  {
+    "id": 2954,
+    "name": "T1059.001 (PowerShell)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2837,
+    "name": "T1059.001 - Command & Scripting Interpreter: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2767,
+    "name": "T1059.001 PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2662,
+    "name": "T1059.001 – PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2316,
+    "name": "T1059.001: Command and Scripting Interpreter: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2809,
+    "name": "T1059.001: Command‑line Interface",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 702,
+    "name": "T1059.001: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 175, "name": "AppleScript", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null }
+]

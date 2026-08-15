@@ -1,0 +1,9 @@
+{
+  "id": 2079,
+  "fetchedAt": "2026-08-15T06:52:49.288Z",
+  "name": "T1027.004 - OS Credential Dumping: Tainting legitimate credentials or credential formats through unauthorized access or malicious activity.",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:31:35.210Z",
+  "name": "Malspam (2016-03-09) - Locky, TeslaCrypt",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 9, 2016",
+  "lastSeen": "Mar 9, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #165 (56e050e6-ac24-43d3-9c24-4f71950d210f)."
+}

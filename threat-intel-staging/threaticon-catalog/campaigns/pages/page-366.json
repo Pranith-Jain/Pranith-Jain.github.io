@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2299,
+    "name": "OSINT - New FAREIT Strain Abuses PowerShell",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #473 (571de8da-be78-4d1d-851f-448d950d210f)."
+  },
+  {
+    "id": 2298,
+    "name": "Kryptina RaaS | From Underground Commodity to Open Source Threat",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #470 (62213167-53e7-4a58-ba6a-8b24e88ae203)."
+  },
+  {
+    "id": 2297,
+    "name": "OSINT The Ghost Dragon by Cylance",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #469 (571bd702-031c-400b-a851-43ce02de0b81)."
+  },
+  {
+    "id": 2296,
+    "name": "OSINT - New Poison Ivy RAT Variant Targets Hong Kong Pro-Democracy Activists",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #467 (571a87f2-13e0-4396-83e5-4780950d210f)."
+  },
+  {
+    "id": 2295,
+    "name": "OSINT - powershell used for spreading trojan.laziok through google docs",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #466 (571a7cdc-c078-482d-98dc-4e42950d210f)."
+  },
+  {
+    "id": 2294,
+    "name": "CVE-2024-21412: Water Hydra Targets Traders With Microsoft Defender SmartScreen Zero-Day",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #465 (9c9b48f3-b1ea-49bb-a23f-748ce03c1098)."
+  },
+  {
+    "id": 2293,
+    "name": "OSINT - Teaching an old RAT new tricks",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #464 (571a302c-e5c4-4014-8131-4e9c950d210f)."
+  },
+  {
+    "id": 2292,
+    "name": "The (D)Evolution of Pikabot",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #463 (3e089ded-cac6-4b7b-bbc6-be2161abd39f)."
+  },
+  {
+    "id": 2291,
+    "name": "OSINT - â€œOperation C-Majorâ€ Actors Also Used Android, BlackBerry Mobile Spyware Against Targets",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #462 (5718d275-88d4-492e-9f07-43ee950d210f)."
+  },
+  {
+    "id": 2290,
+    "name": "PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #80 (57cdf2a2-1abc-4e51-a31d-7e7dc0a8ab16)."
+  },
+  {
+    "id": 2289,
+    "name": "OSINT - PlugX-Ñ‚ Ó©Ñ€Ñ‚ÑÓ©Ð½ ÑÐ¸ÑÑ‚ÐµÐ¼Ð¸Ð¹Ð³ Ñ†ÑÐ²ÑÑ€Ð»ÑÑ… Ð½ÑŒ",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #58 (565d5025-a6bc-4a5f-b19b-a175950d210b)."
+  },
+  {
+    "id": 2288,
+    "name": "CryptXXX: New Ransomware From the Actors Behind Reveton, Dropping Via Angler",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #459 (5718c835-f58c-4f8e-8da4-452a950d210f)."
+  },
+  {
+    "id": 2287,
+    "name": "OSINT - Your Package Has Been Successfully Encrypted: TeslaCrypt 4.1A and the Malware Attack Chain",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #457 (57189d1b-e90c-4d93-8383-41d8950d210f)."
+  },
+  {
+    "id": 2286,
+    "name": "OSINT - New Crypto-Ransomware JIGSAW Plays Nasty Games",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #456 (5717777b-a8b4-4876-b060-4339950d210f)."
+  },
+  {
+    "id": 2285,
+    "name": "New ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #455 (57174526-23d8-4895-8c08-4ed1950d210f)."
+  }
+]

@@ -1,0 +1,134 @@
+[
+  {
+    "id": 837,
+    "name": "Exploiting Incorrectly Configured SSL/TLS",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 838,
+    "name": "Spoofing of UDDI/ebXML Messages",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 839,
+    "name": "XML Routing Detour Attacks",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 840,
+    "name": "Exploiting Trust in Client",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 841,
+    "name": "Client-Server Protocol Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 842,
+    "name": "Data Serialization External Entities Blowup",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 843, "name": "iFrame Overlay", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 844, "name": "Fingerprinting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 845,
+    "name": "Session Credential Falsification through Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 846,
+    "name": "Sustained Client Engagement",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 847, "name": "DTD Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 848,
+    "name": "Serialized Data Parameter Blowup",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 849,
+    "name": "File Content Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 850,
+    "name": "Serialized Data with Nested Payloads",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 851,
+    "name": "Oversized Serialized Data Payloads",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 852,
+    "name": "Privilege Escalation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 853,
+    "name": "Hijacking a privileged process",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 854,
+    "name": "Escaping a Sandbox by Calling Code in Another Language",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 855,
+    "name": "Filter Failure through Buffer Overflow",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 856, "name": "Resource Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

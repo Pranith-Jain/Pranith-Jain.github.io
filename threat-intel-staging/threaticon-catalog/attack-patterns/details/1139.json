@@ -1,0 +1,9 @@
+{
+  "id": 1139,
+  "fetchedAt": "2026-08-15T06:22:22.475Z",
+  "name": "TCP RST Injection",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "An adversary injects one or more TCP RST packets to a target after the target has made a HTTP GET request. The goal of this attack is to have the target and/or destination web server terminate the TCP connection."
+}

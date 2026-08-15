@@ -1,0 +1,9 @@
+{
+  "id": 1672,
+  "fetchedAt": "2026-08-15T08:23:04.581Z",
+  "name": "T1566.001 - OS Credential Dumping: Windows LSA Notification Packages",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

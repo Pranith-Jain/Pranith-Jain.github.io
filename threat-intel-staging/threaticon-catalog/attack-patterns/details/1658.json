@@ -1,0 +1,9 @@
+{
+  "id": 1658,
+  "fetchedAt": "2026-08-15T08:24:17.122Z",
+  "name": "T1566.001 -Credential dumpers such as Mimikatz or similar tools for capturing username/password information from memory or other sources",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:23:44.320Z",
+  "name": "aurora: Corporación Primax S.A.",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 23, 2026",
+  "lastSeen": "Jun 23, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: PE | Sector: Not Found | Website: Corporación Primax S.A. | [distribution, fuel] ***.A. is Peru's largest fuel distribution company, operating 2,185+ stations across Peru, Ecuador, Colombia, and Uruguay with annualised revenue of approximately USD 3.4 billion (Peru alone). The dataset spans every function of the business: Complete financial reporting — Monthly P&L, balance sheet, cash flow, and EBITDA through May 2025. GRIO (Grupo Romero Investment Office) management reporting packages. Budget 2025 vs. actuals. Employee identity data for 15,000–60,000 individuals — DNI national ID numbers, bank accounts, salary amounts, pension fund details, scanned identity documents. Live system credentials — Plaintext SQL database passwords, banking SFTP credentials (Banco Bolivariano Ecuador), AD encryption master key, OSINERGMIN fuel-control system credentials. Complete OT network map — IP addresses and identifiers for 137 fuel stations on the i..."
+}

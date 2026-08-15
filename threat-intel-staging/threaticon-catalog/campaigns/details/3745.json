@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:59:28.036Z",
+  "name": "safepay: globalmerchservices.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "May 6, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: GB | Sector: Business Services | Website: globalmerchservices.com | Infostealer data confirmed. | Global Merchandising Services (GMS) is an international entertainment merchandising company founded in 2008. It specializes in developing and managing merchandise … | Source: https://www.ransomware.live/id/Z2xvYmFsbWVyY2hzZXJ2aWNlcy5jb21Ac2FmZXBheQ=="
+}

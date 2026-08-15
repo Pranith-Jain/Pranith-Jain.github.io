@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:25:35.933Z",
+  "name": "shinyhunters: Adelante Soluciones Financieras (Addi.com)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 5, 2026",
+  "description": "Ransomware attack attributed to shinyhunters. | Country: CO | Sector: Financial Services | Website: Addi.com | Over 16M unique persons records containing significant PII, financial/transactions (credit cards), KYC and data from TransUnion and Experian (background checks) . The company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 518GB+ (compressed) | Updated: 5 May 2026 | SHA256: 520d50dc384fc474e419fdd19cb3517ed6ce778a187ae7d6f44b93ccef5687db | Source: https://www.ransomware.live/id/QWRlbGFudGUgU29sdWNpb25lcyBGaW5hbmNpZXJhcyAoQWRkaS5jb20pQHNoaW55aHVudGVycw=="
+}

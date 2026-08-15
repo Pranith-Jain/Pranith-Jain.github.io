@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:28:08.466Z",
+  "name": "Unwrapping Ursnifs Gifts - The DFIR Report",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 26, 2023",
+  "lastSeen": "Jan 26, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #346 (4bcf0465-4b53-4de4-8c53-fcc5f7d04dfc)."
+}

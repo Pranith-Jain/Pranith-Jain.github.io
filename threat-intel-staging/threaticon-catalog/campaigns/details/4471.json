@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:29:08.481Z",
+  "name": "cmdorganization: Port Angeles Composite",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 30, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Manufacturing | Website: www.pacomposite.com | Port Angeles Composite LLC (PAC) is a leading supplier of advanced structural composite assemblies and components, serving the global commercial and business aerospace markets. Originally founded in 1996 as Angeles Composite Technologies, PAC was acquired by Honda Aircraft Company in October 2025. The company operates from a state-of-the-art manufacturing facility on Washington State’s Olympic Peninsula, supporting customers such as Boeing, Bombardier, and Honda Aircraft with high-quality composite structures for new aircraft systems. PAC's advanced manufacturing processes and technology ensure the highest quality composite products, offering tailored solutions to meet the unique requirements of each aerospace customer. | Source: https://www.ransomware.live/id/UG9ydCBBbmdlbGVzIENvbXBvc2l0ZUBjbWRvcmdhbml6YXRpb24="
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:22:23.253Z",
+  "name": "COBALT Logical attacks on ATMs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 1, 2016",
+  "lastSeen": "Dec 1, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #88 (583fc655-e660-4b7c-b17b-09c6c0a8ab16)."
+}

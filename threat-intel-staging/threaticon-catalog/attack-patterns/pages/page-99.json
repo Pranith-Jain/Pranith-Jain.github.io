@@ -1,0 +1,127 @@
+[
+  {
+    "id": 256,
+    "name": "Electron Applications",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  {
+    "id": 201,
+    "name": "Remote Access Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1219",
+    "status": null
+  },
+  {
+    "id": 2405,
+    "name": "T1219 - Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1219",
+    "status": null
+  },
+  { "id": 335, "name": "IDE Tunneling", "tlp": "white", "confidence": null, "techniqueId": "T1219", "status": null },
+  {
+    "id": 2361,
+    "name": "T1219.001 - Adversary-in-the-Middle",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1219",
+    "status": null
+  },
+  {
+    "id": 1724,
+    "name": "T1219.001 - Exploit Public Vulnerabilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1219",
+    "status": null
+  },
+  {
+    "id": 580,
+    "name": "Remote Desktop Software",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1219",
+    "status": null
+  },
+  {
+    "id": 456,
+    "name": "Remote Access Hardware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1219",
+    "status": null
+  },
+  {
+    "id": 1508,
+    "name": "T1219: Remote Access Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1219",
+    "status": null
+  },
+  {
+    "id": 639,
+    "name": "XSL Script Processing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1220",
+    "status": null
+  },
+  {
+    "id": 595,
+    "name": "Template Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1221",
+    "status": null
+  },
+  {
+    "id": 289,
+    "name": "File and Directory Permissions Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1222",
+    "status": null
+  },
+  {
+    "id": 160,
+    "name": "Windows Permissions",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1222",
+    "status": null
+  },
+  {
+    "id": 25,
+    "name": "Linux and Mac Permissions",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1222",
+    "status": null
+  },
+  { "id": 1411, "name": "T1223", "tlp": "white", "confidence": null, "techniqueId": "T1223", "status": null },
+  { "id": 1987, "name": "T1229", "tlp": "white", "confidence": null, "techniqueId": "T1229", "status": null },
+  { "id": 3042, "name": "T1232", "tlp": "white", "confidence": null, "techniqueId": "T1232", "status": null },
+  { "id": 1354, "name": "T1233", "tlp": "white", "confidence": null, "techniqueId": "T1233", "status": null },
+  {
+    "id": 2004,
+    "name": "T1233 - Collection of Information from Systems",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1233",
+    "status": null
+  },
+  {
+    "id": 1951,
+    "name": "T1233 - Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1233",
+    "status": null
+  }
+]

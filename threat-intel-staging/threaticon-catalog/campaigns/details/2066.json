@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:22:28.339Z",
+  "name": "Ransoc Desktop Locking Ransomware Ransacks Local Files and Social Media Profiles",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Nov 14, 2016",
+  "lastSeen": "Nov 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #86 (582b43a2-03f0-4dae-ae21-04e3c0a8ab16)."
+}

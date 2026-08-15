@@ -1,0 +1,12 @@
+{
+  "id": 33,
+  "fetchedAt": "2026-08-14T05:53:40.942Z",
+  "name": "Detection Strategy for Dynamic Resolution using Domain Generation Algorithms.",
+  "tlp": null,
+  "detId": "DET0419",
+  "stixId": "x-mitre-detection-strategy--263a0357-5f6d-4066-bfda-afeb883e51d7",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1178", "AN1179", "AN1180", "AN1181"]
+}

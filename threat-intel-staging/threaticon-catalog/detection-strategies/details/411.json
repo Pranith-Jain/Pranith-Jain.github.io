@@ -1,0 +1,12 @@
+{
+  "id": 411,
+  "fetchedAt": "2026-08-14T05:25:13.800Z",
+  "name": "Removable Media Execution Chain Detection via File and Process Activity",
+  "tlp": null,
+  "detId": "DET0301",
+  "stixId": "x-mitre-detection-strategy--8225c396-cbf9-499a-b94d-bdc7a1f07458",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0841"]
+}

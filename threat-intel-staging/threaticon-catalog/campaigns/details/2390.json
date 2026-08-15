@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:37.229Z",
+  "name": "OSINT Without a Trace: Fileless Malware Spotted in the Wild by Trend Micro",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 20, 2015",
+  "lastSeen": "Apr 20, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #718 (553eb3d4-f9d8-4e67-8327-af9d950d210b)."
+}

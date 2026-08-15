@@ -1,0 +1,141 @@
+[
+  {
+    "id": 2912,
+    "name": "T1195 – Supply Chain Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1195",
+    "status": null
+  },
+  {
+    "id": 78,
+    "name": "Compromise Software Dependencies and Development Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1195",
+    "status": null
+  },
+  {
+    "id": 2656,
+    "name": "T1195.001 – Exploit Public-Facing Application (Supply Chain)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1195",
+    "status": null
+  },
+  {
+    "id": 509,
+    "name": "Compromise Software Supply Chain",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1195",
+    "status": null
+  },
+  {
+    "id": 178,
+    "name": "Compromise Hardware Supply Chain",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1195",
+    "status": null
+  },
+  { "id": 542, "name": "BITS Jobs", "tlp": "white", "confidence": null, "techniqueId": "T1197", "status": null },
+  {
+    "id": 2569,
+    "name": "T1197 - Accessing Helpdesk Tickets",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1197",
+    "status": null
+  },
+  {
+    "id": 1890,
+    "name": "T1197 - Account Access Removal",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1197",
+    "status": null
+  },
+  {
+    "id": 2151,
+    "name": "T1197 - Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1197",
+    "status": null
+  },
+  {
+    "id": 2974,
+    "name": "T1197 – BITS Jobs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1197",
+    "status": null
+  },
+  {
+    "id": 2473,
+    "name": "T1197.001 - Software Deployment Tools: Buer Loader deployment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1197",
+    "status": null
+  },
+  {
+    "id": 2496,
+    "name": "T1197.001 - Software Deployment: Android Malware Installation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1197",
+    "status": null
+  },
+  {
+    "id": 1935,
+    "name": "T1197.001 - Stolen Credentials - Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1197",
+    "status": null
+  },
+  { "id": 1457, "name": "T1197.002", "tlp": "white", "confidence": null, "techniqueId": "T1197", "status": null },
+  { "id": 1968, "name": "T1197.x", "tlp": "white", "confidence": null, "techniqueId": "T1197", "status": null },
+  {
+    "id": 432,
+    "name": "Trusted Relationship",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1199",
+    "status": null
+  },
+  {
+    "id": 2166,
+    "name": "T1199: Trusted Relationship",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1199",
+    "status": null
+  },
+  {
+    "id": 579,
+    "name": "Hardware Additions",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1200",
+    "status": null
+  },
+  {
+    "id": 485,
+    "name": "Password Policy Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1201",
+    "status": null
+  },
+  {
+    "id": 2111,
+    "name": "T1201 - Data Exfiltration via Network Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1201",
+    "status": null
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 19,
+  "fetchedAt": "2026-08-14T05:23:35.170Z",
+  "name": "Cross-Platform Detection of JavaScript Execution Abuse",
+  "tlp": null,
+  "detId": "DET0264",
+  "stixId": "x-mitre-detection-strategy--6dd441e4-d264-4f7f-b145-9c122955c532",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0733", "AN0734", "AN0735"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 520,
+  "fetchedAt": "2026-08-14T05:22:57.065Z",
+  "name": "Detect Credential Discovery via Windows Registry Enumeration",
+  "tlp": null,
+  "detId": "DET0250",
+  "stixId": "x-mitre-detection-strategy--6c9e1f65-7d75-4091-b97d-e5f88ed12812",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0694"]
+}

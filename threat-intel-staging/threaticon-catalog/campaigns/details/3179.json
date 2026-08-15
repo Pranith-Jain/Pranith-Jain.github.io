@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:22.304Z",
+  "name": "APT34 targets Jordan Government using new Saitama backdoor",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "May 13, 2022",
+  "lastSeen": "May 13, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #298 (ff3af8b5-2d14-40ec-9dd2-14e100011e51)."
+}

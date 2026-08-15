@@ -1,0 +1,9 @@
+{
+  "id": 1291,
+  "fetchedAt": "2026-08-15T07:52:04.280Z",
+  "name": "T1210.001 - Use non-numeric account names in an attempt to conceal malicious activity on systems running MBSA",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 29, 2026",
+  "description": null
+}

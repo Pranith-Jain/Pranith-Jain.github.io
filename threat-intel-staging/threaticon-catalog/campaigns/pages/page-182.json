@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5145,
+    "name": "play: Digitall Graphics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: CA | Sector: Technology | Website: www.digitallgraphics.ca | Canada | Source: https://www.ransomware.live/id/RGlnaXRhbGwgR3JhcGhpY3NAcGxheQ=="
+  },
+  {
+    "id": 5140,
+    "name": "abyss: School Facility Consultants",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to abyss. | Sector: Business Services | School Facility Consultants (SFC) is a full-service company that provides expert guidance in school facility planning and funding for School Districts, County Offices of Education, and Charter Schools across California. | Source: https://www.ransomware.live/id/U2Nob29sIEZhY2lsaXR5IENvbnN1bHRhbnRzQGFieXNz"
+  },
+  {
+    "id": 5141,
+    "name": "dragonforce: Taos Mountain Casino",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Hospitality and Tourism | Website: taosmountaincasino.com | Infostealer data confirmed. | Taos Mountain Casino is a Native American gaming casino located in Taos, New Mexico. It is owned and operated by the Taos Pueblo, a federally recognized tribe known for its ancient, historic adobe pueblo. | Source: https://www.ransomware.live/id/VGFvcyBNb3VudGFpbiBDYXNpbm9AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 5139,
+    "name": "dragonforce: Synex International Pvt Ltd",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: LK | Sector: Not Found | Website: www.synexint.com | Mechanical, Electrical, and Plumbing (MEP) systems, Extra Low Voltage (ELV) solutions, and Solar energy. | Source: https://www.ransomware.live/id/U3luZXggSW50ZXJuYXRpb25hbCBQdnQgTHRkQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 5142,
+    "name": "dragonforce: Panorama BPO",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: PH | Sector: Business Services | Website: www.panoramabpo.com | Panorama BPO is a large international company specializing in business process outsourcing (BPO) and providing comprehensive operational services for businesses. | Source: https://www.ransomware.live/id/UGFub3JhbWEgQlBPQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 5144,
+    "name": "incransom: Champaign-Urbana Public Health District",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Public Sector | Champaign Urbana Public Health District provides a wide range of health services including dental care, nutrition assistance, mental health support, and food safety inspections. Their programs cater to various demographics, including adolescents, women, infants, and families, focusing on preventive health and education. The district also offers resources for substance abuse treatment, sexual health, and community food initiatives. Their intended clients include residents of Champaign County seeking health services, food assistance, and educational resources. | Source: https://www.ransomware.live/id/Q2hhbXBhaWduLVVyYmFuYSBQdWJsaWMgSGVhbHRoIERpc3RyaWN0QGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 5137,
+    "name": "kairos: Mortensenlawoffices",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to kairos. | Country: US | Sector: Business Services | Mortensen Law Offices, PLLC offers legal services, particularly bankruptcy, and provides consultations via Zoom, phone, or in-office for clients in the Phoenix/Mesa and Tucson areas, focusing on clear, empathetic guidance. | Source: https://www.ransomware.live/id/TW9ydGVuc2VubGF3b2ZmaWNlc0BrYWlyb3M="
+  },
+  {
+    "id": 5122,
+    "name": "nova: IBENA Textilwerke",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5134,
+    "name": "safepay: lcnet.eu",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Technology | Website: lcnet.eu | Infostealer data confirmed. | The network was established to provide integrated cross-border transport solutions, allowing member companies to coordinate freight movements efficiently throughout Europe. … | Source: https://www.ransomware.live/id/bGNuZXQuZXVAc2FmZXBheQ=="
+  },
+  {
+    "id": 5121,
+    "name": "nova: Everlite concept",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: FR | Sector: Not Found | Everlite Concept is a French company that specializes in polycarbonate solutions for building envelopes. It is known for its innovative, high-performance systems used in walls, roofing, and façades for buildings like sports complexes and museums - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/RXZlcmxpdGUgY29uY2VwdEBub3Zh"
+  },
+  {
+    "id": 5136,
+    "name": "safepay: compactmould.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: CA | Sector: Manufacturing | Website: compactmould.com | Infostealer data confirmed. | Founded in 1978 and headquartered in Woodbridge, Ontario, the company has grown into one of North America’s major suppliers of … | Source: https://www.ransomware.live/id/Y29tcGFjdG1vdWxkLmNvbUBzYWZlcGF5"
+  },
+  {
+    "id": 5118,
+    "name": "spacebears: Stellar",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to spacebears. | Country: TC | Sector: Not Found | Website: www.stellar.tc | Stellar’s mission is to bring resilient connectivity to mobility, enterprise, and governments, by combining the very best of terrestrial (cellular, Wi-Fi, fiber) and satellite networks into one unbreakable solution.Stellar Telecommunications SAS (\"Stellar\"), was founded in 2021 as a truly European company: headquartered in Bordeaux, France, it also runs critical activities from Luxembourg.- Database- Production Config https://www.stellar.tc/ | Source: https://www.ransomware.live/id/U3RlbGxhckBzcGFjZWJlYXJz"
+  },
+  {
+    "id": 5128,
+    "name": "AuditTeam: ca***lm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AuditTeam. | Country: RU | Sector: Not Found | Source: https://www.ransomware.live/id/Y2EqKipsbUBBdWRpdFRlYW0="
+  },
+  {
+    "id": 5132,
+    "name": "safepay: parsa-beauty.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Consumer Services | Website: parsa-beauty.de | Infostealer data confirmed. | Founded in 1986, the company has become one of Europe’s leading manufacturers and distributors of hair, beauty, and personal care … | Source: https://www.ransomware.live/id/cGFyc2EtYmVhdXR5LmRlQHNhZmVwYXk="
+  },
+  {
+    "id": 5133,
+    "name": "safepay: soraris.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Technology | Website: soraris.it | Infostealer data confirmed. | Founded in 1983, the company specializes in the collection, transportation, treatment, and management of municipal solid waste and recyclable materials. … | Source: https://www.ransomware.live/id/c29yYXJpcy5pdEBzYWZlcGF5"
+  }
+]

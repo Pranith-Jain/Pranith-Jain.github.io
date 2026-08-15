@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:47:43.865Z",
+  "name": "safepay: energyaction.com.au",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: AU | Sector: Energy | Website: energyaction.com.au | Infostealer data confirmed. | Is an energy management and consulting company that helps businesses reduce their energy costs and carbon emissions. Its main services … | Source: https://www.ransomware.live/id/ZW5lcmd5YWN0aW9uLmNvbS5hdUBzYWZlcGF5"
+}

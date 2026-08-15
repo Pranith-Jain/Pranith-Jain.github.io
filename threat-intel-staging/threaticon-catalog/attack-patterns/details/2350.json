@@ -1,0 +1,9 @@
+{
+  "id": 2350,
+  "fetchedAt": "2026-08-15T08:07:29.013Z",
+  "name": "T1530 - Data Exfiltration via Unsecured Channels",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

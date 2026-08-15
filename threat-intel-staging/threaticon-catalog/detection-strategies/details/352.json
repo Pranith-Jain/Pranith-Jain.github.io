@@ -1,0 +1,12 @@
+{
+  "id": 352,
+  "fetchedAt": "2026-08-14T05:18:46.906Z",
+  "name": "Detection Strategy for Exfiltration Over Webhook",
+  "tlp": null,
+  "detId": "DET0153",
+  "stixId": "x-mitre-detection-strategy--dcc26ef4-3ecd-4b37-b4b4-66faee084352",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0436", "AN0437", "AN0438", "AN0439", "AN0440"]
+}

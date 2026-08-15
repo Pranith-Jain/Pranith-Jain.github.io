@@ -1,0 +1,12 @@
+{
+  "id": 633,
+  "fetchedAt": "2026-08-14T05:23:51.279Z",
+  "name": "Detection of Domain or Tenant Policy Modifications via AD and Identity Provider",
+  "tlp": null,
+  "detId": "DET0270",
+  "stixId": "x-mitre-detection-strategy--3eb428c7-5192-4ae2-a5a3-022ca9695ec8",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0755", "AN0756"]
+}

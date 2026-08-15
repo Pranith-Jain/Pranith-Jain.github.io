@@ -1,0 +1,12 @@
+{
+  "id": 121,
+  "fetchedAt": "2026-08-14T06:01:04.306Z",
+  "name": "Detection Strategy for Cloud Storage Object Discovery",
+  "tlp": null,
+  "detId": "DET0578",
+  "stixId": "x-mitre-detection-strategy--c4f5335d-8e85-4b45-86b1-1d5a8cc6523d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1594"]
+}

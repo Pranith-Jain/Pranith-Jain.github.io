@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:33:42.985Z",
+  "name": "lapsus$: CHECKMARX",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 25, 2026",
+  "lastSeen": "Apr 24, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lapsus$. | Country: US | Sector: Technology | Website: checkmarx.com | Infostealer data confirmed. | Source Code, Employee DB, API Keys, MongoDB/MySQL Creds | Source: https://www.ransomware.live/id/Q0hFQ0tNQVJYQGxhcHN1cyQ="
+}

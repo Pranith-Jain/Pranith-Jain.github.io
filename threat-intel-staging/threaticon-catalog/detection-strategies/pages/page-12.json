@@ -1,0 +1,206 @@
+[
+  {
+    "id": 227,
+    "code": "DET0333",
+    "name": "Cross-Platform Detection of Scheduled Task/Job Abuse via `at` Utility",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 32,
+    "code": "DET0334",
+    "name": "Detection Strategy for T1525 – Implant Internal Image",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 338,
+    "code": "DET0335",
+    "name": "Detect Abuse of XPC Services (T1559.003)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 203,
+    "code": "DET0336",
+    "name": "Detect Compromise of Host Software Binaries",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 619,
+    "code": "DET0337",
+    "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Revert Cloud Instance",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 450,
+    "code": "DET0338",
+    "name": "Behavioral Detection Strategy for Use Alternate Authentication Material (T1550)",
+    "description": null,
+    "columns": ["7"]
+  },
+  {
+    "id": 486,
+    "code": "DET0339",
+    "name": "Detection Strategy for Weaken Encryption on Network Devices",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 324,
+    "code": "DET0340",
+    "name": "User Execution – Malicious Copy & Paste (browser/email → shell with obfuscated one-liner) – T1204.004",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 63,
+    "code": "DET0341",
+    "name": "Clipboard Data Access with Anomalous Context",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 670,
+    "code": "DET0342",
+    "name": "Detection of Suspicious Compiled HTML File Execution via hh.exe",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 691,
+    "code": "DET0343",
+    "name": "Direct Network Flood Detection across IaaS, Linux, Windows, and macOS",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 220,
+    "code": "DET0344",
+    "name": "Detection Strategy for Fileless Storage via Registry, WMI, and Shared Memory",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 315,
+    "code": "DET0345",
+    "name": "Detection Strategy for Abuse Elevation Control Mechanism (T1548)",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 143,
+    "code": "DET0346",
+    "name": "Detect Screen Capture via Commands and API Calls",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 617,
+    "code": "DET0347",
+    "name": "Detection Strategy for Masquerading via Legitimate Resource Name or Location",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 678,
+    "code": "DET0348",
+    "name": "Detection Strategy for Exfiltration Over C2 Channel",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 285,
+    "code": "DET0349",
+    "name": "Detection Strategy for Content Injection",
+    "description": null,
+    "columns": ["3"]
+  },
+  { "id": 113, "code": "DET0350", "name": "Detecting Downgrade Attacks", "description": null, "columns": ["3"] },
+  {
+    "id": 241,
+    "code": "DET0351",
+    "name": "Unix-like File Permission Manipulation Behavioral Chain Detection Strategy",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 388,
+    "code": "DET0352",
+    "name": "Detection Strategy for T1550.003 - Pass the Ticket (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 73,
+    "code": "DET0353",
+    "name": "Detection Strategy for Hidden User Accounts",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 35,
+    "code": "DET0354",
+    "name": "Behavior-chain detection for T1133 External Remote Services across Windows, Linux, macOS, Containers",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 663,
+    "code": "DET0355",
+    "name": "Detection Strategy for Email Bombing",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 102,
+    "code": "DET0356",
+    "name": "Endpoint DoS via OS Exhaustion Flood Detection Strategy",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 674,
+    "code": "DET0357",
+    "name": "Behavioral Detection of Internet Connection Discovery",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 114,
+    "code": "DET0358",
+    "name": "Programmatic and Excessive Access to Confluence Documentation",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 182,
+    "code": "DET0359",
+    "name": "Multi-hop Proxy Behavior via Relay Node Chaining, Onion Routing, and Network Tunneling",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 562,
+    "code": "DET0360",
+    "name": "Behavioral Detection of Domain Group Discovery",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 111,
+    "code": "DET0361",
+    "name": "Detecting .NET COM Registration Abuse via Regsvcs/Regasm",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 620,
+    "code": "DET0362",
+    "name": "Detection Strategy for AppCert DLLs Persistence via Registry Injection",
+    "description": null,
+    "columns": ["1"]
+  }
+]

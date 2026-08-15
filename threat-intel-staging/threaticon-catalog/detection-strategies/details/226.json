@@ -1,0 +1,12 @@
+{
+  "id": 226,
+  "fetchedAt": "2026-08-14T05:56:14.754Z",
+  "name": "Email Collection via Local Email Access and Auto-Forwarding Behavior",
+  "tlp": null,
+  "detId": "DET0476",
+  "stixId": "x-mitre-detection-strategy--2470975e-6748-42a5-9a48-74dc7b687fe9",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1309", "AN1310", "AN1311", "AN1312"]
+}

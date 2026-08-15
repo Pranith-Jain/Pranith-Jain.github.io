@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:09:20.463Z",
+  "name": "OSINT Group5: Syria and the Iranian Connection by Citizen Lab",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 8, 2016",
+  "lastSeen": "Aug 8, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #625 (57a89edc-e184-41da-8e51-4f98950d210f)."
+}

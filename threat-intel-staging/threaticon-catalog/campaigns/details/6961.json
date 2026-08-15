@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:08:36.869Z",
+  "name": "incransom: ecfa.org",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 2, 2026",
+  "lastSeen": "Aug 2, 2026",
+  "added": "Aug 3, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Professional Services | Website: ecfa.org | Infostealer data confirmed. | The Evangelical Council for Financial Accountability (ECFA) is an American accreditation agency founded in 1979 that certifies Christian churches and nonprofits based on financial integrity, board governance, and transparent fundraising. It represents over 2,700 member organizations with billions in collective revenue. | Source: https://www.ransomware.live/id/ZWNmYS5vcmdAaW5jcmFuc29t"
+}

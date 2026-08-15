@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:17.604Z",
+  "name": "OSINT The Italian Connection: An analysis of exploit supply chains and digital quartermasters by Shadowserver",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 10, 2015",
+  "lastSeen": "Aug 10, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #679 (55c98ff2-f2fc-4284-8a34-f483950d210b)."
+}

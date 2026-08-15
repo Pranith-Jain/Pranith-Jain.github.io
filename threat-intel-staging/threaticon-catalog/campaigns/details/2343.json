@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:23.211Z",
+  "name": "OSINT - PlugX goes to the registry (and India)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 26, 2015",
+  "lastSeen": "Mar 26, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #581 (551427fe-47ac-4247-93f0-c906950d210b)."
+}

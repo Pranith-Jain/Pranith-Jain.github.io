@@ -1,0 +1,12 @@
+{
+  "id": 649,
+  "fetchedAt": "2026-08-14T06:00:31.033Z",
+  "name": "Template Injection Detection - Windows",
+  "tlp": null,
+  "detId": "DET0566",
+  "stixId": "x-mitre-detection-strategy--481a55d3-5f23-4428-9438-0220eab78678",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1564"]
+}

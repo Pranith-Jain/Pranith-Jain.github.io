@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T00:37:14.652Z",
+  "name": "Telegram phishing and related activities",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Dec 8, 2025",
+  "lastSeen": "Dec 8, 2025",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1814 (87e34242-cf13-466b-ad52-6e5feb07be4e)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:08:54.419Z",
+  "name": "qilin: Operinter",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 6, 2026",
+  "lastSeen": "Apr 6, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Business Services | Website: operinter.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/T3BlcmludGVyQHFpbGlu"
+}

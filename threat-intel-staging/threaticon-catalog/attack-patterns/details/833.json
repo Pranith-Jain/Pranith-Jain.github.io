@@ -1,0 +1,9 @@
+{
+  "id": 833,
+  "fetchedAt": "2026-08-15T06:09:05.432Z",
+  "name": "Exploitation of Trusted Identifiers",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. An adversary guesses, obtains, or \"rides\" a trusted identifier (e.g. session ID, resource ID, cookie, etc.) to perform authorized actions under the guise of an authenticated user or service."
+}

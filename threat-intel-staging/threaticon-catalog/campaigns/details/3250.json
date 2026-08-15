@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:20.270Z",
+  "name": "The attack against Danish critical infrastructure",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Nov 13, 2023",
+  "lastSeen": "Nov 13, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #426 (b4a98411-68c8-46bf-aff8-1659046646b3)."
+}

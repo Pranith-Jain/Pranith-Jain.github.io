@@ -1,0 +1,12 @@
+{
+  "id": 626,
+  "fetchedAt": "2026-08-14T05:20:45.462Z",
+  "name": "Detection Strategy for Virtual Machine Discovery",
+  "tlp": null,
+  "detId": "DET0199",
+  "stixId": "x-mitre-detection-strategy--85849149-b36f-4562-9478-65c4e8f97dec",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0572", "AN0573", "AN0574", "AN0575"]
+}

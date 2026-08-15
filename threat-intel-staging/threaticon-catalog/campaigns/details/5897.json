@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T17:32:04.953Z",
+  "name": "safepay: timetex.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 20, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Jul 21, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Business Services | Website: timetex.de | Infostealer data confirmed. | The company traces its origins to 1991, when the TimeTEX brand was acquired and expanded into a comprehensive supplier of … | Source: https://www.ransomware.live/id/dGltZXRleC5kZUBzYWZlcGF5"
+}

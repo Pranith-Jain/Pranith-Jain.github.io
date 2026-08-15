@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:21.634Z",
+  "name": "A wolf in sheep's clothing: Actors spread malware by leveraging trust in Amnesty International and fear of Pegasus",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Oct 2, 2021",
+  "lastSeen": "Oct 2, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #275 (4a14a80e-6067-43de-b5e3-c88a913dd13d)."
+}

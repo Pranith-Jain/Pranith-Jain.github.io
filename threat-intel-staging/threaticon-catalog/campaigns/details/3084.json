@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:42:56.381Z",
+  "name": "medusalocker: Colegio María Inmaculada (CMI)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 6, 2026",
+  "description": "Ransomware attack attributed to medusalocker. | Country: CR | Sector: Education | Website: mariainmaculada.ed.cr | Infostealer data confirmed. | Catholic school in Moravia, Costa Rica. Domain cmi.local / mariainmaculada.ed.cr. Servers: CMI-DC01, CMI-APP, CMI-HTTP2, main-server1/2. | Source: https://www.ransomware.live/id/Q29sZWdpbyBNYXLDrWEgSW5tYWN1bGFkYSAoQ01JKUBtZWR1c2Fsb2NrZXI="
+}

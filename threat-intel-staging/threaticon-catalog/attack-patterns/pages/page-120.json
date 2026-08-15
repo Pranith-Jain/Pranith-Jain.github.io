@@ -1,0 +1,127 @@
+[
+  {
+    "id": 208,
+    "name": "Unsecured Credentials",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 2123,
+    "name": "T1552 - Code Reuse",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 2067,
+    "name": "T1552 - Web Shell Usage",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 375,
+    "name": "Credentials In Files",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 2448,
+    "name": "T1552.001 - Compromise User Credentials - Leaked Cloud Keys",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 154,
+    "name": "Credentials in Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 2502,
+    "name": "T1552.002 - Credential Dumping (Exfiltration via Malware)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 2392,
+    "name": "T1552.002 - Kerberos service ticket manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 2890,
+    "name": "T1552.002: Unsecured Credentials – .conf file extraction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  { "id": 371, "name": "Shell History", "tlp": "white", "confidence": null, "techniqueId": "T1552", "status": null },
+  { "id": 275, "name": "Private Keys", "tlp": "white", "confidence": null, "techniqueId": "T1552", "status": null },
+  {
+    "id": 83,
+    "name": "Cloud Instance Metadata API",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  {
+    "id": 400,
+    "name": "Group Policy Preferences",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1552",
+    "status": null
+  },
+  { "id": 679, "name": "Container API", "tlp": "white", "confidence": null, "techniqueId": "T1552", "status": null },
+  { "id": 418, "name": "Chat Messages", "tlp": "white", "confidence": null, "techniqueId": "T1552", "status": null },
+  {
+    "id": 493,
+    "name": "Subvert Trust Controls",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1553",
+    "status": null
+  },
+  {
+    "id": 1346,
+    "name": "T1553 Phishing - Content Isolation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1553",
+    "status": null
+  },
+  {
+    "id": 146,
+    "name": "Gatekeeper Bypass",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1553",
+    "status": null
+  },
+  {
+    "id": 2387,
+    "name": "T1553.001 - Data destruction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1553",
+    "status": null
+  },
+  { "id": 151, "name": "Code Signing", "tlp": "white", "confidence": null, "techniqueId": "T1553", "status": null }
+]

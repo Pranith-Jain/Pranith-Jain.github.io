@@ -1,0 +1,12 @@
+{
+  "id": 491,
+  "fetchedAt": "2026-08-14T05:25:43.439Z",
+  "name": "Detect Active Setup Persistence via StubPath Execution",
+  "tlp": null,
+  "detId": "DET0312",
+  "stixId": "x-mitre-detection-strategy--ba8d3a5d-9ddc-4301-b021-84ca2c6854de",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0871"]
+}

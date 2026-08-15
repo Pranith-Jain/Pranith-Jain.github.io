@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1992,
+    "name": "qilin: Ahorramas",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Consumer Services | Website: www.ahorramas.com | N/A | Source: https://www.ransomware.live/id/QWhvcnJhbWFzQHFpbGlu"
+  },
+  {
+    "id": 1993,
+    "name": "incransom: EXPEDITOR",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1994,
+    "name": "ms13089: brittanyresidential.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ms13089. | Country: US | Sector: Consumer Services | Website: brittanyresidential.com | Infostealer data confirmed. | At Brittany Residential, Inc., we believe in creating a world where individuals with developmental disabilities are supported, valued, and empowered to live fulfilling lives. Our dedicated team provides compassionate, person-centered care that... | Source: https://www.ransomware.live/id/YnJpdHRhbnlyZXNpZGVudGlhbC5jb21AbXMxMzA4OQ=="
+  },
+  {
+    "id": 1995,
+    "name": "shinyhunters: Adelante Soluciones Financieras (Addi.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: CO | Sector: Financial Services | Website: Addi.com | Over 16M unique persons records containing significant PII, financial/transactions (credit cards), KYC and data from TransUnion and Experian (background checks) . The company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 518GB+ (compressed) | Updated: 5 May 2026 | SHA256: 520d50dc384fc474e419fdd19cb3517ed6ce778a187ae7d6f44b93ccef5687db | Source: https://www.ransomware.live/id/QWRlbGFudGUgU29sdWNpb25lcyBGaW5hbmNpZXJhcyAoQWRkaS5jb20pQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 1996,
+    "name": "spacebears: Erla Technologies SAS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1988,
+    "name": "akira: Maximum Mold",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Manufacturing | Maximum Mold is a specialized provider of tooling and machining solutions, focusing on the des ign, engineering, and manufacturing of die cast dies, trim dies, and plastic injection molds. Here is the access to upload company data. Employee personal information (passports, and other docs), customer files, contracts and agreements, projects, NDAs, etc. You will find several password-free archives. Click on any of them to start the download. Download link https://3i7uisihrgv3v7kjafmhahhcmtjfepckhw5vournekuamhbt37liplid.onion/LEAKS_1/maximummold.com / | Source: https://www.ransomware.live/id/TWF4aW11bSBNb2xkQGFraXJh"
+  },
+  {
+    "id": 1989,
+    "name": "akira: Punch & Associates Investment Management",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1990,
+    "name": "akira: Pipestone",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Energy | ATF Aerospace specializes in aerospace manufacturing and distribution, offering high-quality me chanical and electrical components sourced from leading manufacturers. Their manufacturing capa bilities focus on CNC milling and lathe operations, emphasizing short runs and quick turnaround projects. We will upload 137gb of corporate data soon. Detailed client and employee personal documents (p assports, SSNs, DLs, financial and medical information), DBs with personal info, litigation doc s, contracts and agreements, insurance files, NDAs, etc. | Source: https://www.ransomware.live/id/UGlwZXN0b25lQGFraXJh"
+  },
+  {
+    "id": 1991,
+    "name": "lamashtu: GRANDHOME",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: BD | Sector: Consumer Services | Website: grandhomemart.com | Infostealer data confirmed. | GRANDHOME is a leading Thai retailer specializing in construction materials, home decor, and furnishing products. Established in 1973, it has grown into a major hub for high-quality tiles, sanitary ware, and kitchen innovations | Source: https://www.ransomware.live/id/R1JBTkRIT01FQGxhbWFzaHR1"
+  },
+  {
+    "id": 1987,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 1986,
+    "name": "nightspire: Cabinet d’Étude en Sécurité Pyrotechnique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.cespyro.com | Data is not available now. | Source: https://www.ransomware.live/id/Q2FiaW5ldCBk4oCZw4l0dWRlIGVuIFPDqWN1cml0w6kgUHlyb3RlY2huaXF1ZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1985,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 1984,
+    "name": "nightspire: Cabinet d’Étude en Sécurité Pyrotechnique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.cespyro.com | Data is not available now. | Source: https://www.ransomware.live/id/Q2FiaW5ldCBk4oCZw4l0dWRlIGVuIFPDqWN1cml0w6kgUHlyb3RlY2huaXF1ZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1983,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 1982,
+    "name": "nightspire: Cabinet d’Étude en Sécurité Pyrotechnique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.cespyro.com | Data is not available now. | Source: https://www.ransomware.live/id/Q2FiaW5ldCBk4oCZw4l0dWRlIGVuIFPDqWN1cml0w6kgUHlyb3RlY2huaXF1ZUBuaWdodHNwaXJl"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:55.505Z",
+  "name": "OSINT An Update on Nuclear (Reverse) Engineering by Zscaler",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Sep 23, 2015",
+  "lastSeen": "Sep 23, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #659 (56056045-6158-4b49-8a23-cfaf950d210b)."
+}

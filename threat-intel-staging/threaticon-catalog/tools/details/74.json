@@ -1,0 +1,12 @@
+{
+  "id": 74,
+  "fetchedAt": "2026-08-14T05:03:38.208Z",
+  "name": "route",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "route can be used to find or change information within the local system IP routing table. (Citation: TechNet Route)"
+}

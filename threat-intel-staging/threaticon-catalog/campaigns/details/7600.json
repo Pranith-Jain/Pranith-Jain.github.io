@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:39:26.232Z",
+  "name": "Deadlock: LT Group / Fortune Tobacco Corp",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: PH | Sector: Manufacturing | Amount: 27 GB | Files: 14,836 They ignored our messages for 72 hours.. Now we publish the details of the breach. Data leaked: 107 Passports (MRZ) 1,712 Bank Statements (PNB + Holco USD accounts) 212 Promissory Notes (Eton Properties, PHP 2.53B debt) 231 BIR/eFPS credentials Samples: Passport_Johnny_Tan.pdf Holco_USD_Statement.pdf Eton_Debt_212.pdf Full leak: August 18. Contact: Session ID provided in emails. Pay for the data or pay for its permanent deletion. Otherwise, the full dump will be public. | Source: https://www.ransomware.live/id/TFQgR3JvdXAgLyBGb3J0dW5lIFRvYmFjY28gQ29ycEBEZWFkbG9jaw=="
+}

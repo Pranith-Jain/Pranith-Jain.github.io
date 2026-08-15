@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:06:26.095Z",
+  "name": "OSINT Additional yara rules for detection Project Sauron by Florian Roth",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Aug 10, 2016",
+  "lastSeen": "Aug 10, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #808 (57b327b9-18c8-40f9-b5b8-4bf8950d210f)."
+}

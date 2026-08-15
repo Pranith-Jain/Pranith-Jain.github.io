@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:18:27.285Z",
+  "name": "An Analysis of Godlua Backdoor",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 7, 2019",
+  "lastSeen": "Oct 7, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #201 (5d9ad6de-0190-4361-8fac-7d8bc0a8ab16)."
+}

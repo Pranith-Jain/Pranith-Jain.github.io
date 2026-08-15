@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:23:53.744Z",
+  "name": "BlueAlpha Abuses Cloudflare Tunneling Service for GammaDrop Staging Infrastructure",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Dec 8, 2024",
+  "lastSeen": "Dec 8, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #529 (bee6dc05-cf55-4545-ab0f-57effe016209)."
+}

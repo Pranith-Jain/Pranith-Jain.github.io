@@ -1,0 +1,85 @@
+[
+  { "id": 737, "name": "Interception", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 738,
+    "name": "Choosing Message Identifier",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 739, "name": "Double Encoding", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 740,
+    "name": "Exploit Non-Production Interfaces",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 741, "name": "Privilege Abuse", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 742, "name": "Buffer Manipulation", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 743,
+    "name": "Shared Resource Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 744, "name": "Flooding", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 745, "name": "Path Traversal", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 746, "name": "Directory Indexing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 747, "name": "Integer Attacks", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 748,
+    "name": "Pointer Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 749,
+    "name": "Subverting Environment Variable Values",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 750,
+    "name": "Excessive Allocation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 751,
+    "name": "Resource Leak Exposure",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 752, "name": "Symlink Attack", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 753,
+    "name": "Try All Common Switches",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 754, "name": "Email Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 755,
+    "name": "Format String Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 756, "name": "LDAP Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

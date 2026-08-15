@@ -1,0 +1,12 @@
+{
+  "id": 185,
+  "fetchedAt": "2026-08-14T05:55:50.397Z",
+  "name": "Detection Strategy for TLS Callback Injection via PE Memory Modification and Hollowing",
+  "tlp": null,
+  "detId": "DET0467",
+  "stixId": "x-mitre-detection-strategy--a14db1ea-e57e-4bc4-83bb-94a6e7da87b0",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1289"]
+}

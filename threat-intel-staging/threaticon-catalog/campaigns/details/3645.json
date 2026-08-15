@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:04:06.190Z",
+  "name": "AiLock: Accretech America Inc.",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Manufacturing | Website: accretechsbs.com | Infostealer data confirmed. | Accretech America Inc. is the U.S. division of Tokyo Seimitsu Co., Ltd. of Japan, a Japanese corporation specialising in semiconductor equipment and precision instrumentation. | Source: https://www.ransomware.live/id/QWNjcmV0ZWNoIEFtZXJpY2EgSW5jLkBBaUxvY2s="
+}

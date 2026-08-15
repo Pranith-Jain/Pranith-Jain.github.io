@@ -1,0 +1,12 @@
+{
+  "id": 671,
+  "fetchedAt": "2026-08-14T05:17:40.876Z",
+  "name": "Behavioral Detection of Masquerading Across Platforms via Metadata and Execution Discrepancy",
+  "tlp": null,
+  "detId": "DET0127",
+  "stixId": "x-mitre-detection-strategy--408aedab-4a23-41ad-809d-fe9c3805b7f6",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0355", "AN0356", "AN0357", "AN0358", "AN0359"]
+}

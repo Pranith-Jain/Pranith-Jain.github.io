@@ -1,0 +1,12 @@
+{
+  "id": 272,
+  "fetchedAt": "2026-08-14T05:53:04.956Z",
+  "name": "Detection Strategy for Extended Attributes Abuse",
+  "tlp": null,
+  "detId": "DET0406",
+  "stixId": "x-mitre-detection-strategy--e32dbff1-9d06-4495-b815-48463481581b",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1135", "AN1136"]
+}

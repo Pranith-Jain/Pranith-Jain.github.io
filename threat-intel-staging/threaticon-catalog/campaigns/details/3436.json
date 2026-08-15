@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:19:29.986Z",
+  "name": "OSINT - Operation Ghoul: targeted attacks on industrial and engineering organizations",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 17, 2016",
+  "lastSeen": "Aug 17, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #811 (57b4b374-aa14-40c1-9518-4dde02de0b81)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": 71,
+  "fetchedAt": "2026-08-14T05:54:42.543Z",
+  "name": "Detection Strategy for Subvert Trust Controls using SIP and Trust Provider Hijacking.",
+  "tlp": null,
+  "detId": "DET0442",
+  "stixId": "x-mitre-detection-strategy--541f2335-1046-4621-9829-1a4a305069c5",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1222"]
+}

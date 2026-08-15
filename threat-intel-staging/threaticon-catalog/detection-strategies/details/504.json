@@ -1,0 +1,12 @@
+{
+  "id": 504,
+  "fetchedAt": "2026-08-14T05:55:23.892Z",
+  "name": "Detection of Non-Application Layer Protocols for C2",
+  "tlp": null,
+  "detId": "DET0457",
+  "stixId": "x-mitre-detection-strategy--2cb544af-ef54-4376-9608-b399ad67d3d6",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1254", "AN1255", "AN1256", "AN1257", "AN1258"]
+}

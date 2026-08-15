@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:11:40.353Z",
+  "name": "ToddyCat is making holes in your infrastructure",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 25, 2024",
+  "lastSeen": "Apr 25, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #497 (a16a2219-5b91-42e7-8128-60153a203554)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:23:21.153Z",
+  "name": "qilin: Central Bank of Libya",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 22, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: LY | Sector: Financial Services | Website: www.cbl.gov.ly | N/A | Press: https://libyaobserver.ly/news/cbl-cyberattack-contained-investigations-ongoing-no-signs-impact-customer-accounts | Source: https://www.ransomware.live/id/Q2VudHJhbCBCYW5rIG9mIExpYnlhQHFpbGlu"
+}

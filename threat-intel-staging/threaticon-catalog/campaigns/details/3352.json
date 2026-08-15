@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:22:02.360Z",
+  "name": "Malspam 2016-07-18 .wsf->.gif (campaign: \"RE: firstname.lastname\")",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 18, 2016",
+  "lastSeen": "Jul 18, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #611 (578cd192-e448-45a8-abca-497a950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": 311,
+  "fetchedAt": "2026-08-14T05:24:23.765Z",
+  "name": "Detection Strategy for System Binary Proxy Execution: Regsvr32",
+  "tlp": null,
+  "detId": "DET0282",
+  "stixId": "x-mitre-detection-strategy--0a931f22-4820-48aa-8051-056da15a6183",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0785"]
+}

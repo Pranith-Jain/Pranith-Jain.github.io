@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T16:41:59.457Z",
+  "name": "qilin: Assos Pharmaceuticals",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Healthcare | Website: www.assospharma.com | N/A | Source: https://www.ransomware.live/id/QXNzb3MgUGhhcm1hY2V1dGljYWxzQHFpbGlu"
+}

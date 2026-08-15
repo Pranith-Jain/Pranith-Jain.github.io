@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:42:16.460Z",
+  "name": "Registrant Tracking for \"earthalgerrity@armyspy.com\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 25, 2018",
+  "lastSeen": "Jun 25, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1383 (5b310846-157c-46d7-8141-89f00acd0835)."
+}

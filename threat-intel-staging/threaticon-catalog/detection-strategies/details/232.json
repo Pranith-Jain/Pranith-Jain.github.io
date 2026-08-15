@@ -1,0 +1,12 @@
+{
+  "id": 232,
+  "fetchedAt": "2026-08-14T05:55:42.755Z",
+  "name": "Behavioral Detection of Wi-Fi Discovery Activity",
+  "tlp": null,
+  "detId": "DET0464",
+  "stixId": "x-mitre-detection-strategy--baea10fc-7921-4ae2-bfe6-572c3f107303",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1280", "AN1281", "AN1282"]
+}

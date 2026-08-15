@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:17:23.174Z",
+  "name": "APT Group Chimera - APT Operation Skeleton key Targets Taiwan Semiconductor Vendors",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 9, 2020",
+  "lastSeen": "Aug 9, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #228 (5f2fc5a5-4fc0-4987-aec9-d180c0a8ab16)."
+}

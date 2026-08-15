@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:58:01.212Z",
+  "name": "OSINT - McAfee Discovers Pinkslipbot Exploiting Infected Machines as Control Servers; Releases Free Tool to Detect, Disable Trojan",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 20, 2017",
+  "lastSeen": "Jun 20, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1093 (5948c00e-8440-4137-9952-a922950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:04:49.314Z",
+  "name": "OSINT - The Dukes R&D Finds a New Anti-Analysis Technique",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 10, 2016",
+  "lastSeen": "Sep 10, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #863 (57d3fee7-b838-4ac0-a575-4f45950d210f)."
+}

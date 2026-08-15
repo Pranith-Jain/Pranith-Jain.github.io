@@ -1,0 +1,12 @@
+{
+  "id": 29,
+  "fetchedAt": "2026-08-14T05:07:05.833Z",
+  "name": "Cloud Storage Modification",
+  "tlp": null,
+  "dcId": "DC0023",
+  "analyticCount": 5,
+  "strategyCount": 3,
+  "added": null,
+  "description": "Cloud Storage Modification involves tracking changes made to cloud storage infrastructure, including updates to settings, permissions, or stored data. Examples include modifying object access control lists (ACLs), uploading new objects, or updating bucket policies. Examples: AWS S3: An object is uploaded or its ACL is modified. - Azure Blob Storage: A blob's metadata or permissions are updated. - Google Cloud Storage: An object's lifecycle policy is updated, or a bucket policy is changed. - OpenStack Swift: Modifications to container settings or uploading of new objects.",
+  "analytics": ["AN0117", "AN0606", "AN1580", "AN1581", "AN1582"]
+}

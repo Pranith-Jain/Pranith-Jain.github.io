@@ -1,0 +1,122 @@
+[
+  {
+    "id": 475,
+    "name": "qilin: Longwood Engineering Company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Manufacturing | Website: longwoodengineering.co.uk | Infostealer data confirmed. | Source: https://www.ransomware.live/id/TG9uZ3dvb2QgRW5naW5lZXJpbmcgQ29tcGFueUBxaWxpbg=="
+  },
+  {
+    "id": 474,
+    "name": "qilin: Exclusive Networks",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Technology | Website: exclusive-networks.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/RXhjbHVzaXZlIE5ldHdvcmtzQHFpbGlu"
+  },
+  {
+    "id": 473,
+    "name": "qilin: Istarpal",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PS | Sector: Not Found | Website: istarpal.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/SXN0YXJwYWxAcWlsaW4="
+  },
+  {
+    "id": 472,
+    "name": "tridentlocker: RT Software",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to tridentlocker. | Country: GB | Sector: Technology | Website: rtsw.co.uk | Infostealer data confirmed. | [AI generated] RT Software is a UK-based company specializing in real-time graphics and virtual studio technology for the broadcast television industry. Founded in the 1990s, it develops software solutions including tOG (The Output Generator), used for live on-air graphics, augmented reality, and virtual set production. Its clients include major broadcasters and sports networks worldwide. The company operates primarily in the media and entertainment technology sector. | Source: https://www.ransomware.live/id/UlQgU29mdHdhcmVAdHJpZGVudGxvY2tlcg=="
+  },
+  {
+    "id": 477,
+    "name": "qilin: Inspira",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PR | Sector: Not Found | Website: inspirapr.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/SW5zcGlyYUBxaWxpbg=="
+  },
+  {
+    "id": 499,
+    "name": "qilin: Cahbo Produkter",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SE | Sector: Agriculture and Food Production | Website: www.cahbo.se | Source: https://www.ransomware.live/id/Q2FoYm8gUHJvZHVrdGVyQHFpbGlu"
+  },
+  {
+    "id": 498,
+    "name": "qilin: Buckley Powder",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Manufacturing | Website: www.buckleypowder.com | Source: https://www.ransomware.live/id/QnVja2xleSBQb3dkZXJAcWlsaW4="
+  },
+  {
+    "id": 497,
+    "name": "coinbasecartel: Marlborough Partners",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: GB | Sector: Financial Services | Website: www.marlboroughpartners.com | [AI generated] Marlborough Partners is a UK-based independent corporate finance advisory firm specialising in mergers and acquisitions, private equity transactions, and strategic advisory services. The firm primarily works with mid-market companies, providing guidance on buyouts, disposals, fundraising, and growth strategies. It operates within the financial services and investment banking sector, serving clients across Europe and beyond. | Source: https://www.ransomware.live/id/TWFybGJvcm91Z2ggUGFydG5lcnNAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 496,
+    "name": "coinbasecartel: Dreyfuss Williams & Associates CO LPA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: dreyfuss.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RHJleWZ1c3MgV2lsbGlhbXMgJiBBc3NvY2lhdGVzIENPIExQQUBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 495,
+    "name": "qilin: Chase Cooper Limited (RiskLogix Solutions)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: Chase Cooper Limited (RiskLogix Solutions) | Source: https://www.ransomware.live/id/Q2hhc2UgQ29vcGVyIExpbWl0ZWQgKFJpc2tMb2dpeCBTb2x1dGlvbnMpQHFpbGlu"
+  },
+  {
+    "id": 494,
+    "name": "lamashtu: Apple Film Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: DE | Sector: Consumer Services | Website: applefilm-group.com | Infostealer data confirmed. | Apple Film Co., Ltd. is a leading manufacturer of high-quality plastic bags and films, specializing in Polyethylene (PE) products like HDPE, LDPE, and LLDPE. | Source: https://www.ransomware.live/id/QXBwbGUgRmlsbSBHcm91cEBsYW1hc2h0dQ=="
+  },
+  {
+    "id": 493,
+    "name": "lapsus$: CHECKMARX",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: US | Sector: Technology | Website: checkmarx.com | Infostealer data confirmed. | Source Code, Employee DB, API Keys, MongoDB/MySQL Creds | Source: https://www.ransomware.live/id/Q0hFQ0tNQVJYQGxhcHN1cyQ="
+  },
+  {
+    "id": 492,
+    "name": "lockbit5: merlo.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Construction | Website: merlo.de | Infostealer data confirmed. | Merlo Teleskoplader: von Profis für Profis Teleskoplader für jeden Einsatz – plus Dienstleistung! M... | Source: https://www.ransomware.live/id/bWVybG8uZGVAbG9ja2JpdDU="
+  },
+  {
+    "id": 491,
+    "name": "lockbit5: heinrichs-logistic.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Transportation/Logistics | Website: heinrichs-logistic.de | Infostealer data confirmed. | D. Heinrichs Logistic GmbH is a leading logistics service provider based in Bremerhaven, specializin... | Source: https://www.ransomware.live/id/aGVpbnJpY2hzLWxvZ2lzdGljLmRlQGxvY2tiaXQ1"
+  },
+  {
+    "id": 489,
+    "name": "lockbit5: erstransportes.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Transportation/Logistics | Website: erstransportes.com.br | Infostealer data confirmed. | A ERS Transportes, iniciou suas atividades em 2003, transportando cargas em equipamentos porta contê... | Source: https://www.ransomware.live/id/ZXJzdHJhbnNwb3J0ZXMuY29tLmJyQGxvY2tiaXQ1"
+  }
+]

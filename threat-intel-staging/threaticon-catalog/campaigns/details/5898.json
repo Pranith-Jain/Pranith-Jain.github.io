@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T17:32:10.083Z",
+  "name": "safepay: stroebel-gruppe.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 20, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Jul 21, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Manufacturing | Website: stroebel-gruppe.de | Infostealer data confirmed. | Headquartered in Langenzenn, Bavaria, the company was founded in 1978 by Gerlinde and Gerhard Ströbel and has grown from a … | Source: https://www.ransomware.live/id/c3Ryb2ViZWwtZ3J1cHBlLmRlQHNhZmVwYXk="
+}

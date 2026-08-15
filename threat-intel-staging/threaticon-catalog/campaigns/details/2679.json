@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:57:17.710Z",
+  "name": "OSINT - Real News, Fake Flash: Mac OS X Users Targeted",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 2, 2017",
+  "lastSeen": "Aug 2, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1121 (5981907c-ee6c-4ed5-bc87-40af02de0b81)."
+}

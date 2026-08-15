@@ -1,0 +1,12 @@
+{
+  "id": 204,
+  "fetchedAt": "2026-08-14T05:26:05.329Z",
+  "name": "Detection Strategy for Hidden Virtual Instance Execution",
+  "tlp": null,
+  "detId": "DET0321",
+  "stixId": "x-mitre-detection-strategy--55321f9d-1646-45b9-b23e-e3c0fe105400",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0909", "AN0910", "AN0911", "AN0912"]
+}

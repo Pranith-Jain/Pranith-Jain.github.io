@@ -1,0 +1,12 @@
+{
+  "id": 445,
+  "fetchedAt": "2026-08-14T05:53:24.193Z",
+  "name": "Abuse of Information Repositories for Data Collection",
+  "tlp": null,
+  "detId": "DET0413",
+  "stixId": "x-mitre-detection-strategy--48e8d8b1-0117-48bd-a32d-f4e43b665bf3",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1160", "AN1161", "AN1162", "AN1163"]
+}

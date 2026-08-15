@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:25.911Z",
+  "name": "OSINT - Setting Sights On Retail: AbaddonPOS Now Targeting Specific POS Software",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 17, 2016",
+  "lastSeen": "Jun 17, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #580 (5764778a-fdfc-43c0-9fcc-4166950d210f)."
+}

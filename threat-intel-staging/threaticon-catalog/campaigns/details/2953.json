@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T00:37:44.155Z",
+  "name": "TR-87 - CrowdStrike Agent causing BSOD loop on Windows - Faulty Update on Falcon Sensor",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 19, 2024",
+  "lastSeen": "Jul 19, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1762 (10a54888-bba3-4af5-bc5b-fcda933ac0e2)."
+}

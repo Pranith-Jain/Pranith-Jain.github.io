@@ -1,0 +1,148 @@
+[
+  {
+    "id": 1337,
+    "name": "T1567.001: Valid Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 517,
+    "name": "Exfiltration to Cloud Storage",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 2367,
+    "name": "T1567.002 (Web Skimming)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 1748,
+    "name": "T1567.002 - Access Cloud Account Services via Compromised Credentials",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 2128,
+    "name": "T1567.002 - Account Access Removal/Account Access Persistence-Valid Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 1688,
+    "name": "T1567.002 - Data compressed/decompressed",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 2186,
+    "name": "T1567.002 - Encrypt data for impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 1607,
+    "name": "T1567.002: Exfiltration to Cloud Storage",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 499,
+    "name": "Exfiltration to Text Storage Sites",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 2187,
+    "name": "T1567.003 - Leak data to cause chaos or fear",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  {
+    "id": 214,
+    "name": "Exfiltration Over Webhook",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1567",
+    "status": null
+  },
+  { "id": 1871, "name": "T1567.005", "tlp": "white", "confidence": null, "techniqueId": "T1567", "status": null },
+  {
+    "id": 348,
+    "name": "Dynamic Resolution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1568",
+    "status": null
+  },
+  {
+    "id": 1388,
+    "name": "T1568 - Lateral movement via DNS",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1568",
+    "status": null
+  },
+  {
+    "id": 2055,
+    "name": "T1568 - System Data Exfiltration (Exfiltration)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1568",
+    "status": null
+  },
+  {
+    "id": 1465,
+    "name": "T1568 -Process Injection:T1568",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1568",
+    "status": null
+  },
+  { "id": 123, "name": "Fast Flux DNS", "tlp": "white", "confidence": null, "techniqueId": "T1568", "status": null },
+  {
+    "id": 2328,
+    "name": "T1568.001 (DNS Tunneling)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1568",
+    "status": null
+  },
+  {
+    "id": 1553,
+    "name": "T1568.001 - Data Encryption",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1568",
+    "status": null
+  },
+  {
+    "id": 2014,
+    "name": "T1568.001 - Ransomware: Data Encryption",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1568",
+    "status": null
+  }
+]

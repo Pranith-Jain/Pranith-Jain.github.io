@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:38:10.384Z",
+  "name": "incransom: Estra Automotive",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 10, 2026",
+  "lastSeen": "Mar 10, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: PL | Sector: Manufacturing | Website: estra-automotive.com | Infostealer data confirmed. | Estra Automotive is an international automotive supplier that develops and manufactures thermal management components and systems for vehicles. The company focuses on products such as HVAC systems, heat exchangers, and engine cooling solutions used by global automotive manufacturers to maintain optimal vehicle temperature, improve efficiency, and support modern vehicle technologies | Source: https://www.ransomware.live/id/RXN0cmEgQXV0b21vdGl2ZUBpbmNyYW5zb20="
+}

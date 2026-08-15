@@ -1,0 +1,9 @@
+{
+  "id": 1235,
+  "fetchedAt": "2026-08-15T06:41:35.799Z",
+  "name": "Spoof Version Control System Commit Metadata",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary spoofs metadata pertaining to a Version Control System (VCS) (e.g., Git) repository's commits to deceive users into believing that the maliciously provided software is frequently maintained and originates from a trusted source."
+}

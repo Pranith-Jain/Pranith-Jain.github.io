@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:11:37.651Z",
+  "name": "Eight Arms to Hold You: The Cuttlefish Malware",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 4, 2024",
+  "lastSeen": "May 4, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #499 (0523f6aa-38b5-41c5-aef0-e37a6eff7e9d)."
+}

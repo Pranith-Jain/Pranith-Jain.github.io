@@ -1,0 +1,12 @@
+{
+  "id": 292,
+  "fetchedAt": "2026-08-14T06:04:49.168Z",
+  "name": "Detection of Search Threat Vendor Data",
+  "tlp": null,
+  "detId": "DET0866",
+  "stixId": "x-mitre-detection-strategy--6b173b90-4b1d-4de8-a506-95b8b10921a7",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1998"]
+}

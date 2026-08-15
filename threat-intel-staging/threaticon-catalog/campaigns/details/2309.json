@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:11:53.865Z",
+  "name": "OSINT - Malware Campaign Using Google Docs Intercepted, Thousands of Users Affected",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 27, 2016",
+  "lastSeen": "Apr 27, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #490 (57205b50-c19c-4411-ae0e-4414950d210f)."
+}

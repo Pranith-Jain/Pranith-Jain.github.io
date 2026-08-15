@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:02:54.680Z",
+  "name": "OSINT - HackingTeam back for your Androids, now extra insecure!",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 15, 2016",
+  "lastSeen": "Nov 15, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #922 (582adfcb-6640-46bf-ba1f-4aca950d210f)."
+}

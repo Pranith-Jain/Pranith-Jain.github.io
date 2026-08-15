@@ -1,0 +1,12 @@
+{
+  "id": 689,
+  "fetchedAt": "2026-08-14T05:16:10.365Z",
+  "name": "Detection of Malicious or Unauthorized Software Extensions",
+  "tlp": null,
+  "detId": "DET0092",
+  "stixId": "x-mitre-detection-strategy--eaa0f0da-bee7-4ce3-97e5-46d5ac2a9257",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0251", "AN0252", "AN0253"]
+}

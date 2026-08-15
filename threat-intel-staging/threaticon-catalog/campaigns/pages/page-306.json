@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3250,
+    "name": "The attack against Danish critical infrastructure",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #426 (b4a98411-68c8-46bf-aff8-1659046646b3)."
+  },
+  {
+    "id": 3249,
+    "name": "MuddyWater eN-Able spear-phishing with new TTPs",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #425 (43ea5673-3bd8-4996-8d2f-66e5d6e75914)."
+  },
+  {
+    "id": 3248,
+    "name": "Windows version of the Bibi Wiper by BiBiGun",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #424 (29c6ba65-2e06-44bb-95f4-03e55e499c0a)."
+  },
+  {
+    "id": 3247,
+    "name": "Malspam via Spambots (2016-04-14)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #422 (570f47a0-ee58-4aa8-ac55-96e4950d210f)."
+  },
+  {
+    "id": 3246,
+    "name": "German Embassy Lure: Likely Part of Campaign Against NATO Aligned Ministries of Foreign Affairs",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #420 (0f71e17b-1630-4ecb-8d07-cf0d8e90124f)."
+  },
+  {
+    "id": 3245,
+    "name": "Midnight Blizzard conducts targeted social engineering over Microsoft Teams",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #419 (913c9100-a765-4b5e-991f-6f8efb485322)."
+  },
+  {
+    "id": 3244,
+    "name": "Analysis of Storm-0558 techniques for unauthorized email access",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #418 (45ab9141-de79-4492-974b-1504bd6dfa13)."
+  },
+  {
+    "id": 3243,
+    "name": "Void Rabisu’s Use of RomCom Backdoor Shows a Growing Shift in Threat Actors’ Goals",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #417 (4f0d74be-1bfa-4821-8095-756c50054833)."
+  },
+  {
+    "id": 3242,
+    "name": "Chinese Threat Actors Targeting Europe in SmugX Campaign",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #415 (4154d3f0-5519-4b96-a2ba-9adcff7f7179)."
+  },
+  {
+    "id": 3241,
+    "name": "IoT devices and Linux-based systems targeted by OpenSSH trojan campaign",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #414 (0ee609d4-c99f-428c-a7f3-0afa7efe01b6)."
+  },
+  {
+    "id": 3240,
+    "name": "Cadet Blizzard emerges as a novel and distinct Russian threat actor",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #413 (ad5af8e7-0c4c-4b64-b36d-1c80910c1140)."
+  },
+  {
+    "id": 3239,
+    "name": "The distinctive rattle of APT SideWinder",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #412 (3059dd82-41b6-418b-b3bc-6cc6dcc5e742)."
+  },
+  {
+    "id": 3238,
+    "name": "OSINT - MS Office exploit analysis â€“ CVE-2015-1641",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #406 (570d57de-f49c-421d-a28d-4d5f950d210f)."
+  },
+  {
+    "id": 3237,
+    "name": "Sweet QuaDreams A First Look at Spyware Vendor QuaDream’s Exploits, Victims, and Customers",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #405 (47d6a201-507c-4cb0-904e-2acebcd59a69)."
+  },
+  {
+    "id": 3236,
+    "name": "Dridex (2016-04-12)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #404 (570cf5b5-18d4-474e-b41e-41f1950d210f)."
+  }
+]

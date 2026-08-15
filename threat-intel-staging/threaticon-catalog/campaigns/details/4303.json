@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:36:18.651Z",
+  "name": "Doommageddon: KOLORKIM KIMYA",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "May 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Website: kolorkim.com.tr | Infostealer data confirmed. | Status: leaked | Data size: 1GB | Files: 1 files | Deadline: 2026-05-10T00:00:00Z | Source: https://www.ransomware.live/id/S09MT1JLSU0gS0lNWUFARG9vbW1hZ2VkZG9u"
+}

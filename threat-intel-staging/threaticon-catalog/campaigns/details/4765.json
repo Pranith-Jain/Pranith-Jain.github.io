@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:16:36.183Z",
+  "name": "shinyhunters: icc.edu",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Education | Website: icc.edu | Infostealer data confirmed. | Over 28 gigabytes of Illinois Central College data (122,000+ files) was compromised across PeopleSoft Campus Solutions and Human Resources (ICC, SURS pension reporting, Workday costing, and ICCB curriculum systems), including 9,200+ employee payslip PDFs, 500+ SURS payroll files with Social Security numbers, direct deposit records with bank account and routing numbers, student financial aid and grade roster exports, enrollment CSVs with @icc.edu accounts, and Workday salary allocation data spanning 2021 through June 2026. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/aWNjLmVkdUBzaGlueWh1bnRlcnM="
+}

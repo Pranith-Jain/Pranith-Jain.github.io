@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1958,
+    "name": "T1566.001 - Information Gathering: Data Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1809,
+    "name": "T1566.001 - Initial Access Provider in External Account",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1695,
+    "name": "T1566.001 - Intercept Data",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2021,
+    "name": "T1566.001 - Living-off-the-Land Tool Logs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1905,
+    "name": "T1566.001 - Masquerading as Legitimate",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1901,
+    "name": "T1566.001 - Multi-Stage Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1789,
+    "name": "T1566.001 - Network Monitoring Tools deployment for traffic analysis",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2179,
+    "name": "T1566.001 - OS Account Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1434,
+    "name": "T1566.001 - OS Credential Dumping: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2156,
+    "name": "T1566.001 - OS Credential Dumping: Windows Credentials Editor",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1672,
+    "name": "T1566.001 - OS Credential Dumping: Windows LSA Notification Packages",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2043,
+    "name": "T1566.001 - Phishing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2947,
+    "name": "T1566.001 - Phishing (Spearphishing Link)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2568,
+    "name": "T1566.001 - Phishing (Targeted Email Campaigns)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2410,
+    "name": "T1566.001 - Phishing (if linked to spear-phishing campaigns)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2531,
+    "name": "T1566.001 - Phishing - Social Engineering",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2527,
+    "name": "T1566.001 - Phishing - Spearphishing Attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2555,
+    "name": "T1566.001 - Phishing - Spearphishing Link",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1840,
+    "name": "T1566.001 - Phishing Emails with Malicious Links",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1490,
+    "name": "T1566.001 - Phishing for Information Gathering",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:47:54.308Z",
+  "name": "coinbasecartel: Verimatrix",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 19, 2026",
+  "lastSeen": "Mar 19, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: verimatrix.com | Infostealer data confirmed. | [AI generated] Verimatrix is a global company that specializes in securing digital content. It offers user-specific data security solutions across numerous devices and networks. Their services are primarily centered around video content, including live, streaming, and on-demand videos. Verimatrix's security solutions include watermarking, analytics, multi-DRM, anti-piracy, and secure delivery of video content. | Source: https://www.ransomware.live/id/VmVyaW1hdHJpeEBjb2luYmFzZWNhcnRlbA=="
+}

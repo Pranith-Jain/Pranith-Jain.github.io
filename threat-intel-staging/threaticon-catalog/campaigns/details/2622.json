@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:59:41.402Z",
+  "name": "OSINT - Off-the-shelf Ransomware Used to Target the Healthcare Sector",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 5, 2017",
+  "lastSeen": "Apr 5, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1033 (58e743e1-3008-4198-a310-4c82950d210f)."
+}

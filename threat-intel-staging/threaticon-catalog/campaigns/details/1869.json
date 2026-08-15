@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:30:59.456Z",
+  "name": "dragonforce: Lawrence Journal - World",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Mar 3, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: ljworld.com | Infostealer data confirmed. | Lawrence Journal-World is a news organization based in Lawrence, Kansas, providing coverage on diverse topics including news, sports, opinion, and community events. The publication offers a platform for local announcements, classified ads, and job listings, catering primarily to residents and the surrounding community. It also features educational insights and updates relevant to local schools and government activities. Target clients include local residents, businesses, and those interested in Lawrence's happenings. | Source: https://www.ransomware.live/id/TGF3cmVuY2UgSm91cm5hbCAtIFdvcmxkQGRyYWdvbmZvcmNl"
+}

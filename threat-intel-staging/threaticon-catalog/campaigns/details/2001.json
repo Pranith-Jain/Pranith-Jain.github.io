@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:25:14.922Z",
+  "name": "WitchCoven: Exploiting Web Analytics to Ensnare Victims",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Nov 16, 2015",
+  "lastSeen": "Nov 16, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #3 (56ca3897-a370-42f8-9899-4bb19062e56a)."
+}

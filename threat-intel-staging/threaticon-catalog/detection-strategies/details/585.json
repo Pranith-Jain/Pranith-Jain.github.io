@@ -1,0 +1,12 @@
+{
+  "id": 585,
+  "fetchedAt": "2026-08-14T05:14:16.717Z",
+  "name": "Detect Remote Email Collection via Abnormal Login and Programmatic Access",
+  "tlp": null,
+  "detId": "DET0048",
+  "stixId": "x-mitre-detection-strategy--00a515dc-e3be-4349-9c61-65a5c0ce815d",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0131", "AN0132"]
+}

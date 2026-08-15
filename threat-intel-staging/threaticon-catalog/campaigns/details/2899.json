@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T02:39:38.822Z",
+  "name": "OSINT - Introducing BIOLOAD: FIN7 BOOSTWRITEâ€™s Lost Twin",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Dec 30, 2019",
+  "lastSeen": "Dec 30, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1575 (5e0a3406-952c-49c8-b084-414002de0b81)."
+}

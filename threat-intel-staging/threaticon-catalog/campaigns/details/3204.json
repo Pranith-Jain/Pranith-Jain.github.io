@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:28:21.648Z",
+  "name": "Ransomware wave RansomBoggs in Ukraine",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 27, 2022",
+  "lastSeen": "Nov 27, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #338 (b2790e3f-e111-4755-b28f-ff902feabb17)."
+}

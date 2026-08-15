@@ -1,0 +1,12 @@
+{
+  "id": 426,
+  "fetchedAt": "2026-08-14T05:53:21.380Z",
+  "name": "Detect Access or Search for Unsecured Credentials Across Platforms",
+  "tlp": null,
+  "detId": "DET0412",
+  "stixId": "x-mitre-detection-strategy--d1912fbc-aaac-4bb1-82f1-0713280ca9a1",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1153", "AN1154", "AN1155", "AN1156", "AN1157", "AN1158", "AN1159"]
+}

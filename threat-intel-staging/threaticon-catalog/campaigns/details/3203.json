@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:28:24.254Z",
+  "name": "Financially motivated, dangerously activated: OPERA1ER APT in Africa",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Nov 6, 2022",
+  "lastSeen": "Nov 6, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #337 (fe78f9f1-49e2-4e84-bad3-ae97b077d4f7)."
+}

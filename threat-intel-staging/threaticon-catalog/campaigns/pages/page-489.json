@@ -1,0 +1,122 @@
+[
+  {
+    "id": 451,
+    "name": "orca: Casale Del Giglio",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to orca. | Country: IT | Sector: Agriculture and Food Production | Website: www.casaledelgiglio.it | Casale del Giglio was founded in 1967 by Dr. Berardino Santarelli, a native of t... | Source: https://www.ransomware.live/id/Q2FzYWxlIERlbCBHaWdsaW9Ab3JjYQ=="
+  },
+  {
+    "id": 450,
+    "name": "dragonforce: Promotion AB",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: SE | Sector: Business Services | Website: promotionab.se | Infostealer data confirmed. | Etablerad redan 1979 och genom en merger med Eclipse Display 2020 kör vi nu full gas framåt på vår resa att bli nordens bästa partner när det gäller att förenklar vardagen för dig som driver en butik! | Source: https://www.ransomware.live/id/UHJvbW90aW9uIEFCQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 449,
+    "name": "apt73: providentgh.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: GH | Sector: Business Services | Website: providentgh.com | Infostealer data confirmed. | Provident Insurance Limited Company is an insurance company in Ghana that provides insurance (aut... | Source: https://www.ransomware.live/id/cHJvdmlkZW50Z2guY29tQGFwdDcz"
+  },
+  {
+    "id": 448,
+    "name": "apt73: medikaplaza.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: PK | Sector: Healthcare | Website: medikaplaza.com | Infostealer data confirmed. | Medika Plaza is a healthcare company in Indonesia that provides medical services, corporate medic... | Source: https://www.ransomware.live/id/bWVkaWthcGxhemEuY29tQGFwdDcz"
+  },
+  {
+    "id": 447,
+    "name": "apt73: jgpetrucci.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: US | Sector: Business Services | Website: jgpetrucci.com | Infostealer data confirmed. | J.G. Petrucci Company, Inc. is a real estate development and construction company in the United S... | Source: https://www.ransomware.live/id/amdwZXRydWNjaS5jb21AYXB0NzM="
+  },
+  {
+    "id": 446,
+    "name": "apt73: grupo-principal.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MX | Sector: Business Services | Website: grupo-principal.com | Infostealer data confirmed. | Grupo Principal is a distribution company in Mexico that supplies and sells consumer goods (FMCG)... | Source: https://www.ransomware.live/id/Z3J1cG8tcHJpbmNpcGFsLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 439,
+    "name": "apt73: olpro.com.my",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MY | Sector: Consumer Services | Website: olpro.com.my | Infostealer data confirmed. | OLPRO Engineering Sdn Bhd is an engineering company in Malaysia that designs and manufactures ind... | Source: https://www.ransomware.live/id/b2xwcm8uY29tLm15QGFwdDcz"
+  },
+  {
+    "id": 444,
+    "name": "apt73: cofaco.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: CO | Sector: Agriculture and Food Production | Website: cofaco.com | Infostealer data confirmed. | Cofaco Industries S.A.C. is a textile company in Peru, which produces fabrics and tailoring (a fu... | Source: https://www.ransomware.live/id/Y29mYWNvLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 438,
+    "name": "apt73: whessoe.com.my",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MY | Sector: Manufacturing | Website: whessoe.com.my | Infostealer data confirmed. | Whessoe Engineering (Malaysia) Sdn Bhd is an engineering company in Malaysia that designs and bui... | Source: https://www.ransomware.live/id/d2hlc3NvZS5jb20ubXlAYXB0NzM="
+  },
+  {
+    "id": 437,
+    "name": "apt73: phb.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: DE | Sector: Manufacturing | Website: phb.com | Infostealer data confirmed. | PHB Inc. is an industrial company in the United States that manufactures equipment and metal stru... | Source: https://www.ransomware.live/id/cGhiLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 436,
+    "name": "apt73: egov.sc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: SC | Sector: Public Sector | Website: egov.sc | Infostealer data confirmed. | eGov Seychelles is a government portal in Seychelles that provides online public services and ele... | Source: https://www.ransomware.live/id/ZWdvdi5zY0BhcHQ3Mw=="
+  },
+  {
+    "id": 435,
+    "name": "apt73: asunim.co",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: CO | Sector: Energy | Website: asunim.co | Infostealer data confirmed. | Asunim is a company operating in the field of renewable energy, which is engaged in the developme... | Source: https://www.ransomware.live/id/YXN1bmltLmNvQGFwdDcz"
+  },
+  {
+    "id": 434,
+    "name": "apt73: centrum.sk",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: SK | Sector: Telecommunication | Website: centrum.sk | Infostealer data confirmed. | Centrum.sk (centrum.sk ) is an online portal in Slovakia that provides an email service, news and... | Source: https://www.ransomware.live/id/Y2VudHJ1bS5za0BhcHQ3Mw=="
+  },
+  {
+    "id": 433,
+    "name": "apt73: 2m.ma",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MA | Sector: Telecommunication | Website: 2m.ma | Infostealer data confirmed. | 2M TV (2m.ma ) is a national television channel in Morocco, which is engaged in television broadc... | Source: https://www.ransomware.live/id/Mm0ubWFAYXB0NzM="
+  },
+  {
+    "id": 432,
+    "name": "apt73: ires.ma",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MA | Sector: Public Sector | Website: ires.ma | Infostealer data confirmed. | Institut Royal des Études Stratégiques is a state—owned analytical center in Morocco, which i... | Source: https://www.ransomware.live/id/aXJlcy5tYUBhcHQ3Mw=="
+  }
+]

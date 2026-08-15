@@ -1,0 +1,9 @@
+{
+  "id": 1177,
+  "fetchedAt": "2026-08-15T06:24:02.993Z",
+  "name": "SoundSquatting",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: Low. An adversary registers a domain name that sounds the same as a trusted domain, but has a different spelling. A SoundSquatting attack takes advantage of a user's confusion of the two words to direct Internet traffic to adversary-controlled destinations. SoundSquatting does not require an attack against the trusted domain or complicated reverse engineering."
+}

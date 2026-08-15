@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:48.935Z",
+  "name": "Potential SpamBots (2016-03-14)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 14, 2016",
+  "lastSeen": "Mar 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #235 (56e6db41-00d0-4734-b3a9-4bde950d210f)."
+}

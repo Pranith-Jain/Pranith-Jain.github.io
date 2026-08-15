@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T12:20:29.302Z",
+  "name": "ExfilSquad: Bonava",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to ExfilSquad. | Country: SE | Sector: Manufacturing | Website: bonava.se | Infostealer data confirmed. | Revenue: SEK 8B DATA SUMMARY: 842K~ records containing: significant PII, property ownership/interests, warranty and repair cases, contractor information, marketing preferences, and customer service history. | Source: https://www.ransomware.live/id/Qm9uYXZhQEV4ZmlsU3F1YWQ="
+}

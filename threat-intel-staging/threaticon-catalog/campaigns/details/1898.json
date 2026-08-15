@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:30:10.480Z",
+  "name": "AiLock: S&R Compression, LLC",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Jan 10, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Manufacturing | Website: sandrcompression.com | Infostealer data confirmed. | S&R Compression is an oil & energy company offering compression and vapor recovery services. | Source: https://www.ransomware.live/id/UyZSIENvbXByZXNzaW9uLCBMTENAQWlMb2Nr"
+}

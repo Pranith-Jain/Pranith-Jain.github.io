@@ -1,0 +1,12 @@
+{
+  "id": 674,
+  "fetchedAt": "2026-08-14T05:27:43.078Z",
+  "name": "Behavioral Detection of Internet Connection Discovery",
+  "tlp": null,
+  "detId": "DET0357",
+  "stixId": "x-mitre-detection-strategy--24eeb599-bc8c-4e86-9adf-232153bcb14b",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1015", "AN1016", "AN1017", "AN1018"]
+}

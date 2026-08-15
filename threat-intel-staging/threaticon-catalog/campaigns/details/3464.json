@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:12:09.850Z",
+  "name": "Malspam week 44 (2016-10-24) - Locky ('Sebek')",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 24, 2016",
+  "lastSeen": "Oct 24, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #905 (580dc270-81d8-49fa-91cd-417d950d210f)."
+}

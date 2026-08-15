@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:30:45.365Z",
+  "name": "krybit: jaws.com.tw",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: TW | Sector: Technology | Website: jaws.com.tw | Infostealer data confirmed. | JAWS Co., Ltd. (兆旭公司) is a Taiwanese manufacturer of electronic connectors and cable assemblies, founded in May ... | Source: https://www.ransomware.live/id/amF3cy5jb20udHdAa3J5Yml0"
+}

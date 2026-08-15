@@ -1,0 +1,12 @@
+{
+  "id": 44,
+  "fetchedAt": "2026-08-14T06:02:20.503Z",
+  "name": "Detection of Social Media",
+  "tlp": null,
+  "detId": "DET0812",
+  "stixId": "x-mitre-detection-strategy--d16b47ab-e157-4538-8264-3fa9870a0e02",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1944"]
+}

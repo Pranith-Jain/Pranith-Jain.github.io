@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:02:25.519Z",
+  "name": "genesis: HMI Elements",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 31, 2026",
+  "lastSeen": "Mar 31, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: GB | Sector: Technology | Website: hmielements.com | Infostealer data confirmed. | The production of reliable human-machine interfaces (HMIs) designed for use in hazardous environments | Source: https://www.ransomware.live/id/SE1JIEVsZW1lbnRzQGdlbmVzaXM="
+}

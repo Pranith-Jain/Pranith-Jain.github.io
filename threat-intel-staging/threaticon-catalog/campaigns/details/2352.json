@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:02.069Z",
+  "name": "OSINT - Apocalypse: Ransomware which targets companies through insecure RDP",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 30, 2016",
+  "lastSeen": "Jun 30, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #598 (57750a68-58c8-4323-8c93-c828950d210f)."
+}

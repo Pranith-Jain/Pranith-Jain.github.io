@@ -1,0 +1,155 @@
+[
+  { "id": 817, "name": "Principal Spoof", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 818,
+    "name": "Session Credential Falsification through Forging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 819,
+    "name": "Exponential Data Expansion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 820,
+    "name": "XSS Targeting Error Pages",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 821,
+    "name": "XSS Using Alternate Syntax",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 822,
+    "name": "Inducing Account Lockout",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 823,
+    "name": "Encryption Brute Forcing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 824,
+    "name": "Removal of filters: Input filters, output filters, data masking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 825,
+    "name": "Serialized Data External Linking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 826,
+    "name": "Create Malicious Client",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 827,
+    "name": "Manipulate Registry Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 828,
+    "name": "Lifting Sensitive Data Embedded in Cache",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 829,
+    "name": "Signing Malicious Code",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 830,
+    "name": "Removing Important Client Functionality",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 831,
+    "name": "Removing/short-circuiting 'Purse' logic: removing/mutating 'cash' decrements",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 832,
+    "name": "XSS Using MIME Type Mismatch",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 833,
+    "name": "Exploitation of Trusted Identifiers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 834,
+    "name": "Functionality Misuse",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 835,
+    "name": "Fuzzing for application mapping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 836,
+    "name": "Communication Channel Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

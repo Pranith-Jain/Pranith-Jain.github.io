@@ -1,0 +1,12 @@
+{
+  "id": 462,
+  "fetchedAt": "2026-08-14T05:15:16.646Z",
+  "name": "Detection of Remote Data Staging Prior to Exfiltration",
+  "tlp": null,
+  "detId": "DET0071",
+  "stixId": "x-mitre-detection-strategy--20f11806-1639-49c5-ae0b-84633a142870",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0194", "AN0195", "AN0196", "AN0197", "AN0198"]
+}

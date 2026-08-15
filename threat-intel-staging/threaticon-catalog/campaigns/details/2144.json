@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:19:11.847Z",
+  "name": "New SLUB Backdoor Uses GitHub, Communicates via Slack",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 7, 2019",
+  "lastSeen": "Mar 7, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #179 (5c8a8d0e-b1e8-4351-b8c2-4d24c0a8ab16)."
+}

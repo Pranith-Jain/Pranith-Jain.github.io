@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:39:48.776Z",
+  "name": "aurora: Cheval Blanc Randheli",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 22, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: MV | Sector: Hospitality and Tourism | Website: chevalblanc.com | Infostealer data confirmed. | [lvmh] Guest Passport Scans — 75,855 Files, 10 Years The single largest data category: 75,855 passport scan images spanning January 2015 through October 2024, organised in daily folders within monthly and yearly directories. These represent an estimated 20,000–30,000 unique guests. Each scan contains the full passport bio page: photo, full name, date of birth, nationality, passport number, machine-readable zone (MRZ), and signature. Among the exposed passports: Qatar Royal Family members — 9 passport scans including Muhammad Mesned S M Al-Misned, Abdulla, Khalifa, Lolwa, Nasser, Alanoud, Bessy, and Mesned UAE VIP and government officials — including H.E. Ahmed Saif Ali Aldhabea Aldarmaki, H.E. Matar Suhail Ali Alyabhouni Aldhaheri, and members of an April 2024 private buyout group who arrived on private jets (tail numbers A6AUH, A6DAH) LVM..."
+}

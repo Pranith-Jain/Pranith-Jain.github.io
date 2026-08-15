@@ -1,0 +1,12 @@
+{
+  "id": 57,
+  "fetchedAt": "2026-08-14T05:20:37.619Z",
+  "name": "Domain Fronting Behavior via Mismatched TLS SNI and HTTP Host Headers",
+  "tlp": null,
+  "detId": "DET0196",
+  "stixId": "x-mitre-detection-strategy--92203cb2-b7bd-4bc3-ab6f-9859a9856efc",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0564", "AN0565", "AN0566", "AN0567"]
+}

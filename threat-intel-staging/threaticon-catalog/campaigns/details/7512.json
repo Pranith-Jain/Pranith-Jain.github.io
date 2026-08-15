@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:42:53.966Z",
+  "name": "Sovcali: Lucidmotors",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 9, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 9, 2026",
+  "description": "Ransomware attack attributed to Sovcali. | Country: US | Sector: Transportation | Website: lucidmotors.com | Infostealer data confirmed. | Lucid Motors & eShocan Engineering Archive in Our Possession. The complete engineering archive of Lucid Motors and eShocan is now available: 5.078 terabytes of CATIA and STEP models, FEA and NVH analyses, multi-gigabyte CFD simulations of the LiDAR washing system, topology optimization studies, static and modal results for the Gravity and Midsize enclosures, BOMs, and internal progress reports. | Source: https://www.ransomware.live/id/THVjaWRtb3RvcnNAU292Y2FsaQ=="
+}

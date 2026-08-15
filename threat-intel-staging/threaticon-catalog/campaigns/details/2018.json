@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:24:27.984Z",
+  "name": "New Malware â€˜Roverâ€™ Targets Indian Ambassador to Afghanistan",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 29, 2016",
+  "lastSeen": "Feb 29, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #24 (56d73955-55f4-4c56-969c-5129c0a8ab16)."
+}

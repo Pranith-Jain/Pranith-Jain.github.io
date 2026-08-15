@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:39:40.831Z",
+  "name": "aurora: Atlas Metal Industries Inc",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 29, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: CA | Sector: Manufacturing | Website: atlasfoodserv.com | Infostealer data confirmed. | [food, metal] Atlas Metal Industries Inc. — a privately held commercial-foodservice-equipment manufacturer headquartered in Miami, Florida. The dataset is a complete Microsoft Dynamics GP environment: production databases, payroll records, system credentials, Autodesk Vault product-design backups, CNC fabrication programs, and all supporting infrastructure configuration. The exfiltration occurred on or about April 8, 2026; the attack was identified April 22, 2026. The exposed material includes: 15.8 GB of payroll-records database (PYREC) — full Employee Master with SSNs, DOBs, addresses, direct-deposit bank routing numbers, salary, W-4 tax data, garnishments, and check history dating to at least 2018. 30+ SQL Server login accounts with password hashes in a sp_help_revlogin dump — named employees, system admins (DYNSA, sa), service account..."
+}

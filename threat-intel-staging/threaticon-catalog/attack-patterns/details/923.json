@@ -1,0 +1,9 @@
+{
+  "id": 923,
+  "fetchedAt": "2026-08-15T06:13:01.833Z",
+  "name": "TCP (ISN) Sequence Predictability Probe",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Medium. This type of operating system probe attempts to determine an estimate for how predictable the sequence number generation algorithm is for a remote host. Statistical techniques, such as standard deviation, can be used to determine how predictable the sequence number generation is for a system. This result can then be compared to a database of operating system behaviors to determine a likely match for operating system and version."
+}

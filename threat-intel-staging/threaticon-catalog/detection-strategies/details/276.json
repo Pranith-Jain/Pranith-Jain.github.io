@@ -1,0 +1,12 @@
+{
+  "id": 276,
+  "fetchedAt": "2026-08-14T05:54:56.430Z",
+  "name": "T1136.001 Detection Strategy - Local Account Creation Across Platforms",
+  "tlp": null,
+  "detId": "DET0447",
+  "stixId": "x-mitre-detection-strategy--2250ba04-1b95-4c72-9373-d87e8c1d7869",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1235", "AN1236", "AN1237", "AN1238", "AN1239", "AN1240"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 637,
+  "fetchedAt": "2026-08-14T06:02:06.635Z",
+  "name": "Detection of Identify Roles",
+  "tlp": null,
+  "detId": "DET0807",
+  "stixId": "x-mitre-detection-strategy--5b64c4fd-981e-4f34-97a4-9cd22d6f40e4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1939"]
+}

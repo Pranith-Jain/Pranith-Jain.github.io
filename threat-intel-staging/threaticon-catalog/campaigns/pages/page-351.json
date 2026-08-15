@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2565,
+    "name": "OSINT - New Linux/Rakos threat: devices and servers under SSH scan (again)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #947 (585b9a80-9910-4d24-a695-4ac4950d210f)."
+  },
+  {
+    "id": 2564,
+    "name": "OSINT - One, if by email, and two, if by EK: The Cerbers are coming!",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #944 (58538c11-4694-47ba-a01c-4cfe02de0b81)."
+  },
+  {
+    "id": 2563,
+    "name": "OSINT - Guaranteed Clicks: Mobile App Company Takes Control of Android Phones",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #942 (5603c00a-e4d0-42e1-a0b7-85ab950d210b)."
+  },
+  {
+    "id": 2562,
+    "name": "OSINT - Windows 10: protection, detection, and response against recent Depriz malware attacks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #940 (584fabab-b03c-404c-8ff8-4433950d210f)."
+  },
+  {
+    "id": 2561,
+    "name": "OSINT - New Scheme: Spread Popcorn Time Ransomware, get chance of free Decryption Key",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #937 (584a6066-ea54-4894-8e9f-4d6f950d210f)."
+  },
+  {
+    "id": 2560,
+    "name": "OSINT - Astrum Drops",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #936 (58497a8d-4fb8-4155-a101-4a51950d210f)."
+  },
+  {
+    "id": 2559,
+    "name": "OSINT - Readers of popular websites targeted by stealthy Stegano exploit kit hiding in pixels of malicious ads",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #934 (58473b79-10e4-4931-a187-472a950d210f)."
+  },
+  {
+    "id": 2558,
+    "name": "OSINT - Another story of Unix Trojan: Tsunami/Kaiten.c (IRC/Bot) w/ Flooder, Backdoor at a hacked xBSD",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #933 (5846cc73-5bd0-4a20-9f50-49b0950d210f)."
+  },
+  {
+    "id": 2557,
+    "name": "OSINT - MMD-0033-2015 - Linux/XorDDoS infection incident report (CNC: HOSTASA.ORG)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #932 (5845344a-80bc-4c94-9ea8-4f39950d210f)."
+  },
+  {
+    "id": 2556,
+    "name": "OSINT - A PBot (PHP + Perl Backdoor IRC Bot + Network Attack Tool) Infection on hegeman.com",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #931 (58413594-c004-4860-8e70-46b9950d210f)."
+  },
+  {
+    "id": 2555,
+    "name": "OSINT - Shamoon 2: Return of the Disttrack Wiper",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #930 (5841317a-9604-4ffe-9260-46b9950d210f)."
+  },
+  {
+    "id": 2554,
+    "name": "OSINT - New SmsSecurity Variant Roots Phones, Abuses Accessibility Features and TeamViewer",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #929 (584003cf-ec58-48c8-933e-4172950d210f)."
+  },
+  {
+    "id": 2553,
+    "name": "OSINT - Fareit Spam: Rocking Out to a New File Type",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #927 (58369d20-cb08-4d10-9e08-45e802de0b81)."
+  },
+  {
+    "id": 2552,
+    "name": "OSINT - Nemucod downloader spreading via Facebook",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #925 (5832c7f9-9148-4e20-8122-4f19950d210f)."
+  },
+  {
+    "id": 2551,
+    "name": "OSINT - New Carbanak / Anunak Attack Methodology",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #923 (582c134f-c358-455c-935e-4598950d210f)."
+  }
+]

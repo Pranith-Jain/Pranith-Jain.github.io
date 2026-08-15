@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4449,
+    "name": "settra: orion4value.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: DE | Sector: Business Services | Website: orion4value.com | Infostealer data confirmed. | THE CERTIFICATE AS A VULNERABILITY: Documents of Orion Registrar Inc. PROLOGUE Financial reports and... | Source: https://www.ransomware.live/id/b3Jpb240dmFsdWUuY29tQHNldHRyYQ=="
+  },
+  {
+    "id": 4450,
+    "name": "incransom: https://sza.it/",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: IT | Sector: Not Found | client, contracts, personal, NDA and other | Source: https://www.ransomware.live/id/aHR0cHM6Ly9zemEuaXQvQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 4448,
+    "name": "settra: petradiamonds.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: GB | Sector: Energy | Website: petradiamonds.com | Infostealer data confirmed. | THE DIAMOND ARCHIVE: Petra Diamonds Limited Documents PROLOGUE A complete employee directory with na... | Source: https://www.ransomware.live/id/cGV0cmFkaWFtb25kcy5jb21Ac2V0dHJh"
+  },
+  {
+    "id": 4451,
+    "name": "settra: clc-tn.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: TN | Sector: Not Found | Website: clc-tn.com | Infostealer data confirmed. | City Lumber Company: Building Materials in Tennessee — What Lies Behind the Small Sign PROLOGUE In o... | Source: https://www.ransomware.live/id/Y2xjLXRuLmNvbUBzZXR0cmE="
+  },
+  {
+    "id": 4452,
+    "name": "settra: joyconstructionnyc.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: US | Sector: Construction | Website: joyconstructionnyc.com | Infostealer data confirmed. | Joy Construction Corp: $1.3 Billion in Affordable Housing — and $8.7 Million to a Shareholder in Six... | Source: https://www.ransomware.live/id/am95Y29uc3RydWN0aW9ubnljLmNvbUBzZXR0cmE="
+  },
+  {
+    "id": 4447,
+    "name": "genesis: Brooklyn Defender Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: . | Infostealer data confirmed. | A legal organization dedicated to safeguard the rights of its clients | Source: https://www.ransomware.live/id/QnJvb2tseW4gRGVmZW5kZXIgU2VydmljZXNAZ2VuZXNpcw=="
+  },
+  {
+    "id": 4453,
+    "name": "settra: wilfley.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: US | Sector: Business Services | Website: wilfley.com | Infostealer data confirmed. | SEAL FAILURE A company that builds pumps for chemical and defense production — and undertakes to con... | Source: https://www.ransomware.live/id/d2lsZmxleS5jb21Ac2V0dHJh"
+  },
+  {
+    "id": 4454,
+    "name": "qilin: Chamco",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Sector: Manufacturing | Website: www.chamco.com | N/A | Source: https://www.ransomware.live/id/Q2hhbWNvQHFpbGlu"
+  },
+  {
+    "id": 4445,
+    "name": "chaos: universalplant.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Agriculture and Food Production | Website: www.zoominfo.com/c/universal-plant-services-inc/353963066 | FINAL NOTICE: UNIVERSAL PLANT SERVICES (UPS) We are in possession of 315 GB of your corporate, financial, and operational data. Our analysis confirms that this archive contains highly sensitive information, including: Financial & Accounting: Full audits, tax filings (ADP), payroll, bank transa… | Source: https://www.ransomware.live/id/dW5pdmVyc2FscGxhbnQuY29tQGNoYW9z"
+  },
+  {
+    "id": 4443,
+    "name": "aurora: Primed Halberstadt Medizintechnik",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4444,
+    "name": "play: Western Construction",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Construction | Website: www.wciboise.com | United States | Source: https://www.ransomware.live/id/V2VzdGVybiBDb25zdHJ1Y3Rpb25AcGxheQ=="
+  },
+  {
+    "id": 4446,
+    "name": "BrainCipher: paipharma.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to BrainCipher. | Country: BR | Sector: Healthcare | Website: paipharma.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/cGFpcGhhcm1hLmNvbUBCcmFpbkNpcGhlcg=="
+  },
+  {
+    "id": 4441,
+    "name": "shinyhunters: Ingram Content Group, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Business Services | Website: ingramcontent.com | Infostealer data confirmed. | The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Updated: 02 July 2026 | SHA256: f3c961b709bcff8f70dbb8361116831d2c86361754a09658115b9efed39308e5 | Source: https://www.ransomware.live/id/SW5ncmFtIENvbnRlbnQgR3JvdXAsIEluYy5Ac2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 4442,
+    "name": "incransom: horizoneye.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Technology | Website: horizoneye.com | Infostealer data confirmed. | Horizon Eye Care operates as a group of independent optometric clinics and medical practices across North America. Depending on your specific location, they offer comprehensive eye examinations, surgical procedures (like LASIK and cataracts), contact lens fittings, and a wide variety of designer eyeglasses. | Source: https://www.ransomware.live/id/aG9yaXpvbmV5ZS5jb21AaW5jcmFuc29t"
+  },
+  {
+    "id": 4440,
+    "name": "shinyhunters: Fluke Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Manufacturing | Website: fluke.com | Infostealer data confirmed. | Over 21 million Salesforce records containing some PII were compromised. The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 100GB+ | Updated: 02 July 2026 | SHA256: 6ee9bd06756efceb56e5c56fd4e8ab3a8006b9cb80e7c0b4405ed15b996c05fe | Source: https://www.ransomware.live/id/Rmx1a2UgQ29ycG9yYXRpb25Ac2hpbnlodW50ZXJz"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 680,
+  "fetchedAt": "2026-08-14T06:02:28.802Z",
+  "name": "Detection of IP Addresses",
+  "tlp": null,
+  "detId": "DET0815",
+  "stixId": "x-mitre-detection-strategy--55ddc6ba-a04a-4e68-bb34-741d38d2c33d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1947"]
+}

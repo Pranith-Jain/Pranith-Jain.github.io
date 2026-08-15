@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:32:01.004Z",
+  "name": "OSINT - LOCKY DGA THREAT ACTOR(S)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 7, 2016",
+  "lastSeen": "Mar 7, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #79 (56dd5f62-b5c8-4310-8c6f-4c03950d210f)."
+}

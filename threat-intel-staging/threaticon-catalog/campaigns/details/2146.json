@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:19:03.981Z",
+  "name": "Operation ShadowHammer",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Mar 22, 2019",
+  "lastSeen": "Mar 22, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #182 (5c94c07b-0944-4adf-9395-4e9ec0a8ab16)."
+}

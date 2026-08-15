@@ -1,0 +1,12 @@
+{
+  "id": 89,
+  "fetchedAt": "2026-08-14T05:56:59.430Z",
+  "name": "Detect Abuse of Inter-Process Communication (T1559)",
+  "tlp": null,
+  "detId": "DET0493",
+  "stixId": "x-mitre-detection-strategy--b38e114c-f00f-4c70-9623-267da801625a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1357", "AN1358", "AN1359"]
+}

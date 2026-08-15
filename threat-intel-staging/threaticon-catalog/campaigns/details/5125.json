@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:01:37.789Z",
+  "name": "Black X: case.law",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 2, 2026",
+  "lastSeen": "Oct 1, 2025",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Black X. | Country: PH | Sector: Business Services | Website: correction.org | Infostealer data confirmed. | Since incorporation in 1972, CRS has delivered services to a diverse group of clients, primarily in the corrections and detention fields, at the local, regional, state, and national levels.   We stole passport data from over 300 customers at CRS. | Source: https://www.ransomware.live/id/Y2FzZS5sYXdAQmxhY2sgWA=="
+}

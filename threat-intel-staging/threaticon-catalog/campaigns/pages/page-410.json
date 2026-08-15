@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1646,
+    "name": "qilin: Jadtec Security Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.jadtec.com | Source: https://www.ransomware.live/id/SmFkdGVjIFNlY3VyaXR5IFNlcnZpY2VzQHFpbGlu"
+  },
+  {
+    "id": 1645,
+    "name": "qilin: Powers HVAC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.powers-hvac.com | Source: https://www.ransomware.live/id/UG93ZXJzIEhWQUNAcWlsaW4="
+  },
+  {
+    "id": 1630,
+    "name": "qilin: Arimex Importadora",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: BR | Sector: Not Found | Website: www.gamaitaly.com | Source: https://www.ransomware.live/id/QXJpbWV4IEltcG9ydGFkb3JhQHFpbGlu"
+  },
+  {
+    "id": 1629,
+    "name": "shinyhunters: Aura Group, Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Business Services | Over 2M records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 14 Mar 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 12 Mar 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/QXVyYSBHcm91cCwgSW5jQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 1628,
+    "name": "nightspire: NIXVAL IT Infrastructure",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: ES | Sector: Technology | Website: www.nixval.com | Data is not available now. | Source: https://www.ransomware.live/id/TklYVkFMIElUIEluZnJhc3RydWN0dXJlQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1627,
+    "name": "spacebears: AbelZeta",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1626,
+    "name": "AiLock: England Hockey",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: GB | Sector: Public Sector | Website: englandhockey.co.uk | Infostealer data confirmed. | England Hockey is the national governing body responsible for the management and development of hockey in England, catering to both grassroots and elite levels.The organization offers a range of services including competitions, events, coaching, and officiating programs. | Source: https://www.ransomware.live/id/RW5nbGFuZCBIb2NrZXlAQWlMb2Nr"
+  },
+  {
+    "id": 1625,
+    "name": "handala: Raz Zimmt (head of the Iran Desk at Israeli security institutes)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Not Found | Mr. Raz Zimmt, Do you still think you can comment on Iran? Today, you learned the hard way what happens when you play with fire, you get burned. The so-called head of the Iran Desk at Israeli security institutes has now become the hunted. We didn’t just access your inbox, we unlocked your entire world.… | Source: https://www.ransomware.live/id/UmF6IFppbW10IChoZWFkIG9mIHRoZSBJcmFuIERlc2sgYXQgSXNyYWVsaSBzZWN1cml0eSBpbnN0aXR1dGVzKUBoYW5kYWxh"
+  },
+  {
+    "id": 1606,
+    "name": "qilin: RMZ Oilfield Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SG | Sector: Energy | Website: www.rmzoilfield.com | Source: https://www.ransomware.live/id/Uk1aIE9pbGZpZWxkIEVuZ2luZWVyaW5nQHFpbGlu"
+  },
+  {
+    "id": 1624,
+    "name": "akira: Mh Soluciones",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: MX | Sector: Business Services | Website: mhsoluciones.com | Infostealer data confirmed. | mh SOLUCIONES specializes in outsourcing support and management p rocesses, helping clients enhance performance while ensuring tran sparency and better cost control. The company offers tailored sol utions for maintenance and installation businesses, allowing clie nts to focus on their core operations. We will upload 85gb of corporate data soon. Lots of employee scan ned docs (passports, DLs and so on), project docs (hazardous wast es management, government contracts), agreements, client informat ion. | Source: https://www.ransomware.live/id/TWggU29sdWNpb25lc0Bha2lyYQ=="
+  },
+  {
+    "id": 1623,
+    "name": "nightspire: I**M**",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Technology | Data is not available now. | Source: https://www.ransomware.live/id/SSoqTSoqQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1622,
+    "name": "nightspire: Giaroli S.A.S",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: IT | Sector: Not Found | Website: giaroli.it | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/R2lhcm9saSBTLkEuU0BuaWdodHNwaXJl"
+  },
+  {
+    "id": 1621,
+    "name": "akira: Extreme Trailers",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1620,
+    "name": "akira: Financial Brokerage",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: financial-brokerage.com | Infostealer data confirmed. | Financial Brokerage Inc. collaborates with top insurance carriers to provide a variety of financial products including Life Insura nce, Fixed Annuities, Long Term Care, Disability Insurance, and M edicare Supplement plans. The company targets insurance agents an d brokers looking to enhance their product offerings and client s ervices. We will upload corporate data soon. Employee personal documents, detailed personal information of hundreds clients and companies, confidential financial and other docs of their clients, etc. | Source: https://www.ransomware.live/id/RmluYW5jaWFsIEJyb2tlcmFnZUBha2lyYQ=="
+  },
+  {
+    "id": 1619,
+    "name": "akira: Porsche Zentrum Fulda",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Consumer Services | Website: porsche-fulda.de | Infostealer data confirmed. | Porsche Zentrum Fulda is a dealership offering both new and used Porsche vehicles, including popular models like the Taycan, 911, and Macan. The company provides a range of services including veh icle maintenance, financing options, and lifestyle accessories. We will upload 10gb of corporate data soon. Employee passports an d other documents, projects, contracts and agreements, internal c onfidential files, client files and so on. | Source: https://www.ransomware.live/id/UG9yc2NoZSBaZW50cnVtIEZ1bGRhQGFraXJh"
+  }
+]

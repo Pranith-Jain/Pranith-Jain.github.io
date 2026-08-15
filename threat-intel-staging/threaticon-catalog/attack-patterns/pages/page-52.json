@@ -1,0 +1,127 @@
+[
+  {
+    "id": 2309,
+    "name": "T1055.008: Child Process",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1055",
+    "status": null
+  },
+  { "id": 570, "name": "Proc Memory", "tlp": "white", "confidence": null, "techniqueId": "T1055", "status": null },
+  {
+    "id": 1,
+    "name": "Extra Window Memory Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1055",
+    "status": null
+  },
+  {
+    "id": 472,
+    "name": "Process Hollowing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1055",
+    "status": null
+  },
+  {
+    "id": 315,
+    "name": "Process Doppelgänging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1055",
+    "status": null
+  },
+  { "id": 421, "name": "VDSO Hijacking", "tlp": "white", "confidence": null, "techniqueId": "T1055", "status": null },
+  { "id": 636, "name": "ListPlanting", "tlp": "white", "confidence": null, "techniqueId": "T1055", "status": null },
+  {
+    "id": 1278,
+    "name": "T1055: Process Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1055",
+    "status": null
+  },
+  {
+    "id": 716,
+    "name": "T1055: Unsecured Credentials",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1055",
+    "status": null
+  },
+  { "id": 501, "name": "Input Capture", "tlp": "white", "confidence": null, "techniqueId": "T1056", "status": null },
+  {
+    "id": 2400,
+    "name": "T1056 - Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  {
+    "id": 2470,
+    "name": "T1056 - Credential Dumping (via TrickBot/IcedID)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  {
+    "id": 2503,
+    "name": "T1056 - Input Validation and Data Sanitization (Phishing Exploitation)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  { "id": 23, "name": "Keylogging", "tlp": "white", "confidence": null, "techniqueId": "T1056", "status": null },
+  {
+    "id": 2427,
+    "name": "T1056.001 - Dumping Passwords",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  {
+    "id": 1560,
+    "name": "T1056.001 - Powershell execution via command-line interface",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  {
+    "id": 2669,
+    "name": "T1056.001 – Input Capture: Keylogging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  {
+    "id": 1314,
+    "name": "T1056.001: Keylogging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  {
+    "id": 440,
+    "name": "GUI Input Capture",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  },
+  {
+    "id": 1502,
+    "name": "T1056.002: GUI Input Capture",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1056",
+    "status": null
+  }
+]

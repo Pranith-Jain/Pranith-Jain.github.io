@@ -1,0 +1,9 @@
+{
+  "id": 732,
+  "fetchedAt": "2026-08-15T06:04:40.773Z",
+  "name": "Brute Force",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. In this attack, some asset (information, functionality, identity, etc.) is protected by a finite secret value. The attacker attempts to gain access to this asset by using trial-and-error to exhaustively explore all the possible secret values in the hope of finding the secret (or a value that is functionally equivalent) that will unlock the asset."
+}

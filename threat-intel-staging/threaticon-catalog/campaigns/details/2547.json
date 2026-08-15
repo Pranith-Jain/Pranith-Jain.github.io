@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:03:02.713Z",
+  "name": "OSINT - Hades Locker Ransomware Mimics Locky",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 5, 2016",
+  "lastSeen": "Oct 5, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #919 (582aae88-202c-45ef-b8e9-4e61950d210f)."
+}

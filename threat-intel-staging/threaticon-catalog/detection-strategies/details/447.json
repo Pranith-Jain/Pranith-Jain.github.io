@@ -1,0 +1,12 @@
+{
+  "id": 447,
+  "fetchedAt": "2026-08-14T05:20:24.225Z",
+  "name": "Behavior-chain detection strategy for T1127.002 Trusted Developer Utilities Proxy Execution: ClickOnce (Windows)",
+  "tlp": null,
+  "detId": "DET0191",
+  "stixId": "x-mitre-detection-strategy--ec75b064-d8f1-40a7-832c-0ef0bb40214d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0550"]
+}

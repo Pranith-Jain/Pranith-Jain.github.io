@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:09:00.788Z",
+  "name": "pear: National Health Fund",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to pear. | Country: JM | Sector: Healthcare | Website: nhf.org.jm | Infostealer data confirmed. | [AI generated] N/A The name \"National Health Fund\" is generic and used by multiple organizations across different countries. Without more specific context such as country of origin or additional identifiers, I cannot reliably attribute this name to a single, verifiable entity and provide accurate threat intelligence information. | Source: https://www.ransomware.live/id/TmF0aW9uYWwgSGVhbHRoIEZ1bmRAcGVhcg=="
+}

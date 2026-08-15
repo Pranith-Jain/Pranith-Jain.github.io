@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:28:03.232Z",
+  "name": "Disrupting SEABORGIUM’s ongoing phishing operations",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 15, 2022",
+  "lastSeen": "Aug 15, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #350 (99273d5d-d769-4b15-98b8-d87c6cce7d72)."
+}

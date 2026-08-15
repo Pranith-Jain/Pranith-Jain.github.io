@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:56:09.228Z",
+  "name": "Malspam 2017-09-08 - 'Emailed Invoice -' - .html attachment",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 8, 2017",
+  "lastSeen": "Sep 8, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1163 (59b2ada6-f428-4476-b218-7c5a950d210f)."
+}

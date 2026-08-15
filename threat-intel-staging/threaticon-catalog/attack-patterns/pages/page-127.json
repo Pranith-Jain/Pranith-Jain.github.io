@@ -1,0 +1,141 @@
+[
+  {
+    "id": 223,
+    "name": "Ignore Process Interrupts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 24,
+    "name": "File/Path Exclusions",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  { "id": 269, "name": "Bind Mounts", "tlp": "white", "confidence": null, "techniqueId": "T1564", "status": null },
+  {
+    "id": 328,
+    "name": "Extended Attributes",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 457,
+    "name": "Data Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1565",
+    "status": null
+  },
+  {
+    "id": 1726,
+    "name": "T1565 - Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1565",
+    "status": null
+  },
+  {
+    "id": 92,
+    "name": "Stored Data Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1565",
+    "status": null
+  },
+  {
+    "id": 2960,
+    "name": "T1565.001 (Data Manipulation: Data Deletion)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1565",
+    "status": null
+  },
+  {
+    "id": 565,
+    "name": "Transmitted Data Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1565",
+    "status": null
+  },
+  {
+    "id": 1596,
+    "name": "T1565.002 - Windows Management Service (WMS)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1565",
+    "status": null
+  },
+  {
+    "id": 153,
+    "name": "Runtime Data Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1565",
+    "status": null
+  },
+  { "id": 1756, "name": "T1565.004", "tlp": "white", "confidence": null, "techniqueId": "T1565", "status": null },
+  { "id": 447, "name": "Phishing", "tlp": "white", "confidence": null, "techniqueId": "T1566", "status": null },
+  {
+    "id": 1866,
+    "name": "T1566 - Data Destruction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2221,
+    "name": "T1566 - Data Exfiltration through Rogue Web Servers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2065,
+    "name": "T1566 - Data Exfiltration via Cryptography",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 1641,
+    "name": "T1566 - Information Security Incident Obfuscation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2137,
+    "name": "T1566 - Phishing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2562,
+    "name": "T1566 - Phishing - Spearphishing Link",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  },
+  {
+    "id": 2146,
+    "name": "T1566 - Ransomware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1566",
+    "status": null
+  }
+]

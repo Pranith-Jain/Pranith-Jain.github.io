@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:49:11.042Z",
+  "name": "everest: Fiserv",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 3, 2026",
+  "lastSeen": "May 3, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Financial Services | Website: fiserv.com | Infostealer data confirmed. | [AI generated] Fiserv is a global financial technology company headquartered in Milwaukee, Wisconsin, United States. It provides financial services technology solutions including payment processing, core banking systems, digital banking platforms, and merchant acquiring services. Serving banks, credit unions, retailers, and businesses worldwide, Fiserv operates across the fintech and banking technology industry and is one of the largest providers of financial services infrastructure globally. | Source: https://www.ransomware.live/id/RmlzZXJ2QGV2ZXJlc3Q="
+}

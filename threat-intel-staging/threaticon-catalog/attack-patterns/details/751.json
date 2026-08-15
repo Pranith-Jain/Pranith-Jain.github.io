@@ -1,0 +1,9 @@
+{
+  "id": 751,
+  "fetchedAt": "2026-08-15T06:05:30.821Z",
+  "name": "Resource Leak Exposure",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: Medium. An adversary utilizes a resource leak on the target to deplete the quantity of the resource available to service legitimate requests."
+}

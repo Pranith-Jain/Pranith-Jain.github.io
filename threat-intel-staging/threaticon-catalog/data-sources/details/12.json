@@ -1,0 +1,12 @@
+{
+  "id": 12,
+  "fetchedAt": "2026-08-14T05:08:21.304Z",
+  "name": "Snapshot Deletion",
+  "tlp": null,
+  "dcId": "DC0049",
+  "analyticCount": 3,
+  "strategyCount": 2,
+  "added": null,
+  "description": "The removal of a point-in-time backup of a cloud storage volume, virtual machine (VM), or database. *Data Collection Measures:* - AWS CloudTrail - Logs `DeleteSnapshot` API calls in EC2, RDS, and EBS services. - Azure Monitor Logs - Tracks snapshot deletions via `Microsoft.Compute/snapshots/delete` API calls. - Google Cloud Logging - Detects snapshot removal through `compute.disks.deleteSnapshot` events.",
+  "analytics": ["AN0861", "AN0935", "AN0937"]
+}

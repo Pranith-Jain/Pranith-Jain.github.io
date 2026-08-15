@@ -1,0 +1,12 @@
+{
+  "id": 103,
+  "fetchedAt": "2026-08-14T05:54:50.961Z",
+  "name": "Detection of Proxy Infrastructure Setup and Traffic Bridging",
+  "tlp": null,
+  "detId": "DET0445",
+  "stixId": "x-mitre-detection-strategy--5c44619a-da36-4bbd-9730-efceacf2409f",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1229", "AN1230", "AN1231", "AN1232", "AN1233"]
+}

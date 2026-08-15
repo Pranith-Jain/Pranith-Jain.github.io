@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:06:25.383Z",
+  "name": "krybit: kramer-nsc.at",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Mar 30, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: AT | Sector: Transportation/Logistics | Website: kramer-nsc.at | Infostealer data confirmed. | Kramer Nutzfahrzeug Service Center GmbH specializes in the service and repair of commercial vehicles, including brands l... | Source: https://www.ransomware.live/id/a3JhbWVyLW5zYy5hdEBrcnliaXQ="
+}

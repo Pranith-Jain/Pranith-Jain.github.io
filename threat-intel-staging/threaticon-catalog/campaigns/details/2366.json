@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:09:23.178Z",
+  "name": "OSINT - Strider: Cyberespionage group turns eye of Sauron on targets",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 8, 2016",
+  "lastSeen": "Aug 8, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #623 (57a88345-5254-4c97-954d-4ff8950d210f)."
+}

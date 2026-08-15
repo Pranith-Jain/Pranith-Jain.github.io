@@ -1,0 +1,9 @@
+{
+  "id": 1005,
+  "fetchedAt": "2026-08-15T06:16:33.309Z",
+  "name": "HTTP Parameter Pollution (HPP)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An adversary adds duplicate HTTP GET/POST parameters by injecting query string delimiters. Via HPP it may be possible to override existing hardcoded HTTP parameters, modify the application behaviors, access and, potentially exploit, uncontrollable variables, and bypass input validation checkpoints and WAF rules."
+}

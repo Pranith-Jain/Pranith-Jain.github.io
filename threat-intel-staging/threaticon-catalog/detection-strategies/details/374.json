@@ -1,0 +1,12 @@
+{
+  "id": 374,
+  "fetchedAt": "2026-08-14T06:06:20.699Z",
+  "name": "Detect Social Engineering",
+  "tlp": null,
+  "detId": "DET0899",
+  "stixId": "x-mitre-detection-strategy--48923678-0fb6-4d14-986b-2f6adeb8c421",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2033", "AN2034", "AN2035", "AN2036", "AN2037"]
+}

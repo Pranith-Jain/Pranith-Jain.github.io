@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:03:45.343Z",
+  "name": "Orova: Texas Medical Screening",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Jun 26, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Healthcare | Website: www.texasmedical.com | Texas Medical has helped organizations deliver health screenings without the overhead. Our self-service kiosks are trusted in workplaces, pharmacies, and community spaces across the country. | Source: https://www.ransomware.live/id/VGV4YXMgTWVkaWNhbCBTY3JlZW5pbmdAT3JvdmE="
+}

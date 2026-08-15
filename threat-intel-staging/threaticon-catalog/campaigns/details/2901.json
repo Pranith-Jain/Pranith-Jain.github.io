@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T02:39:33.625Z",
+  "name": "Muhstik Botnet Attacks Tomato Routers",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 22, 2020",
+  "lastSeen": "Jan 22, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1578 (5e27f3d8-e238-4290-8b2c-422e950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:05:16.453Z",
+  "name": "incransom: Oleoductos del Valle",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: AR | Sector: Energy & Utilities | During the analysis of data obtained from Oldelval, we have compiled information covering key aspects of the company's operations. The materials include: 1.HR documentation: full payroll data, bank account details (CBU), employee health insurance records (OSDE, SWISS MEDICAL), as well as severance calculations and compensation agreements. 2.Financial and regulatory reports filed with CNV and BYMA, including documents related to rating agencies (Moody's) and internal shareholder agreements. 3.Tax declarations and reports submitted to AFIP (Sicore, Ganancias, DDJJ IVA). 4.Documents related to tariff policy and SEN interactions, including WACC and TIR calculations used in tariff reviews. 5.Incident reports and environmental documentation, including reports on spills in Catriel and Medanito, as well as Rosen OSSR technical reports on pipeline conditions. 6.Confidentiality agreements wi..."
+}

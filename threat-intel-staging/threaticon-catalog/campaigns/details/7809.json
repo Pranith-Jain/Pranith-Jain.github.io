@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:31:29.678Z",
+  "name": "dragonforce: GB Group S.A",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 13, 2026",
+  "lastSeen": "Aug 11, 2026",
+  "added": "Aug 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: PL | Sector: Financial Services | Website: gbgroup.com | Infostealer data confirmed. | GB Group is one of Haiti’s largest private industrial and trading conglomerates. Headquartered in Port-au-Prince, it operates across nine core industries including construction materials, consumer goods, and energy. Recently, the organization transitioned its corporate identity to B|G|O (Builders of Great Opportunities). | Source: https://www.ransomware.live/id/R0IgR3JvdXAgUy5BQGRyYWdvbmZvcmNl"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 391,
+  "fetchedAt": "2026-08-14T05:56:47.484Z",
+  "name": "Detect abuse of Trusted Relationships (third-party and delegated admin access)",
+  "tlp": null,
+  "detId": "DET0488",
+  "stixId": "x-mitre-detection-strategy--2f7a5ebd-e025-4822-aed2-46fc3ec1a0a9",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1344", "AN1345", "AN1346", "AN1347", "AN1348", "AN1349", "AN1350"]
+}

@@ -1,0 +1,141 @@
+[
+  {
+    "id": 2545,
+    "name": "T1210 (Exploit Public-Facing Application Vulnerability)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2326,
+    "name": "T1210 (Exploit Public-Facing Application)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2337,
+    "name": "T1210 - Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2379,
+    "name": "T1210 - Web Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2381,
+    "name": "T1210.001 - Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2565,
+    "name": "T1210.001 - Exploit Public-Facing Application (Card Processing System Vulnerabilities)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2576,
+    "name": "T1210.001 - Exploit Public-Facing Application (SOAP-based)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2493,
+    "name": "T1210.001 - Exploit Public-Facing Application (zero-day in Ivanti appliance)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 2349,
+    "name": "T1210.001 - Exploitation of Remote Code Execution Vulnerabilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 1291,
+    "name": "T1210.001 - Use non-numeric account names in an attempt to conceal malicious activity on systems running MBSA",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1210",
+    "status": null
+  },
+  {
+    "id": 692,
+    "name": "Exploitation for Stealth",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1211",
+    "status": null
+  },
+  {
+    "id": 424,
+    "name": "Exploitation for Credential Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1212",
+    "status": null
+  },
+  {
+    "id": 2773,
+    "name": "T1212 Data Staged",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1212",
+    "status": null
+  },
+  { "id": 1827, "name": "T1212.001", "tlp": "white", "confidence": null, "techniqueId": "T1212", "status": null },
+  {
+    "id": 574,
+    "name": "Data from Information Repositories",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1213",
+    "status": null
+  },
+  {
+    "id": 2437,
+    "name": "T1213 - data theft via remote services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1213",
+    "status": null
+  },
+  {
+    "id": 3012,
+    "name": "T1213 Data from Information Repositories",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1213",
+    "status": null
+  },
+  { "id": 344, "name": "Confluence", "tlp": "white", "confidence": null, "techniqueId": "T1213", "status": null },
+  { "id": 35, "name": "Sharepoint", "tlp": "white", "confidence": null, "techniqueId": "T1213", "status": null },
+  {
+    "id": 2304,
+    "name": "T1213.002: Client-Side Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1213",
+    "status": null
+  }
+]

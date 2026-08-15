@@ -1,0 +1,12 @@
+{
+  "id": 321,
+  "fetchedAt": "2026-08-14T05:53:38.087Z",
+  "name": "Windows DACL Manipulation Behavioral Chain Detection Strategy",
+  "tlp": null,
+  "detId": "DET0418",
+  "stixId": "x-mitre-detection-strategy--a1b25828-57bf-470c-8f47-8ad4e1f6bbdb",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1177"]
+}

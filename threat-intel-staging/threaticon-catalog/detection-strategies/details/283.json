@@ -1,0 +1,12 @@
+{
+  "id": 283,
+  "fetchedAt": "2026-08-14T05:19:07.921Z",
+  "name": "Password Policy Discovery – cross-platform behavior-chain analytics",
+  "tlp": null,
+  "detId": "DET0161",
+  "stixId": "x-mitre-detection-strategy--72742281-7457-4124-a277-7f3cf5e23f4e",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0455", "AN0456", "AN0457", "AN0458", "AN0459", "AN0460", "AN0461"]
+}

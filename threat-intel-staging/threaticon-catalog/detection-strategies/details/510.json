@@ -1,0 +1,12 @@
+{
+  "id": 510,
+  "fetchedAt": "2026-08-14T05:55:53.128Z",
+  "name": "Detect DHCP Spoofing Across Linux, Windows, and macOS",
+  "tlp": null,
+  "detId": "DET0468",
+  "stixId": "x-mitre-detection-strategy--9f227978-8d56-406f-9d50-ef10aae1bf77",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1290", "AN1291", "AN1292"]
+}

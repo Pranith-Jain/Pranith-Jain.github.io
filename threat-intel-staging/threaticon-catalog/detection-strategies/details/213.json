@@ -1,0 +1,12 @@
+{
+  "id": 213,
+  "fetchedAt": "2026-08-14T05:54:53.694Z",
+  "name": "Credential Access via /etc/passwd and /etc/shadow Parsing",
+  "tlp": null,
+  "detId": "DET0446",
+  "stixId": "x-mitre-detection-strategy--17c97a51-74c2-449c-bc95-cf6a7647fb83",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1234"]
+}

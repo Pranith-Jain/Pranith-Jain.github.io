@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:39:15.960Z",
+  "name": "everest: First Priority Group",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 10, 2026",
+  "lastSeen": "Mar 10, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Manufacturing | Website: 1fpg.com | Infostealer data confirmed. | [AI generated] First Priority Group is a diversified manufacturer, dealer, up-fitter, and service provider of emergency and specialty vehicles. The company provides ambulance remounts, emergency vehicle parts, and services. It also designs and manufactures vehicle command centers for the law enforcement and public safety sectors. Based in New Jersey, it has been serving customers across the USA since 1998. | Source: https://www.ransomware.live/id/Rmlyc3QgUHJpb3JpdHkgR3JvdXBAZXZlcmVzdA=="
+}

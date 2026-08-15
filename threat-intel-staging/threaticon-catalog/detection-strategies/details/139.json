@@ -1,0 +1,12 @@
+{
+  "id": 139,
+  "fetchedAt": "2026-08-14T05:59:30.938Z",
+  "name": "Detection Strategy for Exfiltration Over Web Service",
+  "tlp": null,
+  "detId": "DET0548",
+  "stixId": "x-mitre-detection-strategy--1753ab98-4530-4284-9bc3-5d4813abfb9e",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1511", "AN1512", "AN1513", "AN1514", "AN1515"]
+}

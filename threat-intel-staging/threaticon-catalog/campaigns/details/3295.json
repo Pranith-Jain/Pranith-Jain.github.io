@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:24:24.360Z",
+  "name": "AA24-207A North Korea Cyber Group Conducts Global Espionage Campaign to Advance Regime\\'s Military and Nuclear Programs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Jul 27, 2024",
+  "lastSeen": "Jul 27, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #516 (b4c819a4-f4df-4618-bb39-fa1d8365b7dd)."
+}

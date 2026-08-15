@@ -1,0 +1,12 @@
+{
+  "id": 100,
+  "fetchedAt": "2026-08-14T06:01:27.129Z",
+  "name": "Detection of NTDS.dit Credential Dumping from Domain Controllers",
+  "tlp": null,
+  "detId": "DET0586",
+  "stixId": "x-mitre-detection-strategy--a97fe87f-e9be-4f71-8530-af5d70eaddf3",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1611"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:38:38.930Z",
+  "name": "OSINT - Fortinet says SSL-VPN pre-auth RCE bug is exploited in attacks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Dec 13, 2022",
+  "lastSeen": "Dec 13, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1704 (e132e5f2-1a09-43e4-b2d6-8046c730616f)."
+}

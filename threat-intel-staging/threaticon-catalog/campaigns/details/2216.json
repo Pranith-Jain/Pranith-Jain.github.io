@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:00.451Z",
+  "name": "EU 31st session of the Commission on Crime Prevention and Criminal Justice United Nations on Drugs and Crime themed malware",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 26, 2022",
+  "lastSeen": "May 26, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #301 (c267101e-b5be-4d49-86e0-ebe32837a2a9)."
+}

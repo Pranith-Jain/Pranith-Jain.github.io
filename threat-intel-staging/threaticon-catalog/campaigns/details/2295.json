@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:12:30.714Z",
+  "name": "OSINT - powershell used for spreading trojan.laziok through google docs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 22, 2016",
+  "lastSeen": "Apr 22, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #466 (571a7cdc-c078-482d-98dc-4e42950d210f)."
+}

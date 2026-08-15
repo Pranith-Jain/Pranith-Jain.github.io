@@ -1,0 +1,120 @@
+[
+  { "id": 356, "name": "Data Staged", "tlp": "white", "confidence": null, "techniqueId": "T1074", "status": null },
+  {
+    "id": 1573,
+    "name": "T1074 - Alternate authentication mechanisms",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 2255,
+    "name": "T1074 - Collection of information about accessible files and directories",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 1734,
+    "name": "T1074 - Collection via Web Form",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 2177,
+    "name": "T1074 - Data Encrypted for Impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 2666,
+    "name": "T1074 – Data Staging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 89,
+    "name": "Local Data Staging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 1414,
+    "name": "T1074.001 - Encryption of data",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 1675,
+    "name": "T1074.001: Local Data Staging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 167,
+    "name": "Remote Data Staging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  {
+    "id": 1510,
+    "name": "T1074.002: Remote Data Staging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  { "id": 2860, "name": "T1074.003", "tlp": "white", "confidence": null, "techniqueId": "T1074", "status": null },
+  { "id": 1857, "name": "T1074.004", "tlp": "white", "confidence": null, "techniqueId": "T1074", "status": null },
+  { "id": 2779, "name": "T1074.3", "tlp": "white", "confidence": null, "techniqueId": "T1074", "status": null },
+  {
+    "id": 2789,
+    "name": "T1074: Data Staging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1074",
+    "status": null
+  },
+  { "id": 2798, "name": "T1074?", "tlp": "white", "confidence": null, "techniqueId": "T1074", "status": null },
+  { "id": 1445, "name": "T1075", "tlp": "white", "confidence": null, "techniqueId": "T1075", "status": null },
+  {
+    "id": 2522,
+    "name": "T1075 (Data Extraction via Memory Dump)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1075",
+    "status": null
+  },
+  {
+    "id": 2769,
+    "name": "T1075 Remote Services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1075",
+    "status": null
+  },
+  {
+    "id": 2940,
+    "name": "T1075 – Pass the Hash",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1075",
+    "status": null
+  }
+]

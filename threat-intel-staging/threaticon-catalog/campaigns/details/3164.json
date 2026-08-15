@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:00.981Z",
+  "name": "Operation â€˜Harvestâ€™: A Deep Dive into a Long-term Campaign",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Sep 14, 2021",
+  "lastSeen": "Sep 14, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #276 (c1bd5026-520b-45bd-9a79-82d38cf96c7b)."
+}

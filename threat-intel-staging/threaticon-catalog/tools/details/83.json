@@ -1,0 +1,12 @@
+{
+  "id": 83,
+  "fetchedAt": "2026-08-14T05:03:11.233Z",
+  "name": "ftp",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "ftp.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "ftp is a utility commonly available with operating systems to transfer information over the File Transfer Protocol (FTP). Adversaries can use it to transfer other tools onto a system or to exfiltrate data.(Citation: Microsoft FTP)(Citation: Linux FTP)"
+}

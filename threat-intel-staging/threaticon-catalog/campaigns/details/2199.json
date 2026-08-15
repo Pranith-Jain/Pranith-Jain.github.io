@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:42.972Z",
+  "name": "HAFNIUM targeting Exchange Servers with 0-day exploits",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Feb 15, 2021",
+  "lastSeen": "Feb 15, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #252 (16ee036b-17f5-4f17-b3c3-9fe89176274a)."
+}

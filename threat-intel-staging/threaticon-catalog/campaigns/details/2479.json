@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:06:07.578Z",
+  "name": "OSINT Shark Ransomware: Ransomware as a service",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 18, 2016",
+  "lastSeen": "Aug 18, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #820 (57b5a6a6-334c-4a50-9e23-45b0950d210f)."
+}

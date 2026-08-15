@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:06.969Z",
+  "name": "OSINT Attacks against Israeli & Palestinian interests by PwC",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 27, 2015",
+  "lastSeen": "Apr 27, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #684 (553ea363-7aa4-426b-8f54-ad70950d210b)."
+}

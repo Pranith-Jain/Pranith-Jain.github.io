@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:49:32.126Z",
+  "name": "interlock: Lonestar Truck Group & Tag Truck Center",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 4, 2026",
+  "lastSeen": "May 4, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Transportation/Logistics | Website: tntxtruck.com | Infostealer data confirmed. | Lonestar Truck Group consists of multiple dealerships that sell new and used trucks and trailers, as well as providing service and parts. They work with a vast number of customers and businesses, yet they have failed to prioritize security. As a result, personal data of employees, contact information for the companies they work with, and a significant number of customer records have been leaked online. We are also presenting their confidential and financial documents for your review. | Source: https://www.ransomware.live/id/TG9uZXN0YXIgVHJ1Y2sgR3JvdXAgJiBUYWcgVHJ1Y2sgQ2VudGVyQGludGVybG9jaw=="
+}

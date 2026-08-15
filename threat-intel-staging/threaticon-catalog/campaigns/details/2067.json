@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:22:25.804Z",
+  "name": "New Carbanak / Anunak Attack Methodology",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 14, 2016",
+  "lastSeen": "Nov 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #87 (582cce4c-4ecc-4204-82ba-04dcc0a8ab16)."
+}

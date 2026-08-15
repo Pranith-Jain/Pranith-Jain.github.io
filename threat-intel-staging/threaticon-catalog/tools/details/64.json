@@ -1,0 +1,12 @@
+{
+  "id": 64,
+  "fetchedAt": "2026-08-14T05:00:17.011Z",
+  "name": "Donut",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Donut is an open source framework used to generate position-independent shellcode.(Citation: Donut Github)(Citation: Introducing Donut) Donut generated code has been used by multiple threat actors to inject and load malicious payloads into memory.(Citation: NCC Group WastedLocker June 2020)"
+}

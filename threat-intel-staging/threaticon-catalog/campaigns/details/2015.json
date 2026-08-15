@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:24:38.379Z",
+  "name": "SeaDuke - Symantec/PaloAlto",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 1, 2015",
+  "lastSeen": "Jul 1, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #20 (56ccdf0d-fe6c-4163-9fa4-51299062e56a)."
+}

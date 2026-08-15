@@ -1,0 +1,12 @@
+{
+  "id": 131,
+  "fetchedAt": "2026-08-14T05:23:59.326Z",
+  "name": "Detection Strategy for Encrypted Channel across OS Platforms",
+  "tlp": null,
+  "detId": "DET0273",
+  "stixId": "x-mitre-detection-strategy--08861418-398c-4972-8850-5e11f2d32944",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0759", "AN0760", "AN0761", "AN0762", "AN0763"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:28:47.817Z",
+  "name": "Preventing Black Basta Ransomware in 2022",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 12, 2022",
+  "lastSeen": "Sep 12, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #321 (391357f3-d319-41f8-8525-ce2b083097b6)."
+}

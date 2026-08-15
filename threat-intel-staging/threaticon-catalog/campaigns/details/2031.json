@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:23:57.665Z",
+  "name": "Macro Malware Associated With Dridex Finds New Ways to Hide",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 8, 2016",
+  "lastSeen": "Mar 8, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #43 (56e1c602-5d28-4cd7-a74b-b522c0a8ab16)."
+}

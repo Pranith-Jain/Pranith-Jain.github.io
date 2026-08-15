@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:31:44.952Z",
+  "name": "TeslaCrypt (2016-03-08)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 8, 2016",
+  "lastSeen": "Mar 8, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #123 (56de9384-a9ac-42fe-9b69-49d1950d210f)."
+}

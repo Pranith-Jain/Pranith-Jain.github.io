@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:12:15.194Z",
+  "name": "Malspam 2016-10-07 (.js in .zip) - campaign: \"wrong paychecks\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 7, 2016",
+  "lastSeen": "Oct 7, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #894 (57f74bd6-915c-43db-8a24-4d93950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:39:14.176Z",
+  "name": "m3rx: airdriephysio.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 29, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: GB | Sector: Healthcare | Website: airdriephysio.com | Infostealer data confirmed. | Airdrie Physiotherapy & Massage is a multi-disciplinary clinic located in Airdrie, Alberta, offering a range of services including physiotherapy, massage therapy, acupuncture, and laser therapy Stolen: 54gb 116k files | Source: https://www.ransomware.live/id/YWlyZHJpZXBoeXNpby5jb21AbTNyeA=="
+}

@@ -1,0 +1,99 @@
+[
+  { "id": 185, "name": "Reduce Key Space", "tlp": "white", "confidence": null, "techniqueId": "T1600", "status": null },
+  {
+    "id": 362,
+    "name": "Disable Crypto Hardware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1600",
+    "status": null
+  },
+  {
+    "id": 462,
+    "name": "Modify System Image",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1601",
+    "status": null
+  },
+  {
+    "id": 572,
+    "name": "Patch System Image",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1601",
+    "status": null
+  },
+  {
+    "id": 688,
+    "name": "Downgrade System Image",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1601",
+    "status": null
+  },
+  {
+    "id": 31,
+    "name": "Data from Configuration Repository",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1602",
+    "status": null
+  },
+  { "id": 648, "name": "SNMP (MIB Dump)", "tlp": "white", "confidence": null, "techniqueId": "T1602", "status": null },
+  {
+    "id": 245,
+    "name": "Network Device Configuration Dump",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1602",
+    "status": null
+  },
+  { "id": 2144, "name": "T1603", "tlp": "white", "confidence": null, "techniqueId": "T1603", "status": null },
+  {
+    "id": 2099,
+    "name": "T1603.001 - Exploit Public-Facing Misconfigurations",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1603",
+    "status": null
+  },
+  { "id": 3014, "name": "T1605", "tlp": "white", "confidence": null, "techniqueId": "T1605", "status": null },
+  { "id": 2505, "name": "T1605.001", "tlp": "white", "confidence": null, "techniqueId": "T1605", "status": null },
+  {
+    "id": 415,
+    "name": "Forge Web Credentials",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1606",
+    "status": null
+  },
+  { "id": 385, "name": "Web Cookies", "tlp": "white", "confidence": null, "techniqueId": "T1606", "status": null },
+  { "id": 99, "name": "SAML Tokens", "tlp": "white", "confidence": null, "techniqueId": "T1606", "status": null },
+  {
+    "id": 379,
+    "name": "Stage Capabilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1608",
+    "status": null
+  },
+  { "id": 195, "name": "Upload Malware", "tlp": "white", "confidence": null, "techniqueId": "T1608", "status": null },
+  {
+    "id": 1655,
+    "name": "T1608.001: Upload Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1608",
+    "status": null
+  },
+  { "id": 239, "name": "Upload Tool", "tlp": "white", "confidence": null, "techniqueId": "T1608", "status": null },
+  {
+    "id": 520,
+    "name": "Install Digital Certificate",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1608",
+    "status": null
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 346,
+    "name": "aurora: Law Offices of Michael A. Freedman, P.A. (maflaw.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 330,
+    "name": "payoutsking: H****l",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Hospitality and Tourism | Website: t****.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/SCoqKipsQHBheW91dHNraW5n"
+  },
+  {
+    "id": 345,
+    "name": "aurora: Cheval Blanc Randheli",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 344,
+    "name": "aurora: Baresque Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 353,
+    "name": "lockbit5: instapack.es",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: ES | Sector: Business Services | Website: instapack.es | Infostealer data confirmed. | Instapack is a professional courier service with over 30 years of experience, offering immediate del... | Source: https://www.ransomware.live/id/aW5zdGFwYWNrLmVzQGxvY2tiaXQ1"
+  },
+  {
+    "id": 343,
+    "name": "aurora: Advanta Genetics LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 342,
+    "name": "krybit: zsiclife.co.zm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: ZM | Sector: Healthcare | Website: zsiclife.co.zm | Infostealer data confirmed. | ZSIC Life Plc is a leading assurance, savings, and wealth management company in Zambia, offering a diverse range of life... | Source: https://www.ransomware.live/id/enNpY2xpZmUuY28uem1Aa3J5Yml0"
+  },
+  {
+    "id": 341,
+    "name": "payload: PROM (Peakside Ros Outlet Management)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Sector: Consumer Services | PROM (Peakside Ros Outlet Management) is a joint venture established by the investment firm Peakside Capital and the operator Ros Retail to manage outlet centers across Europe. The organization specializes in the strategic development of retail real estate, handling the full lifecycle from brand acquisition to operational marketing. Its primary objective is to maximize asset value and performance by implementing international management standards within the outlet sector. | Source: https://www.ransomware.live/id/UFJPTSAoUGVha3NpZGUgUm9zIE91dGxldCBNYW5hZ2VtZW50KUBwYXlsb2Fk"
+  },
+  {
+    "id": 340,
+    "name": "qilin: Antica Sartoria",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IT | Sector: Consumer Services | Website: www.anticasartoriapositano.it | N/A | Source: https://www.ransomware.live/id/QW50aWNhIFNhcnRvcmlhQHFpbGlu"
+  },
+  {
+    "id": 339,
+    "name": "qilin: Edenshaw Developments",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Construction | Website: www.edenshaw.com | N/A | Source: https://www.ransomware.live/id/RWRlbnNoYXcgRGV2ZWxvcG1lbnRzQHFpbGlu"
+  },
+  {
+    "id": 338,
+    "name": "qilin: Metro-ILA Funds",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Financial Services | Website: www.metro-ila.com | N/A | Source: https://www.ransomware.live/id/TWV0cm8tSUxBIEZ1bmRzQHFpbGlu"
+  },
+  {
+    "id": 337,
+    "name": "qilin: Probity Contracting Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Construction | Website: www.probitycg.com | N/A | Source: https://www.ransomware.live/id/UHJvYml0eSBDb250cmFjdGluZyBHcm91cEBxaWxpbg=="
+  },
+  {
+    "id": 336,
+    "name": "qilin: Eduporium",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Education | Website: www.eduporium.com | N/A | Source: https://www.ransomware.live/id/RWR1cG9yaXVtQHFpbGlu"
+  },
+  {
+    "id": 335,
+    "name": "radar: Bentley Capital Ventures",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 334,
+    "name": "ransomhouse: Karl Chevrolet",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: US | Sector: Consumer Services | Website: www.karlchevrolet.com | Karl Chevrolet, Inc. operates a Chevrolet car dealership. It offers new and used cars, commercial vehicles, SUVs, trucks, and vans. The company also provides automotive parts and accessories, such as brake pads, oil filters, and others; and services, which include vehicle maintenance, repair, inspection, and other services. It also allows customers to order parts online. | Source: https://www.ransomware.live/id/S2FybCBDaGV2cm9sZXRAcmFuc29taG91c2U="
+  }
+]

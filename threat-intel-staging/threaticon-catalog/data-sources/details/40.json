@@ -1,0 +1,12 @@
+{
+  "id": 40,
+  "fetchedAt": "2026-08-14T05:06:16.993Z",
+  "name": "Web Credential Creation",
+  "tlp": null,
+  "dcId": "DC0006",
+  "analyticCount": 5,
+  "strategyCount": 2,
+  "added": null,
+  "description": "Initial construction of new web credential material (ex: Windows EID 1200 or 4769)",
+  "analytics": ["AN0420", "AN0717", "AN0718", "AN0722", "AN0723"]
+}

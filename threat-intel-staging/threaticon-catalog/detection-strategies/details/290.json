@@ -1,0 +1,12 @@
+{
+  "id": 290,
+  "fetchedAt": "2026-08-14T06:03:54.930Z",
+  "name": "Detection of Cloud Accounts",
+  "tlp": null,
+  "detId": "DET0846",
+  "stixId": "x-mitre-detection-strategy--1f7b4b6e-17ab-446f-ac4e-5a1e79569dd3",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1978"]
+}

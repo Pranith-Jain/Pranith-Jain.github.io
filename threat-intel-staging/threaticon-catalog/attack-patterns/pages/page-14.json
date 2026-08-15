@@ -1,0 +1,148 @@
+[
+  {
+    "id": 977,
+    "name": "Target Influence via Framing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 978,
+    "name": "Influence via Incentives",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 979,
+    "name": "Influence via Psychological Principles",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 980,
+    "name": "Influence via Modes of Thinking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 981,
+    "name": "Target Influence via Eye Cues",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 982,
+    "name": "Exploiting Multiple Input Interpretation Layers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 983,
+    "name": "Target Influence via The Human Buffer Overflow",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 984,
+    "name": "Target Influence via Interview and Interrogation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 985,
+    "name": "Target Influence via Instant Rapport",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 986,
+    "name": "Modification During Manufacture",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 987,
+    "name": "Manipulation During Distribution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 988,
+    "name": "Overflow Binary Resource File",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 989,
+    "name": "Hardware Integrity Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 990,
+    "name": "Malicious Logic Insertion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 991, "name": "Infected Software", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 992,
+    "name": "Malicious Logic Inserted Into Product by Authorized Developer",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 993,
+    "name": "Development Alteration",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 994,
+    "name": "Malicious Logic Insertion into Product Software via Configuration Management Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 995,
+    "name": "Malicious Logic Insertion into Product via Inclusion of Third-Party Component",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 996, "name": "Design Alteration", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

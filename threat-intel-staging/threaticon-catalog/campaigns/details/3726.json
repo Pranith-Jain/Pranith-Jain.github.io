@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:00:27.706Z",
+  "name": "lockbit5: de.yangming.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 7, 2026",
+  "lastSeen": "May 7, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Transportation/Logistics | Website: de.yangming.com | Infostealer data confirmed. | Yang Ming Marine Transport Corporation is a major Taiwanese shipping line whose German division man... | Source: https://www.ransomware.live/id/ZGUueWFuZ21pbmcuY29tQGxvY2tiaXQ1"
+}

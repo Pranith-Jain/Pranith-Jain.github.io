@@ -1,0 +1,113 @@
+[
+  {
+    "id": 637,
+    "name": "Hide Infrastructure",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1665",
+    "status": null
+  },
+  {
+    "id": 38,
+    "name": "Modify Cloud Resource Hierarchy",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1666",
+    "status": null
+  },
+  { "id": 514, "name": "Email Bombing", "tlp": "white", "confidence": null, "techniqueId": "T1667", "status": null },
+  {
+    "id": 1817,
+    "name": "T1667: Email Bombing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1667",
+    "status": null
+  },
+  {
+    "id": 605,
+    "name": "Exclusive Control",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1668",
+    "status": null
+  },
+  { "id": 691, "name": "Wi-Fi Networks", "tlp": "white", "confidence": null, "techniqueId": "T1669", "status": null },
+  {
+    "id": 527,
+    "name": "Cloud Application Integration",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1671",
+    "status": null
+  },
+  {
+    "id": 307,
+    "name": "Virtual Machine Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1673",
+    "status": null
+  },
+  { "id": 285, "name": "Input Injection", "tlp": "white", "confidence": null, "techniqueId": "T1674", "status": null },
+  {
+    "id": 147,
+    "name": "ESXi Administration Command",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1675",
+    "status": null
+  },
+  { "id": 2755, "name": "T1676", "tlp": "white", "confidence": null, "techniqueId": "T1676", "status": null },
+  {
+    "id": 330,
+    "name": "Poisoned Pipeline Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1677",
+    "status": null
+  },
+  { "id": 439, "name": "Delay Execution", "tlp": "white", "confidence": null, "techniqueId": "T1678", "status": null },
+  {
+    "id": 423,
+    "name": "Selective Exclusion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1679",
+    "status": null
+  },
+  {
+    "id": 658,
+    "name": "Local Storage Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1680",
+    "status": null
+  },
+  {
+    "id": 1886,
+    "name": "T1680: Local Storage Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1680",
+    "status": null
+  },
+  {
+    "id": 284,
+    "name": "Search Threat Vendor Data",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1681",
+    "status": null
+  },
+  {
+    "id": 63,
+    "name": "Query Public AI Services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1682",
+    "status": null
+  },
+  { "id": 482, "name": "Generate Content", "tlp": "white", "confidence": null, "techniqueId": "T1683", "status": null },
+  { "id": 304, "name": "Written Content", "tlp": "white", "confidence": null, "techniqueId": "T1683", "status": null }
+]

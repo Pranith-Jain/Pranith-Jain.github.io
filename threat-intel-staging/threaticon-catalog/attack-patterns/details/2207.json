@@ -1,0 +1,9 @@
+{
+  "id": 2207,
+  "fetchedAt": "2026-08-15T07:08:51.071Z",
+  "name": "T1059.003 - PowerShell ISE execution via Start-Process",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T21:04:47.956Z",
+  "name": "Maltrail IOC for 2026-04-03",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 2, 2026",
+  "lastSeen": "Apr 2, 2026",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1936 (7c9cc102-0241-4810-91fc-34953d8be409)."
+}

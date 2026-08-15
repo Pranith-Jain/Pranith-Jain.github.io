@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:50:09.431Z",
+  "name": "safepay: bootstransport.ca",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 4, 2026",
+  "lastSeen": "May 4, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: CA | Sector: Transportation/Logistics | Website: bootstransport.ca | Infostealer data confirmed. | Is a Canadian transportation and logistics company specializing in freight delivery and supply chain services. The company primarily operates in … | Source: https://www.ransomware.live/id/Ym9vdHN0cmFuc3BvcnQuY2FAc2FmZXBheQ=="
+}

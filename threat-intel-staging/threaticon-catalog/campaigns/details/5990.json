@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T16:31:36.168Z",
+  "name": "nova: VNSO",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 22, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: VN | Sector: Technology | Công nghệ VNSO is a leading provider of cloud and server solutions in Vietnam, offering a wide range of services including hosting, VPS, cloud storage, private cloud, anti-DDoS, and CDN. Their products cater to various needs, from high-performance cloud servers to dedicated servers for gaming and AI applications. VNSO aims to support businesses of all sizes in their digital transformation journey with reliable and secure technology solutions. The company is committed to customer satisfaction, providing 24/7 technical support and a variety of flexible service options - all clients data taked, Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/Vk5TT0Bub3Zh"
+}

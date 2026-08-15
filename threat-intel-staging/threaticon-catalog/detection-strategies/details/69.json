@@ -1,0 +1,12 @@
+{
+  "id": 69,
+  "fetchedAt": "2026-08-14T05:15:59.810Z",
+  "name": "Backup Software Discovery via CLI, Registry, and Process Inspection (T1518.002)",
+  "tlp": null,
+  "detId": "DET0088",
+  "stixId": "x-mitre-detection-strategy--a3bdd6e2-92d3-45db-a486-9f051c68672b",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0240", "AN0241", "AN0242"]
+}

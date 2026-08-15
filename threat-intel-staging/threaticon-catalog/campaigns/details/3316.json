@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:23:30.515Z",
+  "name": "The Chrysalis Backdoor: A Deep Dive into Lotus Blossom’s toolkit",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 3, 2026",
+  "lastSeen": "Feb 3, 2026",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #539 (390d27ed-5268-4eac-a3a3-768903fa5c1c)."
+}

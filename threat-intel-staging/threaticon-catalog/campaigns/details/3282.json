@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:24:57.197Z",
+  "name": "Unplugging PlugX: Sinkholing the PlugX USB worm botnet",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 26, 2024",
+  "lastSeen": "Apr 26, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #498 (f913a9b4-f577-43d5-ba87-f4b2a40eda1e)."
+}

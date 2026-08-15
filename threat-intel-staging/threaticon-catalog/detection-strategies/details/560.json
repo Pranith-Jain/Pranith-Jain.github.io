@@ -1,0 +1,12 @@
+{
+  "id": 560,
+  "fetchedAt": "2026-08-14T05:58:49.395Z",
+  "name": "Detection Strategy for Poisoned Pipeline Execution via SaaS CI/CD Workflows",
+  "tlp": null,
+  "detId": "DET0533",
+  "stixId": "x-mitre-detection-strategy--cad3cfb6-1838-4fa3-abfc-aa590f613436",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1473"]
+}

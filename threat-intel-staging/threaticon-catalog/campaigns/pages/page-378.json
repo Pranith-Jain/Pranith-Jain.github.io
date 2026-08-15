@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2118,
+    "name": "DHL-Themed malspam with links to .js file downloader",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #144 (5b0f0cea-222c-48e0-8417-03a3c0a8ab16)."
+  },
+  {
+    "id": 2117,
+    "name": "CVE-2018-8174 (VBScript Engine) and Exploit Kits",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #143 (5b0baa6c-c724-4e8c-a59b-03a0c0a8ab16)."
+  },
+  {
+    "id": 2116,
+    "name": "New VPNFilter malware targets at least 500K networking devices worldwide",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #142 (5b059df2-6e64-4971-96d6-0f8fc0a8ab16)."
+  },
+  {
+    "id": 2115,
+    "name": "Malspam pushing Trickbot malware on Friday 2018-05-11",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #141 (5af9af43-7468-4b56-be4b-411cc0a8ab16)."
+  },
+  {
+    "id": 2114,
+    "name": "Reversed C2 traffic from China",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #140 (5af9abf3-4600-4449-8ded-4c74c0a8ab16)."
+  },
+  {
+    "id": 2113,
+    "name": "New MacOS Backdoor Linked to OceanLotus Found",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #139 (5ac7920a-5d48-49ee-9627-46abc0a8ab16)."
+  },
+  {
+    "id": 2111,
+    "name": "Invisible resource thieves: The increasing threat of cryptocurrency miners",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #137 (5aa80665-f728-45e9-b232-42f8c0a8ab16)."
+  },
+  {
+    "id": 2112,
+    "name": "CVE-2018-4878 (Flash Player up to 28.0.0.137) and Exploit Kits",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #138 (5aa80811-a4a8-45b0-bed0-4118c0a8ab16)."
+  },
+  {
+    "id": 2110,
+    "name": "Sofacy Attacks Multiple Government Entities",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #136 (5a9834c1-515c-4ebb-a7a3-4035c0a8ab16)."
+  },
+  {
+    "id": 2109,
+    "name": "Free Ransomware Available on Dark Web",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #135 (5a8c8f8b-5ec4-4256-bb77-8620c0a8ab16)."
+  },
+  {
+    "id": 2108,
+    "name": "3 examples of malspam pushing Loki-Bot malware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #134 (5a7ab2ab-e6e8-44e3-b47e-6fb2c0a8ab16)."
+  },
+  {
+    "id": 2107,
+    "name": "Targeted Attacks In The Middle East",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #133 (5a7aaebf-0e28-403c-b8ea-69d7c0a8ab16)."
+  },
+  {
+    "id": 2105,
+    "name": "Argenta phishing website",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #131 (5a722b97-31d8-4e4c-b860-03a7c0a8ab16)."
+  },
+  {
+    "id": 2106,
+    "name": "Flash 0 Day In The Wild: Group 123 At The Controls",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #132 (5a783b7e-2404-4679-8178-69dcc0a8ab16)."
+  },
+  {
+    "id": 2104,
+    "name": "Reviewing the spam filters: Malspam pushing Gozi-ISFB",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #129 (5a60481e-bcf4-4c6a-ac1b-0722c0a8ab16)."
+  }
+]

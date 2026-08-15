@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:24:43.036Z",
+  "name": "payload: TFE Group",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 16, 2026",
+  "lastSeen": "Apr 16, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: AU | Sector: Consumer Services | TFE Group is a company that operates in the Architecture, Engineering & Design industry. | Source: https://www.ransomware.live/id/VEZFIEdyb3VwQHBheWxvYWQ="
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:47:25.240Z",
+  "name": "everest: Epiq Global",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 2, 2026",
+  "lastSeen": "May 2, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Business Services | Website: epiqglobal.com | Infostealer data confirmed. | [AI generated] Epiq Global is a US-based legal services company specializing in technology-driven solutions for complex legal matters. It provides services including class action and mass tort administration, bankruptcy case management, eDiscovery, document review, and legal notification. Operating across multiple countries, Epiq serves law firms, corporations, and government entities, helping manage large-scale legal proceedings efficiently. | Source: https://www.ransomware.live/id/RXBpcSBHbG9iYWxAZXZlcmVzdA=="
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:02:50.860Z",
+  "name": "dragonforce: Copamex",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: MX | Sector: Agriculture and Food Production | Website: copamex.com | Infostealer data confirmed. | Copamex, headquartered in Monterrey, Mexico, and established in 1928, is a paper manufacturing company offering writing and printing, special, corrugated, and kraft paper solutions. | Source: https://www.ransomware.live/id/Q29wYW1leEBkcmFnb25mb3JjZQ=="
+}

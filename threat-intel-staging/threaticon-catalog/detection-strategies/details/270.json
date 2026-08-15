@@ -1,0 +1,12 @@
+{
+  "id": 270,
+  "fetchedAt": "2026-08-14T06:02:44.489Z",
+  "name": "Detection of Spearphishing Service",
+  "tlp": null,
+  "detId": "DET0821",
+  "stixId": "x-mitre-detection-strategy--16e7016e-ce95-4eca-b340-ff158949d11d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1953"]
+}

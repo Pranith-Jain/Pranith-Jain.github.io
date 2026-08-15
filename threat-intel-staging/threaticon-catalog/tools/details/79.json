@@ -1,0 +1,12 @@
+{
+  "id": 79,
+  "fetchedAt": "2026-08-14T05:00:00.668Z",
+  "name": "Cachedump",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Cachedump is a publicly-available tool that program extracts cached password hashes from a system’s registry. (Citation: Mandiant APT1)"
+}

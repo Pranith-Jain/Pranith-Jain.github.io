@@ -1,0 +1,9 @@
+{
+  "id": 1135,
+  "fetchedAt": "2026-08-15T06:22:12.704Z",
+  "name": "Stored XSS",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: High. An adversary utilizes a form of Cross-site Scripting (XSS) where a malicious script is persistently \"stored\" within the data storage of a vulnerable web application as valid input."
+}

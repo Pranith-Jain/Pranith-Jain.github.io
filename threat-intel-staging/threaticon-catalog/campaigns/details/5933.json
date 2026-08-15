@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T17:01:45.359Z",
+  "name": "nova: Marpatech",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 22, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Jul 22, 2026",
+  "description": "Ransomware attack attributed to nova. | Sector: Technology | Marpatech specializes in providing instrumentation and control solutions across Latin America, with a focus on the mining and industrial sectors. The company offers a range of products from various manufacturers, including AMETEK, SOR, and JUMO, catering to clients in Peru, Argentina, and Colombia. With offices in major cities, Marpatech is committed to delivering technical and commercial support to its clients. The company actively participates in industry events to showcase its expertise and innovations - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/TWFycGF0ZWNoQG5vdmE="
+}

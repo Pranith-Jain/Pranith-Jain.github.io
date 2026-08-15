@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:14:56.281Z",
+  "name": "krybit: frey.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 14, 2026",
+  "lastSeen": "Jun 14, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: CH | Sector: Technology | Website: frey.com | Infostealer data confirmed. | FREY (Frey Brothers, Inc.) is an American eco-friendly laundry care products company founded in 2017 by brothers Erin an... | Source: https://www.ransomware.live/id/ZnJleS5jb21Aa3J5Yml0"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T00:37:46.734Z",
+  "name": "OSINT of Exchange 0-day campaign (Atos)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Oct 3, 2022",
+  "lastSeen": "Oct 3, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1761 (fba1fa66-183d-4e82-bb89-78bfcb4d6e29)."
+}

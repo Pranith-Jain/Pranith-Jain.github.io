@@ -1,0 +1,12 @@
+{
+  "id": 666,
+  "fetchedAt": "2026-08-14T05:58:57.741Z",
+  "name": "Detection Strategy for Wi-Fi Networks",
+  "tlp": null,
+  "detId": "DET0536",
+  "stixId": "x-mitre-detection-strategy--f9c29db2-8790-4255-957f-9a02f1d8d024",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1476", "AN1477", "AN1478", "AN1479"]
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1364,
+    "name": "akira: Mooers Immigration",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1363,
+    "name": "akira: Concord Components, Wefapress, Environment Masters, FairmontHot Springs Resort,Road Americ...",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1362,
+    "name": "play: Window & Door Design Center of Florida",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Construction | Website: www.wddcfl.com | United States | Source: https://www.ransomware.live/id/V2luZG93ICYgRG9vciBEZXNpZ24gQ2VudGVyIG9mIEZsb3JpZGFAcGxheQ=="
+  },
+  {
+    "id": 1361,
+    "name": "play: Block Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Technology | Website: www.blockeng.com | United States | Source: https://www.ransomware.live/id/QmxvY2sgRW5naW5lZXJpbmdAcGxheQ=="
+  },
+  {
+    "id": 1360,
+    "name": "play: Capital Wholesale Drug",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Healthcare | Website: www.capital-drug.com | United States | Source: https://www.ransomware.live/id/Q2FwaXRhbCBXaG9sZXNhbGUgRHJ1Z0BwbGF5"
+  },
+  {
+    "id": 1359,
+    "name": "play: Ascent Asset Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Financial Services | Website: www.ascentasset.com | United States | Source: https://www.ransomware.live/id/QXNjZW50IEFzc2V0IEdyb3VwQHBsYXk="
+  },
+  {
+    "id": 1358,
+    "name": "play: Pinnacle",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Not Found | Website: www.pinnacle.tax | United States | Source: https://www.ransomware.live/id/UGlubmFjbGVAcGxheQ=="
+  },
+  {
+    "id": 1357,
+    "name": "play: Roxiticus Golf Club",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Hospitality and Tourism | Website: www.roxiticus.com | United States | Source: https://www.ransomware.live/id/Um94aXRpY3VzIEdvbGYgQ2x1YkBwbGF5"
+  },
+  {
+    "id": 1382,
+    "name": "thegentlemen: Omikenshi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: JP | Sector: Manufacturing | Website: omikenshi.co.jp | Infostealer data confirmed. | omikenshi.co.jp zoominfo.com/c/omikenshi-co-ltd/372144961 Omikenshi specializes in the production of textiles, including cotton and yarn, as well as advanced processing technologies. The company also offers a range of lifestyle products, cosmetics, and software development services. Their intended clients include businesses seeking office supplies and electronic catalogs. Additionally, Omikenshi is committed to environmental sustainability and actively engages in eco-friendly practices | Source: https://www.ransomware.live/id/T21pa2Vuc2hpQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 1384,
+    "name": "akira: Schmiede",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Manufacturing | Website: schmiedecorp.com | Infostealer data confirmed. | Schmiede Corporation specializes in high-precision contract machi ning, focusing on complex and difficult-to-machine components wit h tight tolerances. The company offers a range of services includ ing rebuilding, retrofitting, remanufacturing, and the production of specialty machines, fixtures, and gages. We will upload corporate data soon. Employee personal information , projects, contracts, etc. | Source: https://www.ransomware.live/id/U2NobWllZGVAYWtpcmE="
+  },
+  {
+    "id": 1356,
+    "name": "play: All Real Estate Title Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Business Services | Website: www.aretsifl.com | United States | Source: https://www.ransomware.live/id/QWxsIFJlYWwgRXN0YXRlIFRpdGxlIFNvbHV0aW9uc0BwbGF5"
+  },
+  {
+    "id": 1355,
+    "name": "qilin: Retail Centenario",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PA | Sector: Consumer Services | Website: Retail Centenario | Source: https://www.ransomware.live/id/UmV0YWlsIENlbnRlbmFyaW9AcWlsaW4="
+  },
+  {
+    "id": 1354,
+    "name": "qilin: Aroostook Mental Health Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.amhc.org | Press: https://www.govtech.com/security/maine-mental-health-agency-targeted-in-russian-cyber-attack | Source: https://www.ransomware.live/id/QXJvb3N0b29rIE1lbnRhbCBIZWFsdGggU2VydmljZXNAcWlsaW4="
+  },
+  {
+    "id": 1353,
+    "name": "incransom: jenningsk12.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1352,
+    "name": "incransom: cerboniservices.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

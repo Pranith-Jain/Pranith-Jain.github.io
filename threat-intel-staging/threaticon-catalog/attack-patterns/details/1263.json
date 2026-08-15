@@ -1,0 +1,9 @@
+{
+  "id": 1263,
+  "fetchedAt": "2026-08-15T06:43:00.288Z",
+  "name": "XSS Through HTTP Headers",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: High. An adversary exploits web applications that generate web content, such as links in a HTML page, based on unvalidated or improperly validated data submitted by other actors. XSS in HTTP Headers attacks target the HTTP headers which are hidden from most users and may not be validated by web applications."
+}

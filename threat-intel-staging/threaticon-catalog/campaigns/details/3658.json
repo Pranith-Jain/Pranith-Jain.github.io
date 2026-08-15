@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:03:25.779Z",
+  "name": "LeakBazaar: Millennium packages",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "Apr 22, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to LeakBazaar. | Country: US | Sector: Transportation/Logistics | Website: millpkg.com | Infostealer data confirmed. | 120GB valuable information + 11 separate categories. 1. CALCULATION COST OF PRODUCTION (2.15GB); Price: $1000 / $500 2. CONFIDENTIAL DATA(17.38gb); Price: $1000 - one hands / $500 - many hands 3. FINANCE(6.59GB); Price: $1000 - one hands / $500 - many hands 4. GUIDANCE(36.52GB); Price: $1000 - one hands / $500 - many hands 5. INSURANCE(6.69GB); Price: $1000 - one hands / $500 - many hands 6. ORGANIZATION(558.64MB); Price: $1000 - one hands / $500 - many hands 7. POSSIBLE VIOLATIONS(16.59MB); Price: $1000 - one hands / $500 - many hands 8. QUARTERLY REPORTS(789.15MB; Price: $1000 - one hands / $500 - many hands 9. RESEARCH REPORTS(655.02MB); Price: $1000 - one hands / $500 - many hands 10. SANCTIONS(48.75MB); Price: $1000 - one hands / $500 - many hands. 11. SUPPLIERS AND BUYERS(3.8GB); Price: $1000 - one hands / $500 - many..."
+}

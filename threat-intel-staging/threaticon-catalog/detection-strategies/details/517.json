@@ -1,0 +1,12 @@
+{
+  "id": 517,
+  "fetchedAt": "2026-08-14T05:24:57.154Z",
+  "name": "Behavioral Detection of Thread Execution Hijacking via Thread Suspension and Context Switching",
+  "tlp": null,
+  "detId": "DET0295",
+  "stixId": "x-mitre-detection-strategy--47dd679b-1bd4-4bb7-a946-5d77fd49a939",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0822"]
+}

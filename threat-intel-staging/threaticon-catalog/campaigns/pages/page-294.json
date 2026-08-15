@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3459,
+    "name": "OSINT - Sofacyâ€™s â€˜Komplexâ€™ OS X Trojan by Palo Alto networks",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #884 (57ea2a19-2e44-4f1b-b6f5-46bb950d210f)."
+  },
+  {
+    "id": 3458,
+    "name": "OSINT - Hunting Libyan Scorpions",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #883 (57e634d4-4e48-4a7b-82de-46be950d210f)."
+  },
+  {
+    "id": 3457,
+    "name": "OSINT - ELF.Rex",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #876 (57dbb75c-4ebc-4856-96fc-4095950d210f)."
+  },
+  {
+    "id": 3456,
+    "name": "Malspam 2016-09-15 (.wsf in .zip) - campaign: \"Documents Requested\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #871 (57da503b-ae50-4ae2-8f34-1890950d210f)."
+  },
+  {
+    "id": 3455,
+    "name": "Malspam 2016-09-14 (.wsf in .zip) - campaign: \"payment copy\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #868 (57d91d75-0f30-4939-b8dd-48fd950d210f)."
+  },
+  {
+    "id": 3454,
+    "name": "Malspam 2016-09-06 (.wsf in .zip) - campaign: 'Message from \"CUKPR[x]\"'",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #857 (57cfbf0c-c790-4257-8b1e-06cc950d210f)."
+  },
+  {
+    "id": 3453,
+    "name": "SQLi vuln sites - 2015-08-12 - origin: pastebin.com/23fDLE1G",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #855 (57cec781-097c-4ed2-9dd0-7014950d210f)."
+  },
+  {
+    "id": 3452,
+    "name": "OSINT - PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #854 (57ce65d3-6170-47b5-8f3f-47e0950d210f)."
+  },
+  {
+    "id": 3451,
+    "name": "Malspam 2016-09-01 (.hta in .zip) - campaign: \"Voice Message from Outside Caller\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #845 (57c7d69f-2d14-4235-ad06-4b13950d210f)."
+  },
+  {
+    "id": 3450,
+    "name": "Malspam 2016-09-01 (.js in .zip) - campaign: \"flight tickets\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #844 (57c7d398-3440-41b9-8339-4e1e950d210f)."
+  },
+  {
+    "id": 3449,
+    "name": "Malspam 2016-08-31 (.js in .zip) - campaign: \"bank transactions\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #843 (57c6cb1f-5d40-49cc-a24a-4cb2950d210f)."
+  },
+  {
+    "id": 3448,
+    "name": "Malspam 2016-08-31 (.hta in .zip) - campaign: \"FW: [Scan]\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #841 (57c6aa95-f274-4fcf-8007-b664950d210f)."
+  },
+  {
+    "id": 3447,
+    "name": "Malspam 2016-08-26 (.js in .zip) - campaign: \"monthly report\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #837 (57c43d9b-61a4-43b7-985b-4558950d210f)."
+  },
+  {
+    "id": 3446,
+    "name": "Malspam 2016-08-29 (.wsf in .zip) - campaign: \"Please find attached invoice no\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #836 (57c42744-662c-4f6e-bd21-7d2e950d210f)."
+  },
+  {
+    "id": 3445,
+    "name": "Malspam 2016-08-29 (.js in .zip) - campaign: \"Commission\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #835 (57c4240d-f048-4702-9aed-800e950d210f)."
+  }
+]

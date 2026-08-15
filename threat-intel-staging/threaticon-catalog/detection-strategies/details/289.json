@@ -1,0 +1,12 @@
+{
+  "id": 289,
+  "fetchedAt": "2026-08-14T05:24:43.848Z",
+  "name": "Cross-Platform Detection of Cron Job Abuse for Persistence and Execution",
+  "tlp": null,
+  "detId": "DET0290",
+  "stixId": "x-mitre-detection-strategy--6bab4067-9bfc-4e7f-b7fc-e578acd81e6a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0805", "AN0806", "AN0807"]
+}

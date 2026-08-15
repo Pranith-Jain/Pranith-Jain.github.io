@@ -1,0 +1,12 @@
+{
+  "id": 372,
+  "fetchedAt": "2026-08-14T05:19:27.104Z",
+  "name": "Detection Strategy for Cloud Infrastructure Discovery",
+  "tlp": null,
+  "detId": "DET0169",
+  "stixId": "x-mitre-detection-strategy--22331b2d-e8a1-4820-ae6b-7d04f24f7df7",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0481"]
+}

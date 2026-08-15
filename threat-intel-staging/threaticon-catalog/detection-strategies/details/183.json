@@ -1,0 +1,12 @@
+{
+  "id": 183,
+  "fetchedAt": "2026-08-14T06:04:35.830Z",
+  "name": "Detection of Email Accounts",
+  "tlp": null,
+  "detId": "DET0861",
+  "stixId": "x-mitre-detection-strategy--d50c5f8f-0091-4675-8264-abcb4247de26",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1993"]
+}

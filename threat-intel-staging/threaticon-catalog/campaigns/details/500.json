@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:32:24.786Z",
+  "name": "qilin: Leistritz Turbine Technology",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 25, 2026",
+  "lastSeen": "Apr 25, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Manufacturing | Website: turbines.leistritz.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/TGVpc3RyaXR6IFR1cmJpbmUgVGVjaG5vbG9neUBxaWxpbg=="
+}

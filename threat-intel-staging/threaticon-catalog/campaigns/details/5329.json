@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:52:34.579Z",
+  "name": "2026-07-10 (Friday): Fake \"Point Expiration Reminder\" Phishing Impersonating Japanese Financial Institutions.",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-07-10 (Friday): Fake \"Point Expiration Reminder\" Phishing Impersonating Japanese Financial Institutions.. References: https://www.linkedin.com/posts/phishing-ugcPost-7482554966826713089-s2mo/, https://x.com/Unit42_Intel/status/2076789312524308486"
+}

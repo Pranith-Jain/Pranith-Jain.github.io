@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4595,
+    "name": "Icarus: Huntress",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Country: US | Sector: Technology | Salesforce data of Huntress. Data stolen: SF data - Compressed | Source: https://www.ransomware.live/id/SHVudHJlc3NASWNhcnVz"
+  },
+  {
+    "id": 4596,
+    "name": "Icarus: HDS (Hdscorp)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Not Found | Salesforce data for this corp. Data stolen: SF data - compressed | Source: https://www.ransomware.live/id/SERTIChIZHNjb3JwKUBJY2FydXM="
+  },
+  {
+    "id": 4612,
+    "name": "aurora: NationsBuilders Insurance Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to aurora. | Sector: Financial Services | Website: NationsBuilders Insurance Services | [insurance] *** (NBIS) is the premier US underwriter of crane & rigging, concrete-pumping, heavy-haul, and residential-builder insurance — a specialty managing general underwriter founded in Atlanta in 2001, acquired by Align Financial / DUAL North America (Howden Group) in August 2021. 2,748,845 filetree entries across 24 shares (AIM, IMAGERIGHT, the claims and policy-admin stores, HR, finance, IT, and a decade of M&A diligence rooms). | Source: https://www.ransomware.live/id/TmF0aW9uc0J1aWxkZXJzIEluc3VyYW5jZSBTZXJ2aWNlc0BhdXJvcmE="
+  },
+  {
+    "id": 4607,
+    "name": "dragonforce: bits-pilani.ac.in",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: IN | Sector: Education | Website: bits-pilani.ac.in | Infostealer data confirmed. | BITS Pilani is a premier Indian private research university and \"Institution of Eminence\" known for elite engineering and science programs across five campuses. Founded in 1964, it is highly selective with a 1.47% acceptance rate and offers a 0% attendance policy with mandatory industry immersion. | Source: https://www.ransomware.live/id/Yml0cy1waWxhbmkuYWMuaW5AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 4597,
+    "name": "Icarus: Gms-net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Technology | Salesforce data for this corp. Data stolen: SF data - compressed | Source: https://www.ransomware.live/id/R21zLW5ldEBJY2FydXM="
+  },
+  {
+    "id": 4608,
+    "name": "dragonforce: mihana-v.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: RU | Sector: Not Found | Website: mihana-v.com | Infostealer data confirmed. | Here is the comprehensive corporate overview of MIHANA Seisakusho Co., Ltd. based on their official company profiles, technical catalogs, and industrial registries | Source: https://www.ransomware.live/id/bWloYW5hLXYuY29tQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 4590,
+    "name": "aurora: Corporación Primax S.A.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4591,
+    "name": "chaos: randa.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Sector: Not Found | Website: www.randa.net | Randa Apparel & Accessories is a global powerhouse and one of the world's leading apparel and lifestyle accessories companies, headquartered in New York City at 417 Fifth Avenue, 11th Floor. Founded in 1910, with the founder's family having been in the neckwear business since that time and the curre… | Source: https://www.ransomware.live/id/cmFuZGEubmV0QGNoYW9z"
+  },
+  {
+    "id": 4592,
+    "name": "incransom: belpointeasset.com \\ belpointe.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Financial Services | 400gb | Source: https://www.ransomware.live/id/YmVscG9pbnRlYXNzZXQuY29tIFwgYmVscG9pbnRlLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 4593,
+    "name": "safepay: ehg.bayern",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: ehg.bayern | Infostealer data confirmed. | Founded in 1991, the company has evolved from a regional waste management enterprise into a specialized provider of infrastructure operations, … | Source: https://www.ransomware.live/id/ZWhnLmJheWVybkBzYWZlcGF5"
+  },
+  {
+    "id": 4601,
+    "name": "chaos: graymont.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: CA | Sector: Manufacturing | Website: graymont.com | Infostealer data confirmed. | NOTICE: Graymont – Final Warning We have successfully gained full access to the corporate infrastructure of Graymont. Our team currently holds a massive volume of highly sensitive data. The scope of our access covers the entire core of your operations, from executive financial strategy to individ… | Source: https://www.ransomware.live/id/Z3JheW1vbnQuY29tQGNoYW9z"
+  },
+  {
+    "id": 4602,
+    "name": "BrainCipher: eggetttax.ca",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to BrainCipher. | Country: CA | Sector: Agriculture and Food Production | Website: eggetttax.ca | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/ZWdnZXR0dGF4LmNhQEJyYWluQ2lwaGVy"
+  },
+  {
+    "id": 4603,
+    "name": "BrainCipher: sterlinggloballtd.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to BrainCipher. | Country: GB | Sector: Business Services | Website: sterlinggloballtd.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/c3RlcmxpbmdnbG9iYWxsdGQuY29tQEJyYWluQ2lwaGVy"
+  },
+  {
+    "id": 4599,
+    "name": "Icarus: Cbassociations",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Business Services | Salesforce data for this corp. Data stolen: SF data. Compressed size. | Source: https://www.ransomware.live/id/Q2Jhc3NvY2lhdGlvbnNASWNhcnVz"
+  },
+  {
+    "id": 4598,
+    "name": "Icarus: Cqcrm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Icarus. | Sector: Business Services | Salesforce data for Cqcrm Data stolen: SF data - compressed | Source: https://www.ransomware.live/id/Q3Fjcm1ASWNhcnVz"
+  }
+]

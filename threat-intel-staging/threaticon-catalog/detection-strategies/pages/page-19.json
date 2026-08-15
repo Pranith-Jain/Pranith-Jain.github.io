@@ -1,0 +1,212 @@
+[
+  {
+    "id": 443,
+    "code": "DET0543",
+    "name": "Detection Strategy for Encrypted Channel via Asymmetric Cryptography across OS Platforms",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 559,
+    "code": "DET0544",
+    "name": "Detection Strategy for Process Doppelgänging on Windows",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 690,
+    "code": "DET0545",
+    "name": "Detection Strategy for Cloud Administration Command",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 541,
+    "code": "DET0546",
+    "name": "Detection of Abused or Compromised Cloud Accounts for Access and Persistence",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 80,
+    "code": "DET0547",
+    "name": "Detection Strategy for T1505 - Server Software Component",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 139,
+    "code": "DET0548",
+    "name": "Detection Strategy for Exfiltration Over Web Service",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 373,
+    "code": "DET0549",
+    "name": "Detect Suspicious Access to Private Key Files and Export Attempts Across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 508,
+    "code": "DET0550",
+    "name": "Detecting Suspicious Access to CRM Data in SaaS Environments",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 173,
+    "code": "DET0551",
+    "name": "Password Guessing via Multi-Source Authentication Failure Correlation",
+    "description": null,
+    "columns": ["6"]
+  },
+  {
+    "id": 302,
+    "code": "DET0552",
+    "name": "Detection of Windows Service Creation or Modification",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 65,
+    "code": "DET0553",
+    "name": "Detection Strategy for Obfuscated Files or Information: Binary Padding",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 343,
+    "code": "DET0554",
+    "name": "Detection of Bluetooth-Based Data Exfiltration",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 472,
+    "code": "DET0555",
+    "name": "Detection Strategy for Event Triggered Execution via emond on macOS",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 436,
+    "code": "DET0556",
+    "name": "Behavior-chain detection strategy for T1127.001 Trusted Developer Utilities Proxy Execution: MSBuild (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 529,
+    "code": "DET0557",
+    "name": "Detection Strategy for Event Triggered Execution: AppInit DLLs (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 516,
+    "code": "DET0558",
+    "name": "Detection Strategy for ESXi Hypervisor CLI Abuse",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 461,
+    "code": "DET0559",
+    "name": "Multi-Platform Shutdown or Reboot Detection via Execution and Host Status Events",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 91,
+    "code": "DET0560",
+    "name": "Detection of Valid Account Abuse Across Platforms",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 547,
+    "code": "DET0561",
+    "name": "Detect malicious IDE extension install/usage and IDE tunneling",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 575,
+    "code": "DET0562",
+    "name": "Multi-Platform Execution Guardrails Environmental Validation Detection Strategy",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 421,
+    "code": "DET0563",
+    "name": "Detection Strategy for Defense Impairment via Prevent Command History Logging across OS platforms.",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 45,
+    "code": "DET0564",
+    "name": "Detection Strategy for Hijack Execution Flow using Path Interception by Search Order Hijacking",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 665,
+    "code": "DET0565",
+    "name": "Detection Strategy for System Language Discovery",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 649,
+    "code": "DET0566",
+    "name": "Template Injection Detection - Windows",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 442,
+    "code": "DET0567",
+    "name": "Detecting Unauthorized Collection from Messaging Applications in SaaS and Office Environments",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 596,
+    "code": "DET0568",
+    "name": "Detection Strategy for Input Injection",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 260,
+    "code": "DET0569",
+    "name": "Detection Strategy for Downgrade System Image on Network Devices",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 317,
+    "code": "DET0570",
+    "name": "Detection Strategy for Exfiltration to Cloud Storage",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 659,
+    "code": "DET0571",
+    "name": "Detection of System Process Creation or Modification Across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 54,
+    "code": "DET0572",
+    "name": "Suspicious RoleBinding or ClusterRoleBinding Assignment in Kubernetes",
+    "description": null,
+    "columns": ["1"]
+  }
+]

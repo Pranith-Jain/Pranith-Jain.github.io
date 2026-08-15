@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:06:01.160Z",
+  "name": "aurora: Avanti Windows & Doors",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 12, 2026",
+  "lastSeen": "May 12, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: US | Sector: Manufacturing | Website: Avanti Windows & Doors | Avanti Windows & Doors — a vinyl window manufacturer headquartered in El Mirage, Arizona, with regional offices across Nevada, Texas, California, and Florida. The exposed material includes: Plaintext SQL Server SA (system administrator) credentials — the master key to the FeneVision ERP database containing every customer order, every price, every financial record the company has ever processed. Employee SSNs, W-4s, I-9s, and E-Verify data — the complete identity package for the entire workforce, from new-hire packets through payroll records spanning 2014–2016+. 1099-MISC/INT forms — SSNs/EINs and payment amounts for 50–200+ contractors and vendors across two tax years. Direct deposit authorizations — bank account and routing numbers for employees who enrolled in ACH payroll. 24+ months of Chase bank statements and 28 months of AMEX corporate card statements — full account..."
+}

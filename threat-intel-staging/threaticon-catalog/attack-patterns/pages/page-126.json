@@ -1,0 +1,113 @@
+[
+  { "id": 232, "name": "SSH Hijacking", "tlp": "white", "confidence": null, "techniqueId": "T1563", "status": null },
+  {
+    "id": 1829,
+    "name": "T1563.001 -Credential Phishing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1563",
+    "status": null
+  },
+  { "id": 606, "name": "RDP Hijacking", "tlp": "white", "confidence": null, "techniqueId": "T1563", "status": null },
+  { "id": 106, "name": "Hide Artifacts", "tlp": "white", "confidence": null, "techniqueId": "T1564", "status": null },
+  {
+    "id": 2050,
+    "name": "T1564 - Ransomware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 2183,
+    "name": "T1564 - Use Alternate Authentication Mechanisms",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 641,
+    "name": "Hidden Files and Directories",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 2249,
+    "name": "T1564.001 - Collection via ProcCESSing Memory",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 1609,
+    "name": "T1564.001: Hidden Files and Directories",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  { "id": 398, "name": "Hidden Users", "tlp": "white", "confidence": null, "techniqueId": "T1564", "status": null },
+  { "id": 548, "name": "Hidden Window", "tlp": "white", "confidence": null, "techniqueId": "T1564", "status": null },
+  {
+    "id": 1507,
+    "name": "T1564.003: Hidden Window",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 659,
+    "name": "NTFS File Attributes",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 603,
+    "name": "Hidden File System",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 483,
+    "name": "Run Virtual Instance",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  { "id": 541, "name": "VBA Stomping", "tlp": "white", "confidence": null, "techniqueId": "T1564", "status": null },
+  {
+    "id": 39,
+    "name": "Email Hiding Rules",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  {
+    "id": 1501,
+    "name": "T1564.008: Email Hiding Rules",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  },
+  { "id": 474, "name": "Resource Forking", "tlp": "white", "confidence": null, "techniqueId": "T1564", "status": null },
+  {
+    "id": 696,
+    "name": "Process Argument Spoofing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1564",
+    "status": null
+  }
+]

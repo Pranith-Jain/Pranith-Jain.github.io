@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4318,
+    "name": "genesis: SBI Software",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Technology | Website: sbigrower.com | Infostealer data confirmed. | An Enterprise Resource Planning Software Provider | Source: https://www.ransomware.live/id/U0JJIFNvZnR3YXJlQGdlbmVzaXM="
+  },
+  {
+    "id": 4323,
+    "name": "genesis: East Texas Family Medicine",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: etfmed.com | Infostealer data confirmed. | A healthcare organization | Source: https://www.ransomware.live/id/RWFzdCBUZXhhcyBGYW1pbHkgTWVkaWNpbmVAZ2VuZXNpcw=="
+  },
+  {
+    "id": 4324,
+    "name": "Wallstreet: Gold Standard Automotive",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Wallstreet. | Country: US | Sector: Manufacturing | Website: goldstandardautomotive.com | Infostealer data confirmed. | Gold Standard Automotive Network administers vehicle service contracts sold through dealerships, offering coverage for repairs after your factory warranty ends, with claim approvals handled through the company. | Source: https://www.ransomware.live/id/R29sZCBTdGFuZGFyZCBBdXRvbW90aXZlQFdhbGxzdHJlZXQ="
+  },
+  {
+    "id": 4325,
+    "name": "Wallstreet: Baraga County Memorial Hospital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Wallstreet. | Country: US | Sector: Healthcare | Website: bcmh.org | Infostealer data confirmed. | Baraga County Memorial Hospital is a critical access hospital serving Baraga County with emergency, surgery, imaging, rehab, and outpatient care. | Source: https://www.ransomware.live/id/QmFyYWdhIENvdW50eSBNZW1vcmlhbCBIb3NwaXRhbEBXYWxsc3RyZWV0"
+  },
+  {
+    "id": 4308,
+    "name": "Booba Project: Frosty Acres Brands",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Booba Project. | Country: US | Sector: Agriculture and Food Production | Website: www.frostyacres.com | Food & Beverages Stolen data: 8 GB | Source: https://www.ransomware.live/id/RnJvc3R5IEFjcmVzIEJyYW5kc0BCb29iYSBQcm9qZWN0"
+  },
+  {
+    "id": 4309,
+    "name": "Booba Project: Telewave, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Booba Project. | Country: US | Sector: Telecommunication | Website: www.telewave.com | Telecommunications Stolen data: 37 GB Telewave.io will exhibit at Booth #1146 at APCO 2026 – Association of Public Safety Communications Officials in San Antonio, Texas! They will have what to tell about. | Source: https://www.ransomware.live/id/VGVsZXdhdmUsIEluYy5AQm9vYmEgUHJvamVjdA=="
+  },
+  {
+    "id": 4307,
+    "name": "Doommageddon: Solventa & Riskmetrica | Calificadora de Riesgos",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: PY | Sector: Financial Services | Website: syr.com.py | Infostealer data confirmed. | Status: upcoming | Files: 0 files | Deadline: 2026-07-08T00:00:00Z | Source: https://www.ransomware.live/id/U29sdmVudGEgJiBSaXNrbWV0cmljYSB8IENhbGlmaWNhZG9yYSBkZSBSaWVzZ29zQERvb21tYWdlZGRvbg=="
+  },
+  {
+    "id": 4310,
+    "name": "Booba Project: Fonsan",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Booba Project. | Country: ES | Sector: Not Found | Website: www.fonsan.com | Construction Stolen data: 23.4 GB | Source: https://www.ransomware.live/id/Rm9uc2FuQEJvb2JhIFByb2plY3Q="
+  },
+  {
+    "id": 4305,
+    "name": "Doommageddon: Innovano",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: IN | Sector: Technology | Website: innovano.com | Infostealer data confirmed. | Status: leaked | Data size: 1GB | Files: 1 files | Deadline: 2026-05-30T00:00:00Z | Source: https://www.ransomware.live/id/SW5ub3Zhbm9ARG9vbW1hZ2VkZG9u"
+  },
+  {
+    "id": 4311,
+    "name": "Booba Project: Nfinite 9000 S.L.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Booba Project. | Country: ES | Sector: Technology | Website: nfinite9000.com | Infostealer data confirmed. | IT Services and IT Consulting Stolen data: 3 GB | Source: https://www.ransomware.live/id/TmZpbml0ZSA5MDAwIFMuTC5AQm9vYmEgUHJvamVjdA=="
+  },
+  {
+    "id": 4306,
+    "name": "Doommageddon: Francisco Imóveis",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: BR | Sector: Consumer Services | Website: franciscoimoveis.com.br | Infostealer data confirmed. | Status: leaked | Files: 1 files | Deadline: 2026-07-01T00:00:00Z | Source: https://www.ransomware.live/id/RnJhbmNpc2NvIEltw7N2ZWlzQERvb21tYWdlZGRvbg=="
+  },
+  {
+    "id": 4312,
+    "name": "spacebears: Blenheim",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4314,
+    "name": "payload: Vela Film S.r.l.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: IT | Sector: Consumer Services | Vela Film S.r.l. is an Italian production company based in Rome, specializing in the cinema and television industry. The company is involved in creating and producing various media projects, including well-known Italian TV series like “La porta rossa” and “Volevo fare la rockstar”. It actively collaborates with local directors and regional film commissions to organize and execute shootings across Italy. | Source: https://www.ransomware.live/id/VmVsYSBGaWxtIFMuci5sLkBwYXlsb2Fk"
+  },
+  {
+    "id": 4313,
+    "name": "payload: ENB Versich",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: CH | Sector: Energy | [AI generated] N/A | Source: https://www.ransomware.live/id/RU5CIFZlcnNpY2hAcGF5bG9hZA=="
+  },
+  {
+    "id": 4315,
+    "name": "genesis: Apex Agro, LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Agriculture and Food Production | Website: apexagchem.com | Infostealer data confirmed. | A Chemical Production Company | Source: https://www.ransomware.live/id/QXBleCBBZ3JvLCBMTENAZ2VuZXNpcw=="
+  }
+]

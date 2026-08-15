@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1128,
+    "name": "nightspire: A****ia**on O*A**A",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/QSoqKippYSoqb24gTypBKipBQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1127,
+    "name": "nightspire: T*** Defense",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Manufacturing | Data is not available now. | Source: https://www.ransomware.live/id/VCoqKiBEZWZlbnNlQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1126,
+    "name": "nightspire: *ep***e M***a*i***, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/KmVwKioqZSBNKioqYSppKioqLCBJbmMuQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1125,
+    "name": "nightspire: P**S****E",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/UCoqUyoqKipFQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1124,
+    "name": "nightspire: S**n* *o**tr***io*",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Construction | Data is not available now. | Source: https://www.ransomware.live/id/UyoqbiogKm8qKnRyKioqaW8qQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1121,
+    "name": "nightspire: Notre-Dame du Grandchamp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Education | Website: www.nd-grandchamp.fr | - Students Medical Records- HR& Employee Personal Data- Student Personal & Academic Data- Contracts & Administrative Documents | Source: https://www.ransomware.live/id/Tm90cmUtRGFtZSBkdSBHcmFuZGNoYW1wQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1094,
+    "name": "dragonforce: greenwayfence.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Construction | Website: greenwayfence.com | Infostealer data confirmed. | A wholesale supplier of fencing and railings serving both private homeowners and contractors throughout the East Coast. They offer a wide range of custom fencing materials, including vinyl and aluminum options, as well as decking and specialty products. | Source: https://www.ransomware.live/id/Z3JlZW53YXlmZW5jZS5jb21AZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 1093,
+    "name": "dragonforce: fhw-neukoelln.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Energy | Website: fhw-neukoelln.de | Infostealer data confirmed. | Fernheizwerk Neukölln provides heat to homes in the Berlin-Neukölln district. This local heating company generates and supplies heat to approximately 40,000 homes, ensuring a comfortable temperature during the cold months. They make every effort to provide reliable heat to the community by connecting homes to efficient heating systems throughout the district. | Press: https://www.morgenpost.de/berlin/article411604318/hacker-attacke-auf-berliner-fernheizwerk-in-neukoelln-loesegeldforderung.html | Source: https://www.ransomware.live/id/Zmh3LW5ldWtvZWxsbi5kZUBkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 1119,
+    "name": "shinyhunters: Cisco Systems, Inc. (cisco.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Technology | Website: cisco.com | Infostealer data confirmed. | 3 breaches ( UNC6040 , Salesforce Aura, and AWS accounts). Total over 3M Salesforce records containing PII, Github repositories, AWS buckets and other internal corporate data have been compromised. This is a final warning to reach out by 3 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 31 Mar 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/Q2lzY28gU3lzdGVtcywgSW5jLiAoY2lzY28uY29tKUBzaGlueWh1bnRlcnM="
+  },
+  {
+    "id": 1099,
+    "name": "SilentRansomGroup: Ph..s",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Not Found | [AI generated] N/A | Source: https://www.ransomware.live/id/UGguLnNAU2lsZW50UmFuc29tR3JvdXA="
+  },
+  {
+    "id": 1116,
+    "name": "dragonforce: First Trinity Financial",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1115,
+    "name": "payload: SAYEGH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: LB | Sector: Education | Website: sayeghonline.com | Infostealer data confirmed. | Sayegh 1944 presents itself as an educational company, yet its activities appear broad and somewhat lacking in transparency. Under the umbrella of developing learning materials and services for schools, it spans multiple areas where a clear core expertise is hard to identify. Overall, it gives the impression of an organization trying to cover many segments of education without demonstrating a strong, well-defined specialization or standout results. | Source: https://www.ransomware.live/id/U0FZRUdIQHBheWxvYWQ="
+  },
+  {
+    "id": 1114,
+    "name": "worldleaks: Alamo Heights School District",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Education | Website: www.ahisd.net | [AI generated] Alamo Heights School District is a public school district based in Alamo Heights, Texas. Serving pre-K through 12th grade, it aims to facilitate comprehensive education to foster well-rounded student growth. The district focuses on strong academics, arts, athletics, and character development, committing to a 'Learner's Journey' for every student. | Press: https://www.expressnews.com/news/education/article/alamo-heights-isd-cyberattack-ransom-22191675.php | Source: https://www.ransomware.live/id/QWxhbW8gSGVpZ2h0cyBTY2hvb2wgRGlzdHJpY3RAd29ybGRsZWFrcw=="
+  },
+  {
+    "id": 1113,
+    "name": "worldleaks: AMBAU Personalservice",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: DE | Sector: Business Services | Website: www.ambau-team.de | [AI generated] AMBAU Personalservice is a staffing and recruitment company based in Germany. It specializes in providing highly skilled personnel across various industries including construction, industry, logistics, and traffic fields. Their services cater to both temporary and permanent staffing needs. The company is known for its effective, comprehensive services encompassing the full cycle of recruitment, placement, and employee management. | Source: https://www.ransomware.live/id/QU1CQVUgUGVyc29uYWxzZXJ2aWNlQHdvcmxkbGVha3M="
+  },
+  {
+    "id": 1112,
+    "name": "akira: Starr Insurance",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: insurewithstarr.com | Infostealer data confirmed. | Starr Insurance Inc. is an independent insurance agency based in Chambersburg, Pennsylvania, offering a wide range of insurance pr oducts including car, home, business, and commercial insurance. T he agency serves over 18,000 individuals and businesses across Pe nnsylvania and neighboring states, providing clients with tailore d coverage options from a selection of reputable insurance carrie rs. We will upload 15gb of corporate data soon. Employee passports, D Ls, SSNs and other personal information, financials, customers' i nformation, NDA, etc. | Source: https://www.ransomware.live/id/U3RhcnIgSW5zdXJhbmNlQGFraXJh"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 506,
+  "fetchedAt": "2026-08-14T05:57:21.278Z",
+  "name": "Detection Strategy for Compile After Delivery - Source Code to Executable Transformation",
+  "tlp": null,
+  "detId": "DET0501",
+  "stixId": "x-mitre-detection-strategy--48d80184-842f-419a-ab84-01030f866bd4",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1381", "AN1382", "AN1383"]
+}
