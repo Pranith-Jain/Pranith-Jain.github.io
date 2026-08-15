@@ -263,6 +263,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/about': Scale,
   '/threatintel/tools/settings': Settings,
   '/threatintel/live-center': Globe,
+  '/threatintel/soc-dashboard': LayoutDashboard,
   '/threatintel/ti-dashboard': ShieldAlert,
 };
 

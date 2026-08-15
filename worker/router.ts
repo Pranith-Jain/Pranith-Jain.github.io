@@ -345,6 +345,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/telegram', '/__prerendered/threatintel__telegram'],
   ['/threatintel/telegram-monitor', '/__prerendered/threatintel__telegram-monitor'],
   ['/threatintel/source-health', '/__prerendered/threatintel__source-health'],
+  ['/threatintel/soc-dashboard', '/__prerendered/threatintel__soc-dashboard'],
   ['/threatintel/telegram-iocs', '/__prerendered/threatintel__telegram-iocs'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────

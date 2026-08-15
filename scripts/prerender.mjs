@@ -378,6 +378,7 @@ const ROUTES = [
   '/threatintel/telegram',
   '/threatintel/telegram-monitor',
   '/threatintel/source-health',
+  '/threatintel/soc-dashboard',
   '/threatintel/cyberpulse',
   '/threatintel/telegram-iocs',
 

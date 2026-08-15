@@ -182,6 +182,7 @@ const ThreatIntelCatalog = lazy(() => import('./pages/threatintel/Catalog'));
 const LiveCenter = lazy(() => import('./pages/threatintel/LiveCenter'));
 const TelegramHub = lazy(() => import('./pages/threatintel/TelegramHub'));
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
+const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
 const AptTracker = lazy(() => import('./pages/threatintel/AptTracker'));
 const MostWanted = lazy(() => import('./pages/threatintel/MostWanted'));
 const Extremists = lazy(() => import('./pages/threatintel/Extremists'));
@@ -486,6 +487,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/campaigns/:id', Component: CampaignDetail },
   { path: '/threatintel/telegram', Component: TelegramHub },
   { path: '/threatintel/source-health', Component: SourceHealth },
+  { path: '/threatintel/soc-dashboard', Component: SocDashboard },
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
   { path: '/threatintel/cyberpulse', Component: CyberPulse },
@@ -884,8 +886,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
 
   // ── IOC Hub ─────────────────────────────────────────────────────
   { path: '/threatintel/c2-tracker', to: '/threatintel/iocs/c2' },
-  { path: '/threatintel/iocs/soc', to: '/threatintel/predictive/dashboard' },
-  { path: '/threatintel/soc-dashboard', to: '/threatintel/predictive/dashboard' },
+  { path: '/threatintel/iocs/soc', to: '/threatintel/soc-dashboard' }, // tab of SocDashboard
   { path: '/threatintel/soc-iocs', to: '/threatintel/iocs/live' },
   { path: '/threatintel/live-iocs', to: '/threatintel/iocs/live' },
   { path: '/threatintel/ioc-enrichment', to: '/threatintel/iocs/enrichment' },

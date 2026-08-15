@@ -2118,11 +2118,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/threatintel/soc-dashboard',
-    label: 'SOC Dashboard (alias)',
-    description: 'Alias for the combined intel dashboard - program health, feed reliability, and CVE landscape.',
+    label: 'SOC Dashboards',
+    description: 'Red/cyan/purple panels - ransomware, vulnerabilities, and IOC stream with consensus scoring.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
-    keywords: ['soc', 'dashboard', 'alias'],
+    keywords: ['soc', 'security operations', 'ransomware', 'vulnerability', 'ioc', 'stream', 'dashboard'],
   },
   {
     path: '/threatintel/live-iocs',

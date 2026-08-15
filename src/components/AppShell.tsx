@@ -69,6 +69,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/actors': 'Actor Directory',
   '/threatintel/campaigns': 'Campaigns',
   '/threatintel/iocs': 'IOC Hub',
+  '/threatintel/soc-dashboard': 'SOC Dashboards',
   '/threatintel/darkweb': 'Dark Web',
   '/threatintel/social': 'Social Feeds',
   '/threatintel/detections': 'Detection Hub',
