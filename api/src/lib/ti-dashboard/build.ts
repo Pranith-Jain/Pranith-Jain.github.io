@@ -19,6 +19,7 @@ import type {
 } from './types';
 import { runCompletion } from '../../case-study/generation/ai-client';
 import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
+import { extractJson } from '../llm-json';
 
 function isoYearWeek(d: Date): string {
   const dt = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
@@ -163,11 +164,17 @@ async function enrichWithLlm(
     const text = result.text?.trim();
     if (!text) return empty;
 
-    const jsonStart = text.indexOf('{');
-    const jsonEnd = text.lastIndexOf('}');
-    if (jsonStart === -1 || jsonEnd === -1) return empty;
-
-    const parsed = JSON.parse(text.slice(jsonStart, jsonEnd + 1));
+    // extractJson repairs the common LLM defects (literal newlines inside
+    // strings, trailing commas, fences) so a sloppy model response enriches
+    // the report instead of silently producing an empty one.
+    const parsed = extractJson<{
+      executive_brief?: string;
+      threat_stories?: ThreatStory[];
+      actor_profiles?: ActorProfile[];
+      hunting_leads?: HuntingLead[];
+      statistics?: DashboardStats;
+    }>(text);
+    if (!parsed) return empty;
     return {
       executive_brief: parsed.executive_brief || '',
       threat_stories: Array.isArray(parsed.threat_stories) ? parsed.threat_stories : [],

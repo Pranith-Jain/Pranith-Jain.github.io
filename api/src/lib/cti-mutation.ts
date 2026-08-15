@@ -8,6 +8,7 @@
 
 import type { D1Database } from '@cloudflare/workers-types';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { extractJson } from './llm-json';
 
 interface SeedAttack {
   seed_id: string;
@@ -94,13 +95,12 @@ Return ONLY valid JSON.`;
     if (raw.startsWith('json')) raw = raw.slice(4);
   }
 
-  const startIdx = raw.indexOf('{');
-  const endIdx = raw.lastIndexOf('}');
-  if (startIdx === -1 || endIdx === -1) {
-    throw new Error('Could not parse seed attack from AI response');
+  // extractJson repairs literal newlines inside strings (a common LLM
+  // defect that otherwise surfaces as a raw JSON.parse error to the user).
+  const parsed = extractJson<{ name?: string; description?: string; phases?: SeedAttack['phases'] }>(raw);
+  if (!parsed) {
+    throw new Error('Could not parse seed attack from AI response (malformed JSON — try again)');
   }
-
-  const parsed = JSON.parse(raw.slice(startIdx, endIdx + 1));
   const seedId = `SEED-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
 
   // Store seed
@@ -196,13 +196,10 @@ Rules:
     if (raw.startsWith('json')) raw = raw.slice(4);
   }
 
-  const startIdx = raw.indexOf('[');
-  const endIdx = raw.lastIndexOf(']');
-  if (startIdx === -1 || endIdx === -1) {
-    throw new Error('Could not parse variants from AI response');
+  const variants = extractJson<MutationVariant[]>(raw);
+  if (!variants) {
+    throw new Error('Could not parse variants from AI response (malformed JSON — try again)');
   }
-
-  const variants: MutationVariant[] = JSON.parse(raw.slice(startIdx, endIdx + 1));
 
   // Store variants
   const stmt = db.prepare(`
