@@ -1,0 +1,12 @@
+{
+  "id": 33,
+  "name": "Detection Strategy for Dynamic Resolution using Domain Generation Algorithms.",
+  "detId": "DET0419",
+  "stixId": "x-mitre-detection-strategy--263a0357-5f6d-4066-bfda-afeb883e51d7",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1178", "AN1179", "AN1180", "AN1181"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/33"
+}

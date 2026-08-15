@@ -1,0 +1,12 @@
+{
+  "id": 32,
+  "name": "netstat",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "netstat is an operating system utility that displays active TCP connections, listening ports, and network statistics. (Citation: TechNet Netstat)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/32"
+}

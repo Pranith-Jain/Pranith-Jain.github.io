@@ -1,0 +1,12 @@
+{
+  "id": 2675,
+  "name": "OSINT - Rurktar - Spyware under Construction",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1117 (59720fc0-19c8-47f0-92e2-4dff950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2675"
+}

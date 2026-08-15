@@ -1,0 +1,12 @@
+{
+  "id": 3283,
+  "name": "Analysis and Detection of CLOUD#REVERSER: An Attack Involving Threat Actors Compromising Systems Using A Sophisticated Cloud-Based Malware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #500 (a386441b-b2e5-406d-9e6c-69eec712e40c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3283"
+}

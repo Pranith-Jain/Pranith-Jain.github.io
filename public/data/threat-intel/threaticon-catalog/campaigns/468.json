@@ -1,0 +1,12 @@
+{
+  "id": 468,
+  "name": "dragonforce: gelatissimo.com.au",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: AU | Sector: Hospitality and Tourism | Website: gelatissimo.com.au | Infostealer data confirmed. | A global brand seeking major investors with experience in retail and franchising to expand its artisanal ice cream chain through a master franchise program | Source: https://www.ransomware.live/id/Z2VsYXRpc3NpbW8uY29tLmF1QGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/468"
+}

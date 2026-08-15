@@ -1,0 +1,12 @@
+{
+  "id": 7090,
+  "name": "Orova: SURE TRAVEL COMPANY",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: HK | Sector: Hospitality | Website: www.emis.com/php/company-profile/HK/Sure_Travel_Company_Limited__Sure_Travel_Company_Limited__zh_7017283.html | SURE TRAVEL COMPANY LIMITED was incorporated on 24-JAN-2000 as a Private company limited by shares registered in Hong Kong. | Source: https://www.ransomware.live/id/U1VSRSBUUkFWRUwgQ09NUEFOWUBPcm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7090"
+}

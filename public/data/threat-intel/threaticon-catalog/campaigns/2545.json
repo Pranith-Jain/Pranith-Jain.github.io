@@ -1,0 +1,12 @@
+{
+  "id": 2545,
+  "name": "OSINT - Floki Bot and the stealthy dropper",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #916 (5824e43f-9370-463b-9681-452b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2545"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1463,
+  "name": "akira: The Decorative Paving",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Construction | Website: decorativepaving.com | Infostealer data confirmed. | Decorative Paving Company specializes in the manufacturing, insta llation, and distribution of high-quality paving systems. With ov er twenty years of experience, the company has established a stro ng international reputation for excellence in its services. We will upload 20gb of corporate data soon. Employee personal inf ormation (passports, DLs and other HR files), projects, financial s and so on. | Source: https://www.ransomware.live/id/VGhlIERlY29yYXRpdmUgUGF2aW5nQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1463"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2681,
+  "name": "OSINT - A Look at JS_POWMET, a Completely Fileless Malware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1123 (5982cc0a-db3c-40f9-9873-e54e02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2681"
+}

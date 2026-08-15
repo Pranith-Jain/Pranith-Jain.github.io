@@ -1,0 +1,12 @@
+{
+  "id": 4148,
+  "name": "Deadlock: Zaffrani Srl",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: IT | Sector: Business Services | Website: www.zaffrani.it | Zaffrani Srl, an Italian manufacturer specializing in advanced agricultural machinery. Founded in 1959, the company is headquartered in the Marche region of Italy and has become a global leader in crop harvesting and drying technology. | Source: https://www.ransomware.live/id/WmFmZnJhbmkgU3JsQERlYWRsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4148"
+}

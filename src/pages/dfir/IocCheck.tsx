@@ -607,7 +607,7 @@ export default function IocCheck(): JSX.Element {
                               {label}
                               <span
                                 aria-hidden
-                                className={`text-[9px] ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400/60'}`}
+                                className={`text-micro ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400/60'}`}
                               >
                                 {active ? (bulkSort?.dir === 'asc' ? '▲' : '▼') : '↕'}
                               </span>

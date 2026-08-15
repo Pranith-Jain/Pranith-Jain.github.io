@@ -1,0 +1,12 @@
+{
+  "id": 151,
+  "name": "Detection Strategy for Exclusive Control",
+  "detId": "DET0015",
+  "stixId": "x-mitre-detection-strategy--1d8154f6-6890-4441-863f-007600867088",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0045", "AN0046", "AN0047"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/151"
+}

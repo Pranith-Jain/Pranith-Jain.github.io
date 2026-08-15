@@ -1,0 +1,12 @@
+{
+  "id": 149,
+  "name": "Detecting Odbcconf Proxy Execution of Malicious DLLs",
+  "detId": "DET0486",
+  "stixId": "x-mitre-detection-strategy--9407410b-7f35-4d32-be3c-e48ea36573d9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1335"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/149"
+}

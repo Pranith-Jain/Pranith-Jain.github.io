@@ -1,0 +1,12 @@
+{
+  "id": 6780,
+  "name": "aurora: Van Eijck International Car Rescue",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: NL | Sector: Transportation | Website: Van Eijck International Car Rescue | [recovery, rescue] Van Eijck International Car Rescue B.V. — a family-owned Dutch towing and recovery company with 225+ vehicles, 180+ employees, and 20 branch offices across the Netherlands and Spain. The exposed material includes: <censored> 227 employee home directories (156 GB) containing personal documents, tax forms (loonheffingen), salary records, photos, and financial data. 12 GB of RentRunner customer rental contracts with copies of identity documents, driving licenses, and vehicle registrations. 10 years of customer claims data (2010–2019) — 500+ individual claims with damage assessments, insurance details, and customer PII. Complete Google Workspace backup (CubeBackup) — Gmail, Drive, and Calendar for 18 user accounts and 206 groups. <censored> | Source: https://www.ransomware.live/id/VmFuIEVpamNrIEludGVybmF0aW9uYWwgQ2FyIFJlc2N1ZUBhdXJvcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6780"
+}

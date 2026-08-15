@@ -1,0 +1,12 @@
+{
+  "id": 399,
+  "name": "apt73: assurified.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: US | Sector: Financial Services | Website: assurified.com | Infostealer data confirmed. | Assurified revolutionizes risk management for multifamily real estate. Our AI-powered solutions a... | Source: https://www.ransomware.live/id/YXNzdXJpZmllZC5jb21AYXB0NzM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/399"
+}

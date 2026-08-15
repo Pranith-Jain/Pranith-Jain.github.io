@@ -1,0 +1,12 @@
+{
+  "id": 570,
+  "name": "Detection Strategy for Hidden Windows",
+  "detId": "DET0128",
+  "stixId": "x-mitre-detection-strategy--1167a6c8-d735-4d5d-81f5-d81c6eafe239",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0360", "AN0361", "AN0362"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/570"
+}

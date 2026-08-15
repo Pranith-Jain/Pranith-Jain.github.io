@@ -1,0 +1,12 @@
+{
+  "id": 498,
+  "name": "Detection of Persistence Artifact Removal Across Host Platforms",
+  "detId": "DET0040",
+  "stixId": "x-mitre-detection-strategy--80eb76bc-6599-4adf-8d8c-8126e7e63d12",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0113", "AN0114", "AN0115", "AN0116"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/498"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3242,
+  "name": "Chinese Threat Actors Targeting Europe in SmugX Campaign",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #415 (4154d3f0-5519-4b96-a2ba-9adcff7f7179).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3242"
+}

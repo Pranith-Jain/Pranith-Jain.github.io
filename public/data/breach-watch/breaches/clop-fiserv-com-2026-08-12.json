@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "[AI generated] Fiserv is a leading American financial technology company headquartered in Milwaukee, Wisconsin. It provides payment processing, banking software, and financial services technology to banks, credit unions, merchants, and other financial institutions worldwide. Its services include core banking systems, digital payments, card processing, and data analytics. Fiserv operates globally and is listed on the NASDAQ stock exchange.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/5cb92dbc-95b2-4e7e-bc4f-c832caa464c1",
   "groupAliases": ["Cl0p"],
   "activity": "Financial Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

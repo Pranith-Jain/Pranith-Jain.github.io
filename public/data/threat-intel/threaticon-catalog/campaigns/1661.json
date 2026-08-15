@@ -1,0 +1,12 @@
+{
+  "id": 1661,
+  "name": "qilin: Retamar",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Not Found | Website: www.retamar.com | Source: https://www.ransomware.live/id/UmV0YW1hckBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1661"
+}

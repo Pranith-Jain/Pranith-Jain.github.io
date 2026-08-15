@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-toa-2026-08-14",
+  "title": "TOA",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:56:48.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b987765b-55d0-4821-81f5-9a471c0528bd",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

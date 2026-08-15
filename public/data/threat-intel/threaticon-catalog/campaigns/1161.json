@@ -1,0 +1,12 @@
+{
+  "id": 1161,
+  "name": "incransom: millersteelelaw.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: millersteelelaw.com | Infostealer data confirmed. | At Miller & Steele Law Firm, we believe in protecting and fighting for those who have been affected by the negligence of others. David Miller started this firm in 1978 to fight for those who could not fight their own battle. When he was a young man, he saw a family member involved in a lawsuit who was poorly represented by a bad lawyer which resulted in a poor outcome. | Source: https://www.ransomware.live/id/bWlsbGVyc3RlZWxlbGF3LmNvbUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1161"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "name": "Detection Strategy for Boot or Logon Initialization Scripts: RC Scripts",
+  "detId": "DET0237",
+  "stixId": "x-mitre-detection-strategy--be6a466c-40c6-4611-9b68-7cfcbcb35fb0",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0658", "AN0659", "AN0660", "AN0661"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/1"
+}

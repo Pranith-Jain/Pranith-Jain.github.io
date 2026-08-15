@@ -1,0 +1,12 @@
+{
+  "id": 3342,
+  "name": "OSINT - The Latest Android Overlay Malware Spreading via SMS Phishing in Europe",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #592 (577375a9-9ab8-4163-84ab-a395950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3342"
+}

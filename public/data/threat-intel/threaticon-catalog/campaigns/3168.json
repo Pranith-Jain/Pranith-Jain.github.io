@@ -1,0 +1,12 @@
+{
+  "id": 3168,
+  "name": "Suspected Russian Activity Targeting Government and Business Entities Around the Globe",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #281 (13456cca-75ce-4443-bf65-90b13f6f7aab).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3168"
+}

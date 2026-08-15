@@ -1,0 +1,12 @@
+{
+  "id": 75,
+  "name": "Detection Strategy for VBA Stomping",
+  "detId": "DET0012",
+  "stixId": "x-mitre-detection-strategy--6d2e2f19-f5ae-4ba0-aea7-52cc257169e5",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0034", "AN0035", "AN0036"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/75"
+}

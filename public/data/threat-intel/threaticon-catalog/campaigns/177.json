@@ -1,0 +1,12 @@
+{
+  "id": 177,
+  "name": "stormous: FANASA.COM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to stormous. | Country: MX | Sector: Not Found | Website: FANASA.COM | Personally Identifiable Information (PII), ​Electronic Fiscal Documents (CFDI/XML), ​Financial Transaction Records, ​Commercial Invoices & Billing Data, ​Taxpayer Identification Numbers (RFC), ​Client & Vendor Database/​Internal Corporate Documentation | Source: https://www.ransomware.live/id/RkFOQVNBLkNPTUBzdG9ybW91cw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/177"
+}

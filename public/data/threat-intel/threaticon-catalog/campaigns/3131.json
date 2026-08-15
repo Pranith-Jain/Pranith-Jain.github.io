@@ -1,0 +1,12 @@
+{
+  "id": 3131,
+  "name": "OSINT - Android banking trojan masquerades as Flash Player and bypasses 2FA",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #177 (56e27748-1864-476a-9c1c-4d10950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3131"
+}

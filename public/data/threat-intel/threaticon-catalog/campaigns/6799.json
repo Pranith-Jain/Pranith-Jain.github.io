@@ -1,0 +1,12 @@
+{
+  "id": 6799,
+  "name": "spacebears: StellarRAD Systems",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 29, 2026",
+  "lastSeen": "Jul 29, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to spacebears. | Country: US | Sector: Technology | Website: www.stellarrad.com | Since 1981, StellarRAD Systems exists to solve the critical issues facing our clients, both large and small. We provide a broad range of services and solutions to help telecommunications providers around the world facilitate change and achieve their vision while optimizing performance and productivity. Our unique, customer focused approach ensures a level of service that you will quickly come to appreciate.Our family of GIS products and conversion services provides an industry leading toolset for engineers managing fiber and copper networks, including the ability to import GPS data, manipulate coordinate systems, identify network components with physical and logical connectivity and much more. Do you need all of this information plus the associated subscriber data available to every employee in your organization via desktop, notebook, tablet and smartphone? Done. -SQL Data-DW...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6799"
+}

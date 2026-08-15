@@ -1,0 +1,12 @@
+{
+  "id": 107,
+  "name": "Detection Strategy for Hijack Execution Flow for DLLs",
+  "detId": "DET0201",
+  "stixId": "x-mitre-detection-strategy--bd33de0c-1ed7-42ea-b77d-1fd5d33acd3b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0577"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/107"
+}

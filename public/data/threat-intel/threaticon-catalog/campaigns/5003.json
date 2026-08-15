@@ -1,0 +1,12 @@
+{
+  "id": 5003,
+  "name": "morpheus: 3I INFOTECH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to morpheus. | Country: IN | Sector: Technology | **Website**: 3i-infotech.com **Revenue**: $96.8 Million 3i Infotech, incorporated in 1993 as 'ICICI Investors Services Limited' and initially an ICICI subsidiary until 2002, is an Indian public glob | Source: https://www.ransomware.live/id/M0kgSU5GT1RFQ0hAbW9ycGhldXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5003"
+}

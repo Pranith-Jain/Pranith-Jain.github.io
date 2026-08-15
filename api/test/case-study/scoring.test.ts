@@ -42,8 +42,8 @@ describe('severityScore', () => {
     expect(severityScore({ victims: 100 })).toBe(1.0);
   });
 
-  it('returns 0.5 default for no signals', () => {
-    expect(severityScore({})).toBe(0.5);
+  it('returns 0.3 default for no signals', () => {
+    expect(severityScore({})).toBe(0.3);
   });
 });
 
@@ -56,9 +56,12 @@ describe('noveltyScore', () => {
     expect(noveltyScore({ lastSeenAt: now.toISOString() }, now)).toBe(0);
   });
 
-  it('linearly increases over 90 days', () => {
+  it('increases with sqrt decay over 90 days (recently seen is heavily penalized)', () => {
+    // Exponential (sqrt) decay: half the window (45d) scores sqrt(0.5) ≈ 0.707,
+    // NOT the linear 0.5 — the deliberate scoring change in the discovery
+    // pipeline audit that strongly penalizes recently seen content.
     const t = new Date(now.getTime() - 45 * 24 * 3600 * 1000).toISOString();
-    expect(noveltyScore({ lastSeenAt: t }, now)).toBeCloseTo(0.5, 2);
+    expect(noveltyScore({ lastSeenAt: t }, now)).toBeCloseTo(Math.sqrt(0.5), 2);
   });
 });
 

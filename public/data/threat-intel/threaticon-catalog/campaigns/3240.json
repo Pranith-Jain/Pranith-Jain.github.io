@@ -1,0 +1,12 @@
+{
+  "id": 3240,
+  "name": "Cadet Blizzard emerges as a novel and distinct Russian threat actor",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #413 (ad5af8e7-0c4c-4b64-b36d-1c80910c1140).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3240"
+}

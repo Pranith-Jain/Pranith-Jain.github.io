@@ -1,0 +1,12 @@
+{
+  "id": 3324,
+  "name": "Malspam - Locky - 2016-05-24 (.zip with .js, downloading (partially reversed) XOR'ed data)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #558 (5744128d-ede0-41a8-8497-41f0950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3324"
+}

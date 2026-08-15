@@ -1,0 +1,12 @@
+{
+  "id": 1293,
+  "name": "qilin: ACR1.COM Commercial Roofing",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.acr1.com | Source: https://www.ransomware.live/id/QUNSMS5DT00gQ29tbWVyY2lhbCBSb29maW5nQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1293"
+}

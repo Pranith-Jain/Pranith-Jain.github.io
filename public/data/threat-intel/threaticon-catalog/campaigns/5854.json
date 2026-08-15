@@ -1,0 +1,12 @@
+{
+  "id": 5854,
+  "name": "payload: CKR Consulting Engineers",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 19, 2026",
+  "lastSeen": "Jul 19, 2026",
+  "added": "Jul 19, 2026",
+  "description": "Ransomware attack attributed to payload. | Sector: Business Services | CKR Consulting Engineers is a prominent South African engineering consultancy firm headquartered in Johannesburg, established under its current name in 2001. The company provides comprehensive multi-disciplinary services, specializing in electrical, electronic, mechanical, renewable energy, and civil engineering. | Source: https://www.ransomware.live/id/Q0tSIENvbnN1bHRpbmcgRW5naW5lZXJzQHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5854"
+}

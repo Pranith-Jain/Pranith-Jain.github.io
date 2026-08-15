@@ -1,0 +1,12 @@
+{
+  "id": 471,
+  "name": "Detection of Web Services",
+  "detId": "DET0896",
+  "stixId": "x-mitre-detection-strategy--71b2e30c-f793-42a8-85be-f782c908772c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2028"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/471"
+}

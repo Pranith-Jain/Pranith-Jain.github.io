@@ -1,0 +1,12 @@
+{
+  "id": 2673,
+  "name": "OSINT - Recent Winnti Infrastructure and Samples",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1114 (596f75c0-9118-4b4c-958b-1921950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2673"
+}

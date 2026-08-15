@@ -1,0 +1,12 @@
+{
+  "id": 5465,
+  "name": "Deadlock: Weinberg ''93 Építő Kft.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 14, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: HU | Sector: Construction | Website: weinberg.hu | Infostealer data confirmed. | Weinberg ''93 Építő Kft., a prominent Hungarian construction and steel fabrication company. Overview: Founded in 1993 and headquartered in Sбrospatak, it is a 100% privately owned Hungarian company. Core Services: The firm specializes in general contracting and the manufacture of complex steel structures. Major Projects: They have handled significant industrial developments, including: - Volvo Trucks Hungary: Completed a 5,500 mІ advanced truck center in Ecser. - Continental Automotive: Construction of electronics manufacturing plants. - East Gate PRO Business Park: Developed BREEAM-certified sustainable warehouses. - Becton Dickinson: Expansion of a major syringe factory in Hungary. Recognitions: The company has received numerous awards, such as the Lechner Цdцn Award (2024) and the Steel Structure Award (2022). Over 650 gigabytes of sensitive internal...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5465"
+}

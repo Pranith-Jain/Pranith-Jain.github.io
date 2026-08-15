@@ -1,0 +1,12 @@
+{
+  "id": 362,
+  "name": "m3rx: boxtopia.co.uk",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to m3rx. | Country: GB | Sector: Business Services | Website: boxtopia.co.uk | Infostealer data confirmed. | +44 1476576090 . Boxtopia is the UK's leading supplier of custom cardboard boxes and printed boxes, specializing in short runs for small businesses with no minimum order. Stolen: 166gb 280k files | Source: https://www.ransomware.live/id/Ym94dG9waWEuY28udWtAbTNyeA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/362"
+}

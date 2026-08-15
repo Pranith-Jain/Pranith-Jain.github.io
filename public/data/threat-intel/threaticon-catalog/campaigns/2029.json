@@ -1,0 +1,12 @@
+{
+  "id": 2029,
+  "name": "New OS X Ransomware KeRanger Infected Transmission BitTorrent Client Installer",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #41 (56dc8c8c-a3f4-4a60-9f4c-b375c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2029"
+}

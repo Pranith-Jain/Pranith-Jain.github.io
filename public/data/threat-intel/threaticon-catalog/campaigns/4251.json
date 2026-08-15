@@ -1,0 +1,12 @@
+{
+  "id": 4251,
+  "name": "thegentlemen: Technical Solutions Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Business Services | Website: tsgpc.com | Infostealer data confirmed. | ***.com zoominfo.com/c/medical-data-rx/346985484 Technical Solutions Group, LLC, an IT services company headquartered in Gladwin, Michigan, which also operates the specialized division Medical Data Rx.The organization provides comprehensive technology solutions, including networking, data backup, and hardware services, assisting both small businesses and medical professionals across the United States and Canada.As a diversified technology services provider, the company focuses on delivering reliable technical support and tailored IT management to its clients | Source: https://www.ransomware.live/id/VGVjaG5pY2FsIFNvbHV0aW9ucyBHcm91cEB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4251"
+}

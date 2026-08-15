@@ -1,0 +1,12 @@
+{
+  "id": 2094,
+  "name": "Silence â€“ a new Trojan attacking financial organizations",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #117 (59fb893d-fce4-4005-a1c3-2facc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2094"
+}

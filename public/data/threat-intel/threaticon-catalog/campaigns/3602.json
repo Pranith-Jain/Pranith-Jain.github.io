@@ -1,0 +1,12 @@
+{
+  "id": 3602,
+  "name": "akira: Vision 3 Architects",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Construction | Website: vision3architects.com | Infostealer data confirmed. | Vision 3 Architects is a collaborative and responsive design studio specializing in architectur e and interior design projects. They focus on crafting spaces that reflect each client's vision and values, ensuring a design environment that fosters creativity and collaboration. We will upload 31gb of corporate data soon. Detailed employee personal information (passports, DLs, SSNs and so on), contracts and agreements, client information, projects, NDAs, etc. | Source: https://www.ransomware.live/id/VmlzaW9uIDMgQXJjaGl0ZWN0c0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3602"
+}

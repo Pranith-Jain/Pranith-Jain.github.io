@@ -1,0 +1,12 @@
+{
+  "id": 66,
+  "name": "Detection Strategy for File Creation or Modification of Boot Files",
+  "detId": "DET0150",
+  "stixId": "x-mitre-detection-strategy--74252ca3-585e-466f-8020-ed77ebda3369",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0428", "AN0429"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/66"
+}

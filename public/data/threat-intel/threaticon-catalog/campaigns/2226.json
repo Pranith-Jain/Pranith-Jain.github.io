@@ -1,0 +1,12 @@
+{
+  "id": 2226,
+  "name": "Obama207 QAKBOT (QBOT) infection with Cobalt Strike",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #329 (9a33a7ae-0632-44b1-abdd-abf4ec5bc58d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2226"
+}

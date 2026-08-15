@@ -1,0 +1,12 @@
+{
+  "id": 3147,
+  "name": "xHunt Campaign: Newly Discovered Backdoors Using Deleted Email Drafts and DNS Tunneling for Command and Control",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #243 (5fd62412-4cec-450a-a2bc-e52ec0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3147"
+}

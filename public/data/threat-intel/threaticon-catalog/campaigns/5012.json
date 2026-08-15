@@ -1,0 +1,12 @@
+{
+  "id": 5012,
+  "name": "thegentlemen: FESCO Adecco",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: RU | Sector: Business Services | Website: fescoadecco.com | Infostealer data confirmed. | ***.com zoominfo.com/c/fesco-adecco/345603628 FESCO Adecco is a leading human resources provider in China, established as a strategic joint venture between Beijing FESCO and the global Adecco Group. The company delivers comprehensive HR solutions, including talent acquisition, staffing, payroll outsourcing, and business process outsourcing for multinational and domestic enterprises. Backed by a vast nationwide network, it helps organizations navigate the complex Chinese labor market and optimize their workforce strategies | Source: https://www.ransomware.live/id/RkVTQ08gQWRlY2NvQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5012"
+}

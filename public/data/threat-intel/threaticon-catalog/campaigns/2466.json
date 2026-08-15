@@ -1,0 +1,12 @@
+{
+  "id": 2466,
+  "name": "OSINT Meet GreenDispenser: A New Breed of ATM Malware by ProofPoint",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #802 (560460c7-a840-4949-a92e-3c09950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2466"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4907,
+  "name": "worldleaks: Reliance Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "May 25, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to worldleaks. | Country: IN | Sector: Not Found | Website: www.reliancegroupindia.com | [AI generated] Reliance Group is a large Indian conglomerate headquartered in Mumbai, India. Founded by Dhirubhai Ambani, it operates across multiple sectors including petrochemicals, refining, oil and gas, retail, telecommunications, and financial services. Following a split between his sons, the group divided into Reliance Industries led by Mukesh Ambani and Reliance ADAG led by Anil Ambani, both remaining major players in India's economy. | Source: https://www.ransomware.live/id/UmVsaWFuY2UgR3JvdXBAd29ybGRsZWFrcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4907"
+}

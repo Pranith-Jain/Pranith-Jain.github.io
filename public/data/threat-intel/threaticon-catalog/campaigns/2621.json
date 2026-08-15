@@ -1,0 +1,12 @@
+{
+  "id": 2621,
+  "name": "OSINT - High-Volume Dridex Campaigns Return, First to Hit Millions Since June 2016",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1032 (58e73aab-3530-44d8-94b7-4cbf950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2621"
+}

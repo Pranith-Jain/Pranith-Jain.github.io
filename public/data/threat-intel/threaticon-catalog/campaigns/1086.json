@@ -1,0 +1,12 @@
+{
+  "id": 1086,
+  "name": "dragonforce: acmealliance.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: www.acmealliance.com | It is a global manufacturer specializing in the custom production of die-cast components for various industries, including the automotive, marine, and agricultural sectors. | Source: https://www.ransomware.live/id/YWNtZWFsbGlhbmNlLmNvbUBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1086"
+}

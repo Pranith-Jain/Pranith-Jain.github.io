@@ -1,0 +1,12 @@
+{
+  "id": 1483,
+  "name": "dragonforce: Flexform",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: IT | Sector: Manufacturing | Website: www.flexform.it | Flexform SpA is an Italian company with its head office in Meda, Italy, at the centre of the furniture production district of La Brianza. Founded in 1959 by the Galimberti brothers, the company designs, produces and markets furniture and furnishing accessories for residential and public use | Source: https://www.ransomware.live/id/RmxleGZvcm1AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1483"
+}

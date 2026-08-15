@@ -1,0 +1,12 @@
+{
+  "id": 486,
+  "name": "Detection Strategy for Weaken Encryption on Network Devices",
+  "detId": "DET0339",
+  "stixId": "x-mitre-detection-strategy--de98fda3-10f9-4013-a163-fb9b6c117a9b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0961"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/486"
+}

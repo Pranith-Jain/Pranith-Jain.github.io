@@ -1,0 +1,12 @@
+{
+  "id": 728,
+  "name": "krybit: Hacked 0APT",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Sector: Technology | Website: Hacked 0APT | Next time, don't play with the big boys. The response will be fast.... | Source: https://www.ransomware.live/id/SGFja2VkIDBBUFRAa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/728"
+}

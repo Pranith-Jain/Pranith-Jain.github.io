@@ -1,0 +1,12 @@
+{
+  "id": 3036,
+  "name": "KRVTZ-NET IDS alerts for 2026-04-03",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1937 (d94d0ee5-923f-4ee2-a9bb-6daff7c10daf).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3036"
+}

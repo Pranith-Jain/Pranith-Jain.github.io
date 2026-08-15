@@ -1,0 +1,12 @@
+{
+  "id": 7081,
+  "name": "Orova: ADG Healthcare",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "May 21, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: EG | Sector: Healthcare | Website: www.adg-healthcare.com | ADG Healthcare is a company that operates in the Medical Specialists industry. It employs 250to499 people and has 10Mto25M of revenue. The company is headquartered in Cairo, Cairo, Egypt. | Source: https://www.ransomware.live/id/QURHIEhlYWx0aGNhcmVAT3JvdmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7081"
+}

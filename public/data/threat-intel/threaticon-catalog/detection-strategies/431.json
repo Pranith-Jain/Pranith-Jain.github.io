@@ -1,0 +1,12 @@
+{
+  "id": 431,
+  "name": "Detection of Trust Relationship Modifications in Domain or Tenant Policies",
+  "detId": "DET0458",
+  "stixId": "x-mitre-detection-strategy--9e93c9d8-3e37-45ae-88d5-12914d98ba5a",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN1259", "AN1260"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/431"
+}

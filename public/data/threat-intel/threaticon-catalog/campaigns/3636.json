@@ -1,0 +1,12 @@
+{
+  "id": 3636,
+  "name": "interlock: Waterford Hotel Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to interlock. | Country: IE | Sector: Hospitality and Tourism | Website: https:waterfordhotelgroup.com | Waterford Hotel Groupa company that manages hotels and conference centersfailed to implement adequate security measures, resulting in a data breach. We are providing you with a dataset containing information about the hotel chain and its other divisions, including personal and confidential data, partner contact information, and financial information. | Source: https://www.ransomware.live/id/V2F0ZXJmb3JkIEhvdGVsIEdyb3VwQGludGVybG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3636"
+}

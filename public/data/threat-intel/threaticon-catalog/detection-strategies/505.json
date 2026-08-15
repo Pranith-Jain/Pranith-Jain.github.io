@@ -1,0 +1,12 @@
+{
+  "id": 505,
+  "name": "Detection of DNS",
+  "detId": "DET0843",
+  "stixId": "x-mitre-detection-strategy--3058b630-ede1-4bbb-b8ce-985d802e1e8d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1975"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/505"
+}

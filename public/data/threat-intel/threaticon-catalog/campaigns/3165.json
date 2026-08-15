@@ -1,0 +1,12 @@
+{
+  "id": 3165,
+  "name": "FontOnLake: Previously unknown malware family targeting Linux",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #277 (5f17a0c6-7b04-4f05-9fda-b5d435a8d6a4).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3165"
+}

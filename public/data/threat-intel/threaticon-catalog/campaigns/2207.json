@@ -1,0 +1,12 @@
+{
+  "id": 2207,
+  "name": "Financial Institutions in the Sight of New JsOutProx Attack Waves",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #272 (ca364f27-1a08-4c80-9686-541d70586b4f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2207"
+}

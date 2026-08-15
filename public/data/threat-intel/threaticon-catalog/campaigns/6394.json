@@ -1,0 +1,12 @@
+{
+  "id": 6394,
+  "name": "Global Secret Group: Al Hayat | Pepsi",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: IQ | Sector: Retail & E-Commerce | Website: alhayatco.com | Country: Iraq | Website: alhayatco.com | Revenue: $100 Million | Industry: Food & Beverage | Employees: 501-1,000 | Properties: 138 GB (205,992 Files, 17,178 Folders) | Source: https://www.ransomware.live/id/QWwgSGF5YXQgfCBQZXBzaUBHbG9iYWwgU2VjcmV0IEdyb3Vw",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6394"
+}

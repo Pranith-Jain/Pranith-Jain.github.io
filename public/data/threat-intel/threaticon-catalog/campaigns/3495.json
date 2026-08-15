@@ -1,0 +1,12 @@
+{
+  "id": 3495,
+  "name": "OSINT - Shell Crew Variants Continue to Fly Under Big AVâ€™s Radar",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #991 (589d81ee-0348-49fe-9b88-4c48950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3495"
+}

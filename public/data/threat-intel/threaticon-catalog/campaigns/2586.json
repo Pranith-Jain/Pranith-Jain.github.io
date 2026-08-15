@@ -1,0 +1,12 @@
+{
+  "id": 2586,
+  "name": "OSINT - Nile Phish: Large-Scale Phishing Campaign Targeting Egyptian Civil Society",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #980 (589327e5-227c-4236-a9b8-fafc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2586"
+}

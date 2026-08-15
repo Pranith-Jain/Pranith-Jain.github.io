@@ -1,0 +1,12 @@
+{
+  "id": 2202,
+  "name": "Malware Analysis: Ragnarok Ransomware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #259 (89c7d350-43f3-4aa9-ab02-c50d70339baa).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2202"
+}

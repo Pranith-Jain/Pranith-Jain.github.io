@@ -1,0 +1,12 @@
+{
+  "id": 1816,
+  "name": "pear: CTI & Coordinators",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Transportation/Logistics | Website: cticoordinators.com | Infostealer data confirmed. | Freight transportation services throughout the United States and province of Ontario Canada | Source: https://www.ransomware.live/id/Q1RJICYgQ29vcmRpbmF0b3JzQHBlYXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1816"
+}

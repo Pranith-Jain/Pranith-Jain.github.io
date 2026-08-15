@@ -1,0 +1,12 @@
+{
+  "id": 769,
+  "name": "lockbit5: pegasussrl.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Business Services | Website: pegasussrl.com | Infostealer data confirmed. | Agenzia Unipol Assicurazioni 39547 Prato - Pegasus srl Agenzia 39547 Prato R.U.I. N. A000671187- P.... | Source: https://www.ransomware.live/id/cGVnYXN1c3NybC5jb21AbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/769"
+}

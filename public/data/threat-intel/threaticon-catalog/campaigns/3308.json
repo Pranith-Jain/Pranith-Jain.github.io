@@ -1,0 +1,12 @@
+{
+  "id": 3308,
+  "name": "ICS Threat Analysis: New, Experimental Malware Can Kill Engineering Processes",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #530 (f9db7f4c-b8d6-4ed9-b9f1-d1990a7e1668).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3308"
+}

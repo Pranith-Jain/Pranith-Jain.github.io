@@ -1,0 +1,12 @@
+{
+  "id": 3082,
+  "name": "medusalocker: Palmers Relocations",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to medusalocker. | Country: GB | Sector: Transportation/Logistics | Australian international removals & relocation company. FIDI accredited, ISO 9001:2015 certified. Services: household moves, storage, customs, immigration (IMMI/VEVO). Operates Melbourne area (Pascoe Vale, Dandenong, Caulfield). | Source: https://www.ransomware.live/id/UGFsbWVycyBSZWxvY2F0aW9uc0BtZWR1c2Fsb2NrZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3082"
+}

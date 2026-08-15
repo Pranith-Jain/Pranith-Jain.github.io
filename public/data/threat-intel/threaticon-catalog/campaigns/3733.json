@@ -1,0 +1,12 @@
+{
+  "id": 3733,
+  "name": "m3rx: datasavior.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to m3rx. | Country: US | Sector: Technology | Website: datasavior.com | Infostealer data confirmed. | +1 (512) 707-0026. Datasavior is a full-service systems integration company based in Austin, Texas, specializing in IT support and fiber cable installations. They offer comprehensive solutions for medical and dental office IT, including practice management, data backup services, and advanced antivirus software. Their target clients include businesses in need of reliable technology solutions and support, particularly in the healthcare sector. With a team of skilled technicians, Datasavior aims to help clients optimize their technology for current and future needs. Stolen: 540mb 1,410 Files | Source: https://www.ransomware.live/id/ZGF0YXNhdmlvci5jb21AbTNyeA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3733"
+}

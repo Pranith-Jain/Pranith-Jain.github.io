@@ -1,0 +1,12 @@
+{
+  "id": 2469,
+  "name": "Malspam 2016-08-16 (.wsf in .zip) - campaign: 'Blank 2'",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #806 (57b320b4-4e08-44aa-89b9-428a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2469"
+}

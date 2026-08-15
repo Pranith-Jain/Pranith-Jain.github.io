@@ -1,0 +1,12 @@
+{
+  "id": 1377,
+  "name": "akira: CONCEPTNET",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Technology | Website: conceptnet.de | Infostealer data confirmed. | CONCEPTNET GmbH is a leading media agency located in Regensburg, specializing in cross-media marketing solutions. They develop cre ative concepts for web, app, print, and event media, providing ta ilored solutions based on modern technologies since 1996. We will upload 50gb of corporate data soon. Employee personal inf ormation (passports, IDs, addresses, emails and so on), financial s, lots of projects, NDAs, etc. | Press: https://www.mittelbayerische.de/lokales/stadt-regensburg/cyber-attacke-betroffenes-regensburger-unternehmen-nimmt-stellung-20331400 | Source: https://www.ransomware.live/id/Q09OQ0VQVE5FVEBha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1377"
+}

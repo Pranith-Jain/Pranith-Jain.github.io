@@ -1,0 +1,12 @@
+{
+  "id": 6894,
+  "name": "cmdorganization: Stewart Belland & Associates Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: CA | Sector: Professional Services | Website: stewartbellandassociates.ca | Stewart Belland & Associates Inc. (SBA) is a Civil Enforcement Agency licensed by the Province of Alberta. Operating since 1996, under the Alberta Civil Enforcement Act and Regulations, as a Civil Enforcement Agency we are legislated to enforce Civil Warrants.SBA retains the services of Provincial Licensed Bailiffs, who follow a compressive Rule of Conduct, in performing their functions throughout all jurisdictions within the Province of Alberta. | Source: https://www.ransomware.live/id/U3Rld2FydCBCZWxsYW5kICYgQXNzb2NpYXRlcyBJbmMuQGNtZG9yZ2FuaXphdGlvbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6894"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 201,
+  "name": "Detect Disabled Windows Event Log",
+  "detId": "DET0187",
+  "stixId": "x-mitre-detection-strategy--cfedfc6c-6e31-481b-be1e-e23a760fec44",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0535"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/201"
+}

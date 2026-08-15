@@ -1,0 +1,12 @@
+{
+  "id": 125,
+  "name": "Detection Strategy for T1547.009 – Shortcut Modification (Windows)",
+  "detId": "DET0180",
+  "stixId": "x-mitre-detection-strategy--300931b1-bd28-4e91-ba6e-585f3563e8e4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0510"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/125"
+}

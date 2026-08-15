@@ -1,0 +1,12 @@
+{
+  "id": 1151,
+  "name": "qilin: Chickasaw Holding",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.ctsiok.com | Source: https://www.ransomware.live/id/Q2hpY2thc2F3IEhvbGRpbmdAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1151"
+}

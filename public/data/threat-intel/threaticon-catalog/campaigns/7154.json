@@ -1,0 +1,12 @@
+{
+  "id": 7154,
+  "name": "everest: EPM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: CO | Sector: Energy & Utilities | Website: epm.com.co | Infostealer data confirmed. | [AI generated] EPM (Empresas Públicas de Medellín) is a Colombian public utility company headquartered in Medellín, Colombia. It operates in the energy, water, and telecommunications sectors, providing electricity generation and distribution, water supply, sewage, and natural gas services. It serves millions of customers across Colombia and has expanded operations into other Latin American countries, making it one of the largest public utility groups in the region. | Source: https://www.ransomware.live/id/RVBNQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7154"
+}

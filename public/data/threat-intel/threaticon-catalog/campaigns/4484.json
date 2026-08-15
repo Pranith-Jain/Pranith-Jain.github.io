@@ -1,0 +1,12 @@
+{
+  "id": 4484,
+  "name": "anubis: ESMS Global Limited",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to anubis. | Country: GB | Sector: Business Services | Website: esmsglobal.com | Infostealer data confirmed. | Medical information services data breach. | Source: https://www.ransomware.live/id/RVNNUyBHbG9iYWwgTGltaXRlZEBhbnViaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4484"
+}

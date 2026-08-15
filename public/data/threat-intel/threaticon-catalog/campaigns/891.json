@@ -1,0 +1,12 @@
+{
+  "id": 891,
+  "name": "akira: ImageMaster",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Technology | Website: imagemaster.com | Infostealer data confirmed. | ImageMaster, LLC is a leading provider of official statement docu ments and roadshow services tailored for the municipal bond marke t. They utilize advanced technology and a unique quality assuranc e process to ensure accurate and secure document preparation and distribution. We will upload 49gb of corporate data soon. Employee personal fil es, clients information, projects, financials, contracts and agre ements, etc. | Source: https://www.ransomware.live/id/SW1hZ2VNYXN0ZXJAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/891"
+}

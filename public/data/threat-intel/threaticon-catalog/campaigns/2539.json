@@ -1,0 +1,12 @@
+{
+  "id": 2539,
+  "name": "OSINT - TeamXRat: Brazilian cybercrime meets ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #904 (580dabb4-0938-48b7-abf9-4e37950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2539"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 762,
+  "name": "lockbit5: milanocavi.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Manufacturing | Website: milanocavi.com | Infostealer data confirmed. | Wineuropa is a web agency based in Arezzo that specializes in web marketing, SEO services, and websi... | Source: https://www.ransomware.live/id/bWlsYW5vY2F2aS5jb21AbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/762"
+}

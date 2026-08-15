@@ -1,0 +1,12 @@
+{
+  "id": 1660,
+  "name": "qilin: Composition Systems",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.csi2.com | Source: https://www.ransomware.live/id/Q29tcG9zaXRpb24gU3lzdGVtc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1660"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "clop-zebra-com-2026-08-14",
+  "title": "ZEBRA.COM",
+  "group": "clop",
+  "discovered": "2026-08-14T09:15:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ae55f703-feb5-4737-ab83-4af1b9e09cca",
+  "groupAliases": ["Cl0p"],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

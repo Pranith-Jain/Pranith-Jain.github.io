@@ -1,0 +1,12 @@
+{
+  "id": 2295,
+  "name": "OSINT - powershell used for spreading trojan.laziok through google docs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #466 (571a7cdc-c078-482d-98dc-4e42950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2295"
+}

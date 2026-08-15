@@ -1,0 +1,12 @@
+{
+  "id": 1203,
+  "name": "handala: North Country Business Products Breached: 2,680 POS Terminals Disabled Nationwide",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to handala. | Country: US | Sector: Technology | It was a quiet night; but for hundreds of stores across America, it marked the start of a harsh awakening. In a single moment, everything changed with our attack on North Country Business Products, Inc., a company trusted by many major retail chains. That trust has now become a symbol of vulnerability. As a result… | Source: https://www.ransomware.live/id/Tm9ydGggQ291bnRyeSBCdXNpbmVzcyBQcm9kdWN0cyBCcmVhY2hlZDogMiw2ODAgUE9TIFRlcm1pbmFscyBEaXNhYmxlZCBOYXRpb253aWRlQGhhbmRhbGE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1203"
+}

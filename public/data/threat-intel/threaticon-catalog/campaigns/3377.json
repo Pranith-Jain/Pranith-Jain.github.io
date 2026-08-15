@@ -1,0 +1,12 @@
+{
+  "id": 3377,
+  "name": "OSINT New Hacking Team IOCâ€™s Released by Rook security",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #652 (55d421e6-59ac-49fa-bb33-44cc950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3377"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1819,
+  "name": "tridentlocker: Jameson Pepple Cantu PLLC",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to tridentlocker. | Country: US | Sector: Business Services | Website: jpclaw.com | Infostealer data confirmed. | [AI generated] Jameson Pepple Cantu PLLC is a boutique law firm located in Houston, Texas. This firm provides a broad range of legal services but specializes in areas related to business such as Corporate Law, Real Estate, Mergers and Acquisitions, and Securities. The team, made up of experienced professionals, prides themselves in their dedicated and personalized approach to each client's legal needs. | Source: https://www.ransomware.live/id/SmFtZXNvbiBQZXBwbGUgQ2FudHUgUExMQ0B0cmlkZW50bG9ja2Vy",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1819"
+}

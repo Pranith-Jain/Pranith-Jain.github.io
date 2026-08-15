@@ -1,0 +1,12 @@
+{
+  "id": 696,
+  "name": "Detection of Search Closed Sources",
+  "detId": "DET0822",
+  "stixId": "x-mitre-detection-strategy--3f4c871c-9ddb-41da-accd-ff5bcbfe37d4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1954"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/696"
+}

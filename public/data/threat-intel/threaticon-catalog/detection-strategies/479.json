@@ -1,0 +1,12 @@
+{
+  "id": 479,
+  "name": "Detect Logon Script Modifications and Execution",
+  "detId": "DET0072",
+  "stixId": "x-mitre-detection-strategy--3f27e858-2912-4b43-ac03-f668ef30c47e",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0199"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/479"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3414,
+  "name": "OSINT Trend Micro Exposes LURID APT",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #689 (555dcba2-bdd0-49d6-8c72-4e87950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3414"
+}

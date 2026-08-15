@@ -1,0 +1,12 @@
+{
+  "id": 3236,
+  "name": "Dridex (2016-04-12)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #404 (570cf5b5-18d4-474e-b41e-41f1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3236"
+}

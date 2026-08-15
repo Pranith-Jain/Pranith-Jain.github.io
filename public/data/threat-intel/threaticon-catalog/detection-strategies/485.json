@@ -1,0 +1,12 @@
+{
+  "id": 485,
+  "name": "Detect Modification of macOS Startup Items",
+  "detId": "DET0429",
+  "stixId": "x-mitre-detection-strategy--7eb6ccf9-8fb5-4c7d-8a2c-33081c3ddf81",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1197"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/485"
+}

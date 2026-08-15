@@ -1,0 +1,12 @@
+{
+  "id": 152,
+  "name": "Detection Strategy for Disk Wipe via Direct Disk Access and Destructive Commands",
+  "detId": "DET0137",
+  "stixId": "x-mitre-detection-strategy--da01afef-b769-4d31-964d-901fabaf6a8f",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0384", "AN0385", "AN0386", "AN0387"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/152"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2024,
+  "name": "OSINT - Dridex Actors Get In the Ransomware Game With \"Locky\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #35 (56c44d9a-a738-4a22-9306-058c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2024"
+}

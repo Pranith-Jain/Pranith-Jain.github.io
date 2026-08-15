@@ -1,0 +1,12 @@
+{
+  "id": 3322,
+  "name": "OSINT - APT Case RUAG Technical Report",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #555 (5742bb17-ec60-4c81-8b62-45f3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3322"
+}

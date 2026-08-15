@@ -1,0 +1,12 @@
+{
+  "id": 2959,
+  "name": "Fake trademark-related invoice",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1793 (e1e99c15-81b9-440f-9bc3-3ce9b3a079c1).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2959"
+}

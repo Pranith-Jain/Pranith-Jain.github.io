@@ -1,0 +1,12 @@
+{
+  "id": 2599,
+  "name": "OSINT - Additional Insights on Shamoon2",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #999 (58ad3fed-cc40-4087-a6f8-3ca5950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2599"
+}

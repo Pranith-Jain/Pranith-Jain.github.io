@@ -1,0 +1,12 @@
+{
+  "id": 2927,
+  "name": "HermeticWiper",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1670 (a097dd7c-8e29-40eb-a70d-1fb0b5cca689).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2927"
+}

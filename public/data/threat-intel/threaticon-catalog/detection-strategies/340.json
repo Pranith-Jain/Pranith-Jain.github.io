@@ -1,0 +1,12 @@
+{
+  "id": 340,
+  "name": "Detect Mark-of-the-Web (MOTW) Bypass via Container and Disk Image Files",
+  "detId": "DET0257",
+  "stixId": "x-mitre-detection-strategy--2556841e-474a-45c0-b827-4f5db6dcca31",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0712"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/340"
+}

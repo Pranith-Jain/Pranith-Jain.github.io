@@ -1,0 +1,12 @@
+{
+  "id": 131,
+  "name": "Detection Strategy for Encrypted Channel across OS Platforms",
+  "detId": "DET0273",
+  "stixId": "x-mitre-detection-strategy--08861418-398c-4972-8850-5e11f2d32944",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0759", "AN0760", "AN0761", "AN0762", "AN0763"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/131"
+}

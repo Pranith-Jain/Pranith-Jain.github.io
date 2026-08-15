@@ -1,0 +1,12 @@
+{
+  "id": 68,
+  "name": "T1136.002 Detection Strategy - Domain Account Creation Across Platforms",
+  "detId": "DET0003",
+  "stixId": "x-mitre-detection-strategy--aae40136-73f7-45e8-a37f-104ae7155bbe",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0006", "AN0007", "AN0008"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/68"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1531,
+  "name": "handala: Mossad’s Secret Treasury Exposed: 50,000 Confidential Emails Leaked",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Not Found | Today, a shadow has been lifted from one of the darkest layers of the Israeli intelligence and security apparatus. In a sophisticated operation, Handala Hack succeeded in breaching the email systems and confidential data of Ilan Steiner, former Budget Director of Mossad and current Chief Financial Officer of Israel’s National Security Institute, the research and… | Source: https://www.ransomware.live/id/TW9zc2Fk4oCZcyBTZWNyZXQgVHJlYXN1cnkgRXhwb3NlZDogNTAsMDAwIENvbmZpZGVudGlhbCBFbWFpbHMgTGVha2VkQGhhbmRhbGE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1531"
+}

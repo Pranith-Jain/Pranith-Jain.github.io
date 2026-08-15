@@ -1,0 +1,12 @@
+{
+  "id": 2375,
+  "name": "OSINT 'Paying-Days' CryptoWall 3.0 Campaign via Magnitude EK report by malwarefor.me",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #702 (556d5db3-e464-477f-96de-adf2950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2375"
+}

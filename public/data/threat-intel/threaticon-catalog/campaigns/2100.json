@@ -1,0 +1,12 @@
+{
+  "id": 2100,
+  "name": "BadMirror: New Android Malware Family Spotted by SherlockDroid",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #125 (56df115b-5030-4328-a9ee-4484950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2100"
+}

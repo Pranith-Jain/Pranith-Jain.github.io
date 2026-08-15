@@ -1,0 +1,12 @@
+{
+  "id": 2078,
+  "name": "Dridex and Locky Return Via PDF Attachments in Latest Campaigns",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #101 (590e3eb7-f4ec-4483-bf53-4155c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2078"
+}

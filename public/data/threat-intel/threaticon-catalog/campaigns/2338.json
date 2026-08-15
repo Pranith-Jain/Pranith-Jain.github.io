@@ -1,0 +1,12 @@
+{
+  "id": 2338,
+  "name": "OSINT - Lame proxychanger, apparently related to a clickfraud botnet.",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #574 (57557d45-1590-4513-925d-4516950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2338"
+}

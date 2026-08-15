@@ -1,0 +1,12 @@
+{
+  "id": 3516,
+  "name": "qilin: Australian College of Business Intelligence",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Education | Website: www.acbi.edu.au | N/A | Source: https://www.ransomware.live/id/QXVzdHJhbGlhbiBDb2xsZWdlIG9mIEJ1c2luZXNzIEludGVsbGlnZW5jZUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3516"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2547,
+  "name": "OSINT - Hades Locker Ransomware Mimics Locky",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #919 (582aae88-202c-45ef-b8e9-4e61950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2547"
+}

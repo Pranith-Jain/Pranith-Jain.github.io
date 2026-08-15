@@ -1,0 +1,12 @@
+{
+  "id": 1704,
+  "name": "thegentlemen: Grupo San Jacinto",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PE | Sector: Agriculture and Food Production | Website: sanjacinto.com.mx | Infostealer data confirmed. | sanjacinto.com.mx zoominfo.com/c/grupo-san-jacinto/430469681 Grupo San Jacinto started with a dream of making amazing dairy products that meet high customer expectations. Based in Aguascalientes, Mexico, the company has grown to serve markets across Mexico and the United States. They create delicious, high-quality dairy items that bring joy to families and food lovers everywhere | Source: https://www.ransomware.live/id/R3J1cG8gU2FuIEphY2ludG9AdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1704"
+}

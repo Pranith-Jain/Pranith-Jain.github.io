@@ -1,0 +1,12 @@
+{
+  "id": 1674,
+  "name": "dragonforce: tazzetti.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: IT | Sector: Manufacturing | Website: tazzetti.com | Infostealer data confirmed. | TAZZETTI - Special fluids and environmental services: Your international partner in refrigerants, specialty gases, hydrodynamic systems, gaseous waste treatment, chemical and environmental analysis, research, and technology development. | Source: https://www.ransomware.live/id/dGF6emV0dGkuY29tQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1674"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1636,
+  "name": "coinbasecartel: Canada Goose",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: CA | Sector: Consumer Services | Website: canadagoose.com | Infostealer data confirmed. | [AI generated] Canada Goose is a Canadian outdoor clothing company known for its premium quality, warm winter jackets filled with down insulation. The company's product lineup also includes parkas, vests, gloves, hats and other apparel designed for cold weather. Founded in 1957, Canada Goose has a commitment to craftsmanship and functionality, with its products being favorites amongst cold-weather explorers and city dwellers alike. | Source: https://www.ransomware.live/id/Q2FuYWRhIEdvb3NlQGNvaW5iYXNlY2FydGVs",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1636"
+}

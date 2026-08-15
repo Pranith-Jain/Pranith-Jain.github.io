@@ -1,0 +1,12 @@
+{
+  "id": 579,
+  "name": "Detection Strategy for Dynamic Resolution across OS Platforms",
+  "detId": "DET0039",
+  "stixId": "x-mitre-detection-strategy--98d6523f-54c5-4a24-a758-333caa833967",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0109", "AN0110", "AN0111", "AN0112"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/579"
+}

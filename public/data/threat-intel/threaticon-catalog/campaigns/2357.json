@@ -1,0 +1,12 @@
+{
+  "id": 2357,
+  "name": "Malspam 2016-07-18 .wsf (campaign: \"bank account report\")",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #610 (578cca12-1490-4cee-85de-4c29950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2357"
+}

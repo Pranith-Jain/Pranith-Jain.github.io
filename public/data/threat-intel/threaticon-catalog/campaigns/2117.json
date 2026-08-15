@@ -1,0 +1,12 @@
+{
+  "id": 2117,
+  "name": "CVE-2018-8174 (VBScript Engine) and Exploit Kits",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #143 (5b0baa6c-c724-4e8c-a59b-03a0c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2117"
+}

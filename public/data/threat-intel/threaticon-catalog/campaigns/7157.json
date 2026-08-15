@@ -1,0 +1,12 @@
+{
+  "id": 7157,
+  "name": "Dark Project: The Metropolitan Entertainment & Convention Authority",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to Dark Project. | Country: US | Sector: Hospitality | Website: omahameca.org | About MECA Omaha MECA is a organization that manages public event venues in Omaha, Nebraska, including the CHI Health Center, Charles Schwab Field, and The RiverFront. Established in 2000, it plays a crucial role in hosting world-class events and fostering community engagement through its facilities. As a result of a successful cyberattack on the company, MECA suffered damage; more than 500 GB of confidential information was stolen, specifically the company’s customer data, important financial documents, and the personal data of the organization’s employees. About 100 000 files are not secured by domain for now. Download here: http://667k2ck7qlzoqt52i6dq7evcfzko2ezfrhgv6zziccjet2cc653kvbid.onion/ | Source: https://www.ransomware.live/id/VGhlIE1ldHJvcG9saXRhbiBFbnRlcnRhaW5tZW50ICYgQ29udmVudGlvbiBBdXRob3JpdHlARGFyayBQcm9qZWN0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7157"
+}

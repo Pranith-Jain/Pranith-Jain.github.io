@@ -1,0 +1,12 @@
+{
+  "id": 3173,
+  "name": "ModifiedElephant APT and a Decade of Fabricating Evidence",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #289 (cb617be5-1f7e-4e1d-aff0-e654c1c75a8c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3173"
+}

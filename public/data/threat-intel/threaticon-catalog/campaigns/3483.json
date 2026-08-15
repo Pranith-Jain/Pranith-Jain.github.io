@@ -1,0 +1,12 @@
+{
+  "id": 3483,
+  "name": "OSINT - MM Core In-Memory Backdoor Returns as \"BigBoss\" and \"SillyGoose\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #957 (58720d9e-8b54-40a9-9d80-42e7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3483"
+}

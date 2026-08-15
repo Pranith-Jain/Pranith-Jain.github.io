@@ -1,0 +1,12 @@
+{
+  "id": 289,
+  "name": "qilin: Philex Mining",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: PH | Sector: Energy | Website: www.philexmining.com.ph | N/A | Source: https://www.ransomware.live/id/UGhpbGV4IE1pbmluZ0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/289"
+}

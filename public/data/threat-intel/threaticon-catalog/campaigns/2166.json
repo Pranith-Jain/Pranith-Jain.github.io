@@ -1,0 +1,12 @@
+{
+  "id": 2166,
+  "name": "Mobile Cyberespionage Campaign Distributed Through CallerSpy Mounts Initial Phase of a Targeted Attack",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #209 (5de61dfc-1be0-468b-9a7e-9c81c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2166"
+}

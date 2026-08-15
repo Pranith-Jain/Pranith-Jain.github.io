@@ -1,0 +1,12 @@
+{
+  "id": 2282,
+  "name": "StripedFly: Perennially flying under the radar",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #448 (162c4ecf-58a6-472f-98c9-9cd6d6c08c70).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2282"
+}

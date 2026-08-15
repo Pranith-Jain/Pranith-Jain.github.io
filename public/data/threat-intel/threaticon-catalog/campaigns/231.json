@@ -1,0 +1,12 @@
+{
+  "id": 231,
+  "name": "threeam: sequoiadental.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to threeam. | Country: US | Sector: Healthcare | Website: sequoiadental.com | Infostealer data confirmed. | Sequoia Dental Office provides a wide range of dental services including general, cosmetic, orthodontic, and restorative dentistry. Located in Visalia, CA, they are dedicated to patient comfort and use advanced technology to enhance care, offering | Source: https://www.ransomware.live/id/c2VxdW9pYWRlbnRhbC5jb21AdGhyZWVhbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/231"
+}

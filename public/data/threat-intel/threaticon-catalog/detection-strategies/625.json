@@ -1,0 +1,12 @@
+{
+  "id": 625,
+  "name": "Detection Strategy for Serverless Execution (T1648)",
+  "detId": "DET0374",
+  "stixId": "x-mitre-detection-strategy--7a848f8f-4bdc-426c-989e-bc1abfaeb7fa",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1053", "AN1054", "AN1055"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/625"
+}

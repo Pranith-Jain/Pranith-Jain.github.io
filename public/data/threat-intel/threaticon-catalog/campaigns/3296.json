@@ -1,0 +1,12 @@
+{
+  "id": 3296,
+  "name": "Malspam (2016-04-28) - Locky (#2)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #517 (5721c2e4-05ec-4af3-9264-411b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3296"
+}

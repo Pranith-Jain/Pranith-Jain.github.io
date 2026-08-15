@@ -1,0 +1,12 @@
+{
+  "id": 2224,
+  "name": "New Iranian APT data extraction tool",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #325 (9bd11482-0378-40a5-aca8-c37a0d2b91c8).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2224"
+}

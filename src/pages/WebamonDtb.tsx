@@ -162,7 +162,7 @@ export default function WebamonDtb() {
                   <div className="text-lg font-bold text-slate-900 dark:text-white">
                     {Number(kpi.value).toLocaleString()}
                   </div>
-                  <div className="text-[11px] leading-tight text-slate-500 dark:text-slate-400">{kpi.label}</div>
+                  <div className="text-mini leading-tight text-slate-500 dark:text-slate-400">{kpi.label}</div>
                 </div>
               ))}
             </div>

@@ -1,0 +1,12 @@
+{
+  "id": 307,
+  "name": "Enumeration of User or Account Information Across Platforms",
+  "detId": "DET0587",
+  "stixId": "x-mitre-detection-strategy--fdda430c-e4f6-43ce-95d6-0f97253ff6a2",
+  "analyticCount": 8,
+  "techniqueCount": 1,
+  "analytics": ["AN1612", "AN1613", "AN1614", "AN1615", "AN1616", "AN1617", "AN1618", "AN1619"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/307"
+}

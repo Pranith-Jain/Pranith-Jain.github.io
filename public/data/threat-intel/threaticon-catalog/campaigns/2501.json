@@ -1,0 +1,12 @@
+{
+  "id": 2501,
+  "name": "Malspam 2016-09-06 (.js in .zip) - campaign: \"Suspected Purchases\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #856 (57cfb3b1-dc58-4960-8b55-42fc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2501"
+}

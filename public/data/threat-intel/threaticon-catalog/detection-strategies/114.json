@@ -1,0 +1,12 @@
+{
+  "id": 114,
+  "name": "Programmatic and Excessive Access to Confluence Documentation",
+  "detId": "DET0358",
+  "stixId": "x-mitre-detection-strategy--3d515fbc-0ebf-4a99-b191-b6ee604acb1f",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1019"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/114"
+}

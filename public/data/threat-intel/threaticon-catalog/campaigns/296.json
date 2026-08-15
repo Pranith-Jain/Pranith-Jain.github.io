@@ -1,0 +1,12 @@
+{
+  "id": 296,
+  "name": "payoutsking: Vortex Companies",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: vortexcompanies.com | Infostealer data confirmed. | [AI generated] Vortex Companies is a US-based infrastructure rehabilitation firm specializing in trenchless technology solutions for underground pipe and sewer systems. Operating in the water and wastewater industry, the company provides services including pipe lining, manhole rehabilitation, and structural repair. It serves municipalities and utilities across North America, helping extend the life of aging infrastructure without extensive excavation. | Source: https://www.ransomware.live/id/Vm9ydGV4IENvbXBhbmllc0BwYXlvdXRza2luZw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/296"
+}

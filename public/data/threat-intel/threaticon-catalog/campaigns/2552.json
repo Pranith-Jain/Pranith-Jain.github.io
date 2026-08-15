@@ -1,0 +1,12 @@
+{
+  "id": 2552,
+  "name": "OSINT - Nemucod downloader spreading via Facebook",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #925 (5832c7f9-9148-4e20-8122-4f19950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2552"
+}

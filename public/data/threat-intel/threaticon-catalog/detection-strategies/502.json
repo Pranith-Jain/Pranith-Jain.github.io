@@ -1,0 +1,12 @@
+{
+  "id": 502,
+  "name": "User-Initiated Malicious Library Installation via Package Manager (T1204.005)",
+  "detId": "DET0252",
+  "stixId": "x-mitre-detection-strategy--09caebdc-2ce4-4698-a40c-d91cb65f9720",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0698", "AN0699", "AN0700"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/502"
+}

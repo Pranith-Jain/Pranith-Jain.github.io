@@ -1,0 +1,12 @@
+{
+  "id": 431,
+  "name": "apt73: iam.ma",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: MA | Sector: Technology | Website: iam.ma | Infostealer data confirmed. | Maroc Telecom is a telecommunications company in Morocco that provides mobile communications, Int... | Source: https://www.ransomware.live/id/aWFtLm1hQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/431"
+}

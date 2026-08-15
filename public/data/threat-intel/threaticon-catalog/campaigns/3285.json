@@ -1,0 +1,12 @@
+{
+  "id": 3285,
+  "name": "Phishing with Cloudflare Workers: Transparent Phishing and HTML Smuggling",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #503 (f65efb02-c563-44a7-9036-516219a24243).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3285"
+}

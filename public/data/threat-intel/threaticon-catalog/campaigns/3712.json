@@ -1,0 +1,12 @@
+{
+  "id": 3712,
+  "name": "incransom: cmswpc.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: cmswpc.com | Infostealer data confirmed. | All patient medical records in their entirety. All data from the medical center, including personal and confidential information, will be stolen. The data will be divided into 7 parts, with each part containing 200–300 GB | Source: https://www.ransomware.live/id/Y21zd3BjLmNvbUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3712"
+}

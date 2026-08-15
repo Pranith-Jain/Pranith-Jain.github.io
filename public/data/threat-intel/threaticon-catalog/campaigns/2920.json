@@ -1,0 +1,12 @@
+{
+  "id": 2920,
+  "name": "CISA.gov - AA21-062A Mitigate Microsoft Exchange Server Vulnerabilities",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1648 (eb8ec4e4-ea78-4cf5-80bc-974e765f08df).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2920"
+}

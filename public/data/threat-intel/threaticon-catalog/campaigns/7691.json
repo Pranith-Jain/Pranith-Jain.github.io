@@ -1,0 +1,12 @@
+{
+  "id": 7691,
+  "name": "SilentRansomGroup: R... D...",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Sector: Not Found | Redacted entry - full company name pending disclosure (FULL DATA TIMER active). | Source: https://www.ransomware.live/id/Ui4uLiBELi4uQFNpbGVudFJhbnNvbUdyb3Vw",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7691"
+}

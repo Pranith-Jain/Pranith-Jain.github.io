@@ -1,0 +1,12 @@
+{
+  "id": 2744,
+  "name": "M2M - Malspam 2017-10-19 \"Emailed Invoice - ******\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1221 (59e8c165-4460-4066-baa8-35d6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2744"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1948,
+  "name": "thegentlemen: Ricopia",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: ES | Sector: Technology | Website: ricopia.com | Infostealer data confirmed. | ricopia.com zoominfo.com/c/ricopia/405953806 Ricopia helps businesses upgrade their technology and work smarter. With over 100 tech experts, they've been helping companies of all sizes get better at digital tools for more than 30 years. They do this by checking how a company works, finding ways to improve technology, and helping teams learn new skills. Big names like ING Direct and BNP Paribas trust Ricopia to make their businesses run more smoothly and efficiently | Source: https://www.ransomware.live/id/Umljb3BpYUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1948"
+}

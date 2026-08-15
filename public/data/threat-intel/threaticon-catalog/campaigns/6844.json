@@ -1,0 +1,12 @@
+{
+  "id": 6844,
+  "name": "CRPxO: THY",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Transportation | Sector: Aviation | Data leaked: 4.2 GB | Source: https://www.ransomware.live/id/VEhZQENSUHhP",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6844"
+}

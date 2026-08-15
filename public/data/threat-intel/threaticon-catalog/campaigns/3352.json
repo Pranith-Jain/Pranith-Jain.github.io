@@ -1,0 +1,12 @@
+{
+  "id": 3352,
+  "name": "Malspam 2016-07-18 .wsf->.gif (campaign: \"RE: firstname.lastname\")",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #611 (578cd192-e448-45a8-abca-497a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3352"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2602,
+  "name": "OSINT - Malware Leveraging PowerSploit",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1003 (58b6ef0d-5ec0-40b3-8ddd-4dfc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2602"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 5101,
+  "name": "akira: Hal Otey Financial",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to akira. | Sector: Financial Services | Hal Otey Financial offers a range of financial services including wealth management, financial planning, retirement planning, investment management, estate planning, and tax planning. We will upload corporate data soon. Lots client data (passports, DLs, social security numbers, health and insurance files and so on), contracts and agreements, detailed financials, projects, etc. | Source: https://www.ransomware.live/id/SGFsIE90ZXkgRmluYW5jaWFsQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5101"
+}

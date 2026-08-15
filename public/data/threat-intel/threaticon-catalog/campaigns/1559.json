@@ -1,0 +1,12 @@
+{
+  "id": 1559,
+  "name": "qilin: Salag",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: PL | Sector: Not Found | Website: www.salag.com | Source: https://www.ransomware.live/id/U2FsYWdAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1559"
+}

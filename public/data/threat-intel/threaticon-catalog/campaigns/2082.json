@@ -1,0 +1,12 @@
+{
+  "id": 2082,
+  "name": "EternalBlue Exploit Actively Used to Deliver Remote Access Trojans",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #105 (591f51f7-0ba0-407b-87dd-4a76c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2082"
+}

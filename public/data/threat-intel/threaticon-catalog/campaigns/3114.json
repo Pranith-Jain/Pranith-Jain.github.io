@@ -1,0 +1,12 @@
+{
+  "id": 3114,
+  "name": "Mofang: A politically motivated information stealing adversary",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #74 (57645b8a-7020-4ef3-983a-0687c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3114"
+}

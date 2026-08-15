@@ -1,0 +1,12 @@
+{
+  "id": 1953,
+  "name": "qilin: Enterprise Network Group of Indiana",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.engofinllc.com | Source: https://www.ransomware.live/id/RW50ZXJwcmlzZSBOZXR3b3JrIEdyb3VwIG9mIEluZGlhbmFAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1953"
+}

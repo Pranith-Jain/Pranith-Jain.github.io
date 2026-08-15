@@ -1,0 +1,12 @@
+{
+  "id": 4411,
+  "name": "thegentlemen: SDEZ",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: FR | Sector: Not Found | Website: sdez.fr | Infostealer data confirmed. | ***.fr SDEZ is a historic French family-owned company founded in 1816, specializing in the rental and maintenance of professional linen, workwear, and hygiene equipment.Operating a national network of industrial laundries across France and Belgium, it has become one of the leading textile service providers in the region.The company serves thousands of business clients and employs over 700 people to deliver comprehensive laundry and hygiene solution | Source: https://www.ransomware.live/id/U0RFWkB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4411"
+}

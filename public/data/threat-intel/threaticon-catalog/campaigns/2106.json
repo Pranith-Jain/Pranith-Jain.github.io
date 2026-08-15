@@ -1,0 +1,12 @@
+{
+  "id": 2106,
+  "name": "Flash 0 Day In The Wild: Group 123 At The Controls",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #132 (5a783b7e-2404-4679-8178-69dcc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2106"
+}

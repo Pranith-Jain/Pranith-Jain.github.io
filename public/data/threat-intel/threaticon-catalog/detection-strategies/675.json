@@ -1,0 +1,12 @@
+{
+  "id": 675,
+  "name": "Detect Network Provider DLL Registration and Credential Capture",
+  "detId": "DET0580",
+  "stixId": "x-mitre-detection-strategy--552a7d85-4ac4-48cd-9072-61a4c6b2c682",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1598"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/675"
+}

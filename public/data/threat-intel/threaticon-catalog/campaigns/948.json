@@ -1,0 +1,12 @@
+{
+  "id": 948,
+  "name": "thegentlemen: Thai Rung Union Car",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Transportation/Logistics | Website: thairung.co.th | Infostealer data confirmed. | thairung.co.th zoominfo.com/c/thai-rung-union-car-public-company-ltd/104628554 Thai Rung Union Car Public Company Limited focuses on providing high-quality automotive solutions tailored for the Thai market. The company emphasizes constant innovation and sustainable development in its operations. It aims to build a better community through its products and services. Their target clients include individuals and businesses seeking reliable and innovative automotive options | Source: https://www.ransomware.live/id/VGhhaSBSdW5nIFVuaW9uIENhckB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/948"
+}

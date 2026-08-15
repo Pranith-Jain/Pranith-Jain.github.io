@@ -1,0 +1,12 @@
+{
+  "id": 2248,
+  "name": "New MortalKombat ransomware and Laplas Clipper malware threats deployed in financially motivated campaign",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #375 (36559390-ef6a-4800-b572-9d98483c525d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2248"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 389,
+  "name": "Multi-Platform Detection Strategy for T1678 - Delay Execution",
+  "detId": "DET0372",
+  "stixId": "x-mitre-detection-strategy--e98d37af-727b-44a7-a72b-cdcf8a481a12",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1048", "AN1049", "AN1050"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/389"
+}

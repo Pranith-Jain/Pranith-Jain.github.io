@@ -1,0 +1,12 @@
+{
+  "id": 1134,
+  "name": "genesis: B&R Sheet Metal",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Manufacturing | Website: brsheetmetal.com | Infostealer data confirmed. | Specializes in industrial construction projects, offering design, fabrication, and installation services for pneumatic, mechanical conveying, and filtration systems | Source: https://www.ransomware.live/id/QiZSIFNoZWV0IE1ldGFsQGdlbmVzaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1134"
+}

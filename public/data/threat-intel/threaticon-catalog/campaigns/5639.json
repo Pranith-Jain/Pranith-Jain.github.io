@@ -1,0 +1,12 @@
+{
+  "id": 5639,
+  "name": "akira: Plumley Engineering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: GB | Sector: Manufacturing | Plumley Engineering is a firm specializing in civil, environmental, and geotechnical engineerin g services. They prioritize client service and quality, focusing on problem-solving and design with a common-sense approach. We will upload 11gb of corporate data soon. Client and employee personal information, projects information, contracts and agreements, confidential files, NDAs and so on. | Source: https://www.ransomware.live/id/UGx1bWxleSBFbmdpbmVlcmluZ0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5639"
+}

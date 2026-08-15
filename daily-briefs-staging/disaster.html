@@ -1,891 +1,661 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Global Disaster AI Intelligence Brief</title>
 <style>
   :root{
-    --bg:#0e1116;
-    --card:#151a21;
-    --muted:#9aa4b2;
-    --text:#e6e9ef;
-    --accent:#5aa9ff;
-    --accent-2:#8bd3dd;
-    --danger:#ff4d4f;
-    --warn:#ff9f43;
-    --ok:#2ecc71;
-    --chip:#222835;
-    --link:#7fb3ff;
-    --shadow: 0 10px 24px rgba(0,0,0,0.35);
-    --soft: 0 4px 12px rgba(0,0,0,0.25);
+    --bg:#0f1420;
+    --panel:#151c2c;
+    --panel-2:#1b2436;
+    --text:#e6eefc;
+    --muted:#9bb0d0;
+    --accent:#6ea8fe;
+    --link:#8bb5ff;
+    --escalate:#e53935;
+    --monitor:#fb8c00;
+    --ignore:#2e7d32;
+    --good:#2e7d32;
+    --warn:#fb8c00;
+    --bad:#e53935;
+    --card-radius:12px;
+    --chip-radius:999px;
+    --shadow:0 10px 24px rgba(0,0,0,0.25);
   }
-  html,body{background:var(--bg); color:var(--text); margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; line-height:1.45}
-  a{color:var(--link); text-decoration:none}
+  html,body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:0;line-height:1.45}
+  a{color:var(--link);text-decoration:none}
   a:hover{text-decoration:underline}
-  .wrap{max-width:1200px; margin:0 auto; padding:28px 20px 60px}
-  header{margin-bottom:18px}
-  h1{margin:0 0 6px; font-weight:800; letter-spacing:0.2px}
-  .meta{display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:0.95rem}
-  .meta .pill{background:var(--chip); padding:6px 10px; border-radius:8px}
-  .level{display:flex; align-items:center; gap:10px; margin:18px 0 26px}
-  .level .dot{width:12px; height:12px; border-radius:50%}
-  .level.high .dot{background:var(--danger)}
-  .level .label{font-weight:700; letter-spacing:0.3px}
-  .grid{display:grid; gap:16px}
-  @media(min-width:920px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-2{grid-template-columns:repeat(2,1fr)} }
-  section{margin:20px 0}
-  .card{background:var(--card); border:1px solid #1f2630; border-radius:14px; padding:18px; box-shadow:var(--soft)}
-  .card h3, .card h4{margin:0 0 10px}
-  .source-link{display:inline-block; margin-left:8px; color:var(--accent); font-size:0.92rem}
-  .chips{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 0}
-  .chip{background:var(--chip); color:var(--muted); padding:4px 8px; border-radius:999px; font-size:0.8rem}
-  .chip.red{background:rgba(255,77,79,0.12); color:#ffb3b3; border:1px solid rgba(255,77,79,0.35)}
-  .chip.orange{background:rgba(255,159,67,0.12); color:#ffd3a3; border:1px solid rgba(255,159,67,0.35)}
-  .chip.green{background:rgba(46,204,113,0.12); color:#b5f5d1; border:1px solid rgba(46,204,113,0.35)}
-  .kpis{display:grid; gap:12px}
-  @media(min-width:780px){.kpis{grid-template-columns:repeat(6,1fr)}}
-  .kpi{background:var(--card); border:1px solid #1f2630; padding:14px; border-radius:12px; text-align:center}
-  .kpi .num{font-size:1.4rem; font-weight:800}
-  .kpi .lbl{color:var(--muted); font-size:0.85rem}
-  .priority{border-left:4px solid var(--danger); padding-left:14px}
-  .priority .rank{font-size:0.82rem; color:var(--muted)}
-  .rows{display:flex; flex-direction:column; gap:10px}
-  .evcard{background:var(--card); border:1px solid #1f2630; border-radius:12px; padding:16px; box-shadow:var(--soft)}
-  .evhead{display:flex; justify-content:space-between; align-items:center; gap:12px}
-  .evleft{display:flex; align-items:center; gap:10px}
-  .haz{width:34px; height:34px; display:grid; place-items:center; border-radius:8px; color:#fff; font-weight:800; font-size:0.9rem}
-  .haz.eq{background:#a06cd5}
-  .haz.fl{background:#2081e2}
-  .haz.tw{background:#ff7a59}
-  .haz.wf{background:#e4572e}
-  .haz.ht{background:#e0a100}
-  .evtitle{font-weight:800}
-  .evtags{display:flex; gap:6px; flex-wrap:wrap}
-  .evtags .tag{font-size:0.78rem; padding:3px 8px; border-radius:999px; border:1px solid #2a3341; color:var(--muted)}
-  .evbody{margin-top:10px; color:#d7dbe2}
-  .evrow{margin:6px 0}
-  .evsrcs{margin-top:10px; display:flex; flex-wrap:wrap; gap:10px}
-  .evsrcs a{font-size:0.92rem}
-  .divider{height:1px; background:#1f2630; margin:18px 0}
-  .legend{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px}
-  .legend .chip{font-weight:700}
-  footer{margin-top:40px; color:var(--muted); font-size:0.9rem}
+  .container{max-width:1200px;margin:0 auto;padding:28px 20px 60px}
+  header.report-header{
+    background:linear-gradient(180deg, rgba(110,168,254,0.12), rgba(21,28,44,0.6));
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    padding:28px 0 12px 0;
+  }
+  .title-wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+  h1{margin:0 0 6px 0;font-weight:800;font-size:28px;letter-spacing:0.2px}
+  .subline{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 12px;border-radius:var(--chip-radius);
+    font-size:12px;letter-spacing:.2px;background:var(--panel-2);color:var(--muted);border:1px solid rgba(255,255,255,0.06)
+  }
+  .chip.dot::before{content:"";width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--muted)}
+  .chip.escalate{background:rgba(229,57,53,0.12);color:#ffb3af;border:1px solid rgba(229,57,53,0.35)}
+  .chip.monitor{background:rgba(251,140,0,0.12);color:#ffd6a1;border:1px solid rgba(251,140,0,0.35)}
+  .chip.ignore{background:rgba(46,125,50,0.12);color:#b7efc3;border:1px solid rgba(46,125,50,0.35)}
+  .chip.level{background:rgba(229,57,53,0.18);color:#ffc4bf;border:1px solid rgba(229,57,53,0.4)}
+  h2{margin:24px 0 12px;font-size:20px}
+  h3{margin:10px 0 6px;font-size:16px}
+  .section{background:var(--panel);border:1px solid rgba(255,255,255,0.06);border-radius:var(--card-radius);padding:18px 18px 16px;margin-top:16px;box-shadow:var(--shadow)}
+  .grid{display:grid;gap:14px}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:980px){.grid.cols-3{grid-template-columns:1fr 1fr}}
+  @media (max-width:720px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+  .card{
+    background:var(--panel-2);border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px;padding:14px
+  }
+  .kpi{
+    display:flex;flex-direction:column;gap:6px;min-height:112px;justify-content:space-between
+  }
+  .kpi .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  .kpi .value{font-size:26px;font-weight:800;letter-spacing:.3px}
+  .kpi .trend{font-size:12px;color:var(--muted)}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(--chip-radius);font-size:12px;color:var(--text);border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04)}
+  .badge.escalate{background:rgba(229,57,53,0.12);color:#ffb3af;border-color:rgba(229,57,53,0.35)}
+  .badge.monitor{background:rgba(251,140,0,0.12);color:#ffd6a1;border-color:rgba(251,140,0,0.35)}
+  .badge.ignore{background:rgba(46,125,50,0.12);color:#b7efc3;border-color:rgba(46,125,50,0.35)}
+  .source-link{
+    color:var(--link);font-weight:600;font-size:12px;border-bottom:1px dashed rgba(139,181,255,0.5);
+  }
+  ul.clean{margin:8px 0 0 18px}
+  .pill{display:inline-flex;align-items:center;padding:3px 8px;border-radius:var(--chip-radius);font-size:11px;color:#cfe3ff;background:rgba(139,181,255,0.12);border:1px solid rgba(139,181,255,0.35);margin-right:6px;margin-top:6px}
+  .event-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+  .event-title{font-size:16px;font-weight:700;margin:0}
+  .event-meta{display:flex;gap:8px;flex-wrap:wrap}
+  .indicators{margin-top:8px}
+  .indicators .pill{margin-bottom:6px}
+  .event-body{color:#d8e6ff;font-size:14px;margin-top:6px}
+  .event-nums{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .num{
+    background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);
+    border-radius:10px;padding:8px 10px;font-size:12px;color:var(--muted)
+  }
+  .priority-card{
+    border-left:4px solid var(--escalate);padding-left:12px
+  }
+  .muted{color:var(--muted)}
+  .footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
+  .divider{height:1px;background:rgba(255,255,255,0.06);margin:10px 0 14px}
+  .spaced > * + *{margin-top:8px}
+  .small{font-size:12px}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
+  <header class="report-header">
+    <div class="title-wrap">
       <h1>Global Disaster AI Intelligence Brief</h1>
-      <div class="meta">
-        <span class="pill">Generated: Wednesday, July 29, 2026</span>
-        <span class="pill">Classification: Publicly Available Information</span>
+      <div class="subline">
+        <span class="chip"><strong>Generated:</strong>&nbsp;Friday, August 14, 2026</span>
+        <span class="chip"><strong>Classification:</strong>&nbsp;Publicly Available Information</span>
       </div>
-      <div class="level high">
-        <div class="dot"></div>
-        <div class="label">Overall Threat Level: High</div>
-        <div class="chips">
-          <span class="chip red">ESCALATE</span>
-          <span class="chip orange">MONITOR</span>
-          <span class="chip green">IGNORE</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <div class="event-head">
+        <h2>Global Disaster Intelligence Brief</h2>
+        <div class="event-meta">
+          <span class="chip level">Overall Threat Level: Severe</span>
+          <span class="chip escalate dot">ESCALATE</span>
+          <span class="chip monitor dot">MONITOR</span>
+          <span class="chip ignore dot">IGNORE</span>
         </div>
       </div>
-    </header>
-
-    <section>
-      <div class="card">
-        <h3>Executive Summary</h3>
-        <p>Multiple life‑threatening disasters are ongoing across Asia, Europe, and the Americas. The most acute crises include a deadly earthquake in Japan, mass wildfire evacuations in southwest France during a regional heatwave, severe monsoon flooding across South Asia, and large‑scale typhoon evacuations in southern China.</p>
-        <ul>
-          <li>Japan: A strong earthquake in the Kumamoto area killed at least 18 people, injured 62, and drove more than 8,800 residents into shelters; widespread power and water outages and structural collapses were reported. <a href="https://apnews.com/article/6b0fe69d44fa5c82ac4765a8ad82ebf6" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>Southwest France: A megafire near Bordeaux has forced more than 220,000 evacuations; homes and tourist zones are impacted and emergency sheltering has been activated. <a href="https://apnews.com/article/13b3173c427388881108c58510312993" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>Venezuela: One month after major earthquakes, nearly 5,000 people are reported dead, over 16,000 injured, and ~23,000 remain in temporary shelters with continued WASH and health needs. <a href="https://www.ifrc.org/article/one-month-after-venezuelas-earthquakes-red-cross-still-ground-supporting-those-affected" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>India (Assam): Monsoon flooding has killed at least 50 people and displaced ~700,000; villages and urban infrastructure are inundated. <a href="https://apnews.com/article/042b23c3945161454c0d836439124d9c" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>Pakistan: At least 100 people have died from monsoon rains and floods, with additional heavy rain forecast maintaining elevated risk. <a href="https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>Bangladesh: More than 1.1 million people are affected by flooding, with nearly 40,000 displaced; maternal health and other vulnerable groups face heightened risk. <a href="https://www.unfpa.org/news/%E2%80%9Cwe-fled-nothing-clothes-our-backs%E2%80%9D-bangladesh-grapples-severe-flood-emergency" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>China: Typhoon Noul triggered the relocation of over 801,000 people and transport disruptions across Guangdong and Hong Kong. <a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>United States: Flash floods in Texas and West Virginia caused fatalities, widespread rescues, and infrastructure damage; disaster declarations and evacuations were issued. <a href="https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>Chile (Atacama/Coquimbo): Floods killed at least 10 people, injured 16, displaced over 4,000, and cut off more than 100,000 residents from access. <a href="https://apnews.com/article/16047b0d66f1ad019a1c7a05d3a10687" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>United States Heat: Tens of millions remain under dangerous heat alerts across the central and southern U.S., stressing health systems and vulnerable populations. <a href="https://apnews.com/article/6f185210909edf9dc190e8d5673a9cfc" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Key Findings</h3>
-        <ul>
-          <li>Rapid-onset seismic emergency in Japan requires immediate search-and-rescue, power/water restoration, and shelter support. <a href="https://apnews.com/article/6b0fe69d44fa5c82ac4765a8ad82ebf6" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>Protracted multi-sector needs in Venezuela persist one month post-earthquakes, including healthcare, mental health, and safe water. <a href="https://www.ifrc.org/article/one-month-after-venezuelas-earthquakes-red-cross-still-ground-supporting-those-affected" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>South Asia monsoon impacts are severe and regionally synchronized, with major displacement in Assam, Bangladesh, and high fatalities in Pakistan. <a href="https://apnews.com/article/042b23c3945161454c0d836439124d9c" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.unfpa.org/news/%E2%80%9Cwe-fled-nothing-clothes-our-backs%E2%80%9D-bangladesh-grapples-severe-flood-emergency" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>Southwest Europe faces a cross-border wildfire and heat emergency with sustained mass evacuations and shelter operations. <a href="https://apnews.com/article/13b3173c427388881108c58510312993" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>Typhoon Noul response in southern China included large pre-emptive relocations and transport disruption, reducing casualties but signaling continued flood risk. <a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Threat Dashboard</h3>
-        <div class="kpis">
-          <div class="kpi">
-            <div class="num">2</div>
-            <div class="lbl">Active Earthquake Emergencies (ESCALATE)</div>
-          </div>
-          <div class="kpi">
-            <div class="num">8</div>
-            <div class="lbl">Major Flood Emergencies (ESCALATE)</div>
-          </div>
-          <div class="kpi">
-            <div class="num">1</div>
-            <div class="lbl">Typhoon/Landfalling Cyclone (ESCALATE)</div>
-          </div>
-          <div class="kpi">
-            <div class="num">3</div>
-            <div class="lbl">Wildfire Emergencies (ESCALATE)</div>
-          </div>
-          <div class="kpi">
-            <div class="num">1</div>
-            <div class="lbl">Heatwave (ESCALATE)</div>
-          </div>
-          <div class="kpi">
-            <div class="num">8</div>
-            <div class="lbl">Additional Events (MONITOR)</div>
-          </div>
-        </div>
-        <div class="chips" style="margin-top:12px">
-          <span class="chip red">ESCALATE = Immediate decision/action</span>
-          <span class="chip orange">MONITOR = Heightened watch</span>
-          <span class="chip green">IGNORE = No action (none listed)</span>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Top Five Critical Events</h3>
-        <div class="grid cols-2">
-          <div class="card priority">
-            <div class="rank">Priority 1</div>
-            <h4>Japan — Kumamoto Earthquake: Fatalities, collapses, and lifeline outages</h4>
-            <p>At least 18 dead, 62 injured, >8,800 in shelters; widespread power/water outages and structural damage.</p>
-            <a href="https://apnews.com/article/6b0fe69d44fa5c82ac4765a8ad82ebf6" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-          </div>
-          <div class="card priority">
-            <div class="rank">Priority 2</div>
-            <h4>France — Bordeaux/Gironde Megafire: 220,000+ evacuees and ongoing shelter operations</h4>
-            <p>Mass evacuations, damaged homes, and expanded emergency sheltering amid persistent heat and wind.</p>
-            <a href="https://apnews.com/article/13b3173c427388881108c58510312993" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-          </div>
-          <div class="card priority">
-            <div class="rank">Priority 3</div>
-            <h4>Venezuela — One month post-earthquakes: High mortality and sustained multi-sector needs</h4>
-            <p>Nearly 5,000 dead, >16,000 injured; ~23,000 in temporary shelters with WASH, health, and MHPSS needs.</p>
-            <a href="https://www.ifrc.org/article/one-month-after-venezuelas-earthquakes-red-cross-still-ground-supporting-those-affected" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
-          </div>
-          <div class="card priority">
-            <div class="rank">Priority 4</div>
-            <h4>India (Assam) — Monsoon floods: 50+ deaths and ~700,000 displaced</h4>
-            <p>Nearly 900 villages submerged; power cuts and major urban flooding reported.</p>
-            <a href="https://apnews.com/article/042b23c3945161454c0d836439124d9c" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-          </div>
-          <div class="card priority">
-            <div class="rank">Priority 5</div>
-            <h4>Pakistan — Monsoon floods: 100+ deaths, further rain risk</h4>
-            <p>Emergency teams deployed as continued rainfall sustains elevated life-safety risks.</p>
-            <a href="https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Humanitarian Impact</h3>
-        <ul>
-          <li>Mass displacement: >220,000 evacuees in southwest France due to wildfires; emergency sheltering and support for older people are active. <a href="https://apnews.com/article/13b3173c427388881108c58510312993" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>Critical shelter and MHPSS needs: In Venezuela, ~23,000 people remain in temporary shelters one month after quakes, with sustained MHPSS, healthcare, and safe water needs. <a href="https://www.ifrc.org/article/one-month-after-venezuelas-earthquakes-red-cross-still-ground-supporting-those-affected" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>Monsoon-related displacement: Assam reported ~700,000 displaced and Bangladesh >1.1 million affected; significant shelter, food, and WASH assistance needs persist. <a href="https://apnews.com/article/042b23c3945161454c0d836439124d9c" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.unfpa.org/news/%E2%80%9Cwe-fled-nothing-clothes-our-backs%E2%80%9D-bangladesh-grapples-severe-flood-emergency" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>Life-safety operations: Texas and West Virginia floods required widespread water rescues, evacuation warnings, and sheltering; fatalities confirmed. <a href="https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>Typhoon evacuations: >801,000 people relocated in southern China reduced acute casualties but indicate substantial short-term shelter and logistics needs. <a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Infrastructure Concerns</h3>
-        <ul>
-          <li>Japan earthquake: 34,900+ power outages, ~15,000 without water; building collapses and transport disruption. <a href="https://apnews.com/article/6b0fe69d44fa5c82ac4765a8ad82ebf6" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>France wildfires: Homes and campsites damaged; emergency shelter center opened in Bordeaux; repeated evacuations stressing access and services. <a href="https://apnews.com/article/5b9b063bdcf9b69867fa71ba31be8aa5" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>Chile floods: 81 homes destroyed, >20,000 damaged; widespread utility disruptions and isolated populations. <a href="https://apnews.com/article/16047b0d66f1ad019a1c7a05d3a10687" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>U.S. floods: Washed-out bridges in West Virginia and blocked roads in Texas hampered response and access. <a href="https://apnews.com/article/919eb8602f8954b99c517ac4fae1cd64" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>China typhoon: Hundreds of flights canceled; coastal and urban systems experienced storm-related disruption. <a href="https://apnews.com/article/fb42a4499529b3d33a76df23c09ecbb6" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>Spain/France wildfire mobility: Road restrictions and closures required to protect emergency lanes and evac routes. <a href="https://apnews.com/article/d770fe5962f37470afb569aa459e3f0e" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Regional and Hazard Trends</h3>
-        <ul>
-          <li>South Asia: Synchronized monsoon flooding is stressing response capacity across India (Assam, northern states), Bangladesh, and Pakistan, with fatalities and mass displacement. <a href="https://apnews.com/article/042b23c3945161454c0d836439124d9c" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>Southwest Europe: A transboundary wildfire and heat emergency persists in France and Spain, with large evacuations, damaged homes, and ongoing high fire danger. <a href="https://www.aljazeera.com/news/2026/7/26/more-than-360000-evacuated-as-wildfires-rage-in-france-and-spain" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-          <li>East Asia: Typhoon Noul triggered mass preventive evacuations in southern China; mountainous flooding remains a key secondary risk post-landfall. <a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>Americas: Concurrent quake recovery in Venezuela, severe floods in Chile, and U.S. flash-flood incidents signal multi-hazard strain on regional response systems. <a href="https://www.ifrc.org/press-release/ifrc-one-month-after-venezuelas-earthquakes-health-care-psychosocial-support-and-safe" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://apnews.com/article/16047b0d66f1ad019a1c7a05d3a10687" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Next 72-Hour Outlook</h3>
-        <ul>
-          <li>Japan earthquake zone: Elevated aftershock potential maintains risk to unstable structures and ongoing shelter needs. Prioritize SAR demobilization planning and rapid lifeline restoration where safe. <a href="https://apnews.com/article/6b0fe69d44fa5c82ac4765a8ad82ebf6" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>South Asia monsoon: Continued heavy rainfall in parts of India, Bangladesh, and Pakistan may sustain or worsen river flooding and landslide risks; anticipate dynamic displacement and access challenges. <a href="https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100" target="_blank" rel="noopener noreferrer" class="source-link">Context</a></li>
-          <li>Southwest Europe wildfires: High temperatures and wind may complicate containment and trigger renewed evacuations, especially near coastal tourist areas and forest-urban interfaces. <a href="https://apnews.com/article/13b3173c427388881108c58510312993" target="_blank" rel="noopener noreferrer" class="source-link">Context</a></li>
-          <li>Southern China: Post-typhoon river rises and mountain flooding remain plausible; monitor dam releases, landslide-prone corridors, and evacuee returns. <a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">Context</a></li>
-          <li>U.S. heat and flooding: Dangerous heat persists in central/southern states while saturated basins in Texas/WV remain vulnerable to flash-flood recurrences. <a href="https://apnews.com/article/6f185210909edf9dc190e8d5673a9cfc" target="_blank" rel="noopener noreferrer" class="source-link">Context</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Recommended Monitoring Priorities</h3>
-        <ul>
-          <li>Life-saving operations: Sustain SAR and medical surge in Japan; verify coverage of vulnerable groups in evacuation shelters.</li>
-          <li>Wildfire sheltering: Track capacity, WASH, and protection services at Bordeaux reception centers; plan for prolonged displacement scenarios. <a href="https://apnews.com/article/5b9b063bdcf9b69867fa71ba31be8aa5" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-          <li>Monsoon WASH: Pre-position hygiene kits, water treatment, and protection services in Assam, Bangladesh, and high-risk Pakistan districts. <a href="https://www.unfpa.org/news/%E2%80%9Cwe-fled-nothing-clothes-our-backs%E2%80%9D-bangladesh-grapples-severe-flood-emergency" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>Access and logistics: Map bridge/road outages in WV/Chile; prioritize last‑mile delivery to isolated communities. <a href="https://apnews.com/article/919eb8602f8954b99c517ac4fae1cd64" target="_blank" rel="noopener noreferrer" class="source-link">WV</a> <a href="https://apnews.com/article/16047b0d66f1ad019a1c7a05d3a10687" target="_blank" rel="noopener noreferrer" class="source-link">Chile</a></li>
-          <li>Protection: Screen for GBV, child protection, and MHPSS needs in large evacuation centers (France/Spain) and monsoon shelters (Bangladesh). <a href="https://www.ifrc.org/press-release/ifrc-new-heatwave-could-worsen-wildfires-across-spain-and-france-red-cross-teams" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
-          <li>Typhoon recovery: Monitor return movements and safety of flooded housing in Guangdong/HK; validate damage to power/water grids. <a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="legend">
-        <span class="chip red">ESCALATE</span>
-        <span class="chip orange">MONITOR</span>
-      </div>
-      <h3>Event Cards by Decision Level</h3>
       <div class="divider"></div>
-
-      <!-- ESCALATE GROUP -->
-      <section>
-        <h4 style="margin:2px 0 12px">ESCALATE</h4>
-        <div class="rows">
-
-          <!-- Japan Earthquake -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz eq">EQ</div>
-                <div>
-                  <div class="evtitle">Japan — Kumamoto area, Kyushu: Deadly earthquake with widespread outages</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.98</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Deaths</span><span class="chip">Injuries</span><span class="chip">Shelters</span><span class="chip">Power/Water Out</span><span class="chip">Collapses</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> At least 18 killed, 62 injured; >8,800 sheltering.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> ~34,900 power outages; ~15,000 without water; building collapses; transport disruption.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-29 (updates)</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/6b0fe69d44fa5c82ac4765a8ad82ebf6" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-              <a href="https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242" target="_blank" rel="noopener noreferrer" class="source-link">Earlier Update</a>
-            </div>
-          </div>
-
-          <!-- Venezuela Earthquakes (one month on) -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz eq">EQ</div>
-                <div>
-                  <div class="evtitle">Venezuela — La Guaira & north-central: One month after major earthquakes</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.96</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Health/MHPSS</span><span class="chip">Safe Water</span><span class="chip">Shelters</span><span class="chip">Field Hospital</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> Nearly 5,000 dead; >16,000 injured; ~23,000 in temporary shelters.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Residential and commercial collapses; prolonged service disruption; ongoing humanitarian operations.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-23 (sustained)</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.ifrc.org/article/one-month-after-venezuelas-earthquakes-red-cross-still-ground-supporting-those-affected" target="_blank" rel="noopener noreferrer" class="source-link">IFRC Article</a>
-              <a href="https://www.ifrc.org/press-release/ifrc-one-month-after-venezuelas-earthquakes-health-care-psychosocial-support-and-safe" target="_blank" rel="noopener noreferrer" class="source-link">IFRC Press Release</a>
-              <a href="https://www.aljazeera.com/news/2026/7/25/whats-next-for-venezuelas-path-to-recovery-from-devastating-earthquakes" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-            </div>
-          </div>
-
-          <!-- France Wildfire (Bordeaux/Gironde) -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz wf">WF</div>
-                <div>
-                  <div class="evtitle">France — Gironde/Bordeaux megafire: Mass evacuations and sheltering</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.98</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Evacuations</span><span class="chip">Shelters</span><span class="chip">Homes Damaged</span><span class="chip">Heat/Wind</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> >220,000 evacuated; older people moved from care homes; repeated evacuations.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> >240 homes damaged/destroyed; tourist areas cleared; large reception center opened.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-26 to 07-29 (ongoing)</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/13b3173c427388881108c58510312993" target="_blank" rel="noopener noreferrer" class="source-link">AP Main Update</a>
-              <a href="https://apnews.com/article/5b9b063bdcf9b69867fa71ba31be8aa5" target="_blank" rel="noopener noreferrer" class="source-link">Sheltering</a>
-              <a href="https://apnews.com/article/42d441bfbe8291b7e585b2e570dc51b0" target="_blank" rel="noopener noreferrer" class="source-link">Damage</a>
-              <a href="https://www.theguardian.com/world/2026/jul/28/france-bordeaux-lacanau-evacuation-wildfires-madrid-spain" target="_blank" rel="noopener noreferrer" class="source-link">Additional Context</a>
-            </div>
-          </div>
-
-          <!-- Spain Wildfires (Castellón/central) -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz wf">WF</div>
-                <div>
-                  <div class="evtitle">Spain — Central/eastern wildfires during heatwave</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.90</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Evacuations</span><span class="chip">Large Burn Area</span><span class="chip">Transport Disruption</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> 10,000 under evacuation orders in Castellón; broader evacuations reported across regions.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Firefighting strain; road restrictions to protect emergency corridors.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-22 to 07-29</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/c3d9c45cdbf57d19bbec46d49e5237de" target="_blank" rel="noopener noreferrer" class="source-link">Spain Evacuations</a>
-              <a href="https://apnews.com/article/ba1eb5c07549f001e7dbb9399025941f" target="_blank" rel="noopener noreferrer" class="source-link">Large Wildfire</a>
-              <a href="https://apnews.com/article/d770fe5962f37470afb569aa459e3f0e" target="_blank" rel="noopener noreferrer" class="source-link">Mobility Impacts</a>
-            </div>
-          </div>
-
-          <!-- India Assam Floods -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">India — Assam state: Severe floods with mass displacement</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.99</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Deaths</span><span class="chip">Mass Displacement</span><span class="chip">Relief Camps</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ≥50 deaths; ~700,000 displaced; ~300,000 in relief camps.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> 900 villages submerged; urban flooding; 7,000+ homes without power.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-24</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/042b23c3945161454c0d836439124d9c" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-            </div>
-          </div>
-
-          <!-- India Northern Floods/Landslides -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">India — Northern states (Jammu & Kashmir): Floods and landslides</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.89</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Deaths</span><span class="chip">Landslides</span><span class="chip">Community Disruption</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ≥25 killed; relief operations ongoing.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Property damage; flash flooding and debris impacts.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-20</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.aljazeera.com/amp/news/2026/7/20/at-least-25-killed-as-floods-and-landslides-hit-northern-india" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-            </div>
-          </div>
-
-          <!-- Bangladesh Floods -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Bangladesh — Severe flood emergency with vulnerable groups at risk</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.91</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Displacement</span><span class="chip">Shelter Needs</span><span class="chip">Livelihood Loss</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> >1.1 million affected; ~40,000 displaced; pregnant women at elevated risk.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Community access by boat; disrupted services and livelihoods.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-21</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.unfpa.org/news/%E2%80%9Cwe-fled-nothing-clothes-our-backs%E2%80%9D-bangladesh-grapples-severe-flood-emergency" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
-            </div>
-          </div>
-
-          <!-- Pakistan Floods -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Pakistan — Monsoon floods with 100+ fatalities and ongoing risk</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.94</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Deaths</span><span class="chip">Emergency Response</span><span class="chip">Worsening Weather</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ≥100 deaths since late June; additional rainfall expected.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Widespread floodwaters; emergency drainage operations deployed.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-27</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-            </div>
-          </div>
-
-          <!-- Afghanistan Floods -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Afghanistan — Flash flooding with casualties and missing persons</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.94</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Deaths/Missing</span><span class="chip">Rescues</span><span class="chip">Livelihood Loss</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ≥23 deaths; >100 missing reported in Nuristan; other areas report shelter/food/cash needs.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Destroyed shops; serious local damage; further flood threats complicate rescue.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-21 to 07-25</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.aljazeera.com/amp/news/2026/7/21/rescuers-search-for-survivors-amid-risk-of-fresh-floods-in-afghanistan" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-              <a href="https://relief.unboundmedicine.com/relief/view/Relief%20News%20Updates/1228005/all/ReliefWeb___Updates" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Update</a>
-            </div>
-          </div>
-
-          <!-- United States – Texas Floods -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">United States — Texas Hill Country & South Texas flash floods</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.93</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Rescues</span><span class="chip">Evacuation Warnings</span><span class="chip">Fatalities</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ≥2 deaths; hundreds of rescues; >20,000 people told to move to higher ground.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Road flooding; vehicles washed away; disaster declarations requested.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-15 to 07-16</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24" target="_blank" rel="noopener noreferrer" class="source-link">AP Overview</a>
-              <a href="https://transcripts.cnn.com/show/sitroom/date/2026-07-16/segment/03" target="_blank" rel="noopener noreferrer" class="source-link">CNN Segment</a>
-            </div>
-          </div>
-
-          <!-- United States – West Virginia Floods -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">United States — West Virginia flash floods and rescues</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.95</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Deaths</span><span class="chip">Rescues</span><span class="chip">Bridges Washed Out</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ≥2 deaths; numerous rescues; >100 residents sheltered.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Homes/businesses inundated; washed-out bridges; access cut in places.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-22 to 07-24</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/919eb8602f8954b99c517ac4fae1cd64" target="_blank" rel="noopener noreferrer" class="source-link">AP Update</a>
-              <a href="https://www.cbsnews.com/news/west-virginia-flash-floods-national-guard/" target="_blank" rel="noopener noreferrer" class="source-link">CBS News</a>
-              <a href="https://apnews.com/article/4078a7e68bf046eeeb22c6659ae16642" target="_blank" rel="noopener noreferrer" class="source-link">AP Initial</a>
-            </div>
-          </div>
-
-          <!-- Chile Floods -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Chile — Atacama & Coquimbo floods with widespread damage</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.98</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Deaths/Injuries</span><span class="chip">Displacement</span><span class="chip">Utilities Out</span><span class="chip">Isolated Populations</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ≥10 dead; 16 injured; >4,000 displaced; >100,000 isolated.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> 81 homes destroyed; >20,000 damaged; power/water disruptions.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-21</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/16047b0d66f1ad019a1c7a05d3a10687" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
-            </div>
-          </div>
-
-          <!-- China Typhoon Noul -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz tw">TY</div>
-                <div>
-                  <div class="evtitle">China — Guangdong & Hong Kong: Typhoon Noul relocations and disruption</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.94</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Mass Relocation</span><span class="chip">Transport Disruption</span><span class="chip">Flood Risk</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> >801,000 relocated; hundreds of thousands evacuated pre‑landfall.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Flight cancellations; coastal flooding; storm-wind damage.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-25 to 07-26</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">AP Landfall</a>
-              <a href="https://apnews.com/article/fb42a4499529b3d33a76df23c09ecbb6" target="_blank" rel="noopener noreferrer" class="source-link">Transport Impacts</a>
-              <a href="https://www.aljazeera.com/amp/news/2026/7/26/typhoon-noul-makes-landfall-in-china-with-hundreds-of-thousands-evacuated" target="_blank" rel="noopener noreferrer" class="source-link">Context</a>
-            </div>
-          </div>
-
-          <!-- Canada Ontario Wildfires (brief) -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz wf">WF</div>
-                <div>
-                  <div class="evtitle">Canada — Ontario: Wildfires prompting evacuations and smoke exposure</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.80</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Evacuations</span><span class="chip">Air Quality</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> Evacuations reported; smoke-related hardship and displacement risk.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Likely transport/access constraints and service interruptions in impacted localities.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-16</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://transcripts.cnn.com/date/2026-07-16" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
-            </div>
-          </div>
-
-          <!-- Georgia Flood Response (IFRC) -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Georgia — Flood response operation (IFRC DREF update)</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: high</span>
-                    <span class="tag">Confidence: 0.68</span>
-                    <span class="tag red">ESCALATE</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips">
-                <span class="chip">Formal Appeal</span><span class="chip">Humanitarian Ops</span>
-              </div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> Flood-affected communities under formal humanitarian operation.</div>
-              <div class="evrow"><strong>Infrastructure:</strong> Damage sufficient to trigger DREF update (details via appeal docs).</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-22</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.ifrc.org/appeals?type%5B0%5D=20" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
-            </div>
-          </div>
-
-          <!-- Bangladesh/India/Pakistan supplementary links and duplicates are integrated in above cards -->
-
+      <div class="grid cols-3">
+        <div class="card kpi">
+          <div class="label">Active Priority Hazards</div>
+          <div class="value">Earthquakes, Wildfires, Typhoon, Severe Storms, Drought</div>
+          <div class="trend">Simultaneous multi-region crises drive elevated global risk</div>
         </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- MONITOR GROUP -->
-      <section>
-        <h4 style="margin:2px 0 12px">MONITOR</h4>
-        <div class="rows">
-
-          <!-- Guatemala Earthquake Appeal -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz eq">EQ</div>
-                <div>
-                  <div class="evtitle">Guatemala — Earthquake: IFRC appeal listing (ongoing relevance)</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: medium</span>
-                    <span class="tag">Confidence: 0.62</span>
-                    <span class="tag orange">MONITOR</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips"><span class="chip">Appeal</span><span class="chip">Ongoing Response</span></div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>Note:</strong> Appeal update indicates continued humanitarian needs; current field impact unspecified in listing.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-24</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.ifrc.org/appeals?type%5B0%5D=22" target="_blank" rel="noopener noreferrer" class="source-link">IFRC Appeals</a>
-            </div>
-          </div>
-
-          <!-- Yemen Flood Appeal -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Yemen — Flood: IFRC appeal listing (ongoing relevance)</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: medium</span>
-                    <span class="tag">Confidence: 0.58</span>
-                    <span class="tag orange">MONITOR</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips"><span class="chip">Appeal</span><span class="chip">Ongoing Response</span></div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>Note:</strong> Listing signals continuing flood-related needs; specific figures not detailed.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-24</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.ifrc.org/appeals?type%5B0%5D=22" target="_blank" rel="noopener noreferrer" class="source-link">IFRC Appeals</a>
-            </div>
-          </div>
-
-          <!-- Kyrgyzstan Flash Flood Operation -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Kyrgyzstan — Flash floods: IFRC operation listing</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: medium</span>
-                    <span class="tag">Confidence: 0.64</span>
-                    <span class="tag orange">MONITOR</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips"><span class="chip">Operation</span><span class="chip">Preparedness/Relief</span></div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>Note:</strong> Flash-flood operation indicates targeted relief; infrastructure impacts not specified in listing.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-24</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.ifrc.org/fr/appeals" target="_blank" rel="noopener noreferrer" class="source-link">IFRC Listing</a>
-            </div>
-          </div>
-
-          <!-- Nigeria Flood-Imminent Operation -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz fl">FL</div>
-                <div>
-                  <div class="evtitle">Nigeria — Flood imminent: IFRC preparedness activation</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: medium</span>
-                    <span class="tag">Confidence: 0.69</span>
-                    <span class="tag orange">MONITOR</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips"><span class="chip">Preparedness</span><span class="chip">Risk Watch</span></div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>Note:</strong> Populations at risk; monitor for escalation and rapid impact assessments upon onset.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-27</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://www.ifrc.org/appeals" target="_blank" rel="noopener noreferrer" class="source-link">IFRC Appeals</a>
-            </div>
-          </div>
-
-          <!-- Oregon Wildfires (I-84 + FMAG + impacts) -->
-          <div class="evcard">
-            <div class="evhead">
-              <div class="evleft">
-                <div class="haz wf">WF</div>
-                <div>
-                  <div class="evtitle">United States — Oregon wildfires: Evacuations and transport disruption</div>
-                  <div class="evtags">
-                    <span class="tag">Urgency: medium</span>
-                    <span class="tag">Confidence: 0.88</span>
-                    <span class="tag orange">MONITOR</span>
-                  </div>
-                </div>
-              </div>
-              <div class="chips"><span class="chip">Evacuations</span><span class="chip">I‑84 Closure</span><span class="chip">FMAG</span></div>
-            </div>
-            <div class="evbody">
-              <div class="evrow"><strong>People Impact:</strong> ~500 residents under leave‑immediately order (Huntington).</div>
-              <div class="evrow"><strong>Infrastructure:</strong> 70‑mile Interstate 84 closure; FMAG activation for Akawa Butte Fire; homes destroyed in state.</div>
-              <div class="evrow"><strong>Date:</strong> 2026-07-23 to 07-27</div>
-            </div>
-            <div class="evsrcs">
-              <a href="https://apnews.com/article/f44665d325f08eb67d0ac44efa6eb0ae" target="_blank" rel="noopener noreferrer" class="source-link">AP Transport</a>
-              <a href="https://apnews.com/article/5933b1d99e7700f1cde3a2195f823aa5" target="_blank" rel="noopener noreferrer" class="source-link">AP Impacts</a>
-              <a href="https://www.usfa.fema.gov/wui/" target="_blank" rel="noopener noreferrer" class="source-link">USFA/FMDA</a>
-            </div>
-          </div>
-
+        <div class="card kpi">
+          <div class="label">Lives Lost (reported minimum)</div>
+          <div class="value">≥320</div>
+          <div class="trend">Primarily Western Colombia earthquake; additional deaths from Japan quake, U.S. storms, and Canada wildfires</div>
         </div>
-      </section>
-    </section>
-
-    <section>
-      <div class="card">
-        <h3>Source Reference (selected)</h3>
-        <ul>
-          <li><a href="https://apnews.com/article/6b0fe69d44fa5c82ac4765a8ad82ebf6" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Japan Kumamoto earthquake update (29 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Japan earthquake initial report (28 Jul 2026)</a></li>
-          <li><a href="https://www.ifrc.org/article/one-month-after-venezuelas-earthquakes-red-cross-still-ground-supporting-those-affected" target="_blank" rel="noopener noreferrer" class="source-link">IFRC — One month after Venezuela’s earthquakes (23 Jul 2026)</a></li>
-          <li><a href="https://www.ifrc.org/press-release/ifrc-one-month-after-venezuelas-earthquakes-health-care-psychosocial-support-and-safe" target="_blank" rel="noopener noreferrer" class="source-link">IFRC Press Release — Venezuela earthquake needs (23 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/042b23c3945161454c0d836439124d9c" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Assam, India floods (24 Jul 2026)</a></li>
-          <li><a href="https://www.unfpa.org/news/%E2%80%9Cwe-fled-nothing-clothes-our-backs%E2%80%9D-bangladesh-grapples-severe-flood-emergency" target="_blank" rel="noopener noreferrer" class="source-link">UNFPA — Bangladesh flood emergency (21 Jul 2026)</a></li>
-          <li><a href="https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100" target="_blank" rel="noopener noreferrer" class="source-link">Al Jazeera — Pakistan monsoon floods (27 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/13b3173c427388881108c58510312993" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Bordeaux/Gironde wildfire mass evacuations (29 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/5b9b063bdcf9b69867fa71ba31be8aa5" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Bordeaux shelter operations (26 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/42d441bfbe8291b7e585b2e570dc51b0" target="_blank" rel="noopener noreferrer" class="source-link">AP News — France wildfire damage and spread (27 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/c3d9c45cdbf57d19bbec46d49e5237de" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Spain evacuations and ongoing fires (29 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/16047b0d66f1ad019a1c7a05d3a10687" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Chile floods (21 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Texas catastrophic flash floods (16 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/919eb8602f8954b99c517ac4fae1cd64" target="_blank" rel="noopener noreferrer" class="source-link">AP News — West Virginia floods and shelters (22 Jul 2026)</a></li>
-          <li><a href="https://www.cbsnews.com/news/west-virginia-flash-floods-national-guard/" target="_blank" rel="noopener noreferrer" class="source-link">CBS News — WV flash floods and Guard deployment (24 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/05f860066a9a75595c5bcc4df8356337" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Typhoon Noul mass relocations (26 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/fb42a4499529b3d33a76df23c09ecbb6" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Guangdong/HK transport impacts (25 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/d770fe5962f37470afb569aa459e3f0e" target="_blank" rel="noopener noreferrer" class="source-link">AP News — Road restrictions amid Spain fires (29 Jul 2026)</a></li>
-          <li><a href="https://apnews.com/article/6f185210909edf9dc190e8d5673a9cfc" target="_blank" rel="noopener noreferrer" class="source-link">AP News — U.S. extreme heat warnings (26 Jul 2026)</a></li>
-        </ul>
+        <div class="card kpi">
+          <div class="label">Large-Scale Displacement</div>
+          <div class="value">≥320,000 people</div>
+          <div class="trend">Driven by relocations in eastern China (>300k) and evacuations in British Columbia (>20k)</div>
+        </div>
       </div>
     </section>
 
-    <footer>
-      This briefing was generated from AI-assisted analysis of publicly available reporting and humanitarian situation updates.
-    </footer>
-  </div>
+    <section class="section">
+      <h2>Executive Summary</h2>
+      <ul class="clean spaced">
+        <li>Western Colombia’s earthquake is the week’s most lethal disaster, with at least 281 people confirmed dead, hundreds still missing, and more than 25,800 families affected amid ongoing search-to-relief transition. <a href="https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Fast-moving wildfires around Okanagan Lake, British Columbia, forced more than 20,000 people to evacuate; at least one elderly woman died and large-scale sheltering was activated. <a href="https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Typhoon Dolphin and its remnants disrupted eastern China, prompting over 300,000 relocations, 1,300+ flight cancellations, and post-landfall flooding that trapped residents. <a href="https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://apnews.com/article/8d9e687f8599d12f050daeca261d7fa2" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Severe storms across the U.S. Midwest caused multiple fatalities, mass power outages, and transport disruptions, with ongoing flood rescues reported. <a href="https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Somalia’s drought continues to drive displacement into camps in Baidoa and Middle Jubba, deepening hunger and straining limited aid. <a href="https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Hawaii faces a near-term tropical threat (Tropical Storm Lala) with hurricane warnings and high rainfall potential, requiring close monitoring. <a href="https://apnews.com/article/0b0e5bdd17a068acd797e20c0e2c4f9d" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Key Findings</h2>
+      <ul class="clean spaced">
+        <li>Western Colombia earthquake: casualty figures remain fluid (≥281 dead), but the scale of structural collapse and blocked access indicates sustained humanitarian needs beyond search and rescue. <a href="https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>British Columbia wildfires: mass evacuations (>20,000) and destroyed homes point to prolonged displacement and shelter support requirements. <a href="https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Typhoon Dolphin (eastern China): 300,000+ relocations and extensive transport shutdowns (1,300+ flights) demonstrate high exposure of dense urban areas to compound flood/landslide risk. <a href="https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Midwest U.S. severe storms: fatalities, mass outages, and flood rescues highlight cascading lifeline risks (power, transport, emergency medical access). <a href="https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Somalia drought: displacement into overstretched camps is escalating acute food insecurity and protection concerns for vulnerable families. <a href="https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Japan (Kumamoto) earthquake: concentrated shelter populations, water outages, and extreme heat raise near-term health risks in recovery sites. <a href="https://apnews.com/article/12c805ac8666c005aff926358de3961e" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Threat Dashboard</h2>
+      <div class="grid cols-3">
+        <div class="card kpi">
+          <div class="label">ESCALATE Events</div>
+          <div class="value">6</div>
+          <div class="trend">Life-safety threats active across Americas, Africa, and Asia</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">MONITOR Events</div>
+          <div class="value">5</div>
+          <div class="trend">Pre-impact or lower-intensity hazards under watch</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Most Impacted Sectors</div>
+          <div class="value">Shelter, Power, Transport, Roads</div>
+          <div class="trend">Structural collapse, mass evacuations, and flight cancellations dominate</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Top Life-Safety Concern</div>
+          <div class="value" style="color:#ffb3af">Western Colombia Earthquake</div>
+          <div class="trend">High fatality burden; complex access and transition to relief</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Largest Displacement</div>
+          <div class="value">Eastern China (300k+)</div>
+          <div class="trend">Preemptive relocations reduced immediate casualties but strained services</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Rapid-Onset Fire Threat</div>
+          <div class="value">British Columbia</div>
+          <div class="trend">Fast fire spread, destroyed homes, sustained evacuations</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Top Five Critical Events</h2>
+      <div class="grid cols-2">
+        <div class="card priority-card">
+          <div class="event-head">
+            <p class="event-title">1) Catastrophic Earthquake – Western Colombia</p>
+            <span class="badge escalate">ESCALATE</span>
+          </div>
+          <p class="event-body">At least 281 dead, hundreds missing; widespread building collapse and road failures complicate operations across Cali, Pereira, Manizales, and Quibdó. <a href="https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div class="card priority-card">
+          <div class="event-head">
+            <p class="event-title">2) Okanagan Lake Wildfires – British Columbia, Canada</p>
+            <span class="badge escalate">ESCALATE</span>
+          </div>
+          <p class="event-body">More than 20,000 evacuated; homes destroyed; at least one fatality reported; large-scale hotel and group lodging used for shelter. <a href="https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></p>
+        </div>
+        <div class="card priority-card">
+          <div class="event-head">
+            <p class="event-title">3) Typhoon Dolphin Impacts – Eastern China</p>
+            <span class="badge escalate">ESCALATE</span>
+          </div>
+          <p class="event-body">Over 300,000 relocated; 1,300+ flight cancellations; post-landfall flooding trapped residents and disrupted rail and metro services. <a href="https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div class="card priority-card">
+          <div class="event-head">
+            <p class="event-title">4) Severe Storms – U.S. Midwest</p>
+            <span class="badge escalate">ESCALATE</span>
+          </div>
+          <p class="event-body">Multiple deaths, 600k+ power outages, halted flights at Chicago airports, and flood rescues across several states. <a href="https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div class="card priority-card">
+          <div class="event-head">
+            <p class="event-title">5) Drought Displacement – Somalia (Baidoa, Middle Jubba)</p>
+            <span class="badge escalate">ESCALATE</span>
+          </div>
+          <p class="event-body">Families fleeing drought face hunger and shrinking aid; displacement camps under increasing strain. <a href="https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Humanitarian Impact</h2>
+      <ul class="clean spaced">
+        <li>Mass casualties and family separation in Western Colombia; reporting varies (≥281 fatalities; hundreds missing; >25,800 families affected). <a href="https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Large-scale displacement in British Columbia (>20,000 evacuations) with priority shelter, protection, and recovery needs; at least one death during evacuation. <a href="https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Eastern China’s preemptive relocations (>300,000) reduced immediate casualties but created short-term shelter and service demands; flooding trapped residents post-landfall. <a href="https://apnews.com/article/8d9e687f8599d12f050daeca261d7fa2" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Somalia drought continues to push vulnerable families into camps amid hunger and aid shortfalls. <a href="https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Japan (Kumamoto) earthquake recovery faces compounded health risks from crowded shelters and extreme heat; water access gaps remain. <a href="https://apnews.com/article/12c805ac8666c005aff926358de3961e" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Infrastructure Concerns</h2>
+      <ul class="clean spaced">
+        <li>Structural collapse and blocked access in Western Colombia: razed buildings, buckled roads, flight suspensions, and localized communications outages hampered response. <a href="https://apnews.com/article/26fd40f93272d834fced47a4a673edc9" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Transport disruptions: 1,300+ China flight cancellations, widespread rail/metro suspensions post-landfall; temporary ground stops at Chicago airports due to severe storms. <a href="https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://apnews.com/article/1a17b33ff8b6adb50b06a6e62c695769" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Power and utilities: hundreds of thousands without electricity in the U.S. Midwest; prolonged water outages in parts of Japan’s quake zone. <a href="https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://apnews.com/article/12c805ac8666c005aff926358de3961e" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Wildfire impacts: destroyed homes, closed highways (e.g., BC Highway 97), and access restrictions complicate reentry and assessment. <a href="https://apnews.com/article/61002c95f641a4060b78195b016fbea3" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Regional and Hazard Trends</h2>
+      <ul class="clean spaced">
+        <li>Americas: Concurrent high-impact hazards (Colombia earthquake; BC wildfires; U.S. severe storms) stress SAR, power, and shelter systems.</li>
+        <li>East Asia: Typhoon cycle impacts from preemptive evacuations to post-landfall urban flooding highlight cascading transport and shelter pressures.</li>
+        <li>Horn of Africa: Protracted drought continues to drive displacement and acute food insecurity in Somalia.</li>
+        <li>Heat and fire nexus: Elevated heat in parts of Europe and active wildfire seasons in North America increase risk of rapid escalation and health impacts.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Next 72-Hour Outlook</h2>
+      <ul class="clean spaced">
+        <li>Western Colombia: Expect continued transition from search and rescue to relief operations; unstable structures and access constraints likely persist.</li>
+        <li>British Columbia (Okanagan): Ongoing evacuations and reentry restrictions possible; shelter demand and damage assessments remain priorities.</li>
+        <li>Eastern China: Residual flooding and landslide risks in saturated areas; transport normalization will be gradual where infrastructure was disrupted.</li>
+        <li>U.S. Midwest: Localized flood and severe-weather hazards may recur seasonally; monitor National Weather Service alerts and utility restoration timelines.</li>
+        <li>Somalia: Drought-related displacement likely to continue; monitor aid pipeline and camp capacity.</li>
+        <li>Hawaii: Tropical Storm Lala could bring heavy rainfall, flooding, and dangerous surf through the weekend; readiness and public warning systems should be verified. <a href="https://apnews.com/article/c03fe211430494e69f7011bdbaf752c8" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Recommended Monitoring Priorities</h2>
+      <ul class="clean spaced">
+        <li>Western Colombia earthquake: fatality management, family reunification, WASH and shelter support, and debris-clearing access routes.</li>
+        <li>BC wildfires: sustain evacuation support, health surveillance for smoke exposure, and critical lifeline restoration in affected communities.</li>
+        <li>Eastern China (post-typhoon): mapping of flood-prone corridors, landslide watchlists, and phased restoration of airports, metro, and rail.</li>
+        <li>U.S. Midwest storms: power restoration tracking, debris clearance, and targeted support to vulnerable facilities (e.g., prisons, care homes).</li>
+        <li>Somalia drought: nutrition screening, targeted food/cash support, WASH services in displacement camps, and protection for vulnerable families.</li>
+        <li>Hawaii tropical threat: ensure pre-positioned supplies, shelter readiness, and clear public comms on flood and surf hazards.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Event Cards by Decision Level</h2>
+
+      <h3 style="margin-top:0">ESCALATE</h3>
+      <div class="grid cols-2">
+        <!-- Western Colombia Earthquake -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Western Colombia Earthquake – Cali, Pereira, Manizales, Quibdó</p>
+            <div class="event-meta">
+              <span class="badge escalate">ESCALATE</span>
+              <span class="badge">Urgency: high</span>
+              <span class="badge">Confidence: 0.99</span>
+            </div>
+          </div>
+          <div class="event-body">
+            At least 281 fatalities confirmed; hundreds remain missing; 348 rescues reported; over 25,800 families affected across multiple cities. Reporting varies as assessments continue.
+          </div>
+          <div class="indicators">
+            <span class="pill">deaths</span>
+            <span class="pill">missing persons</span>
+            <span class="pill">collapsed buildings</span>
+            <span class="pill">road damage</span>
+            <span class="pill">search and rescue</span>
+          </div>
+          <div class="spaced small">
+            <div><strong>Infrastructure:</strong> Buildings razed; roads buckled; some airport suspensions; localized communications outages complicated response.</div>
+          </div>
+          <div class="event-nums">
+            <span class="num">Deaths: 281+ (varying reports)</span>
+            <span class="num">Families affected: 25,800+</span>
+            <span class="num">Rescued: 348</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+            <span class="muted"> | </span>
+            <a href="https://apnews.com/article/a35440647cc3efed1bbce935d223565e" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+            <span class="muted"> | </span>
+            <a href="https://apnews.com/article/26fd40f93272d834fced47a4a673edc9" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a>
+          </div>
+        </div>
+
+        <!-- British Columbia Wildfires -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Okanagan Lake Wildfires – British Columbia, Canada</p>
+            <div class="event-meta">
+              <span class="badge escalate">ESCALATE</span>
+              <span class="badge">Urgency: high</span>
+              <span class="badge">Confidence: 0.98</span>
+            </div>
+          </div>
+          <div class="event-body">
+            More than 20,000 people evacuated; at least one 80-year-old woman died; dozens rescued by aircraft; large-scale hotel and group lodging secured for evacuees.
+          </div>
+          <div class="indicators">
+            <span class="pill">mass evacuations</span>
+            <span class="pill">fatality</span>
+            <span class="pill">destroyed homes</span>
+            <span class="pill">road closures</span>
+            <span class="pill">state of emergency</span>
+          </div>
+          <div class="spaced small">
+            <strong>Infrastructure:</strong> Homes destroyed; Highway 97 closed in segments; operations center disruptions and access restrictions delayed assessments.
+          </div>
+          <div class="event-nums">
+            <span class="num">Evacuated: 20,000+</span>
+            <span class="num">Confirmed deaths: ≥1</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+            <span class="muted"> | </span>
+            <a href="https://apnews.com/article/wildfire-canada-evacuation-british-columbia-okanagan-61002c95f641a4060b78195b016fbea3" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+            <span class="muted"> | </span>
+            <a href="https://apnews.com/article/06918cee1330c511babd1732f29e7cb5" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+          </div>
+        </div>
+
+        <!-- Eastern China Typhoon Dolphin -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Typhoon Dolphin & Remnants – Eastern China (Zhejiang, Fujian, Shanghai)</p>
+            <div class="event-meta">
+              <span class="badge escalate">ESCALATE</span>
+              <span class="badge">Urgency: high</span>
+              <span class="badge">Confidence: 0.93</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Over 300,000 people relocated pre-impact; 1,300+ flight cancellations; post-landfall flooding trapped residents and disrupted metro and rail operations; related landslide impacts reported in the Philippines.
+          </div>
+          <div class="indicators">
+            <span class="pill">mass relocations</span>
+            <span class="pill">flooding</span>
+            <span class="pill">transport disruption</span>
+            <span class="pill">landslide risk</span>
+          </div>
+          <div class="spaced small">
+            <strong>Infrastructure:</strong> Airports, metros, and trains suspended during peak impacts; flood management and debris clearance ongoing.
+          </div>
+          <div class="event-nums">
+            <span class="num">Relocated: 300,000+</span>
+            <span class="num">Flights canceled: 1,300+</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+            <span class="muted"> | </span>
+            <a href="https://apnews.com/article/8d9e687f8599d12f050daeca261d7fa2" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+          </div>
+        </div>
+
+        <!-- U.S. Midwest Severe Storms -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Severe Storms – Midwest United States</p>
+            <div class="event-meta">
+              <span class="badge escalate">ESCALATE</span>
+              <span class="badge">Urgency: high</span>
+              <span class="badge">Confidence: 0.96</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Multiple deaths, injuries, and ongoing flood rescues; widespread power outages across several states; temporary ground stops at major Chicago airports.
+          </div>
+          <div class="indicators">
+            <span class="pill">deaths</span>
+            <span class="pill">injuries</span>
+            <span class="pill">power outages</span>
+            <span class="pill">flooded roads</span>
+            <span class="pill">tornado/wind damage</span>
+          </div>
+          <div class="spaced small">
+            <strong>Infrastructure:</strong> Downed trees and lines; damaged roofs; blocked roads; airport operations briefly halted; protracted restoration in hardest-hit areas.
+          </div>
+          <div class="event-nums">
+            <span class="num">Customers without power: 600,000+ (peak)</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+            <span class="muted"> | </span>
+            <a href="https://apnews.com/article/1a17b33ff8b6adb50b06a6e62c695769" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+          </div>
+        </div>
+
+        <!-- Somalia Drought -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Drought Displacement – Baidoa & Middle Jubba, Somalia</p>
+            <div class="event-meta">
+              <span class="badge escalate">ESCALATE</span>
+              <span class="badge">Urgency: high</span>
+              <span class="badge">Confidence: 0.97</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Families fleeing drought arrive in camps amid hunger and shrinking aid; vulnerable households face deteriorating food security and protection risks.
+          </div>
+          <div class="indicators">
+            <span class="pill">displacement</span>
+            <span class="pill">hunger</span>
+            <span class="pill">aid shortfall</span>
+          </div>
+          <div class="spaced small">
+            <strong>Infrastructure:</strong> Camp and community support systems under strain; limited direct physical infrastructure impacts reported.
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+
+        <!-- Japan Earthquake (Kumamoto) -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Earthquake Recovery – Kumamoto Prefecture, Japan</p>
+            <div class="event-meta">
+              <span class="badge escalate">ESCALATE</span>
+              <span class="badge">Urgency: high</span>
+              <span class="badge">Confidence: 0.97</span>
+            </div>
+          </div>
+          <div class="event-body">
+            38 deaths, 114 injuries; >8,500 people in crowded shelters during extreme heat; significant building damage and water service disruptions persist.
+          </div>
+          <div class="indicators">
+            <span class="pill">deaths</span>
+            <span class="pill">injuries</span>
+            <span class="pill">shelter needs</span>
+            <span class="pill">water shortages</span>
+            <span class="pill">heat risk</span>
+          </div>
+          <div class="spaced small">
+            <strong>Infrastructure:</strong> ~700 homes destroyed; >11,300 buildings damaged; >46,000 households initially without water.
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/12c805ac8666c005aff926358de3961e" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+
+        <!-- Washington State Wildfire (Spokane) -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Wildfire – Spokane Area, Washington (U.S.)</p>
+            <div class="event-meta">
+              <span class="badge escalate">ESCALATE</span>
+              <span class="badge">Urgency: high</span>
+              <span class="badge">Confidence: 0.86</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Thousands ordered to evacuate as a fast-moving wildfire threatened neighborhoods; public safety power shutoffs and emergency declaration enacted.
+          </div>
+          <div class="indicators">
+            <span class="pill">evacuations</span>
+            <span class="pill">power shutoffs</span>
+            <span class="pill">state of emergency</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/dc8e1ecf2e24c06958f8b723859fc1e1" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px">MONITOR</h3>
+      <div class="grid cols-2">
+        <!-- Hawaii Tropical Storm Lala -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Tropical Storm Lala – Hawaii (U.S.)</p>
+            <div class="event-meta">
+              <span class="badge monitor">MONITOR</span>
+              <span class="badge">Urgency: medium</span>
+              <span class="badge">Confidence: 0.87</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Hurricane warning in effect; heavy rain, flooding, high winds, and dangerous surf possible this weekend; 5–10 inches of rain (locally up to 20 inches) forecast in some areas.
+          </div>
+          <div class="indicators">
+            <span class="pill">hurricane warning</span>
+            <span class="pill">flood risk</span>
+            <span class="pill">dangerous surf</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/0b0e5bdd17a068acd797e20c0e2c4f9d" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+            <span class="muted"> | </span>
+            <a href="https://apnews.com/article/c03fe211430494e69f7011bdbaf752c8" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+          </div>
+        </div>
+
+        <!-- UK/France Heat Wave -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Heat Wave – United Kingdom & France</p>
+            <div class="event-meta">
+              <span class="badge monitor">MONITOR</span>
+              <span class="badge">Urgency: medium</span>
+              <span class="badge">Confidence: 0.76</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Public health alerts issued for dangerous heat; elevated risks for vulnerable populations; heat exacerbates wildfire and drought stress.
+          </div>
+          <div class="indicators">
+            <span class="pill">heat health alerts</span>
+            <span class="pill">wildfire risk</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/f4f6ecf0953d423e0a70b74cd477c81a" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+
+        <!-- Okinawa Pre-Impact Typhoon -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Typhoon Dolphin (Pre-Impact) – Okinawa, Japan</p>
+            <div class="event-meta">
+              <span class="badge monitor">MONITOR</span>
+              <span class="badge">Urgency: medium</span>
+              <span class="badge">Confidence: 0.82</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Naha Airport closed; all flights canceled; minor injuries reported; evacuation centers activated for precautionary sheltering.
+          </div>
+          <div class="indicators">
+            <span class="pill">airport closure</span>
+            <span class="pill">sheltering</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/japan-okinawa-china-storm-typhoon-dolphin-a04335196cfec80187102030b4fafcd4" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+
+        <!-- Japan Ibaraki/Tokyo Tropical Storm -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Tropical Storm Impacts – Ibaraki & Greater Tokyo, Japan</p>
+            <div class="event-meta">
+              <span class="badge monitor">MONITOR</span>
+              <span class="badge">Urgency: medium</span>
+              <span class="badge">Confidence: 0.74</span>
+            </div>
+          </div>
+          <div class="event-body">
+            Seven minor injuries; temporary power losses to >22,000 homes (mostly restored); lingering transport disruptions and cleanup underway.
+          </div>
+          <div class="indicators">
+            <span class="pill">injuries</span>
+            <span class="pill">power outages</span>
+            <span class="pill">transport disruption</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/fdf0cb3090d46c7ef94145f75afecab9" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+
+        <!-- Indonesia Mount Bromo Wildfire -->
+        <div class="card">
+          <div class="event-head">
+            <p class="event-title">Wildfire & Smoke – Mount Bromo, East Java (Indonesia)</p>
+            <div class="event-meta">
+              <span class="badge monitor">MONITOR</span>
+              <span class="badge">Urgency: medium</span>
+              <span class="badge">Confidence: 0.71</span>
+            </div>
+          </div>
+          <div class="event-body">
+            National park and tourist areas closed due to wildfire activity; smoke impacts schools and nearby communities; no casualties reported.
+          </div>
+          <div class="indicators">
+            <span class="pill">school closures</span>
+            <span class="pill">smoke exposure</span>
+            <span class="pill">area closures</span>
+          </div>
+          <div class="spaced small">
+            <a href="https://apnews.com/article/indonesia-bromo-park-peatland-wildfires-sumatra-borneo-62225cc55f9cc8e35d05097fd5f024cf" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px">IGNORE</h3>
+      <div class="card">
+        <div class="muted small">No events assessed at IGNORE level this cycle.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Source References</h2>
+      <ul class="clean spaced small">
+        <li>AP News – Western Colombia earthquake response and casualty updates. <a href="https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://apnews.com/article/a35440647cc3efed1bbce935d223565e" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://apnews.com/article/26fd40f93272d834fced47a4a673edc9" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+        <li>AP News – British Columbia wildfires, evacuations, and sheltering. <a href="https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://apnews.com/article/wildfire-canada-evacuation-british-columbia-okanagan-61002c95f641a4060b78195b016fbea3" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://apnews.com/article/06918cee1330c511babd1732f29e7cb5" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>AP News – Typhoon Dolphin (eastern China) relocations and post-landfall flooding. <a href="https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://apnews.com/article/8d9e687f8599d12f050daeca261d7fa2" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>AP News – Severe storms across the U.S. Midwest: fatalities, outages, and rescues. <a href="https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://apnews.com/article/1a17b33ff8b6adb50b06a6e62c695769" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>AP News – Somalia drought displacement and aid shortfalls. <a href="https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>AP News – Japan (Kumamoto) earthquake impacts and heat/water challenges. <a href="https://apnews.com/article/12c805ac8666c005aff926358de3961e" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>AP News – Spokane (Washington) wildfire evacuations and emergency measures. <a href="https://apnews.com/article/dc8e1ecf2e24c06958f8b723859fc1e1" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>AP News – Hawaii tropical threat (Tropical Storm Lala) and rainfall projections. <a href="https://apnews.com/article/0b0e5bdd17a068acd797e20c0e2c4f9d" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a> <a href="https://apnews.com/article/c03fe211430494e69f7011bdbaf752c8" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>AP News – Okinawa pre-impact closures (Typhoon Dolphin). <a href="https://apnews.com/article/japan-okinawa-china-storm-typhoon-dolphin-a04335196cfec80187102030b4fafcd4" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>AP News – East Java (Indonesia) wildfire and park closures. <a href="https://apnews.com/article/indonesia-bromo-park-peatland-wildfires-sumatra-borneo-62225cc55f9cc8e35d05097fd5f024cf" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+      </ul>
+    </section>
+
+    <div class="footer">
+      Generated from AI-assisted analysis of publicly available reporting. Source links are provided at the point of use.
+    </div>
+  </main>
 </body>
 </html>

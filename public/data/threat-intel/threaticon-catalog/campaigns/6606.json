@@ -1,0 +1,12 @@
+{
+  "id": 6606,
+  "name": "nightspire: Kates Nussman Ellis Earle & Landolfi LLP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Professional Services | Website: katesnussman.com | Data is not available now. | Source: https://www.ransomware.live/id/S2F0ZXMgTnVzc21hbiBFbGxpcyBFYXJsZSAmIExhbmRvbGZpIExMUEBuaWdodHNwaXJl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6606"
+}

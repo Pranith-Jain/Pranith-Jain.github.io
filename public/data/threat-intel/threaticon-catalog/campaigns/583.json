@@ -1,0 +1,12 @@
+{
+  "id": 583,
+  "name": "qilin: Avitrans",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: SE | Sector: Transportation/Logistics | Website: www.avitrans.com | Source: https://www.ransomware.live/id/QXZpdHJhbnNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/583"
+}

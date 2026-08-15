@@ -1,0 +1,12 @@
+{
+  "id": 4133,
+  "name": "Deadlock: Quetzal Química",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: MX | Sector: Manufacturing | Website: quetzalquimica.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/UXVldHphbCBRdcOtbWljYUBEZWFkbG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4133"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3213,
+  "name": "Gamaredon APT targets Ukrainian government agencies in new campaign",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #352 (45b9a29b-abf7-4343-bf56-b71e7f9d9279).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3213"
+}

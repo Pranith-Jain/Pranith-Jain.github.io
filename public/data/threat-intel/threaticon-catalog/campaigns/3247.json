@@ -1,0 +1,12 @@
+{
+  "id": 3247,
+  "name": "Malspam via Spambots (2016-04-14)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #422 (570f47a0-ee58-4aa8-ac55-96e4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3247"
+}

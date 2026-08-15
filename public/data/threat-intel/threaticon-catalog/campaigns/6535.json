@@ -1,0 +1,12 @@
+{
+  "id": 6535,
+  "name": "CRPxO: MRO Aerospace",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Manufacturing | Sector: Aerospace / Defense | Data leaked: 87.3 GB | Source: https://www.ransomware.live/id/TVJPIEFlcm9zcGFjZUBDUlB4Tw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6535"
+}

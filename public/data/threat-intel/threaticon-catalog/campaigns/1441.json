@@ -1,0 +1,12 @@
+{
+  "id": 1441,
+  "name": "akira: bdtronic",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Manufacturing | Website: bdtronic.com | Infostealer data confirmed. | bdtronic provides innovative solutions for dispensing, impregnati on, hot riveting, and plasma applications, serving various indust ries including automotive, electronics, telecommunications, and r enewable energy. We will upload 40gb of corporate data soon. Employee personal inf ormation (passports, DLs, and so on), lots of HR files, financial s, SpaceX project files, other partners files, contracts and agre ements, and so on. | Source: https://www.ransomware.live/id/YmR0cm9uaWNAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1441"
+}

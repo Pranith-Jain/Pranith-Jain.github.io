@@ -1,0 +1,12 @@
+{
+  "id": 3468,
+  "name": "OSINT - Flying Dragon Eye: Uyghur Themed Threat Activity",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #911 (5819948b-b170-4872-b8f6-5934950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3468"
+}

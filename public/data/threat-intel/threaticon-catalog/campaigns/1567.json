@@ -1,0 +1,12 @@
+{
+  "id": 1567,
+  "name": "coinbasecartel: ILLUMINA - Data uploaded",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: illumina.com | Infostealer data confirmed. | [AI generated] Illumina Inc. is a leading global genomics company, focused on the development of innovative sequencing and array technologies. With their high-throughput sequencing and genotyping services, Illumina enables researchers from various fields to understand genetic variation and function effectively. The data uploaded by the company relates to these genetic studies and research outcomes. | Source: https://www.ransomware.live/id/SUxMVU1JTkEgLSBEYXRhIHVwbG9hZGVkQGNvaW5iYXNlY2FydGVs",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1567"
+}

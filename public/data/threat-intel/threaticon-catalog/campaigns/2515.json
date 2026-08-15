@@ -1,0 +1,12 @@
+{
+  "id": 2515,
+  "name": "Malspam 2016-09-16 (.hta in .zip) - campaign: \"(Attached|Emailing|Copy|File): (Scan|Receipt|Document)(integer)\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #873 (57db9b97-4ad8-41d7-8c98-4cbb950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2515"
+}

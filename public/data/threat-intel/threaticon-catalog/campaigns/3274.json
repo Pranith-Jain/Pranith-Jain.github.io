@@ -1,0 +1,12 @@
+{
+  "id": 3274,
+  "name": "Astaroth, Mekotio & Ousaban abusing Google Cloud Run in LATAM-focused malware campaigns",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #477 (feff0215-623f-44c4-9538-c3220903a898).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3274"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1585,
+  "name": "nightspire: CFTC Metallurgie",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Manufacturing | Website: www.cftc-metallurgie.com | Data is not available now. | Source: https://www.ransomware.live/id/Q0ZUQyBNZXRhbGx1cmdpZUBuaWdodHNwaXJl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1585"
+}

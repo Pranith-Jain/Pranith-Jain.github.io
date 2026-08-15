@@ -1,0 +1,12 @@
+{
+  "id": 4400,
+  "name": "thegentlemen: Mondottica",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: IT | Sector: Consumer Services | Website: mondottica.com | Infostealer data confirmed. | ***.com zoominfo.com/c/mondottica-ltd/346397915 Mondottica, a leading global eyewear company specializing in the design, production, and worldwide distribution of premium sunglasses and optical frames. Headquartered in London, the firm is renowned for managing an extensive portfolio of prestigious international fashion and lifestyle brand licenses. They combine innovative design with high-quality craftsmanship to deliver luxury eyewear collections to global markets | Source: https://www.ransomware.live/id/TW9uZG90dGljYUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4400"
+}

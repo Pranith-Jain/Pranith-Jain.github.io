@@ -1,0 +1,12 @@
+{
+  "id": 2960,
+  "name": "OSINT - New Russia-affiliated actor Void Blizzard targets critical sectors for espionage",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1795 (cc3f6225-ea99-45f8-9cbe-228d77d25ebf).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2960"
+}

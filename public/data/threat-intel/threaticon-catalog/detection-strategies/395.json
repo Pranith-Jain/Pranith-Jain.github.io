@@ -1,0 +1,12 @@
+{
+  "id": 395,
+  "name": "User Execution – Malicious Link (click → suspicious egress → download/write → follow-on activity)",
+  "detId": "DET0066",
+  "stixId": "x-mitre-detection-strategy--b977bf63-8fe2-4538-b4f2-0098fe26d67b",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0178", "AN0179", "AN0180"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/395"
+}

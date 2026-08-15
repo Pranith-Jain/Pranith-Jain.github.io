@@ -1,0 +1,12 @@
+{
+  "id": 2902,
+  "name": "OSINT - First Node.js-based Ransomware : Nodera",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1579 (5e2a9dc9-adb4-49bc-9be1-4304950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2902"
+}

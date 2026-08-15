@@ -1,0 +1,12 @@
+{
+  "id": 3277,
+  "name": "APT29 Uses WINELOADER to Target German Political Parties",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #482 (cc498a46-ea03-4bb4-8212-e92402b7aaf3).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3277"
+}

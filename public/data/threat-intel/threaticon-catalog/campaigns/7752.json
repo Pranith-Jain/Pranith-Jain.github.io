@@ -1,0 +1,12 @@
+{
+  "id": 7752,
+  "name": "majinahanashi: SON-VIDEO",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to majinahanashi. | Country: FR | Sector: Retail & E-Commerce | Website: Son-Video.com | TARGET: Son-Video.com REVENUE: $54M EMPLOYEES: ~51-200 employees [LEAK / 10382 FILES] | Source: https://www.ransomware.live/id/U09OLVZJREVPQG1hamluYWhhbmFzaGk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7752"
+}

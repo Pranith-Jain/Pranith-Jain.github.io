@@ -1,0 +1,12 @@
+{
+  "id": 360,
+  "name": "Detect Bidirectional Web Service C2 Channels via Process & Network Correlation",
+  "detId": "DET0035",
+  "stixId": "x-mitre-detection-strategy--dcf2474e-0774-40da-b7e6-f4b60d0ea62f",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0100", "AN0101", "AN0102"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/360"
+}

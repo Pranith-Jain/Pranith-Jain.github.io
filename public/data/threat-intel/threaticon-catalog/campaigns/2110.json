@@ -1,0 +1,12 @@
+{
+  "id": 2110,
+  "name": "Sofacy Attacks Multiple Government Entities",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #136 (5a9834c1-515c-4ebb-a7a3-4035c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2110"
+}

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { getSchedule, setSchedule, markSlotStatus, pickDueSlot } from '../../../src/case-study/storage/schedule';
 import type { Slot } from '../../../src/case-study/types';
 
@@ -22,6 +22,20 @@ const slots: Slot[] = [
 ];
 
 describe('schedule storage', () => {
+  beforeEach(async () => {
+    // The schedule is mirrored into caches.default (slot
+    // https://schedule-cache.internal/v1) and read BEFORE KV, so a slot
+    // written by a previous test in the same pool would shadow the fresh
+    // per-test KV store. Delete the single slot by URL. (Enumerating keys
+    // is avoided — cache.keys() does not resolve in this pool.)
+    try {
+      const cache = (caches as unknown as { default: Cache }).default;
+      await cache.delete('https://schedule-cache.internal/v1');
+    } catch {
+      /* best-effort */
+    }
+  });
+
   it('round-trips schedule', async () => {
     const ns = mockKV() as any;
     await setSchedule(ns, slots);

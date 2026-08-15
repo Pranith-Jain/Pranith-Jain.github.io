@@ -1,0 +1,12 @@
+{
+  "id": 2692,
+  "name": "OSINT - Ukrainian Financial Institutions Targeted by Wave of Malicious EPS File Attacks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1143 (59a25cc4-e870-4bef-a7d1-48a802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2692"
+}

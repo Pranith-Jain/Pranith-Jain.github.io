@@ -1,7 +1,7 @@
 {
   "source": "agentic-ai-daily-reports.netlify.app",
   "license": "MIT",
-  "generatedAt": "2026-08-14",
+  "generatedAt": "2026-08-15",
   "counts": {
     "cyber": 7,
     "deepfake": 9,
@@ -12,22 +12,22 @@
     {
       "type": "cyber",
       "date": "2026-08-14",
-      "sizeBytes": 5916
+      "sizeBytes": 17268
     },
     {
       "type": "deepfake",
-      "date": "2026-08-13",
-      "sizeBytes": 5031
+      "date": "2026-08-14",
+      "sizeBytes": 9922
     },
     {
       "type": "disaster",
-      "date": "2026-08-13",
-      "sizeBytes": 3573
+      "date": "2026-08-14",
+      "sizeBytes": 12962
     },
     {
       "type": "maritime",
-      "date": "2026-08-13",
-      "sizeBytes": 4020
+      "date": "2026-08-14",
+      "sizeBytes": 17590
     },
     {
       "type": "cyber",

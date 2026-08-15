@@ -1,0 +1,12 @@
+{
+  "id": 551,
+  "name": "Detection Strategy for Exfiltration to Code Repository",
+  "detId": "DET0318",
+  "stixId": "x-mitre-detection-strategy--ac9c6b7c-bf94-4eeb-926c-f576673c0a14",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0895", "AN0896", "AN0897", "AN0898"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/551"
+}

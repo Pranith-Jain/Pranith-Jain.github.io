@@ -1,0 +1,12 @@
+{
+  "id": 3331,
+  "name": "Malspam - 2016-05-27 - Locky - .docm",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #567 (57482a58-58b0-42f8-bf2b-46b0950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3331"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3111,
+  "name": "Looking Into a Cyber-Attack Facilitator in the Netherlands",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #63 (571a5777-6664-46e9-8748-1478c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3111"
+}

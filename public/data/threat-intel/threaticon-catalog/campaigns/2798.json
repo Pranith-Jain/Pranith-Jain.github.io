@@ -1,0 +1,12 @@
+{
+  "id": 2798,
+  "name": "Malicious Chrome browser extensions injecting code",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1297 (5a698fd0-f3dc-4e06-a580-4d34950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2798"
+}

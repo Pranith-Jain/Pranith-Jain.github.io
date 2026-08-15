@@ -1,0 +1,12 @@
+{
+  "id": 6876,
+  "name": "thegentlemen: Amicell",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: IL | Sector: Healthcare | Website: amicell.co.il | amicell.co.il zoominfo.com/c/amicell/426539109 Amicell (Amit Industries Ltd.) is a leading Israeli manufacturer founded in 1989, specializing in custom-designed battery packs, chargers, and Battery Management Systems (BMS). Headquartered in Ashdod, the company provides advanced energy solutions for demanding sectors, including defense, medical, UAVs, robotics, and industrial applications. With over 35 years of experience, Amicell is recognized for delivering reliable, high-tech power systems tailored to complex operational requirements | Source: https://www.ransomware.live/id/QW1pY2VsbEB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6876"
+}

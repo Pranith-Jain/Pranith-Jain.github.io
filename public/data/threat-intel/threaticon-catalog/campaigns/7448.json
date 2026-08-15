@@ -1,0 +1,12 @@
+{
+  "id": 7448,
+  "name": "bravox: MEDICOS",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 7, 2026",
+  "added": "Aug 8, 2026",
+  "description": "Ransomware attack attributed to bravox. | Country: FR | Sector: Healthcare | Website: groupemedicos.com | European manufacturer of packaging for beauty and food. Expertise in plastic injection molding and drawn glass production. | Source: https://www.ransomware.live/id/TUVESUNPU0BicmF2b3g=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7448"
+}

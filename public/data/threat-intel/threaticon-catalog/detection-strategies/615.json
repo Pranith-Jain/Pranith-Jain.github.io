@@ -1,0 +1,12 @@
+{
+  "id": 615,
+  "name": "Detection of System Service Discovery Commands Across OS Platforms",
+  "detId": "DET0483",
+  "stixId": "x-mitre-detection-strategy--d8e8768e-34c1-45f4-95d2-fa7ba317b63a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1325", "AN1326", "AN1327"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/615"
+}

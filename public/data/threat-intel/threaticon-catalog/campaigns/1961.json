@@ -1,0 +1,12 @@
+{
+  "id": 1961,
+  "name": "lapsus$: Eiffage",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lapsus$. | Country: FR | Sector: Construction | Website: eiffage.com | Infostealer data confirmed. | [AI generated] Eiffage S.A. is a French publicly-listed company established in 1993, specializing in civil engineering and construction. Its activities are divided into five main segments: Construction, Infrastructure, Real Estate Development, Metal, and Concessions & Energy. It is known for working on significant projects such as the Eiffel Tower and the Millau Viaduct. Eiffage operates not only in France but also in more than 50 countries worldwide. | Source: https://www.ransomware.live/id/RWlmZmFnZUBsYXBzdXMk",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1961"
+}

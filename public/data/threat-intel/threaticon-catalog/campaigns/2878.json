@@ -1,0 +1,12 @@
+{
+  "id": 2878,
+  "name": "OSINT - keepass(dot)com spreading malware acting as the official site for KeePass password manager. Download for .dmg and .exe files are available on the site.",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1511 (5cd4446a-b318-40d6-8120-473a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2878"
+}

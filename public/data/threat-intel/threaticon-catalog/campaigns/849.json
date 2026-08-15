@@ -1,0 +1,12 @@
+{
+  "id": 849,
+  "name": "shinyhunters: Ryan, LLC.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to shinyhunters. | Sector: Business Services | Over 4.8M Salesforce records containing PII and other internal corporate data have been compromised. Pay or leak. This is a final warning to reach out by 14 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 11 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/UnlhbiwgTExDLkBzaGlueWh1bnRlcnM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/849"
+}

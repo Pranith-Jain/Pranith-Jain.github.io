@@ -1,0 +1,12 @@
+{
+  "id": 4726,
+  "name": "safepay: gut-heckenhof.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 17, 2026",
+  "lastSeen": "Jun 17, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Agriculture and Food Production | Website: gut-heckenhof.de | Infostealer data confirmed. | Established in 1992, the company operates a four-star hotel and one of the largest golf facilities in the region. The … | Source: https://www.ransomware.live/id/Z3V0LWhlY2tlbmhvZi5kZUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4726"
+}

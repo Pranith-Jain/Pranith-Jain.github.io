@@ -1,0 +1,12 @@
+{
+  "id": 405,
+  "name": "Compromised software/update chain (installer/write → first-run/child → egress/signature anomaly)",
+  "detId": "DET0309",
+  "stixId": "x-mitre-detection-strategy--77d3b532-9c4f-4f9f-9581-3009b201435d",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0862", "AN0863", "AN0864"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/405"
+}

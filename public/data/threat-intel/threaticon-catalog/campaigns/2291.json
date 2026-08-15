@@ -1,0 +1,12 @@
+{
+  "id": 2291,
+  "name": "OSINT - â€œOperation C-Majorâ€ Actors Also Used Android, BlackBerry Mobile Spyware Against Targets",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #462 (5718d275-88d4-492e-9f07-43ee950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2291"
+}

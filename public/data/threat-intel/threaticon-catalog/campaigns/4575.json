@@ -1,0 +1,12 @@
+{
+  "id": 4575,
+  "name": "qilin: Lee International",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 23, 2026",
+  "lastSeen": "Jun 23, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: KR | Sector: Not Found | Website: www.leeinternational.com | N/A | Source: https://www.ransomware.live/id/TGVlIEludGVybmF0aW9uYWxAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4575"
+}

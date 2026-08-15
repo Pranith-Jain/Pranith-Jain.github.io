@@ -1,0 +1,12 @@
+{
+  "id": 3953,
+  "name": "OSINT - PlugX-Ñ‚ Ó©Ñ€Ñ‚ÑÓ©Ð½ ÑÐ¸ÑÑ‚ÐµÐ¼Ð¸Ð¹Ð³ Ñ†ÑÐ²ÑÑ€Ð»ÑÑ… Ð½ÑŒ",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #58 (565d5025-a6bc-4a5f-b19b-a175950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3953"
+}

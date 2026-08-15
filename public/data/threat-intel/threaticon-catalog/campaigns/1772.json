@@ -1,0 +1,12 @@
+{
+  "id": 1772,
+  "name": "qilin: Albany Pumps",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Manufacturing | Website: www.albany-pumps.co.uk | Source: https://www.ransomware.live/id/QWxiYW55IFB1bXBzQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1772"
+}

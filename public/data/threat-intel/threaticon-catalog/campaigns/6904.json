@@ -1,0 +1,12 @@
+{
+  "id": 6904,
+  "name": "thegentlemen: Philippine Savings Bank",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 1, 2026",
+  "lastSeen": "Aug 1, 2026",
+  "added": "Aug 2, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PH | Sector: Financial Services | Website: psbank.com.ph | Infostealer data confirmed. | psbank.com.ph zoominfo.com/c/philippine-savings-bank/83461899 SBank is widely recognized across the Philippines for its highly accessible Auto and Home Loan programs that make vehicle and property ownership easier for everyday consumers. One of its most unique financial products is the Flexi Personal Loan, a revolving credit line that allows clients to withdraw, repay, and reuse funds flexibly | Source: https://www.ransomware.live/id/UGhpbGlwcGluZSBTYXZpbmdzIEJhbmtAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6904"
+}

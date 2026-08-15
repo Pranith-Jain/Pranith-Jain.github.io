@@ -1,0 +1,12 @@
+{
+  "id": 860,
+  "name": "qilin: A Roettgers",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.arc-rci.com | Source: https://www.ransomware.live/id/QSBSb2V0dGdlcnNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/860"
+}

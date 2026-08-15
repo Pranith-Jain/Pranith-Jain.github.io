@@ -1,0 +1,12 @@
+{
+  "id": 267,
+  "name": "Detecting OS Credential Dumping via /proc Filesystem Access on Linux",
+  "detId": "DET0593",
+  "stixId": "x-mitre-detection-strategy--dc017318-98a3-450b-b903-fe1e7d988197",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1631"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/267"
+}

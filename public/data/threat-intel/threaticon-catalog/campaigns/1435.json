@@ -1,0 +1,12 @@
+{
+  "id": 1435,
+  "name": "dragonforce: odayequipment.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Transportation/Logistics | Website: odayequipment.com | Infostealer data confirmed. | Founded in 1935, ODay Equipment specializes in supplying and maintaining equipment for the oil and gas industry, serving customers in the U.S. Midwest.The company offers fuel storage tanks, retail fueling systems, EV charging solutions,installation, and a variety of repair services. | Source: https://www.ransomware.live/id/b2RheWVxdWlwbWVudC5jb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1435"
+}

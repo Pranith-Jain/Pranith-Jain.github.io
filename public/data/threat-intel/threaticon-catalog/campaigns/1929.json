@@ -1,0 +1,12 @@
+{
+  "id": 1929,
+  "name": "incransom: mcfirm.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Financial Services | Website: mcfirm.com | Infostealer data confirmed. | Martin Cukjati & Tom, LLP is a full service law firm with over 75 years of combined legal experience representing people and businesses in high-stakes litigation. The cornerstone of our success is limiting our case load and dedicating ourselves to serving a select few clients, making sure your case receives the attention it deserves. This allows us to focus on our clients, and work towards achieving the best possible outcome. | Source: https://www.ransomware.live/id/bWNmaXJtLmNvbUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1929"
+}

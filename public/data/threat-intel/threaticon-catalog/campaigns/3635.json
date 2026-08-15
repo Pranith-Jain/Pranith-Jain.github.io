@@ -1,0 +1,12 @@
+{
+  "id": 3635,
+  "name": "interlock: Park Dental Research",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Healthcare | Website: https:shop.pdrus.com | Park Dental Research is a supplier of technologies and materials for dental laboratories and orthodontic clinics; however, when it comes to security, it has proven to be an unreliable partner. As a result of its negligence, partner and customer data, financial documents, and login credentials for various web resources were compromised and made publicly available on the Internet. | Source: https://www.ransomware.live/id/UGFyayBEZW50YWwgUmVzZWFyY2hAaW50ZXJsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3635"
+}

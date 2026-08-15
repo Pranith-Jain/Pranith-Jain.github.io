@@ -1,0 +1,12 @@
+{
+  "id": 4207,
+  "name": "qilin: Sintax",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: BE | Sector: Technology | Website: www.sintax.be | N/A | Source: https://www.ransomware.live/id/U2ludGF4QHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4207"
+}

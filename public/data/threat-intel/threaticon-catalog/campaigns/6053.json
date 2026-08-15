@@ -1,0 +1,12 @@
+{
+  "id": 6053,
+  "name": "thegentlemen: vpcgroup.com customfoam.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Manufacturing | Website: customfoam.com | ***.com vpcgroup.com zoominfo.com/c/custom-foam-systems-ltd/31526090 Custom Foam Systems (CFS) is a leading Canadian manufacturer of fabricated and molded custom polyurethane foam components, founded in 1973 and based in Kitchener, Ontario. The company specializes in serving the automotive, healthcare, and furniture industries across North America with over 45 years of manufacturing excellence. CFS operates under ISO 9001:2015 and FDA standards, utilizing advanced product development processes and lean manufacturing systems to deliver exceptional quality and on-time performance. As a family-owned business, they have built a strong reputation for innovation, reliability, and their commitment that \"every component matters.\" | Source: https://www.ransomware.live/id/dnBjZ3JvdXAuY29tIGN1c3RvbWZvYW0uY29tQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6053"
+}

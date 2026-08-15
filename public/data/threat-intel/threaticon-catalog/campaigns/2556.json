@@ -1,0 +1,12 @@
+{
+  "id": 2556,
+  "name": "OSINT - A PBot (PHP + Perl Backdoor IRC Bot + Network Attack Tool) Infection on hegeman.com",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #931 (58413594-c004-4860-8e70-46b9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2556"
+}

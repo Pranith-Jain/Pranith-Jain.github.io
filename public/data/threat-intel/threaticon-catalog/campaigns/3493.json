@@ -1,0 +1,12 @@
+{
+  "id": 3493,
+  "name": "OSINT - Downeks and Quasar RAT Used in Recent Targeted Attacks Against Governments",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #979 (58904f8a-8a40-4894-8487-4a58950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3493"
+}

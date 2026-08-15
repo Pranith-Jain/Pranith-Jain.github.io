@@ -1,0 +1,12 @@
+{
+  "id": 2680,
+  "name": "OSINT - FIN7/Carbanak threat actor unleashes Bateleur JScript backdoor",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1122 (5981a635-1198-404e-99e3-4fad02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2680"
+}

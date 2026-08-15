@@ -1,0 +1,12 @@
+{
+  "id": 2048,
+  "name": "Retefe is back in town",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #62 (571a5483-ccf8-416e-8679-1478c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2048"
+}

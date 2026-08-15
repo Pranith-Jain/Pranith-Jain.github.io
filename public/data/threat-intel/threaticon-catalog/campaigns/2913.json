@@ -1,0 +1,12 @@
+{
+  "id": 2913,
+  "name": "zloader: VBA, R1C1 References, and Other Tomfoolery",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1617 (0733f160-8e52-4548-a4c8-19a1cfb41d0d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2913"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2658,
+  "name": "OSINT - Dvmap: the first Android malware with code injection",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1086 (593e542e-e080-464e-af5a-4c2a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2658"
+}

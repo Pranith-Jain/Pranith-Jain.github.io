@@ -1,0 +1,12 @@
+{
+  "id": 1950,
+  "name": "thegentlemen: Labtician Ophthalmics",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Healthcare | Website: labtician.com | Infostealer data confirmed. | labtician.com zoominfo.com/c/labtician-ophthalmics-inc/139985585 Labtician Ophthalmics specializes in manufacturing and selling advanced surgical and therapeutic ophthalmology products. The company aims to enhance patients' visual health by providing effective tools and solutions for various eye conditions. Their offerings cater primarily to eye care professionals and include extensive product catalogs and partnership opportunities. Labtician is committed to supporting both healthcare practitioners and their patients in managing, treating, and easing eye issues | Source: https://www.ransomware.live/id/TGFidGljaWFuIE9waHRoYWxtaWNzQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1950"
+}

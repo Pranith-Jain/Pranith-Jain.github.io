@@ -1,0 +1,12 @@
+{
+  "id": 2937,
+  "name": "OSINT - Godfather Trojan IOCs",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1707 (f6098894-bbc6-4ee8-adbb-fc99b4c86f04).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2937"
+}

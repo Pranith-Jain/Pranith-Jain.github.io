@@ -1,0 +1,12 @@
+{
+  "id": 2569,
+  "name": "OSINT - Threat Actors Using Legitimate PayPal Accounts To Distribute Chthonic Banking Trojan",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #953 (586ccbb7-3b08-4fdb-a034-4a8b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2569"
+}

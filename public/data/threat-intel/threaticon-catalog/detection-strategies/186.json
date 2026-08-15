@@ -1,0 +1,12 @@
+{
+  "id": 186,
+  "name": "Detection Strategy for T1497 Virtualization/Sandbox Evasion",
+  "detId": "DET0046",
+  "stixId": "x-mitre-detection-strategy--7f5dde79-7872-48dd-8718-cd2e10d7cbfc",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0127", "AN0128", "AN0129"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/186"
+}

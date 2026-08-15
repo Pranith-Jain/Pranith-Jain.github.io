@@ -1,0 +1,12 @@
+{
+  "id": 441,
+  "name": "Detect Subversion of Trust Controls via Certificate, Registry, and Attribute Manipulation",
+  "detId": "DET0452",
+  "stixId": "x-mitre-detection-strategy--73cde34a-247f-4ebc-87a5-ab6a9c400f40",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1246", "AN1247", "AN1248"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/441"
+}

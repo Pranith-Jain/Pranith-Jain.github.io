@@ -1,0 +1,12 @@
+{
+  "id": 245,
+  "name": "Detection Strategy for Hijack Execution Flow through Services File Permissions Weakness.",
+  "detId": "DET0436",
+  "stixId": "x-mitre-detection-strategy--7e71997a-80b5-4d0d-807e-472116b46b77",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1211"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/245"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6403,
+  "name": "dragonforce: Deluxe Medical Supply",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Healthcare | Website: deluxemedical.com | Deluxe Medical Supply is a distributor of healthcare supplies that focuses on delivering quality home healthcare products and services. They provide a wide range of medical equipment, including mobility aids, incontinence supplies, and compression therapy garments, aimed at restoring independence and confidence for their clients. Their knowledgeable staff is dedicated to offering fast and efficient service to both patients and medical professionals. The company intends to serve individuals needing home healthcare solutions while ensuring affordable options and high-quality products. | Source: https://www.ransomware.live/id/RGVsdXhlIE1lZGljYWwgU3VwcGx5QGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6403"
+}

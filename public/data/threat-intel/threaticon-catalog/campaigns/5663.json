@@ -1,0 +1,12 @@
+{
+  "id": 5663,
+  "name": "incransom: Kyokuto Kaihatsu Kogyo",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 17, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: JP | Sector: Manufacturing | Kyokuto Kaihatsu Kogyo Co., Ltd. is a leading manufacturer specializing in special purpose vehicles such as dump trucks, tankers, and garbage collection vehicles. The company serves various sectors including construction, logistics, and environmental services, providing innovative solutions to meet diverse client needs. With a strong presence in both domestic and international markets, it aims to support sustainable infrastructure development. The company is committed to enhancing operational efficiency and environmental sustainability through its advanced technologies and services. | Source: https://www.ransomware.live/id/S3lva3V0byBLYWloYXRzdSBLb2d5b0BpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5663"
+}

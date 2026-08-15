@@ -1,0 +1,12 @@
+{
+  "id": 3475,
+  "name": "OSINT - Now Mirai Has DGA Feature Built in",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #938 (584bdec1-da2c-495b-9e13-4b3402de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3475"
+}

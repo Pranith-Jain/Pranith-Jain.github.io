@@ -1,0 +1,12 @@
+{
+  "id": 4614,
+  "name": "qilin: Sivatel Bangkok",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 21, 2026",
+  "lastSeen": "Jun 21, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: TH | Sector: Telecommunication | Website: www.sivatelbangkok.com | N/A | Source: https://www.ransomware.live/id/U2l2YXRlbCBCYW5na29rQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4614"
+}

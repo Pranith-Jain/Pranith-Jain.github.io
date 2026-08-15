@@ -1,0 +1,12 @@
+{
+  "id": 7177,
+  "name": "everest: Alzone Software",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 18, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to everest. | Sector: Technology | Website: alzonesoftware.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QWx6b25lIFNvZnR3YXJlQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7177"
+}

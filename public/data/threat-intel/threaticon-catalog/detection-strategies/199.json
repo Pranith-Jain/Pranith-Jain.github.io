@@ -1,0 +1,12 @@
+{
+  "id": 199,
+  "name": "Detection of Scan Databases",
+  "detId": "DET0858",
+  "stixId": "x-mitre-detection-strategy--fa1f7635-b4a2-4a2b-87ae-50cb4dbee328",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1990"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/199"
+}

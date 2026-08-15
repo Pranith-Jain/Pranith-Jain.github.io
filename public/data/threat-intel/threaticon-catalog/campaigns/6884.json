@@ -1,0 +1,12 @@
+{
+  "id": 6884,
+  "name": "thegentlemen: Okovolt Solartechnik",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Energy & Utilities | Website: oekovolt.com | oekovolt.com Ökovolt Solartechnik GmbH is an Austrian company specializing in the planning, installation, and maintenance of photovoltaic systems for private, commercial, and industrial clients. Based in Upper Austria with over 15 years of experience, the firm provides comprehensive, customized solar energy solutions to promote sustainability and energy independence. They focus on high-quality components, expert consulting, and reliable service to maximize the efficiency and lifespan of every solar project | Source: https://www.ransomware.live/id/T2tvdm9sdCBTb2xhcnRlY2huaWtAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6884"
+}

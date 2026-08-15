@@ -1,0 +1,12 @@
+{
+  "id": 2211,
+  "name": "TinyNuke Banking Malware Targets French Entities",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #284 (0945219a-00a3-4478-88f9-cdbb48215ee5).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2211"
+}

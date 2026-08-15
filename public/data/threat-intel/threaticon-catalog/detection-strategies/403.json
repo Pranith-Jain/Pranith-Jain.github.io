@@ -1,0 +1,12 @@
+{
+  "id": 403,
+  "name": "Detection of Remote Service Session Hijacking",
+  "detId": "DET0079",
+  "stixId": "x-mitre-detection-strategy--5d244477-26e2-4b3a-b882-fd74e366e07d",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0216", "AN0217", "AN0218"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/403"
+}

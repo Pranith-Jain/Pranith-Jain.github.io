@@ -1,0 +1,12 @@
+{
+  "id": 2703,
+  "name": "OSINT - New multi platform malware/adware spreading via Facebook Messenger",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1159 (59b23683-c180-4b81-87c5-4610950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2703"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2763,
+  "name": "OSINT - UBoatRAT Navigates East Asia",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1248 (5a1e6e1d-4cc0-4ce6-aeba-7e44950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2763"
+}

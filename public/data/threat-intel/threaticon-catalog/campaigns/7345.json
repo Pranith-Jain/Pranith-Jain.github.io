@@ -1,0 +1,12 @@
+{
+  "id": 7345,
+  "name": "krybit: www.hymiasa.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 7, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: PE | Sector: Other | Website: www.hymiasa.com | HYMIASA (Hules y Mangueras Industriales y Automotrices, S.A. de C.V.) is a Mexican leading company specialized in fluid ... | Source: https://www.ransomware.live/id/d3d3Lmh5bWlhc2EuY29tQGtyeWJpdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7345"
+}

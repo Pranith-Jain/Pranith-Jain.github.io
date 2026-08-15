@@ -1,0 +1,12 @@
+{
+  "id": 1751,
+  "name": "dragonforce: Northern Family Farms",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Agriculture and Food Production | Website: www.northernfamilyfarms.com | Northern Family Farms, located in Merrillan, WI, has been a trusted wholesale supplier of Christmas trees and nursery plants since 1955. They offer a variety of products including Fraser Fir, Balsam Fir, White Pine, and numerous types of nursery plants such as fruits, topiaries, and shrubs. The company serves distributors and businesses across the country, ensuring top-quality plants for retail and landscaping needs. With a commitment to customer satisfaction, they invite potential clients to tour their facilities in West Central Wisconsin. | Source: https://www.ransomware.live/id/Tm9ydGhlcm4gRmFtaWx5IEZhcm1zQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1751"
+}

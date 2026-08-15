@@ -1,0 +1,12 @@
+{
+  "id": 2574,
+  "name": "OSINT - New Variant of Ploutus ATM Malware Observed in the Wild in Latin America",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #960 (58773a18-6384-4c59-8264-4400950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2574"
+}

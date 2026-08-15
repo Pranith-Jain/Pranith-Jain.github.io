@@ -1,0 +1,12 @@
+{
+  "id": 4390,
+  "name": "thegentlemen: Natren",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: natren.com | Infostealer data confirmed. | ***.com zoominfo.com/c/natren-inc/26870087 Natren is a leading manufacturer of premium probiotic supplements with over 30 years of experience, dedicated to improving gut health and overall well-being.Based in California, the company offers a comprehensive range of natural, non-GMO formulas tailored for men, women, children, and even pets.They are highly regarded for their flagship \"Healthy Trinity\" 3-in-1 system and their strict cold-chain shipping process, which guarantees 100% potency through the expiration date | Source: https://www.ransomware.live/id/TmF0cmVuQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4390"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7175,
+  "name": "everest: Emirates Flight Catering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 17, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: AE | Sector: Hospitality | Website: emiratesflightcatering.com | Infostealer data confirmed. | [AI generated] Emirates Flight Catering is a leading airline catering company headquartered in Dubai, United Arab Emirates. It operates one of the world's largest catering facilities, providing in-flight meals and hospitality services primarily to Emirates airline and other carriers at Dubai International Airport. The company serves millions of meals annually and also offers event catering and food production services across the region. | Source: https://www.ransomware.live/id/RW1pcmF0ZXMgRmxpZ2h0IENhdGVyaW5nQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7175"
+}

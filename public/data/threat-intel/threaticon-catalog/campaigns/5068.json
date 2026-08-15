@@ -1,0 +1,12 @@
+{
+  "id": 5068,
+  "name": "thegentlemen: Fibrenoire",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 4, 2026",
+  "lastSeen": "Jun 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Manufacturing | Website: fibrenoire.ca | Infostealer data confirmed. | ***.ca ***.com/c/fibrenoire-inc/347982087 Fibrenoire is a premier Canadian telecommunications provider specializing exclusively in high-speed, fiber-optic connectivity solutions tailored for business environments. Operating primarily across Quebec and Ontario as part of Videotron Business, they deliver mission-critical services including dedicated internet, private networks, VoIP, and cloud infrastructure. With an avant-garde approach, the company focuses on building robust, scalable, and secure networks that empower enterprises to thrive in a demanding digital landscape | Source: https://www.ransomware.live/id/RmlicmVub2lyZUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5068"
+}

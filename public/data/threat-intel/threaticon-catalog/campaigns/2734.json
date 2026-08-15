@@ -1,0 +1,12 @@
+{
+  "id": 2734,
+  "name": "M2M - Locky 2017-10-05 : Affid=3, offline, \".ykcol\" : \"Invoice\" - \"1234567.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1205 (59d5fdbb-df78-497f-8037-4f11950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2734"
+}

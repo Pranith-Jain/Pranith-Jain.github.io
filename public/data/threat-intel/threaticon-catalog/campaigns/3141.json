@@ -1,0 +1,12 @@
+{
+  "id": 3141,
+  "name": "Malspam (2016-03-14) - Locky, TeslaCrypt",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #231 (56e6c7d5-4240-4640-a214-4bef950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3141"
+}

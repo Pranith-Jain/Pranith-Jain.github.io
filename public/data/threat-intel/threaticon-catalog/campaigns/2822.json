@@ -1,0 +1,12 @@
+{
+  "id": 2822,
+  "name": "Emotet 5-18-2018",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1354 (5b0438ad-6d20-4a53-9a8b-2c1c0acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2822"
+}

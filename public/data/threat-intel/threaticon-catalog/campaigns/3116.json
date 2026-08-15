@@ -1,0 +1,12 @@
+{
+  "id": 3116,
+  "name": "OSINT - LOCKY DGA THREAT ACTOR(S)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #79 (56dd5f62-b5c8-4310-8c6f-4c03950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3116"
+}

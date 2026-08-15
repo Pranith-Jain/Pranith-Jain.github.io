@@ -1,0 +1,12 @@
+{
+  "id": 1466,
+  "name": "thegentlemen: MicroChem",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PT | Sector: Technology | Website: microchem.pt | Infostealer data confirmed. | microchem.pt zoominfo.com/c/microchem/480964446 Microchem - Ensaios e Analises Tecnicas, Lda is a Portuguese technical testing and analysis laboratory founded in 2006, located in Matosinhos, Porto. The company specialises in technical testing and analytical services (CAE 71200), supporting industries with quality control, material testing, and compliance verification.Microchem serves as a trusted partner for businesses requiring precise and reliable laboratory analysis. | Source: https://www.ransomware.live/id/TWljcm9DaGVtQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1466"
+}

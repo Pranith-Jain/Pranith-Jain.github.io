@@ -1,0 +1,12 @@
+{
+  "id": 1421,
+  "name": "thegentlemen: Groupe Caddac",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Construction | Website: groupe-caddac.com | Infostealer data confirmed. | groupe-caddac.com Groupe CADDAC is a French construction materials company founded in 1962, specializing in ready-mix concrete (RMC), prefabricated concrete elements, aggregates, and building materials. Headquartered in Donges, Pays de la Loire, the group operates 19 concrete plants along France's Atlantic coast and employs between 200 and 500 people. It ranks among the top 7 regional ready-mix concrete producers in France | Source: https://www.ransomware.live/id/R3JvdXBlIENhZGRhY0B0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1421"
+}

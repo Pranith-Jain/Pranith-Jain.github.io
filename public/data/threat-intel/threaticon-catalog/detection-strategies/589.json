@@ -1,0 +1,12 @@
+{
+  "id": 589,
+  "name": "Detect Credentials Access from Password Stores",
+  "detId": "DET0430",
+  "stixId": "x-mitre-detection-strategy--1a273fde-f4fc-4ca0-94d4-7df285167b5e",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1198", "AN1199", "AN1200", "AN1201"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/589"
+}

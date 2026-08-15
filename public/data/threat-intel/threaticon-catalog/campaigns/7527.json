@@ -1,0 +1,12 @@
+{
+  "id": 7527,
+  "name": "unsafe: Constellation HomeBuilder Systems",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 9, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 9, 2026",
+  "description": "Ransomware attack attributed to unsafe. | Country: US | Sector: Manufacturing | Website: Constellation HomeBuilder Systems | Revenue: $138.1M | Source: https://www.ransomware.live/id/Q29uc3RlbGxhdGlvbiBIb21lQnVpbGRlciBTeXN0ZW1zQHVuc2FmZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7527"
+}

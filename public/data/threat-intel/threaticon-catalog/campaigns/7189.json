@@ -1,0 +1,12 @@
+{
+  "id": 7189,
+  "name": "everest: Keysight",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Technology | Website: keysight.com | Infostealer data confirmed. | [AI generated] Keysight Technologies is an American electronic test and measurement company headquartered in Santa Rosa, California. It designs and manufactures instruments, software, and services used to design, emulate, and test electronic equipment. Its solutions support industries including aerospace, defense, communications, semiconductors, and automotive. Formerly part of Agilent Technologies, Keysight became an independent public company in 2014. | Source: https://www.ransomware.live/id/S2V5c2lnaHRAZXZlcmVzdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7189"
+}

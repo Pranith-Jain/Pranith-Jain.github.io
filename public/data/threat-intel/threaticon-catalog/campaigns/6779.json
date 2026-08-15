@@ -1,0 +1,12 @@
+{
+  "id": 6779,
+  "name": "qilin: Indian Motos Inmot",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: EC | Sector: Manufacturing | Website: www.inmot.com.ec | N/A | Source: https://www.ransomware.live/id/SW5kaWFuIE1vdG9zIElubW90QHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6779"
+}

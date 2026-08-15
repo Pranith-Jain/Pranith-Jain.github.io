@@ -1,0 +1,12 @@
+{
+  "id": 2921,
+  "name": "OSINT - Protecting customers from a private-sector offensive actor using 0-day exploits and DevilsTongue malware",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1654 (21daf42e-7045-461c-8656-ff9894186820).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2921"
+}

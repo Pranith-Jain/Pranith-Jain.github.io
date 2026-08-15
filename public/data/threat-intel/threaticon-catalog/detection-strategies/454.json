@@ -1,0 +1,12 @@
+{
+  "id": 454,
+  "name": "Detect Forged Kerberos Golden Tickets (T1558.001)",
+  "detId": "DET0144",
+  "stixId": "x-mitre-detection-strategy--cbf5f016-0801-4861-93d8-d372645778d5",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0405"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/454"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6724,
+  "name": "chaos: thecranewaregroup.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 28, 2026",
+  "lastSeen": "Jul 28, 2026",
+  "added": "Jul 28, 2026",
+  "description": "Ransomware attack attributed to chaos. | Country: GB | Sector: Technology | Website: thecranewaregroup.com | Craneware’s Public Deception: The Reality Behind the 'Non-Sensitive' Data Breach Recent public statements and regulatory filings by UK health-tech firm Craneware claim that the massive cyber-attack they suffered only exposed \"non-sensitive or already public regulatory data.\" They would have the s… | Source: https://www.ransomware.live/id/dGhlY3JhbmV3YXJlZ3JvdXAuY29tQGNoYW9z",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6724"
+}

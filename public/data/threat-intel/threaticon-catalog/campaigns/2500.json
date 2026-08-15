@@ -1,0 +1,12 @@
+{
+  "id": 2500,
+  "name": "Malspam 2016-09-06 (.wsf in .zip) - campaign: \"Invoice INV[x]\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #853 (57ceb5e1-bd08-4fbb-9967-4b68950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2500"
+}

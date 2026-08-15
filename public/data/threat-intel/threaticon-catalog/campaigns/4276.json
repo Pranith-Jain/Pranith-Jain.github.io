@@ -1,0 +1,12 @@
+{
+  "id": 4276,
+  "name": "incransom: samberger24.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: DE | Sector: Business Services | Website: samberger24.de | Infostealer data confirmed. | Samberger is a long-established medical supply store and sports and analysis center in Munich, offering orthopedic aids, shoe insoles and health products. | Source: https://www.ransomware.live/id/c2FtYmVyZ2VyMjQuZGVAaW5jcmFuc29t",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4276"
+}

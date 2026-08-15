@@ -1,0 +1,12 @@
+{
+  "id": 3539,
+  "name": "shadowbyt3$: PowerCampus",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to shadowbyt3$. | Country: IN | Sector: Education | Website: powercampus.in | Infostealer data confirmed. | Cloud-based school management and collaboration platform targeting educational institutes in India, covering online fee payments, exam management, online admissions, teacher-parent communication, and e-learning continuity. | Source: https://www.ransomware.live/id/UG93ZXJDYW1wdXNAc2hhZG93Ynl0MyQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3539"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6760,
+  "name": "2026-07-14 (Tuesday): Malicious Files And Infrastructure Derived From Npm And Pypi Supply Chain Packages",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 14, 2026",
+  "lastSeen": "Jul 14, 2026",
+  "added": "Jul 30, 2026",
+  "description": "2026-07-14 (Tuesday): Malicious Files And Infrastructure Derived From Npm And Pypi Supply Chain Packages.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6760"
+}

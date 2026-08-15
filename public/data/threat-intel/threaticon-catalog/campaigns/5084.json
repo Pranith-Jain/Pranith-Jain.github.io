@@ -1,0 +1,12 @@
+{
+  "id": 5084,
+  "name": "thegentlemen: Michigan Surgical Center",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 4, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: www.michigansurgicalcenter.com | www.***.com https://www.***.com/c/michigan-surgical-center-llc/90769926 Michigan Surgical Center is an outpatient surgical facility specializing in ophthalmic and plastic surgeries, with over 25 years of experience. The center is physician-owned and has received multiple awards for quality care, including recognition as one of America's Best Ambulatory Surgical Centers by Newsweek. Their mission focuses on providing high-quality, patient-centered care with an emphasis on value-based services. They aim to lead in outpatient surgical care through innovative methodologies and a commitment to integrity and respect. 2075 Coolidge Rd, East Lansing, Michigan | Source: https://www.ransomware.live/id/TWljaGlnYW4gU3VyZ2ljYWwgQ2VudGVyQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5084"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7407,
+  "name": "Storm: Nelson Manufacturing",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to Storm. | Country: US | Sector: Manufacturing | Website: nelsontrailers.com | Infostealer data confirmed. | Nelson Manufacturing Company specializes in the design and production of innovative trailers and crane attachments tailored for various industries, including aerospace. Their product range includes custom-made crane attachments, hydraulic goosenecks, and specialty trailers, ensuring efficient transportation solutions for heavy equipment. The company serves clients in the aerospace sector, providing transport trailers that meet stringent quality requirements for aircraft and spacecraft components. Founded in 1947, Nelson Manufacturing is recognized as a leading manufacturer of multi-axle trailers in the United States. The company headquarters is located in 6448 State Route 224, Ottawa, OH 45875, United States. 51-200 Employees | Source: https://www.ransomware.live/id/TmVsc29uIE1hbnVmYWN0dXJpbmdAU3Rvcm0=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7407"
+}

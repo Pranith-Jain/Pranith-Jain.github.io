@@ -1,0 +1,12 @@
+{
+  "id": 810,
+  "name": "lamashtu: CNAOC",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lamashtu. | Country: FR | Sector: Energy | Website: cnaoc.org | Infostealer data confirmed. | Depuis 1924, la CNAOC porte la voix du vignoble français dans toute sa richesse : vins, eaux-de-vie de vin, vins doux naturels et vins de liqueur. Nous sommes un collectif vivant de femmes et d’hommes au service d’une viticulture d’appellation authen | Source: https://www.ransomware.live/id/Q05BT0NAbGFtYXNodHU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/810"
+}

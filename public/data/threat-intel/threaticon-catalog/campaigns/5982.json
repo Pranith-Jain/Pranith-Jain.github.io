@@ -1,0 +1,12 @@
+{
+  "id": 5982,
+  "name": "qilin: Corporate 360 Business Solutions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Professional Services | Website: www.corporate360.ca | N/A | Source: https://www.ransomware.live/id/Q29ycG9yYXRlIDM2MCBCdXNpbmVzcyBTb2x1dGlvbnNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5982"
+}

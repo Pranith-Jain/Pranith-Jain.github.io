@@ -1,0 +1,12 @@
+{
+  "id": 4197,
+  "name": "nova: Hynet",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nova. | Country: GB | Sector: Technology | Hynet helps businesses protect and manage their most important asset: information. With a team of skilled tech experts, they solve complex IT challenges by providing smart data storage and network security services. Their remote team works closely with clients to improve productivity and keep company data safe from growing digital threats - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/SHluZXRAbm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4197"
+}

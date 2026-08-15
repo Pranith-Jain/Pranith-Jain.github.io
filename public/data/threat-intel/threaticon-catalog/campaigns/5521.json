@@ -1,0 +1,12 @@
+{
+  "id": 5521,
+  "name": "qilin: Levin Furniture",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 15, 2026",
+  "lastSeen": "Jul 15, 2026",
+  "added": "Jul 15, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.levinfurniture.com | N/A | Source: https://www.ransomware.live/id/TGV2aW4gRnVybml0dXJlQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5521"
+}

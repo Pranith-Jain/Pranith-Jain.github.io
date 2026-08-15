@@ -1,0 +1,12 @@
+{
+  "id": 7181,
+  "name": "everest: Aptara",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: IN | Sector: Professional Services | Website: aptaracorp.com | Infostealer data confirmed. | [AI generated] Aptara is a US-based digital content transformation company specializing in publishing, learning, and content solutions. Operating primarily in the publishing and e-learning industries, it provides services such as content conversion, instructional design, digital publishing, and XML/DITA authoring. Founded in 1988 and headquartered in Falls Church, Virginia, Aptara serves clients in education, government, and corporate sectors globally, helping organizations transition traditional content into digital formats. | Source: https://www.ransomware.live/id/QXB0YXJhQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7181"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2855,
+  "name": "OSINT - New KeyPass Ransomware Campaign Underway",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1423 (5b718bda-8d9c-477f-bcd5-4634950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2855"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6008,
+  "name": "chaos: issvc.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 22, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to chaos. | Country: SG | Sector: Technology | Website: issvc.com | issvc.com Official Notice to Management and Stakeholders The time window has expired. Exactly 24 hours remain until the final deadline. If an agreement is not reached by the end of this period, the complete confidential dataset totaling 262 GB will be published into the public domain. Compromised… | Source: https://www.ransomware.live/id/aXNzdmMuY29tQGNoYW9z",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6008"
+}

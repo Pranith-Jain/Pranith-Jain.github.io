@@ -1,0 +1,12 @@
+{
+  "id": 3346,
+  "name": "Malspam 2016-07-04 (testrun, subject 'Scanned image'), .docm",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #600 (577a5b2f-5a3c-4565-b847-40e6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3346"
+}

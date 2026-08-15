@@ -1,0 +1,12 @@
+{
+  "id": 2890,
+  "name": "OSINT - Ruby/Gem Warning! is rest-client 1.6.13 hijacked? #713",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1545 (5d5bfb96-ff34-4470-9107-cfdc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2890"
+}

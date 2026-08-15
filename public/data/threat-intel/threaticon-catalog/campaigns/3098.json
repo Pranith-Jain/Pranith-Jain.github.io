@@ -1,0 +1,12 @@
+{
+  "id": 3098,
+  "name": "Attack Campaign on the Government of Thailand Delivers Bookworm Trojan",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #8 (56ca497b-9924-4031-ad3b-4bad9062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3098"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2310,
+  "name": "ScrubCrypt Deploys VenomRAT with an Arsenal of Plugins",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #491 (f1dd9c3d-94ae-4da4-8ef3-d967315f9810).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2310"
+}

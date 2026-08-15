@@ -1,0 +1,12 @@
+{
+  "id": 2240,
+  "name": "Suspected Chinese Threat Actors Exploiting FortiOS Vulnerability (CVE-2022-42475)",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #365 (ab80f623-9311-47db-8713-661271b987c5).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2240"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3151,
+  "name": "Conti Ransomware",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #255 (0319b483-5973-4932-91ea-5a44c2975b24).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3151"
+}

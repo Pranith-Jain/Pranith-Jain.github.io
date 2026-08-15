@@ -1,0 +1,12 @@
+{
+  "id": 2948,
+  "name": "I-Soon / Anxun data leak in Github",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1751 (69df43bb-2c48-4b4d-aa85-8477e92cb010).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2948"
+}

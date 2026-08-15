@@ -1,0 +1,12 @@
+{
+  "id": 110,
+  "name": "Detection Strategy for LC_LOAD_DYLIB Modification in Mach-O Binaries on macOS",
+  "detId": "DET0216",
+  "stixId": "x-mitre-detection-strategy--4f95fef5-3b5e-435a-ad00-33d2d9765640",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0607"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/110"
+}

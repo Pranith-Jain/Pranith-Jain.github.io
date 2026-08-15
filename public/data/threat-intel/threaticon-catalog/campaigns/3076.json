@@ -1,0 +1,12 @@
+{
+  "id": 3076,
+  "name": "medusalocker: Atencio Engineering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to medusalocker. | Sector: Construction | Civil engineering & land surveying firm. Services: site plans, boundary surveys, OWTS (septic) design, fire line design, elevation certificates, flood plain analysis. Clients in Las Animas County, Pueblo County, Florence CO area. | Source: https://www.ransomware.live/id/QXRlbmNpbyBFbmdpbmVlcmluZ0BtZWR1c2Fsb2NrZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3076"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 658,
+  "name": "coinbasecartel: Evict them for me",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: evictthemforme.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RXZpY3QgdGhlbSBmb3IgbWVAY29pbmJhc2VjYXJ0ZWw=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/658"
+}

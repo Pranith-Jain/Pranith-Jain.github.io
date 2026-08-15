@@ -1,0 +1,12 @@
+{
+  "id": 3335,
+  "name": "OSINT - LinkedIn information used to spread banking malware in the Netherlands",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #575 (57595892-e5f4-4419-b6dc-48df950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3335"
+}

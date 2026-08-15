@@ -1,0 +1,12 @@
+{
+  "id": 3450,
+  "name": "Malspam 2016-09-01 (.js in .zip) - campaign: \"flight tickets\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #844 (57c7d398-3440-41b9-8339-4e1e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3450"
+}

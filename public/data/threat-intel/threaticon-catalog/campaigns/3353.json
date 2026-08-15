@@ -1,0 +1,12 @@
+{
+  "id": 3353,
+  "name": "Malspam 2016-07-22 .js in .zip with embedded Locky (campaign: \"Financial statement\")",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #616 (5791cf23-9e10-4537-9f59-4c55950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3353"
+}

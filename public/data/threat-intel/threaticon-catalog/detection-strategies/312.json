@@ -1,0 +1,12 @@
+{
+  "id": 312,
+  "name": "Detect Unauthorized Access to Password Managers",
+  "detId": "DET0597",
+  "stixId": "x-mitre-detection-strategy--a5600691-be46-424a-b8ef-a2c9159da49a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1641", "AN1642", "AN1643"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/312"
+}

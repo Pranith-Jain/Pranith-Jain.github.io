@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IR",
   "sizeBytes": 0,
-  "description": "[AI generated] IRCO.COM appears to be associated with the Industrial Rubber Company (IRCO), a U.S.-based manufacturer and distributor specializing in industrial rubber products, seals, gaskets, hoses, and related components. The company serves sectors such as manufacturing, oil and gas, and construction. Operating primarily in the United States, it supplies both standard and custom rubber solutions to industrial clients across various markets.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f4156140-51b1-4633-ae57-cb66154c6c15",
   "groupAliases": ["Cl0p"],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

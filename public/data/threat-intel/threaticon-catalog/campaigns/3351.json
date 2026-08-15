@@ -1,0 +1,12 @@
+{
+  "id": 3351,
+  "name": "Malspam 2016-07-15 .zip/.jse",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #609 (5788c19e-ee40-43b8-9160-47da950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3351"
+}

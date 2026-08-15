@@ -1,0 +1,12 @@
+{
+  "id": 3363,
+  "name": "OSINT - Rotten Apples: Apple-Like Malicious Phishing Domains by FireEye",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #638 (5759bcc0-15c0-4906-8c93-46f1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3363"
+}

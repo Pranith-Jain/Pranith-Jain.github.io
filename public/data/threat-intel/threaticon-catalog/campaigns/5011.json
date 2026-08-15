@@ -1,0 +1,12 @@
+{
+  "id": 5011,
+  "name": "thegentlemen: Trigon America",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Not Found | Website: trigonamerica.com | Infostealer data confirmed. | ***.com zoominfo.com/c/trigon-america/560898982 Trigon America is a premier contract manufacturer based in Aurora, Illinois, specializing in precision-machined complex components and assemblies. Founded in 2000, the company serves the highly regulated Medical Device and Aerospace industries, holding both ISO 13485 and AS9100 certifications. With decades of expertise, they focus on delivering world-class manufacturing solutions for intricate instrumentation and critical medical equipment | Source: https://www.ransomware.live/id/VHJpZ29uIEFtZXJpY2FAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5011"
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "[AI generated] ToastTab.com is the online platform for Toast, Inc., a US-based restaurant technology company headquartered in Boston, Massachusetts. Toast provides cloud-based point-of-sale software, payment processing, and restaurant management solutions tailored for the food service industry. Its platform supports ordering, payroll, inventory, and customer engagement tools, serving restaurants of all sizes across the United States and internationally.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/02d3fb4a-b7f6-418e-a042-e23c6987e63f",
   "groupAliases": ["Cl0p"],
   "activity": "Hospitality",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -1,0 +1,12 @@
+{
+  "id": 342,
+  "name": "Detect Obfuscated C2 via Network Traffic Analysis",
+  "detId": "DET0053",
+  "stixId": "x-mitre-detection-strategy--e17b2809-7534-4749-9bd8-95fdb24e4891",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0144", "AN0145", "AN0146"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/342"
+}

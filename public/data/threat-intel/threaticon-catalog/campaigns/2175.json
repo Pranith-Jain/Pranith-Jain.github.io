@@ -1,0 +1,12 @@
+{
+  "id": 2175,
+  "name": "WildPressure targets industrial-related entities in the Middle East",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #219 (5e8b8990-909c-4875-8539-a755c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2175"
+}

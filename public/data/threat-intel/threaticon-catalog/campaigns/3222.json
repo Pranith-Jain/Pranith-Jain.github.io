@@ -1,0 +1,12 @@
+{
+  "id": 3222,
+  "name": "Talos uncovers espionage campaigns targeting CIS countries, embassies and EU health care agency",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #368 (c279be56-bd74-434f-90a9-3e6f51dc2f48).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3222"
+}

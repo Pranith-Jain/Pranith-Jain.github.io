@@ -1,0 +1,12 @@
+{
+  "id": 2233,
+  "name": "Unraveling the techniques of Mac ransomware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #343 (6e86d7e8-cdd6-4cfc-bdba-9e0176efc167).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2233"
+}

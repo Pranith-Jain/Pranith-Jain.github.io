@@ -1,0 +1,12 @@
+{
+  "id": 84,
+  "name": "Volume Modification",
+  "dcId": "DC0092",
+  "analyticCount": 2,
+  "strategyCount": 2,
+  "added": null,
+  "analytics": ["AN0612", "AN0861"],
+  "description": "Changes made to a cloud volume, including its settings and control data (ex: AWS modify-volume)",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/84"
+}

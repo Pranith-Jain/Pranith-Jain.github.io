@@ -1,0 +1,12 @@
+{
+  "id": 2941,
+  "name": "Volt Typhoon targets US critical infrastructure with living-off-the-land techniques",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1720 (99f9138a-c8f8-44aa-9a0c-3736d74c2df3).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2941"
+}

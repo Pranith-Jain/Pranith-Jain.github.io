@@ -1,0 +1,12 @@
+{
+  "id": 3683,
+  "name": "thegentlemen: KUPER",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Not Found | Website: kuper.de | Infostealer data confirmed. | kuper.de Heinrich KUPER GmbH is an internationally active medium-sized company headquartered in Rietberg, Germany, with approximately 120–190 employees. The company specializes in developing and manufacturing machines and systems for veneer processing, solid wood working, automated packaging technology, and special-purpose woodworking equipment. As a quality leader in veneer and wood processing technology, KUPER serves customers worldwide with individualized solutions and comprehensive service support. | Source: https://www.ransomware.live/id/S1VQRVJAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3683"
+}

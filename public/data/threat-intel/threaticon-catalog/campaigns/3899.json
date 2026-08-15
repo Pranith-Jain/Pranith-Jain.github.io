@@ -1,0 +1,12 @@
+{
+  "id": 3899,
+  "name": "thegentlemen: Internal Medicine",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: internalmedicineofswf.com | Infostealer data confirmed. | internalmedicineofswf.com zoominfo.com/c/internal-medicine-of-southwest-florida/559515842 a private, physician-owned primary care practice founded in 1998 and located in Fort Myers, FL . The site provides patient resources, contact information, office hours, and details about their proactive, preventative healthcare services. They focus on quality, patient-centric care for both wellness visits and urgent medical needs | Source: https://www.ransomware.live/id/SW50ZXJuYWwgTWVkaWNpbmVAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3899"
+}

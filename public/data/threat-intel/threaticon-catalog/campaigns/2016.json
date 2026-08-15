@@ -1,0 +1,12 @@
+{
+  "id": 2016,
+  "name": "Terracotta VPN - RSA",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #22 (56cce03c-9fd0-48bd-958b-52849062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2016"
+}

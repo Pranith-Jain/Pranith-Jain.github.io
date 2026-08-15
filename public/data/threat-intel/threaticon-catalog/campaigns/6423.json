@@ -1,0 +1,12 @@
+{
+  "id": 6423,
+  "name": "Section9: *****.com.cn",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Section9. | Country: CN | Sector: Financial Services | FINANCE | Source: https://www.ransomware.live/id/KioqKiouY29tLmNuQFNlY3Rpb245",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6423"
+}

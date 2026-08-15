@@ -1,0 +1,12 @@
+{
+  "id": 4177,
+  "name": "Deadlock: IFC Eur",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: DE | Sector: Financial Services | Website: www.ifceuropa.com | IFC Europa is a Spanish-based distributor specializing in car audio, automotive lighting, and electronics. | Source: https://www.ransomware.live/id/SUZDIEV1ckBEZWFkbG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4177"
+}

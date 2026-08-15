@@ -1,0 +1,12 @@
+{
+  "id": 5951,
+  "name": "worldleaks: PinnPACK",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 21, 2026",
+  "lastSeen": "Jul 21, 2026",
+  "added": "Jul 22, 2026",
+  "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Manufacturing | Website: pinnpack.com | [AI generated] N/A | Source: https://www.ransomware.live/id/UGlublBBQ0tAd29ybGRsZWFrcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5951"
+}

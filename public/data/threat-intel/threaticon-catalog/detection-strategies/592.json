@@ -1,0 +1,12 @@
+{
+  "id": 592,
+  "name": "Detection of Email Accounts",
+  "detId": "DET0835",
+  "stixId": "x-mitre-detection-strategy--4c5608c3-b5ca-4c8e-932e-ad6c55683cd1",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1967"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/592"
+}

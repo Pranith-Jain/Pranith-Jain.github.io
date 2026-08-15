@@ -1,0 +1,12 @@
+{
+  "id": 2898,
+  "name": "OSINT - Reversing a real-world 249 bytes backdoor!",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1572 (5e00d123-d688-417f-aafe-40fb02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2898"
+}

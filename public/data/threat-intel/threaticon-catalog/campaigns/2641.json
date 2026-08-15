@@ -1,0 +1,12 @@
+{
+  "id": 2641,
+  "name": "OSINT - New Loki Variant Being Spread via PDF File",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1065 (591df2b7-0408-43b6-90bd-4e3c02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2641"
+}

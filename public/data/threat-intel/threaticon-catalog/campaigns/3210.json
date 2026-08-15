@@ -1,0 +1,12 @@
+{
+  "id": 3210,
+  "name": "No Pineapple! –DPRK Targeting of Medical Research and Technology Sector",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #348 (d2a62c19-a7ee-41bd-984a-4098fdd30e48).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3210"
+}

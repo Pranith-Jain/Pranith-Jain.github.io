@@ -1,0 +1,12 @@
+{
+  "id": 4980,
+  "name": "worldleaks: M1xchange",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 9, 2026",
+  "lastSeen": "Jun 9, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to worldleaks. | Country: IN | Sector: Technology | Website: www.m1xchange.com | [AI generated] M1xchange is an Indian trade receivables discounting platform operated by Mynd Solutions. It functions as an online marketplace where micro, small, and medium enterprises can auction their unpaid invoices to financiers, improving cash flow and working capital access. Operating under the Reserve Bank of India's TReDS framework, it serves the MSME financing sector across India. | Source: https://www.ransomware.live/id/TTF4Y2hhbmdlQHdvcmxkbGVha3M=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4980"
+}

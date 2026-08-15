@@ -1,0 +1,12 @@
+{
+  "id": 5188,
+  "name": "gunra: SOMAFIX",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 29, 2026",
+  "lastSeen": "May 29, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to gunra. | Country: FR | Website: somafix.fr | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/U09NQUZJWEBndW5yYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5188"
+}

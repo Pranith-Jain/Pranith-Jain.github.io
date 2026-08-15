@@ -1,0 +1,12 @@
+{
+  "id": 2476,
+  "name": "OSINT Snakes in the Satellites: On-going Turla Infrastructure by PassiveTotal",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #816 (57b58ade-2da0-4f50-98b3-4846950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2476"
+}

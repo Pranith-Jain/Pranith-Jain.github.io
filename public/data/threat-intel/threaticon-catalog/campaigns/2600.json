@@ -1,0 +1,12 @@
+{
+  "id": 2600,
+  "name": "Sinkholes servers with http header Server: malware-sinkhole",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1000 (58ad5d57-3058-48b8-8c08-553602de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2600"
+}

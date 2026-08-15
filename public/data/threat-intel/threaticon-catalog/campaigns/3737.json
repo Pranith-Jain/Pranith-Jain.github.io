@@ -1,0 +1,12 @@
+{
+  "id": 3737,
+  "name": "safepay: gingerichtrucking.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Transportation/Logistics | Website: gingerichtrucking.com | Infostealer data confirmed. | Is a U.S.-based freight transportation company operating primarily in interstate logistics. The company specializes in hauling general freight, agricultural products … | Source: https://www.ransomware.live/id/Z2luZ2VyaWNodHJ1Y2tpbmcuY29tQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3737"
+}

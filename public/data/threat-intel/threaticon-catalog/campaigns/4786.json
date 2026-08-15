@@ -1,0 +1,12 @@
+{
+  "id": 4786,
+  "name": "Deadlock: Summa4",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: ES | Sector: Not Found | Website: summa4.es | Infostealer data confirmed. | SUMMA 4 Asesores Legales y Tributarios is a Madrid-based firm specializing in legal and tax advisory for businesses and high-net-worth individuals. Established in 2008, the firm provides tailored strategies in tax, commercial, and labor law, with a particular focus on family businesses and family offices. | Source: https://www.ransomware.live/id/U3VtbWE0QERlYWRsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4786"
+}

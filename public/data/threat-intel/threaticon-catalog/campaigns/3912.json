@@ -1,0 +1,12 @@
+{
+  "id": 3912,
+  "name": "titan: Groupe CRIT SA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to titan. | Country: FR | Sector: Business Services | Website: www.groupe-crit.com | [AI generated] Groupe CRIT SA is a French multinational staffing and recruitment company headquartered in Paris, France. Founded in 1962, it operates in the human resources and temporary employment industry, providing workforce solutions including temporary staffing, permanent recruitment, and outsourcing services. The group serves various sectors such as industry, transport, logistics, and construction, operating across France and internationally in several European and African markets. | Source: https://www.ransomware.live/id/R3JvdXBlIENSSVQgU0FAdGl0YW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3912"
+}

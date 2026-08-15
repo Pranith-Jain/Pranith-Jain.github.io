@@ -1,0 +1,12 @@
+{
+  "id": 4146,
+  "name": "Deadlock: VBW Makelaars and Taxateurs",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: NL | Sector: Business Services | Website: www.vbw.nl | VBW Makelaars & Taxateurs specializes in real estate and property valuations in the Netherlands. Real estate agency and certified appraisers | Source: https://www.ransomware.live/id/VkJXIE1ha2VsYWFycyBhbmQgVGF4YXRldXJzQERlYWRsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4146"
+}

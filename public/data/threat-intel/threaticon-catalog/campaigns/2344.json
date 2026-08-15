@@ -1,0 +1,12 @@
+{
+  "id": 2344,
+  "name": "OSINT - The Curious Case of an Unknown Trojan Targeting German-Speaking Users",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #583 (576afc2a-6fd8-4b0d-949b-347902de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2344"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3517,
+  "name": "qilin: Generation Life",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Healthcare | Website: www.genlife.com.au | N/A | Press: https://www.moneymanagement.com.au/generation-life-suffers-cyber-incident/ | Source: https://www.ransomware.live/id/R2VuZXJhdGlvbiBMaWZlQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3517"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3250,
+  "name": "The attack against Danish critical infrastructure",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #426 (b4a98411-68c8-46bf-aff8-1659046646b3).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3250"
+}

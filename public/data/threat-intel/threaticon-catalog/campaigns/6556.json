@@ -1,0 +1,12 @@
+{
+  "id": 6556,
+  "name": "CRPxO: Bright Star Partners Insurance",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Financial Services | Website: brightstarinsurancepartners.com | Sector: Insurance / Financial Services | Data leaked: 41.8 GB | Source: https://www.ransomware.live/id/QnJpZ2h0IFN0YXIgUGFydG5lcnMgSW5zdXJhbmNlQENSUHhP",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6556"
+}

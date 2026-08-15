@@ -1,0 +1,12 @@
+{
+  "id": 1039,
+  "name": "incransom: coronapa.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: coronapa.com | Infostealer data confirmed. | Corona Law Firm is a proud excellent client service and skillful representation. Established in 1997, well-known in the Florida legal community. | Source: https://www.ransomware.live/id/Y29yb25hcGEuY29tQGluY3JhbnNvbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1039"
+}

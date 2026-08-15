@@ -1,0 +1,12 @@
+{
+  "id": 3805,
+  "name": "beast: Trivantage",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to beast. | Country: US | Sector: Business Services | Website: www.trivantage.com | Trivantage is a wholesale supplier specializing in awning, marine, and upholstery fabrics, offering over 9,000 products for makers. The company provides built-for-purpose materials and hardware for shade systems, durable materials for custom marine builds, and stylish furnishings. With a commitment to customer success, Trivantage ensures quick delivery, dedicated expert help, and exclusive benefits through its Trivantage Plus membership. Their extensive selection and reliable service make them a trusted partner for businesses in need of quality supplies. | Source: https://www.ransomware.live/id/VHJpdmFudGFnZUBiZWFzdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3805"
+}

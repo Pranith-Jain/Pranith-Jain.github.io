@@ -1,0 +1,12 @@
+{
+  "id": 3828,
+  "name": "dragonforce: Öztekin Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3828"
+}

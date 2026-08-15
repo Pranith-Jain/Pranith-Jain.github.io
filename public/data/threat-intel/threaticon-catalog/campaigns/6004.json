@@ -1,0 +1,12 @@
+{
+  "id": 6004,
+  "name": "akira: Kruse Construction",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 22, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to akira. | Sector: Manufacturing | Kruse Construction is a mechanical contractor with over 50 years of experience in the petroleum and petrochemical industry, specializing in the construction and maintenance of liquid petrole um truck, rail, and pipeline terminals. The company also provides services for bulk plants, pip eline pump stations, lube oil plants, and underground pipelines. We will upload 10gb corporate data soon. Employee information (passports, lots of DLs), project s, contracts, financials, customer files and so on. | Source: https://www.ransomware.live/id/S3J1c2UgQ29uc3RydWN0aW9uQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6004"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 233,
+  "name": "threeam: curedentalbeltontx.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to threeam. | Country: US | Sector: Healthcare | Website: curedentalbeltontx.com | Infostealer data confirmed. | Cure Dental is a company that operates in the Dental Offices industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Belton, Texas. | Source: https://www.ransomware.live/id/Y3VyZWRlbnRhbGJlbHRvbnR4LmNvbUB0aHJlZWFt",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/233"
+}

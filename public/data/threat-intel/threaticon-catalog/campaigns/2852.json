@@ -1,0 +1,12 @@
+{
+  "id": 2852,
+  "name": "OSINT - Microsoft Disrupts APT28 Hacking Campaign Aimed at US Midterm Elections",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1416 (5b7d1f89-9148-4961-b56f-9168950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2852"
+}

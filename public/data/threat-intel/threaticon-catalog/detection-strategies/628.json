@@ -1,0 +1,12 @@
+{
+  "id": 628,
+  "name": "Detecting MMC (.msc) Proxy Execution and Malicious COM Activation",
+  "detId": "DET0222",
+  "stixId": "x-mitre-detection-strategy--f4560945-d62f-48b6-ae94-dcd93c471c45",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0622"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/628"
+}

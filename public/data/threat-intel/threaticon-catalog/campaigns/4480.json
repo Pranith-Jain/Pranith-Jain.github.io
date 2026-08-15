@@ -1,0 +1,12 @@
+{
+  "id": 4480,
+  "name": "qilin: KALIACT ANCHETA et Associs",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Business Services | Website: www.ancheta-associes.fr | N/A | Source: https://www.ransomware.live/id/S0FMSUFDVCBBTkNIRVRBIGV0IEFzc29jaXNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4480"
+}

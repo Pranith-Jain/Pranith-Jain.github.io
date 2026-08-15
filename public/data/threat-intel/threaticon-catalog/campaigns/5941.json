@@ -1,0 +1,12 @@
+{
+  "id": 5941,
+  "name": "qilin: RehaVital Gesundheitsservice GmbH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 21, 2026",
+  "lastSeen": "Jul 21, 2026",
+  "added": "Jul 22, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Healthcare | Website: www.rehavital.de | N/A | Source: https://www.ransomware.live/id/UmVoYVZpdGFsIEdlc3VuZGhlaXRzc2VydmljZSBHbWJIQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5941"
+}

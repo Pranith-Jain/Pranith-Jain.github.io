@@ -1,0 +1,12 @@
+{
+  "id": 5899,
+  "name": "safepay: industriesjaro.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 20, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Jul 21, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: CA | Sector: Manufacturing | Website: industriesjaro.com | Infostealer data confirmed. | Over several decades, Jaro has evolved from manufacturing telephone booths into a supplier of advanced outdoor enclosures, interactive kiosks, bus … | Source: https://www.ransomware.live/id/aW5kdXN0cmllc2phcm8uY29tQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5899"
+}

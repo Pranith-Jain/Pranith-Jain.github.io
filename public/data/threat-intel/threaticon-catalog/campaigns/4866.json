@@ -1,0 +1,12 @@
+{
+  "id": 4866,
+  "name": "dragonforce: The DRM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: BH | Sector: Not Found | Website: www.drm.bh | Durrat Resort Management specializes in providing high-quality resort management services. Their offerings include operational management, marketing strategies, and guest services tailored to enhance the overall experience of resort guests. The company primarily targets luxury resort owners and investors looking to optimize their properties' performance. With a focus on excellence and customer satisfaction, Durrat aims to elevate the standards of resort management in the industry. | Source: https://www.ransomware.live/id/VGhlIERSTUBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4866"
+}

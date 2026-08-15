@@ -1,0 +1,12 @@
+{
+  "id": 129,
+  "name": "Behavior-chain, platform-aware detection strategy for T1125 Video Capture",
+  "detId": "DET0197",
+  "stixId": "x-mitre-detection-strategy--e9ee6ab5-333b-4cea-8637-23360d904472",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0568", "AN0569", "AN0570"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/129"
+}

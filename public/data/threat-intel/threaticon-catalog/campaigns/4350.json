@@ -1,0 +1,12 @@
+{
+  "id": 4350,
+  "name": "apt73: flazio.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: BR | Sector: Technology | Website: flazio.com | Infostealer data confirmed. | lazio.com — this is a company from Italy. Flazio is a website builder platform that allows use... | Source: https://www.ransomware.live/id/ZmxhemlvLmNvbUBhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4350"
+}

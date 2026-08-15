@@ -1,0 +1,12 @@
+{
+  "id": 3981,
+  "name": "dragonforce: arsenalscaffold.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Construction | Website: arsenalscaffold.com | Infostealer data confirmed. | Founded in 1998, Arsenal Scaffold Inc. specializes in providing professional scaffolding and vertical access solutions, including tubular and system scaffolding, formwork, and construction hoists. The company is committed to exceptional service, safety, and quality workmanship, ensuring every project meets the highest industry standards. | Source: https://www.ransomware.live/id/YXJzZW5hbHNjYWZmb2xkLmNvbUBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3981"
+}

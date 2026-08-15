@@ -1,0 +1,12 @@
+{
+  "id": 1488,
+  "name": "qilin: BTX Global Logistics",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Transportation/Logistics | Website: www.btxglobal.com | Source: https://www.ransomware.live/id/QlRYIEdsb2JhbCBMb2dpc3RpY3NAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1488"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7839,
+  "name": "thegentlemen: First Coast Heart Vascular Center",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 14, 2026",
+  "lastSeen": "Aug 14, 2026",
+  "added": "Aug 14, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: firstcoastheart.com | firstcoastheart.com zoominfo.com/c/first-coast-heart--vascular-center/356606344 First Coast Heart & Vascular Center is a premier cardiovascular care provider serving patients across Northeast Florida. Their website highlights a comprehensive range of services, including expert cardiology, electrophysiology, advanced imaging, and vascular surgery. The medical center focuses on delivering innovative, evidence-based treatments and minimally invasive procedures to ensure the highest standard of heart health. | Source: https://www.ransomware.live/id/Rmlyc3QgQ29hc3QgSGVhcnQgVmFzY3VsYXIgQ2VudGVyQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7839"
+}

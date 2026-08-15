@@ -1,0 +1,12 @@
+{
+  "id": 565,
+  "name": "Behavior-chain detection strategy for T1127.003 Trusted Developer Utilities Proxy Execution: JamPlus (Windows)",
+  "detId": "DET0585",
+  "stixId": "x-mitre-detection-strategy--680956cb-d8c6-447c-99b4-82865fb89255",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1610"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/565"
+}

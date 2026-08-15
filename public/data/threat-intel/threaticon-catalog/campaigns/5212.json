@@ -1,0 +1,12 @@
+{
+  "id": 5212,
+  "name": "qilin: Sinomax USA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.sinomax-usa.com | N/A | Source: https://www.ransomware.live/id/U2lub21heCBVU0FAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5212"
+}

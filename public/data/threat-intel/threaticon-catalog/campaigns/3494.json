@@ -1,0 +1,12 @@
+{
+  "id": 3494,
+  "name": "OSINT - Oops, they did it again: APT Targets Russia and Belarus with ZeroT and PlugX",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #983 (5894f679-33c8-4642-8e51-8cd902de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3494"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3983,
+  "name": "nova: Adensa Teknoloji",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nova. | Country: TR | Sector: Technology | http://adensa.tech/ is the website for Adensa Teknoloji, a Turkish software company that offers custom software development and digital solutions. The site is very minimal and provides only a basic introduction to the company's services - sites effected adensa.tech, bringstdu.de, simkaelektronik.ch, Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/QWRlbnNhIFRla25vbG9qaUBub3Zh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3983"
+}

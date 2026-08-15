@@ -1,0 +1,12 @@
+{
+  "id": 3411,
+  "name": "OSINT IOC from ponmocup malware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #686 (566f4900-9da4-4ee7-b237-8a63950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3411"
+}

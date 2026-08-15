@@ -1,0 +1,12 @@
+{
+  "id": 2643,
+  "name": "OSINT - New SMB Worm Uses Seven NSA Hacking Tools. WannaCry Used Just Two",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1067 (592144d2-9100-4405-b018-4fd902de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2643"
+}

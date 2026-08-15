@@ -1,0 +1,12 @@
+{
+  "id": 3216,
+  "name": "DTrack activity targeting Europe and Latin America",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #357 (c2c954a9-9c9e-44c3-ae69-8ed3441d2316).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3216"
+}

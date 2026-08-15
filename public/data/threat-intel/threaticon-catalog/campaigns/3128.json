@@ -1,0 +1,12 @@
+{
+  "id": 3128,
+  "name": "Cerber Ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #169 (56e12e66-f01c-41be-afea-4d9a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3128"
+}

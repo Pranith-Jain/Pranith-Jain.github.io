@@ -1,0 +1,12 @@
+{
+  "id": 1397,
+  "name": "qilin: Elite Limousine Plus",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Transportation/Logistics | Website: www.eliteny.com | Source: https://www.ransomware.live/id/RWxpdGUgTGltb3VzaW5lIFBsdXNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1397"
+}

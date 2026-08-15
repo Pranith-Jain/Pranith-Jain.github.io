@@ -1,0 +1,12 @@
+{
+  "id": 3382,
+  "name": "OSINT APT 30 and the Mechanics of a Long-Running Cyber Espionage Operation by FireEye",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #657 (552bf030-0334-4134-af4a-4e9a950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3382"
+}

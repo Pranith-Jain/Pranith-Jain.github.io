@@ -1,0 +1,12 @@
+{
+  "id": 3354,
+  "name": "OSINT - Patchwork cyberespionage group expands targets from governments to wide range of industries",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #618 (5797537b-6d80-4d28-ab2a-4d8a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3354"
+}

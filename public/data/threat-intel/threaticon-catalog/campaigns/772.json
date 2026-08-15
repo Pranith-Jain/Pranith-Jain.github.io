@@ -1,0 +1,12 @@
+{
+  "id": 772,
+  "name": "lockbit5: vitexpharma.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: AU | Sector: Healthcare | Website: vitexpharma.com | Infostealer data confirmed. | Vitex Pharmaceuticals is Australia's leading contract manufacturer specializing in vitamins, mi... | Source: https://www.ransomware.live/id/dml0ZXhwaGFybWEuY29tQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/772"
+}

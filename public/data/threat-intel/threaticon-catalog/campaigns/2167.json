@@ -1,0 +1,12 @@
+{
+  "id": 2167,
+  "name": "Dridex Malware - Alert (AA19-339A)",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #210 (5deffec0-ebec-439a-9a1b-a05ec0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2167"
+}

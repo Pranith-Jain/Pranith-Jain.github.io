@@ -1,0 +1,12 @@
+{
+  "id": 2279,
+  "name": "HrServ – Previously unknown web shell used in APT attack",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #445 (777e75cd-5083-45d9-8e43-8bc4f7d46237).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2279"
+}

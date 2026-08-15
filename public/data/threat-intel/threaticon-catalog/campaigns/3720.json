@@ -1,0 +1,12 @@
+{
+  "id": 3720,
+  "name": "fulcrumsec: Stuf Storage",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to fulcrumsec. | Country: US | Sector: Consumer Services | Website: stufstorage.com | Infostealer data confirmed. | [AI generated] Stuf Storage is a US-based company operating in the self-storage industry. It offers on-demand, flexible storage solutions primarily in urban markets, allowing customers to rent storage units without long-term commitments. The company focuses on converting underutilized urban spaces such as basements and parking structures into storage facilities. Stuf operates across several major US cities and targets city dwellers seeking convenient, accessible storage options. | Source: https://www.ransomware.live/id/U3R1ZiBTdG9yYWdlQGZ1bGNydW1zZWM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3720"
+}

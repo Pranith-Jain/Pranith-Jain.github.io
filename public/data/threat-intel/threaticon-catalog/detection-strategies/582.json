@@ -1,0 +1,12 @@
+{
+  "id": 582,
+  "name": "Behavior-chain detection for T1134 Access Token Manipulation on Windows",
+  "detId": "DET0283",
+  "stixId": "x-mitre-detection-strategy--774bbba8-45c2-403d-a445-3a64b3679faf",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0786"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/582"
+}

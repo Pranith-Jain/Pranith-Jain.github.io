@@ -1,0 +1,12 @@
+{
+  "id": 2075,
+  "name": "WordPress REST API Vulnerability Abused in Defacement Campaigns",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #97 (589a2956-febc-47e9-900b-1687c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2075"
+}

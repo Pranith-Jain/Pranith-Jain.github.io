@@ -1,0 +1,12 @@
+{
+  "id": 5463,
+  "name": "nightspire: Cedar Crest College",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 14, 2026",
+  "lastSeen": "Jul 13, 2026",
+  "added": "Jul 14, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Education | Website: www.cedarcrest.edu | Data is not available now. | Source: https://www.ransomware.live/id/Q2VkYXIgQ3Jlc3QgQ29sbGVnZUBuaWdodHNwaXJl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5463"
+}

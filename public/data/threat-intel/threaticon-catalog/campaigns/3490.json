@@ -1,0 +1,12 @@
+{
+  "id": 3490,
+  "name": "Malspam targeting github users",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #974 (588b3db6-d5d4-4e46-86d6-42b9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3490"
+}

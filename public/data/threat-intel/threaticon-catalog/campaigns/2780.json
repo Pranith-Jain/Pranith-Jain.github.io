@@ -1,0 +1,12 @@
+{
+  "id": 2780,
+  "name": "OSINT - Zeus Panda Banking Trojan Targets Online Holiday Shoppers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1271 (5a390de6-4a58-4a19-89fb-4620950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2780"
+}

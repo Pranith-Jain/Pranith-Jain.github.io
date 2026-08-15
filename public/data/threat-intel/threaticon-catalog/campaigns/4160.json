@@ -1,0 +1,12 @@
+{
+  "id": 4160,
+  "name": "Deadlock: AKSV",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: DK | Sector: Not Found | Website: aksv.dk | Infostealer data confirmed. | AK Service & Vedligehold is a Hillerød-based contractor providing construction, maintenance, and energy solutions across Zealand, Denmark. The company specializes in electrical work, heat pumps, charging stations, carpentry, and masonry services. | Source: https://www.ransomware.live/id/QUtTVkBEZWFkbG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4160"
+}

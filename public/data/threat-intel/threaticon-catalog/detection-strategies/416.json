@@ -1,0 +1,12 @@
+{
+  "id": 416,
+  "name": "Detection of Spearphishing Voice",
+  "detId": "DET0886",
+  "stixId": "x-mitre-detection-strategy--ce26e75b-f8bf-45d5-b0fd-601e3d8fd800",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2018"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/416"
+}

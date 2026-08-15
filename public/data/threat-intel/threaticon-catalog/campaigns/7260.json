@@ -1,0 +1,12 @@
+{
+  "id": 7260,
+  "name": "Global Secret Group: Pavillon",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Other | Website: pavillon.org | Country: Mill Spring, North Carolina, United States | Website: pavillon.org | Revenue: $8.5 Million | Industry: Alcoholism Treatment, Hospitals & Clinics, Healthcare | Employees: 100-200 | Properties: 646 GB (47,950 Files, 7,750 Folders) | Source: https://www.ransomware.live/id/UGF2aWxsb25AR2xvYmFsIFNlY3JldCBHcm91cA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7260"
+}

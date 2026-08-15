@@ -1,0 +1,12 @@
+{
+  "id": 3472,
+  "name": "OSINT - Tropic Trooper Targets Taiwanese Government and Fossil Fuel Provider With Poison Ivy",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #926 (58355b51-ce70-4549-84cf-6ba7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3472"
+}

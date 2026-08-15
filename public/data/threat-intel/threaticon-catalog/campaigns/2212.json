@@ -1,0 +1,12 @@
+{
+  "id": 2212,
+  "name": "Campaigns abusing corporate trusted infrastructure hunt for corporate credentials on ICS networks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #285 (14e083b6-5d3f-4925-8b7c-19f1ec089859).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2212"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3409,
+  "name": "OSINT Attacks against Israeli & Palestinian interests by PwC",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #684 (553ea363-7aa4-426b-8f54-ad70950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3409"
+}

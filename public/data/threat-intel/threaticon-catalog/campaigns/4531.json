@@ -1,0 +1,12 @@
+{
+  "id": 4531,
+  "name": "incransom: callhorton.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 26, 2026",
+  "lastSeen": "Jun 26, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: callhorton.com | Infostealer data confirmed. | Horton Personal Injury Lawyers is the premier law firm at not protecting it's clients confidential data. | Source: https://www.ransomware.live/id/Y2FsbGhvcnRvbi5jb21AaW5jcmFuc29t",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4531"
+}

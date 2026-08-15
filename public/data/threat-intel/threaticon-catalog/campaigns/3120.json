@@ -1,0 +1,12 @@
+{
+  "id": 3120,
+  "name": "Covert Channels and Poor Decisions: The Tale of DNSMessenger",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #98 (58b86ceb-cc1c-47bc-8f8c-1f82c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3120"
+}

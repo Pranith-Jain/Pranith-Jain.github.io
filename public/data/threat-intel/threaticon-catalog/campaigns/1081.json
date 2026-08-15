@@ -1,0 +1,12 @@
+{
+  "id": 1081,
+  "name": "worldleaks: National Aerospace Fasteners",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: TW | Sector: Manufacturing | Website: www.nafco.com.tw | [AI generated] National Aerospace Fasteners Corporation is a Taiwan-based company primarily engaged in the manufacture and sale of high-strength fasteners for aerospace. Its main products include bolts, screws, studs, and nuts, which are used in engines, fuselages, landing gear, and other aircraft applications. The company offers fastening solutions that meet strict aerospace industry standards. | Press: https://emops.twse.com.tw/server-java/t05sr01_1_e?&isNew=Y&seq_no=1&spoke_time=93511&spoke_date=20260408&co_id=3004 | Source: https://www.ransomware.live/id/TmF0aW9uYWwgQWVyb3NwYWNlIEZhc3RlbmVyc0B3b3JsZGxlYWtz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1081"
+}

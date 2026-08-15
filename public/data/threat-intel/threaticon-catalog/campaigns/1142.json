@@ -1,0 +1,12 @@
+{
+  "id": 1142,
+  "name": "worldleaks: San Felipe Del Rio CISD School",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Education | Website: www.sfdr-cisd.org | [AI generated] San Felipe Del Rio CISD School is an educational institution located in Del Rio, Texas. It is a public school district that serves students from kindergarten through 12th grade. The district provides various academic programs and extracurricular activities, aiming to prepare its students for higher education and future careers. | Press: https://dysruptionhub.com/san-felipe-del-rio-cisd-network-outage-tx/ | Source: https://www.ransomware.live/id/U2FuIEZlbGlwZSBEZWwgUmlvIENJU0QgU2Nob29sQHdvcmxkbGVha3M=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1142"
+}

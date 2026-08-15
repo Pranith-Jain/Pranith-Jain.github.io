@@ -1,0 +1,12 @@
+{
+  "id": 572,
+  "name": "securotrop: Synergy Engineering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to securotrop. | Country: US | Sector: Business Services | Website: www.synergy-eng.com | Status: AWAITING Size: 2111 GB | Source: https://www.ransomware.live/id/U3luZXJneSBFbmdpbmVlcmluZ0BzZWN1cm90cm9w",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/572"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2311,
+  "name": "The New Version of JsOutProx is Attacking Financial Institutions in APAC and MENA via GitLab Abuse",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #492 (544d142b-7863-453c-a444-b00ab9aba56c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2311"
+}

@@ -227,7 +227,7 @@ export default function PcMedicalist() {
                     setActiveLayer(l.layer);
                     setSearchResults(null);
                   }}
-                  className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
+                  className={`rounded-full px-2.5 py-1 text-mini font-medium ${
                     shownLayer?.layer === l.layer
                       ? 'bg-brand-600 text-white'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-700/60 dark:text-slate-300'
@@ -317,14 +317,14 @@ function ItemRow({ item }: { item: PcmItem }) {
         </div>
         <div className="flex shrink-0 flex-col items-end gap-1">
           {sevClass && (
-            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${sevClass}`}>{item.severity}</span>
+            <span className={`rounded-full px-2 py-0.5 text-micro font-semibold ${sevClass}`}>{item.severity}</span>
           )}
           {item.trust_score != null && (
-            <span className="text-[10px] font-medium text-slate-400">trust {item.trust_score}</span>
+            <span className="text-micro font-medium text-slate-400">trust {item.trust_score}</span>
           )}
         </div>
       </div>
-      <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[10px] text-slate-400">
+      <div className="mt-1 flex flex-wrap items-center gap-1.5 text-micro text-slate-400">
         {item.source && <span className="font-medium text-slate-500 dark:text-slate-400">{item.source}</span>}
         {item.category && <span>{item.category}</span>}
         {item.published && <span>{item.published.slice(0, 10)}</span>}
@@ -335,7 +335,7 @@ function ItemRow({ item }: { item: PcmItem }) {
               href={`https://nvd.nist.gov/vuln/detail/${c}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded bg-red-50 px-1.5 py-0.5 font-mono text-[10px] text-red-600 hover:underline dark:bg-red-900/30 dark:text-red-300 transition-colors"
+              className="rounded bg-red-50 px-1.5 py-0.5 font-mono text-micro text-red-600 hover:underline dark:bg-red-900/30 dark:text-red-300 transition-colors"
             >
               {c}
             </a>

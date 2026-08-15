@@ -1,0 +1,12 @@
+{
+  "id": 167,
+  "name": "lamashtu: ROYAL M HOTEL BY GEWAN FUJAIRAH LLC",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lamashtu. | Country: AE | Sector: Hospitality and Tourism | Website: royalmhotels.com | Infostealer data confirmed. | Royal M Hotel Fujairah by Gewan is an upscale 5-star hotel located in the heart of Fujairah, United Arab Emirates. | Source: https://www.ransomware.live/id/Uk9ZQUwgTSBIT1RFTCBCWSBHRVdBTiBGVUpBSVJBSCBMTENAbGFtYXNodHU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/167"
+}

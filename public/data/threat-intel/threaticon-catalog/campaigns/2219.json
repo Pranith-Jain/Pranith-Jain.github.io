@@ -1,0 +1,12 @@
+{
+  "id": 2219,
+  "name": "Symbiote: A New, Nearly-Impossible-to-Detect Linux Threat",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #305 (70ae0c90-43d1-4efc-9e24-4a8dc86c1725).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2219"
+}

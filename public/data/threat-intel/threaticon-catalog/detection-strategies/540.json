@@ -1,0 +1,12 @@
+{
+  "id": 540,
+  "name": "Detection of Data Exfiltration via Removable Media",
+  "detId": "DET0123",
+  "stixId": "x-mitre-detection-strategy--7ac4c58e-73de-4da1-8fc3-c2ccc511d884",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0342", "AN0343", "AN0344"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/540"
+}

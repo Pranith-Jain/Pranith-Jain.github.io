@@ -1,0 +1,12 @@
+{
+  "id": 2912,
+  "name": "OSINT - New Cyber Operation Targets Italy: Digging Into the Netwire Attack Chai",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1614 (5ede1810-6cfc-4a01-adb0-470902de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2912"
+}

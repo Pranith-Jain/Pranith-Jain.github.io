@@ -1,0 +1,12 @@
+{
+  "id": 35,
+  "name": "xCmd",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "xCmd is an open source tool that is similar to PsExec and allows the user to execute applications on remote systems. (Citation: xCmd)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/35"
+}

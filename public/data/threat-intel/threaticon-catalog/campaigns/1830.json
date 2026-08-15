@@ -1,0 +1,12 @@
+{
+  "id": 1830,
+  "name": "qilin: CJL Engineering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.cjlengineering.com | Source: https://www.ransomware.live/id/Q0pMIEVuZ2luZWVyaW5nQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1830"
+}

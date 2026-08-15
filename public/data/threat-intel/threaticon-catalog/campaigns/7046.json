@@ -1,0 +1,12 @@
+{
+  "id": 7046,
+  "name": "incransom: pushidrosal.id",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: ID | Sector: Other | Website: pushidrosal.id | Infostealer data confirmed. | * | Source: https://www.ransomware.live/id/cHVzaGlkcm9zYWwuaWRAaW5jcmFuc29t",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7046"
+}

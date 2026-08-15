@@ -1,0 +1,12 @@
+{
+  "id": 3149,
+  "name": "ZINC attacks against security researchers",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #250 (2017b845-f06b-48e4-b8a2-17d1fbd3dbb1).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3149"
+}

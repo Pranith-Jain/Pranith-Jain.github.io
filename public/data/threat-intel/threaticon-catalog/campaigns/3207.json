@@ -1,0 +1,12 @@
+{
+  "id": 3207,
+  "name": "Turla: A Galaxy of Opportunity",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #344 (54dd4ef7-f7b2-418e-a191-5def4fbb0033).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3207"
+}

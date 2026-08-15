@@ -1,0 +1,12 @@
+{
+  "id": 3206,
+  "name": "Unmasking MirrorFace: Operation LiberalFace targeting Japanese political entities | WeLiveSecurity",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #342 (7a4afb4a-3eb1-4966-9c25-7e1ce2b1eb74).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3206"
+}

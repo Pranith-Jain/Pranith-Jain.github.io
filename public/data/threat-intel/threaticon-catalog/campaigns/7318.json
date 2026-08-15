@@ -1,0 +1,12 @@
+{
+  "id": 7318,
+  "name": "ransomhouse: lya Construtora",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to ransomhouse. | Country: US | Sector: Manufacturing | Website: www.mcminnvilleoregon.gov | Álya Construtora is one of Brazil's leading privately owned engineering and construction companies, specializing in complex infrastructure, industrial, energy, urban mobility, and building projects with more than 70 years of operating experience. | Source: https://www.ransomware.live/id/bHlhIENvbnN0cnV0b3JhQHJhbnNvbWhvdXNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7318"
+}

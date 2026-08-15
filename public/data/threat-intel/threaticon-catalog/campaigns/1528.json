@@ -1,0 +1,12 @@
+{
+  "id": 1528,
+  "name": "dragonforce: bestgraphics.net",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Technology | Website: bestgraphics.net | Infostealer data confirmed. | Founded in 1977, Best Graphics Group offers a full range of equipment for printing, bookbinding, finishing, and packaging | Source: https://www.ransomware.live/id/YmVzdGdyYXBoaWNzLm5ldEBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1528"
+}

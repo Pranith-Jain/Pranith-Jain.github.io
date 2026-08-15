@@ -1,0 +1,12 @@
+{
+  "id": 1741,
+  "name": "genesis: Sanders Legal Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: sanderslegalgroup.com | Infostealer data confirmed. | A law firm based in Atlanta, Georgia | Source: https://www.ransomware.live/id/U2FuZGVycyBMZWdhbCBHcm91cEBnZW5lc2lz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1741"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3293,
+  "name": "MuddyWater replaces Atera by custom MuddyRot implant in a recent campaign",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #512 (01ae246a-a5af-4f86-94b4-b574812e56e9).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3293"
+}

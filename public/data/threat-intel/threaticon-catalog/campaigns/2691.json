@@ -1,0 +1,12 @@
+{
+  "id": 2691,
+  "name": "OSINT - Operation RAT Cook: Chinese APT actors use fake Game of Thrones leaks as lures",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1142 (59a1a900-0714-4bcc-be9f-447c02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2691"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3228,
+  "name": "OSINT - Meet Remaiten â€“ a Linux bot on steroids targeting routers and potentially other IoT devices",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #385 (570283b7-2800-483e-ba3e-1743950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3228"
+}

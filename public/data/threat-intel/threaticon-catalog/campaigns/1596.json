@@ -1,0 +1,12 @@
+{
+  "id": 1596,
+  "name": "anubis: KLA Laboratories",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Technology | Website: klalabs.com | Infostealer data confirmed. | How a single data breach exposed contracts, credentials, and critical infrastructure details. | Source: https://www.ransomware.live/id/S0xBIExhYm9yYXRvcmllc0BhbnViaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1596"
+}

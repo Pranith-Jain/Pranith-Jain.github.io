@@ -1,0 +1,12 @@
+{
+  "id": 367,
+  "name": "insomnia: Nephrology Associates",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Healthcare | Website: www.arnapa.com | Nephrology Associates, PA is a leading central Arkansas nephrology practice with seven highly trained physicians across seven locations. They provide compassionate kidney care, accept all insurances, and aim to create a welcoming environment for patients. | Source: https://www.ransomware.live/id/TmVwaHJvbG9neSBBc3NvY2lhdGVzQGluc29tbmlh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/367"
+}

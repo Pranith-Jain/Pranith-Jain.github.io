@@ -1,0 +1,12 @@
+{
+  "id": 1904,
+  "name": "AiLock: FUJIFILM Speciality Ink Systems",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AiLock. | Country: GB | Sector: Manufacturing | Website: fujifilmink.com | Infostealer data confirmed. | FUJIFILM Speciality Ink Systems Ltd is a company that operates in the Chemicals & Related Products industry.The company is headquartered in Saint Peters, Kent, United Kingdom. | Source: https://www.ransomware.live/id/RlVKSUZJTE0gU3BlY2lhbGl0eSBJbmsgU3lzdGVtc0BBaUxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1904"
+}

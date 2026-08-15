@@ -1,0 +1,12 @@
+{
+  "id": 293,
+  "name": "payoutsking: Caunton Engineering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: UK | Sector: Manufacturing | Website: caunton.co.uk | Infostealer data confirmed. | [AI generated] Caunton Engineering is a UK-based structural steelwork contractor and fabricator headquartered in Nottinghamshire, England. The company specialises in the design, fabrication, and erection of structural steelwork for commercial, industrial, and infrastructure projects. Operating within the construction and engineering sector, Caunton serves clients across the United Kingdom and has built a reputation for delivering large-scale steel frame structures. | Source: https://www.ransomware.live/id/Q2F1bnRvbiBFbmdpbmVlcmluZ0BwYXlvdXRza2luZw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/293"
+}

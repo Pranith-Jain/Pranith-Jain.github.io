@@ -1,0 +1,12 @@
+{
+  "id": 388,
+  "name": "Detection Strategy for T1550.003 - Pass the Ticket (Windows)",
+  "detId": "DET0352",
+  "stixId": "x-mitre-detection-strategy--5f53739d-3a41-4f7e-a83d-219a0c64e7a1",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1000"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/388"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 30,
+  "name": "Detection Strategy for Temporary Elevated Cloud Access Abuse (T1548.005)",
+  "detId": "DET0393",
+  "stixId": "x-mitre-detection-strategy--210a0dee-7c4b-4948-80ed-67c3e04886c2",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1105", "AN1106", "AN1107"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/30"
+}

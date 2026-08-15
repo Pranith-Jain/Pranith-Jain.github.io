@@ -1,0 +1,12 @@
+{
+  "id": 4968,
+  "name": "pear: Alpha IT",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 4, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to pear. | Country: NO | Sector: Technology | Website: alphait.no | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QWxwaGEgSVRAcGVhcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4968"
+}

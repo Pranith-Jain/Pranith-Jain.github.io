@@ -1,0 +1,12 @@
+{
+  "id": 6571,
+  "name": "nightspire: Furama Bukit Bintang",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jun 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: MY | Sector: Hospitality | Website: www.furama.com/bukitbintang | - Executive Data- HR Data and Documents- Data for IT Department | Source: https://www.ransomware.live/id/RnVyYW1hIEJ1a2l0IEJpbnRhbmdAbmlnaHRzcGlyZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6571"
+}

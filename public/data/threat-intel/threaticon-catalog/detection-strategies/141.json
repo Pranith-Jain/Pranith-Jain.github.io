@@ -1,0 +1,12 @@
+{
+  "id": 141,
+  "name": "Detection of Local Data Staging Prior to Exfiltration",
+  "detId": "DET0261",
+  "stixId": "x-mitre-detection-strategy--e91165c5-e850-465e-9042-6ba82478b522",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0724", "AN0725", "AN0726", "AN0727"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/141"
+}

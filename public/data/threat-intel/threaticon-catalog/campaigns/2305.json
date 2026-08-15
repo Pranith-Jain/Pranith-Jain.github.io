@@ -1,0 +1,12 @@
+{
+  "id": 2305,
+  "name": "“Hey, This Isn’t the Right Site!” Distribution of Malware Exploiting Google Ads Tracking",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #485 (465bce70-94bb-49a2-99c6-b585210993e8).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2305"
+}

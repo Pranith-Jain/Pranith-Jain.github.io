@@ -1,0 +1,12 @@
+{
+  "id": 3982,
+  "name": "incransom: Meirc training and consulting",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: AE | Sector: Business Services | Meirc offer a wide range of training programs across various categories, including accounting, finance, artificial intelligence, project management. They is recognized as a \"trusted\" training and consulting partner. We accessed the entire MEIRC network and downloaded 1TB of data - accounting - internal mail -planning - budgets - all personal information of all employees of the company In a week everything will be in the public domain. | Source: https://www.ransomware.live/id/TWVpcmMgdHJhaW5pbmcgYW5kIGNvbnN1bHRpbmdAaW5jcmFuc29t",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3982"
+}

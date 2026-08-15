@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-turner-and-townsend-2026-08-14",
+  "title": "Turner and Townsend",
+  "group": "coinbasecartel",
+  "discovered": "2026-08-14T13:56:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f36b0787-c0c7-40cd-a488-71d3e726b2ff",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1181,
+  "name": "play: Kivells",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to play. | Country: GB | Sector: Construction | Website: www.kivells.com | United Kingdom | Source: https://www.ransomware.live/id/S2l2ZWxsc0BwbGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1181"
+}

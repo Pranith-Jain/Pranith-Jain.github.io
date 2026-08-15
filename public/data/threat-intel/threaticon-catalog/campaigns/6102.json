@@ -1,0 +1,12 @@
+{
+  "id": 6102,
+  "name": "incransom: autismuslink.ch",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 24, 2026",
+  "lastSeen": "Jul 24, 2026",
+  "added": "Jul 24, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: CH | Sector: Healthcare | Website: autismuslink.ch | The Stiftung Autismuslink (Autism Link Foundation), a Switzerland-based competence center dedicated to supporting adolescents and young adults with Autism Spectrum Disorder (ASD). Headquartered in Bern, the organization focuses on helping individuals with autism achieve social and professional integration. | Source: https://www.ransomware.live/id/YXV0aXNtdXNsaW5rLmNoQGluY3JhbnNvbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6102"
+}

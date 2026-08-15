@@ -1,0 +1,12 @@
+{
+  "id": 1224,
+  "name": "lockbit5: ikron.org",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Education | Website: ikron.org | Infostealer data confirmed. | IKRON (Integration of Knowledge and Resources for Occupational Needs) was founded in 1969 as the Uni... | Source: https://www.ransomware.live/id/aWtyb24ub3JnQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1224"
+}

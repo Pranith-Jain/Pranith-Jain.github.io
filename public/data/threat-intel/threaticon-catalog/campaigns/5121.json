@@ -1,0 +1,12 @@
+{
+  "id": 5121,
+  "name": "nova: Everlite concept",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 2, 2026",
+  "lastSeen": "Jun 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: FR | Sector: Not Found | Everlite Concept is a French company that specializes in polycarbonate solutions for building envelopes. It is known for its innovative, high-performance systems used in walls, roofing, and façades for buildings like sports complexes and museums - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/RXZlcmxpdGUgY29uY2VwdEBub3Zh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5121"
+}

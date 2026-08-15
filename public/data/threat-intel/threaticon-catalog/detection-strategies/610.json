@@ -1,0 +1,12 @@
+{
+  "id": 610,
+  "name": "Automated File and API Collection Detection Across Platforms",
+  "detId": "DET0186",
+  "stixId": "x-mitre-detection-strategy--5e9a51b5-7e4a-4e78-a1ba-215ce937c877",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0531", "AN0532", "AN0533", "AN0534"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/610"
+}

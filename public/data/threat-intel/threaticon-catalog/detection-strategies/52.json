@@ -1,0 +1,12 @@
+{
+  "id": 52,
+  "name": "Detection Strategy for Device Driver Discovery",
+  "detId": "DET0579",
+  "stixId": "x-mitre-detection-strategy--ff6c2db6-cc1b-47e0-89a6-536f83b74906",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1595", "AN1596", "AN1597"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/52"
+}

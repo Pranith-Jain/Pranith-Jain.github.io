@@ -1,0 +1,12 @@
+{
+  "id": 4127,
+  "name": "Deadlock: WiBeats S.r.l.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: IT | Sector: Technology | Website: www.wibeats.it | WIBEATS is one among the last few independent Italian Asset Management and Loans Service group, specialised performing and non performing real estate. Over 150 gigabytes of internal email datastore were stolen from this company. more than 50 GB of internal sensitive data containing contracts and official papers containing construction and renewal permits | Source: https://www.ransomware.live/id/V2lCZWF0cyBTLnIubC5ARGVhZGxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4127"
+}

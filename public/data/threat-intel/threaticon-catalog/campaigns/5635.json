@@ -1,0 +1,12 @@
+{
+  "id": 5635,
+  "name": "thegentlemen: Mesto Celakovice",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CZ | Sector: Manufacturing | Website: celakovice.cz | Infostealer data confirmed. | ***.cz zoominfo.com/c/město-čelákovice/426355970 town in the Central Bohemian Region of the Czech Republic, situated on the Elbe River approximately 27 kilometers from Prague. With a population of around 12,000 residents, it serves as a local administrative and cultural hub. The official website functions as the primary municipal portal, offering citizens and visitors essential information, administrative services, news, and contact details for the local government | Source: https://www.ransomware.live/id/TWVzdG8gQ2VsYWtvdmljZUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5635"
+}

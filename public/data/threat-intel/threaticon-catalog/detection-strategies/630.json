@@ -1,0 +1,12 @@
+{
+  "id": 630,
+  "name": "Detect Evil Twin Wi-Fi Access Points on Network Devices",
+  "detId": "DET0379",
+  "stixId": "x-mitre-detection-strategy--b376d299-69ef-444a-8ba1-15a6c7049605",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1069"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/630"
+}

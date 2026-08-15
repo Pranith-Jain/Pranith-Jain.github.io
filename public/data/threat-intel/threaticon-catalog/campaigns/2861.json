@@ -1,0 +1,12 @@
+{
+  "id": 2861,
+  "name": "OSINT - Hancitor active again yith new macro - IoCs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1446 (5c00e9b7-50ac-4aa7-b893-4a63950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2861"
+}

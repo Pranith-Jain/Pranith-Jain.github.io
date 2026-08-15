@@ -1,0 +1,12 @@
+{
+  "id": 223,
+  "name": "Detection of Local Browser Artifact Access for Reconnaissance",
+  "detId": "DET0013",
+  "stixId": "x-mitre-detection-strategy--3e5e2bda-40c0-4aea-90f1-8fc52096ad5e",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0037", "AN0038", "AN0039"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/223"
+}

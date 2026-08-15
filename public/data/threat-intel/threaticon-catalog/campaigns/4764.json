@@ -1,0 +1,12 @@
+{
+  "id": 4764,
+  "name": "incransom: smithassociatescpa.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: smithassociatescpa.com | Infostealer data confirmed. | smithassociatescpa.com Smith and Associates is a Certified Public Accounting Firm based in Maine, offering a comprehensive range of services including accounting, auditing, tax planning, and management advisory services. The firm caters to a diverse clientele, including individuals, corporations, partnerships, and non-profits in Maine and New Hampshire. They provide specialized support for business start-ups and QuickBooks, along with professional consulting in various areas of tax and accounting practices. Established in 1987, Smith and Associates is committed to being personable, knowledgeable, and responsive to their clients' needs. | Source: https://www.ransomware.live/id/c21pdGhhc3NvY2lhdGVzY3BhLmNvbUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4764"
+}

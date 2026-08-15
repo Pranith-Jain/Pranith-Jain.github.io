@@ -1,0 +1,12 @@
+{
+  "id": 251,
+  "name": "Behavioral Detection Strategy for Network Service Discovery Across Platforms",
+  "detId": "DET0376",
+  "stixId": "x-mitre-detection-strategy--82e20b1f-300e-43cc-9259-1d506ef5d1f8",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1057", "AN1058", "AN1059", "AN1060"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/251"
+}

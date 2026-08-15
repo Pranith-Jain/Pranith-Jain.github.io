@@ -1,0 +1,12 @@
+{
+  "id": 6840,
+  "name": "coinbasecartel: Xs Cad",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 1, 2026",
+  "lastSeen": "Aug 1, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Sector: Technology | [AI generated] N/A | Source: https://www.ransomware.live/id/WHMgQ2FkQGNvaW5iYXNlY2FydGVs",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6840"
+}

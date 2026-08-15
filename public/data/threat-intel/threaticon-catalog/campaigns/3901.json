@@ -1,0 +1,12 @@
+{
+  "id": 3901,
+  "name": "thegentlemen: Internet Technologies Designs",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: FR | Sector: Technology | Website: itd-system.com | Infostealer data confirmed. | itd-system.com zoominfo.com/c/internet-technologies-designs/529178114 ITD System is a French IT solutions integrator founded in 1994, specializing in adaptable digital tools for business productivity. They deliver customized software, VoIP telephony, CRM integration, and secure infrastructure services tailored to SMEs. With offices in Mâcon, Moulins, and Paray-le-Monial, the company combines local proximity with technical expertise to support digital transformation | Source: https://www.ransomware.live/id/SW50ZXJuZXQgVGVjaG5vbG9naWVzIERlc2lnbnNAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3901"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4970,
+  "name": "fulcrumsec: Global Schools Foundation",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to fulcrumsec. | Country: SG | Sector: Education | [AI generated] Global Schools Foundation is a Singapore-based non-profit organization operating in the international education sector. It manages a network of private schools across Asia and the Middle East under brands such as Global Indian International School. The foundation focuses on providing quality education with an Indian curriculum framework to students from diverse nationalities, emphasizing holistic development and academic excellence across multiple campuses worldwide. | Source: https://www.ransomware.live/id/R2xvYmFsIFNjaG9vbHMgRm91bmRhdGlvbkBmdWxjcnVtc2Vj",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4970"
+}

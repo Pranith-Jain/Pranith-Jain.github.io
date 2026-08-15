@@ -1,0 +1,12 @@
+{
+  "id": 6121,
+  "name": "2026-07-16 (Thursday): Clickfix Campaign Using On-The-Fly Webassembly (Wasm) And Steganography",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 24, 2026",
+  "description": "2026-07-16 (Thursday): Clickfix Campaign Using On-The-Fly Webassembly (Wasm) And Steganography. References: https://www.linkedin.com/posts/unit42_clickfix-steganography-activity-7483611942469804032-KtwM/, https://x.com/Unit42_Intel/status/2077846319830372585",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6121"
+}

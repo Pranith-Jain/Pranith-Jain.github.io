@@ -1,0 +1,12 @@
+{
+  "id": 4503,
+  "name": "stormous: eogb.co.uk",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to stormous. | Country: GB | Sector: Energy | Website: eogb.co.uk | Infostealer data confirmed. | Deep access to Microsoft Dynamics GP containing complete corporate accounting, invoices, vendor details, and commercial transactions.Access to internal legal documents, partnership agreements, and customer contracts (such as CBIF OSMO agreements).Exfiltration of operational spreadsheets, financial reports, and executive documents via corporate | Source: https://www.ransomware.live/id/ZW9nYi5jby51a0BzdG9ybW91cw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4503"
+}

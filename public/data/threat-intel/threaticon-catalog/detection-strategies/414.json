@@ -1,0 +1,12 @@
+{
+  "id": 414,
+  "name": "Detection Strategy for Addition of Email Delegate Permissions",
+  "detId": "DET0373",
+  "stixId": "x-mitre-detection-strategy--679edb0f-4fa0-4929-9ffd-881d9f82263d",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN1051", "AN1052"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/414"
+}

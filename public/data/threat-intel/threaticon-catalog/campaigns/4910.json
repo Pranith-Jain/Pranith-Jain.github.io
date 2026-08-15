@@ -1,0 +1,12 @@
+{
+  "id": 4910,
+  "name": "lockbit5: stahlwille.nl",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "Feb 6, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: NL | Sector: Manufacturing | Website: stahlwille.nl | Infostealer data confirmed. | Stahlwille BV is a company that operates in the Investment Banking industry. It employs 100to249 peo... | Source: https://www.ransomware.live/id/c3RhaGx3aWxsZS5ubEBsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4910"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 642,
+  "name": "thegentlemen: Laboratório Santa Luzia",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: BR | Sector: Healthcare | Website: sluzia.com.br | Infostealer data confirmed. | sluzia.com.br zoominfo.com/c/laboratório-médico-santa-luzia/430822893 Laboratório Santa Luzia is a leading clinical analysis laboratory based in Florianópolis, Brazil, with over 45 years of experience in diagnostic and preventive medicine. It offers more than 2,000 types of medical tests, vaccination services, home collection, and pediatric care across nearly 30 units in the Greater Florianópolis area. The lab also provides corporate health plans, pre-employment exams, and partnerships with clinics, hospitals, and other labs. | Source: https://www.ransomware.live/id/TGFib3JhdMOzcmlvIFNhbnRhIEx1emlhQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/642"
+}

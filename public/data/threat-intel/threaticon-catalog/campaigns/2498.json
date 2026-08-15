@@ -1,0 +1,12 @@
+{
+  "id": 2498,
+  "name": "Malspam 2016-09-06 (.js in .zip) - campaign: \"August invoice\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #851 (57ceb0ac-a22c-4bdd-835b-4404950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2498"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2796,
+  "name": "M2M - GlobeImposter \"..doc\" 2018-01-12 : \"Unpaid invoice \" - \"1234567.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1294 (5a607314-de88-4309-ba06-c4a9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2796"
+}

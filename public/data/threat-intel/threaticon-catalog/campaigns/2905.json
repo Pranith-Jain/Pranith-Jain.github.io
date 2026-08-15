@@ -1,0 +1,12 @@
+{
+  "id": 2905,
+  "name": "Emotet - Trickbot - CobaltStrike - gtag mor85",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1585 (5e30d3b9-b330-44ac-8104-97af950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2905"
+}

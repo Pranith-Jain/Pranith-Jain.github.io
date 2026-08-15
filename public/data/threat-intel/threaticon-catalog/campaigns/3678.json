@@ -1,0 +1,12 @@
+{
+  "id": 3678,
+  "name": "thegentlemen: DEVCO",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Business Services | Website: devco.pl | Infostealer data confirmed. | devco.pl DEVCO Sp. z o.o. is a Polish real estate company established in 1997, headquartered in Wroclaw at ul. Strzegomska 46-56. The company specializes in renting office and warehouse spaces, notably operating the Wroclawski Park Biznesu (Wroclaw Business Park). Their mission is to create comfortable, inspiring, and business-friendly work environments for tenants. | Source: https://www.ransomware.live/id/REVWQ09AdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3678"
+}

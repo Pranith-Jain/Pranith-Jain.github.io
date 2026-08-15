@@ -1,0 +1,12 @@
+{
+  "id": 2851,
+  "name": "OSINT - SamSam Ransomware Crew Made Nearly $6 Million From Ransom Payments",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1411 (5b6c4a32-92cc-499d-9dd2-3989950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2851"
+}

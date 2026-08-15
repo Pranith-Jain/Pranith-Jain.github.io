@@ -1,0 +1,24 @@
+{
+  "id": 99,
+  "name": "Network Share Access",
+  "dcId": "DC0102",
+  "analyticCount": 11,
+  "strategyCount": 9,
+  "added": null,
+  "analytics": [
+    "AN0194",
+    "AN0516",
+    "AN1034",
+    "AN1075",
+    "AN1145",
+    "AN1160",
+    "AN1298",
+    "AN1299",
+    "AN1301",
+    "AN1309",
+    "AN1516"
+  ],
+  "description": "Opening a network share, which makes the contents available to the requestor (ex: Windows EID 5140 or 5145)",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/99"
+}

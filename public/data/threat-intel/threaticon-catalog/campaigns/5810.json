@@ -1,0 +1,12 @@
+{
+  "id": 5810,
+  "name": "threeam: tws-tac.net",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 18, 2026",
+  "lastSeen": "Jul 18, 2026",
+  "added": "Jul 18, 2026",
+  "description": "Ransomware attack attributed to threeam. | Country: DE | Sector: Not Found | Website: tws-tac.net | Infostealer data confirmed. | While ownership has changed over the years, the company has remained locally owned for over 65 years and family-owned for almost 40 years. The company is proud of the company's history and look forward to the future as the company continue to serv | Source: https://www.ransomware.live/id/dHdzLXRhYy5uZXRAdGhyZWVhbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5810"
+}

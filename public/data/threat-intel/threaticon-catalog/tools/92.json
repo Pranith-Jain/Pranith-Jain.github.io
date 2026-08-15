@@ -1,0 +1,12 @@
+{
+  "id": 92,
+  "name": "Wevtutil",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Wevtutil is a Windows command-line utility that enables administrators to retrieve information about event logs and publishers.(Citation: Wevtutil Microsoft Documentation)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/92"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 62,
+  "name": "Responder",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Responder is an open source tool used for LLMNR, NBT-NS and MDNS poisoning, with built-in HTTP/SMB/MSSQL/FTP/LDAP rogue authentication server supporting NTLMv1/NTLMv2/LMv2, Extended Security NTLMSSP and Basic HTTP authentication. (Citation: GitHub Responder)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/62"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1062,
+  "name": "nightspire: TTAF Defense",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: TR | Sector: Public Sector | Website: ttafsavunma.com.tr | Infostealer data confirmed. | - Projects- Financial Documents>- Quality & Technical & Internal Documents | Source: https://www.ransomware.live/id/VFRBRiBEZWZlbnNlQG5pZ2h0c3BpcmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1062"
+}

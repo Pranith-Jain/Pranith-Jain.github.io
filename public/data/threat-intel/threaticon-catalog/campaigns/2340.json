@@ -1,0 +1,12 @@
+{
+  "id": 2340,
+  "name": "OSINT - Reverse-engineering DUBNIUM",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #577 (575d798e-2398-4121-b5e6-4a0e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2340"
+}

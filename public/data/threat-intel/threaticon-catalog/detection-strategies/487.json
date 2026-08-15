@@ -1,0 +1,12 @@
+{
+  "id": 487,
+  "name": "Detection of Compromise Accounts",
+  "detId": "DET0876",
+  "stixId": "x-mitre-detection-strategy--a1d413d7-0a28-45ce-9e4d-d250b4b6a492",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2008"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/487"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7814,
+  "name": "AiLock: Yaomasa",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 13, 2026",
+  "lastSeen": "Aug 13, 2026",
+  "added": "Aug 13, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: JP | Sector: Not Found | Website: yaomasa.com | Yaomasa is a Japanese supermarket chain founded in 1919 that offers fresh foods, general groceries, and daily necessities, while also operating TSUTAYA and BOOKOFF franchise stores as part of its cultural division. | Source: https://www.ransomware.live/id/WWFvbWFzYUBBaUxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7814"
+}

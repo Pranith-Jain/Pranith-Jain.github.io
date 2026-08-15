@@ -1,0 +1,12 @@
+{
+  "id": 2341,
+  "name": "OSINT New Sofacy Attacks Against US Government Agency by Palo Alto Unit 42",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #579 (57613790-f6b4-4895-943f-4467950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2341"
+}

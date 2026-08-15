@@ -1,0 +1,12 @@
+{
+  "id": 1624,
+  "name": "akira: Mh Soluciones",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: MX | Sector: Business Services | Website: mhsoluciones.com | Infostealer data confirmed. | mh SOLUCIONES specializes in outsourcing support and management p rocesses, helping clients enhance performance while ensuring tran sparency and better cost control. The company offers tailored sol utions for maintenance and installation businesses, allowing clie nts to focus on their core operations. We will upload 85gb of corporate data soon. Lots of employee scan ned docs (passports, DLs and so on), project docs (hazardous wast es management, government contracts), agreements, client informat ion. | Source: https://www.ransomware.live/id/TWggU29sdWNpb25lc0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1624"
+}

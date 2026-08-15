@@ -1,0 +1,12 @@
+{
+  "id": 7278,
+  "name": "Orova: First Baptist Church of Belleview",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Other | Website: www.fbcbelleview.org | First Baptist Church Belleview is dedicated to fostering devoted followers of Jesus Christ through worship and community engagement. They offer Sunday services at 10:45 a.m. and provide opportunities for learning and connection through various ministries and events. | Source: https://www.ransomware.live/id/Rmlyc3QgQmFwdGlzdCBDaHVyY2ggb2YgQmVsbGV2aWV3QE9yb3Zh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7278"
+}

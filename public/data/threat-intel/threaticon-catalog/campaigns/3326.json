@@ -1,0 +1,12 @@
+{
+  "id": 3326,
+  "name": "MalSpam - Locky - 2016-05-25 (.js in .zip)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #562 (5745b0f7-3af4-4b0f-aa89-456f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3326"
+}

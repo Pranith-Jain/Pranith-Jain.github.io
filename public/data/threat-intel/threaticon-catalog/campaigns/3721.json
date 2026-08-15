@@ -1,0 +1,12 @@
+{
+  "id": 3721,
+  "name": "bravox: Soprolux",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to bravox. | Country: FR | Sector: Not Found | Website: soprolux.com | Infostealer data confirmed. | The company provides high-quality gourmet and specialty products. | Source: https://www.ransomware.live/id/U29wcm9sdXhAYnJhdm94",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3721"
+}

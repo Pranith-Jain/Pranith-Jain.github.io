@@ -1,0 +1,12 @@
+{
+  "id": 4179,
+  "name": "Deadlock: iASK",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: HU | Sector: Not Found | Website: iask.hu/en | The Institute of Advanced Studies Kőszeg is a Hungarian research center focusing on interdisciplinary studies, regional transformation in Central/Southeastern Europe, and sustainability. It operates as a hub for research, hosting an annual International Summer University and maintaining specialized collections at the Festetics Palace. | Source: https://www.ransomware.live/id/aUFTS0BEZWFkbG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4179"
+}

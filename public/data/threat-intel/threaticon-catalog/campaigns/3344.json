@@ -1,0 +1,12 @@
+{
+  "id": 3344,
+  "name": "Malspam 2016-06-30 (campaign subject: 'Documents copies')",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #596 (5774c987-1c30-4e78-a85d-c821950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3344"
+}

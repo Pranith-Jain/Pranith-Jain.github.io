@@ -1,0 +1,12 @@
+{
+  "id": 496,
+  "name": "Cross-Platform Behavioral Detection of File Timestomping via Metadata Tampering",
+  "detId": "DET0591",
+  "stixId": "x-mitre-detection-strategy--f9d25557-f87b-4920-a98b-8a3c9df4bfce",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1626", "AN1627", "AN1628", "AN1629"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/496"
+}

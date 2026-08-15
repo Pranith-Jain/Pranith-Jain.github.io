@@ -1,0 +1,12 @@
+{
+  "id": 3186,
+  "name": "MAR-10382580.r1.v1: Unidentified RAT",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #309 (e46d4b20-b44a-4896-be41-0f4f251cde6a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3186"
+}

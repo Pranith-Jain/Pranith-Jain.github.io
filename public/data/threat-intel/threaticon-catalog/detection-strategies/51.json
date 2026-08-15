@@ -1,0 +1,12 @@
+{
+  "id": 51,
+  "name": "Detection of Malware",
+  "detId": "DET0872",
+  "stixId": "x-mitre-detection-strategy--04f78d17-4599-4ecd-9a8f-f221ab2759cc",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2004"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/51"
+}

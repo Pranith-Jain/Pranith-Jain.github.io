@@ -1,0 +1,12 @@
+{
+  "id": 2665,
+  "name": "OSINT - The MeDoc Connection",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1105 (595d508c-dc3c-49e8-8288-4a6002de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2665"
+}

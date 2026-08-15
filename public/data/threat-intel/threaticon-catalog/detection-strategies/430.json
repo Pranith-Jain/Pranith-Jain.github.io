@@ -1,0 +1,12 @@
+{
+  "id": 430,
+  "name": "Detection Strategy for System Services Service Execution",
+  "detId": "DET0421",
+  "stixId": "x-mitre-detection-strategy--ef1996dc-b6e9-4d8b-a216-77d14323b3e5",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1185"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/430"
+}

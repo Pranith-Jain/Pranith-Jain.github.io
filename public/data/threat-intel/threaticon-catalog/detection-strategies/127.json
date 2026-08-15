@@ -1,0 +1,12 @@
+{
+  "id": 127,
+  "name": "Cross-host C2 via Removable Media Relay",
+  "detId": "DET0090",
+  "stixId": "x-mitre-detection-strategy--2cbbc0b5-2c4b-4861-91d3-1f64a47ef191",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0247", "AN0248", "AN0249"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/127"
+}

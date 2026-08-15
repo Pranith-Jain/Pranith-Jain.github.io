@@ -1,0 +1,12 @@
+{
+  "id": 2050,
+  "name": "Operation Groundbait: Espionage in Ukrainian war zones",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #66 (573d66a1-cc94-41aa-9684-07a6c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2050"
+}

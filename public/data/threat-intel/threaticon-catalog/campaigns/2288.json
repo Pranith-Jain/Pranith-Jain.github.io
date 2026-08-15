@@ -1,0 +1,12 @@
+{
+  "id": 2288,
+  "name": "CryptXXX: New Ransomware From the Actors Behind Reveton, Dropping Via Angler",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #459 (5718c835-f58c-4f8e-8da4-452a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2288"
+}

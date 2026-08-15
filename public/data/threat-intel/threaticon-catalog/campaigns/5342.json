@@ -1,0 +1,12 @@
+{
+  "id": 5342,
+  "name": "2026-06-16 (Tuesday): Phishing Emails Impersonate Retail Stores With Llm-Powered Text Salting",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 18, 2026",
+  "lastSeen": "Jun 18, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-06-16 (Tuesday): Phishing Emails Impersonate Retail Stores With Llm-Powered Text Salting. References: https://www.linkedin.com/posts/phishing-ugcPost-7473435883170590721-C9Uh/, https://x.com/Unit42_Intel/status/2067670247448977508",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5342"
+}

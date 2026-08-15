@@ -1,0 +1,12 @@
+{
+  "id": 650,
+  "name": "Detection Strategy for T1548.002 – Bypass User Account Control (UAC)",
+  "detId": "DET0388",
+  "stixId": "x-mitre-detection-strategy--d6619253-10cd-4b90-84b5-364c418d2484",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1094"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/650"
+}

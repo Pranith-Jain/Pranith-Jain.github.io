@@ -1,0 +1,12 @@
+{
+  "id": 1424,
+  "name": "qilin: WAL Consultant",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: TH | Sector: Not Found | Website: www.walconsultant.com | Source: https://www.ransomware.live/id/V0FMIENvbnN1bHRhbnRAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1424"
+}

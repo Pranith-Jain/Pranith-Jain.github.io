@@ -1,0 +1,12 @@
+{
+  "id": 3182,
+  "name": "Lookout Uncovers Android Spyware Deployed in Kazakhstan",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #303 (2e1474e1-1a53-4124-966f-b3bbface35df).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3182"
+}

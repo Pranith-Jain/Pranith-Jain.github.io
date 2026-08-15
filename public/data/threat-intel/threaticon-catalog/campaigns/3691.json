@@ -1,0 +1,12 @@
+{
+  "id": 3691,
+  "name": "killsec: mrs holdings",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to killsec. | Country: NG | Sector: Business Services | Website: mrsholdings.com | Infostealer data confirmed. | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/bXJzIGhvbGRpbmdzQGtpbGxzZWM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3691"
+}

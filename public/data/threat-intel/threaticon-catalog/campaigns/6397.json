@@ -1,0 +1,12 @@
+{
+  "id": 6397,
+  "name": "Global Secret Group: Cold Front Distribution",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Retail & E-Commerce | Website: coldfrontdist.com | Infostealer data confirmed. | Country: Colorado, United States | Website: coldfrontdist.com | Revenue: $120.1 Million | Industry: Transportation | Employees: 201-500 Employees | Properties: 473 GB (890,775 Files, 51,621 Folders) | Source: https://www.ransomware.live/id/Q29sZCBGcm9udCBEaXN0cmlidXRpb25AR2xvYmFsIFNlY3JldCBHcm91cA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6397"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7701,
+  "name": "blacknevas: Enteroptyx Ophthalmology Products www.enteroptyx.com serviced by an IT company Computer Co...",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to blacknevas. | Country: US | Sector: Healthcare | Website: www.enteroptyx.com | There is very little public information available about this company. Judging by its name, it is a small supplier or manufacturer of ophthalmology products (equipment, consumables, or instruments for eye care). There is virtually no detailed data regarding its operations, location, or history in open sources. | Source: https://www.ransomware.live/id/RW50ZXJvcHR5eCBPcGh0aGFsbW9sb2d5IFByb2R1Y3RzIHd3dy5lbnRlcm9wdHl4LmNvbSBzZXJ2aWNlZCBieSBhbiBJVCBjb21wYW55IENvbXB1dGVyIENvLi4uQGJsYWNrbmV2YXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7701"
+}

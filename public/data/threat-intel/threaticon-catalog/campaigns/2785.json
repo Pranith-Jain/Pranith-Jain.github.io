@@ -1,0 +1,12 @@
+{
+  "id": 2785,
+  "name": "OSINT - Rise of One More Mirai Worm Variant",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1276 (5a3a3aca-a210-497a-9715-452c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2785"
+}

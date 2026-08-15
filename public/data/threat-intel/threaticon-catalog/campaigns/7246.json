@@ -1,0 +1,12 @@
+{
+  "id": 7246,
+  "name": "orion: hphood.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Oct 28, 2025",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to orion. | Country: US | Sector: Other | Website: hphood.com | Infostealer data confirmed. | hphood.com | Source: https://www.ransomware.live/id/aHBob29kLmNvbUBvcmlvbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7246"
+}

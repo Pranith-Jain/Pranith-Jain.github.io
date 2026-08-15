@@ -1,0 +1,12 @@
+{
+  "id": 6500,
+  "name": "genesis: Servonix Technologies",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Not Found | Website: servonix.com | A provider of IT services | Source: https://www.ransomware.live/id/U2Vydm9uaXggVGVjaG5vbG9naWVzQGdlbmVzaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6500"
+}

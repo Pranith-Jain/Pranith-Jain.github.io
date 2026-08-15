@@ -1,0 +1,12 @@
+{
+  "id": 2779,
+  "name": "OSINT - GratefulPOS credit card stealing malware - just in time for the shopping season",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1270 (5a38dd78-f12c-4c15-8b98-c4d6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2779"
+}

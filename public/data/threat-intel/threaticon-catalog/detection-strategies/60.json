@@ -1,0 +1,12 @@
+{
+  "id": 60,
+  "name": "Behavioral Detection of Publish/Subscribe Protocol Misuse for C2",
+  "detId": "DET0002",
+  "stixId": "x-mitre-detection-strategy--16495e17-03ec-4e11-ab80-f76ed6386329",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0002", "AN0003", "AN0004", "AN0005"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/60"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2422,
+  "name": "OSINT Exploring .XYZ (Another Shady TLD Report) by Blue Coat",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #750 (55bb31a3-dcf4-4731-acdd-4851950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2422"
+}

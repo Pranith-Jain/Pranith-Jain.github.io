@@ -1,0 +1,12 @@
+{
+  "id": 3122,
+  "name": "TeslaCrypt (2016-03-08)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #123 (56de9384-a9ac-42fe-9b69-49d1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3122"
+}

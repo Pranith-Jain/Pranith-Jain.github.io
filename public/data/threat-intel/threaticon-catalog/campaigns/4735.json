@@ -1,0 +1,12 @@
+{
+  "id": 4735,
+  "name": "krybit: ersa.com.py",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 17, 2026",
+  "lastSeen": "Jun 17, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: PY | Sector: Manufacturing | Website: ersa.com.py | Infostealer data confirmed. | ERSA (Enrique Remmele S.A.C.I.) is a 100% Paraguayan industrial company founded in 1928, originally established for the ... | Source: https://www.ransomware.live/id/ZXJzYS5jb20ucHlAa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4735"
+}

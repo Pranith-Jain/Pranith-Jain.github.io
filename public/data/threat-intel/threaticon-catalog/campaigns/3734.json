@@ -1,0 +1,12 @@
+{
+  "id": 3734,
+  "name": "m3rx: kbtoys.com.au",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to m3rx. | Country: AU | Sector: Consumer Services | Website: kbtoys.com.au | Infostealer data confirmed. | +61 295250878. We offer a wide selection of toys and giftware that would be suitable for birthdays, Christmas and celebrations of all sorts. We also accommodate shopping tours by appointment. If you're looking for toys for a social club or special function, please feel encouraged to give us a call or use the contact form on the right. Come in and visit our factory outlet located at: Unit 4, 60 Box Rd, Taren Point NSW Stolen: 140gb 36840 files | Source: https://www.ransomware.live/id/a2J0b3lzLmNvbS5hdUBtM3J4",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3734"
+}

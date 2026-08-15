@@ -1,0 +1,12 @@
+{
+  "id": 3150,
+  "name": "Shining a Light on DARKSIDE Ransomware Operations",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #254 (bb8cb785-6587-4b8c-9280-981b485b9f4e).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3150"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3148,
+  "name": "\"Lebanese Cedar\" APT Global Lebanese Espionage Campaign Leveraging Web Servers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #249 (3ada8ae4-a7bd-4732-ad66-0ff8fc0f80f5).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3148"
+}

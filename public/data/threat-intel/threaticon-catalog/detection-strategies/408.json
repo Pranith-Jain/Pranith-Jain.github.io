@@ -1,0 +1,12 @@
+{
+  "id": 408,
+  "name": "Detect Kerberoasting Attempts (T1558.003)",
+  "detId": "DET0157",
+  "stixId": "x-mitre-detection-strategy--f1fe6286-1f54-4dfc-b96a-31b10711e4b1",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0444"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/408"
+}

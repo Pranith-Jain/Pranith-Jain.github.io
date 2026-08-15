@@ -1,0 +1,12 @@
+{
+  "id": 2109,
+  "name": "Free Ransomware Available on Dark Web",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #135 (5a8c8f8b-5ec4-4256-bb77-8620c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2109"
+}

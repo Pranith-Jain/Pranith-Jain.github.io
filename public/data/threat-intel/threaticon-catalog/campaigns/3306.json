@@ -1,0 +1,12 @@
+{
+  "id": 3306,
+  "name": "Secret Blizzard compromising Storm-0156 infrastructure for espionage / Snowblind: The Invisible Hand of Secret Blizzard",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #528 (f1d310ba-7e51-41d8-97a8-d9a7c1f973ab).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3306"
+}

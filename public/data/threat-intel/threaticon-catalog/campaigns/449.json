@@ -1,0 +1,12 @@
+{
+  "id": 449,
+  "name": "apt73: providentgh.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: GH | Sector: Business Services | Website: providentgh.com | Infostealer data confirmed. | Provident Insurance Limited Company is an insurance company in Ghana that provides insurance (aut... | Source: https://www.ransomware.live/id/cHJvdmlkZW50Z2guY29tQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/449"
+}

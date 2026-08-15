@@ -1,0 +1,12 @@
+{
+  "id": 6781,
+  "name": "aurora: Evosys Laser GmbH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: DE | Sector: Manufacturing | Website: Evosys Laser GmbH | [manufacturer] Evosys Laser GmbH — an Erlangen-based industrial laser welding systems manufacturer with ~130 employees, subsidiaries in the US, China, and a string of Tier 1 automotive customers. The dataset is the complete corporate repository, spanning every business function: 130 employees' complete HR files — employment contracts, salary histories, bank IBANs, tax IDs, social insurance numbers, pension records, medical examinations, disciplinary warnings, and two confirmed minors' health records. <censored> <censored> Complete server infrastructure map via mRemoteNG XML — 7 servers named, domain admin credentials, internal IPs. The Citrix admin password is Password1. 326 GB of customer project data — laser welding process parameters, CAD files, robot control software, and the award-winning AQW process know-how. Complete financial history — Jahresabschlüsse (2015–2025), P&L...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6781"
+}

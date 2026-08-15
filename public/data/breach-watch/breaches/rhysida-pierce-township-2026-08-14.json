@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-pierce-township-2026-08-14",
+  "title": "Pierce Township",
+  "group": "rhysida",
+  "discovered": "2026-08-14T10:00:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/90d3e5e2-75a7-42ca-ad1d-a92616c2bdfa",
+  "groupAliases": [],
+  "activity": "Government & Defense",
+  "references": ["Darkfield"]
+}

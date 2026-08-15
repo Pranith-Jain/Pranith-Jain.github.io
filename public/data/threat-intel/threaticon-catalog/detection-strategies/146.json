@@ -1,0 +1,12 @@
+{
+  "id": 146,
+  "name": "Detection of Local Account Abuse for Initial Access and Persistence",
+  "detId": "DET0407",
+  "stixId": "x-mitre-detection-strategy--b045b89e-3095-41c3-a04d-d40075f14cd8",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1137", "AN1138", "AN1139"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/146"
+}

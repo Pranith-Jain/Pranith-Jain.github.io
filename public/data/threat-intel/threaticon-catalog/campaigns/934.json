@@ -1,0 +1,12 @@
+{
+  "id": 934,
+  "name": "AuditTeam: Kawasaki Motors Philippines Corporation",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AuditTeam. | Country: PH | Sector: Manufacturing | Website: kawasaki.ph | Infostealer data confirmed. | Kawasaki Motors Philippines Corporation (KMPC), located in Muntinlupa, Metro Manila, is a leading manufacturer and distributor of Kawasaki motorcycles in the Philippines, operating for over 40 years. As an affiliate of Kawasaki Heavy Industries, Ltd. (KHI), it produces commuter bikes, tricycles, and underbones, with an annual capacity of 250,000 units, making it one of the largest plants in Kawasaki's global network. | Source: https://www.ransomware.live/id/S2F3YXNha2kgTW90b3JzIFBoaWxpcHBpbmVzIENvcnBvcmF0aW9uQEF1ZGl0VGVhbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/934"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 916,
+  "name": "coinbasecartel: Idera - 1.5 TB data",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: idera.com | Infostealer data confirmed. | [AI generated] Idera is a US-based software company specializing in database management, developer tools, and test management solutions. It serves IT professionals and enterprises across industries, offering products for database performance monitoring, administration, and DevOps workflows. Its portfolio includes tools supporting SQL Server, MySQL, and other platforms. Idera operates globally with headquarters in Houston, Texas. | Source: https://www.ransomware.live/id/SWRlcmEgLSAxLjUgVEIgZGF0YUBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/916"
+}

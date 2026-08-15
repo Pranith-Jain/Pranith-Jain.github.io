@@ -1,0 +1,12 @@
+{
+  "id": 59,
+  "name": "TCC Database Manipulation via Launchctl and Unprotected SIP",
+  "detId": "DET0534",
+  "stixId": "x-mitre-detection-strategy--f1fdcaa2-7040-4cea-a934-7397566a312b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1474"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/59"
+}

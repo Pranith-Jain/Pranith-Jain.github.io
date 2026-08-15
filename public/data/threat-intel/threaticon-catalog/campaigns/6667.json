@@ -1,0 +1,12 @@
+{
+  "id": 6667,
+  "name": "incransom: foundationstofreedom.org",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 28, 2026",
+  "lastSeen": "Jul 28, 2026",
+  "added": "Jul 28, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Other | Website: foundationstofreedom.org | Foundations to Freedom is a US-registered 501(c)(3) non-profit organization that provides recovery housing, social adaptation programs, and comprehensive therapeutic support for individuals overcoming alcohol and substance abuse, as well as survivors of domestic violence.The organization is dedicated to offering a safe, structured environment for individuals to rebuild their lives from the ground up and maintain long-term sobriety. It is headquartered in DeLand, Florida, USA | Source: https://www.ransomware.live/id/Zm91bmRhdGlvbnN0b2ZyZWVkb20ub3JnQGluY3JhbnNvbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6667"
+}

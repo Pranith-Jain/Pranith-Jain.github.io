@@ -1,0 +1,12 @@
+{
+  "id": 281,
+  "name": "Detection Strategy for Extra Window Memory (EWM) Injection on Windows",
+  "detId": "DET0217",
+  "stixId": "x-mitre-detection-strategy--1a8d87f1-48ca-4929-a5cc-2b2a03983f12",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0608"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/281"
+}

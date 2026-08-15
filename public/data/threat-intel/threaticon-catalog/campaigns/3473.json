@@ -1,0 +1,12 @@
+{
+  "id": 3473,
+  "name": "Cerber 5.0 through Google via onion gateway",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #928 (5836e0bd-461c-4b54-afba-4448950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3473"
+}

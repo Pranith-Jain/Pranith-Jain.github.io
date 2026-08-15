@@ -1,0 +1,12 @@
+{
+  "id": 478,
+  "name": "krybit: Narteks Tekstil A.S",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: TR | Sector: Manufacturing | Website: narteks.com.tr | Infostealer data confirmed. | Narteks Tekstil Sanayi ve Ticaret A.Ş., one of the well-known Turkish companies in the cotton yarn and textile industry... | Source: https://www.ransomware.live/id/TmFydGVrcyBUZWtzdGlsIEEuU0BrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/478"
+}

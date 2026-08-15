@@ -1,0 +1,12 @@
+{
+  "id": 6164,
+  "name": "safepay: gvsurgicalarts.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 24, 2026",
+  "lastSeen": "Jul 24, 2026",
+  "added": "Jul 24, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Healthcare | Website: gvsurgicalarts.com | Founded in 2004 by Dr. Brian R. Chisdak, the practice has grown into one of Montana's leading surgical centers and … | Source: https://www.ransomware.live/id/Z3ZzdXJnaWNhbGFydHMuY29tQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6164"
+}

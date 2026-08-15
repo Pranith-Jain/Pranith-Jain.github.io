@@ -1,0 +1,12 @@
+{
+  "id": 154,
+  "name": "Credential Dumping from SAM via Registry Dump and Local File Access",
+  "detId": "DET0085",
+  "stixId": "x-mitre-detection-strategy--13c88a68-15e3-45e5-958b-82fe7b948561",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0235"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/154"
+}

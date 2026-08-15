@@ -1,0 +1,12 @@
+{
+  "id": 1087,
+  "name": "dragonforce: northstarmetal.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: northstarmetal.com | Infostealer data confirmed. | Northstar Metal Products is a manufacturer of metal products. Services: CNC machining, laser cutting, robotic welding, powder coating, and prototyping. Industries: telecommunications, manufacturing, transportation, energy, healthcare, and home goods. | Source: https://www.ransomware.live/id/bm9ydGhzdGFybWV0YWwuY29tQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1087"
+}

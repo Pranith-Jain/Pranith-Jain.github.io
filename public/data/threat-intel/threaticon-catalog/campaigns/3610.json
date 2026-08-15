@@ -1,0 +1,12 @@
+{
+  "id": 3610,
+  "name": "genesis: Pequod Associates",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Not Found | Website: pequodassociates.com | Infostealer data confirmed. | A global leader in the provision of Marine Claims TPA and Recovery services. | Source: https://www.ransomware.live/id/UGVxdW9kIEFzc29jaWF0ZXNAZ2VuZXNpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3610"
+}

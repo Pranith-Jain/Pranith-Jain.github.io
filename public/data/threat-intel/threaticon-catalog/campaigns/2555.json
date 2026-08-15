@@ -1,0 +1,12 @@
+{
+  "id": 2555,
+  "name": "OSINT - Shamoon 2: Return of the Disttrack Wiper",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #930 (5841317a-9604-4ffe-9260-46b9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2555"
+}

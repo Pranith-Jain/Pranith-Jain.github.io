@@ -1,0 +1,12 @@
+{
+  "id": 2770,
+  "name": "M2M - \"..doc\" 2017-12-04 : \"Emailing: 1234567\" - \"1234567.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1258 (5a26b88f-ba04-46a5-9f52-48ed950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2770"
+}

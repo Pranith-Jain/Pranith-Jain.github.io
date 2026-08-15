@@ -1,0 +1,12 @@
+{
+  "id": 5030,
+  "name": "krybit: schultz.com.br",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 5, 2026",
+  "lastSeen": "Jun 5, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: BR | Sector: Business Services | Website: schultz.com.br | Infostealer data confirmed. | Schultz Operadora de Turismo helps people explore the world with easy travel planning. They handle everything from airli... | Source: https://www.ransomware.live/id/c2NodWx0ei5jb20uYnJAa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5030"
+}

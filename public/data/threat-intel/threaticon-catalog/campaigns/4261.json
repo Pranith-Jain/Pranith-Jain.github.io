@@ -1,0 +1,12 @@
+{
+  "id": 4261,
+  "name": "krybit: seprec.gob.bo",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: BO | Sector: Public Sector | Website: seprec.gob.bo | Infostealer data confirmed. | SEPREC (Servicio Plurinacional de Registro de Comercio / Plurinational Commercial Registry Service) is a Bolivian decent... | Source: https://www.ransomware.live/id/c2VwcmVjLmdvYi5ib0BrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4261"
+}

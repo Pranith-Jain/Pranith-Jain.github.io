@@ -71,12 +71,12 @@ function EntityNodeBox({
     >
       <Handle type="target" position={Position.Top} style={{ background: color }} />
       <div className="flex items-center gap-1 mb-0.5">
-        <span className="text-[10px]">{NODE_ICONS[data.nodeType]}</span>
+        <span className="text-micro">{NODE_ICONS[data.nodeType]}</span>
         <span className="text-micro uppercase tracking-wider font-bold" style={{ color }}>
           {data.nodeType}
         </span>
       </div>
-      <div className="text-slate-900 dark:text-slate-100 break-words leading-tight text-[11px]">{data.label}</div>
+      <div className="text-slate-900 dark:text-slate-100 break-words leading-tight text-mini">{data.label}</div>
       {data.subtitle && (
         <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5 truncate">{data.subtitle}</div>
       )}

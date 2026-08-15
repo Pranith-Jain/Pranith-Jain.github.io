@@ -144,10 +144,10 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
                   <Icon size={14} />
                 </span>
                 <span className="text-sm text-slate-900 dark:text-slate-100">{h.label}</span>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-auto">
+                <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-auto">
                   {h.type}
                 </span>
-                <span className="text-[12px] text-slate-500 dark:text-slate-400 truncate max-w-[260px]">{h.sub}</span>
+                <span className="text-meta text-slate-500 dark:text-slate-400 truncate max-w-[260px]">{h.sub}</span>
               </button>
             );
           })}
@@ -155,19 +155,19 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
 
         <div className="flex items-center gap-3 px-4 h-9 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <span className="flex items-center gap-1">
-            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-[9px] normal-case">
+            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-micro normal-case">
               &uarr;&darr;
             </kbd>{' '}
             navigate
           </span>
           <span className="flex items-center gap-1">
-            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-[9px] normal-case">
+            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-micro normal-case">
               &crarr;
             </kbd>{' '}
             open
           </span>
           <span className="ml-auto flex items-center gap-1">
-            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-[9px] normal-case">
+            <kbd className="px-1 py-px rounded border border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-micro normal-case">
               esc
             </kbd>{' '}
             close

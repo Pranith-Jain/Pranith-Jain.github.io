@@ -1,0 +1,12 @@
+{
+  "id": 631,
+  "name": "Detection of Serverless",
+  "detId": "DET0829",
+  "stixId": "x-mitre-detection-strategy--9695c6af-f3cc-40fa-b3a1-351014c6282f",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1961"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/631"
+}

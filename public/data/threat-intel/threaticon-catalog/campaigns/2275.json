@@ -1,0 +1,12 @@
+{
+  "id": 2275,
+  "name": "Gaza Cybergang | Unified Front Targeting Hamas Opposition",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #433 (500ce304-3996-44ab-8a36-be206f89d3de).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2275"
+}

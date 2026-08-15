@@ -1,0 +1,12 @@
+{
+  "id": 550,
+  "name": "Detect Use of Stolen Web Session Cookies Across Platforms",
+  "detId": "DET0074",
+  "stixId": "x-mitre-detection-strategy--8d30c115-84f7-4fcc-ba22-96cb092d8114",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0201", "AN0202", "AN0203"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/550"
+}

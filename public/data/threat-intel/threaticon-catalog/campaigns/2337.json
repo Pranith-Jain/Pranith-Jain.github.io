@@ -1,0 +1,12 @@
+{
+  "id": 2337,
+  "name": "OSINT - CryptXXX Ransomware Learns the Samba, Other New Tricks With Version 3.100",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #573 (5755628d-ebd4-4150-abb0-4bfd950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2337"
+}

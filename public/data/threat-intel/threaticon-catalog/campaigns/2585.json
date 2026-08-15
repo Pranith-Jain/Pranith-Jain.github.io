@@ -1,0 +1,12 @@
+{
+  "id": 2585,
+  "name": "OSINT - Saga 2.0 (Sage 2.0) comes with IP Generation Algorithm (IPGA)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #977 (588f9099-bcc8-4730-b744-4eed02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2585"
+}

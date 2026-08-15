@@ -1,0 +1,12 @@
+{
+  "id": 1319,
+  "name": "qilin: Arnaud",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: PT | Sector: Not Found | Website: www.arnaud.pt | Source: https://www.ransomware.live/id/QXJuYXVkQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1319"
+}

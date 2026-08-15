@@ -1,0 +1,12 @@
+{
+  "id": 2833,
+  "name": "OSINT - Goodfellas, the Brazilian carding scene is after you",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1374 (5b1e2aab-9e84-4908-9db2-4bb8950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2833"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 465,
+  "name": "dragonforce: fatbrands.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Hospitality and Tourism | Website: fatbrands.com | Infostealer data confirmed. | FAT Brands is a leading global franchising company that strategically acquires, promotes, and develops quick-service, fast-casual, and casual dining concepts around the world. | Source: https://www.ransomware.live/id/ZmF0YnJhbmRzLmNvbUBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/465"
+}

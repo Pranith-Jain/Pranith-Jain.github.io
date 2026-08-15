@@ -1,0 +1,12 @@
+{
+  "id": 164,
+  "name": "spacebears: Johnson & Johnson Innovative Medicine",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to spacebears. | Country: US | Sector: Healthcare | Website: www.jnj.com/innovativemedicine | Johnson & Johnson Innovative Medicine (formerly known as Janssen Pharmaceuticals) is the pharmaceutical division of the American corporation Johnson & Johnson, specializing in the development and production of revolutionary medicines. The company focuses on creating treatments for the most complex diseases, transforming the future of healthcare.-CAR-T Research https://www.jnj.com/innovativemedicine/ | Source: https://www.ransomware.live/id/Sm9obnNvbiAmIEpvaG5zb24gSW5ub3ZhdGl2ZSBNZWRpY2luZUBzcGFjZWJlYXJz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/164"
+}

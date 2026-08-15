@@ -1,0 +1,12 @@
+{
+  "id": 2259,
+  "name": "OSINT - ModPOS: A Framework Lurking in Point-of-Sale System Kernels",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #393 (570982d2-f5bc-47e9-9b25-297702de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2259"
+}

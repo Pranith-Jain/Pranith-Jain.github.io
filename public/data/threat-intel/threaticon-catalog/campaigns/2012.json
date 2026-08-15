@@ -1,0 +1,12 @@
+{
+  "id": 2012,
+  "name": "China Peace Palace attacks - ThreatConnect",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #17 (56ccde30-15e8-4332-b123-52839062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2012"
+}

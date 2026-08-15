@@ -1,0 +1,12 @@
+{
+  "id": 3287,
+  "name": "OSINT - RuMMS: The Latest Family of Android Malware Attacking Users in Russia Via SMS Phishing",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #505 (5720a8c0-9064-4e32-b7ad-4f7e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3287"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3393,
+  "name": "OSINT Potao Express samples from contagiodump",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #668 (55cc400a-ee68-4aaa-b144-4d73950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3393"
+}

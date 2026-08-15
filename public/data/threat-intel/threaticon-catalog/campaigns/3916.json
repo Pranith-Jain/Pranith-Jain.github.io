@@ -1,0 +1,12 @@
+{
+  "id": 3916,
+  "name": "qilin: RCR Industrial Flooring",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Construction | Website: www.rcrindustrialflooring.com | N/A | Source: https://www.ransomware.live/id/UkNSIEluZHVzdHJpYWwgRmxvb3JpbmdAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3916"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 79,
+  "name": "Detection Strategy for Impersonation",
+  "detId": "DET0286",
+  "stixId": "x-mitre-detection-strategy--1e08be7e-451c-4b10-9e65-b6dbf8d54b38",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0792", "AN0793", "AN0794", "AN0795", "AN0796"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/79"
+}

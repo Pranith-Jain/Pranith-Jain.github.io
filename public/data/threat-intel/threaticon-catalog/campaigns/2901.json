@@ -1,0 +1,12 @@
+{
+  "id": 2901,
+  "name": "Muhstik Botnet Attacks Tomato Routers",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1578 (5e27f3d8-e238-4290-8b2c-422e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2901"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 333,
+  "name": "Detect Registry and Startup Folder Persistence (Windows)",
+  "detId": "DET0365",
+  "stixId": "x-mitre-detection-strategy--8febbfe8-91ae-4625-8fc7-656639b90a11",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1032"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/333"
+}

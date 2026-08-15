@@ -1,0 +1,12 @@
+{
+  "id": 433,
+  "name": "Detection of Purchase Technical Data",
+  "detId": "DET0880",
+  "stixId": "x-mitre-detection-strategy--4d41c48b-ef2a-49a1-baaa-039625612c20",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2012"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/433"
+}

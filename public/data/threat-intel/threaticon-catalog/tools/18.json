@@ -1,0 +1,12 @@
+{
+  "id": 18,
+  "name": "ipconfig",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "ipconfig is a Windows utility that can be used to find information about a system's TCP/IP, DNS, DHCP, and adapter configuration. (Citation: TechNet Ipconfig)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/18"
+}

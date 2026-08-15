@@ -1,0 +1,12 @@
+{
+  "id": 2642,
+  "name": "OSINT - Will Astrum Fill the Vacuum in the Exploit Kit Landscape?",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1066 (591df523-1b50-4547-ae34-4dca02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2642"
+}

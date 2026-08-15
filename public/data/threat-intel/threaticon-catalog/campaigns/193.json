@@ -1,0 +1,12 @@
+{
+  "id": 193,
+  "name": "blackwater: Compass Housing Alliance",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to blackwater. | Country: US | Sector: Public Sector | Website: compasshousingalliance.org | Infostealer data confirmed. | Compass Housing Alliance is dedicated to developing and providing essential services, shelter, and affordable housing to ensure that everyone in the community has a safe place to call home. | Source: https://www.ransomware.live/id/Q29tcGFzcyBIb3VzaW5nIEFsbGlhbmNlQGJsYWNrd2F0ZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/193"
+}

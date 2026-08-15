@@ -1,0 +1,12 @@
+{
+  "id": 4622,
+  "name": "nova: Nhà Thành Phố",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 21, 2026",
+  "lastSeen": "Jun 21, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: VN | Sector: Not Found | nhathanhpho.com.vn is an Vietnamese real estate listing platform operated by an individual, Đoàn Vinh, which allowed users to buy, sell, and rent properties - Nova Provide tree and samples from stolen data to the company with decrypt 1 file as sample when its get in touch with support department. | Source: https://www.ransomware.live/id/TmjDoCBUaMOgbmggUGjhu5FAbm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4622"
+}

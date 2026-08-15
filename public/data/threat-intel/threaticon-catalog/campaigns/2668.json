@@ -1,0 +1,12 @@
+{
+  "id": 2668,
+  "name": "OSINT - Spam Campaign Delivers Cross-platform Remote Access Trojan Adwind",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1109 (59663a31-f174-44a6-adb7-4339950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2668"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4151,
+  "name": "Deadlock: Gerusia S.L.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: ES | Sector: Not Found | Website: gerusia.com | Infostealer data confirmed. | Gerusia S.L., a Spanish service company headquartered in Oviedo, Asturias. Founded in 1995 and managed by women, the company provides a wide range of cleaning, auxiliary, and social-sanitary services for both public and private sectors throughout the Asturias region. | Source: https://www.ransomware.live/id/R2VydXNpYSBTLkwuQERlYWRsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4151"
+}

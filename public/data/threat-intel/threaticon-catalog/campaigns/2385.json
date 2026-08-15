@@ -1,0 +1,12 @@
+{
+  "id": 2385,
+  "name": "OSINT The Path to Mass-Producing Cyber Attacks by FireEye",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #713 (552e7e46-62f4-4908-9fd6-488f950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2385"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2472,
+  "name": "OSINT Generic Yara rule to detect PlugX by Jay DiMartino",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #809 (57b47152-b938-42f7-aa36-4bf1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2472"
+}

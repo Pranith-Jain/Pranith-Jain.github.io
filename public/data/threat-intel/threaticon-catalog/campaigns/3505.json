@@ -1,0 +1,12 @@
+{
+  "id": 3505,
+  "name": "OSINT - New Linux Malware Exploits CGI Vulnerability",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1011 (58c6915b-50e8-431f-a9ed-420b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3505"
+}

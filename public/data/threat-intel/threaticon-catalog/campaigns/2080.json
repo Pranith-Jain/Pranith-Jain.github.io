@@ -1,0 +1,12 @@
+{
+  "id": 2080,
+  "name": "Kazuar: Multiplatform Espionage Backdoor with API Access",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #103 (59124126-4c4c-4ef8-910b-4567c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2080"
+}

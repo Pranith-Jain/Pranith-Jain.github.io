@@ -1,0 +1,12 @@
+{
+  "id": 883,
+  "name": "pear: Siegel Lewitter Malkani",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: sl-employmentlaw.com | Infostealer data confirmed. | A highly respected law firm in the San Francisco Bay Area, specializing in employment law | Source: https://www.ransomware.live/id/U2llZ2VsIExld2l0dGVyIE1hbGthbmlAcGVhcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/883"
+}

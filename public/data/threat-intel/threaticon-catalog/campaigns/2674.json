@@ -1,0 +1,12 @@
+{
+  "id": 2674,
+  "name": "OSINT - Unravelling .NET with the Help of WinDBG",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1115 (596f7d10-18f4-44d9-ae66-48d3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2674"
+}

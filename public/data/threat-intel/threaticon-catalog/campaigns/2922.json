@@ -1,0 +1,12 @@
+{
+  "id": 2922,
+  "name": "Nanocore 20210816",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1656 (b6a0d910-69ae-463d-80a8-1f84839a2514).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2922"
+}

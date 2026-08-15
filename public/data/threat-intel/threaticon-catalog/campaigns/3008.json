@@ -1,0 +1,12 @@
+{
+  "id": 3008,
+  "name": "KRVTZ-NET IDS alerts for 2026-03-06",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1885 (512f6af2-9a7f-486f-b70b-d5eed26baa05).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3008"
+}

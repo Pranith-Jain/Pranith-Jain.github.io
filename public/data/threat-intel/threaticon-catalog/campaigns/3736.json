@@ -1,0 +1,12 @@
+{
+  "id": 3736,
+  "name": "safepay: smp.cat",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: ES | Sector: Not Found | Website: smp.cat | Infostealer data confirmed. | Is a private healthcare organization based in Catalonia, Spain, operating in the Hospitals & Physicians Clinics sector. Founded in 1993 … | Source: https://www.ransomware.live/id/c21wLmNhdEBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3736"
+}

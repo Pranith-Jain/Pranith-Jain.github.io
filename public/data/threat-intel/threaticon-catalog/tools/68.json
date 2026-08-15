@@ -1,0 +1,12 @@
+{
+  "id": 68,
+  "name": "nbtstat",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "nbtstat is a utility used to troubleshoot NetBIOS name resolution. (Citation: TechNet Nbtstat)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/68"
+}

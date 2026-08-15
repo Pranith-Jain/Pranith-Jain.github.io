@@ -1,0 +1,12 @@
+{
+  "id": 6528,
+  "name": "CRPxO: Performance Data Solutions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Professional Services | Sector: Motorsport / Data Acquisition | Data leaked: 12.8 GB | Source: https://www.ransomware.live/id/UGVyZm9ybWFuY2UgRGF0YSBTb2x1dGlvbnNAQ1JQeE8=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6528"
+}

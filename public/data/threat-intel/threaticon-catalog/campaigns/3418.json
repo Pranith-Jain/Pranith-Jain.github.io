@@ -1,0 +1,12 @@
+{
+  "id": 3418,
+  "name": "OSINT The Casino Malvertising Campaign by MalwareBytes",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #693 (566f47dd-e7d4-4b1f-9f65-764f950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3418"
+}

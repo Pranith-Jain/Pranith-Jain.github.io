@@ -1,0 +1,12 @@
+{
+  "id": 3723,
+  "name": "qilin: Sylvania",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Manufacturing | Website: www.sylvania-group.com | N/A | Source: https://www.ransomware.live/id/U3lsdmFuaWFAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3723"
+}

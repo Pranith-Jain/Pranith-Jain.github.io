@@ -1,0 +1,12 @@
+{
+  "id": 3474,
+  "name": "Malspam 2016-12-07 (.js in .zip) - campaign: \"receipt\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #935 (5847c9b1-9114-4e0c-afe8-d9c6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3474"
+}

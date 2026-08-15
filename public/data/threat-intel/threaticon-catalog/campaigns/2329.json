@@ -1,0 +1,12 @@
+{
+  "id": 2329,
+  "name": "OSINT - Hancitor and Ruckguv Reappear, Updated and With Vawtrak On Deck",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #551 (5739b34f-01ac-4e80-a403-4a1502de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2329"
+}

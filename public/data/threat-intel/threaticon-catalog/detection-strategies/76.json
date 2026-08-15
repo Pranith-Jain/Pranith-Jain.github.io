@@ -1,0 +1,12 @@
+{
+  "id": 76,
+  "name": "Detect Archiving and Encryption of Collected Data (T1560)",
+  "detId": "DET0526",
+  "stixId": "x-mitre-detection-strategy--043bc738-1f07-4d28-9f5c-1b1f81525e7c",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1458", "AN1459", "AN1460"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/76"
+}

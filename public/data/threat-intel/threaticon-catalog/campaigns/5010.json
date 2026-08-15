@@ -1,0 +1,12 @@
+{
+  "id": 5010,
+  "name": "thegentlemen: Jyharn Electronic",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TW | Sector: Manufacturing | Website: jyharn.com | Infostealer data confirmed. | ***.com zoominfo.com/c/jyharn-electronic-tech-co-ltd/370944477 Jyharn Electronic Tech. Co., Ltd. is a professional electronic components distributor founded in 1992, headquartered in Taiwan with branch operations in Shenzhen. The company specializes in supplying a wide range of semiconductor and optoelectronic parts, representing major industry brands such as LITEON, FITIPOWER, UTC, and Lattice. With decades of experience, Jyharn delivers comprehensive component solutions, including power management ICs, LEDs, and diodes, to support global manufacturing and technology clients | Source: https://www.ransomware.live/id/SnloYXJuIEVsZWN0cm9uaWNAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5010"
+}

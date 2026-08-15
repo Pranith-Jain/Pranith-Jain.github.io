@@ -1,0 +1,12 @@
+{
+  "id": 4402,
+  "name": "thegentlemen: NATURGHIACCIO",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: IT | Sector: Agriculture and Food Production | Website: naturghiaccio.it | Infostealer data confirmed. | ***.it dnb.com/business-directory/company-profiles.naturghiaccio_srl.eae47436d39ec78b7abc7007a3637507.html Naturghiaccio, an Italian company founded in 2013 that specializes in the production and distribution of high-quality, certified food-grade ice. Operating with a fully automated plant, they supply premium packaged ice to the Ho.Re.Ca. sector, supermarkets, and event organizers across Italy. The company is an official member of the European Packaged Ice Association (EPIA), ensuring strict quality and safety standards for their products | Source: https://www.ransomware.live/id/TkFUVVJHSElBQ0NJT0B0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4402"
+}

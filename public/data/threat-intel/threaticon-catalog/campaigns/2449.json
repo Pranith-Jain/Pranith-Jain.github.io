@@ -1,0 +1,12 @@
+{
+  "id": 2449,
+  "name": "OSINT Evilgrab Delivered by Watering Hole Attack on President of Myanmarâ€™s Website by Palo Alto Unit 42",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #777 (557e78b6-91ec-4123-87df-424f950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2449"
+}

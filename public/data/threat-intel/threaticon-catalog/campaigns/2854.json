@@ -1,0 +1,12 @@
+{
+  "id": 2854,
+  "name": "powerpool-malware-exploits-zero-day-vulnerability",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1419 (5b9162c3-90b4-423b-bd69-28330acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2854"
+}

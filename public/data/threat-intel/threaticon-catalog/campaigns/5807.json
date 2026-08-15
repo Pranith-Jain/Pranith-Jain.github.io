@@ -1,0 +1,12 @@
+{
+  "id": 5807,
+  "name": "qilin: KLD Labs",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 18, 2026",
+  "lastSeen": "Jul 18, 2026",
+  "added": "Jul 18, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.kldlabs.com | N/A | Source: https://www.ransomware.live/id/S0xEIExhYnNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5807"
+}

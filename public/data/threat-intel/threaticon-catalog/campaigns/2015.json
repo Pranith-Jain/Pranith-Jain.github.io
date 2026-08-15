@@ -1,0 +1,12 @@
+{
+  "id": 2015,
+  "name": "SeaDuke - Symantec/PaloAlto",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #20 (56ccdf0d-fe6c-4163-9fa4-51299062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2015"
+}

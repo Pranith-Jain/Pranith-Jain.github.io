@@ -1,0 +1,12 @@
+{
+  "id": 2538,
+  "name": "OSINT - The new .LNK between spam and Locky infection",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #903 (580b201b-3e30-4bb1-ac2e-427202de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2538"
+}

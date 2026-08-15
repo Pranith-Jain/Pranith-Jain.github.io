@@ -1,0 +1,12 @@
+{
+  "id": 688,
+  "name": "Detection of Vulnerabilities",
+  "detId": "DET0808",
+  "stixId": "x-mitre-detection-strategy--80741edd-b775-4c33-91a2-4a0d1ee4f6bc",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1940"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/688"
+}

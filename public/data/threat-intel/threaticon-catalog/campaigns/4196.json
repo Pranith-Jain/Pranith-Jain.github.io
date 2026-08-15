@@ -1,0 +1,12 @@
+{
+  "id": 4196,
+  "name": "gunra: New Tiles S.L.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to gunra. | Country: ES | Sector: Manufacturing | Website: new-tiles.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/TmV3IFRpbGVzIFMuTC5AZ3VucmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4196"
+}

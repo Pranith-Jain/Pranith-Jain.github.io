@@ -1,0 +1,12 @@
+{
+  "id": 425,
+  "name": "apt73: shj.ae",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: AE | Sector: Energy | Website: shj.ae | Infostealer data confirmed. | Sharjah Electricity, Water, and Gas Authority (sec.shj.ae) is a government-owned utility in Sharj... | Source: https://www.ransomware.live/id/c2hqLmFlQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/425"
+}

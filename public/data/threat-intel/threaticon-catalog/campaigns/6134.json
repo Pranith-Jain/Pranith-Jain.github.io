@@ -1,0 +1,12 @@
+{
+  "id": 6134,
+  "name": "qilin: Ejército Argentino",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 24, 2026",
+  "lastSeen": "Jul 24, 2026",
+  "added": "Jul 24, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: AR | Sector: Government & Defense | Website: www.argentina.gob.ar/defensa/ejercito | N/A | Source: https://www.ransomware.live/id/RWrDqXJjaXRvIEFyZ2VudGlub0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6134"
+}

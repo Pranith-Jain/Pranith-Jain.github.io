@@ -1,0 +1,12 @@
+{
+  "id": 3959,
+  "name": "play: Round Hill Country Club",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to play. | Country: US | Sector: Hospitality and Tourism | Website: www.rhcountryclub.com | United States | Source: https://www.ransomware.live/id/Um91bmQgSGlsbCBDb3VudHJ5IENsdWJAcGxheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3959"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 384,
+  "name": "ransomhouse: Cybersecurity Vendor",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to ransomhouse. | Sector: Technology | Website: *********.*** | Infostealer data confirmed. | Source: https://www.ransomware.live/id/Q3liZXJzZWN1cml0eSBWZW5kb3JAcmFuc29taG91c2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/384"
+}

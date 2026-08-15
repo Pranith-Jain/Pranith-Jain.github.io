@@ -1,0 +1,12 @@
+{
+  "id": 3459,
+  "name": "OSINT - Sofacyâ€™s â€˜Komplexâ€™ OS X Trojan by Palo Alto networks",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #884 (57ea2a19-2e44-4f1b-b6f5-46bb950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3459"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2836,
+  "name": "Clipboard Hijacker Targeting Bitcoin & Ethereum Users Infects Over 300,0000 PCs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1378 (5b276228-9270-42f9-9ecd-4a81950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2836"
+}

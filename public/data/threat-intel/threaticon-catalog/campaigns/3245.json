@@ -1,0 +1,12 @@
+{
+  "id": 3245,
+  "name": "Midnight Blizzard conducts targeted social engineering over Microsoft Teams",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #419 (913c9100-a765-4b5e-991f-6f8efb485322).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3245"
+}

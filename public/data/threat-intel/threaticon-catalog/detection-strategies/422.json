@@ -1,0 +1,12 @@
+{
+  "id": 422,
+  "name": "Detection of Digital Certificates",
+  "detId": "DET0831",
+  "stixId": "x-mitre-detection-strategy--15afa7ae-955a-4c19-b48e-ad13b68d7a54",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1963"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/422"
+}

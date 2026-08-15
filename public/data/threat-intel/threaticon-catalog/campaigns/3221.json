@@ -1,0 +1,12 @@
+{
+  "id": 3221,
+  "name": "Mustang Panda APT Group Uses European Commission-Themed Lure to Deliver PlugX Malware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #363 (85ba1998-d41e-475f-8b51-1f9a66eb8883).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3221"
+}

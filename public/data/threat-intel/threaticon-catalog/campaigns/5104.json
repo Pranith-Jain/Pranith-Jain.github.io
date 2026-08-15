@@ -1,0 +1,12 @@
+{
+  "id": 5104,
+  "name": "qilin: JNP ENG",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: KR | Sector: Manufacturing | Website: www.jnpeng.co.kr | N/A | Source: https://www.ransomware.live/id/Sk5QIEVOR0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5104"
+}

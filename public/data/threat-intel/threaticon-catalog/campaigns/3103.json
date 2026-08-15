@@ -1,0 +1,12 @@
+{
+  "id": 3103,
+  "name": "Butterfly/WildNeutron - Symantec / Kaspersky",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #27 (56cce169-b2e8-496a-a5b8-52849062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3103"
+}

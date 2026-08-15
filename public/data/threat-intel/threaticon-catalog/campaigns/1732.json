@@ -1,0 +1,12 @@
+{
+  "id": 1732,
+  "name": "qilin: Kuzco Lighting",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Consumer Services | Website: www.kuzcolighting.com | Source: https://www.ransomware.live/id/S3V6Y28gTGlnaHRpbmdAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1732"
+}

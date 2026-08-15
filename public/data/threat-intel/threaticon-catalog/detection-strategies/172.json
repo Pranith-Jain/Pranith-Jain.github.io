@@ -1,0 +1,12 @@
+{
+  "id": 172,
+  "name": "Behavioral Detection of Mailbox Data and Log Deletion for Anti-Forensics",
+  "detId": "DET0266",
+  "stixId": "x-mitre-detection-strategy--08633541-0006-480a-a2d9-e1c81952cc71",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0737", "AN0738", "AN0739", "AN0740"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/172"
+}

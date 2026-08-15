@@ -1,0 +1,12 @@
+{
+  "id": 668,
+  "name": "Detection Strategy for Lateral Tool Transfer across OS platforms",
+  "detId": "DET0183",
+  "stixId": "x-mitre-detection-strategy--156ddd81-b3ae-4a79-8c4e-7a75b6fd994c",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0516", "AN0517", "AN0518", "AN0519"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/668"
+}

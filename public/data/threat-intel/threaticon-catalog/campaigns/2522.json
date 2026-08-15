@@ -1,0 +1,12 @@
+{
+  "id": 2522,
+  "name": "Malspam 2016-09-20 (.hta in .zip) - campaign: \"<no subject>\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #881 (57e0c08d-4330-42c0-9c8f-4c8d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2522"
+}

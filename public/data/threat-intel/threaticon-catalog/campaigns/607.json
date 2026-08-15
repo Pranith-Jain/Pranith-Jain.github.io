@@ -1,0 +1,12 @@
+{
+  "id": 607,
+  "name": "qilin: The Go Solution",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: IE | Sector: Business Services | Website: www.thegosolution.com | Source: https://www.ransomware.live/id/VGhlIEdvIFNvbHV0aW9uQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/607"
+}

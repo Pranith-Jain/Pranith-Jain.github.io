@@ -1,0 +1,12 @@
+{
+  "id": 2568,
+  "name": "OSINT - Updated Sundown Exploit Kit Uses Steganography",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #952 (586cb1ff-6bcc-4029-88b0-4fa9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2568"
+}

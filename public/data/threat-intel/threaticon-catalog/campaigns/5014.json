@@ -1,0 +1,12 @@
+{
+  "id": 5014,
+  "name": "thegentlemen: Integrated Distribution",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: GB | Sector: Transportation/Logistics | Website: int-dist.com | Infostealer data confirmed. | ***.com zoominfo.com/c/integrated-distribution-inc/348479499 ntegrated Distribution Inc. is a prominent industrial distributor based in Comstock Park, Michigan, serving local manufacturers since 1998. The company specializes in fast-response sourcing, technical support, and the supply of critical components such as bearings, belts, motors, and power transmission parts. With a strong focus on minimizing equipment downtime, IDI provides tailored industrial solutions for diverse sectors, including automotive, food processing, and packaging | Source: https://www.ransomware.live/id/SW50ZWdyYXRlZCBEaXN0cmlidXRpb25AdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5014"
+}

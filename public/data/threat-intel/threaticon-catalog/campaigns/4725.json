@@ -1,0 +1,12 @@
+{
+  "id": 4725,
+  "name": "safepay: brscappuccio.it",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 17, 2026",
+  "lastSeen": "Jun 17, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Consumer Services | Website: brscappuccio.it | Infostealer data confirmed. | Headquartered in Casandrino, near Naples in the Campania region, the company specializes in the distribution and supply of medical devices, … | Source: https://www.ransomware.live/id/YnJzY2FwcHVjY2lvLml0QHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4725"
+}

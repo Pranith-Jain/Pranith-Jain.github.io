@@ -1,0 +1,12 @@
+{
+  "id": 5248,
+  "name": "qilin: Shocco Springs",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 27, 2026",
+  "lastSeen": "May 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.shocco.org | N/A | Source: https://www.ransomware.live/id/U2hvY2NvIFNwcmluZ3NAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5248"
+}

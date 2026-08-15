@@ -1,0 +1,12 @@
+{
+  "id": 1163,
+  "name": "coinbasecartel: PC SOFT FRANCE - Leaked data",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: FR | Sector: Technology | Website: pcsoft.fr | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/UEMgU09GVCBGUkFOQ0UgLSBMZWFrZWQgZGF0YUBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1163"
+}

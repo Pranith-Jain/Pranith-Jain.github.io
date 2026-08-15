@@ -1,0 +1,12 @@
+{
+  "id": 1649,
+  "name": "nightspire: Tecnoedil S.A. Constructora",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: PY | Sector: Construction | Website: www.contrataciones.gov.py/proveedor/tecnoedil-s-a-constructora.html | Data is not available now. | Source: https://www.ransomware.live/id/VGVjbm9lZGlsIFMuQS4gQ29uc3RydWN0b3JhQG5pZ2h0c3BpcmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1649"
+}

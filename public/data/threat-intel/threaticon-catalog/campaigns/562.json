@@ -1,0 +1,12 @@
+{
+  "id": 562,
+  "name": "akira: Kubiak Melton & Associates",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: tkm.cpa | Infostealer data confirmed. | Kubiak & Melton, LLC provides audit, tax and bookkeeping services . We prepare monthly financial statements, governmental complianc e forms, payroll, and tax returns. We will upload 12gb of corporate data soon. Client personal infor mation (passports, DLs, birth and death certs, SSNs, addresses, p hones, CC statements and much more), client financial information , financials, NDAs, numerous internal confidential files, etc. | Source: https://www.ransomware.live/id/S3ViaWFrIE1lbHRvbiAmIEFzc29jaWF0ZXNAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/562"
+}

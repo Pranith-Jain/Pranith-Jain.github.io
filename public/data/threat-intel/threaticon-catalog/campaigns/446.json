@@ -1,0 +1,12 @@
+{
+  "id": 446,
+  "name": "apt73: grupo-principal.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: MX | Sector: Business Services | Website: grupo-principal.com | Infostealer data confirmed. | Grupo Principal is a distribution company in Mexico that supplies and sells consumer goods (FMCG)... | Source: https://www.ransomware.live/id/Z3J1cG8tcHJpbmNpcGFsLmNvbUBhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/446"
+}

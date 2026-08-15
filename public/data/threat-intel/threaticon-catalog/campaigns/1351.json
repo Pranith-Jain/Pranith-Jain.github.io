@@ -1,0 +1,12 @@
+{
+  "id": 1351,
+  "name": "shinyhunters: Berkadia Commercial Mortgage, LLC. (berkadia.com)",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Financial Services | Website: berkadia.com | Infostealer data confirmed. | Salesforce records containing PII and other internal corporate data have been compromised. The company failed to reach an agreement with us despite all the chances and offers we made. They don't care. | Size: 27GB (compressed) | Updated: 25 Mar 2026 | SHA256: 2ae1c2804c01f5894143620518ec41fceb98e330f408c7f38e3d6ef93ebe8f21 | Source: https://www.ransomware.live/id/QmVya2FkaWEgQ29tbWVyY2lhbCBNb3J0Z2FnZSwgTExDLiAoYmVya2FkaWEuY29tKUBzaGlueWh1bnRlcnM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1351"
+}

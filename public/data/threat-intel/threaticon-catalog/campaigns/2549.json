@@ -1,0 +1,12 @@
+{
+  "id": 2549,
+  "name": "OSINT - Microsoft Word Intruder 8 Adds Support for Flash Vulnerability CVE-2016-4117",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #921 (582ab1cc-31a4-48f2-a0a1-4966950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2549"
+}

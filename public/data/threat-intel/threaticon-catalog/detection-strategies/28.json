@@ -1,0 +1,12 @@
+{
+  "id": 28,
+  "name": "Email Forwarding Rule Abuse Detection Across Platforms",
+  "detId": "DET0576",
+  "stixId": "x-mitre-detection-strategy--f66a9e86-49fb-4de6-963d-0e357a77f679",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1589", "AN1590", "AN1591", "AN1592"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/28"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2198,
+  "name": "More LodaRAT infrastructure targeting Bangladesh uncovered",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #251 (8c44b315-a146-4e13-baac-996ba98bbf40).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2198"
+}

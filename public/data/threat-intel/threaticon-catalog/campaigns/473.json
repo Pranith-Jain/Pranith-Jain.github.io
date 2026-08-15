@@ -1,0 +1,12 @@
+{
+  "id": 473,
+  "name": "qilin: Istarpal",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: PS | Sector: Not Found | Website: istarpal.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/SXN0YXJwYWxAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/473"
+}

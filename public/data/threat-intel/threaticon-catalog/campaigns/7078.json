@@ -1,0 +1,12 @@
+{
+  "id": 7078,
+  "name": "thegentlemen: TopMark Funding",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Financial Services | Website: topmarkfunding.com | Infostealer data confirmed. | topmarkfunding.com zoominfo.com/c/topmark-funding-llc/368696312 TopMark Funding is a nationwide commercial financing company specializing in fast funding solutions for semi-trucks, trailers, and heavy construction equipment. Headquartered in California, they help trucking and construction businesses acquire machinery ranging from $25,000 to $500,000. The company is recognized for providing quick approvals, flexible terms, and risk-free quotes without impacting the client's credit score | Source: https://www.ransomware.live/id/VG9wTWFyayBGdW5kaW5nQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7078"
+}

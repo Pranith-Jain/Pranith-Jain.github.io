@@ -1,0 +1,12 @@
+{
+  "id": 3464,
+  "name": "Malspam week 44 (2016-10-24) - Locky ('Sebek')",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #905 (580dc270-81d8-49fa-91cd-417d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3464"
+}

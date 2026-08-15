@@ -1,0 +1,12 @@
+{
+  "id": 4379,
+  "name": "thegentlemen: Canada Wide Media",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Telecommunication | Website: canadawide.com | Infostealer data confirmed. | ***.com zoominfo.com/c/canada-wide-media-ltd/24612070 Canada Wide Media is Western Canada's leading independent publishing and custom content creation company, headquartered in Burnaby, British Columbia.They produce over 48 premium print and digital publications, such as BC Business and TV Week, reaching an audience of over 6 million readers.The firm specializes in audience engagement, custom publishing, and prestige media solutions tailored for various industries | Source: https://www.ransomware.live/id/Q2FuYWRhIFdpZGUgTWVkaWFAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4379"
+}

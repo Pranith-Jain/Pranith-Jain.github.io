@@ -1,0 +1,12 @@
+{
+  "id": 2073,
+  "name": "Nile Phish: Large-Scale Phishing Campaign Targeting Egyptian Civil Society",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #95 (5893689a-3acc-4752-a0cd-11fbc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2073"
+}

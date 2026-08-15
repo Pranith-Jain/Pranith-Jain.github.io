@@ -1,0 +1,12 @@
+{
+  "id": 2799,
+  "name": "OSINT - Masuta : Satori Creatorsâ€™ Second Botnet Weaponizes A New Router Exploit.",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1298 (5a69e332-f944-46f8-b172-637202de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2799"
+}

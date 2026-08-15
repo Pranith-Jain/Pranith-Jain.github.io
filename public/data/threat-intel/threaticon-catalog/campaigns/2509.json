@@ -1,0 +1,12 @@
+{
+  "id": 2509,
+  "name": "Malspam 2016-09-12 (.wsf in .zip) - campaign: \"Photo|Image\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #865 (57d6c85d-01c8-41ba-8ec2-40e7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2509"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2531,
+  "name": "OSINT - How Stampado Ransomware Analysis Led To Yara Improvements",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #895 (57fc8ec7-2c10-4c24-8565-452002de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2531"
+}

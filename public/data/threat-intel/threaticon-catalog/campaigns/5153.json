@@ -1,0 +1,12 @@
+{
+  "id": 5153,
+  "name": "krybit: tulipmediworld.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 30, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: IN | Sector: Healthcare | Website: tulipmediworld.com | Infostealer data confirmed. | A complete data breach has occurred at Tulip Mediworld Hospital, a multi-specialty hospital located on GS Road, Rukmini ... | Source: https://www.ransomware.live/id/dHVsaXBtZWRpd29ybGQuY29tQGtyeWJpdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5153"
+}

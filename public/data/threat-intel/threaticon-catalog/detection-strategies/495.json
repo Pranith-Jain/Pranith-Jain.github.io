@@ -1,0 +1,12 @@
+{
+  "id": 495,
+  "name": "Detection of Local Data Collection Prior to Exfiltration",
+  "detId": "DET0380",
+  "stixId": "x-mitre-detection-strategy--36bb5edf-e7b6-4d36-8ccc-1a18ddc573da",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1070", "AN1071", "AN1072", "AN1073", "AN1074"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/495"
+}

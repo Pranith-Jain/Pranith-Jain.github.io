@@ -1,0 +1,12 @@
+{
+  "id": 1520,
+  "name": "sinobi: McAfee Tool & Die",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to sinobi. | Country: US | Sector: Manufacturing | Website: mcafeetool.com | Infostealer data confirmed. | McAfee Tool & Die, Inc. is a company specializing in the manufacturing of precision components through tool and die processes. They offer a variety of services including engineering, CNC machining, laser cutting, wire EDM, and stamping production. McAfee values customer relationships and aims to ensure project success through their comprehensive service offerings and technical expertise. Their intended clients are businesses seeking reliable and high-quality manufacturing solutions in various industries. | Source: https://www.ransomware.live/id/TWNBZmVlIFRvb2wgJiBEaWVAc2lub2Jp",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1520"
+}

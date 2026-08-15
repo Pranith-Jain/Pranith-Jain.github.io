@@ -1,0 +1,12 @@
+{
+  "id": 3408,
+  "name": "OSINT Winnti OpSMN new malware RE report by Novetta",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #683 (5523e803-a6ac-4679-95ee-4382950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3408"
+}

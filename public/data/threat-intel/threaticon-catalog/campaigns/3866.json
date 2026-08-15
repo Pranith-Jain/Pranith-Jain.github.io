@@ -1,0 +1,12 @@
+{
+  "id": 3866,
+  "name": "pear: Indian Creek Valley Water Authority",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Public Sector | Website: icvwater.org | Infostealer data confirmed. | Indian Creek Valley Water Authority | Source: https://www.ransomware.live/id/SW5kaWFuIENyZWVrIFZhbGxleSBXYXRlciBBdXRob3JpdHlAcGVhcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3866"
+}

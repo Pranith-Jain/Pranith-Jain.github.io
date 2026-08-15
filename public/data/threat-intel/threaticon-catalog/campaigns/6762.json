@@ -1,0 +1,12 @@
+{
+  "id": 6762,
+  "name": "incransom: PARTNERED HEALTH GROUP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: AU | Sector: Healthcare | PARTNERED HEALTH GROUP — Australia ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Industry: Healthcare — Primary Care, Occupational Health, Psychology, Telehealth Headquarters: Australia (NSW, QLD, VIC, WA, ACT) Owner: Quadrant Private Equity Clinics: 60+ nationwide Brands: Partnered Health Medical Centres, Jobfit, Baseline Onsite, New View Psychology, NewPsych, Australian EAP, Fuel Your Life, Northcare Physio, TeleWell Website: partneredhealth.com.au PENDING ACQUISITION: Bupa — ~$450,000,000 AUD Announced July 2, 2026 (Australian Financial Review) ACCC and FIRB regulatory approval pending. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ BREACH SUMMARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Date of access: 23 June 2026 Data exfiltrated: 3.2 TB Total...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6762"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1813,
+  "name": "coinbasecartel: JBS Brazil - We have 3TB of your data",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: BR | Sector: Agriculture and Food Production | Website: jbs.com.br | Infostealer data confirmed. | JBS Brazil is a multinational food company primarily engaged in the production and processing of meat, including beef, poultry, and pork. It operates globally, offering a wide range of food product... | Source: https://www.ransomware.live/id/SkJTIEJyYXppbCAtIFdlIGhhdmUgM1RCIG9mIHlvdXIgZGF0YUBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1813"
+}

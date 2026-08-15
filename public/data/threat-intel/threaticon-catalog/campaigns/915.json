@@ -1,0 +1,12 @@
+{
+  "id": 915,
+  "name": "coinbasecartel: Scholle IPN - 1.7 TB Data",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: CH | Sector: Manufacturing | Website: scholleipn.com | Infostealer data confirmed. | [AI generated] Scholle IPN is a global packaging manufacturer headquartered in the United States. The company specializes in flexible packaging solutions, including bag-in-box systems, spouted pouches, and aseptic packaging. It serves industries such as food and beverage, chemicals, and industrial markets. Scholle IPN operates manufacturing facilities across multiple countries and is recognized for its innovations in liquid and semi-liquid product packaging. | Source: https://www.ransomware.live/id/U2Nob2xsZSBJUE4gLSAxLjcgVEIgRGF0YUBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/915"
+}

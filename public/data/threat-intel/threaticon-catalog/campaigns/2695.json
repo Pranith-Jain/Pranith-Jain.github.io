@@ -1,0 +1,12 @@
+{
+  "id": 2695,
+  "name": "OSINT - New Arena Crysis Ransomware Variant Released",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1147 (59a3d08d-5dc8-4153-bc7c-456d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2695"
+}

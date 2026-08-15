@@ -1,0 +1,12 @@
+{
+  "id": 2246,
+  "name": "OSINT - SURGE IN SPAM CAMPAIGN DELIVERING LOCKY RANSOMWARE DOWNLOADERS",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #373 (56f58bcc-96e4-49d2-bc8b-faf7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2246"
+}

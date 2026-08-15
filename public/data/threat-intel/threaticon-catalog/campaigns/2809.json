@@ -1,0 +1,12 @@
+{
+  "id": 2809,
+  "name": "OSINT - APT15 is alive and strong: An analysis of RoyalCli and RoyalDNS",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1318 (5aa670db-6ef0-4d81-8e90-9476950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2809"
+}

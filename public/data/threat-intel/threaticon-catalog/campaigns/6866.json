@@ -1,0 +1,12 @@
+{
+  "id": 6866,
+  "name": "thegentlemen: CRB group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: BR | Sector: Professional Services | Website: crbgroup.com | Infostealer data confirmed. | crbgroup.com zoominfo.com/c/crb-group-gmbh/23317692 CRB is a leading global provider of sustainable engineering, architecture, construction, and consulting solutions, primarily serving the life sciences and food & beverage industries. Headquartered in Kansas City, Missouri, the company specializes in designing and building advanced facilities, such as cell and gene therapy laboratories and high-quality food manufacturing plants. With a strong international presence, CRB is dedicated to delivering innovative, safe, and efficient infrastructure that improves patient outcomes and advances scientific breakthroughs worldwide | Source: https://www.ransomware.live/id/Q1JCIGdyb3VwQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6866"
+}

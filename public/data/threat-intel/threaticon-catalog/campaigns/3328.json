@@ -1,0 +1,12 @@
+{
+  "id": 3328,
+  "name": "Malspam 2016-05-26 - Locky - samples reversed, xored (0x73 or 0x1c); samples reversed + long xor key",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #564 (57469dce-e55c-4edc-8e0b-43a6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3328"
+}

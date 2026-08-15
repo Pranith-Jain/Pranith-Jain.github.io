@@ -1,0 +1,12 @@
+{
+  "id": 7373,
+  "name": "L Group: immobilia.hu",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "May 15, 2025",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to L Group. | Country: HU | Sector: Retail & E-Commerce | Website: immobilia.hu | [AI generated] immobilia.hu is a Hungarian real estate platform operating in Hungary. The website serves as an online property marketplace where users can browse, list, and search for residential and commercial real estate, including apartments, houses, and land. It connects buyers, sellers, and renters within the Hungarian property market. The platform targets individuals and agencies looking to conduct real estate transactions across Hungary. | Source: https://www.ransomware.live/id/aW1tb2JpbGlhLmh1QEwgR3JvdXA=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7373"
+}

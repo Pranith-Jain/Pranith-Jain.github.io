@@ -1,0 +1,12 @@
+{
+  "id": 688,
+  "name": "payload: Franziskusschule Wilhelmshaven",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Education | Website: franziskus-whv.de | Infostealer data confirmed. | Franziskusschule Wilhelmshaven is a school located in Wilhelmshaven, a city in northern Germany on the North Sea coast. The name “Franziskusschule” indicates that it is a Franciscan or Catholic school, often inspired by the values of Saint Francis of Assisi, emphasizing community, social responsibility, and moral education alongside academic learning. | Source: https://www.ransomware.live/id/RnJhbnppc2t1c3NjaHVsZSBXaWxoZWxtc2hhdmVuQHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/688"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1829,
+  "name": "tengu: Eos Technology srl",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to tengu. | Country: IT | Sector: Technology | Website: eostechnology.net | Infostealer data confirmed. | Eos Technology srl is a company with 15 years of experience in the ICT sector, initially starting as an assembly and repair laboratory for PCs and peripherals. Over time, it has developed expertise that has allowed it to become a partner of various international brands. The company offers a range of services including IT assistance, multimedia services, help desk support, corporate security systems, and the design of virtual switchboards and video surveillance systems. Eos Technology srl aims to provide consulting services to clients navigating the dynamic audiovisual ICT landscape. | Source: https://www.ransomware.live/id/RW9zIFRlY2hub2xvZ3kgc3JsQHRlbmd1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1829"
+}

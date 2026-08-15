@@ -1,0 +1,12 @@
+{
+  "id": 2022,
+  "name": "ELF Linux/Torte infection (in Wordpress) - MMD-0050-2016",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #33 (56d767d0-d4d4-44a9-9fab-512ac0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2022"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2114,
+  "name": "Reversed C2 traffic from China",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #140 (5af9abf3-4600-4449-8ded-4c74c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2114"
+}

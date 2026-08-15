@@ -1,0 +1,12 @@
+{
+  "id": 166,
+  "name": "Renamed Legitimate Utility Execution with Metadata Mismatch and Suspicious Path",
+  "detId": "DET0005",
+  "stixId": "x-mitre-detection-strategy--c2648552-806d-40ec-8ea7-59f4e44983eb",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0012", "AN0013", "AN0014"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/166"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1448,
+  "name": "worldleaks: Pearce Services",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Business Services | Website: pearce-services.com | Infostealer data confirmed. | [AI generated] Pearce Services is a provider of mission-critical services maintaining and repairing infrastructure for telecommunications, renewable energy, and electric vehicle (EV) charging networks. It offers specialized services including design, installation, maintenance, repair, and replacement solutions. The firm caters to blue-chip companies across the US, rendering services to help prolong the lifecycle of their infrastructure, promote network efficiency and reliability. | Source: https://www.ransomware.live/id/UGVhcmNlIFNlcnZpY2VzQHdvcmxkbGVha3M=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1448"
+}

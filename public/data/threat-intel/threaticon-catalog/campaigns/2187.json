@@ -1,0 +1,12 @@
+{
+  "id": 2187,
+  "name": "Potential SpamBots (2016-03-15)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #234 (56e7fbe0-55e4-4d2d-ac65-4b19950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2187"
+}

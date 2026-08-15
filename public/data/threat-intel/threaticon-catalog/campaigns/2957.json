@@ -1,0 +1,12 @@
+{
+  "id": 2957,
+  "name": "Mitigating Brute Force Attacks on NetScaler Devices",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1784 (946c05c1-d7b6-4420-b88a-aa2b24addd81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2957"
+}

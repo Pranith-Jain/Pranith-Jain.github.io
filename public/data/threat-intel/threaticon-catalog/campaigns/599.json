@@ -1,0 +1,12 @@
+{
+  "id": 599,
+  "name": "qilin: Hoeren Gartencenter GmbH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Consumer Services | Website: www.blumen-hoeren.de | Source: https://www.ransomware.live/id/SG9lcmVuIEdhcnRlbmNlbnRlciBHbWJIQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/599"
+}

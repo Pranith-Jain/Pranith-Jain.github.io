@@ -1,0 +1,12 @@
+{
+  "id": 1429,
+  "name": "qilin: AGENCAVI SRL",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: IT | Sector: Not Found | Website: www.agencavi.com | Source: https://www.ransomware.live/id/QUdFTkNBVkkgU1JMQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1429"
+}

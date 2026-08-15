@@ -1,0 +1,12 @@
+{
+  "id": 1883,
+  "name": "dragonforce: ukimportservices.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Transportation/Logistics | Website: importservices.co.uk | Infostealer data confirmed. | Import Services Ltd (importservices.co.uk) is a Southampton-based UK logistics company specializing in retail supply chain services, contract warehousing, freight forwarding, order fulfillment, and port-centric distribution for imports and domestic operations. breched with love 3 | Source: https://www.ransomware.live/id/dWtpbXBvcnRzZXJ2aWNlcy5jb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1883"
+}

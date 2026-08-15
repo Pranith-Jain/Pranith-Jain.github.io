@@ -1,0 +1,12 @@
+{
+  "id": 612,
+  "name": "Behavioral Detection for T1490 - Inhibit System Recovery",
+  "detId": "DET0329",
+  "stixId": "x-mitre-detection-strategy--b13116ed-e9c0-4cd5-81f6-676074078477",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0933", "AN0934", "AN0935", "AN0936", "AN0937"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/612"
+}

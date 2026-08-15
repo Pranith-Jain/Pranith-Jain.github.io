@@ -1,0 +1,12 @@
+{
+  "id": 2347,
+  "name": "OSINT - Retefe banking Trojan targets UK banking customers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #589 (57721a0d-8c48-47a5-86d4-458c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2347"
+}

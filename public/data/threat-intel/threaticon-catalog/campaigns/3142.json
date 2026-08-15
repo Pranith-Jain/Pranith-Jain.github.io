@@ -1,0 +1,12 @@
+{
+  "id": 3142,
+  "name": "Banco Estado Chile REvil attack",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #232 (5f573f53-5ac0-44f3-9756-d686c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3142"
+}

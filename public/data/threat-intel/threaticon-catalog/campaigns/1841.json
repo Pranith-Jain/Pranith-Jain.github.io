@@ -1,0 +1,12 @@
+{
+  "id": 1841,
+  "name": "akira: Business Automation Specialists of Minnesota",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Technology | Website: bautomation.com | Infostealer data confirmed. | Business Automation Specialists (BASM) is a Microsoft Partner tha t focuses on providing implementation, consultation, customizatio n, and support for Microsoft Dynamics 365 Business Central and NA V. We will upload 10 gb of corporate data soon. Employee personal fi les (passports, DLs, medical files), NDAs, contracts and agreemen ts, financials, projects, clients' files, internal confidential f iles, and so on. | Source: https://www.ransomware.live/id/QnVzaW5lc3MgQXV0b21hdGlvbiBTcGVjaWFsaXN0cyBvZiBNaW5uZXNvdGFAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1841"
+}

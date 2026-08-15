@@ -1,0 +1,12 @@
+{
+  "id": 374,
+  "name": "SilentRansomGroup: Floyd Skeren Manukian Langevin, LLP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: floydskerenlaw.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/RmxveWQgU2tlcmVuIE1hbnVraWFuIExhbmdldmluLCBMTFBAU2lsZW50UmFuc29tR3JvdXA=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/374"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 784,
+  "name": "thegentlemen: PsychPlus",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: psychplus.com | Infostealer data confirmed. | psychplus.com zoominfo.com/c/psychplus/1319245304 PsychPlus is a Houston-based mental health company founded in 2019–2020, offering virtual and in-person care via licensed psychiatrists and therapists. It focuses on accessibility by accepting 99% of commercial insurances (including Medicare/Medicaid), providing same/next-day appointments, and enabling 24/7 online booking through its app and EHR platform, with over 200 providers and plans to expand into 20 new U.S. markets in 2025 | Source: https://www.ransomware.live/id/UHN5Y2hQbHVzQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/784"
+}

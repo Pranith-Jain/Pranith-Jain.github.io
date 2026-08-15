@@ -1,0 +1,12 @@
+{
+  "id": 2068,
+  "name": "COBALT Logical attacks on ATMs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #88 (583fc655-e660-4b7c-b17b-09c6c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2068"
+}

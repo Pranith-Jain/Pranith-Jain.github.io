@@ -1,0 +1,12 @@
+{
+  "id": 3255,
+  "name": "New TTPs observed in Mint Sandstorm campaign targeting high-profile individuals at universities and research orgs",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #435 (86ed0c69-e420-4607-bcf8-9101bc260b8f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3255"
+}

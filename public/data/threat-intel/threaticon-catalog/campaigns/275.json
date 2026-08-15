@@ -1,0 +1,12 @@
+{
+  "id": 275,
+  "name": "worldleaks: SMTA Sherwood Mutual Telephone Association",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Telecommunication | Website: smta.cc | Infostealer data confirmed. | [AI generated] SMTA Sherwood Mutual Telephone Association is a cooperative telecommunications provider based in the United States. It operates in the rural telecommunications industry, offering telephone and related communication services to members in the Sherwood, North Dakota area. As a mutual association, it is member-owned and focused on delivering reliable local and long-distance voice services to underserved rural communities. | Source: https://www.ransomware.live/id/U01UQSBTaGVyd29vZCBNdXR1YWwgVGVsZXBob25lIEFzc29jaWF0aW9uQHdvcmxkbGVha3M=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/275"
+}

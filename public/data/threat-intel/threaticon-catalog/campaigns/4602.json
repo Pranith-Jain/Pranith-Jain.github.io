@@ -1,0 +1,12 @@
+{
+  "id": 4602,
+  "name": "BrainCipher: eggetttax.ca",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 22, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to BrainCipher. | Country: CA | Sector: Agriculture and Food Production | Website: eggetttax.ca | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/ZWdnZXR0dGF4LmNhQEJyYWluQ2lwaGVy",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4602"
+}

@@ -123,7 +123,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                 <span className="h-2 w-2 rounded-full shrink-0" style={{ background: n?.color }} />
                 <span className="flex-1 truncate whitespace-nowrap">{x.name}</span>
                 {x.apt && (
-                  <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap">
                     {x.apt}
                   </span>
                 )}
@@ -150,7 +150,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                 {a.apt && <span className="chip chip-blue">{a.apt}</span>}
                 {a.mitre_id && <span className="chip">{a.mitre_id}</span>}
               </div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+              <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
                 {a.aka.slice(0, 5).join(' · ')}
               </div>
             </div>
@@ -324,7 +324,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                     >
                       <Icon size={14} className="mx-auto mb-1" style={{ color: f.accent }} />
                       <div
-                        className="text-[10px] font-mono uppercase tracking-wider"
+                        className="text-micro font-mono uppercase tracking-wider"
                         style={{ color: activeFacet === f.key ? f.accent : 'var(--text-tertiary)' }}
                       >
                         {f.label}
@@ -346,10 +346,10 @@ export function DiamondView({ actors, onOpen }: Props) {
                     <facet.icon size={16} />
                   </span>
                   <div>
-                    <div className="text-[13px] font-semibold" style={{ color: facet.accent }}>
+                    <div className="text-tool font-semibold" style={{ color: facet.accent }}>
                       {fd.title}
                     </div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400">{fd.sub}</div>
+                    <div className="text-mini text-slate-500 dark:text-slate-400">{fd.sub}</div>
                   </div>
                 </div>
                 <div className="text-[15px] font-semibold text-slate-900 dark:text-slate-100 mb-4">{fd.primary}</div>
@@ -360,7 +360,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                       key={i}
                       className="flex items-start gap-3 py-1.5 px-2 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200 hover:-translate-y-px"
                     >
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 w-20 shrink-0 pt-0.5">
+                      <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 w-20 shrink-0 pt-0.5">
                         {item.label}
                       </span>
                       {item.link ? (
@@ -389,7 +389,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                   <div className="space-y-2">
                     {a.sector_scores.map((s) => (
                       <div key={s.sector} className="flex items-center gap-3">
-                        <span className="w-32 text-[12px] text-slate-600 dark:text-slate-400 capitalize shrink-0">
+                        <span className="w-32 text-meta text-slate-600 dark:text-slate-400 capitalize shrink-0">
                           {s.sector}
                         </span>
                         <div
@@ -404,7 +404,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                             }}
                           />
                         </div>
-                        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
+                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
                           {s.score}
                         </span>
                       </div>
@@ -446,7 +446,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                     <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
                       {a.ttps.length}
                     </div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       MITRE TTPs
                     </div>
                   </div>
@@ -454,7 +454,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                     <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
                       {a.malware.length}
                     </div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       Malware
                     </div>
                   </div>
@@ -462,7 +462,7 @@ export function DiamondView({ actors, onOpen }: Props) {
                     <div className="text-[20px] font-mono font-semibold text-slate-900 dark:text-slate-100">
                       {a.cves.length}
                     </div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       CVEs
                     </div>
                   </div>

@@ -1,0 +1,12 @@
+{
+  "id": 3469,
+  "name": "Blueliv Vawtrak v2",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #915 (582448cc-8644-4ca1-81df-4b86950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3469"
+}

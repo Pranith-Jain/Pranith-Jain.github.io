@@ -1,0 +1,12 @@
+{
+  "id": 3323,
+  "name": "OSINT - Operation Ke3chang Resurfaces With New TidePool Malware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #556 (5742ea44-5ff4-4634-99c9-4b32950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3323"
+}

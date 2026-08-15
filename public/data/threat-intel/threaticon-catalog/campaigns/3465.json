@@ -1,0 +1,12 @@
+{
+  "id": 3465,
+  "name": "OSINT - Lifting the lid on Sednit: A closer look at the software it uses",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #906 (580f62f3-271c-4ba1-8b07-4c0d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3465"
+}

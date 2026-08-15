@@ -1,0 +1,12 @@
+{
+  "id": 2239,
+  "name": "OSINT - Petya Ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #364 (56f4132b-be7c-4d2a-a00c-4a91950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2239"
+}

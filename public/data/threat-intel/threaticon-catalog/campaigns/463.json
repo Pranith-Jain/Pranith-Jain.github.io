@@ -1,0 +1,12 @@
+{
+  "id": 463,
+  "name": "dragonforce: wmsopko.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: UA | Sector: Manufacturing | Website: wmsopko.com | Infostealer data confirmed. | Wm. Sopko & Sons Co. supplies and distributes the full line of Dumore automatic self-feeding drilling and threading equipment | Source: https://www.ransomware.live/id/d21zb3Brby5jb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/463"
+}

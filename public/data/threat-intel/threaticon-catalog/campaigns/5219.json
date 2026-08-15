@@ -1,0 +1,12 @@
+{
+  "id": 5219,
+  "name": "qilin: Providence Medical Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.provmedgroup.com | N/A | Source: https://www.ransomware.live/id/UHJvdmlkZW5jZSBNZWRpY2FsIEdyb3VwQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5219"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3320,
+  "name": "A Detailed Examination of the Siesta Campaign",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #548 (57317fb9-814c-466d-9151-4594950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3320"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3191,
+  "name": "Locky (2016-03-16)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #317 (56e986fb-08c0-442c-a3f3-5390950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3191"
+}

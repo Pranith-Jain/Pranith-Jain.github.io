@@ -1,0 +1,12 @@
+{
+  "id": 2818,
+  "name": "OSINT - Botnet exploiting GPON Vulnerability",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1348 (5af412ea-4254-4668-b1ea-44bc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2818"
+}

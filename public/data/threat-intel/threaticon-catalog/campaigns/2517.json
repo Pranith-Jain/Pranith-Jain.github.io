@@ -1,0 +1,12 @@
+{
+  "id": 2517,
+  "name": "Malspam 2016-09-16 (.js in .zip) - campaign: \"Re: request\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #875 (57dba07b-c36c-4d98-88ac-450e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2517"
+}

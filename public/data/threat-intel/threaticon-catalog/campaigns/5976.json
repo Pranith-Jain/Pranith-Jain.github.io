@@ -1,0 +1,12 @@
+{
+  "id": 5976,
+  "name": "nightspire: Auto Royal Company",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: IT | Sector: Manufacturing | Website: www.autoroyalcompany.it | More than 100GB of SQLInfinity Database | Source: https://www.ransomware.live/id/QXV0byBSb3lhbCBDb21wYW55QG5pZ2h0c3BpcmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5976"
+}

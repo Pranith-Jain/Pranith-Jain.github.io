@@ -1,0 +1,12 @@
+{
+  "id": 4750,
+  "name": "cloak: ra-*******e",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 16, 2026",
+  "lastSeen": "Jun 16, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to cloak. | Sector: Not Found | Country: *** | Size: 1.1TB | Private | Views: 1 | Source: https://www.ransomware.live/id/cmEtKioqKioqKmVAY2xvYWs=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4750"
+}

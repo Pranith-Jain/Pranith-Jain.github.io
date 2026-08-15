@@ -1,0 +1,12 @@
+{
+  "id": 2821,
+  "name": "Keylogger info via Twitter Feed",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1353 (5b043df6-f10c-4de2-a499-2f0d0acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2821"
+}

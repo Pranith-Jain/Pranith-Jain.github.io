@@ -1,0 +1,12 @@
+{
+  "id": 6551,
+  "name": "qilin: Wilbert's",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Retail & E-Commerce | Website: www.wilberts.com | N/A | Source: https://www.ransomware.live/id/V2lsYmVydCdzQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6551"
+}

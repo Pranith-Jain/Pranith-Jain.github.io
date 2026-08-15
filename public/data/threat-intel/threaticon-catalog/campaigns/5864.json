@@ -1,0 +1,12 @@
+{
+  "id": 5864,
+  "name": "nova: Dephub",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 19, 2026",
+  "lastSeen": "Jul 19, 2026",
+  "added": "Jul 19, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: ID | Sector: Not Found | Website: kemenhub.go.id | Infostealer data confirmed. | Directorate of Shipping and Maritime Affairs Jl. Medan Merdeka Barat No. 8 Jakarta, Indonesia 10110 | Source: https://www.ransomware.live/id/RGVwaHViQG5vdmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5864"
+}

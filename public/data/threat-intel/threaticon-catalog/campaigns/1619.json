@@ -1,0 +1,12 @@
+{
+  "id": 1619,
+  "name": "akira: Porsche Zentrum Fulda",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Consumer Services | Website: porsche-fulda.de | Infostealer data confirmed. | Porsche Zentrum Fulda is a dealership offering both new and used Porsche vehicles, including popular models like the Taycan, 911, and Macan. The company provides a range of services including veh icle maintenance, financing options, and lifestyle accessories. We will upload 10gb of corporate data soon. Employee passports an d other documents, projects, contracts and agreements, internal c onfidential files, client files and so on. | Source: https://www.ransomware.live/id/UG9yc2NoZSBaZW50cnVtIEZ1bGRhQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1619"
+}

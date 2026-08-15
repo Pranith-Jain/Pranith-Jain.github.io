@@ -1,0 +1,12 @@
+{
+  "id": 2870,
+  "name": "Fake amf-fr.org website delivering malicious Word document and binaries",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1482 (5c687cb3-08c4-46d3-9981-093702de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2870"
+}

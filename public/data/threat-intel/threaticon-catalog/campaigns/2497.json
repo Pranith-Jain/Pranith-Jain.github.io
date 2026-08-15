@@ -1,0 +1,12 @@
+{
+  "id": 2497,
+  "name": "Malspam 2016-09-05 (.wsf in .zip)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #850 (57cd8beb-79e4-4497-931f-4249950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2497"
+}

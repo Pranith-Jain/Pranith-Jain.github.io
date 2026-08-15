@@ -1,0 +1,12 @@
+{
+  "id": 6600,
+  "name": "safepay: hst.eu",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: hst.eu | Headquartered in Kressbronn am Bodensee, Germany, the company traces its mechanical engineering heritage back to 1950, while the original tea … | Source: https://www.ransomware.live/id/aHN0LmV1QHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6600"
+}

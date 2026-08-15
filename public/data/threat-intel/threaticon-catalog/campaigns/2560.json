@@ -1,0 +1,12 @@
+{
+  "id": 2560,
+  "name": "OSINT - Astrum Drops",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #936 (58497a8d-4fb8-4155-a101-4a51950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2560"
+}

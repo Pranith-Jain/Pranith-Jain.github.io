@@ -1,0 +1,12 @@
+{
+  "id": 5799,
+  "name": "krybit: euroins.bg",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 18, 2026",
+  "lastSeen": "Jul 18, 2026",
+  "added": "Jul 18, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: BG | Sector: Financial Services | Website: euroins.bg | Infostealer data confirmed. | Euroins Insurance Company AD (Застрахователна компания Евроинс АД) is one of the first a... | Source: https://www.ransomware.live/id/ZXVyb2lucy5iZ0BrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5799"
+}

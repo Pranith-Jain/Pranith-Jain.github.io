@@ -1,0 +1,12 @@
+{
+  "id": 3292,
+  "name": "New North-Korean based backdoor packs a punch",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #511 (9ca40e0a-5249-4de0-885b-aa85bb7414c3).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3292"
+}

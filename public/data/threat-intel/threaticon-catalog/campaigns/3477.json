@@ -1,0 +1,12 @@
+{
+  "id": 3477,
+  "name": "OSINT - The rise of TeleBots: Analyzing disruptive KillDisk attacks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #941 (58503e2f-4c78-442d-833f-8ad202de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3477"
+}

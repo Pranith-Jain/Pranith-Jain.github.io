@@ -1,0 +1,12 @@
+{
+  "id": 359,
+  "name": "Behavioral Detection of Malicious File Deletion",
+  "detId": "DET0140",
+  "stixId": "x-mitre-detection-strategy--b96fce76-6b29-4e1c-b8b1-741f45a89fdc",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0392", "AN0393", "AN0394", "AN0395"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/359"
+}

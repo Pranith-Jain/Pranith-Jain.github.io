@@ -1,0 +1,12 @@
+{
+  "id": 3340,
+  "name": "Malspam 2016-06-28 (Locky campaign subject: 'Updated')",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #588 (57721299-5610-4220-97b0-4329950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3340"
+}

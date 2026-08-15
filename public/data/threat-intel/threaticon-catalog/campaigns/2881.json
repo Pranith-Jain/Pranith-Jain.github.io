@@ -1,0 +1,12 @@
+{
+  "id": 2881,
+  "name": "OSINT - FlawedAmmy RAT",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1524 (5cf51bbd-6180-4dc7-a2dd-4baa950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2881"
+}

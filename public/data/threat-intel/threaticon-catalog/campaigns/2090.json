@@ -1,0 +1,12 @@
+{
+  "id": 2090,
+  "name": "New KONNI Campaign References North Korean Missile Capabilities",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #113 (595df32b-59f0-4cb3-b235-52e3c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2090"
+}

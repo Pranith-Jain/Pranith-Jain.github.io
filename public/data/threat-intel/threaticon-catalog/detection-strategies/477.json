@@ -1,0 +1,12 @@
+{
+  "id": 477,
+  "name": "Behavioral Detection of Unix Shell Execution",
+  "detId": "DET0384",
+  "stixId": "x-mitre-detection-strategy--4a89bf52-7be1-405d-8d02-462e52553bc5",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1081", "AN1082", "AN1083", "AN1084"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/477"
+}

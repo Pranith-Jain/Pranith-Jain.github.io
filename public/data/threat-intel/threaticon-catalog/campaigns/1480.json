@@ -1,0 +1,12 @@
+{
+  "id": 1480,
+  "name": "dragonforce: Construction Equipment Parts",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: ceparts.com | Infostealer data confirmed. | Construction Equipment Parts, LLC is a dismantler specializing in heavy equipment parts for various brands, including wheel loaders, excavators, and articulated haulers. They provide a broad selection of new, used, rebuilt, and aftermarket parts tailored to clients who prioritize economic and environmental considerations. With over 200,000 parts available for shipping and expert sales support, they cater to all heavy equipment part needs. The company serves a diverse clientele in the construction industry, ensuring access to reliable equipment components | Source: https://www.ransomware.live/id/Q29uc3RydWN0aW9uIEVxdWlwbWVudCBQYXJ0c0BkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1480"
+}

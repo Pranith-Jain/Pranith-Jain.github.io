@@ -1,0 +1,12 @@
+{
+  "id": 5612,
+  "name": "play: AG Scholtes",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to play. | Country: NL | Sector: Manufacturing | Website: www.agscholtes.nl | Netherlands | Source: https://www.ransomware.live/id/QUcgU2Nob2x0ZXNAcGxheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5612"
+}

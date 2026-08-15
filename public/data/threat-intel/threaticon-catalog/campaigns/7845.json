@@ -1,0 +1,12 @@
+{
+  "id": 7845,
+  "name": "thegentlemen: Avanta Maroc Ex Adecco",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 14, 2026",
+  "lastSeen": "Aug 14, 2026",
+  "added": "Aug 14, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: MA | Sector: Professional Services | Website: avanta.ma | avanta.ma rocketreach.co/avanta-maroc-ex-adecco-profile_b7352c87c4297b95 Avanta Maroc, formerly known as Adecco Maroc, is a prominent human resources and recruitment agency based in Casablanca, Morocco. The company specializes in connecting job seekers with top employers by offering tailored workforce solutions and staffing services. Their platform serves as a vital hub for career opportunities, professional development, and corporate HR management across various industries in the region. | Source: https://www.ransomware.live/id/QXZhbnRhIE1hcm9jIEV4IEFkZWNjb0B0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7845"
+}

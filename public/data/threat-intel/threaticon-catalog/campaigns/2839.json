@@ -1,0 +1,12 @@
+{
+  "id": 2839,
+  "name": "Registrant Tracking for \"earthalgerrity@armyspy.com\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1383 (5b310846-157c-46d7-8141-89f00acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2839"
+}

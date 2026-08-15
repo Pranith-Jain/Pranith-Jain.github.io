@@ -1,0 +1,12 @@
+{
+  "id": 390,
+  "name": "Detection of Compromise Infrastructure",
+  "detId": "DET0885",
+  "stixId": "x-mitre-detection-strategy--7f3e2c35-7394-4cc6-baef-73a830930953",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2017"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/390"
+}

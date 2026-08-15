@@ -1,0 +1,12 @@
+{
+  "id": 4520,
+  "name": "settra: lifevantage.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 28, 2026",
+  "lastSeen": "Jun 4, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to settra. | Country: US | Sector: Consumer Services | Website: lifevantage.com | Infostealer data confirmed. | THE NEUTRALIZING FACTOR: How LifeVantage Corporation Profits from Hope and Buries the Truth PROLOGUE... | Source: https://www.ransomware.live/id/bGlmZXZhbnRhZ2UuY29tQHNldHRyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4520"
+}

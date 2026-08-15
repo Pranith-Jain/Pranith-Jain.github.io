@@ -1,0 +1,12 @@
+{
+  "id": 62,
+  "name": "Detection of Network Devices",
+  "detId": "DET0859",
+  "stixId": "x-mitre-detection-strategy--31fef61c-301b-4a3d-aced-06632e321926",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1991"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/62"
+}

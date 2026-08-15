@@ -1,0 +1,12 @@
+{
+  "id": 343,
+  "name": "Detection of Bluetooth-Based Data Exfiltration",
+  "detId": "DET0554",
+  "stixId": "x-mitre-detection-strategy--267a6c25-8d34-47ae-8357-9ae173adaa13",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1531", "AN1532", "AN1533"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/343"
+}

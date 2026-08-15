@@ -1,0 +1,12 @@
+{
+  "id": 6599,
+  "name": "safepay: landesmuseum.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Education | Website: landesmuseum.de | Infostealer data confirmed. | Established in 1919, the museum preserves and presents more than 50,000 years of human cultural history, ranging from prehistoric artifacts … | Source: https://www.ransomware.live/id/bGFuZGVzbXVzZXVtLmRlQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6599"
+}

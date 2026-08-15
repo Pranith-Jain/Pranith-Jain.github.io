@@ -1,0 +1,12 @@
+{
+  "id": 2685,
+  "name": "OSINT - The Blockbuster Saga Continues",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1128 (5991e185-1808-4a0a-8df5-c44402de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2685"
+}

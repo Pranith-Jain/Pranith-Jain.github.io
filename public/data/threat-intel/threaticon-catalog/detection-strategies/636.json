@@ -1,0 +1,12 @@
+{
+  "id": 636,
+  "name": "Detection Strategy for T1546.017 - Udev Rules (Linux)",
+  "detId": "DET0375",
+  "stixId": "x-mitre-detection-strategy--408fb023-a9d7-473c-8db8-a7d3c66eded7",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1056"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/636"
+}

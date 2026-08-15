@@ -1,0 +1,12 @@
+{
+  "id": 391,
+  "name": "apt73: bigalsfoodservice.co.uk",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: GB | Sector: Agriculture and Food Production | Website: bigalsfoodservice.co.uk | Infostealer data confirmed. | Our foodservice roots trace all the way back to a butchers shop in Dublin city centre in 1966. Ke... | Source: https://www.ransomware.live/id/YmlnYWxzZm9vZHNlcnZpY2UuY28udWtAYXB0NzM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/391"
+}

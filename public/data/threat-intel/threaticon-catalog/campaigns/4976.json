@@ -1,0 +1,12 @@
+{
+  "id": 4976,
+  "name": "PrinzEugen: Spratley's",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 9, 2026",
+  "lastSeen": "Jun 4, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to PrinzEugen. | Sector: Consumer Services | Hundreds of GBs of data encrypted across company file shares. If you would like the decryption key you just need to ask. | Source: https://www.ransomware.live/id/U3ByYXRsZXknc0BQcmluekV1Z2Vu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4976"
+}

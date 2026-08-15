@@ -1,0 +1,12 @@
+{
+  "id": 126,
+  "name": "Detection Strategy for Command Obfuscation",
+  "detId": "DET0505",
+  "stixId": "x-mitre-detection-strategy--72d668ba-f4d1-43ff-b7b1-0dbad9ec6ed9",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1394", "AN1395", "AN1396"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/126"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2394,
+  "name": "OSINT Macro documents with XOR Encoded Payloads by PhishMe",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #722 (56425772-8500-45c6-9575-6056950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2394"
+}

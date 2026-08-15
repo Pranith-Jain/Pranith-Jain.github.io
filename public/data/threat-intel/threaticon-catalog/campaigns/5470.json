@@ -1,0 +1,12 @@
+{
+  "id": 5470,
+  "name": "chaos: sleemanbreweries.ca",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 14, 2026",
+  "lastSeen": "Jul 14, 2026",
+  "added": "Jul 14, 2026",
+  "description": "Ransomware attack attributed to chaos. | Country: CA | Sector: Agriculture and Food Production | Website: www.sleemanbreweries.ca | Sleeman Breweries was founded in 1851 and headquartered in Guelph, Ontario. The company now markets and distributes world-class domestic and imported products. | Press: https://scan.netsecurity.ne.jp/article/2026/06/29/55590.html | Source: https://www.ransomware.live/id/c2xlZW1hbmJyZXdlcmllcy5jYUBjaGFvcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5470"
+}

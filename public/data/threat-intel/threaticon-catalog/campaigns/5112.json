@@ -1,0 +1,12 @@
+{
+  "id": 5112,
+  "name": "incransom: trrac.net",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 2, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Transportation/Logistics | Website: trrac.net | Infostealer data confirmed. | 150gb | Source: https://www.ransomware.live/id/dHJyYWMubmV0QGluY3JhbnNvbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5112"
+}

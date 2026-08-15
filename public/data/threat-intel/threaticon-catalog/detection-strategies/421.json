@@ -1,0 +1,12 @@
+{
+  "id": 421,
+  "name": "Detection Strategy for Defense Impairment via Prevent Command History Logging across OS platforms.",
+  "detId": "DET0563",
+  "stixId": "x-mitre-detection-strategy--8577b89d-01e2-4423-8657-caff7ed22737",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1555", "AN1556", "AN1557", "AN1558", "AN1559"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/421"
+}

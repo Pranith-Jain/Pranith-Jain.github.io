@@ -1,0 +1,12 @@
+{
+  "id": 85,
+  "name": "HTRAN",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "HUC Packet Transmit Tool",
+  "confidence": 90,
+  "added": null,
+  "description": "HTRAN is a tool that proxies connections through intermediate hops and aids users in disguising their true geographical location. It can be used by adversaries to hide their location when interacting with the victim networks. (Citation: Operation Quantum Entanglement)(Citation: NCSC Joint Report Public Tools)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/85"
+}

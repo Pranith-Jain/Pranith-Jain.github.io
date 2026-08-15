@@ -1,0 +1,12 @@
+{
+  "id": 2232,
+  "name": "Threat Analysis: MSI - Masquerading as a Software Installer",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #340 (d917ff47-81e7-40fe-826a-b6ffecf3aa26).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2232"
+}

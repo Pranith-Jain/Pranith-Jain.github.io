@@ -1,0 +1,12 @@
+{
+  "id": 3300,
+  "name": "AA24-241A Iran-based Cyber Actors Enabling Ransomware Attacks on US Organizations",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #522 (dcf911ee-17b3-4902-aa15-4ecabf2e40ce).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3300"
+}

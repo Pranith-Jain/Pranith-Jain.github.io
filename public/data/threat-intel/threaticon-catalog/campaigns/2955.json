@@ -1,0 +1,12 @@
+{
+  "id": 2955,
+  "name": "Investigating FortiManager Zero-Day Exploitation (CVE-2024-47575)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1777 (4fe85264-fb26-494e-8eb7-da101e19e291).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2955"
+}

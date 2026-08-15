@@ -1,15 +1,15 @@
 {
   "slug": "inc-ransom-gamaus-com-2026-08-12",
   "title": "gamaus.com",
-  "group": "INC Ransom",
-  "discovered": "2026-08-12T00:00:00.000Z",
+  "group": "inc ransom",
+  "discovered": "2026-08-12T22:25:16.000Z",
   "category": "data_breach",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/gamaus-com-inc-ransom-2026-08",
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/inc ransom/gamauscom.png",
   "groupAliases": [],
   "activity": null,
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomlook.io"]
 }

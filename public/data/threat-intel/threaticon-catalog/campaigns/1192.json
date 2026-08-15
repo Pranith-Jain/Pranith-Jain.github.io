@@ -1,0 +1,12 @@
+{
+  "id": 1192,
+  "name": "qilin: Dow",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.dow.com | Source: https://www.ransomware.live/id/RG93QHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1192"
+}

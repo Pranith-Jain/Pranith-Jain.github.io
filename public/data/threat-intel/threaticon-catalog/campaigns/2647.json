@@ -1,0 +1,12 @@
+{
+  "id": 2647,
+  "name": "OSINT - Analysis of Emotet v4",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1071 (59282239-845c-495d-b3db-4ebb950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2647"
+}

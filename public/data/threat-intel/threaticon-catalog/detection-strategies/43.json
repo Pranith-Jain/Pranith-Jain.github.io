@@ -1,0 +1,12 @@
+{
+  "id": 43,
+  "name": "Detection Strategy for Network Sniffing Across Platforms",
+  "detId": "DET0314",
+  "stixId": "x-mitre-detection-strategy--49505f6d-b778-4a84-a072-9236b700e7b5",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0875", "AN0876", "AN0877", "AN0878", "AN0879"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/43"
+}

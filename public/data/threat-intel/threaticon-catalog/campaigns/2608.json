@@ -1,0 +1,12 @@
+{
+  "id": 2608,
+  "name": "OSINT - RawPOS Malware Rides Again",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1015 (58ceba55-4618-4c0d-8dc7-61b102de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2608"
+}

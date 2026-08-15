@@ -1,0 +1,12 @@
+{
+  "id": 1023,
+  "name": "thegentlemen: Zamek Namest",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CZ | Sector: Hospitality and Tourism | Website: zamek-namest.cz | Infostealer data confirmed. | zamek-namest.cz is a historic Czech town famous for its Renaissance chateau and a unique 18th-century Baroque bridge decorated with 20 statues. It serves as a cultural hub in the Vysocina region, hosting the popular Folk Holidays music festival and various art exhibitions. The town is also strategically significant due to its proximity to the Namest military airbase and the Dukovany nuclear power plant | Source: https://www.ransomware.live/id/WmFtZWsgTmFtZXN0QHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1023"
+}

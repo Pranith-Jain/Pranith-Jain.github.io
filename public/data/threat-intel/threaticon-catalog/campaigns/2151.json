@@ -1,0 +1,12 @@
+{
+  "id": 2151,
+  "name": "Sodinokibi ransomware exploits WebLogic Server vulnerability",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #188 (5cca9118-b228-4d3e-8db6-07fbc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2151"
+}

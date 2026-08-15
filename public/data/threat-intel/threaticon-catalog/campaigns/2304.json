@@ -1,0 +1,12 @@
+{
+  "id": 2304,
+  "name": "Distinctive Campaign Evolution of Pikabot Malware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #484 (097a9dd2-e8db-467a-acb3-907f41f27044).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2304"
+}

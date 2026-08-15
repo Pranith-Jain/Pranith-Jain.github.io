@@ -1,0 +1,12 @@
+{
+  "id": 3348,
+  "name": "OSINT - The Dropping Elephant â€“ aggressive cyber-espionage in the Asian region",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #603 (57821cf6-9750-4857-9803-29fd02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3348"
+}

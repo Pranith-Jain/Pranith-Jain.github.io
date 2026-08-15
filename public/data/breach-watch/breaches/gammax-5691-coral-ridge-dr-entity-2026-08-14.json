@@ -1,0 +1,15 @@
+{
+  "slug": "gammax-5691-coral-ridge-dr-entity-2026-08-14",
+  "title": "5691 Coral Ridge Dr Entity",
+  "group": "Gammax",
+  "discovered": "2026-08-14T02:49:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/543978a5-52c1-4be8-a434-80eff9a28252",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["Darkfield"]
+}

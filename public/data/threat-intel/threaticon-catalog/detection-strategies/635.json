@@ -1,0 +1,12 @@
+{
+  "id": 635,
+  "name": "Behavior-chain, platform-aware detection strategy for T1127 Trusted Developer Utilities Proxy Execution (Windows)",
+  "detId": "DET0172",
+  "stixId": "x-mitre-detection-strategy--f47cb8dc-2120-4541-9306-95053218ba8a",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0488"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/635"
+}

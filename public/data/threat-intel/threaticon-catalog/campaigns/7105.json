@@ -1,0 +1,12 @@
+{
+  "id": 7105,
+  "name": "Orova: Conceptual Designs, Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Other | Website: www.conceptualdesignsinc.com | Conceptual Designs, Inc. proudly provides interior design services for businesses across the Quad Cities from our studio in Bettendorf, Iowa. No matter what kind of business you own, we can help make your space match your company’s culture and values in a creative way. With over 35 years of experience, our team of designers can help bring your vision to life. | Source: https://www.ransomware.live/id/Q29uY2VwdHVhbCBEZXNpZ25zLCBJbmMuQE9yb3Zh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7105"
+}

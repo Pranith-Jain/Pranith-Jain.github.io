@@ -1,0 +1,12 @@
+{
+  "id": 2061,
+  "name": "RIG exploit kit takes on large malvertising campaign",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #81 (57eab741-2a10-4bb5-b177-80bfc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2061"
+}

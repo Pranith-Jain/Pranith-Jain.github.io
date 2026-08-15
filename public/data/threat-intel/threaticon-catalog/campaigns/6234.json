@@ -1,0 +1,12 @@
+{
+  "id": 6234,
+  "name": "Deadlock: KeNHA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: KE | Sector: Government & Defense | Website: kenha.co.ke | Infostealer data confirmed. | The Kenya National Highways Authority (KeNHA) agency responsible for the construction, management, and maintenance of national highways (classes S, A, and B) in Kenya. | Source: https://www.ransomware.live/id/S2VOSEFARGVhZGxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6234"
+}

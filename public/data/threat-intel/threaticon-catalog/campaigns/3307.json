@@ -1,0 +1,12 @@
+{
+  "id": 3307,
+  "name": "BlueAlpha Abuses Cloudflare Tunneling Service for GammaDrop Staging Infrastructure",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #529 (bee6dc05-cf55-4545-ab0f-57effe016209).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3307"
+}

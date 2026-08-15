@@ -1,0 +1,12 @@
+{
+  "id": 2825,
+  "name": "Talos Blog: Threat Roundup for May 18-25",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1360 (5b0d3d49-7be8-4be1-9d15-5d4d0acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2825"
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "TW",
   "sizeBytes": 0,
-  "description": "[AI generated] Largan Precision Co., Ltd., operating under largan.com.tw, is a Taiwanese company headquartered in Taichung, Taiwan. It is a leading manufacturer of optical lenses, primarily supplying high-precision glass and plastic lens modules for smartphone cameras. The company serves major global clients including Apple. It operates within the optical components and consumer electronics supply chain industry, making it a critical player in the global mobile device manufacturing ecosystem.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/4243fc07-8c88-4742-add1-f83d9ee03ca1",
   "groupAliases": ["Cl0p"],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

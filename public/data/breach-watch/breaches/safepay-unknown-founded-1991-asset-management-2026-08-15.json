@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-founded-1991-asset-management-2026-08-15",
+  "title": "Unknown (Founded 1991, Asset Management)",
+  "group": "safepay",
+  "discovered": "2026-08-15T02:32:18.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/d9a246d7-ad5f-4d6e-83b9-f35b31b70b67",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

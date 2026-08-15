@@ -1,0 +1,12 @@
+{
+  "id": 4973,
+  "name": "insomnia: Mid-Cumberland Human Resource Agency",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 9, 2026",
+  "lastSeen": "May 18, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Business Services | Website: www.mchra.com | MCHRA is a nonprofit promoting self-sufficiency via Meals-on-Wheels, public transit, in-home services, and community corrections. It serves adults needing care, transit users, and long-term care residents, emphasizing inclusivity and translation services. | Source: https://www.ransomware.live/id/TWlkLUN1bWJlcmxhbmQgSHVtYW4gUmVzb3VyY2UgQWdlbmN5QGluc29tbmlh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4973"
+}

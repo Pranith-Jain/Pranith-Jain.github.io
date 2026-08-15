@@ -1,0 +1,12 @@
+{
+  "id": 3466,
+  "name": "OSINT - Octopus-Rex. Evolution of a multi task Botnet",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #908 (5813ad13-c2fc-427d-b284-44cd02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3466"
+}

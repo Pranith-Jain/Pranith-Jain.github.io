@@ -1,0 +1,12 @@
+{
+  "id": 2343,
+  "name": "OSINT - PlugX goes to the registry (and India)",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #581 (551427fe-47ac-4247-93f0-c906950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2343"
+}

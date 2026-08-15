@@ -1,0 +1,12 @@
+{
+  "id": 3156,
+  "name": "IndigoZebra APT continues to attack Central Asia with evolving tools",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #263 (d8c0c469-2d3e-437a-80a1-a38bfe5998e8).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3156"
+}

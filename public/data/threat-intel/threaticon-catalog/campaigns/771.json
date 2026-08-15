@@ -1,0 +1,12 @@
+{
+  "id": 771,
+  "name": "lockbit5: vitropor.pt",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: PT | Sector: Manufacturing | Website: vitropor.pt | Infostealer data confirmed. | Tal como o nosso vidro, somos transparentes, seguros e resistentes. Com mais de 30 anos na indústri... | Source: https://www.ransomware.live/id/dml0cm9wb3IucHRAbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/771"
+}

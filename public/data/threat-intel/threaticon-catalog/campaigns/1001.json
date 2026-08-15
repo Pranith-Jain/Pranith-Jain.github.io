@@ -1,0 +1,12 @@
+{
+  "id": 1001,
+  "name": "krybit: CCCKeito.edu.hk",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: HK | Sector: Education | Website: CCCKeito.edu.hk | CCC Kei To Secondary School (中華基督教會基道中學) CCCKeito.edu.hk is the official website of this secondary ... | Source: https://www.ransomware.live/id/Q0NDS2VpdG8uZWR1LmhrQGtyeWJpdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1001"
+}

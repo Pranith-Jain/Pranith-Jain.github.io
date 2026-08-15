@@ -1,0 +1,12 @@
+{
+  "id": 1525,
+  "name": "qilin: Shwapno",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: BD | Sector: Consumer Services | Website: www.shwapno.com | Press: https://www.thedailystar.net/news/crime-justice/news/shwapno-files-gd-7-months-after-cyberattack-4138891 | Source: https://www.ransomware.live/id/U2h3YXBub0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1525"
+}

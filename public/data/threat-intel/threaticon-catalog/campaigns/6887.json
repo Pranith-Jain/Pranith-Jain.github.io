@@ -1,0 +1,12 @@
+{
+  "id": 6887,
+  "name": "genesis: ****",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Not Found | Website: . | Infostealer data confirmed. | A healthcare organization | Source: https://www.ransomware.live/id/KioqKkBnZW5lc2lz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6887"
+}

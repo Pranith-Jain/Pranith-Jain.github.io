@@ -1,0 +1,12 @@
+{
+  "id": 3086,
+  "name": "medusalocker: Raycolighting",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to medusalocker. | Country: GB | Sector: Manufacturing | Website: raycolighting.com | Infostealer data confirmed. | Organization with 2 emails extracted. Domain: raycolighting.com | Source: https://www.ransomware.live/id/UmF5Y29saWdodGluZ0BtZWR1c2Fsb2NrZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3086"
+}

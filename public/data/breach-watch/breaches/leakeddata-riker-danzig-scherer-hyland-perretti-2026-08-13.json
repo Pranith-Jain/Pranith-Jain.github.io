@@ -1,15 +1,15 @@
 {
   "slug": "leakeddata-riker-danzig-scherer-hyland-perretti-2026-08-13",
   "title": "Riker Danzig Scherer Hyland & Perretti",
-  "group": "Leakeddata",
-  "discovered": "2026-08-13T00:00:00.000Z",
+  "group": "leakeddata",
+  "discovered": "2026-08-13T01:40:43.000Z",
   "category": "data_breach",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/riker-danzig-scherer-hyland-perretti-leakeddata-2026-08",
+  "description": "Founded in 1882, Riker Danzig Scherer Hyland & Perretti is a law firm with practice areas such as Alte…",
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
   "activity": null,
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomlook.io"]
 }

@@ -1,0 +1,12 @@
+{
+  "id": 5336,
+  "name": "2026-06-28 (Sunday): Fake It-Support Scam Abuses Teams Call To Deliver Etherrat Via Malicious Msi And Blockchain Anchored C2",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 28, 2026",
+  "lastSeen": "Jun 28, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-06-28 (Sunday): Fake It-Support Scam Abuses Teams Call To Deliver Etherrat Via Malicious Msi And Blockchain Anchored C2. Chain of events: The sample v7.msi is a Windows Installer (MSI) file written in JavaScript targeting Windows. → The MSI drops three files into the local application data directory: → A batch script (R2YxSP2m.cmd) → An obfuscated JavaScript loader (z0SYYdWk9g.dat) References: https://www.linkedin.com/posts/phishing-etherrat-ugcPost-7478229973678460928-PATm/, https://x.com/Unit42_Intel/status/2072464336040189959",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5336"
+}

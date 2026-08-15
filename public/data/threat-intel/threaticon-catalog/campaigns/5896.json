@@ -1,0 +1,12 @@
+{
+  "id": 5896,
+  "name": "safepay: lbb-treuhand.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 20, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Jul 21, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Business Services | Website: lbb-treuhand.de | Infostealer data confirmed. | The company specializes in tax consulting, auditing, accounting, payroll administration, financial reporting, and business advisory services for private individuals, self-employed … | Source: https://www.ransomware.live/id/bGJiLXRyZXVoYW5kLmRlQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5896"
+}

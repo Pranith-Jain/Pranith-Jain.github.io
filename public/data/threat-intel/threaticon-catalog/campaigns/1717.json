@@ -1,0 +1,12 @@
+{
+  "id": 1717,
+  "name": "embargo: nch.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to embargo. | Country: US | Sector: Technology | Website: nch.com | Infostealer data confirmed. | Your leading global experts in industrial solutions. At NCH Corporation, we don’t just sell products—we deliver solutions that keep businesses moving. For ov... - More than 7.3TB of data has been downloaded. | Source: https://www.ransomware.live/id/bmNoLmNvbUBlbWJhcmdv",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1717"
+}

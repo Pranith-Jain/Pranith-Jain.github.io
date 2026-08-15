@@ -1,0 +1,12 @@
+{
+  "id": 240,
+  "name": "Detect Kerberos Ccache File Theft or Abuse (T1558.005)",
+  "detId": "DET0024",
+  "stixId": "x-mitre-detection-strategy--5c4334d0-cda0-4372-8572-fe2a109d39cb",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0069", "AN0070"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/240"
+}

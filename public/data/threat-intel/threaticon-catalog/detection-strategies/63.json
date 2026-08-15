@@ -1,0 +1,12 @@
+{
+  "id": 63,
+  "name": "Clipboard Data Access with Anomalous Context",
+  "detId": "DET0341",
+  "stixId": "x-mitre-detection-strategy--461e3a2b-2315-4550-abb4-0bd73b0ceaa6",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0965", "AN0966", "AN0967"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/63"
+}

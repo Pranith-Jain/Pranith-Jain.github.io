@@ -1,0 +1,12 @@
+{
+  "id": 3155,
+  "name": "Microsoft signed a malicious Netfilter rootkit",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #262 (1a41895a-7759-450d-948e-32fdac6d1a36).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3155"
+}

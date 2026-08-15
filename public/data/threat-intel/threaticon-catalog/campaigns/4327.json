@@ -1,0 +1,12 @@
+{
+  "id": 4327,
+  "name": "Wallstreet: Asisken",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Wallstreet. | Country: EC | Sector: Not Found | Asisken (asisken.com) is a medical assistance/health insurance company offering prepaid medical coverage and member support services, with a hospital network in Ecuador (and Colombia). | Source: https://www.ransomware.live/id/QXNpc2tlbkBXYWxsc3RyZWV0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4327"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2863,
+  "name": "OSINT - Making a Ransomware Payment? It May Now Violate U.S. Sanctions",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1451 (5c04f23f-fd50-4445-ba0b-40b3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2863"
+}

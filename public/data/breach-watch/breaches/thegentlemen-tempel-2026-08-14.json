@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-tempel-2026-08-14",
+  "title": "Tempel",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:56:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/5da47d10-8d7e-4ce0-9d52-6315418e8c56",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

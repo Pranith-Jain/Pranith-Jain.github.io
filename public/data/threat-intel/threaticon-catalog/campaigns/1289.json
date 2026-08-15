@@ -1,0 +1,12 @@
+{
+  "id": 1289,
+  "name": "akira: Quality Carton and Converting",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: qccma.com | Infostealer data confirmed. | Quality Carton and Converting, LLC. specializes in food and bever age paperboard packaging, offering both in-stock items and custom folding carton solutions. Their product range includes various t ypes of bakery and donut boxes, pizza boxes, cupcake inserts, and utility trays. We will upload corporate data soon. Employee personal documents ( credit cards, DLs and so on), HR files, project files, financials docs, payment details, contracts and agreements, client files, c onfidential files, NDAs. | Source: https://www.ransomware.live/id/UXVhbGl0eSBDYXJ0b24gYW5kIENvbnZlcnRpbmdAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1289"
+}

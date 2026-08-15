@@ -1,0 +1,12 @@
+{
+  "id": 2686,
+  "name": "OSINT - ShadowPad in corporate networks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1130 (59934c13-6410-44a8-9ebe-47fe02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2686"
+}

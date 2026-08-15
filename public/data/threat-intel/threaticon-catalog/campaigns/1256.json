@@ -1,0 +1,12 @@
+{
+  "id": 1256,
+  "name": "nova: VX Case",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nova. | Country: BR | Sector: Consumer Services | Website: vxcase.com.br | Infostealer data confirmed. | vxcase.com.br is the website of a Brazilian e-commerce store that primarily sells accessories for cell phones and electronics, such as cases, screen protectors, and related products. The site is operated by a company called VX Case, which works in the smartphone and device accessories market - we got whatsapp pictures, customers informations and pictures, workers informations and more, only sansitive. corp you have 10 days to contact and get in touch to recover what you have lost and stop leak op. | Source: https://www.ransomware.live/id/VlggQ2FzZUBub3Zh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1256"
+}

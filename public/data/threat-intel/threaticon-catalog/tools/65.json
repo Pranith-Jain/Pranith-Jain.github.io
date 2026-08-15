@@ -1,0 +1,12 @@
+{
+  "id": 65,
+  "name": "Mimikatz",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Mimikatz is a credential dumper capable of obtaining plaintext Windows account logins and passwords, along with many other features that make it useful for testing the security of networks. (Citation: Deply Mimikatz) (Citation: Adsecurity Mimikatz Guide)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/65"
+}

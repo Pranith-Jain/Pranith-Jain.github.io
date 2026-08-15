@@ -1,0 +1,12 @@
+{
+  "id": 1276,
+  "name": "coinbasecartel: Genobank",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: genobank.io | Infostealer data confirmed. | [AI generated] Genobank is a blockchain-driven company focused on genomic research. It provides a decentralized platform where users can have their DNA sequenced and gain full control over their genomic data. The company is known for prioritizing privacy, allowing users to decide who can access their genetic information. | Source: https://www.ransomware.live/id/R2Vub2JhbmtAY29pbmJhc2VjYXJ0ZWw=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1276"
+}

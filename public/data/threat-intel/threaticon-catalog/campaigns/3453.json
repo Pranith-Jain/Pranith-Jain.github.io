@@ -1,0 +1,12 @@
+{
+  "id": 3453,
+  "name": "SQLi vuln sites - 2015-08-12 - origin: pastebin.com/23fDLE1G",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #855 (57cec781-097c-4ed2-9dd0-7014950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3453"
+}

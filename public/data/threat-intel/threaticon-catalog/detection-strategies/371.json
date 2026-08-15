@@ -1,0 +1,12 @@
+{
+  "id": 371,
+  "name": "Behavioral Detection of Fallback or Alternate C2 Channels",
+  "detId": "DET0499",
+  "stixId": "x-mitre-detection-strategy--ee1c44c9-c5aa-4a9c-9e68-49854ed4d602",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1376", "AN1377", "AN1378", "AN1379"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/371"
+}

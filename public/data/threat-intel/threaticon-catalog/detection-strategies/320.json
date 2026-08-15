@@ -1,0 +1,12 @@
+{
+  "id": 320,
+  "name": "Detect Remote Access via USB Hardware (TinyPilot, PiKVM)",
+  "detId": "DET0159",
+  "stixId": "x-mitre-detection-strategy--4a11abbc-9637-4d2e-a8ac-39fef2c0256d",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0446", "AN0447", "AN0448"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/320"
+}

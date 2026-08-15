@@ -1,0 +1,12 @@
+{
+  "id": 595,
+  "name": "Detection Strategy for Process Hollowing on Windows",
+  "detId": "DET0382",
+  "stixId": "x-mitre-detection-strategy--8e003575-5a6f-458d-be35-a8606c9b7dea",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1076"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/595"
+}

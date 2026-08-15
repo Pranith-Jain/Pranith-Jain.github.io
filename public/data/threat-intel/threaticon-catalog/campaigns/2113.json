@@ -1,0 +1,12 @@
+{
+  "id": 2113,
+  "name": "New MacOS Backdoor Linked to OceanLotus Found",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #139 (5ac7920a-5d48-49ee-9627-46abc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2113"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1446,
+  "name": "worldleaks: Finance of America Companies Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Financial Services | Website: www.financeofamerica.com | [AI generated] Finance of America Companies Inc. is an end-to-end lending and services platform operating in the United States. The company offers a wide range of financial products across various brands, focusing on fixed income asset management, commercial real estate, reverse mortgages, and retail lending. It serves clients through online platforms and its extensive national network of offices. | Source: https://www.ransomware.live/id/RmluYW5jZSBvZiBBbWVyaWNhIENvbXBhbmllcyBJbmMuQHdvcmxkbGVha3M=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1446"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 424,
+  "name": "Detection of AppleScript-Based Execution on macOS",
+  "detId": "DET0414",
+  "stixId": "x-mitre-detection-strategy--af66dc57-77fc-42a7-9e84-7a588c3ab516",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1164"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/424"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2244,
+  "name": "Prometei botnet improves modules and exhibits new capabilities in recent updates",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #371 (d7ebcacf-76c8-4c78-a63e-b0bde7c82094).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2244"
+}

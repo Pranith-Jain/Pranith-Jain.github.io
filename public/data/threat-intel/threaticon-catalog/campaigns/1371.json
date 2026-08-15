@@ -1,0 +1,12 @@
+{
+  "id": 1371,
+  "name": "payload: iGLS",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payload. | Country: ES | Sector: Healthcare | Website: igls.net | Infostealer data confirmed. | IGLS Laboratorio specializes in genetic and reproductive immunology, providing advanced diagnostic services tailored for assisted reproduction centers, specialists, hospitals, and healthcare institutions worldwide. The company is committed to innovation, utilizing cutting-edge technology and scientific advancements to deliver precise solutions for fertility issues. Their extensive range of services includes preconception, preimplantation, and prenatal testing, aimed at both medical professionals and patients facing infertility challenges. | Source: https://www.ransomware.live/id/aUdMU0BwYXlsb2Fk",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1371"
+}

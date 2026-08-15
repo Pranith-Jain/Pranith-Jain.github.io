@@ -1,0 +1,12 @@
+{
+  "id": 7316,
+  "name": "ransomhouse: TECHVENTURES BANK S.A.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to ransomhouse. | Country: PA | Sector: Financial Services | Website: www.techventures.bank | TechVentures Bank is a Romanian universal bank undergoing a strategic digital transformation to become a technology-driven, client-oriented financial institution . Rebranded from Banca Comercială Feroviară in 2020 and backed by an IT entrepreneur, the bank is focused on modernizing its operations and infrastructure to offer flexible, simplified banking solutions. | Press: https://financialintelligence.ro/dnsc-ofera-asistenta-techventures-bank-dupa-un-atac-cibernetic-de-tip-ransomware/ | Source: https://www.ransomware.live/id/VEVDSFZFTlRVUkVTIEJBTksgUy5BLkByYW5zb21ob3VzZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7316"
+}

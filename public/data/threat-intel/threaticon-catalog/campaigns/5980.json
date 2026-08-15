@@ -1,0 +1,12 @@
+{
+  "id": 5980,
+  "name": "thegentlemen: Sirl",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PT | Sector: Not Found | Website: sirl.pt | ***.pt zoominfo.com/c/sirl/372746430 Portuguese manufacturing company founded in 1988 and headquartered in Penela, Coimbra. It specializes in producing and selling machinery and tools for the civil construction industry.Their flagship products are concrete mixers, complemented by various other construction equipment and welding tools. The company employs 51–200 people and is a recognized supplier in the European construction machinery sector | Source: https://www.ransomware.live/id/U2lybEB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5980"
+}

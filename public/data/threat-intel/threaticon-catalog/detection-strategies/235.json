@@ -1,0 +1,12 @@
+{
+  "id": 235,
+  "name": "Detection Strategy for Bind Mounts on Linux",
+  "detId": "DET0428",
+  "stixId": "x-mitre-detection-strategy--b79f47ca-4c42-4658-ba71-a6374778eb98",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1196"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/235"
+}

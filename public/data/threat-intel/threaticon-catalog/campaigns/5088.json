@@ -1,0 +1,12 @@
+{
+  "id": 5088,
+  "name": "cmdorganization: SeeWriteHear",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: GB | Sector: Technology | Website: www.seewritehear.com | SeeWriteHear specializes in providing print and digital accessibility solutions, including Braille, large print, and web accessibility services. Their offerings cater to various industries such as education, government, and publishing, ensuring compliance with usability standards. The company focuses on innovative technology to enhance accessibility for individuals with disabilities. With a commitment to information equality, SeeWriteHear serves clients by creating accessible content and providing consulting and training services. | Source: https://www.ransomware.live/id/U2VlV3JpdGVIZWFyQGNtZG9yZ2FuaXphdGlvbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5088"
+}

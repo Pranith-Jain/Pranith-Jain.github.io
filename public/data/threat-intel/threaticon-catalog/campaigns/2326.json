@@ -1,0 +1,12 @@
+{
+  "id": 2326,
+  "name": "OSINT - New Infostealer Trojan uses Fiddler Proxy & Json.NET",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #546 (572f0929-9b8c-42de-adc6-450202de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2326"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2197,
+  "name": "TA551 (Shathak) Word docs push Qakbot (Qbot)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #248 (60131f2d-2c34-4101-90e2-f98ec0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2197"
+}

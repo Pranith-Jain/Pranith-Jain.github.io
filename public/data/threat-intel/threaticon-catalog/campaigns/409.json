@@ -1,0 +1,12 @@
+{
+  "id": 409,
+  "name": "apt73: aliorbank.pl",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: PL | Sector: Financial Services | Website: aliorbank.pl | Infostealer data confirmed. | Polish bank. Financial docs, internal docs. 0,06 GB of data. | Source: https://www.ransomware.live/id/YWxpb3JiYW5rLnBsQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/409"
+}

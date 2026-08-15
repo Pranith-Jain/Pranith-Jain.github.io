@@ -1,0 +1,12 @@
+{
+  "id": 3497,
+  "name": "OSINT - menuPass Returns with New Malware and New Attacks Against Japanese Academics and Organizations",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #995 (58a60ba3-3418-4578-99b2-75a202de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3497"
+}

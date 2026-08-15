@@ -1,0 +1,12 @@
+{
+  "id": 4333,
+  "name": "qilin: Goodwill Manasota",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.experiencegoodwill.org | N/A | Source: https://www.ransomware.live/id/R29vZHdpbGwgTWFuYXNvdGFAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4333"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 499,
+  "name": "Detection Strategy for Network Boundary Bridging",
+  "detId": "DET0006",
+  "stixId": "x-mitre-detection-strategy--f0f7aa93-71bc-4c55-9f96-9c74a7d45a83",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0015"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/499"
+}

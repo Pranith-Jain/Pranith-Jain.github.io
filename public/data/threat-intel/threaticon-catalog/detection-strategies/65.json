@@ -1,0 +1,12 @@
+{
+  "id": 65,
+  "name": "Detection Strategy for Obfuscated Files or Information: Binary Padding",
+  "detId": "DET0553",
+  "stixId": "x-mitre-detection-strategy--9c2a1b83-eec8-4d0c-a0b5-e5b561dbd68f",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1528", "AN1529", "AN1530"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/65"
+}

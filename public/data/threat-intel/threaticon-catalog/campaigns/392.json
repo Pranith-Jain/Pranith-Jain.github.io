@@ -1,0 +1,12 @@
+{
+  "id": 392,
+  "name": "apt73: gannons.co.uk",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: GB | Sector: Business Services | Website: gannons.co.uk | Infostealer data confirmed. | Gannons Commercial Law Limited Catherine Gannon, then a tax solicitor at a large US law firm, lo... | Source: https://www.ransomware.live/id/Z2Fubm9ucy5jby51a0BhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/392"
+}

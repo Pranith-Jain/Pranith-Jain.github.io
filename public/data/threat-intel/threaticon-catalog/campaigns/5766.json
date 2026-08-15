@@ -1,0 +1,12 @@
+{
+  "id": 5766,
+  "name": "qilin: Droguería Martorani",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 18, 2026",
+  "lastSeen": "Jul 18, 2026",
+  "added": "Jul 18, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: AR | Sector: Consumer Services | Website: www.martorani.com | N/A | Source: https://www.ransomware.live/id/RHJvZ3VlcsOtYSBNYXJ0b3JhbmlAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5766"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2766,
+  "name": "OSINT - Gaffe Reveals Full List of Targets in Spear Phishing Attack Using Cobalt Strike Against Financial Institutions",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1253 (5a25117c-6260-44a1-91b4-489d02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2766"
+}

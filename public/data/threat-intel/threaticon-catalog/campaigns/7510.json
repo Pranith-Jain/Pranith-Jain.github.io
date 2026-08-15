@@ -1,0 +1,12 @@
+{
+  "id": 7510,
+  "name": "qilin: Université Libre de Bruxelles",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 9, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 9, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: BE | Sector: Education | Website: www.ulb.be | N/A | Source: https://www.ransomware.live/id/VW5pdmVyc2l0w6kgTGlicmUgZGUgQnJ1eGVsbGVzQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7510"
+}

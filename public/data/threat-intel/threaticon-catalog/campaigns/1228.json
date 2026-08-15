@@ -1,0 +1,12 @@
+{
+  "id": 1228,
+  "name": "lockbit5: limpebras.com.br",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Manufacturing | Website: limpebras.com.br | Infostealer data confirmed. | Limpebras is a leading company in public cleaning services in Brazil, established in 2008. The compa... | Source: https://www.ransomware.live/id/bGltcGVicmFzLmNvbS5ickBsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1228"
+}

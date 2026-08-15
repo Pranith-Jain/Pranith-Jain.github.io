@@ -1,0 +1,12 @@
+{
+  "id": 4872,
+  "name": "krybit: www.progress-security.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: DE | Sector: Technology | Website: www.progress-security.com | Progress Security Systems is a leading UAE-based provider of enterprise-grade security solutions, headquartered in Abu D... | Source: https://www.ransomware.live/id/d3d3LnByb2dyZXNzLXNlY3VyaXR5LmNvbUBrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4872"
+}

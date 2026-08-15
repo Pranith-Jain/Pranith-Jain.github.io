@@ -1,0 +1,12 @@
+{
+  "id": 3176,
+  "name": "Industroyer2: Industroyer reloaded",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #293 (83fd46e9-1f2c-47f3-ba6e-61b6f62ff75d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3176"
+}

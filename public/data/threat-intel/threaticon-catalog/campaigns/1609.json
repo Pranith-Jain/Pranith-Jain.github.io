@@ -1,0 +1,12 @@
+{
+  "id": 1609,
+  "name": "thegentlemen: Einstein Technology",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: AU | Sector: Technology | Website: einstein-tech.com.au | Infostealer data confirmed. | einstein-tech.com.au zoominfo.com/c/einstein-technology-pty-ltd/372382819 Einstein Technology Pty Ltd is a company that operates in the Custom Software & IT Services industry. It employs 5to9 people and has 1Mto5M of revenue. The company is headquartered in Lysterfield, Victoria, Australia | Source: https://www.ransomware.live/id/RWluc3RlaW4gVGVjaG5vbG9neUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1609"
+}

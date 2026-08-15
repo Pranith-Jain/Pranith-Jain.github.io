@@ -1,0 +1,12 @@
+{
+  "id": 7343,
+  "name": "krybit: www.ernat-bureau-etudes.fr",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 7, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Professional Services | Website: www.ernat-bureau-etudes.fr | ERNAT (Etudes Réalisations Négoce Assistance Technique) SARL SCOP is a French worker cooperative (SCOP — Société C... | Source: https://www.ransomware.live/id/d3d3LmVybmF0LWJ1cmVhdS1ldHVkZXMuZnJAa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7343"
+}

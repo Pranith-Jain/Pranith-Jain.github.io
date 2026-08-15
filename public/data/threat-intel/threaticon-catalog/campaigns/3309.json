@@ -1,0 +1,12 @@
+{
+  "id": 3309,
+  "name": "Phorpiex - Downloader Delivering Ransomware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #531 (4ea0dcc3-eaef-423b-a766-cccabea8b6db).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3309"
+}

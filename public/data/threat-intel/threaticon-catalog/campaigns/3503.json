@@ -1,0 +1,12 @@
+{
+  "id": 3503,
+  "name": "OSINT - Pulling Back the Curtains on EncodedCommand PowerShell Attacks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1009 (58c302f0-3068-4b0a-91c2-463f02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3503"
+}

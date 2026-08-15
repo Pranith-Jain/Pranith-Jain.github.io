@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-recycling-and-construction-waste-company-2026-08-14",
+  "title": "Unknown (Recycling and Construction Waste Company)",
+  "group": "safepay",
+  "discovered": "2026-08-14T03:05:55.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/c773f3a9-1f69-4aad-8d28-2d4248f59a79",
+  "groupAliases": [],
+  "activity": "Waste Management",
+  "references": ["Darkfield"]
+}

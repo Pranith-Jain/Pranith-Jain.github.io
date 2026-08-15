@@ -1,0 +1,12 @@
+{
+  "id": 5361,
+  "name": "2026-05-01 (Friday): Websocket Backdoor Campaign Injecting Credit Card Skimmers",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-05-01 (Friday): Websocket Backdoor Campaign Injecting Credit Card Skimmers. References: https://www.linkedin.com/posts/websocket-share-7456133360495816704-a8fM/, https://x.com/Unit42_Intel/status/2050367689542000737",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5361"
+}

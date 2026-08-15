@@ -1,0 +1,12 @@
+{
+  "id": 927,
+  "name": "gunra: Envy Recycling",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to gunra. | Country: CZ | Sector: Manufacturing | Website: envy-recycling.cz | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RW52eSBSZWN5Y2xpbmdAZ3VucmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/927"
+}

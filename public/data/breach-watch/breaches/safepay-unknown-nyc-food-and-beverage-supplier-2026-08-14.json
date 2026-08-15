@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-nyc-food-and-beverage-supplier-2026-08-14",
+  "title": "Unknown (NYC Food and Beverage Supplier)",
+  "group": "safepay",
+  "discovered": "2026-08-14T03:05:55.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/df95e0ea-7dad-4ebb-8278-33ccab5e310d",
+  "groupAliases": [],
+  "activity": "Food & Beverage",
+  "references": ["Darkfield"]
+}

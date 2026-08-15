@@ -1,0 +1,12 @@
+{
+  "id": 3246,
+  "name": "German Embassy Lure: Likely Part of Campaign Against NATO Aligned Ministries of Foreign Affairs",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #420 (0f71e17b-1630-4ecb-8d07-cf0d8e90124f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3246"
+}

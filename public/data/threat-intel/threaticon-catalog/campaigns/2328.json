@@ -1,0 +1,12 @@
+{
+  "id": 2328,
+  "name": "OSINT - Cyber Heist Attribution",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #550 (5735c472-124c-495e-bebd-4bc5950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2328"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1309,
+  "name": "embargo: ludlums.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to embargo. | Country: US | Sector: Technology | Website: ludlums.com | Infostealer data confirmed. | Ludlum Measurements, Inc. (LMI), founded in 1962 in Sweetwater, Texas, designs, manufactures, and supplies radiation detection and measurement equipment used w... - We have 5 TB data including full source codes, client data, and more. | Source: https://www.ransomware.live/id/bHVkbHVtcy5jb21AZW1iYXJnbw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1309"
+}

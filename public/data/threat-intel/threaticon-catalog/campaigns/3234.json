@@ -1,0 +1,12 @@
+{
+  "id": 3234,
+  "name": "Gamaredon (Ab)uses Telegram to Target Ukrainian Organizations",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #402 (65ad9f8f-6330-4324-9170-7c729d524399).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3234"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 672,
+  "name": "Detect XSL Script Abuse via msxsl and wmic",
+  "detId": "DET0205",
+  "stixId": "x-mitre-detection-strategy--4994627c-216b-4832-90cf-074d3e9013e4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0581"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/672"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2926,
+  "name": "MSFT - MSTIC - Destructive malware targeting Ukrainian organizations",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1664 (8cc5335e-915b-4e16-837d-49143e6987b4).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2926"
+}

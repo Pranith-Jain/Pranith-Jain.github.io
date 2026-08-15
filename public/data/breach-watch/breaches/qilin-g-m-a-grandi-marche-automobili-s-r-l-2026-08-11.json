@@ -2,14 +2,14 @@
   "slug": "qilin-g-m-a-grandi-marche-automobili-s-r-l-2026-08-11",
   "title": "G.M.A. GRANDI MARCHE AUTOMOBILI - S.R.L",
   "group": "qilin",
-  "discovered": "2026-08-11T17:29:19.000Z",
+  "discovered": "2026-08-11T17:05:07.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "IT",
+  "country": null,
   "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
+  "description": null,
+  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=4e83e92f-9bdd-4f12-907b-e98a783774fe",
   "groupAliases": [],
-  "activity": "Transportation",
-  "references": ["ransomware.live"]
+  "activity": null,
+  "references": ["CTI.FYI"]
 }

@@ -1,0 +1,12 @@
+{
+  "id": 4408,
+  "name": "thegentlemen: CUI Agency",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Not Found | Website: cuiagency.com | Infostealer data confirmed. | ***.com zoominfo.com/c/cui-agency/397459082 CUI Agency, a family-owned independent insurance firm founded in Utah in 1969. Headquartered in the Salt Lake City area, the company specializes in risk management, offering comprehensive commercial insurance, employee benefits, personal lines, and bonds. They provide tailored insurance solutions designed to mitigate risks and protect the assets of businesses and families across the region | Source: https://www.ransomware.live/id/Q1VJIEFnZW5jeUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4408"
+}

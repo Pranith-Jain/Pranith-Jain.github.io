@@ -1,0 +1,12 @@
+{
+  "id": 4684,
+  "name": "krybit: aasa.ae",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 19, 2026",
+  "lastSeen": "Jun 19, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: AE | Sector: Not Found | Website: aasa.ae | Infostealer data confirmed. | AASA CP Holding Company (AASA Group) is a multinational business headquartered in Dubai, UAE, with a proud legacy of exc... | Source: https://www.ransomware.live/id/YWFzYS5hZUBrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4684"
+}

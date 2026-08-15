@@ -1,0 +1,12 @@
+{
+  "id": 4549,
+  "name": "anubis: Nachlass Nord",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 25, 2026",
+  "lastSeen": "Jun 25, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: DE | Sector: Business Services | Website: nachlass-nord.de | Infostealer data confirmed. | Inheritance lawyers expose IDs, estate records, and client data. | Source: https://www.ransomware.live/id/TmFjaGxhc3MgTm9yZEBhbnViaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4549"
+}

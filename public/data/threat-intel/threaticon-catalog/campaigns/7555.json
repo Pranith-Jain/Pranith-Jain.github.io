@@ -1,0 +1,12 @@
+{
+  "id": 7555,
+  "name": "Wallstreet: T.RAD North America",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to Wallstreet. | Country: US | Sector: Technology | Website: tradna.com | T.RAD North America (tradna.com) is a Hopkinsville, Kentucky-based manufacturer focused on heat exchangers for thermal-management applications such as vehicle powertrains, HVAC/architectural systems, and emerging technologies like battery and fuel-cell cooling. | Source: https://www.ransomware.live/id/VC5SQUQgTm9ydGggQW1lcmljYUBXYWxsc3RyZWV0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7555"
+}

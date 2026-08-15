@@ -1,0 +1,12 @@
+{
+  "id": 2525,
+  "name": "Malspam 2016-09-30 (.wsf in .zip) - campaign: \"Emailing\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #886 (57ee144e-ad24-4175-ba0e-4943950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2525"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1736,
+  "name": "genesis: Griswold Controls",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Manufacturing | Website: griswoldcontrols.com | Infostealer data confirmed. | A leader in flow control technology and valves, specializing in HVAC and irrigation applications | Source: https://www.ransomware.live/id/R3Jpc3dvbGQgQ29udHJvbHNAZ2VuZXNpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1736"
+}

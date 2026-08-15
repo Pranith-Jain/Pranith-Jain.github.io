@@ -1,0 +1,12 @@
+{
+  "id": 4175,
+  "name": "Deadlock: EXPRESOKNA SP. Z O.O.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: PL | Sector: Business Services | Website: expresokna.pl | Infostealer data confirmed. | EXPRESOKNA SP. Z O.O. a Polish manufacturer and distributor specializing in window and door systems. Based in Siemianowice Śląskie, the company is known for its exceptionally fast turnaround times for PVC and aluminum products. | Source: https://www.ransomware.live/id/RVhQUkVTT0tOQSBTUC4gWiBPLk8uQERlYWRsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4175"
+}

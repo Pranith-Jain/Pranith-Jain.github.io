@@ -1,0 +1,12 @@
+{
+  "id": 2587,
+  "name": "OSINT: Malicious software targeting financial sector internals",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #981 (5894bd56-d458-489f-a692-41d102de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2587"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2223,
+  "name": "The Curious Case of “Monti” Ransomware: A Real-World Doppelganger BlackBerry Logo",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #320 (858ffb55-b5f6-41da-a9e0-f8f5a818e9ac).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2223"
+}

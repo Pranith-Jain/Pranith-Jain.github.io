@@ -1,0 +1,12 @@
+{
+  "id": 3254,
+  "name": "AA23-347A Russian Foreign Intelligence Service (SVR) Exploiting JetBrains TeamCity CVE Globally",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #432 (62e17cb7-ff23-48f1-b00d-227ff9248e83).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3254"
+}

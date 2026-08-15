@@ -1,0 +1,12 @@
+{
+  "id": 647,
+  "name": "Multi-event Detection Strategy for RDP-Based Remote Logins and Post-Access Activity",
+  "detId": "DET0327",
+  "stixId": "x-mitre-detection-strategy--722d2e3d-c3ad-4878-bcef-ca3161465342",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0931"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/647"
+}

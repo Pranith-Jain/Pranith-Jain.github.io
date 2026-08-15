@@ -1,0 +1,12 @@
+{
+  "id": 2125,
+  "name": "OSINT APT Bestia used in APT attacks on Polish Government",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #152 (56d61087-d19c-4552-9802-48fe02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2125"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3104,
+  "name": "BlackVine - Symantec",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #28 (56cce206-fc70-436c-881b-52819062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3104"
+}

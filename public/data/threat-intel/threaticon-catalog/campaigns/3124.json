@@ -1,0 +1,12 @@
+{
+  "id": 3124,
+  "name": "Dridex (2016-03-09) - botnet 220",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #157 (56e029d7-6afc-4654-a6a7-40bb950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3124"
+}

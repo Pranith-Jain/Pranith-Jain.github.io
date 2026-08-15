@@ -1,0 +1,12 @@
+{
+  "id": 981,
+  "name": "akira: Accent Dental Center",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: accentdentalcenter.com | Infostealer data confirmed. | Accent Dental Center On Forum is a general dentistry practice loc ated in Columbia, MO, dedicated to providing high-quality and aff ordable dental care. The center offers a range of services includ ing exams, cleanings, cosmetic dentistry, dental implants, and tr eatments for TMJ and oral facial pain. We will upload corporate data soon. Detailed patients (name, DOB, passport numbers, medical information, addresses and so on (more than 1000 ppl)), employee personal documents, NDAs, etc. | Source: https://www.ransomware.live/id/QWNjZW50IERlbnRhbCBDZW50ZXJAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/981"
+}

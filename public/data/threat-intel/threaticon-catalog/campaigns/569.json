@@ -1,0 +1,12 @@
+{
+  "id": 569,
+  "name": "qilin: Industrial Carrocera Arbuciense",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Manufacturing | Website: www.indcar.es | Source: https://www.ransomware.live/id/SW5kdXN0cmlhbCBDYXJyb2NlcmEgQXJidWNpZW5zZUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/569"
+}

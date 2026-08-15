@@ -1,0 +1,12 @@
+{
+  "id": 2570,
+  "name": "OSINT - Exposing an AV-Disabling Driver Just in Time for Lunch",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #954 (586f5fb9-2678-4fe5-a14e-45e5950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2570"
+}

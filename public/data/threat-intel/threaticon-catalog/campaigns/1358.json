@@ -1,0 +1,12 @@
+{
+  "id": 1358,
+  "name": "play: Pinnacle",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to play. | Country: US | Sector: Not Found | Website: www.pinnacle.tax | United States | Source: https://www.ransomware.live/id/UGlubmFjbGVAcGxheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1358"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2835,
+  "name": "Trend Micro Blog: New KillDisk Variant Hits Latin American Financial Organizations Again",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1376 (5b1e9c95-75a8-4132-93e5-58ed0acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2835"
+}

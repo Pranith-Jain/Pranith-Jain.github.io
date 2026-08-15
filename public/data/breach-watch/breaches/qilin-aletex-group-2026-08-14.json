@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-aletex-group-2026-08-14",
+  "title": "Aletex Group",
+  "group": "qilin",
+  "discovered": "2026-08-14T10:28:23.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f797c3b5-1b98-4aa2-a220-0d47e3844863",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

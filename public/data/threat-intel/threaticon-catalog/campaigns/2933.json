@@ -1,0 +1,12 @@
+{
+  "id": 2933,
+  "name": "Kinsing & Dark.IoT botnet among threats targeting CVE-2022-26134",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1694 (d4766c50-0269-4cda-acea-850ea4fdb198).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2933"
+}

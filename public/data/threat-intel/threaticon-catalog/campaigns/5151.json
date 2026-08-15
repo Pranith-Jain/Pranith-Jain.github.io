@@ -1,0 +1,12 @@
+{
+  "id": 5151,
+  "name": "lapsus$: MAPFRE ASSURANCE",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 31, 2026",
+  "lastSeen": "Apr 26, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lapsus$. | Country: ES | Sector: Financial Services | This data has been acquired by a private party. No public leak will occur. | Source: https://www.ransomware.live/id/TUFQRlJFIEFTU1VSQU5DRUBsYXBzdXMk",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5151"
+}

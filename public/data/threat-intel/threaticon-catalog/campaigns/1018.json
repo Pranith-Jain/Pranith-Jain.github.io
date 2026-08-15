@@ -1,0 +1,12 @@
+{
+  "id": 1018,
+  "name": "thegentlemen: Far East Fame",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Consumer Services | Website: fareastfamelineddb.com | Infostealer data confirmed. | fareastfamelineddb.com zoominfo.com/c/far-east-fame-line-ddb-plc/455777113 Far East Fame Line DDB is a data-driven advertising and marketing communications agency . The company specializes in \"Connected Creative Solutions,\" combining data analytics, AI technology, and creative strategy to build brand platforms and deliver performance marketing campaigns . Their approach focuses on understanding the customer journey and behavioral insights to drive brand momentum in the modern digital landscape | Source: https://www.ransomware.live/id/RmFyIEVhc3QgRmFtZUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1018"
+}

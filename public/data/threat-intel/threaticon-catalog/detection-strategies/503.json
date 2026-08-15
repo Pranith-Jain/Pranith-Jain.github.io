@@ -1,0 +1,12 @@
+{
+  "id": 503,
+  "name": "Behavioral Detection of Network Share Connection Removal via CLI and SMB Disconnects",
+  "detId": "DET0103",
+  "stixId": "x-mitre-detection-strategy--00060b87-7f99-45aa-9553-a4d94139195c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0286"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/503"
+}

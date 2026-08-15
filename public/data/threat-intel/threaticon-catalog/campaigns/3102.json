@@ -1,0 +1,12 @@
+{
+  "id": 3102,
+  "name": "OSINT Black Vine: Formidable cyberespionage group targeted aerospace, healthcare since 2012 by Symantec",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #26 (55b7c901-614c-44d1-a638-440e950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3102"
+}

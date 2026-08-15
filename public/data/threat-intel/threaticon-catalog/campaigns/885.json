@@ -1,0 +1,12 @@
+{
+  "id": 885,
+  "name": "pear: Powell, Powell & Powell, P.A.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: powelllawfirm.com | Infostealer data confirmed. | A law firm specializing in personal injury cases | Source: https://www.ransomware.live/id/UG93ZWxsLCBQb3dlbGwgJiBQb3dlbGwsIFAuQS5AcGVhcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/885"
+}

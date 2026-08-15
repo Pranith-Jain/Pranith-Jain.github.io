@@ -1,0 +1,12 @@
+{
+  "id": 3229,
+  "name": "Malspam (2016-04-05) - TeslaCrypt",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #386 (5703b3c1-e6a4-421a-a394-440f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3229"
+}

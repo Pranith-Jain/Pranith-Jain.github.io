@@ -1,0 +1,12 @@
+{
+  "id": 78,
+  "name": "schtasks",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "schtasks.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "schtasks is used to schedule execution of programs or scripts on a Windows system to run at a specific date and time. (Citation: TechNet Schtasks)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/78"
+}

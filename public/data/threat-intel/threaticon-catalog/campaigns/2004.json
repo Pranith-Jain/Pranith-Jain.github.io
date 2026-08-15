@@ -1,0 +1,12 @@
+{
+  "id": 2004,
+  "name": "Bookworm Trojan: A Model of Modular Architecture",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #6 (56ca49fd-632c-4cd5-a66e-4c0f9062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2004"
+}

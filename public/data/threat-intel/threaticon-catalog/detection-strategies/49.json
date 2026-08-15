@@ -1,0 +1,12 @@
+{
+  "id": 49,
+  "name": "Behavioral Detection Strategy for Use Alternate Authentication Material: Application Access Token (T1550.001)",
+  "detId": "DET0185",
+  "stixId": "x-mitre-detection-strategy--afdf49f9-905d-49e4-9e42-5726f35e87e4",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0526", "AN0527", "AN0528", "AN0529", "AN0530"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/49"
+}

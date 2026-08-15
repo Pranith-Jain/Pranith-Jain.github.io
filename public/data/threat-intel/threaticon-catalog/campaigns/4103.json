@@ -1,0 +1,12 @@
+{
+  "id": 4103,
+  "name": "thegentlemen: Energon",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CZ | Sector: Energy | Website: energon.cz | Infostealer data confirmed. | ***.cz zoominfo.com/c/energon/430910504 ENERGON HOLDING is a prominent Czech group uniting various companies specialized in energy services, photovoltaics, and modern sustainable technologies. With over 25 years of industry experience, the group drives innovations that enhance the energy independence and competitiveness of the Czech Republic. They also actively invest in startups focused on renewable energy optimization, diagnostics, and the security of power infrastructure | Source: https://www.ransomware.live/id/RW5lcmdvbkB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4103"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6338,
+  "name": "qilin: Universitatea de Vest „Vasile Goldiș” din Arad",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: RO | Sector: Education | Website: www.uvvg.ro | N/A | Source: https://www.ransomware.live/id/VW5pdmVyc2l0YXRlYSBkZSBWZXN0IOKAnlZhc2lsZSBHb2xkaciZ4oCdIGRpbiBBcmFkQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6338"
+}

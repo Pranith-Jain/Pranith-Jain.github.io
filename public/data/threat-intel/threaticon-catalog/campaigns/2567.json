@@ -1,0 +1,12 @@
+{
+  "id": 2567,
+  "name": "OSINT - Switcher: Android joins the â€˜attack-the-routerâ€™ club",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #949 (58638245-8b08-4bb0-8bed-fcb802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2567"
+}

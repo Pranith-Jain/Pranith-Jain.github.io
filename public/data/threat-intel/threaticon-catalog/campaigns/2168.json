@@ -1,0 +1,12 @@
+{
+  "id": 2168,
+  "name": "German language malspam pushes yet another wave of Trickbot",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #211 (5df1e6c4-5340-4610-819b-a05fc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2168"
+}

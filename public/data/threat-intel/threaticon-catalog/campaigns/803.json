@@ -1,0 +1,12 @@
+{
+  "id": 803,
+  "name": "secpo: Richmond Plywood Corporation Limited",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to secpo. | Country: CA | Sector: Manufacturing | Website: richply.com | Infostealer data confirmed. | The total volume of extracted data amounts to approximately 1.09TB (522,925 files total), with a filtered size of 230GB (161,200 files). The files contain references to more than 2,500 unique individuals and 4,000 organizations... | Source: https://www.ransomware.live/id/UmljaG1vbmQgUGx5d29vZCBDb3Jwb3JhdGlvbiBMaW1pdGVkQHNlY3Bv",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/803"
+}

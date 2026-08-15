@@ -1,0 +1,12 @@
+{
+  "id": 7524,
+  "name": "qilin: East Field Corporation",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 9, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 9, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: JP | Sector: Agriculture and Food Production | Website: efc-tono.com | Infostealer data confirmed. | N/A | Source: https://www.ransomware.live/id/RWFzdCBGaWVsZCBDb3Jwb3JhdGlvbkBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7524"
+}

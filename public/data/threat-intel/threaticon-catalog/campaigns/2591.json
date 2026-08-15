@@ -1,0 +1,12 @@
+{
+  "id": 2591,
+  "name": "OSINT - ikittens: iranian actor resurfaces with malware for mac (macdownloader)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #986 (5898af07-fb0c-4135-b908-491b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2591"
+}

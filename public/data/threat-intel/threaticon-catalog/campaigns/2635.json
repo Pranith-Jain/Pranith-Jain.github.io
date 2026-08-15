@@ -1,0 +1,12 @@
+{
+  "id": 2635,
+  "name": "OSINT - Windows Defender ATP thwarts Operation WilySupply software supply chain cyberattack",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1051 (59100c44-ea98-4024-ab76-485e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2635"
+}

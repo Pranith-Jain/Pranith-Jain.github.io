@@ -1,0 +1,12 @@
+{
+  "id": 3192,
+  "name": "OSINT - AceDeceiver: First iOS Trojan Exploiting Apple DRM Design Flaws to Infect Any iOS Device",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #318 (56e9b21a-98fc-4d0e-ae29-4e53950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3192"
+}

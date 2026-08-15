@@ -1,0 +1,12 @@
+{
+  "id": 584,
+  "name": "Detection of Drive-by Target",
+  "detId": "DET0825",
+  "stixId": "x-mitre-detection-strategy--3e6efcf8-8308-4832-b247-ce08703c7ed9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1957"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/584"
+}

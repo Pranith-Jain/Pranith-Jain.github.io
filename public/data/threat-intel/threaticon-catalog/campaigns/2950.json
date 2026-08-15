@@ -1,0 +1,12 @@
+{
+  "id": 2950,
+  "name": "OSINT - Zero-Day Exploitation of Unauthenticated Remote Code Execution Vulnerability in GlobalProtect (CVE-2024-3400)",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1753 (9802116c-3ec3-4a8e-8b39-5c69b08df5ab).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2950"
+}

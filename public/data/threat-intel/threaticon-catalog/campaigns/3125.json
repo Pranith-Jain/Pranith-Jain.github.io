@@ -1,0 +1,12 @@
+{
+  "id": 3125,
+  "name": "Turla Outlook White Paper",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #161 (5b773e07-e694-458b-b99c-27f30a016219).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3125"
+}

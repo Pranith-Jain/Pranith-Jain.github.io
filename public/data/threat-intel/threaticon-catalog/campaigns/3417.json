@@ -1,0 +1,12 @@
+{
+  "id": 3417,
+  "name": "OSINT Phishing sites and exploit kits december 2015 - part 2 by TechHelpList",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #692 (56b06594-da3c-4126-bf81-4190950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3417"
+}

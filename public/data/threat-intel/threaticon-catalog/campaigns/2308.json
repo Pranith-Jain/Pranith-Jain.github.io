@@ -1,0 +1,12 @@
+{
+  "id": 2308,
+  "name": "OSINT - Macro Malware Employs Advanced Obfuscation to Avoid Detection",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #489 (571fd18a-efc4-4099-93f5-447502de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2308"
+}

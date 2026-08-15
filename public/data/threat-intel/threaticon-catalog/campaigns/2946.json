@@ -1,0 +1,12 @@
+{
+  "id": 2946,
+  "name": "AA23-339A Threat Actors Exploit Adobe ColdFusion CVE- 2023-26360 for Initial Access to Government Servers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1740 (c98a638f-29c5-4233-a283-34ddbcc40be4).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2946"
+}

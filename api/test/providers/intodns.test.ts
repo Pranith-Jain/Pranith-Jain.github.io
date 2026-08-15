@@ -76,6 +76,9 @@ describe('intodns adapter', () => {
       baseResponse({
         percentage: 10,
         grade: 'F',
+        // A domain scoring 10% must also report its email category as failing;
+        // the old mock left email status 'pass', contradicting the assertion.
+        categories: { email: { score: 2, maxScore: 100, percentage: 2, status: 'fail' } },
         issues: [
           {
             id: 'no-dmarc',

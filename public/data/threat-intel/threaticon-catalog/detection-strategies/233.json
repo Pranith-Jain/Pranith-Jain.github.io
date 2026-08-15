@@ -1,0 +1,12 @@
+{
+  "id": 233,
+  "name": "Detection of Adversarial Process Discovery Behavior",
+  "detId": "DET0034",
+  "stixId": "x-mitre-detection-strategy--309ca3cd-d3f0-4aea-8932-558550aa89f4",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0095", "AN0096", "AN0097", "AN0098", "AN0099"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/233"
+}

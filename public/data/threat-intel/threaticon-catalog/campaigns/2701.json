@@ -1,0 +1,12 @@
+{
+  "id": 2701,
+  "name": "OSINT - SynAck Ransomware Sees Huge Spike in Activity",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1157 (59afe22a-a734-4729-ab8c-4489950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2701"
+}

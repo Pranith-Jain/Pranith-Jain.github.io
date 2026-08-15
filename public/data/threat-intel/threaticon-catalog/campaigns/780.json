@@ -1,0 +1,12 @@
+{
+  "id": 780,
+  "name": "lockbit5: cegasa.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: ES | Sector: Manufacturing | Website: cegasa.com | Infostealer data confirmed. | Cegasa is a leading European company specializing in innovative energy solutions, particularly lithi... | Source: https://www.ransomware.live/id/Y2VnYXNhLmNvbUBsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/780"
+}

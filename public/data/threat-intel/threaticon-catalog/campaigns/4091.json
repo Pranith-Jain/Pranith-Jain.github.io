@@ -1,0 +1,12 @@
+{
+  "id": 4091,
+  "name": "lockbit5: hotel-bourse.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: FR | Sector: Hospitality and Tourism | Website: hotel-bourse.com | Infostealer data confirmed. | 14 rue de la Bourse 68100 Mulhouse info@hotel-bourse.com +33 3 89 56 18 44 | Source: https://www.ransomware.live/id/aG90ZWwtYm91cnNlLmNvbUBsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4091"
+}

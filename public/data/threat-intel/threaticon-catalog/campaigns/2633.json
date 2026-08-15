@@ -1,0 +1,12 @@
+{
+  "id": 2633,
+  "name": "OSINT - Use of DNS Tunneling for C&C Communications",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1049 (590348da-977c-436f-ad6f-4ecb950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2633"
+}

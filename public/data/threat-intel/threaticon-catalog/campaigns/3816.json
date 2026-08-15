@@ -1,0 +1,12 @@
+{
+  "id": 3816,
+  "name": "m3rx: dosocho.es",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to m3rx. | Country: ES | Sector: Not Found | Website: dosocho.es | Infostealer data confirmed. | +34 918 264 028. Recambios Generales del Automóvil Dosocho S.L. is a Madrid-based Spanish company specializing in the retail and e-commerce distribution of brand-new automotive spare parts and accessories. Operating through its dedicated platforms like dosochoauto.es, the company provides a comprehensive catalog of high-quality components tailored for various vehicle repairs and maintenance Stolen: 50gb 28k files | Source: https://www.ransomware.live/id/ZG9zb2Noby5lc0BtM3J4",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3816"
+}

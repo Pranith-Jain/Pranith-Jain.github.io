@@ -1,0 +1,12 @@
+{
+  "id": 701,
+  "name": "qilin: Limkon",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Not Found | Website: www.limkon.com | Source: https://www.ransomware.live/id/TGlta29uQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/701"
+}

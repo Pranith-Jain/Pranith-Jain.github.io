@@ -1,0 +1,12 @@
+{
+  "id": 2306,
+  "name": "TA547 Targets German Organizations with Rhadamanthys Stealer",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #486 (ddf7efba-eafd-445c-93b2-861b24257424).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2306"
+}

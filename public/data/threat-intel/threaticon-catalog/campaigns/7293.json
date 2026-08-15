@@ -1,0 +1,12 @@
+{
+  "id": 7293,
+  "name": "Barracuda: Ferrell \\ Skyline Implants & Periodontics \\ Dr. Scott Ferguson",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Barracuda. | Sector: Healthcare | Full personal and servers files dumps from Skyline Implants & Periodontics company. The data files contain: medical documents of patients (including MRI scans of various parts of the body — files with the .dcm extension), personal photos, and the personal data of the doctor, Scott Ferguson, as well as documents from the company Skyline Implants & Periodontics — in particular, information on equipment and pharmaceutical procurement and other related materials. | Status: free | Size: 800 GB | Now free | Source: https://www.ransomware.live/id/RmVycmVsbCBcIFNreWxpbmUgSW1wbGFudHMgJiBQZXJpb2RvbnRpY3MgXCBEci4gU2NvdHQgRmVyZ3Vzb25AQmFycmFjdWRh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7293"
+}

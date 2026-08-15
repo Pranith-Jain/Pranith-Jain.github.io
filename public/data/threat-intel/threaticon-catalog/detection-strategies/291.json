@@ -1,0 +1,12 @@
+{
+  "id": 291,
+  "name": "Behavioral Detection of Local Group Enumeration Across OS Platforms",
+  "detId": "DET0114",
+  "stixId": "x-mitre-detection-strategy--de120f6a-c19b-4346-b62f-c8cd95fcb291",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0317", "AN0318", "AN0319"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/291"
+}

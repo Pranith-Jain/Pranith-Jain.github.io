@@ -1,0 +1,12 @@
+{
+  "id": 2956,
+  "name": "OSINT - Threat Advisory: Oh No Cleo! Cleo Software Actively Being Exploited in the Wild",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1782 (5ac29be4-309c-436f-84ff-49dd4f98e940).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2956"
+}

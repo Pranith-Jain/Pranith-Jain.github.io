@@ -1,0 +1,12 @@
+{
+  "id": 3160,
+  "name": "FIN8 Threat Actor Spotted Once Again with New \"Sardonic\" Backdoor",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #267 (eb1da366-1255-4bc7-a85b-dd85c2efa66d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3160"
+}

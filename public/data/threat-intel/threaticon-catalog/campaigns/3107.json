@@ -1,0 +1,12 @@
+{
+  "id": 3107,
+  "name": "OSINT Dust Storm Campaign Targeting Japanese Critical Infrastructure",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #38 (56cdcbde-4fb4-4523-b01d-ff01950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3107"
+}

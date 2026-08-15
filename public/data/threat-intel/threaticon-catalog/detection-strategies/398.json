@@ -1,0 +1,12 @@
+{
+  "id": 398,
+  "name": "Detection Strategy for Phishing across platforms.",
+  "detId": "DET0070",
+  "stixId": "x-mitre-detection-strategy--7ee73f2e-76b2-4f00-bcc0-7fb79d31d344",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "analytics": ["AN0188", "AN0189", "AN0190", "AN0191", "AN0192", "AN0193"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/398"
+}

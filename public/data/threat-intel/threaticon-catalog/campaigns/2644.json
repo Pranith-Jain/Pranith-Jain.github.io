@@ -1,0 +1,12 @@
+{
+  "id": 2644,
+  "name": "Jaff 2017-05-22 : \"Copy of Invoice 12345678\" / \"12345678.PDF\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1068 (5922e0ac-0314-43d5-b36e-4ac4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2644"
+}

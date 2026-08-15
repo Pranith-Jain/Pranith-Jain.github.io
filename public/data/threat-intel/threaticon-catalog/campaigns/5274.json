@@ -1,0 +1,12 @@
+{
+  "id": 5274,
+  "name": "dragonforce: dentonfirm.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 27, 2026",
+  "lastSeen": "May 27, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: dentonfirm.com | Infostealer data confirmed. | Denton Law Firm is committed to rapid response and providing real solutions. | Source: https://www.ransomware.live/id/ZGVudG9uZmlybS5jb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5274"
+}

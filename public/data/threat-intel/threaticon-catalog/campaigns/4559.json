@@ -1,0 +1,12 @@
+{
+  "id": 4559,
+  "name": "anubis: Quest Health Solutions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 24, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: questhealthsolutions.com | Infostealer data confirmed. | Employee data, internal files, and a few unexpected discoveries. | Source: https://www.ransomware.live/id/UXVlc3QgSGVhbHRoIFNvbHV0aW9uc0BhbnViaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4559"
+}

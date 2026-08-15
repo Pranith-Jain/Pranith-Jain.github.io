@@ -1,0 +1,12 @@
+{
+  "id": 2612,
+  "name": "OSINT - New targeted attack against Saudi Arabia Government",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1020 (58d4c745-a110-4623-a9e6-497d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2612"
+}

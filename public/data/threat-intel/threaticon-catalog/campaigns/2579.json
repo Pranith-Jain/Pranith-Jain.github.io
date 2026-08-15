@@ -1,0 +1,12 @@
+{
+  "id": 2579,
+  "name": "OSINT - Malicious SVG Files in the Wild",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #969 (588867a4-c470-4914-b854-d3f6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2579"
+}

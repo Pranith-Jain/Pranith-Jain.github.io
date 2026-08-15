@@ -1,0 +1,12 @@
+{
+  "id": 3189,
+  "name": "Dridex of the day (2016-03-16) - botnet 120",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #313 (56e962e9-ed10-48d8-b885-4bcd950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3189"
+}

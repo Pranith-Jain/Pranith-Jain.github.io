@@ -1,0 +1,15 @@
+{
+  "slug": "akira-keystops-2026-08-14",
+  "title": "Keystops",
+  "group": "akira",
+  "discovered": "2026-08-14T13:52:06.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/dababac2-44b5-451f-99b4-3bab3fcf5d0a",
+  "groupAliases": ["Megazord"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

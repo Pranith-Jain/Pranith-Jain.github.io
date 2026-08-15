@@ -1,0 +1,12 @@
+{
+  "id": 680,
+  "name": "Detection of IP Addresses",
+  "detId": "DET0815",
+  "stixId": "x-mitre-detection-strategy--55ddc6ba-a04a-4e68-bb34-741d38d2c33d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1947"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/680"
+}

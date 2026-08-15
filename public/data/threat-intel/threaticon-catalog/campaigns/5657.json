@@ -1,0 +1,12 @@
+{
+  "id": 5657,
+  "name": "nova: Integrated Marketing Services",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 17, 2026",
+  "lastSeen": "Jul 17, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to nova. | Sector: Business Services | Integrated Marketing Services is a company that operates in the Commercial Printing industry. It employs 20to49 people and has 5Mto10M of revenue. The company is headquartered in Liverpool, New York - Nova Provide tree and samples from stolen data + decrypt sample to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/SW50ZWdyYXRlZCBNYXJrZXRpbmcgU2VydmljZXNAbm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5657"
+}

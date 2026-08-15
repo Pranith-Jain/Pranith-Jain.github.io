@@ -1,0 +1,12 @@
+{
+  "id": 246,
+  "name": "Detection Strategy for T1505.004 - Malicious IIS Components",
+  "detId": "DET0068",
+  "stixId": "x-mitre-detection-strategy--32af4177-8c33-43d8-8e2c-9e11ac6dd451",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0184"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/246"
+}

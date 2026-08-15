@@ -1,0 +1,12 @@
+{
+  "id": 2894,
+  "name": "New IoT multiplatform Linux malware: Linux/AirDropBot",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1555 (5d9049fa-1a6c-4668-b7aa-4bf7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2894"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 382,
+  "name": "Detecting Bulk or Anomalous Access to Private Code Repositories via SaaS Platforms",
+  "detId": "DET0263",
+  "stixId": "x-mitre-detection-strategy--574968c5-ca49-4005-958f-c3ea5a78cfbc",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0732"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/382"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4015,
+  "name": "bravox: Salvation Army",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to bravox. | Country: CA | Sector: Consumer Services | Website: salvationarmy.ca | Infostealer data confirmed. | Provides social services, emergency aid, rehabilitation, and community support. | Source: https://www.ransomware.live/id/U2FsdmF0aW9uIEFybXlAYnJhdm94",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4015"
+}

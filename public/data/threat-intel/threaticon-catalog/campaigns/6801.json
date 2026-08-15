@@ -1,0 +1,12 @@
+{
+  "id": 6801,
+  "name": "gunra: Weilhotel",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 29, 2026",
+  "lastSeen": "Jul 29, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to gunra. | Country: MY | Sector: Hospitality | Website: weilhotel.com | Sector: Hotel | Revenue: US$ 5,000,000 | Source: https://www.ransomware.live/id/V2VpbGhvdGVsQGd1bnJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6801"
+}

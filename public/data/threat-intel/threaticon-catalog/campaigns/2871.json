@@ -1,0 +1,12 @@
+{
+  "id": 2871,
+  "name": "Fake invoice (per postal mail)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1490 (5c8ba546-6ac8-4bfd-b03a-481e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2871"
+}

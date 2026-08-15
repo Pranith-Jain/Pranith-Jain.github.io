@@ -1,0 +1,12 @@
+{
+  "id": 2597,
+  "name": "OSINT - Fileless attacks against enterprise networks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #993 (58a1dcbc-4d5c-4267-995a-498b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2597"
+}

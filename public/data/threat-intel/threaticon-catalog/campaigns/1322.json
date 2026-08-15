@@ -1,0 +1,12 @@
+{
+  "id": 1322,
+  "name": "qilin: Living in green, s. r. o.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: SK | Sector: Not Found | Website: www.livingingreen.cz | Source: https://www.ransomware.live/id/TGl2aW5nIGluIGdyZWVuLCBzLiByLiBvLkBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1322"
+}

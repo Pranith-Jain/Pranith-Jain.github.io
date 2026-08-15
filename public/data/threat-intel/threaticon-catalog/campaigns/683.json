@@ -1,0 +1,12 @@
+{
+  "id": 683,
+  "name": "dragonforce: medicalnetworks CJ GmbH & Co. KG",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Healthcare | Website: medicalnetworks.de | Infostealer data confirmed. | Medicalnetworks specializes in integrated healthcare solutions, offering services such as ascleoncare and Hybrid-DRG billing. Their products are designed to streamline processes for health insurance providers and medical practices. The company aims to enhance the efficiency of healthcare delivery through innovative technology. Their intended clients include healthcare providers and insurance companies seeking to improve their operational workflows | Source: https://www.ransomware.live/id/bWVkaWNhbG5ldHdvcmtzIENKIEdtYkggJiBDby4gS0dAZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/683"
+}

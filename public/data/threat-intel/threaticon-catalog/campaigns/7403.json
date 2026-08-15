@@ -1,0 +1,12 @@
+{
+  "id": 7403,
+  "name": "thegentlemen: ZS Salovnova",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CZ | Sector: Not Found | Website: zssalounova.cz | Infostealer data confirmed. | zssalounova.cz ZŠ Šalounova is a primary school located in the Vítkovice district of Ostrava, Czech Republic, operating across two buildings on Šalounova and Halasova streets. The institution provides comprehensive standard education alongside specialized programs, a wide range of extracurricular clubs, and a full school counseling facility. It actively supports student success through dedicated staff, including school psychologists, special educators, and career counselors, as well as various educational and sports projects. | Source: https://www.ransomware.live/id/WlMgU2Fsb3Zub3ZhQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7403"
+}

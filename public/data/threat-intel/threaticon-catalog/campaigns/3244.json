@@ -1,0 +1,12 @@
+{
+  "id": 3244,
+  "name": "Analysis of Storm-0558 techniques for unauthorized email access",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #418 (45ab9141-de79-4492-974b-1504bd6dfa13).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3244"
+}

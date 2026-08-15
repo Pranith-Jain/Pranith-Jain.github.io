@@ -1,0 +1,12 @@
+{
+  "id": 2693,
+  "name": "OSINT - Ursnif variant found using mouse movement for decryption and evasion",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1144 (59a3bc82-f214-4bef-ab11-461b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2693"
+}

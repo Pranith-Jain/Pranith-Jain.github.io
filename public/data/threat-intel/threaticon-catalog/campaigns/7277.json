@@ -1,0 +1,12 @@
+{
+  "id": 7277,
+  "name": "akira: Pharma Test Apparatebau AG",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: CH | Sector: Manufacturing | Pharma Test is an internationally leading manufacturer and household name for the development a nd production of high-value test devices and systems. They offer a complete product range from manual, physical testing instruments to fully automated, analytical test systems to analyze the active chemical composition of a dosage form as well as its release rate. We will upload 46gb corporate data soon. Employee personal information (passports and so on), f inancials, contracts and agreements, NDA, clients information and so on. | Source: https://www.ransomware.live/id/UGhhcm1hIFRlc3QgQXBwYXJhdGViYXUgQUdAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7277"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1382,
+  "name": "thegentlemen: Omikenshi",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: JP | Sector: Manufacturing | Website: omikenshi.co.jp | Infostealer data confirmed. | omikenshi.co.jp zoominfo.com/c/omikenshi-co-ltd/372144961 Omikenshi specializes in the production of textiles, including cotton and yarn, as well as advanced processing technologies. The company also offers a range of lifestyle products, cosmetics, and software development services. Their intended clients include businesses seeking office supplies and electronic catalogs. Additionally, Omikenshi is committed to environmental sustainability and actively engages in eco-friendly practices | Source: https://www.ransomware.live/id/T21pa2Vuc2hpQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1382"
+}

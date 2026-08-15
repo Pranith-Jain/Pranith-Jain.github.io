@@ -1,0 +1,12 @@
+{
+  "id": 2003,
+  "name": "Remtasu obtaining Facebook accounts",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #5 (56ca40d2-0e68-468d-a43e-42fbc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2003"
+}

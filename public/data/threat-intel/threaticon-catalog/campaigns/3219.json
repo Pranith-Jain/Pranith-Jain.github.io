@@ -1,0 +1,12 @@
+{
+  "id": 3219,
+  "name": "Bad magic: new APT found in the area of Russo-Ukrainian conflict",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #360 (defe99ff-e92c-4267-b446-0686d2c00559).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3219"
+}

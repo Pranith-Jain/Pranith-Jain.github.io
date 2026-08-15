@@ -1,0 +1,12 @@
+{
+  "id": 2667,
+  "name": "OSINT - New KONNI Campaign References North Korean Missile Capabilities",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1107 (595dfe70-4ba8-4f83-8089-4a65950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2667"
+}

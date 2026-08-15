@@ -1,0 +1,12 @@
+{
+  "id": 2112,
+  "name": "CVE-2018-4878 (Flash Player up to 28.0.0.137) and Exploit Kits",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #138 (5aa80811-a4a8-45b0-bed0-4118c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2112"
+}

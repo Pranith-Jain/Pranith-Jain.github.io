@@ -1,0 +1,12 @@
+{
+  "id": 2634,
+  "name": "OSINT - A Mole exposing itself to sunlight Snake: Coming soon in Mac OS X flavour",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1050 (590b172d-c8f4-4cdd-88cf-4443950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2634"
+}

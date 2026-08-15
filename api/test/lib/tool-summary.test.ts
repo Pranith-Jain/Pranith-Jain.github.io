@@ -164,7 +164,7 @@ describe('summarizeToolResult — per-tool structured extraction', () => {
 });
 
 describe('describeTools — action-space description', () => {
-  it('formats tool name, description, and params', () => {
+  it('formats tool name, required params, and first sentence of description', () => {
     const tools: AgentTool[] = [
       {
         name: 'check_ioc',
@@ -177,15 +177,17 @@ describe('describeTools — action-space description', () => {
       },
     ];
     const out = describeTools(tools);
-    expect(out).toContain('**check_ioc**');
-    expect(out).toContain('Multi-provider IOC reputation check.');
-    expect(out).toContain('indicator: string');
-    expect(out).toContain('verbose?: boolean');
+    // Compressed bullet format (planner context budget):
+    // `- name (required, comma-separated): first-sentence description`
+    expect(out).toContain('- check_ioc (indicator): Multi-provider IOC reputation check');
+    // Optional params and their descriptions are omitted entirely.
+    expect(out).not.toContain('verbose');
+    expect(out).not.toContain('**');
   });
 
-  it('shows (none) for tools with no params', () => {
+  it('omits the param list when no params are required', () => {
     const tools: AgentTool[] = [{ name: 'get_live_iocs', description: 'dump', params: [], execute: async () => ({}) }];
     const out = describeTools(tools);
-    expect(out).toContain('(none)');
+    expect(out).toBe('- get_live_iocs: dump');
   });
 });

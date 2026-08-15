@@ -1,0 +1,12 @@
+{
+  "id": 2229,
+  "name": "Scraper: Black Basta Ransomware Gang Infiltrates Networks via QAKBOT, Brute Ratel, and Cobalt Strike",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #334 (ee37f554-11fc-4734-b338-60f8f74eeee8).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2229"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 5782,
+  "name": "incransom: reatile.co.za",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 18, 2026",
+  "lastSeen": "Jul 18, 2026",
+  "added": "Jul 18, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: ZA | Sector: Not Found | Website: reatile.co.za | Infostealer data confirmed. | Reatile Group is an innovative, black-owned investment holding company established in 2003, focusing on the energy, petrochemical, and industrial sectors in South Africa. The company aims to leverage growth opportunities within these industrial sectors of the South African economy. Reatile Group is committed to improving the quality of life for disadvantaged communities through its foundation. Their strategic vision emphasizes growth and development in key sectors. | Source: https://www.ransomware.live/id/cmVhdGlsZS5jby56YUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5782"
+}

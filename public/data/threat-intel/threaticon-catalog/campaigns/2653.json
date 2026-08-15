@@ -1,0 +1,12 @@
+{
+  "id": 2653,
+  "name": "OSINT - The Recorded Future Blog Malicious Android Applications Raise Concerns for Enterprises",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1078 (5939bc28-0960-4108-a244-9b8302de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2653"
+}

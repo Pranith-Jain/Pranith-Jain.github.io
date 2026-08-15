@@ -1,0 +1,12 @@
+{
+  "id": 7173,
+  "name": "everest: Dharma Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 17, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: IT | Sector: Other | Website: dharmagroup.it | [AI generated] N/A | Source: https://www.ransomware.live/id/RGhhcm1hIEdyb3VwQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7173"
+}

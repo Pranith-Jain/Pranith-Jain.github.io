@@ -1,0 +1,12 @@
+{
+  "id": 531,
+  "name": "Resource Hijacking Detection Strategy",
+  "detId": "DET0267",
+  "stixId": "x-mitre-detection-strategy--440ddaf2-4e80-4699-90d7-0bdccdfeece6",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "analytics": ["AN0741", "AN0742", "AN0743", "AN0744", "AN0745", "AN0746"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/531"
+}

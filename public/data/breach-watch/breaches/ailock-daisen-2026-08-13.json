@@ -1,0 +1,15 @@
+{
+  "slug": "ailock-daisen-2026-08-13",
+  "title": "DAISEN",
+  "group": "AiLock",
+  "discovered": "2026-08-13T11:50:28.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d4519f04-39d7-4a60-920d-cde8abbb7299",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

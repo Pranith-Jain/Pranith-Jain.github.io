@@ -1,0 +1,12 @@
+{
+  "id": 1231,
+  "name": "lockbit5: alcornschools.org",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Education | Website: alcornschools.org | Infostealer data confirmed. | Alcorn School District is dedicated to fostering a safe and positive learning environment that promo... | Press: https://dysruptionhub.com/alcorn-school-district-network-shutdown-ms/ | Source: https://www.ransomware.live/id/YWxjb3Juc2Nob29scy5vcmdAbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1231"
+}

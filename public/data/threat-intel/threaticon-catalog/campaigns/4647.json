@@ -1,0 +1,12 @@
+{
+  "id": 4647,
+  "name": "lockbit5: rubbercompounding.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Jun 17, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Sector: Manufacturing | Website: rubbercompounding.com | Infostealer data confirmed. | DRC is a custom mixing company with more than 45 years of experience, supplying high-performance rub... | Source: https://www.ransomware.live/id/cnViYmVyY29tcG91bmRpbmcuY29tQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4647"
+}

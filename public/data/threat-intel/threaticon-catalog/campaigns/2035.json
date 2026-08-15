@@ -1,0 +1,12 @@
+{
+  "id": 2035,
+  "name": "PowerSniff Malware Used in Macro-based Attacks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #47 (56e9ae18-47d8-4bce-a411-c2dbc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2035"
+}

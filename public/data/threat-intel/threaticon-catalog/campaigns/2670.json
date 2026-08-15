@@ -1,0 +1,12 @@
+{
+  "id": 2670,
+  "name": "M2M - Encrypted Docx Campaign",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1111 (5968d8bc-9874-4fc2-ab64-4d7c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2670"
+}

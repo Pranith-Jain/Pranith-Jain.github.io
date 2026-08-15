@@ -1,0 +1,12 @@
+{
+  "id": 2805,
+  "name": "SMS/iMessage phishes forcing users to install/run scripts and update VPN settings",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1311 (5a9922cb-9c5c-4979-a78c-4fee950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2805"
+}

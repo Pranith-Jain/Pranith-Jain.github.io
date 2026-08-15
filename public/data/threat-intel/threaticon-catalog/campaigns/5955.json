@@ -1,0 +1,12 @@
+{
+  "id": 5955,
+  "name": "qilin: Postres Reina",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 21, 2026",
+  "lastSeen": "Jul 21, 2026",
+  "added": "Jul 22, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Agriculture and Food Production | Website: www.postresreina.com | N/A | Source: https://www.ransomware.live/id/UG9zdHJlcyBSZWluYUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5955"
+}

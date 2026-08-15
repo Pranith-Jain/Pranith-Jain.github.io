@@ -1,0 +1,30 @@
+{
+  "id": 89,
+  "name": "User Account Creation",
+  "dcId": "DC0014",
+  "analyticCount": 17,
+  "strategyCount": 6,
+  "added": null,
+  "analytics": [
+    "AN0006",
+    "AN0899",
+    "AN0900",
+    "AN0901",
+    "AN0902",
+    "AN1001",
+    "AN1077",
+    "AN1078",
+    "AN1079",
+    "AN1080",
+    "AN1235",
+    "AN1236",
+    "AN1240",
+    "AN1604",
+    "AN1605",
+    "AN1607",
+    "AN1608"
+  ],
+  "description": "The initial establishment of a new user, service, or machine account within an operating system, cloud environment, or identity management system.",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/89"
+}

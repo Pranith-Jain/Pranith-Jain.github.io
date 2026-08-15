@@ -1,0 +1,12 @@
+{
+  "id": 889,
+  "name": "TiMc: Seidor",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to TiMc. | Country: ES | Sector: Business Services | Website: www.seidor.com | On behalf of A IT solution company , the first response to the data breach was trying to cover the truth, shame on you When the countdown was over, we will public your newest 200GB+ data. | Source: https://www.ransomware.live/id/U2VpZG9yQFRpTWM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/889"
+}

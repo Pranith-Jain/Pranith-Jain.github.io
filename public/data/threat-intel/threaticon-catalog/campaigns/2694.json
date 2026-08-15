@@ -1,0 +1,12 @@
+{
+  "id": 2694,
+  "name": "OSINT - Reyptson Ransomware Spams Your Friends by Stealing Thunderbird Contacts",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1146 (59a3c405-c348-4f7f-be23-4689950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2694"
+}

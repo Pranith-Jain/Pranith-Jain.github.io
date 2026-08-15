@@ -1,0 +1,12 @@
+{
+  "id": 2235,
+  "name": "Untangling KNOTWEED: European private-sector offensive actor using 0-day exploits",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #349 (cc55d271-bff7-4045-b449-ee50dd0149e1).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2235"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6783,
+  "name": "thegentlemen: Promatrix",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 29, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Technology | Website: promatrixcorp.com | promatrixcorp.com zoominfo.com/c/promatrix-corp/347777611 Promatrix Corp is a rapidly growing IT consulting and outsourcing company based in New Jersey, USA. They deliver comprehensive global technology solutions, including web application development, managed IT services, and staff augmentation. The company also specializes in enterprise resource planning (SAP) support and HR outsourcing to help businesses optimize their operations and scale efficiently | Source: https://www.ransomware.live/id/UHJvbWF0cml4QHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6783"
+}

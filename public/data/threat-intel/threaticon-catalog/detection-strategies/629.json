@@ -1,0 +1,12 @@
+{
+  "id": 629,
+  "name": "Behavioral Detection of WinRM-Based Remote Access",
+  "detId": "DET0477",
+  "stixId": "x-mitre-detection-strategy--7ff1f384-2373-4ea9-9311-1587b520a5c4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1313"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/629"
+}

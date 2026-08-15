@@ -1,0 +1,12 @@
+{
+  "id": 4577,
+  "name": "cmdorganization: Coldstat Refrigeration",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 23, 2026",
+  "lastSeen": "Jun 23, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: GB | Sector: Agriculture and Food Production | Website: www.coldstat.com | Coldstat Refrigeration offers a full range of industry-proven refrigeration services. From large restaurant chains to individual stores and cafes—Coldstat is ready to meet all your needs. The company’s qualified staff will help you determine the best solution based on your individual needs. Coldstat’s refrigeration services include: sales of commercial refrigeration equipment, installation, maintenance and repair, layout planning, custom system design, and removal of old equipment.Translated with DeepL.com (free version) | Source: https://www.ransomware.live/id/Q29sZHN0YXQgUmVmcmlnZXJhdGlvbkBjbWRvcmdhbml6YXRpb24=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4577"
+}

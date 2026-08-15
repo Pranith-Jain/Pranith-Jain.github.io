@@ -1,0 +1,12 @@
+{
+  "id": 6219,
+  "name": "qilin: Principle Diagnostics Laboratory",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: IN | Sector: Healthcare | Website: www.principlediagnostics.com | N/A | Source: https://www.ransomware.live/id/UHJpbmNpcGxlIERpYWdub3N0aWNzIExhYm9yYXRvcnlAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6219"
+}

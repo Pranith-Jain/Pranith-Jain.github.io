@@ -1,0 +1,12 @@
+{
+  "id": 1566,
+  "name": "coinbasecartel: ATG - New samples added",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: SE | Sector: Not Found | Website: atg.se | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QVRHIC0gTmV3IHNhbXBsZXMgYWRkZWRAY29pbmJhc2VjYXJ0ZWw=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1566"
+}

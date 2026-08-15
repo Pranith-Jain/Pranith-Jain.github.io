@@ -1,0 +1,12 @@
+{
+  "id": 759,
+  "name": "lockbit5: townoforangeva.gov",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Public Sector | Website: townoforangeva.gov | Infostealer data confirmed. | The Town of Orange, Virginia, is the seat of Orange County and serves as its business center, offeri... | Press: https://dysruptionhub.com/orange-va-outage-lockbit-post/ | Source: https://www.ransomware.live/id/dG93bm9mb3JhbmdldmEuZ292QGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/759"
+}

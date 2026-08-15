@@ -1,0 +1,12 @@
+{
+  "id": 1719,
+  "name": "akira: Colliers International Idaho",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Colliers Idaho specializes in commercial real estate, offering a variety of properties for sale or lease throughout Idaho. Their p ortfolio includes options for retail, office, medical, and indust rial spaces, catering to diverse client needs. We will upload 42gb of corporate data soon. Employee passports, D Ls, SSNs, w9 forms, medical information. Financials, projects, ND As, etc. | Source: https://www.ransomware.live/id/Q29sbGllcnMgSW50ZXJuYXRpb25hbCBJZGFob0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1719"
+}

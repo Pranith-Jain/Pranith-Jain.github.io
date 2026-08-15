@@ -1,0 +1,12 @@
+{
+  "id": 881,
+  "name": "SilentRansomGroup: Cox, Castle & Nicholson LLP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: coxcastle.com | Infostealer data confirmed. | Cox, Castle & Nicholson is a leading law firm specializing in real estate and related services, with o… | Source: https://www.ransomware.live/id/Q294LCBDYXN0bGUgJiBOaWNob2xzb24gTExQQFNpbGVudFJhbnNvbUdyb3Vw",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/881"
+}

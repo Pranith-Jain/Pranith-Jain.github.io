@@ -1,0 +1,12 @@
+{
+  "id": 4362,
+  "name": "medusalocker: Estrela",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to medusalocker. | Country: BR | Sector: Consumer Services | Website: estrela.ind | Infostealer data confirmed. | Organization with 11 emails extracted. Domain: estrela.ind | Source: https://www.ransomware.live/id/RXN0cmVsYUBtZWR1c2Fsb2NrZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4362"
+}

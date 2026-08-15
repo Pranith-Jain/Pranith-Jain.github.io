@@ -1,0 +1,12 @@
+{
+  "id": 4247,
+  "name": "thegentlemen: Jump Solutions Inc",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PH | Sector: Business Services | Website: jumpsolutions.ph | Infostealer data confirmed. | ***.ph zoominfo.com/c/jump-solutions-inc/450178976 Filipino-owned IT solutions provider and system integrator based in Makati City, Metro Manila.The company specializes in delivering comprehensive, end-to-end IT solutions, including network infrastructure assessments, IT consultancy, and risk management.As a trusted technology partner, they focus on providing future-ready and secure technologies that empower businesses across various industries | Source: https://www.ransomware.live/id/SnVtcCBTb2x1dGlvbnMgSW5jQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4247"
+}

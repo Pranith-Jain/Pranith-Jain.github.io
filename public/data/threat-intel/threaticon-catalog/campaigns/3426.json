@@ -1,0 +1,12 @@
+{
+  "id": 3426,
+  "name": "OSINT Tracking MiniDionis: CozyCarâ€™s New Ride Is Related to Seaduke by Unit 42 Palo Alto Networks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #704 (55a8d7b5-9ab8-476f-982f-1e08950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3426"
+}

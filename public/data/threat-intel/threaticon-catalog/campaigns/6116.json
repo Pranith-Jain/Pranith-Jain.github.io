@@ -1,0 +1,12 @@
+{
+  "id": 6116,
+  "name": "everest: ЕРМ",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 29, 2026",
+  "lastSeen": "May 29, 2026",
+  "added": "Jul 24, 2026",
+  "description": "Ransomware attack attributed to everest. | Sector: Professional Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6116"
+}

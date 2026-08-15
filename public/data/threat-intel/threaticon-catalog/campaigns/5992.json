@@ -1,0 +1,12 @@
+{
+  "id": 5992,
+  "name": "qilin: P & A Construction",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 22, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.paconst.com | N/A | Source: https://www.ransomware.live/id/UCAmIEEgQ29uc3RydWN0aW9uQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5992"
+}

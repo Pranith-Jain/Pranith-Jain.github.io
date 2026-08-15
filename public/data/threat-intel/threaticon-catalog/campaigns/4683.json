@@ -1,0 +1,12 @@
+{
+  "id": 4683,
+  "name": "BrainCipher: themintgaming.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 19, 2026",
+  "lastSeen": "Jun 19, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to BrainCipher. | Sector: Consumer Services | Website: themintgaming.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/dGhlbWludGdhbWluZy5jb21AQnJhaW5DaXBoZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4683"
+}

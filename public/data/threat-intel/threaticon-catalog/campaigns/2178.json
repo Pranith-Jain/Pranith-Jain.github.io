@@ -1,0 +1,12 @@
+{
+  "id": 2178,
+  "name": "Grandoreiro: How engorged can an EXE get?",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #222 (5eb1b9a0-a1dc-46e9-8151-bcf2c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2178"
+}

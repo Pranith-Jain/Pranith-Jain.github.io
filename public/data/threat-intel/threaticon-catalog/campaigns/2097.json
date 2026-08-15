@@ -1,0 +1,12 @@
+{
+  "id": 2097,
+  "name": "Criminals in a festive mood",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #121 (5a30207d-92d8-4817-9060-8d1bc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2097"
+}

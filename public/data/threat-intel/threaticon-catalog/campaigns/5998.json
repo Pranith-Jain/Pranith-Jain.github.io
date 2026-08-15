@@ -1,0 +1,12 @@
+{
+  "id": 5998,
+  "name": "qilin: Cpcg",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 22, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: BR | Sector: Other | Website: www.cpcgr.com | N/A | Source: https://www.ransomware.live/id/Q3BjZ0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5998"
+}

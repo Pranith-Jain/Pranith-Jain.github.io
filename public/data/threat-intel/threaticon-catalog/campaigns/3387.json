@@ -1,0 +1,12 @@
+{
+  "id": 3387,
+  "name": "OSINT Carbanak gang is back and packing new guns by Eset",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #662 (55eecc81-b630-4157-b757-e538950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3387"
+}

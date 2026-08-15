@@ -1,0 +1,12 @@
+{
+  "id": 7642,
+  "name": "settra: firstdigital.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to settra. | Country: US | Sector: Technology | Website: firstdigital.com | Infostealer data confirmed. | The Digital Cartel: How a Telecom Empire Robs Its Own Customers and Employees A company that sells c... | Source: https://www.ransomware.live/id/Zmlyc3RkaWdpdGFsLmNvbUBzZXR0cmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7642"
+}

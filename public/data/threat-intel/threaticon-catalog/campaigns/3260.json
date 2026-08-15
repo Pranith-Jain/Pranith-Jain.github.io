@@ -1,0 +1,12 @@
+{
+  "id": 3260,
+  "name": "Backdoor Activator Malware Running Rife Through Torrents of macOS Apps",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #440 (d003529e-e30f-4233-a45f-22104cd9294c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3260"
+}

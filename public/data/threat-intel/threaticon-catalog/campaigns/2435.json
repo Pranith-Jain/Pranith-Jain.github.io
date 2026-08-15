@@ -1,0 +1,12 @@
+{
+  "id": 2435,
+  "name": "OSINT Threat Actors Use Sketchy Dating Website to Launch New Home Router Attacks by Damballa",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #763 (56af46bd-e4d0-4bf8-aa4a-4228950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2435"
+}

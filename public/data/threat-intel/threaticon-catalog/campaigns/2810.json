@@ -1,0 +1,12 @@
+{
+  "id": 2810,
+  "name": "OSINT - Sofacy Uses DealersChoice to Target European Government Agency",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1320 (5aac24b9-0404-4877-8b3f-425e02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2810"
+}

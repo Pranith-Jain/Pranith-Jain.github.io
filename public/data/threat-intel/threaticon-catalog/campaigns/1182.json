@@ -1,0 +1,12 @@
+{
+  "id": 1182,
+  "name": "play: Dock Pros",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to play. | Country: US | Sector: Transportation/Logistics | Website: www.dockprosinc.com | United States | Source: https://www.ransomware.live/id/RG9jayBQcm9zQHBsYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1182"
+}

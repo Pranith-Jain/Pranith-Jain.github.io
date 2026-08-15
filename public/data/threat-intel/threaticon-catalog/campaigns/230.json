@@ -1,0 +1,12 @@
+{
+  "id": 230,
+  "name": "threeam: wyomingcountyny.gov",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to threeam. | Country: US | Sector: Public Sector | Website: wyomingcountyny.gov | Infostealer data confirmed. | Wyoming County provides various government services to its residents, including job opportunities, economic development initiatives, and electronic forms for managing county affairs. The county actively organizes community events, such as pop-up f | Source: https://www.ransomware.live/id/d3lvbWluZ2NvdW50eW55LmdvdkB0aHJlZWFt",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/230"
+}

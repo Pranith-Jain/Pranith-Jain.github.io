@@ -1,0 +1,12 @@
+{
+  "id": 501,
+  "name": "Detection of Data Access and Collection from Removable Media",
+  "detId": "DET0511",
+  "stixId": "x-mitre-detection-strategy--a5800f15-f024-4701-912a-20d7e1cb465a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1410", "AN1411", "AN1412"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/501"
+}

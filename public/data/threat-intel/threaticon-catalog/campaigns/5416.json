@@ -1,0 +1,12 @@
+{
+  "id": 5416,
+  "name": "dragonforce: Atcom",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 14, 2026",
+  "lastSeen": "Jul 14, 2026",
+  "added": "Jul 14, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: CN | Sector: Telecommunication | Website: www.atcomm.cn | ATCOM Technology Co., LTD. specializes in manufacturing VoIP products, including various types of IP phones and IP PBX systems. They offer a range of solutions such as self-built VoIP, cloud VoIP, call center VoIP, and Wi-Fi VoIP solutions tailored for enterprises. Their focus is on creating value for customers through innovative products and excellent service. The intended clients include businesses looking for reliable and efficient communication systems. | Source: https://www.ransomware.live/id/QXRjb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5416"
+}

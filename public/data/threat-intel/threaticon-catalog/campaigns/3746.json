@@ -1,0 +1,12 @@
+{
+  "id": 3746,
+  "name": "safepay: soavegel.it",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Agriculture and Food Production | Website: soavegel.it | Infostealer data confirmed. | Is an Italian food manufacturing company specializing in frozen gastronomic products. Founded in 1935 in Francavilla Fontana, the company has … | Source: https://www.ransomware.live/id/c29hdmVnZWwuaXRAc2FmZXBheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3746"
+}

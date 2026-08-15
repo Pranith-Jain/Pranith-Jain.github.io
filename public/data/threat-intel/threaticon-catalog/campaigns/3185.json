@@ -1,0 +1,12 @@
+{
+  "id": 3185,
+  "name": "MAR-10382254.r1.v1: XMRIG Cryptominer",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #308 (21db8eec-8797-439d-94c1-4de8a6dac7e2).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3185"
+}

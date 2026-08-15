@@ -1,0 +1,12 @@
+{
+  "id": 7815,
+  "name": "clop: SHELL.COM (August 2026)",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 13, 2026",
+  "description": "Ransomware attack attributed to clop. | Country: GB | Sector: Energy & Utilities | Website: SHELL.COM | Data exfiltrated included the following: Engineering drawings, photos of the facilities, scans of facility testing reports, project plans Total size: 89Gb Revenue: $2,673,000,000,000 | Source: https://www.ransomware.live/id/U0hFTEwuQ09NIChBdWd1c3QgMjAyNilAY2xvcA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7815"
+}

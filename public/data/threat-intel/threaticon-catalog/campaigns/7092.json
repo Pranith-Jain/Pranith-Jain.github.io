@@ -1,0 +1,12 @@
+{
+  "id": 7092,
+  "name": "qilin: WD Masonry & Concrete",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Aug 4, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Other | Website: www.wdmandc.com | N/A | Source: https://www.ransomware.live/id/V0QgTWFzb25yeSAmIENvbmNyZXRlQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7092"
+}

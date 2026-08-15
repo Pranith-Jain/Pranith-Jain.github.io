@@ -1,0 +1,12 @@
+{
+  "id": 2814,
+  "name": "OSINT - Goodbye Cerber? Hello Magniber Ransomware!",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1333 (5ad059f5-b418-43bc-a901-7c4a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2814"
+}

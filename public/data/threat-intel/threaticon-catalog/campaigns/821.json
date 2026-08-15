@@ -1,0 +1,12 @@
+{
+  "id": 821,
+  "name": "qilin: Herth+Buss",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Manufacturing | Website: www.herthundbuss.com | Source: https://www.ransomware.live/id/SGVydGgrQnVzc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/821"
+}

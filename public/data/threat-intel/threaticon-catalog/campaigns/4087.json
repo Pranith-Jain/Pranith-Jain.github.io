@@ -1,0 +1,12 @@
+{
+  "id": 4087,
+  "name": "lockbit5: bancrofteng.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: GB | Sector: Construction | Website: bancrofteng.com | Infostealer data confirmed. | Bancroft Engineering specializes in the design and manufacturing of automated welding equipment and... | Source: https://www.ransomware.live/id/YmFuY3JvZnRlbmcuY29tQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4087"
+}

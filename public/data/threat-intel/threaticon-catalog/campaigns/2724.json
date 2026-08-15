@@ -1,0 +1,12 @@
+{
+  "id": 2724,
+  "name": "OSINT - Banking Trojan Attempts To Steal Brazillion$",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1193 (59cd5d0e-8280-4acd-a27e-427302de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2724"
+}

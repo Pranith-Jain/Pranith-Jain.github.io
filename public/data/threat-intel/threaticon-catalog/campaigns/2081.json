@@ -1,0 +1,12 @@
+{
+  "id": 2081,
+  "name": "Seamless Campaign using Rig Exploit Kit to send Ramnit Trojan",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #104 (59140a0f-6060-4814-ae44-4567c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2081"
+}

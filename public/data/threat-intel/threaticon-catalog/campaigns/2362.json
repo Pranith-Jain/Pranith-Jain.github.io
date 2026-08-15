@@ -1,0 +1,12 @@
+{
+  "id": 2362,
+  "name": "OSINT - Kovter becomes almost file-less, creates a new file type, and gets some new certificates",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #617 (57931fd5-3c78-4dab-b1e9-4cc302de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2362"
+}

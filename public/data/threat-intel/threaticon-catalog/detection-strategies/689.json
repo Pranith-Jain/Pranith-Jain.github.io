@@ -1,0 +1,12 @@
+{
+  "id": 689,
+  "name": "Detection of Malicious or Unauthorized Software Extensions",
+  "detId": "DET0092",
+  "stixId": "x-mitre-detection-strategy--eaa0f0da-bee7-4ce3-97e5-46d5ac2a9257",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0251", "AN0252", "AN0253"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/689"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2135,
+  "name": "PowerPool malware exploits ALPC LPE zero-day vulnerability",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #164 (5b9a1334-6460-47ad-b561-32aac0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2135"
+}

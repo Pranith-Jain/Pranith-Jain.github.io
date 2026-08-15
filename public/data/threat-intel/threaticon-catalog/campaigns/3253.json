@@ -1,0 +1,12 @@
+{
+  "id": 3253,
+  "name": "Seedworm: Iranian Hackers Target Telecoms Orgs in North and East Africa",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #430 (35457c1d-05e4-4b01-92f0-3433a6c12b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3253"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3265,
+  "name": "PORTAL KOMBAT A structured and coordinated pro-Russian propaganda network",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #453 (e41e9a5e-11db-4999-bae0-0cc159299e3d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3265"
+}

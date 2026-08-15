@@ -1,0 +1,12 @@
+{
+  "id": 2485,
+  "name": "OSINT Domains and IPs involved in JS ransomware delivered through email by burberry on AlienVault OTX",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #826 (57b5c11a-d2a0-455f-b409-4851950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2485"
+}

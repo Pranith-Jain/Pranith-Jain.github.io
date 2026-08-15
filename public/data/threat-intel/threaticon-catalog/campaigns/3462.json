@@ -1,0 +1,12 @@
+{
+  "id": 3462,
+  "name": "Malspam 2016-10-07 (.js in .zip) - campaign: \"wrong paychecks\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #894 (57f74bd6-915c-43db-8a24-4d93950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3462"
+}

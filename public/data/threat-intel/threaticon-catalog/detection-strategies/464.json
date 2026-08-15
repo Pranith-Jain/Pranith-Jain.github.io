@@ -1,0 +1,12 @@
+{
+  "id": 464,
+  "name": "Detection Strategy for Rogue Domain Controller (DCShadow) Registration and Replication Abuse",
+  "detId": "DET0276",
+  "stixId": "x-mitre-detection-strategy--f012e122-9f78-4370-a481-d2efaa181359",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0770"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/464"
+}

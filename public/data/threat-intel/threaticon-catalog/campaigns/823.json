@@ -1,0 +1,12 @@
+{
+  "id": 823,
+  "name": "qilin: J Brand",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.jbrand.co.uk | Source: https://www.ransomware.live/id/SiBCcmFuZEBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/823"
+}

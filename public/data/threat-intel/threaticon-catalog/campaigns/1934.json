@@ -1,0 +1,12 @@
+{
+  "id": 1934,
+  "name": "nightspire: SIMETRI Inc",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Technology | Website: simetri.us | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/U0lNRVRSSSBJbmNAbmlnaHRzcGlyZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1934"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-interim-healthcare-2026-08-15",
+  "title": "Interim HealthCare",
+  "group": "Anubis",
+  "discovered": "2026-08-15T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/interim-healthcare-anubis-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

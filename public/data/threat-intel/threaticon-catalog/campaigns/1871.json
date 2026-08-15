@@ -1,0 +1,12 @@
+{
+  "id": 1871,
+  "name": "safepay: ripobec.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: CA | Sector: Agriculture and Food Production | Website: ripobec.com | Infostealer data confirmed. | Is a Canadian family-owned agricultural supply company headquartered in Saint-Apollinaire, Quebec, specialising in the production and distribution of premium wood … | Source: https://www.ransomware.live/id/cmlwb2JlYy5jb21Ac2FmZXBheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1871"
+}

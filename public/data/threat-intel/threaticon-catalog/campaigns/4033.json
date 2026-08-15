@@ -1,0 +1,12 @@
+{
+  "id": 4033,
+  "name": "apt73: minsa.com.mx",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: MX | Sector: Not Found | Website: minsa.com.mx | Infostealer data confirmed. | Minsa is a company from Mexico, one of the largest producers of nixtamalizada (masa harina) corn ... | Source: https://www.ransomware.live/id/bWluc2EuY29tLm14QGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4033"
+}

@@ -1,15 +1,15 @@
 {
   "slug": "majinahanashi-grupo-starfoods-2026-08-12",
-  "title": "Grupo Starfoods",
-  "group": "Majinahanashi",
-  "discovered": "2026-08-12T00:00:00.000Z",
+  "title": "GRUPO STARFOODS",
+  "group": "majinahanashi",
+  "discovered": "2026-08-12T14:51:32.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "Portugal",
+  "country": "PT",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/grupo-starfoods-majinahanashi-2026-08",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/9924c4f6-8660-4faf-a1d2-df8ee117438a",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Agriculture and Food Production",
+  "references": ["Darkfield"]
 }

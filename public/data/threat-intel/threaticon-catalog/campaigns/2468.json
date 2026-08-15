@@ -1,0 +1,12 @@
+{
+  "id": 2468,
+  "name": "OSINT New C2 â€“ Neutrino Exploit Kit via pseudoDarkleech HOPTO.ORG gate delivers CrypMic Ransomware by Broad Analysis",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #805 (57adad28-ac28-49f0-b8d5-7495950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2468"
+}

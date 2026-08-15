@@ -1,0 +1,12 @@
+{
+  "id": 137,
+  "name": "Detection of Install Digital Certificate",
+  "detId": "DET0840",
+  "stixId": "x-mitre-detection-strategy--ad99833c-d2de-45be-a20b-9cbb6d797a35",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1972"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/137"
+}

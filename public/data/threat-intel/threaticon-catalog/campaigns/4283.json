@@ -1,0 +1,12 @@
+{
+  "id": 4283,
+  "name": "safepay: lh-wohnverbund-wohnen-nrw.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Consumer Services | Website: lh-wohnverbund-wohnen-nrw.de | Infostealer data confirmed. | They specialize in providing residential care, supported living, and social assistance for children, adolescents, and adults with intellectual and developmental … | Source: https://www.ransomware.live/id/bGgtd29obnZlcmJ1bmQtd29obmVuLW5ydy5kZUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4283"
+}

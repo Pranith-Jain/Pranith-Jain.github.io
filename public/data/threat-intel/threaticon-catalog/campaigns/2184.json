@@ -1,0 +1,12 @@
+{
+  "id": 2184,
+  "name": "APT Group Chimera - APT Operation Skeleton key Targets Taiwan Semiconductor Vendors",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #228 (5f2fc5a5-4fc0-4987-aec9-d180c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2184"
+}

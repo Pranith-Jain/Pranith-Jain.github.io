@@ -1,0 +1,12 @@
+{
+  "id": 2588,
+  "name": "OSINT - Windows SMBv3 Denial of Service Proof of Concept (0 Day Exploit)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #982 (5894f12f-709c-4502-a896-7dbf02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2588"
+}

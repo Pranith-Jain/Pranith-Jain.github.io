@@ -1,0 +1,12 @@
+{
+  "id": 2131,
+  "name": "Leafminer: New Espionage Campaigns Targeting Middle Eastern Regions",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #159 (5b646948-f79c-46e8-a53f-32abc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2131"
+}

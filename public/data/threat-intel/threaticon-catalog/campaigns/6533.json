@@ -1,0 +1,12 @@
+{
+  "id": 6533,
+  "name": "CRPxO: FLP Law Group LLP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Professional Services | Sector: Legal / Bankruptcy | Data leaked: 42.1 GB | Source: https://www.ransomware.live/id/RkxQIExhdyBHcm91cCBMTFBAQ1JQeE8=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6533"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 398,
+  "name": "apt73: trinitesolutions.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: US | Sector: Business Services | Website: trinitesolutions.com | Infostealer data confirmed. | Trinite Solutions was established in 2003. Its mission is to develop, market and implement busine... | Source: https://www.ransomware.live/id/dHJpbml0ZXNvbHV0aW9ucy5jb21AYXB0NzM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/398"
+}

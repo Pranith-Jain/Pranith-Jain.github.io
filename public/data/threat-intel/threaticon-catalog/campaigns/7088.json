@@ -1,0 +1,12 @@
+{
+  "id": 7088,
+  "name": "Orova: Bjs Insurance & Financial",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Financial Services | Website: www.bjsinsurance.net | BJS Insurance Services, Inc. was established upon two underlying principles that continue to define the company today.... Integrity and Stability. We're all about Service, we just do what we say we're going to do. We listen to our clients and suggest what plans fit your needs and budget. | Source: https://www.ransomware.live/id/QmpzIEluc3VyYW5jZSAmIEZpbmFuY2lhbEBPcm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7088"
+}

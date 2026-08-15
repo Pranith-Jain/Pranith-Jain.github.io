@@ -1,0 +1,12 @@
+{
+  "id": 2562,
+  "name": "OSINT - Windows 10: protection, detection, and response against recent Depriz malware attacks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #940 (584fabab-b03c-404c-8ff8-4433950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2562"
+}

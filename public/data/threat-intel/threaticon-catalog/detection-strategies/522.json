@@ -1,0 +1,12 @@
+{
+  "id": 522,
+  "name": "Detection Strategy for Dynamic API Resolution via Hash-Based Function Lookups",
+  "detId": "DET0091",
+  "stixId": "x-mitre-detection-strategy--063eac3f-9c2a-429a-ad7c-ae7f49158bb2",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0250"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/522"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 342,
+  "name": "krybit: zsiclife.co.zm",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: ZM | Sector: Healthcare | Website: zsiclife.co.zm | Infostealer data confirmed. | ZSIC Life Plc is a leading assurance, savings, and wealth management company in Zambia, offering a diverse range of life... | Source: https://www.ransomware.live/id/enNpY2xpZmUuY28uem1Aa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/342"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 530,
+  "name": "Peripheral Device Enumeration via System Utilities and API Calls",
+  "detId": "DET0491",
+  "stixId": "x-mitre-detection-strategy--f273ee4a-e468-4a01-bb1a-f3a687518ded",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1353", "AN1354", "AN1355"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/530"
+}

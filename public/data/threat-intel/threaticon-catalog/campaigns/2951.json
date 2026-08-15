@@ -1,0 +1,12 @@
+{
+  "id": 2951,
+  "name": "OSINT - Advisory: Active exploitation of Check Point Remote Access VPN vulnerability (CVE-2024-24919)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1760 (b1a15b0e-d143-4e93-9a8c-45968fd29936).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2951"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2273,
+  "name": "Barracuda Email Security Gateway Appliance (ESG) Vulnerability",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #428 (5c48086c-5e84-4baa-b664-fd6de90ab67c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2273"
+}

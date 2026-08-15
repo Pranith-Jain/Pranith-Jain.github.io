@@ -1,0 +1,12 @@
+{
+  "id": 4556,
+  "name": "morpheus: Delegal Poindexter & Underkofler, P.A.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 25, 2026",
+  "lastSeen": "Jun 25, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to morpheus. | Country: US | Sector: Business Services | Website: protectingcareers.com | Infostealer data confirmed. | **Website**: protectingcareers.com **Revenue**: $5 Million Delegal Poindexter & Underkofler provides highly specialized legal services to employees with employment law concerns.They represent profes | Source: https://www.ransomware.live/id/RGVsZWdhbCBQb2luZGV4dGVyICYgVW5kZXJrb2ZsZXIsIFAuQS5AbW9ycGhldXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4556"
+}

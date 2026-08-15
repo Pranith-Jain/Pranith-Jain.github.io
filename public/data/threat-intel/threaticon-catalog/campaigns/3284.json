@@ -1,0 +1,12 @@
+{
+  "id": 3284,
+  "name": "Tiny BackDoor Goes Undetected – Suspected Turla leveraging MSBuild to Evade detection",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #501 (cc90652d-048b-4e4d-923c-5ab8511ae51f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3284"
+}

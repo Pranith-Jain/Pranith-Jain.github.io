@@ -1,0 +1,12 @@
+{
+  "id": 1754,
+  "name": "termite: City of Huntington",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to termite. | Country: US | Sector: Public Sector | Website: www.cityofhuntington.com | Founded in 1871, the City of Huntington is located in western West Virginia. It is the county seat of Cabell County and also stretches into Wayne County. | Press: https://dysruptionhub.com/huntington-wv-cyber-incident/ | Source: https://www.ransomware.live/id/Q2l0eSBvZiBIdW50aW5ndG9uQHRlcm1pdGU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1754"
+}

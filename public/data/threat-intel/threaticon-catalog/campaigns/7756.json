@@ -1,0 +1,12 @@
+{
+  "id": 7756,
+  "name": "majinahanashi: CARIBE / SUBRA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to majinahanashi. | Country: CO | Sector: Other | Website: kalimancaribe.com | Infostealer data confirmed. | TARGET: kalimancaribe.com & subra.bg. REVENUE: ~ EMPLOYEES: ~ [LEAK / 21311 FILES] | Source: https://www.ransomware.live/id/Q0FSSUJFIC8gU1VCUkFAbWFqaW5haGFuYXNoaQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7756"
+}

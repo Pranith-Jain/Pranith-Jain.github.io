@@ -1,0 +1,12 @@
+{
+  "id": 3507,
+  "name": "OSINT - How Malformed RTF Defeats Security Engines",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1019 (58d3f093-d6f4-44d1-93ac-3449950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3507"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2269,
+  "name": "AA23-136A StopRansomware BianLian Ransomware Group",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #411 (db3dfd75-681b-47e1-87bd-b72ba3c8a734).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2269"
+}

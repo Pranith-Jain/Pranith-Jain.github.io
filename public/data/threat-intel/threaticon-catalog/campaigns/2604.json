@@ -1,0 +1,12 @@
+{
+  "id": 2604,
+  "name": "OSINT - Update on the Fancy Bear Android malware (poprd30.apk)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1006 (58b96522-b5d0-41f7-a781-4b9002de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2604"
+}

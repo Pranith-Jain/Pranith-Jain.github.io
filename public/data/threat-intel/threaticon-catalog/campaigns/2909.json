@@ -1,0 +1,12 @@
+{
+  "id": 2909,
+  "name": "Linux/Mirai-Hilix (w/New TABLE encoder) aims Realtek & Huawei routers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1610 (5ebd9f11-4628-4dc2-abaf-4d54950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2909"
+}

@@ -1,15 +1,15 @@
 {
   "slug": "nightspire-eas-2026-08-13",
   "title": "eas****",
-  "group": "Nightspire",
-  "discovered": "2026-08-13T00:00:00.000Z",
+  "group": "nightspire",
+  "discovered": "2026-08-13T03:25:50.000Z",
   "category": "ransomware",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/eas-nightspire-2026-08",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f5e66ee8-8f8f-4260-96ae-29af9208ddac",
   "groupAliases": ["NIGHT SPIRE"],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Not Found",
+  "references": ["Darkfield"]
 }

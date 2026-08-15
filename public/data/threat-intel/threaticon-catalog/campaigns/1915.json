@@ -1,0 +1,12 @@
+{
+  "id": 1915,
+  "name": "qilin: Bayshore Ford Truck Sales",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Transportation/Logistics | Website: www.bayshoreford.com | Source: https://www.ransomware.live/id/QmF5c2hvcmUgRm9yZCBUcnVjayBTYWxlc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1915"
+}

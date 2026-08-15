@@ -1,0 +1,12 @@
+{
+  "id": 2834,
+  "name": "OSINT - Roaming Mantis uses DNS hijacking to infect Android smartphones",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1375 (5b1e79b9-cf9c-4072-b420-4be0950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2834"
+}

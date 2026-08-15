@@ -1,0 +1,12 @@
+{
+  "id": 4044,
+  "name": "qilin: Counts & Dobyns",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.countsanddobyns.com | N/A | Source: https://www.ransomware.live/id/Q291bnRzICYgRG9ieW5zQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4044"
+}

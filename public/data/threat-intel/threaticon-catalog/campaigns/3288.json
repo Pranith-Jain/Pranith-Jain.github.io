@@ -1,0 +1,12 @@
+{
+  "id": 3288,
+  "name": "TargetCompany’s Linux Variant Targets ESXi Environments",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #506 (7abd1104-926c-490e-8514-898affae1279).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3288"
+}

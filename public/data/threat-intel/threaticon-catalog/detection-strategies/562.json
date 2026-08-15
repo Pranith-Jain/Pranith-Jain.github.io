@@ -1,0 +1,12 @@
+{
+  "id": 562,
+  "name": "Behavioral Detection of Domain Group Discovery",
+  "detId": "DET0360",
+  "stixId": "x-mitre-detection-strategy--69f22425-2ebb-4f3c-ab4d-fb9c6645f2f7",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1025", "AN1026", "AN1027"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/562"
+}

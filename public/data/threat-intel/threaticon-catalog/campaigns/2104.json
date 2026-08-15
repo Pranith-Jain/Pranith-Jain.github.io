@@ -1,0 +1,12 @@
+{
+  "id": 2104,
+  "name": "Reviewing the spam filters: Malspam pushing Gozi-ISFB",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #129 (5a60481e-bcf4-4c6a-ac1b-0722c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2104"
+}

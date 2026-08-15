@@ -1,0 +1,12 @@
+{
+  "id": 5642,
+  "name": "dragonforce: Kee Wah Bakery",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: HK | Sector: Agriculture and Food Production | Website: www.keewah.com | Kee Wah Bakery specializes in traditional and innovative baked goods, offering a wide range of products including mooncakes, festive treats, and gift items. The company prides itself on using high-quality ingredients and advanced techniques to create its renowned products. Targeting both individual consumers and corporate clients, Kee Wah Bakery also provides promotional offers and a membership program for added benefits. With a commitment to quality and tradition, the brand continues to uphold its legacy in the baking industry. | Press: https://www.am730.com.hk/本地/1036495/奇華餅家網絡系統遭惡意勒索軟件攻擊-已即時進行阻截行動籲提高警覺 | Source: https://www.ransomware.live/id/S2VlIFdhaCBCYWtlcnlAZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5642"
+}

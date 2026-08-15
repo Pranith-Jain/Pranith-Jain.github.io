@@ -1,0 +1,12 @@
+{
+  "id": 3509,
+  "name": "OSINT - Carbon Paper: Peering into Turlaâ€™s second stage backdoor",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1026 (58dcfe62-ed84-4e5e-b293-4991950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3509"
+}

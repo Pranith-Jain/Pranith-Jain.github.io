@@ -1,0 +1,12 @@
+{
+  "id": 1675,
+  "name": "akira: netCOMPONENTS",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Technology | Website: netcomponents.com | Infostealer data confirmed. | netCOMPONENTS is a market leader in sourcing services for the glo bal electronic components industry, connecting buyers and supplie rs in a vendor-neutral environment. The platform offers extensive features for purchasing agents and procurement professionals, in cluding part searches, supplier quality ratings, and multilingual messaging systems. We will upload corporate data soon. Detailed employee files (pass ports, DLs, a bit of medical files), clients' files, financials, NDAs and so on. | Source: https://www.ransomware.live/id/bmV0Q09NUE9ORU5UU0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1675"
+}

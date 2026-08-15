@@ -1,0 +1,12 @@
+{
+  "id": 511,
+  "name": "Behavior-chain detection for T1134.004 Access Token Manipulation: Parent PID Spoofing (Windows)",
+  "detId": "DET0489",
+  "stixId": "x-mitre-detection-strategy--eb751740-80cd-4ec1-a989-8691bf7f2039",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1351"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/511"
+}

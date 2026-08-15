@@ -1,0 +1,12 @@
+{
+  "id": 3533,
+  "name": "thegentlemen: Instituut voor de Nederlandse",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: NL | Sector: Public Sector | Website: ivdnt.org | Infostealer data confirmed. | ivdnt.org rocketreach.co/instituut-voor-de-nederlandse-taal-profile_b45f686efc6979e6 It advances the study and preservation of Dutch through cutting-edge research, digital tools, and open-access resources covering vocabulary, grammar, dialects, and terminology. The institute curates authoritative references like the Algemene Nederlandse Spraakkunst for scholars, educators, and language enthusiasts worldwide | Source: https://www.ransomware.live/id/SW5zdGl0dXV0IHZvb3IgZGUgTmVkZXJsYW5kc2VAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3533"
+}

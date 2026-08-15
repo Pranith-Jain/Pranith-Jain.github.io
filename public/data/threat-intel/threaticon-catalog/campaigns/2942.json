@@ -1,0 +1,12 @@
+{
+  "id": 2942,
+  "name": "CISA - MAR-10459736.r1.v1 - WHIRLPOOL Variant",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1726 (6b6fa46d-4a17-44a4-a234-d69487b04597).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2942"
+}

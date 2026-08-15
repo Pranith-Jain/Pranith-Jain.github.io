@@ -1,0 +1,12 @@
+{
+  "id": 424,
+  "name": "apt73: haca.ma",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: MA | Sector: Public Sector | Website: haca.ma | Infostealer data confirmed. | haca.ma is the official website of the High Authority for Audiovisual Communication (HACA). The o... | Source: https://www.ransomware.live/id/aGFjYS5tYUBhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/424"
+}

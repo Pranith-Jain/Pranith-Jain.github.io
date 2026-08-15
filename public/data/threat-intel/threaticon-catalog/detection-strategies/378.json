@@ -1,0 +1,12 @@
+{
+  "id": 378,
+  "name": "Detection Strategy for Hijack Execution Flow: Dylib Hijacking",
+  "detId": "DET0152",
+  "stixId": "x-mitre-detection-strategy--eca47fcc-6bee-43b1-9569-631a22be5fe0",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0435"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/378"
+}

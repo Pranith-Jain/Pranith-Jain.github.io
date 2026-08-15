@@ -1,0 +1,12 @@
+{
+  "id": 2801,
+  "name": "OSINT - Analyzing CrossRAT",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1304 (5a719a5d-ba14-4ec4-b4b8-4c94950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2801"
+}

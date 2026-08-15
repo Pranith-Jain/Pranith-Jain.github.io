@@ -1,0 +1,12 @@
+{
+  "id": 3646,
+  "name": "lapsus$: AXCERA TRADING",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lapsus$. | Country: US | Sector: Business Services | Website: AXCERA.IO | Trading Algorithms, Client Portfolios, KYC Data & Financial Logs | Source: https://www.ransomware.live/id/QVhDRVJBIFRSQURJTkdAbGFwc3VzJA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3646"
+}

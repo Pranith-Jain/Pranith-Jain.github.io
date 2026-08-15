@@ -1,0 +1,12 @@
+{
+  "id": 553,
+  "name": "Masquerading via Space After Filename - Behavioral Detection Strategy",
+  "detId": "DET0292",
+  "stixId": "x-mitre-detection-strategy--16462629-5b36-4bb6-a565-de4df01f75d4",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0812", "AN0813"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/553"
+}

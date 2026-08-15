@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-avanta-maroc-ex-adecco-2026-08-14",
+  "title": "Avanta Maroc Ex Adecco",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:55:47.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8b2b0bc8-bace-4534-ba69-93872e4efd97",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

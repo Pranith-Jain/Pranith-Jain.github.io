@@ -1,0 +1,12 @@
+{
+  "id": 822,
+  "name": "qilin: Després Mécanique Mobile",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Business Services | Website: www.despresmecanique.ca | Source: https://www.ransomware.live/id/RGVzcHLDqXMgTcOpY2FuaXF1ZSBNb2JpbGVAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/822"
+}

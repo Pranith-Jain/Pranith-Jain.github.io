@@ -1,0 +1,12 @@
+{
+  "id": 3194,
+  "name": "Preventing Black Basta Ransomware in 2022",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #321 (391357f3-d319-41f8-8525-ce2b083097b6).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3194"
+}

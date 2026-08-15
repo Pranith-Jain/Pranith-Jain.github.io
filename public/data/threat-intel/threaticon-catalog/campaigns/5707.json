@@ -1,0 +1,12 @@
+{
+  "id": 5707,
+  "name": "akira: Nesco Bus Maintenance",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 17, 2026",
+  "lastSeen": "Jul 17, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to akira. | Sector: Transportation/Logistics | Nesco Bus specializes in manufacturing and maintaining a wide range of buses, including school, childcare, activity, commercial, and specialty buses. With over three decades of experience, t hey are committed to providing exceptional customer support and ensuring the safety and comfort of their passengers. We will upload 26gb of corporate data soon. Employee personal information (DL scans and so on), contracts and agreements, customer info, payment details and other financial docs, etc. | Source: https://www.ransomware.live/id/TmVzY28gQnVzIE1haW50ZW5hbmNlQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5707"
+}

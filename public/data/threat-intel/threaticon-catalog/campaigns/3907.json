@@ -1,0 +1,12 @@
+{
+  "id": 3907,
+  "name": "nightspire: TAKOSAN OTOMOBIL",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: TR | Sector: Manufacturing | Website: www.takosan.com.tr/en | - Technical Documents- Financial Sheets- Contracts & Invoices- Business strategy files | Source: https://www.ransomware.live/id/VEFLT1NBTiBPVE9NT0JJTEBuaWdodHNwaXJl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3907"
+}

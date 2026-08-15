@@ -1,0 +1,12 @@
+{
+  "id": 1902,
+  "name": "AiLock: Sterling Industries",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Manufacturing | Website: sterlingindustries.com | Infostealer data confirmed. | Sterling Industries is a North American-based contract manufacturer and assembler of medical devices and sub-components. | Source: https://www.ransomware.live/id/U3RlcmxpbmcgSW5kdXN0cmllc0BBaUxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1902"
+}

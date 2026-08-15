@@ -1,0 +1,12 @@
+{
+  "id": 640,
+  "name": "Behavioral Detection of Windows Command Shell Execution",
+  "detId": "DET0202",
+  "stixId": "x-mitre-detection-strategy--1806ad13-6fa8-4cb0-9d91-c8a989a1d9fe",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0578"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/640"
+}

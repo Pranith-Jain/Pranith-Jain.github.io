@@ -1,0 +1,12 @@
+{
+  "id": 2434,
+  "name": "OSINT Trojanized PuTTY Software by Cisco CSIRT",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #762 (555ddeca-3ecc-40e3-9ebd-177c950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2434"
+}

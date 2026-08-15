@@ -1,0 +1,12 @@
+{
+  "id": 619,
+  "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Revert Cloud Instance",
+  "detId": "DET0337",
+  "stixId": "x-mitre-detection-strategy--f5ee584b-bbbd-481a-af63-c49166b8b1a8",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0953"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/619"
+}

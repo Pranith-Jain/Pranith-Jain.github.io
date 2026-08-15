@@ -1,0 +1,12 @@
+{
+  "id": 2040,
+  "name": "OSINT - A Look Into Fysbis: Sofacyâ€™s Linux Backdoor",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #52 (56bf2c35-198c-40be-adba-6cf602de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2040"
+}

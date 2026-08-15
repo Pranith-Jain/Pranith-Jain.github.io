@@ -1,0 +1,12 @@
+{
+  "id": 3262,
+  "name": "MOD Netherlands uncovers COATHANGER, a stealthy Chinese FortiGate RAT",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #443 (67033954-cb9d-4aad-ae23-435b246b016e).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3262"
+}

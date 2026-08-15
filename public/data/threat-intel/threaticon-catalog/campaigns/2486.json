@@ -1,0 +1,12 @@
+{
+  "id": 2486,
+  "name": "Malspam 2016-08-24 (.hta in .zip) - campaign: \"Emailing{N}.jpg\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #829 (57bd9b3a-c354-481c-b414-424e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2486"
+}

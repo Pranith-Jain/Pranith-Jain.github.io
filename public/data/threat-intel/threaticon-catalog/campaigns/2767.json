@@ -1,0 +1,12 @@
+{
+  "id": 2767,
+  "name": "OSINT - Halloware Ransomware on Sale on the Dark Web for Only $40",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1255 (5a265a9e-9e54-4d44-a04e-42af950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2767"
+}

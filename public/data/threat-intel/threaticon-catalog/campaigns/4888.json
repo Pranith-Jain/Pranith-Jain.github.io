@@ -1,0 +1,12 @@
+{
+  "id": 4888,
+  "name": "m3rx: fasadeconsult.no",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "Jun 11, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: NO | Sector: Business Services | Website: fasadeconsult.no | Infostealer data confirmed. | +47 32270200. fasadeConsult Aluminium as specializes in the production and installation of high-quality aluminum and glass products, including doors, windows, facades, and glass roofs. They offer fire-resistant, bullet-resistant, and burglary-resistant solutions, as well as solar solutions for facades and roofs. With over 45 years of industry experience, they provide services that ensure safety and quality for their clients. Their intended clients include those seeking durable and secure architectural solutions. Stolen: 84gb 390k files | Source: https://www.ransomware.live/id/ZmFzYWRlY29uc3VsdC5ub0BtM3J4",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4888"
+}

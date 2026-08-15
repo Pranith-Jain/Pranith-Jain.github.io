@@ -1,0 +1,12 @@
+{
+  "id": 4107,
+  "name": "thegentlemen: Pharma Wholesale",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: pharmawholesale.com | Infostealer data confirmed. | ***.com zoominfo.com/c/pharma-wholesale/353577758 Pharma Wholesale Corp. is a licensed pharmaceutical wholesaler and distributor headquartered in Florida, USA, with over 24 years of industry experience. The company specializes in the global distribution of prescription and OTC medications, vitamins, supplements, and health and beauty products. Operating as a mid-sized enterprise, they supply affordable healthcare solutions to pharmacies and medical facilities both domestically and internationally | Source: https://www.ransomware.live/id/UGhhcm1hIFdob2xlc2FsZUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4107"
+}

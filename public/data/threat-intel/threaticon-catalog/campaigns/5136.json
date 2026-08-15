@@ -1,0 +1,12 @@
+{
+  "id": 5136,
+  "name": "safepay: compactmould.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 1, 2026",
+  "lastSeen": "Jun 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: CA | Sector: Manufacturing | Website: compactmould.com | Infostealer data confirmed. | Founded in 1978 and headquartered in Woodbridge, Ontario, the company has grown into one of North America’s major suppliers of … | Source: https://www.ransomware.live/id/Y29tcGFjdG1vdWxkLmNvbUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5136"
+}

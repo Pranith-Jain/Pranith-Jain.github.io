@@ -1,0 +1,12 @@
+{
+  "id": 3709,
+  "name": "akira: Greenwoods Dental Centre",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: greenwoodsdental.com | Infostealer data confirmed. | Greenwoods Dental & Surgical Centre has been a cornerstone of dental care in Winnipeg. We will upload 90gb of corporate data soon. Detailed employee personal information (passport, D Ls and other personal information), financials, patient information, payment details, NDAs and so on. | Source: https://www.ransomware.live/id/R3JlZW53b29kcyBEZW50YWwgQ2VudHJlQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3709"
+}

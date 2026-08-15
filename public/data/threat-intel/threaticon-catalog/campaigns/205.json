@@ -1,0 +1,12 @@
+{
+  "id": 205,
+  "name": "clop: INTEGRALIFE.COM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to clop. | Country: US | Sector: Healthcare | Website: INTEGRALIFE.COM | [AI generated] Integra LifeSciences, operating under integralife.com, is a US-based medical technology company headquartered in Princeton, New Jersey. It specializes in developing and manufacturing surgical instruments, neurosurgery products, orthopedic reconstruction implants, and regenerative medicine solutions. The company serves hospitals and healthcare professionals worldwide, focusing on neuroscience, reconstructive surgery, and wound care industries. | Source: https://www.ransomware.live/id/SU5URUdSQUxJRkUuQ09NQGNsb3A=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/205"
+}

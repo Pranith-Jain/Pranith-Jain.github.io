@@ -1,0 +1,12 @@
+{
+  "id": 1431,
+  "name": "dragonforce: liverpoolphil.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Hospitality and Tourism | Website: www.liverpoolphil.com | The Liverpool Philharmonic Hall, which hosts a variety of concerts and events. | Source: https://www.ransomware.live/id/bGl2ZXJwb29scGhpbC5jb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1431"
+}

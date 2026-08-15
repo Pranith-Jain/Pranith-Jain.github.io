@@ -1,0 +1,12 @@
+{
+  "id": 2605,
+  "name": "OSINT - Wikileaks Vault7 JQJSNICKER code leak",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1008 (58c2fcf1-283c-45fa-b289-45ae02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2605"
+}

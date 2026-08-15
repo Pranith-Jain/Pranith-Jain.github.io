@@ -1,0 +1,12 @@
+{
+  "id": 4194,
+  "name": "blackwater: txdkj.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to blackwater. | Country: CN | Sector: Not Found | Website: txdkj.com | Infostealer data confirmed. | Confidential data will be released soon. | Source: https://www.ransomware.live/id/dHhka2ouY29tQGJsYWNrd2F0ZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4194"
+}

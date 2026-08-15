@@ -1,0 +1,12 @@
+{
+  "id": 4689,
+  "name": "qilin: PJ Daly Contracting",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 19, 2026",
+  "lastSeen": "Jun 19, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: IE | Sector: Construction | Website: www.pjdalycontracting.com | N/A | Source: https://www.ransomware.live/id/UEogRGFseSBDb250cmFjdGluZ0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4689"
+}

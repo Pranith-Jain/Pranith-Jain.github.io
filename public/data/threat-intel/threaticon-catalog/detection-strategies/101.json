@@ -1,0 +1,12 @@
+{
+  "id": 101,
+  "name": "Detection Strategy for ESXi Administration Command",
+  "detId": "DET0232",
+  "stixId": "x-mitre-detection-strategy--c1d8aa38-aefb-4ea8-8c80-2dfa05eaaecb",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0646"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/101"
+}

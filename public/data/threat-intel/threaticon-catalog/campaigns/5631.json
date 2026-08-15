@@ -1,0 +1,12 @@
+{
+  "id": 5631,
+  "name": "thegentlemen: Dink Co Ltd",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: JP | Sector: Not Found | Website: dink.co.jp | Infostealer data confirmed. | ***.co.jp zoominfo.com/c/dink-co-ltd/1340493249 Osaka-based Japanese company specializing in the development, design, and sale of wastewater treatment systems specifically for cardboard manufacturing plants. Originally founded as a cardboard printing ink manufacturer, the company leveraged its industry knowledge to transform into a dedicated water treatment equipment specialist in 2021. Today, their eco-friendly systems are installed and operational in over 430 factories across Japan, helping to clean industrial wastewater to safe environmental levels | Source: https://www.ransomware.live/id/RGluayBDbyBMdGRAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5631"
+}

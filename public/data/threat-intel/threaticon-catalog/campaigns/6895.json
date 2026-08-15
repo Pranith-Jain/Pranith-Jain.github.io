@@ -1,0 +1,12 @@
+{
+  "id": 6895,
+  "name": "qilin: Hawaii Family Dental",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.hawaiifamilydental.com | N/A | Source: https://www.ransomware.live/id/SGF3YWlpIEZhbWlseSBEZW50YWxAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6895"
+}

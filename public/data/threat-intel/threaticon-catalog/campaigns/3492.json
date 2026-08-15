@@ -1,0 +1,12 @@
+{
+  "id": 3492,
+  "name": "OSINT - Flokibot Invades PoS: Trouble in Brazil",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #978 (589046d9-01ac-40d2-b47d-e592950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3492"
+}

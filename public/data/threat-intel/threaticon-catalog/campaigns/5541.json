@@ -1,0 +1,12 @@
+{
+  "id": 5541,
+  "name": "dragonforce: Isegen South Africa (Pty) Ltd",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 15, 2026",
+  "lastSeen": "Jul 14, 2026",
+  "added": "Jul 15, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: ZA | Sector: Energy | Website: www.isegen.co.za | Isegen South Africa (Pty) Ltd is a South African chemical company founded in 1974. It is the sole producer of certain chemical products in South Africa. Data that will be published: Corporate correspondence Passport / personal identification data Contracts Certificates Intellectual property data And other related information | Source: https://www.ransomware.live/id/SXNlZ2VuIFNvdXRoIEFmcmljYSAoUHR5KSBMdGRAZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5541"
+}

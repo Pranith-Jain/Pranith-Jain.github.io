@@ -1,0 +1,12 @@
+{
+  "id": 3282,
+  "name": "Unplugging PlugX: Sinkholing the PlugX USB worm botnet",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #498 (f913a9b4-f577-43d5-ba87-f4b2a40eda1e).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3282"
+}

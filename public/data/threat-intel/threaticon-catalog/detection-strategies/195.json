@@ -1,0 +1,12 @@
+{
+  "id": 195,
+  "name": "Detection of Credential Harvesting via API Hooking",
+  "detId": "DET0139",
+  "stixId": "x-mitre-detection-strategy--d918611a-9d07-4f8b-b70e-2fe1c2f75faf",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0389", "AN0390", "AN0391"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/195"
+}

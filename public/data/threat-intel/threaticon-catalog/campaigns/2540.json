@@ -1,0 +1,12 @@
+{
+  "id": 2540,
+  "name": "OSINT - Houdiniâ€™s Magic Reappearance",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #907 (580fcef3-28fc-42e2-aec1-4978950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2540"
+}

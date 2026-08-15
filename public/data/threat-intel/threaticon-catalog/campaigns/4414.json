@@ -1,0 +1,12 @@
+{
+  "id": 4414,
+  "name": "safepay: dia179.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: dia179.com | Infostealer data confirmed. | Founded in 2007, the firm specializes in industrial architecture, logistics facilities, research centers, production plants, and corporate office buildings. Unlike … | Source: https://www.ransomware.live/id/ZGlhMTc5LmNvbUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4414"
+}

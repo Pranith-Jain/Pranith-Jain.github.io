@@ -1,0 +1,12 @@
+{
+  "id": 2153,
+  "name": "Vulnerable Apache Jenkins exploited in the wild",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #191 (5cda6377-a840-4fde-88fe-03c5c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2153"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3567,
+  "name": "qilin: Belz Institutions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: IL | Sector: Not Found | Website: www.worldofbelz.org | N/A | Source: https://www.ransomware.live/id/QmVseiBJbnN0aXR1dGlvbnNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3567"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3908,
+  "name": "titan: Mezta Corporativo, S.A. de C.V.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to titan. | Country: MX | Sector: Not Found | [AI generated] N/A | Source: https://www.ransomware.live/id/TWV6dGEgQ29ycG9yYXRpdm8sIFMuQS4gZGUgQy5WLkB0aXRhbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3908"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 337,
+  "name": "Detection Strategy for Hijack Execution Flow: Dynamic Linker Hijacking",
+  "detId": "DET0435",
+  "stixId": "x-mitre-detection-strategy--da2107bd-4733-4d0b-a35c-33f7883e9ae9",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN1209", "AN1210"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/337"
+}

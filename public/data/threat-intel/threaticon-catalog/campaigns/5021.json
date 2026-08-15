@@ -1,0 +1,12 @@
+{
+  "id": 5021,
+  "name": "payload: Villea Hotels in AttanaHotels",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: MY | Sector: Hospitality and Tourism | Website: villea.attanahotels.com | Attana Hotels & Resorts is a premier Malaysian hospitality group that offers uniquely local experiences designed to make travelers feel at home. With a portfolio that includes various hotels and resorts, they focus on providing crafted experiences complemented by attentive service. Their target clients are guests seeking distinctive and memorable stays, enhanced by local culture and hospitality. Attana is committed to continuously evolving their offerings to inspire and energize their guests. | Source: https://www.ransomware.live/id/VmlsbGVhIEhvdGVscyBpbiBBdHRhbmFIb3RlbHNAcGF5bG9hZA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5021"
+}

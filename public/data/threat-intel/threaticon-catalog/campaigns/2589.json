@@ -1,0 +1,12 @@
+{
+  "id": 2589,
+  "name": "OSINT - Doctor Web detects several thousand infected Linux devices Linux.Proxy.10",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #984 (589718fa-353c-411d-bbee-4c1902de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2589"
+}

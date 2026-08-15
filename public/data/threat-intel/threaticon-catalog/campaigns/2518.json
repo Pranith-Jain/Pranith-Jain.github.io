@@ -1,0 +1,12 @@
+{
+  "id": 2518,
+  "name": "Malspam 2016-09-16 (.wsf in .zip) - campaign: \"(SCAN|FAX|DOC|IMG)_{integer}\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #877 (57dc1fe4-0d70-4dde-95fe-46e8950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2518"
+}

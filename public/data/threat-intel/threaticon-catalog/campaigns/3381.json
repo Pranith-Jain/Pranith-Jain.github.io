@@ -1,0 +1,12 @@
+{
+  "id": 3381,
+  "name": "OSINT Pony Up: Tracing Ponyâ€™s Threat Cycle and Multi-Stage Infection Chain by Damballa",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #656 (55d341da-f5d4-47a4-9095-467a950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3381"
+}

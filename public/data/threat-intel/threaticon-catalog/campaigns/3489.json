@@ -1,0 +1,12 @@
+{
+  "id": 3489,
+  "name": "Malware 2017-01-26 (.js in .zip) - Cerber",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #971 (588a1640-bcac-4dc1-b9da-435802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3489"
+}

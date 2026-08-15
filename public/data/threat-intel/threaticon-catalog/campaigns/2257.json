@@ -1,0 +1,12 @@
+{
+  "id": 2257,
+  "name": "Information stealer: Fareit",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #391 (57062927-2a54-4d6a-89c4-37ea950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2257"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7754,
+  "name": "majinahanashi: CDA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Jul 21, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to majinahanashi. | Country: IT | Sector: Not Found | Website: centrodiagnosticocda.it | Infostealer data confirmed. | TARGET: https://centrodiagnosticocda.it/ REVENUE: ~ EMPLOYEES: ~ [LEAK / 135426 FILES] | Source: https://www.ransomware.live/id/Q0RBQG1hamluYWhhbmFzaGk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7754"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "storm-integra-castings-2026-08-14",
+  "title": "Integra Castings",
+  "group": "Storm",
+  "discovered": "2026-08-14T07:10:37.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/fcefa5cf-c10d-4ce1-b6bb-f7e498ccf55c",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

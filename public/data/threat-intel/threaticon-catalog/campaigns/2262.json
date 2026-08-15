@@ -1,0 +1,12 @@
+{
+  "id": 2262,
+  "name": "OSINT - New Locky Variant Implements Evasion Techniques",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #396 (570c9451-ec50-4ecc-b031-47b4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2262"
+}

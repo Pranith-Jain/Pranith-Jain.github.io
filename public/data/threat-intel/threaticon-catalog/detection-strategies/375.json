@@ -1,0 +1,12 @@
+{
+  "id": 375,
+  "name": "Detect browser session hijacking via privilege, handle access, and remote thread into browsers",
+  "detId": "DET0507",
+  "stixId": "x-mitre-detection-strategy--759a29fb-8697-46f7-baa3-a891b28c064e",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1398"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/375"
+}

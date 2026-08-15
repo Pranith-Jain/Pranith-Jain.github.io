@@ -1,0 +1,12 @@
+{
+  "id": 933,
+  "name": "gunra: KUKJE PHARM CO.,LTD",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to gunra. | Country: KR | Sector: Healthcare | Website: kukjepharm.co.kr | Infostealer data confirmed. | [AI generated] KUKJE PHARM CO., LTD is a South Korean pharmaceutical company engaged in the manufacture and distribution of pharmaceutical products. The company operates within the healthcare and life sciences industry, producing medicines and related chemical compounds for both domestic and international markets. Based in South Korea, it is part of the country's established pharmaceutical manufacturing sector. | Source: https://www.ransomware.live/id/S1VLSkUgUEhBUk0gQ08uLExUREBndW5yYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/933"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 50,
+  "name": "Behavior-chain detection for T1134.001 Access Token Manipulation: Token Impersonation/Theft on Windows",
+  "detId": "DET0482",
+  "stixId": "x-mitre-detection-strategy--0b06e42c-ab1c-4fb7-834b-10293e904173",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1324"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/50"
+}

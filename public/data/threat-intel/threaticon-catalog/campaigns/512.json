@@ -1,0 +1,12 @@
+{
+  "id": 512,
+  "name": "qilin: Point Four EPoS Solutions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: www.pointfour.co.uk | Source: https://www.ransomware.live/id/UG9pbnQgRm91ciBFUG9TIFNvbHV0aW9uc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/512"
+}

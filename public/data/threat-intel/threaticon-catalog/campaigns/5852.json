@@ -1,0 +1,12 @@
+{
+  "id": 5852,
+  "name": "qilin: Don Tortaco Mexican Grill",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 19, 2026",
+  "lastSeen": "Jul 19, 2026",
+  "added": "Jul 19, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Hospitality and Tourism | Website: www.dontortaco.com | N/A | Source: https://www.ransomware.live/id/RG9uIFRvcnRhY28gTWV4aWNhbiBHcmlsbEBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5852"
+}

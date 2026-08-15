@@ -1,0 +1,12 @@
+{
+  "id": 573,
+  "name": "ransomhouse: Jiangsu Zenergy Battery Technologies Group Co., Ltd.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to ransomhouse. | Country: CN | Sector: Manufacturing | Website: www.zenergy.cn | Zenergy (Jiangsu Zenergy Battery Technologies Group Co., Ltd.) is a Chinese lithium-ion battery manufacturer founded in 2019, specializing in traction batteries for electric vehicles (EVs), energy storage systems (ESS), and aviation batteries. The company delivers end-to-end solutions ranging from individual cells to fully integrated battery packs and battery management systems (BMS). In 2024, Zenergy turned profitable for the first time, and in April 2025, it successfully completed its listing on the Hong Kong Stock Exchange. | Source: https://www.ransomware.live/id/SmlhbmdzdSBaZW5lcmd5IEJhdHRlcnkgVGVjaG5vbG9naWVzIEdyb3VwIENvLiwgTHRkLkByYW5zb21ob3VzZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/573"
+}

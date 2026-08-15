@@ -1,75 +1,472 @@
 {
   "type": "cyber",
   "date": "2026-08-14",
-  "threatLevel": "",
-  "executiveSummary": "Multiple, concurrent threats elevate OT/ICS risk to Critical. Active campaigns target PLCs and OT management surfaces while edge and supply-chain exposures expand pivot paths into industrial environments. Immediate actions are required for water/wastewater utilities, energy operators, and any enterprise bridging IT and OT networks. Active exploitation of PLCs across U.S. critical infrastructure with alarm/logic manipulation and service disruption confirmed; remove direct internet exposure, harden access paths, and investigate IOCs immediately. Security Advisory Water and Wastewater Systems sector experiencing password changes and lockouts on exposed PLCs; disconnect PLCs from public internet and enforce gated remote access with MFA. Alert Confirmed destructive OT incident in Poland's energy sector leveraged a misconfigured private APN to pivot into control networks; audit APN configurations and enforce strict device isolation and ACLs before reconnecting. Supporting Report View Article FortiGate \"FortiBleed\" credential exposure enables AD credential theft and lateral movement from compromised edge; rotate credentials, enforce PBKDF2 hashes, and investigate for configuration exports. Security Advisory High-risk OT/adjacent vulnerabilities: unauthenticated RCE in Johnson Controls C-CURE/victor access control servers; multiple OPC UA (Eclipse Milo) flaws impacting authorization and availability across ICS deployments; EVSE/OCPP RCEs. CISA ICS Advisory CISA Weekly State actors: DPRK Lazarus exploited a Windows kernel zero-day (AFD.sys) in the wild with stealthy Graph/OneDrive C2; patch immediately and monitor for ETW blinding and DLL sideloading artifacts. View Article Multiple KEV additions across Aug 3-11 include N-able N-central (RMM), TeamCity (CI/CD), Cisco ASA/FTD, and others-prioritize remediation on any internet-exposed instances and verify for pre-patch compromise. CISA KEV CISA KEV",
+  "threatLevel": "CRITICAL",
+  "executiveSummary": "Iran-affiliated actors are exploiting internet-exposed PLCs (Rockwell, Schneider, Siemens), manipulating logic and HMI/SCADA, with confirmed operational disruptions across multiple U.S. critical infrastructure sectors. Immediate removal of PLCs from public internet and secured remote access is required. Security Advisory CISA separately urged the Water and Wastewater Systems sector to harden OT after password/IP tampering on exposed PLCs forced boil-water notices and prolonged manual operations. Security Advisory Large-scale FortiGate credential exposure (\"FortiBleed\") places VPN perimeters and AD-integrated access at immediate risk; organizations should rotate credentials, enforce MFA, and upgrade to PBKDF2-based FortiOS. Security Advisory Mass exploitation of VMware vCenter CVE-2026-59310 (syslog traversal → RCE) began within days of disclosure; evidence of reverse SSH persistence demands urgent patching and compromise assessment, especially where virtualized OT workloads reside. View Article Critical web-app exposures are being actively targeted: Rails Active Storage RCE (public exploit), Metabase unauth SQLi, and KEV-listed Cisco ASA/FTD and Windows AFD flaws elevate risks to identity, segmentation, and data sources used by OT. Security Advisory Security Advisory Zimbra zero-day phishing/exfiltration by Russian state-supported actors (LAUNDRY BEAR) enabled large-scale mailbox theft and credential access across government, DIB, and energy-mandating immediate patching and revocation of app passwords/2FA scratch codes. Security Advisory Johnson Controls Airwall contains a universal cryptographic key (pre-4.1.0), undermining OT micro-segmentation and secure remote access unless patched and keys rotated. ICS Advisory China-nexus covert device networks and AI-assisted intrusions (e.g., Taiwan gov/energy) highlight increasing automation in reconnaissance and access operations with potential CI/OT implications. Security Advisory View Article Weekly CISA bulletins enumerate multiple high-impact OT/IIoT issues (OPC UA, ActiveMQ, EVSEs, telecom control suites), reinforcing the need for rapid patch triage and strong network segmentation. Bulletin Bulletin",
   "keyFindings": [
     {
-      "title": "OT process disruption confirmed",
-      "summary": "adversaries manipulated PLC logic and HMI states in real environments (U.S. WWS; Poland CHP), underscoring the urgency to remove direct PLC exposure and enforce segmented, monitored access. Security Advisory"
+      "title": "Internet-exposed PLCs are being actively modified by state-linked actors; loss-o",
+      "summary": "Internet-exposed PLCs are being actively modified by state-linked actors; loss-of-view and logic tampering have occurred in production environments. Security Advisory"
     },
     {
-      "title": "Edge-device compromise remains a primary pivot vector into OT networks-FortiGate",
-      "summary": "Edge-device compromise remains a primary pivot vector into OT networks-FortiGate credential leaks, KEV-listed RMM/CI/CD flaws, and exploited firewalls widen attack surface. JPCERT Advisory CISA KEV"
+      "title": "FortiGate credential troves enable VPN and AD compromise; residual SHA-256 passw",
+      "summary": "FortiGate credential troves enable VPN and AD compromise; residual SHA-256 password storage requires account recreation post-upgrade. Security Advisory"
     },
     {
-      "title": "Critical ICS software exposures",
-      "summary": "Eclipse Milo(OPC UA) authorization and DoS issues; Johnson Controls C-CURE/victor unauthenticated RCE; EVSE/OCPP RCE enable safety and availability impacts. CISA Weekly ICS Advisory"
+      "title": "vCenter CVE-2026-59310 exploitation is widespread with reverse-SSH persistence; ",
+      "summary": "vCenter CVE-2026-59310 exploitation is widespread with reverse-SSH persistence; treat as dual-track: patch + IR eviction. View Article"
     },
     {
-      "title": "Advanced APT operations (Lazarus, LAUNDRY BEAR) employ kernel LPEs, cloud relay ",
-      "summary": "Advanced APT operations (Lazarus, LAUNDRY BEAR) employ kernel LPEs, cloud relay C2, and mail platform zero-days for persistence and credential access-raising supplier and operator risk. View Article Security Advisory"
+      "title": "Rails Active Storage RCE (CVE-2026-66066) with public exploit requires urgent up",
+      "summary": "Rails Active Storage RCE (CVE-2026-66066) with public exploit requires urgent updates and sandboxing of image processing. Security Advisory"
     },
     {
-      "title": "At-scale vCenter compromise via path traversal in Syslog Server observed; persis",
-      "summary": "At-scale vCenter compromise via path traversal in Syslog Server observed; persistence via reverse_ssh emphasizes hypervisor-layer risk to industrial virtualized workloads. View Article"
+      "title": "KEV updates (Cisco ASA/FTD, Windows AFD, Metabase) indicate active exploitation ",
+      "summary": "KEV updates (Cisco ASA/FTD, Windows AFD, Metabase) indicate active exploitation against perimeters and collaboration platforms used by OT operators. Security Advisory"
+    },
+    {
+      "title": "Johnson Controls Airwall hardcoded key (pre-4.1.0) jeopardizes secure segmentati",
+      "summary": "Johnson Controls Airwall hardcoded key (pre-4.1.0) jeopardizes secure segmentation and remote access. ICS Advisory"
+    },
+    {
+      "title": "Supply-chain and CI/CD compromises (TeamCity KEV; TrueConf backdoored installers",
+      "summary": "Supply-chain and CI/CD compromises (TeamCity KEV; TrueConf backdoored installers) increase pivot risk into industrial environments. Security Advisory Supporting Report"
     }
   ],
   "dashboard": {
-    "kpis": [],
-    "activelyExploited": [],
-    "vendors": [],
-    "sectors": []
+    "kpis": [
+      {
+        "value": "OT/ICS Cyber Threat Intelligence Brief",
+        "label": "Report",
+        "trend": "Date: 14 Aug 2026"
+      },
+      {
+        "value": "CRITICAL",
+        "label": "Overall OT Threat Level",
+        "trend": "Multiple concurrent, actively exploited threats with confirmed OT impact"
+      },
+      {
+        "value": "Energy • Water/Wastewater • Gov • Manufacturing • Facilities",
+        "label": "Focus Sectors",
+        "trend": "Additional exposure: Communications, Transportation, Healthcare"
+      },
+      {
+        "value": "Edge device compromise • PLC manipulation • Supply chain",
+        "label": "Key Themes",
+        "trend": "KEV additions • Mass exploitation • Identity abuse"
+      }
+    ],
+    "activelyExploited": [
+      "PLC manipulation",
+      "vCenter RCE",
+      "KEV (Cisco ASA/FTD",
+      "Windows AFD",
+      "Metabase)",
+      "Zimbra zero-day",
+      "SharePoint auth bypass attempts."
+    ],
+    "vendors": [
+      "Rockwell, Schneider, Siemens PLCs; Johnson Controls Metasys; Desigo DXR/PXC; Siveillance Video; Parasolid (Siemens); Airwall (JCI). - VMware vCenter; Microsoft Windows/ADFS/SharePoint; Zimbra; Metabase; Ruby on Rails Active Storage. - Fortinet FortiGate/OS; Progress/Kemp LoadMaster; Cisco ASA/FTD; JetBrains TeamCity. - OPC UA (Eclipse Milo); Apache ActiveMQ/AMQP/STOMP; Apache NiFi/CXF; EVSE (Autel, EVbee); TrueConf Server; Video Mgmt Servers. - Identity/SSO and collaboration platforms; CI/CD build systems; cloud gateways and perimeter appliances."
+    ],
+    "sectors": [
+      "Energy (generation and distribution), Water/Wastewater, Government/Public Services, Critical Manufacturing, Transportation, Facilities/Buildings, Communications, Healthcare, and Education."
+    ]
   },
-  "topThreats": [],
+  "topThreats": [
+    {
+      "title": "1) PLC Intrusions with Operational Impact",
+      "action": "Iran-affiliated actors are modifying PLC logic and HMI states on internet-exposed devices; immediate removal from public internet and segmented, MFA-protected remote access are mandatory.",
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "2) FortiGate \"FortiBleed\" Credentials Exposure",
+      "action": "Leaked FortiGate credentials enable VPN and AD compromise. Rotate all secrets, enforce MFA, upgrade to PBKDF2-based hashing, and assess for prior misuse.",
+      "sources": [
+        {
+          "url": "https://www.jpcert.or.jp/at/2026/at260019.html",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "3) vCenter CVE-2026-59310 Mass Exploitation",
+      "action": "Rapidly exploited unauth RCE with reverse-SSH persistence threatens virtualized OT workloads; patch and conduct IR to evict intruders.",
+      "sources": [
+        {
+          "url": "https://www.infosecurity-magazine.com/news/vcenter-cve-2026-59310-exploited/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "4) Zimbra LAUNDRY BEAR Mailbox Exfiltration",
+      "action": "View-only email exploit enables exfiltration of messages and credentials; patch immediately, revoke app passwords/2FA codes, and hunt for IOCs.",
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-204a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "5) Johnson Controls Airwall Universal Key",
+      "action": "Hardcoded universal key (pre-4.1.0) undermines OT segmentation/remote access; patch to ≥4.1.0 and rotate all keys/certs immediately.",
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-225-03",
+          "label": "ICS Advisory"
+        }
+      ]
+    }
+  ],
   "threatActors": [
     {
       "category": "Activity",
       "items": [
-        "DPRK Lazarus: In-the-wild exploitation of Windows AFD.sys (CVE-2026-68820) with Graph/OneDrive C2 and ETW blinding; target set includes defense/aerospace. View Article View Article",
-        "Russian operations: FSB Center 16 router targeting, and pro-Russia hacktivists abusing exposed VNC to manipulate HMIs. Security Advisory Security Advisory",
-        "LAUNDRY BEAR/Void Blizzard: Zimbra XSS zero-day campaign stealing mail, scratch codes, and creating IMAP footholds. Security Advisory",
-        "Head Mare APT: Supply-chain poisoning via TrueConf Server to deliver PhantomCore/PhantomGraph to participants; OneDrive-based C2. Supporting Report",
-        "Gunra RaaS: Fortinet edge exploitation leading to double extortion with large M365 exfiltration; FortiOS/FortiProxy auth bypass CVEs. Security Advisory View Article"
+        "Iran-affiliated actors: multi-sector PLC manipulation and modem persistence; living-off-the-land with vendor tools. Security Advisory",
+        "Pro-Russia hacktivists: opportunistic VNC/HMI intrusions against WWS/F&A/Energy with default/weak creds. Security Advisory",
+        "LAUNDRY BEAR (Russia): Zimbra zero-day mailbox/data exfiltration across government/DIB/energy. Security Advisory",
+        "Lazarus (DPRK): active Windows AFD zero-day exploitation with rootkit and backdoors via job-lure campaigns. View Article",
+        "Head Mare APT: TrueConf server RCE → backdoored installers; targets include transportation/energy/manufacturing. Supporting Report",
+        "Gunra RaaS: Fortinet perimeter exploitation, cloud exfiltration, and Windows/Linux encryption; Linux PRNG weakness may allow recovery. Security Advisory"
       ]
     }
   ],
-  "cveWatch": [],
-  "events": [],
+  "relevance": "- Direct OT impact is evidenced by PLC intrusions causing loss-of-view and process changes; building automation controllers and OT security gateways exhibit high-severity flaws that can enable remote manipulation and lateral movement. - Enterprise perimeters (firewalls, VPNs, load balancers, CI/CD, collaboration) continue to be prime entry points for IT-to-OT pivots; several are now in KEV with active exploitation warnings. - Messaging/protocol components (OPC UA, ActiveMQ) and EV charging infrastructure add risk to industrial data flows and energy load management, reinforcing the need for strict zoning and protocol allow-listing.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "vCenter Server syslog traversal → RCE: CVE-2026-59310 (mass exploitation). View Article",
+        "Rails Active Storage RCE: CVE-2026-66066 (public exploit). Security Advisory",
+        "Windows AFD Priv-Esc: CVE-2026-68820 (in the wild). View Article",
+        "Metabase unauth SQLi: CVE-2026-72898 (active). Security Advisory",
+        "LoadMaster Command Injection: CVE-2026-8037 (KEV). Alert",
+        "TeamCity Deserialization RCE: CVE-2026-63077 (KEV). Alert",
+        "Siemens/JCI/Parasolid/VMS/BAS updates affecting engineering and facility systems. ICS Advisory ICS Advisory ICS Advisory",
+        "OPC UA (Eclipse Milo), ActiveMQ/AMQP/STOMP, EVSE OCPP critical issues across weekly CISA bulletins. Bulletin Bulletin"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "title": "Iran-Affiliated Actors Exploit PLCs Across U.S. Critical Infrastructure",
+      "severity": "escalate",
+      "text": "OT manipulation; immediate removal from public internet; ports 44818/2222/102/502/22 monitoring",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "WWS Sector Alert: Surge in Internet-Exposed PLC Tampering",
+      "severity": "escalate",
+      "text": "Password/IP changes causing boil-water notices and manual ops",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/07/30/cisa-urges-water-and-wastewater-systems-sector-protect-ot-against-activity-targeting-plcs",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "FortiBleed: FortiGate Credential Exposure at Scale",
+      "severity": "escalate",
+      "text": "VPN/AD compromise risk; PBKDF2 migration and full rotation required",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.jpcert.or.jp/at/2026/at260019.html",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "vCenter CVE-2026-59310 Mass Exploitation",
+      "severity": "escalate",
+      "text": "Unauth RCE; reverse-SSH persistence; OT virtualization exposure",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.infosecurity-magazine.com/news/vcenter-cve-2026-59310-exploited/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Zimbra LAUNDRY BEAR: Mailbox and Credential Exfiltration",
+      "severity": "escalate",
+      "text": "View-only exploit; revoke app passwords/2FA codes; DNS/HTTPS covert exfil",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-204a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Johnson Controls Airwall: Universal Key Exposure",
+      "severity": "escalate",
+      "text": "Compromises OT micro-segmentation and remote access until remediated",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-225-03",
+          "label": "ICS Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Rails Active Storage RCE (CVE-2026-66066)",
+      "severity": "escalate",
+      "text": "Public exploit; patch + sandbox image processing",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.jpcert.or.jp/at/2026/at260021.html",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "KEV: Cisco ASA/FTD, Windows AFD, Metabase",
+      "severity": "escalate",
+      "text": "Active exploitation; prioritize patching and compromise assessment",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/08/11/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+          "label": "Alert"
+        }
+      ]
+    },
+    {
+      "title": "KEV: TeamCity Deserialization RCE",
+      "severity": "escalate",
+      "text": "CI/CD takeover → downstream software supply-chain risk",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/08/05/cisa-adds-one-known-exploited-vulnerability-catalog",
+          "label": "Alert"
+        }
+      ]
+    },
+    {
+      "title": "KEV: LoadMaster Command Injection",
+      "severity": "escalate",
+      "text": "ADC compromise enables lateral movement; rotate secrets/certs",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/08/07/cisa-adds-one-known-exploited-vulnerability-catalog",
+          "label": "Alert"
+        }
+      ]
+    },
+    {
+      "title": "Weekly CISA Bulletins: OT/IIoT Exposures",
+      "severity": "escalate",
+      "text": "OPC UA, ActiveMQ, EVSE, telecom and plant tools with high-impact flaws",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/bulletins/sb26-222",
+          "label": "Week of Aug 3"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/bulletins/sb26-201",
+          "label": "Week of Jul 13"
+        }
+      ]
+    },
+    {
+      "title": "TrueConf Supply-Chain Backdooring (Head Mare APT)",
+      "severity": "escalate",
+      "text": "Server RCE → backdoored clients; OneDrive C2; credential theft",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://securelist.com/tr/head-mare-targets-trueconf-server-with-phantomcore/120988/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "#StopRansomware: Gunra RaaS",
+      "severity": "escalate",
+      "text": "Fortinet ingress; cloud exfil; Linux variant key weakness",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-222a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "China-Nexus Covert Device Networks Target CI",
+      "severity": "escalate",
+      "text": "SOHO/IoT botnets for staging and stealth access into CI",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Taiwan Confirms AI-Assisted Intrusion (incl. energy)",
+      "severity": "escalate",
+      "text": "Parallel agents conducted mapping and credential theft",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.heise.de/news/Taiwan-bestaetigt-KI-gestuetzten-Cyberangriff-auf-Behoerden-11413451.html",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "CERT Polska: Energy Incident via Private APN (Dec 2025)",
+      "severity": "escalate",
+      "text": "Novel cellular access vector; turbine/water treatment shutdown",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://cert.pl/en/posts/2026/08/incident-follow-up-report-energy-sector-2025/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Lazarus Uses Windows AFD Zero-Day",
+      "severity": "escalate",
+      "text": "Kernel rootkit; defense/aerospace focus; enterprise pivot risk",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://thehackernews.com/2026/08/lazarus-exploits-windows-zero-day-to.html",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Siemens SLS / Desigo / Parasolid / Siveillance Video advisories",
+      "severity": "monitor",
+      "text": "Privilege escalation, traversal, DoS, and RCE risks across engineering, BAS, and video systems",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-225-07",
+          "label": "SLS"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-225-08",
+          "label": "Desigo"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-225-10",
+          "label": "Parasolid"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-225-09",
+          "label": "Siveillance"
+        }
+      ]
+    },
+    {
+      "title": "SharePoint S2S token abuse post-PoC",
+      "severity": "monitor",
+      "text": "Impersonation and domain recon; patch and monitor ULS",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://thehackernews.com/2026/08/attackers-exploit-sharepoint.html",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Metasys stored XSS in admin UI",
+      "severity": "monitor",
+      "text": "Session hijack potential; patch to 16.0 or latest fixes",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-225-14",
+          "label": "ICS Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Cloud platform-enabled AitM phishing bypassing MFA",
+      "severity": "monitor",
+      "text": "Service-worker+proxy abuse; enforce phishing-resistant MFA",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://securelist.com/cloud-platforms-in-phishing/120832/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Low-detail vendor/web CMS advisories (no OT/ICS relevance)",
+      "severity": "ignore",
+      "text": "PHP Jabbers scripts; LibreNMS mentions without substantiation",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cert.pl/en/posts/2026/07/CVE-2025-67649/",
+          "label": "CERT Polska"
+        },
+        {
+          "url": "https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0732/",
+          "label": "CERT-FR"
+        }
+      ]
+    },
+    {
+      "title": "Non-actionable promos/sector overviews",
+      "severity": "ignore",
+      "text": "ISC Stormcast placeholders; generic policy briefs",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://isc.sans.edu/diary/rss/33238",
+          "label": "ISC"
+        },
+        {
+          "url": "https://www.ncsc.gov.uk/report/acd-the-sixth-year",
+          "label": "NCSC"
+        }
+      ]
+    }
+  ],
   "ttps": {
-    "descriptions": [
-      "Exploitation of public-facing applications (T1190): Zimbra XSS, TeamCity RCE, Metabase SQLi, vCenter path traversal",
-      "Valid accounts / Credential Access (T1078/T1003): FortiGate hash reuse, LSASS dumping, AitM phishing",
-      "Command and Control over cloud/DNS (T1071/T1090/T1573): Microsoft Graph/OneDrive, Google Apps Script relays, DNS-controlled channel selection",
-      "Lateral movement (T1021), Remote services abuse (T1021.001/.004): RDP/SMB/SSH tunnels, VNC to HMIs",
-      "Defense evasion (T1562): ETW blinding, rootkit drivers, log deletion",
-      "ICS: Program download/stop, unauthorized setpoint changes, protocol misuse (Modbus TCP, S7comm, CIP/EtherNet/IP)"
-    ],
-    "mitreIds": [
-      "T1190",
-      "T1078",
-      "T1003",
-      "T1071",
-      "T1090",
-      "T1573",
-      "T1021",
-      "T1021.001",
-      "T1562"
-    ]
+    "descriptions": [],
+    "mitreIds": []
   },
-  "outlook72h": "Disconnect any PLCs/HMIs found reachable from the internet; stand up monitored jump hosts for emergency access only. Enterprise-wide hunt for FortiGate config exports and credential reuse; rotate keys/tokens; validate PBKDF2 adoption. Apply emergency patch windows for TeamCity/N-central/ASA-FTD; restrict admin access to allowlisted management networks. Inventory OPC UA endpoints; disable weak policies; schedule upgrades; place behind strict allowlisting firewalls. For sites with carrier APNs: enforce device isolation, ACLs, and certificates; remove any APN-to-OT flat routes. Patch Windows August updates prioritizing AFD.sys; review EDR telemetry for LPE chains and ETW/driver tampering.",
+  "outlook72h": "- Prioritize emergency changes: remove any internet-exposed PLCs/HMIs; enforce MFA/allow-lists on OT gateways; patch vCenter, Metabase, and KEV-listed perimeters; rotate Fortinet and identity credentials. - Conduct targeted threat hunts for: reverse SSH tunnels from management networks; suspicious Zimbra SOAP/API sequences; unexplained PLC logic changes; anomalous ActiveMQ/OPC UA traffic; Metabase reset_password endpoint hits. - Freeze risky changes on segmentation/remote-access platforms until keys and configurations are rotated and validated (e.g., JCI Airwall).",
   "relatedCves": [
+    "CVE-2026-59310",
+    "CVE-2026-66066",
     "CVE-2026-68820",
-    "CVE-2026-59310"
+    "CVE-2026-8037",
+    "CVE-2026-63077",
+    "CVE-2026-72898",
+    "CVE-2025-67649"
   ]
 }

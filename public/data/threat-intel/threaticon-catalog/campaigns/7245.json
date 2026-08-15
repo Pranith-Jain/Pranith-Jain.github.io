@@ -1,0 +1,12 @@
+{
+  "id": 7245,
+  "name": "orion: huntongroup.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Oct 28, 2025",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to orion. | Country: GB | Sector: Professional Services | Website: huntongroup.com | Infostealer data confirmed. | huntongroup.com | Source: https://www.ransomware.live/id/aHVudG9uZ3JvdXAuY29tQG9yaW9u",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7245"
+}

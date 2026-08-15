@@ -1,0 +1,12 @@
+{
+  "id": 4045,
+  "name": "qilin: Centro Científico e Cultural de Macau",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: PT | Sector: Education | Website: www.cccm.gov.pt | N/A | Source: https://www.ransomware.live/id/Q2VudHJvIENpZW50w61maWNvIGUgQ3VsdHVyYWwgZGUgTWFjYXVAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4045"
+}

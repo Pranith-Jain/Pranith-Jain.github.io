@@ -1,0 +1,12 @@
+{
+  "id": 1737,
+  "name": "genesis: NADAP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: nadap.org | Infostealer data confirmed. | A non-profit organization | Source: https://www.ransomware.live/id/TkFEQVBAZ2VuZXNpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1737"
+}

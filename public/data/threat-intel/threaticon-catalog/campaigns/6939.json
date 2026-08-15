@@ -1,0 +1,12 @@
+{
+  "id": 6939,
+  "name": "qilin: Mairie de Drancy",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 2, 2026",
+  "lastSeen": "Aug 2, 2026",
+  "added": "Aug 2, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Government & Defense | Website: www.drancy.fr | N/A | Press: https://actu.fr/ile-de-france/drancy_93029/une-rancon-en-bitcoins-drancy-visee-par-une-cyberattaque-les-donnees-personnelles-des-habitants-menacees_64569472.html | Source: https://www.ransomware.live/id/TWFpcmllIGRlIERyYW5jeUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6939"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 589,
+  "name": "qilin: Roman Catholic Archdiocese of St John",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Public Sector | Website: www.rcsj.org | Source: https://www.ransomware.live/id/Um9tYW4gQ2F0aG9saWMgQXJjaGRpb2Nlc2Ugb2YgU3QgSm9obkBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/589"
+}

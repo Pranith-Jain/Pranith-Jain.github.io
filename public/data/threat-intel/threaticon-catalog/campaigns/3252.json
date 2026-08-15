@@ -1,0 +1,12 @@
+{
+  "id": 3252,
+  "name": "Peach Sandstorm delivers FalseFont to defense sector",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #429 (5d64872e-8fb0-4548-8dbe-aef4055b8ec9).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3252"
+}

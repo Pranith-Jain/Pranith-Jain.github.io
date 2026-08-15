@@ -1,0 +1,12 @@
+{
+  "id": 3214,
+  "name": "In the footsteps of the Fancy Bear: PowerPoint mouse-over event abused to deliver Graphite implants",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #353 (c4d1d3f7-822e-4746-850e-2b77ea4e4c5c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3214"
+}

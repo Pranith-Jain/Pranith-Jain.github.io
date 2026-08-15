@@ -1,0 +1,12 @@
+{
+  "id": 2550,
+  "name": "OSINT - HackingTeam back for your Androids, now extra insecure!",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #922 (582adfcb-6640-46bf-ba1f-4aca950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2550"
+}

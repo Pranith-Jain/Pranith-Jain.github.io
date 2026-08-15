@@ -1,0 +1,12 @@
+{
+  "id": 7573,
+  "name": "qilin: B Wright Drywall",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.bwrightdrywall.com | N/A | Source: https://www.ransomware.live/id/QiBXcmlnaHQgRHJ5d2FsbEBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7573"
+}

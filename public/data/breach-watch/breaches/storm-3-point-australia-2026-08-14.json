@@ -1,0 +1,15 @@
+{
+  "slug": "storm-3-point-australia-2026-08-14",
+  "title": "3-point Australia",
+  "group": "Storm",
+  "discovered": "2026-08-14T07:12:41.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/2155be3b-95aa-4243-99b6-523fe9e77a63",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

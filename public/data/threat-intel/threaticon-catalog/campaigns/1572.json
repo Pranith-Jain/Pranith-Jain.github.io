@@ -1,0 +1,12 @@
+{
+  "id": 1572,
+  "name": "coinbasecartel: Neochromosome",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: neochromosome.com | Infostealer data confirmed. | [AI generated] Neochromosome is a bio-tech startup and a synthetic biology company based in San Francisco, California. Their primary focus is on designing and constructing synthetic chromosomes, which could find applications in various industries. The company utilizes machine learning to design synthetic chromosomes, with a vision of building transformative synthetic biology systems that can solve global challenges. | Source: https://www.ransomware.live/id/TmVvY2hyb21vc29tZUBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1572"
+}

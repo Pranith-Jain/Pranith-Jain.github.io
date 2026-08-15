@@ -1,0 +1,12 @@
+{
+  "id": 3121,
+  "name": "Dridex (2016-03-07)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #119 (56dd9e2c-7090-483d-91a8-4516950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3121"
+}

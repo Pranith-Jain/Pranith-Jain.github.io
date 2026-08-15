@@ -1,0 +1,12 @@
+{
+  "id": 7608,
+  "name": "direwolf: Statista GmbH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to direwolf. | Country: DE | Sector: Professional Services | Website: statista.com | Infostealer data confirmed. | Data Collection &amp; Internet Portals | Source: https://www.ransomware.live/id/U3RhdGlzdGEgR21iSEBkaXJld29sZg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7608"
+}

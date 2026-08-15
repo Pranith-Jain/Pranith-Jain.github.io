@@ -1,0 +1,12 @@
+{
+  "id": 3169,
+  "name": "The BlueNoroff cryptocurrency hunt is still on",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #282 (0ee87fb7-783d-40f5-824c-a334283d3809).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3169"
+}

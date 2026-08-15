@@ -1,0 +1,12 @@
+{
+  "id": 3461,
+  "name": "Malspam 2016-10-06 (.js in .zip) - campaign: \"Your Order\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #893 (57f64039-dec0-4c41-b2eb-42e7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3461"
+}

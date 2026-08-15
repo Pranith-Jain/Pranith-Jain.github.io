@@ -1,0 +1,12 @@
+{
+  "id": 2200,
+  "name": "Detecting and Preventing Malicious Domains Proactively with DNS Security",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #253 (e74cba52-0314-43c2-9958-43a55619fcf5).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2200"
+}

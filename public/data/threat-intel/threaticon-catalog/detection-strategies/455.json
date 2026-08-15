@@ -1,0 +1,12 @@
+{
+  "id": 455,
+  "name": "Behavioral Detection of Malicious Cloud API Scripting",
+  "detId": "DET0078",
+  "stixId": "x-mitre-detection-strategy--e7bd0f37-f2cf-4e3c-a9c1-c41f63b67e1c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0215"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/455"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2530,
+  "name": "Malspam 2016-10-03 (.xls) - campaign: \"Invoice-\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #892 (57f26f87-fbc8-4b7b-be64-6e88950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2530"
+}

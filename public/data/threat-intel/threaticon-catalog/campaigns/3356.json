@@ -1,0 +1,12 @@
+{
+  "id": 3356,
+  "name": "OSINT - ProjectSauron: top level cyber-espionage platform covertly extracts encrypted government comms",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #624 (57a8a2e8-6054-46ef-bab9-418e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3356"
+}

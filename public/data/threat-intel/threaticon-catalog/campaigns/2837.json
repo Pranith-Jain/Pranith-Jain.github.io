@@ -1,0 +1,12 @@
+{
+  "id": 2837,
+  "name": "OSINT - New Donut Ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1379 (5b2783ba-57e4-44da-88ee-4c4f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2837"
+}

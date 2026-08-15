@@ -1,0 +1,12 @@
+{
+  "id": 7028,
+  "name": "safepay: pradotuylaw.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 3, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Professional Services | Website: pradotuylaw.com | The firm focuses on practice areas including personal injury, wrongful death, workplace harassment, business litigation, civil settlements, and environmental litigation. … | Source: https://www.ransomware.live/id/cHJhZG90dXlsYXcuY29tQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7028"
+}

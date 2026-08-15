@@ -1,0 +1,12 @@
+{
+  "id": 6216,
+  "name": "qilin: Plitvička Jezera Nacionalni Park",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: HR | Sector: Hospitality | Website: www.np-plitvicka-jezera.hr | N/A | Press: https://total-croatia-news.com/news/plitvice-lakes-cyber-attack/ | Source: https://www.ransomware.live/id/UGxpdHZpxI1rYSBKZXplcmEgTmFjaW9uYWxuaSBQYXJrQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6216"
+}

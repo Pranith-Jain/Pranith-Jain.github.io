@@ -1,0 +1,12 @@
+{
+  "id": 2682,
+  "name": "OSINT - TwoFace Webshell: Persistent Access Point for Lateral Movement",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1124 (59861ab3-3ef8-4683-ad19-9533950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2682"
+}

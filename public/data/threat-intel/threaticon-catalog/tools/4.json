@@ -1,0 +1,12 @@
+{
+  "id": 4,
+  "name": "NPPSPY",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "NPPSPY is an implementation of a theoretical mechanism first presented in 2004 for capturing credentials submitted to a Windows system via a rogue Network Provider API item. NPPSPY captures credentials following submission and writes them to a file on the victim system for follow-on exfiltration.(Citation: Huntress NPPSPY 2022)(Citation: Polak NPPSPY 2004)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/4"
+}

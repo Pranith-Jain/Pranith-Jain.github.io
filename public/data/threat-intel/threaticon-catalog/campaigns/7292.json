@@ -1,0 +1,12 @@
+{
+  "id": 7292,
+  "name": "Orova: Woodside Ranch",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Agriculture and Food Production | Website: www.ricewoodside.com | Bryan and Holley Beattie Rice own and operate Woodside Ranch, a family run Thoroughbred Training Center in Ocala, Florida. Our motto is hard work and attention to detail. We are committed to giving young prospects the best possible start. We take great pride in our relentless effort to advance our methods and our facilities. | Source: https://www.ransomware.live/id/V29vZHNpZGUgUmFuY2hAT3JvdmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7292"
+}

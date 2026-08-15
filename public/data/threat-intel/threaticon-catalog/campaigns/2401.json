@@ -1,0 +1,12 @@
+{
+  "id": 2401,
+  "name": "OSINT New activity of the Blue Termite APT by AlienVault",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #729 (55db9387-6a70-4fdd-8fee-6e76950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2401"
+}

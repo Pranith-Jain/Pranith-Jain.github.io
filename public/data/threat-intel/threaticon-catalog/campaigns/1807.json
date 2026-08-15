@@ -1,0 +1,12 @@
+{
+  "id": 1807,
+  "name": "handala: Atlas Insurances Ltd",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Financial Services | In our ongoing efforts to confront the support networks of the Zionist occupation regime, Handala Hack has successfully targeted a key economic pillar of this regime in the field of marine insurance. Atlas Insurances Ltd (אטלס ביטוחים), which for decades has acted as the primary insurer of the Zionist regime’s maritime fleet and the transfer… | Source: https://www.ransomware.live/id/QXRsYXMgSW5zdXJhbmNlcyBMdGRAaGFuZGFsYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1807"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4938,
+  "name": "qilin: Miller & Zois",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.millerandzois.com | N/A | Source: https://www.ransomware.live/id/TWlsbGVyICYgWm9pc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4938"
+}

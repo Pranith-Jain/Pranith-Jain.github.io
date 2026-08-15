@@ -1,0 +1,12 @@
+{
+  "id": 4930,
+  "name": "lockbit5: delano.k12.mn.us",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "Jun 9, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Education | Website: delano.k12.mn.us | Infostealer data confirmed. | Delano Public Schools is dedicated to providing systemic growth toward educational excellence for ev... | Press: https://www.cbsnews.com/minnesota/news/delano-schools-closed-cyber-incident/ | Source: https://www.ransomware.live/id/ZGVsYW5vLmsxMi5tbi51c0Bsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4930"
+}

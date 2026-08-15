@@ -1,0 +1,12 @@
+{
+  "id": 355,
+  "name": "Socket-filter trigger → on-host raw-socket activity → reverse connection (T1205.002)",
+  "detId": "DET0162",
+  "stixId": "x-mitre-detection-strategy--b4cdf164-9cb7-4cad-bdc3-81b5574f364a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0462", "AN0463", "AN0464"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/355"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 10,
+  "name": "Detection of Active Scanning",
+  "detId": "DET0830",
+  "stixId": "x-mitre-detection-strategy--7bbdcd3b-241e-4ec8-ab43-6bd2c34ae77d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1962"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/10"
+}

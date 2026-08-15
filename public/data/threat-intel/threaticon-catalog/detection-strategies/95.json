@@ -1,0 +1,12 @@
+{
+  "id": 95,
+  "name": "IDE Tunneling Detection via Process, File, and Network Behaviors",
+  "detId": "DET0133",
+  "stixId": "x-mitre-detection-strategy--3efcd3e4-9238-4686-990b-27ac110dccfd",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0375", "AN0376", "AN0377"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/95"
+}

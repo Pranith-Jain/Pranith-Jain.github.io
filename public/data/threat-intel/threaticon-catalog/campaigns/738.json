@@ -1,0 +1,12 @@
+{
+  "id": 738,
+  "name": "krybit: unipest.co.th",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: TH | Sector: Consumer Services | Website: unipest.co.th | Infostealer data confirmed. | Unipest Company Limited specializes in pest control services, including the elimination of termites, ants, cockroaches, ... | Source: https://www.ransomware.live/id/dW5pcGVzdC5jby50aEBrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/738"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 437,
+  "name": "Detection Strategy for Endpoint DoS via Application or System Exploitation",
+  "detId": "DET0304",
+  "stixId": "x-mitre-detection-strategy--28d6ebc3-3b01-45e1-b48e-6491364d23e9",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0850", "AN0851", "AN0852", "AN0853"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/437"
+}

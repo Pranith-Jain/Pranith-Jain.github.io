@@ -1,0 +1,12 @@
+{
+  "id": 178,
+  "name": "Hardware Supply Chain Compromise Detection via Host Status & Boot Integrity Checks",
+  "detId": "DET0368",
+  "stixId": "x-mitre-detection-strategy--4dfcf95f-0bbb-4ae7-8bd5-91e3e6c51809",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1035", "AN1036", "AN1037"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/178"
+}

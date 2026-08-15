@@ -1,0 +1,12 @@
+{
+  "id": 354,
+  "name": "lockbit5: stllc.org",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Not Found | Website: stllc.org | Infostealer data confirmed. | Welcome to St. Luke Lutheran Community St. Luke Lutheran Community is a not-for-profit, continuing... | Source: https://www.ransomware.live/id/c3RsbGMub3JnQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/354"
+}

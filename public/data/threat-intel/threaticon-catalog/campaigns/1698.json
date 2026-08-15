@@ -1,0 +1,12 @@
+{
+  "id": 1698,
+  "name": "crypto24: Comprehensive Orthopaedics and Musculoskeletal Care, LLC",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to crypto24. | Country: US | Sector: Healthcare | Website: comprehensiveorthopaedics.com | Infostealer data confirmed. | HIPAA personal information for over 100,000 people... | Source: https://www.ransomware.live/id/Q29tcHJlaGVuc2l2ZSBPcnRob3BhZWRpY3MgYW5kIE11c2N1bG9za2VsZXRhbCBDYXJlLCBMTENAY3J5cHRvMjQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1698"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2359,
+  "name": "Malspam 2016-07-19 .wsf (campaign: \"new invoice\")",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #613 (578e2285-12cc-4a15-b078-4b74950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2359"
+}

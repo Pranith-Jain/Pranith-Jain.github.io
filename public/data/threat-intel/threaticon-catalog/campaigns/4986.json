@@ -1,0 +1,12 @@
+{
+  "id": 4986,
+  "name": "nova: Trevi",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 9, 2026",
+  "lastSeen": "Jun 9, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: IT | Sector: Construction | The trevi.it website is the official brand portal for the Italian consumer electronics company Trevi S.p.A., which is owned by Trevidea srl - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/VHJldmlAbm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4986"
+}

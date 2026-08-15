@@ -1,0 +1,12 @@
+{
+  "id": 1703,
+  "name": "thegentlemen: Cosmesia",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Agriculture and Food Production | Website: nutritionprofess.com | Infostealer data confirmed. | nutritionprofess.com zoominfo.com/c/cosmesia/533652648 Nutrition Profess Public Company Limited is a leader in the production of dietary supplements and cosmetics under customer brands. They focus on planning and developing high-quality, distinctive products while providing friendly consulting services. The company aims to enhance health and well-being through innovative and effective products tailored to diverse client needs. Their commitment to quality and customer satisfaction drives their mission to promote better health | Source: https://www.ransomware.live/id/Q29zbWVzaWFAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1703"
+}

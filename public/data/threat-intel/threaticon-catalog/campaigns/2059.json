@@ -1,0 +1,12 @@
+{
+  "id": 2059,
+  "name": "Operation Ghoul: targeted attacks on industrial and engineering organizations",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #78 (57b6b2dd-7368-4146-b874-21d0c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2059"
+}

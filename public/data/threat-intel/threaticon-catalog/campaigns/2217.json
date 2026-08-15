@@ -1,0 +1,12 @@
+{
+  "id": 2217,
+  "name": "Phishing mail impersonating Belgian utility \"De Watergroep\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #302 (c796b72a-3f03-42b0-9879-85c1912dfa3e).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2217"
+}

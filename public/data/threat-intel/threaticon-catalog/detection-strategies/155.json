@@ -1,0 +1,12 @@
+{
+  "id": 155,
+  "name": "Detection Strategy for T1542 Pre-OS Boot",
+  "detId": "DET0278",
+  "stixId": "x-mitre-detection-strategy--abf6c96c-09f3-4bea-a5b7-1177f99881bc",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0774", "AN0775", "AN0776", "AN0777"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/155"
+}

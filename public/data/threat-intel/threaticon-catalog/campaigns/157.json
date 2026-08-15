@@ -1,0 +1,12 @@
+{
+  "id": 157,
+  "name": "qilin: Rizzuto Law Firm",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.rizzutolawfirm.com | N/A | Source: https://www.ransomware.live/id/Uml6enV0byBMYXcgRmlybUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/157"
+}

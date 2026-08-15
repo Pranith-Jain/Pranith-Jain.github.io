@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "CH",
   "sizeBytes": 0,
-  "description": "[AI generated] Mammut is a Swiss outdoor sports brand founded in 1862, headquartered in Seon, Switzerland. The company specializes in designing and manufacturing high-performance equipment, apparel, and footwear for mountaineering, climbing, skiing, and hiking. Known for its premium quality and innovation, Mammut serves professional athletes and outdoor enthusiasts worldwide, operating across retail stores and e-commerce channels globally.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d2ff1bae-3bfc-47b0-9e3e-66cb282addc1",
   "groupAliases": ["Cl0p"],
   "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

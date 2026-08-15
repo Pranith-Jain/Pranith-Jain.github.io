@@ -1,0 +1,12 @@
+{
+  "id": 3327,
+  "name": "OSINT - CVE-2015-2545: overview of current threats",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #563 (57460863-76dc-4272-8116-4ea302de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3327"
+}

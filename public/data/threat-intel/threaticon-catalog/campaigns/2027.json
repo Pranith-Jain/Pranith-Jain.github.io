@@ -1,0 +1,12 @@
+{
+  "id": 2027,
+  "name": "The return of HackingTeam with new implants for OS X",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #39 (56d7df53-b4bc-4739-aa3e-a874c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2027"
+}

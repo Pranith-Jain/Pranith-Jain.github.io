@@ -1,0 +1,12 @@
+{
+  "id": 234,
+  "name": "Detect Persistence via Malicious Outlook Rules",
+  "detId": "DET0095",
+  "stixId": "x-mitre-detection-strategy--83a814c2-73ac-4942-84ad-704a272cd864",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0263", "AN0264"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/234"
+}

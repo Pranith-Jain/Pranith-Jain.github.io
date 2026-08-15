@@ -1,0 +1,12 @@
+{
+  "id": 3498,
+  "name": "OSINT - LAZARUSâ€™ FALSE FLAG MALWARE",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #997 (58aafac5-c984-43f3-a1b9-493e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3498"
+}

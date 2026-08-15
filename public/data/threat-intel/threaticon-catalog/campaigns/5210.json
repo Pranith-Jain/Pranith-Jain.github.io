@@ -1,0 +1,12 @@
+{
+  "id": 5210,
+  "name": "everest: VVO Finance",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: DE | Sector: Financial Services | Website: vvo.de | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/VlZPIEZpbmFuY2VAZXZlcmVzdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5210"
+}

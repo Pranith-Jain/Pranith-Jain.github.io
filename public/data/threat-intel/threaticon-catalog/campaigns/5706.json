@@ -1,0 +1,12 @@
+{
+  "id": 5706,
+  "name": "akira: Westcoast Communication Services",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 17, 2026",
+  "lastSeen": "Jul 17, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to akira. | Sector: Telecommunication | Westcoast Communication Services is a leading expert in low voltage and structured cabling, spe cializing in voice and data cabling solutions across Florida. They offer a range of services in cluding network integration, telecommunication networks, and access control systems. We will upload 20gb of corporate data soon. Employee personal information (DL, passports, SS ca rd scans and so on), contracts and agreements, customer info, financials, confidential agreemen ts, etc. | Source: https://www.ransomware.live/id/V2VzdGNvYXN0IENvbW11bmljYXRpb24gU2VydmljZXNAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5706"
+}

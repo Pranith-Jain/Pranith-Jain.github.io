@@ -1,0 +1,12 @@
+{
+  "id": 4893,
+  "name": "thegentlemen: Silmquinas e Equipamentos",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "Jun 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: BR | Sector: Manufacturing | Website: silmaquinas.com.br | Infostealer data confirmed. | ***.com.br zoominfo.com/c/silmquinas-e-equipamentos-ltda/425694871 Sil Maquinas is a Brazilian company specialising in the sale, rental, and servicing of construction, road-building, and agricultural machinery. Its product line includes rollers, pavers, excavators, and tractors from leading global brands. The company also supplies genuine parts and provides comprehensive after-sales support | Source: https://www.ransomware.live/id/U2lsbXF1aW5hcyBlIEVxdWlwYW1lbnRvc0B0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4893"
+}

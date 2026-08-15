@@ -1,0 +1,12 @@
+{
+  "id": 4482,
+  "name": "cmdorganization: Lørenskog kommune",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to cmdorganization. | Country: NO | Sector: Public Sector | Website: lorenskog.kommune.no | Infostealer data confirmed. | Lørenskog kommune offers a range of services including education, health care, social services, and community development. Their intended clients include residents seeking information on property tax, childcare, and various cultural and recreational activities. The municipality also engages with the public through political meetings and community involvement initiatives. Additionally, Lørenskog kommune celebrates local events and milestones, fostering a sense of community among its residents. | Source: https://www.ransomware.live/id/TMO4cmVuc2tvZyBrb21tdW5lQGNtZG9yZ2FuaXphdGlvbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4482"
+}

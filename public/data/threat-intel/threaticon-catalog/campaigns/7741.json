@@ -1,0 +1,12 @@
+{
+  "id": 7741,
+  "name": "clop: STARKEY.COM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to clop. | Country: US | Sector: Healthcare | Website: STARKEY.COM | [AI generated] Starkey is a leading American hearing technology company headquartered in Eden Prairie, Minnesota, USA. Founded in 1967, it designs, manufactures, and distributes hearing aids and related hearing health solutions. Starkey is one of the few remaining privately held hearing aid manufacturers in the world and is known for innovation in smart hearing technology, including AI-powered and health-monitoring hearing devices. | Source: https://www.ransomware.live/id/U1RBUktFWS5DT01AY2xvcA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7741"
+}

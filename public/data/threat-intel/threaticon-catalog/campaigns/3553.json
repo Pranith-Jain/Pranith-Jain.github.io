@@ -1,0 +1,12 @@
+{
+  "id": 3553,
+  "name": "stormous: vspsolutions.com.au SAMPLE-FREE 20GB",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to stormous. | Country: AU | Sector: Business Services | Website: vspsolutions.com.au | Infostealer data confirmed. | +40G Full Financial Backups (Quickbooks & Reckon)-Email Archives & Staff Personal Folders-Customer/Client Databases (Installers & Integrators nationwide)-Shipment & Order Tracking for major brands like Hikvision & Axis. | Source: https://www.ransomware.live/id/dnNwc29sdXRpb25zLmNvbS5hdSBTQU1QTEUtRlJFRSAyMEdCQHN0b3Jtb3Vz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3553"
+}

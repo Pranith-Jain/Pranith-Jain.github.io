@@ -1,0 +1,12 @@
+{
+  "id": 24,
+  "name": "Arp",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "arp.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "Arp displays and modifies information about a system's Address Resolution Protocol (ARP) cache. (Citation: TechNet Arp)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/24"
+}

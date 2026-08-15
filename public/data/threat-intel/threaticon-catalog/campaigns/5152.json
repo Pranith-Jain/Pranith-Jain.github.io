@@ -1,0 +1,12 @@
+{
+  "id": 5152,
+  "name": "cmdorganization: Lake Washington School District",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 31, 2026",
+  "lastSeen": "May 31, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Education | Website: lwsd.wednet.edu | Infostealer data confirmed. | Founded in 1914, Lake Washington School District is the administrative body responsible for planning and managing public education for 33 elementary, 14 middle, and 9 high schools. It serves communities of Kirkland, Redmond and about half of Sammamish. The company is headquartered in Redmond, Washington. | Source: https://www.ransomware.live/id/TGFrZSBXYXNoaW5ndG9uIFNjaG9vbCBEaXN0cmljdEBjbWRvcmdhbml6YXRpb24=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5152"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 490,
+  "name": "Multi-Event Behavioral Detection for DCOM-Based Remote Code Execution",
+  "detId": "DET0285",
+  "stixId": "x-mitre-detection-strategy--dbaaa57a-ef28-44c0-bc56-25bc20dc8f28",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0791"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/490"
+}

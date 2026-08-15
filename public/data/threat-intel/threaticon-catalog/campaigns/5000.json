@@ -1,0 +1,12 @@
+{
+  "id": 5000,
+  "name": "nightspire: Unique Litho, Inc",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Manufacturing | Website: uniquelitho.com | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/VW5pcXVlIExpdGhvLCBJbmNAbmlnaHRzcGlyZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5000"
+}

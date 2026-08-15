@@ -1,0 +1,12 @@
+{
+  "id": 3365,
+  "name": "OSINT Fidelis Threat Advisory #1018 Looking at the Sky for a DarkComet from the Fidelis Cybersecurity",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #640 (55c902ef-1910-4904-8cee-41cc950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3365"
+}

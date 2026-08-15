@@ -1,0 +1,12 @@
+{
+  "id": 2140,
+  "name": "Beobank Phishing 20181203",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #172 (5c057cd6-5b1c-4481-aaa1-2f6fc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2140"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4135,
+  "name": "Deadlock: Güven Mühendislik Makina",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: gmm.com.tr | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/R8O8dmVuIE3DvGhlbmRpc2xpayBNYWtpbmFARGVhZGxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4135"
+}

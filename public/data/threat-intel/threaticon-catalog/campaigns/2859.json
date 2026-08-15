@@ -1,0 +1,12 @@
+{
+  "id": 2859,
+  "name": "OSINT - Turla PNG Dropper is back",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1443 (5bf7ba12-bec4-4d01-8330-4373950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2859"
+}

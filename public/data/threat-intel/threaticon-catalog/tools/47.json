@@ -1,0 +1,12 @@
+{
+  "id": 47,
+  "name": "Peirates",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Peirates is a post-exploitation Kubernetes exploitation framework with a focus on gathering service account tokens for lateral movement and privilege escalation. The tool is written in GoLang and publicly available on GitHub.(Citation: Peirates GitHub)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/47"
+}

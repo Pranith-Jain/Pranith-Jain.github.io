@@ -1,0 +1,12 @@
+{
+  "id": 541,
+  "name": "Detection of Abused or Compromised Cloud Accounts for Access and Persistence",
+  "detId": "DET0546",
+  "stixId": "x-mitre-detection-strategy--a1a9e316-145a-4744-a594-7decc23c543d",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1503", "AN1504", "AN1505", "AN1506"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/541"
+}

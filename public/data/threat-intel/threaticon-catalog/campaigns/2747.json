@@ -1,0 +1,12 @@
+{
+  "id": 2747,
+  "name": "OSINT - US CERT TA17-293A report - renamed PsExec execution (sigma/SIEM ruleset)",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1224 (59ec91ee-ae0c-4d5a-b149-4c0d02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2747"
+}

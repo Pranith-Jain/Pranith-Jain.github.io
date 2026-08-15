@@ -1,0 +1,12 @@
+{
+  "id": 2638,
+  "name": "OSINT - Massive outbreak of ransomware variant infects large amounts of computers around the world",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1056 (5916342f-3134-435f-9ce2-48e802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2638"
+}

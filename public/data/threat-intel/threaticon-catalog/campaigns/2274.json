@@ -1,0 +1,12 @@
+{
+  "id": 2274,
+  "name": "OSINT - Retefe is back in town",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #431 (5714a8d1-52a4-48fa-8696-4066950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2274"
+}

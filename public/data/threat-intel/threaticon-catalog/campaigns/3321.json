@@ -1,0 +1,12 @@
+{
+  "id": 3321,
+  "name": "OSINT - Operation Groundbait: Espionage in Ukrainian war zones",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #552 (573cbe55-a890-42e3-8ce9-436802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3321"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2150,
+  "name": "Technical Analysis and Solution of WebLogic Server (WLS) Component Vulnerability",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #187 (5cc68db3-cf08-48fa-b369-07fdc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2150"
+}

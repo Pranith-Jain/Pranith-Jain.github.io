@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "KZ",
   "sizeBytes": 0,
-  "description": "[AI generated] N/A",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a08454ac-b24c-4caa-96db-f9ee6521b367",
   "groupAliases": ["Cl0p"],
   "activity": "Not Found",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

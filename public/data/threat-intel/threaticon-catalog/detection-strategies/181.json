@@ -1,0 +1,12 @@
+{
+  "id": 181,
+  "name": "Automated Exfiltration Detection Strategy",
+  "detId": "DET0397",
+  "stixId": "x-mitre-detection-strategy--da5ff985-fd0d-438f-8498-c8dc195f741a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1113", "AN1114", "AN1115"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/181"
+}

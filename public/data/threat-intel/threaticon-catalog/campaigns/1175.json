@@ -1,0 +1,12 @@
+{
+  "id": 1175,
+  "name": "SilentRansomGroup: Jones Day",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: jonesday.com | Infostealer data confirmed. | Jones Day founded in 1893 and headquartered in Cleveland Ohio, is a global law firm with locations acr… | Source: https://www.ransomware.live/id/Sm9uZXMgRGF5QFNpbGVudFJhbnNvbUdyb3Vw",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1175"
+}

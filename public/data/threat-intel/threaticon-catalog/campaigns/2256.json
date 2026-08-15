@@ -1,0 +1,12 @@
+{
+  "id": 2256,
+  "name": "PWS: Win32/Kegotip.C",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #390 (5706756e-958c-4c53-8f77-45f4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2256"
+}

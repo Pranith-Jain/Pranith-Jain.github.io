@@ -1,0 +1,12 @@
+{
+  "id": 213,
+  "name": "fulcrumsec: ReFocus AI",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to fulcrumsec. | Country: US | Sector: Technology | Website: refocusai.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/UmVGb2N1cyBBSUBmdWxjcnVtc2Vj",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/213"
+}

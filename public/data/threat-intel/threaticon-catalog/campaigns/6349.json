@@ -1,0 +1,12 @@
+{
+  "id": 6349,
+  "name": "ExfilSquad: Zenith Bank Plc",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to ExfilSquad. | Country: NG | Sector: Financial Services | Website: zenithbank.com | Infostealer data confirmed. | Revenue: ₦2.3T DATA SUMMARY: 90M~ records containing: extensive PII, banking relationships, account information, financial data, government identifiers, customer contact information, and banking support cases. | Source: https://www.ransomware.live/id/WmVuaXRoIEJhbmsgUGxjQEV4ZmlsU3F1YWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6349"
+}

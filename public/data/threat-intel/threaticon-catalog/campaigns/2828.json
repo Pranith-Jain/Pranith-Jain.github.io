@@ -1,0 +1,12 @@
+{
+  "id": 2828,
+  "name": "OSINT - Sigrun Ransomware Author Decrypting Russian Victims for Free",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1369 (5b17eaaf-783c-4624-b5f4-42d5950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2828"
+}

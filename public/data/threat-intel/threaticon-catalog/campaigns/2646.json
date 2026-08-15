@@ -1,0 +1,12 @@
+{
+  "id": 2646,
+  "name": "Jaff 2017-05-25 : \"Payment Receipt 1234\" - \"1234.pdf\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1070 (59281443-312c-4b77-aef7-447d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2646"
+}

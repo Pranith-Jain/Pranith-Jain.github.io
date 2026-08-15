@@ -1,0 +1,12 @@
+{
+  "id": 20,
+  "name": "Tasklist",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "The Tasklist utility displays a list of applications and services with their Process IDs (PID) for all tasks running on either a local or a remote computer. It is packaged with Windows operating systems and can be executed from the command-line interface. (Citation: Microsoft Tasklist)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/20"
+}

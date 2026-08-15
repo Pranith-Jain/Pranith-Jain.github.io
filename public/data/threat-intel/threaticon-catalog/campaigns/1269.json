@@ -1,0 +1,12 @@
+{
+  "id": 1269,
+  "name": "nightspire: Florida Therapy Services",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Healthcare | Website: flatherapy.com | Infostealer data confirmed. | [AI generated] Florida Therapy Services is a mental health organization based in Florida, USA. It provides psychiatric services, psychotherapy, and substance abuse counseling, among other services for children, adolescents, adults, and families. The organization specializes in home, school, community, and office-based treatment, aiming to support individuals struggling with various mental health issues. | Source: https://www.ransomware.live/id/RmxvcmlkYSBUaGVyYXB5IFNlcnZpY2VzQG5pZ2h0c3BpcmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1269"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2911,
+  "name": "Linux/KAITEN AK47(a Mod-Telnet-Scanner) & Echo-loader hexstrings spread",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1612 (5ec960a6-b798-445c-8ae2-478a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2911"
+}

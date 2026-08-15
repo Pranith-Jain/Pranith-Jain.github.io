@@ -1,0 +1,12 @@
+{
+  "id": 3281,
+  "name": "Securonix Threat Research Security Advisory: Analysis of Ongoing FROZEN#SHADOW Attack Campaign Leveraging SSLoad Malware and RMM Software for Domain Takeover",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #496 (88fc5757-d527-45b0-8666-0f7e3140408b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3281"
+}

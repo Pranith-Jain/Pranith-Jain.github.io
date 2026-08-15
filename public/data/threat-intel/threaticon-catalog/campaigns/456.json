@@ -1,0 +1,12 @@
+{
+  "id": 456,
+  "name": "nightspire: J**es **l*o",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Sector: Consumer Services | Data is not available now. | Source: https://www.ransomware.live/id/SioqZXMgKipsKm9AbmlnaHRzcGlyZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/456"
+}

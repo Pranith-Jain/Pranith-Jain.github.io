@@ -1,0 +1,12 @@
+{
+  "id": 1668,
+  "name": "anubis: L. S. King and Associates",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Financial Services | Website: cpageorgia.com | Infostealer data confirmed. | www.cpageorgia.com - accounting firm data breach. Small dataset, big consequences. | Source: https://www.ransomware.live/id/TC4gUy4gS2luZyBhbmQgQXNzb2NpYXRlc0BhbnViaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1668"
+}

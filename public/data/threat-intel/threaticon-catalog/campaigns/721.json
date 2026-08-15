@@ -1,0 +1,12 @@
+{
+  "id": 721,
+  "name": "akira: Fletcher Chrysler Products",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: fletcherchrysler.com | Infostealer data confirmed. | Fletcher Chrysler Dodge Jeep Ram is a dealership located in Frank lin, IN, offering a wide selection of new and used Chrysler, Dodg e, Jeep, and Ram vehicles. They serve clients in Franklin, Indian apolis, Shelbyville, and surrounding areas, providing assistance in vehicle purchasing, financing options, and automotive services . We will upload 28gb of corporate data soon. Personal data of empl oyees (passports, DLs, SSNs and others), financials, contracts an d agreements, client files, and so on. | Source: https://www.ransomware.live/id/RmxldGNoZXIgQ2hyeXNsZXIgUHJvZHVjdHNAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/721"
+}

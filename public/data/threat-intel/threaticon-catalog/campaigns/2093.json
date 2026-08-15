@@ -1,0 +1,12 @@
+{
+  "id": 2093,
+  "name": "Poisoning the Well: Banking Trojan Targets Google Search Results",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #116 (59f835da-4aa0-4a5b-b187-2f0ac0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2093"
+}

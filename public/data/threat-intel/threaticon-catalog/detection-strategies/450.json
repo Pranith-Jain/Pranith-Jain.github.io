@@ -1,0 +1,12 @@
+{
+  "id": 450,
+  "name": "Behavioral Detection Strategy for Use Alternate Authentication Material (T1550)",
+  "detId": "DET0338",
+  "stixId": "x-mitre-detection-strategy--2b666abc-e642-4f40-abec-36bd48f1f15c",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "analytics": ["AN0954", "AN0955", "AN0956", "AN0957", "AN0958", "AN0959", "AN0960"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/450"
+}

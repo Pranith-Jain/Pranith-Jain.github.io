@@ -1,0 +1,12 @@
+{
+  "id": 645,
+  "name": "Detection Strategy for Exploitation for Stealth",
+  "detId": "DET0595",
+  "stixId": "x-mitre-detection-strategy--da1e3af8-d79b-44ff-a907-ae107c110671",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1633", "AN1634", "AN1635", "AN1636", "AN1637"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/645"
+}

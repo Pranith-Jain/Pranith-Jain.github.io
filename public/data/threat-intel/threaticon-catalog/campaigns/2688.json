@@ -1,0 +1,12 @@
+{
+  "id": 2688,
+  "name": "OSINT - Meet Ovidiy Stealer: Bringing credential theft to the masses",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1135 (599e9eb0-ddc0-4349-ad1c-4f26950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2688"
+}

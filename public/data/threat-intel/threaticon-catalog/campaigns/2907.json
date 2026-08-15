@@ -1,0 +1,12 @@
+{
+  "id": 2907,
+  "name": "Warzone RAT",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1587 (5e3be06f-d0a8-4ed9-abe9-46be950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2907"
+}

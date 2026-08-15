@@ -1,0 +1,12 @@
+{
+  "id": 3223,
+  "name": "OSINT - Evolution of SamSa Malware Suggests New Ransomware Tactics In Play",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #369 (56f4497b-6134-468e-807e-fc08950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3223"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 597,
+  "name": "Detection of CDNs",
+  "detId": "DET0809",
+  "stixId": "x-mitre-detection-strategy--eda2c394-d2de-4555-be9d-b4de826441ee",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1941"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/597"
+}

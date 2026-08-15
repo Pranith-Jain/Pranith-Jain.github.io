@@ -1,0 +1,12 @@
+{
+  "id": 5284,
+  "name": "nova: sandox info",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 26, 2026",
+  "lastSeen": "May 26, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Sector: Technology | since the site down after the attack, we didn't get much OSINT about it, sandox.info, Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/c2FuZG94IGluZm9Abm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5284"
+}

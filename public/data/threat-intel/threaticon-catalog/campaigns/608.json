@@ -1,0 +1,12 @@
+{
+  "id": 608,
+  "name": "krybit: imbriefamilylaw.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: GB | Sector: Business Services | Website: imbriefamilylaw.com | Infostealer data confirmed. | The attorneys at the Imbrie Law Firm practice primarily in the following counties: Brazos, Robertson, Burleson, Lee, Gri... | Source: https://www.ransomware.live/id/aW1icmllZmFtaWx5bGF3LmNvbUBrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/608"
+}

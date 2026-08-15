@@ -1,0 +1,12 @@
+{
+  "id": 3294,
+  "name": "Malicious Inauthentic Falcon Crash Reporter Installer Distributed to German Entity via Spearphishing Website",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #513 (b04ab590-aba2-4b73-a6b3-1331c8d5367c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3294"
+}

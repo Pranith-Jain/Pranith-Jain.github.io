@@ -1,0 +1,12 @@
+{
+  "id": 215,
+  "name": "Detection of Threat Intel Vendors",
+  "detId": "DET0816",
+  "stixId": "x-mitre-detection-strategy--deb0a989-7d09-4403-b1a1-8658e36a0f9a",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1948"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/215"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 703,
+  "name": "akira: Truckload Carriers Association",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Transportation/Logistics | Website: truckload.org | Infostealer data confirmed. | Truckload Carriers Association is a national trade association fo cused on the truckload segment of the motor carrier industry. We will upload 21gb of corporate data soon. Personal data of empl oyees, detailed financials, contracts and agreements, customer an d partner files, projects, etc. | Source: https://www.ransomware.live/id/VHJ1Y2tsb2FkIENhcnJpZXJzIEFzc29jaWF0aW9uQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/703"
+}

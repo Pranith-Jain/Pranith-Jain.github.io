@@ -100,7 +100,7 @@ export function DataTable<T>({
                       {col.header}
                       <span
                         aria-hidden
-                        className={`text-[9px] ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400/60'}`}
+                        className={`text-micro ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400/60'}`}
                       >
                         {active ? (sort?.dir === 'asc' ? '▲' : '▼') : '↕'}
                       </span>

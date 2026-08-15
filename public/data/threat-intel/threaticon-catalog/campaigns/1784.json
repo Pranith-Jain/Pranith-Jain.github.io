@@ -1,0 +1,12 @@
+{
+  "id": 1784,
+  "name": "akira: Siwax Specialties Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: ES | Sector: Agriculture and Food Production | Website: siwaxgroup.com | Infostealer data confirmed. | Siwax Group specializes in the design and production of high-qual ity waxes, emulsions, and hotmelts for various industries. Their extensive product range caters to sectors such as packaging, food , rubber, surface treatments, and cosmetics. We will upload 13gb of corporate data soon. Employee personal doc uments (passports other personal docs and scans), financials, fil es with Volkswagen and Renault names and so on, projects, contrac ts and agreements, NDAs, etc. | Source: https://www.ransomware.live/id/U2l3YXggU3BlY2lhbHRpZXMgR3JvdXBAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1784"
+}

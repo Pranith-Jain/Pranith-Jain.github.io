@@ -1,0 +1,12 @@
+{
+  "id": 3741,
+  "name": "safepay: id-s.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Technology | Website: id-s.de | Infostealer data confirmed. | Is a German company operating in the field of digital technologies and IT-related services. Although detailed public information is limited, … | Source: https://www.ransomware.live/id/aWQtcy5kZUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3741"
+}

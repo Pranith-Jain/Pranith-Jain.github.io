@@ -1,0 +1,12 @@
+{
+  "id": 3204,
+  "name": "Ransomware wave RansomBoggs in Ukraine",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #338 (b2790e3f-e111-4755-b28f-ff902feabb17).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3204"
+}

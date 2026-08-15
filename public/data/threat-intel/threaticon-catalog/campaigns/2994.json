@@ -1,0 +1,12 @@
+{
+  "id": 2994,
+  "name": "KRVTZ-NET IDS alerts for 2026-02-20",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1855 (a7d3600c-be93-4b46-8b2e-6957e3297c1a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2994"
+}

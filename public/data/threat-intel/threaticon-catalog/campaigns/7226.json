@@ -1,0 +1,12 @@
+{
+  "id": 7226,
+  "name": "clop: jpm*******",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to clop. | Sector: Financial Services | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project - files | Source: https://www.ransomware.live/id/anBtKioqKioqKkBjbG9w",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7226"
+}

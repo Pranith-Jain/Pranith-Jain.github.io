@@ -1,0 +1,12 @@
+{
+  "id": 452,
+  "name": "Behavioral Detection Strategy for WMI Execution Abuse on Windows",
+  "detId": "DET0364",
+  "stixId": "x-mitre-detection-strategy--8374a5e5-6d9f-4896-9546-a4d998188ac5",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1031"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/452"
+}

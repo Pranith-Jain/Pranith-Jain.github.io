@@ -1,0 +1,12 @@
+{
+  "id": 117,
+  "name": "Detection Strategy for System Services: Systemctl",
+  "detId": "DET0073",
+  "stixId": "x-mitre-detection-strategy--8a9b730a-b290-40ce-b182-dbcb06fbad3d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0200"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/117"
+}

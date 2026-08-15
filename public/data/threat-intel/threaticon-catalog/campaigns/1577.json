@@ -1,0 +1,12 @@
+{
+  "id": 1577,
+  "name": "payload: In.Sa.Cor",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payload. | Country: US | Sector: Energy | Website: In.Sa.Cor | InSaCor specializes in a wide range of gas-related products and sanitary solutions, including gas regulators, fittings, and various types of plumbing fixtures. Their offerings include high-quality materials for both residential and commercial applications, catering to clients in the construction and maintenance sectors. | Source: https://www.ransomware.live/id/SW4uU2EuQ29yQHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1577"
+}

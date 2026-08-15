@@ -1,0 +1,12 @@
+{
+  "id": 782,
+  "name": "lockbit5: marti.do",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: DO | Sector: Manufacturing | Website: marti.do | Infostealer data confirmed. | ABOUT THE GROUP Somos un grupo empresarial con más de 60 años de experiencia, sirviendo con entusia... | Source: https://www.ransomware.live/id/bWFydGkuZG9AbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/782"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1296,
+  "name": "akira: Frontier Technologies",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Technology | Website: newfrontiertech.com | Infostealer data confirmed. | New Frontier Technologies (NFT) is a system integrator specializi ng in bridging the gap between industrial automation and business data, providing solutions such as SCADA systems, PLCs, remote op erations, and cyber security. Their services cater to a variety o f sectors, including oil and gas, discrete manufacturing, process manufacturing, and food and beverage. We will upload 60gb of corporate data soon. Project files, financ ials docs, contracts and agreements and so on. | Source: https://www.ransomware.live/id/RnJvbnRpZXIgVGVjaG5vbG9naWVzQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1296"
+}

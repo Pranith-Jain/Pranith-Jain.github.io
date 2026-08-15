@@ -1,0 +1,12 @@
+{
+  "id": 2228,
+  "name": "Scraper: LV Ransomware Exploits ProxyShell in Attack on a Jordan-based Company",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #333 (90e532fb-4efa-4ff2-95ab-ddaf25454791).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2228"
+}

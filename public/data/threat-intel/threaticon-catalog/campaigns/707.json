@@ -1,0 +1,12 @@
+{
+  "id": 707,
+  "name": "coinbasecartel: Epoch Times",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Consumer Services | Website: epochtimes.com | Infostealer data confirmed. | [AI generated] Epoch Times is an American media company founded in 2000 by Chinese-American Falun Gong practitioners. It operates newspapers, websites, and video content across multiple countries, publishing in numerous languages. The company covers news, politics, health, and culture, but has drawn scrutiny from researchers and platforms for spreading misinformation and promoting far-right narratives. It is headquartered in New York, USA. | Source: https://www.ransomware.live/id/RXBvY2ggVGltZXNAY29pbmJhc2VjYXJ0ZWw=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/707"
+}

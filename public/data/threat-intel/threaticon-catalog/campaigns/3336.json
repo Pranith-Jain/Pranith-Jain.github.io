@@ -1,0 +1,12 @@
+{
+  "id": 3336,
+  "name": "OSINT - Mofang: A politically motivated information stealing adversary",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #578 (57608399-aa20-4d2c-b03d-4a69950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3336"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 604,
+  "name": "Detection Strategy for Exploitation for Credential Access",
+  "detId": "DET0174",
+  "stixId": "x-mitre-detection-strategy--13a856f3-66b2-4ab7-b73f-2a26e712e77f",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0493", "AN0494", "AN0495", "AN0496"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/604"
+}

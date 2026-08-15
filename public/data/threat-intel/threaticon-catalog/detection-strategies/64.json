@@ -1,0 +1,12 @@
+{
+  "id": 64,
+  "name": "Detection Strategy for Steal or Forge Authentication Certificates",
+  "detId": "DET0240",
+  "stixId": "x-mitre-detection-strategy--7b0ea292-22f5-4963-b1c2-0d396fb17619",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0671", "AN0672", "AN0673", "AN0674"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/64"
+}

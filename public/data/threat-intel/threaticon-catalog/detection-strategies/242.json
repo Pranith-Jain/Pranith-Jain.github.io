@@ -1,0 +1,12 @@
+{
+  "id": 242,
+  "name": "Behavior-chain detection for T1610 Deploy Container across Docker & Kubernetes control/node planes",
+  "detId": "DET0249",
+  "stixId": "x-mitre-detection-strategy--994c7fc6-ad85-47e6-9079-fb872ec7e541",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0693"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/242"
+}

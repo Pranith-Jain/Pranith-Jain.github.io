@@ -1,0 +1,12 @@
+{
+  "id": 1613,
+  "name": "ransomhouse: Bioptik Technology",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to ransomhouse. | Country: TW | Sector: Technology | Website: www.bioptik.com.tw | Bioptik Technology Inc. is a Taiwan-based biotechnology company specializing in the research, development, production, and worldwide distribution of medical diagnostic devices, reagents, and skincare products. With a fully in-house R&D team and complete vertical integration from development to manufacturing, Bioptik maintains its core commitment to the highest quality standards and maximum customer satisfaction. | Source: https://www.ransomware.live/id/QmlvcHRpayBUZWNobm9sb2d5QHJhbnNvbWhvdXNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1613"
+}

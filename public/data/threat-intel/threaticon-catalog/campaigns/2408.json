@@ -1,0 +1,12 @@
+{
+  "id": 2408,
+  "name": "OSINT The Shade Encryptor: a Double Threat by Kaspersky",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #736 (55f93f51-b288-4da8-b9eb-4416950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2408"
+}

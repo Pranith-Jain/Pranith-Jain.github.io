@@ -1,0 +1,12 @@
+{
+  "id": 81,
+  "name": "Pupy",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Pupy is an open source, cross-platform (Windows, Linux, OSX, Android) remote administration and post-exploitation tool. (Citation: GitHub Pupy) It is written in Python and can be generated as a payload in several different ways (Windows exe, Python file, PowerShell oneliner/file, Linux elf, APK, Rubber Ducky, etc.). (Citation: GitHub Pupy) Pupy is publicly available on GitHub. (Citation: GitHub Pupy)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/81"
+}

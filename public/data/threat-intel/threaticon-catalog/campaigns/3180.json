@@ -1,0 +1,12 @@
+{
+  "id": 3180,
+  "name": "UNC3524: Eye Spy on Your Email",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #299 (25adc94b-5b29-44fe-a4a8-c89d17ff3566).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3180"
+}

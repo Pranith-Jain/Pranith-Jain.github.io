@@ -1,0 +1,12 @@
+{
+  "id": 513,
+  "name": "System Discovery via Native and Remote Utilities",
+  "detId": "DET0525",
+  "stixId": "x-mitre-detection-strategy--75161d5e-2b6d-4112-ab4d-338f70ea97f0",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "analytics": ["AN1452", "AN1453", "AN1454", "AN1455", "AN1456", "AN1457"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/513"
+}

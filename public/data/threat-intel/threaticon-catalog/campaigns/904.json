@@ -1,0 +1,12 @@
+{
+  "id": 904,
+  "name": "beast: irmler.org",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to beast. | Country: DE | Sector: Business Services | Website: www.irmler.org | irmler.rechtsanwalte specializes exclusively in architectural law, public procurement law and private and public construction law. We are represented in Mecklenburg-Vorpommern and in Schleswig-Holstein at the locations in Schwerin and Lubeck. In the support of procurement procedures, in particular for the award of architect/planning services and architectural competitions, irmler.rechtsanwalte is active nationwide. | Source: https://www.ransomware.live/id/aXJtbGVyLm9yZ0BiZWFzdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/904"
+}

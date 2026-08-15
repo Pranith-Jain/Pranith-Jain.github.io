@@ -1,0 +1,15 @@
+{
+  "slug": "storm-southern-metals-company-2026-08-14",
+  "title": "Southern Metals Company",
+  "group": "Storm",
+  "discovered": "2026-08-14T07:10:07.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/5b276853-fdaa-4c08-b14c-5c248a0434cc",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

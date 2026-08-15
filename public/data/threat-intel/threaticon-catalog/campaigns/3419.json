@@ -1,0 +1,12 @@
+{
+  "id": 3419,
+  "name": "OSINT Analysis of KRIPTOVOR: Infostealer+Ransomware by FireEye",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #694 (5526b0e5-e2a4-45cd-abee-a5f5950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3419"
+}

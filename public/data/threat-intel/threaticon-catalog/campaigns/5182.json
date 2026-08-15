@@ -1,0 +1,12 @@
+{
+  "id": 5182,
+  "name": "cmdorganization: Capital Family Physicians",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 29, 2026",
+  "lastSeen": "May 29, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Healthcare | Website: www.capitalfamilymd.com | Capital Family Physicians provides quality healthcare services for families, focusing on comprehensive care for all ages. They offer same-day appointments and a patient portal for convenient access to medical records and billing. The practice emphasizes pediatric services, ensuring that children's health is prioritized. With over 15 years of experience, they are dedicated to supporting patients through every stage of life. | Source: https://www.ransomware.live/id/Q2FwaXRhbCBGYW1pbHkgUGh5c2ljaWFuc0BjbWRvcmdhbml6YXRpb24=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5182"
+}

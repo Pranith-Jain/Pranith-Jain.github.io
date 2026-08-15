@@ -1,0 +1,12 @@
+{
+  "id": 6043,
+  "name": "thegentlemen: Agapit",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Other | Website: agapit.pl | Infostealer data confirmed. | ***.pl zoominfo.com/c/agapit-sp-z-oo-spk/372573662 Agapit is one of the largest suppliers of professional cleaning technology and equipment in Poland, with over 26 years of experience. The company provides comprehensive solutions, including industrial cleaning machines, robotic scrubbers, high-pressure washers, and specialized cleaning chemicals. They operate their own nationwide distribution, rental, and service network, with key locations in cities like Olsztyn, Wroclaw, and Gdynia | Source: https://www.ransomware.live/id/QWdhcGl0QHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6043"
+}

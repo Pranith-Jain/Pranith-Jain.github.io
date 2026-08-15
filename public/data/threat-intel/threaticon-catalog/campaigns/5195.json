@@ -1,0 +1,12 @@
+{
+  "id": 5195,
+  "name": "chaos: powerhousenow.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Business Services | Website: powerhousenow.com | Infostealer data confirmed. | STATUS: PENDING PUBLICATION | TIME REMAINING: 72 HOURS ENTITY: Powerhouse (powerhousenow.com) THE REALITY OF POWERHOUSE We have been in possession of your internal data for some time. We have attempted to engage with your management to resolve this incident professionally, but their silence speaks… | Press: https://www.maine.gov/agviewer/content/ag/985235c7-cb95-4be2-8792-a1252b4f8318/6fd7501f-5bfa-475e-825d-e4dd46387026.html | Source: https://www.ransomware.live/id/cG93ZXJob3VzZW5vdy5jb21AY2hhb3M=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5195"
+}

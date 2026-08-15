@@ -1,0 +1,12 @@
+{
+  "id": 6605,
+  "name": "nightspire: The Mountain",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 19, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: GB | Sector: Other | Website: www.themountaincompany.co.uk | - HR & Payroll Data- Financial & Accounting Records- Payment & Credit Card Data- Customer & CRM Data- Orders & Supply Chain Data- SharePoint & Business Application Data | Source: https://www.ransomware.live/id/VGhlIE1vdW50YWluQG5pZ2h0c3BpcmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6605"
+}

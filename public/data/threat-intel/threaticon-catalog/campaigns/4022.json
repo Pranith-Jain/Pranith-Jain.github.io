@@ -1,0 +1,12 @@
+{
+  "id": 4022,
+  "name": "shinyhunters: DentaQuest.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Healthcare | Website: DentaQuest.com | You wouldn't want us to describe what data and how much data was compromised publicly. It is in your best interests to reply to us or we are leaking it all by the deadline. This is a final warning to reach out by 27 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 23 May 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/RGVudGFRdWVzdC5jb21Ac2hpbnlodW50ZXJz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4022"
+}

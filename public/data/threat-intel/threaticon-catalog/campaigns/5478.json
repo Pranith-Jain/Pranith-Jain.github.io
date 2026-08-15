@@ -1,0 +1,12 @@
+{
+  "id": 5478,
+  "name": "coinbasecartel: Axiom GlobalNEW",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 14, 2026",
+  "lastSeen": "Jul 14, 2026",
+  "added": "Jul 14, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: JP | Sector: Not Found | Website: axiom-global.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QXhpb20gR2xvYmFsTkVXQGNvaW5iYXNlY2FydGVs",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5478"
+}

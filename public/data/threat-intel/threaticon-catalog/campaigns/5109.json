@@ -1,0 +1,12 @@
+{
+  "id": 5109,
+  "name": "killsec: acehospital.in",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to killsec. | Country: IN | Sector: Healthcare | Website: example.com | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/YWNlaG9zcGl0YWwuaW5Aa2lsbHNlYw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5109"
+}

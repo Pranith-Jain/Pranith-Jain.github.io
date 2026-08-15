@@ -1,0 +1,12 @@
+{
+  "id": 7611,
+  "name": "direwolf: Fondo",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to direwolf. | Sector: Financial Services | Website: fondo.com | Financial Software | Source: https://www.ransomware.live/id/Rm9uZG9AZGlyZXdvbGY=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7611"
+}

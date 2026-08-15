@@ -1,0 +1,12 @@
+{
+  "id": 2403,
+  "name": "OSINT 20141029B: Possible RedOctober APT Resurgence from ThreatConnect",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #731 (54931e3e-01d8-46fb-b801-2601950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2403"
+}

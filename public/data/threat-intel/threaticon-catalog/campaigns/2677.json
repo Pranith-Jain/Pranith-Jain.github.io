@@ -1,0 +1,12 @@
+{
+  "id": 2677,
+  "name": "OSINT - CowerSnail, from the creators of SambaCry",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1119 (597e0ba4-29e0-4ae1-a8a3-ae4f02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2677"
+}

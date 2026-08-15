@@ -1,0 +1,12 @@
+{
+  "id": 4522,
+  "name": "krybit: ford.mx",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: MX | Sector: Manufacturing | Website: ford.mx | Infostealer data confirmed. | Ford Motor Company, S.A. de C.V. (Ford de Mexico) is the Mexican subsidiary of Ford Motor Company (USA), the first autom... | Source: https://www.ransomware.live/id/Zm9yZC5teEBrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4522"
+}

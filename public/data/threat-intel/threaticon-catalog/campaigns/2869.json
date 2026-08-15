@@ -1,0 +1,12 @@
+{
+  "id": 2869,
+  "name": "2019-01-31: ISFB v2 Installs Dridex \"3101\"",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1478 (5c5331ac-c160-4a17-a34f-3da568f8e8cf).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2869"
+}

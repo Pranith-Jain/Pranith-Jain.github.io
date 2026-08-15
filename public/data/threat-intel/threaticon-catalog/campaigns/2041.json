@@ -1,0 +1,12 @@
+{
+  "id": 2041,
+  "name": "SAMSAM: THE DOCTOR WILL SEE YOU, AFTER HE PAYS THE RANSOM",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #53 (56f713e2-cc14-43a2-879f-e46dc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2041"
+}

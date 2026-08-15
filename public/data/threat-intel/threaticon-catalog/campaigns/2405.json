@@ -1,0 +1,12 @@
+{
+  "id": 2405,
+  "name": "OSINT Operation Molerats: Middle East Cyber Attacks Using Poison Ivy by Fire Eye",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #733 (55c7524c-e510-453a-93dc-c2c9950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2405"
+}

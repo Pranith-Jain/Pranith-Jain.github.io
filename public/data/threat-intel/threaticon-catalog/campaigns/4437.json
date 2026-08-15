@@ -1,0 +1,12 @@
+{
+  "id": 4437,
+  "name": "qilin: Rossum Integration",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: SK | Sector: Business Services | Website: www.rossum.sk | N/A | Source: https://www.ransomware.live/id/Um9zc3VtIEludGVncmF0aW9uQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4437"
+}

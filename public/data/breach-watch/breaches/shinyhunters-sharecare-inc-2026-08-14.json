@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-sharecare-inc-2026-08-14",
+  "title": "Sharecare, Inc.",
+  "group": "shinyhunters",
+  "discovered": "2026-08-14T06:00:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/57c1e6c4-4349-48a7-898d-4c07f95bb3ef",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

@@ -59,11 +59,15 @@ describe('candidates storage', () => {
     expect(fetched).toEqual(sampleCandidate);
   });
 
-  it('writes blob without expiration', async () => {
+  it('writes blob with a 30-day expiration', async () => {
     const kv = mockKV() as any;
     await putCandidate(kv, sampleCandidate);
     const entry = kv.store.get('candidates:cve:all');
-    expect(entry?.expiresAt).toBeUndefined();
+    // Blobs carry a 30-day TTL so stale candidates age out of KV.
+    expect(entry?.expiresAt).toBeDefined();
+    const ttlSeconds = ((entry!.expiresAt as number) - Date.now()) / 1000;
+    expect(ttlSeconds).toBeGreaterThan(29 * 24 * 3600);
+    expect(ttlSeconds).toBeLessThanOrEqual(30 * 24 * 3600 + 1);
   });
 
   it('listCandidates returns candidates of a type', async () => {

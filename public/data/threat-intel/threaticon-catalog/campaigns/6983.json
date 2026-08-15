@@ -1,0 +1,12 @@
+{
+  "id": 6983,
+  "name": "payload: Hans & Jos. Kronenberg GmbH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 3, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 3, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Manufacturing | Hans & Jos. Kronenberg GmbH is a German company founded in 1932 and based in Bergisch Gladbach. It specializes in the development and manufacturing of high-quality components for the elevator industry and mechanical engineering, including door locks, switches, control panels, and LED lighting. | Source: https://www.ransomware.live/id/SGFucyAmIEpvcy4gS3JvbmVuYmVyZyBHbWJIQHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6983"
+}

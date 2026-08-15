@@ -1,0 +1,12 @@
+{
+  "id": 6201,
+  "name": "2026-07-24 [Friday]: Device Code Phishing Evasion Techniques",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 25, 2026",
+  "description": "2026-07-24 [Friday]: Device Code Phishing Evasion Techniques. References: https://www.linkedin.com/posts/unit42_four-evasion-techniques-deliver-stealthy-activity-7486530417232224256-TE4R/, https://x.com/Unit42_Intel/status/2080764800620003330",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6201"
+}

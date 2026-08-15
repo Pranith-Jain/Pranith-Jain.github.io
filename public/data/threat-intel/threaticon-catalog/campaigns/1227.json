@@ -1,0 +1,12 @@
+{
+  "id": 1227,
+  "name": "lockbit5: audiconcontadores.com.br",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Business Services | Website: audiconcontadores.com.br | Infostealer data confirmed. | Audicon Contadores specializes in providing reliable accounting and consulting solutions aimed at fo... | Source: https://www.ransomware.live/id/YXVkaWNvbmNvbnRhZG9yZXMuY29tLmJyQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1227"
+}

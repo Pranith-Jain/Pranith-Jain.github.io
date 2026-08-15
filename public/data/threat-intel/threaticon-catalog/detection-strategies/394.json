@@ -1,0 +1,12 @@
+{
+  "id": 394,
+  "name": "Detecting Mshta-based Proxy Execution via Suspicious HTA or Script Invocation",
+  "detId": "DET0506",
+  "stixId": "x-mitre-detection-strategy--8d06728f-5b50-4925-a05c-4d56b17ba5d2",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1397"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/394"
+}

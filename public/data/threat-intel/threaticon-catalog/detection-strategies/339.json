@@ -1,0 +1,12 @@
+{
+  "id": 339,
+  "name": "Detect Forged Kerberos Silver Tickets (T1558.002)",
+  "detId": "DET0241",
+  "stixId": "x-mitre-detection-strategy--77e72172-b088-4a98-bddd-ca04cbfc32ee",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0675"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/339"
+}

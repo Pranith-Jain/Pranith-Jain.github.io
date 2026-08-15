@@ -1,0 +1,12 @@
+{
+  "id": 94,
+  "name": "Volume Enumeration",
+  "dcId": "DC0095",
+  "analyticCount": 0,
+  "strategyCount": 0,
+  "added": null,
+  "analytics": [],
+  "description": "An extracted list of available volumes within a cloud environment (ex: AWS describe-volumes)",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/94"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3481,
+  "name": "Android spyware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #950 (5864c43a-b9d0-4182-93c2-4557950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3481"
+}

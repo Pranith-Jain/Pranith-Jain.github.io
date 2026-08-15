@@ -1,0 +1,12 @@
+{
+  "id": 5226,
+  "name": "everest: TransferZ",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Transportation/Logistics | Website: transferz.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/VHJhbnNmZXJaQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5226"
+}

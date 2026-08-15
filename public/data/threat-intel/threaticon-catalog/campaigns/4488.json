@@ -1,0 +1,12 @@
+{
+  "id": 4488,
+  "name": "qilin: Gsma",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Telecommunication | Website: www.gsmarchitects.net | N/A | Source: https://www.ransomware.live/id/R3NtYUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4488"
+}

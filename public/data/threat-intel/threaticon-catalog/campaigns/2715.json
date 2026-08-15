@@ -1,0 +1,12 @@
+{
+  "id": 2715,
+  "name": "M2M - Locky: \"Invoice RE-2017-09-21-00xxx\" from \"Amazon Marketplace\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1182 (59c561be-c660-49d3-8193-e0c7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2715"
+}

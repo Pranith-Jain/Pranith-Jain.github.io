@@ -1,0 +1,12 @@
+{
+  "id": 5143,
+  "name": "incransom: Bradley law firm",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 1, 2026",
+  "lastSeen": "Jun 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Bradley Law Personal Injury Lawyers is a law firm dedicated to representing clients who have suffered injuries due to accidents, medical malpractice, and other forms of negligence. With over 30 years of experience, they have successfully recovered more than $100 million in settlements and verdicts for their clients across Missouri and Illinois. Their services include free case consultations and a commitment to fight for maximum compensation on behalf of accident victims. The firm is known for its expertise in personal injury law, including vehicle accidents, workplace injuries, and wrongful death cases. | Source: https://www.ransomware.live/id/QnJhZGxleSBsYXcgZmlybUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5143"
+}

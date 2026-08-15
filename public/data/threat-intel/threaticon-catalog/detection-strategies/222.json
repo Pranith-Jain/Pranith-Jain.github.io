@@ -1,0 +1,12 @@
+{
+  "id": 222,
+  "name": "Cloud Account Enumeration via API, CLI, and Scripting Interfaces",
+  "detId": "DET0386",
+  "stixId": "x-mitre-detection-strategy--880c0a88-bbd5-4d71-b8bd-72fbab7d58b2",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1087", "AN1088", "AN1089", "AN1090"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/222"
+}

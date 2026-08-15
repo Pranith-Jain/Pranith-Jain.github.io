@@ -1,0 +1,12 @@
+{
+  "id": 3932,
+  "name": "qilin: Fruits Queralt",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Agriculture and Food Production | Website: www.fqueralt.com | N/A | Source: https://www.ransomware.live/id/RnJ1aXRzIFF1ZXJhbHRAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3932"
+}

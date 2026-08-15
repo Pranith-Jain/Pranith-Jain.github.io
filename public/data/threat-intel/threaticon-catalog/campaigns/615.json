@@ -1,0 +1,12 @@
+{
+  "id": 615,
+  "name": "everest: Umiles Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to everest. | Country: ES | Sector: Business Services | Website: umilesgroup.com | Infostealer data confirmed. | [AI generated] Umiles Group is a Spanish technology and services company specializing in drone operations, urban air mobility, and advanced aerial solutions. Based in Spain, it provides unmanned aerial vehicle services for sectors including logistics, inspection, surveillance, and emergency response. The company also focuses on developing regulatory frameworks and training programs to support the integration of drones into civil airspace across Europe. | Source: https://www.ransomware.live/id/VW1pbGVzIEdyb3VwQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/615"
+}

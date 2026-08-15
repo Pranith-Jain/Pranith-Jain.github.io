@@ -1,0 +1,12 @@
+{
+  "id": 2616,
+  "name": "OSINT - Trojanized Adobe Installer used to Install DragonOKâ€™s New Custom Backdoor",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1025 (58dbc5ad-10a4-4da9-9e7e-4b97950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2616"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 521,
+  "name": "Detection Strategy for PowerShell Profile Persistence via profile.ps1 Modification",
+  "detId": "DET0451",
+  "stixId": "x-mitre-detection-strategy--f31ad178-1f54-41a6-b286-8040e7eb7158",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1245"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/521"
+}

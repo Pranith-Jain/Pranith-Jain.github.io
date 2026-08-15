@@ -1,0 +1,12 @@
+{
+  "id": 509,
+  "name": "Detection Strategy for System Services: Launchctl",
+  "detId": "DET0265",
+  "stixId": "x-mitre-detection-strategy--77078baf-96f1-413a-bf5b-96b42486e26c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0736"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/509"
+}

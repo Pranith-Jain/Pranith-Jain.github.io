@@ -1,0 +1,12 @@
+{
+  "id": 4458,
+  "name": "pear: Sociedad Latina",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Not Found | Website: sociedadlatina.org | Infostealer data confirmed. | Support in education, civic engagement, workforce development, and arts and culture, specifically tailored for multilingual learners | Source: https://www.ransomware.live/id/U29jaWVkYWQgTGF0aW5hQHBlYXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4458"
+}

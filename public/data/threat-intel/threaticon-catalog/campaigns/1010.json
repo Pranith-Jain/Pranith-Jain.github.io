@@ -1,0 +1,12 @@
+{
+  "id": 1010,
+  "name": "thegentlemen: AIRCOS",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: FR | Sector: Transportation/Logistics | Website: aircospascual-anjac.com | Infostealer data confirmed. | aircospascual-anjac.com rocketreach.co/aircos-profile_b5cafd62f42e1406 Aircos Pascual is a French industrial cosmetics manufacturer and part of the ANJAC Group, specializing in hybrid makeup technologies — loose powders, hot-cast formulas, lip fluids, and foundation fluids. With 300 employees, 25 R&D specialists, 450 active formulas, and 3 production sites across France, the company serves leading beauty brands from ideation through launch. | Source: https://www.ransomware.live/id/QUlSQ09TQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1010"
+}

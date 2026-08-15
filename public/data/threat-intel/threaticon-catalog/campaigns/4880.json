@@ -1,0 +1,12 @@
+{
+  "id": 4880,
+  "name": "direwolf: Nueva Pescanova Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to direwolf. | Country: ES | Sector: Agriculture and Food Production | Website: nuevapescanova.com | Infostealer data confirmed. | Food & Beverage | Source: https://www.ransomware.live/id/TnVldmEgUGVzY2Fub3ZhIEdyb3VwQGRpcmV3b2xm",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4880"
+}

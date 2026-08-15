@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "[AI generated] FluidLogic is a US-based technology company specializing in advanced fluid management systems. It develops innovative hydration and fluid delivery solutions, primarily used in sports, military, and outdoor applications. The company is known for engineering pressurized hydration systems that allow hands-free fluid delivery. Operating in the sporting goods and defense equipment industry, FluidLogic serves both consumer and government markets across the United States.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/10a2fc62-700d-4dca-a8cd-a86ede9605f1",
   "groupAliases": ["Cl0p"],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

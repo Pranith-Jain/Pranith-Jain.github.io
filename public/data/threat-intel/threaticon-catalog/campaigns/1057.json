@@ -1,0 +1,12 @@
+{
+  "id": 1057,
+  "name": "nightspire: Southeastern Conference of Seventh-day Adventists",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Education | Website: www.secsda.org | Data is not available now. | Source: https://www.ransomware.live/id/U291dGhlYXN0ZXJuIENvbmZlcmVuY2Ugb2YgU2V2ZW50aC1kYXkgQWR2ZW50aXN0c0BuaWdodHNwaXJl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1057"
+}

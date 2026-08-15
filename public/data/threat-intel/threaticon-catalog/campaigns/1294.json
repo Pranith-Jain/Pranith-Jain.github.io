@@ -1,0 +1,12 @@
+{
+  "id": 1294,
+  "name": "akira: BHS Bau",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Construction | Website: bhs-dresden.de | Infostealer data confirmed. | Based in Dresden, BHS Bau- und Handelsgruppe GmbH & Co. KG has ex tensive experience in the extraction of building materials, aspha lt production, and civil engineering. The company offers a compre hensive service package for deep and road construction. We will upload 10gb of corporate data soon. Employee personal doc uments, project files, financials docs, contracts and agreements, client files, NDAs. | Source: https://www.ransomware.live/id/QkhTIEJhdUBha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1294"
+}

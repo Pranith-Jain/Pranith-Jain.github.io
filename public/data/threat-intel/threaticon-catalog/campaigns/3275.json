@@ -1,0 +1,12 @@
+{
+  "id": 3275,
+  "name": "Ongoing ITG05 operations leverage evolving malware arsenal in global campaigns",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #479 (b370b5ff-98f2-484e-923f-f6f7c0358bdc).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3275"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 624,
+  "name": "Detection Strategy for Debugger Evasion (T1622)",
+  "detId": "DET0371",
+  "stixId": "x-mitre-detection-strategy--22f3a380-389d-44f7-a846-c6223fc06ddd",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1045", "AN1046", "AN1047"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/624"
+}

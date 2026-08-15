@@ -1,0 +1,12 @@
+{
+  "id": 2031,
+  "name": "Macro Malware Associated With Dridex Finds New Ways to Hide",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #43 (56e1c602-5d28-4cd7-a74b-b522c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2031"
+}

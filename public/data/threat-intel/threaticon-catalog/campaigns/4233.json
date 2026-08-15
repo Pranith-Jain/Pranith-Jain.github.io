@@ -1,0 +1,12 @@
+{
+  "id": 4233,
+  "name": "thegentlemen: Virginia Historical Society",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Public Sector | Website: virginiahistory.org | Infostealer data confirmed. | ***.org zoominfo.com/c/virginia-historical-society/184942664 is the digital platform for the Virginia Museum of History & Culture, owned and operated by the Virginia Historical Society, a private non-profit established in 1831.It is uniquely positioned as the only museum that presents all of Virginia's history under one roof, covering all centuries, regions, and topics.The organization connects people to America's past through its exhibitions, educational programs, and extensive research collections, inspiring future generations | Source: https://www.ransomware.live/id/VmlyZ2luaWEgSGlzdG9yaWNhbCBTb2NpZXR5QHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4233"
+}

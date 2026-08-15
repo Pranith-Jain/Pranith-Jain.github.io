@@ -1,0 +1,12 @@
+{
+  "id": 619,
+  "name": "everest: Frost Bank",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Financial Services | Website: frostbank.com | Infostealer data confirmed. | [AI generated] Frost Bank is a Texas-based financial institution and a subsidiary of Cullen/Frost Bankers, Inc. Founded in 1868 and headquartered in San Antonio, it operates across major Texas cities offering personal and commercial banking, wealth management, insurance, and investment services. As one of the largest independent banks in Texas, it serves individuals, businesses, and institutions within the United States financial services industry. | Source: https://www.ransomware.live/id/RnJvc3QgQmFua0BldmVyZXN0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/619"
+}

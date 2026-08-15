@@ -1,0 +1,12 @@
+{
+  "id": 41,
+  "name": "BITSAdmin",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "BITSAdmin is a command line tool used to create and manage BITS Jobs. (Citation: Microsoft BITSAdmin)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/41"
+}

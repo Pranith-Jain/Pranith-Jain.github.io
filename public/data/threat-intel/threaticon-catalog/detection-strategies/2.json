@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "name": "Detect Abuse of vSphere Installation Bundles (VIBs) for Persistent Access",
+  "detId": "DET0535",
+  "stixId": "x-mitre-detection-strategy--000d7b6f-0bb5-4144-a3eb-1aa822433da1",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1475"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/2"
+}

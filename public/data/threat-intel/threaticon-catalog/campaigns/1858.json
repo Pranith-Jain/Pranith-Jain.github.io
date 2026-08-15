@@ -1,0 +1,12 @@
+{
+  "id": 1858,
+  "name": "qilin: Dr. Pizzoglio",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Sector: Not Found | Website: alejandrohernandez.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/RHIuIFBpenpvZ2xpb0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1858"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 5173,
+  "name": "incransom: www.labexpress.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 30, 2026",
+  "lastSeen": "May 29, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: www.labexpress.com | LABEXPRESS & GARONIT PHARMA: 200 GB OF SHARED INFRASTRUCTURE We have obtained 200 GB of internal data from a US-based group operating under two legal entities: Labexpress and Garonit Pharma. The materials show a single Active Directory domain (LABEXPRESS1.local), a shared file server, and extensive cross‑company records. This data will be made publicly available in the near future. Active Directory Overview - 65 computers, 142 user accounts, 98 groups, 11 organizational units (OUs). - Domain controllers: DC01 (Server 2019), LABXDC01 (Server 2012 R2). - A single AD domain serves both Labexpress and Garonit Pharma. Notable account: cn: Troy Austin sAMAccountName: Taustin memberOf: QuickBooks, LABEXPRESS, LABEXPRESSUSERS The same person appears in Exchange mailboxes as taustin@garonitpharma.com. Weak Passwords and Brute‑Force Indicators - Adm...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5173"
+}

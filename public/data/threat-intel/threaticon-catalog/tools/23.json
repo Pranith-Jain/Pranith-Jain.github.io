@@ -1,0 +1,12 @@
+{
+  "id": 23,
+  "name": "Lslsass",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Lslsass is a publicly-available tool that can dump active logon session password hashes from the lsass process. (Citation: Mandiant APT1)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/23"
+}

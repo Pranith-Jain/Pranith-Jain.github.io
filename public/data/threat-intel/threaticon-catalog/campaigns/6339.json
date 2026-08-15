@@ -1,0 +1,12 @@
+{
+  "id": 6339,
+  "name": "m3rx: hydraulic-components.net",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: DE | Sector: Manufacturing | Website: hydraulic-components.net | +44 1142764430 , VHS Hydraulics is a prominent supplier of hydraulic components and power packs, featuring products from renowned brands like Rexroth, Walvoil, and Casappa. With over 25 years of experience, they specialize in engineering bespoke power packs for demanding applications. Based in Sheffield, they offer extensive stock and provide same-day and next-day delivery services across the UK. Their team is equipped to assist clients with both individual components and complete hydraulic system solutions tailored to specific requirements. Stolen: 215 GB 226,961 Files | Source: https://www.ransomware.live/id/aHlkcmF1bGljLWNvbXBvbmVudHMubmV0QG0zcng=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6339"
+}

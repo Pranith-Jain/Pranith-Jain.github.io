@@ -1,0 +1,12 @@
+{
+  "id": 2455,
+  "name": "OSINT Infected Korean Website Installs Banking Malware by Cyphort",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #791 (560a3ca1-e110-476e-b730-4765950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2455"
+}

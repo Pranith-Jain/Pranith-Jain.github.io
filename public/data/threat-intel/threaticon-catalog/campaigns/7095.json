@@ -1,0 +1,12 @@
+{
+  "id": 7095,
+  "name": "Orova: Agricultural Chemical Solutions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "May 7, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Agriculture and Food Production | Website: agchemicalsolutions.com | Agricultural Chemical Solutions, Inc. provides high-quality agricultural chemicals and a comprehensive marketplace aimed at enhancing farming operations. They offer a wide range of products including pesticides, herbicides, fungicides, and micro nutrients, with competitive pricing and expert recommendations. | Source: https://www.ransomware.live/id/QWdyaWN1bHR1cmFsIENoZW1pY2FsIFNvbHV0aW9uc0BPcm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7095"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3501,
+  "name": "OSINT - Covert Channels and Poor Decisions: The Tale of DNSMessenger",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1005 (58b87da8-48a4-4d5a-aac4-6a4902de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3501"
+}

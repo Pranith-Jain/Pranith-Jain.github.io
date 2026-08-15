@@ -1,0 +1,12 @@
+{
+  "id": 3628,
+  "name": "qilin: Pangolin Editions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Consumer Services | Website: www.pangolin-editions.com | N/A | Source: https://www.ransomware.live/id/UGFuZ29saW4gRWRpdGlvbnNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3628"
+}

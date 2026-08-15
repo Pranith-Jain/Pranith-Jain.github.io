@@ -1,0 +1,12 @@
+{
+  "id": 2294,
+  "name": "CVE-2024-21412: Water Hydra Targets Traders With Microsoft Defender SmartScreen Zero-Day",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #465 (9c9b48f3-b1ea-49bb-a23f-748ce03c1098).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2294"
+}

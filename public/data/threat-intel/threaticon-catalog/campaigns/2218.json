@@ -1,0 +1,12 @@
+{
+  "id": 2218,
+  "name": "Russia’s APT28 uses fear of nuclear war to spread Follina docs in Ukraine",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #304 (c8255e2a-36b1-4d59-805a-aeb73aa8e929).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2218"
+}

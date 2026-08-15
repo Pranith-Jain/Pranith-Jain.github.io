@@ -1,0 +1,12 @@
+{
+  "id": 2645,
+  "name": "OSINT - Tainted Leaks: Disinformation and Phishing With a Russian Nexus",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1069 (5926c399-62fc-4fa6-9d16-432802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2645"
+}

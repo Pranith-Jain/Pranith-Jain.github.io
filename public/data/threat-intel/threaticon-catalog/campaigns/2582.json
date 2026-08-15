@@ -1,0 +1,12 @@
+{
+  "id": 2582,
+  "name": "OSINT - Dridex Banking Trojan Returns, Leverages New UAC Bypass Method",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #973 (588a7bc4-7a38-45c7-bc6f-215902de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2582"
+}

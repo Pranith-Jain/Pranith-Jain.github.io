@@ -1,0 +1,12 @@
+{
+  "id": 776,
+  "name": "lockbit5: earthprotect.co.jp",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: JP | Sector: Agriculture and Food Production | Website: earthprotect.co.jp | Infostealer data confirmed. | Earth Protect Co., Ltd Thinking about what we can do to protect and create tomorrow's global... | Source: https://www.ransomware.live/id/ZWFydGhwcm90ZWN0LmNvLmpwQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/776"
+}

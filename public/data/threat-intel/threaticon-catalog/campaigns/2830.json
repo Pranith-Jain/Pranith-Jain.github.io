@@ -1,0 +1,12 @@
+{
+  "id": 2830,
+  "name": "Sofacy Group’s Parallel Attacks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1371 (5b194472-fbac-4d90-8504-c0f80acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2830"
+}

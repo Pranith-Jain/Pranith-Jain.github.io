@@ -1,0 +1,332 @@
+{
+  "type": "maritime",
+  "date": "2026-08-14",
+  "threatLevel": "HIGH",
+  "executiveSummary": "Available reporting indicates an elevated risk posture for port and logistics operations driven by a U.S. maritime advisory on foreign-manufactured port equipment and platforms, with explicit concern for remote access, data exposure, and vendor-maintenance pathways. Government Advisory Current reporting suggests ongoing supply-chain disruption risk from a recent cyberattack against a major logistics provider with multiple European warehouses affected, potentially impacting maritime cargo flows and downstream customers. View Article The collected intelligence supports an assessment that navigation-adjacent risk remains present due to continued reports of GPS disruption and AIS spoofability, alongside a new GNSS time-server vulnerability disclosure relevant to time synchronization across maritime OT/IT. Maritime Advisory Vendor Advisory",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall Threat Level",
+        "trend": "Based on current OSINT set"
+      },
+      {
+        "value": "11",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "5",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "1 / 4 / 1",
+        "label": "ESCALATE / MONITOR / IGNORE"
+      },
+      {
+        "value": "1",
+        "label": "Active Incidents",
+        "trend": "CEVA Logistics"
+      },
+      {
+        "value": "2",
+        "label": "Navigation-Related Threats",
+        "trend": "GPS/AIS advisory; GNSS time server vuln"
+      },
+      {
+        "value": "2",
+        "label": "Port/Terminal Threats",
+        "trend": "Foreign equipment advisory; logistics disruption"
+      },
+      {
+        "value": "3",
+        "label": "High-Confidence Assessments",
+        "trend": "Two MARAD, one USCG"
+      }
+    ],
+    "vendors": [
+      "Microchip Technology - GridTime 3000 GNSS Time Server (firmware pre-1.2r0.0). Vendor Advisory",
+      "Foreign-manufactured port equipment and platforms (e.g., ship-to-shore cranes, Nuctech systems, LOGINK) - increased cyber/data risk per U.S. advisory. Government Advisory"
+    ],
+    "sectors": [
+      "Ports and Terminals - OT/ICS and logistics platforms exposure.",
+      "Maritime Logistics Providers and Shippers - upstream warehouse and data dependencies.",
+      "Regulated U.S. Vessels/Facilities/OCS - compliance and assessment impacts.",
+      "Vessel Navigation/Bridge Teams - GPS/GNSS interference and AIS spoofing risk awareness."
+    ]
+  },
+  "keyFindings": [
+    "U.S. government warns foreign-manufactured port cranes, scanning systems, and logistics platforms may introduce cyber and data-exposure risks via remote maintenance and software update channels. Operational priority: segment, restrict remote access, and monitor vendor pathways. Government Advisory",
+    "Cyberattack on CEVA Logistics is producing knock-on effects across European warehouses with potential downstream impacts on maritime cargo flows and customer operations. View Article",
+    "GPS disruption and AIS spoofability remain active navigation risks; stakeholders should report GPS anomalies to NAVCEN and avoid overreliance on AIS data. Maritime Advisory",
+    "Microchip GridTime 3000 GNSS Time Server vulnerability (CSRF to XSS) patched in firmware 1.2r0.0; timing services supporting maritime OT/IT should be updated promptly. Vendor Advisory",
+    "USCG published additional cybersecurity policy/work instructions to operationalize 33 CFR Part 101, Subpart F, shaping near-term compliance steps for U.S.-regulated facilities and vessels. Government Advisory"
+  ],
+  "topThreats": [
+    {
+      "title": "1) Foreign-Manufactured Port Equipment and Platforms - Cyber/Data-Exposure Risk",
+      "action": "Potential remote control/maintenance pathways, sensitive logistics-data access, and update channels could expose OT and IT across port operations. Operational impact: Increased risk to crane operations, scanning systems, and port business continuity. Defensive attention: Immediate segmentation of vendor networks, restrict/monitor remote access, enforce MFA and logging for vendor connections.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "2) CEVA Logistics Cyberattack - European Warehouses Disruption Risk",
+      "action": "Disruption at upstream warehouses can delay maritime cargo flows, bookings, and last-mile delivery scheduling. Operational impact: Potential schedule slippage, data exposure risks to customers, contingency logistics rerouting. Defensive attention: Validate EDI/API dependencies, review supplier notifications, prepare alternate routings and manual workarounds.",
+      "sources": [
+        {
+          "url": "https://www.techradar.com/pro/security/the-ceva-logistics-data-breach-is-having-major-knock-on-effects-across-europe-heres-what-we-know",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "3) USCG Cybersecurity Policy - 33 CFR Part 101, Subpart F Implementation",
+      "action": "Clarifies scoping of assessments, critical IT/OT identification, and submission requirements; non-compliance introduces operational and legal risk. Defensive attention: Align cyber plans, asset inventories, and assessment artifacts to new instructions; ensure secure submission channels.",
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4512023/us-coast-guard-releases-additional-policy-and-guidance-in-support-of-33-code-of/",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "4) Global GPS Disruption and AIS Spoofability",
+      "action": "Degradation or falsification of PNT/AIS can impair bridge decision-making and situational awareness. Defensive attention: Cross-check PNT, validate AIS with radar/visual/ENC, report GPS anomalies to NAVCEN, rehearse manual reversion.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-008-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "Maritime Advisory"
+        }
+      ]
+    },
+    {
+      "title": "5) Microchip GridTime 3000 GNSS Time Server - CSRF→XSS Vulnerability",
+      "action": "Compromise of timing servers may disrupt synchronized operations for communications and OT logging/controls. Defensive attention: Patch to firmware 1.2r0.0; restrict management interfaces; monitor for abnormal API use.",
+      "sources": [
+        {
+          "url": "https://www.microchip.com/en-us/solutions/technologies/embedded-security/how-to-report-potential-product-security-vulnerabilities/gridtime-3000-gnss-time-server-csrf-to-xss",
+          "label": "Vendor Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Microchip PSIRT-144: GridTime 3000 GNSS Time Server CSRF→XSS affecting firmware 1.0r0.03-1.1r0.0; fixed in 1.2r0.0. CVE not listed. Action: upgrade, restrict admin plane, and enable CSRF protections where applicable. Vendor Advisory"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "title": "Foreign Adversarial Technological, Physical, and Cyber Influence on Maritime Infrastructure",
+      "severity": "escalate",
+      "text": "U.S. maritime advisory warns that foreign-manufactured ship-to-shore cranes, scanning systems, and logistics platforms (e.g., LOGINK, Nuctech) may expose ports to cyber and data risks via remote control, maintenance, and software updates. Recommended mitigations include segmentation, MFA, traffic monitoring, patching, and limiting remote vendor updates. Article: 2026-007-Worldwide-Worldwide-Foreign Adversarial Technological, Physical, and Cyber Influence - Source: MARAD MSCI (Government) View Article",
+      "chips": [
+        "Decision: C:ESCALATE",
+        "Confidence: High",
+        "Operational Impact: Potential OT downtime; data exposure",
+        "Safety Impact: Possible (indirect)",
+        "Supply Chain: Confirmed"
+      ],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Global Advisory on GPS Disruption and AIS Spoofability",
+      "severity": "monitor",
+      "text": "U.S. Maritime Advisory consolidating cyber resources and noting ongoing GPS disruption affecting maritime navigation globally; emphasizes AIS is open/spoofable and encourages reporting GPS outages to NAVCEN. Article: 2026-008-Global-U.S. Maritime Advisory Updates, Resources, and Contacts - Source: MARAD MSCI (Government) View Article",
+      "chips": ["Decision: B:MONITOR", "Confidence: High", "Navigation Impact: Possible", "Safety Impact: Possible"],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-008-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "USCG Cybersecurity Policy for 33 CFR Part 101, Subpart F",
+      "severity": "monitor",
+      "text": "New policy/work instructions provide scoping guidance for cybersecurity assessments, identification of critical IT/OT, waiver/equivalency submissions, and secure submission processes for regulated maritime entities. Article: U.S. Coast Guard releases additional policy and guidance in support of 33 CFR Part 101, Subpart F - Cybersecurity - Source: United States Coast Guard News (Government) View Article",
+      "chips": [
+        "Decision: B:MONITOR",
+        "Confidence: High",
+        "Operational Impact: Policy-driven changes",
+        "Safety Impact: Possible (indirect)"
+      ],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4512023/us-coast-guard-releases-additional-policy-and-guidance-in-support-of-33-code-of/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "CEVA Logistics Cyberattack - European Warehouses",
+      "severity": "monitor",
+      "text": "Reported cyberattack began around 29 July 2026, impacting at least eight warehouses across Europe with downstream customer effects and possible data compromise. No direct port OT impact confirmed; supply-chain dependencies may be affected. Article: The CEVA Logistics data breach is having major knock-on effects across Europe - Source: TechRadar (News) • Published: 2026-08-12 View Article",
+      "chips": [
+        "Decision: B:MONITOR",
+        "Confidence: Medium",
+        "Navigation Impact: None",
+        "Safety Impact: Unknown",
+        "Supply Chain: Possible"
+      ],
+      "sources": [
+        {
+          "url": "https://www.techradar.com/pro/security/the-ceva-logistics-data-breach-is-having-major-knock-on-effects-across-europe-heres-what-we-know",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Microchip GridTime 3000 GNSS Time Server - CSRF→XSS",
+      "severity": "monitor",
+      "text": "Vendor disclosed a CSRF→XSS issue on several API endpoints affecting firmware 1.0r0.03 through 1.1r0.0; resolved in 1.2r0.0. Exposure is management-plane; risk relevant to timing services supporting maritime IT/OT synchronization. Article: PSIRT-144: GridTime 3000 GNSS Time Server CSRF to XSS - Source: Microchip Technology (Vendor) • Published: 2026-06-10 Vendor Advisory",
+      "chips": [
+        "Decision: B:MONITOR",
+        "Confidence: Medium",
+        "Navigation Impact: Possible (indirect)",
+        "Safety Impact: Possible (indirect)"
+      ],
+      "sources": [
+        {
+          "url": "https://www.microchip.com/en-us/solutions/technologies/embedded-security/how-to-report-potential-product-security-vulnerabilities/gridtime-3000-gnss-time-server-csrf-to-xss",
+          "label": "Vendor Advisory"
+        }
+      ]
+    },
+    {
+      "title": "No Qualified Recent Article Identified",
+      "severity": "ignore",
+      "text": "Entry indicates no qualifying recent maritime cyber reporting from authoritative sources within the last 10 days. No operational action required.",
+      "chips": ["Decision: A:IGNORE", "Confidence: Low"],
+      "sources": []
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Foreign Adversarial Technological, Physical, and Cyber Influence on Maritime Infrastructure",
+      "severity": "escalate",
+      "text": "U.S. maritime advisory warns that foreign-manufactured ship-to-shore cranes, scanning systems, and logistics platforms (e.g., LOGINK, Nuctech) may expose ports to cyber and data risks via remote control, maintenance, and software updates. Recommended mitigations include segmentation, MFA, traffic monitoring, patching, and limiting remote vendor updates. Article: 2026-007-Worldwide-Worldwide-Foreign Adversarial Technological, Physical, and Cyber Influence - Source: MARAD MSCI (Government) View Article",
+      "chips": [
+        "Decision: C:ESCALATE",
+        "Confidence: High",
+        "Operational Impact: Potential OT downtime; data exposure",
+        "Safety Impact: Possible (indirect)",
+        "Supply Chain: Confirmed"
+      ],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Foreign Adversarial Technological, Physical, and Cyber Influence on Maritime Infrastructure",
+      "severity": "escalate",
+      "text": "U.S. maritime advisory warns that foreign-manufactured ship-to-shore cranes, scanning systems, and logistics platforms (e.g., LOGINK, Nuctech) may expose ports to cyber and data risks via remote control, maintenance, and software updates. Recommended mitigations include segmentation, MFA, traffic monitoring, patching, and limiting remote vendor updates. Article: 2026-007-Worldwide-Worldwide-Foreign Adversarial Technological, Physical, and Cyber Influence - Source: MARAD MSCI (Government) View Article",
+      "chips": [
+        "Decision: C:ESCALATE",
+        "Confidence: High",
+        "Operational Impact: Potential OT downtime; data exposure",
+        "Safety Impact: Possible (indirect)",
+        "Supply Chain: Confirmed"
+      ],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "Global Advisory on GPS Disruption and AIS Spoofability",
+      "severity": "monitor",
+      "text": "U.S. Maritime Advisory consolidating cyber resources and noting ongoing GPS disruption affecting maritime navigation globally; emphasizes AIS is open/spoofable and encourages reporting GPS outages to NAVCEN. Article: 2026-008-Global-U.S. Maritime Advisory Updates, Resources, and Contacts - Source: MARAD MSCI (Government) View Article",
+      "chips": ["Decision: B:MONITOR", "Confidence: High", "Navigation Impact: Possible", "Safety Impact: Possible"],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-008-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "USCG Cybersecurity Policy for 33 CFR Part 101, Subpart F",
+      "severity": "monitor",
+      "text": "New policy/work instructions provide scoping guidance for cybersecurity assessments, identification of critical IT/OT, waiver/equivalency submissions, and secure submission processes for regulated maritime entities. Article: U.S. Coast Guard releases additional policy and guidance in support of 33 CFR Part 101, Subpart F - Cybersecurity - Source: United States Coast Guard News (Government) View Article",
+      "chips": [
+        "Decision: B:MONITOR",
+        "Confidence: High",
+        "Operational Impact: Policy-driven changes",
+        "Safety Impact: Possible (indirect)"
+      ],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4512023/us-coast-guard-releases-additional-policy-and-guidance-in-support-of-33-code-of/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "CEVA Logistics Cyberattack - European Warehouses",
+      "severity": "monitor",
+      "text": "Reported cyberattack began around 29 July 2026, impacting at least eight warehouses across Europe with downstream customer effects and possible data compromise. No direct port OT impact confirmed; supply-chain dependencies may be affected. Article: The CEVA Logistics data breach is having major knock-on effects across Europe - Source: TechRadar (News) • Published: 2026-08-12 View Article",
+      "chips": [
+        "Decision: B:MONITOR",
+        "Confidence: Medium",
+        "Navigation Impact: None",
+        "Safety Impact: Unknown",
+        "Supply Chain: Possible"
+      ],
+      "sources": [
+        {
+          "url": "https://www.techradar.com/pro/security/the-ceva-logistics-data-breach-is-having-major-knock-on-effects-across-europe-heres-what-we-know",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Microchip GridTime 3000 GNSS Time Server - CSRF→XSS",
+      "severity": "monitor",
+      "text": "Vendor disclosed a CSRF→XSS issue on several API endpoints affecting firmware 1.0r0.03 through 1.1r0.0; resolved in 1.2r0.0. Exposure is management-plane; risk relevant to timing services supporting maritime IT/OT synchronization. Article: PSIRT-144: GridTime 3000 GNSS Time Server CSRF to XSS - Source: Microchip Technology (Vendor) • Published: 2026-06-10 Vendor Advisory",
+      "chips": [
+        "Decision: B:MONITOR",
+        "Confidence: Medium",
+        "Navigation Impact: Possible (indirect)",
+        "Safety Impact: Possible (indirect)"
+      ],
+      "sources": [
+        {
+          "url": "https://www.microchip.com/en-us/solutions/technologies/embedded-security/how-to-report-potential-product-security-vulnerabilities/gridtime-3000-gnss-time-server-csrf-to-xss",
+          "label": "Vendor Advisory"
+        }
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "Third-party/Remote Access Abuse: Risk via vendor-maintenance channels and remote update mechanisms for port equipment (sourced).",
+      "Supply-Chain Platform Exposure: Potential data-access and trust boundary risks within logistics platforms (sourced).",
+      "Web Application Abuse (Management Plane): CSRF→XSS in timing server interfaces (vendor-reported).",
+      "Data Exfiltration (Unconfirmed): Possible in logistics incident; public details limited (analytical, not attributed)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Ports/Terminals: Analysts should monitor for additional operational guidance or reporting related to foreign-manufactured equipment exposure; prioritize short-term validation of vendor remote access pathways. Confidence: medium. Government Advisory Logistics: Continued reporting is likely regarding CEVA remediation timelines and customer impacts; verify any cascading effects on sailing schedules and gate operations. Confidence: medium. View Article Navigation: The immediate risk from GPS disruption remains elevated in some regions; bridge teams should maintain heightened cross-checking and anomaly reporting. Confidence: high. Maritime Advisory Vulnerabilities: Additional vendor advisories for timing or navigation-adjacent systems may emerge; operators should inventory timing assets and stage updates. Confidence: low-to-medium (synthesized). Regulatory: U.S.-regulated facilities may receive further clarification or FAQs on Subpart F implementation; ensure readiness for submissions and inspections. Confidence: medium. Government Advisory",
+  "relatedCves": []
+}

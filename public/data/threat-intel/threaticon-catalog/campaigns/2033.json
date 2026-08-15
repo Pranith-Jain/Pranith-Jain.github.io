@@ -1,0 +1,12 @@
+{
+  "id": 2033,
+  "name": "Shifting Tactics: Tracking changes in years-long espionage campaign against Tibetans",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #45 (56e1d652-a310-47a3-9017-b527c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2033"
+}

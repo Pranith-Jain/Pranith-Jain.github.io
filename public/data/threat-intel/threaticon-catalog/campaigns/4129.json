@@ -1,0 +1,12 @@
+{
+  "id": 4129,
+  "name": "Deadlock: WH Müller",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: DE | Sector: Manufacturing | Website: www.whm.de | WH Müller is a family business in the field of electrical engineering and IT technology. | Source: https://www.ransomware.live/id/V0ggTcO8bGxlckBEZWFkbG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4129"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 596,
+  "name": "Detection Strategy for Input Injection",
+  "detId": "DET0568",
+  "stixId": "x-mitre-detection-strategy--f54b8799-acfd-4df4-a2c4-e83071750bde",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1567", "AN1568", "AN1569"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/596"
+}

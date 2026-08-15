@@ -1,0 +1,12 @@
+{
+  "id": 4113,
+  "name": "thegentlemen: BDO Greece",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: GR | Sector: Business Services | Website: bdo.gr | Infostealer data confirmed. | ***.gr zoominfo.com/c/bdo-certified-public-accountants-sa/372555588 BDO Greece is a leading Athens-based accounting, tax, and advisory firm that operates as a member of the global BDO network. The company provides comprehensive audit, assurance, and business consulting services to a diverse range of industries, including real estate, hospitality, and the public sector. Employing between 50 and 200 professionals, the firm generates an estimated annual revenue of over $23 million while helping clients navigate complex financial and regulatory landscapes | Source: https://www.ransomware.live/id/QkRPIEdyZWVjZUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4113"
+}

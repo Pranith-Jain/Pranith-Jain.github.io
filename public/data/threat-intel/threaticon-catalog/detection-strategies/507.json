@@ -1,0 +1,12 @@
+{
+  "id": 507,
+  "name": "Detection Strategy for Hijack Execution Flow through Path Interception by Unquoted Path",
+  "detId": "DET0064",
+  "stixId": "x-mitre-detection-strategy--26a281d7-c49e-4e36-ab51-26a757559cf0",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0176"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/507"
+}

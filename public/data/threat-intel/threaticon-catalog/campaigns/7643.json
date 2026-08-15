@@ -1,0 +1,12 @@
+{
+  "id": 7643,
+  "name": "settra: flowco-inc.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to settra. | Country: US | Sector: Other | Website: flowco-inc.com | DEEP WELL: Flowco Production Solutions Documents PROLOGUE Payroll records with employee names and po... | Source: https://www.ransomware.live/id/Zmxvd2NvLWluYy5jb21Ac2V0dHJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7643"
+}

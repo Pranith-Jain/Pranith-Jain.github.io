@@ -1,0 +1,12 @@
+{
+  "id": 665,
+  "name": "Detection Strategy for System Language Discovery",
+  "detId": "DET0565",
+  "stixId": "x-mitre-detection-strategy--9d3a5603-ae0e-41fe-b2f5-7f3e44c903d7",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1561", "AN1562", "AN1563"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/665"
+}

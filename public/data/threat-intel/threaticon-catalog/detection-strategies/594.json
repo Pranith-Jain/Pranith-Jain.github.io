@@ -1,0 +1,12 @@
+{
+  "id": 594,
+  "name": "Detection Strategy for SSH Session Hijacking",
+  "detId": "DET0256",
+  "stixId": "x-mitre-detection-strategy--bdbd724e-b3e2-44d7-a9d6-ba2a4915762c",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0710", "AN0711"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/594"
+}

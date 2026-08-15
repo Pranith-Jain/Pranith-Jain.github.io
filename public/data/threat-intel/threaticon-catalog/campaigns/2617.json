@@ -1,0 +1,12 @@
+{
+  "id": 2617,
+  "name": "OSINT - Trochilus and New MoonWind RATs Used In Attack Against Thai Organizations",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1027 (58dd02b3-cfa8-4044-b533-4935950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2617"
+}

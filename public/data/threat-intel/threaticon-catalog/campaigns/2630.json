@@ -1,0 +1,12 @@
+{
+  "id": 2630,
+  "name": "Dridex 2017-04-11 : botnet 7200/7500 campaigns",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1045 (5900a0d3-4c08-4f82-a9ae-2c2f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2630"
+}

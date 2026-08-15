@@ -1,0 +1,12 @@
+{
+  "id": 3967,
+  "name": "safepay: vdmtrucking.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: CA | Sector: Transportation/Logistics | Website: vdmtrucking.com | Infostealer data confirmed. | Headquartered in Edmonton, Alberta, the company has operated for more than 40 years and has developed into a significant regional … | Source: https://www.ransomware.live/id/dmRtdHJ1Y2tpbmcuY29tQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3967"
+}

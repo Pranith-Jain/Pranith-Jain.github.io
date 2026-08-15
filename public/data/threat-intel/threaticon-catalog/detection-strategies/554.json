@@ -1,0 +1,12 @@
+{
+  "id": 554,
+  "name": "Endpoint Resource Saturation and Crash Pattern Detection Across Platforms",
+  "detId": "DET0208",
+  "stixId": "x-mitre-detection-strategy--253b632e-c4cb-4207-9b6a-58a35a07d2ea",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0584", "AN0585", "AN0586", "AN0587", "AN0588"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/554"
+}

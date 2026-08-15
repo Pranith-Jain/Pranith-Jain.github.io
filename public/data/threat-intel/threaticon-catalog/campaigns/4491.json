@@ -1,0 +1,12 @@
+{
+  "id": 4491,
+  "name": "dragonforce: agroprime",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: BR | Sector: Agriculture and Food Production | Website: agroprime.com | Infostealer data confirmed. | development of specialized software (SaaS) for automating agribusiness management and monitoring field personnel | Source: https://www.ransomware.live/id/YWdyb3ByaW1lQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4491"
+}

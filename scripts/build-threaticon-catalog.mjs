@@ -91,7 +91,9 @@ for (const section of SECTIONS) {
   const detailById = new Map();
   for (const f of detailFiles) {
     const d = readJson(join(detailsDir, f));
-    if (d?.id) detailById.set(d.id, d);
+    const rawId = f.replace(/\.json$/, '');
+    const id = d?.id ?? (Number.isNaN(Number(rawId)) ? rawId : Number(rawId));
+    if (id) detailById.set(id, d);
   }
 
   if (section === 'indicators') {

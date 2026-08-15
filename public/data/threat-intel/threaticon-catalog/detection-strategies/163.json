@@ -1,0 +1,12 @@
+{
+  "id": 163,
+  "name": "Detection Strategy for Build Image on Host",
+  "detId": "DET0459",
+  "stixId": "x-mitre-detection-strategy--62b445ed-7d9d-4c1a-8d4e-6c742ec1b0e2",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1261"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/163"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3200,
+  "name": "Scraper: Malicious WhatsApp mod distributed through legitimate apps",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #330 (86dec5f1-e2e0-4ab9-8511-422855d37b84).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3200"
+}

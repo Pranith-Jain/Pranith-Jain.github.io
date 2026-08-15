@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "SG",
   "sizeBytes": 0,
-  "description": "LHYK Marine Pte Ltd (Lee Huat Yap Kee) is a Singaporean marine logistics specialist company founded in 1959 and incorpor...",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/29ee04ae-d3a0-4b8c-946f-b55e1b6d2675",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

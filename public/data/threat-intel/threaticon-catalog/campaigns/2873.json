@@ -1,0 +1,12 @@
+{
+  "id": 2873,
+  "name": "OSINT - Operation ShadowHammer",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1492 (5c9a14a9-fdb0-4cc9-bd13-4cbf950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2873"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2812,
+  "name": "OSINT - Black Ruby Ransomware Skips Victims in Iran and Adds a Miner for Good Measure",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1326 (5ac763c9-0ba0-413e-ae2a-4de3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2812"
+}

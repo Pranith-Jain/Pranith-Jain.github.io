@@ -1,0 +1,12 @@
+{
+  "id": 1696,
+  "name": "incransom: tupeloeye.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: tupeloeye.com | Infostealer data confirmed. | It is home to Tupelo Eye Clinic (Joseph J. Chappell, M.D., William C. Brawner, M.D., and Lee H. Walker, M.D.) and Tupelo Eye Center Optical Shop. Located at 610 Brunson Drive, is the home of the Tupelo Eye Clinic & the Tupelo Eye Center Optical Shop. Our Services Employees: 50 Revenue: $5 Million Industry: Hospitals & Physicians Clinics Phone Number: (662) 844-7211 | Source: https://www.ransomware.live/id/dHVwZWxvZXllLmNvbUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1696"
+}

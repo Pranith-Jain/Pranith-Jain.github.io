@@ -1,0 +1,12 @@
+{
+  "id": 2120,
+  "name": "MirageFox: APT15 Resurfaces With New Tools Based On Old Ones",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #147 (5b2bb735-fa94-44a7-8976-1e67c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2120"
+}

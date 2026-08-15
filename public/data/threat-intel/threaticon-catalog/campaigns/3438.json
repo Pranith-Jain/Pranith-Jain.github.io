@@ -1,0 +1,12 @@
+{
+  "id": 3438,
+  "name": "OSINT Rex -Linux P2P Ransom botnet by This Is Security blog",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #815 (57b5892a-bfd8-49f1-8d6b-4a3d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3438"
+}

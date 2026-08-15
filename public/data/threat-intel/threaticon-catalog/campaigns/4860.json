@@ -1,0 +1,12 @@
+{
+  "id": 4860,
+  "name": "gunra: MHE9 Logística Ltda",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to gunra. | Country: BR | Sector: Transportation/Logistics | Website: grupomhe9.com.br | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/TUhFOSBMb2fDrXN0aWNhIEx0ZGFAZ3VucmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4860"
+}

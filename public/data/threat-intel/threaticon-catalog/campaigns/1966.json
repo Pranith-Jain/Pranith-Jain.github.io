@@ -1,0 +1,12 @@
+{
+  "id": 1966,
+  "name": "lapsus$: Lacoste",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lapsus$. | Country: FR | Sector: Consumer Services | Website: lacoste.com | Infostealer data confirmed. | [AI generated] Lacoste is a high-end French clothing company founded in 1933 by tennis player René Lacoste and André Gillier. The company is renowned for its iconic green crocodile logo. They primarily produce clothing, footwear, sportswear, eyewear, leather goods, and perfumes. Its polo shirts are particularly popular. Lacoste products are sold internationally at various department stores, shopping malls, and standalone boutiques. | Source: https://www.ransomware.live/id/TGFjb3N0ZUBsYXBzdXMk",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1966"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 76,
+  "name": "Named Pipe Metadata",
+  "dcId": "DC0048",
+  "analyticCount": 4,
+  "strategyCount": 4,
+  "added": null,
+  "analytics": ["AN0513", "AN0948", "AN1095", "AN1357"],
+  "description": "Contextual data about a named pipe on a system, including pipe name and creating process (ex: Sysmon EIDs 17-18) *Data Collection Measures:* - Windows: - Sysmon Event ID 17: Logs the creation of a named pipe. - Sysmon Event ID 18: Logs connection attempts to a named pipe. - Windows Security Event ID 5145: Logs access attempts to named pipes via SMB shares. - ETW (Event Tracing for Windows): Provides deep telemetry into named pipe interactions. - Linux/macOS: - AuditD (`mkfifo`, `open`, `read`, `write` syscalls): Tracks FIFO (named pipe) creation and usage. - Lsof (`lsof -p <PID>` or `lsof | grep PIPE`): Lists active named pipes and associated processes. - Strace (`strace -e open <process>`): Monitors named pipe interactions. - Endpoint Detection & Response (EDR): - Capture named pipe events as part of process tracking. - Memory Forensics: - Volatility Plugin (`pipescan`): Enumerates named pipes in system memory. - Rekall Framework: Identifies active named pipes and associated processes.",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/76"
+}

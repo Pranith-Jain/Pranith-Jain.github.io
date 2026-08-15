@@ -1,0 +1,12 @@
+{
+  "id": 300,
+  "name": "Detection of Determine Physical Locations",
+  "detId": "DET0806",
+  "stixId": "x-mitre-detection-strategy--59dd7be2-7f37-4b8c-a1a7-3ed71d37cac8",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1938"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/300"
+}

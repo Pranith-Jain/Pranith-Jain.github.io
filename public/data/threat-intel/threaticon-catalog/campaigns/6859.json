@@ -1,0 +1,12 @@
+{
+  "id": 6859,
+  "name": "thegentlemen: Krafman",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: SE | Sector: Manufacturing | Website: krafman.se | Infostealer data confirmed. | krafman.se Krafman (operated by Krafguard AB) is a Swedish credit reporting and debt collection service provider licensed and supervised by the Swedish Authority for Privacy Protection (IMY). The platform offers fast, on-demand credit checks for both businesses and private individuals without registering the number of inquiries made. It also provides free basic company searches, active credit monitoring with automatic updates, and transparent pricing with no hidden subscription fees | Source: https://www.ransomware.live/id/S3JhZm1hbkB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6859"
+}

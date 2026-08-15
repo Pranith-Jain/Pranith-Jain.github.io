@@ -1,0 +1,12 @@
+{
+  "id": 558,
+  "name": "chaos: alexandergroup.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Business Services | Website: www.zoominfo.com/c/the-alexander-group-inc/3639791 | The company is disregarding its customers' data. If a deal is not reached within 48 hours, the files will be made public. The Alexander Group is a revenue growth and sales management consulting company. It is headquartered in Scottsdale, Arizona | Source: https://www.ransomware.live/id/YWxleGFuZGVyZ3JvdXAuY29tQGNoYW9z",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/558"
+}

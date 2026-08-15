@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-the-coffee-bean-2026-08-14",
+  "title": "The Coffee Bean",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:58:30.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/19a76943-f1ed-4955-9562-5ea06ccdbb07",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

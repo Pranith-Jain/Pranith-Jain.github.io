@@ -1,0 +1,12 @@
+{
+  "id": 2858,
+  "name": "OSINT - Big Game Hunting: The Evolution of INDRIK SPIDER From Dridex Wire Fraud to BitPaymer Targeted Ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1439 (5bec7912-23c8-4a0a-9597-4818950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2858"
+}

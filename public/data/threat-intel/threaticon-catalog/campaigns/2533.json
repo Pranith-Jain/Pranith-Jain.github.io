@@ -1,0 +1,12 @@
+{
+  "id": 2533,
+  "name": "Spam 2016-10-14 (mule acquisition) - probably related to Locky resources",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #898 (58007f1d-7a4c-4887-ba33-c28b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2533"
+}

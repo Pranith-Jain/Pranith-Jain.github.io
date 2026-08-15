@@ -1,0 +1,12 @@
+{
+  "id": 6027,
+  "name": "qilin: ABM Enviro",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Professional Services | Website: www.abmenviro.ca | N/A | Source: https://www.ransomware.live/id/QUJNIEVudmlyb0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6027"
+}

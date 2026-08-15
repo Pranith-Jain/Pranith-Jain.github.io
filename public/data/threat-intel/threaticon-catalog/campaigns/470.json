@@ -1,0 +1,12 @@
+{
+  "id": 470,
+  "name": "dragonforce: massdevelopment.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: massdevelopment.com | Infostealer data confirmed. | MassDevelopment, a state agency for finance and development, partners with businesses, nonprofit organizations, financial institutions, and local communities to stimulate economic growth throughout the state. In fiscal year 2017, MassDevelopment financed or managed 377 projects, which attracted more than $4 billion in investment to the Massachusetts economy. These projects are expected to create approximately 9,488 jobs and build or renovate approximately 1,863 housing units. | Source: https://www.ransomware.live/id/bWFzc2RldmVsb3BtZW50LmNvbUBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/470"
+}

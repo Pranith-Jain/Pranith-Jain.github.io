@@ -1,0 +1,12 @@
+{
+  "id": 5214,
+  "name": "qilin: Carton Craft Supply",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.cartoncraftsupply.com | N/A | Source: https://www.ransomware.live/id/Q2FydG9uIENyYWZ0IFN1cHBseUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5214"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1943,
+  "name": "qilin: City of Seal Beach and Seal Beach Police Department",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Public Sector | Website: www.sealbeachca.gov | Source: https://www.ransomware.live/id/Q2l0eSBvZiBTZWFsIEJlYWNoIGFuZCBTZWFsIEJlYWNoIFBvbGljZSBEZXBhcnRtZW50QHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1943"
+}

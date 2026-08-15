@@ -1,0 +1,12 @@
+{
+  "id": 3444,
+  "name": "Malspam 2016-08-26 (.js in .zip) - campaign: \"office equipment\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #833 (57c06b68-3140-4c25-9335-4724950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3444"
+}

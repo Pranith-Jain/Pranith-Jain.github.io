@@ -50,10 +50,10 @@ export function Dossier({ actor, onClose }: Props) {
               {actor.apt && <span className="chip chip-blue">{actor.apt}</span>}
               {actor.mitre_id && <span className="chip">{actor.mitre_id}</span>}
             </div>
-            <div className="text-[12px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-0.5">
+            <div className="text-meta text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-0.5">
               {actor.aka.slice(0, 4).join(' · ')}
             </div>
-            <div className="mt-2 flex items-center gap-3 text-[12px] text-slate-600 dark:text-slate-400">
+            <div className="mt-2 flex items-center gap-3 text-meta text-slate-600 dark:text-slate-400">
               <span className="flex items-center gap-1.5">
                 <Building2 size={12} /> {actor.agency}
               </span>
@@ -91,7 +91,7 @@ export function Dossier({ actor, onClose }: Props) {
                 </span>
               ))}
             </div>
-            <div className="text-[12px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-2">
+            <div className="text-meta text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-2">
               Countries
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -111,7 +111,7 @@ export function Dossier({ actor, onClose }: Props) {
             <div className="space-y-1.5">
               {actor.sector_scores.map((s) => (
                 <div key={s.sector} className="flex items-center gap-2">
-                  <span className="w-28 text-[12px] text-slate-600 dark:text-slate-400 capitalize">{s.sector}</span>
+                  <span className="w-28 text-meta text-slate-600 dark:text-slate-400 capitalize">{s.sector}</span>
                   <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                     <div
                       className="h-full rounded-full"
@@ -121,7 +121,7 @@ export function Dossier({ actor, onClose }: Props) {
                       }}
                     />
                   </div>
-                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
+                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
                     {s.score}
                   </span>
                 </div>
@@ -142,9 +142,9 @@ export function Dossier({ actor, onClose }: Props) {
                 rel="noreferrer"
                 className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] group transition-colors"
               >
-                <span className="font-mono text-[11px] text-brand-600 dark:text-brand-400 w-20 shrink-0">{t.id}</span>
+                <span className="font-mono text-mini text-brand-600 dark:text-brand-400 w-20 shrink-0">{t.id}</span>
                 <span className="text-[12.5px] text-slate-900 dark:text-slate-100 flex-1">{t.name}</span>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   {t.tactic}
                 </span>
                 <ExternalLink
@@ -166,7 +166,7 @@ export function Dossier({ actor, onClose }: Props) {
                   key={m.name}
                   className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
                 >
-                  <span className="text-[13px] text-slate-900 dark:text-slate-100">{m.name}</span>
+                  <span className="text-tool text-slate-900 dark:text-slate-100">{m.name}</span>
                   <span className="chip chip-cyan ml-auto">{m.type}</span>
                   <span className="chip">{m.platform}</span>
                 </div>
@@ -188,7 +188,7 @@ export function Dossier({ actor, onClose }: Props) {
                   rel="noreferrer"
                   className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] group transition-colors"
                 >
-                  <span className="font-mono text-[12px] text-amber-600 dark:text-amber-400">{c.id}</span>
+                  <span className="font-mono text-meta text-amber-600 dark:text-amber-400">{c.id}</span>
                   <span className="text-[12.5px] text-slate-900 dark:text-slate-100 flex-1">{c.product}</span>
                   <span className={cn('chip', c.cvss >= 9 ? 'chip-red' : c.cvss >= 7 ? 'chip-gold' : '')}>
                     CVSS {c.cvss}
@@ -244,11 +244,11 @@ export function Dossier({ actor, onClose }: Props) {
                   className="block p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] border border-transparent hover:border-slate-200 dark:border-[rgb(var(--border-400))] transition-colors"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-[13px] text-slate-900 dark:text-slate-100">{h.title}</span>
+                    <span className="text-tool text-slate-900 dark:text-slate-100">{h.title}</span>
                     <span className="chip chip-cyan ml-auto">{h.platform}</span>
                     <ExternalLink size={11} className="text-slate-500 dark:text-slate-400" />
                   </div>
-                  <p className="text-[12px] text-slate-500 dark:text-slate-400 mt-0.5">{h.description}</p>
+                  <p className="text-meta text-slate-500 dark:text-slate-400 mt-0.5">{h.description}</p>
                 </a>
               ))}
             </div>

@@ -1,0 +1,12 @@
+{
+  "id": 2748,
+  "name": "Bad Rabbit (via Pastebin)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1225 (59f02f94-544c-4db8-b156-46ce950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2748"
+}

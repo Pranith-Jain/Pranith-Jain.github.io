@@ -1,0 +1,12 @@
+{
+  "id": 7368,
+  "name": "L Group: ratnasagar.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Apr 26, 2025",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to L Group. | Country: IN | Sector: Not Found | Website: ratnasagar.com | Infostealer data confirmed. | [AI generated] Ratnasagar is an Indian educational publishing company based in India. It specializes in producing academic books, textbooks, and educational materials primarily for school-level students. The company serves the K-12 segment, offering curriculum-aligned content across various subjects. Operating in the education and publishing industry, Ratnasagar is known for distributing its materials through schools and educational institutions across India. | Source: https://www.ransomware.live/id/cmF0bmFzYWdhci5jb21ATCBHcm91cA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7368"
+}

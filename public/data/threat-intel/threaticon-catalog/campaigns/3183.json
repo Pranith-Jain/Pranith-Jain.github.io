@@ -1,0 +1,12 @@
+{
+  "id": 3183,
+  "name": "Aoqin Dragon | Newly-Discovered Chinese-linked APT Has Been Quietly Spying On Organizations For 10 Years",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #306 (abfb5a93-e695-4ee9-bc10-541290bcd663).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3183"
+}

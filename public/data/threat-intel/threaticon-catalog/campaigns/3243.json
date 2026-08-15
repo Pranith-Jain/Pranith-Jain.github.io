@@ -1,0 +1,12 @@
+{
+  "id": 3243,
+  "name": "Void Rabisu’s Use of RomCom Backdoor Shows a Growing Shift in Threat Actors’ Goals",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #417 (4f0d74be-1bfa-4821-8095-756c50054833).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3243"
+}

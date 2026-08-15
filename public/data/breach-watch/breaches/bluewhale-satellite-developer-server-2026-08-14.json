@@ -1,0 +1,15 @@
+{
+  "slug": "bluewhale-satellite-developer-server-2026-08-14",
+  "title": "Satellite Developer Server",
+  "group": "BlueWhale",
+  "discovered": "2026-08-14T11:20:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b7cf1c51-33e9-4ff4-8eda-808404f3a870",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

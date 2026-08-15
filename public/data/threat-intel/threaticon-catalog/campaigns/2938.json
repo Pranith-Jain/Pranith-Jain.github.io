@@ -1,0 +1,12 @@
+{
+  "id": 2938,
+  "name": "OSINT - CircleCI incident report for January 4, 2023 security incident",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1709 (f2049d65-5315-4c37-9bbb-900c9b851204).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2938"
+}

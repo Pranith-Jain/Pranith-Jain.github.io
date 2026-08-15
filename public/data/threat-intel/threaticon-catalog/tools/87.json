@@ -1,0 +1,12 @@
+{
+  "id": 87,
+  "name": "QuasarRAT",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "xRAT",
+  "confidence": 90,
+  "added": null,
+  "description": "QuasarRAT is an open-source, remote access tool that has been publicly available on GitHub since at least 2014. QuasarRAT is developed in the C# language.(Citation: GitHub QuasarRAT)(Citation: Volexity Patchwork June 2018)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/87"
+}

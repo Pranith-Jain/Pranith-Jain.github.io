@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-urban-worldwide-2026-08-14",
+  "title": "Urban Worldwide",
+  "group": "qilin",
+  "discovered": "2026-08-14T08:31:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d4966963-e585-4d63-8357-eceade4703f2",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

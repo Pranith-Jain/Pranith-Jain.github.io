@@ -1,0 +1,12 @@
+{
+  "id": 216,
+  "name": "Detection of Hardware",
+  "detId": "DET0887",
+  "stixId": "x-mitre-detection-strategy--d6c882c8-0f01-4027-b988-b979d60e0030",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2019"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/216"
+}

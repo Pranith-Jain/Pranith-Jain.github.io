@@ -1,0 +1,12 @@
+{
+  "id": 2169,
+  "name": "BRONZE PRESIDENT Targets NGOs",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #212 (5e0f4cf1-d9d4-4243-b077-9c80c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2169"
+}

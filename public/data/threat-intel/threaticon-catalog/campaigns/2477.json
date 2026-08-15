@@ -1,0 +1,12 @@
+{
+  "id": 2477,
+  "name": "OSINT Aveo Malware Family Targets Japanese Speaking Users by Palo Alto networks Unit 42",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #818 (57b5a32c-b744-4674-b727-4cb2950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2477"
+}

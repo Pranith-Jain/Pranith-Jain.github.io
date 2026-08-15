@@ -1,0 +1,12 @@
+{
+  "id": 3196,
+  "name": "Scraper: Talos Website",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #323 (c9aed93d-4023-40c3-92a4-7e8607cd6cb6).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3196"
+}

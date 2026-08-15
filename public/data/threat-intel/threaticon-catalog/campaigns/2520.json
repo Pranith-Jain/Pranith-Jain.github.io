@@ -1,0 +1,12 @@
+{
+  "id": 2520,
+  "name": "Dridex IoC's",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #879 (57dfe878-f93c-4eaa-baa9-085f0a950b0c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2520"
+}

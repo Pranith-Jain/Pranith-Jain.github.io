@@ -1,0 +1,12 @@
+{
+  "id": 2483,
+  "name": "OSINT Bad News Bears - Panda Banker Starts Looking More Like a Grizzly by ProofPoint",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #824 (57b5b7eb-208c-4c32-ae59-4ec2950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2483"
+}

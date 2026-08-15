@@ -1,0 +1,12 @@
+{
+  "id": 1150,
+  "name": "akira: MerchNOW",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Consumer Services | Website: merchnow.com | Infostealer data confirmed. | MerchNow is a music merchandising company with over 20 years of e xperience, specializing in a wide range of products including mus ic, apparel, accessories, and custom merchandise for bands. They offer services such as screen printing, record pressing, embroide ry, and fulfillment to help artists create unique merchandise. We will upload corporate data soon. Great amount of employee pers onal documents (passports, DLs, SSNs and other scanned docs), fin ancials, contracts and agreements, client files, NDA, projects, e tc. | Source: https://www.ransomware.live/id/TWVyY2hOT1dAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1150"
+}

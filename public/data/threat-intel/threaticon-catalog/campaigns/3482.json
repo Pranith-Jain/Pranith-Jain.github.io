@@ -1,0 +1,12 @@
+{
+  "id": 3482,
+  "name": "OSINT - GRIZZLY STEPPE â€“ Additional expansion",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #951 (5867a9dc-dde8-4877-b46f-42cc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3482"
+}

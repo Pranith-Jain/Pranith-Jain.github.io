@@ -1,0 +1,12 @@
+{
+  "id": 2428,
+  "name": "OSINT The Teenage Mutant Malvertiser Network by FireEye",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #756 (5566bfdf-e550-4b40-8178-4b27950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2428"
+}

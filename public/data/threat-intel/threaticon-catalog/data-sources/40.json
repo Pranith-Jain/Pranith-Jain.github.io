@@ -1,0 +1,12 @@
+{
+  "id": 40,
+  "name": "Web Credential Creation",
+  "dcId": "DC0006",
+  "analyticCount": 5,
+  "strategyCount": 2,
+  "added": null,
+  "analytics": ["AN0420", "AN0717", "AN0718", "AN0722", "AN0723"],
+  "description": "Initial construction of new web credential material (ex: Windows EID 1200 or 4769)",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/40"
+}

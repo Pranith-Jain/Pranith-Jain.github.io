@@ -1,0 +1,12 @@
+{
+  "id": 3404,
+  "name": "OSINT The Italian Connection: An analysis of exploit supply chains and digital quartermasters by Shadowserver",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #679 (55c98ff2-f2fc-4284-8a34-f483950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3404"
+}

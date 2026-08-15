@@ -1,0 +1,12 @@
+{
+  "id": 418,
+  "name": "Security Software Discovery Across Platforms",
+  "detId": "DET0016",
+  "stixId": "x-mitre-detection-strategy--e2409f82-e24c-4bb9-ad44-b20d97fb7a5a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0048", "AN0049", "AN0050"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/418"
+}

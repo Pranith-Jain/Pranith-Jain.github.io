@@ -1,0 +1,12 @@
+{
+  "id": 2263,
+  "name": "Rokku Ransomware shows possible link with Chimera",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #398 (570c9b9a-dc20-448a-8f24-443f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2263"
+}

@@ -212,7 +212,7 @@ export default function SysmonConfig() {
               <RefreshCw size={11} /> reset to baseline
             </button>
           </div>
-          <pre className="font-mono text-[11px] leading-relaxed text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 overflow-x-auto max-h-[480px] whitespace-pre">
+          <pre className="font-mono text-mini leading-relaxed text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 overflow-x-auto max-h-[480px] whitespace-pre">
             {xml}
           </pre>
         </section>

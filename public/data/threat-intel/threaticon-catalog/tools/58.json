@@ -1,0 +1,12 @@
+{
+  "id": 58,
+  "name": "Nltest",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Nltest is a Windows command-line utility used to list domain controllers and enumerate domain trusts.(Citation: Nltest Manual)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/58"
+}

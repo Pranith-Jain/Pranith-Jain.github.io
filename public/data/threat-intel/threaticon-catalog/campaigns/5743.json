@@ -1,0 +1,12 @@
+{
+  "id": 5743,
+  "name": "thegentlemen: Advantage Home Health Care",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 17, 2026",
+  "lastSeen": "Jul 17, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: advantagehhc.com | Infostealer data confirmed. | ***.com zoominfo.com/c/advantage-home-health-care-inc/357944466 Advantage Home Health Care, a leading Indiana-owned provider of in-home care services with over 30 years of experience.The company operates multiple locations across Indiana, serving dozens of counties with post-procedure recovery and long-term home assistance. | Source: https://www.ransomware.live/id/QWR2YW50YWdlIEhvbWUgSGVhbHRoIENhcmVAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5743"
+}

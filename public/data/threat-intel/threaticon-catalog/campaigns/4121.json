@@ -1,0 +1,12 @@
+{
+  "id": 4121,
+  "name": "qilin: Navana Real Estate",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: AE | Sector: Not Found | Website: www.navana-realestate.com | N/A | Source: https://www.ransomware.live/id/TmF2YW5hIFJlYWwgRXN0YXRlQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4121"
+}

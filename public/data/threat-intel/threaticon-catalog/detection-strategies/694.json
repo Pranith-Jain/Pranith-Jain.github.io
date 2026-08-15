@@ -1,0 +1,12 @@
+{
+  "id": 694,
+  "name": "Detection of Mutex-Based Execution Guardrails Across Platforms",
+  "detId": "DET0132",
+  "stixId": "x-mitre-detection-strategy--d22f1848-fc32-4fdb-999b-9c0845fb6552",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0372", "AN0373", "AN0374"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/694"
+}

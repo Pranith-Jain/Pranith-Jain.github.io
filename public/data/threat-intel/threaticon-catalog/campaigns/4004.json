@@ -1,0 +1,12 @@
+{
+  "id": 4004,
+  "name": "AiLock: Artso International, Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Business Services | Website: artso.com | Infostealer data confirmed. | Artso is a Taiwan-based premium ergonomic furniture brand specializing in SOHO furniture, children's growth desks, and cypress wood home furnishings, operating ~30 counters in major department stores since 2004. | Source: https://www.ransomware.live/id/QXJ0c28gSW50ZXJuYXRpb25hbCwgSW5jLkBBaUxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4004"
+}

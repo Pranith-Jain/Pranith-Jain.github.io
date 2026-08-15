@@ -1,0 +1,12 @@
+{
+  "id": 310,
+  "name": "payoutsking: Eyemart Express",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Consumer Services | Website: eyemartexpress.com | Infostealer data confirmed. | [AI generated] Eyemart Express is a United States-based retail optical chain specializing in prescription eyeglasses and contact lenses. Founded in 1990 and headquartered in Farmers Branch, Texas, the company operates hundreds of stores across the country. It offers eye exams, frames, and lenses with an emphasis on fast turnaround times. Eyemart Express competes in the optical retail industry alongside brands like LensCrafters and Visionworks. | Source: https://www.ransomware.live/id/RXllbWFydCBFeHByZXNzQHBheW91dHNraW5n",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/310"
+}

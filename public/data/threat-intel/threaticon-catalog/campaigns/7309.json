@@ -1,0 +1,12 @@
+{
+  "id": 7309,
+  "name": "qilin: AmSpec",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Energy & Utilities | Website: www.amspecgroup.com | N/A | Source: https://www.ransomware.live/id/QW1TcGVjQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7309"
+}

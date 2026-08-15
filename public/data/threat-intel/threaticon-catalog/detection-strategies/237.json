@@ -1,0 +1,12 @@
+{
+  "id": 237,
+  "name": "Suspicious Use of Web Services for C2",
+  "detId": "DET0425",
+  "stixId": "x-mitre-detection-strategy--769615c5-08d5-4f51-8f3b-7ac2f1febce8",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1189", "AN1190", "AN1191", "AN1192"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/237"
+}

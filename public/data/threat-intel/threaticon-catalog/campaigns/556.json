@@ -1,0 +1,12 @@
+{
+  "id": 556,
+  "name": "SilentRansomGroup: Jackson Lewis",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: jacksonlewis.com | Infostealer data confirmed. | [AI generated] Jackson Lewis P.C. is a United States-based law firm specializing exclusively in workplace law and employment-related legal services. Founded in 1958 and headquartered in New York, the firm operates across numerous offices throughout the country. It advises employers on labor relations, workplace safety, litigation, immigration, and employee benefits, serving clients across a wide range of industries nationwide. | Source: https://www.ransomware.live/id/SmFja3NvbiBMZXdpc0BTaWxlbnRSYW5zb21Hcm91cA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/556"
+}

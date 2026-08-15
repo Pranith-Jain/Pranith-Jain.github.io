@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-community-connections-2026-08-14",
+  "title": "Community Connections",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:54:46.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cbda0a67-f2c7-4d36-90e1-c7f7f05005f1",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

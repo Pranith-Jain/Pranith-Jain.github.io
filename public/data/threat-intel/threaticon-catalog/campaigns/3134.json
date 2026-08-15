@@ -1,0 +1,12 @@
+{
+  "id": 3134,
+  "name": "Qakbot levels up with new obfuscation techniques",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #189 (5ccb48f2-acb4-4b42-a010-03c2c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3134"
+}

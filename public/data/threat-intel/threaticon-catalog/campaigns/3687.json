@@ -1,0 +1,12 @@
+{
+  "id": 3687,
+  "name": "shinyhunters: Houghton Mifflin Harcourt Company",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Education | Website: hmhco.com | Infostealer data confirmed. | Your data was compromised in several of our campaigns throughout the past few months. We urge you to engage with us, it is in your best interests. This is a final warning to reach out by 12 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 9 May 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/SG91Z2h0b24gTWlmZmxpbiBIYXJjb3VydCBDb21wYW55QHNoaW55aHVudGVycw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3687"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1840,
+  "name": "dragonforce: Huffman Insurance Agency",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Financial Services | Website: www.huffmaninsurancegroup.com | Huffman Insurance Agency was founded in 1975 and operates in the Richlands, Virginia area with an office in Ashland, Kentucky. Huffman represents a strong network of Independent Agents offering home, car, and business insurance | Source: https://www.ransomware.live/id/SHVmZm1hbiBJbnN1cmFuY2UgQWdlbmN5QGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1840"
+}

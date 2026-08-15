@@ -1,0 +1,12 @@
+{
+  "id": 6888,
+  "name": "interlock: Gardiner Family Chiropractic",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Healthcare | Website: gardinerfamilychiropractic.com | Gardiner Family Chiropractic has been providing medical services to residents of Gardiner and the surrounding area since 1989. However, it is not responsible for its patients and makes no attempt to ensure the security of its stored information. Therefore, patient data, client records, medical histories, and internal company financial information have been compromised and are being made available to you. | Source: https://www.ransomware.live/id/R2FyZGluZXIgRmFtaWx5IENoaXJvcHJhY3RpY0BpbnRlcmxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6888"
+}

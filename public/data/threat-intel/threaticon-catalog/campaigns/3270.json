@@ -1,0 +1,12 @@
+{
+  "id": 3270,
+  "name": "Earth Preta Campaign Uses DOPLUGS to Target Asia",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #468 (eb7a9efc-2098-4db9-a2ae-1f0f853ef803).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3270"
+}

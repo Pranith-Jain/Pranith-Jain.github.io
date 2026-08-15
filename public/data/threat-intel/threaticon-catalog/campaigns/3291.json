@@ -1,0 +1,12 @@
+{
+  "id": 3291,
+  "name": "Malicious activities linked to the Nobelium intrusion set",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #510 (9ceb0659-15fc-4732-a8ef-bfcfebd1f068).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3291"
+}

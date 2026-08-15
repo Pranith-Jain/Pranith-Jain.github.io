@@ -1,0 +1,12 @@
+{
+  "id": 6161,
+  "name": "nova: Center Of Information Technologies In Finance Public Institution",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 24, 2026",
+  "lastSeen": "Jul 24, 2026",
+  "added": "Jul 24, 2026",
+  "description": "Ransomware attack attributed to nova. | Sector: Financial Services | Centrul de Tehnologii Informaționale în Finanțe (CTIF) offers a wide range of services and products aimed at legal entities such as public authorities, budget institutions, and economic agents, as well as individuals interested in financial information technology. Their services primarily focus on the management, development, and operation of automated information systems in public finance, accounting, taxation, customs, and public procurement. CTIF also provides training courses for professionals in the field of public procurement. The center is committed to transparency and communication with its clients - Data officially taken from Minister Private Information Cloud, Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/Q2VudGVyIE9mIEluZm9ybWF0aW9uIFRlY2hub2xvZ2llcyBJbiBGaW5hbmNlIFB1YmxpYyBJbnN0aXR1dGlvbkBub3Zh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6161"
+}

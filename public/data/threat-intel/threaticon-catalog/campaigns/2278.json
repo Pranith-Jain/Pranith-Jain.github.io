@@ -1,0 +1,12 @@
+{
+  "id": 2278,
+  "name": "Thanksgiving 2023 security incident",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #444 (11e6c3fa-f482-4c25-8cfa-d78cc4946af4).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2278"
+}

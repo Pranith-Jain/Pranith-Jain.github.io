@@ -1,0 +1,12 @@
+{
+  "id": 3841,
+  "name": "apt73: narit.or.th",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: TH | Sector: Public Sector | Website: narit.or.th | Infostealer data confirmed. | The National Astronomical Research Institute of Thailand (Thailand's National Astronomical Resear... | Source: https://www.ransomware.live/id/bmFyaXQub3IudGhAYXB0NzM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3841"
+}

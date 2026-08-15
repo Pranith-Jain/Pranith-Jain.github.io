@@ -1,0 +1,12 @@
+{
+  "id": 4776,
+  "name": "nightspire: Sheraton Miramar Resort El Gouna",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: EG | Sector: Hospitality and Tourism | Website: www.elgouna.com/hotels/sheraton-miramar-resort-el-gouna | Data is not available now. | Source: https://www.ransomware.live/id/U2hlcmF0b24gTWlyYW1hciBSZXNvcnQgRWwgR291bmFAbmlnaHRzcGlyZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4776"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2964,
+  "name": "Telegram phishing and related activities",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1814 (87e34242-cf13-466b-ad52-6e5feb07be4e).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2964"
+}

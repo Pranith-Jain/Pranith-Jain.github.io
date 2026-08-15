@@ -1,0 +1,12 @@
+{
+  "id": 3081,
+  "name": "medusalocker: ActionAid / TACOSA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to medusalocker. | Country: GB | Sector: Public Sector | Website: actionaid.org | Infostealer data confirmed. | NGO sector. Domains: actionaid.org, tacosa.org.za, immigration.go.tz. | Source: https://www.ransomware.live/id/QWN0aW9uQWlkIC8gVEFDT1NBQG1lZHVzYWxvY2tlcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3081"
+}

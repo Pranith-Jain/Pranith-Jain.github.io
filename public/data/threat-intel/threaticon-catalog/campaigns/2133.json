@@ -1,0 +1,12 @@
+{
+  "id": 2133,
+  "name": "Turla: Mosquito Whitepaper",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #162 (5a5395d1-40a0-45fc-b692-334a0a016219).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2133"
+}

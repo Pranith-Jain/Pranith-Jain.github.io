@@ -1,0 +1,12 @@
+{
+  "id": 361,
+  "name": "m3rx: osoftec.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to m3rx. | Country: DE | Sector: Technology | Website: osoftec.com | Infostealer data confirmed. | +91 9717385459 . Optimization Software Technologies, LLP. is an advanced technology solutions development company that focuses on improving operational efficiency and profitability for its clients Stolen: 222gb 113k files | Source: https://www.ransomware.live/id/b3NvZnRlYy5jb21AbTNyeA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/361"
+}

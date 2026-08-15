@@ -1,0 +1,12 @@
+{
+  "id": 5341,
+  "name": "2026-06-19 (Friday): Ai-Generated Fake Instruction Video Lure Phishing Campaign",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 19, 2026",
+  "lastSeen": "Jun 19, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-06-19 (Friday): Ai-Generated Fake Instruction Video Lure Phishing Campaign. Chain of events: Exposure: Victim encounters one of 800+ phishing URLs. → Video Delivery: Video is served from a legitimate CDN, bypassing URL reputation filters. → Instructions: Deepfake audio voice instructs the victim to: → Open the web browser → References: https://www.linkedin.com/posts/an-evolved-deepfake-video-campaign-is-distributing-ugcPost-7474874864839933953-4BJo/, https://x.com/Unit42_Intel/status/2069109249196609572",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5341"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3280,
+  "name": "ArcaneDoor - New espionage-focused campaign found targeting perimeter network devices",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #494 (54cfe842-09c0-4257-8fcc-3c1498bbd9f2).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3280"
+}

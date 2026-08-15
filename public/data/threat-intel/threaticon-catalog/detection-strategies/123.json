@@ -1,0 +1,12 @@
+{
+  "id": 123,
+  "name": "Detect Gatekeeper Bypass via Quarantine Flag and Trust Control Manipulation",
+  "detId": "DET0288",
+  "stixId": "x-mitre-detection-strategy--62d7a748-dee5-46c7-b61c-77f57f371b4f",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0800"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/123"
+}

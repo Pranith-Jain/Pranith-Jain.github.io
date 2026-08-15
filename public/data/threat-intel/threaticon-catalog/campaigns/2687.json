@@ -1,0 +1,12 @@
+{
+  "id": 2687,
+  "name": "OSINT - Turla APT actor refreshes KopiLuwak JavaScript backdoor for use in G20-themed attack",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1132 (599aa9ab-dd20-4ae1-a3fa-41b5950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2687"
+}

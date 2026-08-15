@@ -1,0 +1,12 @@
+{
+  "id": 3319,
+  "name": "OSINT - Exploring CVE-2015-2545 and its users",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #547 (5730965a-fa18-43d4-8692-4296950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3319"
+}

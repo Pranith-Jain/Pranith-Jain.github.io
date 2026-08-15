@@ -1,0 +1,12 @@
+{
+  "id": 3399,
+  "name": "OSINT Trojan.Win32.Banker.NWT by AlienVault and Telus",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #674 (56313b33-93f0-426f-99ea-26bc950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3399"
+}

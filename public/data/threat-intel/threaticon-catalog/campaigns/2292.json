@@ -1,0 +1,12 @@
+{
+  "id": 2292,
+  "name": "The (D)Evolution of Pikabot",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #463 (3e089ded-cac6-4b7b-bbc6-be2161abd39f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2292"
+}

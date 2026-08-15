@@ -1,0 +1,12 @@
+{
+  "id": 2170,
+  "name": "AZORult spreads as a fake ProtonVPN installer",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #213 (5e5b9e7e-65fc-40d5-8ae2-a05fc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2170"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7282,
+  "name": "dragonforce: EduSpa",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Sector: Hospitality | Website: eduspa.com | Infostealer data confirmed. | Parkmungak has been operating since 1972, providing a range of services and products tailored to meet the needs of its clients. The company focuses on delivering high-quality solutions and has established a reputation for excellence in its field. With a commitment to innovation and customer satisfaction, Parkmungak aims to serve a diverse clientele. Their offerings include various services designed to enhance user experience and operational efficiency. | Source: https://www.ransomware.live/id/RWR1U3BhQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7282"
+}

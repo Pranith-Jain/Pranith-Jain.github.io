@@ -1,0 +1,12 @@
+{
+  "id": 3784,
+  "name": "thegentlemen: Kınık Gross",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TR | Sector: Business Services | Website: kinikgross.com | Infostealer data confirmed. | kinikgross.com Kınık Gross Toptan Market is the first and only local wholesale market in the Thrace (Trakya) region of Turkey, located in Çorlu. It offers a wide range of products including fresh produce, meat, deli, legumes, cleaning supplies, and personal care items — all at competitive wholesale prices | Source: https://www.ransomware.live/id/S8SxbsSxayBHcm9zc0B0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3784"
+}

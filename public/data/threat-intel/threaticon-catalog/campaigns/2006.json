@@ -1,0 +1,12 @@
+{
+  "id": 2006,
+  "name": "BlackEnergy by the SSHBearDoor : attacks against Ukrainian news media and electric industry",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #9 (56ca46f6-44ac-43bc-8898-4a5a9062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2006"
+}

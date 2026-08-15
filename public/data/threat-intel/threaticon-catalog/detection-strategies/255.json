@@ -1,0 +1,12 @@
+{
+  "id": 255,
+  "name": "Detect Persistence via Office Test Registry DLL Injection",
+  "detId": "DET0315",
+  "stixId": "x-mitre-detection-strategy--cb0a01e5-d88a-4ac8-a70a-1472c5dccd10",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0880", "AN0881"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/255"
+}

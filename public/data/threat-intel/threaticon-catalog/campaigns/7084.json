@@ -1,0 +1,12 @@
+{
+  "id": 7084,
+  "name": "Orova: Apollo Office System",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "Jun 9, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: JP | Sector: Other | Website: www.apollo-net.com | Since our establishment in May 1970 as an office equipment sales company, we have provided one-stop services to propose office rationalization and a more comfortable office environment. | Source: https://www.ransomware.live/id/QXBvbGxvIE9mZmljZSBTeXN0ZW1AT3JvdmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7084"
+}

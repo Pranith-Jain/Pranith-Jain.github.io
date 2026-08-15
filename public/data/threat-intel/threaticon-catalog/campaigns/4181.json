@@ -1,0 +1,12 @@
+{
+  "id": 4181,
+  "name": "Deadlock: AFWorkshop",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: SG | Sector: Business Services | Website: www.afw.sg | AFW an international architectural and design firm based in Singapore. Formerly known as Andy Fisher Workshop, the firm has been operating since 2004. They are a multi-disciplinary practice that works on a variety of large-scale and boutique projects across Asia and beyond. | Source: https://www.ransomware.live/id/QUZXb3Jrc2hvcEBEZWFkbG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4181"
+}

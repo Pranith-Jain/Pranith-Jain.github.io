@@ -1,0 +1,12 @@
+{
+  "id": 7083,
+  "name": "Orova: Northeastern Communications & Electrical",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 4, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Energy & Utilities | Website: www.northeastcne.com | Northeastern Communications & Electrical LLC, based in Middletown, Connecticut, specializes in the installation of voice, data, and video systems for various building types, including small, medium, and large-scale projects. The company prides itself on delivering high-quality and professional services, backed by years of technical expertise. | Source: https://www.ransomware.live/id/Tm9ydGhlYXN0ZXJuIENvbW11bmljYXRpb25zICYgRWxlY3RyaWNhbEBPcm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7083"
+}

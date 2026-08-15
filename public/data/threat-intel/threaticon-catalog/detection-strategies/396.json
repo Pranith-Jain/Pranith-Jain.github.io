@@ -1,0 +1,12 @@
+{
+  "id": 396,
+  "name": "Detection Strategy for Forged Web Credentials",
+  "detId": "DET0260",
+  "stixId": "x-mitre-detection-strategy--44f32d03-50ce-480f-b531-481bcc6dc0a8",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "analytics": ["AN0717", "AN0718", "AN0719", "AN0720", "AN0721", "AN0722", "AN0723"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/396"
+}

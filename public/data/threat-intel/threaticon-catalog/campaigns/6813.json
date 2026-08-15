@@ -1,0 +1,12 @@
+{
+  "id": 6813,
+  "name": "qilin: Audio Precision, Inc",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 31, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.ap.com | N/A | Source: https://www.ransomware.live/id/QXVkaW8gUHJlY2lzaW9uLCBJbmNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6813"
+}

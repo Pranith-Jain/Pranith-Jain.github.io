@@ -1,0 +1,12 @@
+{
+  "id": 2889,
+  "name": "OSINT - Recent Cloud Atlas activity",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1544 (5d52daab-6db4-45f1-9fdf-45fc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2889"
+}

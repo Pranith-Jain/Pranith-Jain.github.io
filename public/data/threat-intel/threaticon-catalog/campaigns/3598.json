@@ -1,0 +1,12 @@
+{
+  "id": 3598,
+  "name": "akira: Taylor Clay Products",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: taylorclaybrick.com | Infostealer data confirmed. | Taylor Clay Products specializes in premium architectural brick, thin brick, and custom masonry solutions, catering to architects and builders for over 75 years. The company offers a wide se lection of colors, textures, and finishes, including custom blends tailored to specific project s. We will upload 72gb of corporate data soon. Employee personal information (DL and other persona l docs), contracts, client information, drawings and specifications. | Source: https://www.ransomware.live/id/VGF5bG9yIENsYXkgUHJvZHVjdHNAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3598"
+}

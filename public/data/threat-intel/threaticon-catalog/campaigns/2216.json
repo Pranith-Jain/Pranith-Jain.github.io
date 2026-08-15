@@ -1,0 +1,12 @@
+{
+  "id": 2216,
+  "name": "EU 31st session of the Commission on Crime Prevention and Criminal Justice United Nations on Drugs and Crime themed malware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #301 (c267101e-b5be-4d49-86e0-ebe32837a2a9).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2216"
+}

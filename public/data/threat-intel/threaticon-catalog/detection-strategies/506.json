@@ -1,0 +1,12 @@
+{
+  "id": 506,
+  "name": "Detection Strategy for Compile After Delivery - Source Code to Executable Transformation",
+  "detId": "DET0501",
+  "stixId": "x-mitre-detection-strategy--48d80184-842f-419a-ab84-01030f866bd4",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1381", "AN1382", "AN1383"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/506"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6792,
+  "name": "morpheus: Yue Ki Industrial",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to morpheus. | Country: TW | Sector: Manufacturing | Website: yueki.com.tw | Infostealer data confirmed. | **Website**: yueki.com.tw **Revenue**: $21 Million Yue Ki Industrial is a manufacturing company that creates high-quality industrial products for businesses. They work with metal, plastic, and other | Source: https://www.ransomware.live/id/WXVlIEtpIEluZHVzdHJpYWxAbW9ycGhldXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6792"
+}

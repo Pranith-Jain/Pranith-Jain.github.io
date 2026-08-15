@@ -1,0 +1,12 @@
+{
+  "id": 1972,
+  "name": "vect: USHA International Limited",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to vect. | Country: IN | Sector: Manufacturing | Website: usha.com | Infostealer data confirmed. | Status: STATUS: NEGOTIATING | Sector: manufacturer | Employee Data, CMS, CMR, SAP databases. | Deadline: 19d 11h | Source: https://www.ransomware.live/id/VVNIQSBJbnRlcm5hdGlvbmFsIExpbWl0ZWRAdmVjdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1972"
+}

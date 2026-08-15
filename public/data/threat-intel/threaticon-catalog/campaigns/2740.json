@@ -1,0 +1,12 @@
+{
+  "id": 2740,
+  "name": "M2M - Locky Affid=3, \"asasin\" / Trickbot \"mac1\" 2017-10-10 : \"Status of invoice A2171234-56\" - \"A2171234-56.html\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1213 (59dce1ec-b998-42ad-ba4f-48a4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2740"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2583,
+  "name": "OSINT - Spotlight on Shamoon",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #975 (588dc8e3-8530-4b69-b71c-45ab02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2583"
+}

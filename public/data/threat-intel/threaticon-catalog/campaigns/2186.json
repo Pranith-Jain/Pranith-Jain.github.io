@@ -1,0 +1,12 @@
+{
+  "id": 2186,
+  "name": "TA551 (SHATHAK) Word documents with macros pushing ICEDID malware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #230 (5f480dd6-04cc-4925-ada8-d181c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2186"
+}

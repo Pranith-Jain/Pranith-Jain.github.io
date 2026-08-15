@@ -1,0 +1,12 @@
+{
+  "id": 2896,
+  "name": "OSINT - Trojan.ElectrumDoSMiner - a Trojan responsible for the denial of service attacks against Electrum bitcoin wallets.",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1562 (5dd5a9e7-72a8-4b7e-b0c3-49e702de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2896"
+}

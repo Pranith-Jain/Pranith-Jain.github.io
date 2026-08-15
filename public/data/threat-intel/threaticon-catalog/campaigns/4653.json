@@ -1,0 +1,12 @@
+{
+  "id": 4653,
+  "name": "lockbit5: majorcineplex.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Jun 17, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: TH | Sector: Hospitality and Tourism | Website: majorcineplex.com | Infostealer data confirmed. | Major Cineplex is the largest operator of movie theaters in Thailand and Laos, commanding a massive... | Source: https://www.ransomware.live/id/bWFqb3JjaW5lcGxleC5jb21AbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4653"
+}

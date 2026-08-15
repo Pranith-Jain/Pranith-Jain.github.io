@@ -1,0 +1,12 @@
+{
+  "id": 428,
+  "name": "Behavioral Detection of Indicator Removal Across Platforms",
+  "detId": "DET0184",
+  "stixId": "x-mitre-detection-strategy--7225a3bd-f235-4c13-a236-3c6b9a3d445c",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "analytics": ["AN0520", "AN0521", "AN0522", "AN0523", "AN0524", "AN0525"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/428"
+}

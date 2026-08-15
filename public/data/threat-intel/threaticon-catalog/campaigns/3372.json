@@ -1,0 +1,12 @@
+{
+  "id": 3372,
+  "name": "OSINT Recorded Future using shodan to find RAT controllers",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #647 (560ad646-3e08-4331-87b2-cfb8950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3372"
+}

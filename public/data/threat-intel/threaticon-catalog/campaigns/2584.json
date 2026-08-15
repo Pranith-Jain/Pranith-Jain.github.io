@@ -1,0 +1,12 @@
+{
+  "id": 2584,
+  "name": "OSINT - #OCJP-133: Hancitorãƒžãƒ«ã‚¦ã‚§ã‚¢æ„ŸæŸ“ ã¨ ãƒãƒƒã‚­ãƒ³ã‚°ã•ã‚ŒãŸWordpress",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #976 (588df693-0480-41bd-b8fd-4e9302de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2584"
+}

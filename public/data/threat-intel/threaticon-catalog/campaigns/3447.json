@@ -1,0 +1,12 @@
+{
+  "id": 3447,
+  "name": "Malspam 2016-08-26 (.js in .zip) - campaign: \"monthly report\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #837 (57c43d9b-61a4-43b7-985b-4558950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3447"
+}

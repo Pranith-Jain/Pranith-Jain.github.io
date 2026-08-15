@@ -1,0 +1,12 @@
+{
+  "id": 2787,
+  "name": "OSINT - Sednit espionage group now using custom exploit kit",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1280 (5a3cc84d-2434-4ae6-8d76-c328950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2787"
+}

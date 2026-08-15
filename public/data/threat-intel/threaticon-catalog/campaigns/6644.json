@@ -1,0 +1,12 @@
+{
+  "id": 6644,
+  "name": "termite: JD Young",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 28, 2026",
+  "description": "Ransomware attack attributed to termite. | Country: CN | Sector: Not Found | Website: www.jdyoung.com | JD Young helps financial institutions simplify workflow processes, automate the flow of information, adhere to compliance and determine suitable document hardware for multiple locations. The company&#x27;s document solutions include electronic document management, lock box, hardware fleet management, SaaS (software as a service), multi-function hardware, printing services and more. | Source: https://www.ransomware.live/id/SkQgWW91bmdAdGVybWl0ZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6644"
+}

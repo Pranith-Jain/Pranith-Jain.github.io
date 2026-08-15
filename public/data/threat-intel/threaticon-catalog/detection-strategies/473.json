@@ -1,0 +1,12 @@
+{
+  "id": 473,
+  "name": "Detection of Written Content",
+  "detId": "DET0917",
+  "stixId": "x-mitre-detection-strategy--bbda89d6-a007-4ba9-bfd0-cb03344fc540",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2060"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/473"
+}

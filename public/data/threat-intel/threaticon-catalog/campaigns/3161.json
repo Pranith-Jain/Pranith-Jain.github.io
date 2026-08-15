@@ -1,0 +1,12 @@
+{
+  "id": 3161,
+  "name": "The SideWalk may be as dangerous as the CROSSWALK",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #268 (f35d4a9f-881b-46b7-9d8a-887a40bce133).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3161"
+}

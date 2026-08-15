@@ -1,0 +1,12 @@
+{
+  "id": 2611,
+  "name": "OSINT - Hunt Case Study: Hunting Campaign Indicators on Privacy Protected Attack Infrastructure",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1018 (58d39c29-8244-4fcf-a48b-40db950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2611"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7346,
+  "name": "SilentRansomGroup: Mayer Brown",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 7, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Professional Services | Mayer Brown is a distinctively global law firm, uniquely positioned to advise the world's leading comp… | Source: https://www.ransomware.live/id/TWF5ZXIgQnJvd25AU2lsZW50UmFuc29tR3JvdXA=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7346"
+}

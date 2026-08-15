@@ -1,0 +1,12 @@
+{
+  "id": 3209,
+  "name": "Unwrapping Ursnifs Gifts - The DFIR Report",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #346 (4bcf0465-4b53-4de4-8c53-fcc5f7d04dfc).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3209"
+}

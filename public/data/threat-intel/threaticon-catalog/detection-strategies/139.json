@@ -1,0 +1,12 @@
+{
+  "id": 139,
+  "name": "Detection Strategy for Exfiltration Over Web Service",
+  "detId": "DET0548",
+  "stixId": "x-mitre-detection-strategy--1753ab98-4530-4284-9bc3-5d4813abfb9e",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1511", "AN1512", "AN1513", "AN1514", "AN1515"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/139"
+}

@@ -1,15 +1,15 @@
 {
   "slug": "kairos-hightech-signs-2026-08-12",
   "title": "Hightech Signs",
-  "group": "Kairos",
-  "discovered": "2026-08-12T00:00:00.000Z",
+  "group": "kairos",
+  "discovered": "2026-08-12T20:25:23.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "US",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/hightech-signs-kairos-2026-08",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ef937d92-6e87-477c-8ab0-137b8f087a37",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
 }

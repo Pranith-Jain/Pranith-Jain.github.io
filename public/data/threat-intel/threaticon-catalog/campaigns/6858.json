@@ -1,0 +1,12 @@
+{
+  "id": 6858,
+  "name": "thegentlemen: Salama Medicals Distributors Private",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TZ | Sector: Healthcare | Website: salamapharma.co.tz | Infostealer data confirmed. | salamapharma.co.tz zoominfo.com/c/salama-medicals-distributors-private-ltd/356160819 Salama Pharmaceuticals Limited is Tanzania’s leading importer and distributor of pharmaceuticals, medical devices, and surgical equipment. Headquartered in Dar es Salaam, the company operates a large multi-warehouse distribution network to serve healthcare facilities across the country. Dedicated to enhancing healthcare outcomes, Salama Pharma focuses on supplying quality medical products and supporting the modernization of healthcare operations in the East African region | Source: https://www.ransomware.live/id/U2FsYW1hIE1lZGljYWxzIERpc3RyaWJ1dG9ycyBQcml2YXRlQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6858"
+}

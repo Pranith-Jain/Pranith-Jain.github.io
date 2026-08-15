@@ -1,0 +1,12 @@
+{
+  "id": 254,
+  "name": "Encrypted or Encoded File Payload Detection Strategy",
+  "detId": "DET0087",
+  "stixId": "x-mitre-detection-strategy--d70b8fdd-de14-4143-a350-56e3b885b37b",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0237", "AN0238", "AN0239"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/254"
+}

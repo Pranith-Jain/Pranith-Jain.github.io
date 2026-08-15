@@ -53,13 +53,17 @@ describe('dedup blob storage', () => {
     expect(Object.keys(map).sort()).toEqual(['a', 'b', 'c']);
   });
 
-  it('returns {} when blob is absent (no migration)', async () => {
+  it('seeds legacy per-key entries into the blob on first access (one-time migration)', async () => {
     const ns = mockKV() as any;
     ns.store.set('meta:dedup:legacy-1', JSON.stringify({ lastSeenAt: '2026-05-10T00:00:00.000Z' }));
     const map = await loadDedupMap(ns);
-    expect(map).toEqual({});
-    expect(ns.stats().lists).toBe(0); // no list scan
-    expect(ns.stats().gets).toBe(1); // just the blob get
+    // Legacy keys are folded into the blob so published-slug continuity
+    // (used by the admin slot-sync) isn't lost — this is the documented
+    // one-time migration, not a no-op.
+    expect(map['legacy-1']).toEqual({ lastSeenAt: '2026-05-10T00:00:00.000Z' });
+    expect(ns.store.has('meta:dedup-index')).toBe(true);
+    expect(ns.stats().lists).toBe(1); // one legacy list scan
+    expect(ns.stats().gets).toBe(2); // blob get + legacy key get
   });
 
   it('getDedup returns null for unknown key', async () => {

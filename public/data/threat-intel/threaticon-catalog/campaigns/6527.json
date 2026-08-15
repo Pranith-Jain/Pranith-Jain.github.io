@@ -1,0 +1,12 @@
+{
+  "id": 6527,
+  "name": "CRPxO: Qube Aviation Catering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Transportation | Sector: Aviation / Catering | Data leaked: 22.5 GB | Source: https://www.ransomware.live/id/UXViZSBBdmlhdGlvbiBDYXRlcmluZ0BDUlB4Tw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6527"
+}

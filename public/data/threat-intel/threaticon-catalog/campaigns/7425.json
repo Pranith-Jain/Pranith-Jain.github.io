@@ -1,0 +1,12 @@
+{
+  "id": 7425,
+  "name": "blacknevas: OTEGROUP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 1, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to blacknevas. | Country: GR | Sector: Other | OTE Group, founded in 1991, is one of Oman's leading business groups and part of Saad Bahwan Holding — a family-run enterprise and one of the oldest and largest privately owned business houses in Oman, with interests in over 15 industries and 30+ companies across the Gulf region.Starting as a small, one-franchise business, OTE Group has grown into a diversified powerhouse operating in 14 industries across 4 countries — Oman, UAE, Saudi Arabia, and Algeria — with 200+ customer touchpoints, and continued expansion underway.The group's core business spans automotive (exclusive distributor for brands like Cadillac, Chevrolet, Hyundai, Isuzu, Subaru, and GWM), electronics and home appliances, and polymer color concentrates for the plastics industry, alongside historical interests in auto parts, lubricants, tires, batteries, vehicle leasing, and vocational training. The company credits its growth to collaboration, cr...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7425"
+}

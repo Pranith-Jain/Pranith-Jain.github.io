@@ -1,0 +1,12 @@
+{
+  "id": 659,
+  "name": "Detection of System Process Creation or Modification Across Platforms",
+  "detId": "DET0571",
+  "stixId": "x-mitre-detection-strategy--dab6c58b-2f44-4539-93e1-b03990fc1649",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1575", "AN1576", "AN1577", "AN1578"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/659"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 17,
+  "name": "Detection Strategy for Weaken Encryption: Reduce Key Space on Network Devices",
+  "detId": "DET0243",
+  "stixId": "x-mitre-detection-strategy--bcddd949-40be-40dd-949e-8f69f893360b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0681"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/17"
+}

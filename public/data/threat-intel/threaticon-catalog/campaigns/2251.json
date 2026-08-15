@@ -1,0 +1,12 @@
+{
+  "id": 2251,
+  "name": "Locky of the day (20160328) - affid=3",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #380 (56f93f55-e6d0-45c9-8109-74ad02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2251"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3237,
+  "name": "Sweet QuaDreams A First Look at Spyware Vendor QuaDream’s Exploits, Victims, and Customers",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #405 (47d6a201-507c-4cb0-904e-2acebcd59a69).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3237"
+}

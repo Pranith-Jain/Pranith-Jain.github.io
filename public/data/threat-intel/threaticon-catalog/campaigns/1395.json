@@ -1,0 +1,12 @@
+{
+  "id": 1395,
+  "name": "ALP-001: pellenc.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to ALP-001. | Country: FR | Sector: Manufacturing | Website: pellenc.com | Infostealer data confirmed. | Country: France Revenue: $543.1 Million Storage: 228GB Description: Pellenc is a manufacturer of battery-powered equipment and tools for agriculture, green spaces and local communities. Pellenc is headquartered in Pertuis, France. Deadline: 2026-04-01 17:02:55 | Source: https://www.ransomware.live/id/cGVsbGVuYy5jb21AQUxQLTAwMQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1395"
+}

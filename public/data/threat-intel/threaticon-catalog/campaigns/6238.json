@@ -1,0 +1,12 @@
+{
+  "id": 6238,
+  "name": "Deadlock: Enedo Power",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: FI | Sector: Energy & Utilities | Website: enedopower.com | Infostealer data confirmed. | Enedo Power (company renamed Inission Power) develops high-quality, intelligent power supply systems for critical infrastructure and industrial applications. The company, part of the Swedish Inission Group with Finnish roots, focuses on robust power supplies, power systems, and LED drivers for industries such as defense and railway technology. | Source: https://www.ransomware.live/id/RW5lZG8gUG93ZXJARGVhZGxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6238"
+}

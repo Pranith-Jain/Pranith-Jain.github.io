@@ -1,0 +1,12 @@
+{
+  "id": 2002,
+  "name": "APT28 Under the Scope - A Journey into Exfiltrating Intelligence and Government Information",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #4 (56ca38d3-7884-4bd8-a080-4bb19062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2002"
+}

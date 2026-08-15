@@ -1,0 +1,12 @@
+{
+  "id": 3366,
+  "name": "OSINT Cisco Talos Thwarts Access to Massive International Exploit Kit Generating $60M Annually From Ransomware Alone by Cisco Talos",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #641 (5614b57d-0f58-4c26-ad03-6aac950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3366"
+}

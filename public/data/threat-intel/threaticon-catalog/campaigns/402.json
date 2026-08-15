@@ -1,0 +1,12 @@
+{
+  "id": 402,
+  "name": "apt73: protectasecurity.pe",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: PE | Sector: Business Services | Website: protectasecurity.pe | Infostealer data confirmed. | Protecta Security provides insurance, microfinance and financial services. Internal docs, financi... | Source: https://www.ransomware.live/id/cHJvdGVjdGFzZWN1cml0eS5wZUBhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/402"
+}

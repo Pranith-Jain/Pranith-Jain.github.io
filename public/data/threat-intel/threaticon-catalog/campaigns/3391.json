@@ -1,0 +1,12 @@
+{
+  "id": 3391,
+  "name": "OSINT Musical Chairs: Multi-Year Campaign Involving New Variant of Gh0st Malware by Palo Alto Networks Unit 42",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #666 (55f2c05f-fdb4-4ae6-ab17-47f9950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3391"
+}

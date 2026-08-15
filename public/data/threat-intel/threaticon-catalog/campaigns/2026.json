@@ -1,0 +1,12 @@
+{
+  "id": 2026,
+  "name": "Letâ€™s ride with TeslaCrypt",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #37 (56d7dc8a-75f0-44a8-b284-512ac0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2026"
+}

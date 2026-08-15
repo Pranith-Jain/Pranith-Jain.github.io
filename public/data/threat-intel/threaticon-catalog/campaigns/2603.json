@@ -1,0 +1,12 @@
+{
+  "id": 2603,
+  "name": "OSINT - Google Play Apps Infected with Malicious IFrames",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1004 (58b7da09-466c-4c5e-bb8d-4dd2950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2603"
+}

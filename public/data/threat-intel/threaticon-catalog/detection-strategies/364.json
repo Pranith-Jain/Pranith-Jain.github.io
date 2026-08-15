@@ -1,0 +1,12 @@
+{
+  "id": 364,
+  "name": "Defacement via File and Web Content Modification Across Platforms",
+  "detId": "DET0238",
+  "stixId": "x-mitre-detection-strategy--2d5f2445-a395-4012-b378-c953f2df7353",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0662", "AN0663", "AN0664", "AN0665", "AN0666"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/364"
+}

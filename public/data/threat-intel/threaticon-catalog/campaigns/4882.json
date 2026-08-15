@@ -1,0 +1,12 @@
+{
+  "id": 4882,
+  "name": "incransom: Kewaunee Scientific",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "Jun 11, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Manufacturing | Total data: 504GB Contains: 852,141 Files, 120,670 Folders Documents: Clients KYS & NDA, Financial documentation, Contracts, Drawings, Audit reports, Personal data, Contractors and subcontractors information, Scanned documents and much other important information. Tape: confidential Clients: Pfizer, Rusan Pharma Ltd., Samsung and many other world-famous laboratories. full information will be released in a few weeks | Source: https://www.ransomware.live/id/S2V3YXVuZWUgU2NpZW50aWZpY0BpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4882"
+}

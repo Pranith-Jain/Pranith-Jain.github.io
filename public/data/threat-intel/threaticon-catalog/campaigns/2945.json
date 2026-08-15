@@ -1,0 +1,12 @@
+{
+  "id": 2945,
+  "name": "PSA: Fake CVE-2023-45124 Phishing Scam Tricks Users Into Installing Backdoor Plugin",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1737 (b6084bdd-5570-4e1e-965c-c587c9ae1c77).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2945"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3476,
+  "name": "OSINT - diamondfox panels",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #939 (584f1ea5-0d94-4052-9071-465502de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3476"
+}

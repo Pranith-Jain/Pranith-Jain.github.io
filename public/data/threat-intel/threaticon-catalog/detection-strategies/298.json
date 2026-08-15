@@ -1,0 +1,12 @@
+{
+  "id": 298,
+  "name": "Behavioral Detection of Input Capture Across Platforms",
+  "detId": "DET0102",
+  "stixId": "x-mitre-detection-strategy--c922d994-74bd-4847-a870-c0ae216318c9",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0282", "AN0283", "AN0284", "AN0285"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/298"
+}

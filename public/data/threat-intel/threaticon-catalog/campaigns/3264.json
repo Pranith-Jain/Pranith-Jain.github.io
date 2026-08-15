@@ -1,0 +1,12 @@
+{
+  "id": 3264,
+  "name": "PRC State-Sponsored Actors Compromise and Maintain Persistent Access to U.S. Critical Infrastructure",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #452 (0bfb40d7-c9e3-4cd3-a383-702cfefec39d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3264"
+}

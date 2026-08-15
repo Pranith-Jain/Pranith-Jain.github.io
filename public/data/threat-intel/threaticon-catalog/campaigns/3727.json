@@ -1,0 +1,12 @@
+{
+  "id": 3727,
+  "name": "lockbit5: anser-coding.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Technology | Website: anser-coding.com | Infostealer data confirmed. | FOUNDED IN 1986 ANSER is one of the world leading solution provider of product coding & marking equ... | Source: https://www.ransomware.live/id/YW5zZXItY29kaW5nLmNvbUBsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3727"
+}

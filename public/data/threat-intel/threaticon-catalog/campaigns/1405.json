@@ -1,0 +1,12 @@
+{
+  "id": 1405,
+  "name": "payload: HOPPECKE Singapore",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payload. | Country: SG | Sector: Manufacturing | HOPPECKE Asia Pacific Pte Ltd is the regional headquarters of the HOPPECKE Batteries Group in Singapore. It manages sales, service, and distribution for the Asia-Pacific region, providing industrial energy storage solutions. The company supports sectors including renewable energy, rail, telecommunications, and logistics. | Source: https://www.ransomware.live/id/SE9QUEVDS0UgU2luZ2Fwb3JlQHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1405"
+}

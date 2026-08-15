@@ -1,0 +1,12 @@
+{
+  "id": 2745,
+  "name": "OSINT - IoT_reaper: A Rappid Spreading New IoT Botnet",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1222 (59e9ec59-a888-48e4-afb4-441602de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2745"
+}

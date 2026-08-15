@@ -1,0 +1,12 @@
+{
+  "id": 7566,
+  "name": "thegentlemen: Canopy Support Services",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Professional Services | Website: canopysupport.ca | canopysupport.ca zoominfo.com/c/canopy-support-services/347650822 Canopy Support Services is a community-based organization in Peterborough, Ontario, dedicated to supporting individuals with intellectual and developmental disabilities. They provide a safe, welcoming environment for people, including those with Autism Spectrum Disorder, to learn new skills and achieve their personal goals. The organization empowers its clients to overcome everyday barriers, build self-confidence, and lead more independent lives | Source: https://www.ransomware.live/id/Q2Fub3B5IFN1cHBvcnQgU2VydmljZXNAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7566"
+}

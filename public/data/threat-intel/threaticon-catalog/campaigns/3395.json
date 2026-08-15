@@ -1,0 +1,12 @@
+{
+  "id": 3395,
+  "name": "OSINT In Pursuit of Optical Fibers and Troop Intel: Targeted Attack Distributes PlugX in Russia by ProofPoint",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #670 (55fc725a-6828-4ffe-a197-4e6f950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3395"
+}

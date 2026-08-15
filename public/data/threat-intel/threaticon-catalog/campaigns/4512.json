@@ -1,0 +1,12 @@
+{
+  "id": 4512,
+  "name": "settra: hmcfarms.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to settra. | Country: US | Sector: Agriculture and Food Production | Website: hmcfarms.com | Infostealer data confirmed. | THE HMC GROUP: OPEN FIELD A California Central Valley agricultural holding feeds America peaches. It... | Source: https://www.ransomware.live/id/aG1jZmFybXMuY29tQHNldHRyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4512"
+}

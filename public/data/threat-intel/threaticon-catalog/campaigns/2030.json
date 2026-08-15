@@ -1,0 +1,12 @@
+{
+  "id": 2030,
+  "name": "OSINT - Android-based Smart TVs Hit By Backdoor Spread Via Malicious App",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #42 (568e62b7-0930-4398-a617-4147950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2030"
+}

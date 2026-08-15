@@ -1,0 +1,12 @@
+{
+  "id": 3555,
+  "name": "qilin: Spirit Medical Transport",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.spiritmedicaltransport.com | N/A | Source: https://www.ransomware.live/id/U3Bpcml0IE1lZGljYWwgVHJhbnNwb3J0QHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3555"
+}

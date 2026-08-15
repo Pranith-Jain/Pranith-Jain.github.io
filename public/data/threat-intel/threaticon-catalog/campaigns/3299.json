@@ -1,0 +1,12 @@
+{
+  "id": 3299,
+  "name": "State-backed attackers and commercial surveillance vendors repeatedly use the same exploits",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #521 (682055c7-fb73-4d29-be0f-ef00f55f3970).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3299"
+}

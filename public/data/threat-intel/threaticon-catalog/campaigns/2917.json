@@ -1,0 +1,12 @@
+{
+  "id": 2917,
+  "name": "OSINT - Babuk Ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1635 (86836f20-44df-443f-9ee4-6fcf0e554883).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2917"
+}

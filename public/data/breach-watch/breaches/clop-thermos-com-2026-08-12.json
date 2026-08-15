@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "[AI generated] Thermos.com is the official website of Thermos LLC, a well-known American consumer goods company specializing in insulated food and beverage containers. Operating in the housewares and outdoor products industry, the company sells vacuum-insulated bottles, lunch kits, and food jars. Originally founded in Germany in 1904, Thermos is now headquartered in the United States and serves global markets through retail and e-commerce channels.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/09559b97-9630-4327-9a23-a527d8bec835",
   "groupAliases": ["Cl0p"],
   "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

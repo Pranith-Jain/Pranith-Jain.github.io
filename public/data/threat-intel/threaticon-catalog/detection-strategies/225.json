@@ -1,0 +1,12 @@
+{
+  "id": 225,
+  "name": "Detect Persistence via Outlook Home Page Exploitation",
+  "detId": "DET0177",
+  "stixId": "x-mitre-detection-strategy--e55f4e4b-80c0-4a2b-8202-659d29bbba33",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0502", "AN0503"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/225"
+}

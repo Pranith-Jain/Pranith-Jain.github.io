@@ -1,0 +1,12 @@
+{
+  "id": 182,
+  "name": "qilin: Star Precision",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Manufacturing | Website: www.starprecision.com | N/A | Source: https://www.ransomware.live/id/U3RhciBQcmVjaXNpb25AcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/182"
+}

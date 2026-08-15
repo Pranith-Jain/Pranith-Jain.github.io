@@ -1,0 +1,12 @@
+{
+  "id": 7740,
+  "name": "clop: PARTECH.COM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to clop. | Country: US | Sector: Technology | Website: PARTECH.COM | [AI generated] Partech is a global venture capital firm headquartered in Paris, France, with additional offices in San Francisco and Dakar. It invests in technology and digital companies across various stages, from seed to growth. Partech focuses on sectors including software, fintech, healthtech, and deeptech, supporting startups in Europe, Africa, and North America with funding, strategic guidance, and operational expertise. | Source: https://www.ransomware.live/id/UEFSVEVDSC5DT01AY2xvcA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7740"
+}

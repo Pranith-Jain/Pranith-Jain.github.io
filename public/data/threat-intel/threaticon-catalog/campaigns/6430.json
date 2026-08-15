@@ -1,0 +1,12 @@
+{
+  "id": 6430,
+  "name": "Global Secret Group: OmniLink AG",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: DE | Sector: Technology | Website: omnilink.software | Full-scope penetration testing of financial transaction processing pipeline and API gateway. | Source: https://www.ransomware.live/id/T21uaUxpbmsgQUdAR2xvYmFsIFNlY3JldCBHcm91cA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6430"
+}

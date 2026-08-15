@@ -1,0 +1,12 @@
+{
+  "id": 3380,
+  "name": "OSINT Milano Hacking Team malware detection tool & IOCs by Rook Security",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #655 (55bb38dc-bda8-4839-8b37-4fe1950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3380"
+}

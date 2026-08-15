@@ -1,0 +1,12 @@
+{
+  "id": 753,
+  "name": "dragonforce: ppiplastics.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Manufacturing | Website: www.ppiplastics.com | Preproduction Plastics Inc. is a company specializing in structural foam injection molding and gas-assisted injection molding. | Source: https://www.ransomware.live/id/cHBpcGxhc3RpY3MuY29tQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/753"
+}

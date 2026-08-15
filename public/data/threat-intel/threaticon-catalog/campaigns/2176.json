@@ -1,0 +1,12 @@
+{
+  "id": 2176,
+  "name": "New RedLine Stealer Distributed Using Coronavirus-themed Email Campaign",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #220 (5e8b8ba5-df0c-4e7b-bfb4-b27ec0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2176"
+}

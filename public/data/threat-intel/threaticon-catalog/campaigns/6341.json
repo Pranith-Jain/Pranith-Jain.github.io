@@ -1,0 +1,12 @@
+{
+  "id": 6341,
+  "name": "m3rx: servicebypremier.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: US | Sector: Professional Services | Website: servicebypremier.com | +1(954) 646-0016 , This local HVAC and Refrigeration company, established in 2007, provides services across South Florida, from Florida City to Port St. Lucie. They specialize in commercial HVAC and refrigeration repairs, including maintenance for A/C and refrigeration equipment. The company prides itself on delivering honest service at reasonable prices, ensuring complete customer satisfaction. Their commitment to integrity and efficiency makes them a trusted choice for businesses in the region. Stolen: -- | Source: https://www.ransomware.live/id/c2VydmljZWJ5cHJlbWllci5jb21AbTNyeA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6341"
+}

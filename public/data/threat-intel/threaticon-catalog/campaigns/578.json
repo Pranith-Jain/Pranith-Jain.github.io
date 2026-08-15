@@ -1,0 +1,12 @@
+{
+  "id": 578,
+  "name": "qilin: Safety Engineering Laboratories",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.safetyengineeringlabs.com | Source: https://www.ransomware.live/id/U2FmZXR5IEVuZ2luZWVyaW5nIExhYm9yYXRvcmllc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/578"
+}

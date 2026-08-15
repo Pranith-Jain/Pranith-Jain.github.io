@@ -1,0 +1,12 @@
+{
+  "id": 2838,
+  "name": "OSINT - DBGer Ransomware Uses EternalBlue and Mimikatz to Spread Across Networks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1380 (5b28d191-1100-4688-aa5d-48cd950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2838"
+}

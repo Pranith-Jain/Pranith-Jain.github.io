@@ -1,0 +1,12 @@
+{
+  "id": 7647,
+  "name": "dragonforce: QPC Global",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Other | Website: www.qpcglobal.com | Quest Personal Care Global Ltd is a global company specializing in affordable beauty and personal care products, with over 30 years of experience and a presence in more than 65 countries. They offer a diverse range of innovative brands and products, including skincare, haircare, and fragrance, aimed at helping consumers look and feel their best. The company focuses on speed to market, consumer insights, and sustainable practices, ensuring high-quality products that are both effective and environmentally friendly. Their mission is to simplify beauty for everyone by providing inclusive and trend-led products to retail partners and distributors worldwide | Source: https://www.ransomware.live/id/UVBDIEdsb2JhbEBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7647"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6853,
+  "name": "qilin: Community Management Associates",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Professional Services | Website: www.cmamanagement.com | N/A | Source: https://www.ransomware.live/id/Q29tbXVuaXR5IE1hbmFnZW1lbnQgQXNzb2NpYXRlc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6853"
+}

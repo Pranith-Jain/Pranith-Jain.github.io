@@ -1,0 +1,12 @@
+{
+  "id": 1434,
+  "name": "dragonforce: wardencc.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Technology | Website: wardencc.com | Infostealer data confirmed. | Warden Construction is a general contractor based in Jacksonville, Florida, specializing in design-build, construction management, renovation, and new construction. The company primarily serves clients in the government and public sectors, leveraging its expertise in indefinite-delivery/indefinite-quantity (IDIQ) contracts. | Source: https://www.ransomware.live/id/d2FyZGVuY2MuY29tQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1434"
+}

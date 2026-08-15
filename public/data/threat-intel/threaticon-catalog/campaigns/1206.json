@@ -1,0 +1,12 @@
+{
+  "id": 1206,
+  "name": "clop: AIGHEALTHCARE.IN",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to clop. | Country: IN | Sector: Healthcare | Website: AIGHEALTHCARE.IN | [AI generated] N/A | Source: https://www.ransomware.live/id/QUlHSEVBTFRIQ0FSRS5JTkBjbG9w",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1206"
+}

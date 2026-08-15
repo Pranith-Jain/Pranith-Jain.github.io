@@ -1,0 +1,12 @@
+{
+  "id": 3317,
+  "name": "OSINT - PLATINUM Targeted attacks in South and Southeast Asia",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #540 (57221ede-4084-4c2b-9463-4e1e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3317"
+}

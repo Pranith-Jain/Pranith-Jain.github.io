@@ -1,0 +1,12 @@
+{
+  "id": 1509,
+  "name": "SilentRansomGroup: Wood Smith Henning & Berman LLP",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: wshblaw.com | Infostealer data confirmed. | Wood Smith Henning & Berman (WSHB) is renowned globally for our exceptional trial results and expertis… | Source: https://www.ransomware.live/id/V29vZCBTbWl0aCBIZW5uaW5nICYgQmVybWFuIExMUEBTaWxlbnRSYW5zb21Hcm91cA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1509"
+}

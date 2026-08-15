@@ -1,0 +1,12 @@
+{
+  "id": 3508,
+  "name": "OSINT - Dimnie: Hiding in Plain Sight",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1024 (58db5ea0-8440-4687-b86f-4dd4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3508"
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "IN",
   "sizeBytes": 0,
-  "description": "[AI generated] Atomberg Technologies is an Indian consumer electronics company headquartered in Mumbai, India. It specializes in manufacturing energy-efficient smart home appliances, most notably BLDC motor-based ceiling fans that consume significantly less electricity than conventional fans. The company also produces other appliances like mixer grinders and water geysers. Founded in 2012, Atomberg targets the residential and commercial segments across India.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/e8fb6727-fac9-4e26-8ea3-48a30c99112e",
   "groupAliases": ["Cl0p"],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

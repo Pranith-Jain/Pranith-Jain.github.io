@@ -1,0 +1,12 @@
+{
+  "id": 3241,
+  "name": "IoT devices and Linux-based systems targeted by OpenSSH trojan campaign",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #414 (0ee609d4-c99f-428c-a7f3-0afa7efe01b6).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3241"
+}

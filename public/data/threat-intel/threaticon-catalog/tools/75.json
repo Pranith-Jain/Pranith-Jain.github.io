@@ -1,0 +1,12 @@
+{
+  "id": 75,
+  "name": "esentutl",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "esentutl.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "esentutl is a command-line tool that provides database utilities for the Windows Extensible Storage Engine.(Citation: Microsoft Esentutl)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/75"
+}

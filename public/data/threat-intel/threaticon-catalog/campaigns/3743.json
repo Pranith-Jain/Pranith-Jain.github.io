@@ -1,0 +1,12 @@
+{
+  "id": 3743,
+  "name": "safepay: ettp.be",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: BE | Sector: Not Found | Website: ettp.be | Infostealer data confirmed. | Appears to be a Belgian-based entity likely involved in professional training, technology consulting, or industrial services. While detailed public data … | Source: https://www.ransomware.live/id/ZXR0cC5iZUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3743"
+}

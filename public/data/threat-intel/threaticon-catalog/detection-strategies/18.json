@@ -1,0 +1,12 @@
+{
+  "id": 18,
+  "name": "Detection Strategy for ListPlanting Injection on Windows",
+  "detId": "DET0331",
+  "stixId": "x-mitre-detection-strategy--175b97d9-287e-4ab6-ae95-8652c224f02a",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0941"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/18"
+}

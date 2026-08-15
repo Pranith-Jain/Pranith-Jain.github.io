@@ -1,0 +1,12 @@
+{
+  "id": 286,
+  "name": "Firmware Modification via Flash Tool or Corrupted Firmware Upload",
+  "detId": "DET0167",
+  "stixId": "x-mitre-detection-strategy--ab9027fb-3499-474b-845c-50ee113c3be5",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0474", "AN0475", "AN0476", "AN0477"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/286"
+}

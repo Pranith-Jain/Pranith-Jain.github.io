@@ -1,0 +1,12 @@
+{
+  "id": 2132,
+  "name": "DHL-themed malspam reveals embedded malware in animated gif",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #160 (5b646d13-023c-4ac3-8f62-3648c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2132"
+}

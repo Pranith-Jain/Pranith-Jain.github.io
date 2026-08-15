@@ -1,0 +1,12 @@
+{
+  "id": 3271,
+  "name": "When Cats Fly: Suspected Iranian Threat Actor UNC1549 Targets Israeli and Middle East Aerospace and Defense Sectors",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #471 (c5107fff-968b-4267-bc27-cafbc6553d1d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3271"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 391,
+  "name": "Detect abuse of Trusted Relationships (third-party and delegated admin access)",
+  "detId": "DET0488",
+  "stixId": "x-mitre-detection-strategy--2f7a5ebd-e025-4822-aed2-46fc3ec1a0a9",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "analytics": ["AN1344", "AN1345", "AN1346", "AN1347", "AN1348", "AN1349", "AN1350"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/391"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1407,
+  "name": "thegentlemen: SATS Sports Club Sweden",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: SE | Sector: Hospitality and Tourism | Website: sats.se | Infostealer data confirmed. | sats.se zoominfo.com/c/sats-sports-club-sweden-ab/431547514 SATS is the largest fitness chain in the Nordics, founded in Sweden in 1995 with a mission to make people healthier and happier. Operating under the brands SATS, ELIXIA, and Fresh Fitness, the group runs over 274 clubs across Norway, Sweden, Finland, and Denmark, serving 733,000 members with 10,000 employees. It is also one of the five largest fitness operators in Europe, offering gym facilities, group classes, personal training, and digital fitness tools | Source: https://www.ransomware.live/id/U0FUUyBTcG9ydHMgQ2x1YiBTd2VkZW5AdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1407"
+}

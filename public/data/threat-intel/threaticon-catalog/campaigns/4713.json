@@ -1,0 +1,12 @@
+{
+  "id": 4713,
+  "name": "lynx: www.someco.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 18, 2026",
+  "lastSeen": "Jun 18, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lynx. | Sector: Not Found | Website: www.someco.com | Southern Mechanical Contractors is a merit shop mechanical and industrial construction firm with over 35 years of experience. They specialize in the design, installation, and service of HVAC, plumbing, process piping, and sheet metal systems for commercial and industrial clients. The company is dedicated to providing operational flexibility and cost-efficiency, ensuring high-quality service at competitive prices. Based in Atlanta, Georgia, they support clients throughout the Southeastern United States with comprehensive project assistance from design to maintenance. | Source: https://www.ransomware.live/id/d3d3LnNvbWVjby5jb21AbHlueA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4713"
+}

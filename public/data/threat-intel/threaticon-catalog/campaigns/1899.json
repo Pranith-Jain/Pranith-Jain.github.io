@@ -1,0 +1,12 @@
+{
+  "id": 1899,
+  "name": "AiLock: Emanuelson-Podas",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Construction | Website: epinc.com | Infostealer data confirmed. | Emanuelson-Podas, Inc. is a mechanical, electrical, and plumbing engineering firm that specializes in creating innovative building system solutions. | Source: https://www.ransomware.live/id/RW1hbnVlbHNvbi1Qb2Rhc0BBaUxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1899"
+}

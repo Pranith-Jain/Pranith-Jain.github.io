@@ -1,0 +1,12 @@
+{
+  "id": 3626,
+  "name": "qilin: Keller Williams Real Estate - Exton",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.kwphillysuburbs.com | N/A | Source: https://www.ransomware.live/id/S2VsbGVyIFdpbGxpYW1zIFJlYWwgRXN0YXRlIC0gRXh0b25AcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3626"
+}

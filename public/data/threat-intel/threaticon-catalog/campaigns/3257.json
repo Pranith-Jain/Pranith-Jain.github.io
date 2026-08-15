@@ -1,0 +1,12 @@
+{
+  "id": 3257,
+  "name": "NSPX30: A sophisticated AitM-enabled implant evolving since 2005",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #437 (59b940bf-3399-4c52-bf62-d4fd0297b63f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3257"
+}

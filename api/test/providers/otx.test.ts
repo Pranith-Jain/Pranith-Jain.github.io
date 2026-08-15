@@ -87,10 +87,14 @@ describe('otx adapter', () => {
       { type: 'hash', value: 'abc123', expectedPath: '/indicators/file/abc123/general' },
     ];
 
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
     for (const { type, value, expectedPath } of cases) {
-      const fetchSpy = vi
-        .spyOn(globalThis, 'fetch')
-        .mockResolvedValueOnce(new Response(JSON.stringify({ pulse_info: { count: 0, pulses: [] } }), { status: 200 }));
+      // Clear recorded calls so `mock.calls[0]` is THIS iteration's request
+      // (spy calls accumulate across iterations otherwise).
+      fetchSpy.mockClear();
+      fetchSpy.mockResolvedValueOnce(
+        new Response(JSON.stringify({ pulse_info: { count: 0, pulses: [] } }), { status: 200 })
+      );
       await otx({ type, value }, env, AbortSignal.timeout(2000));
       const calledUrl = String(fetchSpy.mock.calls[0]?.[0] ?? '');
       expect(calledUrl).toContain(expectedPath);

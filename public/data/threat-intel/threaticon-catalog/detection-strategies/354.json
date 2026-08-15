@@ -1,0 +1,12 @@
+{
+  "id": 354,
+  "name": "Detection of Social Media Accounts",
+  "detId": "DET0870",
+  "stixId": "x-mitre-detection-strategy--172b779a-9d14-4c5f-ba4c-3e784b4ae1b6",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2002"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/354"
+}

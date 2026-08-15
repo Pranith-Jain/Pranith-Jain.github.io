@@ -1,0 +1,12 @@
+{
+  "id": 2565,
+  "name": "OSINT - New Linux/Rakos threat: devices and servers under SSH scan (again)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #947 (585b9a80-9910-4d24-a695-4ac4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2565"
+}

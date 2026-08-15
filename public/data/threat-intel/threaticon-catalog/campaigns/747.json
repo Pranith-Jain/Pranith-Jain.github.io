@@ -1,0 +1,12 @@
+{
+  "id": 747,
+  "name": "dragonforce: graphicinfo.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Business Services | Website: graphicinfo.com | Infostealer data confirmed. | Graphic Information Systems Inc. specializes in the custom production of barcode labels, product number/identification labels, and warehouse signage, serving businesses that require inventory management solutions. They also offer a wide range of promotional products and apparel to enhance a company’s brand recognition. Their services include the installation of warehouse labels and signs, as well as design services. Based in Cincinnati, Ohio, GIS strives to provide high-quality, affordable products to improve warehouse operations and marketing efforts. | Source: https://www.ransomware.live/id/Z3JhcGhpY2luZm8uY29tQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/747"
+}

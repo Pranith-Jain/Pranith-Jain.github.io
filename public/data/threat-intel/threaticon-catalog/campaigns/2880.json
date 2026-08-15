@@ -1,0 +1,12 @@
+{
+  "id": 2880,
+  "name": "SMTP attackers honeypot logs for 2019-05-26",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1519 (5cea377f-d36c-48cf-bd54-31ea950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2880"
+}

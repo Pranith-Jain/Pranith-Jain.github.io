@@ -1,0 +1,12 @@
+{
+  "id": 536,
+  "name": "Behavior-chain detection for T1134.005 Access Token Manipulation: SID-History Injection (Windows)",
+  "detId": "DET0136",
+  "stixId": "x-mitre-detection-strategy--d32792e2-f927-492b-91bf-ac478cf64868",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0383"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/536"
+}

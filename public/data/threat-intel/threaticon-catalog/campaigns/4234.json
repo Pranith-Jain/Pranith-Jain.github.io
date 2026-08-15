@@ -1,0 +1,12 @@
+{
+  "id": 4234,
+  "name": "thegentlemen: Quanterm Logistics Sdn Bhd",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: MY | Sector: Transportation/Logistics | Website: quanterm.com | Infostealer data confirmed. | ***.com zoominfo.com/c/quanterm-logistics-sdn-bhd/346750206 Quanterm Logistics, founded in 1992 and headquartered in Malaysia, is a leading freight forwarding and total logistics provider in the Asia Pacific region.Starting as an international LCL consolidator, the company has expanded to offer comprehensive supply chain solutions including warehousing, distribution, and fleet management.Today, the organization serves both domestic and international markets through a wide network of offices across Malaysia, Vietnam, Australia, and other countries | Source: https://www.ransomware.live/id/UXVhbnRlcm0gTG9naXN0aWNzIFNkbiBCaGRAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4234"
+}

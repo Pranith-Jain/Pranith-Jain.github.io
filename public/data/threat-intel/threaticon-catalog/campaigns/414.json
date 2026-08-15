@@ -1,0 +1,12 @@
+{
+  "id": 414,
+  "name": "apt73: compensatii.gov.md",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: MD | Sector: Public Sector | Website: compensatii.gov.md | Infostealer data confirmed. | compensatii.gov.md is the official online government platform of the Republic of Moldova, created... | Source: https://www.ransomware.live/id/Y29tcGVuc2F0aWkuZ292Lm1kQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/414"
+}

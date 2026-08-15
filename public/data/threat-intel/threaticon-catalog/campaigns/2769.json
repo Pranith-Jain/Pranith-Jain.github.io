@@ -1,0 +1,12 @@
+{
+  "id": 2769,
+  "name": "M2M - \"..doc\" 2017-12-01 : \"12_Invoice_3456\" - \"I_4321.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1257 (5a26b77f-6250-4b25-bd53-4496950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2769"
+}

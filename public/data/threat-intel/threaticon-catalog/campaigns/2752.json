@@ -1,0 +1,12 @@
+{
+  "id": 2752,
+  "name": "Evasive Sage 2.2 Ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1234 (59f6f4a5-0e10-4c36-9c71-5690c25ed030).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2752"
+}

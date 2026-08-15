@@ -1,0 +1,12 @@
+{
+  "id": 7233,
+  "name": "clop: par*******",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to clop. | Sector: Technology | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project, Cad-files, Backups | Source: https://www.ransomware.live/id/cGFyKioqKioqKkBjbG9w",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7233"
+}

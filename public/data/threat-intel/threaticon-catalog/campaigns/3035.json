@@ -1,0 +1,12 @@
+{
+  "id": 3035,
+  "name": "Maltrail IOC for 2026-04-03",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1936 (7c9cc102-0241-4810-91fc-34953d8be409).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3035"
+}

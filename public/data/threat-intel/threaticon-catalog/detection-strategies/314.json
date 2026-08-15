@@ -1,0 +1,12 @@
+{
+  "id": 314,
+  "name": "Web Shell Detection via Server Behavior and File Execution Chains",
+  "detId": "DET0394",
+  "stixId": "x-mitre-detection-strategy--abb052c6-4edd-4592-9b9b-e53a55ac53b8",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1108", "AN1109", "AN1110"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/314"
+}

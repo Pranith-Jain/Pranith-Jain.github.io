@@ -1,0 +1,12 @@
+{
+  "id": 2900,
+  "name": "OSINT - Spam via mobile phone",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1576 (5e149458-bdf4-4f6a-8e1c-8f1102de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2900"
+}

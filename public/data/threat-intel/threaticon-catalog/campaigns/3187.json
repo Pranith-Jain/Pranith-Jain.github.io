@@ -1,0 +1,12 @@
+{
+  "id": 3187,
+  "name": "Return of the Evilnum APT with updated TTPs and new targets",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #310 (5a717019-2b96-48ea-aad0-8532d4f1dad2).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3187"
+}

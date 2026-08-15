@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-safeware-2026-08-13",
+  "title": "Safeware",
+  "group": "thegentlemen",
+  "discovered": "2026-08-13T07:29:47.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a7e64351-c0a2-48ba-9655-1907cbe3b18b",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

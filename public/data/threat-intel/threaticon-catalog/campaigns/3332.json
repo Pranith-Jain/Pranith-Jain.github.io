@@ -1,0 +1,12 @@
+{
+  "id": 3332,
+  "name": "A Universal Windows Bootkit An analysis of the MBR bootkit referred to as â€œHDRootâ€",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #569 (574e8687-8af0-40c5-b4dd-baa9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3332"
+}

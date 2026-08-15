@@ -1,0 +1,12 @@
+{
+  "id": 1366,
+  "name": "akira: French Engineering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: FR | Sector: Manufacturing | Website: frenchgr.com | Infostealer data confirmed. | French Engineering offers a range of services in Traffic Engineer ing, Water Resources Engineering, and Sustainable Planning and De sign Consulting in Pennsylvania, West Virginia, and Maryland. The ir services include traffic data collection, traffic signal desig n, roadway safety audits, and transportation impact studies, aime d at supporting new commercial, industrial, and residential devel opments. We will upload 72gb of corporate data soon. Employee documents (p assports, DLs, addresses, phones, emails, medical records, credit cards), financials, confidential docs, NDAs, etc. | Source: https://www.ransomware.live/id/RnJlbmNoIEVuZ2luZWVyaW5nQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1366"
+}

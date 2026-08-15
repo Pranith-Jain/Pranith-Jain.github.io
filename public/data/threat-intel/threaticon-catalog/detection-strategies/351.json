@@ -1,0 +1,12 @@
+{
+  "id": 351,
+  "name": "Detection Strategy for Traffic Duplication via Mirroring in IaaS and Network Devices",
+  "detId": "DET0403",
+  "stixId": "x-mitre-detection-strategy--69c06a1c-5b36-432c-871b-813957b3c678",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN1131", "AN1132"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/351"
+}

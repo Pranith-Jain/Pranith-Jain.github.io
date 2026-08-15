@@ -1,0 +1,12 @@
+{
+  "id": 2811,
+  "name": "OSINT - The DiskWriter or UselessDisk BootLocker May Be A Wiper",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1325 (5ac6140f-5964-4eb8-81bd-4095950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2811"
+}

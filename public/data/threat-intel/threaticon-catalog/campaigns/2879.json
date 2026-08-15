@@ -1,0 +1,12 @@
+{
+  "id": 2879,
+  "name": "OSINT - Sorpresa! JasperLoader targets Italy with a new bag of tricks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1518 (5ce8f7f8-8584-40c3-b33b-4660950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2879"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2655,
+  "name": "M2M - Jaff 2017-06-06 : \"Order\" - \"MX-2310U_20170606_123456.pdf\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1081 (593a41df-b920-4f52-bbc3-4abd950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2655"
+}

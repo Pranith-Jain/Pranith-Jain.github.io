@@ -1,0 +1,12 @@
+{
+  "id": 632,
+  "name": "Detection of Proxy Execution via Trusted Signed Binaries Across Platforms",
+  "detId": "DET0081",
+  "stixId": "x-mitre-detection-strategy--ce0b969a-1411-4b6f-a6aa-c31ef6fe6727",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0226", "AN0227", "AN0228"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/632"
+}

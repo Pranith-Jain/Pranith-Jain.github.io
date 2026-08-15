@@ -1,0 +1,12 @@
+{
+  "id": 873,
+  "name": "pear: Arkansas Oral & Maxillofacial Surgeons",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Healthcare | Website: arsurgeons.com | Infostealer data confirmed. | Offers a wide range of services in the field of maxillofacial surgery | Source: https://www.ransomware.live/id/QXJrYW5zYXMgT3JhbCAmIE1heGlsbG9mYWNpYWwgU3VyZ2VvbnNAcGVhcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/873"
+}

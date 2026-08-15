@@ -1,0 +1,12 @@
+{
+  "id": 5337,
+  "name": "2026-06-25 (Thursday): Kongtuke Activity Delivers Havoc C2 Via Clickfix And Advanced Evasion Techniques",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 25, 2026",
+  "lastSeen": "Jun 25, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-06-25 (Thursday): Kongtuke Activity Delivers Havoc C2 Via Clickfix And Advanced Evasion Techniques. References: https://www.linkedin.com/posts/clickfix-infostealer-ugcPost-7477462914392723457-wVqS/, https://x.com/Unit42_Intel/status/2071697279182856657",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5337"
+}

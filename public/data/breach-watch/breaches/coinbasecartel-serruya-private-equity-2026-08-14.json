@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-serruya-private-equity-2026-08-14",
+  "title": "Serruya private equity",
+  "group": "coinbasecartel",
+  "discovered": "2026-08-14T13:55:21.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IL",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/e835eb54-2830-4221-8086-a86c8614caf8",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

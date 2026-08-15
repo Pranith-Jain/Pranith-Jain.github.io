@@ -1,0 +1,12 @@
+{
+  "id": 4,
+  "name": "Detection of Server",
+  "detId": "DET0874",
+  "stixId": "x-mitre-detection-strategy--6bf8b26d-aa2d-4a8f-a1e4-c9cc4aef318d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2006"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/4"
+}

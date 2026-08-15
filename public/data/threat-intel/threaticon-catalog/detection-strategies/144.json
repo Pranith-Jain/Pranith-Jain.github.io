@@ -1,0 +1,12 @@
+{
+  "id": 144,
+  "name": "Detection of Command and Control Over Application Layer Protocols",
+  "detId": "DET0444",
+  "stixId": "x-mitre-detection-strategy--155cab5b-c70b-4cfb-ba52-f62a21836b19",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1225", "AN1226", "AN1227", "AN1228"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/144"
+}

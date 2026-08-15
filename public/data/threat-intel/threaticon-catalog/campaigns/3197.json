@@ -1,0 +1,12 @@
+{
+  "id": 3197,
+  "name": "TA505 Group’s TeslaGun In-Depth Analysis",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #324 (9db70e24-8bd4-4b1e-a13a-cd82cefb6947).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3197"
+}

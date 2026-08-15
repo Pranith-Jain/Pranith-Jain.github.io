@@ -1,0 +1,12 @@
+{
+  "id": 1094,
+  "name": "dragonforce: greenwayfence.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Construction | Website: greenwayfence.com | Infostealer data confirmed. | A wholesale supplier of fencing and railings serving both private homeowners and contractors throughout the East Coast. They offer a wide range of custom fencing materials, including vinyl and aluminum options, as well as decking and specialty products. | Source: https://www.ransomware.live/id/Z3JlZW53YXlmZW5jZS5jb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1094"
+}

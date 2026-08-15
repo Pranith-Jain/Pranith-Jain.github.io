@@ -1,0 +1,12 @@
+{
+  "id": 6001,
+  "name": "m3rx: ubfreight.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 22, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: NZ | Sector: Transportation | Website: ubfreight.com | Infostealer data confirmed. | UB Freight is a leading provider of worldwide freight services, specializing in air and sea freight, customs clearance, and warehousing solutions. They cater to a diverse clientele, including large companies with complex shipping needs and individuals looking to send personal items overseas. With IATA authorization and a network covering over 140 countries, UB Freight ensures competitive pricing and dependable service for all shipments. Their in-house customs clearance team and dedicated staff facilitate efficient handling of various cargo types, including dangerous goods and oversized items. Stolen: -- | Source: https://www.ransomware.live/id/dWJmcmVpZ2h0LmNvbUBtM3J4",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6001"
+}

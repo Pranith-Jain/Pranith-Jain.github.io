@@ -1,0 +1,12 @@
+{
+  "id": 611,
+  "name": "Detection of Client Configurations",
+  "detId": "DET0820",
+  "stixId": "x-mitre-detection-strategy--87cb2c80-54e1-4ea1-abd7-81a096eb155e",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1952"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/611"
+}

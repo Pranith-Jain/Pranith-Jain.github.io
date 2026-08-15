@@ -1,0 +1,12 @@
+{
+  "id": 9,
+  "name": "UACMe",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "UACMe is an open source assessment tool that contains many methods for bypassing Windows User Account Control on multiple versions of the operating system. (Citation: Github UACMe)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/9"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 161,
+  "name": "Detection Strategy for Hijack Execution Flow through the KernelCallbackTable on Windows.",
+  "detId": "DET0577",
+  "stixId": "x-mitre-detection-strategy--7ee8426e-2b65-44ed-b6d4-3800b92adf2e",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1593"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/161"
+}

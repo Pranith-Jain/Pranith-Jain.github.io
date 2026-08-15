@@ -1,0 +1,12 @@
+{
+  "id": 7015,
+  "name": "akira: Albers Mechanical Contractors",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 3, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 3, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: albersmechanicalcontractors.com | Albers Mechanical Contractors specializes in custom fabrication, welding, stainless steel fabri cation, and dust collection HVAC solutions. With over 54 years of experience, they provide desi gn and on-site consultations, positioning themselves as leaders in facility solutions. We will upload 30gb corporate data soon. Employee information, financials, contracts and agreem ents, NDA, customers information, etc. | Source: https://www.ransomware.live/id/QWxiZXJzIE1lY2hhbmljYWwgQ29udHJhY3RvcnNAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7015"
+}

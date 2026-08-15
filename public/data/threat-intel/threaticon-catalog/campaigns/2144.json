@@ -1,0 +1,12 @@
+{
+  "id": 2144,
+  "name": "New SLUB Backdoor Uses GitHub, Communicates via Slack",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #179 (5c8a8d0e-b1e8-4351-b8c2-4d24c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2144"
+}

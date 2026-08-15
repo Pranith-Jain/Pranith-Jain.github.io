@@ -1,0 +1,12 @@
+{
+  "id": 4592,
+  "name": "incransom: belpointeasset.com \\ belpointe.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 22, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Financial Services | 400gb | Source: https://www.ransomware.live/id/YmVscG9pbnRlYXNzZXQuY29tIFwgYmVscG9pbnRlLmNvbUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4592"
+}

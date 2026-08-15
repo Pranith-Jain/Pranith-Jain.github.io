@@ -1,0 +1,12 @@
+{
+  "id": 3298,
+  "name": "Malspam (2016-04-28) - #3 (unknown payload, not accessible)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #520 (5721cf79-61d8-4af9-8314-4756950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3298"
+}

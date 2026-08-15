@@ -1,0 +1,12 @@
+{
+  "id": 4100,
+  "name": "thegentlemen: Aveiro Constructors Limited",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PT | Sector: Construction | Website: aveiroconstructors.com | Infostealer data confirmed. | ***.com Aveiro Constructors Limited is a Canadian general contractor established in 1976 and headquartered in Southwestern Ontario. The company specializes in the Industrial, Commercial, and Institutional (ICI) sectors, delivering design-build, new construction, and renovation projects both locally and internationally. Originally starting with pre-engineered steel buildings, they have grown over the decades into a comprehensive construction firm offering specialized services like HVAC and project management | Source: https://www.ransomware.live/id/QXZlaXJvIENvbnN0cnVjdG9ycyBMaW1pdGVkQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4100"
+}

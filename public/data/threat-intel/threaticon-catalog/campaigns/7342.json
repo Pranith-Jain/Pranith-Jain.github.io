@@ -1,0 +1,12 @@
+{
+  "id": 7342,
+  "name": "krybit: www.actini.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 7, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Technology | Website: www.actini.com | Actini Group (ACTINI SAS) is a French industrial machinery manufacturing company with over 70 years of experience, found... | Source: https://www.ransomware.live/id/d3d3LmFjdGluaS5jb21Aa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7342"
+}

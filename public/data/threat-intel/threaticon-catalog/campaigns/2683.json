@@ -1,0 +1,12 @@
+{
+  "id": 2683,
+  "name": "OSINT - APT28 Targets Hospitality Sector, Presents Threat to Travelers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1126 (598db7fd-47a8-45f8-9414-408b02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2683"
+}

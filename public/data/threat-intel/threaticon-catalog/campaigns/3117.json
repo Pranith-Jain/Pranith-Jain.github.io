@@ -1,0 +1,12 @@
+{
+  "id": 3117,
+  "name": "PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #80 (57cdf2a2-1abc-4e51-a31d-7e7dc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3117"
+}

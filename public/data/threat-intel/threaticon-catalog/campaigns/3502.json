@@ -1,0 +1,12 @@
+{
+  "id": 3502,
+  "name": "OSINT - Crypt0l0cker (TorrentLocker): Old Dog, New Tricks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1007 (58c06aeb-ea6c-48ee-a973-489502de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3502"
+}

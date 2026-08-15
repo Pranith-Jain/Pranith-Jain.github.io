@@ -1,0 +1,12 @@
+{
+  "id": 2887,
+  "name": "OSINT - Turla renews its arsenal with Topinambour",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1540 (5d2deea3-eea0-41ea-91bf-4a8b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2887"
+}

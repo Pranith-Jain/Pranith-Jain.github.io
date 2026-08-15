@@ -1,0 +1,12 @@
+{
+  "id": 634,
+  "name": "Detect Suspicious or Malicious Code Signing Abuse",
+  "detId": "DET0230",
+  "stixId": "x-mitre-detection-strategy--01cc085c-7d7d-49fc-9d15-bc5b2226026a",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0643", "AN0644"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/634"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1020,
+  "name": "thegentlemen: Terminal 21",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Transportation/Logistics | Website: terminal21.co.th | Infostealer data confirmed. | terminal21.co.th zoominfo.com/c/terminal-21/425950251 Terminal21 is a unique shopping complex that brings together the essence of global shopping experiences under one roof, catering to diverse lifestyles. The mall features a themed design inspired by famous shopping streets and landmarks from eight major cities around the world. With a focus on convenience and a wide variety of merchandise and food options, Terminal21 aims to provide an extraordinary shopping experience. | Source: https://www.ransomware.live/id/VGVybWluYWwgMjFAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1020"
+}

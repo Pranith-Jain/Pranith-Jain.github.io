@@ -1,0 +1,12 @@
+{
+  "id": 4149,
+  "name": "Deadlock: Grupo Mercurio",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: MX | Sector: Business Services | Website: www.grupomercurio.mx | Grupo Mercurio is a leading Mexican business conglomerate primarily recognized for its dominance in the bicycle and sports industry. Based in San Luis Potosí, the group operates one of the largest bicycle manufacturing plants in Mexico. | Source: https://www.ransomware.live/id/R3J1cG8gTWVyY3VyaW9ARGVhZGxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4149"
+}

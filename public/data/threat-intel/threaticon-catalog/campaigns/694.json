@@ -1,0 +1,12 @@
+{
+  "id": 694,
+  "name": "lamashtu: Biotehnos",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lamashtu. | Country: RO | Sector: Healthcare | Website: biotehnos.ro | Infostealer data confirmed. | Biotehnos is a Romanian pharmaceutical company founded in 1993 by Prof. Dr. Ioan Manzatu. It is currently headquartered in Otopeni, Ilfov County, near the country’s capital, Bucharest, and celebrated its 30th anniversary in 2023. | Source: https://www.ransomware.live/id/QmlvdGVobm9zQGxhbWFzaHR1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/694"
+}

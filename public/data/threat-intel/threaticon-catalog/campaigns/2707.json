@@ -1,0 +1,12 @@
+{
+  "id": 2707,
+  "name": "OSINT - Malware Group Uses Facebook CDN to Bypass Security Solutions",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1167 (59b63beb-1a3c-4144-83e6-167c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2707"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-friedberg-bavaria-2026-08-15",
+  "title": "Unknown (Friedberg, Bavaria)",
+  "group": "safepay",
+  "discovered": "2026-08-15T02:32:18.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "Germany",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/08978855-30a2-4485-91f8-f77b0968050d",
+  "groupAliases": [],
+  "activity": "Software/Technology",
+  "references": ["Darkfield"]
+}

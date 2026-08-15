@@ -1,0 +1,12 @@
+{
+  "id": 2185,
+  "name": "Lifting the veil on DeathStalker, a mercenary triumvirate",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #229 (5f480c45-db30-4c8d-9cbb-bcf2c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2185"
+}

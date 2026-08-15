@@ -1,0 +1,12 @@
+{
+  "id": 2914,
+  "name": "Linux/CDRThief — Indicators of Compromise - Who is calling? CDRThief targets Linux VoIP softswitches",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1619 (355c00b3-a85f-4a6c-850f-95bc7357abd1).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2914"
+}

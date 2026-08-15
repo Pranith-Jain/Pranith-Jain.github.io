@@ -1,0 +1,12 @@
+{
+  "id": 6218,
+  "name": "qilin: Guntert & Zimmerman",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: CH | Sector: Manufacturing | Website: www.guntert.com | N/A | Source: https://www.ransomware.live/id/R3VudGVydCAmIFppbW1lcm1hbkBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6218"
+}

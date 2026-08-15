@@ -1,0 +1,12 @@
+{
+  "id": 2011,
+  "name": "LOWBOW - FireEye",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #16 (56ccdd80-a17c-4df2-9dce-51279062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2011"
+}

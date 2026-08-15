@@ -1,0 +1,12 @@
+{
+  "id": 3500,
+  "name": "OSINT - The Gamaredon Group Toolset Evolution",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1001 (58b532d4-db1c-4cdd-8615-4bb502de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3500"
+}

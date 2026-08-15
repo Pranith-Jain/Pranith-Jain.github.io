@@ -2,14 +2,14 @@
   "slug": "clop-shell-com-august-2026-2026-08-12",
   "title": "SHELL.COM (August 2026)",
   "group": "clop",
-  "discovered": "2026-08-12T16:24:37.000Z",
+  "discovered": "2026-08-12T15:26:06.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "GB",
   "sizeBytes": 0,
-  "description": "Data exfiltrated included the following: Engineering drawings, photos of the facilities, scans of facility testing reports, project plans\r\nTotal size: 89Gb\r\nRevenue: $2,673,000,000,000",
-  "source_url": "https://www.ransomlook.io/recent",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1de508de-348c-4b3a-83ce-1ec01f9ea395",
   "groupAliases": ["Cl0p"],
-  "activity": null,
-  "references": ["ransomlook.io"]
+  "activity": "Energy & Utilities",
+  "references": ["Darkfield"]
 }

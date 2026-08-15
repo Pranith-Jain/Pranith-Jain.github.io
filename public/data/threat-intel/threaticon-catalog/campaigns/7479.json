@@ -1,0 +1,12 @@
+{
+  "id": 7479,
+  "name": "everest: Ingersoll Rand",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 8, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Aug 8, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Manufacturing | Website: ingersollrand.com | Infostealer data confirmed. | [AI generated] Ingersoll Rand is an American industrial manufacturing company headquartered in Davidson, North Carolina. It designs and produces a wide range of industrial equipment including air compressors, power tools, fluid management systems, and HVAC solutions. The company serves diverse sectors such as manufacturing, construction, and energy. Formerly part of a larger conglomerate, it operates globally across multiple countries and markets. | Source: https://www.ransomware.live/id/SW5nZXJzb2xsIFJhbmRAZXZlcmVzdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7479"
+}

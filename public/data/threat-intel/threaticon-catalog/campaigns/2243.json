@@ -1,0 +1,12 @@
+{
+  "id": 2243,
+  "name": "OSINT - PETYA Crypto-ransomware Overwrites MBR to Lock Users Out of Their Computers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #370 (56f50e98-5804-4496-84e6-faf3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2243"
+}

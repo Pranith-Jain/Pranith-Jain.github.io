@@ -1,0 +1,12 @@
+{
+  "id": 1663,
+  "name": "dragonforce: [Redacted] Takedown Notice #2054",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: AU | Sector: Agriculture and Food Production | [Redacted] | Source: https://www.ransomware.live/id/W1JlZGFjdGVkXSBUYWtlZG93biBOb3RpY2UgIzIwNTRAZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1663"
+}

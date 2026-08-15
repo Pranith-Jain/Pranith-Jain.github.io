@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-law-firm-2026-08-15",
+  "title": "Unknown Law Firm",
+  "group": "safepay",
+  "discovered": "2026-08-15T02:32:17.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/25ef9eb6-be28-4644-ac05-4e653cac134b",
+  "groupAliases": [],
+  "activity": "Legal",
+  "references": ["Darkfield"]
+}

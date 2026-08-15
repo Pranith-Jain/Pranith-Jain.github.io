@@ -1,0 +1,12 @@
+{
+  "id": 4516,
+  "name": "settra: pchome.com.tw",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to settra. | Country: TW | Sector: Consumer Services | Website: pchome.com.tw | Infostealer data confirmed. | HOW A TAIWANESE GIANT SOLD OUT ITS CUSTOMERS A payment company sells trust, security, and reliabilit... | Press: https://cyberq.tw/2026/06/30/nethome-group-is-caught-in-a-double/ | Source: https://www.ransomware.live/id/cGNob21lLmNvbS50d0BzZXR0cmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4516"
+}

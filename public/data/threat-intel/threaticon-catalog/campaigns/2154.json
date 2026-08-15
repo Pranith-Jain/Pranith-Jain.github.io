@@ -1,0 +1,12 @@
+{
+  "id": 2154,
+  "name": "'Surprise' Ransomware (2016-03-11)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #192 (56e2d5fc-4238-4b3a-9d7b-4539950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2154"
+}

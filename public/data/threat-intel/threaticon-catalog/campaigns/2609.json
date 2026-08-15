@@ -1,0 +1,12 @@
+{
+  "id": 2609,
+  "name": "OSINT - PetrWrap: the new Petya-based ransomware used in targeted attacks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1016 (58d013c1-6abc-472a-bbeb-41ba950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2609"
+}

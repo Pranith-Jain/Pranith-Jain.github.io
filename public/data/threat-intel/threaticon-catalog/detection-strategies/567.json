@@ -1,0 +1,12 @@
+{
+  "id": 567,
+  "name": "Behavioral Detection of DNS Tunneling and Application Layer Abuse",
+  "detId": "DET0400",
+  "stixId": "x-mitre-detection-strategy--c2721658-fa76-4b6f-9f84-50618de81ae0",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1121", "AN1122", "AN1123", "AN1124", "AN1125"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/567"
+}

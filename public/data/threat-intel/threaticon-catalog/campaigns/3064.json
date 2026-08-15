@@ -1,0 +1,12 @@
+{
+  "id": 3064,
+  "name": "KRVTZ-NET IDS alerts for 2026-05-01",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1991 (563ffbb5-30f9-48d0-ab91-a0e795b2f434).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3064"
+}

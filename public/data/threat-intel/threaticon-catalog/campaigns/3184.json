@@ -1,0 +1,12 @@
+{
+  "id": 3184,
+  "name": "OSINT - Operation Transparent Tribe",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #307 (56e95df6-ed08-469a-9a5d-4fc6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3184"
+}

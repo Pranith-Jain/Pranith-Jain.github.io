@@ -1,0 +1,12 @@
+{
+  "id": 2098,
+  "name": "Sneaky *.BAT File Leads to Spoofed Banking Page",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #122 (5a37a494-4030-4f5c-a710-8d1dc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2098"
+}

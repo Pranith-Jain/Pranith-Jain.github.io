@@ -1,0 +1,12 @@
+{
+  "id": 3226,
+  "name": "Emotet coming in hot",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #381 (f00dcbc5-4636-4e9b-ae88-185e2269d1c2).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3226"
+}

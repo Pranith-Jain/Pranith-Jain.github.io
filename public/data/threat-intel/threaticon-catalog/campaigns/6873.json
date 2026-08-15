@@ -1,0 +1,12 @@
+{
+  "id": 6873,
+  "name": "thegentlemen: Orsima",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Sector: Technology | Website: orsima.com | Infostealer data confirmed. | orsima.com zoominfo.com/c/orsima/347930414 ORSIMA is a leading Algerian IT services company with over 30 years of expertise in digital transformation, data center modernization, and cybersecurity. As a strategic partner of major technology providers like Dell Technologies and Microsoft, it offers comprehensive solutions including managed services, software licensing optimization, and professional training. The company is dedicated to helping enterprises and institutions in Algeria optimize their IT infrastructure and ensure high availability and business continuity | Source: https://www.ransomware.live/id/T3JzaW1hQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6873"
+}

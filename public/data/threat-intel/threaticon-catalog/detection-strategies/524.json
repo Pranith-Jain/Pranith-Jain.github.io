@@ -1,0 +1,12 @@
+{
+  "id": 524,
+  "name": "Remote Desktop Software Execution and Beaconing Detection",
+  "detId": "DET0259",
+  "stixId": "x-mitre-detection-strategy--834e853c-479d-4ddd-a1a3-349b09466b8d",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0714", "AN0715", "AN0716"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/524"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 677,
+  "name": "Detect Conditional Access Policy Modification in Identity and Cloud Platforms",
+  "detId": "DET0030",
+  "stixId": "x-mitre-detection-strategy--4cd84c0e-b125-4576-9441-57c1664bf014",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0087", "AN0088"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/677"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6501,
+  "name": "genesis: Infinity Pipeline,Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Energy & Utilities | Website: infinitypipeinc.com | A family owned, local construction company. | Source: https://www.ransomware.live/id/SW5maW5pdHkgUGlwZWxpbmUsSW5jLkBnZW5lc2lz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6501"
+}

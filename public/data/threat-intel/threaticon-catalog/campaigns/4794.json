@@ -1,0 +1,12 @@
+{
+  "id": 4794,
+  "name": "AiLock: Röben Tonbaustoffe GmbH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: DE | Sector: Manufacturing | Website: roeben.com | Infostealer data confirmed. | Röben Tonbaustoffe GmbH is the largest private brick manufacturer in Germany, a family-owned business now in its 6th generation. | Source: https://www.ransomware.live/id/UsO2YmVuIFRvbmJhdXN0b2ZmZSBHbWJIQEFpTG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4794"
+}

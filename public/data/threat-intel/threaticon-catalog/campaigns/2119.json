@@ -1,0 +1,12 @@
+{
+  "id": 2119,
+  "name": "The King is dead. Long live the King!",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #146 (5b1a8ec4-3900-4584-8c93-184bc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2119"
+}

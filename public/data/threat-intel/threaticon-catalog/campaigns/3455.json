@@ -1,0 +1,12 @@
+{
+  "id": 3455,
+  "name": "Malspam 2016-09-14 (.wsf in .zip) - campaign: \"payment copy\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #868 (57d91d75-0f30-4939-b8dd-48fd950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3455"
+}

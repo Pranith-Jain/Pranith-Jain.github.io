@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-gravity-coffee-2026-08-14",
+  "title": "Gravity Coffee",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:59:12.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8172074c-482d-4d77-9d4c-87d75566ceb7",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

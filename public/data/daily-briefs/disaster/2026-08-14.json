@@ -1,0 +1,321 @@
+{
+  "type": "disaster",
+  "date": "2026-08-14",
+  "overallThreat": "severe",
+  "executiveSummary": "Western Colombia's earthquake is the week's most lethal disaster, with at least 281 people confirmed dead, hundreds still missing, and more than 25,800 families affected amid ongoing search-to-relief transition. View Article Fast-moving wildfires around Okanagan Lake, British Columbia, forced more than 20,000 people to evacuate; at least one elderly woman died and large-scale sheltering was activated. Supporting Report Typhoon Dolphin and its remnants disrupted eastern China, prompting over 300,000 relocations, 1,300+ flight cancellations, and post-landfall flooding that trapped residents. View Article Supporting Report Severe storms across the U.S. Midwest caused multiple fatalities, mass power outages, and transport disruptions, with ongoing flood rescues reported. View Article Somalia's drought continues to drive displacement into camps in Baidoa and Middle Jubba, deepening hunger and straining limited aid. View Article Hawaii faces a near-term tropical threat (Tropical Storm Lala) with hurricane warnings and high rainfall potential, requiring close monitoring. Security Advisory",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Earthquakes, Wildfires, Typhoon, Severe Storms, Drought",
+        "label": "Active Priority Hazards",
+        "trend": "Simultaneous multi-region crises drive elevated global risk"
+      },
+      {
+        "value": "≥320",
+        "label": "Lives Lost (reported minimum)",
+        "trend": "Primarily Western Colombia earthquake; additional deaths from Japan quake, U.S. storms, and Canada wildfires"
+      },
+      {
+        "value": "≥320,000 people",
+        "label": "Large-Scale Displacement",
+        "trend": "Driven by relocations in eastern China (>300k) and evacuations in British Columbia (>20k)"
+      },
+      {
+        "value": "6",
+        "label": "ESCALATE Events",
+        "trend": "Life-safety threats active across Americas, Africa, and Asia"
+      },
+      {
+        "value": "5",
+        "label": "MONITOR Events",
+        "trend": "Pre-impact or lower-intensity hazards under watch"
+      },
+      {
+        "value": "Shelter, Power, Transport, Roads",
+        "label": "Most Impacted Sectors",
+        "trend": "Structural collapse, mass evacuations, and flight cancellations dominate"
+      },
+      {
+        "value": "Western Colombia Earthquake",
+        "label": "Top Life-Safety Concern",
+        "trend": "High fatality burden; complex access and transition to relief"
+      },
+      {
+        "value": "Eastern China (300k+)",
+        "label": "Largest Displacement",
+        "trend": "Preemptive relocations reduced immediate casualties but strained services"
+      },
+      {
+        "value": "British Columbia",
+        "label": "Rapid-Onset Fire Threat",
+        "trend": "Fast fire spread, destroyed homes, sustained evacuations"
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "title": "Western Colombia earthquake",
+      "summary": "casualty figures remain fluid (≥281 dead), but the scale of structural collapse and blocked access indicates sustained humanitarian needs beyond search and rescue. View Article"
+    },
+    {
+      "title": "British Columbia wildfires",
+      "summary": "mass evacuations (>20,000) and destroyed homes point to prolonged displacement and shelter support requirements. Supporting Report"
+    },
+    {
+      "title": "Typhoon Dolphin (eastern China)",
+      "summary": "300,000+ relocations and extensive transport shutdowns (1,300+ flights) demonstrate high exposure of dense urban areas to compound flood/landslide risk. View Article"
+    },
+    {
+      "title": "Midwest U.S. severe storms",
+      "summary": "fatalities, mass outages, and flood rescues highlight cascading lifeline risks (power, transport, emergency medical access). View Article"
+    },
+    {
+      "title": "Somalia drought",
+      "summary": "displacement into overstretched camps is escalating acute food insecurity and protection concerns for vulnerable families. Supporting Report"
+    },
+    {
+      "title": "Japan (Kumamoto) earthquake",
+      "summary": "concentrated shelter populations, water outages, and extreme heat raise near-term health risks in recovery sites. View Article"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "1) Catastrophic Earthquake - Western Colombia",
+      "severity": "escalate",
+      "text": "At least 281 dead, hundreds missing; widespread building collapse and road failures complicate operations across Cali, Pereira, Manizales, and Quibdó. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "2) Okanagan Lake Wildfires - British Columbia, Canada",
+      "severity": "escalate",
+      "text": "More than 20,000 evacuated; homes destroyed; at least one fatality reported; large-scale hotel and group lodging used for shelter. Supporting Report",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "3) Typhoon Dolphin Impacts - Eastern China",
+      "severity": "escalate",
+      "text": "Over 300,000 relocated; 1,300+ flight cancellations; post-landfall flooding trapped residents and disrupted rail and metro services. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "4) Severe Storms - U.S. Midwest",
+      "severity": "escalate",
+      "text": "Multiple deaths, 600k+ power outages, halted flights at Chicago airports, and flood rescues across several states. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "5) Drought Displacement - Somalia (Baidoa, Middle Jubba)",
+      "severity": "escalate",
+      "text": "Families fleeing drought face hunger and shrinking aid; displacement camps under increasing strain. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Western Colombia Earthquake - Cali, Pereira, Manizales, Quibdó",
+      "severity": "escalate",
+      "text": "At least 281 fatalities confirmed; hundreds remain missing; 348 rescues reported; over 25,800 families affected across multiple cities. Reporting varies as assessments continue.",
+      "chips": ["deaths", "missing persons", "collapsed buildings", "road damage", "search and rescue"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/colombia-earthquake-rescue-search-quake-99bea7b7eae8778e9e6729556c855369",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/a35440647cc3efed1bbce935d223565e",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/26fd40f93272d834fced47a4a673edc9",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Okanagan Lake Wildfires - British Columbia, Canada",
+      "severity": "escalate",
+      "text": "More than 20,000 people evacuated; at least one 80-year-old woman died; dozens rescued by aircraft; large-scale hotel and group lodging secured for evacuees.",
+      "chips": ["mass evacuations", "fatality", "destroyed homes", "road closures", "state of emergency"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/wildfire-canada-evacuation-british-columbia-okanagan-61002c95f641a4060b78195b016fbea3",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/06918cee1330c511babd1732f29e7cb5",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Typhoon Dolphin & Remnants - Eastern China (Zhejiang, Fujian, Shanghai)",
+      "severity": "escalate",
+      "text": "Over 300,000 people relocated pre-impact; 1,300+ flight cancellations; post-landfall flooding trapped residents and disrupted metro and rail operations; related landslide impacts reported in the Philippines.",
+      "chips": ["mass relocations", "flooding", "transport disruption", "landslide risk"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/typhoon-dolphin-d40f4d49b0d89935366f360f1f13afd8",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/8d9e687f8599d12f050daeca261d7fa2",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Severe Storms - Midwest United States",
+      "severity": "escalate",
+      "text": "Multiple deaths, injuries, and ongoing flood rescues; widespread power outages across several states; temporary ground stops at major Chicago airports.",
+      "chips": ["deaths", "injuries", "power outages", "flooded roads", "tornado/wind damage"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/weather-derecho-tornado-flooding-power-midwest-83fd919c9394218c38df03bc9db8073d",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/1a17b33ff8b6adb50b06a6e62c695769",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Drought Displacement - Baidoa & Middle Jubba, Somalia",
+      "severity": "escalate",
+      "text": "Families fleeing drought arrive in camps amid hunger and shrinking aid; vulnerable households face deteriorating food security and protection risks.",
+      "chips": ["displacement", "hunger", "aid shortfall"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Earthquake Recovery - Kumamoto Prefecture, Japan",
+      "severity": "escalate",
+      "text": "38 deaths, 114 injuries; >8,500 people in crowded shelters during extreme heat; significant building damage and water service disruptions persist.",
+      "chips": ["deaths", "injuries", "shelter needs", "water shortages", "heat risk"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/12c805ac8666c005aff926358de3961e",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Wildfire - Spokane Area, Washington (U.S.)",
+      "severity": "escalate",
+      "text": "Thousands ordered to evacuate as a fast-moving wildfire threatened neighborhoods; public safety power shutoffs and emergency declaration enacted.",
+      "chips": ["evacuations", "power shutoffs", "state of emergency"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/dc8e1ecf2e24c06958f8b723859fc1e1",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "Tropical Storm Lala - Hawaii (U.S.)",
+      "severity": "monitor",
+      "text": "Hurricane warning in effect; heavy rain, flooding, high winds, and dangerous surf possible this weekend; 5-10 inches of rain (locally up to 20 inches) forecast in some areas.",
+      "chips": ["hurricane warning", "flood risk", "dangerous surf"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/0b0e5bdd17a068acd797e20c0e2c4f9d",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/c03fe211430494e69f7011bdbaf752c8",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Heat Wave - United Kingdom & France",
+      "severity": "monitor",
+      "text": "Public health alerts issued for dangerous heat; elevated risks for vulnerable populations; heat exacerbates wildfire and drought stress.",
+      "chips": ["heat health alerts", "wildfire risk"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/f4f6ecf0953d423e0a70b74cd477c81a",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Typhoon Dolphin (Pre-Impact) - Okinawa, Japan",
+      "severity": "monitor",
+      "text": "Naha Airport closed; all flights canceled; minor injuries reported; evacuation centers activated for precautionary sheltering.",
+      "chips": ["airport closure", "sheltering"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/japan-okinawa-china-storm-typhoon-dolphin-a04335196cfec80187102030b4fafcd4",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Tropical Storm Impacts - Ibaraki & Greater Tokyo, Japan",
+      "severity": "monitor",
+      "text": "Seven minor injuries; temporary power losses to >22,000 homes (mostly restored); lingering transport disruptions and cleanup underway.",
+      "chips": ["injuries", "power outages", "transport disruption"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fdf0cb3090d46c7ef94145f75afecab9",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Wildfire & Smoke - Mount Bromo, East Java (Indonesia)",
+      "severity": "monitor",
+      "text": "National park and tourist areas closed due to wildfire activity; smoke impacts schools and nearby communities; no casualties reported.",
+      "chips": ["school closures", "smoke exposure", "area closures"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/indonesia-bromo-park-peatland-wildfires-sumatra-borneo-62225cc55f9cc8e35d05097fd5f024cf",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "outlook72h": "Western Colombia: Expect continued transition from search and rescue to relief operations; unstable structures and access constraints likely persist. British Columbia (Okanagan): Ongoing evacuations and reentry restrictions possible; shelter demand and damage assessments remain priorities. Eastern China: Residual flooding and landslide risks in saturated areas; transport normalization will be gradual where infrastructure was disrupted. U.S. Midwest: Localized flood and severe-weather hazards may recur seasonally; monitor National Weather Service alerts and utility restoration timelines. Somalia: Drought-related displacement likely to continue; monitor aid pipeline and camp capacity. Hawaii: Tropical Storm Lala could bring heavy rainfall, flooding, and dangerous surf through the weekend; readiness and public warning systems should be verified. Supporting Report",
+  "regionalTrends": [
+    "Americas: Concurrent high-impact hazards (Colombia earthquake; BC wildfires; U.S. severe storms) stress SAR, power, and shelter systems.",
+    "East Asia: Typhoon cycle impacts from preemptive evacuations to post-landfall urban flooding highlight cascading transport and shelter pressures.",
+    "Horn of Africa: Protracted drought continues to drive displacement and acute food insecurity in Somalia.",
+    "Heat and fire nexus: Elevated heat in parts of Europe and active wildfire seasons in North America increase risk of rapid escalation and health impacts."
+  ]
+}

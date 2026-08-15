@@ -1,0 +1,12 @@
+{
+  "id": 5648,
+  "name": "settra: torsiongroup.co.uk",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jun 29, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to settra. | Country: GB | Sector: Business Services | Website: torsiongroup.co.uk | Infostealer data confirmed. | END OF THE LINE A company that builds homes and promises safety to its residents failed to protect t... | Source: https://www.ransomware.live/id/dG9yc2lvbmdyb3VwLmNvLnVrQHNldHRyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5648"
+}

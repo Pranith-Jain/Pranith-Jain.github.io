@@ -1,0 +1,12 @@
+{
+  "id": 926,
+  "name": "gunra: Ventilaciones Nerual, S.L.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to gunra. | Country: ES | Sector: Manufacturing | Website: ventilacionesnerual.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/VmVudGlsYWNpb25lcyBOZXJ1YWwsIFMuTC5AZ3VucmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/926"
+}

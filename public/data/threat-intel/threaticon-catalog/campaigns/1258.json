@@ -1,0 +1,12 @@
+{
+  "id": 1258,
+  "name": "incransom: Greenology Products",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Consumer Services | Website: greenologyproducts.com | Infostealer data confirmed. | Since 2008, Greenology Products has been on a mission to create household and personal care products that do not harm our environment or human health. Our motto is Good, Clean, Honest. We create a superlative customer-centric experience by producing household and personal care products that deliver performance, delight the senses, and solve everyday needs while using plant-based and responsible ingredients and materials that do not hard people, pets, or our precious planet. | Source: https://www.ransomware.live/id/R3JlZW5vbG9neSBQcm9kdWN0c0BpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1258"
+}

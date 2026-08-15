@@ -1,0 +1,12 @@
+{
+  "id": 538,
+  "name": "akira: Alkegen",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Energy | Website: alkegen.com | Infostealer data confirmed. | Alkegen creates high performance specialty materials used in adva nced applications including electric vehicles, energy storage, fi ltration, fire protection and high-temperature insulation, among many others. We will upload 57gb of corporate data soon. Employee personal doc uments (passports, DLs, contacts, addresses, medical information and so on), client personal information, lots of confidential fil es, projects, contracts and agreements, detailed financials, NDAs , etc. | Source: https://www.ransomware.live/id/QWxrZWdlbkBha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/538"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 411,
+  "name": "Removable Media Execution Chain Detection via File and Process Activity",
+  "detId": "DET0301",
+  "stixId": "x-mitre-detection-strategy--8225c396-cbf9-499a-b94d-bdc7a1f07458",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0841"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/411"
+}

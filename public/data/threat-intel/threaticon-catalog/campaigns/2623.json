@@ -1,0 +1,12 @@
+{
+  "id": 2623,
+  "name": "OSINT - Analysis of Malware in Brazilian Bank Attack Reveals Prolonged Campaign",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1036 (58e902cd-dae8-49b9-882b-186c02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2623"
+}

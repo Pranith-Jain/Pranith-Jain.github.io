@@ -1,0 +1,12 @@
+{
+  "id": 2790,
+  "name": "OSINT - MICROCIN MALWARE",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1284 (5a54ad87-3328-4dde-aa9f-4a7e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2790"
+}

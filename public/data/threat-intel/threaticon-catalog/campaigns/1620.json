@@ -1,0 +1,12 @@
+{
+  "id": 1620,
+  "name": "akira: Financial Brokerage",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: financial-brokerage.com | Infostealer data confirmed. | Financial Brokerage Inc. collaborates with top insurance carriers to provide a variety of financial products including Life Insura nce, Fixed Annuities, Long Term Care, Disability Insurance, and M edicare Supplement plans. The company targets insurance agents an d brokers looking to enhance their product offerings and client s ervices. We will upload corporate data soon. Employee personal documents, detailed personal information of hundreds clients and companies, confidential financial and other docs of their clients, etc. | Source: https://www.ransomware.live/id/RmluYW5jaWFsIEJyb2tlcmFnZUBha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1620"
+}

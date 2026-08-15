@@ -1,0 +1,12 @@
+{
+  "id": 3143,
+  "name": "OSINT - Locky Ransomware Arrives via Email Attachment",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #233 (56e7c415-a5e4-4c07-88a1-420f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3143"
+}

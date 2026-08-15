@@ -1,0 +1,12 @@
+{
+  "id": 1634,
+  "name": "handala: Stryker Corporation",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to handala. | Country: US | Sector: Healthcare | Website: stryker.com | Infostealer data confirmed. | We announce to the world that, in retaliation for the brutal attack on the Minab school and in response to ongoing cyber assaults against the infrastructure of the Axis of Resistance, our major cyber operation has been executed with complete success. The Zionist-rooted corporation, Stryker, one of the key arms of the global Zionist lobby… | Press: https://www.irishmirror.ie/news/irish-news/stryker-cyber-attack-thousands-irish-36850017.amp | Source: https://www.ransomware.live/id/U3RyeWtlciBDb3Jwb3JhdGlvbkBoYW5kYWxh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1634"
+}

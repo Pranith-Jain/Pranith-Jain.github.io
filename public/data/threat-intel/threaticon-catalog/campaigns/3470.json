@@ -1,0 +1,12 @@
+{
+  "id": 3470,
+  "name": "OSINT - BlackNurse Denial of Service Attack",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #918 (5825c994-18b0-4900-a73d-4558950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3470"
+}

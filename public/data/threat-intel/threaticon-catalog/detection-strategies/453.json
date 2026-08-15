@@ -1,0 +1,12 @@
+{
+  "id": 453,
+  "name": "Detection of Scanning IP Blocks",
+  "detId": "DET0817",
+  "stixId": "x-mitre-detection-strategy--ca916010-7f72-4132-ad7c-44967d479dcc",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1949"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/453"
+}

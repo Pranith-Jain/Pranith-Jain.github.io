@@ -1,0 +1,12 @@
+{
+  "id": 7560,
+  "name": "thegentlemen: CONTAC Ingenieros",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CL | Sector: Professional Services | Website: contac.cl | Infostealer data confirmed. | contac.cl zoominfo.com/c/contac-ingenieros-division-sistemas/372522727 Contac is a technology company based in Santiago, Chile, specializing in operations and asset management technologies. They provide comprehensive automation services and real-time information systems to help industrial clients maximize their operational performance. The company focuses on delivering custom solutions to optimize asset management, reduce costs, and improve overall system reliability. | Source: https://www.ransomware.live/id/Q09OVEFDIEluZ2VuaWVyb3NAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7560"
+}

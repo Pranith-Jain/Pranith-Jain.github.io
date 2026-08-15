@@ -1,0 +1,12 @@
+{
+  "id": 377,
+  "name": "Detection of Event Log Clearing on Windows via Behavioral Chain",
+  "detId": "DET0532",
+  "stixId": "x-mitre-detection-strategy--d340864e-5685-48d5-8a78-3c55a7169207",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1472"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/377"
+}

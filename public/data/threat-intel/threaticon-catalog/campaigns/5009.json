@@ -1,0 +1,12 @@
+{
+  "id": 5009,
+  "name": "thegentlemen: Empty",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: ES | Sector: Not Found | Website: empty.es | Infostealer data confirmed. | ***.es zoominfo.com/c/empty/439336503 Empty is a prominent Spanish construction and architecture firm headquartered in Madrid, specializing in the execution of complex architectural, museum, and exhibition projects. With a team of over 50 professionals and offices in Madrid, Barcelona, and Paris, the company excels in mobilizing technical resources to deliver high-profile builds, such as the Spanish Pavilion at Expo Dubai 2020 and BBVA’s \"La Vela\" headquarters. Founded with the vision of redefining the construction industry, Empty acts as a comprehensive partner for drafting and executing large-scale, sophisticated structures | Source: https://www.ransomware.live/id/RW1wdHlAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5009"
+}

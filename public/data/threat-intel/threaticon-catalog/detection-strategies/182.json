@@ -1,0 +1,12 @@
+{
+  "id": 182,
+  "name": "Multi-hop Proxy Behavior via Relay Node Chaining, Onion Routing, and Network Tunneling",
+  "detId": "DET0359",
+  "stixId": "x-mitre-detection-strategy--407286ed-c904-412a-9f2d-7426ea7304a4",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1020", "AN1021", "AN1022", "AN1023", "AN1024"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/182"
+}

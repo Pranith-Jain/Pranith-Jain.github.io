@@ -1,0 +1,12 @@
+{
+  "id": 3302,
+  "name": "Predator Spyware Infrastructure Returns Following Exposure and Sanctions",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #524 (e9043805-992c-4132-b687-2d0736901818).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3302"
+}

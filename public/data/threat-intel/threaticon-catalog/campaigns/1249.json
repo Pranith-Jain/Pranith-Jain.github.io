@@ -1,0 +1,12 @@
+{
+  "id": 1249,
+  "name": "lockbit5: luetz-binder.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Business Services | Website: luetz-binder.de | Infostealer data confirmed. | Bereits im Jahr 1972 gründete Bernd Lütz-Binder die Kanzlei in Landau in der Pfalz. Heute führt sein... | Source: https://www.ransomware.live/id/bHVldHotYmluZGVyLmRlQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1249"
+}

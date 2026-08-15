@@ -1,0 +1,12 @@
+{
+  "id": 3343,
+  "name": "Malspam 2016-06-29 (campaign subject: 'new invoice')",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #593 (5773639a-f104-49a0-b26c-4228950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3343"
+}

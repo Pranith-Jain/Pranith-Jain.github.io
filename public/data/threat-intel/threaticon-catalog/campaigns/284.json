@@ -1,0 +1,12 @@
+{
+  "id": 284,
+  "name": "krybit: weiss-pm.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: DE | Sector: Business Services | Website: weiss-pm.de | Infostealer data confirmed. | WEISS PM: The ideal company for tailored recruitment solutions. For nearly 40 years, WEISS PM has been a trusted partner... | Source: https://www.ransomware.live/id/d2Vpc3MtcG0uZGVAa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/284"
+}

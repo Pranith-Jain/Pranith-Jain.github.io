@@ -1,0 +1,12 @@
+{
+  "id": 2335,
+  "name": "OSINT - Keep Calm and (Donâ€™t) Enable Macros: A New Threat Actor Targets UAE Dissidents",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #568 (574c3d9c-41dc-4af6-b99d-1d31950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2335"
+}

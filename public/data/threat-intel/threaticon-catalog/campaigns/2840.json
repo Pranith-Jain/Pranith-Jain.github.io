@@ -1,0 +1,12 @@
+{
+  "id": 2840,
+  "name": "bank phishing domains",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1384 (5b28113a-05b8-4913-8fdb-27410acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2840"
+}

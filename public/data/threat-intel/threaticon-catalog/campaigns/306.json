@@ -1,0 +1,12 @@
+{
+  "id": 306,
+  "name": "payoutsking: Aero-Coating",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: DE | Sector: Manufacturing | Website: aero-coating.de | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QWVyby1Db2F0aW5nQHBheW91dHNraW5n",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/306"
+}

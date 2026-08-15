@@ -1,0 +1,12 @@
+{
+  "id": 2332,
+  "name": "OSINT - Targeted Attacks against Banks in the Middle East",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #557 (5743f37c-c11c-426d-843b-4d83950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2332"
+}

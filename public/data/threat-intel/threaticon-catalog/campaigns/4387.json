@@ -1,0 +1,12 @@
+{
+  "id": 4387,
+  "name": "thegentlemen: Gegenbauer Elektrotechnik",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: AT | Sector: Manufacturing | Website: gegenbauer-it.at | Infostealer data confirmed. | ***.at Gegenbauer Elektrotechnik & IT GmbH is a Vienna-based service provider specializing in comprehensive electrical engineering and IT solutions for businesses.Evolving from a sole proprietorship with over 30 years of experience, the company was officially established in 2015 to offer end-to-end planning and implementation.They focus on delivering customized technical infrastructures, professional support, and employee training to meet the diverse needs of their clients | Source: https://www.ransomware.live/id/R2VnZW5iYXVlciBFbGVrdHJvdGVjaG5pa0B0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4387"
+}

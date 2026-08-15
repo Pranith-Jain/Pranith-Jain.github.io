@@ -1,0 +1,12 @@
+{
+  "id": 7585,
+  "name": "akira: Alcast",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to akira. | Sector: Manufacturing | ALCAST is a leading aluminum casting company specializing in precision casting, sand casting, a nd die casting. They provide high-quality aluminum castings for various industries, including a griculture, defense, heavy equipment, and marine. We will upload 170gb corporate data soon. Employee personal files (passport, DLs, SSNs, address es and so on), projects, customers information, contracts and agreements and so on. | Source: https://www.ransomware.live/id/QWxjYXN0QGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7585"
+}

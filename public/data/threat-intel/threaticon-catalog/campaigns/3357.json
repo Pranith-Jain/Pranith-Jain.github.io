@@ -1,0 +1,12 @@
+{
+  "id": 3357,
+  "name": "OSINT Orcus â€“ Birth of an unusual plugin builder RAT by Palo Alto Unit 42",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #626 (57a8a426-c8f0-4893-8a2a-475d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3357"
+}

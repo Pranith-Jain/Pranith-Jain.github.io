@@ -1,0 +1,12 @@
+{
+  "id": 420,
+  "name": "Detection Strategy for Hijack Execution Flow across OS platforms.",
+  "detId": "DET0218",
+  "stixId": "x-mitre-detection-strategy--07669925-383b-455b-a3e2-3a79e18eed27",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0609", "AN0610", "AN0611"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/420"
+}

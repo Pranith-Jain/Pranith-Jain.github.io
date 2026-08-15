@@ -1,0 +1,12 @@
+{
+  "id": 3597,
+  "name": "worldleaks: Bestat Pharmaservices Corp.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: TW | Sector: Healthcare | Website: bestat.com.tw | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QmVzdGF0IFBoYXJtYXNlcnZpY2VzIENvcnAuQHdvcmxkbGVha3M=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3597"
+}

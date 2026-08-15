@@ -1,0 +1,12 @@
+{
+  "id": 4854,
+  "name": "coinbasecartel: Demand.io",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: Demand.io | [AI generated] Demand.io is a technology company based in the United States that operates in the e-commerce and artificial intelligence space. It develops AI-powered shopping tools and browser extensions designed to help consumers find deals, coupons, and product recommendations while shopping online. The company focuses on enhancing the online shopping experience through data-driven insights and personalized assistance for retail consumers. | Source: https://www.ransomware.live/id/RGVtYW5kLmlvQGNvaW5iYXNlY2FydGVs",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4854"
+}

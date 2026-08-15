@@ -1,0 +1,12 @@
+{
+  "id": 3159,
+  "name": "TA551 (Shathak) continues pushing BazarLoader, infections lead to Cobalt Strike",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #266 (f5281ebc-f6d7-48e5-8ced-375d21aec1ff).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3159"
+}

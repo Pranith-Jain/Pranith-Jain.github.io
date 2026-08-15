@@ -1,0 +1,12 @@
+{
+  "id": 2162,
+  "name": "AutoIT-compiled Negasteal/Agent Tesla, Ave Maria Delivered via Malspam",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #204 (5da1e8e9-5614-4e68-b67a-a05dc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2162"
+}

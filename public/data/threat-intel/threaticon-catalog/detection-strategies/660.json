@@ -1,0 +1,12 @@
+{
+  "id": 660,
+  "name": "Detection Strategy for Reflective Code Loading",
+  "detId": "DET0300",
+  "stixId": "x-mitre-detection-strategy--dc415caf-2f8f-4208-8aa8-7db10729cbfb",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0838", "AN0839", "AN0840"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/660"
+}

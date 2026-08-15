@@ -1,0 +1,12 @@
+{
+  "id": 1487,
+  "name": "insomnia: Valley Family Health Care",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Healthcare | Website: www.vfhc.org | Valley Family Health Care is a Community Health Center offering medical, dental, behavioral health, and nutrition services. With 12 locations (including a mobile unit), they accept major insurances and provide income-based sliding fees to ensure accessible care. | Source: https://www.ransomware.live/id/VmFsbGV5IEZhbWlseSBIZWFsdGggQ2FyZUBpbnNvbW5pYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1487"
+}

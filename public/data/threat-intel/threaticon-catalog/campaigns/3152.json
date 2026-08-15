@@ -1,0 +1,12 @@
+{
+  "id": 3152,
+  "name": "Ransomware Attack Irish on Health Sector",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #256 (02a470d8-493e-41d9-8367-622460dddbe8).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3152"
+}

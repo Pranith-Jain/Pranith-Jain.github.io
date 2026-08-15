@@ -1,0 +1,12 @@
+{
+  "id": 3574,
+  "name": "payoutsking: NTN Bearing Corporation of America",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Manufacturing | Website: ntnamericas.com | Infostealer data confirmed. | [AI generated] NTN Bearing Corporation of America is a US-based subsidiary of Japan's NTN Corporation, operating in the industrial manufacturing sector. The company produces and distributes precision bearings, driveshafts, and related mechanical components used in automotive, aerospace, and industrial machinery applications. Headquartered in Mount Prospect, Illinois, it serves customers across North America with engineering support and distribution services. | Source: https://www.ransomware.live/id/TlROIEJlYXJpbmcgQ29ycG9yYXRpb24gb2YgQW1lcmljYUBwYXlvdXRza2luZw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3574"
+}

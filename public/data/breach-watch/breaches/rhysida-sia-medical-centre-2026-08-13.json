@@ -1,0 +1,15 @@
+{
+  "slug": "rhysida-sia-medical-centre-2026-08-13",
+  "title": "SIA Medical Centre",
+  "group": "rhysida",
+  "discovered": "2026-08-13T17:57:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "LV",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/658e6e3d-84d7-4680-a583-53e7cc1aa0b6",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

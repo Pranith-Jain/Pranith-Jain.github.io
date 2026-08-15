@@ -1,0 +1,12 @@
+{
+  "id": 296,
+  "name": "Behavior‑chain detection for T1134.003 Make and Impersonate Token (Windows)",
+  "detId": "DET0498",
+  "stixId": "x-mitre-detection-strategy--d9cf8032-7b53-4251-8519-a7ccbf6a027a",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1375"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/296"
+}

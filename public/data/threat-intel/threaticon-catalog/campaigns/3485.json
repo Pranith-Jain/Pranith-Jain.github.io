@@ -1,0 +1,12 @@
+{
+  "id": 3485,
+  "name": "OSINT - shadow-brokers-windows",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #961 (58787bf0-bf68-41ce-b679-457a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3485"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 928,
+  "name": "gunra: VINTAGE HOMESTEAD GmbHy",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to gunra. | Country: DE | Sector: Consumer Services | Website: vintage-homestead.de | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/VklOVEFHRSBIT01FU1RFQUQgR21iSHlAZ3VucmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/928"
+}

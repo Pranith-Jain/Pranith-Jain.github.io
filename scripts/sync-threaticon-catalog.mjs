@@ -313,7 +313,6 @@ function parseDetail(html, section) {
     case 'campaigns': {
       const status = main.match(/>\s*(Active|Inactive|Retired|Dormant|Unknown)\s*<\/div>\s*<!--/i);
       return {
-        id: null,
         name,
         tlp,
         status: status ? status[1] : null,

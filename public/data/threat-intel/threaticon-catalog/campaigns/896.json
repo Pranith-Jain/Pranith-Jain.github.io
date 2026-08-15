@@ -1,0 +1,12 @@
+{
+  "id": 896,
+  "name": "anubis: Signature Healthcare",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: signature-healthcare.org | Infostealer data confirmed. | Will there be a release? Keep an eye on the timer. | Press: https://www.wcvb.com/article/brockton-hospital-services-affected-by-cyber-incident/70944847 | Source: https://www.ransomware.live/id/U2lnbmF0dXJlIEhlYWx0aGNhcmVAYW51Ymlz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/896"
+}

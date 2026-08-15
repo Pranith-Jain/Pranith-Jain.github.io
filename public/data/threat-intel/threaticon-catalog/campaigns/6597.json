@@ -1,0 +1,12 @@
+{
+  "id": 6597,
+  "name": "safepay: paritaet-nrw.org",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Professional Services | Website: paritaet-nrw.org | Infostealer data confirmed. | Headquartered in Wuppertal, the organization represents approximately 3,100 legally independent member organizations operating more than 7,000 social institutions and services … | Source: https://www.ransomware.live/id/cGFyaXRhZXQtbnJ3Lm9yZ0BzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6597"
+}

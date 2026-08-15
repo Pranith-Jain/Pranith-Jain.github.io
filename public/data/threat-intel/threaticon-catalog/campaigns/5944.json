@@ -1,0 +1,12 @@
+{
+  "id": 5944,
+  "name": "ransomhouse: Nichirei",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 21, 2026",
+  "lastSeen": "Jul 13, 2026",
+  "added": "Jul 22, 2026",
+  "description": "Ransomware attack attributed to ransomhouse. | Country: JP | Sector: Agriculture and Food Production | Website: www.nichirei.co.jp | Nichirei Corporation is a premier Japanese holding company that has established itself as a market leader by pioneering the frozen food industry and providing end-to-end temperature-controlled logistics solutions. With a clear mission to deliver true satisfaction the Group leverages its integrated capabilities across food procurement, processing, and logistics to optimize the supply chain and support the nation's food culture. As Japan's number one frozen food producer and the holder of the largest refrigerated warehouse capacity in the country, Nichirei combines advanced R&D with a robust global network to ensure quality and consistency. The company's business portfolio extends from processed foods and marine products to bioscience and logistics, serving as a critical social infrastructure for food distribution. By adapting to changing social needs and e...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5944"
+}

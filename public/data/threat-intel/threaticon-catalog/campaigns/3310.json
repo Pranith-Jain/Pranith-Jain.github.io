@@ -1,0 +1,12 @@
+{
+  "id": 3310,
+  "name": "UAC-0063: Cyber Espionage Operation Expanding from Central Asia",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #532 (bb52569e-ddce-445c-8c24-c5f52dfdf9c0).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3310"
+}

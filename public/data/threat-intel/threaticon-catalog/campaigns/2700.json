@@ -1,0 +1,12 @@
+{
+  "id": 2700,
+  "name": "OSINT - Jimmy Nukebot: from Neutrino with love",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1156 (59aefa78-008c-4e61-a035-4bfb02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2700"
+}

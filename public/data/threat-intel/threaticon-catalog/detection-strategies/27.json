@@ -1,0 +1,12 @@
+{
+  "id": 27,
+  "name": "Detect abuse of Windows BITS Jobs for download, execution and persistence",
+  "detId": "DET0098",
+  "stixId": "x-mitre-detection-strategy--de9fde27-426b-4cb1-afcd-dbe1f7d4273f",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0274"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/27"
+}

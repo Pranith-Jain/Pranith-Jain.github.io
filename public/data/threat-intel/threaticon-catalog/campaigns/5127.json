@@ -1,0 +1,12 @@
+{
+  "id": 5127,
+  "name": "qilin: Clinica Maitenes",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 2, 2026",
+  "lastSeen": "Jun 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: CL | Sector: Healthcare | Website: www.clinicamaitenes.cl | N/A | Source: https://www.ransomware.live/id/Q2xpbmljYSBNYWl0ZW5lc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5127"
+}

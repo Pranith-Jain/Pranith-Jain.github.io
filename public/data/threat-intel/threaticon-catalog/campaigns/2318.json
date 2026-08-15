@@ -1,0 +1,12 @@
+{
+  "id": 2318,
+  "name": "Impact of FrostyGoop ICS Malware on Connected OT Systems",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #514 (1adfbe9d-2990-4810-acdb-2fe07f1923a3).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2318"
+}

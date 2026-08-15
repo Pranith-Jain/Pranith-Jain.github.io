@@ -1,0 +1,12 @@
+{
+  "id": 1414,
+  "name": "qilin: Nanxun Enterprise Co., Ltd.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: TW | Sector: Not Found | Website: www.nse.com.tw | Source: https://www.ransomware.live/id/TmFueHVuIEVudGVycHJpc2UgQ28uLCBMdGQuQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1414"
+}

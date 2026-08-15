@@ -1,0 +1,12 @@
+{
+  "id": 4959,
+  "name": "akira: The Midland Theatre",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: GB | Sector: Hospitality and Tourism | The Midland Theatre originally opened in December of 1928 in Newark, Ohio. The theatre draws te ns of thousands of visitors each year to a wide array of programming from family-friendly event s and holiday specials to top artists in every genre. We will upload corporate data soon. Employee personal information (w-9 forms and other docs), f inancials, credit cards, client, partners and guests information, NDAs, etc. | Source: https://www.ransomware.live/id/VGhlIE1pZGxhbmQgVGhlYXRyZUBha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4959"
+}

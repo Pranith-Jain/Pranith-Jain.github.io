@@ -1,0 +1,12 @@
+{
+  "id": 2714,
+  "name": "M2M - Locky 2017-09-20 : Affid=3, offline, \".ykcol\" : \"New voice message...\" - \"msg0321.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1180 (59c56149-8ec4-4490-996e-df79950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2714"
+}

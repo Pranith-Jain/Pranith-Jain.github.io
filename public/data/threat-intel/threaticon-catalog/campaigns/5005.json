@@ -1,0 +1,12 @@
+{
+  "id": 5005,
+  "name": "thegentlemen: Central Arkansas Pediatrics",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 8, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: central-pediatrics.edan.io | Infostealer data confirmed. | ***.edan.io zoominfo.com/c/central-arkansas-pediatrics/1340337263 Central Arkansas Pediatrics is a specialized healthcare provider based in Conway, Arkansas, dedicated to pediatric special needs care. The clinic offers comprehensive services, including developmental preschool programs and therapy support for children across the state. Their digital presence is hosted on edan.io, a streamlined platform used by medical practices to provide accessible online resources for patients | Source: https://www.ransomware.live/id/Q2VudHJhbCBBcmthbnNhcyBQZWRpYXRyaWNzQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5005"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2706,
+  "name": "Malspam 2017-09-08 - 'Emailed Invoice -' - .html attachment",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1163 (59b2ada6-f428-4476-b218-7c5a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2706"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 380,
+  "name": "shinyhunters: Vimeo, Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Technology | Website: vimeo.com | Infostealer data confirmed. | Your Snowflake and Bigquery instances data was compromised thanks to Anodot.com. Pay or Leak. This is a final warning to reach out by 30 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 28 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/VmltZW8sIEluYy5Ac2hpbnlodW50ZXJz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/380"
+}

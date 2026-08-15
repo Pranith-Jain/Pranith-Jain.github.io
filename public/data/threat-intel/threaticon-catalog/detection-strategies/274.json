@@ -1,0 +1,12 @@
+{
+  "id": 274,
+  "name": "Detection of Application Window Enumeration via API or Scripting",
+  "detId": "DET0097",
+  "stixId": "x-mitre-detection-strategy--d2daf569-4fc9-46a3-97b7-4d3d76c04a64",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0271", "AN0272", "AN0273"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/274"
+}

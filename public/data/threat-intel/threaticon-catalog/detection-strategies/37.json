@@ -1,0 +1,12 @@
+{
+  "id": 37,
+  "name": "Behavioral Detection Strategy for Exfiltration Over Alternative Protocol",
+  "detId": "DET0131",
+  "stixId": "x-mitre-detection-strategy--ed9ef930-ec1f-4e57-a110-9b647e2ca195",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0367", "AN0368", "AN0369", "AN0370", "AN0371"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/37"
+}

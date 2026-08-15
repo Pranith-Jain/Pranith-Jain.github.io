@@ -1,0 +1,12 @@
+{
+  "id": 83,
+  "name": "Detection Strategy for Remote System Enumeration Behavior",
+  "detId": "DET0574",
+  "stixId": "x-mitre-detection-strategy--9ec6dafe-3e93-4ebb-943e-26b84136f6a9",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1583", "AN1584", "AN1585", "AN1586", "AN1587"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/83"
+}

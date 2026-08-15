@@ -1,0 +1,12 @@
+{
+  "id": 466,
+  "name": "Behavioral Detection of Spoofed GUI Credential Prompts",
+  "detId": "DET0521",
+  "stixId": "x-mitre-detection-strategy--909c86ca-ddd0-4e96-8464-39f5f80ef20e",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1440", "AN1441", "AN1442"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/466"
+}

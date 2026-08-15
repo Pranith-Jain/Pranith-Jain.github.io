@@ -1,0 +1,12 @@
+{
+  "id": 2908,
+  "name": "Rhombus - Linux DDoS botnet aims VPS & IoT, w/persistence & dropper",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1599 (5e6aa53c-bcf8-4279-9c48-40d0950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2908"
+}

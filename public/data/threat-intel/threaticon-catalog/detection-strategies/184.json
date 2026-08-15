@@ -1,0 +1,12 @@
+{
+  "id": 184,
+  "name": "Detection Strategy for Login Hook Persistence on macOS",
+  "detId": "DET0244",
+  "stixId": "x-mitre-detection-strategy--6aa65bd1-4c0c-4bf7-ba74-ba0d8edd9cb9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0682"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/184"
+}

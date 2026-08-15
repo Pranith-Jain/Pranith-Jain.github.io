@@ -1,0 +1,12 @@
+{
+  "id": 712,
+  "name": "coinbasecartel: Millenium Packaging",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Manufacturing | Website: mil-pkg.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/TWlsbGVuaXVtIFBhY2thZ2luZ0Bjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/712"
+}

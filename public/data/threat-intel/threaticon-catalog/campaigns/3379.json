@@ -1,0 +1,12 @@
+{
+  "id": 3379,
+  "name": "OSINT Passive DNS ponmocup malware - 109.74.195.149 in VirusTotal",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #654 (566f49f8-1d78-4245-b80c-45b6950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3379"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2209,
+  "name": "Monitoring Winnti 4.0 C2 Servers for Two Years",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #279 (3f5f50b6-0690-4a3d-bcd7-e5d3ad846385).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2209"
+}

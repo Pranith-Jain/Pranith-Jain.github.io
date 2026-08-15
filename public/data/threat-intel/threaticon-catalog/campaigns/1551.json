@@ -1,0 +1,12 @@
+{
+  "id": 1551,
+  "name": "thegentlemen: Payap University",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Education | Website: payap.ac.th | Infostealer data confirmed. | payap.ac.th zoominfo.com/c/payap-university/29803045 Payap University is an international educational institution offering a variety of programs, including interdisciplinary studies and multiple international programs. It provides services such as student exchange programs, language enhancement, and various proficiency testing centers. The university aims to cater to a diverse international clientele seeking higher education and innovation opportunities. Additionally, it hosts events like the International Conference on Lifespan Innovation | Source: https://www.ransomware.live/id/UGF5YXAgVW5pdmVyc2l0eUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1551"
+}

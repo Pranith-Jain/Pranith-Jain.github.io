@@ -1,0 +1,12 @@
+{
+  "id": 465,
+  "name": "Recursive Enumeration of Files and Directories Across Privilege Contexts",
+  "detId": "DET0370",
+  "stixId": "x-mitre-detection-strategy--33ab9d0c-5671-48e6-8465-f80560909c65",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1040", "AN1041", "AN1042", "AN1043", "AN1044"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/465"
+}

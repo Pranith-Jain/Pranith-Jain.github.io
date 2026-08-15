@@ -1,0 +1,12 @@
+{
+  "id": 2034,
+  "name": "OSINT - Turla - Harnessing SSL Certificates Using Infrastructure Chaining",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #46 (56bf4797-aaf4-4e08-ab5f-6cf102de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2034"
+}

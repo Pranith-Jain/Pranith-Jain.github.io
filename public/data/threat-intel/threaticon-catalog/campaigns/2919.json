@@ -1,0 +1,12 @@
+{
+  "id": 2919,
+  "name": "March 2021 Exchange Server Security Updates for older Cumulative Updates of Exchange Server",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1646 (fd875781-262e-4159-a0cd-ac0241784cc7).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2919"
+}

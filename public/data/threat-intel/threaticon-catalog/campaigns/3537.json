@@ -1,0 +1,12 @@
+{
+  "id": 3537,
+  "name": "incransom: United Quality Cooperative / www.uqcoop.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Agriculture and Food Production | Website: uqcoop.com | Infostealer data confirmed. | United Quality Cooperative provides a range of services including bulk fuel, propane, lubricants, and agricultural products. We have at our disposal internal corporate correspondence, financial documents, personal data of company employees and much more. All stolen information will be published in the public domain in a week, if the company's management does not pay. | Source: https://www.ransomware.live/id/VW5pdGVkIFF1YWxpdHkgQ29vcGVyYXRpdmUgLyB3d3cudXFjb29wLmNvbUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3537"
+}

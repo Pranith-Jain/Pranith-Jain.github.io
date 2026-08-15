@@ -1,0 +1,12 @@
+{
+  "id": 3739,
+  "name": "SilentRansomGroup: Farella Braun + Martel LLP Information",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Farella Braun + Martel LLP is a leading Northern California law firm representing corporate and privat… | Source: https://www.ransomware.live/id/RmFyZWxsYSBCcmF1biArIE1hcnRlbCBMTFAgSW5mb3JtYXRpb25AU2lsZW50UmFuc29tR3JvdXA=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3739"
+}

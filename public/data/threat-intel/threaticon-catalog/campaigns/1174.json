@@ -1,0 +1,12 @@
+{
+  "id": 1174,
+  "name": "incransom: barrypgoldberg.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: barrypgoldberg.com | Infostealer data confirmed. | Barry P. Goldberg is truly committed to client satisfaction. We strive to obtain the largest possible result the law will allow and at the same time maximizing our clients’ net amount. We will take your phone calls whenever possible, return all communication promptly and answer each and every question. At Barry P, Goldberg, A Professional Law Corporation, we strive to handle our cases aggressively, ethically and “transparently” for our clients. | Source: https://www.ransomware.live/id/YmFycnlwZ29sZGJlcmcuY29tQGluY3JhbnNvbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1174"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "leakeddata-reminger-2026-08-14",
+  "title": "Reminger",
+  "group": "leakeddata",
+  "discovered": "2026-08-14T01:47:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Reminger Attorneys at Law is a law firm with a strong presence in Ohio, Kentucky, and Indiana, operati…",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

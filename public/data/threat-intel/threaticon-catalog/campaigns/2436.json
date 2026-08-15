@@ -1,0 +1,12 @@
+{
+  "id": 2436,
+  "name": "OSINT Defending the White Elephant by Arbor Networks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #764 (55e55686-ec88-4cba-a1bb-4b06950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2436"
+}

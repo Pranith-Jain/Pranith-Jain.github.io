@@ -1,0 +1,12 @@
+{
+  "id": 2076,
+  "name": "OFF-THE-SHELF RANSOMWARE USED TO TARGET THE HEALTHCARE SECTOR",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #99 (58e5ecdc-2cdc-4db4-8bb8-1455c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2076"
+}

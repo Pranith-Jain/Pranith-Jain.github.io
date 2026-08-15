@@ -1,0 +1,12 @@
+{
+  "id": 376,
+  "name": "Detection of Domains",
+  "detId": "DET0892",
+  "stixId": "x-mitre-detection-strategy--354dfdf4-9da9-45b5-909c-13f5702fc263",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2024"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/376"
+}

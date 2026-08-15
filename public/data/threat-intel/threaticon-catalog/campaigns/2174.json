@@ -1,0 +1,12 @@
+{
+  "id": 2174,
+  "name": "Attacks that exploit IE vulnerability (CVE-2020-0674) and Firefox vulnerability (CVE-2019-17026)",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #218 (5e8b8716-86b8-4cbf-882c-a754c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2174"
+}

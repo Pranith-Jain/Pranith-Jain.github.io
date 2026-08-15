@@ -1,0 +1,12 @@
+{
+  "id": 2312,
+  "name": "OSINT - New Poison Ivy Activity Targeting Myanmar, Asian Countries",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #493 (5720669e-55ac-42ef-bc40-4b78950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2312"
+}

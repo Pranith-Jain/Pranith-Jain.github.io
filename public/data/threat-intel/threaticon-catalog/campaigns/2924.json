@@ -1,0 +1,12 @@
+{
+  "id": 2924,
+  "name": "TinyTurla - Turla deploys new malware to keep a secret backdoor on victim machines",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1659 (d5ccd0b6-f554-4182-8ac3-c8a4d5789ba6).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2924"
+}

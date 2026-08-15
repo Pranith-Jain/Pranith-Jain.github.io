@@ -1,0 +1,12 @@
+{
+  "id": 3360,
+  "name": "Pivot on What's in a server name (on APT28/Sofacy) by ThreatConnect",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #631 (5783a00e-27d8-4e5a-ac92-aec6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3360"
+}

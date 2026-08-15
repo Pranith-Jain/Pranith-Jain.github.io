@@ -1,0 +1,12 @@
+{
+  "id": 7730,
+  "name": "clop: ATOMBERG.COM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to clop. | Country: IN | Sector: Manufacturing | Website: ATOMBERG.COM | [AI generated] Atomberg Technologies is an Indian consumer electronics company headquartered in Mumbai, India. It specializes in manufacturing energy-efficient smart home appliances, most notably BLDC motor-based ceiling fans that consume significantly less electricity than conventional fans. The company also produces other appliances like mixer grinders and water geysers. Founded in 2012, Atomberg targets the residential and commercial segments across India. | Source: https://www.ransomware.live/id/QVRPTUJFUkcuQ09NQGNsb3A=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7730"
+}

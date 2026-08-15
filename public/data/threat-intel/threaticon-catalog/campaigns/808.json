@@ -1,0 +1,12 @@
+{
+  "id": 808,
+  "name": "worldleaks: Jersey Fabrication Group LLC",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Manufacturing | Website: jerseyfabgroup.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/SmVyc2V5IEZhYnJpY2F0aW9uIEdyb3VwIExMQ0B3b3JsZGxlYWtz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/808"
+}

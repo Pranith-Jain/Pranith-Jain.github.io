@@ -1,0 +1,12 @@
+{
+  "id": 5853,
+  "name": "qilin: Associated Theatrical Contractors",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 19, 2026",
+  "lastSeen": "Jul 19, 2026",
+  "added": "Jul 19, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.associatedtheatrical.com | N/A | Source: https://www.ransomware.live/id/QXNzb2NpYXRlZCBUaGVhdHJpY2FsIENvbnRyYWN0b3JzQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5853"
+}

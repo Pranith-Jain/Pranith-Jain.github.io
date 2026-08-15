@@ -1,0 +1,12 @@
+{
+  "id": 2124,
+  "name": "RANCOR: Targeted Attacks in South East Asia Using PLAINTEE and DDKONG Malware Families",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #151 (5b444853-db9c-4206-8df8-203ac0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2124"
+}

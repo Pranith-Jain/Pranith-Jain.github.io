@@ -1,0 +1,12 @@
+{
+  "id": 2659,
+  "name": "M2M - Jaff 2017-06-13 : \"Invoice PIS1234567.zip\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1089 (593fe37d-e2e4-49e7-9f18-5726950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2659"
+}

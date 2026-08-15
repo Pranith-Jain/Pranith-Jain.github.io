@@ -1,0 +1,12 @@
+{
+  "id": 4578,
+  "name": "nova: cloudquantum",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 23, 2026",
+  "lastSeen": "Jun 23, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: CO | Sector: Technology | Website: cloudquantum.co | Infostealer data confirmed. | cloudquantum.co - software company that builds and delivers software solutions and products, such as an app for organizing activities and tools for automatically processing information from documents and media - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/Y2xvdWRxdWFudHVtQG5vdmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4578"
+}

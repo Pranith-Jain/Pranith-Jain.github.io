@@ -1,0 +1,12 @@
+{
+  "id": 396,
+  "name": "apt73: legilog.fr",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: FR | Sector: Transportation/Logistics | Website: legilog.fr | Infostealer data confirmed. | Management software for culture, businesses, religion and bishoprics. 10 GBs crm systems / expo... | Source: https://www.ransomware.live/id/bGVnaWxvZy5mckBhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/396"
+}

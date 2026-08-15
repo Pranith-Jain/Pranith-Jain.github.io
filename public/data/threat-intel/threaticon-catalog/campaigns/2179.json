@@ -1,0 +1,12 @@
+{
+  "id": 2179,
+  "name": "Ramsay: A cyberâ€‘espionage toolkit tailored for airâ€‘gapped networks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #223 (5ebfb899-22ec-467d-9b20-a754c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2179"
+}

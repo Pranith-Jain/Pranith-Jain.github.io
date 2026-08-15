@@ -1,0 +1,12 @@
+{
+  "id": 826,
+  "name": "qilin: Frutcola Olmué",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: CL | Sector: Agriculture and Food Production | Website: www.olmue.com | Source: https://www.ransomware.live/id/RnJ1dGNvbGEgT2xtdcOpQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/826"
+}

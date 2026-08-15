@@ -1,0 +1,12 @@
+{
+  "id": 346,
+  "name": "Detection of Artificial Intelligence",
+  "detId": "DET0842",
+  "stixId": "x-mitre-detection-strategy--d6c1064c-9ea9-4067-835e-7c0627024b0c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1974"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/346"
+}

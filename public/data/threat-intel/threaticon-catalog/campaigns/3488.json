@@ -1,0 +1,12 @@
+{
+  "id": 3488,
+  "name": "OSINT - A Whale of a Tale: HummingBad Returns",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #968 (58867f60-ca5c-4658-a1d5-472f02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3488"
+}

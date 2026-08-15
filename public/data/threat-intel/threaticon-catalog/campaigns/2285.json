@@ -1,0 +1,12 @@
+{
+  "id": 2285,
+  "name": "New ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #455 (57174526-23d8-4895-8c08-4ed1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2285"
+}

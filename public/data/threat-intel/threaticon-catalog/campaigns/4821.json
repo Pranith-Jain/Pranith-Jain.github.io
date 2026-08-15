@@ -1,0 +1,12 @@
+{
+  "id": 4821,
+  "name": "krybit: theorangeblowfish.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Sector: Technology | Website: theorangeblowfish.com | Infostealer data confirmed. | The Orangeblowfish is an award-winning independent creative and branding agency founded in 2012 by Natalie Lowe, headqua... | Source: https://www.ransomware.live/id/dGhlb3JhbmdlYmxvd2Zpc2guY29tQGtyeWJpdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4821"
+}

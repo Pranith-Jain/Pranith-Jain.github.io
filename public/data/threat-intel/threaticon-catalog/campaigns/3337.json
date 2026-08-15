@@ -1,0 +1,12 @@
+{
+  "id": 3337,
+  "name": "Malspam (2016-06-22) - .js in .zip - Locky is back",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #582 (576a3d71-3fec-423a-86cd-3470950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3337"
+}

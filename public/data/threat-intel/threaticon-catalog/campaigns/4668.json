@@ -1,0 +1,12 @@
+{
+  "id": 4668,
+  "name": "lockbit5: utb.edu.vn",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "May 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: VN | Sector: Education | Website: utb.edu.vn | Infostealer data confirmed. | The school's mission is to train human resources at the undergraduate and postgraduate levels;... | Source: https://www.ransomware.live/id/dXRiLmVkdS52bkBsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4668"
+}

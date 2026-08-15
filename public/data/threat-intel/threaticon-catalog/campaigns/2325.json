@@ -1,0 +1,12 @@
+{
+  "id": 2325,
+  "name": "Fake scan campaings (20160505 - 20160507) using docm - Dridex",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #545 (572efbbc-ba08-4a82-b879-400d02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2325"
+}

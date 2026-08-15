@@ -1,0 +1,12 @@
+{
+  "id": 2664,
+  "name": "OSINT - New Variant of Petya Ransomware Spreading Like Wildfire",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1104 (5952d18c-b4f4-4a20-8373-443802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2664"
+}

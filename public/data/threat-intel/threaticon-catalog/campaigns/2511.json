@@ -1,0 +1,12 @@
+{
+  "id": 2511,
+  "name": "Malspam 2016-09-14 (.wsf in .zip) - campaign: \"Account report\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #867 (57d91b04-fabc-46fe-8d05-441d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2511"
+}

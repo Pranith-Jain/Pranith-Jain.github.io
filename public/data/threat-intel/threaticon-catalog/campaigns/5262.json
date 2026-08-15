@@ -1,0 +1,12 @@
+{
+  "id": 5262,
+  "name": "dragonforce: erh.co.uk",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 27, 2026",
+  "lastSeen": "May 27, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Business Services | Website: erh.co.uk | Infostealer data confirmed. | ERH is a leading provider of traffic management solutions, offering installation, maintenance and commissioning services throughout the UK. | Source: https://www.ransomware.live/id/ZXJoLmNvLnVrQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5262"
+}

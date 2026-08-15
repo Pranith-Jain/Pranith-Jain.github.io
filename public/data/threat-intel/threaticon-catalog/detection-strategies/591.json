@@ -1,0 +1,12 @@
+{
+  "id": 591,
+  "name": "Detection Strategy for Hijack Execution Flow using the Windows COR_PROFILER.",
+  "detId": "DET0479",
+  "stixId": "x-mitre-detection-strategy--8276f61b-0147-4e72-94fb-7cdd47dc60ec",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1319"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/591"
+}

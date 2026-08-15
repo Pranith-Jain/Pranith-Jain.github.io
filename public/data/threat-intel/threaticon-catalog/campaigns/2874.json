@@ -1,0 +1,12 @@
+{
+  "id": 2874,
+  "name": "OSINT - DNSpionage brings out the Karkoff",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1503 (5cc023e7-9c7c-418e-b908-4d46950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2874"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2137,
+  "name": "Hide and Script: Inserted Malicious URLs within Office Documentsâ€™ Embedded Videos",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #168 (5be9ac46-3c8c-45f4-b765-447fc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2137"
+}

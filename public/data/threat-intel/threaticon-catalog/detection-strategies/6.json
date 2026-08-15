@@ -1,0 +1,12 @@
+{
+  "id": 6,
+  "name": "Detection Strategy for Modify System Image on Network Devices",
+  "detId": "DET0170",
+  "stixId": "x-mitre-detection-strategy--536eed5d-a4b6-4377-a936-90283bb1b25c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0482"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/6"
+}

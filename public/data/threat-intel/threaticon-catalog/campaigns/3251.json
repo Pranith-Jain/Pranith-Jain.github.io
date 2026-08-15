@@ -1,0 +1,12 @@
+{
+  "id": 3251,
+  "name": "Sandworm Disrupts Power in Ukraine Using a Novel Attack Against Operational Technology",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #427 (73ac6137-9ef4-4c30-8c0b-bda02a270491).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3251"
+}

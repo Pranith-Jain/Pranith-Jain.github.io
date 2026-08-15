@@ -1,0 +1,12 @@
+{
+  "id": 305,
+  "name": "Detection of Script-Based Proxy Execution via Signed Microsoft Utilities",
+  "detId": "DET0466",
+  "stixId": "x-mitre-detection-strategy--8ac2b0d0-a589-4c72-9287-a7d9e47065a9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1288"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/305"
+}

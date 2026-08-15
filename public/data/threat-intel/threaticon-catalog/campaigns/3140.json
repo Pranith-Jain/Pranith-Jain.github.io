@@ -1,0 +1,12 @@
+{
+  "id": 3140,
+  "name": "OSINT - SteamStealer IPs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #215 (56e6910e-9cdc-4c9a-8ece-4531950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3140"
+}

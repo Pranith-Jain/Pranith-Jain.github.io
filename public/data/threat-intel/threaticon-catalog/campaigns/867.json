@@ -1,0 +1,12 @@
+{
+  "id": 867,
+  "name": "qilin: HIGASHIYAMA INDUSTRIES Co.,Ltd.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: JP | Sector: Manufacturing | Website: www.higashiyama.com | Source: https://www.ransomware.live/id/SElHQVNISVlBTUEgSU5EVVNUUklFUyBDby4sTHRkLkBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/867"
+}

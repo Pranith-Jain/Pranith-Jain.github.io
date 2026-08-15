@@ -1,0 +1,12 @@
+{
+  "id": 1044,
+  "name": "netrunner: Jordan India Fertilizer Company",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to netrunner. | Country: JO | Sector: Agriculture and Food Production | Website: jifco.co | Infostealer data confirmed. | Indian Farmers Fertiliser Cooperative (IFFCO) and Jordan Phosphates Mines Company Ltd (JPMC) had formed a Limited Liability Joint Venture Company, namely Jordan India Fertiliser Company (JIFCO) on March 6, 2008 in Amman, Jordan under the 'Free Zone' system to set up a Phosphoric Acid Plant of 1500 tonnes per day P2O5 capacity at Eshidiya in Jordan. In this company, IFFCO and its affiliates hold 52 % equity, while JPMC holds 48 % equity. | Source: https://www.ransomware.live/id/Sm9yZGFuIEluZGlhIEZlcnRpbGl6ZXIgQ29tcGFueUBuZXRydW5uZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1044"
+}

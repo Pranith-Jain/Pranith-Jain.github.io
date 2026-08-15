@@ -1,0 +1,12 @@
+{
+  "id": 2441,
+  "name": "OSINT OSX/Pintsized Backdoor Additional Details by Zataz / Eric Romang",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #769 (559f66e6-6e10-468f-9025-81c0950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2441"
+}

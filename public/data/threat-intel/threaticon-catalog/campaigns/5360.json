@@ -1,0 +1,12 @@
+{
+  "id": 5360,
+  "name": "2026-05-05 (Tuesday): Finger Protocol Lolbin C2 Clickfix Campaign",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-05-05 (Tuesday): Finger Protocol Lolbin C2 Clickfix Campaign. References: https://www.linkedin.com/posts/clickfix-ugcPost-7457448032926830592-0lFL/, https://x.com/Unit42_Intel/status/2051682397188435977",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5360"
+}

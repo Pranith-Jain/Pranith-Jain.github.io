@@ -1,0 +1,12 @@
+{
+  "id": 2915,
+  "name": "OSINT Threat Advisory: SolarWinds supply chain attack",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1630 (e6d2f7c9-c183-43c9-bd3c-3dcfbb34665c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2915"
+}

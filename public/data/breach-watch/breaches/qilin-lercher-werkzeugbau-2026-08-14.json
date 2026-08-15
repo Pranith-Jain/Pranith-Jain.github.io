@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-lercher-werkzeugbau-2026-08-14",
+  "title": "Lercher Werkzeugbau",
+  "group": "qilin",
+  "discovered": "2026-08-14T08:33:29.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/432f8131-5bab-4fa6-9f7f-b7ecd4756559",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3227,
+  "name": "OSINT - In the Shadows: Vawtrak Aims to Get Stealthier by adding New Data Cloaking",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #382 (56fad784-e8ec-4dcf-9384-47bf02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3227"
+}

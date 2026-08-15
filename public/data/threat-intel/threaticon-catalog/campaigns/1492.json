@@ -1,0 +1,12 @@
+{
+  "id": 1492,
+  "name": "akira: Reflex Angelo",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: IT | Sector: Manufacturing | Website: reflexangelo.com | Infostealer data confirmed. | Reflex Angelo specializes in high-end furniture and lighting solu tions, offering a diverse range of products including tables, cha irs, sofas, and bespoke designs. Their collections, such as Linea Disegno and Linea Glamour, blend modern aesthetics with classic Venetian influences, showcasing a commitment to quality and craft smanship. We will upload 34gb of corporate data soon. Lots of employee pers onal information (passport scans, addresses, phones, emails), det ailed financials, client information, contracts and agreements, c onfidential projects and so on. | Source: https://www.ransomware.live/id/UmVmbGV4IEFuZ2Vsb0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1492"
+}

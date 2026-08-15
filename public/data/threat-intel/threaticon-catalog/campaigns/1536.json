@@ -1,0 +1,12 @@
+{
+  "id": 1536,
+  "name": "kairos: Folet & Rivoire",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to kairos. | Country: FR | Sector: Business Services | Website: frc-avocats.fr | Infostealer data confirmed. | Notre équipe d'avocats expérimentés, est à même de répondre à la plupart des préoccupations tant des particuliers que des entreprises. Son intervention dans les différents domaines du droit lui permet une approche transversale des solutions à apporter aux problèmes de ses clients. | Source: https://www.ransomware.live/id/Rm9sZXQgJiBSaXZvaXJlQGthaXJvcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1536"
+}

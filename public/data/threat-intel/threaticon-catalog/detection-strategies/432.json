@@ -1,0 +1,12 @@
+{
+  "id": 432,
+  "name": "Detect Adversary Deobfuscation or Decoding of Files and Payloads",
+  "detId": "DET0275",
+  "stixId": "x-mitre-detection-strategy--5b3bf2de-d91e-4272-97a8-5df6f4071e45",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0767", "AN0768", "AN0769"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/432"
+}

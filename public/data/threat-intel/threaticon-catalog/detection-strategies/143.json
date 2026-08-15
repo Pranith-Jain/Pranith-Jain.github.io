@@ -1,0 +1,12 @@
+{
+  "id": 143,
+  "name": "Detect Screen Capture via Commands and API Calls",
+  "detId": "DET0346",
+  "stixId": "x-mitre-detection-strategy--a9de0990-69e9-4b1a-9754-1c7fb4102ac9",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0980", "AN0981", "AN0982"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/143"
+}

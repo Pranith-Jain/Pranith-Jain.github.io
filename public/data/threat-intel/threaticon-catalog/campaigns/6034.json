@@ -1,0 +1,12 @@
+{
+  "id": 6034,
+  "name": "thegentlemen: Oldelval Oleoductos del Valle",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: AR | Sector: Energy & Utilities | Website: oldelval.com | Infostealer data confirmed. | ***.com zoominfo.com/c/oleoductos-del-valle-sa/456337922 Oldelval (Oleoductos del Valle S.A.) is a leading Argentine midstream energy company specializing in the transportation of liquid hydrocarbons. Based in Cipolletti, Río Negro, it transports over 50% of the oil produced in Argentina and approximately 80% of the oil from the Neuquén Basin. With over 60 years of history, the company focuses on sustainable operations, safety, and infrastructure maintenance, having recently extended its national concession until 2037. | Source: https://www.ransomware.live/id/T2xkZWx2YWwgT2xlb2R1Y3RvcyBkZWwgVmFsbGVAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6034"
+}

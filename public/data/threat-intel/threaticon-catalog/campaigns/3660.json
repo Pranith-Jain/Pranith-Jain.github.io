@@ -1,0 +1,12 @@
+{
+  "id": 3660,
+  "name": "LeakBazaar: Wayne Brothers",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to LeakBazaar. | Country: US | Sector: Construction | Website: waynebrothers.com | Infostealer data confirmed. | Wayne Brothers, Inc. is a site development and concrete construction services provider serving Alabama, Georgia, Tennessee, South Carolina, North Carolina, Virginia and West Virginia | Source: https://www.ransomware.live/id/V2F5bmUgQnJvdGhlcnNATGVha0JhemFhcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3660"
+}

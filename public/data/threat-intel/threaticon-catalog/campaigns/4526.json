@@ -1,0 +1,12 @@
+{
+  "id": 4526,
+  "name": "Redact: FCCI Insurance Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 28, 2026",
+  "lastSeen": "Jun 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Redact. | Country: US | Sector: Financial Services | Website: fcci-group.com | Infostealer data confirmed. | Sector: Insurance | Source: https://www.ransomware.live/id/RkNDSSBJbnN1cmFuY2UgR3JvdXBAUmVkYWN0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4526"
+}

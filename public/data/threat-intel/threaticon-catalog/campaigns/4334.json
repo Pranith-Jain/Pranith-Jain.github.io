@@ -1,0 +1,12 @@
+{
+  "id": 4334,
+  "name": "qilin: Sitmatic",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Technology | Website: www.sitmatic.com | N/A | Source: https://www.ransomware.live/id/U2l0bWF0aWNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4334"
+}

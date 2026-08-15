@@ -1,0 +1,12 @@
+{
+  "id": 3238,
+  "name": "OSINT - MS Office exploit analysis â€“ CVE-2015-1641",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #406 (570d57de-f49c-421d-a28d-4d5f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3238"
+}

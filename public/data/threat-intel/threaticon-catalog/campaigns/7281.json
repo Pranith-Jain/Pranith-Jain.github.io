@@ -1,0 +1,12 @@
+{
+  "id": 7281,
+  "name": "Orova: Gemstone UK",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Other | Website: www.gemstoneuk.com | Gemstone UK was a company that operated for over 30 years before closing its doors. It served a diverse clientele, providing products and services related to gemstones. The company expressed gratitude to its loyal customers for their trust and support throughout the years. | Source: https://www.ransomware.live/id/R2Vtc3RvbmUgVUtAT3JvdmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7281"
+}

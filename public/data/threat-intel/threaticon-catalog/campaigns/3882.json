@@ -1,0 +1,12 @@
+{
+  "id": 3882,
+  "name": "krybit: mindmastersg.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: SG | Sector: Business Services | Website: mindmastersg.com | Infostealer data confirmed. | Mind Master offers an AI-native enterprise operations platform designed to govern execution and decision-making processe... | Source: https://www.ransomware.live/id/bWluZG1hc3RlcnNnLmNvbUBrcnliaXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3882"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-first-coast-heart-vascular-center-2026-08-14",
+  "title": "First Coast Heart Vascular Center",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:57:50.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b6a66d19-f83a-4dfa-8c29-54e4e85479e4",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2298,
+  "name": "Kryptina RaaS | From Underground Commodity to Open Source Threat",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #470 (62213167-53e7-4a58-ba6a-8b24e88ae203).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2298"
+}

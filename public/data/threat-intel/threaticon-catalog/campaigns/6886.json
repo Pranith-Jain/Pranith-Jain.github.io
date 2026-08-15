@@ -1,0 +1,12 @@
+{
+  "id": 6886,
+  "name": "dragonforce: Lamont Pridmore",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Not Found | Website: lamontpridmore.co.uk | Lamont Pridmore is a leading independent chartered accountancy practice based in Carlisle, Cumbria, and Lancashire, offering a comprehensive range of accountancy, tax, and business advisory services. Their expertise spans various sectors including agriculture, tourism, and family businesses, catering to both individuals and organizations throughout the North of England and Southern Scotland. The firm specializes in services such as asset and wealth management, corporate finance, and tax planning, aiming to support clients in improving their financial performance. The release consists of a single archive that expands to 250 GB of data once unpacked. This includes both internal company documentation and client data containing confidential financial information. | Source: https://www.ransomware.live/id/TGFtb250IFByaWRtb3JlQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6886"
+}

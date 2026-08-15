@@ -1,0 +1,12 @@
+{
+  "id": 84,
+  "name": "Detection of Defense Impairment",
+  "detId": "DET0900",
+  "stixId": "x-mitre-detection-strategy--3a3820cd-260b-43d0-b5af-89b7ba81a044",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN2038", "AN2039", "AN2040", "AN2041", "AN2042"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/84"
+}

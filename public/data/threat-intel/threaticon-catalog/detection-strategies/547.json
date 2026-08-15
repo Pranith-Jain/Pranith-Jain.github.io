@@ -1,0 +1,12 @@
+{
+  "id": 547,
+  "name": "Detect malicious IDE extension install/usage and IDE tunneling",
+  "detId": "DET0561",
+  "stixId": "x-mitre-detection-strategy--434d1a09-6a53-43ae-8f8c-e0eb853c4a25",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1548", "AN1549", "AN1550"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/547"
+}

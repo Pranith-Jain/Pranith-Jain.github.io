@@ -1,0 +1,12 @@
+{
+  "id": 2537,
+  "name": "OSINT - Malspam delivers NanoCore RAT",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #902 (5809fbe9-c034-41a2-999f-450a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2537"
+}

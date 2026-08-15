@@ -1,0 +1,12 @@
+{
+  "id": 2206,
+  "name": "Domain Propagation Test",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #271 (b7825d7d-738a-4783-a7c8-cc81b7608102).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2206"
+}

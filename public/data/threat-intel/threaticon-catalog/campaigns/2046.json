@@ -1,0 +1,12 @@
+{
+  "id": 2046,
+  "name": "Large malvertising campaign hits popular Dutch websites",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #59 (570bbac3-f198-4bae-86ff-080bc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2046"
+}

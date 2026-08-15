@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "[AI generated] Intelligent Growth Solutions (IGS) is a UK-based agricultural technology company specializing in vertical farming. Founded in Scotland, IGS develops advanced indoor growing systems that use artificial lighting, automation, and data-driven controls to grow crops in stacked, controlled environments. Their technology targets food producers, research institutions, and commercial growers seeking sustainable, year-round crop production independent of climate conditions.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/46909b31-516a-4893-a105-38c4aa9ce1dc",
   "groupAliases": ["Cl0p"],
   "activity": "Professional Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

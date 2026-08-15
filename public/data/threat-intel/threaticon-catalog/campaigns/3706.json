@@ -1,0 +1,12 @@
+{
+  "id": 3706,
+  "name": "lamashtu: Ashtech Infotech",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lamashtu. | Country: IN | Sector: Technology | Website: ashinfo.com | Infostealer data confirmed. | Ashtech Infotech (India) Pvt. Ltd. is a leading System Integrator and IT service provider based in Mumbai, India. Established in 1986, the company specializes in delivering end-to-end technology solutions to enterprises. | Source: https://www.ransomware.live/id/QXNodGVjaCBJbmZvdGVjaEBsYW1hc2h0dQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3706"
+}

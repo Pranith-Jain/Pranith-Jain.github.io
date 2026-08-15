@@ -1,0 +1,12 @@
+{
+  "id": 6190,
+  "name": "securotrop: Advantage Sintered Metals",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to securotrop. | Country: US | Sector: Manufacturing | Website: www.advantagesintered.com | Status: AWAITING Size: 503 GB | Source: https://www.ransomware.live/id/QWR2YW50YWdlIFNpbnRlcmVkIE1ldGFsc0BzZWN1cm90cm9w",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6190"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 241,
+  "name": "Unix-like File Permission Manipulation Behavioral Chain Detection Strategy",
+  "detId": "DET0351",
+  "stixId": "x-mitre-detection-strategy--3243e976-0cf8-4f18-8b50-38b9ee5bfc4c",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0998", "AN0999"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/241"
+}

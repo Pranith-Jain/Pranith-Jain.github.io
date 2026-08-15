@@ -1,0 +1,12 @@
+{
+  "id": 1063,
+  "name": "nightspire: Association OCACIA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.ocacia.org/en | - Rapport d'audit- Plan de contrôle- Fiche d'écart- Manquement- Action corrective | Source: https://www.ransomware.live/id/QXNzb2NpYXRpb24gT0NBQ0lBQG5pZ2h0c3BpcmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1063"
+}

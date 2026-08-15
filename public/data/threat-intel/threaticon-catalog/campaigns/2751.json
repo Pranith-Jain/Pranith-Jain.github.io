@@ -1,0 +1,12 @@
+{
+  "id": 2751,
+  "name": "OSINT - Bahamut Revisited, More Cyber Espionage in the Middle East and South Asia",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1230 (59f4a30d-fdf8-4617-b6ab-45df02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2751"
+}

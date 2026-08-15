@@ -1,0 +1,12 @@
+{
+  "id": 931,
+  "name": "gunra: triotech.com.sg",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to gunra. | Country: SG | Sector: Technology | Website: triotech.com | Infostealer data confirmed. | [AI generated] Triotech is a Singapore-based technology company operating in the IT solutions and services industry. The company provides a range of technology products and services including networking, infrastructure, and IT support solutions to businesses. Serving clients primarily in Singapore, Triotech focuses on delivering integrated technology solutions to help organizations manage and optimize their IT environments efficiently. | Press: https://therecord.media/ransomware-trio-tech-semiconductor-sec | Source: https://www.ransomware.live/id/dHJpb3RlY2guY29tLnNnQGd1bnJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/931"
+}

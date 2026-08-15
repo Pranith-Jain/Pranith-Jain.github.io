@@ -1,0 +1,12 @@
+{
+  "id": 5080,
+  "name": "thegentlemen: 3E Accounting",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 4, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: SG | Sector: Business Services | Website: 3ecpa.com.sg | Infostealer data confirmed. | ***.com.sg ***.com/c/3e-accounting-pte-ltd/431955167 3E Accounting is a premier corporate services provider in Singapore, offering a comprehensive one-stop solution for business setup and management. The award-winning firm specializes in seamless online company registration, corporate secretarial work, accounting, and taxation. Through its fast and secure digital approach, the agency successfully helps both local and international entrepreneurs establish and grow their ventures | Source: https://www.ransomware.live/id/M0UgQWNjb3VudGluZ0B0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5080"
+}

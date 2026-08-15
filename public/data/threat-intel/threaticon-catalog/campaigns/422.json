@@ -1,0 +1,12 @@
+{
+  "id": 422,
+  "name": "apt73: seit.cl",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: CL | Sector: Technology | Website: seit.cl | Infostealer data confirmed. | seit.cl is the website of SEiT S.p.A., a company providing IT services to businesses in Chile. In... | Source: https://www.ransomware.live/id/c2VpdC5jbEBhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/422"
+}

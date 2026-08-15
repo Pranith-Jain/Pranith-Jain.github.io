@@ -1,0 +1,12 @@
+{
+  "id": 1036,
+  "name": "dragonforce: Kopran",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: IN | Sector: Manufacturing | Website: kopran.com | Infostealer data confirmed. | Kopran Limited & its subsidiary Kopran Research Laboratories Limited has established an indomitable presence in the realm of manufacturing an extensive spectrum of Finished Dosage Forms and Active pharmaceutical ingredients (APIs) respectively. With over sixty years of expertise at our disposal, we adeptly seized opportunities and propelled a trajectory of sustained growth. | Source: https://www.ransomware.live/id/S29wcmFuQGRyYWdvbmZvcmNl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1036"
+}

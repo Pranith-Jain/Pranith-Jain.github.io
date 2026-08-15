@@ -1,0 +1,12 @@
+{
+  "id": 2129,
+  "name": "Attack inception: Compromised supply chain within a supply chain poses new risks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #156 (5b5ac51f-63e8-4c8c-b78e-32a9c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2129"
+}

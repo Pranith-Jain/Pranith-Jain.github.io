@@ -1,0 +1,12 @@
+{
+  "id": 3661,
+  "name": "lynx: ossistemes.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lynx. | Country: ES | Sector: Technology | Website: ossistemes.com | Infostealer data confirmed. | OS Sistemes is a tech company that helps businesses bring their digital projects to life. They work closely with clients to design, build, and deliver custom technology solutions. Whether it's software development, network setup, or bringing new tech ideas to reality, their team knows how to tackle projects that other tech companies might find tricky. They're all about finding smart ways to solve technical challenges and keep businesses running smoothly. | Source: https://www.ransomware.live/id/b3NzaXN0ZW1lcy5jb21AbHlueA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3661"
+}

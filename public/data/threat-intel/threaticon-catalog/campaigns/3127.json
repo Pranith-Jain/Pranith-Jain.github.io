@@ -1,0 +1,12 @@
+{
+  "id": 3127,
+  "name": "Torii botnet - Not another Mirai variant",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #166 (5badbf47-50c4-4f60-bdde-32aac0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3127"
+}

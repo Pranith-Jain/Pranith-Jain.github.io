@@ -1,0 +1,12 @@
+{
+  "id": 610,
+  "name": "lamashtu: Jesin Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lamashtu. | Country: MY | Sector: Construction | Website: jesin.com.my | Infostealer data confirmed. | Jesin Group is a prominent property developer in Northern Malaysia with over 50 years of experience, specializing in residential and commercial real estate development, construction, and asset management. | Source: https://www.ransomware.live/id/SmVzaW4gR3JvdXBAbGFtYXNodHU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/610"
+}

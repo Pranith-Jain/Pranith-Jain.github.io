@@ -1,0 +1,12 @@
+{
+  "id": 4339,
+  "name": "pear: CNW Electronics Pte Ltd",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: SG | Sector: Manufacturing | Website: cnw.com.sg | Infostealer data confirmed. | Providing complete wire harness solutions, from design to manufacturing | Source: https://www.ransomware.live/id/Q05XIEVsZWN0cm9uaWNzIFB0ZSBMdGRAcGVhcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4339"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3259,
+  "name": "Turkish espionage campaigns in the Netherlands",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #439 (e101580d-ed36-40f4-b5ee-5a2d74673742).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3259"
+}

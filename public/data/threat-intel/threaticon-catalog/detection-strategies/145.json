@@ -1,0 +1,12 @@
+{
+  "id": 145,
+  "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Create Snapshot",
+  "detId": "DET0423",
+  "stixId": "x-mitre-detection-strategy--160f132d-626e-412a-ae16-df265670c196",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1187"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/145"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1279,
+  "name": "chaos: kdmpop.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Business Services | Website: www.kdmpop.com | KDM P.O.P. Solutions Group, headquartered in Cincinnati, Ohio, with additional facilities in Cincinnati, Nashville, Atlanta and Cleveland, has been in business since 1970. KDM specializes in custom, innovative retail solutions at the point of purchase: P.O.P. print solutions | Source: https://www.ransomware.live/id/a2RtcG9wLmNvbUBjaGFvcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1279"
+}

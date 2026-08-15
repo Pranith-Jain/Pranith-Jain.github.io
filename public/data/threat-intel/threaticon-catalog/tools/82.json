@@ -1,0 +1,12 @@
+{
+  "id": 82,
+  "name": "Reg",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "reg.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "Reg is a Windows utility used to interact with the Windows Registry. It can be used at the command-line interface to query, add, modify, and remove information. (Citation: Microsoft Reg) Utilities such as Reg are known to be used by persistent threats. (Citation: Windows Commands JPCERT)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/82"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 667,
+  "name": "termite: Millennium Dental Technologies",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to termite. | Country: US | Sector: Healthcare | Website: www.lanap.com | Founded in 1994 and Headquartered in Cerritos, California. Millennium Dental Technologies, Inc manufactures and distributes dental products. It offers PerioLase MVP-7, a laser designed especially for laser periodontal therapy that performs soft and hard tissue laser procedures. | Source: https://www.ransomware.live/id/TWlsbGVubml1bSBEZW50YWwgVGVjaG5vbG9naWVzQHRlcm1pdGU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/667"
+}

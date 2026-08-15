@@ -1,0 +1,12 @@
+{
+  "id": 3504,
+  "name": "OSINT - Preinstalled Malware Targeting Mobile Users",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1010 (58c64efa-2860-4f3d-a604-4007950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3504"
+}

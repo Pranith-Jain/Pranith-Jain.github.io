@@ -1,0 +1,12 @@
+{
+  "id": 445,
+  "name": "apt73: dunav.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: RS | Sector: Transportation/Logistics | Website: dunav.com | Infostealer data confirmed. | Dunav Insurance Company is an insurance company in Serbia that provides insurance for life, prope... | Source: https://www.ransomware.live/id/ZHVuYXYuY29tQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/445"
+}

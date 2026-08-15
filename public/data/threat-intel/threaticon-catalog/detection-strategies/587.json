@@ -1,0 +1,12 @@
+{
+  "id": 587,
+  "name": "Invalid Code Signature Execution Detection via Metadata and Behavioral Context",
+  "detId": "DET0031",
+  "stixId": "x-mitre-detection-strategy--fbf8f0b2-3587-45c3-be8d-d495384075be",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0089", "AN0090"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/587"
+}

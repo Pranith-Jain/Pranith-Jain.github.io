@@ -1,0 +1,12 @@
+{
+  "id": 2662,
+  "name": "M2M - Locky 2017-06-21 : Affid=3 : \"Copy of Invoice 87654321\" - \"87654321.zip\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1096 (594a858a-7bc0-48be-b2b3-2352950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2662"
+}

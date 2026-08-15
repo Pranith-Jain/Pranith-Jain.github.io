@@ -1,0 +1,15 @@
+{
+  "slug": "mydata-alpha-locker-bakery-and-confectionery-unnamed-2026-08-14",
+  "title": "Bakery and Confectionery (unnamed)",
+  "group": "MYDATA / ALPHA LOCKER",
+  "discovered": "2026-08-14T03:11:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Austria",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/06d72543-e887-4704-8816-345354ae1f9d",
+  "groupAliases": [],
+  "activity": "Food & Beverage",
+  "references": ["Darkfield"]
+}

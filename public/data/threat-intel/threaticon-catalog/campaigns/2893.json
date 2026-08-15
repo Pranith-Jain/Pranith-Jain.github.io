@@ -1,0 +1,12 @@
+{
+  "id": 2893,
+  "name": "OSINT - New Gootkit Banking Trojan campaign against Italian Companies and Users.",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1552 (5d832991-f5e4-4623-945f-4bf6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2893"
+}

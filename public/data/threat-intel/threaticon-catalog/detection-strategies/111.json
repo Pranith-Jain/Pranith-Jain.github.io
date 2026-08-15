@@ -1,0 +1,12 @@
+{
+  "id": 111,
+  "name": "Detecting .NET COM Registration Abuse via Regsvcs/Regasm",
+  "detId": "DET0361",
+  "stixId": "x-mitre-detection-strategy--9c03f003-b859-42c6-b16d-c0979dfc202b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1028"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/111"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1810,
+  "name": "akira: Ecofit",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: CA | Sector: Manufacturing | Website: ecofit.com | Infostealer data confirmed. | Rosenberg Vendôme specializes in ventilation solutions, offering customized design and manufacturing services. They provide techni cal support tailored to meet the specific needs of their clients, ensuring energy-efficient and effective ventilation systems. We will upload 16gb of corporate data soon. Employee passports an d other scanned docs, HR files, projects, contracts and agreement s, clients docs and contacts, NDAs, etc. | Source: https://www.ransomware.live/id/RWNvZml0QGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1810"
+}

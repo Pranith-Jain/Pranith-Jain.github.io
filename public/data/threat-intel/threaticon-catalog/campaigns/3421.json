@@ -1,0 +1,12 @@
+{
+  "id": 3421,
+  "name": "OSINT Enterprises Hit by BARTALEX Macro Malware in Recent Spam Outbreak by Trend Micro",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #696 (553ead98-1fb4-4ee6-a8ea-ad6d950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3421"
+}

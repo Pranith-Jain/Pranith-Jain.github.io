@@ -1,0 +1,12 @@
+{
+  "id": 204,
+  "name": "Detection Strategy for Hidden Virtual Instance Execution",
+  "detId": "DET0321",
+  "stixId": "x-mitre-detection-strategy--55321f9d-1646-45b9-b23e-e3c0fe105400",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0909", "AN0910", "AN0911", "AN0912"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/204"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7170,
+  "name": "Dark Project: Storer Transportation and Storer Coachways",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 14, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to Dark Project. | Country: US | Sector: Transportation | Website: www.storerbus.com | The company \"Storer Transportation\" and \"Storer Coachways\" was attacked, resulting in the theft of more than 50,000 folders (240+ GB) of the company’s confidential information, including more than 1,500 pieces of employee personal data, financial and banking documents, credit card information and a large amount of confidential incident data. Download here: http://pokttabd2hod47ladeeoin22wmq4remyo3wshwvxfuhgqygcbezq2qqd.onion | Source: https://www.ransomware.live/id/U3RvcmVyIFRyYW5zcG9ydGF0aW9uIGFuZCBTdG9yZXIgQ29hY2h3YXlzQERhcmsgUHJvamVjdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7170"
+}

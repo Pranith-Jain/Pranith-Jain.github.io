@@ -1,0 +1,12 @@
+{
+  "id": 677,
+  "name": "ransomexx: GoTip",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to ransomexx. | Country: JP | Sector: Business Services | Website: gotip.jp | Infostealer data confirmed. | GoTip - 1.13GB leaked. Gotip.jp is a Japanese live-streaming enhancement tool that connects digital tips (donations) to physical Bluetooth-enabled devices. It allows viewers to support creators by sending tips, which in turn trigger actions on devices owned by the creator, aimed at making live streams more interactive and engaging. | Source: https://www.ransomware.live/id/R29UaXBAcmFuc29tZXh4",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/677"
+}

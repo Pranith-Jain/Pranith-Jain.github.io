@@ -1,0 +1,12 @@
+{
+  "id": 6974,
+  "name": "lockbit5: sirsa.it",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 3, 2026",
+  "lastSeen": "Jul 13, 2026",
+  "added": "Aug 3, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Technology | Website: sirsa.it | SIRSA operates in the field of processing and molding plastic materials, offering concrete, safe, an... | Source: https://www.ransomware.live/id/c2lyc2EuaXRAbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6974"
+}

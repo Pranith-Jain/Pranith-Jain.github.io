@@ -1,0 +1,12 @@
+{
+  "id": 503,
+  "name": "qilin: First County FCU",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: www.firstcountyfcu.org | Source: https://www.ransomware.live/id/Rmlyc3QgQ291bnR5IEZDVUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/503"
+}

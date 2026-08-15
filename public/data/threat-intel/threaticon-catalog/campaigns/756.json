@@ -1,0 +1,12 @@
+{
+  "id": 756,
+  "name": "lamashtu: WEDA ROBOTICS",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lamashtu. | Country: SE | Sector: Manufacturing | Website: wedarobotics.com | Infostealer data confirmed. | Over 100 Years of Engineering. Now Pioneering the Future of Sustainable Cleaning. From mechanical pool cleaners in the 1920s to submerged, no drain robotic systems used across 40+ countries. | Source: https://www.ransomware.live/id/V0VEQSBST0JPVElDU0BsYW1hc2h0dQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/756"
+}

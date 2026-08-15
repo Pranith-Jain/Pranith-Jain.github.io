@@ -1,0 +1,12 @@
+{
+  "id": 4397,
+  "name": "thegentlemen: Climax Technology",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TW | Sector: Technology | Website: climax.com.tw | Infostealer data confirmed. | ***.com.tw zoominfo.com/c/climax-technology-co-ltd/440165694 Climax Technology Co., Ltd., a Taipei-based company founded in 1985 that specializes in smart security systems and telecare solutions. For over three decades, the firm has leveraged its telecommunications expertise to develop innovative hybrid security panels, emergency pendants, and long-term care alert technologies. Their comprehensive product line is designed to provide reliable safety, monitoring, and rapid emergency response for residential and healthcare environments globally | Source: https://www.ransomware.live/id/Q2xpbWF4IFRlY2hub2xvZ3lAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4397"
+}

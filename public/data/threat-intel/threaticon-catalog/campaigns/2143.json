@@ -1,0 +1,12 @@
+{
+  "id": 2143,
+  "name": "Malspam pushes Emotet with Qakbot as the follow-up malware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #178 (5c8a8971-cb7c-41dd-a7bb-413ec0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2143"
+}

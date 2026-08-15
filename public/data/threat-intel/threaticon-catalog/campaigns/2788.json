@@ -1,0 +1,12 @@
+{
+  "id": 2788,
+  "name": "Threat Analysis: Malicious Microsoft Word Documents Being Used in Targeted Attack Campaigns",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1282 (5a462890-bb44-47c7-ba3b-21bda5fe7088).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2788"
+}

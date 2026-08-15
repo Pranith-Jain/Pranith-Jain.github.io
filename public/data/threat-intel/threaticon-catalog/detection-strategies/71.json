@@ -1,0 +1,12 @@
+{
+  "id": 71,
+  "name": "Detection Strategy for Subvert Trust Controls using SIP and Trust Provider Hijacking.",
+  "detId": "DET0442",
+  "stixId": "x-mitre-detection-strategy--541f2335-1046-4621-9829-1a4a305069c5",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1222"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/71"
+}

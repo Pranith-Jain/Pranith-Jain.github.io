@@ -1,0 +1,12 @@
+{
+  "id": 7652,
+  "name": "payload: Stücheli Architekten",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Aug 11, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: CH | Sector: Professional Services | Stücheli Architekten is a renowned Swiss architectural firm founded in Zurich back in 1946. The company specializes in the design and execution of complex architectural projects, including residential buildings, office complexes, and public spaces, combining innovation with tradition and sustainable construction. It provides a full range of architectural services and frequently acts as a general planner for major projects both in Switzerland and internationally. | Source: https://www.ransomware.live/id/U3TDvGNoZWxpIEFyY2hpdGVrdGVuQHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7652"
+}

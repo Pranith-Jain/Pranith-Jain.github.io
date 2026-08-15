@@ -1,0 +1,12 @@
+{
+  "id": 4342,
+  "name": "incransom: oakparkmi.gov",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Public Sector | Website: oakparkmi.gov | Infostealer data confirmed. | Oak Park, Michigan, is a vibrant, diverse inner-ring suburb of Metro Detroit located in Oakland County. Incorporated as a city in 1945, it spans 5.5 square miles and is home to roughly 30,000 residents. The city is currently experiencing a renaissance, transforming areas like the 11 Mile Road corridor into bustling hubs with breweries, restaurants, and new community spaces. | Source: https://www.ransomware.live/id/b2FrcGFya21pLmdvdkBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4342"
+}

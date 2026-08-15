@@ -1,0 +1,12 @@
+{
+  "id": 427,
+  "name": "apt73: vanheyghenstaal.be",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: BE | Sector: Agriculture and Food Production | Website: vanheyghenstaal.be | Infostealer data confirmed. | Van Heyghen Staal is a metallurgical company in Belgium, which is engaged in the processing and r... | Source: https://www.ransomware.live/id/dmFuaGV5Z2hlbnN0YWFsLmJlQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/427"
+}

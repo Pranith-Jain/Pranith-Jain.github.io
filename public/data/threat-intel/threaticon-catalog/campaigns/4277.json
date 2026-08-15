@@ -1,0 +1,12 @@
+{
+  "id": 4277,
+  "name": "safepay: matrixwebagency.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Business Services | Website: matrixwebagency.com | Infostealer data confirmed. | The company specializes in providing integrated digital solutions that help businesses improve their online visibility, customer engagement, and revenue growth. … | Source: https://www.ransomware.live/id/bWF0cml4d2ViYWdlbmN5LmNvbUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4277"
+}

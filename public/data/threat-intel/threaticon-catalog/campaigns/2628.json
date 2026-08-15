@@ -1,0 +1,12 @@
+{
+  "id": 2628,
+  "name": "OSINT - Callisto Group",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1041 (58f0bb56-ce80-4f18-88b6-4577950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2628"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 315,
+  "name": "Detection Strategy for Abuse Elevation Control Mechanism (T1548)",
+  "detId": "DET0345",
+  "stixId": "x-mitre-detection-strategy--9646aa18-4ebf-43c8-bf4c-670063bc5ef8",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0975", "AN0976", "AN0977", "AN0978", "AN0979"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/315"
+}

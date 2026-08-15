@@ -1,0 +1,12 @@
+{
+  "id": 3349,
+  "name": "Malspam 2016-07-13 (Locky campaign 'Profile')",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #605 (57860f63-fe44-4b95-b8b2-4839950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3349"
+}

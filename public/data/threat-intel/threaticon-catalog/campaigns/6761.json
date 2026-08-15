@@ -1,0 +1,12 @@
+{
+  "id": 6761,
+  "name": "Section9: And where does the newborn go from here? The net is vast and infinite.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to Section9. | Sector: Not Found | SECTION9 | Source: https://www.ransomware.live/id/QW5kIHdoZXJlIGRvZXMgdGhlIG5ld2Jvcm4gZ28gZnJvbSBoZXJlPyBUaGUgbmV0IGlzIHZhc3QgYW5kIGluZmluaXRlLkBTZWN0aW9uOQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6761"
+}

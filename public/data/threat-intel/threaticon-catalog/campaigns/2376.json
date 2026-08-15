@@ -1,0 +1,12 @@
+{
+  "id": 2376,
+  "name": "OSINT Threat Spotlight: Spam Served With a Side of Dridex from Cisco Talos",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #703 (55244f19-fc08-42e2-8cd9-42c7950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2376"
+}

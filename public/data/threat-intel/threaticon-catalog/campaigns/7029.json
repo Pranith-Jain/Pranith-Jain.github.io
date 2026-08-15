@@ -1,0 +1,12 @@
+{
+  "id": 7029,
+  "name": "safepay: naskdoorinc.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 3, 2026",
+  "lastSeen": "Aug 3, 2026",
+  "added": "Aug 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Manufacturing | Website: naskdoorinc.com | Headquartered in West Chester, Pennsylvania, the company has served customers throughout southeastern Pennsylvania and northern Delaware for several decades. Although … | Source: https://www.ransomware.live/id/bmFza2Rvb3JpbmMuY29tQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7029"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 21,
+  "name": "Detection of Domain Properties",
+  "detId": "DET0847",
+  "stixId": "x-mitre-detection-strategy--bcc3656b-82bf-44d7-a4e8-c5da5ce2e7ab",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1979"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/21"
+}

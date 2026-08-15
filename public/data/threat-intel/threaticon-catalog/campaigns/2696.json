@@ -1,0 +1,12 @@
+{
+  "id": 2696,
+  "name": "OSINT - New Nuclear BTCWare Ransomware Released",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1149 (59a516e2-a578-44e4-9689-4fe1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2696"
+}

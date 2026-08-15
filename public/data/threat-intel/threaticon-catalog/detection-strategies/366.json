@@ -1,0 +1,12 @@
+{
+  "id": 366,
+  "name": "Detection Strategy for Stripped Payloads Across Platforms",
+  "detId": "DET0019",
+  "stixId": "x-mitre-detection-strategy--e4040d30-1f5a-4f80-9f06-f1c1d2a8c238",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0055", "AN0056", "AN0057", "AN0058"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/366"
+}

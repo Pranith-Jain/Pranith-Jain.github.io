@@ -1,0 +1,12 @@
+{
+  "id": 3316,
+  "name": "The Chrysalis Backdoor: A Deep Dive into Lotus Blossom’s toolkit",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #539 (390d27ed-5268-4eac-a3a3-768903fa5c1c).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3316"
+}

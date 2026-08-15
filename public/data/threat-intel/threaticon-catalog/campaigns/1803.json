@@ -1,0 +1,12 @@
+{
+  "id": 1803,
+  "name": "qilin: ELC Security Products",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: IL | Sector: Not Found | Website: www.elcsecurity.com | Source: https://www.ransomware.live/id/RUxDIFNlY3VyaXR5IFByb2R1Y3RzQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1803"
+}

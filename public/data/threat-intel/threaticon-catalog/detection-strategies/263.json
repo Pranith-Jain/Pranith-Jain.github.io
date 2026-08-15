@@ -1,0 +1,12 @@
+{
+  "id": 263,
+  "name": "Boot or Logon Autostart Execution Detection Strategy",
+  "detId": "DET0274",
+  "stixId": "x-mitre-detection-strategy--a9796458-df5d-467f-b037-acad6c261f25",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0764", "AN0765", "AN0766"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/263"
+}

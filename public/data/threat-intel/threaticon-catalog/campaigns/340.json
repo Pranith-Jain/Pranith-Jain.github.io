@@ -1,0 +1,12 @@
+{
+  "id": 340,
+  "name": "qilin: Antica Sartoria",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: IT | Sector: Consumer Services | Website: www.anticasartoriapositano.it | N/A | Source: https://www.ransomware.live/id/QW50aWNhIFNhcnRvcmlhQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/340"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2816,
+  "name": "OSINT - Maktub ransomware: possibly rebranded as Iron",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1338 (5add984c-c0f0-41b0-8ff0-4f6d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2816"
+}

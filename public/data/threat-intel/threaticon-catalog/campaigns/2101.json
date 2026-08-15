@@ -1,0 +1,12 @@
+{
+  "id": 2101,
+  "name": "Korea In The Crosshairs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #126 (5a5e9125-fde0-4139-8668-03a7c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2101"
+}

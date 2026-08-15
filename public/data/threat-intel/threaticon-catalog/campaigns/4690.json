@@ -1,0 +1,12 @@
+{
+  "id": 4690,
+  "name": "nova: Desert Micro",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 19, 2026",
+  "lastSeen": "Jun 19, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Sector: Technology | DesertMicro.net is a Software & Internet based company located in Jacksonville, Florida, United States with over 25 - 100 employees, data included large sums of costumers data who use the company software service, such curbside waste company invoices and Storage data, foothillsSanitation + GreenEnviromnetal + InlandService + QC + FusionSite companies the same, credit cards Details and payments billings Documents, databases backups and more - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/RGVzZXJ0IE1pY3JvQG5vdmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4690"
+}

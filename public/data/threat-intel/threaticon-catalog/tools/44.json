@@ -1,0 +1,12 @@
+{
+  "id": 44,
+  "name": "ROADTools",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "ROADTools is a framework for enumerating Azure Active Directory environments. The tool is written in Python and publicly available on GitHub.(Citation: ROADtools Github)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/44"
+}

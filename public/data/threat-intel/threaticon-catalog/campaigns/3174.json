@@ -1,0 +1,12 @@
+{
+  "id": 3174,
+  "name": "New data wiper malware used in Ukraine",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #291 (56cb2bd3-5525-46bd-a454-ea895a5b4d0d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3174"
+}

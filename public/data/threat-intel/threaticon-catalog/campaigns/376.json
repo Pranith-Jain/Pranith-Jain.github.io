@@ -1,0 +1,12 @@
+{
+  "id": 376,
+  "name": "worldleaks: Intikom",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to worldleaks. | Country: ID | Sector: Technology | Website: www.intikom.com | [AI generated] Intikom is an Indonesian information technology company that provides IT solutions and services primarily to the banking and financial sector. The company offers system integration, software development, infrastructure management, and managed services. Headquartered in Jakarta, Indonesia, Intikom has been a long-standing technology partner for major Indonesian banks, supporting digital transformation and core banking operations across the country. | Source: https://www.ransomware.live/id/SW50aWtvbUB3b3JsZGxlYWtz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/376"
+}

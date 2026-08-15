@@ -1,0 +1,12 @@
+{
+  "id": 4038,
+  "name": "apt73: tvnmedia.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: PL | Sector: Telecommunication | Website: tvnmedia.com | Infostealer data confirmed. | TVN Media is a multimedia company from Panama, engaged in broadcasting, radio, digital media and ... | Source: https://www.ransomware.live/id/dHZubWVkaWEuY29tQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4038"
+}

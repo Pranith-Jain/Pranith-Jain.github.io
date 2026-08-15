@@ -1,0 +1,12 @@
+{
+  "id": 4706,
+  "name": "qilin: Makel Companies Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 18, 2026",
+  "lastSeen": "Jun 18, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Construction | Website: www.makel.com.tr | N/A | Source: https://www.ransomware.live/id/TWFrZWwgQ29tcGFuaWVzIEdyb3VwQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4706"
+}

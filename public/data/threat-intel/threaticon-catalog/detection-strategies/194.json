@@ -1,0 +1,12 @@
+{
+  "id": 194,
+  "name": "Right-to-Left Override Masquerading Detection via Filename and Execution Context",
+  "detId": "DET0527",
+  "stixId": "x-mitre-detection-strategy--c3c32822-80b2-4399-8e82-15cefaa80333",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1461", "AN1462", "AN1463"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/194"
+}

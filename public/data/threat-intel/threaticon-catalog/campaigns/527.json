@@ -1,0 +1,12 @@
+{
+  "id": 527,
+  "name": "SilentRansomGroup: Chartwell Law",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to SilentRansomGroup. | Country: GB | Sector: Business Services | Website: chartwelllaw.com | Infostealer data confirmed. | [AI generated] Chartwell Law is a United States-based law firm specializing in insurance defense litigation. Operating primarily across multiple states, the firm represents insurance companies, self-insured entities, and businesses in matters including workers compensation, general liability, professional liability, and coverage disputes. It is known for providing legal counsel and courtroom representation within the broader insurance and legal services industry. | Source: https://www.ransomware.live/id/Q2hhcnR3ZWxsIExhd0BTaWxlbnRSYW5zb21Hcm91cA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/527"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 86,
+  "name": "User Account Deletion",
+  "dcId": "DC0009",
+  "analyticCount": 3,
+  "strategyCount": 2,
+  "added": null,
+  "analytics": ["AN0113", "AN0337", "AN0338"],
+  "description": "The removal of a user, service, or machine account from an operating system, cloud identity management system, or directory service.",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/86"
+}

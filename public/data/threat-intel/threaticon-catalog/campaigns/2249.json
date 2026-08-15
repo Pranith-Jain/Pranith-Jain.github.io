@@ -1,0 +1,12 @@
+{
+  "id": 2249,
+  "name": "OSINT - Malware Employs PowerShell to Infect Systems",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #376 (56f8e7c3-74b4-4789-9e6a-6f2302de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2249"
+}

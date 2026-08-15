@@ -1,0 +1,12 @@
+{
+  "id": 3549,
+  "name": "morpheus: BAYTECH A/S",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to morpheus. | Country: DK | Sector: Business Services | Website: baytech.com | Infostealer data confirmed. | **Website**: baytech.dk **Revenue**: $5 Million Baytech A/S is a Danish industrial engineering company that provides crane systems, material handling equipment, and logistics solutions for industria | Source: https://www.ransomware.live/id/QkFZVEVDSCBBL1NAbW9ycGhldXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3549"
+}

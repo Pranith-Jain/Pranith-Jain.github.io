@@ -1,0 +1,12 @@
+{
+  "id": 2826,
+  "name": "#TrickBot banker updates to group_tag \"\"tt0002\" version \"1000206\"",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1365 (5b167b4f-5038-42e4-9a45-dfd00acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2826"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 99,
+  "name": "Detection Strategy for Power Settings Abuse",
+  "detId": "DET0417",
+  "stixId": "x-mitre-detection-strategy--40701244-5af5-477f-a9a7-ba661907f318",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1174", "AN1175", "AN1176"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/99"
+}

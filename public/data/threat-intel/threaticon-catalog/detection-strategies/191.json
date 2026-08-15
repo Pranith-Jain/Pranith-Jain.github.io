@@ -1,0 +1,12 @@
+{
+  "id": 191,
+  "name": "Detect One-Way Web Service Command Channels",
+  "detId": "DET0581",
+  "stixId": "x-mitre-detection-strategy--e3718a7a-77b3-4790-99ba-aba7703815fd",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1599", "AN1600", "AN1601", "AN1602"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/191"
+}

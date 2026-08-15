@@ -1,0 +1,12 @@
+{
+  "id": 2739,
+  "name": "M2M - Locky 2017-10-10 : Affid=3, offline, \".asasin\" : \"Document ... is complete\" - \"invoice_1234_sign_and_return.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1212 (59dc90da-d970-4168-901d-45c3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2739"
+}

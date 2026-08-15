@@ -1,0 +1,12 @@
+{
+  "id": 1493,
+  "name": "qilin: Elite Flower",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Agriculture and Food Production | Website: www.eliteflower.com | Source: https://www.ransomware.live/id/RWxpdGUgRmxvd2VyQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1493"
+}

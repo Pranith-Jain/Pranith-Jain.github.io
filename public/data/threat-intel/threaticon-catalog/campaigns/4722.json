@@ -1,0 +1,12 @@
+{
+  "id": 4722,
+  "name": "safepay: seinordovest.it",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 17, 2026",
+  "lastSeen": "Jun 17, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Not Found | Website: seinordovest.it | Infostealer data confirmed. | Headquartered in the Piedmont region, the company operates as a public utility serving numerous municipalities in northwestern Italy. Its mission … | Source: https://www.ransomware.live/id/c2Vpbm9yZG92ZXN0Lml0QHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4722"
+}

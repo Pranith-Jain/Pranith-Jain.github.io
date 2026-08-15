@@ -1,0 +1,12 @@
+{
+  "id": 4816,
+  "name": "thegentlemen: Kozminski University",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Education | Website: kozminski.edu.pl | Infostealer data confirmed. | ***.edu.pl zoominfo.com/c/kozminski-university/372606592 Kozminski University, located in Warsaw, is Poland's premier private business school and a globally recognized academic institution holding the prestigious \"Triple Crown\" accreditation. Consistently ranked among the top European business schools by the Financial Times, it specializes in management, finance, and law. The university is dedicated to shaping future business leaders through innovative, research-driven education and strong international partnership | Source: https://www.ransomware.live/id/S296bWluc2tpIFVuaXZlcnNpdHlAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4816"
+}

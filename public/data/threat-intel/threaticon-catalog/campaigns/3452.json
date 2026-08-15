@@ -1,0 +1,12 @@
+{
+  "id": 3452,
+  "name": "OSINT - PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #854 (57ce65d3-6170-47b5-8f3f-47e0950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3452"
+}

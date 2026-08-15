@@ -1,0 +1,12 @@
+{
+  "id": 1455,
+  "name": "payload: Lucky Innovative Manufacturing Corporation",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payload. | Country: PH | Sector: Manufacturing | Lucky Innovative Manufacturing Corporation is a company based in Lipa City, Batangas, Philippines, specializing in the import and export of textiles and apparel products, including fabrics, hats, gloves, and other items from the garment industry. The company is registered as an international trading participant and is listed in global trade databases as a supplier and importer across various countries. Its operations focus on manufacturing and distributing goods to international markets, leveraging its strategic location in the Philippines. | Source: https://www.ransomware.live/id/THVja3kgSW5ub3ZhdGl2ZSBNYW51ZmFjdHVyaW5nIENvcnBvcmF0aW9uQHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1455"
+}

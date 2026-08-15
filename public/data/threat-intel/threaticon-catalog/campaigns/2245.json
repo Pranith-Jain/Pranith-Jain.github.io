@@ -1,0 +1,12 @@
+{
+  "id": 2245,
+  "name": "OSINT - New self-protecting USB trojan able to avoid detection",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #372 (56f53e06-35d4-47e5-8d94-468e950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2245"
+}

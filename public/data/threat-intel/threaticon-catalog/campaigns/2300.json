@@ -1,0 +1,12 @@
+{
+  "id": 2300,
+  "name": "Magnet Goblin Targets Publicly Facing Servers Using 1-Day Vulnerabilities",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #474 (17a29b8e-11ca-42f7-9adf-886a25412b77).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2300"
+}

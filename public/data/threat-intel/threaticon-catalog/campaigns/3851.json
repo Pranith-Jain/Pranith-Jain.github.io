@@ -1,0 +1,12 @@
+{
+  "id": 3851,
+  "name": "thegentlemen: MBM Corp",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Not Found | Website: mbmcorp.com | Infostealer data confirmed. | mbmcorp.com rocketreach.co/mbm-corp-profile_b5efe288f42e7251 MBM Corporation, founded in 1936 and headquartered in Charleston, South Carolina, is a trusted leader in professional print finishing and document security solutions. Renowned for Destroyit® shredders, Triumph™ cutters, and AeroCut® digital finishing systems, MBM empowers print shops and businesses with precision-engineered equipment backed by expert support and industry-leading warranties | Source: https://www.ransomware.live/id/TUJNIENvcnBAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3851"
+}

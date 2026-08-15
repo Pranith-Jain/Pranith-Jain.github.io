@@ -1,0 +1,12 @@
+{
+  "id": 7258,
+  "name": "orion: Nitrex Chemicals India",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to orion. | Country: IN | Sector: Manufacturing | Website: www.nitrex.in | We only seek money. No morals, no political stance Your data is only secure IF you pay us | Source: https://www.ransomware.live/id/Tml0cmV4IENoZW1pY2FscyBJbmRpYUBvcmlvbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7258"
+}

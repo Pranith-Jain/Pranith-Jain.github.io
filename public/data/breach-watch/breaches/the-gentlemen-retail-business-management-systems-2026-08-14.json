@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-retail-business-management-systems-2026-08-14",
+  "title": "Retail Business Management Systems",
+  "group": "the gentlemen",
+  "discovered": "2026-08-14T07:00:53.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "rbms.com zoominfo.com/c/retail-business-management-systems-inc/101712744 Retail Business Management Systems (RBMS) is a specialized technology provider that has delivered Point of Sale and retail management solutions for over 25 years. Focusing heavily on NCR Counterpoint software and hardware integrations, the company supports retail businesses of all sizes primarily across the New York and New Jersey regions. Their platform serves as a central hub for merchants seeking comprehensive tools to optimize store operations, inventory tracking, and overall customer experience.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

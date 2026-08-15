@@ -1,0 +1,12 @@
+{
+  "id": 3811,
+  "name": "dragonforce: AdvancedHEALTH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Healthcare | Website: ouradvancedhealth.com | Infostealer data confirmed. | The leak contains 2,300,000 Lines of FULL patient data, partner agreements, management, payroll and HR files. Screenshot attached :) We Will Leak 1,000 Lines of patient data a day, until we've been paid or the timer hits 0. Check this description for Fresh leaks everyday. Day 1 : https://temp.sh/aLnBB/ADI-Day1.zip Day 2 : Expect it around 5PM UTC | Source: https://www.ransomware.live/id/QWR2YW5jZWRIRUFMVEhAZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3811"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7166,
+  "name": "Dark Project: Ruhrpumpen",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to Dark Project. | Country: DE | Sector: Manufacturing | Website: www.ruhrpumpen.com | About Ruhrpumpen Ruhrpumpen is a leading global manufacturer of highly engineered centrifugal and reciprocating pumps. A sophisticated cyberattack in the company's network led to a massive data breach. As a result of the incident, approximately 1 TB of data was leaked, including confidential personal and financial information. | Source: https://www.ransomware.live/id/UnVocnB1bXBlbkBEYXJrIFByb2plY3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7166"
+}

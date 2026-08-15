@@ -1,0 +1,12 @@
+{
+  "id": 879,
+  "name": "incransom: Kannarr Eye Care",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: kannarreyecare.com | Infostealer data confirmed. | Kannarr Eye Care is a full-service optometry provider located in Pittsburg, Kansas, dedicated to improving lives through advanced eye care. They offer a wide range of services including eye exams, contact lens fittings, cataract surgery, and treatment for ocular diseases. The clinic serves patients in the four-state area, ensuring personalized attention and professional care. Kannarr Eye Care also provides vision financing options and works with various insurance providers to promote good eye health. | Source: https://www.ransomware.live/id/S2FubmFyciBFeWUgQ2FyZUBpbmNyYW5zb20=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/879"
+}

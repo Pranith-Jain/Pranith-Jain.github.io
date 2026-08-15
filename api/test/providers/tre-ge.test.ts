@@ -45,7 +45,7 @@ describe('tre.ge adapter', () => {
     expect(r.source).toBe('tre-ge');
     expect(r.verdict).toBe('malicious');
     expect(r.score).toBe(88);
-    expect(r.tags).toEqual(expect.arrayContaining(['c2', 'botnet', 'trege:malicious']));
+    expect(r.tags).toEqual(expect.arrayContaining(['trege:c2', 'trege:botnet', 'trege:malicious']));
     expect(r.raw_summary).toMatchObject({
       reputation: 'malicious',
       asn: 'AS12345 Test Net',

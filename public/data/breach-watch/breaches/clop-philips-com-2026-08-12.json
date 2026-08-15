@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "NL",
   "sizeBytes": 0,
-  "description": "[AI generated] Philips is a Dutch multinational technology company headquartered in Amsterdam, Netherlands. It operates primarily in the health technology sector, developing medical diagnostic imaging systems, patient monitoring equipment, and personal health products. Formerly a major consumer electronics brand, Philips shifted focus to healthcare innovation. It serves hospitals, clinicians, and consumers worldwide, with operations spanning over 100 countries.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/08e9b1e9-423d-4d25-89cb-d916440a44b2",
   "groupAliases": ["Cl0p"],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

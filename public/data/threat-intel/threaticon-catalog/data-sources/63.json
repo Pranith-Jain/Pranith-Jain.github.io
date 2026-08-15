@@ -1,0 +1,12 @@
+{
+  "id": 63,
+  "name": "Malware Metadata",
+  "dcId": "DC0003",
+  "analyticCount": 7,
+  "strategyCount": 7,
+  "added": null,
+  "analytics": ["AN1965", "AN1977", "AN1982", "AN1984", "AN1985", "AN2004", "AN2007"],
+  "description": "Contextual data about a malicious payload, such as compilation times, file hashes, as well as watermarks or other identifiable configuration information",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/63"
+}

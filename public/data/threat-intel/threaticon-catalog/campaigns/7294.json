@@ -1,0 +1,12 @@
+{
+  "id": 7294,
+  "name": "Barracuda: Micro-Comm Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Barracuda. | Country: US | Sector: Technology | Website: micro-comm.com | Micro-Comm, Inc. is an industrial automation company based in Olathe, Kansas, that provides water and wastewater control systems, manufacturing control panels, micro-controllers, and SCADA software. [http://www.micro-comm-inc.com]. Tree of all files: https://www.filemail.com/d/vpqdvykqwssupsw. Files count: 894 963, documents type: maps, schemes, personal employers information, personal citizens information, work photos, emails, partners personal information | Status: selling | Size: 643 GB | Starting at $30000.00 | Source: https://www.ransomware.live/id/TWljcm8tQ29tbSBJbmMuQEJhcnJhY3VkYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7294"
+}

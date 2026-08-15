@@ -1,0 +1,12 @@
+{
+  "id": 133,
+  "name": "Detection Strategy for Event Triggered Execution via Trap (T1546.005)",
+  "detId": "DET0369",
+  "stixId": "x-mitre-detection-strategy--07fb6847-efcb-426e-9344-bfc9dfcdebd4",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN1038", "AN1039"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/133"
+}

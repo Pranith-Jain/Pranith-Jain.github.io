@@ -1,0 +1,12 @@
+{
+  "id": 2013,
+  "name": "Duke Cloud Linux - F-Secure",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #18 (56ccde59-af1c-437c-a9f5-51269062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2013"
+}

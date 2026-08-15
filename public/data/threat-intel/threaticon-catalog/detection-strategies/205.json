@@ -1,0 +1,12 @@
+{
+  "id": 205,
+  "name": "Detection of Audio-Visual Content",
+  "detId": "DET0918",
+  "stixId": "x-mitre-detection-strategy--a27b9b6b-b4b9-425c-885b-ab52834f0974",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2061"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/205"
+}

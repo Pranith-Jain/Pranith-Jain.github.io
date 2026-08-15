@@ -1,0 +1,12 @@
+{
+  "id": 494,
+  "name": "Detection Strategy for Disable or Modify Cloud Log",
+  "detId": "DET0289",
+  "stixId": "x-mitre-detection-strategy--f0190654-2eda-42a7-9a4d-6edc95aada02",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0801", "AN0802", "AN0803", "AN0804"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/494"
+}

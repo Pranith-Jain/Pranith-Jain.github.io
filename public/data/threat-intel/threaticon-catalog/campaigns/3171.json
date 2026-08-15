@@ -1,0 +1,12 @@
+{
+  "id": 3171,
+  "name": "Investigating APT36 or Earth Karkaddan’s Attack Chain and Malware Arsenal",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #287 (34582dfc-d0bf-403d-8419-2d4fa7a76466).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3171"
+}

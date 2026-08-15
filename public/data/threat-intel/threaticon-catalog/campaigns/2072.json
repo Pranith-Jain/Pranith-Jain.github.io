@@ -1,0 +1,12 @@
+{
+  "id": 2072,
+  "name": "Evil: A poor manâ€™s ransomware in JavaScript",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #94 (587fa0bc-de98-4f13-ab43-079bc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2072"
+}

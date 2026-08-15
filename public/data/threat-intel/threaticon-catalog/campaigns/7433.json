@@ -1,0 +1,12 @@
+{
+  "id": 7433,
+  "name": "qilin: John C Saunders, CPA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 7, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Professional Services | Website: www.johncsaunderscpa.com | N/A | Source: https://www.ransomware.live/id/Sm9obiBDIFNhdW5kZXJzLCBDUEFAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7433"
+}

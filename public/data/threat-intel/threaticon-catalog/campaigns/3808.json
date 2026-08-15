@@ -1,0 +1,12 @@
+{
+  "id": 3808,
+  "name": "thegentlemen: Ross Yerger Insurance",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Financial Services | Website: rossandyerger.com | Infostealer data confirmed. | rossandyerger.com zoominfo.com/c/ross--yerger-insurance-inc/101253758 Ross & Yerger is an employee-owned independent insurance agency founded in 1860, specializing in personalized risk management and insurance solutions for businesses and individuals. Their \"Lighthouse\" approach offers holistic protection beyond traditional policies, prioritizing client needs over shareholders. With a culture centered on relationships, community, and expertise in sectors like oil & gas and construction, they help clients protect what matters most | Source: https://www.ransomware.live/id/Um9zcyBZZXJnZXIgSW5zdXJhbmNlQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3808"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2804,
+  "name": "OSINT - Sofacy Attacks Multiple Government Entities",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1310 (5a96f935-0b24-47b8-b0a7-4fff02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2804"
+}

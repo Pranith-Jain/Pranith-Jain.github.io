@@ -1,0 +1,12 @@
+{
+  "id": 818,
+  "name": "pear: Colorado Pulmonary Intensivists",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Healthcare | Website: cpimedicine.com | Infostealer data confirmed. | Specializes in services related to pulmonology and critical care, including outpatient pulmonary care and sleep medicine | Source: https://www.ransomware.live/id/Q29sb3JhZG8gUHVsbW9uYXJ5IEludGVuc2l2aXN0c0BwZWFy",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/818"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2277,
+  "name": "The Nine Lives of Commando Cat: Analysing a Novel Malware Campaign Targeting Docker",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #442 (04c5e67e-357a-4881-bf10-6f4f3a002076).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2277"
+}

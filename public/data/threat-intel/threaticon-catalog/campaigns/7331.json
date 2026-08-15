@@ -1,0 +1,12 @@
+{
+  "id": 7331,
+  "name": "play: GCATS Investments",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to play. | Country: US | Sector: Financial Services | Website: www.gcatstx.com | United States | Source: https://www.ransomware.live/id/R0NBVFMgSW52ZXN0bWVudHNAcGxheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7331"
+}

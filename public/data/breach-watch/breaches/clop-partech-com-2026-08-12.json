@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "[AI generated] Partech is a global venture capital firm headquartered in Paris, France, with additional offices in San Francisco and Dakar. It invests in technology and digital companies across various stages, from seed to growth. Partech focuses on sectors including software, fintech, healthtech, and deeptech, supporting startups in Europe, Africa, and North America with funding, strategic guidance, and operational expertise.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/6879a237-576a-4784-ae25-44812318864d",
   "groupAliases": ["Cl0p"],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

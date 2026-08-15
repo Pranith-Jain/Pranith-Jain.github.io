@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-albal-valencia-2026-08-15",
+  "title": "Unknown (Albal, Valencia)",
+  "group": "safepay",
+  "discovered": "2026-08-15T02:32:16.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "Spain",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/faa57c46-f26a-4af5-b1d3-b40f1e0b5b04",
+  "groupAliases": [],
+  "activity": "Agriculture/Livestock",
+  "references": ["Darkfield"]
+}

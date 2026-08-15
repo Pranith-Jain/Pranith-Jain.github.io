@@ -1,0 +1,12 @@
+{
+  "id": 445,
+  "name": "Abuse of Information Repositories for Data Collection",
+  "detId": "DET0413",
+  "stixId": "x-mitre-detection-strategy--48e8d8b1-0117-48bd-a32d-f4e43b665bf3",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1160", "AN1161", "AN1162", "AN1163"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/445"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1475,
+  "name": "coinbasecartel: Petra Industries",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: petra.com | Infostealer data confirmed. | [AI generated] Petra Industries is a leading wholesale distributor of consumer electronics, custom installation products, mobile audio/video accessories, and appliance connection supplies. Founded in 1985, it is based in Edmond, Oklahoma. Petra's goal is to provide the best ordering process, the best customer service, and the best delivery system to customers nationwide. | Source: https://www.ransomware.live/id/UGV0cmEgSW5kdXN0cmllc0Bjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1475"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4916,
+  "name": "lockbit5: vth.nl",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "May 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: NL | Sector: Not Found | Website: vth.nl | Infostealer data confirmed. | Van Tuijl Support your growth Van Tuijl is a family business that has been supplying agricultural... | Source: https://www.ransomware.live/id/dnRoLm5sQGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4916"
+}

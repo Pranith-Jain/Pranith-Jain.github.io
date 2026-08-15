@@ -1,0 +1,12 @@
+{
+  "id": 7837,
+  "name": "clop: ZEBRA.COM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 14, 2026",
+  "lastSeen": "Aug 14, 2026",
+  "added": "Aug 14, 2026",
+  "description": "Ransomware attack attributed to clop. | Country: US | Sector: Manufacturing | Website: ZEBRA.COM | Data exfiltrated included the following: Database, Project - files, CAD - files Total size: 8Tb Revenue: $5,600,000,000 | Source: https://www.ransomware.live/id/WkVCUkEuQ09NQGNsb3A=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7837"
+}

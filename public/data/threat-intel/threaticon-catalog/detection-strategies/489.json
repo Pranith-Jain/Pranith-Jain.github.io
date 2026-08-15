@@ -1,0 +1,12 @@
+{
+  "id": 489,
+  "name": "Detection of Mail Protocol-Based C2 Activity (SMTP, IMAP, POP3)",
+  "detId": "DET0135",
+  "stixId": "x-mitre-detection-strategy--bcb3772f-25d7-4e41-8e37-ec0dc759f44d",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0379", "AN0380", "AN0381", "AN0382"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/489"
+}

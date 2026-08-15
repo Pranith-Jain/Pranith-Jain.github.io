@@ -1,0 +1,12 @@
+{
+  "id": 327,
+  "name": "Detection Strategy for Exfiltration to Text Storage Sites",
+  "detId": "DET0284",
+  "stixId": "x-mitre-detection-strategy--6ab41bc0-2d89-4173-8149-728fbc2698b6",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0787", "AN0788", "AN0789", "AN0790"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/327"
+}

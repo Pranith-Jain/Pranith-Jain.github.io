@@ -1,0 +1,12 @@
+{
+  "id": 4307,
+  "name": "Doommageddon: Solventa & Riskmetrica | Calificadora de Riesgos",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Doommageddon. | Country: PY | Sector: Financial Services | Website: syr.com.py | Infostealer data confirmed. | Status: upcoming | Files: 0 files | Deadline: 2026-07-08T00:00:00Z | Source: https://www.ransomware.live/id/U29sdmVudGEgJiBSaXNrbWV0cmljYSB8IENhbGlmaWNhZG9yYSBkZSBSaWVzZ29zQERvb21tYWdlZGRvbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4307"
+}

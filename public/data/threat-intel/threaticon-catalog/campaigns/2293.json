@@ -1,0 +1,12 @@
+{
+  "id": 2293,
+  "name": "OSINT - Teaching an old RAT new tricks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #464 (571a302c-e5c4-4014-8131-4e9c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2293"
+}

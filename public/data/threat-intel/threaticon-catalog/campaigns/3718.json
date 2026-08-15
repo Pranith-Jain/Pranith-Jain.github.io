@@ -1,0 +1,12 @@
+{
+  "id": 3718,
+  "name": "play: Accessoires Outillage Ltee",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to play. | Country: CA | Sector: Manufacturing | Website: www.aolaml.com | Canada | Source: https://www.ransomware.live/id/QWNjZXNzb2lyZXMgT3V0aWxsYWdlIEx0ZWVAcGxheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3718"
+}

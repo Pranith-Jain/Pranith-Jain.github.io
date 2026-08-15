@@ -1,0 +1,12 @@
+{
+  "id": 232,
+  "name": "threeam: townofnorwell.net",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to threeam. | Country: US | Sector: Public Sector | Website: townofnorwell.net | Infostealer data confirmed. | The Town of Norwell MA offers a variety of municipal services including animal control, building permits, health clinics, and recreational programs. It serves the residents of Norwell by ensuring public safety, facilitating community events, and p | Source: https://www.ransomware.live/id/dG93bm9mbm9yd2VsbC5uZXRAdGhyZWVhbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/232"
+}

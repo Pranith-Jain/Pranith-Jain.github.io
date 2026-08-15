@@ -1,0 +1,12 @@
+{
+  "id": 4972,
+  "name": "termite: Cal Fresh",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 9, 2026",
+  "lastSeen": "Jun 8, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to termite. | Country: CA | Sector: Agriculture and Food Production | Website: calfresh.ca.gov | Infostealer data confirmed. | The California Association of Food Banks (CAFB) is committed to ending hunger in California and aims to provide clear, up-to-date information about CalFresh for people who are interested in applying. Since 2003, CAFB has partnered with food banks and other community-based organizations throughout the state to educate consumers about CalFresh and provide application assistance. | Source: https://www.ransomware.live/id/Q2FsIEZyZXNoQHRlcm1pdGU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4972"
+}

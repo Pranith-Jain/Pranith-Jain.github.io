@@ -1,0 +1,12 @@
+{
+  "id": 4447,
+  "name": "genesis: Brooklyn Defender Services",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: . | Infostealer data confirmed. | A legal organization dedicated to safeguard the rights of its clients | Source: https://www.ransomware.live/id/QnJvb2tseW4gRGVmZW5kZXIgU2VydmljZXNAZ2VuZXNpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4447"
+}

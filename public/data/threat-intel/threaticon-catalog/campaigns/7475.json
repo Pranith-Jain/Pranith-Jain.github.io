@@ -1,0 +1,12 @@
+{
+  "id": 7475,
+  "name": "qilin: Impact Centre Chrétien",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 8, 2026",
+  "lastSeen": "Aug 8, 2026",
+  "added": "Aug 8, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: HT | Sector: Other | Website: www.impactcentrechretien.com | N/A | Source: https://www.ransomware.live/id/SW1wYWN0IENlbnRyZSBDaHLDqXRpZW5AcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7475"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 6841,
+  "name": "CRPxO: KUVEYT TURK",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Website: kuveytturk.com.tr | Infostealer data confirmed. | Sector: Banking | Data leaked: 0.8 GB | Source: https://www.ransomware.live/id/S1VWRVlUIFRVUktAQ1JQeE8=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6841"
+}

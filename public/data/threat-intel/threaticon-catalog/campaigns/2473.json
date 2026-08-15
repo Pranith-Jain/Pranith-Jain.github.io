@@ -1,0 +1,12 @@
+{
+  "id": 2473,
+  "name": "Malspam 2016-08-17 (.docm) - campaign: \"Order Confirmation-\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #810 (57b472bd-2dc0-4304-90a6-4ad4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2473"
+}

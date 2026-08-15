@@ -1,0 +1,12 @@
+{
+  "id": 1903,
+  "name": "AiLock: Raw Seafoods",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Agriculture and Food Production | Website: rawseafoods.com | Infostealer data confirmed. | Raw Seafoods, Inc. is a family owned and operated company in Fall River, Massachusetts dedicated to providing our customers with exceptional products, and service.We specialize in fresh and frozen scallops, fish and value-added food solutions. | Source: https://www.ransomware.live/id/UmF3IFNlYWZvb2RzQEFpTG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1903"
+}

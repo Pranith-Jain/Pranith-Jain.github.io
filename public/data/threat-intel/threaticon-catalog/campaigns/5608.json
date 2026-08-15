@@ -1,0 +1,12 @@
+{
+  "id": 5608,
+  "name": "gunra: Dissinger and Dissinger Law Firm",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to gunra. | Country: US | Sector: Business Services | Website: dissingerlaw.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RGlzc2luZ2VyIGFuZCBEaXNzaW5nZXIgTGF3IEZpcm1AZ3VucmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5608"
+}

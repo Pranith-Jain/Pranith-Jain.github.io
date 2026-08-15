@@ -1,0 +1,12 @@
+{
+  "id": 73,
+  "name": "Detection Strategy for Hidden User Accounts",
+  "detId": "DET0353",
+  "stixId": "x-mitre-detection-strategy--c48fd7e3-fbfb-4ab5-b577-12cc0be21f2c",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1001", "AN1002", "AN1003"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/73"
+}

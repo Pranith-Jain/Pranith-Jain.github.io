@@ -1,0 +1,12 @@
+{
+  "id": 2813,
+  "name": "OSINT - The WhiteRose Ransomware Is Decryptable & Tells A Strange Story",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1327 (5ac7752d-a430-4606-8d2b-06b4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2813"
+}

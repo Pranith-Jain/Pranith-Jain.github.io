@@ -1,0 +1,12 @@
+{
+  "id": 4666,
+  "name": "lockbit5: weinwurm.cc",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "May 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: AT | Sector: Not Found | Website: weinwurm.cc | Infostealer data confirmed. | Weinwurm – Your Partner for Agricultural Products, Grain & Construction MaterialsWe are an independe... | Source: https://www.ransomware.live/id/d2Vpbnd1cm0uY2NAbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4666"
+}

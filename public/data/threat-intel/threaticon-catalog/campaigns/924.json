@@ -1,0 +1,12 @@
+{
+  "id": 924,
+  "name": "gunra: INCARFE S.L.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to gunra. | Country: ES | Sector: Business Services | Website: incarfe.es | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/SU5DQVJGRSBTLkwuQGd1bnJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/924"
+}

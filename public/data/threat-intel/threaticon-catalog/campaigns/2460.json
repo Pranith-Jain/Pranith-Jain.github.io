@@ -1,0 +1,12 @@
+{
+  "id": 2460,
+  "name": "OSINT Yara rules for GlassRAT in Loki IOC Scanner by Florian Roth",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #796 (566067e0-5c54-45b4-8dff-4fae950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2460"
+}

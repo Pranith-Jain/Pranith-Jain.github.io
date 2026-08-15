@@ -1,0 +1,12 @@
+{
+  "id": 3454,
+  "name": "Malspam 2016-09-06 (.wsf in .zip) - campaign: 'Message from \"CUKPR[x]\"'",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #857 (57cfbf0c-c790-4257-8b1e-06cc950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3454"
+}

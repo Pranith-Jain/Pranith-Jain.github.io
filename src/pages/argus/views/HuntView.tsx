@@ -128,11 +128,11 @@ export function HuntView({ actors }: Props) {
             <h1 className="text-xl font-semibold tracking-tight flex items-center gap-2">
               <Crosshair size={18} className="text-rose-600 dark:text-rose-400" /> Threat Hunting
             </h1>
-            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
               {actors.length} actor{actors.length !== 1 ? 's' : ''} loaded
             </span>
           </div>
-          <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-3">
+          <p className="text-meta text-slate-500 dark:text-slate-400 mb-3">
             Hand-tuned KQL and CrowdStrike CQL queries. Pair with the TTP × APT matrix and sector pivot to triage
             exposure.
           </p>
@@ -145,7 +145,7 @@ export function HuntView({ actors }: Props) {
                   key={key}
                   onClick={() => setTab(key)}
                   data-active={tab === key}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-meta font-medium transition-colors
                     border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
                     data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
                 >
@@ -165,7 +165,7 @@ export function HuntView({ actors }: Props) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search titles, platforms…"
-                className="w-52 h-7 pl-7 pr-2.5 rounded-md bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-[12px] text-slate-600 dark:text-slate-400 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none focus:border-accent/50"
+                className="w-52 h-7 pl-7 pr-2.5 rounded-md bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-meta text-slate-600 dark:text-slate-400 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none focus:border-accent/50"
               />
             </div>
           </div>
@@ -244,7 +244,7 @@ function DetectionsTab({
         <button
           onClick={() => setSourceFilter(null)}
           data-active={sourceFilter === null}
-          className="px-2 py-0.5 rounded-full text-[11px] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+          className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
             data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
         >
           All ({allDetections.length})
@@ -256,7 +256,7 @@ function DetectionsTab({
               key={s}
               onClick={() => setSourceFilter(s)}
               data-active={sourceFilter === s}
-              className="px-2 py-0.5 rounded-full text-[11px] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
             >
               {s} ({count})
@@ -288,16 +288,16 @@ function DetectionsTab({
                 <ChevronRight size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
               )}
               <span
-                className="h-5 w-7 rounded flex items-center justify-center text-[9px] font-mono font-semibold shrink-0"
+                className="h-5 w-7 rounded flex items-center justify-center text-micro font-mono font-semibold shrink-0"
                 style={{ background: `${n?.color ?? '#555'}22`, color: n?.color ?? '#888' }}
               >
                 {d.nation}
               </span>
-              <span className="text-[13px] text-slate-600 dark:text-slate-400 flex-1 truncate">{d.title}</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] shrink-0">
+              <span className="text-tool text-slate-600 dark:text-slate-400 flex-1 truncate">{d.title}</span>
+              <span className="text-micro px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] shrink-0">
                 {d.source}
               </span>
-              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 shrink-0">{d.actorName}</span>
+              <span className="text-mini font-mono text-slate-500 dark:text-slate-400 shrink-0">{d.actorName}</span>
             </button>
             {isOpen && (
               <div className="px-3 pb-3 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -306,7 +306,7 @@ function DetectionsTab({
                     href={d.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[11px] text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
+                    className="text-mini text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
                   >
                     <ExternalLink size={10} /> View detection rule
                   </a>
@@ -377,15 +377,15 @@ function TTPMatrixTab({
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
         <div className="surface-card p-3">
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-1">Total Techniques</div>
+          <div className="text-mini text-slate-500 dark:text-slate-400 mb-1">Total Techniques</div>
           <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{totalTechniques}</div>
         </div>
         <div className="surface-card p-3">
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-1">Active Actors</div>
+          <div className="text-mini text-slate-500 dark:text-slate-400 mb-1">Active Actors</div>
           <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{actors.length}</div>
         </div>
         <div className="surface-card p-3">
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-1">Tactics</div>
+          <div className="text-mini text-slate-500 dark:text-slate-400 mb-1">Tactics</div>
           <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{tactics.length}</div>
         </div>
       </div>
@@ -396,7 +396,7 @@ function TTPMatrixTab({
         <button
           onClick={() => setTacticFilter(null)}
           data-active={tacticFilter === null}
-          className="px-2 py-0.5 rounded-full text-[11px] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+          className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
             data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
         >
           All Tactics
@@ -408,7 +408,7 @@ function TTPMatrixTab({
               key={t}
               onClick={() => setTacticFilter(t)}
               data-active={tacticFilter === t}
-              className="px-2 py-0.5 rounded-full text-[11px] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
             >
               {t.replace(/-/g, ' ')} ({techniqueCount})
@@ -419,7 +419,7 @@ function TTPMatrixTab({
 
       {/* Heatmap Table */}
       <div className="surface-card overflow-x-auto">
-        <table className="w-full text-[11px]">
+        <table className="w-full text-mini">
           <thead>
             <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
               <th className="text-left p-2 text-slate-500 dark:text-slate-400 font-medium sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))]">
@@ -432,7 +432,7 @@ function TTPMatrixTab({
                       className="h-2 w-2 rounded-full"
                       style={{ background: NATION_PALETTE[actor.country]?.color ?? '#888' }}
                     />
-                    <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400 truncate max-w-[50px]">
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate max-w-[50px]">
                       {actor.apt ?? actor.name.split(' ')[0]}
                     </span>
                   </div>
@@ -446,7 +446,7 @@ function TTPMatrixTab({
               if (!techniques) return null;
               return (
                 <tr key={tactic} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/30">
-                  <td className="p-2 font-mono text-[10px] text-slate-500 dark:text-slate-400 sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))] capitalize">
+                  <td className="p-2 font-mono text-micro text-slate-500 dark:text-slate-400 sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))] capitalize">
                     {tactic.replace(/-/g, ' ')}
                   </td>
                   {actors.map((actor) => {
@@ -461,14 +461,14 @@ function TTPMatrixTab({
                               <button
                                 key={tid}
                                 onClick={() => copyCell(tid)}
-                                className="px-1 py-0.5 rounded text-[8px] font-mono bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors"
+                                className="px-1 py-0.5 rounded text-micro font-mono bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors"
                                 title={tid}
                               >
                                 {copiedCell === tid ? <Check size={8} className="inline" /> : tid.split('.')[0]}
                               </button>
                             ))}
                             {techniquesForActor.length > 2 && (
-                              <span className="text-[8px] text-slate-500 dark:text-slate-400">
+                              <span className="text-micro text-slate-500 dark:text-slate-400">
                                 +{techniquesForActor.length - 2}
                               </span>
                             )}
@@ -488,7 +488,7 @@ function TTPMatrixTab({
 
       {/* Technique Detail List */}
       <div className="space-y-2 mt-6">
-        <h3 className="text-[13px] font-semibold text-slate-700 dark:text-slate-200">Technique Details</h3>
+        <h3 className="text-tool font-semibold text-slate-700 dark:text-slate-200">Technique Details</h3>
         {filteredTactics.map((tactic) => {
           const techniques = matrix.get(tactic);
           if (!techniques) return null;
@@ -503,10 +503,10 @@ function TTPMatrixTab({
                 ) : (
                   <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />
                 )}
-                <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-200 capitalize">
+                <span className="text-meta font-semibold text-slate-700 dark:text-slate-200 capitalize">
                   {tactic.replace(/-/g, ' ')}
                 </span>
-                <span className="text-[10px] text-slate-500 dark:text-slate-400">({techniques.size} techniques)</span>
+                <span className="text-micro text-slate-500 dark:text-slate-400">({techniques.size} techniques)</span>
               </button>
               {expanded[`tactic-${tactic}`] && (
                 <div className="px-3 pb-3 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -516,8 +516,8 @@ function TTPMatrixTab({
                       className="py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/30 last:border-0"
                     >
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-rose-600 dark:text-rose-400">{tid}</span>
-                        <span className="text-[11px] text-slate-600 dark:text-slate-400">
+                        <span className="font-mono text-micro text-rose-600 dark:text-rose-400">{tid}</span>
+                        <span className="text-mini text-slate-600 dark:text-slate-400">
                           {actorIds.length} actor{actorIds.length !== 1 ? 's' : ''}
                         </span>
                         <button
@@ -577,7 +577,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
           <button
             onClick={() => setSectorFilter(null)}
             data-active={sectorFilter === null}
-            className="px-2 py-0.5 rounded-full text-[11px] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+            className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
               data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
           >
             All sectors
@@ -587,7 +587,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
               key={s}
               onClick={() => setSectorFilter(s)}
               data-active={sectorFilter === s}
-              className="px-2 py-0.5 rounded-full text-[11px] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] capitalize
+              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] capitalize
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40"
             >
               {s}
@@ -601,7 +601,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
               key={type}
               onClick={() => setTypeFilter(type)}
               data-active={typeFilter === type}
-              className="px-2 py-0.5 rounded-full text-[11px] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
+              className="px-2 py-0.5 rounded-full text-mini border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]
                 data-[active=true]:bg-accent/15 data-[active=true]:text-rose-600 dark:text-rose-400 data-[active=true]:border-accent/40 capitalize"
             >
               {type}
@@ -612,7 +612,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
 
       {/* IOC table */}
       <div className="surface-card overflow-hidden">
-        <table className="w-full text-[12px]">
+        <table className="w-full text-meta">
           <thead>
             <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
               <th className="text-left p-2.5 text-slate-500 dark:text-slate-400 font-medium">Actor</th>
@@ -641,7 +641,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                       <span className="h-2 w-2 rounded-full shrink-0" style={{ background: n?.color }} />
                       <span className="text-slate-600 dark:text-slate-400 font-medium">{a.name}</span>
                       {a.apt && (
-                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{a.apt}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{a.apt}</span>
                       )}
                     </div>
                   </td>
@@ -651,7 +651,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                         {a.malware.map((m) => (
                           <span
                             key={m.name}
-                            className="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 text-[10px] border border-purple-500/20"
+                            className="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 text-micro border border-purple-500/20"
                           >
                             {m.name}
                           </span>
@@ -665,13 +665,13 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                         {a.cves.slice(0, 3).map((c) => (
                           <span
                             key={c.id}
-                            className="px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 text-[10px] font-mono border border-red-500/20"
+                            className="px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 text-micro font-mono border border-red-500/20"
                           >
                             {c.id}
                           </span>
                         ))}
                         {a.cves.length > 3 && (
-                          <span className="text-[10px] text-slate-500 dark:text-slate-400">+{a.cves.length - 3}</span>
+                          <span className="text-micro text-slate-500 dark:text-slate-400">+{a.cves.length - 3}</span>
                         )}
                       </div>
                     </td>
@@ -682,13 +682,13 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                         {a.ttps.slice(0, 3).map((t) => (
                           <span
                             key={t.id}
-                            className="px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400 text-[10px] font-mono border border-brand-500/20"
+                            className="px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400 text-micro font-mono border border-brand-500/20"
                           >
                             {t.id}
                           </span>
                         ))}
                         {a.ttps.length > 3 && (
-                          <span className="text-[10px] text-slate-500 dark:text-slate-400">+{a.ttps.length - 3}</span>
+                          <span className="text-micro text-slate-500 dark:text-slate-400">+{a.ttps.length - 3}</span>
                         )}
                       </div>
                     </td>
@@ -698,13 +698,13 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                       {a.sectors.slice(0, 3).map((s) => (
                         <span
                           key={s}
-                          className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 text-[10px] border border-slate-200 dark:border-[rgb(var(--border-400))] capitalize"
+                          className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 text-micro border border-slate-200 dark:border-[rgb(var(--border-400))] capitalize"
                         >
                           {s}
                         </span>
                       ))}
                       {a.sectors.length > 3 && (
-                        <span className="text-[10px] text-slate-500 dark:text-slate-400">+{a.sectors.length - 3}</span>
+                        <span className="text-micro text-slate-500 dark:text-slate-400">+{a.sectors.length - 3}</span>
                       )}
                     </div>
                   </td>
@@ -770,25 +770,25 @@ function SectorPivotTab({
       <div className="grid grid-cols-4 gap-3 mb-4">
         <div className="surface-card p-3 text-center">
           <div className="text-xl font-bold text-slate-700 dark:text-slate-200">{sectorData.length}</div>
-          <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sectors</div>
+          <div className="text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sectors</div>
         </div>
         <div className="surface-card p-3 text-center">
           <div className="text-xl font-bold text-slate-700 dark:text-slate-200">
             {sectorData.reduce((sum, s) => sum + s.actors.length, 0)}
           </div>
-          <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Actor-Links</div>
+          <div className="text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">Actor-Links</div>
         </div>
         <div className="surface-card p-3 text-center">
           <div className="text-xl font-bold text-slate-700 dark:text-slate-200">
             {sectorData.reduce((sum, s) => sum + s.totalCVEs, 0)}
           </div>
-          <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">CVEs</div>
+          <div className="text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">CVEs</div>
         </div>
         <div className="surface-card p-3 text-center">
           <div className="text-xl font-bold text-slate-700 dark:text-slate-200">
             {sectorData.reduce((sum, s) => sum + s.totalMalware, 0)}
           </div>
-          <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Malware</div>
+          <div className="text-micro text-slate-500 dark:text-slate-400 uppercase tracking-wider">Malware</div>
         </div>
       </div>
 
@@ -811,13 +811,13 @@ function SectorPivotTab({
               <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />
             )}
             <Target size={14} className="text-rose-600 dark:text-rose-400" />
-            <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-200 capitalize flex-1">
+            <span className="text-tool font-semibold text-slate-700 dark:text-slate-200 capitalize flex-1">
               {sector.replace(/-/g, ' ')}
             </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <span className="text-micro px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))]">
               {sectorActors.length} actor{sectorActors.length !== 1 ? 's' : ''}
             </span>
-            <div className="flex items-center gap-3 text-[10px] text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-3 text-micro text-slate-500 dark:text-slate-400">
               <span>{totalTTPs} TTPs</span>
               <span>{totalCVEs} CVEs</span>
               <span>{totalMalware} malware</span>
@@ -835,16 +835,16 @@ function SectorPivotTab({
                       className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300))]/50"
                     >
                       <span
-                        className="h-4 w-6 rounded flex items-center justify-center text-[8px] font-mono font-semibold shrink-0"
+                        className="h-4 w-6 rounded flex items-center justify-center text-micro font-mono font-semibold shrink-0"
                         style={{ background: `${n?.color ?? '#555'}22`, color: n?.color ?? '#888' }}
                       >
                         {actor.country}
                       </span>
-                      <span className="text-[12px] text-slate-600 dark:text-slate-400 font-medium">{actor.name}</span>
+                      <span className="text-meta text-slate-600 dark:text-slate-400 font-medium">{actor.name}</span>
                       {actor.apt && (
-                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{actor.apt}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{actor.apt}</span>
                       )}
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 ml-auto">
+                      <span className="text-micro text-slate-500 dark:text-slate-400 ml-auto">
                         {actor.ttps.length} TTPs · {actor.cves.length} CVEs
                       </span>
                     </div>
@@ -882,7 +882,7 @@ function ReposTab({ search }: { search: string }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between mb-4">
-        <span className="text-[12px] text-slate-500 dark:text-slate-400">{filtered.length} repositories</span>
+        <span className="text-meta text-slate-500 dark:text-slate-400">{filtered.length} repositories</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -898,11 +898,11 @@ function ReposTab({ search }: { search: string }) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <GitBranch size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
-                  <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-200 truncate group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                  <span className="text-tool font-semibold text-slate-700 dark:text-slate-200 truncate group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                     {repo.name}
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">{repo.description}</p>
+                <p className="text-mini text-slate-500 dark:text-slate-400 leading-relaxed">{repo.description}</p>
               </div>
               <ExternalLink
                 size={12}
@@ -911,11 +911,11 @@ function ReposTab({ search }: { search: string }) {
             </div>
             <div className="flex items-center gap-3 mt-3">
               <span
-                className={`px-2 py-0.5 rounded-full text-[10px] font-medium border ${langColors[repo.lang] ?? 'text-slate-400 bg-slate-500/10 border-slate-500/20'}`}
+                className={`px-2 py-0.5 rounded-full text-micro font-medium border ${langColors[repo.lang] ?? 'text-slate-400 bg-slate-500/10 border-slate-500/20'}`}
               >
                 {repo.lang}
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span className="text-micro text-slate-500 dark:text-slate-400 flex items-center gap-1">
                 <Star size={10} className="shrink-0" /> {repo.stars.toLocaleString()}
               </span>
             </div>

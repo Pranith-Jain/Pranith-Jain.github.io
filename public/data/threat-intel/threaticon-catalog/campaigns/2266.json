@@ -1,0 +1,12 @@
+{
+  "id": 2266,
+  "name": "WIP26 Espionage | Threat Actors Abuse Cloud Infrastructure in Targeted Telco Attacks",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #408 (27143d08-348b-4120-b285-063f6295259f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2266"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 22,
+  "name": "Behavioral Detection of Visual Basic Execution (VBS/VBA/VBScript)",
+  "detId": "DET0076",
+  "stixId": "x-mitre-detection-strategy--4a7f1bc4-4396-49e1-9c75-caa6ecd64047",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0209", "AN0210", "AN0211"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/22"
+}

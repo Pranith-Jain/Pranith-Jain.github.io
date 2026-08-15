@@ -1,0 +1,12 @@
+{
+  "id": 2940,
+  "name": "An Analysis of Infrastructure linked to the Hagga Threat Actor",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1719 (a52a070a-6925-41ea-94d8-56f0d85dc268).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2940"
+}

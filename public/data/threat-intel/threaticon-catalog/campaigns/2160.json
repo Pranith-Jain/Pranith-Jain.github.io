@@ -1,0 +1,12 @@
+{
+  "id": 2160,
+  "name": "An Analysis of Godlua Backdoor",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #201 (5d9ad6de-0190-4361-8fac-7d8bc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2160"
+}

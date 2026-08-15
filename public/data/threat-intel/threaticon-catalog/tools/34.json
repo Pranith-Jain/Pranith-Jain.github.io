@@ -1,0 +1,12 @@
+{
+  "id": 34,
+  "name": "Fgdump",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Fgdump is a Windows password hash dumper. (Citation: Mandiant APT1)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/34"
+}

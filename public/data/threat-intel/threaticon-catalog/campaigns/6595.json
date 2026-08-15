@@ -1,0 +1,12 @@
+{
+  "id": 6595,
+  "name": "safepay: zinorm.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: zinorm.de | Infostealer data confirmed. | Founded in 1952 and headquartered in Ahrensburg, Schleswig-Holstein, the family-owned company has more than seventy years of experience serving customers … | Source: https://www.ransomware.live/id/emlub3JtLmRlQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6595"
+}

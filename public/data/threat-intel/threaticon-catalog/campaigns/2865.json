@@ -1,0 +1,12 @@
+{
+  "id": 2865,
+  "name": "OSINT - Destructive Shamoon Malware Continues its Return with a New Anti-American Message",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1459 (5c225981-ae64-4141-8a37-430a02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2865"
+}

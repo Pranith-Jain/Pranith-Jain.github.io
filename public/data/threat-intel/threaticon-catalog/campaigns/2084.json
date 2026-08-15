@@ -1,0 +1,12 @@
+{
+  "id": 2084,
+  "name": "Multiple Groups Have Been Exploiting ETERNALBLUE Weeks Before WannaCry",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #107 (59298081-8174-414b-a94e-5184c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2084"
+}

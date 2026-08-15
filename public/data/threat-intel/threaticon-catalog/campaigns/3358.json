@@ -1,0 +1,12 @@
+{
+  "id": 3358,
+  "name": "OSINT Massive AdGholas Malvertising Campaigns Use Steganography and File Whitelisting to Hide in Plain Sight by ProofPoint",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #627 (57a89cb0-1a80-4f24-a85b-43d4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3358"
+}

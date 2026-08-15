@@ -1,0 +1,12 @@
+{
+  "id": 5197,
+  "name": "genesis: Peña & Bromberg",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Not Found | Website: jonathanpena.com | Infostealer data confirmed. | A legal firm dedicated to safeguard the rights of its clients | Source: https://www.ransomware.live/id/UGXDsWEgJiBCcm9tYmVyZ0BnZW5lc2lz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5197"
+}

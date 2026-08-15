@@ -1,0 +1,12 @@
+{
+  "id": 2842,
+  "name": "Clipboard CryptoCoin Hijacker",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1389 (5b3b7b62-5728-4980-937b-40240acd0835).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2842"
+}

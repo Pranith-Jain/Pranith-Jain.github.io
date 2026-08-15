@@ -1,0 +1,12 @@
+{
+  "id": 7286,
+  "name": "Orova: Stoneybrook West Master Association, Inc",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Other | Website: stoneybrookwest.sites.townsq.io/0 | At Stoneybrook West, we plan regularly scheduled group physical fitness and after school classes, personal fitness training, swimming classes, tennis instruction, and music lessons are just to name a few. | Source: https://www.ransomware.live/id/U3RvbmV5YnJvb2sgV2VzdCBNYXN0ZXIgQXNzb2NpYXRpb24sIEluY0BPcm92YQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7286"
+}

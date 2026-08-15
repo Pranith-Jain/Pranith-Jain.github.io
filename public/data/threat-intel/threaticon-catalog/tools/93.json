@@ -1,0 +1,12 @@
+{
+  "id": 93,
+  "name": "Havij",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Havij is an automatic SQL Injection tool distributed by the Iranian ITSecTeam security company. Havij has been used by penetration testers and adversaries. (Citation: Check Point Havij Analysis)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/93"
+}

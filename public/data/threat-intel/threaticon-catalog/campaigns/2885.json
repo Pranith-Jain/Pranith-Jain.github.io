@@ -1,0 +1,12 @@
+{
+  "id": 2885,
+  "name": "Soft Cell case - guessed indicators (via Twitter discussion)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1534 (5d13bc95-ecbc-4af9-b684-423602de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2885"
+}

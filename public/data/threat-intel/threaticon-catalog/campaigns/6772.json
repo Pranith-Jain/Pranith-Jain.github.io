@@ -1,0 +1,12 @@
+{
+  "id": 6772,
+  "name": "qilin: Excel Consultores",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Professional Services | Website: www.excel.com.mx | N/A | Source: https://www.ransomware.live/id/RXhjZWwgQ29uc3VsdG9yZXNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6772"
+}

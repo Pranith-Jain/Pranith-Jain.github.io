@@ -1,0 +1,12 @@
+{
+  "id": 2619,
+  "name": "OSINT - An Investigation of Chrysaor Malware on Android",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1030 (58e3e7e5-90d8-43f1-a070-4520950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2619"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2939,
+  "name": "Is Hagga Threat Actor (ab)using FSociety framework ?",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1718 (f07207d5-e6f7-4369-9a9d-a1390b83aaeb).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2939"
+}

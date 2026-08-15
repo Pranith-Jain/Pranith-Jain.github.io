@@ -1,0 +1,12 @@
+{
+  "id": 3154,
+  "name": "DarkChronicles: the consequences of the Colonial Pipeline attack",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #261 (831d2060-6bb9-467c-9f2c-961ae0651829).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3154"
+}

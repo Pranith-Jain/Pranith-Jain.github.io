@@ -1,0 +1,12 @@
+{
+  "id": 5352,
+  "name": "2026-05-28 (Thursday): Web-Based Indirect Prompt Injection Pushes Malicious Chrome Extension",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 28, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-05-28 (Thursday): Web-Based Indirect Prompt Injection Pushes Malicious Chrome Extension. References: https://www.linkedin.com/posts/we-detected-indirect-prompt-injection-on-ugcPost-7466239963433734144-lREF/, https://x.com/Unit42_Intel/status/2060474330165731709",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5352"
+}

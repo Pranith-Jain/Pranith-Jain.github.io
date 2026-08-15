@@ -1,0 +1,12 @@
+{
+  "id": 2398,
+  "name": "OSINT Additional yara rules for Equation Drug by Florian Roth",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #726 (551e7bc4-ed74-4ff2-aef7-1888950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2398"
+}

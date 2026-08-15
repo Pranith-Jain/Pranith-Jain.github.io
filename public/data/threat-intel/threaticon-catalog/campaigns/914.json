@@ -1,0 +1,12 @@
+{
+  "id": 914,
+  "name": "coinbasecartel: Marlborough Partners - 1 TB data",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: GB | Sector: Business Services | Website: www.marlboroughpartners.com | [AI generated] Marlborough Partners is a UK-based boutique investment banking and advisory firm specializing in mergers and acquisitions, private equity, and corporate finance advisory services. The firm primarily serves mid-market companies across Europe, providing strategic financial advice, fundraising support, and transaction execution. It operates within the financial services and investment banking industry, headquartered in London, United Kingdom. | Source: https://www.ransomware.live/id/TWFybGJvcm91Z2ggUGFydG5lcnMgLSAxIFRCIGRhdGFAY29pbmJhc2VjYXJ0ZWw=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/914"
+}

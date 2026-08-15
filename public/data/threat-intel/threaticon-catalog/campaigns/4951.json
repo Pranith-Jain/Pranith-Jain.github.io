@@ -1,0 +1,12 @@
+{
+  "id": 4951,
+  "name": "qilin: Metro Electric",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Energy | Website: www.metroelectric-rgv.com | N/A | Source: https://www.ransomware.live/id/TWV0cm8gRWxlY3RyaWNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4951"
+}

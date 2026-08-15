@@ -1,0 +1,12 @@
+{
+  "id": 4869,
+  "name": "shinyhunters: American Tower Corporation",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Telecommunication | Over 5.2 million records consiting of a significant amount of customer and landowner PII, other records tied to other companies such as T-Mobile, Verizon, and the US DHS, several tower asset records containing GPS data and plaintext physical access/gate codes for cell tower compunds across the United States, thousands of internal corporate data, and a lot more were compromised. We urge you to reach out. This is a final warning to reach out by 15 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 12 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/QW1lcmljYW4gVG93ZXIgQ29ycG9yYXRpb25Ac2hpbnlodW50ZXJz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4869"
+}

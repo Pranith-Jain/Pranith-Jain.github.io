@@ -1,0 +1,12 @@
+{
+  "id": 2241,
+  "name": "OSINT - Malware is being signed with multiple digital certificates to evade detection",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #366 (56f419c3-e67c-45fc-b3a6-40d5950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2241"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7759,
+  "name": "majinahanashi: Camandona SA",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 11, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to majinahanashi. | Country: CH | Sector: Not Found | Website: www.camandona.ch | TARGET: https://www.camandona.ch/ REVENUE: $61.7M EMPLOYEES: 200 [LEAK / 9584 FILES] | Source: https://www.ransomware.live/id/Q2FtYW5kb25hIFNBQG1hamluYWhhbmFzaGk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7759"
+}

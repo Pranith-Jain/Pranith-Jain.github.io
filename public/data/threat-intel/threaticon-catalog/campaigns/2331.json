@@ -1,0 +1,12 @@
+{
+  "id": 2331,
+  "name": "Locky of the day (20160520)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #554 (5742a093-4190-414a-8a36-4c8d950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2331"
+}

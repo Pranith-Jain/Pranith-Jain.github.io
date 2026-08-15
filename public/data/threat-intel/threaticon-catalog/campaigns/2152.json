@@ -1,0 +1,12 @@
+{
+  "id": 2152,
+  "name": "OSINT - Death Comes Calling: Thanatos/Alphabot Trojan Hits the Market",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #190 (56e2c37c-b6d8-459d-b70b-428a950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2152"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3670,
+  "name": "krybit: eclagestio360.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: ES | Sector: Business Services | Website: eclagestio360.com | Infostealer data confirmed. | ECLAGESTIÓ A Spanish company specializing in comprehensive management for businesses and individuals, operating in the... | Source: https://www.ransomware.live/id/ZWNsYWdlc3RpbzM2MC5jb21Aa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3670"
+}

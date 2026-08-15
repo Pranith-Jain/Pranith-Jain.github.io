@@ -1,0 +1,12 @@
+{
+  "id": 6811,
+  "name": "genesis: C.A. Walker Construction",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 31, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Manufacturing | Website: cawalkerconstruction.com | A construction management company | Source: https://www.ransomware.live/id/Qy5BLiBXYWxrZXIgQ29uc3RydWN0aW9uQGdlbmVzaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6811"
+}

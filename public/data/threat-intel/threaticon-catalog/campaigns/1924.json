@@ -1,0 +1,12 @@
+{
+  "id": 1924,
+  "name": "play: Cobblestone Creek Country Club",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to play. | Country: US | Sector: Hospitality and Tourism | Website: www.cobblestonecreekcc.com | United States | Source: https://www.ransomware.live/id/Q29iYmxlc3RvbmUgQ3JlZWsgQ291bnRyeSBDbHViQHBsYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1924"
+}

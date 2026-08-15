@@ -1,0 +1,12 @@
+{
+  "id": 3499,
+  "name": "OSINT - The Rise of Dridex and the Role of ESPs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #998 (58ab3fb6-6c3c-49e3-8294-b3f202de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3499"
+}

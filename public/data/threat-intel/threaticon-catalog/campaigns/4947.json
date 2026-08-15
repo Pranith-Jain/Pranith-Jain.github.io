@@ -1,0 +1,12 @@
+{
+  "id": 4947,
+  "name": "qilin: JV Equipment",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.jvequipment.com | N/A | Source: https://www.ransomware.live/id/SlYgRXF1aXBtZW50QHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4947"
+}

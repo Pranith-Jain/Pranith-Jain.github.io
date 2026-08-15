@@ -1,0 +1,12 @@
+{
+  "id": 91,
+  "name": "Detection of Valid Account Abuse Across Platforms",
+  "detId": "DET0560",
+  "stixId": "x-mitre-detection-strategy--a6245075-b59f-46cf-8b76-e8d95c378a22",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN1543", "AN1544", "AN1545", "AN1546", "AN1547"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/91"
+}

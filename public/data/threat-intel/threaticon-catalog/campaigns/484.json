@@ -1,0 +1,12 @@
+{
+  "id": 484,
+  "name": "thegentlemen: Lawson Software",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Business Services | Website: lawson.co.th | Infostealer data confirmed. | lawson.co.th zoominfo.com/c/lawson-software-co-ltd/454540883 Lawson Software (Thailand) Co., Ltd. is a Bangkok-based IT consulting firm specializing in ERP (Enterprise Resource Planning) implementation and business software solutions, founded in 1999. The company is headquartered at Gypsum Metropolitan Tower, Si Ayutthaya Road, Ratchathewi, Bangkok, and has a team of 11–50 employees | Source: https://www.ransomware.live/id/TGF3c29uIFNvZnR3YXJlQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/484"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4253,
+  "name": "payoutsking: Welldyne",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Healthcare | Website: welldyne.com | Infostealer data confirmed. | [AI generated] Welldyne is a pharmacy benefit management (PBM) company based in the United States. It provides prescription drug management services to health plans, employers, and government programs. The company focuses on improving medication adherence and controlling prescription costs through its pharmacy network, mail-order pharmacy services, and data-driven clinical programs. Welldyne operates primarily across the US healthcare sector. | Source: https://www.ransomware.live/id/V2VsbGR5bmVAcGF5b3V0c2tpbmc=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4253"
+}

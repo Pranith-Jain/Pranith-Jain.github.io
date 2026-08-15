@@ -1,0 +1,12 @@
+{
+  "id": 3225,
+  "name": "Mustang Panda deploys a new wave of malware targeting Europe",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #378 (ade7298a-84e8-4dc8-9cab-c215cc771629).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3225"
+}

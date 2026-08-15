@@ -1,0 +1,12 @@
+{
+  "id": 510,
+  "name": "Detect DHCP Spoofing Across Linux, Windows, and macOS",
+  "detId": "DET0468",
+  "stixId": "x-mitre-detection-strategy--9f227978-8d56-406f-9d50-ef10aae1bf77",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1290", "AN1291", "AN1292"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/510"
+}

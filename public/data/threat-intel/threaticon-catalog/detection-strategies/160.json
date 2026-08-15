@@ -1,0 +1,12 @@
+{
+  "id": 160,
+  "name": "Virtualization/Sandbox Evasion via System Checks across Windows, Linux, macOS",
+  "detId": "DET0168",
+  "stixId": "x-mitre-detection-strategy--5b998fb4-fb3f-4207-ae00-cdf0e1a22b76",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0478", "AN0479", "AN0480"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/160"
+}

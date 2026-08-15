@@ -1,0 +1,12 @@
+{
+  "id": 3596,
+  "name": "lockbit5: dentoncalvary.org",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Healthcare | Website: dentoncalvary.org | Infostealer data confirmed. | Denton Calvary Academy is a K-12 University-Model school that focuses on fostering a love of learnin... | Source: https://www.ransomware.live/id/ZGVudG9uY2FsdmFyeS5vcmdAbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3596"
+}

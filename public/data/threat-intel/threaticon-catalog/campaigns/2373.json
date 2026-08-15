@@ -1,0 +1,12 @@
+{
+  "id": 2373,
+  "name": "OSINT Microsoft Office Zero-Day CVE-2015-2424 Leveraged By Tsar Team report by iSight",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #637 (5761398f-31d0-46b0-808f-41de950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2373"
+}

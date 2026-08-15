@@ -1,0 +1,12 @@
+{
+  "id": 2199,
+  "name": "HAFNIUM targeting Exchange Servers with 0-day exploits",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #252 (16ee036b-17f5-4f17-b3c3-9fe89176274a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2199"
+}

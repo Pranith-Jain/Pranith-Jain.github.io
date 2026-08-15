@@ -1,0 +1,12 @@
+{
+  "id": 7295,
+  "name": "Barracuda: Namyang Industrial Co., Ltd. \\ NAMYANG NEXMO",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to Barracuda. | Country: KR | Sector: Manufacturing | Website: nynexmo.com | Infostealer data confirmed. | Selling fresh full database dumps of company Namyang Industrial Co., Ltd. (renamed to Namyang Nexmo). Infrastructure dump, not website! There information about employers, manufacturing, parts, clients, partners and etc. Total lines (csv format): 17 641 181. | Status: selling | Size: 2.51 GB | Starting at $40000.00 | Source: https://www.ransomware.live/id/TmFteWFuZyBJbmR1c3RyaWFsIENvLiwgTHRkLiBcIE5BTVlBTkcgTkVYTU9AQmFycmFjdWRh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7295"
+}

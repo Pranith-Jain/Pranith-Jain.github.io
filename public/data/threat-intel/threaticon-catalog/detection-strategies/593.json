@@ -1,0 +1,12 @@
+{
+  "id": 593,
+  "name": "Detection Strategy for Invisible Unicode",
+  "detId": "DET0920",
+  "stixId": "x-mitre-detection-strategy--ded7322c-64ba-4f6b-9aca-77a537798cab",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN2063", "AN2064", "AN2065"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/593"
+}

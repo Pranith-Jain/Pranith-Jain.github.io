@@ -1,0 +1,12 @@
+{
+  "id": 7623,
+  "name": "direwolf: Leafwell",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Aug 11, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to direwolf. | Country: US | Sector: Healthcare | Website: leafwell.com | Infostealer data confirmed. | Hospitals &amp; Physicians Clinics | Source: https://www.ransomware.live/id/TGVhZndlbGxAZGlyZXdvbGY=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7623"
+}

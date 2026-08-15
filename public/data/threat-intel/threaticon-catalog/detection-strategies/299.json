@@ -1,0 +1,12 @@
+{
+  "id": 299,
+  "name": "Detection Strategy for Hijack Execution Flow through the AppDomainManager on Windows.",
+  "detId": "DET0517",
+  "stixId": "x-mitre-detection-strategy--387ae9f0-0b8b-49b9-ab85-8f325a583d24",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1433"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/299"
+}

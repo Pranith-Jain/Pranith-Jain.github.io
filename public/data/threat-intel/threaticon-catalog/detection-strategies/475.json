@@ -1,0 +1,12 @@
+{
+  "id": 475,
+  "name": "Behavioral Detection of CLI Abuse on Network Devices",
+  "detId": "DET0142",
+  "stixId": "x-mitre-detection-strategy--ca871237-8615-47b7-9981-92d1d920d346",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0399"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/475"
+}

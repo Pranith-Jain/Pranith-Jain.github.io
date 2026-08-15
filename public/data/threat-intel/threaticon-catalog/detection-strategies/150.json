@@ -1,0 +1,12 @@
+{
+  "id": 150,
+  "name": "Detection of Malware Relocation via Suspicious File Movement",
+  "detId": "DET0439",
+  "stixId": "x-mitre-detection-strategy--3fa3299e-a8c2-4555-890b-544314ae1e44",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1216", "AN1217", "AN1218", "AN1219"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/150"
+}

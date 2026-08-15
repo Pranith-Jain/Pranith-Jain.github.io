@@ -1,0 +1,12 @@
+{
+  "id": 3248,
+  "name": "Windows version of the Bibi Wiper by BiBiGun",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #424 (29c6ba65-2e06-44bb-95f4-03e55e499c0a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3248"
+}

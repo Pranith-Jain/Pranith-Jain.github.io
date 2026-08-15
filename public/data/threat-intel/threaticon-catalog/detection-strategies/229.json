@@ -1,0 +1,12 @@
+{
+  "id": 229,
+  "name": "Detection Strategy for Forged SAML Tokens",
+  "detId": "DET0148",
+  "stixId": "x-mitre-detection-strategy--b6d7d7cb-b56f-4095-b3ac-21147b0123e5",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0418", "AN0419", "AN0420", "AN0421", "AN0422"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/229"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3520,
+  "name": "cmdorganization: Raise the Bottom",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Business Services | Website: www.raisethebottomidaho.com | Raise The Bottom is an opioid treatment center in Idaho, offering outpatient medication-assisted treatment (MAT) programs and therapy. The center provides services including Suboxone, Methadone, and Vivitrol, with locations in Boise, Nampa, and Pocatello. Their mission is to support Idaho residents in reclaiming their lives from opioid addiction through comprehensive care that involves family and community. With a focus on personalized treatment and a whole-person approach, Raise The Bottom aims to foster lasting recovery and stability for individuals and their families. | Source: https://www.ransomware.live/id/UmFpc2UgdGhlIEJvdHRvbUBjbWRvcmdhbml6YXRpb24=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3520"
+}

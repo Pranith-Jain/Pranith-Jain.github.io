@@ -1,0 +1,12 @@
+{
+  "id": 6064,
+  "name": "killsec: Bulwark Exterminating",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 23, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Jul 23, 2026",
+  "description": "Ransomware attack attributed to killsec. | Country: US | Sector: Other | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/QnVsd2FyayBFeHRlcm1pbmF0aW5nQGtpbGxzZWM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6064"
+}

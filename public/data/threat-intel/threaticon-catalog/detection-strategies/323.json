@@ -1,0 +1,12 @@
+{
+  "id": 323,
+  "name": "Container CLI and API Abuse via Docker/Kubernetes (T1059.013)",
+  "detId": "DET0083",
+  "stixId": "x-mitre-detection-strategy--26580351-9bc3-4e03-b5ad-139d38303707",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0233"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/323"
+}

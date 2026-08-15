@@ -1,0 +1,12 @@
+{
+  "id": 5091,
+  "name": "anubis: Singing River Health System",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | New data breach at a large health system provider. | Source: https://www.ransomware.live/id/U2luZ2luZyBSaXZlciBIZWFsdGggU3lzdGVtQGFudWJpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5091"
+}

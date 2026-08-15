@@ -1,0 +1,12 @@
+{
+  "id": 2165,
+  "name": "DarkUniverse â€“ the mysterious APT framework #27",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #207 (5dc5d7e8-ddf8-4963-bf12-a37bc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2165"
+}

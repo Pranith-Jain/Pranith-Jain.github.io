@@ -1,0 +1,12 @@
+{
+  "id": 5114,
+  "name": "qilin: Nova Medical Products",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 2, 2026",
+  "lastSeen": "Jun 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.novajoy.com | N/A | Source: https://www.ransomware.live/id/Tm92YSBNZWRpY2FsIFByb2R1Y3RzQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5114"
+}

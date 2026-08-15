@@ -1,0 +1,12 @@
+{
+  "id": 2379,
+  "name": "OSINT Dalexis/CTB-Locker malspam campaign by SANS Internet Storm Center",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #707 (55473e1b-e828-4fe9-ba30-dd1b950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2379"
+}

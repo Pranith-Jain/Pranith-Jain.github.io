@@ -1,0 +1,12 @@
+{
+  "id": 7187,
+  "name": "everest: Stadler Rail",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 28, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: CH | Sector: Transportation | Website: stadlerrail.com | Infostealer data confirmed. | [AI generated] Stadler Rail is a Swiss manufacturer of railway vehicles headquartered in Bussnang, Switzerland. Founded in 1942, the company designs and produces a wide range of trains including regional and intercity trains, trams, metros, and rack railways. It operates globally, supplying rail operators across Europe, the Americas, and beyond, and is recognized for its FLIRT and KISS train families. | Press: https://www.watson.ch/wirtschaft/thurgau/911864095-cyberattacke-auf-stadler-rail-im-thurgau | Source: https://www.ransomware.live/id/U3RhZGxlciBSYWlsQGV2ZXJlc3Q=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7187"
+}

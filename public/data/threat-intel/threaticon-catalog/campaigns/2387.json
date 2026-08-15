@@ -1,0 +1,12 @@
+{
+  "id": 2387,
+  "name": "OSINT New Discovery: Ties Between Corebot and Darknet Crypt Service by Damballa",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #715 (561d8626-9214-404c-bc01-4b56950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2387"
+}

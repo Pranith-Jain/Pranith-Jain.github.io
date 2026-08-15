@@ -1,0 +1,12 @@
+{
+  "id": 2527,
+  "name": "Malspam 2016-09-30 (.wsf in .zip) - campaign: \"Parcel details\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #888 (57ee6d8c-0650-4c8a-9dfa-4f31950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2527"
+}

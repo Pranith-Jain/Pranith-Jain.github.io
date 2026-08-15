@@ -1,0 +1,12 @@
+{
+  "id": 6526,
+  "name": "CRPxO: ProSmile Family Dental Care",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Healthcare | Sector: Healthcare / Dental | Data leaked: 9.6 GB | Source: https://www.ransomware.live/id/UHJvU21pbGUgRmFtaWx5IERlbnRhbCBDYXJlQENSUHhP",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6526"
+}

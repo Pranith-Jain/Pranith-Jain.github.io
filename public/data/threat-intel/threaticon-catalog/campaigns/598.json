@@ -1,0 +1,12 @@
+{
+  "id": 598,
+  "name": "coinbasecartel: Engie",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: FR | Sector: Energy | Website: engie.com | Infostealer data confirmed. | [AI generated] Engie is a French multinational energy company headquartered in Paris, France. It operates across the electricity generation, natural gas distribution, and renewable energy sectors. The company provides energy services to individuals, businesses, and local authorities worldwide, with activities spanning power production, infrastructure management, and energy efficiency solutions. Engie is active in over 70 countries globally. | Source: https://www.ransomware.live/id/RW5naWVAY29pbmJhc2VjYXJ0ZWw=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/598"
+}

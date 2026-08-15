@@ -1,0 +1,12 @@
+{
+  "id": 5666,
+  "name": "anubis: FÉTIS Group & SECOM Engineering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "Jun 11, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5666"
+}

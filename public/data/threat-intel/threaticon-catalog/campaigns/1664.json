@@ -1,0 +1,12 @@
+{
+  "id": 1664,
+  "name": "interlock: Elliott-Lewis",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Construction | Website: https:elliottlewis.com | Since 1905, Elliott-Lewis Corporate has provided comprehensive solutions for maintenance, repair and operations, engineering, design, installation, and energy consumption. In addition, Elliott-Lewis' Facilities Management team provides individual on-site operations management but does not provide security to its customers, resulting in a large database of confidential contracts and projects, as well as personal customer and employee data. | Source: https://www.ransomware.live/id/RWxsaW90dC1MZXdpc0BpbnRlcmxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1664"
+}

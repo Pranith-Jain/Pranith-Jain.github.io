@@ -1,0 +1,12 @@
+{
+  "id": 2777,
+  "name": "OSINT - RIG exploit kit distributes Princess ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1267 (5a3797c2-e770-4722-9435-4350950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2777"
+}

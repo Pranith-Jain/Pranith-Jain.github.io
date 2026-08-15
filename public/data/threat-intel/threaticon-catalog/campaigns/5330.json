@@ -1,0 +1,12 @@
+{
+  "id": 5330,
+  "name": "2026-07-08 (Wednesday): The Gentlemen C-Based Ransomware Samples",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 8, 2026",
+  "lastSeen": "Jul 8, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-07-08 (Wednesday): The Gentlemen C-Based Ransomware Samples. References: https://www.linkedin.com/posts/we-recently-identified-files-likely-associated-share-7480706534059016192-HVMg/, https://x.com/Unit42_Intel/status/2074940861801025697",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5330"
+}

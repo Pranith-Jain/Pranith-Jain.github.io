@@ -1,0 +1,12 @@
+{
+  "id": 4799,
+  "name": "thegentlemen: Enciso Ltda",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CL | Sector: Not Found | Website: encisoltda.com | Infostealer data confirmed. | ***.com zoominfo.com/c/enciso-ltda/425799840 Enciso Ltda is a trusted Colombian company founded in 1999, specializing in the distribution of industrial safety equipment, medical supplies, and road signaling. Operating from Dosquebradas with four regional branches, they proudly serve over 5,000 clients nationwide. Their core mission is safeguarding workers' health and lives through premium protective equipment and reliable safety solutions | Source: https://www.ransomware.live/id/RW5jaXNvIEx0ZGFAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4799"
+}

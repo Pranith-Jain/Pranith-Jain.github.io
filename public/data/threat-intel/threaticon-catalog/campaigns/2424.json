@@ -1,0 +1,12 @@
+{
+  "id": 2424,
+  "name": "OSINT Neutrino Exploit Kit â€“ One Flash File to Rule Them All by SpiderLabs",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #752 (56b06dc5-2cac-46c1-9827-40f7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2424"
+}

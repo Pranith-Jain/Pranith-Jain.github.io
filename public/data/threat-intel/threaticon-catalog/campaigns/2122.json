@@ -1,0 +1,12 @@
+{
+  "id": 2122,
+  "name": "Down but Not Out: A Look Into Recent Exploit Kit Activities",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #149 (5b43862c-e934-4e53-aaa3-234dc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2122"
+}

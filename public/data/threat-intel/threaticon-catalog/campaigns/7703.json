@@ -1,0 +1,12 @@
+{
+  "id": 7703,
+  "name": "qilin: United Association Local Union 345",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Other | Website: www.ua345.org | N/A | Source: https://www.ransomware.live/id/VW5pdGVkIEFzc29jaWF0aW9uIExvY2FsIFVuaW9uIDM0NUBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7703"
+}

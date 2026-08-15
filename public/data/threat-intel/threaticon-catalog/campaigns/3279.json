@@ -1,0 +1,12 @@
+{
+  "id": 3279,
+  "name": "CoralRaider targets victims’ data and social media accounts",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #487 (8b3e9108-0c15-4e5c-ab1e-57d91ab45181).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3279"
+}

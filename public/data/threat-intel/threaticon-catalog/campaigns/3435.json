@@ -1,0 +1,12 @@
+{
+  "id": 3435,
+  "name": "OSINT EFF Report Operation Manul",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #804 (57ab2b08-fcd8-48b2-ba43-4cf3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3435"
+}

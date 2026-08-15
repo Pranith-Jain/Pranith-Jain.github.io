@@ -1,0 +1,12 @@
+{
+  "id": 2543,
+  "name": "OSINT - Veil-Framework Infects Victims of Targeted OWA Phishing Attack",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #913 (581fadbd-7acc-4907-9133-4380950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2543"
+}

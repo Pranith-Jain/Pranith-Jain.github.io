@@ -1,0 +1,12 @@
+{
+  "id": 5045,
+  "name": "qilin: Jay's Catering",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 5, 2026",
+  "lastSeen": "Jun 5, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Hospitality and Tourism | Website: www.myjayscatering.com | N/A | Source: https://www.ransomware.live/id/SmF5J3MgQ2F0ZXJpbmdAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5045"
+}

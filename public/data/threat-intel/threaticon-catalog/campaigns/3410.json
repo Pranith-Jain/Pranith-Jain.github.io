@@ -1,0 +1,12 @@
+{
+  "id": 3410,
+  "name": "OSINT Cmstar Downloader: Lurid and Enfalâ€™s New Cousin by Palo Alto Unit 42",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #685 (555cacaa-4a44-43f0-909e-919a950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3410"
+}

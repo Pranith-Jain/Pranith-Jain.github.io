@@ -1,0 +1,12 @@
+{
+  "id": 520,
+  "name": "Detect Credential Discovery via Windows Registry Enumeration",
+  "detId": "DET0250",
+  "stixId": "x-mitre-detection-strategy--6c9e1f65-7d75-4091-b97d-e5f88ed12812",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0694"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/520"
+}

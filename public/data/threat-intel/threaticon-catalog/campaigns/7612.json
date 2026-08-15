@@ -1,0 +1,12 @@
+{
+  "id": 7612,
+  "name": "direwolf: Osmo Wallet",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to direwolf. | Country: US | Sector: Financial Services | Website: osmomoney.com | FinTech | Source: https://www.ransomware.live/id/T3NtbyBXYWxsZXRAZGlyZXdvbGY=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7612"
+}

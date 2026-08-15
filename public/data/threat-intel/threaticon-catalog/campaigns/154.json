@@ -1,0 +1,12 @@
+{
+  "id": 154,
+  "name": "qilin: Law Office of Steven R Smith",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.newyorkattorneyatlaw.com | N/A | Source: https://www.ransomware.live/id/TGF3IE9mZmljZSBvZiBTdGV2ZW4gUiBTbWl0aEBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/154"
+}

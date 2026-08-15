@@ -1,0 +1,12 @@
+{
+  "id": 3506,
+  "name": "Revenge Ransomware, a CryptoMix Variant, Being Distributed by RIG Exploit Kit",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1012 (58ca5f56-3da4-4ed9-a13f-0804950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3506"
+}

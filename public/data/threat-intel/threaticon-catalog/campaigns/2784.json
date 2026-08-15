@@ -1,0 +1,12 @@
+{
+  "id": 2784,
+  "name": "OSINT - How Mobile Bankbots Disguise as Perfectly Trustworthy Apps",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1275 (5a3a297f-95a8-418e-a949-484f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2784"
+}

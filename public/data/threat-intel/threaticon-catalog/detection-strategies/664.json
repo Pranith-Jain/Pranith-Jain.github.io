@@ -1,0 +1,12 @@
+{
+  "id": 664,
+  "name": "Detection of Identify Business Tempo",
+  "detId": "DET0849",
+  "stixId": "x-mitre-detection-strategy--f5ac003f-2fdc-4ac5-9f2b-3fb2ab00fe95",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1981"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/664"
+}

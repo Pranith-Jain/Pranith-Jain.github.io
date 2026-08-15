@@ -1,0 +1,12 @@
+{
+  "id": 2733,
+  "name": "M2M - Locky 2017-10-04 : Affid=3, offline, \".ykcol\" : \"Message from 02087654321\" - \"Voice Message.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1204 (59d5e1fe-30f4-48ee-8b75-dabd950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2733"
+}

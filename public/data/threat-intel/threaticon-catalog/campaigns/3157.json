@@ -1,0 +1,12 @@
+{
+  "id": 3157,
+  "name": "Disgruntled ransomware affiliate leaks the Conti gangâ€™s technical manuals",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #264 (0d93b9c2-9ee0-4527-b475-5b723666573b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3157"
+}

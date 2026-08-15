@@ -1,0 +1,12 @@
+{
+  "id": 4787,
+  "name": "BrainCipher: alu-rex.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to BrainCipher. | Country: AT | Sector: Manufacturing | Website: alu-rex.com | Infostealer data confirmed. | [AI generated] Alu-Rex is a Canadian company specializing in the manufacturing of gutter protection systems and accessories. Based in Quebec, Canada, the company produces aluminum-based products designed to prevent debris from clogging eavestroughs. Their product lines include continuous hanger systems and gutter guards primarily marketed to roofing and eavestrough installation professionals across North America. | Source: https://www.ransomware.live/id/YWx1LXJleC5jb21AQnJhaW5DaXBoZXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4787"
+}

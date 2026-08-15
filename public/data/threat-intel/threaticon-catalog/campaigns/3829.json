@@ -1,0 +1,12 @@
+{
+  "id": 3829,
+  "name": "Operation SolarWinds",
+  "status": "Inactive",
+  "confidence": 95,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "A sophisticated supply chain attack targeting SolarWinds Orion platform affecting thousands of organizations including US government agencies.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3829"
+}

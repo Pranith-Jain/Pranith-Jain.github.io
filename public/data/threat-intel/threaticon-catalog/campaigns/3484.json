@@ -1,0 +1,12 @@
+{
+  "id": 3484,
+  "name": "OSINT - Fancy Bear Source Code",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #958 (58724cbf-5508-4425-ab89-4f61950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3484"
+}

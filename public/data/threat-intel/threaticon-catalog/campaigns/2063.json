@@ -1,0 +1,12 @@
+{
+  "id": 2063,
+  "name": "OilRig Malware Campaign Updates Toolset and Expands Targets",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #83 (5818d672-8ad0-4d07-b0ba-0a59c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2063"
+}

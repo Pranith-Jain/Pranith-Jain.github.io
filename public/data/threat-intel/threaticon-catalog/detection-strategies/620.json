@@ -1,0 +1,12 @@
+{
+  "id": 620,
+  "name": "Detection Strategy for AppCert DLLs Persistence via Registry Injection",
+  "detId": "DET0362",
+  "stixId": "x-mitre-detection-strategy--3de93376-739e-4842-875d-d6e9948db8d4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN1029"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/620"
+}

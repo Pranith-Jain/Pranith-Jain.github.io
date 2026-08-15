@@ -1,0 +1,12 @@
+{
+  "id": 2969,
+  "name": "KRVTZ IDS alerts for 2026-01-24",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1823 (f302f63b-43e3-4a59-aeac-ff1a9ae002c3).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2969"
+}

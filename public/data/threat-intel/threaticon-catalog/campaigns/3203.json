@@ -1,0 +1,12 @@
+{
+  "id": 3203,
+  "name": "Financially motivated, dangerously activated: OPERA1ER APT in Africa",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #337 (fe78f9f1-49e2-4e84-bad3-ae97b077d4f7).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3203"
+}

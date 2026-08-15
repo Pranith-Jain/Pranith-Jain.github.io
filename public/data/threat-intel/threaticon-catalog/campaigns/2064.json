@@ -1,0 +1,12 @@
+{
+  "id": 2064,
+  "name": "Tech support scammers abuse bug in HTML5 to freeze computers",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #84 (581b74ff-d3f8-4ba9-acf5-229fc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2064"
+}

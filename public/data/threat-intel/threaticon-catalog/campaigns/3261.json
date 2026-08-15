@@ -1,0 +1,12 @@
+{
+  "id": 3261,
+  "name": "OSINT - Python-Based PWOBot Targets European Organizations",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #441 (5715fcdc-d2ec-42c6-8be3-493c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3261"
+}

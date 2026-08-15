@@ -1,0 +1,12 @@
+{
+  "id": 6236,
+  "name": "Deadlock: Relesa",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: AR | Sector: Other | Website: relesa.com.ar | Infostealer data confirmed. | Grupo Relesa a multinacional Spanish company specializing in the fabrication and summary of rejillas metálicas (tramex). The main function is the digital platform and the client portal of Reginald Lee SA, one of the official distributors of more important products of Coca-Cola in Argentina. | Source: https://www.ransomware.live/id/UmVsZXNhQERlYWRsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6236"
+}

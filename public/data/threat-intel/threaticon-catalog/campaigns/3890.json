@@ -1,0 +1,12 @@
+{
+  "id": 3890,
+  "name": "safepay: harrisoncountywv.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Public Sector | Website: harrisoncountywv.com | Infostealer data confirmed. | The Commission functions as the executive administrative body for the county and is responsible for overseeing public infrastructure, fiscal management, … | Press: https://www.wvnews.com/theet/news/services-stymied-at-harrison-county-government-offices-as-staff-deal-with-cybersecurity-attack/article_5c5b4733-70ae-4e23-8215-e7ef00471e5f.html | Source: https://www.ransomware.live/id/aGFycmlzb25jb3VudHl3di5jb21Ac2FmZXBheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3890"
+}

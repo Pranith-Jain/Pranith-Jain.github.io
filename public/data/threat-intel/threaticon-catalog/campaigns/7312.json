@@ -1,0 +1,12 @@
+{
+  "id": 7312,
+  "name": "insomnia: Park Place Behavioral Health Care",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Jul 23, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Healthcare | Website: www.ppbh.org | PPBHC provides mental health and substance use services in Osceola County, Florida, with 40+ years’ experience. They offer crisis intervention, therapy, recovery-oriented care, telehealth, and partner with GENOA for medication access. | Source: https://www.ransomware.live/id/UGFyayBQbGFjZSBCZWhhdmlvcmFsIEhlYWx0aCBDYXJlQGluc29tbmlh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7312"
+}

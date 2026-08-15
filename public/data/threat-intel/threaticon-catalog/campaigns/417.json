@@ -1,0 +1,12 @@
+{
+  "id": 417,
+  "name": "apt73: amtaar.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: AE | Sector: Business Services | Website: amtaar.com | Infostealer data confirmed. | Amtaar Investment Company. Organization dedicated to transforming desert land into thriving food-... | Source: https://www.ransomware.live/id/YW10YWFyLmNvbUBhcHQ3Mw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/417"
+}

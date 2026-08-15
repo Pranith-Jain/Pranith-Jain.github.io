@@ -1,0 +1,12 @@
+{
+  "id": 413,
+  "name": "Setuid/Setgid Privilege Abuse Detection (Linux/macOS)",
+  "detId": "DET0110",
+  "stixId": "x-mitre-detection-strategy--bc8cd246-1521-4643-a07e-428d45093b38",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0307", "AN0308"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/413"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1678,
+  "name": "qilin: Advanced Animations",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.advancedanimations.com | Source: https://www.ransomware.live/id/QWR2YW5jZWQgQW5pbWF0aW9uc0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1678"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3211,
+  "name": "Disrupting SEABORGIUM’s ongoing phishing operations",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #350 (99273d5d-d769-4b15-98b8-d87c6cce7d72).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3211"
+}

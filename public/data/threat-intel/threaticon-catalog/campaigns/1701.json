@@ -1,0 +1,12 @@
+{
+  "id": 1701,
+  "name": "thegentlemen: Kpropha",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TN | Sector: Healthcare | Website: kpropha.com | Infostealer data confirmed. | kpropha.com zoominfo.com/c/kpropha/470472753 K.PROPHA specializes in the distribution of pharmaceutical and parapharmaceutical products, serving pharmacists, private clinics, and other health partners. The company is committed to ensuring optimal availability of healthcare products to facilitate quick access to the latest treatments for patients. With a multidisciplinary team, K.PROPHA offers services such as supply management, online sales, and real-time distribution tracking. Their mission is to exceed customer expectations and promote the best healthcare solutions | Source: https://www.ransomware.live/id/S3Byb3BoYUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1701"
+}

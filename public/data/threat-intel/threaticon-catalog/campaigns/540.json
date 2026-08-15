@@ -1,0 +1,12 @@
+{
+  "id": 540,
+  "name": "akira: Gumpp Kunststoffe",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Manufacturing | Website: gumpp-kunststoffe.de | Infostealer data confirmed. | KKG Gumpp is a wholesale company based in Königsbrunn, Bavaria, s pecializing in technical textiles and fabrics for various applica tions. We will upload corporate data soon. Employee personal documents ( passports, DLs), client information, projects, contracts and agre ements, etc. | Source: https://www.ransomware.live/id/R3VtcHAgS3Vuc3RzdG9mZmVAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/540"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 331,
+  "name": "Detect Time-Based Evasion via Sleep, Timer Loops, and Delayed Execution",
+  "detId": "DET0141",
+  "stixId": "x-mitre-detection-strategy--90b6ef43-3f63-47c5-af59-ed4f95cc9c87",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0396", "AN0397", "AN0398"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/331"
+}

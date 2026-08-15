@@ -45,7 +45,7 @@ function QueryBlock({ query }: { query: string }) {
       >
         {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
       </button>
-      <pre className="font-mono text-[11px] leading-relaxed text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-mini leading-relaxed text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 pr-16 overflow-x-auto whitespace-pre-wrap">
         {query}
       </pre>
     </div>

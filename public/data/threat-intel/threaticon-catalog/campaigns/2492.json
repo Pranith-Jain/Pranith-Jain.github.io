@@ -1,0 +1,12 @@
+{
+  "id": 2492,
+  "name": "Malspam 2016-08-31 (.wsf in .zip) - campaign: \"Image|Picture|Photos|Photo|Document\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #842 (57c6ac4c-c60c-4f79-a38f-b666950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2492"
+}

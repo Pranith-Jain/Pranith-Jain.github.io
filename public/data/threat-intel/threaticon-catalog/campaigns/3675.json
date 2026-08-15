@@ -1,0 +1,12 @@
+{
+  "id": 3675,
+  "name": "genesis: Rain Makers Solutions",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: rainmakerssolutions.com | Infostealer data confirmed. | Conducting training sessions, engaging with stakeholders, and organizing meetings and events. | Source: https://www.ransomware.live/id/UmFpbiBNYWtlcnMgU29sdXRpb25zQGdlbmVzaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3675"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 5611,
+  "name": "incransom: asa-international.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 16, 2026",
+  "lastSeen": "Jul 16, 2026",
+  "added": "Jul 17, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: GB | Sector: Business Services | Website: asa-international.com | Infostealer data confirmed. | ASA International is a major international microfinance institution operating across South Asia, Southeast Asia, and Africa. The company's shares are traded on the London Stock Exchange under the ticker symbol ASAI | Source: https://www.ransomware.live/id/YXNhLWludGVybmF0aW9uYWwuY29tQGluY3JhbnNvbQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5611"
+}

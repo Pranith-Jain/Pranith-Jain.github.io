@@ -1,0 +1,12 @@
+{
+  "id": 400,
+  "name": "Detection Strategy for T1505.002 - Transport Agent Abuse (Windows/Linux)",
+  "detId": "DET0166",
+  "stixId": "x-mitre-detection-strategy--90ee8005-5476-422f-abe0-6c231f004cd6",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0472", "AN0473"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/400"
+}

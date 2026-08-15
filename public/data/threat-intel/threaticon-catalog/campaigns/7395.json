@@ -1,0 +1,12 @@
+{
+  "id": 7395,
+  "name": "thegentlemen: TESI",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: IT | Sector: Not Found | Website: tesiimpianti.it | tesiimpianti.it TESI S.r.l. is an Italian industrial company founded in 1997 as a spin-off from the Falck Group, specializing in machinery for coil and sheet metal processing. The company handles the buying, selling, installation, and maintenance of complete production lines for the metallurgical sector. A core part of their business is the deep refurbishment and technological upgrading of used industrial equipment with modern electrical and hydraulic systems. | Source: https://www.ransomware.live/id/VEVTSUB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7395"
+}

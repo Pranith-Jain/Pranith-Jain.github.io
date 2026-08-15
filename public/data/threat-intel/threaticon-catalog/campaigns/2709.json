@@ -1,0 +1,12 @@
+{
+  "id": 2709,
+  "name": "OSINT New Variants of Agent.BTZ/ComRAT Found: The Threat That Hit The Pentagon In 2008 Still Evolving by Intezer",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1173 (59ba805d-d674-4156-bcc6-473b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2709"
+}

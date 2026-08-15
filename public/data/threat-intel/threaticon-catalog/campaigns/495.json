@@ -1,0 +1,12 @@
+{
+  "id": 495,
+  "name": "qilin: Chase Cooper Limited (RiskLogix Solutions)",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: Chase Cooper Limited (RiskLogix Solutions) | Source: https://www.ransomware.live/id/Q2hhc2UgQ29vcGVyIExpbWl0ZWQgKFJpc2tMb2dpeCBTb2x1dGlvbnMpQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/495"
+}

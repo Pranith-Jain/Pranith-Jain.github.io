@@ -1,0 +1,12 @@
+{
+  "id": 3511,
+  "name": "OSINT - Targeted Attacks in the Middle East Using KASPERAGENT and MICROPSIA",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1034 (58e7464f-8a5c-44bf-b478-4448950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3511"
+}

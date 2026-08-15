@@ -1,0 +1,12 @@
+{
+  "id": 3442,
+  "name": "Malspam 2016-08-25 (.js in .zip) - campaign: \"Contract\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #830 (57bea9ac-bb00-4243-be64-bbe9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3442"
+}

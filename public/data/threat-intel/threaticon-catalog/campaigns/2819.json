@@ -1,0 +1,12 @@
+{
+  "id": 2819,
+  "name": "OSINT - A tale of two zero-days",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1350 (5afafce0-0598-4ca0-b52a-41f4950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2819"
+}

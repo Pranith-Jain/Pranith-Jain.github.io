@@ -1,0 +1,12 @@
+{
+  "id": 4315,
+  "name": "genesis: Apex Agro, LLC",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Agriculture and Food Production | Website: apexagchem.com | Infostealer data confirmed. | A Chemical Production Company | Source: https://www.ransomware.live/id/QXBleCBBZ3JvLCBMTENAZ2VuZXNpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4315"
+}

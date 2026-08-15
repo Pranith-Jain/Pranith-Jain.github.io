@@ -1,0 +1,12 @@
+{
+  "id": 663,
+  "name": "Detection Strategy for Email Bombing",
+  "detId": "DET0355",
+  "stixId": "x-mitre-detection-strategy--9a66295a-9f47-47a8-bda4-935cd311186a",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN1008", "AN1009", "AN1010", "AN1011"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/663"
+}

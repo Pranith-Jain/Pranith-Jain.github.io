@@ -1,0 +1,12 @@
+{
+  "id": 2488,
+  "name": "OSINT - Dridex Returns To Action For Smaller, More Targeted Attacks",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #834 (57c405cd-ab54-47b8-9eff-7a52950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2488"
+}

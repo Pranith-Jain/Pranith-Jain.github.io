@@ -1,0 +1,12 @@
+{
+  "id": 4446,
+  "name": "BrainCipher: paipharma.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to BrainCipher. | Country: BR | Sector: Healthcare | Website: paipharma.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/cGFpcGhhcm1hLmNvbUBCcmFpbkNpcGhlcg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4446"
+}

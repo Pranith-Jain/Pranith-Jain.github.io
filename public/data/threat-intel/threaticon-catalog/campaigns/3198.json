@@ -1,0 +1,12 @@
+{
+  "id": 3198,
+  "name": "Scraper: Breaking Down the China Chopper Web Shell - Part I",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #326 (4c885688-92fe-4498-be89-69aa6bdcc5eb).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3198"
+}

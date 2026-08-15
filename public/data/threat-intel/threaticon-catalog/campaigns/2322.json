@@ -1,0 +1,12 @@
+{
+  "id": 2322,
+  "name": "OSINT - Over 100,000 South Korean Users Affected by BlackMoon Campaign",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #541 (57232f8f-c210-454d-ad75-4d11950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2322"
+}

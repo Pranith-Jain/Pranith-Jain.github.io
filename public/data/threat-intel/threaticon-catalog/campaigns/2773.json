@@ -1,0 +1,12 @@
+{
+  "id": 2773,
+  "name": "OSINT - StrongPity2 spyware replaces FinFisher in MitM campaign â€“ ISP involved?",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1261 (5a2cec1b-7f7c-4e23-bd7f-40be02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2773"
+}

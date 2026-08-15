@@ -1,0 +1,12 @@
+{
+  "id": 3172,
+  "name": "Indicators of Compromise Associated with LockBit 2.0 Ransomware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #288 (0b6a1b71-fdec-479e-9736-aa84db3aa8c8).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3172"
+}

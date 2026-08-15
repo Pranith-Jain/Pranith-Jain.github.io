@@ -1,0 +1,12 @@
+{
+  "id": 231,
+  "name": "Detection Strategy for Accessibility Feature Hijacking via Binary Replacement or Registry Modification",
+  "detId": "DET0033",
+  "stixId": "x-mitre-detection-strategy--05cb564b-df98-44d8-8982-176136eef26d",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0094"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/231"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 74,
+  "name": "Detection Strategy for Lua Scripting Abuse",
+  "detId": "DET0101",
+  "stixId": "x-mitre-detection-strategy--be7a4dda-a46a-4245-8837-e69946a79d3f",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "analytics": ["AN0278", "AN0279", "AN0280", "AN0281"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/74"
+}

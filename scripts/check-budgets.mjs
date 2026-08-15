@@ -39,7 +39,11 @@ const BUDGETS = {
   // feature change. (The font-token fix that restored text-tool/meta/micro/
   // mini/eyebrow added only ~8 rules.) Set to current size + modest headroom;
   // gzipped CSS is cached aggressively so transfer impact stays negligible.
-  'index-*.css': { uncompressed: 390_000, gzip: 50_000 },
+  // gzip 50→52KB: continued page growth (threaticon, threatcluster entity
+  // explorer, nhiscan, supply-chain feed, plus per-page utility classes)
+  // pushed the CSS 0.2KB over the 50KB line. +2KB headroom; transfer impact
+  // is negligible — gzipped CSS is cached aggressively.
+  'index-*.css': { uncompressed: 390_000, gzip: 52_000 },
   // raw 280→300KB / gzip 92→96KB: the in-flight Dnscope, EmailDefense,
   // and IntodnsPanel pages (plus the api/ validation rewrite) added new
   // panel components and form schemas to the main app chunk. +20KB raw

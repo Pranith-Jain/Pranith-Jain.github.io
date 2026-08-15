@@ -1,0 +1,12 @@
+{
+  "id": 2410,
+  "name": "OSINT KeyRaider: iOS Malware Steals Over 225,000 Apple Accounts to Create Free App Utopia by Palo Alto Networks Unit 42",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #738 (55e6bb38-180c-4497-afd6-601a950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2410"
+}

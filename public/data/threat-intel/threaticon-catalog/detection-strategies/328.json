@@ -1,0 +1,12 @@
+{
+  "id": 328,
+  "name": "Detection of Lifecycle Policy Modifications for Triggered Deletion in IaaS Cloud Storage",
+  "detId": "DET0041",
+  "stixId": "x-mitre-detection-strategy--cfdf2a13-7059-4532-9d1c-f9129b0e3f7b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0117"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/328"
+}

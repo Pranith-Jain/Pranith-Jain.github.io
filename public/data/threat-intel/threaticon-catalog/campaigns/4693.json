@@ -1,0 +1,12 @@
+{
+  "id": 4693,
+  "name": "anubis: KTR Real Estate Advisors",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 19, 2026",
+  "lastSeen": "Jun 19, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Financial Services | Real estate client database exposed. | Source: https://www.ransomware.live/id/S1RSIFJlYWwgRXN0YXRlIEFkdmlzb3JzQGFudWJpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4693"
+}

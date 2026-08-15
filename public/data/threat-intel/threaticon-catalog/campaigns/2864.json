@@ -1,0 +1,12 @@
+{
+  "id": 2864,
+  "name": "OSINT - Password Protected ZIP with Maldoc",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1455 (5c1803a3-43cc-4be7-83bf-42f202de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2864"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1146,
+  "name": "akira: Dean Supply",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Consumer Services | Website: shopatdean.com | Infostealer data confirmed. | Dean Supply specializes in providing a comprehensive range of res taurant supplies and equipment, including kitchenware, dining ess entials, and janitorial products. We will upload 15gb of corporate data soon. Employee medical info rmation and other docs, NDAs, financials, projects, contracts and agreements, projects, etc. | Source: https://www.ransomware.live/id/RGVhbiBTdXBwbHlAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1146"
+}

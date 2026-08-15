@@ -1,0 +1,12 @@
+{
+  "id": 1823,
+  "name": "handala: Israel Institute for National Security Studies (INSS)",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Public Sector | INSS Hacked Your national security is built on deception, media manipulation, and the brainwashing of Jews. How did your national security institution imagine it could end the war in just a few days? But this time is different, and there will be no end. This is a war between good and evil, and all the… | Source: https://www.ransomware.live/id/SXNyYWVsIEluc3RpdHV0ZSBmb3IgTmF0aW9uYWwgU2VjdXJpdHkgU3R1ZGllcyAoSU5TUylAaGFuZGFsYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1823"
+}

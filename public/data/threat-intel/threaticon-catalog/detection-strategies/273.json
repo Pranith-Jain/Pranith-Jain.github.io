@@ -1,0 +1,12 @@
+{
+  "id": 273,
+  "name": "Behavioral Detection of Systemd Timer Abuse for Scheduled Execution",
+  "detId": "DET0231",
+  "stixId": "x-mitre-detection-strategy--7578b2e3-2b9c-491d-9157-699a4bd6a136",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0645"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/273"
+}

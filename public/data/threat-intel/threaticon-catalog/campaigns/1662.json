@@ -1,0 +1,12 @@
+{
+  "id": 1662,
+  "name": "bravox: UMBERG TREUHAND AG",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to bravox. | Country: CH | Sector: Financial Services | Website: umberg-treuhand.ch | Infostealer data confirmed. | The company provides tax optimization consulting for individuals, businesses, and public organizations. | Source: https://www.ransomware.live/id/VU1CRVJHIFRSRVVIQU5EIEFHQGJyYXZveA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1662"
+}

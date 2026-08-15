@@ -1,0 +1,12 @@
+{
+  "id": 3199,
+  "name": "Scraper: Rising Tide: Chasing the Currents of Espionage in the South China Sea",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #327 (7f79ab3b-6744-4857-85a0-ec2803a67372).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3199"
+}

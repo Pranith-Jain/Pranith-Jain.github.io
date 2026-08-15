@@ -1,0 +1,12 @@
+{
+  "id": 2943,
+  "name": "Spyware Telegram mod distributed via Google Play - Evil Telegram doppelganger attacks Chinese users",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1733 (e3b6b6a1-fe4a-4475-948b-fe763b7254a4).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2943"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4314,
+  "name": "payload: Vela Film S.r.l.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payload. | Country: IT | Sector: Consumer Services | Vela Film S.r.l. is an Italian production company based in Rome, specializing in the cinema and television industry. The company is involved in creating and producing various media projects, including well-known Italian TV series like “La porta rossa” and “Volevo fare la rockstar”. It actively collaborates with local directors and regional film commissions to organize and execute shootings across Italy. | Source: https://www.ransomware.live/id/VmVsYSBGaWxtIFMuci5sLkBwYXlsb2Fk",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4314"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2475,
+  "name": "OSINT Vawtrak C2 â€“ Pin it by Threat Geek",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #813 (57b585fe-ae40-42d8-bdd7-49d9950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2475"
+}

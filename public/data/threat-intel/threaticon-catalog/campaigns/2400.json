@@ -1,0 +1,12 @@
+{
+  "id": 2400,
+  "name": "OSINT Beware of what you download. Recent purported CEIEC document dump booby-trapped by Shadow Server",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #728 (5566caa6-0590-4956-81bf-4179950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2400"
+}

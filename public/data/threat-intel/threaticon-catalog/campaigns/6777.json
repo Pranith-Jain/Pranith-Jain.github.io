@@ -1,0 +1,12 @@
+{
+  "id": 6777,
+  "name": "qilin: servitelco",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 30, 2026",
+  "lastSeen": "Jul 30, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: CL | Sector: Technology | Website: www.servitelco.com | N/A | Source: https://www.ransomware.live/id/c2Vydml0ZWxjb0BxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6777"
+}

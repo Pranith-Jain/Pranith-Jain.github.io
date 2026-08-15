@@ -1,0 +1,12 @@
+{
+  "id": 874,
+  "name": "pear: Colonial Presbyterian Church",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Consumer Services | Website: colonialkc.org | Infostealer data confirmed. | Colonial Presbyterian Church operates two campuses in Overland Park and South Kansas City | Source: https://www.ransomware.live/id/Q29sb25pYWwgUHJlc2J5dGVyaWFuIENodXJjaEBwZWFy",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/874"
+}

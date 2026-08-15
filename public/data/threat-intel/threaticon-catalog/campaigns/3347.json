@@ -1,0 +1,12 @@
+{
+  "id": 3347,
+  "name": "OSINT - From Humming Bad to Worse",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #602 (577c1528-e5dc-49ef-92c0-404d02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3347"
+}

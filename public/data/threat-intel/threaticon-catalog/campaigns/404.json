@@ -1,0 +1,12 @@
+{
+  "id": 404,
+  "name": "apt73: sella.eng.br",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to apt73. | Country: BR | Sector: Technology | Website: sella.eng.br | Infostealer data confirmed. | mentoring programs for managers. Internal and personal docs. 0.3 GB | Source: https://www.ransomware.live/id/c2VsbGEuZW5nLmJyQGFwdDcz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/404"
+}

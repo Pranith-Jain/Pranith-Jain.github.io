@@ -1,0 +1,12 @@
+{
+  "id": 276,
+  "name": "T1136.001 Detection Strategy - Local Account Creation Across Platforms",
+  "detId": "DET0447",
+  "stixId": "x-mitre-detection-strategy--2250ba04-1b95-4c72-9373-d87e8c1d7869",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "analytics": ["AN1235", "AN1236", "AN1237", "AN1238", "AN1239", "AN1240"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/276"
+}

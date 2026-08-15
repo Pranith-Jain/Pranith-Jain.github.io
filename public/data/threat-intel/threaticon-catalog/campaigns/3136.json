@@ -1,0 +1,12 @@
+{
+  "id": 3136,
+  "name": "Machete just got sharper",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #197 (5d3f036b-0f50-4499-af4c-695a0a016219).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3136"
+}

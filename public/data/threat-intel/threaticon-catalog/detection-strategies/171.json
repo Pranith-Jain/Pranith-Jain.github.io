@@ -1,0 +1,12 @@
+{
+  "id": 171,
+  "name": "Behavioral Detection of Permission Groups Discovery",
+  "detId": "DET0179",
+  "stixId": "x-mitre-detection-strategy--685546e7-2ec3-4bfa-9109-86df9fb196ee",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0507", "AN0508", "AN0509"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/171"
+}

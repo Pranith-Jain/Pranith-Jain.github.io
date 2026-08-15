@@ -1,0 +1,12 @@
+{
+  "id": 7389,
+  "name": "thegentlemen: Ponti",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Other | Website: ponti.pl | ponti.pl Ponti is a specialized automotive company based in Gdańsk, Poland, focused on the direct import, sales, and professional servicing of American vehicles. Operating as a leading expert in the US car market, the company handles everything from modern everyday models to the restoration of classic muscle cars and vintage vehicles. They provide a comprehensive range of services, including sourcing, repairing post-accident imports, and dedicated mechanical maintenance for automotive enthusiasts | Source: https://www.ransomware.live/id/UG9udGlAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7389"
+}

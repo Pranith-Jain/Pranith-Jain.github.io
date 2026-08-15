@@ -1,0 +1,12 @@
+{
+  "id": 442,
+  "name": "Detecting Unauthorized Collection from Messaging Applications in SaaS and Office Environments",
+  "detId": "DET0567",
+  "stixId": "x-mitre-detection-strategy--c69d915c-0cbf-479e-b0b5-bebd7eb7e728",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN1565", "AN1566"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/442"
+}

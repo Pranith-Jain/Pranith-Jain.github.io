@@ -1,0 +1,12 @@
+{
+  "id": 1164,
+  "name": "coinbasecartel: Net Solace",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: netsolace.com | Infostealer data confirmed. | [AI generated] Net Solace is a technology solutions company that specializes in providing support and software development services. They offer a multitude of services including IT consulting, software development, project management, and network design. The company aims to provide affordable technological solutions to businesses of all sizes. They have expertise in various information technologies and aim to provide peace of mind for clients with their IT needs. | Source: https://www.ransomware.live/id/TmV0IFNvbGFjZUBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1164"
+}

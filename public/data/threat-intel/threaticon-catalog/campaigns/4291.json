@@ -1,0 +1,12 @@
+{
+  "id": 4291,
+  "name": "qilin: Answer Precision Tool",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.answerprecision.com | N/A | Source: https://www.ransomware.live/id/QW5zd2VyIFByZWNpc2lvbiBUb29sQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4291"
+}

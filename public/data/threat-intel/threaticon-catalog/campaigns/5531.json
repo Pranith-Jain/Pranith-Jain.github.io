@@ -1,0 +1,12 @@
+{
+  "id": 5531,
+  "name": "AiLock: Solid Advance Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 15, 2026",
+  "lastSeen": "Jul 15, 2026",
+  "added": "Jul 15, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: JP | Sector: Business Services | Website: solid-adv.co.jp | Infostealer data confirmed. | Solid Advance Inc. is a Japanese software company, founded in 2004, based in Tokyo and Aomori. It develops and sells All Gather CRM, a fully in-house-built, integrated CRM package covering customer management, sales support (SFA), marketing, and call centers, available both in the cloud and on-premise. The company also provides network and cybersecurity services, including LAN/WAN design and security infrastructure. | Source: https://www.ransomware.live/id/U29saWQgQWR2YW5jZSBJbmMuQEFpTG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5531"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2627,
+  "name": "OSINT - CVE-2017-0199: In the Wild Attacks Leveraging HTA Handler",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1040 (58ed2c42-04f0-44b7-baa4-9f1f02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2627"
+}

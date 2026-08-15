@@ -1,0 +1,12 @@
+{
+  "id": 7480,
+  "name": "everest: Omnicell",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 8, 2026",
+  "lastSeen": "Jul 22, 2026",
+  "added": "Aug 8, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: US | Sector: Healthcare | Website: Omnicell.Com | [AI generated] Omnicell is a United States-based healthcare technology company founded in 1992 and headquartered in Austin, Texas. It specializes in medication management solutions, providing automated pharmacy systems, dispensing cabinets, and software platforms to hospitals, pharmacies, and healthcare facilities. Its products aim to improve medication safety, reduce errors, and streamline pharmacy workflows across the healthcare industry. | Source: https://www.ransomware.live/id/T21uaWNlbGxAZXZlcmVzdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7480"
+}

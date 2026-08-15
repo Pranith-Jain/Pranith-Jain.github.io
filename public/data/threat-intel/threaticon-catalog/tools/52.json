@@ -1,0 +1,12 @@
+{
+  "id": 52,
+  "name": "attrib",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "attrib.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "attrib is a Windows utility used to display, set or remove attributes assigned to files or directories.(Citation: Microsoft attrib 2023)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/52"
+}

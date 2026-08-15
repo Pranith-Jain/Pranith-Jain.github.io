@@ -1,0 +1,12 @@
+{
+  "id": 56,
+  "name": "Snapshot Metadata",
+  "dcId": "DC0062",
+  "analyticCount": 2,
+  "strategyCount": 2,
+  "added": null,
+  "analytics": ["AN1187", "AN1580"],
+  "description": "Contextual data about a snapshot, which may include information such as ID, type, and status",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/56"
+}

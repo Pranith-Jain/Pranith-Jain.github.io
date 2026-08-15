@@ -1,0 +1,12 @@
+{
+  "id": 4328,
+  "name": "unsafe: Deutsche Bank",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to unsafe. | Country: DE | Sector: Financial Services | Website: db.com | Infostealer data confirmed. | Revenue: 30 billion | Source: https://www.ransomware.live/id/RGV1dHNjaGUgQmFua0B1bnNhZmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4328"
+}

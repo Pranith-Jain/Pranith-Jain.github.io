@@ -1,0 +1,12 @@
+{
+  "id": 4873,
+  "name": "insomnia: The Vant Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "May 13, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Business Services | Website: www.thevantgroup.com | The Vant Group, founded in 1999, is an M&A advisory firm serving businesses up to $250M in revenue. It provides valuations, sell/buy-side advisory, and employee/partner buyouts, leveraging experienced professionals. Clients are mainly entrepreneurs and owners. | Source: https://www.ransomware.live/id/VGhlIFZhbnQgR3JvdXBAaW5zb21uaWE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4873"
+}

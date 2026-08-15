@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "[AI generated] General Electric (GE) is a American multinational conglomerate headquartered in Cincinnati, Ohio, USA. Operating across multiple industries, GE focuses on aviation, healthcare, and energy sectors. The company manufactures jet engines, medical imaging equipment, and power generation technologies. GE has undergone significant restructuring in recent years, spinning off several business units to sharpen its focus on industrial operations globally.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8f52d327-95a9-43aa-b729-d45800e60495",
   "groupAliases": ["Cl0p"],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

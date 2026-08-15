@@ -1,0 +1,12 @@
+{
+  "id": 2746,
+  "name": "OSINT - JadeRAT mobile surveillanceware spikes in espionage activity",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1223 (59eb345d-34f0-4fc6-b785-2ace02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2746"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2676,
+  "name": "OSINT - Linux.Bew: un backdoor para el minado de Bitcoin",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1118 (59722019-3260-4062-bec5-4eea950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2676"
+}

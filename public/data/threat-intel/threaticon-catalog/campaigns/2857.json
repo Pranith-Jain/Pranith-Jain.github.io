@@ -1,0 +1,12 @@
+{
+  "id": 2857,
+  "name": "OSINT - CoalaBot: http Ddos Bot",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1434 (5bb71d5e-8784-489b-b33f-46e7950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2857"
+}

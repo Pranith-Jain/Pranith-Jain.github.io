@@ -1,0 +1,12 @@
+{
+  "id": 755,
+  "name": "akira: R L Larson Excavating",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Construction | Website: rllarsoninc.com | Infostealer data confirmed. | R. L. Larson Excavating Inc., is an excavating contractor based i n St. Cloud, MN. We will upload 30gb of corporate data soon. Personal data of empl oyees (DLs, w9 forms and others), financials, drawings and specif ications, contracts and agreements, projects, and so on. | Source: https://www.ransomware.live/id/UiBMIExhcnNvbiBFeGNhdmF0aW5nQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/755"
+}

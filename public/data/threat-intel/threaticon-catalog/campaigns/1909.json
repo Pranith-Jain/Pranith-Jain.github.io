@@ -1,0 +1,12 @@
+{
+  "id": 1909,
+  "name": "AiLock: Integral Analytics",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Technology | Website: integralanalytics.com | Infostealer data confirmed. | Integral Analytics specializes in data intelligence solutions for the energy sector, focusing on improving planning and forecasting for utilities, producers, manufacturers, and regulators.Their flagship products include LoadSEER, DSMore, and IDROP, which assist in energy efficiency, demand response, and distributed energy resource management. | Source: https://www.ransomware.live/id/SW50ZWdyYWwgQW5hbHl0aWNzQEFpTG9jaw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1909"
+}

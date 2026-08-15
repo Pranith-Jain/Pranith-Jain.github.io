@@ -1,0 +1,12 @@
+{
+  "id": 461,
+  "name": "dragonforce: delonhampton.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: GB | Sector: Business Services | Website: delonhampton.com | Infostealer data confirmed. | An engineering and consulting firm specializing in civil and structural engineering, program management, and construction, delivering complex infrastructure projects across various sectors, from aviation and roads to water treatment facilities. | Source: https://www.ransomware.live/id/ZGVsb25oYW1wdG9uLmNvbUBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/461"
+}

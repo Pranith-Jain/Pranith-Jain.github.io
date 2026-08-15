@@ -1,0 +1,12 @@
+{
+  "id": 1216,
+  "name": "lockbit5: landsteiner.net",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: MX | Sector: Manufacturing | Website: landsteiner.net | Infostealer data confirmed. | Landsteiner Electrotechnik offers services such as Modernization of machine and equipment control sy... | Source: https://www.ransomware.live/id/bGFuZHN0ZWluZXIubmV0QGxvY2tiaXQ1",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1216"
+}

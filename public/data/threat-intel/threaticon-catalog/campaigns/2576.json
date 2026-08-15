@@ -1,0 +1,12 @@
+{
+  "id": 2576,
+  "name": "OSINT - CARBANAK GROUP USES GOOGLE FOR MALWARE COMMAND-AND-CONTROL",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #963 (587e787d-c9f8-4132-9673-4d8402de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2576"
+}

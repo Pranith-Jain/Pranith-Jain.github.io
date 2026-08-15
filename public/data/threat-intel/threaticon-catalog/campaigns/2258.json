@@ -1,0 +1,12 @@
+{
+  "id": 2258,
+  "name": "OSINT - Locky: the encryptor taking the world by storm",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #392 (5707b73d-02e4-4c52-9eee-4872950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2258"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 946,
+  "name": "thegentlemen: Metropolitan Pediatrics",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: metropeds.com | Infostealer data confirmed. | metropeds.com zoominfo.com/c/metropolitan-pediatrics/51350701 Metropolitan Pediatrics is an independent pediatrician practice with a 51-year history of providing quality care to Metropolitan Pediatrics's community. Metropolitan Pediatrics's pediatricians are all trained to manage and prevent health problems in infants, children, teens and young adults in the most friendly and cost effective manner possible | Source: https://www.ransomware.live/id/TWV0cm9wb2xpdGFuIFBlZGlhdHJpY3NAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/946"
+}

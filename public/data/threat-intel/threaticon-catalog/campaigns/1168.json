@@ -1,0 +1,12 @@
+{
+  "id": 1168,
+  "name": "coinbasecartel: Northcroft",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: GB | Sector: Construction | Website: northcroft.com | Infostealer data confirmed. | [AI generated] Northcroft is a global construction consultancy firm that delivers project management and cost management services for buildings, infrastructure, and the environment. Founded in 1840, the company is headquartered in London, UK. It serves clients in a variety of sectors, including healthcare, transportation, education, commercial, and leisure. Its services include cost consulting, project management, and business consulting. | Source: https://www.ransomware.live/id/Tm9ydGhjcm9mdEBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1168"
+}

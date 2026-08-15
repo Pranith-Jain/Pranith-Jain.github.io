@@ -1,0 +1,12 @@
+{
+  "id": 2409,
+  "name": "OSINT Puttering into the Future...by Cylance",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #737 (56b06135-452c-4b99-bd16-4981950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2409"
+}

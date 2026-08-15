@@ -1,0 +1,12 @@
+{
+  "id": 2596,
+  "name": "OSINT - Attackers target dozens of global banks with new malware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #992 (58a0ae18-4554-4af8-a66b-459802de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2596"
+}

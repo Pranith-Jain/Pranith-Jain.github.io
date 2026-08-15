@@ -1,0 +1,12 @@
+{
+  "id": 2578,
+  "name": "OSINT - FINDING THE RATâ€™S NEST",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #966 (5880bb50-2330-42a3-a253-4c08950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2578"
+}

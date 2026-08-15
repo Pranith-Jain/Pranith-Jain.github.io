@@ -1,0 +1,12 @@
+{
+  "id": 3591,
+  "name": "thegentlemen: SETCAR",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TN | Sector: Transportation/Logistics | Website: setcar.com.tn | Infostealer data confirmed. | setcar.com.tn zoominfo.com/c/setcar/507355731 SETCAR is Tunisia's pioneering private manufacturer of buses, coaches, and minibuses, with over 50 years of excellence since 1976. Partnering with global leaders like Volvo and Iveco, they produce up to 500 vehicles annually, serving public transport, tourism, and institutional clients across Africa and the Middle East. With a 300-strong expert team, advanced production facilities, and dedicated after-sales support, SETCAR delivers innovative, eco-friendly mobility solutions built for reliability and performance | Source: https://www.ransomware.live/id/U0VUQ0FSQHRoZWdlbnRsZW1lbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3591"
+}

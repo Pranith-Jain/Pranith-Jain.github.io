@@ -1,0 +1,12 @@
+{
+  "id": 6162,
+  "name": "unsafe: Jiva Health",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 24, 2026",
+  "lastSeen": "Jul 24, 2026",
+  "added": "Jul 24, 2026",
+  "description": "Ransomware attack attributed to unsafe. | Country: IN | Sector: Healthcare | Website: Jiva Health | Revenue: 9 million | Source: https://www.ransomware.live/id/Sml2YSBIZWFsdGhAdW5zYWZl",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6162"
+}

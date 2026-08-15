@@ -1,0 +1,12 @@
+{
+  "id": 3110,
+  "name": "Click-Fraud Ramdo Malware Family Continues to Plague Users",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #60 (570bedd7-4eb4-4757-ae7d-0799c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3110"
+}

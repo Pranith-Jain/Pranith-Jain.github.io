@@ -1,0 +1,12 @@
+{
+  "id": 356,
+  "name": "Detection of Malicious Control Panel Item Execution via control.exe or Rundll32",
+  "detId": "DET0194",
+  "stixId": "x-mitre-detection-strategy--012e526a-dacd-4019-a019-bc68733395d2",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0558"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/356"
+}

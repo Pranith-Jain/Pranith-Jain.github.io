@@ -1,0 +1,12 @@
+{
+  "id": 2115,
+  "name": "Malspam pushing Trickbot malware on Friday 2018-05-11",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #141 (5af9af43-7468-4b56-be4b-411cc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2115"
+}

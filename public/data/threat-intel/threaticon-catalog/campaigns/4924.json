@@ -1,0 +1,12 @@
+{
+  "id": 4924,
+  "name": "lockbit5: dobarro.com.uy",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "May 18, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: UY | Sector: Consumer Services | Website: dobarro.com.uy | Infostealer data confirmed. | DOBARRO & PICHEL is a Uruguayan company specializing in the sale and maintenance of heating, air con... | Source: https://www.ransomware.live/id/ZG9iYXJyby5jb20udXlAbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4924"
+}

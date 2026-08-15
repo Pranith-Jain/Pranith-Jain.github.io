@@ -1,0 +1,12 @@
+{
+  "id": 564,
+  "name": "AiLock: PremCom",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to AiLock. | Country: GB | Sector: Technology | Website: premcom.co.uk | Infostealer data confirmed. | PremCom is a technology-driven company founded in 1990 that combines expertise in print and direct mail with digital solutions to deliver omnichannel communications. | Source: https://www.ransomware.live/id/UHJlbUNvbUBBaUxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/564"
+}

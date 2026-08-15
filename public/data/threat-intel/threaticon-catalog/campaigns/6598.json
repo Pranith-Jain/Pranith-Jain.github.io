@@ -1,0 +1,12 @@
+{
+  "id": 6598,
+  "name": "safepay: haugbuersten.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Retail & E-Commerce | Website: haugbuersten.de | Although the company in its current industrial form was founded in 1962, its family-owned brush-making tradition dates back to 1836, … | Source: https://www.ransomware.live/id/aGF1Z2J1ZXJzdGVuLmRlQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6598"
+}

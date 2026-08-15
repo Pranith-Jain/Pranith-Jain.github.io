@@ -1,0 +1,12 @@
+{
+  "id": 3115,
+  "name": "Patchwork â€“ Targeted Attack (APT)",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #75 (57951afe-c678-425c-806e-068ec0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3115"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 1166,
+  "name": "coinbasecartel: Dronena",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: ES | Sector: Consumer Services | Website: dronena.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RHJvbmVuYUBjb2luYmFzZWNhcnRlbA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1166"
+}

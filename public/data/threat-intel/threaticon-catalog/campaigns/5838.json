@@ -1,0 +1,12 @@
+{
+  "id": 5838,
+  "name": "blackout: bluebellgroup.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 19, 2026",
+  "lastSeen": "Jul 19, 2026",
+  "added": "Jul 19, 2026",
+  "description": "Ransomware attack attributed to blackout. | Country: GB | Sector: Not Found | Website: bluebellgroup.com | Infostealer data confirmed. | Bluebell Group is a Hong Kong-based, family-owned omnichannel brand curat... Leak deadline: 2026-08-08 23:18:26 UTC | Source: https://www.ransomware.live/id/Ymx1ZWJlbGxncm91cC5jb21AYmxhY2tvdXQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5838"
+}

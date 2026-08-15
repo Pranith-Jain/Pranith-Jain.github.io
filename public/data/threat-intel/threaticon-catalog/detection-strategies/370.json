@@ -1,0 +1,12 @@
+{
+  "id": 370,
+  "name": "External Proxy Behavior via Outbound Relay to Intermediate Infrastructure",
+  "detId": "DET0325",
+  "stixId": "x-mitre-detection-strategy--bfb5cb12-7025-44c3-9a2d-79cfe42ecf54",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0922", "AN0923", "AN0924", "AN0925", "AN0926"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/370"
+}

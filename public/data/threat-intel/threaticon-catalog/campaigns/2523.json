@@ -1,0 +1,12 @@
+{
+  "id": 2523,
+  "name": "OSINT - Tofsee â€“ modular spambot",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #882 (57e0ee94-dd30-4dc3-9d60-4758950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2523"
+}

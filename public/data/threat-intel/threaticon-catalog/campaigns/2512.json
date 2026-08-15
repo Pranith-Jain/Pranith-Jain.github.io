@@ -1,0 +1,12 @@
+{
+  "id": 2512,
+  "name": "Malspam 2016-09-14 (.wsf in .zip) - campaign: \"Tax invoice\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #869 (57d9227b-d318-4c5a-9045-4fc3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2512"
+}

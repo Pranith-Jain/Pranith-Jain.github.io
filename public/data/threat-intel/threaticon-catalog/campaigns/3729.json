@@ -1,0 +1,12 @@
+{
+  "id": 3729,
+  "name": "akira: Elia Law Firm",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: elialaw.com | Infostealer data confirmed. | Elia Law Firm APC is a top San Diego law firm specializing in personal injury, civil litigation , and business law. They are dedicated to fighting for their clients' rights and maximizing rec overy for physical, mental, and financial losses. We will upload 100gb of corporate data soon. Detailed employee personal information (passport, DLs, SSN, death and birth certificates, financial information, payment details and so on), lots of legal files (court hearings, police reports and so on), financials, etc. | Source: https://www.ransomware.live/id/RWxpYSBMYXcgRmlybUBha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3729"
+}

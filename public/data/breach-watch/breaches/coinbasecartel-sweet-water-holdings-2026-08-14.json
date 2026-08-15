@@ -1,0 +1,15 @@
+{
+  "slug": "coinbasecartel-sweet-water-holdings-2026-08-14",
+  "title": "Sweet Water Holdings",
+  "group": "coinbasecartel",
+  "discovered": "2026-08-14T13:54:40.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ed33486b-7b7d-4ed3-8ea7-d1984b59c776",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Agriculture and Food Production",
+  "references": ["Darkfield"]
+}

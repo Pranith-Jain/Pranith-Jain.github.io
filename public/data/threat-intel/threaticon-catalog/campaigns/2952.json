@@ -1,0 +1,12 @@
+{
+  "id": 2952,
+  "name": "OSINT of Exchange 0-day campaign (Atos)",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1761 (fba1fa66-183d-4e82-bb89-78bfcb4d6e29).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2952"
+}

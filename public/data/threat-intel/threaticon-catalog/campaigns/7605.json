@@ -1,0 +1,12 @@
+{
+  "id": 7605,
+  "name": "qilin: HIGEN MOTOR(critical data)",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 10, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: KR | Sector: Manufacturing | Website: www.higen.co.kr | N/A | Source: https://www.ransomware.live/id/SElHRU4gTU9UT1IoY3JpdGljYWwgZGF0YSlAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7605"
+}

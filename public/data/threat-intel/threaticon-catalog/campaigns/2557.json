@@ -1,0 +1,12 @@
+{
+  "id": 2557,
+  "name": "OSINT - MMD-0033-2015 - Linux/XorDDoS infection incident report (CNC: HOSTASA.ORG)",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #932 (5845344a-80bc-4c94-9ea8-4f39950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2557"
+}

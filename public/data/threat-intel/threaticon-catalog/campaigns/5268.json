@@ -1,0 +1,12 @@
+{
+  "id": 5268,
+  "name": "anubis: EXCEED Energy",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 27, 2026",
+  "lastSeen": "May 27, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to anubis. | Sector: Energy | Data breach at an international well management specialist. | Source: https://www.ransomware.live/id/RVhDRUVEIEVuZXJneUBhbnViaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5268"
+}

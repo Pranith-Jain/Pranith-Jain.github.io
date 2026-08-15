@@ -510,7 +510,7 @@ function HoverCard({ actorId, actors, edges }: { actorId: string; actors: Actor[
               if (!other) return null;
               const otherNation = NATION_PALETTE[other.country];
               return (
-                <div key={i} className="flex items-center gap-2 text-[11px]">
+                <div key={i} className="flex items-center gap-2 text-mini">
                   <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: otherNation?.color }} />
                   <span className="text-slate-900 dark:text-slate-100 truncate flex-1">{other.name}</span>
                   {e.shared.malware?.length ? <span className="chip chip-cyan">{e.shared.malware.length}m</span> : null}

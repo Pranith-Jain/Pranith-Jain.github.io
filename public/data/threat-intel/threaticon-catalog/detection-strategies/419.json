@@ -1,0 +1,12 @@
+{
+  "id": 419,
+  "name": "Detection of Adversary Abuse of Software Deployment Tools",
+  "detId": "DET0223",
+  "stixId": "x-mitre-detection-strategy--ea1f5423-64b9-44eb-824f-251aa0faccd2",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0623", "AN0624", "AN0625", "AN0626", "AN0627"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/419"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2648,
+  "name": "Jaff 2017-05-26 : \"Scanned Image from a Xerox WorkCentre\" - \"Scan_0012_123456789.zip\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1072 (59282a08-aec8-49e7-932a-45d3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2648"
+}

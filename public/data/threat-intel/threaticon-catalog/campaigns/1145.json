@@ -1,0 +1,12 @@
+{
+  "id": 1145,
+  "name": "akira: Cox Design & Metal Fabrication",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: cox-design.com | Infostealer data confirmed. | Cox Design and Metal Fabrication, Inc. specializes in custom meta l design and fabrication, offering a wide range of services inclu ding aluminum fabrication, architectural steel design, and custom food trucks. We will upload 20gb of corporate data soon. Employee personal doc ument, financials, projects, contracts and agreements, NDA, proje cts, etc. | Source: https://www.ransomware.live/id/Q294IERlc2lnbiAmIE1ldGFsIEZhYnJpY2F0aW9uQGFraXJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1145"
+}

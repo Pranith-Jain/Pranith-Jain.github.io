@@ -1,0 +1,12 @@
+{
+  "id": 484,
+  "name": "Detection Strategy for SSH Key Injection in Authorized Keys",
+  "detId": "DET0126",
+  "stixId": "x-mitre-detection-strategy--cf33849d-67f4-418e-9a41-6a6c082e576a",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0350", "AN0351", "AN0352", "AN0353", "AN0354"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/484"
+}

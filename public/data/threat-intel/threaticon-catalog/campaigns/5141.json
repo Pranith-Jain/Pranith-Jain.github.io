@@ -1,0 +1,12 @@
+{
+  "id": 5141,
+  "name": "dragonforce: Taos Mountain Casino",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 1, 2026",
+  "lastSeen": "May 30, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Hospitality and Tourism | Website: taosmountaincasino.com | Infostealer data confirmed. | Taos Mountain Casino is a Native American gaming casino located in Taos, New Mexico. It is owned and operated by the Taos Pueblo, a federally recognized tribe known for its ancient, historic adobe pueblo. | Source: https://www.ransomware.live/id/VGFvcyBNb3VudGFpbiBDYXNpbm9AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5141"
+}

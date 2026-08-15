@@ -1,0 +1,12 @@
+{
+  "id": 4802,
+  "name": "thegentlemen: Calipage Humblet",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: BE | Sector: Not Found | Website: humblet.calipage.be | Infostealer data confirmed. | ***.calipage.be Papeterie Humblet is a historic Belgian family business founded in 1910 that specializes in comprehensive office and school supplies. Beyond retail, the company provides professional printing and copy services to its local customers. Operating primarily in the Herstal and Blegny regions, they serve as a dedicated partner within the Calipage Benelux network | Source: https://www.ransomware.live/id/Q2FsaXBhZ2UgSHVtYmxldEB0aGVnZW50bGVtZW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4802"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 5154,
+  "name": "genesis: Cavalier Flooring Systems Inc.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 30, 2026",
+  "lastSeen": "May 30, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Manufacturing | Website: cavalierflooring.com | Infostealer data confirmed. | A flooring and tile contractor | Source: https://www.ransomware.live/id/Q2F2YWxpZXIgRmxvb3JpbmcgU3lzdGVtcyBJbmMuQGdlbmVzaXM=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5154"
+}

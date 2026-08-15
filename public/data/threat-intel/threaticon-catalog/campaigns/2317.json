@@ -1,0 +1,12 @@
+{
+  "id": 2317,
+  "name": "OSINT - New Downloader for Locky",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #507 (5720bf21-9d4c-40b2-9088-45e6950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2317"
+}

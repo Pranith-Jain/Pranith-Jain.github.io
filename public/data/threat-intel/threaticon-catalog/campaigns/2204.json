@@ -1,0 +1,12 @@
+{
+  "id": 2204,
+  "name": "Indicators of Compromise Associated with Hive Ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #269 (03be663f-7037-4f68-a96a-362036e75637).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2204"
+}

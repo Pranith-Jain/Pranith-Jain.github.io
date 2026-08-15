@@ -1,0 +1,12 @@
+{
+  "id": 70,
+  "name": "NBTscan",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "NBTscan is an open source tool that has been used by state groups to conduct internal reconnaissance within a compromised network.(Citation: Debian nbtscan Nov 2019)(Citation: SecTools nbtscan June 2003)(Citation: Symantec Waterbug Jun 2019)(Citation: FireEye APT39 Jan 2019)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/70"
+}

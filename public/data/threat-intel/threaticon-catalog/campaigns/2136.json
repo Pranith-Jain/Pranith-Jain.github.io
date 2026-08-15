@@ -1,0 +1,12 @@
+{
+  "id": 2136,
+  "name": "OSINT - The Cerber Ransomware not only Encrypts Your Data But Also Speaks to You",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #167 (56e123a7-dc1c-4c74-af4a-4d8b950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2136"
+}

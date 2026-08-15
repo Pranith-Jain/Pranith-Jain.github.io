@@ -1,0 +1,12 @@
+{
+  "id": 722,
+  "name": "lamashtu: VOLTERRIES",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lamashtu. | Country: FR | Sector: Energy | Website: volterres.fr | Infostealer data confirmed. | Volterres, a subsidiary of the Eiffage group, is reinventing the supply of green electricity for businesses and public sector players. | Source: https://www.ransomware.live/id/Vk9MVEVSUklFU0BsYW1hc2h0dQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/722"
+}

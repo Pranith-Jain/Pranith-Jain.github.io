@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-retail-business-management-systems-2026-08-14",
+  "title": "Retail Business Management Systems",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:57:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/e5926535-f429-47be-b772-bd14115ea6a2",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

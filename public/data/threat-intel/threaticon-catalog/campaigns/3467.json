@@ -1,0 +1,12 @@
+{
+  "id": 3467,
+  "name": "OSINT - BLACKGEAR Espionage Campaign Evolves, Adds Japan To Target List",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #909 (5813b05e-cd38-401b-8b21-449502de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3467"
+}

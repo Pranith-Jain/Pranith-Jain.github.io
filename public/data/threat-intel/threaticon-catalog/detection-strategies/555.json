@@ -1,0 +1,12 @@
+{
+  "id": 555,
+  "name": "Detection Strategy for Data Transfer Size Limits and Chunked Exfiltration",
+  "detId": "DET0213",
+  "stixId": "x-mitre-detection-strategy--d96f78ad-21cd-45dc-940a-63b348894728",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0596", "AN0597", "AN0598"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/555"
+}

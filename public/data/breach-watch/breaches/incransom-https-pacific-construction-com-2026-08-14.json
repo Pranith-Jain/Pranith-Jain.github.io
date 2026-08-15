@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-https-pacific-construction-com-2026-08-14",
+  "title": "https://pacific-construction.com/",
+  "group": "incransom",
+  "discovered": "2026-08-14T00:02:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion/blog/disclosures/6a7e4ea49cd108bf269e158e",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

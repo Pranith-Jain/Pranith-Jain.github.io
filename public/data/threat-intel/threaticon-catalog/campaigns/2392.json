@@ -1,0 +1,12 @@
+{
+  "id": 2392,
+  "name": "OSINT Cylance SPEAR Team: A Threat Actor Resurfaces from Cylance",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #720 (555de343-19c0-42e9-b793-ab11950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2392"
+}

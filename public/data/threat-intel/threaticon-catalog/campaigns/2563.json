@@ -1,0 +1,12 @@
+{
+  "id": 2563,
+  "name": "OSINT - Guaranteed Clicks: Mobile App Company Takes Control of Android Phones",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #942 (5603c00a-e4d0-42e1-a0b7-85ab950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2563"
+}

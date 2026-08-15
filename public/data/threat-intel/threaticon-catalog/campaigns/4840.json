@@ -1,0 +1,12 @@
+{
+  "id": 4840,
+  "name": "payload: myipo.gov.my",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 13, 2026",
+  "lastSeen": "Jun 13, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: MY | Sector: Public Sector | Website: myipo.gov.my | Infostealer data confirmed. | MyIPO provides a range of intellectual property services including patents, copyrights, trademarks, geographical indications, industrial designs, and integrated circuit layout designs. The organization aims to protect the rights of creators and innovators by offering exclusive rights for inventions and creative works. MyIPO serves a diverse clientele, including authors, inventors, and businesses seeking to safeguard their intellectual property. | Source: https://www.ransomware.live/id/bXlpcG8uZ292Lm15QHBheWxvYWQ=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4840"
+}

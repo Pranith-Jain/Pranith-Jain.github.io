@@ -1,0 +1,12 @@
+{
+  "id": 3402,
+  "name": "OSINT Poseidon And Backoff Pos â€“ The Links And Similarities by Team Cymru",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #677 (558401d3-130c-44db-a49a-42fa950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3402"
+}

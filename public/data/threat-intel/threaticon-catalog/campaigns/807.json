@@ -1,0 +1,12 @@
+{
+  "id": 807,
+  "name": "lynx: cwwcontractors.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lynx. | Country: GB | Sector: Construction | Website: cwwcontractors.com | Infostealer data confirmed. | CW&W Contractors is a leading civil construction contractor specializing in infrastructure projects, including railroad and civil bridges. The company prioritizes safety and adheres to strict safety standards, ensuring that all employees are well-trained and equipped for their tasks. With a commitment to customer satisfaction, CW&W offers customized contracting services from concept to completion, catering primarily to industrial clients. Their team is known for its technical expertise, reliability, and dedication to delivering quality work on time and within budget. | Source: https://www.ransomware.live/id/Y3d3Y29udHJhY3RvcnMuY29tQGx5bng=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/807"
+}

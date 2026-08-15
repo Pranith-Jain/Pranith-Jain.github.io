@@ -1,0 +1,12 @@
+{
+  "id": 2028,
+  "name": "Angler EK send Teslacrypt",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #40 (56d84ef3-d3f4-4b08-be81-5127c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2028"
+}

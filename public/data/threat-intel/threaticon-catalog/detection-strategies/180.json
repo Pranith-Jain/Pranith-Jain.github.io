@@ -1,0 +1,12 @@
+{
+  "id": 180,
+  "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Delete Cloud Instance",
+  "detId": "DET0084",
+  "stixId": "x-mitre-detection-strategy--ceac3cb0-d9eb-4466-810f-4acbf793e980",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0234"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/180"
+}

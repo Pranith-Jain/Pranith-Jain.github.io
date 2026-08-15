@@ -1,0 +1,12 @@
+{
+  "id": 72,
+  "name": "Behavior-Chain Detection for Remote Access Tools (Tool-Agnostic)",
+  "detId": "DET0496",
+  "stixId": "x-mitre-detection-strategy--ec412019-109f-4f84-aa2f-d623f40254e0",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN1366", "AN1367", "AN1368"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/72"
+}

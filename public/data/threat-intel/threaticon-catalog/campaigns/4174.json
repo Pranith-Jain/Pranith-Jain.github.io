@@ -1,0 +1,12 @@
+{
+  "id": 4174,
+  "name": "Deadlock: Bär Cargolift Polska Sp. z o.o.",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Deadlock. | Country: PL | Sector: Transportation/Logistics | Website: www.barcargolift.pl | Bär Cargolift specializing in the manufacturing of hydraulic tail lifts for vehicles, featuring products with capacities from 500 kg to 3,000 kg. The site offers an online WebShop for spare parts, technical support via Bär CargoCheck, and operator training, with a local headquarters in Gdańsk. | Source: https://www.ransomware.live/id/QsOkciBDYXJnb2xpZnQgUG9sc2thIFNwLiB6IG8uby5ARGVhZGxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4174"
+}

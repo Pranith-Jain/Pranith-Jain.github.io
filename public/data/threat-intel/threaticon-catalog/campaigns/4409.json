@@ -1,0 +1,12 @@
+{
+  "id": 4409,
+  "name": "thegentlemen: Melcor Developments Ltd",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Construction | Website: melcor.ca | Infostealer data confirmed. | ***.ca zoominfo.com/c/melcor-developments-ltd/65095259 Melcor Developments Ltd., a prominent Canadian real estate development and construction company founded in 1923 and headquartered in Edmonton, Alberta. The firm specializes in the full lifecycle of property development, creating residential communities, commercial spaces, and industrial parks across Western Canada. With nearly a century of experience, Melcor is recognized for building sustainable, high-quality neighborhoods and long-term investment properties | Source: https://www.ransomware.live/id/TWVsY29yIERldmVsb3BtZW50cyBMdGRAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4409"
+}

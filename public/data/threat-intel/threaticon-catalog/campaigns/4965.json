@@ -1,0 +1,12 @@
+{
+  "id": 4965,
+  "name": "pear: K & E Distributing",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 10, 2026",
+  "lastSeen": "Jun 4, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Transportation/Logistics | Website: kedistributing.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/SyAmIEUgRGlzdHJpYnV0aW5nQHBlYXI=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4965"
+}

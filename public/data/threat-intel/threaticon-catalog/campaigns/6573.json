@@ -1,0 +1,12 @@
+{
+  "id": 6573,
+  "name": "nightspire: Wings Argo Private Limited",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 5, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to nightspire. | Country: IN | Sector: Other | Website: www.wingsprojects.com/agro | Wings Production DB | Source: https://www.ransomware.live/id/V2luZ3MgQXJnbyBQcml2YXRlIExpbWl0ZWRAbmlnaHRzcGlyZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6573"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4599,
+  "name": "Icarus: Cbassociations",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 22, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Icarus. | Sector: Business Services | Salesforce data for this corp. Data stolen: SF data. Compressed size. | Source: https://www.ransomware.live/id/Q2Jhc3NvY2lhdGlvbnNASWNhcnVz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4599"
+}

@@ -584,10 +584,10 @@ export function GlobeView({ actors, onOpen }: Props) {
             }}
           >
             <div className="font-semibold text-slate-100">{hovered.actor.name}</div>
-            <div className="text-slate-400 font-mono text-[11px] mt-0.5">
+            <div className="text-slate-400 font-mono text-mini mt-0.5">
               {hovered.actor.apt} · {NATION_PALETTE[hovered.actor.country]?.name}
             </div>
-            <div className="text-slate-400 text-[11px] mt-1">
+            <div className="text-slate-400 text-mini mt-1">
               {hovered.actor.motivation} · {hovered.actor.sectors.slice(0, 2).join(', ')}
             </div>
           </div>

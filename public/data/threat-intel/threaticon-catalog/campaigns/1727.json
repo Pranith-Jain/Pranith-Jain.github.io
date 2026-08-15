@@ -1,0 +1,12 @@
+{
+  "id": 1727,
+  "name": "handala: Jerusalem Water Supply Facilities",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Public Sector | In response to the blatant aggression against the Qeshm desalination plant, Handala Hack has executed an unprecedented and sophisticated cyber operation, targeting the water infrastructure of Jerusalem. In this assault, 423 gigabytes of highly classified and sensitive data were exfiltrated, and the core infrastructure was completely crippled. This was not merely a cyberattack, it was… | Source: https://www.ransomware.live/id/SmVydXNhbGVtIFdhdGVyIFN1cHBseSBGYWNpbGl0aWVzQGhhbmRhbGE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1727"
+}

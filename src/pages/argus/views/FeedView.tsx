@@ -258,30 +258,30 @@ export function FeedView({ feed, actors }: Props) {
               <Rss size={18} className="text-rose-600 dark:text-rose-400" />
               <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Live Feed</h1>
               {liveStatus === 'live' && (
-                <span className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-500">
+                <span className="flex items-center gap-1.5 text-micro font-mono text-emerald-500">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> LIVE
                 </span>
               )}
               {liveStatus === 'loading' && (
-                <span className="flex items-center gap-1.5 text-[10px] font-mono text-amber-500">
+                <span className="flex items-center gap-1.5 text-micro font-mono text-amber-500">
                   <RefreshCw size={10} className="animate-spin" /> Fetching…
                 </span>
               )}
             </div>
             <div className="flex items-center gap-3">
               {lastFetch && (
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
                   <Clock size={10} /> {lastFetch.toLocaleTimeString()}
                 </span>
               )}
               <button
                 onClick={fetchLiveFeeds}
                 disabled={liveStatus === 'loading'}
-                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-mini font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors disabled:opacity-50"
               >
                 <RefreshCw size={11} className={liveStatus === 'loading' ? 'animate-spin' : ''} /> Refresh
               </button>
-              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{filtered.length} items</span>
+              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{filtered.length} items</span>
             </div>
           </div>
 
@@ -294,7 +294,7 @@ export function FeedView({ feed, actors }: Props) {
                     key={c.key}
                     onClick={() => setCatFilter(c.key)}
                     data-active={catFilter === c.key}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors border"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-mini font-medium transition-colors border"
                     style={
                       catFilter === c.key
                         ? {
@@ -321,13 +321,13 @@ export function FeedView({ feed, actors }: Props) {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search titles, CVEs, actors…"
-                  className="w-56 h-7 pl-7 pr-2.5 rounded-md text-[12px] text-slate-600 dark:text-slate-400 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none transition-colors"
+                  className="w-56 h-7 pl-7 pr-2.5 rounded-md text-meta text-slate-600 dark:text-slate-400 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none transition-colors"
                   style={{ background: 'var(--ink-700)', border: '1px solid var(--edge)' }}
                 />
               </div>
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium border transition-colors"
+                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-mini font-medium border transition-colors"
                 style={{
                   borderColor: showFilters ? 'rgba(91,141,239,0.4)' : 'var(--edge)',
                   color: showFilters ? 'var(--accent-blue)' : 'var(--text-secondary)',
@@ -346,13 +346,13 @@ export function FeedView({ feed, actors }: Props) {
               style={{ borderColor: 'var(--edge)' }}
             >
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Source
                 </span>
                 <select
                   value={sourceFilter ?? ''}
                   onChange={(e) => setSourceFilter(e.target.value || null)}
-                  className="h-6 px-2 rounded text-[11px] text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
+                  className="h-6 px-2 rounded text-mini text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] outline-none"
                 >
                   <option value="">All sources</option>
                   {sources.map((s) => (
@@ -363,14 +363,14 @@ export function FeedView({ feed, actors }: Props) {
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Date
                 </span>
                 {(['all', '24h', '7d', '30d'] as const).map((d) => (
                   <button
                     key={d}
                     onClick={() => setDateRange(d)}
-                    className="px-2 py-0.5 rounded text-[10px] font-mono border transition-colors"
+                    className="px-2 py-0.5 rounded text-micro font-mono border transition-colors"
                     style={
                       dateRange === d
                         ? {
@@ -386,14 +386,14 @@ export function FeedView({ feed, actors }: Props) {
                 ))}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Sort
                 </span>
                 {(['date', 'source'] as const).map((s) => (
                   <button
                     key={s}
                     onClick={() => setSortBy(s)}
-                    className="px-2 py-0.5 rounded text-[10px] font-mono border capitalize transition-colors"
+                    className="px-2 py-0.5 rounded text-micro font-mono border capitalize transition-colors"
                     style={
                       sortBy === s
                         ? {
@@ -414,7 +414,7 @@ export function FeedView({ feed, actors }: Props) {
                     setSourceFilter(null);
                     setDateRange('all');
                   }}
-                  className="flex items-center gap-1 text-[10px] text-rose-500 hover:text-rose-600 transition-colors"
+                  className="flex items-center gap-1 text-micro text-rose-500 hover:text-rose-600 transition-colors"
                 >
                   <X size={10} /> Clear
                 </button>
@@ -476,7 +476,7 @@ export function FeedView({ feed, actors }: Props) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 group"
                       >
-                        <span className="text-[13px] text-slate-600 dark:text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
+                        <span className="text-tool text-slate-600 dark:text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
                           {f.title}
                         </span>
                         <ExternalLink
@@ -486,12 +486,12 @@ export function FeedView({ feed, actors }: Props) {
                       </a>
                       <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                         <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400">{f.source}</span>
-                        <span className="text-[9px] text-slate-500 dark:text-slate-400">·</span>
+                        <span className="text-micro text-slate-500 dark:text-slate-400">·</span>
                         <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400">
                           {f.published}
                         </span>
                         <span
-                          className="text-[9px] px-1.5 py-0.5 rounded-full border font-mono"
+                          className="text-micro px-1.5 py-0.5 rounded-full border font-mono"
                           style={{ borderColor: `${color}33`, color, background: `${color}0d` }}
                         >
                           {f.category}
@@ -511,7 +511,7 @@ export function FeedView({ feed, actors }: Props) {
                       {related.map((a) => (
                         <span
                           key={a.id}
-                          className="text-[10px] px-1.5 py-0.5 rounded font-mono"
+                          className="text-micro px-1.5 py-0.5 rounded font-mono"
                           style={{
                             background: 'var(--ink-700)',
                             color: 'var(--text-tertiary)',

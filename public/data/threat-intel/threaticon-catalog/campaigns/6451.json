@@ -1,0 +1,12 @@
+{
+  "id": 6451,
+  "name": "Deadlock: West African Resources ltd",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: AU | Sector: Energy & Utilities | Website: www.westafricanresources.com | West African Resources Limited (ASX: WAF) isan Australia-based, mid-tier gold mining and exploration companywith its primary operations located in Burkina Faso, West Africa . Founded in 2006, the company is headquartered in Subiaco, Western Australia, and focuses on the acquisition, development, and mineral processing of high-grade gold assets. | Source: https://www.ransomware.live/id/V2VzdCBBZnJpY2FuIFJlc291cmNlcyBsdGRARGVhZGxvY2s=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6451"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7242,
+  "name": "clop: sh*******",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Engineering drawings, photos of the facilities, scans of facility testing reports, project plans | Source: https://www.ransomware.live/id/c2gqKioqKioqQGNsb3A=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7242"
+}

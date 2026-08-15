@@ -1,0 +1,12 @@
+{
+  "id": 7284,
+  "name": "dragonforce: Primary Eye Care",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Healthcare | Website: primaryeyecareneworleans.com | We offer a full range of options to meet your eyecare needs. From advanced custom LASIK laser vision correction and cataract surgery to glasses, contact lens fittings and routine eye tests, we can provide the treatment that is right for you. | Source: https://www.ransomware.live/id/UHJpbWFyeSBFeWUgQ2FyZUBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7284"
+}

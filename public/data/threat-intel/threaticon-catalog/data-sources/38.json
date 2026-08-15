@@ -1,0 +1,31 @@
+{
+  "id": 38,
+  "name": "Active Directory Object Modification",
+  "dcId": "DC0066",
+  "analyticCount": 18,
+  "strategyCount": 17,
+  "added": null,
+  "analytics": [
+    "AN0088",
+    "AN0269",
+    "AN0383",
+    "AN0543",
+    "AN0674",
+    "AN0755",
+    "AN0770",
+    "AN0786",
+    "AN0814",
+    "AN0834",
+    "AN0837",
+    "AN0854",
+    "AN1177",
+    "AN1253",
+    "AN1259",
+    "AN1471",
+    "AN1487",
+    "AN1621"
+  ],
+  "description": "Changes to AD objects (e.g., users, groups, OUs) are logged as Event ID 5136 (Object Modification) or 5163 (Attribute Changes). Examples: - User Account: Modifying attributes (e.g., group membership, enabling/disabling accounts). - Group Membership: Adding/removing members. - OU: Changing properties/permissions (e.g., delegation). - Service Account: Modifying SPNs or other attributes. - Object Attributes: Changes to passwords, logon hours, or control flags.",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/38"
+}

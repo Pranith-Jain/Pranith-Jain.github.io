@@ -1,0 +1,12 @@
+{
+  "id": 7540,
+  "name": "play: Rilpa Enterprises",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 9, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to play. | Sector: Not Found | Website: www.helis.com | Canada | Source: https://www.ransomware.live/id/UmlscGEgRW50ZXJwcmlzZXNAcGxheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7540"
+}

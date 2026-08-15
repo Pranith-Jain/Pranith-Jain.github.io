@@ -1,0 +1,12 @@
+{
+  "id": 1121,
+  "name": "nightspire: Notre-Dame du Grandchamp",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Education | Website: www.nd-grandchamp.fr | - Students Medical Records- HR& Employee Personal Data- Student Personal & Academic Data- Contracts & Administrative Documents | Source: https://www.ransomware.live/id/Tm90cmUtRGFtZSBkdSBHcmFuZGNoYW1wQG5pZ2h0c3BpcmU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1121"
+}

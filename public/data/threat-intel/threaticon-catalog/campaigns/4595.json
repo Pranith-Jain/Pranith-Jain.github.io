@@ -1,0 +1,12 @@
+{
+  "id": 4595,
+  "name": "Icarus: Huntress",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 22, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Icarus. | Country: US | Sector: Technology | Salesforce data of Huntress. Data stolen: SF data - Compressed | Source: https://www.ransomware.live/id/SHVudHJlc3NASWNhcnVz",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4595"
+}

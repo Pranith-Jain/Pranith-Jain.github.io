@@ -1,0 +1,12 @@
+{
+  "id": 2716,
+  "name": "M2M - Locky 2017-09-21/22 : Affid=3, offline, \".ykcol\" : \"PIC_1234\" - \"PIC_1234.7z\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1183 (59c56211-995c-4d44-90e7-4de1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2716"
+}

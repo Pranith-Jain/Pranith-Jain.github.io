@@ -1,0 +1,12 @@
+{
+  "id": 1318,
+  "name": "qilin: Voltamper",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Not Found | Website: www.voltamper.com | Source: https://www.ransomware.live/id/Vm9sdGFtcGVyQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1318"
+}

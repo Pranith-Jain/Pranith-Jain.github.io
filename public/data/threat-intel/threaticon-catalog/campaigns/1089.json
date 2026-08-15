@@ -1,0 +1,12 @@
+{
+  "id": 1089,
+  "name": "dragonforce: bunch.ca",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: CA | Sector: Construction | Website: bunch.ca | Infostealer data confirmed. | It is a leading contractor in the construction of facilities for the oil and gas industry in Western Canada. | Source: https://www.ransomware.live/id/YnVuY2guY2FAZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1089"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2782,
+  "name": "OSINT - Malspam pushing Locky ransomware tries HoeflerText notifications for Chrome and FireFox",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1273 (5a37cd2b-208c-44c1-a08c-41d0950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2782"
+}

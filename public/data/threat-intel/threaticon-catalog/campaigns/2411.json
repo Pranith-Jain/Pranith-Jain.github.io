@@ -1,0 +1,12 @@
+{
+  "id": 2411,
+  "name": "OSINT CryptoWall v4 Emerges Days After Cyber Threat Alliance Report by Palo Alto Networks Unit 42",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #739 (564264fe-1794-4894-878f-68b5950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2411"
+}

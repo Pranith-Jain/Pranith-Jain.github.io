@@ -1,0 +1,12 @@
+{
+  "id": 2479,
+  "name": "OSINT Shark Ransomware: Ransomware as a service",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #820 (57b5a6a6-334c-4a50-9e23-45b0950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2479"
+}

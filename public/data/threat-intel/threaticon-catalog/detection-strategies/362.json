@@ -1,0 +1,12 @@
+{
+  "id": 362,
+  "name": "Suspicious Device Registration via Entra ID or MFA Platform",
+  "detId": "DET0036",
+  "stixId": "x-mitre-detection-strategy--bbeacdc8-c14c-44f1-9ace-fc8282a05c67",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN0103", "AN0104"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/362"
+}

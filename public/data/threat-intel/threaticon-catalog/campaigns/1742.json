@@ -1,0 +1,12 @@
+{
+  "id": 1742,
+  "name": "genesis: OneSource Medical Group",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: onesourcemg.com | Infostealer data confirmed. | A provider of RCM and billing services | Source: https://www.ransomware.live/id/T25lU291cmNlIE1lZGljYWwgR3JvdXBAZ2VuZXNpcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1742"
+}

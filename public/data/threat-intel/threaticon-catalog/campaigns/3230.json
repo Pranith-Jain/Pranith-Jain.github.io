@@ -1,0 +1,12 @@
+{
+  "id": 3230,
+  "name": "Dridex (2016-04-06) - botnet 122",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #387 (5705186a-a7f0-4309-89be-5094950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3230"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3696,
+  "name": "qilin: Shipping Services",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: AR | Sector: Transportation/Logistics | Website: www.ssa-shipping.com.ar | N/A | Source: https://www.ransomware.live/id/U2hpcHBpbmcgU2VydmljZXNAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3696"
+}

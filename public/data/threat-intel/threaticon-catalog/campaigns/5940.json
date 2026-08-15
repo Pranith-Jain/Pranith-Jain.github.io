@@ -1,0 +1,12 @@
+{
+  "id": 5940,
+  "name": "dragonforce: One Community FCU",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 21, 2026",
+  "lastSeen": "Jul 21, 2026",
+  "added": "Jul 22, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Financial Services | Website: onecommunityfcu.org | One Community FCU offers a range of financial services including loans, savings accounts, and online banking solutions. Their products cater to individuals seeking personal, auto, mortgage, and credit card loans, as well as those interested in savings and checking accounts. In this release we provide a portion of the documentation we obtained from the company: databases, internal documentation, client data, client documents, client financial information (including statements that clients supplied to One Community FCU from other banks), documentation on delinquent payments. Additionally, the release contains reports and documentation produced by TraceSecurity LLC (6300 Corporate Blvd, Suite 200, Baton Rouge, LA 70809). TraceSecurity LLC handled security matters for One Community FCU. In our view, that work was performed very poorly. These shortcomings contributed to t...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5940"
+}

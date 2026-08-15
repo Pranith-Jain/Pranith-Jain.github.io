@@ -1,0 +1,12 @@
+{
+  "id": 2315,
+  "name": "Eight Arms to Hold You: The Cuttlefish Malware",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #499 (0523f6aa-38b5-41c5-aef0-e37a6eff7e9d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2315"
+}

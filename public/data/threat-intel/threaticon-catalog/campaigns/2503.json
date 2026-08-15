@@ -1,0 +1,12 @@
+{
+  "id": 2503,
+  "name": "Malspam 2016-09-08 (.wsf in .zip) - campaign: \"New voice mail message from\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #859 (57d15dca-ccd0-4e18-b2c5-e6b5950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2503"
+}

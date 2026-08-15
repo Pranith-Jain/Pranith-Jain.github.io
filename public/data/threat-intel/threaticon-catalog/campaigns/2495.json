@@ -1,0 +1,12 @@
+{
+  "id": 2495,
+  "name": "Malspam 2016-09-02 (.wsf in .zip) - campaign: \"icloud.com\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #848 (57c98935-5fdc-4632-8d61-4af1950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2495"
+}

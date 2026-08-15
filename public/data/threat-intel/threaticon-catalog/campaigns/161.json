@@ -1,0 +1,12 @@
+{
+  "id": 161,
+  "name": "chaos: www.cswindustrials.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Manufacturing | Website: www.zoominfo.com/c/csw-industrials-inc/370826515 | If the company's management does not contact us within 24 hours, we will publish 540 GB of the company's internal files. CSW Industrials, Inc. is a diversified industrial growth company that operates across contractor solutions, specialized reliability solutions, and engineered building solutions.… | Source: https://www.ransomware.live/id/d3d3LmNzd2luZHVzdHJpYWxzLmNvbUBjaGFvcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/161"
+}

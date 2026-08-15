@@ -1,0 +1,12 @@
+{
+  "id": 7644,
+  "name": "settra: oligo.de",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Aug 11, 2026",
+  "description": "Ransomware attack attributed to settra. | Country: DE | Sector: Technology | Website: oligo.de | A group of companies whose luminaires illuminate Deutsche Bank, Burj Dubai, and Scout Motors' assemb... | Source: https://www.ransomware.live/id/b2xpZ28uZGVAc2V0dHJh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7644"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 9,
+  "name": "Detection Strategy for Junk Code Obfuscation with Suspicious Execution Patterns",
+  "detId": "DET0322",
+  "stixId": "x-mitre-detection-strategy--206790b2-16bc-46db-a605-8bcff576c161",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0913", "AN0914", "AN0915"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/9"
+}

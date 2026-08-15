@@ -1,0 +1,12 @@
+{
+  "id": 4870,
+  "name": "shinyhunters: Zayo.com & Allstream.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Telecommunication | You wouldn't want us to describe what data was taken from you publicly here. A fair assessment of this breach in terms of criticality is a 9/10. We urge you to reach out. Read our emails. Failure to do so will result in the full publication and we very much intend to carry that out if you do not engage with us. This is a final warning to reach out by 16 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 12 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/WmF5by5jb20gJiBBbGxzdHJlYW0uY29tQHNoaW55aHVudGVycw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4870"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2225,
+  "name": "Chiseling In: Lorenz Ransomware Group Cracks MiVoice And Calls Back For Free",
+  "status": null,
+  "confidence": 90,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #328 (1b221061-8be7-43a6-b576-a700dcd4ca8a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2225"
+}

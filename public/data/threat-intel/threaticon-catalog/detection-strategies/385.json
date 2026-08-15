@@ -1,0 +1,12 @@
+{
+  "id": 385,
+  "name": "Indirect Command Execution – Windows utility abuse behavior chain",
+  "detId": "DET0200",
+  "stixId": "x-mitre-detection-strategy--f3cc2f0f-c657-4453-90a8-d7c9a59d6e37",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0576"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/385"
+}

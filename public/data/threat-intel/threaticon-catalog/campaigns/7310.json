@@ -1,0 +1,12 @@
+{
+  "id": 7310,
+  "name": "qilin: ALIZE (alize-sud.fr)",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 6, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Professional Services | Website: alize-sud.fr | groupe-sirocco.com | Source: https://www.ransomware.live/id/QUxJWkUgKGFsaXplLXN1ZC5mcilAcWlsaW4=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7310"
+}

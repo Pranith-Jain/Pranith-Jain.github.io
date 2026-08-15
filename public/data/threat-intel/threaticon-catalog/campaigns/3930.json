@@ -1,0 +1,12 @@
+{
+  "id": 3930,
+  "name": "qilin: Buckeye Paper",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.buckeyepaper.com | N/A | Source: https://www.ransomware.live/id/QnVja2V5ZSBQYXBlckBxaWxpbg==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3930"
+}

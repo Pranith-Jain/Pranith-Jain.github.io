@@ -1,0 +1,12 @@
+{
+  "id": 4805,
+  "name": "thegentlemen: Linnecken Partner",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Business Services | Website: linnecken-partner.de | Infostealer data confirmed. | ***.de zoominfo.com/c/linnecken--partner/509433943 Linnecken & Partner is a renowned German tax and legal advisory firm based in Wentorf near Hamburg, proudly serving clients since 1977. They specialize exclusively in providing comprehensive tax consulting, financial planning, and legal services tailored specifically for healthcare professionals, doctors, and medical centers. With decades of niche expertise, the firm ensures that medical practitioners receive reliable support in navigating complex medical law, employment regulations, and business management | Source: https://www.ransomware.live/id/TGlubmVja2VuIFBhcnRuZXJAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4805"
+}

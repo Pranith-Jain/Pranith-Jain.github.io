@@ -1,0 +1,12 @@
+{
+  "id": 54,
+  "name": "Ruler",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Ruler is a tool to abuse Microsoft Exchange services. It is publicly available on GitHub and the tool is executed via the command line. The creators of Ruler have also released a defensive tool, NotRuler, to detect its usage.(Citation: SensePost Ruler GitHub)(Citation: SensePost NotRuler)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/tools/54"
+}

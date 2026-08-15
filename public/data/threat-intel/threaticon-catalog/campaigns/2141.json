@@ -1,0 +1,12 @@
+{
+  "id": 2141,
+  "name": "More Russian language malspam pushing Shade (Troldesh) ransomware",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #173 (5c6e4888-92c4-480f-9bf5-4c63c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2141"
+}

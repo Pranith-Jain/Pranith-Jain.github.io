@@ -1,0 +1,12 @@
+{
+  "id": 150,
+  "name": "safepay: zonaovest.to.it",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Not Found | Website: zonaovest.to.it | Infostealer data confirmed. | Is likely an Italian regional organization or consortium based in the Turin (Torino) area. Entities with similar naming conventions in … | Source: https://www.ransomware.live/id/em9uYW92ZXN0LnRvLml0QHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/150"
+}

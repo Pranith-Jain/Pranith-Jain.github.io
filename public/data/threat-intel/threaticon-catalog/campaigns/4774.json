@@ -1,0 +1,12 @@
+{
+  "id": 4774,
+  "name": "safepay: hoodriversheriff.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Public Sector | Website: hoodriversheriff.com | Infostealer data confirmed. | Headquartered in Hood River, the organization provides a broad range of services, including patrol operations, criminal investigations, emergency communications, search … | Source: https://www.ransomware.live/id/aG9vZHJpdmVyc2hlcmlmZi5jb21Ac2FmZXBheQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4774"
+}

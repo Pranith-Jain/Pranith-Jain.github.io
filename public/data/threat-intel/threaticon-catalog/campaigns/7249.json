@@ -1,0 +1,12 @@
+{
+  "id": 7249,
+  "name": "orion: ipsenlogistics.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Oct 28, 2025",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to orion. | Sector: Transportation | Website: ipsenlogistics.com | Infostealer data confirmed. | ipsenlogistics.com | Source: https://www.ransomware.live/id/aXBzZW5sb2dpc3RpY3MuY29tQG9yaW9u",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7249"
+}

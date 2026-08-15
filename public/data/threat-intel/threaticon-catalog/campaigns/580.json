@@ -1,0 +1,12 @@
+{
+  "id": 580,
+  "name": "akira: Salimetrics",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: salimetrics.com | Infostealer data confirmed. | Salimetrics specializes in salivary bioscience, offering industry -standard saliva collection methods, salivary assay kits, and tes ting services for reliable results. Their products cater to resea rchers and clinicians involved in biobehavioral research and diag nostics, providing tools for sample collection and analysis. We will upload corporate data soon. Employee information, patient s information (blood tests and other health information), financi als, internal confidential files and so on. | Source: https://www.ransomware.live/id/U2FsaW1ldHJpY3NAYWtpcmE=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/580"
+}

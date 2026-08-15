@@ -1,0 +1,12 @@
+{
+  "id": 1967,
+  "name": "lapsus$: DreamUp",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lapsus$. | Country: US | Sector: Education | Website: dreamup.org | Infostealer data confirmed. | [AI generated] DreamUp is an American company that provides space-based educational opportunities to students of all ages. They offer various programs that utilize the unique environment of space to spark interest in Science, Technology, Engineering, and Mathematics (STEM) fields. DreamUp provides tools to conduct research in microgravity through partnerships with SpaceX, the International Space Station and other space organizations. | Source: https://www.ransomware.live/id/RHJlYW1VcEBsYXBzdXMk",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1967"
+}

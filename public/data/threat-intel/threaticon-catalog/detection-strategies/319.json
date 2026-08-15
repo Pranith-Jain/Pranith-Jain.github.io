@@ -1,0 +1,12 @@
+{
+  "id": 319,
+  "name": "Internal Spearphishing via Trusted Accounts",
+  "detId": "DET0054",
+  "stixId": "x-mitre-detection-strategy--acc27d20-8aad-42ce-b928-6cda3c22e51b",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "analytics": ["AN0147", "AN0148", "AN0149", "AN0150", "AN0151"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/319"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3135,
+  "name": "Turla PowerShell blogpost",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #193 (5ced8da1-0960-40bc-b5dc-2fed0a016219).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3135"
+}

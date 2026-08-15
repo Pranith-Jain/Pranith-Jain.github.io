@@ -1,0 +1,12 @@
+{
+  "id": 875,
+  "name": "akira: Netgain Networks",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Technology | Website: netgainnetworks.com | Infostealer data confirmed. | Netgain Networks, Inc. is an information technology service compa ny that focuses on computing, networking, and application needs o f small/midsize businesses and branch offices of large corporatio ns in Southern California. We will upload corporate data soon. Employee personal documents ( passports and other HR files), client health information, financi als, a lot of project information, contracts and agreements and s o on. | Source: https://www.ransomware.live/id/TmV0Z2FpbiBOZXR3b3Jrc0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/875"
+}

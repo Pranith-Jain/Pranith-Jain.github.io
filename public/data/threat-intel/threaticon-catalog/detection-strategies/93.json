@@ -1,0 +1,12 @@
+{
+  "id": 93,
+  "name": "Detection Strategy for Hidden Files and Directories",
+  "detId": "DET0032",
+  "stixId": "x-mitre-detection-strategy--3f59957a-2e55-4378-bbe7-090fb1e4f067",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "analytics": ["AN0091", "AN0092", "AN0093"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/93"
+}

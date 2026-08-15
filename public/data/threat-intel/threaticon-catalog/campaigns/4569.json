@@ -1,0 +1,12 @@
+{
+  "id": 4569,
+  "name": "nova: transvill.com.pe",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 24, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: PE | Sector: Transportation/Logistics | Website: transvill.com.pe | Infostealer data confirmed. | Transvill SRL offers national and international road transport and logistics services for cargo shipments. Data profile will provided soon | Source: https://www.ransomware.live/id/dHJhbnN2aWxsLmNvbS5wZUBub3Zh",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4569"
+}

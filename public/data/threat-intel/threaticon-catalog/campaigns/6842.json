@@ -1,0 +1,12 @@
+{
+  "id": 6842,
+  "name": "CRPxO: FINANSBANK",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Website: qnb.com.tr | Infostealer data confirmed. | Sector: Banking | Data leaked: 2.3 GB | Source: https://www.ransomware.live/id/RklOQU5TQkFOS0BDUlB4Tw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6842"
+}

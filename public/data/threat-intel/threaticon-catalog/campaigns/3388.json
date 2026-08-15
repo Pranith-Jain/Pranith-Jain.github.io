@@ -1,0 +1,12 @@
+{
+  "id": 3388,
+  "name": "OSINT Gaza cybergang, whereâ€™s your IR team? by Kaspersky",
+  "status": null,
+  "confidence": 40,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #663 (560994d3-73e8-4ae1-80e7-4c0c950d210b).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3388"
+}

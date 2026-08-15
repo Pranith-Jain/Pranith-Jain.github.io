@@ -1,0 +1,12 @@
+{
+  "id": 4841,
+  "name": "stormous: mlit.com.my",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 12, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to stormous. | Country: MY | Sector: Public Sector | Website: mlit.com.my | Infostealer data confirmed. | We have successfully breached the internal servers and network infrastructure of MLIT, gaining full unauthorized access to their active Microsoft Dynamics Management Reporter environment and local storage volumes.The compromised data includes highly sensitive internal operations and financial records. Among the leaked files are complete individual Campaign Profit and Loss (PnL) statements, detailed revenue sheets, clawbacks, and general ledger accounts for several linked entities, including Salesworks Pte Ltd Taiwan Branch and Shaves2u HK Limited. Additionally, we have extracted complete directory trees and file structures from the internal network shares and remote desktop sessions, revealing thousands of corporate folders such as JAG Group, SWGP Excel Import, and various financial databases. | Source: https://www.ransomware.live/id/bWxpdC5jb20ubXlAc3R...",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4841"
+}

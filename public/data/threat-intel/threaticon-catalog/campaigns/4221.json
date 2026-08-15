@@ -1,0 +1,12 @@
+{
+  "id": 4221,
+  "name": "krybit: xuerong.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: CN | Sector: Technology | Website: xuerong.com | Infostealer data confirmed. | Shanghai Xuerong Biotechnology Co., Ltd. (上海雪榕生物科技股份有限公司), formerly known as Shanghai Gaoron... | Source: https://www.ransomware.live/id/eHVlcm9uZy5jb21Aa3J5Yml0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4221"
+}

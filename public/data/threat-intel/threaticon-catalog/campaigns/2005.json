@@ -1,0 +1,12 @@
+{
+  "id": 2005,
+  "name": "New wave of cyberattacks against Ukrainian power industry",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #7 (56ca477c-d584-42e0-874a-4c109062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2005"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3457,
+  "name": "OSINT - ELF.Rex",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #876 (57dbb75c-4ebc-4856-96fc-4095950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3457"
+}

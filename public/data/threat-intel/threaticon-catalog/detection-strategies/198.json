@@ -1,0 +1,12 @@
+{
+  "id": 198,
+  "name": "Detect Windows Firewall",
+  "detId": "DET0901",
+  "stixId": "x-mitre-detection-strategy--488ef272-b2fa-4501-ab6e-97e3ac01816c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN2043"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/198"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4055,
+  "name": "safepay: shuttlemeadowcc.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Consumer Services | Website: shuttlemeadowcc.com | Infostealer data confirmed. | Founded in 1917, the club is one of the oldest and most prestigious private golf clubs in New England. It … | Source: https://www.ransomware.live/id/c2h1dHRsZW1lYWRvd2NjLmNvbUBzYWZlcGF5",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4055"
+}

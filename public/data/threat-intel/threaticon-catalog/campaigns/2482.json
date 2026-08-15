@@ -1,0 +1,12 @@
+{
+  "id": 2482,
+  "name": "Malspam 2016-08-18 (.wsf in .zip) - campaign: \"Emailing: Label\"",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #823 (57b5adc4-9f48-4cb4-9a0b-4471950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2482"
+}

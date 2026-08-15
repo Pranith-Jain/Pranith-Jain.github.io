@@ -1,0 +1,12 @@
+{
+  "id": 3437,
+  "name": "OSINT SSH bruteforce logs from burberry user on AlienVault OTX",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #814 (57b586d3-6c68-4343-9d27-46f3950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3437"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3217,
+  "name": "The Unintentional Leak: A glimpse into the attack vectors of APT37",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #358 (033e3332-eb5b-45d3-9a5c-68ca17aa9a8d).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3217"
+}

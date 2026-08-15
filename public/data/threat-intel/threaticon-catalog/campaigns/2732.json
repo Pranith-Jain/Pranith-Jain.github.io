@@ -1,0 +1,12 @@
+{
+  "id": 2732,
+  "name": "OSINT - Malicious Chrome Extensions Stealing Roblox In-Game Currency, Sending Cookies via Discord",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1203 (59d4e235-c71c-4d0e-8ba3-920c950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2732"
+}

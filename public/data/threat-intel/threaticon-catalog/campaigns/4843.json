@@ -1,0 +1,12 @@
+{
+  "id": 4843,
+  "name": "threeam: jastrebarsko.hr",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Apr 30, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to threeam. | Country: HR | Sector: Not Found | Website: jastrebarsko.hr | Infostealer data confirmed. | Town of Jastrebarsko, a historic city in Central Croatia located between Zagreb and Karlovac. | Source: https://www.ransomware.live/id/amFzdHJlYmFyc2tvLmhyQHRocmVlYW0=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4843"
+}

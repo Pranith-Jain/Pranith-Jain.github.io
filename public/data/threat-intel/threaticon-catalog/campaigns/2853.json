@@ -1,0 +1,12 @@
+{
+  "id": 2853,
+  "name": "OSINT - New Bip Dharma Ransomware Variant Released",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1418 (5b84012a-f9d4-4d92-abb3-344f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2853"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 961,
+  "name": "krybit: Gerald Zisser GmbH",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to krybit. | Country: DE | Sector: Business Services | Website: Gerald Zisser GmbH | Gerald Zisser GmbH is a private Austrian company specializing in building technical services, focusing on plumbing, heat... | Source: https://www.ransomware.live/id/R2VyYWxkIFppc3NlciBHbWJIQGtyeWJpdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/961"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 3258,
+  "name": "ESET takes part in global operation to disrupt the Grandoreiro banking trojan",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #438 (a22d9655-bcfe-4a7e-9fec-3cdbc7f1d4d8).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3258"
+}

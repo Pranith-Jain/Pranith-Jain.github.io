@@ -1,0 +1,12 @@
+{
+  "id": 6562,
+  "name": "CRPxO: Elko Dental Specialists",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 27, 2026",
+  "lastSeen": "Jul 27, 2026",
+  "added": "Jul 27, 2026",
+  "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Healthcare | Website: elkosmiles.com | Sector: Healthcare / Dental | Data leaked: 7.8 GB | Source: https://www.ransomware.live/id/RWxrbyBEZW50YWwgU3BlY2lhbGlzdHNAQ1JQeE8=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/6562"
+}

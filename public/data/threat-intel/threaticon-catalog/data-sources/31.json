@@ -1,0 +1,12 @@
+{
+  "id": 31,
+  "name": "Instance Metadata",
+  "dcId": "DC0086",
+  "analyticCount": 3,
+  "strategyCount": 3,
+  "added": null,
+  "analytics": ["AN0234", "AN0481", "AN1242"],
+  "description": "Contextual data about an instance and activity around it such as name, type, or status",
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/data-sources/31"
+}

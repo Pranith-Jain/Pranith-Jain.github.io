@@ -1,0 +1,12 @@
+{
+  "id": 332,
+  "name": "Detect Malicious Modification of Pluggable Authentication Modules (PAM)",
+  "detId": "DET0454",
+  "stixId": "x-mitre-detection-strategy--9af47d08-fbb3-4122-8af4-74105cc23b62",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "analytics": ["AN1250", "AN1251"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/332"
+}

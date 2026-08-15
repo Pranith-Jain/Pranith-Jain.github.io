@@ -1,0 +1,12 @@
+{
+  "id": 2008,
+  "name": "Backdoor.Cadelspy and Backdoor.Remexi - Symantec",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #12 (56caac73-ad4c-401f-a8e3-52819062e56a).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2008"
+}

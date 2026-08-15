@@ -1,0 +1,12 @@
+{
+  "id": 2690,
+  "name": "OSINT - WAP-billing Trojan-Clickers on rise",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1140 (59a00e7b-5bac-4e57-ab87-48d8950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2690"
+}

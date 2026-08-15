@@ -1,0 +1,12 @@
+{
+  "id": 2679,
+  "name": "OSINT - Real News, Fake Flash: Mac OS X Users Targeted",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1121 (5981907c-ee6c-4ed5-bc87-40af02de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2679"
+}

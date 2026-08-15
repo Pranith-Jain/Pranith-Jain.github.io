@@ -1,0 +1,12 @@
+{
+  "id": 2860,
+  "name": "OSINT - `event-stream` dependency attack steals wallets from users of copay",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1444 (5bfc6891-b838-44fe-bc17-16b702de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2860"
+}

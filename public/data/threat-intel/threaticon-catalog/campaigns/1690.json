@@ -1,0 +1,12 @@
+{
+  "id": 1690,
+  "name": "interlock: Wagon Mound Public Schools",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Education | Website: wm.k12.nm.us | Infostealer data confirmed. | Wagon Mound Public Schools provides education to students in the Wagon Mound area, providing resources and support for both elementary and middle schools. However, they neglected to address the security of their materials, resulting in the compromise of all their personal data, including the school's blueprints. We present to your attention a 80 GB of data, which includes staff and student information, their phone numbers, residence addresses, and passport numbers. | Press: https://dysruptionhub.com/wagon-mound-schools-virus-new-mexico/ | Source: https://www.ransomware.live/id/V2Fnb24gTW91bmQgUHVibGljIFNjaG9vbHNAaW50ZXJsb2Nr",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1690"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7720,
+  "name": "clop: LIFESTRAW.COM",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to clop. | Country: US | Sector: Retail & E-Commerce | Website: LIFESTRAW.COM | [AI generated] LifeStraw is an American consumer goods company specializing in portable water filtration and purification products. Founded in Switzerland and now headquartered in the United States, it produces filters, straws, bottles, and pitchers designed to remove bacteria, parasites, and microplastics from water. The company serves outdoor enthusiasts, travelers, and humanitarian relief efforts globally, making safe drinking water accessible in both recreational and emergency contexts. | Source: https://www.ransomware.live/id/TElGRVNUUkFXLkNPTUBjbG9w",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7720"
+}

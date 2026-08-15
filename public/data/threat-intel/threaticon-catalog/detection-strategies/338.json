@@ -1,0 +1,12 @@
+{
+  "id": 338,
+  "name": "Detect Abuse of XPC Services (T1559.003)",
+  "detId": "DET0335",
+  "stixId": "x-mitre-detection-strategy--a92f4b5f-9d0d-461f-8581-a50975f5e07a",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "analytics": ["AN0948"],
+  "description": null,
+  "tlp": null,
+  "sourceUrl": "https://threaticon.com/detection-strategies/338"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4325,
+  "name": "Wallstreet: Baraga County Memorial Hospital",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to Wallstreet. | Country: US | Sector: Healthcare | Website: bcmh.org | Infostealer data confirmed. | Baraga County Memorial Hospital is a critical access hospital serving Baraga County with emergency, surgery, imaging, rehab, and outpatient care. | Source: https://www.ransomware.live/id/QmFyYWdhIENvdW50eSBNZW1vcmlhbCBIb3NwaXRhbEBXYWxsc3RyZWV0",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4325"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 7184,
+  "name": "Dark Project: Rocky Mount Recyclers",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Aug 5, 2026",
+  "description": "Ransomware attack attributed to Dark Project. | Country: US | Sector: Manufacturing | Website: www.rmrnc.com | Due to cyberattack on Rocky Mount Recyclers more than 40Gb of company personal data was stolen. Leakage contains big amount of sensitive data such as personal emlpoyes documents, company's customers data, bank and financial information documents. About 12,000 files are not secured by RMR for now. Download here: http://2zl5qc3mqap7vziqfis65oyjcgdiedigoequxbqsn6uwian7ieozvoqd.onion/ | Source: https://www.ransomware.live/id/Um9ja3kgTW91bnQgUmVjeWNsZXJzQERhcmsgUHJvamVjdA==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7184"
+}

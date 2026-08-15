@@ -1,0 +1,12 @@
+{
+  "id": 7667,
+  "name": "Panzer: Xpress Tech",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 11, 2026",
+  "lastSeen": "Aug 11, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to Panzer. | Sector: Technology | Xpress Tech is a leading B2B iGaming aggregation platform established in 2015 under Softquo Holding. It provides a comprehensive one-stop technical solution connecting operators with over 120 gaming providers and a portfolio of more than 30,000 games via a single Remote API integration. The platform also features integrated payment solutions and back-office data management | Source: https://www.ransomware.live/id/WHByZXNzIFRlY2hAUGFuemVy",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/7667"
+}

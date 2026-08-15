@@ -1,0 +1,12 @@
+{
+  "id": 2171,
+  "name": "Shlayer Trojan attacks one in ten macOS users",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #214 (5e5b9ed2-83f0-4a84-9356-a05fc0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2171"
+}

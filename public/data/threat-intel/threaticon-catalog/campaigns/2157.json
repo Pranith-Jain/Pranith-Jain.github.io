@@ -1,0 +1,12 @@
+{
+  "id": 2157,
+  "name": "Sea Turtle keeps on swimming, finds new victims, DNS hijacking techniques",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #196 (5d26d766-5d64-4dc1-b8b2-0904c0a8ab16).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2157"
+}

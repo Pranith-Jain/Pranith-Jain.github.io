@@ -1,0 +1,12 @@
+{
+  "id": 4410,
+  "name": "thegentlemen: FAC Logistique",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to thegentlemen. | Country: FR | Sector: Transportation/Logistics | Website: fac-logistique.com | Infostealer data confirmed. | ***.com FAC Logistique, a French company founded in 1996 that specializes in the outsourcing of purchasing and logistics. Operating as a central purchasing office, the firm helps businesses optimize their supplier base, manage inventory, and significantly reduce operational costs. Headquartered in Grand-Couronne with additional agencies across France, the company leverages expert buyers to simplify supply chain processes and act as a dedicated \"center of savings\" for its clients | Source: https://www.ransomware.live/id/RkFDIExvZ2lzdGlxdWVAdGhlZ2VudGxlbWVu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4410"
+}

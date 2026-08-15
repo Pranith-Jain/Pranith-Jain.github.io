@@ -1,0 +1,12 @@
+{
+  "id": 4643,
+  "name": "lockbit5: casaandina.com.co",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Jun 13, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: CO | Sector: Hospitality and Tourism | Website: casaandina.com.co | Infostealer data confirmed. | We are the premier hardware and construction material distributor serving the southwestern region of... | Source: https://www.ransomware.live/id/Y2FzYWFuZGluYS5jb20uY29AbG9ja2JpdDU=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4643"
+}

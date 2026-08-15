@@ -1,0 +1,12 @@
+{
+  "id": 315,
+  "name": "payoutsking: Central National Gottesman",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: cng-inc.com | Infostealer data confirmed. | [AI generated] Central National Gottesman is a privately held global pulp and paper merchant headquartered in Purchase, New York, USA. Founded in 1886, the company distributes printing and writing papers, packaging materials, pulp, and tissue products. It operates across multiple continents, serving publishers, printers, and converters. It is one of the largest independent paper distribution companies in the world. | Source: https://www.ransomware.live/id/Q2VudHJhbCBOYXRpb25hbCBHb3R0ZXNtYW5AcGF5b3V0c2tpbmc=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/315"
+}

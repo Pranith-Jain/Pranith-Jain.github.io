@@ -1,0 +1,12 @@
+{
+  "id": 5106,
+  "name": "qilin: Eat Salad",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 3, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: BR | Sector: Agriculture and Food Production | Website: www.eatsalad.com | N/A | Source: https://www.ransomware.live/id/RWF0IFNhbGFkQHFpbGlu",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5106"
+}

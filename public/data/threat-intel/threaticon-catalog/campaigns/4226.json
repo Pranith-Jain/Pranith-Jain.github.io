@@ -1,0 +1,12 @@
+{
+  "id": 4226,
+  "name": "chaos: opportune.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Business Services | Website: www.zoominfo.com/c/opportune-llp/147440067 | DATA EXPOSURE: Opportune LLP – Full Operational Transparency We are officially announcing that our security team has successfully breached the internal network of Opportune LLP. As of this moment, we are in possession of the entire Opportune internal data environment—an massive archive containi… | Source: https://www.ransomware.live/id/b3Bwb3J0dW5lLmNvbUBjaGFvcw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/4226"
+}

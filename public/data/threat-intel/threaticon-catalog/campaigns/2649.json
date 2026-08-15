@@ -1,0 +1,12 @@
+{
+  "id": 2649,
+  "name": "M2M - Malspam --> 62909008.pdf",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1073 (593133d6-46f4-49e7-b1f6-422f950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2649"
+}

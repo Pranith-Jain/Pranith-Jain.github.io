@@ -1,0 +1,12 @@
+{
+  "id": 5043,
+  "name": "dragonforce: REHA-ACTIV",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 5, 2026",
+  "lastSeen": "Jun 5, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Healthcare | Website: www.reha-activ.de | REHA-ACTIV is a medical supply company that has been supporting individuals with health limitations for over 30 years. | Source: https://www.ransomware.live/id/UkVIQS1BQ1RJVkBkcmFnb25mb3JjZQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/5043"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2802,
+  "name": "OSINT - Dasan Unauthenticated Remote Code Execution - and ongoing abuse",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1306 (5a8042be-fe8c-4071-a140-414502de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2802"
+}

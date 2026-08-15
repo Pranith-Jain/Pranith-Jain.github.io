@@ -1,0 +1,12 @@
+{
+  "id": 2601,
+  "name": "OSINT - Android malware on the rise",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1002 (58b59c8c-faa8-4919-97cf-4af602de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2601"
+}

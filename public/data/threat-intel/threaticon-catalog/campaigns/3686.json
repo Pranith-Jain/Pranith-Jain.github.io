@@ -1,0 +1,12 @@
+{
+  "id": 3686,
+  "name": "lockbit5: vp-brands.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Consumer Services | Website: vp-brands.com | Infostealer data confirmed. | We produce quality spirits, evolve brands and push boundaries. As far as it takes. | Source: https://www.ransomware.live/id/dnAtYnJhbmRzLmNvbUBsb2NrYml0NQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/3686"
+}

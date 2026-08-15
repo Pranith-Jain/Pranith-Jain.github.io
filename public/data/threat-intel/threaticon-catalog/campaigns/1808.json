@@ -1,0 +1,12 @@
+{
+  "id": 1808,
+  "name": "akira: Applied Products",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: appliedproductsinc.com | Infostealer data confirmed. | Applied Products, Inc. is a leading supplier of high-performance, pressure-sensitive adhesives for various OEM industries such as HVAC, construction, automotive, and appliance manufacturing. We will upload corporate data soon. Employee passports, DLs, proj ects, confidential agreements, clients docs, NDAs, etc. | Source: https://www.ransomware.live/id/QXBwbGllZCBQcm9kdWN0c0Bha2lyYQ==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/1808"
+}

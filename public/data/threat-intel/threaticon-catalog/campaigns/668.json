@@ -1,0 +1,12 @@
+{
+  "id": 668,
+  "name": "safepay: bbalawgroup.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Business Services | Website: bbalawgroup.com | Infostealer data confirmed. | Also referred to as BBA Immigration, is a boutique U.S. legal practice headquartered in Houston, Texas, specialising in immigration law … | Source: https://www.ransomware.live/id/YmJhbGF3Z3JvdXAuY29tQHNhZmVwYXk=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/668"
+}

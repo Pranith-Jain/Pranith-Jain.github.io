@@ -1,0 +1,12 @@
+{
+  "id": 834,
+  "name": "dragonforce: rudolf-med.com",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Healthcare | Website: rudolf-med.com | Infostealer data confirmed. | RUDOLF Medical GmbH + Co. KG specializes in providing medical products and services. They offer a range of items through E-catalogs and support their clients with various services. The company aims to cater to a diverse clientele in the medical field. For further engagement, they participate in trade fairs and provide career opportunities | Source: https://www.ransomware.live/id/cnVkb2xmLW1lZC5jb21AZHJhZ29uZm9yY2U=",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/834"
+}

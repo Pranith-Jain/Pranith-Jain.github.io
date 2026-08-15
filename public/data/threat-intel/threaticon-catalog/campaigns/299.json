@@ -1,0 +1,12 @@
+{
+  "id": 299,
+  "name": "payoutsking: ESENTIA Energy Systems",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Ransomware attack attributed to payoutsking. | Country: MX | Sector: Energy | Website: esentiaenergy.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RVNFTlRJQSBFbmVyZ3kgU3lzdGVtc0BwYXlvdXRza2luZw==",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/299"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 2639,
+  "name": "OSINT - Neo23x0 Yara Rule Set and Sigma Rule Set - WannaCry",
+  "status": null,
+  "confidence": 70,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #1059 (59188096-18dc-47dc-9a67-beaf950d210f).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2639"
+}

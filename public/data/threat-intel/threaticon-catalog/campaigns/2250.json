@@ -1,0 +1,12 @@
+{
+  "id": 2250,
+  "name": "OSINT - TREASUREHUNT: A CUSTOM POS MALWARE TOOL",
+  "status": null,
+  "confidence": 50,
+  "firstSeen": null,
+  "lastSeen": null,
+  "added": null,
+  "description": "Imported from MISP event #379 (56f92df0-24f0-4c6e-a297-6f2402de0b81).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/campaigns/2250"
+}
