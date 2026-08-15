@@ -20,6 +20,11 @@
  *   public/data/breach-watch/breaches/<slug>.json   (1 per breach, full body)
  *
  * Safe to run repeatedly — wipes public/data/breach-watch/ on each run.
+ *
+ * FILES_LIMIT bounds the emitted body + index count: the Worker Free plan caps
+ * static assets at 20,000 per version, and the full 90-day window (2.7k bodies)
+ * pushes dist past that. Keep only the most recent breaches so deploys stay
+ * under the cap while the index still reflects live feed state.
  */
 import { writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -31,8 +36,8 @@ const SOURCE =
   'ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot';
 const LICENSE = 'CC0 — public data from open trackers';
 
-/** Cap on total breaches kept in the index. */
-const MAX_BREACHES = 5500;
+/** Cap on emitted breach bodies + index entries (Free-plan 20k asset cap). */
+const FILES_LIMIT = 350;
 
 const NOTORIOUS_GROUPS = new Set([
   'lockbit', 'clop', 'blackcat', 'alphv', 'ransomhub', 'akira',
@@ -128,7 +133,7 @@ async function fetchRansomwareLiveBreaches() {
       source: 'ransomware.live',
       source_url: 'https://www.ransomware.live/',
     });
-    if (out.length >= MAX_BREACHES) break;
+    if (out.length >= FILES_LIMIT) break;
   }
   return out;
 }
@@ -156,7 +161,7 @@ async function fetchRansomlookBreaches() {
         ? `https://www.ransomlook.io/${e.screen.replace(/^\//, '')}`
         : 'https://www.ransomlook.io/recent',
     });
-    if (out.length >= MAX_BREACHES) break;
+    if (out.length >= FILES_LIMIT) break;
   }
   return out;
 }
@@ -354,8 +359,10 @@ async function main() {
     }
   }
 
-  // Sort newest first
+  // Sort newest first, then cap the emitted window so the total static-asset
+  // count stays under the Worker Free plan limit (20,000 per version).
   merged.sort((a, b) => b.discovered.localeCompare(a.discovered));
+  if (merged.length > FILES_LIMIT) merged.length = FILES_LIMIT;
 
   console.log(`  merged (deduped):      ${merged.length} entries`);
 

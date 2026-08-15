@@ -5,14 +5,12 @@ import { LineChart } from 'lucide-react';
 
 const TiDashboard = lazy(() => import('../TiDashboard'));
 const CtiDashboard = lazy(() => import('./CtiDashboard'));
-const ThreatIntelDashboard = lazy(() => import('./ThreatIntelDashboard'));
 
-type TabId = 'ti' | 'cti' | 'threat';
+type TabId = 'ti' | 'cti';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'ti', label: 'TI DASHBOARD', desc: 'Threat intelligence overview dashboard' },
   { id: 'cti', label: 'CTI DASHBOARD', desc: 'Cyber threat intelligence dashboard' },
-  { id: 'threat', label: 'THREAT DASHBOARD', desc: 'Threat landscape dashboard' },
 ];
 
 export default function DashboardHub(): JSX.Element {
@@ -23,7 +21,7 @@ export default function DashboardHub(): JSX.Element {
       backTo="/threatintel"
       icon={<LineChart size={28} />}
       title="Dashboard Hub"
-      description="Threat intelligence dashboards - TI overview, CTI, and threat landscape views."
+      description="Threat intelligence dashboards - TI overview and CTI views. The threat landscape lives in the Intel Dashboard."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
@@ -55,7 +53,6 @@ export default function DashboardHub(): JSX.Element {
         <Suspense fallback={<TabLoader />}>
           {activeTab === 'ti' && <TiDashboard />}
           {activeTab === 'cti' && <CtiDashboard />}
-          {activeTab === 'threat' && <ThreatIntelDashboard />}
         </Suspense>
       </div>
     </DataPageLayout>

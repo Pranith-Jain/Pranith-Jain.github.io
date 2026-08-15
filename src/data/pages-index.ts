@@ -1846,9 +1846,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/predictive/dashboard',
     label: 'Threat Landscape',
-    description: 'Key stats, trending actors, top malware, emerging threats, and attack-vector distribution.',
+    description:
+      'Combined intel dashboard - program health, feed reliability, snapshot metrics, source reliability, maturity, and quick actions.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
+    keywords: ['dashboard', 'health', 'feed', 'reliability', 'snapshot', 'maturity', 'KPI'],
   },
 
   // Actors
@@ -2116,10 +2118,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/threatintel/soc-dashboard',
-    label: 'SOC Dashboards',
-    description: 'Red/cyan/purple panels - ransomware, vulnerabilities, and IOC stream with consensus scoring.',
+    label: 'SOC Dashboard (alias)',
+    description: 'Alias for the combined intel dashboard - program health, feed reliability, and CVE landscape.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
+    keywords: ['soc', 'dashboard', 'alias'],
   },
   {
     path: '/threatintel/live-iocs',
@@ -3224,10 +3227,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/threatintel/actors/catalog',
-    label: 'Catalog',
-    description: 'Threat actor catalog with profiles.',
+    label: 'Catalog (alias)',
+    description: 'Alias for the Actor Hub catalog tab - curated profiles of 15 major groups.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
+    keywords: ['catalog', 'actor', 'profiles'],
   },
   {
     path: '/threatintel/apt-actors',
@@ -3406,10 +3410,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/threatintel/predictive/analytics',
-    label: 'Analytics & Ops',
-    description: 'Platform health, feed reliability, and intel metrics.',
+    label: 'Analytics & Ops (alias)',
+    description: 'Alias for the combined intel dashboard - program health, feed reliability, and snapshot metrics.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
+    keywords: ['analytics', 'ops', 'dashboard', 'feed', 'reliability'],
   },
   {
     path: '/threatintel/predictive/predictions',

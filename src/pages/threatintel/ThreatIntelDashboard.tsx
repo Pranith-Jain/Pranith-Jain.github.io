@@ -1,9 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '../../hooks';
 import { useLiveFeed } from '../../hooks/useLiveFeed';
-import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  Shield,
   Search as SearchIcon,
   RefreshCw,
   AlertTriangle,
@@ -149,46 +147,48 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
           Data Summary
         </span>
       </div>
-      <div className="overflow-x-auto"><table className="w-full text-sm">
-        <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          <tr>
-            <th className="py-2 px-4 font-medium">{label}</th>
-            <th className="py-2 px-4 font-medium text-right">Count</th>
-            <th className="py-2 px-4 font-medium text-right">% of Total</th>
-            <th className="py-2 px-4 font-medium">Distribution</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row) => {
-            const pct = total > 0 ? (row.count / total) * 100 : 0;
-            return (
-              <tr
-                key={row.name}
-                className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
-              >
-                <td className="py-2 px-4 text-sm text-slate-900 dark:text-slate-100">{row.name}</td>
-                <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
-                  {row.count.toLocaleString()}
-                </td>
-                <td className="py-2 px-4 text-sm text-right text-slate-600 dark:text-slate-400">{pct.toFixed(1)}%</td>
-                <td className="py-2 px-4">
-                  <div className="w-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded-full h-2 overflow-hidden">
-                    <div className="h-full bg-rose-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-          <tr className="font-semibold border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <td className="py-2 px-4 text-sm text-slate-900 dark:text-slate-100">Total</td>
-            <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
-              {total.toLocaleString()}
-            </td>
-            <td className="py-2 px-4 text-sm text-right text-slate-600 dark:text-slate-400">100%</td>
-            <td />
-          </tr>
-        </tbody>
-      </table></div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <tr>
+              <th className="py-2 px-4 font-medium">{label}</th>
+              <th className="py-2 px-4 font-medium text-right">Count</th>
+              <th className="py-2 px-4 font-medium text-right">% of Total</th>
+              <th className="py-2 px-4 font-medium">Distribution</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row) => {
+              const pct = total > 0 ? (row.count / total) * 100 : 0;
+              return (
+                <tr
+                  key={row.name}
+                  className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
+                >
+                  <td className="py-2 px-4 text-sm text-slate-900 dark:text-slate-100">{row.name}</td>
+                  <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
+                    {row.count.toLocaleString()}
+                  </td>
+                  <td className="py-2 px-4 text-sm text-right text-slate-600 dark:text-slate-400">{pct.toFixed(1)}%</td>
+                  <td className="py-2 px-4">
+                    <div className="w-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded-full h-2 overflow-hidden">
+                      <div className="h-full bg-rose-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+            <tr className="font-semibold border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <td className="py-2 px-4 text-sm text-slate-900 dark:text-slate-100">Total</td>
+              <td className="py-2 px-4 text-sm font-mono text-right text-rose-600 dark:text-rose-400">
+                {total.toLocaleString()}
+              </td>
+              <td className="py-2 px-4 text-sm text-right text-slate-600 dark:text-slate-400">100%</td>
+              <td />
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -446,7 +446,7 @@ function buildImpactData(cves: CveEntry[]) {
     .map(([name, count]) => ({ name, count }));
 }
 
-export default function ThreatIntelDashboard() {
+export function CveLandscapePanel(): JSX.Element {
   const { isDark } = useTheme();
   const { feeds, connected } = useLiveFeed();
   const [cves, setCves] = useState<CveEntry[]>([]);
@@ -569,15 +569,36 @@ export default function ThreatIntelDashboard() {
 
   const isOverTime = view === 'over-time';
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-16 text-sm text-slate-500 dark:text-slate-400">
+        Loading CVE landscape&hellip;
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="flex flex-col items-center gap-3 py-16 text-sm text-rose-600 dark:text-rose-400">
+        <span>{error}</span>
+        <button
+          type="button"
+          onClick={() => setRefreshKey((k) => k + 1)}
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
+        >
+          <RefreshCw size={11} /> retry
+        </button>
+      </div>
+    );
+  }
+  if (cves.length === 0) {
+    return <div className="py-16 text-center text-sm text-slate-500 dark:text-slate-400">No CVE data available.</div>;
+  }
+
   return (
-    <DataPageLayout
-      backTo="/threatintel"
-      backLabel="back to threat intel"
-      icon={<Shield className="h-6 w-6" />}
-      title="Threat Intelligence Dashboard"
-      description="Live CVE landscape with charts, severity breakdown, and MSRC-style analytics."
-      maxWidthClass="max-w-7xl"
-      headerExtra={
+    <>
+      {/* Header row: refresh + scope */}
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300">CVE Landscape</h2>
         <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
           <button
             type="button"
@@ -588,13 +609,8 @@ export default function ThreatIntelDashboard() {
           </button>
           <span className="font-mono">{filtered.length.toLocaleString()} CVEs in scope</span>
         </div>
-      }
-      loading={loading}
-      error={error}
-      onRetry={() => setRefreshKey((k) => k + 1)}
-      empty={!loading && cves.length === 0}
-      emptyMessage="No CVE data available."
-    >
+      </div>
+
       {/* Stat pills */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         <StatCard
@@ -670,7 +686,8 @@ export default function ThreatIntelDashboard() {
               className={`${INPUT} pl-9 pr-3`}
             />
             {search && (
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => setSearch('')}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
               >
@@ -738,7 +755,8 @@ export default function ThreatIntelDashboard() {
               ))}
             </div>
             {sevFilter.length > 0 && (
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => {
                   setSevFilter([]);
                   setExploitedOnly(false);
@@ -826,6 +844,6 @@ export default function ThreatIntelDashboard() {
           )
         )}
       </div>
-    </DataPageLayout>
+    </>
   );
 }

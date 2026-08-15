@@ -165,7 +165,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Online Predators](https://pranithjain.qzz.io/threatintel/predators) (threatintel): Online predator categories, regional risk, and intervention resources.
 - [APT Actor Database](https://pranithjain.qzz.io/threatintel/apt-actors) (threatintel): ETDA Threat Group Cards - 416+ threat actors with attribution, tools, sectors, and operations.
 - [APTmap Malware Analysis](https://pranithjain.qzz.io/threatintel/aptmap) (threatintel): Cross-sample malware analysis across 18,000+ samples - file types, PE metadata, DLL imports, certificates, and APT-to-tool relationships.
-- [Threat Actor Knowledge Base](https://pranithjain.qzz.io/threatintel/actors/directory) (threatintel): Knowledge base of threat actors with profiles, aliases, TTPs, and associated campaigns.
 - [Active Campaigns](https://pranithjain.qzz.io/threatintel/campaigns/active) (threatintel): Active campaign tracker with status, severity, and IOC rollups.
 - [Campaign Lifecycle](https://pranithjain.qzz.io/threatintel/campaigns/lifecycle) (threatintel): Discovery → exploitation → actions on objectives.
 - [Campaign Generator](https://pranithjain.qzz.io/threatintel/campaigns/generator) (threatintel): AI-powered campaign generation for tabletop exercises.
@@ -283,14 +282,13 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Awesome Lists](https://pranithjain.qzz.io/threatintel/external/awesome) (threatintel): Curated awesome-security list - vetted, ranked, kept current.
 - [Cerast Intelligence](https://pranithjain.qzz.io/threatintel/external/cerast) (threatintel): OSINT domain exposure search - exposed paths, staging, misconfigs.
 - [ThreatMon Infostealer](https://pranithjain.qzz.io/threatintel/external/threatmon) (threatintel): Infostealer log search - compromised credentials by domain.
-- [Intel Dashboard](https://pranithjain.qzz.io/threatintel/predictive/dashboard) (threatintel): Top-level intel dashboard - key stats, trending, top actors.
+- [Intel Dashboard](https://pranithjain.qzz.io/threatintel/predictive/dashboard) (threatintel): Program health, feed reliability, snapshot metrics, maturity, and quick actions.
 - [Global Pulse](https://pranithjain.qzz.io/threatintel/predictive/global-pulse) (threatintel): Live 3D globe - 700+ events across 21 layers.
 - [CyberPulse](https://pranithjain.qzz.io/threatintel/cyberpulse) (threatintel): Live breach/leak/intel incident tracker - ransomware, leaks, extortion, supply chain from X, Telegram, Reddit, Bluesky.
 - [Threat Pulse](https://pranithjain.qzz.io/threatintel/predictive/threat-pulse) (threatintel): Threat-pulse tracking - actor activity, campaign spikes, geo shifts.
 - [CertStream](https://pranithjain.qzz.io/threatintel/predictive/certstream) (threatintel): Certificate transparency live feed.
 - [PIR Dashboard](https://pranithjain.qzz.io/threatintel/predictive/pir) (threatintel): Priority Intelligence Requirements dashboard.
 - [Metrics](https://pranithjain.qzz.io/threatintel/predictive/metrics) (threatintel): Ten-panel metrics board.
-- [Analytics & Ops](https://pranithjain.qzz.io/threatintel/predictive/analytics) (threatintel): Platform health, feed reliability, and intel metrics.
 - [Predictions](https://pranithjain.qzz.io/threatintel/predictive/predictions) (threatintel): Forward-looking threat predictions with confidence.
 - [Predictive Intel](https://pranithjain.qzz.io/threatintel/predictive/predictive) (threatintel): AI-driven threat forecasting from current trends.
 - [Analyze](https://pranithjain.qzz.io/threatintel/predictive/analyze) (threatintel): Intelligence analysis workspace.

@@ -168,7 +168,12 @@ interface TabDef {
 }
 
 const TABS: TabDef[] = [
-  { id: 'firehose', label: 'Firehose', icon: Radio, component: TelegramFirehose },
+  {
+    id: 'firehose',
+    label: 'Firehose',
+    icon: Radio,
+    component: TelegramFirehose as React.LazyExoticComponent<() => JSX.Element>,
+  },
   { id: 'leaks', label: 'Leak Feed', icon: AlertTriangle, component: TelegramLeaks },
   { id: 'search', label: 'Channel Search', icon: Search, component: TelegramChannelSearch },
   { id: 'stats', label: 'Statistics', icon: BarChart3, component: TelegramLeakStats },

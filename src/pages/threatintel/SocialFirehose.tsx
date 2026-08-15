@@ -4,7 +4,7 @@ import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Radio } from 'lucide-react';
 
-const CybersecTelegram = lazy(() => import('./CybersecTelegram'));
+const TelegramFirehose = lazy(() => import('./TelegramFirehose'));
 const RedditFirehose = lazy(() => import('./RedditFirehose'));
 const XFirehose = lazy(() => import('./XFirehose'));
 const XLive = lazy(() => import('./XLive'));
@@ -77,7 +77,7 @@ export default function SocialFirehose(): JSX.Element {
 
       <div role="tabpanel">
         <Suspense fallback={<TabLoader />}>
-          {activeTab === 'telegram' && <CybersecTelegram />}
+          {activeTab === 'telegram' && <TelegramFirehose bare />}
           {activeTab === 'reddit' && <RedditFirehose />}
           {activeTab === 'x-live' && <XLive />}
           {activeTab === 'x-watch' && <XWatch />}

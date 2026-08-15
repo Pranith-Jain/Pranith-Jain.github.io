@@ -1,6 +1,6 @@
 import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState, useCallback } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, Radio, Search, AlertTriangle, ExternalLink, Zap } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { useDebounce } from '../../hooks/useDebounce';
@@ -10,6 +10,8 @@ import { useLastVisit, isNewSince } from '../../hooks';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
+import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { TelegramFeedPanel } from '../dfir/DarkWeb';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -104,7 +106,8 @@ const REFRESH_MS = 60_000; // 1 minute - gentle on the edge cache
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
-export default function TelegramFirehose(): JSX.Element {
+export default function TelegramFirehose({ bare = false }: { bare?: boolean }): JSX.Element {
+  const insideLayout = useInsideDataPageLayout();
   const [feed, setFeed] = useState<TelegramFeedResponse | null>(null);
   const [leaks, setLeaks] = useState<LeakEntry[]>([]);
   const [liveIocs, setLiveIocs] = useState<LiveIoc[]>([]);
@@ -326,6 +329,8 @@ export default function TelegramFirehose(): JSX.Element {
       icon={<Radio size={28} />}
       title="Telegram Firehose"
       description="Unified cross-source stream merging t.me/s firehose (curated public channels, 30d window), leak-monitor entries (critical/high credentials + domains) and live-IOCs with telegram-leak source. Newest first."
+      hideBack={bare || insideLayout}
+      hideHeader={bare}
     >
       {/* Header strip */}
       <section className="surface-card p-4">
@@ -476,6 +481,24 @@ export default function TelegramFirehose(): JSX.Element {
           </p>
         )}
       </DataState>
+
+      {/* Aggregate STIX 2.1 view across the visible Telegram messages
+          (merged from the former CybersecTelegram page). */}
+      {feed?.items && feed.items.length > 0 && (
+        <FeedAggregateCard
+          sourceId="telegram"
+          sourceName="Telegram firehose"
+          title="Telegram firehose · today"
+          items={feed.items.map((it) => ({
+            title: it.channel_name,
+            body: it.text,
+          }))}
+        />
+      )}
+
+      {/* Raw t.me/s channel view (merged from the former CybersecTelegram
+          page). Owns its own fetch; the edge cache dedupes. */}
+      <TelegramFeedPanel key={refreshKey} />
     </DataPageLayout>
   );
 }

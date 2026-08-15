@@ -35,8 +35,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/catalog', '/__prerendered/threatintel__catalog'],
   ['/threatintel/actors/hub', '/__prerendered/threatintel__actors__hub'],
   ['/threatintel/actors/attribution', '/__prerendered/threatintel__actors__attribution'],
-  ['/threatintel/actors/catalog', '/__prerendered/threatintel__actors__catalog'],
-  ['/threatintel/actors/kb', '/__prerendered/threatintel__actors__kb'],
   ['/threatintel/campaigns/active', '/__prerendered/threatintel__campaigns__active'],
   ['/threatintel/campaigns/lifecycle', '/__prerendered/threatintel__campaigns__lifecycle'],
   ['/threatintel/campaigns/generator', '/__prerendered/threatintel__campaigns__generator'],
@@ -58,7 +56,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/predictive/certstream', '/__prerendered/threatintel__predictive__certstream'],
   ['/threatintel/predictive/pir', '/__prerendered/threatintel__predictive__pir'],
   ['/threatintel/predictive/metrics', '/__prerendered/threatintel__predictive__metrics'],
-  ['/threatintel/predictive/analytics', '/__prerendered/threatintel__predictive__analytics'],
   ['/threatintel/predictive/predictions', '/__prerendered/threatintel__predictive__predictions'],
   ['/threatintel/predictive/predictive', '/__prerendered/threatintel__predictive__predictive'],
   ['/threatintel/predictive/analyze', '/__prerendered/threatintel__predictive__analyze'],
@@ -348,7 +345,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/telegram', '/__prerendered/threatintel__telegram'],
   ['/threatintel/telegram-monitor', '/__prerendered/threatintel__telegram-monitor'],
   ['/threatintel/source-health', '/__prerendered/threatintel__source-health'],
-  ['/threatintel/soc-dashboard', '/__prerendered/threatintel__soc-dashboard'],
   ['/threatintel/telegram-iocs', '/__prerendered/threatintel__telegram-iocs'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
