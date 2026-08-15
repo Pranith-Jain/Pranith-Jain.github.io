@@ -283,6 +283,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Cerast Intelligence](https://pranithjain.qzz.io/threatintel/external/cerast) (threatintel): OSINT domain exposure search - exposed paths, staging, misconfigs.
 - [ThreatMon Infostealer](https://pranithjain.qzz.io/threatintel/external/threatmon) (threatintel): Infostealer log search - compromised credentials by domain.
 - [Intel Dashboard](https://pranithjain.qzz.io/threatintel/predictive/dashboard) (threatintel): Program health, feed reliability, snapshot metrics, maturity, and quick actions.
+- [SOC Dashboards](https://pranithjain.qzz.io/threatintel/soc-dashboard) (threatintel): Red/cyan/purple panels - ransomware activity, vulnerability index, and IOC stream with consensus scoring.
 - [Global Pulse](https://pranithjain.qzz.io/threatintel/predictive/global-pulse) (threatintel): Live 3D globe - 700+ events across 21 layers.
 - [CyberPulse](https://pranithjain.qzz.io/threatintel/cyberpulse) (threatintel): Live breach/leak/intel incident tracker - ransomware, leaks, extortion, supply chain from X, Telegram, Reddit, Bluesky.
 - [Threat Pulse](https://pranithjain.qzz.io/threatintel/predictive/threat-pulse) (threatintel): Threat-pulse tracking - actor activity, campaign spikes, geo shifts.
