@@ -254,9 +254,12 @@ export default function ReportAnalyzer(): JSX.Element {
       setData((await res.json()) as AnalyzerOutput);
     } catch (e) {
       logCatch(e);
+      // A superseded run (re-click while in-flight) or unmount aborts this
+      // controller — expected control flow, never surface it as an error.
+      if (ac.signal.aborted) return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setLoading(false);
+      if (!ac.signal.aborted) setLoading(false);
     }
   };
 

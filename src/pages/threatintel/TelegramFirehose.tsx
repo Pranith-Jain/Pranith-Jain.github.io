@@ -1,4 +1,5 @@
 import { logCatch } from '../../lib/log';
+import { isAbortError } from '../../lib/abort-error';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, Radio, Search, AlertTriangle, ExternalLink, Zap } from 'lucide-react';
@@ -142,6 +143,9 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
       const j = (await r.json()) as TelegramFeedResponse;
       setFeed(j);
     } catch (e) {
+      // Abort (unmount / refresh supersede / tab switch) is expected control
+      // flow — never surface it as the DataState error. See lib/abort-error.
+      if (isAbortError(e)) return;
       logCatch(e);
       setFeedError((e as Error).message);
     } finally {
@@ -158,6 +162,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
       const j = (await r.json()) as { entries: LeakEntry[] };
       setLeaks(j.entries ?? []);
     } catch (e) {
+      if (isAbortError(e)) return;
       logCatch(e);
       setLeakError((e as Error).message);
     } finally {
@@ -174,6 +179,7 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
       const j = (await r.json()) as LiveIocsResponse;
       setLiveIocs((j.items ?? []).filter((it) => it.source === 'telegram-leak' || it.source === 'telegram'));
     } catch (e) {
+      if (isAbortError(e)) return;
       logCatch(e);
       setLiveError((e as Error).message);
     } finally {
