@@ -1,0 +1,9 @@
+{
+  "id": 1063,
+  "fetchedAt": "2026-08-15T06:19:02.933Z",
+  "name": "Documentation Alteration to Cause Errors in System Design",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An attacker with access to a manufacturer's documentation containing requirements allocation and software design processes maliciously alters the documentation in order to cause errors in system design. This allows the attacker to take advantage of a weakness in a deployed system of the manufacturer for malicious purposes."
+}

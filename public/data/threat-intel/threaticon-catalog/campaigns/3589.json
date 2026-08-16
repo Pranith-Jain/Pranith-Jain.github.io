@@ -3,9 +3,9 @@
   "name": "thegentlemen: Electroban SAE",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 12, 2026",
+  "lastSeen": "May 12, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: PY | Sector: Manufacturing | Website: electroban.com.py | Infostealer data confirmed. | electroban.com.py zoominfo.com/c/electroban-sae/372861276 Electroban is a leading 100% Paraguayan retail company founded in 2007, specializing in home appliances, electronics, furniture, and motorcycles. With nationwide coverage through numerous branches and home delivery, they serve over 100,000 customers with a certified e-commerce platform and reliable after-sales support. Backed by a team of 700+ employees and values like honesty and continuous learning, Electroban is expanding toward 70 stores to bring innovation and quality of life to families across Paraguay | Source: https://www.ransomware.live/id/RWxlY3Ryb2JhbiBTQUVAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3589"

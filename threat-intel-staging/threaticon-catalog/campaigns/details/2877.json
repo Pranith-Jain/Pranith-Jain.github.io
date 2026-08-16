@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:40:39.024Z",
+  "name": "OSINT - Goblin Panda continues to target Vietnam",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 2, 2019",
+  "lastSeen": "May 2, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1508 (5ccaeddb-dc84-4cc2-9f73-4a70950d210f)."
+}

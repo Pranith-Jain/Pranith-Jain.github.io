@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:21:39.341Z",
+  "name": "lockbit5: elematic.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Jun 13, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: FI | Sector: Manufacturing | Website: elematic.com | Infostealer data confirmed. | Elematic Oyj is a global leader in precast concrete technology. With over 65 years of experience, th... | Source: https://www.ransomware.live/id/ZWxlbWF0aWMuY29tQGxvY2tiaXQ1"
+}

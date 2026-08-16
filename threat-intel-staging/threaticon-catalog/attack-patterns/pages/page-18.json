@@ -1,0 +1,155 @@
+[
+  {
+    "id": 1057,
+    "name": "Poison Web Service Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1058,
+    "name": "SaaS User Request Forgery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1059,
+    "name": "Infiltration of Software Development Environment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1060,
+    "name": "Hardware Component Substitution During Baselining",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1061,
+    "name": "Documentation Alteration to Circumvent Dial-down",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1062,
+    "name": "Documentation Alteration to Produce Under-performing Systems",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1063,
+    "name": "Documentation Alteration to Cause Errors in System Design",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1064,
+    "name": "Embedding NULL Bytes",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1065,
+    "name": "Counterfeit Hardware Component Inserted During Product Assembly",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1066,
+    "name": "Hardware Design Specifications Are Altered",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1067,
+    "name": "Malicious Hardware Component Replacement",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1068,
+    "name": "Malicious Software Implanted",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1069,
+    "name": "Rogue Integration Procedures",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1070, "name": "XML Flood", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1071,
+    "name": "Malware-Directed Internal Reconnaissance",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1072,
+    "name": "Postfix, Null Terminate, and Backslash",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1073,
+    "name": "Provide Counterfeit Component",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1074,
+    "name": "Hardware Component Substitution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1075,
+    "name": "Altered Installed BIOS",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1076,
+    "name": "Malicious Manual Software Update",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

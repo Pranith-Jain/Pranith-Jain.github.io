@@ -3,9 +3,9 @@
   "name": "anubis: Casper Orthopedics",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 12, 2026",
+  "lastSeen": "Jul 12, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Website: wyoortho.com | Infostealer data confirmed. | Orthopedic clinic patients' data and medical records exposed. | Source: https://www.ransomware.live/id/Q2FzcGVyIE9ydGhvcGVkaWNzQGFudWJpcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4070"

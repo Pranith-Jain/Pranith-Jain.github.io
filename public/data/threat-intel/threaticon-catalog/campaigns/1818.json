@@ -3,9 +3,9 @@
   "name": "crypto24: Rowad Modern Engineering",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 5, 2026",
+  "lastSeen": "Mar 5, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to crypto24. | Country: EG | Sector: Construction | Website: www.rowad-rme.com | [AI generated] Rowad Modern Engineering is an Egypt-based construction firm specializing in the implementation and delivery of various construction projects. The company offers services ranging from civil engineering and construction management to project costing and risk management. It has a prominent role in constructing infrastructure, roads, commercial, and residential buildings. | Source: https://www.ransomware.live/id/Um93YWQgTW9kZXJuIEVuZ2luZWVyaW5nQGNyeXB0bzI0",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1818"

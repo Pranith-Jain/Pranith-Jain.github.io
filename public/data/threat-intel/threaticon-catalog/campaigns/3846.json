@@ -3,9 +3,9 @@
   "name": "payload: G Theodor Freese",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 21, 2026",
+  "lastSeen": "May 21, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Manufacturing | GTF Freese is a family-owned company with over 110 years of experience, specializing in ship deck coverings, flooring technology, building protection, and coating systems. The company prides itself on its motto 'We make floors good,' ensuring high-quality products like TEFROTEX and TEFROKA are manufactured under strict quality control according to DIN ISO 9001 standards. | Source: https://www.ransomware.live/id/RyBUaGVvZG9yIEZyZWVzZUBwYXlsb2Fk",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3846"

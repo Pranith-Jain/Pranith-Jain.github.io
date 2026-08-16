@@ -1,0 +1,12 @@
+{
+  "id": 576,
+  "fetchedAt": "2026-08-14T05:48:56.065Z",
+  "name": "Detect Access and Decryption of Group Policy Preference (GPP) Credentials in SYSVOL",
+  "tlp": null,
+  "detId": "DET0381",
+  "stixId": "x-mitre-detection-strategy--69b08c7a-c2ab-4e56-935d-ec28143372de",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1075"]
+}

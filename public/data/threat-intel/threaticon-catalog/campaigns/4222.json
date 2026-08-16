@@ -3,9 +3,9 @@
   "name": "krybit: shelby.com.mx",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 8, 2026",
+  "lastSeen": "Jul 8, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to krybit. | Country: MX | Sector: Not Found | Website: shelby.com.mx | Infostealer data confirmed. | Shelby Manufacturing de México, S.A. de C.V. is a Mexican maquiladora company specializing in the manufacturing of sewi... | Source: https://www.ransomware.live/id/c2hlbGJ5LmNvbS5teEBrcnliaXQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4222"

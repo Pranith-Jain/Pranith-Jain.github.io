@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:36:08.231Z",
+  "name": "Doommageddon: Mercedes-Benz Turk",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "May 20, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Website: mercedesbenzturk.com.tr | Infostealer data confirmed. | Status: leaked | Data size: 50GB | Files: 1 files | Deadline: 2026-05-20T00:00:00Z | Source: https://www.ransomware.live/id/TWVyY2VkZXMtQmVueiBUdXJrQERvb21tYWdlZGRvbg=="
+}

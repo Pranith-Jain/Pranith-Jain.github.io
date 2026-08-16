@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1965,
+    "name": "lapsus$: Loozap",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: CH | Sector: Consumer Services | Website: loozap.com | Infostealer data confirmed. | [AI generated] Loozap is an online marketplace that provides a platform for users to buy and sell second-hand items. They operate in multiple countries across Africa, including Ghana and Kenya. Their inventory includes items such as cars, homes, electronics, furniture, and clothing. The platform adopts an innovative system that enhances the buying and selling experience. | Source: https://www.ransomware.live/id/TG9vemFwQGxhcHN1cyQ="
+  },
+  {
+    "id": 1966,
+    "name": "lapsus$: Lacoste",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: FR | Sector: Consumer Services | Website: lacoste.com | Infostealer data confirmed. | [AI generated] Lacoste is a high-end French clothing company founded in 1933 by tennis player René Lacoste and André Gillier. The company is renowned for its iconic green crocodile logo. They primarily produce clothing, footwear, sportswear, eyewear, leather goods, and perfumes. Its polo shirts are particularly popular. Lacoste products are sold internationally at various department stores, shopping malls, and standalone boutiques. | Source: https://www.ransomware.live/id/TGFjb3N0ZUBsYXBzdXMk"
+  },
+  {
+    "id": 1967,
+    "name": "lapsus$: DreamUp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: US | Sector: Education | Website: dreamup.org | Infostealer data confirmed. | [AI generated] DreamUp is an American company that provides space-based educational opportunities to students of all ages. They offer various programs that utilize the unique environment of space to spark interest in Science, Technology, Engineering, and Mathematics (STEM) fields. DreamUp provides tools to conduct research in microgravity through partnerships with SpaceX, the International Space Station and other space organizations. | Source: https://www.ransomware.live/id/RHJlYW1VcEBsYXBzdXMk"
+  },
+  {
+    "id": 1958,
+    "name": "qilin: Riach Gese Jacobs",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: www.riachgese.com | Source: https://www.ransomware.live/id/UmlhY2ggR2VzZSBKYWNvYnNAcWlsaW4="
+  },
+  {
+    "id": 1943,
+    "name": "qilin: City of Seal Beach and Seal Beach Police Department",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Public Sector | Website: www.sealbeachca.gov | Source: https://www.ransomware.live/id/Q2l0eSBvZiBTZWFsIEJlYWNoIGFuZCBTZWFsIEJlYWNoIFBvbGljZSBEZXBhcnRtZW50QHFpbGlu"
+  },
+  {
+    "id": 1942,
+    "name": "incransom: http://ramet-trom.co.il/",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: IL | Sector: Manufacturing | Website: ramet-trom.co.il | Infostealer data confirmed. | 1 terabyte of data, blueprints, contracts and much more, not recognized by the israeli ministry of defense as a terrorist organization. | Source: https://www.ransomware.live/id/aHR0cDovL3JhbWV0LXRyb20uY28uaWwvQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 1941,
+    "name": "anubis: AkzoNobel",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: NL | Sector: Manufacturing | Website: akzonobel.com | Infostealer data confirmed. | Data breach at leading global paints and coatings company. | Source: https://www.ransomware.live/id/QWt6b05vYmVsQGFudWJpcw=="
+  },
+  {
+    "id": 1940,
+    "name": "dragonforce: fgv.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1953,
+    "name": "qilin: Enterprise Network Group of Indiana",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.engofinllc.com | Source: https://www.ransomware.live/id/RW50ZXJwcmlzZSBOZXR3b3JrIEdyb3VwIG9mIEluZGlhbmFAcWlsaW4="
+  },
+  {
+    "id": 1952,
+    "name": "qilin: LISI Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Manufacturing | Website: www.lisi-group.com | Source: https://www.ransomware.live/id/TElTSSBHcm91cEBxaWxpbg=="
+  },
+  {
+    "id": 1951,
+    "name": "thegentlemen: Special Shapes Refractory",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1950,
+    "name": "thegentlemen: Labtician Ophthalmics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Healthcare | Website: labtician.com | Infostealer data confirmed. | labtician.com zoominfo.com/c/labtician-ophthalmics-inc/139985585 Labtician Ophthalmics specializes in manufacturing and selling advanced surgical and therapeutic ophthalmology products. The company aims to enhance patients' visual health by providing effective tools and solutions for various eye conditions. Their offerings cater primarily to eye care professionals and include extensive product catalogs and partnership opportunities. Labtician is committed to supporting both healthcare practitioners and their patients in managing, treating, and easing eye issues | Source: https://www.ransomware.live/id/TGFidGljaWFuIE9waHRoYWxtaWNzQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 1913,
+    "name": "handala: Sharjah National Oil Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: AE | Sector: Energy | Today, one of the UAE’s largest oil and gas giants, Sharjah National Oil Corporation, has fallen to a decisive blow from us, Handala Hack. Your critical infrastructure, the very heart of the region’s energy production and distribution, was dismantled in moments. Now, 1.3 terabytes of your most confidential financial data, oil contracts, project details, and… | Source: https://www.ransomware.live/id/U2hhcmphaCBOYXRpb25hbCBPaWwgQ29ycG9yYXRpb25AaGFuZGFsYQ=="
+  },
+  {
+    "id": 1939,
+    "name": "qilin: Grupo D'arc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Business Services | Website: www.grupodarc.com.ar | Source: https://www.ransomware.live/id/R3J1cG8gRCdhcmNAcWlsaW4="
+  },
+  {
+    "id": 1938,
+    "name": "rhysida: Southold Town Senior ServicesSouthold Police Department",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to rhysida. | Sector: Public Sector | Southold Town Senior ServicesSouthold Police Department The Town of Southold, New York provides various government services including forms and permits, online payments, and notifications for residents. Southold Police Department is a company that operates in the Local industry. | Source: https://www.ransomware.live/id/U291dGhvbGQgVG93biBTZW5pb3IgU2VydmljZXNTb3V0aG9sZCBQb2xpY2UgRGVwYXJ0bWVudEByaHlzaWRh"
+  }
+]

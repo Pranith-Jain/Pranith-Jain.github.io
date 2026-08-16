@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:36:35.660Z",
+  "name": "apt73: bankasia-bd.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to apt73. | Country: BD | Sector: Financial Services | Website: bankasia-bd.com | Infostealer data confirmed. | bankasia-bd.com is the official website of Bank Asia PLC, a commercial bank in Bangladesh. Intern... | Source: https://www.ransomware.live/id/YmFua2FzaWEtYmQuY29tQGFwdDcz"
+}

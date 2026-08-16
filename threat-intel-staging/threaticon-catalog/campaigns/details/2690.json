@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:56:49.864Z",
+  "name": "OSINT - WAP-billing Trojan-Clickers on rise",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 25, 2017",
+  "lastSeen": "Aug 25, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1140 (59a00e7b-5bac-4e57-ab87-48d8950d210f)."
+}

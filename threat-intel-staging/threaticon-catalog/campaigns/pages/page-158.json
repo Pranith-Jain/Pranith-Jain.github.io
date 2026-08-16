@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5504,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5503,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5502,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5501,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5500,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5499,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5498,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5497,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5496,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5495,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5494,
+    "name": "shinyhunters: Abbott owned Exact Sciences Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Healthcare | You wouldn't want us to describe what was exfiltrated from you publicly. This is a final warning to reach out by 18 July 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 15 July 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/QWJib3R0IG93bmVkIEV4YWN0IFNjaWVuY2VzIENvcnBvcmF0aW9uQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 5493,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5492,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5491,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5490,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

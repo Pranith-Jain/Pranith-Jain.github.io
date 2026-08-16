@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5052,
+    "name": "qilin: Avcon Jet",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AT | Sector: Transportation/Logistics | Website: www.avconjet.at | N/A | Source: https://www.ransomware.live/id/QXZjb24gSmV0QHFpbGlu"
+  },
+  {
+    "id": 5060,
+    "name": "AuditTeam: Paid Victim 111CEAA5AD9DA2F1",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AuditTeam. | Country: RU | Sector: Not Found | [AI generated] N/A | Source: https://www.ransomware.live/id/UGFpZCBWaWN0aW0gMTExQ0VBQTVBRDlEQTJGMUBBdWRpdFRlYW0="
+  },
+  {
+    "id": 5046,
+    "name": "qilin: Ontario Home Builders' Association",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Construction | Website: www.ohba.ca | N/A | Source: https://www.ransomware.live/id/T250YXJpbyBIb21lIEJ1aWxkZXJzJyBBc3NvY2lhdGlvbkBxaWxpbg=="
+  },
+  {
+    "id": 5047,
+    "name": "qilin: Swim-Mor Pools",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.swimmor.com | N/A | Source: https://www.ransomware.live/id/U3dpbS1Nb3IgUG9vbHNAcWlsaW4="
+  },
+  {
+    "id": 5049,
+    "name": "worldleaks: United Auto Supply",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Manufacturing | Website: www.unitedautosupply.com | [AI generated] N/A | Source: https://www.ransomware.live/id/VW5pdGVkIEF1dG8gU3VwcGx5QHdvcmxkbGVha3M="
+  },
+  {
+    "id": 5048,
+    "name": "qilin: INTERSPA Betriebsverwaltungsgesellschaft",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Business Services | Website: www.interspa-gruppe.de | N/A | Source: https://www.ransomware.live/id/SU5URVJTUEEgQmV0cmllYnN2ZXJ3YWx0dW5nc2dlc2VsbHNjaGFmdEBxaWxpbg=="
+  },
+  {
+    "id": 5045,
+    "name": "qilin: Jay's Catering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Hospitality and Tourism | Website: www.myjayscatering.com | N/A | Source: https://www.ransomware.live/id/SmF5J3MgQ2F0ZXJpbmdAcWlsaW4="
+  },
+  {
+    "id": 5044,
+    "name": "qilin: Pro-MEC Engineering Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Sector: Business Services | Website: www.pro-mec.com | N/A | Source: https://www.ransomware.live/id/UHJvLU1FQyBFbmdpbmVlcmluZyBTZXJ2aWNlc0BxaWxpbg=="
+  },
+  {
+    "id": 5061,
+    "name": "akira: National Standard Parts Associates",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Manufacturing | NSPA is an American manufacturer specializing in heat shrink terminals and connectors, as well as heat shrink tubing and installation tools. Their product offerings cater to industries requi ring reliable sealed electrical systems. We will upload 53gb of corporate data soon. Employee personal docs (passports, DLs, SSNs and ot her information), contracts and agreements, a bit of client and partners information, lots of N DAs, detailed financials, confidential files, and so on. | Source: https://www.ransomware.live/id/TmF0aW9uYWwgU3RhbmRhcmQgUGFydHMgQXNzb2NpYXRlc0Bha2lyYQ=="
+  },
+  {
+    "id": 5042,
+    "name": "qilin: Central Florida Cosmetic & Family Dentistry",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.kissimmeesmile.com | N/A | Source: https://www.ransomware.live/id/Q2VudHJhbCBGbG9yaWRhIENvc21ldGljICYgRmFtaWx5IERlbnRpc3RyeUBxaWxpbg=="
+  },
+  {
+    "id": 5043,
+    "name": "dragonforce: REHA-ACTIV",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Healthcare | Website: www.reha-activ.de | REHA-ACTIV is a medical supply company that has been supporting individuals with health limitations for over 30 years. | Source: https://www.ransomware.live/id/UkVIQS1BQ1RJVkBkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 5056,
+    "name": "play: The Chapel",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Not Found | Website: www.thechapel.com | United States | Source: https://www.ransomware.live/id/VGhlIENoYXBlbEBwbGF5"
+  },
+  {
+    "id": 5055,
+    "name": "play: Dallis Law Firm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Business Services | Website: www.dallislawfirm.com | United States | Source: https://www.ransomware.live/id/RGFsbGlzIExhdyBGaXJtQHBsYXk="
+  },
+  {
+    "id": 5024,
+    "name": "incransom: kelmreuter.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5038,
+    "name": "worldleaks: Access Dental",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Healthcare | Website: www.accessdentalclinics.com | [AI generated] Access Dental is a dental insurance and managed care company operating in the United States. It provides affordable dental health plans primarily to underserved and low-income populations, including Medicaid and individual plan members. The company works with a network of licensed dentists to deliver preventive and restorative dental services, focusing on improving access to oral healthcare across California and other states. | Source: https://www.ransomware.live/id/QWNjZXNzIERlbnRhbEB3b3JsZGxlYWtz"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "id": 2768,
+  "name": "T1078.002 Valid Accounts: Local Account",
+  "techniqueId": "T1078",
+  "added": "Aug 9, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2768"
+}

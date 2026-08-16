@@ -1,0 +1,9 @@
+{
+  "id": 1847,
+  "name": "T1583.006: Web Service Malosteams",
+  "techniqueId": "T1583",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1847"
+}

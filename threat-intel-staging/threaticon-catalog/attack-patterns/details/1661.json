@@ -1,0 +1,9 @@
+{
+  "id": 1661,
+  "fetchedAt": "2026-08-15T08:28:44.494Z",
+  "name": "T1569.003 - OS Credential Access: Built-in Credentials",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

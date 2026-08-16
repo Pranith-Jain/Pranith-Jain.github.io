@@ -1,0 +1,122 @@
+[
+  {
+    "id": 557,
+    "name": "kairos: Gregory Jewellers",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 556,
+    "name": "SilentRansomGroup: Jackson Lewis",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: jacksonlewis.com | Infostealer data confirmed. | [AI generated] Jackson Lewis P.C. is a United States-based law firm specializing exclusively in workplace law and employment-related legal services. Founded in 1958 and headquartered in New York, the firm operates across numerous offices throughout the country. It advises employers on labor relations, workplace safety, litigation, immigration, and employee benefits, serving clients across a wide range of industries nationwide. | Source: https://www.ransomware.live/id/SmFja3NvbiBMZXdpc0BTaWxlbnRSYW5zb21Hcm91cA=="
+  },
+  {
+    "id": 555,
+    "name": "incransom: teamster773.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 554,
+    "name": "incransom: trugreen.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Consumer Services | Website: trugreen.com | Infostealer data confirmed. | TruGreen is the nation's leading lawn care provider offering neighborhoods across the country tailored lawn, tree and shrub care along with protection against mosquitoes and other pests. As a company rooted in scientific expertise with a customer-centered approach, TruGreen helps homeowners achieve an outdoor living space that brings them pride. Employees: 10k+ Revenue: $2.9 Billion Industry: Consumer Services Phone Number: (833) 830-2305 | Source: https://www.ransomware.live/id/dHJ1Z3JlZW4uY29tQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 553,
+    "name": "anubis: Marnell Financial Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Financial Services | Website: marnellfinancial.com | Infostealer data confirmed. | Data breach at financial company. | Source: https://www.ransomware.live/id/TWFybmVsbCBGaW5hbmNpYWwgU2VydmljZXNAYW51Ymlz"
+  },
+  {
+    "id": 551,
+    "name": "thegentlemen: Uniview Technologies",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 550,
+    "name": "thegentlemen: Euro Creations",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Consumer Services | Website: eurocreations.co.th | Infostealer data confirmed. | eurocreations.co.th Luxury furniture retailer founded in 1996, Bangkok — Euro Creations is a Thailand-based public company (SET: EURO) specializing in importing and distributing European luxury furniture, lighting, and home accessories, headquartered on Sukhumvit Road, Bangkok. Three flagship stores in prime Bangkok locations — The company operates showrooms at CDC, Siam Paragon, and Thonglor, offering curated collections from world-renowned European brands across living room, bedroom, bathroom, kitchen, outdoor, and wardrobe categories. | Source: https://www.ransomware.live/id/RXVybyBDcmVhdGlvbnNAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 549,
+    "name": "thegentlemen: Champion Homes",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 548,
+    "name": "thegentlemen: SmartSystems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 534,
+    "name": "payload: Peroni Sosa Tellechea Burt & Narvaja",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: UY | Sector: Business Services | Website: pstbn.com.py | Infostealer data confirmed. | PSTBN Peroni Sosa Tellechea Burt & Narvaja is one of the largest and most prestigious law firms in Paraguay, founded in 1968. The firm is committed to meeting the diverse legal needs of its clients across various practice areas, including corporate law, tax law, agribusiness, and regulatory compliance. | Source: https://www.ransomware.live/id/UGVyb25pIFNvc2EgVGVsbGVjaGVhIEJ1cnQgJiBOYXJ2YWphQHBheWxvYWQ="
+  },
+  {
+    "id": 531,
+    "name": "qilin: The FAFS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Agriculture and Food Production | Website: www.fafscorp.com | Source: https://www.ransomware.live/id/VGhlIEZBRlNAcWlsaW4="
+  },
+  {
+    "id": 547,
+    "name": "coinbasecartel: Aptim",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: aptim.com | Infostealer data confirmed. | $krb5pa$23$APTIM.COM$APTIM.COM$$9936cd67a6d3d8560aaa25bb4a7a03b0bb8dfbbdbac8fed06e9262c41dce5ee567d0f7b52928d3626e43c0a7cfac4fb1a9b90887 $krb5pa$23$aptim.com$aptim.com$f7a8e75a2c6d3610fe9f4b34bec2a... | Source: https://www.ransomware.live/id/QXB0aW1AY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 546,
+    "name": "coinbasecartel: Peru LNG (Hunt LNG Operating Company)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: PE | Sector: Energy | Website: perulng.com | Infostealer data confirmed. | [AI generated] Peru LNG, operated by Hunt LNG Operating Company, is an energy company engaged in the liquefaction and export of natural gas in Peru. It operates a liquefied natural gas plant in Pampa Melchorita on the Peruvian coast, processing gas from the Camisea fields. The company exports LNG primarily to international markets, making it a key player in Peru's hydrocarbon and energy export sector. | Source: https://www.ransomware.live/id/UGVydSBMTkcgKEh1bnQgTE5HIE9wZXJhdGluZyBDb21wYW55KUBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 545,
+    "name": "coinbasecartel: Integer Holdings",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Manufacturing | Website: integer.net | Infostealer data confirmed. | [AI generated] Integer Holdings is a US-based medical device manufacturer headquartered in Frisco, Texas. The company specializes in producing advanced technologies for the medical, non-medical, and portable medical markets, including batteries, power systems, and implantable components. It serves original equipment manufacturers across cardiac, neuromodulation, and vascular sectors, making it a key supplier in the global medical device industry. | Source: https://www.ransomware.live/id/SW50ZWdlciBIb2xkaW5nc0Bjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 544,
+    "name": "coinbasecartel: Precision Coating",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Manufacturing | Website: precisioncoating.com | Infostealer data confirmed. | [AI generated] N/A There are multiple companies operating under the name \"Precision Coating\" across various industries and countries, and without additional context such as location or sector, I cannot reliably identify a specific organization to provide an accurate and factual description without risking confusion or misinformation. | Source: https://www.ransomware.live/id/UHJlY2lzaW9uIENvYXRpbmdAY29pbmJhc2VjYXJ0ZWw="
+  }
+]

@@ -1,11 +1,11 @@
 {
   "id": 2196,
   "name": "A Deep Dive into Lokibot Infection Chain",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 10, 2021",
+  "lastSeen": "Jan 10, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #247 (5ffab1a2-95d8-4c44-8403-f6b8c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2196"

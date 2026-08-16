@@ -1,0 +1,12 @@
+{
+  "id": 18,
+  "fetchedAt": "2026-08-14T05:26:32.149Z",
+  "name": "Detection Strategy for ListPlanting Injection on Windows",
+  "tlp": null,
+  "detId": "DET0331",
+  "stixId": "x-mitre-detection-strategy--175b97d9-287e-4ab6-ae95-8652c224f02a",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0941"]
+}

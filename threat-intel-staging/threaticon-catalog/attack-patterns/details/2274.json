@@ -1,0 +1,9 @@
+{
+  "id": 2274,
+  "fetchedAt": "2026-08-15T07:31:05.333Z",
+  "name": "T1078.001 - Application Layer Protocol - HTTP servers (for C2 communication)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

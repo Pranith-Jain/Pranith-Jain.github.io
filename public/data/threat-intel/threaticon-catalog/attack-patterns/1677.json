@@ -1,0 +1,9 @@
+{
+  "id": 1677,
+  "name": "T1059.003 - Malware download via HTTP/HTTPS through a C2 server disguise",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1677"
+}

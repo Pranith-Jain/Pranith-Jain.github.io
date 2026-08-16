@@ -1,0 +1,9 @@
+{
+  "id": 1373,
+  "name": "T1133 - Service Stop/Destruct",
+  "techniqueId": "T1133",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1373"
+}

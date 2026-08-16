@@ -1,0 +1,9 @@
+{
+  "id": 1057,
+  "fetchedAt": "2026-08-15T06:18:47.083Z",
+  "name": "Poison Web Service Registry",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: High. SOA and Web Services often use a registry to perform look up, get schema information, and metadata about services. A poisoned registry can redirect (think phishing for servers) the service requester to a malicious service provider, provide incorrect information in schema or metadata, and delete information about service provider interfaces."
+}

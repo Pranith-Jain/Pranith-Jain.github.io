@@ -3,9 +3,9 @@
   "name": "thegentlemen: alloha.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 4, 2026",
+  "lastSeen": "Apr 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Consumer Services | Website: alloha.com | Infostealer data confirmed. | alloha.com zoominfo.com/c/alloha-fibra/1318975911 Alloha is the largest independent FTTH (Fiber To The Home) operator in Brazil, founded in 2018 and headquartered in Sao Paulo. The company has a network of over 140,000 km of optical fiber and serves 1.5 million customers across 280 cities | Source: https://www.ransomware.live/id/YWxsb2hhLmNvbUB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1017"

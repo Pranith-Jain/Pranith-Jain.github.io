@@ -1,0 +1,12 @@
+{
+  "id": 15,
+  "fetchedAt": "2026-08-14T05:10:10.517Z",
+  "name": "Active Directory Object Creation",
+  "tlp": null,
+  "dcId": "DC0087",
+  "analyticCount": 4,
+  "strategyCount": 3,
+  "added": null,
+  "description": "Creating new objects in AD, such as user accounts, groups, organizational units (OUs), or trust relationships. Logged as Event ID 5137. Examples: - User Account Creation: New user account. - Group Creation: New security/distribution group. - OU Creation: New organizational unit. - Service Account Creation: New service account for automation or malicious tasks. - Trust Object Creation: Trust relationship with another domain.",
+  "analytics": ["AN0103", "AN0104", "AN0770", "AN1470"]
+}

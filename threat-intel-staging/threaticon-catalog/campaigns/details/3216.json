@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:49.697Z",
+  "name": "DTrack activity targeting Europe and Latin America",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 15, 2022",
+  "lastSeen": "Nov 15, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #357 (c2c954a9-9c9e-44c3-ae69-8ed3441d2316)."
+}

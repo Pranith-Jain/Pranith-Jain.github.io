@@ -3,9 +3,9 @@
   "name": "crypto24: Estudio O'Farrell",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 24, 2026",
+  "lastSeen": "Mar 24, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to crypto24. | Country: AR | Sector: Business Services | Website: estudio-ofarrell.com | Infostealer data confirmed. | [AI generated] Estudio O'Farrell is a prestigious law firm based in Buenos Aires, Argentina. Known for its comprehensive legal services, the firm specializes in areas such as corporate law, tax law, banking and finance, and labor law among others. Having a history of over 130 years, Estudio O'Farrell has represented multiple high-profile clients and is renowned for its professional and innovative legal solutions. | Source: https://www.ransomware.live/id/RXN0dWRpbyBPJ0ZhcnJlbGxAY3J5cHRvMjQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1369"

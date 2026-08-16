@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4525,
+    "name": "Redact: Hologic",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Redact. | Country: US | Sector: Healthcare | Website: hologic.com | Infostealer data confirmed. | Sector: Medical Supplies | Revenue: $4B USD | Source: https://www.ransomware.live/id/SG9sb2dpY0BSZWRhY3Q="
+  },
+  {
+    "id": 4526,
+    "name": "Redact: FCCI Insurance Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Redact. | Country: US | Sector: Financial Services | Website: fcci-group.com | Infostealer data confirmed. | Sector: Insurance | Source: https://www.ransomware.live/id/RkNDSSBJbnN1cmFuY2UgR3JvdXBAUmVkYWN0"
+  },
+  {
+    "id": 4524,
+    "name": "cmdorganization: Fidelity Security Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to cmdorganization. | Country: CO | Sector: Financial Services | Website: www.fidelitysecurity.co | Excellence in service delivery and implementation are fundamental to our impressive track record. By keeping abreast of the latest trends and technological developments globally, and continuously evolving and innovating, the Group remains a front-runner in the security solutions market. Through a bouquet of services and related products the Group can tailor make a solution for any requirement. | Source: https://www.ransomware.live/id/RmlkZWxpdHkgU2VjdXJpdHkgR3JvdXBAY21kb3JnYW5pemF0aW9u"
+  },
+  {
+    "id": 4530,
+    "name": "dragonforce: Aptora",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4531,
+    "name": "incransom: callhorton.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: callhorton.com | Infostealer data confirmed. | Horton Personal Injury Lawyers is the premier law firm at not protecting it's clients confidential data. | Source: https://www.ransomware.live/id/Y2FsbGhvcnRvbi5jb21AaW5jcmFuc29t"
+  },
+  {
+    "id": 4532,
+    "name": "incransom: johndufourlaw.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: johndufourlaw.com | Infostealer data confirmed. | If you find yourself injured, disabled or deep in debt, the Law Office of John Dufour is ready to help. John brings 25 years of focused experience and favorable outcomes. Our success is built on attentive service and attention to the legal details. | Source: https://www.ransomware.live/id/am9obmR1Zm91cmxhdy5jb21AaW5jcmFuc29t"
+  },
+  {
+    "id": 4520,
+    "name": "settra: lifevantage.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: US | Sector: Consumer Services | Website: lifevantage.com | Infostealer data confirmed. | THE NEUTRALIZING FACTOR: How LifeVantage Corporation Profits from Hope and Buries the Truth PROLOGUE... | Source: https://www.ransomware.live/id/bGlmZXZhbnRhZ2UuY29tQHNldHRyYQ=="
+  },
+  {
+    "id": 4521,
+    "name": "threeam: acemacon.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to threeam. | Country: MX | Sector: Not Found | Website: acemacon.org | Infostealer data confirmed. | The Academy for Classical Education is dedicated to fostering knowledge and critical thinking skills in children, preparing them to be independent learners for life. It offers a comprehensive educational experience that includes fine arts, athleti | Source: https://www.ransomware.live/id/YWNlbWFjb24ub3JnQHRocmVlYW0="
+  },
+  {
+    "id": 4523,
+    "name": "thegentlemen: Thyssenkrupp Marine Systems (TKMS) GmbH / Atlas Elektronik",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4522,
+    "name": "krybit: ford.mx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: MX | Sector: Manufacturing | Website: ford.mx | Infostealer data confirmed. | Ford Motor Company, S.A. de C.V. (Ford de Mexico) is the Mexican subsidiary of Ford Motor Company (USA), the first autom... | Source: https://www.ransomware.live/id/Zm9yZC5teEBrcnliaXQ="
+  },
+  {
+    "id": 4516,
+    "name": "settra: pchome.com.tw",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: TW | Sector: Consumer Services | Website: pchome.com.tw | Infostealer data confirmed. | HOW A TAIWANESE GIANT SOLD OUT ITS CUSTOMERS A payment company sells trust, security, and reliabilit... | Press: https://cyberq.tw/2026/06/30/nethome-group-is-caught-in-a-double/ | Source: https://www.ransomware.live/id/cGNob21lLmNvbS50d0BzZXR0cmE="
+  },
+  {
+    "id": 4517,
+    "name": "settra: dystar.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: SG | Sector: Manufacturing | Website: dystar.com | Infostealer data confirmed. | The Complete Digital Archive of DyStar PROLOGUE: WHAT WE HAVE IN OUR HANDS 1.3 terabytes of data — f... | Source: https://www.ransomware.live/id/ZHlzdGFyLmNvbUBzZXR0cmE="
+  },
+  {
+    "id": 4519,
+    "name": "settra: turbodata.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: US | Sector: Technology | Website: turbodata.com | Infostealer data confirmed. | TICKET ISSUED: How Turbo Data Systems Built a Dossier on Half of California From a Slip of Paper Und... | Source: https://www.ransomware.live/id/dHVyYm9kYXRhLmNvbUBzZXR0cmE="
+  },
+  {
+    "id": 4515,
+    "name": "settra: va-glass.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: VA | Sector: Manufacturing | Website: va-glass.com | Infostealer data confirmed. | THE TRANSPARENT MIRROR A company that sells people glass and reflections failed to protect its own r... | Source: https://www.ransomware.live/id/dmEtZ2xhc3MuY29tQHNldHRyYQ=="
+  },
+  {
+    "id": 4514,
+    "name": "settra: tmscentral.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to settra. | Country: US | Sector: Transportation/Logistics | Website: tmscentral.com | Infostealer data confirmed. | A SIGNAL WITH NO BACKUP: How Total Monitoring Services Sells Multi-Channel Protection and Routes the... | Source: https://www.ransomware.live/id/dG1zY2VudHJhbC5jb21Ac2V0dHJh"
+  }
+]

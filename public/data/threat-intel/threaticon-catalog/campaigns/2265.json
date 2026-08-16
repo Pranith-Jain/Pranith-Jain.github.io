@@ -1,11 +1,11 @@
 {
   "id": 2265,
   "name": "X_Trader Supply Chain Attack Affects Critical Infrastructure Organizations in U.S. and Europe",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 21, 2023",
+  "lastSeen": "Apr 21, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #407 (a19c6aed-3c53-4597-971d-0bd01369f95d).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2265"

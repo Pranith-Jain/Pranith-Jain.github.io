@@ -1,11 +1,11 @@
 {
   "id": 2718,
   "name": "M2M - Locky 2017-09-25 : Affid=3, offline, \".ykcol\" : \"Message from 02087654321\" - \"Voice Message.7z\"",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 25, 2017",
+  "lastSeen": "Sep 25, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1185 (59c8f958-be58-46da-8a21-4c5f950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2718"

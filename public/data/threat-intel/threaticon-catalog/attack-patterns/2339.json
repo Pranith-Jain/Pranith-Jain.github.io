@@ -1,0 +1,9 @@
+{
+  "id": 2339,
+  "name": "T1049 - File and Directory Permissions Modification",
+  "techniqueId": "T1049",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2339"
+}

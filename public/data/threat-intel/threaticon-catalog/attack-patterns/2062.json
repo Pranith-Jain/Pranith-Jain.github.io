@@ -1,0 +1,9 @@
+{
+  "id": 2062,
+  "name": "T1055 - Process Injection for privilege escalation",
+  "techniqueId": "T1055",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2062"
+}

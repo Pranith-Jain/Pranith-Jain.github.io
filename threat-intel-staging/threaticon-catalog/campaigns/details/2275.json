@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:13:23.817Z",
+  "name": "Gaza Cybergang | Unified Front Targeting Hamas Opposition",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Dec 30, 2023",
+  "lastSeen": "Dec 30, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #433 (500ce304-3996-44ab-8a36-be206f89d3de)."
+}

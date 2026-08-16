@@ -3,9 +3,9 @@
   "name": "lockbit5: heinrichs-logistic.de",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 26, 2026",
+  "lastSeen": "Apr 24, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Transportation/Logistics | Website: heinrichs-logistic.de | Infostealer data confirmed. | D. Heinrichs Logistic GmbH is a leading logistics service provider based in Bremerhaven, specializin... | Source: https://www.ransomware.live/id/aGVpbnJpY2hzLWxvZ2lzdGljLmRlQGxvY2tiaXQ1",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/491"

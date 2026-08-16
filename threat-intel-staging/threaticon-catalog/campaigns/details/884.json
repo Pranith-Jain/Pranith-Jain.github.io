@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:12:58.125Z",
+  "name": "pear: Family Psychological Associates",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 9, 2026",
+  "lastSeen": "Apr 6, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to pear. | Country: US | Sector: Healthcare | Website: kcifpa.com | Infostealer data confirmed. | Provides mental health services | Source: https://www.ransomware.live/id/RmFtaWx5IFBzeWNob2xvZ2ljYWwgQXNzb2NpYXRlc0BwZWFy"
+}

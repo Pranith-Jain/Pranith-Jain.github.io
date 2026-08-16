@@ -3,9 +3,9 @@
   "name": "safepay: Berlinmobil.de",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 18, 2026",
+  "lastSeen": "May 18, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Transportation/Logistics | Website: Berlinmobil.de | Is a German transportation company headquartered in Berlin, specializing in bus charter services, passenger transportation, school transport, and mobility solutions … | Source: https://www.ransomware.live/id/QmVybGlubW9iaWwuZGVAc2FmZXBheQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3917"

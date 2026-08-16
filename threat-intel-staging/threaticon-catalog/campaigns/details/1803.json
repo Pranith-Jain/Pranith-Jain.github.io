@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:33:44.952Z",
+  "name": "qilin: ELC Security Products",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 5, 2026",
+  "lastSeen": "Mar 5, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: IL | Sector: Not Found | Website: www.elcsecurity.com | Source: https://www.ransomware.live/id/RUxDIFNlY3VyaXR5IFByb2R1Y3RzQHFpbGlu"
+}

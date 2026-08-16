@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:54:44.358Z",
+  "name": "M2M - Locky 2017-10-10 : Affid=3, offline, \".asasin\" : \"Document ... is complete\" - \"invoice_1234_sign_and_return.7z\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 10, 2017",
+  "lastSeen": "Oct 10, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1212 (59dc90da-d970-4168-901d-45c3950d210f)."
+}

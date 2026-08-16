@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5309,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5307,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5308,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5306,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5305,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5304,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5302,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5303,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5300,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5301,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5299,
+    "name": "dragonforce: momenta.cn",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: CN | Sector: Technology | Website: momenta.cn | Infostealer data confirmed. | Momenta is an AI and autonomous-driving company. All source code, financial documents, configuration files, employee database, and more were stolen. Servers and workstations were encrypted. Momenta is trying to hide everything from Chinese regulators, the HKEX commission, and investors while reporting a $751M profit from its recent IPO. With a $9B+ market capitalization, this amounts to one of the largest financial frauds in Chinese history. | Source: https://www.ransomware.live/id/bW9tZW50YS5jbkBkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 5298,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5297,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5296,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5294,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

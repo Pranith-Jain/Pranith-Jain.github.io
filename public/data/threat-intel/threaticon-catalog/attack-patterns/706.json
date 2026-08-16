@@ -1,0 +1,9 @@
+{
+  "id": 706,
+  "name": "T1033: System Owner/User Discovery",
+  "techniqueId": "T1033",
+  "added": "May 18, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/706"
+}

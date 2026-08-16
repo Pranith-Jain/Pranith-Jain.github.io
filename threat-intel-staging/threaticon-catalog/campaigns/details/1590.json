@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:42:42.338Z",
+  "name": "nova: Mid-America Export Experts",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 14, 2026",
+  "lastSeen": "Mar 14, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: US | Sector: Transportation/Logistics | Mid-America experts is an organizations that provide support to organizations exporting goods in the MidWest USA. They work with many transportation and logistics providers with strong presence in the Midwest. | Source: https://www.ransomware.live/id/TWlkLUFtZXJpY2EgRXhwb3J0IEV4cGVydHNAbm92YQ=="
+}

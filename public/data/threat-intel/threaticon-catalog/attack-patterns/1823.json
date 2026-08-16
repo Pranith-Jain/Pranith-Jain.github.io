@@ -1,0 +1,9 @@
+{
+  "id": 1823,
+  "name": "T1098.003 - Valid Accounts: Office365 Account Access",
+  "techniqueId": "T1098",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1823"
+}

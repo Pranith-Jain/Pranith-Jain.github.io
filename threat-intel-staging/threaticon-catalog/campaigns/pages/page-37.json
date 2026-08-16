@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7310,
+    "name": "qilin: ALIZE (alize-sud.fr)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Professional Services | Website: alize-sud.fr | groupe-sirocco.com | Source: https://www.ransomware.live/id/QUxJWkUgKGFsaXplLXN1ZC5mcilAcWlsaW4="
+  },
+  {
+    "id": 7312,
+    "name": "insomnia: Park Place Behavioral Health Care",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Healthcare | Website: www.ppbh.org | PPBHC provides mental health and substance use services in Osceola County, Florida, with 40+ years’ experience. They offer crisis intervention, therapy, recovery-oriented care, telehealth, and partner with GENOA for medication access. | Source: https://www.ransomware.live/id/UGFyayBQbGFjZSBCZWhhdmlvcmFsIEhlYWx0aCBDYXJlQGluc29tbmlh"
+  },
+  {
+    "id": 7317,
+    "name": "ransomhouse: City of Beacon",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7315,
+    "name": "bravox: MITC AG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to bravox. | Country: CH | Sector: Other | Website: www.mitc.ch | Industrial Engineering, IT Solutions and Technical Services. | Source: https://www.ransomware.live/id/TUlUQyBBR0BicmF2b3g="
+  },
+  {
+    "id": 7314,
+    "name": "qilin: J&T Bank and Trust",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: www.jtbanktrust.com | N/A | Source: https://www.ransomware.live/id/SiZUIEJhbmsgYW5kIFRydXN0QHFpbGlu"
+  },
+  {
+    "id": 7319,
+    "name": "akira: Basic Grain Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Agriculture and Food Production | TasteMorr is a culinary platform that offers a variety of gourmet food products and cooking ser vices. The company aims to cater to food enthusiasts and home cooks looking for high-quality in gredients and unique recipes. We will upload 104gb corporate data soon. Employee personal information (passports and SSNs, w9 forms and so on), detailed financials, contracts and agreements, NDA, clients information and so on. | Source: https://www.ransomware.live/id/QmFzaWMgR3JhaW4gUHJvZHVjdHNAYWtpcmE="
+  },
+  {
+    "id": 7313,
+    "name": "qilin: Akuur Law Firm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Professional Services | Website: www.akugurlaw.com | N/A | Source: https://www.ransomware.live/id/QWt1dXIgTGF3IEZpcm1AcWlsaW4="
+  },
+  {
+    "id": 7316,
+    "name": "ransomhouse: TECHVENTURES BANK S.A.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: PA | Sector: Financial Services | Website: www.techventures.bank | TechVentures Bank is a Romanian universal bank undergoing a strategic digital transformation to become a technology-driven, client-oriented financial institution . Rebranded from Banca Comercială Feroviară in 2020 and backed by an IT entrepreneur, the bank is focused on modernizing its operations and infrastructure to offer flexible, simplified banking solutions. | Press: https://financialintelligence.ro/dnsc-ofera-asistenta-techventures-bank-dupa-un-atac-cibernetic-de-tip-ransomware/ | Source: https://www.ransomware.live/id/VEVDSFZFTlRVUkVTIEJBTksgUy5BLkByYW5zb21ob3VzZQ=="
+  },
+  {
+    "id": 7311,
+    "name": "qilin: Jakle & Alexander",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.jaklelaw.com | N/A | Source: https://www.ransomware.live/id/SmFrbGUgJiBBbGV4YW5kZXJAcWlsaW4="
+  },
+  {
+    "id": 7318,
+    "name": "ransomhouse: lya Construtora",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: US | Sector: Manufacturing | Website: www.mcminnvilleoregon.gov | Álya Construtora is one of Brazil's leading privately owned engineering and construction companies, specializing in complex infrastructure, industrial, energy, urban mobility, and building projects with more than 70 years of operating experience. | Source: https://www.ransomware.live/id/bHlhIENvbnN0cnV0b3JhQHJhbnNvbWhvdXNl"
+  },
+  {
+    "id": 7306,
+    "name": "lynx: www.jerryleigh.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lynx. | Country: US | Sector: Other | Website: www.jerryleigh.com | Jerry Leigh is a family-owned women's, men's, and children's clothing manufacturer and brand management headquartered in Panorama City, CA, and established in 1962. | Source: https://www.ransomware.live/id/d3d3LmplcnJ5bGVpZ2guY29tQGx5bng="
+  },
+  {
+    "id": 7307,
+    "name": "lynx: www.talbotdes.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lynx. | Country: GB | Sector: Other | Website: www.talbotdes.org | Talbot County Department of Emergency Services provides essential emergency services including 9-1-1 communications, emergency medical services, and emergency management. The department aims to prepare the community for various emergencies, including natural and man-made disasters. Their intended clients include residents of Talbot County, first responders, and local businesses. They also offer resources such as CPR classes and community alerting systems to enhance public safety. | Source: https://www.ransomware.live/id/d3d3LnRhbGJvdGRlcy5vcmdAbHlueA=="
+  },
+  {
+    "id": 7308,
+    "name": "Gammax: King International LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Gammax. | Country: US | Sector: Other | Website: www.kingsinternational.us | King International LLC (DL International) is a fresh-fruits-and-vegetables wholesaler/distributor that supplies produce for ongoing needs in retail an... | Source: https://www.ransomware.live/id/S2luZyBJbnRlcm5hdGlvbmFsIExMQ0BHYW1tYXg="
+  },
+  {
+    "id": 7309,
+    "name": "qilin: AmSpec",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Energy & Utilities | Website: www.amspecgroup.com | N/A | Source: https://www.ransomware.live/id/QW1TcGVjQHFpbGlu"
+  },
+  {
+    "id": 7305,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  }
+]

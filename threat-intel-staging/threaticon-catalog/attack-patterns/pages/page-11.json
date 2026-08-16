@@ -1,0 +1,148 @@
+[
+  {
+    "id": 917,
+    "name": "IP (DF) 'Don't Fragment Bit' Echoing Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 918,
+    "name": "XSS Through HTTP Query Strings",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 919, "name": "TCP Timestamp Probe", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 920,
+    "name": "TCP Sequence Number Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 921,
+    "name": "TCP (ISN) Greatest Common Divisor Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 922,
+    "name": "TCP (ISN) Counter Rate Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 923,
+    "name": "TCP (ISN) Sequence Predictability Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 924,
+    "name": "TCP Congestion Control Flag (ECN) Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 925,
+    "name": "TCP Initial Window Size Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 926, "name": "TCP Options Probe", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 927,
+    "name": "TCP 'RST' Flag Checksum Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 928,
+    "name": "ICMP Error Message Quoting Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 929,
+    "name": "HTTP Request Smuggling",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 930,
+    "name": "ICMP Error Message Echoing Integrity Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 931,
+    "name": "ICMP IP Total Length Field Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 932,
+    "name": "ICMP IP 'ID' Field Error Message Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 933,
+    "name": "HTTP Response Splitting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 934,
+    "name": "Leverage Executable Code in Non-Executable Files",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 935,
+    "name": "Using Unpublished Interfaces or Functionality",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 936,
+    "name": "Retrieve Embedded Sensitive Data",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "TW",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/2453ba60-8bbe-4f68-b3c9-6fd1e866dfd0",
+  "description": "HISS Taroko Door & Window Technologies, Inc. (喜室清展股份有限公司) is a Taiwanese innovative R&D manufacturer...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

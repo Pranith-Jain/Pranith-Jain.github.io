@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:12:44.092Z",
+  "name": "PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 5, 2016",
+  "lastSeen": "Sep 5, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #80 (57cdf2a2-1abc-4e51-a31d-7e7dc0a8ab16)."
+}

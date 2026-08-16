@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:23:02.277Z",
+  "name": "The Kelihos & Severa; the \"All Out\" version",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 8, 2016",
+  "lastSeen": "May 8, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #69 (57474fa7-6960-48e0-8f30-04c8c0a8ab16)."
+}

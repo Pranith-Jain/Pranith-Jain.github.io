@@ -3,9 +3,9 @@
   "name": "thegentlemen: INTERNET AG",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 11, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Technology | Website: inet.de | Infostealer data confirmed. | ***.de zoominfo.com/c/inet/429716454 INTERNET AG is a professional German IT service provider specializing in reliable, sustainable, and flexible hosting and server solutions. The company delivers customized IT infrastructures, managed services, and global network connectivity tailored to complex business needs. Alongside its partner INTERNIC GmbH, it offers comprehensive enterprise software and secure digital operations for corporate clients | Source: https://www.ransomware.live/id/SU5URVJORVQgQUdAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4105"

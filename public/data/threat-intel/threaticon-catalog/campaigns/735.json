@@ -3,9 +3,9 @@
   "name": "akira: CSA SpA",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 14, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: IT | Sector: Transportation/Logistics | CSA S.p.A. is a company that provides a broad range of quality pr oducts and services tailored to the shipping industry, emphasizin g safety and customer satisfaction. Their offerings include ship services, liner agency, and logistics, all designed to meet the h ighest international standards. We will upload 10gb of corporate data soon. Personal data of empl oyees, financials, contracts and agreements, client files, and a lot of other internal files. | Source: https://www.ransomware.live/id/Q1NBIFNwQUBha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/735"

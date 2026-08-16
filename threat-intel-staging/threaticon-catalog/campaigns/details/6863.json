@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:16:48.536Z",
+  "name": "thegentlemen: CFS",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 31, 2026",
+  "lastSeen": "Jul 31, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Financial Services | Website: cfsinc.com | Infostealer data confirmed. | cfsinc.com zoominfo.com/c/cfs-inc/12944410 CFS Inc. is a Massachusetts-based marketing support services company with over 30 years of experience in print management, direct mail, kitting, promotional items, and fulfillment. Acting as a single-source solution, they handle projects from initial design to final execution, helping businesses streamline their marketing and logistical operations. The company is known for its flexible, customer-centric approach and a strong commitment to delivering high-quality, reliable results for clients of all sizes | Source: https://www.ransomware.live/id/Q0ZTQHRoZWdlbnRsZW1lbg=="
+}

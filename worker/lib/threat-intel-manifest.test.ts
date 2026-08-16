@@ -34,6 +34,23 @@ import {
   type TiDarknetIndex,
   type TiDarknetSiteBody,
   type TiDarknetCategoryBody,
+  loadDphishIndex,
+  getDphishIndicator,
+  filterDphishIndicators,
+  type DphishIndex,
+  type DphishIndicatorBody,
+  type DphishIndexEntry,
+  loadLivingThreatIndex,
+  getLivingThreatIncident,
+  filterLivingThreatIncidents,
+  loadMaIndex,
+  getMaFeed,
+  filterMaFeed,
+  type LivingThreatIndex,
+  type LivingThreatIncidentBody,
+  type LivingThreatIndexEntry,
+  type MaIndex,
+  type MaFeedEntry,
   loadThreatClusterIndex,
   getTcCluster,
   getTcVuln,
@@ -877,6 +894,247 @@ function makeAssetsFixture() {
     { value: 'evil.example', tlp: 'red', confidence: 90, added: '2026-08-14' },
   ];
   data.set('/data/threat-intel/threaticon-catalog/indicators/domain.1.json', tiCatDomainChunk1);
+
+  // ── dPhish (dphish.com TAXII 2.1 collection) ────────────────────────
+  const dphishIdx: DphishIndex = {
+    source: 'dphish.com',
+    sourceUrl: 'https://dphish.com/feeds/',
+    collectionId: '68f57461-5c20-451d-ab32-6357d1fbef0b',
+    collectionUrl: 'https://tip.dphish.live/taxii2/root/collections/68f57461-5c20-451d-ab32-6357d1fbef0b/objects/',
+    description: 'Phishing threat-intel feed — malicious domains, phishing URLs, sender IPs.',
+    license: 'Public feed (no registration required)',
+    syncedAt: '2026-08-15T00:00:00.000Z',
+    counts: {
+      indicators: 3,
+      active: 2,
+      revoked: 1,
+      byCategory: { domain: 2, url: 1 },
+    },
+    indicators: [
+      {
+        slug: 'melbetegypt.com-1a2b3c',
+        stixId: 'indicator--11111111-1111-4111-8111-111111111111',
+        value: 'melbetegypt.com',
+        category: 'domain',
+        mainObservableType: 'Domain-Name',
+        active: true,
+        revoked: false,
+        confidence: 100,
+        score: 20,
+        created: '2025-05-27T16:28:59.074Z',
+        modified: '2025-05-27T16:28:59.074Z',
+        validUntil: '2027-02-15T12:09:24.192Z',
+        description: 'Credential-harvesting domain impersonating Melbet.',
+        sizeBytes: 512,
+      },
+      {
+        slug: 'phish.example.com-4d5e6f',
+        stixId: 'indicator--22222222-2222-4222-8222-222222222222',
+        value: 'phish.example.com',
+        category: 'domain',
+        mainObservableType: 'Domain-Name',
+        active: true,
+        revoked: false,
+        confidence: 100,
+        score: 30,
+        created: '2026-08-01T10:00:00.000Z',
+        modified: '2026-08-01T10:00:00.000Z',
+        validUntil: null,
+        description: null,
+        sizeBytes: 480,
+      },
+      {
+        slug: 'https:__dtec.com.my_ash-7g8h9i',
+        stixId: 'indicator--33333333-3333-4333-8333-333333333333',
+        value: 'https://dtec.com.my/ash?email=brad@example.net',
+        category: 'url',
+        mainObservableType: 'Url',
+        active: false,
+        revoked: true,
+        confidence: 100,
+        score: 20,
+        created: '2025-05-15T11:16:37.466Z',
+        modified: '2025-06-16T13:54:27.452Z',
+        validUntil: '2025-06-16T13:54:22.410Z',
+        description: 'Phishing URL with email parameter.',
+        sizeBytes: 900,
+      },
+    ],
+  };
+  data.set('/data/threat-intel/dphish/index.json', dphishIdx);
+
+  const dphishBody: DphishIndicatorBody = {
+    ...dphishIdx.indicators[0]!,
+    name: 'melbetegypt.com',
+    observableValues: [{ type: 'Domain-Name', value: 'melbetegypt.com' }],
+    pattern: "[domain-name:value = 'melbetegypt.com']",
+    patternType: 'stix',
+    validFrom: '2025-05-27T16:28:59.000Z',
+    labels: ['phishing'],
+    indicatorTypes: ['malicious-activity'],
+    detection: false,
+  };
+  data.set('/data/threat-intel/dphish/indicators/melbetegypt.com-1a2b3c.json', dphishBody);
+
+  // ── Living Threat (living-threat.rabitanoor.com) ───────────────────
+  const ltEntry: LivingThreatIndexEntry = {
+    slug: 'amnesiastealer-macos-malware-021625',
+    shard: 0,
+    sequence: 21625,
+    id: '0f348fd13740c237e1134a7f2975464c',
+    title: 'AmnesiaStealer: macOS Malware Leveraging ClickFix Attacks',
+    timestamp: '2026-08-16T11:07:00Z',
+    source: 'https://www.bleepingcomputer.com/news/security/',
+    severity: 'High',
+    priorityScore: 92,
+    relevanceScore: 67,
+    tactics: ['Initial Access', 'Command and Control'],
+    techniques: ['T1190', 'T1566.001'],
+    actors: ['AmnesiaStealer'],
+    techniqueCount: 2,
+    cves: 1,
+    tools: 2,
+    sizeBytes: 8000,
+  };
+  const ltEntry2: LivingThreatIndexEntry = {
+    ...ltEntry,
+    slug: 'another-incident-021600',
+    sequence: 21600,
+    title: 'Another Incident',
+    timestamp: '2026-08-15T00:00:00Z',
+    severity: 'Low',
+    priorityScore: 30,
+    relevanceScore: 40,
+    tactics: ['Initial Access'],
+    techniques: [],
+    actors: [],
+    techniqueCount: 0,
+    cves: 0,
+    tools: 0,
+  };
+  const ltIdx: LivingThreatIndex = {
+    source: 'living-threat.rabitanoor.com',
+    sourceUrl: 'https://living-threat.rabitanoor.com/',
+    repoUrl: 'https://github.com/HudKSD/Living-Threat',
+    description: 'Real-world incidents mapped to MITRE ATT&CK.',
+    license: 'MIT',
+    syncedAt: '2026-08-16T12:00:00.000Z',
+    meta: {
+      apiIndex: 'data_cached_*',
+      latestTs: '2026-08-16T11:07:00Z',
+      latestSeq: 21625,
+      anchorTs: '2026-08-16T11:07:00Z',
+      fetchedAt: '2026-08-16T11:30:00Z',
+      cap: 'Upstream caps at 5000.',
+    },
+    counts: {
+      incidents: 2,
+      shards: 1,
+      shardSize: 500,
+      bySeverity: { High: 1, Low: 1 },
+      byTactic: { 'Initial Access': 1, 'Command and Control': 1 },
+      uniqueCves: 1,
+      uniqueTechniques: 2,
+    },
+    topTechniques: [
+      { id: 'T1190', count: 1 },
+      { id: 'T1566.001', count: 1 },
+    ],
+    topActors: [{ name: 'AmnesiaStealer', count: 1 }],
+    topTools: [],
+    topSources: [],
+    incidents: [ltEntry, ltEntry2],
+  };
+  data.set('/data/threat-intel/living-threat/index.json', ltIdx);
+
+  const ltShard: LivingThreatIncidentBody[] = [
+    {
+      slug: ltEntry.slug,
+      shard: 0,
+      sequence: 21625,
+      id: ltEntry.id,
+      index: 'data_cached_*',
+      source: ltEntry.source,
+      Timestamp: ltEntry.timestamp,
+      Title: ltEntry.title,
+      Severity: 'High',
+      CVEs: ['CVE-2026-58231'],
+      Threat_Actors: ['AmnesiaStealer'],
+      Tools: ['ClickFix Kit'],
+      Analyses: [
+        {
+          Stage: 'Exploitation',
+          Description: 'Exploitation of CVE-2026-58231.',
+          Detection: 'Monitor for unusual ClickFix activity.',
+          Remediation: 'Apply patches.',
+          Tactics: [{ tactic_id: 'TA0001', tactic_name: 'Initial Access', tactic_description: 'Initial access.' }],
+          Technique_Details: [
+            {
+              technique_id: 'T1190',
+              technique_name: 'Exploit Public-Facing Application',
+              technique_description: 'Exploitation of a public-facing app.',
+            },
+          ],
+          Techniques: ['T1190'],
+        },
+      ],
+      priority_score: 92,
+      relevance_score: 67,
+      kill_chain_summary: 'Exploitation led to C2.',
+    },
+  ];
+  data.set('/data/threat-intel/living-threat/shards/0000.json', ltShard);
+
+  // ── MalwareAnalyzer (malwareanalyzer.com) ──────────────────────────
+  const maFeed: MaFeedEntry[] = [
+    {
+      url: 'http://tourbusan.net/files/malicious.pdf',
+      hostname: 'tourbusan.net',
+      apex: 'tourbusan.net',
+      verdict: 'malicious',
+      score: 60,
+      brands: [],
+      categories: ['suspicious-infrastructure'],
+      time: '2026-08-16T16:13:03.476Z',
+    },
+  ];
+  const maIdx: MaIndex = {
+    source: 'malwareanalyzer.com',
+    sourceUrl: 'https://malwareanalyzer.com/',
+    apiBase: 'https://malwareanalyzer.com/v1',
+    description: 'Free keyless malware analysis.',
+    license: 'Free public service by Cyble',
+    syncedAt: '2026-08-16T16:20:00.000Z',
+    counts: {
+      malicious: 1,
+      newlyObserved: 1,
+      byVerdict: { malicious: 1, unknown: 1 },
+      byCategory: { 'suspicious-infrastructure': 1 },
+    },
+    topApexes: [{ name: 'tourbusan.net', count: 1 }],
+    feeds: {
+      malicious: maFeed,
+      newlyObserved: [
+        {
+          url: 'https://privatearrangements.co.nz/public/files/robux.pdf',
+          hostname: 'privatearrangements.co.nz',
+          apex: 'privatearrangements.co.nz',
+          verdict: 'unknown',
+          score: 14,
+          brands: [],
+          categories: [],
+          time: '2026-08-16T16:16:47.235Z',
+        },
+      ],
+    },
+  };
+  data.set('/data/threat-intel/malwareanalyzer/index.json', maIdx);
+  data.set('/data/threat-intel/malwareanalyzer/malicious.json', maIdx.feeds.malicious);
+  data.set('/data/threat-intel/malwareanalyzer/newly-observed.json', maIdx.feeds.newlyObserved);
+  data.set('/data/threat-intel/malwareanalyzer/status.json', {
+    online: { registered: 1, anonymous: 5, total: 6 },
+    engines: { measured: 46, sampleSize: 59306, source: 'median' },
+  });
 
   const assets = {
     fetch: vi.fn(async (req: Request) => {
@@ -1789,5 +2047,216 @@ describe('tiCacheStats (threaticon catalog)', () => {
     expect(s.threaticon.catalog.bodies.hits).toBe(1);
     expect(s.threaticon.catalog.bodies.misses).toBe(1);
     expect(s.threaticon.catalog.indicatorChunks.size).toBe(1);
+  });
+});
+
+describe('dPhish (loadDphishIndex)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('fetches and caches the dphish index', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    expect(idx.source).toBe('dphish.com');
+    expect(idx.counts.indicators).toBe(3);
+    expect(idx.counts.active).toBe(2);
+    expect(idx.counts.byCategory.domain).toBe(2);
+    const again = await loadDphishIndex(assets);
+    expect(again).toBe(idx);
+  });
+
+  it('throws with a build hint when the manifest is missing', async () => {
+    const empty = {
+      fetch: vi.fn(async () => new Response('not found', { status: 404 })),
+    } as unknown as Fetcher;
+    await expect(loadDphishIndex(empty)).rejects.toThrow(/sync-dphish\.mjs/);
+  });
+});
+
+describe('dPhish (getDphishIndicator)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns the full body and caches it', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    expect(body).not.toBeNull();
+    expect(body!.pattern).toBe("[domain-name:value = 'melbetegypt.com']");
+    expect(body!.patternType).toBe('stix');
+    expect(body!.indicatorTypes).toContain('malicious-activity');
+    const again = await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    expect(again).toBe(body);
+  });
+
+  it('returns null for an unknown slug', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getDphishIndicator(assets, 'nope')).toBeNull();
+  });
+});
+
+describe('dPhish (filterDphishIndicators)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('filters by category', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { category: 'url' });
+    expect(out).toHaveLength(1);
+    expect(out[0]!.value).toContain('dtec.com.my');
+  });
+
+  it('activeOnly excludes revoked and expired indicators', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { activeOnly: true });
+    expect(out).toHaveLength(2);
+    expect(out.every((i) => i.active)).toBe(true);
+  });
+
+  it('matches keyword against value and description', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { keyword: 'melbet' });
+    expect(out.map((i: DphishIndexEntry) => i.value)).toEqual(['melbetegypt.com']);
+  });
+
+  it('respects limit', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDphishIndex(assets);
+    const out = filterDphishIndicators(idx, { limit: 1 });
+    expect(out).toHaveLength(1);
+  });
+});
+
+describe('tiCacheStats (dphish)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports dphish index + body cache stats', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadDphishIndex(assets);
+    await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    await getDphishIndicator(assets, 'melbetegypt.com-1a2b3c');
+    const s = tiCacheStats();
+    expect(s.dphish.indexLoaded).toBe(true);
+    expect(s.dphish.indexAgeMs).toBeGreaterThanOrEqual(0);
+    expect(s.dphish.bodies.size).toBe(1);
+    expect(s.dphish.bodies.hits).toBe(1);
+    expect(s.dphish.bodies.misses).toBe(1);
+  });
+});
+
+describe('Living Threat (loadLivingThreatIndex)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('fetches and caches the index', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadLivingThreatIndex(assets);
+    expect(idx.source).toBe('living-threat.rabitanoor.com');
+    expect(idx.counts.incidents).toBe(2);
+    expect(idx.counts.byTactic['Initial Access']).toBe(1);
+    const again = await loadLivingThreatIndex(assets);
+    expect(again).toBe(idx);
+  });
+
+  it('throws with a build hint when the manifest is missing', async () => {
+    const empty = {
+      fetch: vi.fn(async () => new Response('not found', { status: 404 })),
+    } as unknown as Fetcher;
+    await expect(loadLivingThreatIndex(empty)).rejects.toThrow(/sync-living-threat\.mjs/);
+  });
+});
+
+describe('Living Threat (getLivingThreatIncident)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('resolves a slug through the shard file and caches the shard', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getLivingThreatIncident(assets, 'amnesiastealer-macos-malware-021625');
+    expect(body).not.toBeNull();
+    expect(body!.Title).toContain('AmnesiaStealer');
+    expect(body!.CVEs).toEqual(['CVE-2026-58231']);
+    expect(body!.Analyses[0]!.Techniques).toEqual(['T1190']);
+    expect(body!.Analyses[0]!.Detection).toContain('ClickFix');
+    const again = await getLivingThreatIncident(assets, 'amnesiastealer-macos-malware-021625');
+    expect(again).toBe(body);
+  });
+
+  it('returns null for an unknown slug', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getLivingThreatIncident(assets, 'nope')).toBeNull();
+  });
+});
+
+describe('Living Threat (filterLivingThreatIncidents)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('filters by tactic, technique, severity, actor, keyword, minPriority', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadLivingThreatIndex(assets);
+    expect(filterLivingThreatIncidents(idx, { tactic: 'Initial Access' })).toHaveLength(2);
+    expect(filterLivingThreatIncidents(idx, { technique: 't1190' })).toHaveLength(1);
+    expect(filterLivingThreatIncidents(idx, { severity: 'low' })).toHaveLength(1);
+    expect(filterLivingThreatIncidents(idx, { actor: 'amnesia' })).toHaveLength(1);
+    expect(filterLivingThreatIncidents(idx, { keyword: 'clickfix' })).toHaveLength(1);
+    expect(filterLivingThreatIncidents(idx, { minPriority: 50 })).toHaveLength(1);
+    expect(filterLivingThreatIncidents(idx, { limit: 1 })).toHaveLength(1);
+  });
+});
+
+describe('Living Threat / MalwareAnalyzer (tiCacheStats)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports livingThreat + malwareanalyzer cache stats', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadLivingThreatIndex(assets);
+    await getLivingThreatIncident(assets, 'amnesiastealer-macos-malware-021625');
+    await getLivingThreatIncident(assets, 'amnesiastealer-macos-malware-021625');
+    await loadMaIndex(assets);
+    await getMaFeed(assets, 'malicious');
+    const s = tiCacheStats();
+    expect(s.livingThreat.indexLoaded).toBe(true);
+    expect(s.livingThreat.shards.size).toBe(1);
+    expect(s.livingThreat.shards.hits).toBe(1);
+    expect(s.malwareanalyzer.indexLoaded).toBe(true);
+    expect(s.malwareanalyzer.feeds.size).toBe(1);
+  });
+});
+
+describe('MalwareAnalyzer (loadMaIndex / getMaFeed)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('loads the index and both feeds (cached per feed)', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadMaIndex(assets);
+    expect(idx.source).toBe('malwareanalyzer.com');
+    expect(idx.counts.malicious).toBe(1);
+    const malicious = await getMaFeed(assets, 'malicious');
+    expect(malicious).toHaveLength(1);
+    expect(malicious[0]!.verdict).toBe('malicious');
+    const observed = await getMaFeed(assets, 'newly-observed');
+    expect(observed).toHaveLength(1);
+    expect(observed[0]!.verdict).toBe('unknown');
+    const again = await getMaFeed(assets, 'malicious');
+    expect(again).toBe(malicious);
+  });
+
+  it('throws with a build hint when the index is missing', async () => {
+    const empty = {
+      fetch: vi.fn(async () => new Response('not found', { status: 404 })),
+    } as unknown as Fetcher;
+    await expect(loadMaIndex(empty)).rejects.toThrow(/sync-malwareanalyzer\.mjs/);
+  });
+});
+
+describe('MalwareAnalyzer (filterMaFeed)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('filters by verdict, category, and keyword with limit', async () => {
+    const { assets } = makeAssetsFixture();
+    const feed = await getMaFeed(assets, 'malicious');
+    expect(filterMaFeed(feed, { verdict: 'malicious' })).toHaveLength(1);
+    expect(filterMaFeed(feed, { verdict: 'unknown' })).toHaveLength(0);
+    expect(filterMaFeed(feed, { category: 'suspicious-infrastructure' })).toHaveLength(1);
+    expect(filterMaFeed(feed, { keyword: 'TOURBUSAN' })).toHaveLength(1);
+    expect(filterMaFeed(feed, { keyword: 'nope' })).toHaveLength(0);
+    expect(filterMaFeed(feed, { limit: 1 })).toHaveLength(1);
   });
 });

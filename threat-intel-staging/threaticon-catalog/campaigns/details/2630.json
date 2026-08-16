@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:59:20.196Z",
+  "name": "Dridex 2017-04-11 : botnet 7200/7500 campaigns",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 26, 2017",
+  "lastSeen": "Apr 26, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1045 (5900a0d3-4c08-4f82-a9ae-2c2f950d210f)."
+}

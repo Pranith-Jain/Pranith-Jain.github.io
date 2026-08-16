@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:23:55.005Z",
+  "name": "OSINT - Botnet bruteforcing Point Of Sale terminals via Remote Desktop",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 11, 2014",
+  "lastSeen": "Mar 11, 2014",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #44 (56587437-7f08-4381-85bc-a829950d210b)."
+}

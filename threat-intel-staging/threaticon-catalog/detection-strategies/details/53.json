@@ -1,0 +1,12 @@
+{
+  "id": 53,
+  "fetchedAt": "2026-08-14T05:54:21.027Z",
+  "name": "Detection of Launch Agent Creation or Modification on macOS",
+  "tlp": null,
+  "detId": "DET0434",
+  "stixId": "x-mitre-detection-strategy--4dbd7441-627f-4d5a-a060-28fe6a8cbb9e",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1208"]
+}

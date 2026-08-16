@@ -1,0 +1,12 @@
+{
+  "id": 198,
+  "fetchedAt": "2026-08-14T06:06:26.371Z",
+  "name": "Detect Windows Firewall",
+  "tlp": null,
+  "detId": "DET0901",
+  "stixId": "x-mitre-detection-strategy--488ef272-b2fa-4501-ab6e-97e3ac01816c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2043"]
+}

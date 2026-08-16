@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5459,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5457,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5458,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5456,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5454,
+    "name": "incransom: VantagePoint Management & Autoclear",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Financial Services | VantagePoint Capital Partners is a global venture investor established in 1996, focusing on energy innovation and efficiency. With over $4 billion under management, the company supports start-up to scale-up companies by providing capital, strategic resources, and partnership alliances. Headquartered in Silicon Valley, VantagePoint also has offices in Beijing, China, and maintains strategic partnerships worldwide. Their diverse portfolio includes a range of entrepreneurs and companies in the energy sector. | Source: https://www.ransomware.live/id/VmFudGFnZVBvaW50IE1hbmFnZW1lbnQgJiBBdXRvY2xlYXJAaW5jcmFuc29t"
+  },
+  {
+    "id": 5455,
+    "name": "payoutsking: Casta Diva Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: IT | Sector: Hospitality and Tourism | Website: castadivagroup.com | Infostealer data confirmed. | [AI generated] Casta Diva Group is an Italian communications and entertainment company headquartered in Milan, Italy. It operates in the media, events, and live entertainment industry, offering services including event production, branded entertainment, digital communication, and audiovisual content creation. The group serves corporate clients and institutions, managing large-scale events, product launches, and integrated communication campaigns across Italy and international markets. | Source: https://www.ransomware.live/id/Q2FzdGEgRGl2YSBHcm91cEBwYXlvdXRza2luZw=="
+  },
+  {
+    "id": 5453,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5452,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5451,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5450,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5449,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5448,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5447,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5446,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5445,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  }
+]

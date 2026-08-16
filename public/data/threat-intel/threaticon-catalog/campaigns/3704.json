@@ -3,10 +3,10 @@
   "name": "dragonforce: CMC Expertise Comptable",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 8, 2026",
+  "lastSeen": "May 8, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: FR | Sector: Business Services | Website: cmcexpertise.fr | Infostealer data confirmed. | CMC Expertise Comptable is a certified accounting firm located in Martinique, dedicated to providing comprehensive support in accounting, social, legal, and fiscal matters. The firm focuses on understanding the unique needs of each client to offer tailored advice and assistance, ensuring precision and efficiency in their services. They specialize in company creation, legal and tax advice, and are committed to simplifying the administrative burdens faced by business leaders. With a strong emphasis on availability and communication, CMC Expertise Comptable aims to be the ideal partner for business growth. | Source: https://www.ransomware.live/id/Q01DIEV4cGVydGlzZSBDb21wdGFibGVAZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3704"
 }

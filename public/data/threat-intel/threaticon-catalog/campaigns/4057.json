@@ -3,9 +3,9 @@
   "name": "nightspire: Webosphere",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 13, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to nightspire. | Country: IN | Sector: Technology | Website: webosphere.in | Infostealer data confirmed. | -SQL Database- Source Code | Source: https://www.ransomware.live/id/V2Vib3NwaGVyZUBuaWdodHNwaXJl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4057"

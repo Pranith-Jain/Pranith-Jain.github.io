@@ -1,0 +1,99 @@
+[
+  {
+    "id": 1257,
+    "name": "Buffer Overflow in an API Call",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1258,
+    "name": "Using UTF-8 Encoding to Bypass Validation Logic",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1259,
+    "name": "Web Server Logs Tampering",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1260, "name": "XPath Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1261, "name": "XQuery Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1262, "name": "AJAX Footprinting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1263,
+    "name": "XSS Through HTTP Headers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1264, "name": "Forceful Browsing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1265,
+    "name": "OS Command Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1266, "name": "Pharming", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1267,
+    "name": "Buffer Overflow in Local Command-Line Utilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1268,
+    "name": "Reflection Attack in Authentication Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1269,
+    "name": "Forced Integer Overflow",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1270,
+    "name": "Log Injection-Tampering-Forging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1271,
+    "name": "Adversary in the Middle (AiTM)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1272, "name": "WSDL Scanning", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1273,
+    "name": "Block Access to Libraries",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1274, "name": "Cryptanalysis", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1275, "name": "Phishing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 2290, "name": "S0287", "tlp": "white", "confidence": null, "techniqueId": "S0287", "status": null }
+]

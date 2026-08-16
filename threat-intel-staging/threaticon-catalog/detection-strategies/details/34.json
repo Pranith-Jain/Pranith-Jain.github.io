@@ -1,0 +1,12 @@
+{
+  "id": 34,
+  "fetchedAt": "2026-08-14T05:56:39.108Z",
+  "name": "Detection Strategy for Dynamic Resolution using Fast Flux DNS",
+  "tlp": null,
+  "detId": "DET0485",
+  "stixId": "x-mitre-detection-strategy--4556646a-39df-48bf-9df3-623d4da7a859",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1331", "AN1332", "AN1333", "AN1334"]
+}

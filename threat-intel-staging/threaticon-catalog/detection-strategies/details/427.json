@@ -1,0 +1,12 @@
+{
+  "id": 427,
+  "fetchedAt": "2026-08-14T05:57:04.923Z",
+  "name": "Detection Strategy for Financial Theft",
+  "tlp": null,
+  "detId": "DET0495",
+  "stixId": "x-mitre-detection-strategy--e767f434-dda3-41fe-a9ea-e7aaae251e61",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1361", "AN1362", "AN1363", "AN1364", "AN1365"]
+}

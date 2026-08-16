@@ -1,0 +1,155 @@
+[
+  {
+    "id": 2234,
+    "name": "T1059.003 - Spear-phishing with attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1894,
+    "name": "T1059.003 - Spear-phishing with social engineering via email attachments",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2389,
+    "name": "T1059.003 - Spearphishing via malicious documents",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2580,
+    "name": "T1059.003 - Use of email client protocols for initial access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2204,
+    "name": "T1059.003 - Web Shell Creation via Hidden Parameters",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2841,
+    "name": "T1059.003 - Windows Command Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2175,
+    "name": "T1059.003 - Windows Command Shell by .exe file extension",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2019,
+    "name": "T1059.003 - Windows Command-Line Tools as Scripting Interface: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1914,
+    "name": "T1059.003 - Windows Local Job Scheduling: IIS Crypto Module Configuration Command-Line",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2436,
+    "name": "T1059.003 - spear-phishing via malicious documents",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1642,
+    "name": "T1059.003 - spear-phishing with附件",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2921,
+    "name": "T1059.003 PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2867,
+    "name": "T1059.003 – Command and Scripting Interpreter: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2661,
+    "name": "T1059.003 – Command‑Line Interface (Windows)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2844,
+    "name": "T1059.003: Command & Scripting Interpreter ‑ PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 715,
+    "name": "T1059.003: Command and Scripting Interpreter: Windows Command Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2884,
+    "name": "T1059.003: Command-Line Interface – PowerShell back‑door",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2713,
+    "name": "T1059.003: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1279,
+    "name": "T1059.003: Windows Command Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 454, "name": "Unix Shell", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null }
+]

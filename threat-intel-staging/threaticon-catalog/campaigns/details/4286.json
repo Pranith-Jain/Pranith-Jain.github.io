@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:36:48.123Z",
+  "name": "safepay: hahn-airport.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Transportation/Logistics | Website: hahn-airport.de | Infostealer data confirmed. | Originally developed as a United States military air base, the facility began civilian operations in 1993 and has since become … | Press: https://www.rhein-zeitung.de/rheinland-pfalz/cyberangriff-auf-hahn-steckt-safepay-bande-dahinter_arid-4140266.html | Source: https://www.ransomware.live/id/aGFobi1haXJwb3J0LmRlQHNhZmVwYXk="
+}

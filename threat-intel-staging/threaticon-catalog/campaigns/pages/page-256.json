@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4033,
+    "name": "apt73: minsa.com.mx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MX | Sector: Not Found | Website: minsa.com.mx | Infostealer data confirmed. | Minsa is a company from Mexico, one of the largest producers of nixtamalizada (masa harina) corn ... | Source: https://www.ransomware.live/id/bWluc2EuY29tLm14QGFwdDcz"
+  },
+  {
+    "id": 4034,
+    "name": "akira: Buffalo Niagara Convention Center",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4032,
+    "name": "apt73: tkgm.gov.tr",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: TR | Sector: Public Sector | Website: tkgm.gov.tr | Infostealer data confirmed. | TKGM (Tapu ve Kadastro Genel Müdürlüğü) is a government agency from Turkey, the General Dire... | Source: https://www.ransomware.live/id/dGtnbS5nb3YudHJAYXB0NzM="
+  },
+  {
+    "id": 4028,
+    "name": "worldleaks: BMJ Paperpack",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: ID | Sector: Manufacturing | Website: www.bmjpaperpack.com | [AI generated] N/A | Source: https://www.ransomware.live/id/Qk1KIFBhcGVycGFja0B3b3JsZGxlYWtz"
+  },
+  {
+    "id": 4029,
+    "name": "qilin: Semgrep",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: semgrep.dev | Infostealer data confirmed. | N/A | Source: https://www.ransomware.live/id/U2VtZ3JlcEBxaWxpbg=="
+  },
+  {
+    "id": 4027,
+    "name": "akira: Gitis",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: IT | Sector: Not Found | Website: gitis.it | Infostealer data confirmed. | GITIS S.r.l. specializes in the production of high-quality rubber components, including O-rings , rubber moulded components, and co-moulded components. Their products cater to various industr ies such as automotive, general industry, food, pharmaceuticals, biomedical, oil and gas, and h ydrogen technology. We will upload 30gb of corporate data soon. Employee personal information, contracts and agreem ents, financials, clients information, lots of projects, NDAs, etc. | Source: https://www.ransomware.live/id/R2l0aXNAYWtpcmE="
+  },
+  {
+    "id": 4030,
+    "name": "gunra: Cablematic Dos Mil SLU",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to gunra. | Country: ES | Sector: Business Services | Website: cablematic.com | Infostealer data confirmed. | [AI generated] Cablematic Dos Mil SLU is a Spanish company operating in the electronics and technology distribution sector. Based in Spain, it specializes in the wholesale and retail distribution of networking equipment, cables, connectors, computer peripherals, and audiovisual accessories. The company supplies both professional and consumer markets, offering a wide catalog of hardware components and connectivity solutions across Europe, primarily through e-commerce channels. | Source: https://www.ransomware.live/id/Q2FibGVtYXRpYyBEb3MgTWlsIFNMVUBndW5yYQ=="
+  },
+  {
+    "id": 4026,
+    "name": "nova: Hoy Construction",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4031,
+    "name": "akira: Karlin Foods",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Agriculture and Food Production | Website: karlinfoods.com | Infostealer data confirmed. | Karlin Foods is a private label food manufacturer that offers a wide range of products includin g potato and rice side dishes, skillet dinners, dips, sauces, and premium items. We will upload corporate data soon. Employee and clients, contracts and agreements, financials, projects, etc. | Source: https://www.ransomware.live/id/S2FybGluIEZvb2RzQGFraXJh"
+  },
+  {
+    "id": 4022,
+    "name": "shinyhunters: DentaQuest.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Healthcare | Website: DentaQuest.com | You wouldn't want us to describe what data and how much data was compromised publicly. It is in your best interests to reply to us or we are leaking it all by the deadline. This is a final warning to reach out by 27 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 23 May 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/RGVudGFRdWVzdC5jb21Ac2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 4023,
+    "name": "genesis: **** & ********",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Not Found | Website: . | A legal firm dedicated to safeguard the rights of its clients | Source: https://www.ransomware.live/id/KioqKiAmICoqKioqKioqQGdlbmVzaXM="
+  },
+  {
+    "id": 4020,
+    "name": "shinyhunters: Baker Distributing Company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Business Services | Website: bakerdist.com | Infostealer data confirmed. | Over 260k Salesforce records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 27 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 23 May 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/QmFrZXIgRGlzdHJpYnV0aW5nIENvbXBhbnlAc2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 4024,
+    "name": "krybit: lasevillanita.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: ES | Sector: Hospitality and Tourism | Website: lasevillanita.com | Infostealer data confirmed. | Transportes La Sevillanita Srl is a company that operates in the Freight & Logistics Services industry. It employs 10to1... | Source: https://www.ransomware.live/id/bGFzZXZpbGxhbml0YS5jb21Aa3J5Yml0"
+  },
+  {
+    "id": 4021,
+    "name": "shinyhunters: Charter Communications, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Telecommunication | Website: charter.com | Infostealer data confirmed. | Over 42M records containing PII have been compromised. This is a final warning to reach out by 27 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. Pay or Leak. | Updated: 23 May 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/Q2hhcnRlciBDb21tdW5pY2F0aW9ucywgSW5jLkBzaGlueWh1bnRlcnM="
+  },
+  {
+    "id": 4017,
+    "name": "incransom: Mecanizados y Montajes Aeronáuticos (mymgroup.es)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

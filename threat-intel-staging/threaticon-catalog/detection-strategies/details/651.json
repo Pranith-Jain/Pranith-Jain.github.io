@@ -1,0 +1,12 @@
+{
+  "id": 651,
+  "fetchedAt": "2026-08-14T06:05:14.374Z",
+  "name": "Detection of Code Signing Certificates",
+  "tlp": null,
+  "detId": "DET0875",
+  "stixId": "x-mitre-detection-strategy--1e8c8a62-9546-4323-a561-83e9fad94fa0",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2007"]
+}

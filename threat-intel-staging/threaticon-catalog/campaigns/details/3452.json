@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:12:38.315Z",
+  "name": "OSINT - PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 6, 2016",
+  "lastSeen": "Sep 6, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #854 (57ce65d3-6170-47b5-8f3f-47e0950d210f)."
+}

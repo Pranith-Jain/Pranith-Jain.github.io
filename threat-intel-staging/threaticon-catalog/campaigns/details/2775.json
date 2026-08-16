@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:45:01.011Z",
+  "name": "OSINT - File Spider Ransomware Targeting the Balkans With Malspam",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 11, 2017",
+  "lastSeen": "Dec 11, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1265 (5a339ef9-a768-4af7-88b3-7f21950d210f)."
+}

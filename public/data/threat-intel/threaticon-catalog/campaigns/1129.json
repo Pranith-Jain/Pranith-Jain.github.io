@@ -3,9 +3,9 @@
   "name": "everest: Nissan",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to everest. | Country: JP | Sector: Manufacturing | [AI generated] Nissan Motor Co., Ltd. is a leading Japanese multinational automotive manufacturer headquartered in Yokohama, Japan. It was established in 1933 and is known for producing a wide range of vehicles, such as SUVs, sedans, electric/ hybrid cars and commercial vehicles. It is part of the Renault–Nissan–Mitsubishi Alliance, which is one of the world's largest automotive partnerships. | Source: https://www.ransomware.live/id/Tmlzc2FuQGV2ZXJlc3Q=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1129"

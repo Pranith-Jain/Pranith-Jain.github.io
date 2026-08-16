@@ -1,0 +1,188 @@
+[
+  {
+    "id": 415,
+    "code": "DET0573",
+    "name": "Cross-Platform Detection of Data Transfer to Cloud Account",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 83,
+    "code": "DET0574",
+    "name": "Detection Strategy for Remote System Enumeration Behavior",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 353,
+    "code": "DET0575",
+    "name": "Detection Strategy for Netsh Helper DLL Persistence via Registry and Child Process Monitoring (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 28,
+    "code": "DET0576",
+    "name": "Email Forwarding Rule Abuse Detection Across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 161,
+    "code": "DET0577",
+    "name": "Detection Strategy for Hijack Execution Flow through the KernelCallbackTable on Windows.",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 121,
+    "code": "DET0578",
+    "name": "Detection Strategy for Cloud Storage Object Discovery",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 52,
+    "code": "DET0579",
+    "name": "Detection Strategy for Device Driver Discovery",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 675,
+    "code": "DET0580",
+    "name": "Detect Network Provider DLL Registration and Credential Capture",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 191,
+    "code": "DET0581",
+    "name": "Detect One-Way Web Service Command Channels",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 401,
+    "code": "DET0582",
+    "name": "Detection Strategy for T1542.005 Pre-OS Boot: TFTP Boot",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 519,
+    "code": "DET0583",
+    "name": "Detection Strategy for T1136 - Create Account across platforms",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 313,
+    "code": "DET0584",
+    "name": "Detection Strategy for Resource Forking on macOS",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 565,
+    "code": "DET0585",
+    "name": "Behavior-chain detection strategy for T1127.003 Trusted Developer Utilities Proxy Execution: JamPlus (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 100,
+    "code": "DET0586",
+    "name": "Detection of NTDS.dit Credential Dumping from Domain Controllers",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 307,
+    "code": "DET0587",
+    "name": "Enumeration of User or Account Information Across Platforms",
+    "description": null,
+    "columns": ["8"]
+  },
+  {
+    "id": 124,
+    "code": "DET0588",
+    "name": "Detection of Remote Service Session Hijacking for RDP.",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 326,
+    "code": "DET0589",
+    "name": "Detect Modification of Authentication Process via Reversible Encryption",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 583,
+    "code": "DET0590",
+    "name": "Behavioral Detection of External Website Defacement across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 496,
+    "code": "DET0591",
+    "name": "Cross-Platform Behavioral Detection of File Timestomping via Metadata Tampering",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 303,
+    "code": "DET0592",
+    "name": "Detection Strategy for Data from Configuration Repository on Network Devices",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 267,
+    "code": "DET0593",
+    "name": "Detecting OS Credential Dumping via /proc Filesystem Access on Linux",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 456,
+    "code": "DET0594",
+    "name": "Detection of Unauthorized DCSync Operations via Replication API Abuse",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 645,
+    "code": "DET0595",
+    "name": "Detection Strategy for Exploitation for Stealth",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 350,
+    "code": "DET0596",
+    "name": "Behavioral Detection of Remote SSH Logins Followed by Post-Login Execution",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 312,
+    "code": "DET0597",
+    "name": "Detect Unauthorized Access to Password Managers",
+    "description": null,
+    "columns": ["3"]
+  },
+  { "id": 347, "code": "DET0805", "name": "Detection of Code Repositories", "description": null, "columns": ["1"] },
+  {
+    "id": 300,
+    "code": "DET0806",
+    "name": "Detection of Determine Physical Locations",
+    "description": null,
+    "columns": ["1"]
+  },
+  { "id": 637, "code": "DET0807", "name": "Detection of Identify Roles", "description": null, "columns": ["1"] },
+  { "id": 688, "code": "DET0808", "name": "Detection of Vulnerabilities", "description": null, "columns": ["1"] },
+  { "id": 597, "code": "DET0809", "name": "Detection of CDNs", "description": null, "columns": ["1"] }
+]

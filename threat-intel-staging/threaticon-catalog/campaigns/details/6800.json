@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:19:18.500Z",
+  "name": "aurora: Bretford Manufacturing",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 29, 2026",
+  "lastSeen": "Jul 29, 2026",
+  "added": "Jul 30, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: US | Sector: Manufacturing | Website: Bretford Manufacturing | Bretford Manufacturing, Inc. is a privately held manufacturer of charging solutions for mobile devices, founded in 1948 and headquartered in Franklin Park, Illinois. With ~60 employees and ~$10M annual revenue, it serves education, healthcare, retail, and government sectors. The exposed material includes: Social Security Numbers for the entire workforce (current + 200–400 historical employees + dependents) via ACA Census files, 1099 forms, and payroll records spanning 2010–2026. Corporate and vendor bank accounts — Bretford's own checking account (routing + account number) plus 26+ vendor bank accounts from NACHA ACH batch files. Complete network architecture — VPN gateway IP, internal topology diagram, IP allocation tables, infrastructure inventory, disaster recovery plan, and Active Directory domain name. 20 years of HR records including medical leave, disability accomm..."
+}

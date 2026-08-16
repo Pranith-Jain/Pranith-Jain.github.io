@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3743,
+    "name": "safepay: ettp.be",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: BE | Sector: Not Found | Website: ettp.be | Infostealer data confirmed. | Appears to be a Belgian-based entity likely involved in professional training, technology consulting, or industrial services. While detailed public data … | Source: https://www.ransomware.live/id/ZXR0cC5iZUBzYWZlcGF5"
+  },
+  {
+    "id": 3742,
+    "name": "safepay: mbk-gmbh.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Business Services | Website: mbk-gmbh.de | Infostealer data confirmed. | Is a German industrial company specializing in metal processing and surface finishing technologies. The company provides services such as galvanizing, … | Source: https://www.ransomware.live/id/bWJrLWdtYmguZGVAc2FmZXBheQ=="
+  },
+  {
+    "id": 3741,
+    "name": "safepay: id-s.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Technology | Website: id-s.de | Infostealer data confirmed. | Is a German company operating in the field of digital technologies and IT-related services. Although detailed public information is limited, … | Source: https://www.ransomware.live/id/aWQtcy5kZUBzYWZlcGF5"
+  },
+  {
+    "id": 3740,
+    "name": "SilentRansomGroup: Sandberg Phoenix Information",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: sandbergphoenix.com | Infostealer data confirmed. | Over 45 years providing superior legal services to clients of every size throughout the Midwest and ac… | Source: https://www.ransomware.live/id/U2FuZGJlcmcgUGhvZW5peCBJbmZvcm1hdGlvbkBTaWxlbnRSYW5zb21Hcm91cA=="
+  },
+  {
+    "id": 3739,
+    "name": "SilentRansomGroup: Farella Braun + Martel LLP Information",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Farella Braun + Martel LLP is a leading Northern California law firm representing corporate and privat… | Source: https://www.ransomware.live/id/RmFyZWxsYSBCcmF1biArIE1hcnRlbCBMTFAgSW5mb3JtYXRpb25AU2lsZW50UmFuc29tR3JvdXA="
+  },
+  {
+    "id": 3738,
+    "name": "safepay: jmige.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Not Found | Website: jmige.com | Infostealer data confirmed. | JMIGE appears to be a company with limited publicly available information, making precise classification difficult. Based on naming conventions and … | Source: https://www.ransomware.live/id/am1pZ2UuY29tQHNhZmVwYXk="
+  },
+  {
+    "id": 3737,
+    "name": "safepay: gingerichtrucking.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: US | Sector: Transportation/Logistics | Website: gingerichtrucking.com | Infostealer data confirmed. | Is a U.S.-based freight transportation company operating primarily in interstate logistics. The company specializes in hauling general freight, agricultural products … | Source: https://www.ransomware.live/id/Z2luZ2VyaWNodHJ1Y2tpbmcuY29tQHNhZmVwYXk="
+  },
+  {
+    "id": 3753,
+    "name": "qilin: Time-Cap Labs",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.timecaplabs.com | N/A | Source: https://www.ransomware.live/id/VGltZS1DYXAgTGFic0BxaWxpbg=="
+  },
+  {
+    "id": 3752,
+    "name": "qilin: Panal Seguros S.A.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PY | Sector: Financial Services | Website: www.panalseguros.com.py | N/A | Source: https://www.ransomware.live/id/UGFuYWwgU2VndXJvcyBTLkEuQHFpbGlu"
+  },
+  {
+    "id": 3736,
+    "name": "safepay: smp.cat",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: ES | Sector: Not Found | Website: smp.cat | Infostealer data confirmed. | Is a private healthcare organization based in Catalonia, Spain, operating in the Hospitals & Physicians Clinics sector. Founded in 1993 … | Source: https://www.ransomware.live/id/c21wLmNhdEBzYWZlcGF5"
+  },
+  {
+    "id": 3735,
+    "name": "m3rx: alge-stop.dk",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: DK | Sector: Consumer Services | Website: alge-stop.dk | Infostealer data confirmed. | +45 22100211 . Alge-Stop helps homeowners and businesses keep their outdoor surfaces clean and protected. They remove algae and moss from roofs, walls, tiles, and paving stones, making surfaces look fresh and new. With their special treatment and cleaning process, Alge-Stop offers up to 20 years of protection, helping customers maintain the beauty and integrity of their property Stolen: 73gb 7100 files | Source: https://www.ransomware.live/id/YWxnZS1zdG9wLmRrQG0zcng="
+  },
+  {
+    "id": 3734,
+    "name": "m3rx: kbtoys.com.au",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: AU | Sector: Consumer Services | Website: kbtoys.com.au | Infostealer data confirmed. | +61 295250878. We offer a wide selection of toys and giftware that would be suitable for birthdays, Christmas and celebrations of all sorts. We also accommodate shopping tours by appointment. If you're looking for toys for a social club or special function, please feel encouraged to give us a call or use the contact form on the right. Come in and visit our factory outlet located at: Unit 4, 60 Box Rd, Taren Point NSW Stolen: 140gb 36840 files | Source: https://www.ransomware.live/id/a2J0b3lzLmNvbS5hdUBtM3J4"
+  },
+  {
+    "id": 3733,
+    "name": "m3rx: datasavior.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: US | Sector: Technology | Website: datasavior.com | Infostealer data confirmed. | +1 (512) 707-0026. Datasavior is a full-service systems integration company based in Austin, Texas, specializing in IT support and fiber cable installations. They offer comprehensive solutions for medical and dental office IT, including practice management, data backup services, and advanced antivirus software. Their target clients include businesses in need of reliable technology solutions and support, particularly in the healthcare sector. With a team of skilled technicians, Datasavior aims to help clients optimize their technology for current and future needs. Stolen: 540mb 1,410 Files | Source: https://www.ransomware.live/id/ZGF0YXNhdmlvci5jb21AbTNyeA=="
+  },
+  {
+    "id": 3732,
+    "name": "m3rx: pvdd.ca",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to m3rx. | Country: CA | Sector: Not Found | Website: pvdd.ca | Infostealer data confirmed. | +1 (604) 894-6632. Pemberton Valley Dyking District is an autonomous local government body dedicated to maintaining, adapting, and upgrading flood protection systems for the Pemberton Valley community. The organization provides essential services aimed at safeguarding residents from flood risks. It operates through a Board of Trustees and engages with the public during monthly meetings. The district also offers resources and real-time information during high water events to ensure community safety. Stolen: 148gb 50080 files | Source: https://www.ransomware.live/id/cHZkZC5jYUBtM3J4"
+  },
+  {
+    "id": 3731,
+    "name": "akira: Grau GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Manufacturing | Grau GmbH is a Retail, and Furniture and Home Furnishings Manufacturing company located in Hamb urg. We will upload 19gb of corporate data soon. Employee personal information (German passports and other information), projects, financials, client data and so on. | Source: https://www.ransomware.live/id/R3JhdSBHbWJIQGFraXJh"
+  }
+]

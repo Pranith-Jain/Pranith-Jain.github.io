@@ -1,0 +1,9 @@
+{
+  "id": 1669,
+  "name": "T1567.001 - Exposed account access through brute force or credential stuffing, potentially related to RDP services targeted by Mocha Manakin",
+  "techniqueId": "T1567",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1669"
+}

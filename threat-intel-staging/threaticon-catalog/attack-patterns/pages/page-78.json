@@ -1,0 +1,99 @@
+[
+  {
+    "id": 1339,
+    "name": "T1093.001 - OS Credential Dumping: Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1093",
+    "status": null
+  },
+  {
+    "id": 2259,
+    "name": "T1093.001 - Valid Accounts: Account Access Removal or Modification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1093",
+    "status": null
+  },
+  {
+    "id": 1783,
+    "name": "T1093.001 - Valid Accounts; credential dumping via mimikatz",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1093",
+    "status": null
+  },
+  { "id": 1922, "name": "T1093.004", "tlp": "white", "confidence": null, "techniqueId": "T1093", "status": null },
+  { "id": 2139, "name": "T1093.005", "tlp": "white", "confidence": null, "techniqueId": "T1093", "status": null },
+  { "id": 2213, "name": "T1094", "tlp": "white", "confidence": null, "techniqueId": "T1094", "status": null },
+  { "id": 1710, "name": "T1094.001", "tlp": "white", "confidence": null, "techniqueId": "T1094", "status": null },
+  {
+    "id": 2047,
+    "name": "T1094.004 - Exfiltration over Network Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1094",
+    "status": null
+  },
+  {
+    "id": 523,
+    "name": "Non-Application Layer Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1095",
+    "status": null
+  },
+  {
+    "id": 1798,
+    "name": "T1095 -redential Dumping: OS Credential Hash Collection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1095",
+    "status": null
+  },
+  { "id": 1585, "name": "T1095.001", "tlp": "white", "confidence": null, "techniqueId": "T1095", "status": null },
+  {
+    "id": 1706,
+    "name": "T1095: Non-Application Layer Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1095",
+    "status": null
+  },
+  { "id": 2119, "name": "T1096", "tlp": "white", "confidence": null, "techniqueId": "T1096", "status": null },
+  {
+    "id": 1714,
+    "name": "T1096.001 - OS Credential Dumping: Windows Credentials via LSASS Memory",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1096",
+    "status": null
+  },
+  { "id": 1528, "name": "T1097", "tlp": "white", "confidence": null, "techniqueId": "T1097", "status": null },
+  {
+    "id": 1581,
+    "name": "T1097 - Valid Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1097",
+    "status": null
+  },
+  { "id": 1820, "name": "T1097.001", "tlp": "white", "confidence": null, "techniqueId": "T1097", "status": null },
+  { "id": 1907, "name": "T1097.005", "tlp": "white", "confidence": null, "techniqueId": "T1097", "status": null },
+  {
+    "id": 436,
+    "name": "Account Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1098",
+    "status": null
+  },
+  {
+    "id": 2188,
+    "name": "T1098 - Use of credentials brute force",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1098",
+    "status": null
+  }
+]

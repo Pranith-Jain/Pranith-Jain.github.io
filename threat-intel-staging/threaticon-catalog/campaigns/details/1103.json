@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:03:50.872Z",
+  "name": "qilin: Die Linke",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Public Sector | Website: www.die-linke.de | Press: https://www.heise.de/news/Qilin-Linkspartei-meldet-russischen-Ransomware-Angriff-11227181.html | Source: https://www.ransomware.live/id/RGllIExpbmtlQHFpbGlu"
+}

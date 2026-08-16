@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:20:18.952Z",
+  "name": "CVE-2018-8174 (VBScript Engine) and Exploit Kits",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 25, 2018",
+  "lastSeen": "Jun 2, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #143 (5b0baa6c-c724-4e8c-a59b-03a0c0a8ab16)."
+}

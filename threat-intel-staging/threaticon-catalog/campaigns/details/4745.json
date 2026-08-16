@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:17:25.101Z",
+  "name": "aurora: Sumitomo Electric Bordnetze",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 16, 2026",
+  "lastSeen": "Jun 16, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: DE | Sector: Manufacturing | Website: Sumitomo Electric Bordnetze | [electric] *** SE (SEBN) — a Wolfsburg-headquartered subsidiary of Sumitomo Electric Industries (TSE:5802, ~$31B group revenue), employing approximately 40,000 people across 14 countries. Exfiltrated 1.1 terabytes of data from five manufacturing sites. SEBN Moldova (103 GB) — HR, payroll, personal tax records, competition-council litigation files, home directories SEBN Ukraine (115 GB) — HR/salary, Audi B9 project data, process documentation, including displaced-worker records for Ukrainian IDPs SEBN Tunisia — Fejja (191 GB + 493 GB shared) — passport copies, email archives (671 MB PST), quality/FMEA data, finance SEBN Slovakia (268 GB) — the crown jewel: Citibank corporate banking infrastructure including the TESTKEY authentication system, IBAN registries, daily bank statements, SAP salary-payment files, and years of department email archives The dataset contains 173..."
+}

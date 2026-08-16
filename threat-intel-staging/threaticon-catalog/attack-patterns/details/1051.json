@@ -1,0 +1,9 @@
+{
+  "id": 1051,
+  "fetchedAt": "2026-08-15T06:18:32.165Z",
+  "name": "Task Impersonation",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary, through a previously installed malicious application, impersonates an expected or routine task in an attempt to steal sensitive information or leverage a user's privileges."
+}

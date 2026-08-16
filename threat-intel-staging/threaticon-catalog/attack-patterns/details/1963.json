@@ -1,0 +1,9 @@
+{
+  "id": 1963,
+  "fetchedAt": "2026-08-15T08:22:01.624Z",
+  "name": "T1566.001 - Exfil Data via Encrypted Files (Ransomware encryption)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

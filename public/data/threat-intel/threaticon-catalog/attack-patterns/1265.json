@@ -1,0 +1,9 @@
+{
+  "id": 1265,
+  "name": "OS Command Injection",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. In this type of an attack, an adversary injects operating system commands into existing application functions. An application that uses untrusted input to build command strings is vulnerable. An adversary can leverage OS command injection in an application to elevate privileges, execute arbitrary commands and compromise the underlying operating system.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1265"
+}

@@ -3,9 +3,9 @@
   "name": "chaos: crescentenergyco.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 7, 2026",
+  "lastSeen": "Feb 19, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Energy | Website: www.zoominfo.com/c/crescent-energy/560087910 | Crescent is a growth-oriented U.S. independent energy company engaged in the acquisition, development and operation of oil and natural gas properties. Crescents portfolio of low-decline, cash-flow oriented assets comprises both mid-cycle unconventional and conventional assets with a long reserve lif… | Source: https://www.ransomware.live/id/Y3Jlc2NlbnRlbmVyZ3ljby5jb21AY2hhb3M=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1734"

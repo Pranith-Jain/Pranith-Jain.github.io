@@ -1,0 +1,12 @@
+{
+  "id": 28,
+  "fetchedAt": "2026-08-14T05:08:43.515Z",
+  "name": "Snapshot Creation",
+  "tlp": null,
+  "dcId": "DC0057",
+  "analyticCount": 4,
+  "strategyCount": 4,
+  "added": null,
+  "description": "The process of taking a point-in-time copy of a cloud storage volume (files, settings, configurations, etc.), virtual machine (VM), or database that can be created and deployed in cloud environments.",
+  "analytics": ["AN0727", "AN0861", "AN1187", "AN1580"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 43,
+  "fetchedAt": "2026-08-14T05:25:48.869Z",
+  "name": "Detection Strategy for Network Sniffing Across Platforms",
+  "tlp": null,
+  "detId": "DET0314",
+  "stixId": "x-mitre-detection-strategy--49505f6d-b778-4a84-a072-9236b700e7b5",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0875", "AN0876", "AN0877", "AN0878", "AN0879"]
+}

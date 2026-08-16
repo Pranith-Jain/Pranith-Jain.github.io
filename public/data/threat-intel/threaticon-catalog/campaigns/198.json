@@ -3,9 +3,9 @@
   "name": "everest: Symcor",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 2, 2026",
+  "lastSeen": "May 2, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to everest. | Country: CA | Sector: Business Services | Website: symcor.ca | Infostealer data confirmed. | [AI generated] Symcor is a Canadian business process outsourcing company that provides payment processing, data management, and document services primarily to financial institutions. Founded in 1996 and headquartered in Mississauga, Ontario, it serves major banks and other clients across Canada. Its core services include cheque processing, statement production, and digital transaction solutions, helping organizations streamline operations and manage large volumes of financial data securely. | Source: https://www.ransomware.live/id/U3ltY29yQGV2ZXJlc3Q=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/198"

@@ -1,0 +1,12 @@
+{
+  "id": 150,
+  "fetchedAt": "2026-08-14T05:54:34.492Z",
+  "name": "Detection of Malware Relocation via Suspicious File Movement",
+  "tlp": null,
+  "detId": "DET0439",
+  "stixId": "x-mitre-detection-strategy--3fa3299e-a8c2-4555-890b-544314ae1e44",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1216", "AN1217", "AN1218", "AN1219"]
+}

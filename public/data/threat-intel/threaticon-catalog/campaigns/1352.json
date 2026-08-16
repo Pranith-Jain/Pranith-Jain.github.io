@@ -3,10 +3,10 @@
   "name": "incransom: cerboniservices.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 24, 2026",
+  "lastSeen": "Mar 24, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Hospitality and Tourism | Website: cerboniservices.com | Infostealer data confirmed. | Cerboni specializes in providing expert bookkeeping, tax, and CFO services tailored for the restaurant and hospitality industries, while also serving a diverse range of sectors including retail, healthcare, and construction. The company focuses on optimizing profitability, strengthening financial controls, and driving sustainable growth for its clients. With a commitment to delivering clear financial insights and strategic support, Cerboni partners with businesses to enhance their operational efficiency and long-term success. Their comprehensive services include payroll management, inventory control, tax compliance, and IRS audit support. | Source: https://www.ransomware.live/id/Y2VyYm9uaXNlcnZpY2VzLmNvbUBpbmNyYW5zb20=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1352"
 }

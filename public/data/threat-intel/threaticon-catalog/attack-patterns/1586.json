@@ -1,0 +1,9 @@
+{
+  "id": 1586,
+  "name": "T1068.003 (Email Phishing)",
+  "techniqueId": "T1068",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1586"
+}

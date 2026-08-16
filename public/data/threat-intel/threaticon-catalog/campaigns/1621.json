@@ -3,10 +3,10 @@
   "name": "akira: Extreme Trailers",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 12, 2026",
+  "lastSeen": "Feb 11, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: GB | Sector: Manufacturing | Website: extremetrailersllc.com | Infostealer data confirmed. | Extreme Trailers, LLC is located in Dover, Ohio and is a leader i n innovative design and high-quality manufacturing of equipment f or the flatbed trailer market. Established in 2016 in Dover, Ohio , the company manufactures a diverse range of products, including : an innovative, patent-pending design trademarked as the X-Lite flatbed trailer, aluminum drop deck trailers, aluminum and custom designs. We will upload 15gb of corporate data soon. Lots of employee scan ned docs (passports, DLs, SSNs, w9, i9 forms, medical information for a few dozens of people), project docs contracts and agreemen ts, a bit of client information and so on. | Source: https://www.ransomware.live/id/RXh0cmVtZSBUcmFpbGVyc0Bha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1621"
 }

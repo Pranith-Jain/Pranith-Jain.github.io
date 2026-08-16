@@ -1,11 +1,11 @@
 {
   "id": 3318,
   "name": "OSINT - Prince of Persia: Infy Malware Active In Decade of Targeted Attacks",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 2, 2016",
+  "lastSeen": "May 2, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #543 (572754de-6fb8-4e96-887f-45ec950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3318"

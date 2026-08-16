@@ -1,0 +1,9 @@
+{
+  "id": 2873,
+  "name": "T1566.001 - Spear‑phishing via Email",
+  "techniqueId": "T1566",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2873"
+}

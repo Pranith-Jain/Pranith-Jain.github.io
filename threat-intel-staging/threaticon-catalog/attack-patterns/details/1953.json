@@ -1,0 +1,9 @@
+{
+  "id": 1953,
+  "fetchedAt": "2026-08-15T07:09:17.284Z",
+  "name": "T1059.003 - Process Injection: Packers (e.g., compression or encoding)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

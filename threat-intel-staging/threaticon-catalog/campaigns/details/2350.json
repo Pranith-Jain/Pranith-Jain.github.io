@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:07.438Z",
+  "name": "Malspam 2016-06-29 (campaign subject: 'Financial report')",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 29, 2016",
+  "lastSeen": "Jun 29, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #595 (5773b18a-9710-4337-ae4c-4014950d210f)."
+}

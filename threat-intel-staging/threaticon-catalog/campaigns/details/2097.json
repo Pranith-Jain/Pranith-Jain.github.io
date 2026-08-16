@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:21:08.476Z",
+  "name": "Criminals in a festive mood",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 12, 2017",
+  "lastSeen": "Dec 12, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #121 (5a30207d-92d8-4817-9060-8d1bc0a8ab16)."
+}

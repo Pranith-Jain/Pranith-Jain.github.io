@@ -493,9 +493,9 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           )}
         </SnapshotCard>
 
-        {/* Cybersec Telegram firehose - links to the dedicated /threatintel/cybersec
-            page which has the full filterable view; the Telegram catalog
-            (/threatintel/telegram-watch) is the channel-discovery surface, not the
+        {/* Cybersec Telegram firehose - links to the Telegram hub firehose
+            (/threatintel/telegram) which has the full merged stream; the
+            Telegram catalog is the channel-discovery surface, not the
             message stream. */}
         <SnapshotCard
           accent="sky"

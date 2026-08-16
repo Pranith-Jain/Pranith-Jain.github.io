@@ -1,0 +1,9 @@
+{
+  "id": 1743,
+  "name": "T1046.configuration信息收集",
+  "techniqueId": "T1046",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1743"
+}

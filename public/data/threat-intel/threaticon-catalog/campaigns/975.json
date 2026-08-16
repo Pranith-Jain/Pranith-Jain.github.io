@@ -3,10 +3,10 @@
   "name": "lynx: www.smithdollar.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 7, 2026",
+  "lastSeen": "Apr 7, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lynx. | Country: US | Sector: Financial Services | Website: www.smithdollar.com | Smith Dollar is a Santa Rosa law firm that provides comprehensive legal services to businesses and individuals throughout Northern California. The firm specializes in various practice areas including construction law, employment and labor law, business law, personal injury, real estate law, and estate planning. With a team of experienced attorneys, Smith Dollar is dedicated to offering strategic legal counsel and representation tailored to the needs of its clients, which range from contractors and business owners to individuals facing legal challenges. Established in 2005, the firm prides itself on its commitment to excellence and client-oriented service. | Source: https://www.ransomware.live/id/d3d3LnNtaXRoZG9sbGFyLmNvbUBseW54",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/975"
 }

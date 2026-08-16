@@ -1,0 +1,9 @@
+{
+  "id": 2026,
+  "name": "T1508.001",
+  "techniqueId": "T1508",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2026"
+}

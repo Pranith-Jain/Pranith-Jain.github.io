@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2791,
+    "name": "OSINT - First Kotlin-Developed Malicious App Signs Users Up for Premium SMS Services",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1285 (5a57af9d-a0ec-4e54-a44d-483302de0b81)."
+  },
+  {
+    "id": 2790,
+    "name": "OSINT - MICROCIN MALWARE",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1284 (5a54ad87-3328-4dde-aa9f-4a7e950d210f)."
+  },
+  {
+    "id": 2789,
+    "name": "OSINT - A North Korean Monero Cryptocurrency Miner",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1283 (5a54778c-3dac-4d36-b7c3-4d6e02de0b81)."
+  },
+  {
+    "id": 2788,
+    "name": "Threat Analysis: Malicious Microsoft Word Documents Being Used in Targeted Attack Campaigns",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1282 (5a462890-bb44-47c7-ba3b-21bda5fe7088)."
+  },
+  {
+    "id": 2787,
+    "name": "OSINT - Sednit espionage group now using custom exploit kit",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1280 (5a3cc84d-2434-4ae6-8d76-c328950d210f)."
+  },
+  {
+    "id": 2786,
+    "name": "OSINT - Locky Ransomware Pushed Alongside FakeGlobe in Upgraded Spam Campaigns",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1279 (5a3bd35f-7140-48d0-8b88-4555950d210f)."
+  },
+  {
+    "id": 2785,
+    "name": "OSINT - Rise of One More Mirai Worm Variant",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1276 (5a3a3aca-a210-497a-9715-452c950d210f)."
+  },
+  {
+    "id": 2784,
+    "name": "OSINT - How Mobile Bankbots Disguise as Perfectly Trustworthy Apps",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1275 (5a3a297f-95a8-418e-a949-484f950d210f)."
+  },
+  {
+    "id": 2783,
+    "name": "OSINT - Banking malware on Google Play targets Polish banks",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1274 (5a39216d-e93c-4046-8ff5-bfd8950d210f)."
+  },
+  {
+    "id": 2782,
+    "name": "OSINT - Malspam pushing Locky ransomware tries HoeflerText notifications for Chrome and FireFox",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1273 (5a37cd2b-208c-44c1-a08c-41d0950d210f)."
+  },
+  {
+    "id": 2781,
+    "name": "OSINT - The Emotet Banking Trojan: Analysis of Dropped Malware Morphing at Scale",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1272 (5a391a35-45c8-4e0b-b580-4cdc950d210f)."
+  },
+  {
+    "id": 2780,
+    "name": "OSINT - Zeus Panda Banking Trojan Targets Online Holiday Shoppers",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1271 (5a390de6-4a58-4a19-89fb-4620950d210f)."
+  },
+  {
+    "id": 2779,
+    "name": "OSINT - GratefulPOS credit card stealing malware - just in time for the shopping season",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1270 (5a38dd78-f12c-4c15-8b98-c4d6950d210f)."
+  },
+  {
+    "id": 2778,
+    "name": "OSINT - Still stealing",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1269 (5a38ca48-6680-437d-9e0f-483c950d210f)."
+  },
+  {
+    "id": 2777,
+    "name": "OSINT - RIG exploit kit distributes Princess ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1267 (5a3797c2-e770-4722-9435-4350950d210f)."
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:28:26.923Z",
+  "name": "Scraper: Black Basta Ransomware | Attacks Deploy Custom EDR Evasion Tools Tied to FIN7 Threat Actor - SentinelOne",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 1, 2022",
+  "lastSeen": "Nov 1, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #336 (99138053-ae5d-4bcf-b2f8-0954edb204bc)."
+}

@@ -3,9 +3,9 @@
   "name": "lockbit5: praxis-oberhof.ch",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: CH | Sector: Healthcare | Website: praxis-oberhof.ch | Infostealer data confirmed. | Unser Leitbild Der Besuch in der Zahnarztpraxis als ein Glücksmoment: Fachlich bestens umsorgt, gu... | Source: https://www.ransomware.live/id/cHJheGlzLW9iZXJob2YuY2hAbG9ja2JpdDU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1214"

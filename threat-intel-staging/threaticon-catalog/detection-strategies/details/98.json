@@ -1,0 +1,12 @@
+{
+  "id": 98,
+  "fetchedAt": "2026-08-14T05:57:30.103Z",
+  "name": "Detect Abuse of Dynamic Data Exchange (T1559.002)",
+  "tlp": null,
+  "detId": "DET0504",
+  "stixId": "x-mitre-detection-strategy--3f3ebc58-fff0-4083-bc5c-ee7308026a20",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1393"]
+}

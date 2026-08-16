@@ -40,7 +40,6 @@ import {
   KeyRound,
   Layers,
   LayoutDashboard,
-  LineChart,
   Link as LinkIcon,
   List,
   Lock as LockIcon,
@@ -118,7 +117,6 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   // Actors
   '/threatintel/actors/hub': Users,
   '/threatintel/actors/attribution': Telescope,
-  '/threatintel/actors/catalog': BookOpen,
   '/threatintel/apt-actors': Shield,
   '/threatintel/aptmap': Crosshair,
   // Campaigns
@@ -245,7 +243,6 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/predictive/certstream': ShieldCheck,
   '/threatintel/predictive/pir': List,
   '/threatintel/predictive/metrics': BarChartIcon,
-  '/threatintel/predictive/analytics': LineChart,
   '/threatintel/predictive/predictions': TrendingUp,
   '/threatintel/predictive/predictive': Sparkles,
   '/threatintel/predictive/analyze': Search,
@@ -265,8 +262,8 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
 
   '/threatintel/about': Scale,
   '/threatintel/tools/settings': Settings,
-  '/threatintel/soc-dashboard': LayoutDashboard,
   '/threatintel/live-center': Globe,
+  '/threatintel/soc-dashboard': LayoutDashboard,
   '/threatintel/ti-dashboard': ShieldAlert,
 };
 

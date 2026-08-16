@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:09:48.689Z",
+  "name": "Malspam 2016-07-18 .wsf (campaign: \"bank account report\")",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 18, 2016",
+  "lastSeen": "Jul 18, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #610 (578cca12-1490-4cee-85de-4c29950d210f)."
+}

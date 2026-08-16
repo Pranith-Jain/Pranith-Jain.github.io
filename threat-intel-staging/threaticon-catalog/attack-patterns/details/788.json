@@ -1,0 +1,9 @@
+{
+  "id": 788,
+  "fetchedAt": "2026-08-15T06:07:07.547Z",
+  "name": "White Box Reverse Engineering",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An attacker discovers the structure, function, and composition of a type of computer software through white box analysis techniques. White box techniques involve methods which can be applied to a piece of software when an executable or some other compiled object can be directly subjected to analysis, revealing at least a portion of its machine instructions that can be observed upon execution."
+}

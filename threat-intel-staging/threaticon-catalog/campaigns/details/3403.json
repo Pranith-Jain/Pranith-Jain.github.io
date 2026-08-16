@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:20.226Z",
+  "name": "OSINT Morpho: Profiting from high-level corporate attacks by Symantec",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 8, 2015",
+  "lastSeen": "Jul 8, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #678 (559d537c-f570-4e97-8154-98d9950d210b)."
+}

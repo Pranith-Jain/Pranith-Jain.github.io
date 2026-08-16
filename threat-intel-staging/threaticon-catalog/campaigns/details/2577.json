@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:01:42.749Z",
+  "name": "OSINT - New Mac backdoor using antiquated code",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 18, 2017",
+  "lastSeen": "Jan 18, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #964 (587fc1b5-fd10-42e7-8184-637702de0b81)."
+}

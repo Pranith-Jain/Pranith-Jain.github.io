@@ -3,9 +3,9 @@
   "name": "SilentRansomGroup: Fagen Friedman & Fulfrost LLP",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Apr 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: f3law.com | Infostealer data confirmed. | [AI generated] Fagen Friedman & Fulfrost LLP is a California-based law firm specializing in education law. The firm provides legal services exclusively to public educational agencies, including K-12 school districts, community colleges, and county offices of education throughout California. Its practice areas include labor and employment, special education, student matters, governance, and litigation. The firm operates entirely within the United States. | Source: https://www.ransomware.live/id/RmFnZW4gRnJpZWRtYW4gJiBGdWxmcm9zdCBMTFBAU2lsZW50UmFuc29tR3JvdXA=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/680"

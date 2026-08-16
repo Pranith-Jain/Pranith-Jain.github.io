@@ -1,0 +1,12 @@
+{
+  "id": 436,
+  "fetchedAt": "2026-08-14T05:59:52.720Z",
+  "name": "Behavior-chain detection strategy for T1127.001 Trusted Developer Utilities Proxy Execution: MSBuild (Windows)",
+  "tlp": null,
+  "detId": "DET0556",
+  "stixId": "x-mitre-detection-strategy--5fb0bb0d-cc9c-47aa-86f2-567b4ee642ff",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1535"]
+}

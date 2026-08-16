@@ -3,9 +3,9 @@
   "name": "qilin: Bluize",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 13, 2026",
+  "lastSeen": "May 13, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Technology | Website: www.bluize.com.au | N/A | Source: https://www.ransomware.live/id/Qmx1aXplQHFpbGlu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3557"

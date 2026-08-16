@@ -1,0 +1,9 @@
+{
+  "id": 1363,
+  "name": "T1059.003 - Command-Line Interface Tools Allowing Code Execution: Windows Management Instrumentation",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1363"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:19:58.631Z",
+  "name": "OSINT APT Bestia used in APT attacks on Polish Government",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 19, 2014",
+  "lastSeen": "Mar 19, 2014",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #152 (56d61087-d19c-4552-9802-48fe02de0b81)."
+}

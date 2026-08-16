@@ -1,0 +1,12 @@
+{
+  "id": 194,
+  "fetchedAt": "2026-08-14T05:58:33.137Z",
+  "name": "Right-to-Left Override Masquerading Detection via Filename and Execution Context",
+  "tlp": null,
+  "detId": "DET0527",
+  "stixId": "x-mitre-detection-strategy--c3c32822-80b2-4399-8e82-15cefaa80333",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1461", "AN1462", "AN1463"]
+}

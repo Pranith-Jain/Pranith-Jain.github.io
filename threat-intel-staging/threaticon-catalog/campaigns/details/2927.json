@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:50:16.325Z",
+  "name": "HermeticWiper",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Feb 25, 2022",
+  "lastSeen": "Feb 25, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1670 (a097dd7c-8e29-40eb-a70d-1fb0b5cca689)."
+}

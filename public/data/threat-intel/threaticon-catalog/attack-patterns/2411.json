@@ -1,0 +1,9 @@
+{
+  "id": 2411,
+  "name": "T1055.003: Abuse of Hyper-V or VMware Tools to bypass EDR",
+  "techniqueId": "T1055",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2411"
+}

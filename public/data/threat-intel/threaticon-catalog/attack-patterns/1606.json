@@ -1,0 +1,9 @@
+{
+  "id": 1606,
+  "name": "T1584.005: Botnet",
+  "techniqueId": "T1584",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1606"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1785,
+  "name": "T1566.001 - Data Exfiltration over Network Boundary using APIs",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1785"
+}

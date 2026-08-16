@@ -3,9 +3,9 @@
   "name": "thegentlemen: Fabritius",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "Apr 29, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: BE | Sector: Manufacturing | Website: fabritius.be | Infostealer data confirmed. | fabritius.be ETS Fabritius SPRL is a Belgian family-owned company founded in 1976, with roots going back to 1945. For over 50 years, it has manufactured and sold temperature measurement equipment — including thermocouples, resistance thermometers, converters, regulators, and connectors. The business has been passed down through three generations of the Fabritius family, combining deep product expertise with a commitment to quality and flexible customer service | Source: https://www.ransomware.live/id/RmFicml0aXVzQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3781"

@@ -1,0 +1,9 @@
+{
+  "id": 1020,
+  "name": "Signature Spoofing by Key Theft",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1020"
+}

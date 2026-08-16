@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:54:20.634Z",
+  "name": "Bad Rabbit (via Pastebin)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 25, 2017",
+  "lastSeen": "Oct 25, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1225 (59f02f94-544c-4db8-b156-46ce950d210f)."
+}

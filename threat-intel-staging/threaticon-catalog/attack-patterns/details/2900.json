@@ -1,0 +1,9 @@
+{
+  "id": 2900,
+  "fetchedAt": "2026-08-15T07:22:30.200Z",
+  "name": "T1071.001 – Application Layer Protocol (HTTP/HTTPS) C2",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

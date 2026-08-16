@@ -1,0 +1,12 @@
+{
+  "id": 152,
+  "fetchedAt": "2026-08-14T05:18:05.967Z",
+  "name": "Detection Strategy for Disk Wipe via Direct Disk Access and Destructive Commands",
+  "tlp": null,
+  "detId": "DET0137",
+  "stixId": "x-mitre-detection-strategy--da01afef-b769-4d31-964d-901fabaf6a8f",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0384", "AN0385", "AN0386", "AN0387"]
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2406,
+  "name": "T1568.001 - Service Manipulation",
+  "techniqueId": "T1568",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2406"
+}

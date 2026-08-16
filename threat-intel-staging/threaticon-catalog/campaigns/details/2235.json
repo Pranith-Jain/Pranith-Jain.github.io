@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:15:10.077Z",
+  "name": "Untangling KNOTWEED: European private-sector offensive actor using 0-day exploits",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 27, 2022",
+  "lastSeen": "Jul 27, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #349 (cc55d271-bff7-4045-b449-ee50dd0149e1)."
+}

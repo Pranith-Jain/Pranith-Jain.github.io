@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:40:33.697Z",
+  "name": "OSINT - Sorpresa! JasperLoader targets Italy with a new bag of tricks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 25, 2019",
+  "lastSeen": "May 25, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1518 (5ce8f7f8-8584-40c3-b33b-4660950d210f)."
+}

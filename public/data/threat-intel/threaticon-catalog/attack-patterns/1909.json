@@ -1,0 +1,9 @@
+{
+  "id": 1909,
+  "name": "T1059.003 - Remote Desktop Protocol (RDP)",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1909"
+}

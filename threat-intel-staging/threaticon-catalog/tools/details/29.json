@@ -1,0 +1,12 @@
+{
+  "id": 29,
+  "fetchedAt": "2026-08-14T05:03:03.249Z",
+  "name": "dsquery",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "dsquery.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "dsquery is a command-line utility that can be used to query Active Directory for information from a system within a domain. (Citation: TechNet Dsquery) It is typically installed only on Windows Server versions but can be installed on non-server variants through the Microsoft-provided Remote Server Administration Tools bundle."
+}

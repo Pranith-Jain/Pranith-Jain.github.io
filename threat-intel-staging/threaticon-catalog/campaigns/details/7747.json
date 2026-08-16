@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:33:52.582Z",
+  "name": "clop: FISERV.COM",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 12, 2026",
+  "lastSeen": "Aug 12, 2026",
+  "added": "Aug 12, 2026",
+  "description": "Ransomware attack attributed to clop. | Country: US | Sector: Financial Services | Website: FISERV.COM | [AI generated] Fiserv is a leading American financial technology company headquartered in Milwaukee, Wisconsin. It provides payment processing, banking software, and financial services technology to banks, credit unions, merchants, and other financial institutions worldwide. Its services include core banking systems, digital payments, card processing, and data analytics. Fiserv operates globally and is listed on the NASDAQ stock exchange. | Source: https://www.ransomware.live/id/RklTRVJWLkNPTUBjbG9w"
+}

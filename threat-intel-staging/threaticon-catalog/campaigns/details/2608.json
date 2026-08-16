@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:00:19.702Z",
+  "name": "OSINT - RawPOS Malware Rides Again",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 9, 2017",
+  "lastSeen": "Mar 9, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1015 (58ceba55-4618-4c0d-8dc7-61b102de0b81)."
+}

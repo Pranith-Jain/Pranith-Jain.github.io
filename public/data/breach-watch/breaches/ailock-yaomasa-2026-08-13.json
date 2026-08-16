@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5a8d298e-90a4-4236-89c3-f3880a0c78c0",
+  "description": "Yaomasa is a Japanese supermarket chain founded in 1919 that offers fresh foods, general groceries, and daily necessities, while also operating TSUTAYA and BOOKOFF franchise stores as part of its cultural division.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Not Found",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

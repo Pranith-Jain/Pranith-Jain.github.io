@@ -1,0 +1,9 @@
+{
+  "id": 1546,
+  "name": "T1093 - Registry Run Keys / Startup Folder",
+  "techniqueId": "T1093",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1546"
+}

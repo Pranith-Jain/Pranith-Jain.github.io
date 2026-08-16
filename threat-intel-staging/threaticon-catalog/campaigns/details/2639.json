@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:58:57.190Z",
+  "name": "OSINT - Neo23x0 Yara Rule Set and Sigma Rule Set - WannaCry",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 14, 2017",
+  "lastSeen": "May 14, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1059 (59188096-18dc-47dc-9a67-beaf950d210f)."
+}

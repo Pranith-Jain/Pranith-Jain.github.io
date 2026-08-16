@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T11:47:45.258Z",
+  "name": "Global Secret Group: OFS",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Manufacturing | Website: ofs.com | Infostealer data confirmed. | Country: Indiana, United States | Website: ofs.com | Revenue: $517.1 Million | Industry: Furniture,Manufacturing,Transportation | Employees: 1K - 5K | Properties: 321 GB (322,742 Files, 18,081 Folders) | Source: https://www.ransomware.live/id/T0ZTQEdsb2JhbCBTZWNyZXQgR3JvdXA="
+}

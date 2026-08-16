@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3418,
+    "name": "OSINT The Casino Malvertising Campaign by MalwareBytes",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #693 (566f47dd-e7d4-4b1f-9f65-764f950d210b)."
+  },
+  {
+    "id": 3417,
+    "name": "OSINT Phishing sites and exploit kits december 2015 - part 2 by TechHelpList",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #692 (56b06594-da3c-4126-bf81-4190950d210f)."
+  },
+  {
+    "id": 3415,
+    "name": "OSINT A Fast and Furious Drive-By: Uncovering PTDark Attack Sites by Fortinet",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #690 (5614b358-9c54-4b33-96f6-742d950d210b)."
+  },
+  {
+    "id": 3414,
+    "name": "OSINT Trend Micro Exposes LURID APT",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #689 (555dcba2-bdd0-49d6-8c72-4e87950d210b)."
+  },
+  {
+    "id": 3412,
+    "name": "OSINT Dyreza Campaigners Set Sights on the Fulfillment and Warehousing Industry by ProofPoint",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #687 (560c0a37-28c4-4654-a507-6221950d210b)."
+  },
+  {
+    "id": 3411,
+    "name": "OSINT IOC from ponmocup malware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #686 (566f4900-9da4-4ee7-b237-8a63950d210b)."
+  },
+  {
+    "id": 3410,
+    "name": "OSINT Cmstar Downloader: Lurid and Enfalâ€™s New Cousin by Palo Alto Unit 42",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #685 (555cacaa-4a44-43f0-909e-919a950d210b)."
+  },
+  {
+    "id": 3409,
+    "name": "OSINT Attacks against Israeli & Palestinian interests by PwC",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #684 (553ea363-7aa4-426b-8f54-ad70950d210b)."
+  },
+  {
+    "id": 3408,
+    "name": "OSINT Winnti OpSMN new malware RE report by Novetta",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #683 (5523e803-a6ac-4679-95ee-4382950d210b)."
+  },
+  {
+    "id": 3406,
+    "name": "OSINT - Case Study of Malicious Actors: Going Postal by CERT.pl",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #681 (5637cc54-f260-4394-ba51-25ae950d210b)."
+  },
+  {
+    "id": 3405,
+    "name": "OSINT Expansion on hacking team VPS IPs using PassiveTotal by Brandon Dixon",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #680 (5617efa2-569c-44f0-83d4-4d3d950d210b)."
+  },
+  {
+    "id": 3404,
+    "name": "OSINT The Italian Connection: An analysis of exploit supply chains and digital quartermasters by Shadowserver",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #679 (55c98ff2-f2fc-4284-8a34-f483950d210b)."
+  },
+  {
+    "id": 3403,
+    "name": "OSINT Morpho: Profiting from high-level corporate attacks by Symantec",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #678 (559d537c-f570-4e97-8154-98d9950d210b)."
+  },
+  {
+    "id": 3402,
+    "name": "OSINT Poseidon And Backoff Pos â€“ The Links And Similarities by Team Cymru",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #677 (558401d3-130c-44db-a49a-42fa950d210b)."
+  },
+  {
+    "id": 3400,
+    "name": "OSINT Duuzer back door Trojan targets South Korea to take over computers by Symantec",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #675 (5631394c-b9b4-483b-9480-26bc950d210b)."
+  }
+]

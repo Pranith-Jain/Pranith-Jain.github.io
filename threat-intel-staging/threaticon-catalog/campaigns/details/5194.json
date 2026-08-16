@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:58:06.773Z",
+  "name": "incransom: belimed.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 29, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: belimed.com | Infostealer data confirmed. | We are announcing the successful breach of the secure network of Belimed AG, a leading provider of sterilization equipment. Our team has gained full access to the digital assets of their finance department and has exfiltrated the entire dataset. Data Volume: 1.5 Terabytes. In our possession is the complete financial picture of Belimed AG. This isn't just tables or reports; it is the entire nervous system of their business, including: * **SAP (SUP) Databases:** Full dumps containing all operational and financial information. * **Accounting Records:** All transactions, entries, and financial operations spanning many years. * **Client Contracts and Payments:** Detailed information on deals, pricing, and accounts receivable. * **Employee Data:** Salaries, bonuses, and personal financial information. * **Internal Audits and Strategic Pla..."
+}

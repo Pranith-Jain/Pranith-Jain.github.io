@@ -1,0 +1,134 @@
+[
+  { "id": 1177, "name": "SoundSquatting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1178,
+    "name": "Homograph Attack via Homoglyphs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1179,
+    "name": "Token Impersonation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1180,
+    "name": "Probe Audio and Video Peripherals",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1181,
+    "name": "Alternative Execution Due to Deceptive Filenames",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1182,
+    "name": "Hiding Malicious Data or Code within Files",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1183,
+    "name": "Collect Data from Clipboard",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1184,
+    "name": "Altered Component Firmware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1185, "name": "Probe System Files", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1186,
+    "name": "Using Slashes and URL Encoding Combined to Bypass Validation Logic",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1187,
+    "name": "Inclusion of Code in Existing Process",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1188, "name": "DLL Side-Loading", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1189, "name": "Replace Binaries", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1190,
+    "name": "Identify Shared Files/Directories on System",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1191,
+    "name": "Use of Captured Hashes (Pass The Hash)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1192,
+    "name": "Use of Captured Tickets (Pass The Ticket)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1193,
+    "name": "Peripheral Footprinting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1194,
+    "name": "Collect Data from Registries",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1195,
+    "name": "Collect Data from Screen Capture",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1196,
+    "name": "Adding a Space to a File Extension",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

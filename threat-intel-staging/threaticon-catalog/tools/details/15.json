@@ -1,0 +1,12 @@
+{
+  "id": 15,
+  "fetchedAt": "2026-08-14T05:03:08.529Z",
+  "name": "evilginx2",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "evilginx2 is an open-source adversary-in-the-middle (AiTM) attack framework based on the open-source nginx web server. evilginx2 can be used as a reverse proxy between victims and legitimate web services to intercept and capture credentials, authentication tokens, and session cookies.(Citation: Evilginx 2 July 2018)(Citation: Breakdev Evilginx 2.1 SEP 2018)(Citation: Sophos Evilginx MAR 2025)"
+}

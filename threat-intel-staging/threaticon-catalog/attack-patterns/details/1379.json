@@ -1,0 +1,9 @@
+{
+  "id": 1379,
+  "fetchedAt": "2026-08-15T06:59:47.448Z",
+  "name": "T1048.002: Exfiltration Over Asymmetric Encrypted Non-C2 Protocol",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

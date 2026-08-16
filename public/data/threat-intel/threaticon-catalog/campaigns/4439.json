@@ -3,9 +3,9 @@
   "name": "qilin: Dixie Beverage",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.dixiebeverage.com | N/A | Source: https://www.ransomware.live/id/RGl4aWUgQmV2ZXJhZ2VAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4439"

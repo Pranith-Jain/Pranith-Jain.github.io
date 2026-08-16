@@ -1,0 +1,9 @@
+{
+  "id": 1635,
+  "name": "T1030 - Keylogging",
+  "techniqueId": "T1030",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1635"
+}

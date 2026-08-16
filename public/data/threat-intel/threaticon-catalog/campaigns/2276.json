@@ -1,11 +1,11 @@
 {
   "id": 2276,
   "name": "Cutting Edge: Suspected APT Targets Ivanti Connect Secure VPN in New Zero-Day Exploitation",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 14, 2024",
+  "lastSeen": "Jan 14, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #434 (a9da4722-3b2c-42b6-9bb8-82f2162a171e).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2276"

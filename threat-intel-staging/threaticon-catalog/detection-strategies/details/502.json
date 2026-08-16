@@ -1,0 +1,12 @@
+{
+  "id": 502,
+  "fetchedAt": "2026-08-14T05:23:02.321Z",
+  "name": "User-Initiated Malicious Library Installation via Package Manager (T1204.005)",
+  "tlp": null,
+  "detId": "DET0252",
+  "stixId": "x-mitre-detection-strategy--09caebdc-2ce4-4698-a40c-d91cb65f9720",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0698", "AN0699", "AN0700"]
+}

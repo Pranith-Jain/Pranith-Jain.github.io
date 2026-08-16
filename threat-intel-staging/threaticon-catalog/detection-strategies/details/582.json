@@ -1,0 +1,12 @@
+{
+  "id": 582,
+  "fetchedAt": "2026-08-14T05:24:26.336Z",
+  "name": "Behavior-chain detection for T1134 Access Token Manipulation on Windows",
+  "tlp": null,
+  "detId": "DET0283",
+  "stixId": "x-mitre-detection-strategy--774bbba8-45c2-403d-a445-3a64b3679faf",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0786"]
+}

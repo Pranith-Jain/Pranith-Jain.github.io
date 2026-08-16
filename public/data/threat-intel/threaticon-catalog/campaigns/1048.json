@@ -3,9 +3,9 @@
   "name": "netrunner: GEG Telecomunicazioni",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to netrunner. | Country: IT | Sector: Telecommunication | Website: geg.it | Infostealer data confirmed. | GEG srl (est. 1981) designs and builds integrated mobile radio systems across Italy. Over 35 years it served 500+ public administrations and manages 100,000+ radios. Since 2004 it is Italy’s exclusive DAMM TETRA distributor. It held ~60% of the civilian TETRA market (350+ base stations) | Source: https://www.ransomware.live/id/R0VHIFRlbGVjb211bmljYXppb25pQG5ldHJ1bm5lcg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1048"

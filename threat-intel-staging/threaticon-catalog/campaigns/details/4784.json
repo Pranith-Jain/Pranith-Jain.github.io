@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:15:55.808Z",
+  "name": "Deadlock: TeleFinity",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 11, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Sector: Telecommunication | Website: tele-finity.com | Infostealer data confirmed. | TeleFinity is a global provider of computer telephony integration (CTI) and unified contact center software, offering solutions like LogFinity call recording, WebRTC-SIP gateways, and omnichannel contact center platforms. Founded in 2005, the company delivers enterprise-grade,, AI-driven, and CRM-integrated communication products with on-premises or cloud deployment options. | Source: https://www.ransomware.live/id/VGVsZUZpbml0eUBEZWFkbG9jaw=="
+}

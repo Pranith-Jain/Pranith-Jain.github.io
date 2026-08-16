@@ -1,0 +1,12 @@
+{
+  "id": 178,
+  "fetchedAt": "2026-08-14T05:38:17.106Z",
+  "name": "Hardware Supply Chain Compromise Detection via Host Status & Boot Integrity Checks",
+  "tlp": null,
+  "detId": "DET0368",
+  "stixId": "x-mitre-detection-strategy--4dfcf95f-0bbb-4ae7-8bd5-91e3e6c51809",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1035", "AN1036", "AN1037"]
+}

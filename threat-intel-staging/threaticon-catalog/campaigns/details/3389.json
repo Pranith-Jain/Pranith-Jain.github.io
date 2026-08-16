@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:44.976Z",
+  "name": "OSINT Revealing the Cyber-Kraken (Threat Group 3390 / Emissary Panda) by SecureWorks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 5, 2015",
+  "lastSeen": "Aug 5, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #664 (55c279fc-e814-4915-96dd-4f19950d210b)."
+}

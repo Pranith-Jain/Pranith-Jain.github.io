@@ -1,0 +1,12 @@
+{
+  "id": 96,
+  "fetchedAt": "2026-08-14T05:19:00.044Z",
+  "name": "Detection of Msiexec Abuse for Local, Network, and DLL Execution",
+  "tlp": null,
+  "detId": "DET0158",
+  "stixId": "x-mitre-detection-strategy--0602b47a-d37c-4eee-ac4b-b464060945ab",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0445"]
+}

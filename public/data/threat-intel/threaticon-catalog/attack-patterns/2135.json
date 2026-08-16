@@ -1,0 +1,9 @@
+{
+  "id": 2135,
+  "name": "T1098.001 - Windows Administrative Shares",
+  "techniqueId": "T1098",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2135"
+}

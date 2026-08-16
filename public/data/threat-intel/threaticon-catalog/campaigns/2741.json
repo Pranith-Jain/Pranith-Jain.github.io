@@ -1,11 +1,11 @@
 {
   "id": 2741,
   "name": "M2M - Locky 2017-10-10 : Affid=3, offline, \".asasin\" : \"Voicemail From 845-551-1234\" - \"VMSG12345678_20171010.7z\"",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 11, 2017",
+  "lastSeen": "Oct 11, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1214 (59ddbaf9-3874-405c-b2e7-4770950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2741"

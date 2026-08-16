@@ -3,9 +3,9 @@
   "name": "dragonforce: R&C Fence, Inc.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 6, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Construction | Website: www.randcfence.com | R&C Fence, Inc. is a locally owned and operated company that has been providing custom-built fence installation services for both commercial and residential clients since 1970. With an in-house fabrication shop, they are equipped to handle complex fencing projects while ensuring high quality and service excellence. Their experienced staff offers guidance on various fencing materials and installation solutions tailored to client needs. They serve the Fort Wayne area and surrounding regions, including South Bend, Auburn, and Warsaw | Source: https://www.ransomware.live/id/UiZDIEZlbmNlLCBJbmMuQGRyYWdvbmZvcmNl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1779"

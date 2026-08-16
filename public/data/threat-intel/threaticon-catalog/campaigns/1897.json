@@ -3,9 +3,9 @@
   "name": "AiLock: Professional Retail Outlet Services",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Jan 9, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Consumer Services | Website: proservicecall.com | Infostealer data confirmed. | PROS specializes in facilities management and maintenance services for specialty retail chains, boasting 20 years of experience. | Source: https://www.ransomware.live/id/UHJvZmVzc2lvbmFsIFJldGFpbCBPdXRsZXQgU2VydmljZXNAQWlMb2Nr",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1897"

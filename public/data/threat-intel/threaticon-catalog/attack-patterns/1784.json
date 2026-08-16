@@ -1,0 +1,9 @@
+{
+  "id": 1784,
+  "name": "T1270 - Use of Valid Accounts",
+  "techniqueId": "T1270",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1784"
+}

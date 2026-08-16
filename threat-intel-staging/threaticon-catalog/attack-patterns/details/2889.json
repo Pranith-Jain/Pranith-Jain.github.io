@@ -1,0 +1,9 @@
+{
+  "id": 2889,
+  "fetchedAt": "2026-08-15T06:48:30.478Z",
+  "name": "T1003: OS Credential Dumping – credential collection for lateral move",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

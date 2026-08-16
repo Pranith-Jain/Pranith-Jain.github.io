@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1396,
+    "name": "qilin: nPower Technologies",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IN | Sector: Technology | Website: www.npowertech.com | Source: https://www.ransomware.live/id/blBvd2VyIFRlY2hub2xvZ2llc0BxaWxpbg=="
+  },
+  {
+    "id": 1395,
+    "name": "ALP-001: pellenc.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ALP-001. | Country: FR | Sector: Manufacturing | Website: pellenc.com | Infostealer data confirmed. | Country: France Revenue: $543.1 Million Storage: 228GB Description: Pellenc is a manufacturer of battery-powered equipment and tools for agriculture, green spaces and local communities. Pellenc is headquartered in Pertuis, France. Deadline: 2026-04-01 17:02:55 | Source: https://www.ransomware.live/id/cGVsbGVuYy5jb21AQUxQLTAwMQ=="
+  },
+  {
+    "id": 1394,
+    "name": "qilin: Southwire",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.southwire.com | Source: https://www.ransomware.live/id/U291dGh3aXJlQHFpbGlu"
+  },
+  {
+    "id": 1393,
+    "name": "qilin: Southern Commercial Real Estate",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.svn-scre.com | Source: https://www.ransomware.live/id/U291dGhlcm4gQ29tbWVyY2lhbCBSZWFsIEVzdGF0ZUBxaWxpbg=="
+  },
+  {
+    "id": 1392,
+    "name": "shinyhunters: Infinite Campus, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Education | Salesforce records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 25 Mar 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 23 Mar 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/SW5maW5pdGUgQ2FtcHVzLCBJbmMuQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 1391,
+    "name": "shinyhunters: Ameriprise Financial, Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Financial Services | Salesforce records containing PII and over 200GB compressed Sharepoint internal corporate data have been compromised. This is a final warning to reach out by 25 Mar 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 23 Mar 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/QW1lcmlwcmlzZSBGaW5hbmNpYWwsIEluYy5Ac2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 1390,
+    "name": "incransom: JDV Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Manufacturing | Website: jdvproducts.com | Infostealer data confirmed. | JDV Products, Inc. specializes in providing a wide range of tools and equipment for wire wrapping, including wire wrap guns, wrap tools, and wire handling solutions. The company also features a selection of gas-powered tools and fiber optic tools, ensuring comprehensive support for electrical projects. We have 700GB of data at our disposal, in a week we will publish everything. | Source: https://www.ransomware.live/id/SkRWIFByb2R1Y3RzQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 1389,
+    "name": "nightspire: **l**a* & ***c** **n*n**** I**e*t**** *L*",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Financial Services | Data is not available now. | Source: https://www.ransomware.live/id/KipsKiphKiAmICoqKmMqKiAqKm4qbioqKiogSSoqZSp0KioqKiAqTCpAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 1388,
+    "name": "nightspire: *L* **i**n*-**n**** GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/KkwqICoqaSoqbiotKipuKioqKiBHbWJIQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1387,
+    "name": "nightspire: *o**e-*a** du ***n*c****",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/Km8qKmUtKmEqKiBkdSAqKipuKmMqKioqQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1386,
+    "name": "akira: Dixon Electrical Systems & Contracting",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1385,
+    "name": "akira: Autitransa",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: ES | Sector: Transportation/Logistics | Website: autransa.com | Infostealer data confirmed. | Autransa S.L. specializes in national and international transport ation and logistics services, focusing on refrigerated transport and container shipping. Established in 1980, the company has deve loped expertise in handling temperature-controlled goods and spec ial cargo. We will upload 15gb of corporate data soon. Employee personal inf ormation (passports, IDs, medical information), financials, contr acts, etc. | Source: https://www.ransomware.live/id/QXV0aXRyYW5zYUBha2lyYQ=="
+  },
+  {
+    "id": 1381,
+    "name": "thegentlemen: Grupo Tawa",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: PE | Sector: Business Services | Website: grupotawa.com | Infostealer data confirmed. | grupotawa.com zoominfo.com/c/grupo-tawa/459512890 Grupo Tawa is a business group operating in Peru and Chile, dedicated to providing comprehensive business solutions that allow clients to focus on their core competencies. With over 18 years of experience, they offer expertise in personnel solutions, process outsourcing, cleaning, maintenance, and commercial management. The group serves more than 2,500 clients and employs over 15,000 individuals annually. Their commitment to excellence positions them as a reliable partner for companies across various industries | Source: https://www.ransomware.live/id/R3J1cG8gVGF3YUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 1380,
+    "name": "thegentlemen: Delta Ducon Engenharia",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1379,
+    "name": "worldleaks: Marion Military Institute",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Education | Website: www.marionmilitary.edu | [AI generated] Marion Military Institute (MMI), located in Marion, Alabama, is a two-year public military junior college. It is one of the five US military junior colleges that offer a direct commission into the US Army after a two-year course of study. Aside from military science and leadership education, MMI also offers a wide range of academic courses. Founded in 1842, it's the oldest military junior college in the United States. | Source: https://www.ransomware.live/id/TWFyaW9uIE1pbGl0YXJ5IEluc3RpdHV0ZUB3b3JsZGxlYWtz"
+  }
+]

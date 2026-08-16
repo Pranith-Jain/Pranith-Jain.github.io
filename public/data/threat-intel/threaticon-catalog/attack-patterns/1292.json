@@ -1,0 +1,9 @@
+{
+  "id": 1292,
+  "name": "T1264.003 - Exfiltrate data via secure communication channel or encrypted file transfer protocol",
+  "techniqueId": "T1264",
+  "added": "Jul 29, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1292"
+}

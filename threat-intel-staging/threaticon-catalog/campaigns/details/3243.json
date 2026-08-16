@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:38.563Z",
+  "name": "Void Rabisu’s Use of RomCom Backdoor Shows a Growing Shift in Threat Actors’ Goals",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 16, 2023",
+  "lastSeen": "Jul 16, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #417 (4f0d74be-1bfa-4821-8095-756c50054833)."
+}

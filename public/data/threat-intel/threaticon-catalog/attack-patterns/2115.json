@@ -1,0 +1,9 @@
+{
+  "id": 2115,
+  "name": "T1497.001 - Data Exfiltration: Web-Based Transfers",
+  "techniqueId": "T1497",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2115"
+}

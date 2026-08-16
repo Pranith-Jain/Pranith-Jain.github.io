@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:23:52.406Z",
+  "name": "safepay: ehg.bayern",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 22, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: ehg.bayern | Infostealer data confirmed. | Founded in 1991, the company has evolved from a regional waste management enterprise into a specialized provider of infrastructure operations, … | Source: https://www.ransomware.live/id/ZWhnLmJheWVybkBzYWZlcGF5"
+}

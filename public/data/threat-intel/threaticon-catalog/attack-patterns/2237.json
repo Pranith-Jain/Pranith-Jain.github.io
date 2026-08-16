@@ -1,0 +1,9 @@
+{
+  "id": 2237,
+  "name": "T1059.003 - Executive Account Access Through Force Account Credential Use",
+  "techniqueId": "T1059",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2237"
+}

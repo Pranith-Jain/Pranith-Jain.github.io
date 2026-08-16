@@ -3,9 +3,9 @@
   "name": "settra: tmscentral.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 28, 2026",
+  "lastSeen": "Jun 9, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to settra. | Country: US | Sector: Transportation/Logistics | Website: tmscentral.com | Infostealer data confirmed. | A SIGNAL WITH NO BACKUP: How Total Monitoring Services Sells Multi-Channel Protection and Routes the... | Source: https://www.ransomware.live/id/dG1zY2VudHJhbC5jb21Ac2V0dHJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4514"

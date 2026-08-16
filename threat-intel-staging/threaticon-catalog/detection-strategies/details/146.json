@@ -1,0 +1,12 @@
+{
+  "id": 146,
+  "fetchedAt": "2026-08-14T05:53:07.700Z",
+  "name": "Detection of Local Account Abuse for Initial Access and Persistence",
+  "tlp": null,
+  "detId": "DET0407",
+  "stixId": "x-mitre-detection-strategy--b045b89e-3095-41c3-a04d-d40075f14cd8",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1137", "AN1138", "AN1139"]
+}

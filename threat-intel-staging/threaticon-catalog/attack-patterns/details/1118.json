@@ -1,0 +1,9 @@
+{
+  "id": 1118,
+  "fetchedAt": "2026-08-15T06:21:27.052Z",
+  "name": "Owner Footprinting",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Low. An adversary exploits functionality meant to identify information about the primary users on the target system to an authorized user. They may do this, for example, by reviewing logins or file modification times. By knowing what owners use the target system, the adversary can inform further and more targeted malicious behavior. An example Windows command that may accomplish this is \"dir /A ntuser.dat\". Which will display the last modified time of a user's ntuser.dat file when run within the root folder of a user. This time is synonymous with the last time that user was logged in."
+}

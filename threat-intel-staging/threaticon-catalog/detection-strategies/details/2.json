@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "fetchedAt": "2026-08-14T05:58:54.987Z",
+  "name": "Detect Abuse of vSphere Installation Bundles (VIBs) for Persistent Access",
+  "tlp": null,
+  "detId": "DET0535",
+  "stixId": "x-mitre-detection-strategy--000d7b6f-0bb5-4144-a3eb-1aa822433da1",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1475"]
+}

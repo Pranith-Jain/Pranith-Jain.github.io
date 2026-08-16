@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:47:27.801Z",
+  "name": "fulcrumsec: Lena Health",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to fulcrumsec. | Country: US | Sector: Healthcare | Website: lena.io | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/TGVuYSBIZWFsdGhAZnVsY3J1bXNlYw=="
+}

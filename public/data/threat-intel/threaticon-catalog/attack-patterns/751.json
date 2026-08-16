@@ -1,0 +1,9 @@
+{
+  "id": 751,
+  "name": "Resource Leak Exposure",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: Medium. An adversary utilizes a resource leak on the target to deplete the quantity of the resource available to service legitimate requests.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/751"
+}

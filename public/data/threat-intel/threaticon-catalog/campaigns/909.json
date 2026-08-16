@@ -3,9 +3,9 @@
   "name": "linkc: Sajet Products",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Jan 30, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to linkc. | Country: US | Sector: Manufacturing | Website: sajetproducts.com | Infostealer data confirmed. | 700mb of blueprints including Amazon LEO (satellite) Project Kuiper scheme, Airbus, Boeing engines and metal alloy technologies. Enjoy. https://amber-wooden-prawn-35.mypinata.cloud/ipfs/bafybeic5m7e3dvlunitnv6vxzbcvqqgm4pybgc3ykn3jo62jipshf6bjve | Source: https://www.ransomware.live/id/U2FqZXQgUHJvZHVjdHNAbGlua2M=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/909"

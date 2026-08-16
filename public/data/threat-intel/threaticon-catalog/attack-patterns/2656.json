@@ -1,0 +1,9 @@
+{
+  "id": 2656,
+  "name": "T1195.001 – Exploit Public-Facing Application (Supply Chain)",
+  "techniqueId": "T1195",
+  "added": "Aug 5, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2656"
+}

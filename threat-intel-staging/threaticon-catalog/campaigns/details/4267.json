@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:37:35.330Z",
+  "name": "akira: Stone Ridge Payments",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 7, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: stoneridgepayments.com | Infostealer data confirmed. | We will upload 67gb of corporate data soon. Employee personal information (400 passports and D L scans, SSNs, w9 forms and so on), financials, contracts and agreements, confidential document s, lots of NDAs, etc. | Source: https://www.ransomware.live/id/U3RvbmUgUmlkZ2UgUGF5bWVudHNAYWtpcmE="
+}

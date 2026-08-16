@@ -1,0 +1,122 @@
+[
+  {
+    "id": 279,
+    "name": "qilin: Jayeff Construction",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Construction | Website: www.jayeff.com | N/A | Source: https://www.ransomware.live/id/SmF5ZWZmIENvbnN0cnVjdGlvbkBxaWxpbg=="
+  },
+  {
+    "id": 278,
+    "name": "qilin: See's Candies",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Agriculture and Food Production | Website: www.sees.com | N/A | Source: https://www.ransomware.live/id/U2VlJ3MgQ2FuZGllc0BxaWxpbg=="
+  },
+  {
+    "id": 277,
+    "name": "qilin: The Switch Enterprises",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FI | Sector: Business Services | Website: www.theswitch.tv | N/A | Source: https://www.ransomware.live/id/VGhlIFN3aXRjaCBFbnRlcnByaXNlc0BxaWxpbg=="
+  },
+  {
+    "id": 276,
+    "name": "qilin: MES Hybrid Document Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Business Services | Website: www.mesltd.ca | N/A | Source: https://www.ransomware.live/id/TUVTIEh5YnJpZCBEb2N1bWVudCBTeXN0ZW1zQHFpbGlu"
+  },
+  {
+    "id": 293,
+    "name": "payoutsking: Caunton Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: UK | Sector: Manufacturing | Website: caunton.co.uk | Infostealer data confirmed. | [AI generated] Caunton Engineering is a UK-based structural steelwork contractor and fabricator headquartered in Nottinghamshire, England. The company specialises in the design, fabrication, and erection of structural steelwork for commercial, industrial, and infrastructure projects. Operating within the construction and engineering sector, Caunton serves clients across the United Kingdom and has built a reputation for delivering large-scale steel frame structures. | Source: https://www.ransomware.live/id/Q2F1bnRvbiBFbmdpbmVlcmluZ0BwYXlvdXRza2luZw=="
+  },
+  {
+    "id": 275,
+    "name": "worldleaks: SMTA Sherwood Mutual Telephone Association",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Telecommunication | Website: smta.cc | Infostealer data confirmed. | [AI generated] SMTA Sherwood Mutual Telephone Association is a cooperative telecommunications provider based in the United States. It operates in the rural telecommunications industry, offering telephone and related communication services to members in the Sherwood, North Dakota area. As a mutual association, it is member-owned and focused on delivering reliable local and long-distance voice services to underserved rural communities. | Source: https://www.ransomware.live/id/U01UQSBTaGVyd29vZCBNdXR1YWwgVGVsZXBob25lIEFzc29jaWF0aW9uQHdvcmxkbGVha3M="
+  },
+  {
+    "id": 291,
+    "name": "everest: Morae",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: US | Sector: Technology | Website: morae.com | Infostealer data confirmed. | [AI generated] Morae is a US-based professional services company specializing in legal, compliance, and technology consulting. It serves law firms, corporate legal departments, and financial institutions by providing managed services, litigation support, contract lifecycle management, and legal operations solutions. The company combines legal expertise with advanced technology to help clients improve efficiency, reduce costs, and manage risk across their legal and compliance functions. | Source: https://www.ransomware.live/id/TW9yYWVAZXZlcmVzdA=="
+  },
+  {
+    "id": 274,
+    "name": "mnt6: Silfab Solar",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to mnt6. | Country: CA | Sector: Energy | Website: silfabsolar.com | Infostealer data confirmed. | Silfab Solar is a leading North American manufacturer of high-efficiency, premium-quality solar panels for residential, commercial, and utility projects. With over 40 years of industry experience, the company operates advanced manufacturing facilities in Canada and the United States, focusing on producing durable, reliable solar modules. [Revenue: $217.3M] | Source: https://www.ransomware.live/id/U2lsZmFiIFNvbGFyQG1udDY="
+  },
+  {
+    "id": 292,
+    "name": "incransom: Arban & Carosi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 297,
+    "name": "payoutsking: Telia Norge AS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: NO | Sector: Telecommunication | Website: telia.no | Infostealer data confirmed. | [AI generated] Telia Norge AS is a Norwegian telecommunications company and a subsidiary of the Swedish Telia Company group. Operating in Norway, it provides mobile and fixed-line services, broadband internet, and TV solutions to both consumer and business customers. The company is a major player in the Norwegian telecom market, competing with providers like Telenor and Ice, and operates infrastructure supporting voice, data, and digital services across the country. | Source: https://www.ransomware.live/id/VGVsaWEgTm9yZ2UgQVNAcGF5b3V0c2tpbmc="
+  },
+  {
+    "id": 272,
+    "name": "shinyhunters: Follett Software LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Education | Website: follettsoftware.com | Infostealer data confirmed. | Over 4M Salesforce records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 4 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 1 May 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/Rm9sbGV0dCBTb2Z0d2FyZSBMTENAc2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 271,
+    "name": "shinyhunters: TOWERPOINT WEALTH, LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Financial Services | Website: towerpointwealth.com | Infostealer data confirmed. | Salesforce records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 4 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 1 May 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/VE9XRVJQT0lOVCBXRUFMVEgsIExMQ0BzaGlueWh1bnRlcnM="
+  },
+  {
+    "id": 270,
+    "name": "blacknevas: Bohmler Einrichtungshaus GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 289,
+    "name": "qilin: Philex Mining",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PH | Sector: Energy | Website: www.philexmining.com.ph | N/A | Source: https://www.ransomware.live/id/UGhpbGV4IE1pbmluZ0BxaWxpbg=="
+  },
+  {
+    "id": 295,
+    "name": "payoutsking: Bespoke Home Interior Design Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: UK | Sector: Business Services | Website: bhid.co.uk | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QmVzcG9rZSBIb21lIEludGVyaW9yIERlc2lnbiBHcm91cEBwYXlvdXRza2luZw=="
+  }
+]

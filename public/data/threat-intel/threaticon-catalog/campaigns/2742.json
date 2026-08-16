@@ -1,11 +1,11 @@
 {
   "id": 2742,
   "name": "OSINT - BlackOasis APT and new targeted attacks leveraging zero-day exploit",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 16, 2017",
+  "lastSeen": "Oct 16, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1218 (59e4c923-a6e0-4894-a6a8-994d950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2742"

@@ -1,11 +1,11 @@
 {
   "id": 3153,
   "name": "AA20-131A_Darkside_Ransomware_Best_Practices_for_Preventing_Business_Disruption_from_Ransomware_Att",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 19, 2021",
+  "lastSeen": "May 19, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #258 (d81c3a80-018d-413d-9f11-59aa0c67e761).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3153"

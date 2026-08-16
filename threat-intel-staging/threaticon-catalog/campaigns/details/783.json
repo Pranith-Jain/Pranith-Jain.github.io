@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:20:15.377Z",
+  "name": "lockbit5: decaturdiagnosticlab.net",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 13, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Healthcare | Website: decaturdiagnosticlab.net | Infostealer data confirmed. | Located inside the Med-Surg Complex; Decatur Diagnostic Lab is a privately owned lab servicing the D... | Source: https://www.ransomware.live/id/ZGVjYXR1cmRpYWdub3N0aWNsYWIubmV0QGxvY2tiaXQ1"
+}

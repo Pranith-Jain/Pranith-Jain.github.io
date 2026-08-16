@@ -1,0 +1,9 @@
+{
+  "id": 2586,
+  "name": "T1105 - Remote Desktop Protocol (RDP) Usage",
+  "techniqueId": "T1105",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2586"
+}

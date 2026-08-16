@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:41:18.655Z",
+  "name": "Deadlock: IFC Eur",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: DE | Sector: Financial Services | Website: www.ifceuropa.com | IFC Europa is a Spanish-based distributor specializing in car audio, automotive lighting, and electronics. | Source: https://www.ransomware.live/id/SUZDIEV1ckBEZWFkbG9jaw=="
+}

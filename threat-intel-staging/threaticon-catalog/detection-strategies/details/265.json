@@ -1,0 +1,12 @@
+{
+  "id": 265,
+  "fetchedAt": "2026-08-14T05:21:16.908Z",
+  "name": "Detection of Direct VM Console Access via Cloud-Native Methods",
+  "tlp": null,
+  "detId": "DET0211",
+  "stixId": "x-mitre-detection-strategy--f40c0c98-76fe-4e2a-970a-0491f52a9a47",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0594"]
+}

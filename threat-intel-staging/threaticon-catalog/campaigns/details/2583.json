@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:01:26.639Z",
+  "name": "OSINT - Spotlight on Shamoon",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 29, 2017",
+  "lastSeen": "Jan 29, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #975 (588dc8e3-8530-4b69-b71c-45ab02de0b81)."
+}

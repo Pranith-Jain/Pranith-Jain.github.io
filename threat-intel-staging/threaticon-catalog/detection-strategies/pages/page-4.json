@@ -1,0 +1,212 @@
+[
+  {
+    "id": 522,
+    "code": "DET0091",
+    "name": "Detection Strategy for Dynamic API Resolution via Hash-Based Function Lookups",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 689,
+    "code": "DET0092",
+    "name": "Detection of Malicious or Unauthorized Software Extensions",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 397,
+    "code": "DET0093",
+    "name": "Behavioral Detection of User Discovery via Local and Remote Enumeration",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 446,
+    "code": "DET0094",
+    "name": "Cross-Platform Behavioral Detection of Scheduled Task/Job Abuse",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 234,
+    "code": "DET0095",
+    "name": "Detect Persistence via Malicious Outlook Rules",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 412,
+    "code": "DET0096",
+    "name": "Account Manipulation Behavior Chain Detection",
+    "description": null,
+    "columns": ["6"]
+  },
+  {
+    "id": 274,
+    "code": "DET0097",
+    "name": "Detection of Application Window Enumeration via API or Scripting",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 27,
+    "code": "DET0098",
+    "name": "Detect abuse of Windows BITS Jobs for download, execution and persistence",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 218,
+    "code": "DET0099",
+    "name": "Detection Strategy for T1542.001 Pre-OS Boot: System Firmware",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 488,
+    "code": "DET0100",
+    "name": "Behavioral Detection of Asynchronous Procedure Call (APC) Injection via Remote Thread Queuing",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 74,
+    "code": "DET0101",
+    "name": "Detection Strategy for Lua Scripting Abuse",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 298,
+    "code": "DET0102",
+    "name": "Behavioral Detection of Input Capture Across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 503,
+    "code": "DET0103",
+    "name": "Behavioral Detection of Network Share Connection Removal via CLI and SMB Disconnects",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 568,
+    "code": "DET0104",
+    "name": "Detect Modification of Authentication Processes Across Platforms",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 219,
+    "code": "DET0105",
+    "name": "Post-Credential Dump Password Cracking Detection via Suspicious File Access and Hash Analysis Tools",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 334,
+    "code": "DET0106",
+    "name": "Behavioral Detection of PE Injection via Remote Memory Mapping",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 157,
+    "code": "DET0107",
+    "name": "Detection Strategy for Spearphishing Links",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 639,
+    "code": "DET0108",
+    "name": "Detection Strategy for Data Encoding in C2 Channels",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 310,
+    "code": "DET0109",
+    "name": "Detection Strategy for Plist File Modification (T1647)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 413,
+    "code": "DET0110",
+    "name": "Setuid/Setgid Privilege Abuse Detection (Linux/macOS)",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 179,
+    "code": "DET0111",
+    "name": "Detect Unsecured Credentials Shared in Chat Messages",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 598,
+    "code": "DET0112",
+    "name": "Boot or Logon Initialization Scripts Detection Strategy",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 336,
+    "code": "DET0113",
+    "name": "Detect AS-REP Roasting Attempts (T1558.004)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 291,
+    "code": "DET0114",
+    "name": "Behavioral Detection of Local Group Enumeration Across OS Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 162,
+    "code": "DET0115",
+    "name": "Detection Strategy for Spearphishing via a Service across OS Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 187,
+    "code": "DET0116",
+    "name": "Detection Strategy for Safe Mode Boot Abuse",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 655,
+    "code": "DET0117",
+    "name": "Detection of Masqueraded Tasks or Services with Suspicious Naming and Execution",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 23,
+    "code": "DET0118",
+    "name": "Exploitation of Remote Services – multi-platform lateral movement detection",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 230,
+    "code": "DET0119",
+    "name": "Detection Strategy for Steganographic Abuse in File & Script Execution",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 277,
+    "code": "DET0120",
+    "name": "Account Access Removal via Multi-Platform Audit Correlation",
+    "description": null,
+    "columns": ["6"]
+  }
+]

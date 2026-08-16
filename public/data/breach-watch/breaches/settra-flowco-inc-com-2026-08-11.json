@@ -1,0 +1,15 @@
+{
+  "slug": "settra-flowco-inc-com-2026-08-11",
+  "title": "flowco-inc.com",
+  "group": "settra",
+  "discovered": "2026-08-11T17:31:36.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "DEEP WELL: Flowco Production Solutions Documents PROLOGUE Payroll records with employee names and po...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

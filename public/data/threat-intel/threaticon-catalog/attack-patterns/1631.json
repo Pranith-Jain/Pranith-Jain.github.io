@@ -1,0 +1,9 @@
+{
+  "id": 1631,
+  "name": "T1218.001 - Use Webshell",
+  "techniqueId": "T1218",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1631"
+}

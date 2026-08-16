@@ -1,0 +1,12 @@
+{
+  "id": 107,
+  "fetchedAt": "2026-08-14T05:20:50.910Z",
+  "name": "Detection Strategy for Hijack Execution Flow for DLLs",
+  "tlp": null,
+  "detId": "DET0201",
+  "stixId": "x-mitre-detection-strategy--bd33de0c-1ed7-42ea-b77d-1fd5d33acd3b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0577"]
+}

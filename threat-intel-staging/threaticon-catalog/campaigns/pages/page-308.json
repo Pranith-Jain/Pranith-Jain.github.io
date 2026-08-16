@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3220,
+    "name": "Cloud Atlas targets entities in Russia and Belarus amid the ongoing war in Ukraine",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #361 (866f2e50-efe5-4d58-85c7-33bf3a52443c)."
+  },
+  {
+    "id": 3219,
+    "name": "Bad magic: new APT found in the area of Russo-Ukrainian conflict",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #360 (defe99ff-e92c-4267-b446-0686d2c00559)."
+  },
+  {
+    "id": 3218,
+    "name": "OSINT - Operation C-Major: Information Theft Campaign Targets Military Personnel in India",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #359 (56f29500-187c-4051-a321-4aba950d210f)."
+  },
+  {
+    "id": 3217,
+    "name": "The Unintentional Leak: A glimpse into the attack vectors of APT37",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #358 (033e3332-eb5b-45d3-9a5c-68ca17aa9a8d)."
+  },
+  {
+    "id": 3216,
+    "name": "DTrack activity targeting Europe and Latin America",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #357 (c2c954a9-9c9e-44c3-ae69-8ed3441d2316)."
+  },
+  {
+    "id": 3215,
+    "name": "Amazon‑themed campaigns of Lazarus in the Netherlands and Belgium",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #356 (313eb1b6-1b2c-43d9-8bc0-be422cfc8b45)."
+  },
+  {
+    "id": 3214,
+    "name": "In the footsteps of the Fancy Bear: PowerPoint mouse-over event abused to deliver Graphite implants",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #353 (c4d1d3f7-822e-4746-850e-2b77ea4e4c5c)."
+  },
+  {
+    "id": 3213,
+    "name": "Gamaredon APT targets Ukrainian government agencies in new campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #352 (45b9a29b-abf7-4343-bf56-b71e7f9d9279)."
+  },
+  {
+    "id": 3212,
+    "name": "Malspam (2016-03-17) - Dridex (122), Locky",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #351 (56eac220-9900-4d35-bb22-461b950d210f)."
+  },
+  {
+    "id": 3211,
+    "name": "Disrupting SEABORGIUM’s ongoing phishing operations",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #350 (99273d5d-d769-4b15-98b8-d87c6cce7d72)."
+  },
+  {
+    "id": 3210,
+    "name": "No Pineapple! –DPRK Targeting of Medical Research and Technology Sector",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #348 (d2a62c19-a7ee-41bd-984a-4098fdd30e48)."
+  },
+  {
+    "id": 3209,
+    "name": "Unwrapping Ursnifs Gifts - The DFIR Report",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #346 (4bcf0465-4b53-4de4-8c53-fcc5f7d04dfc)."
+  },
+  {
+    "id": 3208,
+    "name": "Alert (AA23-025A) - Protecting Against Malicious Use of Remote Monitoring and Management Software",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #345 (7bf1cd5f-1f26-47b9-aed8-0e6275996aa1)."
+  },
+  {
+    "id": 3207,
+    "name": "Turla: A Galaxy of Opportunity",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #344 (54dd4ef7-f7b2-418e-a191-5def4fbb0033)."
+  },
+  {
+    "id": 3206,
+    "name": "Unmasking MirrorFace: Operation LiberalFace targeting Japanese political entities | WeLiveSecurity",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #342 (7a4afb4a-3eb1-4966-9c25-7e1ce2b1eb74)."
+  }
+]

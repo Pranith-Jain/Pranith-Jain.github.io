@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "fetchedAt": "2026-08-14T05:22:25.347Z",
+  "name": "Detection Strategy for Boot or Logon Initialization Scripts: RC Scripts",
+  "tlp": null,
+  "detId": "DET0237",
+  "stixId": "x-mitre-detection-strategy--be6a466c-40c6-4611-9b68-7cfcbcb35fb0",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0658", "AN0659", "AN0660", "AN0661"]
+}

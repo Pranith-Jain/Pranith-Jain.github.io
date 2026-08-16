@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:02.158Z",
+  "name": "OSINT Threat Research Team Goes â€œBeyond the Exploitâ€ in Search of Payloads from MS15-093 by bit9",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Sep 4, 2015",
+  "lastSeen": "Sep 4, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #734 (55ed7c41-5a68-4307-8184-43bc950d210b)."
+}

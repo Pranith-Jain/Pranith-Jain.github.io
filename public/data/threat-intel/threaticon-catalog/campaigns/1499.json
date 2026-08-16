@@ -3,9 +3,9 @@
   "name": "akira: Texollini",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 18, 2026",
+  "lastSeen": "Feb 18, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: texollini.com | Infostealer data confirmed. | Texollini is a textile manufacturer that combines fashion and tec hnology to create innovative materials and advanced performance t extiles. They offer a wide range of products including activewear , athleisure wear, swimwear, and intimate apparel, catering to va rious markets. We will upload 20gb of corporate data soon. Employee passports an d DLs, medical records, HR forms, financial files, a bit of clien t files, contracts and agreements, NDAs, etc. | Source: https://www.ransomware.live/id/VGV4b2xsaW5pQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1499"

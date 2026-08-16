@@ -1,0 +1,9 @@
+{
+  "id": 1651,
+  "name": "T1608.005: Link Target",
+  "techniqueId": "T1608",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1651"
+}

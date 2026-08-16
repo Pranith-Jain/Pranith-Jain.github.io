@@ -3,9 +3,9 @@
   "name": "ALP-001: polsat.pl",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 29, 2026",
+  "lastSeen": "Mar 29, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to ALP-001. | Country: PL | Sector: Telecommunication | Website: polsat.pl | Infostealer data confirmed. | Country: Poland Revenue: $148.5 Million Storage: 75.71 GB Description: Polsat is t he first independent TV station in Poland. The main objective of Polsat is to meet the varied tastes of the general public. The program offer is built primarily on the basis of its own brand productions combined with the interesting portfolio of feature films. Deadline: 2026-04-08 00:27:18 | Source: https://www.ransomware.live/id/cG9sc2F0LnBsQEFMUC0wMDE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1262"

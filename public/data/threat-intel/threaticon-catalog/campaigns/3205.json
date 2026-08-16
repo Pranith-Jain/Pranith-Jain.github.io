@@ -1,11 +1,11 @@
 {
   "id": 3205,
   "name": "Always Another Secret: Lifting the Haze on China-nexus Espionage in Southeast Asia | Mandiant",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 7, 2022",
+  "lastSeen": "Dec 7, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #341 (e3e245fa-1e8e-41db-94d3-6991edd0eaee).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3205"

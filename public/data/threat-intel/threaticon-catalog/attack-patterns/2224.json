@@ -1,0 +1,9 @@
+{
+  "id": 2224,
+  "name": "T1486 (Valid accounts)",
+  "techniqueId": "T1486",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2224"
+}

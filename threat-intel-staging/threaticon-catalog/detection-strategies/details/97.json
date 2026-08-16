@@ -1,0 +1,12 @@
+{
+  "id": 97,
+  "fetchedAt": "2026-08-14T05:52:59.435Z",
+  "name": "Detect Winlogon Helper DLL Abuse via Registry and Process Artifacts on Windows",
+  "tlp": null,
+  "detId": "DET0404",
+  "stixId": "x-mitre-detection-strategy--63135c50-7c7a-4a44-a053-28abd2388f21",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1133"]
+}

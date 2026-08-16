@@ -1,11 +1,11 @@
 {
   "id": 2017,
   "name": "IsSpace via CVE-2015-5122 - PaloAlto",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2015",
+  "lastSeen": "Jul 1, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #23 (56cce085-1d70-4c3b-a798-52839062e56a).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2017"

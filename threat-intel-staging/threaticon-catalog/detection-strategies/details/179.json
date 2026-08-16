@@ -1,0 +1,12 @@
+{
+  "id": 179,
+  "fetchedAt": "2026-08-14T05:16:58.927Z",
+  "name": "Detect Unsecured Credentials Shared in Chat Messages",
+  "tlp": null,
+  "detId": "DET0111",
+  "stixId": "x-mitre-detection-strategy--a9b4dd72-07f2-4fd5-b46b-2fe9f6945f14",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0309", "AN0310"]
+}

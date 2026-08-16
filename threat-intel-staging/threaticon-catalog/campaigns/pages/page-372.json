@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2209,
+    "name": "Monitoring Winnti 4.0 C2 Servers for Two Years",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #279 (3f5f50b6-0690-4a3d-bcd7-e5d3ad846385)."
+  },
+  {
+    "id": 2208,
+    "name": "A wolf in sheep's clothing: Actors spread malware by leveraging trust in Amnesty International and fear of Pegasus",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #275 (4a14a80e-6067-43de-b5e3-c88a913dd13d)."
+  },
+  {
+    "id": 2207,
+    "name": "Financial Institutions in the Sight of New JsOutProx Attack Waves",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #272 (ca364f27-1a08-4c80-9686-541d70586b4f)."
+  },
+  {
+    "id": 2206,
+    "name": "Domain Propagation Test",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #271 (b7825d7d-738a-4783-a7c8-cc81b7608102)."
+  },
+  {
+    "id": 2204,
+    "name": "Indicators of Compromise Associated with Hive Ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #269 (03be663f-7037-4f68-a96a-362036e75637)."
+  },
+  {
+    "id": 2203,
+    "name": "APT Actors Exploiting Fortinet Vulnerabilities to Gain Access for Malicious Activity",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #260 (98c0be2f-eadc-4ce5-9072-82ceacaea9c6)."
+  },
+  {
+    "id": 2202,
+    "name": "Malware Analysis: Ragnarok Ransomware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #259 (89c7d350-43f3-4aa9-ab02-c50d70339baa)."
+  },
+  {
+    "id": 2201,
+    "name": "Bizarro banking Trojan expands its attacks to Europe",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #257 (6038744c-e808-4278-9e06-b10f01422b67)."
+  },
+  {
+    "id": 2200,
+    "name": "Detecting and Preventing Malicious Domains Proactively with DNS Security",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #253 (e74cba52-0314-43c2-9958-43a55619fcf5)."
+  },
+  {
+    "id": 2199,
+    "name": "HAFNIUM targeting Exchange Servers with 0-day exploits",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #252 (16ee036b-17f5-4f17-b3c3-9fe89176274a)."
+  },
+  {
+    "id": 2198,
+    "name": "More LodaRAT infrastructure targeting Bangladesh uncovered",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #251 (8c44b315-a146-4e13-baac-996ba98bbf40)."
+  },
+  {
+    "id": 2197,
+    "name": "TA551 (Shathak) Word docs push Qakbot (Qbot)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #248 (60131f2d-2c34-4101-90e2-f98ec0a8ab16)."
+  },
+  {
+    "id": 2196,
+    "name": "A Deep Dive into Lokibot Infection Chain",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #247 (5ffab1a2-95d8-4c44-8403-f6b8c0a8ab16)."
+  },
+  {
+    "id": 2195,
+    "name": "JavaScript RAT Looking for that Government Cheese",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #246 (5fe79693-2534-4447-a551-e42dc0a8ab16)."
+  },
+  {
+    "id": 2194,
+    "name": "Dark Halo Leverages SolarWinds Compromise to Breach Organizations",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #245 (5fd8a8d4-9d60-4620-bc24-e430c0a8ab16)."
+  }
+]

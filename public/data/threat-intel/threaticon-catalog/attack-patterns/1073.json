@@ -1,0 +1,9 @@
+{
+  "id": 1073,
+  "name": "Provide Counterfeit Component",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An attacker provides a counterfeit component during the procurement process of a lower-tier component supplier to a sub-system developer or integrator, which is then built into the system being upgraded or repaired by the victim, allowing the attacker to cause disruption or additional compromise.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1073"
+}

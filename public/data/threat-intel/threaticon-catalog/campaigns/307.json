@@ -3,9 +3,9 @@
   "name": "payoutsking: Peachtree Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 30, 2026",
+  "lastSeen": "Feb 19, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: peachtreegroup.com | Infostealer data confirmed. | [AI generated] Peachtree Group is a US-based hospitality-focused investment and management firm headquartered in Atlanta, Georgia. The company operates across real estate private equity, credit, and hotel management, specializing in acquiring, developing, and managing hotel properties. It serves institutional and private investors and is active across the United States hospitality and commercial real estate sectors. | Source: https://www.ransomware.live/id/UGVhY2h0cmVlIEdyb3VwQHBheW91dHNraW5n",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/307"

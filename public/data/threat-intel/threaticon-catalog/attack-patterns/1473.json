@@ -1,0 +1,9 @@
+{
+  "id": 1473,
+  "name": "T1566.001 (OS Credential dumping)",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1473"
+}

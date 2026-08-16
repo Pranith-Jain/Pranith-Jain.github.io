@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:41:22.791Z",
+  "name": "OSINT - Password Protected ZIP with Maldoc",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 17, 2018",
+  "lastSeen": "Dec 17, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1455 (5c1803a3-43cc-4be7-83bf-42f202de0b81)."
+}

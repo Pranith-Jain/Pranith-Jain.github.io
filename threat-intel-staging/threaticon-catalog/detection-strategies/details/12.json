@@ -1,0 +1,12 @@
+{
+  "id": 12,
+  "fetchedAt": "2026-08-14T05:14:27.220Z",
+  "name": "Behavioral Detection Strategy for Abuse of Sudo and Sudo Caching",
+  "tlp": null,
+  "detId": "DET0052",
+  "stixId": "x-mitre-detection-strategy--31f41970-898c-4c64-b018-e03eabb81916",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0142", "AN0143"]
+}

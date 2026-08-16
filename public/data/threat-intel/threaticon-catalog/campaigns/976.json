@@ -3,9 +3,9 @@
   "name": "akira: CMD Outsourcing Solutions",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 7, 2026",
+  "lastSeen": "Apr 7, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: cmdosi.com | Infostealer data confirmed. | CMD Outsourcing Solutions specializes in multi-channel customer s ervice solutions tailored for higher education institutions, exte nding support to departments such as Financial Aid, Admissions, B ursar, Registrar, and Housing. We will upload corporate data soon. Scanned employee documents (p assports, DLs, SSNs, medical files and so on), financial files, N DAs, etc. | Source: https://www.ransomware.live/id/Q01EIE91dHNvdXJjaW5nIFNvbHV0aW9uc0Bha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/976"

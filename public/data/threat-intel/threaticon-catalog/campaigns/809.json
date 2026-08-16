@@ -3,9 +3,9 @@
   "name": "lamashtu: Gauthier Tissus",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 13, 2026",
+  "lastSeen": "Apr 11, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lamashtu. | Country: FR | Sector: Manufacturing | Website: gauthier-tissus.com | Infostealer data confirmed. | Based in the Rhone-Alpes basin, Gauthier Tissus is specialized in the weaving and finishing of multi-risk fabrics for technical usage, fabrics for brand image clothes and uniforms. | Source: https://www.ransomware.live/id/R2F1dGhpZXIgVGlzc3VzQGxhbWFzaHR1",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/809"

@@ -1,0 +1,9 @@
+{
+  "id": 1985,
+  "name": "T1562.004 - Log Tampering|Modify Process Memory",
+  "techniqueId": "T1562",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1985"
+}

@@ -1846,9 +1846,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/predictive/dashboard',
     label: 'Threat Landscape',
-    description: 'Key stats, trending actors, top malware, emerging threats, and attack-vector distribution.',
+    description:
+      'Combined intel dashboard - program health, feed reliability, snapshot metrics, source reliability, maturity, and quick actions.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
+    keywords: ['dashboard', 'health', 'feed', 'reliability', 'snapshot', 'maturity', 'KPI'],
   },
 
   // Actors
@@ -2120,6 +2122,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     description: 'Red/cyan/purple panels - ransomware, vulnerabilities, and IOC stream with consensus scoring.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
+    keywords: ['soc', 'security operations', 'ransomware', 'vulnerability', 'ioc', 'stream', 'dashboard'],
   },
   {
     path: '/threatintel/live-iocs',
@@ -3224,10 +3227,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/threatintel/actors/catalog',
-    label: 'Catalog',
-    description: 'Threat actor catalog with profiles.',
+    label: 'Catalog (alias)',
+    description: 'Alias for the Actor Hub catalog tab - curated profiles of 15 major groups.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
+    keywords: ['catalog', 'actor', 'profiles'],
   },
   {
     path: '/threatintel/apt-actors',
@@ -3406,10 +3410,11 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/threatintel/predictive/analytics',
-    label: 'Analytics & Ops',
-    description: 'Platform health, feed reliability, and intel metrics.',
+    label: 'Analytics & Ops (alias)',
+    description: 'Alias for the combined intel dashboard - program health, feed reliability, and snapshot metrics.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
+    keywords: ['analytics', 'ops', 'dashboard', 'feed', 'reliability'],
   },
   {
     path: '/threatintel/predictive/predictions',
@@ -3582,6 +3587,45 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
       'mitre',
       'map',
     ],
+  },
+  {
+    path: '/threatintel/feeds/dphish',
+    label: 'dPhish Phishing Feed',
+    description:
+      'Public dPhish TAXII 2.1 phishing indicator feed - malicious domains, phishing URLs, sender IPs, phone numbers, and attachment detection rules, with active/revoked status, confidence, STIX patterns, and validity windows.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: ['dphish', 'phishing', 'taxii', 'stix', 'domain', 'url', 'ioc', 'indicator', 'attachment', 'feed'],
+  },
+  {
+    path: '/threatintel/feeds/living-threat',
+    label: 'Living Threat Repository',
+    description:
+      'Real-world incidents continuously mapped to MITRE ATT&CK tactics and techniques - per-kill-chain-stage analyses with detection and remediation notes, CVEs, threat actors, tools, priority scoring, diamond model, and hunt-pack guidance.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: [
+      'living threat',
+      'mitre',
+      'attack',
+      'incident',
+      'tactic',
+      'technique',
+      'kill chain',
+      'detection',
+      'remediation',
+      'cve',
+      'actor',
+    ],
+  },
+  {
+    path: '/threatintel/feeds/malwareanalyzer',
+    label: 'MalwareAnalyzer by Cyble',
+    description:
+      'Free keyless multi-engine malware analysis from MalwareAnalyzer by Cyble - live malicious and newly-observed URL feeds with verdicts and scores, plus on-demand IOC reputation lookups across a 70k+ public sample corpus.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: ['malwareanalyzer', 'cyble', 'malware', 'url', 'verdict', 'reputation', 'ioc', 'scan', 'detonation'],
   },
   {
     path: '/threatintel/feeds/threatfeeds',

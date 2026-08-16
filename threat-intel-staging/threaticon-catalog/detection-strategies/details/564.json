@@ -1,0 +1,12 @@
+{
+  "id": 564,
+  "fetchedAt": "2026-08-14T05:17:58.220Z",
+  "name": "Detect Suspicious Access to Windows Credential Manager",
+  "tlp": null,
+  "detId": "DET0134",
+  "stixId": "x-mitre-detection-strategy--119f2b00-82ac-41fb-96ac-728bf56a8a29",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0378"]
+}

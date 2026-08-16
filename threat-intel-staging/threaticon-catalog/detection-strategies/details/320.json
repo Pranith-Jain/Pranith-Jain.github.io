@@ -1,0 +1,12 @@
+{
+  "id": 320,
+  "fetchedAt": "2026-08-14T05:19:02.762Z",
+  "name": "Detect Remote Access via USB Hardware (TinyPilot, PiKVM)",
+  "tlp": null,
+  "detId": "DET0159",
+  "stixId": "x-mitre-detection-strategy--4a11abbc-9637-4d2e-a8ac-39fef2c0256d",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0446", "AN0447", "AN0448"]
+}

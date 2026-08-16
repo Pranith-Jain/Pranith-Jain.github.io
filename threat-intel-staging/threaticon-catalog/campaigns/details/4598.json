@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:24:05.236Z",
+  "name": "Icarus: Cqcrm",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 22, 2026",
+  "lastSeen": "Jun 22, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Icarus. | Sector: Business Services | Salesforce data for Cqcrm Data stolen: SF data - compressed | Source: https://www.ransomware.live/id/Q3Fjcm1ASWNhcnVz"
+}

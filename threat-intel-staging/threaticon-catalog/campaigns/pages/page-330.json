@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2885,
+    "name": "Soft Cell case - guessed indicators (via Twitter discussion)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1534 (5d13bc95-ecbc-4af9-b684-423602de0b81)."
+  },
+  {
+    "id": 2884,
+    "name": "OSINT - Hide â€˜N Seek Botnet Updates Arsenal with Exploits Against Nexus Repository Manager & ThinkPHP",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1531 (5d0c8dcc-eae0-4020-b1d0-5526950d210f)."
+  },
+  {
+    "id": 2883,
+    "name": "OSINT - Trojan downloader found on Google Play by @Maler360",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1530 (5d01fda4-353c-4011-854f-459c950d210f)."
+  },
+  {
+    "id": 2882,
+    "name": "OSINT - The Elderwood Project",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1527 (5cff57e0-94cc-4166-830c-48cf950d210f)."
+  },
+  {
+    "id": 2881,
+    "name": "OSINT - FlawedAmmy RAT",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1524 (5cf51bbd-6180-4dc7-a2dd-4baa950d210f)."
+  },
+  {
+    "id": 2880,
+    "name": "SMTP attackers honeypot logs for 2019-05-26",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1519 (5cea377f-d36c-48cf-bd54-31ea950d210f)."
+  },
+  {
+    "id": 2879,
+    "name": "OSINT - Sorpresa! JasperLoader targets Italy with a new bag of tricks",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1518 (5ce8f7f8-8584-40c3-b33b-4660950d210f)."
+  },
+  {
+    "id": 2878,
+    "name": "OSINT - keepass(dot)com spreading malware acting as the official site for KeePass password manager. Download for .dmg and .exe files are available on the site.",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1511 (5cd4446a-b318-40d6-8120-473a950d210f)."
+  },
+  {
+    "id": 2877,
+    "name": "OSINT - Goblin Panda continues to target Vietnam",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1508 (5ccaeddb-dc84-4cc2-9f73-4a70950d210f)."
+  },
+  {
+    "id": 2876,
+    "name": "OSINT - Kernel Mode Malicious Loader",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1507 (5cc92e5a-c624-4343-8352-40fd02de0b81)."
+  },
+  {
+    "id": 2875,
+    "name": "OSINT - Threat Actor TA505 Targets Financial Enterprises Using LOLBins and a New Backdoor Malware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1504 (5cc209b3-82e0-4d0e-980d-4a6002de0b81)."
+  },
+  {
+    "id": 2874,
+    "name": "OSINT - DNSpionage brings out the Karkoff",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1503 (5cc023e7-9c7c-418e-b908-4d46950d210f)."
+  },
+  {
+    "id": 2873,
+    "name": "OSINT - Operation ShadowHammer",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1492 (5c9a14a9-fdb0-4cc9-bd13-4cbf950d210f)."
+  },
+  {
+    "id": 2872,
+    "name": "LockerGoga - yara rules",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1491 (5c912339-5ab4-4226-a5b2-9fc2950d210f)."
+  },
+  {
+    "id": 2871,
+    "name": "Fake invoice (per postal mail)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1490 (5c8ba546-6ac8-4bfd-b03a-481e950d210f)."
+  }
+]

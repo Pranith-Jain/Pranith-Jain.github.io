@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:56:05.806Z",
+  "name": "nova: URG OEM",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 17, 2026",
+  "lastSeen": "May 17, 2026",
+  "added": "May 17, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: KR | Sector: Manufacturing | Website: urg.co.kr | Infostealer data confirmed. | urg.co.kr - URG was founded with a sincere desire to provide solutions for customers facing skin concerns. Starting in 1990 with the launch of Shangpree Spa, the company not only delivered high-quality products to customers but also set a new standard for luxury service in the skincare industry—establishing itself as a leading premium spa brand. Building on over 30 years of tradition and expertise, URG has since launched a variety of skincare brands, gaining recognition both domestically and internationally. | Source: https://www.ransomware.live/id/VVJHIE9FTUBub3Zh"
+}

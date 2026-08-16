@@ -1,0 +1,9 @@
+{
+  "id": 287,
+  "name": "Email Accounts",
+  "techniqueId": "DET0835",
+  "added": "May 2, 2026",
+  "description": "Adversaries may create email accounts that can be used during targeting. Adversaries can use accounts created with email providers to further their operations, such as leveraging them to conduct Phishing for Information or Phishing.(Citation: Mandiant APT1) Establishing email accounts may also allow adversaries to abuse free services – such as trial periods – to Acquire Infrastructure for follow-on purposes.(Citation: Free Trial PurpleUrchin) Adversaries may also take steps to cultivate a persona around the email account, such as through use of Social Media Accounts, to increase the chance of success of follow-on behaviors. Created email accounts can also be used in the acquisition of infrastructure (ex: Domains).(Citation: Mandiant APT1) To decrease the chance of physically tying back operations to themselves, adversaries may make use of disposable email services.(Citation: Trend Micro R980 2016)",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/287"
+}

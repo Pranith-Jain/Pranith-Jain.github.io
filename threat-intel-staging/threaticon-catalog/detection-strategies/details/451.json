@@ -1,0 +1,12 @@
+{
+  "id": 451,
+  "fetchedAt": "2026-08-14T05:56:04.146Z",
+  "name": "Detect Malicious Password Filter DLL Registration",
+  "tlp": null,
+  "detId": "DET0472",
+  "stixId": "x-mitre-detection-strategy--f722c058-8449-49ee-8e18-c3e76ec60a51",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1303"]
+}

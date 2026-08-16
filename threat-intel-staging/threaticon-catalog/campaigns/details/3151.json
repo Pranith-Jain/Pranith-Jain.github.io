@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:32.831Z",
+  "name": "Conti Ransomware",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "May 16, 2021",
+  "lastSeen": "May 16, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #255 (0319b483-5973-4932-91ea-5a44c2975b24)."
+}

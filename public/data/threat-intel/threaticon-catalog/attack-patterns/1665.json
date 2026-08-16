@@ -1,0 +1,9 @@
+{
+  "id": 1665,
+  "name": "T1489: Service Stop",
+  "techniqueId": "T1489",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1665"
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4235,
+    "name": "thegentlemen: Spedidam",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4228,
+    "name": "spacebears: Biessse",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4223,
+    "name": "akira: Wade's Dairy",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: GB | Sector: Agriculture and Food Production | Website: wadesdairy.com | Infostealer data confirmed. | A family-owned business for over a century, Wade's Dairy has been a staple in the Connecticut c ommunity. We will upload corporate data soon. Detailed employee personal information (name, DOB, SSN, DL, height, weight, race, sex, eyes and hair color, tattoo information, emails, phones and so on), projects files, financials, customers, contracts and agreements and so on. | Source: https://www.ransomware.live/id/V2FkZSdzIERhaXJ5QGFraXJh"
+  },
+  {
+    "id": 4224,
+    "name": "nightspire: PCCC Realty LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Consumer Services | Website: pccpllc.com | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/UENDQyBSZWFsdHkgTExDQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 4229,
+    "name": "incransom: Aesthetic Surgical Images",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Aesthetic Surgical Images, a plastic surgery practice based in Omaha, NE, has been serving patients since 1968 and is known for its commitment to quality and integrity. The practice's medical records are managed by Morgan Records Management, which ensures compliance with state and federal laws regarding record retention and confidentiality. Patients can request their medical records through the practice's website, with a focus on providing a secure and efficient experience. Aesthetic Surgical Images aims to educate patients about their records and the importance of proper management. | Source: https://www.ransomware.live/id/QWVzdGhldGljIFN1cmdpY2FsIEltYWdlc0BpbmNyYW5zb20="
+  },
+  {
+    "id": 4225,
+    "name": "pear: Tostrud & Temp, S.C.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: tntcpas.com | Infostealer data confirmed. | Full service CPA firm serving La Crosse | Source: https://www.ransomware.live/id/VG9zdHJ1ZCAmIFRlbXAsIFMuQy5AcGVhcg=="
+  },
+  {
+    "id": 4220,
+    "name": "qilin: S.J. Louis",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: BR | Sector: Not Found | Website: www.sjlouis.com | N/A | Source: https://www.ransomware.live/id/Uy5KLiBMb3Vpc0BxaWxpbg=="
+  },
+  {
+    "id": 4221,
+    "name": "krybit: xuerong.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: CN | Sector: Technology | Website: xuerong.com | Infostealer data confirmed. | Shanghai Xuerong Biotechnology Co., Ltd. (上海雪榕生物科技股份有限公司), formerly known as Shanghai Gaoron... | Source: https://www.ransomware.live/id/eHVlcm9uZy5jb21Aa3J5Yml0"
+  },
+  {
+    "id": 4219,
+    "name": "qilin: Peligro Sports",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.peligrosportsnyc.com | N/A | Source: https://www.ransomware.live/id/UGVsaWdybyBTcG9ydHNAcWlsaW4="
+  },
+  {
+    "id": 4222,
+    "name": "krybit: shelby.com.mx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: MX | Sector: Not Found | Website: shelby.com.mx | Infostealer data confirmed. | Shelby Manufacturing de México, S.A. de C.V. is a Mexican maquiladora company specializing in the manufacturing of sewi... | Source: https://www.ransomware.live/id/c2hlbGJ5LmNvbS5teEBrcnliaXQ="
+  },
+  {
+    "id": 4231,
+    "name": "thegentlemen: Medic Rescue",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Sector: Healthcare | Website: www.medicrescue.org | https://www.***.org/ https://www.zoominfo.com/c/medic-rescue/47367866 Medic Rescue Services has been providing trusted emergency medical services to Beaver County since 1978. They offer a range of services including on-site emergency care, non-emergency transports, stretcher van trips, and wheelchair van services, all available 24/7. Their dedicated team and extensive fleet ensure swift and effective responses to medical needs. Medic Rescue aims to prioritize health and safety while fostering community trust through their reliable service | Source: https://www.ransomware.live/id/TWVkaWMgUmVzY3VlQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 4218,
+    "name": "CRPxO: Benjamin H. Wang DDS Inc.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Healthcare | Sector: Medical | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QmVuamFtaW4gSC4gV2FuZyBERFMgSW5jLkBDUlB4Tw=="
+  },
+  {
+    "id": 4207,
+    "name": "qilin: Sintax",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: BE | Sector: Technology | Website: www.sintax.be | N/A | Source: https://www.ransomware.live/id/U2ludGF4QHFpbGlu"
+  },
+  {
+    "id": 4211,
+    "name": "qilin: Hum & Jacoby",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.hhjcpas.com | N/A | Source: https://www.ransomware.live/id/SHVtICYgSmFjb2J5QHFpbGlu"
+  },
+  {
+    "id": 4212,
+    "name": "AiLock: Pinturas Prisa",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: MX | Sector: Manufacturing | Pinturas PRISA is a Mexican company from the state of Jalisco with nearly 80 years of history, specializing in the production of high-quality paints and coatings for industrial sectors (automotive, woodworking, manufacturing) and retail customers. | Source: https://www.ransomware.live/id/UGludHVyYXMgUHJpc2FAQWlMb2Nr"
+  }
+]

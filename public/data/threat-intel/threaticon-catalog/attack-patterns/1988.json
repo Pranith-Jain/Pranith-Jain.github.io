@@ -1,0 +1,9 @@
+{
+  "id": 1988,
+  "name": "T1114.001: Local Email Collection",
+  "techniqueId": "T1114",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1988"
+}

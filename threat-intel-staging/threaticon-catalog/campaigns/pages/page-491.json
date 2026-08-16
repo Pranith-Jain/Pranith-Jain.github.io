@@ -1,0 +1,122 @@
+[
+  {
+    "id": 422,
+    "name": "apt73: seit.cl",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: CL | Sector: Technology | Website: seit.cl | Infostealer data confirmed. | seit.cl is the website of SEiT S.p.A., a company providing IT services to businesses in Chile. In... | Source: https://www.ransomware.live/id/c2VpdC5jbEBhcHQ3Mw=="
+  },
+  {
+    "id": 421,
+    "name": "apt73: novoair-bd.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: BD | Sector: Transportation/Logistics | Website: novoair-bd.com | Infostealer data confirmed. | novoair-bd.com is the website of Novoair, a private airline based in Bangladesh. Internal documen... | Source: https://www.ransomware.live/id/bm92b2Fpci1iZC5jb21AYXB0NzM="
+  },
+  {
+    "id": 420,
+    "name": "apt73: bg.ac.rs",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: RS | Sector: Education | Website: bg.ac.rs | Infostealer data confirmed. | University of Belgrade. Internal documents, letters, attachments, financial reports. Total size: ... | Source: https://www.ransomware.live/id/YmcuYWMucnNAYXB0NzM="
+  },
+  {
+    "id": 419,
+    "name": "apt73: bankasia-bd.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: BD | Sector: Financial Services | Website: bankasia-bd.com | Infostealer data confirmed. | bankasia-bd.com is the official website of Bank Asia PLC, a commercial bank in Bangladesh. Intern... | Source: https://www.ransomware.live/id/YmFua2FzaWEtYmQuY29tQGFwdDcz"
+  },
+  {
+    "id": 418,
+    "name": "apt73: banak.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: TR | Sector: Financial Services | Website: banak.com | Infostealer data confirmed. | Banak is a Spanish company that sells furniture and home decor. Internal documents, letters, atta... | Source: https://www.ransomware.live/id/YmFuYWsuY29tQGFwdDcz"
+  },
+  {
+    "id": 417,
+    "name": "apt73: amtaar.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: AE | Sector: Business Services | Website: amtaar.com | Infostealer data confirmed. | Amtaar Investment Company. Organization dedicated to transforming desert land into thriving food-... | Source: https://www.ransomware.live/id/YW10YWFyLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 416,
+    "name": "apt73: corahperu.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: PE | Sector: Public Sector | Website: corahperu.org | Infostealer data confirmed. | corahperu.org is the official website of Proyecto Especial CORAH, a Peruvian government project a... | Source: https://www.ransomware.live/id/Y29yYWhwZXJ1Lm9yZ0BhcHQ3Mw=="
+  },
+  {
+    "id": 415,
+    "name": "apt73: mahidol.ac.th",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: TH | Sector: Education | Website: mahidol.ac.th | Infostealer data confirmed. | Mahidol University is a major public research university established in Thailand with deep histor... | Source: https://www.ransomware.live/id/bWFoaWRvbC5hYy50aEBhcHQ3Mw=="
+  },
+  {
+    "id": 414,
+    "name": "apt73: compensatii.gov.md",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MD | Sector: Public Sector | Website: compensatii.gov.md | Infostealer data confirmed. | compensatii.gov.md is the official online government platform of the Republic of Moldova, created... | Source: https://www.ransomware.live/id/Y29tcGVuc2F0aWkuZ292Lm1kQGFwdDcz"
+  },
+  {
+    "id": 413,
+    "name": "apt73: hl.co.uk",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: GB | Sector: Financial Services | Website: hl.co.uk | Infostealer data confirmed. | The hl.co.uk domain is owned by Hargreaves Lansdown (legal name \"Hargreaves Lansdown Asset Manage... | Source: https://www.ransomware.live/id/aGwuY28udWtAYXB0NzM="
+  },
+  {
+    "id": 412,
+    "name": "apt73: prixet.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Sector: Technology | Website: prixet.com | Infostealer data confirmed. | We are a technology company based in Europe and the Caribbean. We are dedicated to data creation ... | Source: https://www.ransomware.live/id/cHJpeGV0LmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 411,
+    "name": "apt73: minerasancristobal.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: MX | Sector: Energy | Website: minerasancristobal.com | Infostealer data confirmed. | Minerals & Mining. financial docs, internal docs, personal docs. | Source: https://www.ransomware.live/id/bWluZXJhc2FuY3Jpc3RvYmFsLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 410,
+    "name": "apt73: bms.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: US | Sector: Healthcare | Website: bms.com | Infostealer data confirmed. | Pharmaceutical company. personal data - 302 lines | Press: https://ago.vermont.gov/document/2025-06-23-bms-holdings-data-breach-notice-consumers | Source: https://www.ransomware.live/id/Ym1zLmNvbUBhcHQ3Mw=="
+  },
+  {
+    "id": 408,
+    "name": "apt73: certifiedinfosec.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: US | Sector: Business Services | Website: certifiedinfosec.com | Infostealer data confirmed. | Certified Information Security is a registered trade name for Certified Tech Trainers (CTT) (D-U-... | Source: https://www.ransomware.live/id/Y2VydGlmaWVkaW5mb3NlYy5jb21AYXB0NzM="
+  },
+  {
+    "id": 407,
+    "name": "apt73: siapenet.gov.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: BR | Sector: Public Sector | Website: siapenet.gov.br | Infostealer data confirmed. | Today, SIAPE processes the remuneration of civil servants, regulated both by the uniform federal ... | Source: https://www.ransomware.live/id/c2lhcGVuZXQuZ292LmJyQGFwdDcz"
+  }
+]

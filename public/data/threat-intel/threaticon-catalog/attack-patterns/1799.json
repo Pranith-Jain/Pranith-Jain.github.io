@@ -1,0 +1,9 @@
+{
+  "id": 1799,
+  "name": "T1027 - Account Access Removal",
+  "techniqueId": "T1027",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1799"
+}

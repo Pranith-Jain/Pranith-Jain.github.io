@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:34:06.057Z",
+  "name": "shinyhunters: Pathstone.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 6, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Financial Services | Website: Pathstone.com | Salesforce records were compromised and other internal corporate data have been compromised. The company failed to reach an agreement with us despite all the chances and offers we made. They don't care about their clients nor investors. | Size: 15GB (compressed) | Updated: 06 Mar 2026 | SHA256: 6377f58fe8229bc376bbcf6acc32d00cdfb0ac415b8660106f29ca14fa6d0561 | Source: https://www.ransomware.live/id/UGF0aHN0b25lLmNvbUBzaGlueWh1bnRlcnM="
+}

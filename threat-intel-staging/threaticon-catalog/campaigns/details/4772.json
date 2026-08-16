@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:16:26.376Z",
+  "name": "safepay: bautz-maschinenbau.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 15, 2026",
+  "lastSeen": "Jun 15, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Manufacturing | Website: bautz-maschinenbau.de | Infostealer data confirmed. | Founded in 1960 by Alfred Bautz, the family-owned enterprise has developed over three generations into a specialized supplier of precision … | Source: https://www.ransomware.live/id/YmF1dHotbWFzY2hpbmVuYmF1LmRlQHNhZmVwYXk="
+}

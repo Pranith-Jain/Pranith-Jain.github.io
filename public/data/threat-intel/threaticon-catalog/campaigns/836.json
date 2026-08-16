@@ -3,10 +3,10 @@
   "name": "dragonforce: www.sistemigestioneintegrata.eu",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 13, 2026",
+  "lastSeen": "Apr 13, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: IT | Sector: Business Services | Website: www.sistemigestioneintegrata.eu | SGI – Sistemi Gestione Integrata is an Italian consulting firm headquartered in Bergamo, Lombardy, specializing in workplace health & safety, environmental compliance, and occupational medicine. With over 863 clients, 57,000+ medical visits conducted, and 125 environmental authorizations managed, SGI offers comprehensive services including risk assessments, fire prevention, emergency planning, ISO certification consulting (9001, 14001, 45001), waste management, and REACH compliance. As an accredited training provider (Regione Lombardia No. 691), SGI also delivers in-person and e-learning safety courses. The company supports its services through proprietary digital platforms including NET4SAFE and SGI FAD. | Source: https://www.ransomware.live/id/d3d3LnNpc3RlbWlnZXN0aW9uZWludGVncmF0YS5ldUBkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/836"
 }

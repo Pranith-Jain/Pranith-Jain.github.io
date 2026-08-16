@@ -1,0 +1,9 @@
+{
+  "id": 2136,
+  "name": "T1003.001 -Credential Dumping: Windows Security Accounts Manager (SAM)",
+  "techniqueId": "T1003",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2136"
+}

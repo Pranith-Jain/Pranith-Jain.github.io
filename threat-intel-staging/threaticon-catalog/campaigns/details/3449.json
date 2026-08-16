@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:12:46.346Z",
+  "name": "Malspam 2016-08-31 (.js in .zip) - campaign: \"bank transactions\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 31, 2016",
+  "lastSeen": "Aug 31, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #843 (57c6cb1f-5d40-49cc-a24a-4cb2950d210f)."
+}

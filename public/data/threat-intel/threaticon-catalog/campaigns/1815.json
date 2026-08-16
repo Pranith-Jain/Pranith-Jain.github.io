@@ -3,9 +3,9 @@
   "name": "akira: DesignSourceCT",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 5, 2026",
+  "lastSeen": "Feb 10, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Consumer Services | Website: designsourcect.com | Infostealer data confirmed. | DesignSourceCT is Connecticut's largest and most comprehensive de signer showroom, established in 2005, catering to trade professio nals and their clients. The showroom offers a thoughtfully curate d selection of high-quality home furnishings, including fabric, f urniture, flooring, and more from trusted brand names. We will upload corporate data soon. Projects, contracts, clients docs and so on. | Source: https://www.ransomware.live/id/RGVzaWduU291cmNlQ1RAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1815"

@@ -3,9 +3,9 @@
   "name": "dragonforce: fhw-neukoelln.de",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 2, 2026",
+  "lastSeen": "Apr 2, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Energy | Website: fhw-neukoelln.de | Infostealer data confirmed. | Fernheizwerk Neukölln provides heat to homes in the Berlin-Neukölln district. This local heating company generates and supplies heat to approximately 40,000 homes, ensuring a comfortable temperature during the cold months. They make every effort to provide reliable heat to the community by connecting homes to efficient heating systems throughout the district. | Press: https://www.morgenpost.de/berlin/article411604318/hacker-attacke-auf-berliner-fernheizwerk-in-neukoelln-loesegeldforderung.html | Source: https://www.ransomware.live/id/Zmh3LW5ldWtvZWxsbi5kZUBkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1093"

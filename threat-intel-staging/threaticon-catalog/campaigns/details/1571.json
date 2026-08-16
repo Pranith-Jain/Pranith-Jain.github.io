@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:44:35.442Z",
+  "name": "coinbasecartel: Geno Bank",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 15, 2026",
+  "lastSeen": "Mar 15, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: DE | Sector: Financial Services | Website: genobank.io | Infostealer data confirmed. | [AI generated] GenoBank.io is a company that provides a secure platform for DNA data storage and transfer, prioritizing privacy and user control. Their blockchain-based system aims to build trust among customers while enabling them to access personalized medical, ancestry, or lifestyle recommendations. | Source: https://www.ransomware.live/id/R2VubyBCYW5rQGNvaW5iYXNlY2FydGVs"
+}

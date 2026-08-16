@@ -1,0 +1,9 @@
+{
+  "id": 2456,
+  "name": "T1038 - Data Extraction",
+  "techniqueId": "T1038",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2456"
+}

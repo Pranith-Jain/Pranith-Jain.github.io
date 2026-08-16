@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:47:54.566Z",
+  "name": "AiLock: Site Design Group",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 2, 2026",
+  "lastSeen": "May 2, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Business Services | Website: site-design.com | Infostealer data confirmed. | Site Design Group Ltd. is a Chicago-based firm specializing in landscape architecture and urban design. | Source: https://www.ransomware.live/id/U2l0ZSBEZXNpZ24gR3JvdXBAQWlMb2Nr"
+}

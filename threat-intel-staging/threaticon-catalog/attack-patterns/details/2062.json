@@ -1,0 +1,9 @@
+{
+  "id": 2062,
+  "fetchedAt": "2026-08-15T07:02:24.536Z",
+  "name": "T1055 - Process Injection for privilege escalation",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

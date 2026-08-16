@@ -3,9 +3,9 @@
   "name": "dragonforce: hwaseng",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 29, 2026",
+  "lastSeen": "Jun 28, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: TW | Sector: Not Found | Website: hwaseng.com.tw | Infostealer data confirmed. | A Taiwanese manufacturer with forty years of experience, specializing in the high-precision production of metal fasteners, precision-machined parts, and components for the electronics and automotive industries. | Source: https://www.ransomware.live/id/aHdhc2VuZ0BkcmFnb25mb3JjZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4490"

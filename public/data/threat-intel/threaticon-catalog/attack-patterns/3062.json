@@ -1,0 +1,9 @@
+{
+  "id": 3062,
+  "name": "T1204.2",
+  "techniqueId": "T1204",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/3062"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:13.186Z",
+  "name": "OSINT New activity of the Blue Termite APT by AlienVault",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 24, 2015",
+  "lastSeen": "Aug 24, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #729 (55db9387-6a70-4fdd-8fee-6e76950d210b)."
+}

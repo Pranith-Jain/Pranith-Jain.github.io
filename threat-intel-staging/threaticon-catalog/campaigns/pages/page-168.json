@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5354,
+    "name": "2026-05-21 (Thursday): Fake Vpn Extension Farm",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-21 (Thursday): Fake Vpn Extension Farm. References: https://www.linkedin.com/posts/ai-ugcPost-7463625997138006016-Oxvv/, https://x.com/Unit42_Intel/status/2057860340931551588"
+  },
+  {
+    "id": 5353,
+    "name": "2026-05-22 (Friday): Remus Stealer Delivered Via Software Search Redirection",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-22 (Friday): Remus Stealer Delivered Via Software Search Redirection. References: https://www.linkedin.com/posts/remusstealer-ugcPost-7463682119962214400-T04u/, https://x.com/Unit42_Intel/status/2057916503844933836"
+  },
+  {
+    "id": 5352,
+    "name": "2026-05-28 (Thursday): Web-Based Indirect Prompt Injection Pushes Malicious Chrome Extension",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-28 (Thursday): Web-Based Indirect Prompt Injection Pushes Malicious Chrome Extension. References: https://www.linkedin.com/posts/we-detected-indirect-prompt-injection-on-ugcPost-7466239963433734144-lREF/, https://x.com/Unit42_Intel/status/2060474330165731709"
+  },
+  {
+    "id": 5351,
+    "name": "2026-05-28 (Thursday): Tuxbot V3 Evolution (Akiru) Framework Analysis",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-28 (Thursday): Tuxbot V3 Evolution (Akiru) Framework Analysis."
+  },
+  {
+    "id": 5350,
+    "name": "2026-06-01 (Monday) Adware Wallpaper Chrome Extension Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-01 (Monday) Adware Wallpaper Chrome Extension Campaign. References: https://www.linkedin.com/posts/adware-ugcPost-7467619566693576705-aZdJ/, https://x.com/Unit42_Intel/status/2061853927566381499"
+  },
+  {
+    "id": 5349,
+    "name": "2026-06-03 (Wednesday): Pink Extortion Brand Activity (Cl-Cri-1147)",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-03 (Wednesday): Pink Extortion Brand Activity (Cl-Cri-1147). References: https://www.linkedin.com/posts/we-are-tracking-pink-cl-cri-1147-a-new-ugcPost-7467982449772429312-qcbZ/, https://x.com/Unit42_Intel/status/2062216815967625558"
+  },
+  {
+    "id": 5348,
+    "name": "2026-06-05 (Friday): Evasive Clickfix Injection Delivers A Rat Hidden In Image Files",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-05 (Friday): Evasive Clickfix Injection Delivers A Rat Hidden In Image Files. References: https://www.linkedin.com/posts/clickfix-share-7468710971256274945-R7ch/, https://x.com/Unit42_Intel/status/2062945300382151027"
+  },
+  {
+    "id": 5347,
+    "name": "2026-06-08 (Monday): Browser-In-The-Browser Phishing Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-08 (Monday): Browser-In-The-Browser Phishing Campaign. References: https://twitter.com/Unit42_Intel/status/2064105988383252853, https://www.linkedin.com/feed/update/urn:li:ugcPost:7469871641158774784"
+  },
+  {
+    "id": 5346,
+    "name": "2026-06-11 (Thursday): Bling Libra (Shinyhunters) Targeting Oracle Peoplesoft Servers",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-11 (Thursday): Bling Libra (Shinyhunters) Targeting Oracle Peoplesoft Servers. References: https://www.linkedin.com/posts/shinyhunters-share-7471278410099679232-AINn/, https://x.com/Unit42_Intel/status/2065512743466078245"
+  },
+  {
+    "id": 5344,
+    "name": "2026-06-15 (Monday): Trojanized Chrome Extension Campaign For Covert Ad Monetization",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-15 (Monday): Trojanized Chrome Extension Campaign For Covert Ad Monetization. References: https://www.linkedin.com/posts/we-detected-a-malicious-browser-extension-ugcPost-7472789619147886592-HqWB/, https://x.com/Unit42_Intel/status/2067023964002541592"
+  },
+  {
+    "id": 5345,
+    "name": "2026-06-12 (Friday): Attackers Exploiting Ai Brand Hype",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-12 (Friday): Attackers Exploiting Ai Brand Hype. References: https://www.linkedin.com/feed/update/urn:li:ugcPost:7472302166293176322, https://twitter.com/Unit42_Intel/status/2066536531653804501"
+  },
+  {
+    "id": 5342,
+    "name": "2026-06-16 (Tuesday): Phishing Emails Impersonate Retail Stores With Llm-Powered Text Salting",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-16 (Tuesday): Phishing Emails Impersonate Retail Stores With Llm-Powered Text Salting. References: https://www.linkedin.com/posts/phishing-ugcPost-7473435883170590721-C9Uh/, https://x.com/Unit42_Intel/status/2067670247448977508"
+  },
+  {
+    "id": 5343,
+    "name": "2026-06-17 (Wednesday): Codeless Attack: Llm-Driven Malware Operations Via Telegram",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-17 (Wednesday): Codeless Attack: Llm-Driven Malware Operations Via Telegram. References: https://www.linkedin.com/posts/llm-ugcPost-7473406958960775168-SNYw/, https://x.com/Unit42_Intel/status/2067641304671023285"
+  },
+  {
+    "id": 5341,
+    "name": "2026-06-19 (Friday): Ai-Generated Fake Instruction Video Lure Phishing Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-19 (Friday): Ai-Generated Fake Instruction Video Lure Phishing Campaign. Chain of events: Exposure: Victim encounters one of 800+ phishing URLs. → Video Delivery: Video is served from a legitimate CDN, bypassing URL reputation filters. → Instructions: Deepfake audio voice instructs the victim to: → Open the web browser → References: https://www.linkedin.com/posts/an-evolved-deepfake-video-campaign-is-distributing-ugcPost-7474874864839933953-4BJo/, https://x.com/Unit42_Intel/status/2069109249196609572"
+  },
+  {
+    "id": 5340,
+    "name": "2026-06-20 (Saturday): Latest Macos Clickfix Variant Invisibly Mounts Dmg Image For Macos Infostealer That Hijacks Cryptocurrency Wallet Info",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-06-20 (Saturday): Latest Macos Clickfix Variant Invisibly Mounts Dmg Image For Macos Infostealer That Hijacks Cryptocurrency Wallet Info. References: https://www.linkedin.com/posts/the-latest-macos-clickfix-variant-invisibly-ugcPost-7475087272908996608-Txi8/, https://x.com/Unit42_Intel/status/2069321645924159505"
+  }
+]

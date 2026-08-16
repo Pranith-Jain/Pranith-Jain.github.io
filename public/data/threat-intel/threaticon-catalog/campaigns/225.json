@@ -3,9 +3,9 @@
   "name": "fulcrumsec: Crank Communications",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to fulcrumsec. | Country: US | Sector: Telecommunication | Website: crankcommunications.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/Q3JhbmsgQ29tbXVuaWNhdGlvbnNAZnVsY3J1bXNlYw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/225"

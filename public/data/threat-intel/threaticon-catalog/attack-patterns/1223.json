@@ -1,0 +1,9 @@
+{
+  "id": 1223,
+  "name": "Retrieve Data from Decommissioned Devices",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: Medium. An adversary obtains decommissioned, recycled, or discarded systems and devices that can include an organization’s intellectual property, employee data, and other types of controlled information. Systems and devices that have reached the end of their lifecycles may be subject to recycle or disposal where they can be exposed to adversarial attempts to retrieve information from internal memory chips and storage devices that are part of the system.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1223"
+}

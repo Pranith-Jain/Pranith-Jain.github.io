@@ -4,53 +4,99 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-12T15:31:24.000Z",
-  "lastSeen": "2026-08-12T16:22:38.000Z",
-  "summary": "Sector hit by 3 leak-site victims across 3 ransomware groups and 1 country.",
+  "mentionCount": 8,
+  "firstSeen": "2026-08-14T05:57:50.000Z",
+  "lastSeen": "2026-08-15T04:22:13.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 5 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-12",
-      "count": 3
+      "date": "2026-08-14",
+      "count": 7
+    },
+    {
+      "date": "2026-08-15",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "enteroptyx-ophthalmology-products-www-enteroptyx-com-serviced-by-an-it-c-c8a2",
-      "title": "Enteroptyx Ophthalmology Products www.enteroptyx.com serviced by an IT company Computer Co... — claimed by blacknevas",
-      "pubDate": "2026-08-12T16:22:38.000Z"
+      "slug": "interim-healthcare-62fa",
+      "title": "Interim HealthCare — claimed by anubis",
+      "pubDate": "2026-08-15T04:22:13.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "diabetesandmetabolism-com-0367",
-      "title": "diabetesandmetabolism.com — claimed by incransom",
-      "pubDate": "2026-08-12T15:53:53.000Z"
+      "slug": "columbia-university-information-dental-b623",
+      "title": "Columbia University Information (Dental) — claimed by Global Secret Group",
+      "pubDate": "2026-08-14T16:21:32.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "starkey-com-73b8",
-      "title": "STARKEY.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:31:24.000Z"
+      "slug": "rood-amp-riddle-equine-hospital-c570",
+      "title": "Rood &amp; Riddle Equine Hospital — claimed by Storm",
+      "pubDate": "2026-08-14T07:12:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "canadian-mental-health-association-7dfe",
+      "title": "Canadian Mental Health Association — claimed by Storm",
+      "pubDate": "2026-08-14T07:11:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sharecare-inc-e8fa",
+      "title": "Sharecare, Inc. — claimed by shinyhunters",
+      "pubDate": "2026-08-14T06:00:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cook-medical-llc-55b4",
+      "title": "Cook Medical LLC — claimed by shinyhunters",
+      "pubDate": "2026-08-14T05:59:31.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "baxter-international-inc-1cd0",
+      "title": "Baxter International, Inc. — claimed by shinyhunters",
+      "pubDate": "2026-08-14T05:59:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "first-coast-heart-vascular-center-50e6",
+      "title": "First Coast Heart Vascular Center — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:57:50.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "blacknevas",
-      "name": "blacknevas",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
+      "weight": 3
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "Storm",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "anubis",
+      "name": "anubis",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
+      "slug": "global-secret-group",
+      "name": "Global Secret Group",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "clop",
-      "name": "clop",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

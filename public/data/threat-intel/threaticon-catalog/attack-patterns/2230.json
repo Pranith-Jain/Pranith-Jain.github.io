@@ -1,0 +1,9 @@
+{
+  "id": 2230,
+  "name": "T1584.001 - Defense Evasion via Driver",
+  "techniqueId": "T1584",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2230"
+}

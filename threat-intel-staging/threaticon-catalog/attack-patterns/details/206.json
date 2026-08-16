@@ -1,0 +1,9 @@
+{
+  "id": 206,
+  "fetchedAt": "2026-08-15T06:54:29.218Z",
+  "name": "Masquerading",
+  "tlp": "white",
+  "techniqueId": "T1036",
+  "added": "May 2, 2026",
+  "description": "Adversaries may attempt to manipulate features of their artifacts to make them appear legitimate or benign to users and/or security tools. Masquerading occurs when the name or location of an object, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation. This may include manipulating file metadata, tricking users into misidentifying the file type, and giving legitimate task or service names. Renaming abusable system utilities to evade security monitoring is also a form of Masquerading.(Citation: LOLBAS Main Site)"
+}

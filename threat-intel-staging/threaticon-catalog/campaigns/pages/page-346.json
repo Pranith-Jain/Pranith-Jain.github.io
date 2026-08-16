@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2640,
+    "name": "OSINT - Uiwix Ransomware Using EternalBlue SMB Exploit To Infect Victims",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1064 (591d952f-ff4c-4fae-92dd-4a9e950d210f)."
+  },
+  {
+    "id": 2639,
+    "name": "OSINT - Neo23x0 Yara Rule Set and Sigma Rule Set - WannaCry",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1059 (59188096-18dc-47dc-9a67-beaf950d210f)."
+  },
+  {
+    "id": 2638,
+    "name": "OSINT - Massive outbreak of ransomware variant infects large amounts of computers around the world",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1056 (5916342f-3134-435f-9ce2-48e802de0b81)."
+  },
+  {
+    "id": 2637,
+    "name": "Password-protected docs 2017-05-10 : Ursnif 2002 - \"payment confirmation.ab1_c23def4lg56hi#78j.docx\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1053 (591334cc-3b68-47fc-acc9-4763950d210f)."
+  },
+  {
+    "id": 2636,
+    "name": "OSINT - EPS Processing Zero-Days Exploited by Multiple Threat Actors",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1052 (59120865-27e0-4e6d-9b74-4a9f950d210f)."
+  },
+  {
+    "id": 2635,
+    "name": "OSINT - Windows Defender ATP thwarts Operation WilySupply software supply chain cyberattack",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1051 (59100c44-ea98-4024-ab76-485e950d210f)."
+  },
+  {
+    "id": 2634,
+    "name": "OSINT - A Mole exposing itself to sunlight Snake: Coming soon in Mac OS X flavour",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1050 (590b172d-c8f4-4cdd-88cf-4443950d210f)."
+  },
+  {
+    "id": 2633,
+    "name": "OSINT - Use of DNS Tunneling for C&C Communications",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1049 (590348da-977c-436f-ad6f-4ecb950d210f)."
+  },
+  {
+    "id": 2632,
+    "name": "OSINT - OSX Malware is Catching Up, and it wants to Read Your HTTPS Traffic",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1048 (5902f92f-c7f4-4bac-97b5-4fa6950d210f)."
+  },
+  {
+    "id": 2631,
+    "name": "OSINT - Similarities Between Carbanak and FIN7 Malware Suggest Actors Are Closely Related",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1046 (5902dd26-4a34-4d46-be1f-45f8950d210f)."
+  },
+  {
+    "id": 2630,
+    "name": "Dridex 2017-04-11 : botnet 7200/7500 campaigns",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1045 (5900a0d3-4c08-4f82-a9ae-2c2f950d210f)."
+  },
+  {
+    "id": 2629,
+    "name": "OSINT - FlexSpy Application Analysis",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1042 (58fce117-452c-42ed-a2dc-b64a950d210f)."
+  },
+  {
+    "id": 2628,
+    "name": "OSINT - Callisto Group",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1041 (58f0bb56-ce80-4f18-88b6-4577950d210f)."
+  },
+  {
+    "id": 2627,
+    "name": "OSINT - CVE-2017-0199: In the Wild Attacks Leveraging HTA Handler",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1040 (58ed2c42-04f0-44b7-baa4-9f1f02de0b81)."
+  },
+  {
+    "id": 2626,
+    "name": "OSINT - Ewind â€“ Adware in Applicationsâ€™ Clothing",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1039 (58ecc62a-e5bc-406f-adc6-4b65950d210f)."
+  }
+]

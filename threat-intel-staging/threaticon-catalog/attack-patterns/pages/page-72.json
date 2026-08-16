@@ -1,0 +1,155 @@
+[
+  {
+    "id": 2995,
+    "name": "T1078 Valid Accounts – Credentials in Cloud Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2918,
+    "name": "T1078 – Valid Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  { "id": 279, "name": "Default Accounts", "tlp": "white", "confidence": null, "techniqueId": "T1078", "status": null },
+  {
+    "id": 2927,
+    "name": "T1078.001 (Valid Accounts: Cloud Accounts)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2048,
+    "name": "T1078.001 - Account Access Removal",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 1926,
+    "name": "T1078.001 - Account Access Removal Credential Theft OAuth",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 1916,
+    "name": "T1078.001 - Account Access Removal/Modification: Credential Dumping via Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2038,
+    "name": "T1078.001 - Account Access Removal:credential dumping via mimikatz",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2142,
+    "name": "T1078.001 - Application Layer Attack Frameworks",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2274,
+    "name": "T1078.001 - Application Layer Protocol - HTTP servers (for C2 communication)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2184,
+    "name": "T1078.001 - Application Layer Protocol Proxy Usage",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 1727,
+    "name": "T1078.001 - Collection Activities via Hacked Account",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 1787,
+    "name": "T1078.001 - Credential Dumping through compromised systems",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2258,
+    "name": "T1078.001 - Email Collection: Phishing for Credentials via Email",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2205,
+    "name": "T1078.001 - Establishing Persistence via registry keys",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2250,
+    "name": "T1078.001 - Exfiltration Over Web Service Communication Channels",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2133,
+    "name": "T1078.001 - File SystemModification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2058,
+    "name": "T1078.001 - OS Credential Dumping: Security Account Manager/SAM",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 1551,
+    "name": "T1078.001 - Registry-run keys: Persistence mechanisms were maintained through registry entries.",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  },
+  {
+    "id": 2195,
+    "name": "T1078.001 - Spear-Phishing via Email",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1078",
+    "status": null
+  }
+]

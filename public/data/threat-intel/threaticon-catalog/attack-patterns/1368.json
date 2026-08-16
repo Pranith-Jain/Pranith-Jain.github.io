@@ -1,0 +1,9 @@
+{
+  "id": 1368,
+  "name": "T1562.003 - Valid Accounts: External Account Access via Custom Tools",
+  "techniqueId": "T1562",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1368"
+}

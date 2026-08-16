@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:58:54.683Z",
+  "name": "OSINT - Uiwix Ransomware Using EternalBlue SMB Exploit To Infect Victims",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 18, 2017",
+  "lastSeen": "May 18, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1064 (591d952f-ff4c-4fae-92dd-4a9e950d210f)."
+}

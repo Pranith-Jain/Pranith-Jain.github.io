@@ -1,0 +1,99 @@
+[
+  {
+    "id": 2391,
+    "name": "T1105 - Use of remote access tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1105",
+    "status": null
+  },
+  {
+    "id": 2772,
+    "name": "T1105 Ingress Tool Transfer",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1105",
+    "status": null
+  },
+  {
+    "id": 2663,
+    "name": "T1105 – Ingress Tool Transfer",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1105",
+    "status": null
+  },
+  {
+    "id": 2868,
+    "name": "T1105 – Remote File Copy",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1105",
+    "status": null
+  },
+  { "id": 2539, "name": "T1105.001", "tlp": "white", "confidence": null, "techniqueId": "T1105", "status": null },
+  { "id": 2564, "name": "T1105.002", "tlp": "white", "confidence": null, "techniqueId": "T1105", "status": null },
+  {
+    "id": 1324,
+    "name": "T1105: Ingress Tool Transfer",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1105",
+    "status": null
+  },
+  { "id": 179, "name": "Native API", "tlp": "white", "confidence": null, "techniqueId": "T1106", "status": null },
+  {
+    "id": 2336,
+    "name": "T1106 - Native API",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1106",
+    "status": null
+  },
+  {
+    "id": 1884,
+    "name": "T1106: Native API",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1106",
+    "status": null
+  },
+  { "id": 2654, "name": "T1107", "tlp": "white", "confidence": null, "techniqueId": "T1107", "status": null },
+  { "id": 2698, "name": "T1108", "tlp": "white", "confidence": null, "techniqueId": "T1108", "status": null },
+  { "id": 2720, "name": "T1109", "tlp": "white", "confidence": null, "techniqueId": "T1109", "status": null },
+  { "id": 2538, "name": "T1109.001", "tlp": "white", "confidence": null, "techniqueId": "T1109", "status": null },
+  { "id": 453, "name": "Brute Force", "tlp": "white", "confidence": null, "techniqueId": "T1110", "status": null },
+  { "id": 26, "name": "Password Guessing", "tlp": "white", "confidence": null, "techniqueId": "T1110", "status": null },
+  {
+    "id": 2377,
+    "name": "T1110.001 - Brute Force",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1110",
+    "status": null
+  },
+  {
+    "id": 2950,
+    "name": "T1110.001 - Brute Force: Password Guessing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1110",
+    "status": null
+  },
+  {
+    "id": 2765,
+    "name": "T1110.001 Password Guessing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1110",
+    "status": null
+  },
+  {
+    "id": 2869,
+    "name": "T1110.001 – Brute Force: Password Guessing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1110",
+    "status": null
+  }
+]

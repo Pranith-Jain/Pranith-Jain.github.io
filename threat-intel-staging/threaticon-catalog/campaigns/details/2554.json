@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:02:43.908Z",
+  "name": "OSINT - New SmsSecurity Variant Roots Phones, Abuses Accessibility Features and TeamViewer",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 1, 2016",
+  "lastSeen": "Dec 1, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #929 (584003cf-ec58-48c8-933e-4172950d210f)."
+}

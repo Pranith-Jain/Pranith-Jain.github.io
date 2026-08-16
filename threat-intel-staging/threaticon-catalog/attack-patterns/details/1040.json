@@ -1,0 +1,9 @@
+{
+  "id": 1040,
+  "fetchedAt": "2026-08-15T06:18:03.533Z",
+  "name": "TCP Fragmentation",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "An adversary may execute a TCP Fragmentation attack against a target with the intention of avoiding filtering rules of network controls, by attempting to fragment the TCP packet such that the headers flag field is pushed into the second fragment which typically is not filtered."
+}

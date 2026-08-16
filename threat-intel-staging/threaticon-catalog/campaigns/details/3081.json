@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:34:06.866Z",
+  "name": "medusalocker: ActionAid / TACOSA",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 6, 2026",
+  "description": "Ransomware attack attributed to medusalocker. | Country: GB | Sector: Public Sector | Website: actionaid.org | Infostealer data confirmed. | NGO sector. Domains: actionaid.org, tacosa.org.za, immigration.go.tz. | Source: https://www.ransomware.live/id/QWN0aW9uQWlkIC8gVEFDT1NBQG1lZHVzYWxvY2tlcg=="
+}

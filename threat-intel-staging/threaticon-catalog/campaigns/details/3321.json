@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:23:17.421Z",
+  "name": "OSINT - Operation Groundbait: Espionage in Ukrainian war zones",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 18, 2016",
+  "lastSeen": "May 18, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #552 (573cbe55-a890-42e3-8ce9-436802de0b81)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:31:52.951Z",
+  "name": "The â€œEyePyramidâ€ attacks A homebrew cyberespionage operation that took Italy by storm",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 12, 2017",
+  "lastSeen": "Jan 12, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #92 (5877be48-e4b4-4634-b002-0799c0a8ab16)."
+}

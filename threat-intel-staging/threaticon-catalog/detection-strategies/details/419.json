@@ -1,0 +1,12 @@
+{
+  "id": 419,
+  "fetchedAt": "2026-08-14T05:21:48.237Z",
+  "name": "Detection of Adversary Abuse of Software Deployment Tools",
+  "tlp": null,
+  "detId": "DET0223",
+  "stixId": "x-mitre-detection-strategy--ea1f5423-64b9-44eb-824f-251aa0faccd2",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0623", "AN0624", "AN0625", "AN0626", "AN0627"]
+}

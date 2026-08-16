@@ -1,0 +1,9 @@
+{
+  "id": 2182,
+  "fetchedAt": "2026-08-15T06:47:34.100Z",
+  "name": "T1003.001 - OS Credential Dumping: Windows Registry",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

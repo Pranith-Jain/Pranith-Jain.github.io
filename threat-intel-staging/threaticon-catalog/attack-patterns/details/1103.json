@@ -1,0 +1,9 @@
+{
+  "id": 1103,
+  "fetchedAt": "2026-08-15T06:20:47.067Z",
+  "name": "Use of Known Domain Credentials",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. An adversary guesses or obtains (i.e. steals or purchases) legitimate credentials (e.g. userID/password) to achieve authentication and to perform authorized actions under the guise of an authenticated user or service."
+}

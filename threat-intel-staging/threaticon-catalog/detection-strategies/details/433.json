@@ -1,0 +1,12 @@
+{
+  "id": 433,
+  "fetchedAt": "2026-08-14T06:05:28.442Z",
+  "name": "Detection of Purchase Technical Data",
+  "tlp": null,
+  "detId": "DET0880",
+  "stixId": "x-mitre-detection-strategy--4d41c48b-ef2a-49a1-baaa-039625612c20",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2012"]
+}

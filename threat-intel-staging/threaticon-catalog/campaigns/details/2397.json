@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:21.170Z",
+  "name": "OSINT Dyre Malware Campaigners Innovate with Distribution Techniques by ProofPoint",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 9, 2015",
+  "lastSeen": "Oct 9, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #725 (561d86b1-3fdc-4229-84dd-1048950d210b)."
+}

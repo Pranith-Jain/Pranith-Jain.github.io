@@ -3,9 +3,9 @@
   "name": "worldleaks: DIME Distribuidora",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 28, 2026",
+  "lastSeen": "Apr 28, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: BR | Sector: Transportation/Logistics | Website: www.dimedistribuidora.com.br | [AI generated] N/A | Source: https://www.ransomware.live/id/RElNRSBEaXN0cmlidWlkb3JhQHdvcmxkbGVha3M=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/378"

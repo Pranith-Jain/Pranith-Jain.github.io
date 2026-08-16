@@ -1,15 +1,15 @@
 {
   "slug": "akira-keystops-2026-08-14",
   "title": "Keystops",
-  "group": "akira",
-  "discovered": "2026-08-14T13:52:06.000Z",
+  "group": "Akira",
+  "discovered": "2026-08-14T00:00:00.000Z",
   "category": "ransomware",
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/dababac2-44b5-451f-99b4-3bab3fcf5d0a",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/keystops-akira-2026-08",
   "groupAliases": ["Megazord"],
-  "activity": "Technology",
-  "references": ["Darkfield"]
+  "activity": null,
+  "references": ["RecentBreaches.com"]
 }

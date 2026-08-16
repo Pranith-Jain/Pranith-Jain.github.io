@@ -3,9 +3,9 @@
   "name": "anubis: BOSTON ORTHOTICS, INC.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 29, 2026",
+  "lastSeen": "Jun 29, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | Patient data breach at yet another negligent clinic. | Source: https://www.ransomware.live/id/Qk9TVE9OIE9SVEhPVElDUywgSU5DLkBhbnViaXM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4485"

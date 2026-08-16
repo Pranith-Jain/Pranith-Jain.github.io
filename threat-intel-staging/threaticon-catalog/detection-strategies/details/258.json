@@ -1,0 +1,12 @@
+{
+  "id": 258,
+  "fetchedAt": "2026-08-14T05:25:40.771Z",
+  "name": "Detection for Spoofing Tool UI across OS Platforms",
+  "tlp": null,
+  "detId": "DET0311",
+  "stixId": "x-mitre-detection-strategy--fecfb9f9-645e-4e09-ba21-05bc60722688",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0868", "AN0869", "AN0870"]
+}

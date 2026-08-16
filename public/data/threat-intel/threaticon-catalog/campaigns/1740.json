@@ -3,9 +3,9 @@
   "name": "genesis: Cornerstone Financial Advisors, INC",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 7, 2026",
+  "lastSeen": "Mar 7, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Financial Services | Website: cfa-oc.com | Infostealer data confirmed. | A full service CPA firm | Source: https://www.ransomware.live/id/Q29ybmVyc3RvbmUgRmluYW5jaWFsIEFkdmlzb3JzLCBJTkNAZ2VuZXNpcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1740"

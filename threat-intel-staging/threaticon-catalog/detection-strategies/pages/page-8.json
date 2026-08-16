@@ -1,0 +1,212 @@
+[
+  {
+    "id": 265,
+    "code": "DET0211",
+    "name": "Detection of Direct VM Console Access via Cloud-Native Methods",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 87,
+    "code": "DET0212",
+    "name": "Detection Strategy for T1505.005 – Terminal Services DLL Modification (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 555,
+    "code": "DET0213",
+    "name": "Detection Strategy for Data Transfer Size Limits and Chunked Exfiltration",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 293,
+    "code": "DET0214",
+    "name": "Detection Strategy for Embedded Payloads",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 112,
+    "code": "DET0215",
+    "name": "Detection of Multi-Platform File Encryption for Impact",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 110,
+    "code": "DET0216",
+    "name": "Detection Strategy for LC_LOAD_DYLIB Modification in Mach-O Binaries on macOS",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 281,
+    "code": "DET0217",
+    "name": "Detection Strategy for Extra Window Memory (EWM) Injection on Windows",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 420,
+    "code": "DET0218",
+    "name": "Detection Strategy for Hijack Execution Flow across OS platforms.",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 467,
+    "code": "DET0219",
+    "name": "Detection Strategy for Escape to Host",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 483,
+    "code": "DET0220",
+    "name": "Detection of USB-Based Data Exfiltration",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 474,
+    "code": "DET0221",
+    "name": "Behavioral Detection Strategy for T1123 Audio Capture Across Windows, Linux, macOS",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 628,
+    "code": "DET0222",
+    "name": "Detecting MMC (.msc) Proxy Execution and Malicious COM Activation",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 419,
+    "code": "DET0223",
+    "name": "Detection of Adversary Abuse of Software Deployment Tools",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 571,
+    "code": "DET0224",
+    "name": "Detect Abuse of Component Object Model (T1559.001)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 190,
+    "code": "DET0225",
+    "name": "Detect unauthorized LSASS driver persistence via LSA plugin abuse (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 693,
+    "code": "DET0226",
+    "name": "Detection Strategy for Masquerading via File Type Modification",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 599,
+    "code": "DET0227",
+    "name": "Detection Strategy for Non-Standard Ports",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 228,
+    "code": "DET0228",
+    "name": "Detect Multi-Stage Command and Control Channels",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 264,
+    "code": "DET0229",
+    "name": "Enumeration of Global Address Lists via Email Account Discovery",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 634,
+    "code": "DET0230",
+    "name": "Detect Suspicious or Malicious Code Signing Abuse",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 273,
+    "code": "DET0231",
+    "name": "Behavioral Detection of Systemd Timer Abuse for Scheduled Execution",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 101,
+    "code": "DET0232",
+    "name": "Detection Strategy for ESXi Administration Command",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 170,
+    "code": "DET0233",
+    "name": "Detection Strategy for Network Device Configuration Dump via Config Repositories",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 478,
+    "code": "DET0234",
+    "name": "Credential Dumping via Sensitive Memory and Registry Access Correlation",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 308,
+    "code": "DET0235",
+    "name": "Detecting Steganographic Command and Control via File + Network Correlation",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 90,
+    "code": "DET0236",
+    "name": "Detection Strategy for Spearphishing Attachment across OS Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 1,
+    "code": "DET0237",
+    "name": "Detection Strategy for Boot or Logon Initialization Scripts: RC Scripts",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 364,
+    "code": "DET0238",
+    "name": "Defacement via File and Web Content Modification Across Platforms",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 64,
+    "code": "DET0240",
+    "name": "Detection Strategy for Steal or Forge Authentication Certificates",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 339,
+    "code": "DET0241",
+    "name": "Detect Forged Kerberos Silver Tickets (T1558.002)",
+    "description": null,
+    "columns": ["1"]
+  }
+]

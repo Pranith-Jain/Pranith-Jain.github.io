@@ -1,0 +1,9 @@
+{
+  "id": 3027,
+  "name": "T1150",
+  "techniqueId": "T1150",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/3027"
+}

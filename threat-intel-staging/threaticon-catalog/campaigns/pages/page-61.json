@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6959,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 6958,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6957,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6955,
+    "name": "Doommageddon: iw steelTEC Makine San. ve Tic. A.Ş.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Status: leaked | Data size: 100 GB | Files: 0 files | Deadline: 2026-03-08T00:00:00Z | Source: https://www.ransomware.live/id/aXcgc3RlZWxURUMgTWFraW5lIFNhbi4gdmUgVGljLiBBLsWeLkBEb29tbWFnZWRkb24="
+  },
+  {
+    "id": 6956,
+    "name": "Deadlock: HİDROMEK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: www.hidromek.com | HİDROMEK is a leading Turkish manufacturer of heavy construction machinery recognized globally for its high-performance award-winning heavy equipment. Founded in Ankara in 1978 by mechanical engineer Hasan Basri Bozkurt the company operates six state-of-the-art production facilities across Turkey and Thailand. Its heavy machinery operates in more than 130 countries spanning six continents. Over 880 gigabytes of sensitive internal data were stolen from this company | Source: https://www.ransomware.live/id/SMSwRFJPTUVLQERlYWRsb2Nr"
+  },
+  {
+    "id": 6954,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6953,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 6952,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 6951,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 6950,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 6942,
+    "name": "krybit: www.ville-rinxent.fr",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Government & Defense | Website: www.ville-rinxent.fr | Mairie de Rinxent (Municipality of Rinxent) is the official website of the town hall (mairie) of Rinxent, a small French... | Source: https://www.ransomware.live/id/d3d3LnZpbGxlLXJpbnhlbnQuZnJAa3J5Yml0"
+  },
+  {
+    "id": 6943,
+    "name": "krybit: countrymotors.com.mx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: MX | Sector: Retail & E-Commerce | Website: countrymotors.com.mx | Infostealer data confirmed. | Country Motos S.A. de C.V. (also known as Country Motors or Country Honda) is a Mexican motorcycle dealership and multi-... | Source: https://www.ransomware.live/id/Y291bnRyeW1vdG9ycy5jb20ubXhAa3J5Yml0"
+  },
+  {
+    "id": 6944,
+    "name": "SilentRansomGroup: Moses & Singer",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Professional Services | Moses & Singer LLP is a full-service law firm specializing in corporate transactions, intellectual pro… | Source: https://www.ransomware.live/id/TW9zZXMgJiBTaW5nZXJAU2lsZW50UmFuc29tR3JvdXA="
+  },
+  {
+    "id": 6947,
+    "name": "shinyhunters: Questel SAS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: FR | Website: questel.com | Infostealer data confirmed. | Over 21 million Salesforce records containing some PII and 147GB+ of internal corporate data was compromised. This is a final warning to reach out by 4 August 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Source: https://www.ransomware.live/id/UXVlc3RlbCBTQVNAc2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 6946,
+    "name": "qilin: Wire Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.wireproducts.us | N/A | Source: https://www.ransomware.live/id/V2lyZSBQcm9kdWN0c0BxaWxpbg=="
+  }
+]

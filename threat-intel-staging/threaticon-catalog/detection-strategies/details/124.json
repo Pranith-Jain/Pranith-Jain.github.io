@@ -1,0 +1,12 @@
+{
+  "id": 124,
+  "fetchedAt": "2026-08-14T06:01:32.202Z",
+  "name": "Detection of Remote Service Session Hijacking for RDP.",
+  "tlp": null,
+  "detId": "DET0588",
+  "stixId": "x-mitre-detection-strategy--2729a43c-3f8d-4fee-b2bd-f773436d051b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1620"]
+}

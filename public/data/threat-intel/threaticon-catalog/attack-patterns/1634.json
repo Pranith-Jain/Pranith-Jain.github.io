@@ -1,0 +1,9 @@
+{
+  "id": 1634,
+  "name": "T1016 - File and Directory Discovery",
+  "techniqueId": "T1016",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1634"
+}

@@ -1,11 +1,11 @@
 {
   "id": 2395,
   "name": "OSINT APT30 detection rules Loki Scanner Yara rules by Florian Roth",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 13, 2015",
+  "lastSeen": "Apr 13, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #723 (56129bd3-3538-4b5a-b6b4-4a06950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2395"

@@ -1,11 +1,64 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-13T05:31:25Z",
-  "syncedAt": "2026-08-13T05:31:25.835Z",
+  "generatedAt": "2026-08-15T05:59:40Z",
+  "syncedAt": "2026-08-15T05:59:40.556Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
   "count": 38,
   "iocs": [
+    {
+      "type": "ipv4",
+      "value": "108.187.42.63",
+      "confidence": "high",
+      "reason": "Identified as C2 server responding to requests.",
+      "first_seen": "2026-08-13T12:20:26+00:00",
+      "last_seen": "2026-08-13T20:36:50.388033+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "securelist.com",
+          "url": "https://securelist.com/tr/silver-fox-tax-notification-campaign/120038/",
+          "pub_date": "2026-08-13T20:36:50.388033+00:00"
+        },
+        {
+          "source": "Acronis",
+          "url": "https://www.acronis.com/en/tru/posts/patchcord-new-malware-cluster-targets-afghan-telecom-and-south-asian-critical-infrastructure/",
+          "pub_date": "2026-08-13T12:20:26+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "46.30.188.13",
+      "confidence": "high",
+      "reason": "Identified as C2 server responding to requests.",
+      "first_seen": "2026-08-13T12:20:26+00:00",
+      "last_seen": "2026-08-13T12:20:26+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Acronis",
+          "url": "https://www.acronis.com/tru/posts/patchcord-new-malware-cluster-targets-afghan-telecom-and-south-asian-critical-infrastructure/",
+          "pub_date": "2026-08-13T12:20:26+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "bookcheckarrival-gueststayhotel.com",
+      "confidence": "high",
+      "reason": "Indicates attacker-controlled phishing domain targeting hotel reservations.",
+      "first_seen": "2026-08-13T06:24:31+00:00",
+      "last_seen": "2026-08-13T06:24:31+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Heise.De",
+          "url": "https://www.heise.de/en/news/Phishing-waves-Cyberattacks-on-IT-service-providers-for-hotels-11412196.html",
+          "pub_date": "2026-08-13T06:24:31+00:00"
+        }
+      ]
+    },
     {
       "type": "domain",
       "value": "ccleanerwind.top",
@@ -77,32 +130,6 @@
     },
     {
       "type": "domain",
-      "value": "cryptomixer.io",
-      "confidence": "high",
-      "reason": "Identified as a service used to launder stolen funds.",
-      "first_seen": "2026-08-08T14:23:46+00:00",
-      "last_seen": "2026-08-08T17:34:39+00:00",
-      "source_count": 3,
-      "sources": [
-        {
-          "source": "News.Bitcoin",
-          "url": "https://news.bitcoin.com/crypto-news/bybit-unleashes-rico-lawsuit-on-north-korea-over-1-5b-hack/",
-          "pub_date": "2026-08-08T17:34:39+00:00"
-        },
-        {
-          "source": "Eqs-News",
-          "url": "https://www.eqs-news.com/news/corporate/bybit-sues-north-korea-and-lazarus-group-secures-preliminary-injunction-freezing-stolen-assets-in-landmark-crypto-asset-recovery-effort/afb9f07b-2700-4aec-88a4-4f252b40823a_en",
-          "pub_date": "2026-08-08T14:30:08+00:00"
-        },
-        {
-          "source": "Prnewswire",
-          "url": "https://www.prnewswire.co.uk/news-releases/bybit-sues-north-korea-and-lazarus-group-secures-preliminary-injunction-freezing-stolen-assets-in-landmark-crypto-asset-recovery-effort-302846551.html",
-          "pub_date": "2026-08-08T14:23:46+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
       "value": "login.microsoft-secure-portal.com",
       "confidence": "high",
       "reason": "Clearly identified as an attacker-controlled domain.",
@@ -162,22 +189,6 @@
           "source": "www.oligo.security",
           "url": "https://www.oligo.security/blog/shadowray-2-0-attackers-turn-ai-against-itself-in-global-campaign-that-hijacks-ai-into-self-propagating-botnet",
           "pub_date": "2026-08-06T11:17:42.483045+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "154.223.58.142",
-      "confidence": "high",
-      "reason": "Listed as C2 IP address.",
-      "first_seen": "2026-08-06T08:39:33+00:00",
-      "last_seen": "2026-08-06T08:39:33+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rescana",
-          "url": "https://www.rescana.com/post/active-exploitation-alert-quickfox-windows-supply-chain-attack-delivers-fdmtp-backdoor-via-trojanized-installer",
-          "pub_date": "2026-08-06T08:39:33+00:00"
         }
       ]
     },
@@ -620,22 +631,6 @@
           "source": "simonwillison.net",
           "url": "https://simonwillison.net/tags/lethal-trifecta/",
           "pub_date": "2026-07-17T18:47:17.820605+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "usa.com",
-      "confidence": "high",
-      "reason": "Mentioned as a non-government sender domain used in phishing scheme",
-      "first_seen": "2026-07-16T18:55:20+00:00",
-      "last_seen": "2026-07-16T18:55:20+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rock929Rocks",
-          "url": "https://rock929rocks.com/2026/07/16/phishing-scheme-targets-massachusetts-homeowners-with-fake-zoning-fee-demands/",
-          "pub_date": "2026-07-16T18:55:20+00:00"
         }
       ]
     }

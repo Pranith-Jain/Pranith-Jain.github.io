@@ -1,0 +1,9 @@
+{
+  "id": 1513,
+  "name": "T1482: Domain Trust Discovery",
+  "techniqueId": "T1482",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1513"
+}

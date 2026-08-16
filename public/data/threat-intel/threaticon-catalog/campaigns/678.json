@@ -3,9 +3,9 @@
   "name": "qilin: HBX Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Apr 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: SG | Sector: Not Found | Website: www.hbxgroup.com | Source: https://www.ransomware.live/id/SEJYIEdyb3VwQHFpbGlu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/678"

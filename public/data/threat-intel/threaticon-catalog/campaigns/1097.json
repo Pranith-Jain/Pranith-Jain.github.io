@@ -3,9 +3,9 @@
   "name": "nightspire: The GMP Group ( Premier Singapore Recruitment Firm with Global Reach )",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 2, 2026",
+  "lastSeen": "Mar 29, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nightspire. | Country: SG | Sector: Business Services | Website: gmprecruit.com | Infostealer data confirmed. | - Financial Documents- Salaries Documents- Candidate' PII information Resumes & CV | Source: https://www.ransomware.live/id/VGhlIEdNUCBHcm91cCAoIFByZW1pZXIgU2luZ2Fwb3JlIFJlY3J1aXRtZW50IEZpcm0gd2l0aCBHbG9iYWwgUmVhY2ggKUBuaWdodHNwaXJl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1097"

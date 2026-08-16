@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T11:26:16.281Z",
+  "name": "Global Secret Group: Nexon Corp.",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: KR | Sector: Technology | Website: nexon.com | Infostealer data confirmed. | Internal infrastructure audit revealed multiple critical entry points across distributed network segments. | Source: https://www.ransomware.live/id/TmV4b24gQ29ycC5AR2xvYmFsIFNlY3JldCBHcm91cA=="
+}

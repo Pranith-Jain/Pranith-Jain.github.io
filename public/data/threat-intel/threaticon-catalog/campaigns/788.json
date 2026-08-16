@@ -3,9 +3,9 @@
   "name": "thegentlemen: Brand Collective",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 14, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: AU | Sector: Business Services | Website: brandcollective.com.au | Infostealer data confirmed. | brandcollective.com.au zoominfo.com/c/brand-collective-pty-ltd/366644163 Brand Collective is Australia's leading house of apparel, footwear, and sports brands. They manage owned and licensed brands across the full product lifecycle — from strategy, design, and development to sales, supply chain, retail operations, e-commerce, and marketing. | Source: https://www.ransomware.live/id/QnJhbmQgQ29sbGVjdGl2ZUB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/788"

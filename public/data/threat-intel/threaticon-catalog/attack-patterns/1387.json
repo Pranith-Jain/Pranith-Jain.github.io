@@ -1,0 +1,9 @@
+{
+  "id": 1387,
+  "name": "T1071 - Interprocess communication using legitimate protocols",
+  "techniqueId": "T1071",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1387"
+}

@@ -1,11 +1,11 @@
 {
   "id": 2193,
   "name": "Highly Evasive Attacker Leverages SolarWinds Supply Chain to Compromise Multiple Global Victims With SUNBURST Backdoor",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 14, 2020",
+  "lastSeen": "Dec 14, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #244 (5fd7bbc9-4f68-4057-a6fa-e430c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2193"

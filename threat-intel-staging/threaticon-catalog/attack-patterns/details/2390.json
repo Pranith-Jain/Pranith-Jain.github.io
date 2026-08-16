@@ -1,0 +1,9 @@
+{
+  "id": 2390,
+  "fetchedAt": "2026-08-15T06:56:38.432Z",
+  "name": "T1040 - Exfiltration over DNS",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

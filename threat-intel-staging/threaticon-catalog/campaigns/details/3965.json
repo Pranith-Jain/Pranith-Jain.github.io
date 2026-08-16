@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:50:27.758Z",
+  "name": "safepay: tme-rusta.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 25, 2026",
+  "lastSeen": "May 25, 2026",
+  "added": "May 26, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Business Services | Website: tme-rusta.de | Infostealer data confirmed. | The company was originally founded in Munich in 1966 as an artistic metalworking workshop and later expanded into woodworking, plastics … | Source: https://www.ransomware.live/id/dG1lLXJ1c3RhLmRlQHNhZmVwYXk="
+}

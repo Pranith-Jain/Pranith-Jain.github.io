@@ -1,0 +1,9 @@
+{
+  "id": 1470,
+  "name": "T1021 (USB Dropping)",
+  "techniqueId": "T1021",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1470"
+}

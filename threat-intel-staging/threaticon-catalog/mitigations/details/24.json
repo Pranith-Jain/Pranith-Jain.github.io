@@ -1,0 +1,12 @@
+{
+  "id": 24,
+  "fetchedAt": "2026-08-14T05:05:51.120Z",
+  "name": "Out-of-Band Communications Channel",
+  "tlp": null,
+  "mitreId": "M1060",
+  "stixId": "course-of-action--80a0e940-f683-4fbd-ac00-e9f935f2f808",
+  "techniqueCoverage": "1 technique(s)",
+  "added": "May 17, 2026",
+  "description": "Establish secure out-of-band communication channels to ensure the continuity of critical communications during security incidents, data integrity attacks, or in-network communication failures. Out-of-band communication refers to using an alternative, separate communication path that is not dependent on the potentially compromised primary network infrastructure. This method can include secure messaging apps, encrypted phone lines, satellite communications, or dedicated emergency communication systems. Leveraging these alternative channels reduces the risk of adversaries intercepting, disrupting, or tampering with sensitive communications and helps coordinate an effective incident response.(Citation: TrustedSec OOB Communications)(Citation: NIST Special Publication 800-53 Revision 5)",
+  "techniques": []
+}

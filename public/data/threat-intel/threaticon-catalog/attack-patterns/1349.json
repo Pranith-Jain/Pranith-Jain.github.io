@@ -1,0 +1,9 @@
+{
+  "id": 1349,
+  "name": "T1485.001 - Delete System Files/Directories",
+  "techniqueId": "T1485",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1349"
+}

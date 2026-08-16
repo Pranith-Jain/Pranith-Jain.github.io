@@ -1,0 +1,12 @@
+{
+  "id": 690,
+  "fetchedAt": "2026-08-14T05:59:22.725Z",
+  "name": "Detection Strategy for Cloud Administration Command",
+  "tlp": null,
+  "detId": "DET0545",
+  "stixId": "x-mitre-detection-strategy--fda20a62-ad83-4d45-8a65-84883b07707b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1502"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 537,
+  "fetchedAt": "2026-08-14T05:13:21.738Z",
+  "name": "Detection of Web Protocol-Based C2 Over HTTP, HTTPS, or WebSockets",
+  "tlp": null,
+  "detId": "DET0027",
+  "stixId": "x-mitre-detection-strategy--e6496b9b-2458-4616-9712-a7c0da7fd3bc",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0075", "AN0076", "AN0077", "AN0078", "AN0079"]
+}

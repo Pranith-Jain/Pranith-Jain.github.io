@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:22:49.002Z",
+  "name": "Oracle PoS hack",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 14, 2016",
+  "lastSeen": "Aug 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #77 (57b045d7-2a0c-44cf-86f0-1e0fc0a8ab16)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:08:39.901Z",
+  "name": "OSINT expansion on OSINT - Ding! Your RAT has been delivered by Cisco Talos",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Jul 9, 2015",
+  "lastSeen": "Jul 9, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #716 (559e36b0-e924-4c3d-b7a0-4a74950d210b)."
+}

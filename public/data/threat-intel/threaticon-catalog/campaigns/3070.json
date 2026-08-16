@@ -3,9 +3,9 @@
   "name": "qilin: Sysco",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 27, 2023",
+  "added": "May 6, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Agriculture and Food Production | Website: www.sysco.com | N/A | Press: https://www.bleepingcomputer.com/news/security/food-distribution-giant-sysco-warns-of-data-breach-after-cyberattack/ | Source: https://www.ransomware.live/id/U3lzY29AcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3070"

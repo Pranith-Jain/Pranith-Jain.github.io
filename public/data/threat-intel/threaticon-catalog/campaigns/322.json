@@ -3,9 +3,9 @@
   "name": "payoutsking: SCS Engineers",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 30, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Business Services | Website: scsengineers.com | Infostealer data confirmed. | [AI generated] SCS Engineers is a United States-based environmental consulting and engineering firm. Founded in 1970, the company specializes in solid waste management, landfill design and operations, environmental remediation, and sustainability services. It serves municipal, industrial, and government clients across the country, offering technical solutions related to waste infrastructure, gas collection systems, and environmental compliance. | Source: https://www.ransomware.live/id/U0NTIEVuZ2luZWVyc0BwYXlvdXRza2luZw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/322"

@@ -1,0 +1,12 @@
+{
+  "id": 94,
+  "fetchedAt": "2026-08-14T05:01:50.959Z",
+  "name": "Quick Assist",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Quick Assist is a remote assistance tool primarily for Microsoft Windows, although a macOS version also exists. Quick Assist allows for remote screen sharing and, with end user approval, remote control and command execution on the enabling device.(Citation: Microsoft Storm-1811 2024)(Citation: Microsoft Quick Assist 2024)"
+}

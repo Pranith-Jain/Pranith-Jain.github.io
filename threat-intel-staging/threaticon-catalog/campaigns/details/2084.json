@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:21:39.174Z",
+  "name": "Multiple Groups Have Been Exploiting ETERNALBLUE Weeks Before WannaCry",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 17, 2017",
+  "lastSeen": "May 17, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #107 (59298081-8174-414b-a94e-5184c0a8ab16)."
+}

@@ -3,9 +3,9 @@
   "name": "payoutsking: Del Monte Foods",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 30, 2026",
+  "lastSeen": "Feb 19, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Agriculture and Food Production | Website: delmontefoods.com | Infostealer data confirmed. | [AI generated] Del Monte Foods is a leading American food company headquartered in Walnut Creek, California. It operates in the packaged food industry, producing and distributing canned fruits, vegetables, tomatoes, and broths under well-known consumer brands. The company supplies products to retail grocery chains, foodservice operators, and industrial customers across the United States and international markets. | Source: https://www.ransomware.live/id/RGVsIE1vbnRlIEZvb2RzQHBheW91dHNraW5n",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/300"

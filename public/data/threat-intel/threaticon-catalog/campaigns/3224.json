@@ -1,11 +1,11 @@
 {
   "id": 3224,
   "name": "Mustang Panda Uses the Russian-Ukrainian War to Attack Europe and Asia Pacific Targets",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 6, 2022",
+  "lastSeen": "Dec 6, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #377 (46f8434b-4687-4c50-a656-28abdd22567f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3224"

@@ -1,0 +1,120 @@
+[
+  {
+    "id": 1975,
+    "name": "A0002 - Attack on Data through Network",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "A0002",
+    "status": null
+  },
+  {
+    "id": 718,
+    "name": "Accessing Functionality Not Properly Constrained by ACLs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 719,
+    "name": "Buffer Overflow via Environment Variables",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 720, "name": "Overflow Buffers", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 721,
+    "name": "Server Side Include (SSI) Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 722, "name": "Session Sidejacking", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 723, "name": "Clickjacking", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 724,
+    "name": "Cross Zone Scripting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 725,
+    "name": "HTTP Request Splitting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 726, "name": "Cross Site Tracing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 727,
+    "name": "Command Line Execution through SQL Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 728,
+    "name": "Object Relational Mapping Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 729,
+    "name": "Cause Web Server Misclassification",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 730,
+    "name": "SQL Injection through SOAP Parameter Tampering",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 731,
+    "name": "JSON Hijacking (aka JavaScript Hijacking)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 732, "name": "Brute Force", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 733,
+    "name": "Interface Manipulation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 734,
+    "name": "Authentication Abuse",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 735,
+    "name": "Authentication Bypass",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 736, "name": "Excavation", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

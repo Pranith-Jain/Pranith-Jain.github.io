@@ -1,0 +1,9 @@
+{
+  "id": 1091,
+  "fetchedAt": "2026-08-15T06:20:15.567Z",
+  "name": "Physical Destruction of Device or Component",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "An adversary conducts a physical attack a device or component, destroying it such that it no longer functions as intended."
+}

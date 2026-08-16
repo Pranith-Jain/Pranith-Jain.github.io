@@ -1,0 +1,99 @@
+[
+  {
+    "id": 2875,
+    "name": "T1518.002 - Credentials from Non‑Local System Data Sources",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1518",
+    "status": null
+  },
+  { "id": 2688, "name": "T1518.006", "tlp": "white", "confidence": null, "techniqueId": "T1518", "status": null },
+  { "id": 1497, "name": "T1519", "tlp": "white", "confidence": null, "techniqueId": "T1519", "status": null },
+  { "id": 2945, "name": "T1519.001", "tlp": "white", "confidence": null, "techniqueId": "T1519", "status": null },
+  { "id": 2622, "name": "T1520", "tlp": "white", "confidence": null, "techniqueId": "T1520", "status": null },
+  {
+    "id": 2930,
+    "name": "T1520 (Data Obfuscation)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1520",
+    "status": null
+  },
+  { "id": 2754, "name": "T1521", "tlp": "white", "confidence": null, "techniqueId": "T1521", "status": null },
+  { "id": 3067, "name": "T1521.001", "tlp": "white", "confidence": null, "techniqueId": "T1521", "status": null },
+  { "id": 2902, "name": "T1523", "tlp": "white", "confidence": null, "techniqueId": "T1523", "status": null },
+  { "id": 3038, "name": "T1524", "tlp": "white", "confidence": null, "techniqueId": "T1524", "status": null },
+  {
+    "id": 235,
+    "name": "Implant Internal Image",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1525",
+    "status": null
+  },
+  {
+    "id": 2089,
+    "name": "T1525.001 -Masquerading",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1525",
+    "status": null
+  },
+  {
+    "id": 610,
+    "name": "Cloud Service Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1526",
+    "status": null
+  },
+  { "id": 2164, "name": "T1527", "tlp": "white", "confidence": null, "techniqueId": "T1527", "status": null },
+  {
+    "id": 393,
+    "name": "Steal Application Access Token",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1528",
+    "status": null
+  },
+  {
+    "id": 3005,
+    "name": "T1528 Steal Application Access Token",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1528",
+    "status": null
+  },
+  {
+    "id": 694,
+    "name": "System Shutdown/Reboot",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1529",
+    "status": null
+  },
+  {
+    "id": 1307,
+    "name": "T1529: System Shutdown/Reboot",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1529",
+    "status": null
+  },
+  {
+    "id": 152,
+    "name": "Data from Cloud Storage",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1530",
+    "status": null
+  },
+  {
+    "id": 2416,
+    "name": "T1530 - Data Encrypted for Impact",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1530",
+    "status": null
+  }
+]

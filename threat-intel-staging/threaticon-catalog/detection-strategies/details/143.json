@@ -1,0 +1,12 @@
+{
+  "id": 143,
+  "fetchedAt": "2026-08-14T05:27:12.637Z",
+  "name": "Detect Screen Capture via Commands and API Calls",
+  "tlp": null,
+  "detId": "DET0346",
+  "stixId": "x-mitre-detection-strategy--a9de0990-69e9-4b1a-9754-1c7fb4102ac9",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0980", "AN0981", "AN0982"]
+}

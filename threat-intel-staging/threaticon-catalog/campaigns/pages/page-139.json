@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5789,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5788,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5787,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5786,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5785,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5784,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5783,
+    "name": "incransom: V&P Nurseries",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Agriculture and Food Production | V&P Nurseries is an Arizona-based wholesale grower specializing in drought-tolerant, subtropical, and desert-adapted plants for landscapes across the Southwest. Established in 1978, the company operates production facilities and a tissue culture lab focused on sustainable, water-conservative horticulture. For more information, | Source: https://www.ransomware.live/id/ViZQIE51cnNlcmllc0BpbmNyYW5zb20="
+  },
+  {
+    "id": 5780,
+    "name": "incransom: vedan corp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: VN | Sector: Agriculture and Food Production | Vedan Vietnam is a leading manufacturer specializing in a wide range of products including seasoning, starch, MSG, chemicals, and consumer goods. The company is committed to quality and safety, utilizing advanced technology and local agricultural resources to produce high-quality products. Their services also extend to port operations and frozen food offerings, catering to both domestic and international markets. Vedan Vietnam aims to meet the growing demand for natural and non-GMO food products while maintaining a strong focus on corporate social responsibility and environmental protection. | Source: https://www.ransomware.live/id/dmVkYW4gY29ycEBpbmNyYW5zb20="
+  },
+  {
+    "id": 5779,
+    "name": "incransom: D.MAG New Material Technology Co., Ltd. Taiwan Giant",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: TW | Sector: Manufacturing | D.MAG New Material Technology Co., Ltd. is a key manufacturing subsidiary controlled by Taiwan’s Giant Group (Giant Manufacturing Co., Ltd.). Specializing in aluminum and magnesium alloys, D.MAG operates from Kunshan, Jiangsu Province, China, to develop and supply lightweight, high-performance materials and components for the bicycle, automotive, railway, and aerospace industries | Source: https://www.ransomware.live/id/RC5NQUcgTmV3IE1hdGVyaWFsIFRlY2hub2xvZ3kgQ28uLCBMdGQuIFRhaXdhbiBHaWFudEBpbmNyYW5zb20="
+  },
+  {
+    "id": 5781,
+    "name": "incransom: pokka.co",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: SG | Sector: Agriculture and Food Production | Website: pokka.co | Infostealer data confirmed. | Founded in 1977 and headquartered in Central Singapore, Pokka Sg manufactures and markets a wide range of beverages | Press: https://scan.netsecurity.ne.jp/article/2026/06/29/55590.html | Source: https://www.ransomware.live/id/cG9ra2EuY29AaW5jcmFuc29t"
+  },
+  {
+    "id": 5782,
+    "name": "incransom: reatile.co.za",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: ZA | Sector: Not Found | Website: reatile.co.za | Infostealer data confirmed. | Reatile Group is an innovative, black-owned investment holding company established in 2003, focusing on the energy, petrochemical, and industrial sectors in South Africa. The company aims to leverage growth opportunities within these industrial sectors of the South African economy. Reatile Group is committed to improving the quality of life for disadvantaged communities through its foundation. Their strategic vision emphasizes growth and development in key sectors. | Source: https://www.ransomware.live/id/cmVhdGlsZS5jby56YUBpbmNyYW5zb20="
+  },
+  {
+    "id": 5778,
+    "name": "incransom: FAST.COM.PH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5777,
+    "name": "incransom: v-silicon.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: TW | Sector: Technology | Website: v-silicon.com | Infostealer data confirmed. | 威视芯半导体（合肥）有限公司 specializes in advanced audio and video processing technologies for the global smart TV and set-top box market. The company offers a range of products including high-definition smart TV chips and network camera chips, aimed at enhancing smart home, community, and city solutions. Their target clients include manufacturers in the smart display and visual technology sectors. 威视芯 is committed to driving innovation in the audio-visual industry | Source: https://www.ransomware.live/id/di1zaWxpY29uLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 5776,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5775,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  }
+]

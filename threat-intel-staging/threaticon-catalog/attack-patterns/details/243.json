@@ -1,0 +1,9 @@
+{
+  "id": 243,
+  "fetchedAt": "2026-08-15T08:36:21.374Z",
+  "name": "Threat Intel Vendors",
+  "tlp": "white",
+  "techniqueId": "DET0816",
+  "added": "May 2, 2026",
+  "description": "Adversaries may search private data from threat intelligence vendors for information that can be used during targeting. Threat intelligence vendors may offer paid feeds or portals that offer more data than what is publicly reported. Although sensitive details (such as customer names and other identifiers) may be redacted, this information may contain trends regarding breaches such as target industries, attribution claims, and successful TTPs/countermeasures.(Citation: D3Secutrity CTI Feeds) Adversaries may search in private threat intelligence vendor data to gather actionable information. If a threat actor is searching for information on their own activities, that falls under Search Threat Vendor Data. Information reported by vendors may also reveal opportunities other forms of reconnaissance (ex: Search Open Websites/Domains), establishing operational resources (ex: Develop Capabilities or Obtain Capabilities), and/or initial access (ex: Exploit Public-Facing Application or External Remote Services)."
+}

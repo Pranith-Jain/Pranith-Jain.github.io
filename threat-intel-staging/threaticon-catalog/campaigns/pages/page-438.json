@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1196,
+    "name": "akira: Office Peeps, Nappie's Food Service, Janome America, IT-Supporten, A-1 Pools.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1206,
+    "name": "clop: AIGHEALTHCARE.IN",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Country: IN | Sector: Healthcare | Website: AIGHEALTHCARE.IN | [AI generated] N/A | Source: https://www.ransomware.live/id/QUlHSEVBTFRIQ0FSRS5JTkBjbG9w"
+  },
+  {
+    "id": 1205,
+    "name": "handala: Listen Closely, Gallant: Handala’s Eyes and Ears Are Everywhere",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Sector: Not Found | Once again, the vigilant hand of resistance has struck at the rotten heart of the occupying regime. This time, it was Yoav Gallant, the former Minister of Defense of the Zionist entity, who tasted the bitter flavor of disgrace, helplessness, and humiliation. Through a successful cyber operation, Handala’s sons have infiltrated Gallant’s confidential and personal… | Source: https://www.ransomware.live/id/TGlzdGVuIENsb3NlbHksIEdhbGxhbnQ6IEhhbmRhbGHigJlzIEV5ZXMgYW5kIEVhcnMgQXJlIEV2ZXJ5d2hlcmVAaGFuZGFsYQ=="
+  },
+  {
+    "id": 1204,
+    "name": "handala: 4 Terabytes Wiped—Good Food Store Shut Down After Major Cyberattack",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: US | Sector: Consumer Services | Today, Handala Hack successfully took down the largest store in the Missoula, USA—Good Food Store, employing over 300 people. In this cyberattack, 4 terabytes of the store’s data were completely wiped, and all operations have been fully suspended. This attack sends a clear message to the United States and its infrastructure: you are no longer… | Source: https://www.ransomware.live/id/NCBUZXJhYnl0ZXMgV2lwZWTigJRHb29kIEZvb2QgU3RvcmUgU2h1dCBEb3duIEFmdGVyIE1ham9yIEN5YmVyYXR0YWNrQGhhbmRhbGE="
+  },
+  {
+    "id": 1203,
+    "name": "handala: North Country Business Products Breached: 2,680 POS Terminals Disabled Nationwide",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: US | Sector: Technology | It was a quiet night; but for hundreds of stores across America, it marked the start of a harsh awakening. In a single moment, everything changed with our attack on North Country Business Products, Inc., a company trusted by many major retail chains. That trust has now become a symbol of vulnerability. As a result… | Source: https://www.ransomware.live/id/Tm9ydGggQ291bnRyeSBCdXNpbmVzcyBQcm9kdWN0cyBCcmVhY2hlZDogMiw2ODAgUE9TIFRlcm1pbmFscyBEaXNhYmxlZCBOYXRpb253aWRlQGhhbmRhbGE="
+  },
+  {
+    "id": 1202,
+    "name": "sarcoma: GYF",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to sarcoma. | Sector: Technology | Design and develop IT products and services for the financial marketGeo: Argentina - Leak size: 1.5Tb - Contains: SQL | Source: https://www.ransomware.live/id/R1lGQHNhcmNvbWE="
+  },
+  {
+    "id": 1201,
+    "name": "qilin: Blantyre Capital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Financial Services | Website: www.blantyrecapital.com | Source: https://www.ransomware.live/id/QmxhbnR5cmUgQ2FwaXRhbEBxaWxpbg=="
+  },
+  {
+    "id": 1198,
+    "name": "qilin: Miles Electric",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Not Found | Website: www.mileselectric.com | Source: https://www.ransomware.live/id/TWlsZXMgRWxlY3RyaWNAcWlsaW4="
+  },
+  {
+    "id": 1199,
+    "name": "akira: Motleys Asset Disposition Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: motleys.com | Infostealer data confirmed. | Based in Richmond, VA, Motleys Asset Disposition Group offers sal es, appraisal and acquisition services. The company offers real e state services, auction services, appraisals and more. We will upload 11gb of corporate data soon. Employee personal doc uments (passports, DLs, SSNs and so on), project files, detailed financials, contracts and agreements, client and partner files, N DA, etc. | Source: https://www.ransomware.live/id/TW90bGV5cyBBc3NldCBEaXNwb3NpdGlvbiBHcm91cEBha2lyYQ=="
+  },
+  {
+    "id": 1220,
+    "name": "lockbit5: elmwoodhomecare.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: GB | Sector: Healthcare | Website: elmwoodhomecare.com | Infostealer data confirmed. | Elmwood Healthcare is a Medicare certified, nationally accredited home-based care organization opera... | Source: https://www.ransomware.live/id/ZWxtd29vZGhvbWVjYXJlLmNvbUBsb2NrYml0NQ=="
+  },
+  {
+    "id": 1219,
+    "name": "lockbit5: tanufwater.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: OM | Sector: Agriculture and Food Production | Website: tanufwater.com | Infostealer data confirmed. | Swathi Tetali is a Senior Account Manager at National Mineral Water Company SAOG, bringing expertise... | Source: https://www.ransomware.live/id/dGFudWZ3YXRlci5jb21AbG9ja2JpdDU="
+  },
+  {
+    "id": 1218,
+    "name": "lockbit5: hb-technik.at",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: AT | Sector: Technology | Website: hb-technik.at | Infostealer data confirmed. | HB-Technik specializes in raw material automation solutions since 1973, offering a range of products... | Source: https://www.ransomware.live/id/aGItdGVjaG5pay5hdEBsb2NrYml0NQ=="
+  },
+  {
+    "id": 1216,
+    "name": "lockbit5: landsteiner.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: MX | Sector: Manufacturing | Website: landsteiner.net | Infostealer data confirmed. | Landsteiner Electrotechnik offers services such as Modernization of machine and equipment control sy... | Source: https://www.ransomware.live/id/bGFuZHN0ZWluZXIubmV0QGxvY2tiaXQ1"
+  },
+  {
+    "id": 1215,
+    "name": "lockbit5: thaihua.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: TH | Sector: Agriculture and Food Production | Website: thaihua.com | Infostealer data confirmed. | Thai Hua Rubber Public Company Limited specializes in the production and distribution of natural rub... | Source: https://www.ransomware.live/id/dGhhaWh1YS5jb21AbG9ja2JpdDU="
+  },
+  {
+    "id": 1214,
+    "name": "lockbit5: praxis-oberhof.ch",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: CH | Sector: Healthcare | Website: praxis-oberhof.ch | Infostealer data confirmed. | Unser Leitbild Der Besuch in der Zahnarztpraxis als ein Glücksmoment: Fachlich bestens umsorgt, gu... | Source: https://www.ransomware.live/id/cHJheGlzLW9iZXJob2YuY2hAbG9ja2JpdDU="
+  }
+]

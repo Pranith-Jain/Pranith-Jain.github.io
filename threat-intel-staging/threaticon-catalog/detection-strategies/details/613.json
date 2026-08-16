@@ -1,0 +1,12 @@
+{
+  "id": 613,
+  "fetchedAt": "2026-08-14T05:49:07.091Z",
+  "name": "Detect Access and Parsing of .bash_history Files for Credential Harvesting",
+  "tlp": null,
+  "detId": "DET0385",
+  "stixId": "x-mitre-detection-strategy--653b555a-590f-40e4-9400-f14d0ed92252",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1085", "AN1086"]
+}

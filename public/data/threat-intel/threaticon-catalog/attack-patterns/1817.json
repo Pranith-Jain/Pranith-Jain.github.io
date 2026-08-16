@@ -1,0 +1,9 @@
+{
+  "id": 1817,
+  "name": "T1667: Email Bombing",
+  "techniqueId": "T1667",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1817"
+}

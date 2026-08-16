@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:41:17.656Z",
+  "name": "OSINT - DarkHydrus is launching attacks to targets in Middle East",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 10, 2019",
+  "lastSeen": "Jan 10, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1463 (5c3862bd-cbb4-4373-854a-4507950d210f)."
+}

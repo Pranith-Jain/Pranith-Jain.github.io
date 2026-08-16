@@ -1,0 +1,9 @@
+{
+  "id": 1552,
+  "name": "T1069.002 - Windows Admin Shares: Exploitation of shared drives for lateral movement and persistence.",
+  "techniqueId": "T1069",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1552"
+}

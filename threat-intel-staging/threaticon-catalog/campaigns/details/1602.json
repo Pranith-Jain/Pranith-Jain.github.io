@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:42:19.212Z",
+  "name": "qilin: Millard Manufacturing",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 13, 2026",
+  "lastSeen": "Mar 13, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.millardmfg.com | Source: https://www.ransomware.live/id/TWlsbGFyZCBNYW51ZmFjdHVyaW5nQHFpbGlu"
+}

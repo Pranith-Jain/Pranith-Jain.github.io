@@ -1,0 +1,9 @@
+{
+  "id": 1231,
+  "name": "Exploitation of Firmware or ROM Code with Unpatchable Vulnerabilities",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary may exploit vulnerable code (i.e., firmware or ROM) that is unpatchable. Unpatchable devices exist due to manufacturers intentionally or inadvertently designing devices incapable of updating their software. Additionally, with updatable devices, the manufacturer may decide not to support the device and stop making updates to their software.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1231"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 918,
+  "name": "XSS Through HTTP Query Strings",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. An adversary embeds malicious script code in the parameters of an HTTP query string and convinces a victim to submit the HTTP request that contains the query string to a vulnerable web application. The web application then procedes to use the values parameters without properly validation them first and generates the HTML code that will be executed by the victim's browser.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/918"
+}

@@ -3,9 +3,9 @@
   "name": "ransomhouse: Star Energy Geothermal Salak",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 24, 2026",
+  "lastSeen": "Apr 11, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to ransomhouse. | Country: ID | Sector: Energy | Website: www.starenergy.co.id | Star Energy is an Indonesian energy company focused on geothermal power generation and oil & gas exploration, operating a total of 926 MW of geothermal capacity in West Java. The company supplies clean renewable energy to Indonesia’s national grid while actively expanding its geothermal output toward a 1 GW target. Under its parent company, Barito Renewables, Star Energy has committed significant investment to reach 2.3 GW of renewable capacity by 2032, including wind power assets. | Source: https://www.ransomware.live/id/U3RhciBFbmVyZ3kgR2VvdGhlcm1hbCBTYWxha0ByYW5zb21ob3VzZQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/522"

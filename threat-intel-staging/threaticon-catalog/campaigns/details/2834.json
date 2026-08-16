@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:42:31.966Z",
+  "name": "OSINT - Roaming Mantis uses DNS hijacking to infect Android smartphones",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 16, 2018",
+  "lastSeen": "Apr 16, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1375 (5b1e79b9-cf9c-4072-b420-4be0950d210f)."
+}

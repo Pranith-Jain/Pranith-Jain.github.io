@@ -3,9 +3,9 @@
   "name": "anubis: ViaQuest",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 21, 2026",
+  "lastSeen": "Apr 21, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Transportation/Logistics | Website: viaquestinc.com | Infostealer data confirmed. | Large-scale data breach at a care provider for seriously ill patients. | Source: https://www.ransomware.live/id/VmlhUXVlc3RAYW51Ymlz",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/591"

@@ -1,0 +1,12 @@
+{
+  "id": 180,
+  "fetchedAt": "2026-08-14T05:15:50.174Z",
+  "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Delete Cloud Instance",
+  "tlp": null,
+  "detId": "DET0084",
+  "stixId": "x-mitre-detection-strategy--ceac3cb0-d9eb-4466-810f-4acbf793e980",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0234"]
+}

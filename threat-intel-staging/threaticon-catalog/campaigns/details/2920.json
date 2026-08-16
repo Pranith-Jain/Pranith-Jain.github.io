@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:50:35.471Z",
+  "name": "CISA.gov - AA21-062A Mitigate Microsoft Exchange Server Vulnerabilities",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 3, 2021",
+  "lastSeen": "Mar 3, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1648 (eb8ec4e4-ea78-4cf5-80bc-974e765f08df)."
+}

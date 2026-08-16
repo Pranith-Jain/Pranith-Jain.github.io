@@ -1,0 +1,12 @@
+{
+  "id": 114,
+  "fetchedAt": "2026-08-14T05:27:45.683Z",
+  "name": "Programmatic and Excessive Access to Confluence Documentation",
+  "tlp": null,
+  "detId": "DET0358",
+  "stixId": "x-mitre-detection-strategy--3d515fbc-0ebf-4a99-b191-b6ee604acb1f",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1019"]
+}

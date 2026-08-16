@@ -1,11 +1,11 @@
 {
   "id": 2230,
   "name": "Scraper: DiceyF deploys GamePlayerFramework in online casino development studio",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 28, 2022",
+  "lastSeen": "Oct 28, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #335 (ee6d58e9-e09d-43d0-b364-93b509742247).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2230"

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T02:39:21.208Z",
+  "name": "Updating: Tracking Powershell Empire C2 via Urlscan",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 4, 2020",
+  "lastSeen": "Feb 4, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1586 (5e38d6d4-7d88-40ab-8313-4db80a0a020f)."
+}

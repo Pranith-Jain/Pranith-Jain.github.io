@@ -1,0 +1,9 @@
+{
+  "id": 1170,
+  "name": "Hardware Fault Injection",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. The adversary uses disruptive signals or events, or alters the physical environment a device operates in, to cause faulty behavior in electronic devices. This can include electromagnetic pulses, laser pulses, clock glitches, ambient temperature extremes, and more. When performed in a controlled manner on devices performing cryptographic operations, this faulty behavior can be exploited to derive secret key information.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1170"
+}

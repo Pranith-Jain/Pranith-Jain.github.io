@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6851,
+    "name": "insomnia: Merritt Woodwork",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Manufacturing | Website: www.merrittwoodwork.com | Merritt provides strategic interior solutions for global estates and superyachts, from concept to execution. With precision planning and careful craftsmanship, it partners with top designers and craftsmen to deliver unparalleled results for generations. | Source: https://www.ransomware.live/id/TWVycml0dCBXb29kd29ya0BpbnNvbW5pYQ=="
+  },
+  {
+    "id": 6852,
+    "name": "insomnia: Laempe Reich",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Not Found | Website: www.laempereich.com | Laempe Reich is North America’s leading foundry core machine supplier, providing sand core equipment and technology for metal casting. As partner of Laempe Mössner Sinto, it serves the industry for over 80 years. | Source: https://www.ransomware.live/id/TGFlbXBlIFJlaWNoQGluc29tbmlh"
+  },
+  {
+    "id": 6854,
+    "name": "thegentlemen: Las Cenizas",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: CL | Sector: Other | Website: cenizas.cl | Infostealer data confirmed. | cenizas.cl zoominfo.com/c/cenizas/430439098 Grupo Minero Las Cenizas, a prominent medium-scale mining company in Chile with over four decades of industry experience. The company specializes in the production of copper fines and cathodes. Its main mining operations and facilities are strategically located in Cabildo, Taltal, and Franke, Chile | Source: https://www.ransomware.live/id/TGFzIENlbml6YXNAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 6858,
+    "name": "thegentlemen: Salama Medicals Distributors Private",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6842,
+    "name": "CRPxO: FINANSBANK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Website: qnb.com.tr | Infostealer data confirmed. | Sector: Banking | Data leaked: 2.3 GB | Source: https://www.ransomware.live/id/RklOQU5TQkFOS0BDUlB4Tw=="
+  },
+  {
+    "id": 6845,
+    "name": "CRPxO: JOHNSON & JOHNSON",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: US | Sector: Healthcare | Website: jnj.com | Infostealer data confirmed. | Sector: Healthcare / Pharmaceutical | Data leaked: 1.9 GB | Source: https://www.ransomware.live/id/Sk9ITlNPTiAmIEpPSE5TT05AQ1JQeE8="
+  },
+  {
+    "id": 6847,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 6848,
+    "name": "CRPxO: HYUNDAI",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: KR | Sector: Manufacturing | Website: hyundai.com | Infostealer data confirmed. | Sector: Automotive | Data leaked: 1.5 GB | Source: https://www.ransomware.live/id/SFlVTkRBSUBDUlB4Tw=="
+  },
+  {
+    "id": 6846,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 6849,
+    "name": "CRPxO: ASELSAN",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Government & Defense | Sector: Defense / Electronics | Data leaked: 4.5 GB | Source: https://www.ransomware.live/id/QVNFTFNBTkBDUlB4Tw=="
+  },
+  {
+    "id": 6844,
+    "name": "CRPxO: THY",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Transportation | Sector: Aviation | Data leaked: 4.2 GB | Source: https://www.ransomware.live/id/VEhZQENSUHhP"
+  },
+  {
+    "id": 6850,
+    "name": "CRPxO: A101",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Retail & E-Commerce | Sector: Grocery / Retail | Data leaked: 0.2 GB | Source: https://www.ransomware.live/id/QTEwMUBDUlB4Tw=="
+  },
+  {
+    "id": 6843,
+    "name": "CRPxO: ANADOLUBANK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Website: anadolubank.com.tr | Infostealer data confirmed. | Sector: Banking | Data leaked: 0.4 GB | Source: https://www.ransomware.live/id/QU5BRE9MVUJBTktAQ1JQeE8="
+  },
+  {
+    "id": 6834,
+    "name": "qilin: Pointe Property Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Other | Website: www.pointecre.com | N/A | Source: https://www.ransomware.live/id/UG9pbnRlIFByb3BlcnR5IEdyb3VwQHFpbGlu"
+  },
+  {
+    "id": 6841,
+    "name": "CRPxO: KUVEYT TURK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Website: kuveytturk.com.tr | Infostealer data confirmed. | Sector: Banking | Data leaked: 0.8 GB | Source: https://www.ransomware.live/id/S1VWRVlUIFRVUktAQ1JQeE8="
+  }
+]

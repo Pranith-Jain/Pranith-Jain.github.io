@@ -1,11 +1,11 @@
 {
   "id": 3101,
   "name": "Operation Potao Express",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2015",
+  "lastSeen": "Jul 1, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #21 (56ccdf82-bb98-4b52-9c86-52849062e56a).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3101"

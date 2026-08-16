@@ -1,0 +1,9 @@
+{
+  "id": 2560,
+  "name": "T1560.001 - Phishing - Spearphishing Attachment",
+  "techniqueId": "T1560",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2560"
+}

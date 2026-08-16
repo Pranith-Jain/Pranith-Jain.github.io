@@ -1,0 +1,15 @@
+{
+  "slug": "blackwater-shalina-com-2026-08-15",
+  "title": "shalina.com",
+  "group": "Blackwater",
+  "discovered": "2026-08-15T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/shalina-com-blackwater-2026-08",
+  "groupAliases": ["BLACK WATER"],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

@@ -1,11 +1,11 @@
 {
   "id": 2897,
   "name": "Malicious PyPI packages",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 4, 2019",
+  "lastSeen": "Dec 4, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1564 (5de7883b-22bc-4264-995c-4d1f950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2897"

@@ -1,0 +1,12 @@
+{
+  "id": 84,
+  "fetchedAt": "2026-08-14T05:01:07.864Z",
+  "name": "Mythic",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Mythic is an open source, cross-platform post-exploitation/command and control platform. Mythic is designed to \"plug-n-play\" with various agents and communication channels.(Citation: Mythic Github)(Citation: Mythic SpecterOps)(Citation: Mythc Documentation) Deployed Mythic C2 servers have been observed as part of potentially malicious infrastructure.(Citation: RecordedFuture 2021 Ad Infra)"
+}

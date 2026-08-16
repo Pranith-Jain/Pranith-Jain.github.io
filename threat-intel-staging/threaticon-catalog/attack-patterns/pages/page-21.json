@@ -1,0 +1,99 @@
+[
+  {
+    "id": 1117,
+    "name": "Group Permission Footprinting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1118, "name": "Owner Footprinting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1119,
+    "name": "Disable Security Software",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1120,
+    "name": "Replace Winlogon Helper DLL",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1121,
+    "name": "Restful Privilege Elevation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1122,
+    "name": "System Footprinting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1123,
+    "name": "Security Software Footprinting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1124, "name": "Route Disabling", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1125,
+    "name": "Disabling Network Hardware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1126,
+    "name": "BGP Route Disabling",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1127, "name": "DNS Domain Seizure", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1128, "name": "Object Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1129,
+    "name": "Cross Frame Scripting (XFS)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1130, "name": "DOM-Based XSS", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1131, "name": "DNS Blocking", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1132,
+    "name": "Session Credential Falsification through Prediction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1133,
+    "name": "IP Address Blocking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1134, "name": "Reflected XSS", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1135, "name": "Stored XSS", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1136, "name": "Session Hijacking", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

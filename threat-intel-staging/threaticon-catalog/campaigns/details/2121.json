@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:20:08.508Z",
+  "name": "Taking apart a double zero-day sample discovered in joint hunt with ESET",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 2, 2018",
+  "lastSeen": "Jul 2, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #148 (5b3b89e4-ad20-455f-b843-1e69c0a8ab16)."
+}

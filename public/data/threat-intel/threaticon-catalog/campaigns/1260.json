@@ -3,9 +3,9 @@
   "name": "exitium: Ming Hwei Energy",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 29, 2026",
+  "lastSeen": "Mar 29, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to exitium. | Country: TW | Sector: Energy | Website: mhe.com.tw | Infostealer data confirmed. | Zoominfo: https://www.zoominfo.com/c/ming-hwei-energy-co-ltd/446006038 A small private B2B firm (11–50 staff, <$5M revenue), part of a Taiwanese fastener conglomerate. Manufacturer of solar cells in a niche where Taiwanese firms are consistently undercut by Chinese pricing. Their infra encrypted. | Source: https://www.ransomware.live/id/TWluZyBId2VpIEVuZXJneUBleGl0aXVt",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1260"

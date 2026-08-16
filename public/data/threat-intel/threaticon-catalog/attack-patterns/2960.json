@@ -1,0 +1,9 @@
+{
+  "id": 2960,
+  "name": "T1565.001 (Data Manipulation: Data Deletion)",
+  "techniqueId": "T1565",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2960"
+}

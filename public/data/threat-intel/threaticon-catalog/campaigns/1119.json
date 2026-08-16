@@ -3,9 +3,9 @@
   "name": "shinyhunters: Cisco Systems, Inc. (cisco.com)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 24, 2024",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Technology | Website: cisco.com | Infostealer data confirmed. | 3 breaches ( UNC6040 , Salesforce Aura, and AWS accounts). Total over 3M Salesforce records containing PII, Github repositories, AWS buckets and other internal corporate data have been compromised. This is a final warning to reach out by 3 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 31 Mar 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/Q2lzY28gU3lzdGVtcywgSW5jLiAoY2lzY28uY29tKUBzaGlueWh1bnRlcnM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1119"

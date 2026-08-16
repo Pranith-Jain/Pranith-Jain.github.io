@@ -1,11 +1,11 @@
 {
   "id": 2148,
   "name": "New HawkEye Reborn Variant Emerges Following Ownership Change",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 16, 2019",
+  "lastSeen": "Apr 16, 2019",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #184 (5cb5730d-220c-46d2-bd20-07fdc0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2148"

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:44:45.607Z",
+  "name": "lockbit5: bancrofteng.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 11, 2026",
+  "lastSeen": "Jun 20, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: GB | Sector: Construction | Website: bancrofteng.com | Infostealer data confirmed. | Bancroft Engineering specializes in the design and manufacturing of automated welding equipment and... | Source: https://www.ransomware.live/id/YmFuY3JvZnRlbmcuY29tQGxvY2tiaXQ1"
+}

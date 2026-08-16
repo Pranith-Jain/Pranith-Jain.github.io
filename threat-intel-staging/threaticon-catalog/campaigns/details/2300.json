@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:12:17.596Z",
+  "name": "Magnet Goblin Targets Publicly Facing Servers Using 1-Day Vulnerabilities",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 13, 2024",
+  "lastSeen": "Mar 13, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #474 (17a29b8e-11ca-42f7-9adf-886a25412b77)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 692,
+    "name": "payload: TFE Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: AU | Sector: Consumer Services | TFE Group is a company that operates in the Architecture, Engineering & Design industry. | Source: https://www.ransomware.live/id/VEZFIEdyb3VwQHBheWxvYWQ="
+  },
+  {
+    "id": 691,
+    "name": "payload: orientalweavers.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: EG | Sector: Manufacturing | Website: orientalweavers.com | Infostealer data confirmed. | Established in 1979, Oriental Weavers is a manufacturer of textiles used to construct rugs, carpet, upholstery, and more. This company is headquartered in Cairo, Egypt | Source: https://www.ransomware.live/id/b3JpZW50YWx3ZWF2ZXJzLmNvbUBwYXlsb2Fk"
+  },
+  {
+    "id": 690,
+    "name": "payload: Sunlight Express Airways",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: PH | Sector: Transportation/Logistics | Website: sunlightair.ph | Infostealer data confirmed. | Sunlight Air offers affordable flights to popular Philippine island destinations such as Cebu, Coron, Boracay, Siquijor, and Siargao. The airline provides various services including private charters, vacation packages, and a loyalty program called Sunlight Miles. Targeting both leisure and business travelers, Sunlight Air aims to enhance the travel experience with exclusive passenger perks and flexible booking options. With a commitment to expanding flight frequencies and routes, the company continues to facilitate convenient travel across the Philippines. | Source: https://www.ransomware.live/id/U3VubGlnaHQgRXhwcmVzcyBBaXJ3YXlzQHBheWxvYWQ="
+  },
+  {
+    "id": 689,
+    "name": "payload: Marino Food Products Pvt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 688,
+    "name": "payload: Franziskusschule Wilhelmshaven",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Education | Website: franziskus-whv.de | Infostealer data confirmed. | Franziskusschule Wilhelmshaven is a school located in Wilhelmshaven, a city in northern Germany on the North Sea coast. The name “Franziskusschule” indicates that it is a Franciscan or Catholic school, often inspired by the values of Saint Francis of Assisi, emphasizing community, social responsibility, and moral education alongside academic learning. | Source: https://www.ransomware.live/id/RnJhbnppc2t1c3NjaHVsZSBXaWxoZWxtc2hhdmVuQHBheWxvYWQ="
+  },
+  {
+    "id": 687,
+    "name": "akira: R Roese Contracting",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Construction | Website: rroese.com | Infostealer data confirmed. | R. Roese Contracting Company Inc. is a leading provider of underg round and aerial construction services, specializing in telecommu nications, water and sewer, electric, and gas transmission and di stribution. We will upload 61gb of corporate data soon. Personal data of empl oyees (passports, phones, emails and so on), financials, client d ata, lots of project files, NDAs, etc. | Source: https://www.ransomware.live/id/UiBSb2VzZSBDb250cmFjdGluZ0Bha2lyYQ=="
+  },
+  {
+    "id": 685,
+    "name": "akira: Law Offices of JamesC Shields",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: shieldslaw.net | Infostealer data confirmed. | The Law Offices of James C. Shields specializes in bankruptcy, es tate planning, and probate services, providing tailored legal sol utions to clients in Southern California. With over 15 years of e xperience, the firm has assisted thousands in navigating financia l difficulties and planning for the future. We will upload corporate data soon. Personal data of clients (pas sports, DLs, SSNs, death/birth certificates, financials and other docs), detailed financials, court files, investigations, police reports, etc. | Source: https://www.ransomware.live/id/TGF3IE9mZmljZXMgb2YgSmFtZXNDIFNoaWVsZHNAYWtpcmE="
+  },
+  {
+    "id": 666,
+    "name": "genesis: ***",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Sector: Healthcare | Website: . | A healthcare organization | Source: https://www.ransomware.live/id/KioqQGdlbmVzaXM="
+  },
+  {
+    "id": 684,
+    "name": "crypto24: Qatar Biomedical Research Institute (QBRI)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to crypto24. | Country: QA | Sector: Healthcare | Website: www.hbku.edu.qa/en/qbri | [AI generated] Qatar Biomedical Research Institute (QBRI) is a research institute based in Qatar, operating under Hamad Bin Khalifa University. It focuses on biomedical research in areas such as genomics, diabetes, cancer, and neurological disorders. QBRI aims to advance precision medicine and translational research to address health challenges prevalent in Qatar and the broader region, contributing to the country's science and innovation goals. | Source: https://www.ransomware.live/id/UWF0YXIgQmlvbWVkaWNhbCBSZXNlYXJjaCBJbnN0aXR1dGUgKFFCUkkpQGNyeXB0bzI0"
+  },
+  {
+    "id": 683,
+    "name": "dragonforce: medicalnetworks CJ GmbH & Co. KG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: DE | Sector: Healthcare | Website: medicalnetworks.de | Infostealer data confirmed. | Medicalnetworks specializes in integrated healthcare solutions, offering services such as ascleoncare and Hybrid-DRG billing. Their products are designed to streamline processes for health insurance providers and medical practices. The company aims to enhance the efficiency of healthcare delivery through innovative technology. Their intended clients include healthcare providers and insurance companies seeking to improve their operational workflows | Source: https://www.ransomware.live/id/bWVkaWNhbG5ldHdvcmtzIENKIEdtYkggJiBDby4gS0dAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 682,
+    "name": "incransom: bgcsnv.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 681,
+    "name": "incransom: treelawoffice.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 680,
+    "name": "SilentRansomGroup: Fagen Friedman & Fulfrost LLP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: f3law.com | Infostealer data confirmed. | [AI generated] Fagen Friedman & Fulfrost LLP is a California-based law firm specializing in education law. The firm provides legal services exclusively to public educational agencies, including K-12 school districts, community colleges, and county offices of education throughout California. Its practice areas include labor and employment, special education, student matters, governance, and litigation. The firm operates entirely within the United States. | Source: https://www.ransomware.live/id/RmFnZW4gRnJpZWRtYW4gJiBGdWxmcm9zdCBMTFBAU2lsZW50UmFuc29tR3JvdXA="
+  },
+  {
+    "id": 679,
+    "name": "krybit: putzbaer.berlin",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: DE | Sector: Consumer Services | Website: putzbaer.berlin | Infostealer data confirmed. | putzbär Gebäudemanagement GmbH is a building management company based in Berlin, specializing in a wide range of servi... | Source: https://www.ransomware.live/id/cHV0emJhZXIuYmVybGluQGtyeWJpdA=="
+  },
+  {
+    "id": 678,
+    "name": "qilin: HBX Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SG | Sector: Not Found | Website: www.hbxgroup.com | Source: https://www.ransomware.live/id/SEJYIEdyb3VwQHFpbGlu"
+  }
+]

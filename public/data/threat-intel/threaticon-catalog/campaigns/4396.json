@@ -3,9 +3,9 @@
   "name": "thegentlemen: Indra Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: ES | Sector: Technology | Website: indracompany.com | Infostealer data confirmed. | ***.com zoominfo.com/c/indra-sistemas-sa/136495916 Indra, a leading Spanish multinational technology and consulting company. It specializes in innovative solutions for defense, aerospace, air traffic management, smart mobility, and digital transformation (via its Minsait brand). The company serves as a strategic technological partner for governments and major corporations worldwide, driving modernization and security across critical sectors | Press: https://www.democrata.es/en/economy/indra-ensures-the-continuity-of-its-services-after-a-ransomware-cyberattack-on-a-subsidiary/ | Source: https://www.ransomware.live/id/SW5kcmEgR3JvdXBAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4396"

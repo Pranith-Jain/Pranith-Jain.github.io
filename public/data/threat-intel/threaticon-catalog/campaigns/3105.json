@@ -1,11 +1,11 @@
 {
   "id": 3105,
   "name": "Locky: New Ransomware Mimics Dridex-Style Distribution",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 16, 2016",
+  "lastSeen": "Feb 16, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #30 (56d7441a-0e0c-46df-b56c-5129c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3105"

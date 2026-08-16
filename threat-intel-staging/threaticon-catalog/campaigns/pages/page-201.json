@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4862,
+    "name": "dragonforce: Corniche Hotel Abu Dhabi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4853,
+    "name": "threeam: mgrlaw.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to threeam. | Country: US | Sector: Business Services | Website: mgrlaw.com | Infostealer data confirmed. | Mogren, Glessner & Ahrens Law Firm is a full-service law firm located in King County, specializing in family law, divorce, probate, wills, criminal defense, personal injury, and adoption. Established in 1942, the firm is dedicated to providing com | Source: https://www.ransomware.live/id/bWdybGF3LmNvbUB0aHJlZWFt"
+  },
+  {
+    "id": 4855,
+    "name": "coinbasecartel: Cambridge Mobile Telematics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | [AI generated] Cambridge Mobile Telematics (CMT) is an American telematics technology company headquartered in Cambridge, Massachusetts. It provides mobile-based driving analytics and safety solutions to insurers, rideshares, fleets, and enterprises. Using smartphone sensors and AI, CMT measures driving behavior to help reduce accidents and improve road safety. Its DriveWell platform is widely used in the insurance telematics industry globally. | Source: https://www.ransomware.live/id/Q2FtYnJpZGdlIE1vYmlsZSBUZWxlbWF0aWNzQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 4851,
+    "name": "threeam: agroexportavocados.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to threeam. | Country: MX | Sector: Agriculture and Food Production | Website: agroexportavocados.com | Infostealer data confirmed. | Agro Industrial Exportadora SA de CV (AGRIEXP) is a Mexican holding company which is engaged in the food processing sector. Through its subsidiaries, the Company purchases, processes and sells fruit and vegetables. | Source: https://www.ransomware.live/id/YWdyb2V4cG9ydGF2b2NhZG9zLmNvbUB0aHJlZWFt"
+  },
+  {
+    "id": 4857,
+    "name": "dragonforce: Cheoy Lee Shipyards",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4856,
+    "name": "shadowbyt3$: Nintendo Company (Nintendo.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4870,
+    "name": "shinyhunters: Zayo.com & Allstream.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Telecommunication | You wouldn't want us to describe what data was taken from you publicly here. A fair assessment of this breach in terms of criticality is a 9/10. We urge you to reach out. Read our emails. Failure to do so will result in the full publication and we very much intend to carry that out if you do not engage with us. This is a final warning to reach out by 16 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 12 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/WmF5by5jb20gJiBBbGxzdHJlYW0uY29tQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 4854,
+    "name": "coinbasecartel: Demand.io",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: Demand.io | [AI generated] Demand.io is a technology company based in the United States that operates in the e-commerce and artificial intelligence space. It develops AI-powered shopping tools and browser extensions designed to help consumers find deals, coupons, and product recommendations while shopping online. The company focuses on enhancing the online shopping experience through data-driven insights and personalized assistance for retail consumers. | Source: https://www.ransomware.live/id/RGVtYW5kLmlvQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 4852,
+    "name": "threeam: hoplongtech.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to threeam. | Country: VN | Sector: Technology | Website: hoplongtech.com | Infostealer data confirmed. | Công ty Cổ phần Công Nghệ Hợp Long is a leading distributor of automation equipment and industrial robotics solutions in Vietnam, representing brands such as Schneider Electric, Siemens, Omron, Veichi, NiSTRO, Leipole, and Universal Robots. They o | Source: https://www.ransomware.live/id/aG9wbG9uZ3RlY2guY29tQHRocmVlYW0="
+  },
+  {
+    "id": 4830,
+    "name": "nightspire: Blue Nile Medical Center",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Healthcare | Website: bluenilemedical.com | Infostealer data confirmed. | More than 3000+ Patient's EHR Records | Source: https://www.ransomware.live/id/Qmx1ZSBOaWxlIE1lZGljYWwgQ2VudGVyQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 4837,
+    "name": "lapsus$: INGKA GROUP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: SE | Sector: Consumer Services | Website: ingka.com | Infostealer data confirmed. | Full mapping of global e-commerce architecture and internal coworker platforms. Supply chain logistics, cloud infrastructure, and AI/MLOps repositories | Source: https://www.ransomware.live/id/SU5HS0EgR1JPVVBAbGFwc3VzJA=="
+  },
+  {
+    "id": 4849,
+    "name": "threeam: consultic.be",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to threeam. | Country: BE | Sector: Business Services | Website: consultic.be | Infostealer data confirmed. | ConsulTIC specializes in IT solutions, offering services such as application hosting, virtualization, telecommuting support, and security solutions. Their target clients include businesses seeking reliable, high-performance, and secure IT services | Source: https://www.ransomware.live/id/Y29uc3VsdGljLmJlQHRocmVlYW0="
+  },
+  {
+    "id": 4828,
+    "name": "nightspire: K****** County. Mi**e**ta",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Public Sector | Website: kcmn.us | Infostealer data confirmed. | Data is not available now. | Press: https://dysruptionhub.com/kittson-county-dmv-cyber-report/ | Source: https://www.ransomware.live/id/SyoqKioqKiBDb3VudHkuIE1pKiplKip0YUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 4841,
+    "name": "stormous: mlit.com.my",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4833,
+    "name": "shinyhunters: coe.int",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

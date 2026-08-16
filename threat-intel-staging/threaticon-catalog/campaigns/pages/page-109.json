@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6238,
+    "name": "Deadlock: Enedo Power",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: FI | Sector: Energy & Utilities | Website: enedopower.com | Infostealer data confirmed. | Enedo Power (company renamed Inission Power) develops high-quality, intelligent power supply systems for critical infrastructure and industrial applications. The company, part of the Swedish Inission Group with Finnish roots, focuses on robust power supplies, power systems, and LED drivers for industries such as defense and railway technology. | Source: https://www.ransomware.live/id/RW5lZG8gUG93ZXJARGVhZGxvY2s="
+  },
+  {
+    "id": 6239,
+    "name": "Deadlock: CNA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: IT | Sector: Financial Services | Website: toscanacentro.cna.it | CNA Toscana Centro a trade association that provides services and protection to artisans and businesses in the provinces of Prato and Pistoia. The portal manages union representation, tax services, the EPASA-ITACO welfare association, and supports business development and digitalization. | Source: https://www.ransomware.live/id/Q05BQERlYWRsb2Nr"
+  },
+  {
+    "id": 6235,
+    "name": "Deadlock: BioResearch",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: PL | Sector: Healthcare | Website: www.bioresearch.pl | BioResearch Group to Warsaw clinical research center specializing in early phases (I, FIH, SAD, MAD) and bioequivalence studiesThe company offers comprehensive services for the pharmaceutical and CRO sectors, with its own clinic and laboratory. | Source: https://www.ransomware.live/id/QmlvUmVzZWFyY2hARGVhZGxvY2s="
+  },
+  {
+    "id": 6236,
+    "name": "Deadlock: Relesa",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: AR | Sector: Other | Website: relesa.com.ar | Infostealer data confirmed. | Grupo Relesa a multinacional Spanish company specializing in the fabrication and summary of rejillas metálicas (tramex). The main function is the digital platform and the client portal of Reginald Lee SA, one of the official distributors of more important products of Coca-Cola in Argentina. | Source: https://www.ransomware.live/id/UmVsZXNhQERlYWRsb2Nr"
+  },
+  {
+    "id": 6237,
+    "name": "Deadlock: Carrier AB",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: SE | Sector: Manufacturing | Website: carrier.se | Infostealer data confirmed. | Carrier Transport AB a Swedish transport and logistics company headquartered in Jordbro near Stockholm. | Source: https://www.ransomware.live/id/Q2FycmllciBBQkBEZWFkbG9jaw=="
+  },
+  {
+    "id": 6234,
+    "name": "Deadlock: KeNHA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: KE | Sector: Government & Defense | Website: kenha.co.ke | Infostealer data confirmed. | The Kenya National Highways Authority (KeNHA) agency responsible for the construction, management, and maintenance of national highways (classes S, A, and B) in Kenya. | Source: https://www.ransomware.live/id/S2VOSEFARGVhZGxvY2s="
+  },
+  {
+    "id": 6233,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Professional Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 6232,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Professional Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 6231,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 6230,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6229,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6228,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Professional Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 6227,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Professional Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 6226,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 6224,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

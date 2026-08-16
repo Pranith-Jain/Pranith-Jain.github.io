@@ -1,0 +1,12 @@
+{
+  "id": 46,
+  "fetchedAt": "2026-08-14T05:17:45.999Z",
+  "name": "Domain Account Enumeration Across Platforms",
+  "tlp": null,
+  "detId": "DET0129",
+  "stixId": "x-mitre-detection-strategy--50569af3-7910-4591-977e-cbf4caa12cfd",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0363", "AN0364", "AN0365"]
+}

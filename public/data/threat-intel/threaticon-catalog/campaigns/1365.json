@@ -3,10 +3,10 @@
   "name": "dragonforce: M3 Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 24, 2026",
+  "lastSeen": "Mar 24, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: LU | Sector: Business Services | Website: m3group.biz | Infostealer data confirmed. | Founded in Lansing more than 11 years ago by Dowling, M3 Group prides itself on being the only local agency that offers the most comprehensive array of integrated branding, marketing and advertising services in the mid-Michigan region. M3 Group has grown into one of the largest and most respected agencies in the area. For more than a decade, M3 Group has built and refined strong brands through integrated marketing strategies that keep the client's goals and its bottom line in mind. M3 Group's award-winning staff works across traditional and nontraditional platforms, offering an array of market research and consulting, media planning and buying, website development, social and digital media marketing, public relations and promotions, video and audio production, corporate brand development, and graphic design. Take your brand to the next level by v...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1365"
 }

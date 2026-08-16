@@ -1,0 +1,9 @@
+{
+  "id": 158,
+  "name": "Network Topology",
+  "techniqueId": "DET0819",
+  "added": "May 2, 2026",
+  "description": "Adversaries may gather information about the victim's network topology that can be used during targeting. Information about network topologies may include a variety of details, including the physical and/or logical arrangement of both external-facing and internal network environments. This information may also include specifics regarding network devices (gateways, routers, etc.) and other infrastructure. Adversaries may gather this information in various ways, such as direct collection actions via Active Scanning or Phishing for Information. Information about network topologies may also be exposed to adversaries via online or other accessible data sets (ex: Search Victim-Owned Websites).(Citation: DNS Dumpster) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: Search Open Technical Databases or Search Open Websites/Domains), establishing operational resources (ex: Acquire Infrastructure or Compromise Infrastructure), and/or initial access (ex: External Remote Services).",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/158"
+}

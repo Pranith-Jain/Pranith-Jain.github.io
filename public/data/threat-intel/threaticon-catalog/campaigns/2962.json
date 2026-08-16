@@ -1,11 +1,11 @@
 {
   "id": 2962,
   "name": "OSINT - Oracle Security Alert Advisory - CVE-2025-61882",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 6, 2025",
+  "lastSeen": "Oct 6, 2025",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1805 (1d1eb8f6-bb88-40c3-9f1a-5e13f08646a5).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2962"

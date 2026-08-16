@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:42:45.919Z",
+  "name": "medusalocker: Trimble Inc / Gerrard Inc",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "Nov 7, 2025",
+  "added": "May 6, 2026",
+  "description": "Ransomware attack attributed to medusalocker. | Country: US | Sector: Technology | Website: trimble.com | Infostealer data confirmed. | Technology company Trimble (trimble.com) and Gerrard Inc (gerrardinc.com). ~18 Trimble email addresses. | Source: https://www.ransomware.live/id/VHJpbWJsZSBJbmMgLyBHZXJyYXJkIEluY0BtZWR1c2Fsb2NrZXI="
+}

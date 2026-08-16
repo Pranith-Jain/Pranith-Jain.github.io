@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:19:34.810Z",
+  "name": "Apache Struts 2 Vulnerability (CVE-2018-11776) Exploited in CroniX Crypto-Mining Campaign",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 6, 2018",
+  "lastSeen": "Sep 6, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #163 (5b91098e-5000-472d-8d74-2f72c0a8ab16)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:37:25.651Z",
+  "name": "AiLock: Richmont Graduate University",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 7, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Education | Website: richmont.edu | Infostealer data confirmed. | Richmont Graduate University is a Christian graduate institution offering master's programs in counseling and ministry, available both online and on-campus. | Source: https://www.ransomware.live/id/UmljaG1vbnQgR3JhZHVhdGUgVW5pdmVyc2l0eUBBaUxvY2s="
+}

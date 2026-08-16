@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:24:08.054Z",
+  "name": "The return of HackingTeam with new implants for OS X",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 2, 2016",
+  "lastSeen": "Mar 2, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #39 (56d7df53-b4bc-4739-aa3e-a874c0a8ab16)."
+}

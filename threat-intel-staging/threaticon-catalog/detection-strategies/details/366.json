@@ -1,0 +1,12 @@
+{
+  "id": 366,
+  "fetchedAt": "2026-08-14T05:13:00.689Z",
+  "name": "Detection Strategy for Stripped Payloads Across Platforms",
+  "tlp": null,
+  "detId": "DET0019",
+  "stixId": "x-mitre-detection-strategy--e4040d30-1f5a-4f80-9f06-f1c1d2a8c238",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0055", "AN0056", "AN0057", "AN0058"]
+}

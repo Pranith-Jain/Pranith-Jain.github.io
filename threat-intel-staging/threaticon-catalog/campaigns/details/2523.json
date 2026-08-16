@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:04:06.661Z",
+  "name": "OSINT - Tofsee â€“ modular spambot",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 20, 2016",
+  "lastSeen": "Sep 20, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #882 (57e0ee94-dd30-4dc3-9d60-4758950d210f)."
+}

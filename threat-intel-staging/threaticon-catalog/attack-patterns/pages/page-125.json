@@ -1,0 +1,99 @@
+[
+  {
+    "id": 683,
+    "name": "Disk Content Wipe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1561",
+    "status": null
+  },
+  {
+    "id": 32,
+    "name": "Disk Structure Wipe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1561",
+    "status": null
+  },
+  { "id": 1283, "name": "T1562", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  {
+    "id": 2049,
+    "name": "T1562 - Data Exfiltration",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  { "id": 1356, "name": "T1562.001", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  {
+    "id": 2994,
+    "name": "T1562.001 Impair Defense Evasion - Modify System Process Integrity Levels",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  { "id": 2614, "name": "T1562.002", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  { "id": 1659, "name": "T1562.003", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  {
+    "id": 1491,
+    "name": "T1562.003 - Information Gathering: OSINT Search Queries",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  {
+    "id": 1368,
+    "name": "T1562.003 - Valid Accounts: External Account Access via Custom Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  { "id": 1703, "name": "T1562.004", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  {
+    "id": 2859,
+    "name": "T1562.004 - Impair Defenses",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  {
+    "id": 1732,
+    "name": "T1562.004 - Information Gathering: Online Search Data",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  {
+    "id": 1985,
+    "name": "T1562.004 - Log Tampering|Modify Process Memory",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  { "id": 2618, "name": "T1562.006", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  { "id": 2613, "name": "T1562.008", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  { "id": 2777, "name": "T1562.009", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  { "id": 2615, "name": "T1562.010", "tlp": "white", "confidence": null, "techniqueId": "T1562", "status": null },
+  {
+    "id": 2324,
+    "name": "T1562: Impostor Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1562",
+    "status": null
+  },
+  {
+    "id": 268,
+    "name": "Remote Service Session Hijacking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1563",
+    "status": null
+  }
+]

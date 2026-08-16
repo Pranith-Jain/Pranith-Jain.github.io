@@ -1,0 +1,12 @@
+{
+  "id": 154,
+  "fetchedAt": "2026-08-14T05:15:52.672Z",
+  "name": "Credential Dumping from SAM via Registry Dump and Local File Access",
+  "tlp": null,
+  "detId": "DET0085",
+  "stixId": "x-mitre-detection-strategy--13c88a68-15e3-45e5-958b-82fe7b948561",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0235"]
+}

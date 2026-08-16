@@ -1,0 +1,12 @@
+{
+  "id": 600,
+  "fetchedAt": "2026-08-14T06:04:46.252Z",
+  "name": "Detection of Spearphishing Attachment",
+  "tlp": null,
+  "detId": "DET0865",
+  "stixId": "x-mitre-detection-strategy--e62ddd99-6357-4388-b3df-d7d7b6984630",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1997"]
+}

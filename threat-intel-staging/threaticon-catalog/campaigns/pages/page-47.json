@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7170,
+    "name": "Dark Project: Storer Transportation and Storer Coachways",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Dark Project. | Country: US | Sector: Transportation | Website: www.storerbus.com | The company \"Storer Transportation\" and \"Storer Coachways\" was attacked, resulting in the theft of more than 50,000 folders (240+ GB) of the company’s confidential information, including more than 1,500 pieces of employee personal data, financial and banking documents, credit card information and a large amount of confidential incident data. Download here: http://pokttabd2hod47ladeeoin22wmq4remyo3wshwvxfuhgqygcbezq2qqd.onion | Source: https://www.ransomware.live/id/U3RvcmVyIFRyYW5zcG9ydGF0aW9uIGFuZCBTdG9yZXIgQ29hY2h3YXlzQERhcmsgUHJvamVjdA=="
+  },
+  {
+    "id": 7163,
+    "name": "everest: Greenbotz",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: IN | Sector: Technology | Website: greenbotz.co | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/R3JlZW5ib3R6QGV2ZXJlc3Q="
+  },
+  {
+    "id": 7164,
+    "name": "Dark Project: Labpharma",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7165,
+    "name": "everest: NIMR Oil",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: AE | Sector: Energy & Utilities | Website: nimroil.com | Infostealer data confirmed. | [AI generated] NIMR Oil is an Omani oil and gas company operating primarily in the Sultanate of Oman. It specializes in the production, processing, and management of crude oil and natural gas resources. The company works within Oman's energy sector, often collaborating with the national oil infrastructure. NIMR is known for operating mature oilfields and applying enhanced recovery techniques to maximize output from established reserves. | Source: https://www.ransomware.live/id/TklNUiBPaWxAZXZlcmVzdA=="
+  },
+  {
+    "id": 7166,
+    "name": "Dark Project: Ruhrpumpen",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Dark Project. | Country: DE | Sector: Manufacturing | Website: www.ruhrpumpen.com | About Ruhrpumpen Ruhrpumpen is a leading global manufacturer of highly engineered centrifugal and reciprocating pumps. A sophisticated cyberattack in the company's network led to a massive data breach. As a result of the incident, approximately 1 TB of data was leaked, including confidential personal and financial information. | Source: https://www.ransomware.live/id/UnVocnB1bXBlbkBEYXJrIFByb2plY3Q="
+  },
+  {
+    "id": 7161,
+    "name": "everest: Conway Analytics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: US | Sector: Technology | Website: conway.ai | [AI generated] N/A | Source: https://www.ransomware.live/id/Q29ud2F5IEFuYWx5dGljc0BldmVyZXN0"
+  },
+  {
+    "id": 7169,
+    "name": "everest: Rodschinson Investment",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: BE | Sector: Financial Services | Website: rodschinson.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/Um9kc2NoaW5zb24gSW52ZXN0bWVudEBldmVyZXN0"
+  },
+  {
+    "id": 7159,
+    "name": "Dark Project: Laurel Institutes",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7168,
+    "name": "Dark Project: Thermo King",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Dark Project. | Country: US | Sector: Transportation | Website: thermoking.com | Infostealer data confirmed. | Due to cyberattack on Genesis more than 70 Gb of company data was stolen. Leakage contains big amount of sensitive data such as company's customers data, bank and financial information documents. About 10 000 files are not secured by THERMO KING for now. Download here: http://wjcml4mxpcvsmjxm33zhjb46nzutxk6g3f5w23fopgpwj6pqjcidiyqd.onion | Source: https://www.ransomware.live/id/VGhlcm1vIEtpbmdARGFyayBQcm9qZWN0"
+  },
+  {
+    "id": 7160,
+    "name": "everest: Oasis Legal Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: US | Sector: Professional Services | Website: oasislg.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/T2FzaXMgTGVnYWwgR3JvdXBAZXZlcmVzdA=="
+  },
+  {
+    "id": 7167,
+    "name": "everest: TechCorr",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Technology | Website: techcorr.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/VGVjaENvcnJAZXZlcmVzdA=="
+  },
+  {
+    "id": 7151,
+    "name": "Dark Project: Long-Lewis Automotive Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7152,
+    "name": "Triple X: Henshaw Law",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Triple X. | Country: GB | Sector: Professional Services | 1 terabytes of people's data https://henshawlawak.com/ Henshaw Law, Despite repeated recommendations, no action was taken. The problem remains unresolved, the system is full of bugs, people's documents are at risk, and they won't take any responsibility. Multiple people could commit suicide, what important information has been leaked about them, and who is responsible for why the recommendations weren't taken seriously. what data will leak ? -Personal family files -Passports and licenses -Court ruling and public complaint forms -Documents scans -Forms and emails scans sample : Full download data link : Download | Source: https://www.ransomware.live/id/SGVuc2hhdyBMYXdAVHJpcGxlIFg="
+  },
+  {
+    "id": 7154,
+    "name": "everest: EPM",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: CO | Sector: Energy & Utilities | Website: epm.com.co | Infostealer data confirmed. | [AI generated] EPM (Empresas Públicas de Medellín) is a Colombian public utility company headquartered in Medellín, Colombia. It operates in the energy, water, and telecommunications sectors, providing electricity generation and distribution, water supply, sewage, and natural gas services. It serves millions of customers across Colombia and has expanded operations into other Latin American countries, making it one of the largest public utility groups in the region. | Source: https://www.ransomware.live/id/RVBNQGV2ZXJlc3Q="
+  },
+  {
+    "id": 7155,
+    "name": "payoutsking: H****r",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Source: https://www.ransomware.live/id/SCoqKipyQHBheW91dHNraW5n"
+  }
+]

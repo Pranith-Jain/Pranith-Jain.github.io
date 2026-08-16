@@ -3,9 +3,9 @@
   "name": "safepay: lynxprecast.co.uk",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Apr 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to safepay. | Country: GB | Sector: Business Services | Website: lynxprecast.co.uk | Infostealer data confirmed. | Lynx Precast Ltd is a UK-based construction manufacturing company specialising in the design, manufacture and installation of precast concrete products … | Source: https://www.ransomware.live/id/bHlueHByZWNhc3QuY28udWtAc2FmZXBheQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/673"

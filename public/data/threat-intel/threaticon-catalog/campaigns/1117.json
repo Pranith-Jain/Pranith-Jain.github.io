@@ -3,9 +3,9 @@
   "name": "akira: Tange , Mann & Garza",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: tmgcpas.com | Infostealer data confirmed. | Tange , Mann & Garza is a full-service accounting firm offering a broad range of services for individuals, business owners, execut ives, and independent professionals. We will upload 40gb of corporate data soon. Employee passports DL and so on, detailed client information (financials, agreements a nd so on), NDA, etc. | Source: https://www.ransomware.live/id/VGFuZ2UgLCBNYW5uICYgR2FyemFAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1117"

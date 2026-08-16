@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:24:08.966Z",
+  "name": "AA24-249A: Russian Military Cyber Actors Target U.S. and Global Critical Infrastructure",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Sep 12, 2024",
+  "lastSeen": "Sep 12, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #523 (d67bfbe0-e01d-4e2e-8a56-214805d85aee)."
+}

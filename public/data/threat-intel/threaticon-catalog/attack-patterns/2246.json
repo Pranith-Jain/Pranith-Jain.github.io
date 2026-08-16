@@ -1,0 +1,9 @@
+{
+  "id": 2246,
+  "name": "T1068.004 - Exfiltration over Encrypted Channels (e.g., HTTPS)",
+  "techniqueId": "T1068",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2246"
+}

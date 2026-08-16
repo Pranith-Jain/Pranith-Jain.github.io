@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6524,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Professional Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 6523,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 6521,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6522,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6519,
+    "name": "Doommageddon: iw steelTEC Makine San. ve Tic. A.Ş.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Status: leaked | Data size: 100 GB | Files: 0 files | Deadline: 2026-03-08T00:00:00Z | Source: https://www.ransomware.live/id/aXcgc3RlZWxURUMgTWFraW5lIFNhbi4gdmUgVGljLiBBLsWeLkBEb29tbWFnZWRkb24="
+  },
+  {
+    "id": 6520,
+    "name": "Deadlock: HİDROMEK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: www.hidromek.com | HİDROMEK is a leading Turkish manufacturer of heavy construction machinery recognized globally for its high-performance award-winning heavy equipment. Founded in Ankara in 1978 by mechanical engineer Hasan Basri Bozkurt the company operates six state-of-the-art production facilities across Turkey and Thailand. Its heavy machinery operates in more than 130 countries spanning six continents. Over 880 gigabytes of sensitive internal data were stolen from this company | Source: https://www.ransomware.live/id/SMSwRFJPTUVLQERlYWRsb2Nr"
+  },
+  {
+    "id": 6518,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6517,
+    "name": "Deadlock: HİDROMEK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: www.hidromek.com | HİDROMEK is a leading Turkish manufacturer of heavy construction machinery recognized globally for its high-performance award-winning heavy equipment. Founded in Ankara in 1978 by mechanical engineer Hasan Basri Bozkurt the company operates six state-of-the-art production facilities across Turkey and Thailand. Its heavy machinery operates in more than 130 countries spanning six continents. Over 880 gigabytes of sensitive internal data were stolen from this company | Source: https://www.ransomware.live/id/SMSwRFJPTUVLQERlYWRsb2Nr"
+  },
+  {
+    "id": 6516,
+    "name": "Doommageddon: iw steelTEC Makine San. ve Tic. A.Ş.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Status: leaked | Data size: 100 GB | Files: 0 files | Deadline: 2026-03-08T00:00:00Z | Source: https://www.ransomware.live/id/aXcgc3RlZWxURUMgTWFraW5lIFNhbi4gdmUgVGljLiBBLsWeLkBEb29tbWFnZWRkb24="
+  },
+  {
+    "id": 6514,
+    "name": "Global Secret Group: Park Manufacturing Corp.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Manufacturing | Website: parkmfg.com | Country: Cambridge, Minnesota 55008, US | Website: parkmfg.com | Revenue: $17.9 Million | Industry: Appliances, Electrical, and Electronics Manufacturing | Employees: 50-100 | Properties: 195 GB (411,109 Files, 48,413 Folders) | Source: https://www.ransomware.live/id/UGFyayBNYW51ZmFjdHVyaW5nIENvcnAuQEdsb2JhbCBTZWNyZXQgR3JvdXA="
+  },
+  {
+    "id": 6515,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6513,
+    "name": "incransom: takethehop.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Hospitality | Website: takethehop.com | The HOP, an American regional public transit system operated by the Hill Country Transit District (HCTD). Founded in the 1960s in the state of Texas (USA) as a voluntary transportation service, the organization has grown over the decades into a major public public-transport network. | Source: https://www.ransomware.live/id/dGFrZXRoZWhvcC5jb21AaW5jcmFuc29t"
+  },
+  {
+    "id": 6512,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Professional Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 6511,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Professional Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 6510,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  }
+]

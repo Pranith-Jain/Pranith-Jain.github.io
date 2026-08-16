@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3805,
+    "name": "beast: Trivantage",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to beast. | Country: US | Sector: Business Services | Website: www.trivantage.com | Trivantage is a wholesale supplier specializing in awning, marine, and upholstery fabrics, offering over 9,000 products for makers. The company provides built-for-purpose materials and hardware for shade systems, durable materials for custom marine builds, and stylish furnishings. With a commitment to customer success, Trivantage ensures quick delivery, dedicated expert help, and exclusive benefits through its Trivantage Plus membership. Their extensive selection and reliable service make them a trusted partner for businesses in need of quality supplies. | Source: https://www.ransomware.live/id/VHJpdmFudGFnZUBiZWFzdA=="
+  },
+  {
+    "id": 3804,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 3803,
+    "name": "nightspire: Cabinet d’Étude en Sécurité Pyrotechnique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.cespyro.com | Data is not available now. | Source: https://www.ransomware.live/id/Q2FiaW5ldCBk4oCZw4l0dWRlIGVuIFPDqWN1cml0w6kgUHlyb3RlY2huaXF1ZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 3802,
+    "name": "stormous: ttt.vn TTT Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3800,
+    "name": "thegentlemen: Farmers Association of Iceland",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3801,
+    "name": "lamashtu: WOHA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: SG | Sector: Hospitality and Tourism | Website: woha.net | Infostealer data confirmed. | WOHA is a renowned Singapore-based architectural practice founded in 1994 by Wong Mun Summ and Richard Hassell. The firm is globally recognized for its integration of environmental and social principles into high-density urban settings. | Source: https://www.ransomware.live/id/V09IQUBsYW1hc2h0dQ=="
+  },
+  {
+    "id": 3799,
+    "name": "thegentlemen: La Kaffa International",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3798,
+    "name": "thegentlemen: Diviso Grupo Financiero",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3797,
+    "name": "thegentlemen: Mediaplex",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Technology | Website: mediaplexcnc.com | Infostealer data confirmed. | mediaplexcnc.com zoominfo.com/c/mediaplex-inc/465166226 Mediaplex sas is a young, dynamic Italian manufacturing company based in Casoria (Naples, Italy), specializing in CNC machining, cutting, and fabrication of plexiglass and plastic materials in general. The company serves clients needing precision plastic components, decorative elements, displays, and custom-made plastic parts produced via CNC routing, laser cutting, and thermoforming. Rated 4.5/5 by customers, Mediaplex is regarded as a reliable plastic fabrication partner in the Campania region of Italy | Source: https://www.ransomware.live/id/TWVkaWFwbGV4QHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 3796,
+    "name": "thegentlemen: Marutake",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3795,
+    "name": "thegentlemen: Kasapreko",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3794,
+    "name": "thegentlemen: Levante Living",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3793,
+    "name": "thegentlemen: Ontario Physiotherapy Association",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3792,
+    "name": "thegentlemen: Millennium Partners",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3791,
+    "name": "thegentlemen: East",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

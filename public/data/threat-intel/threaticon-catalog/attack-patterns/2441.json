@@ -1,0 +1,9 @@
+{
+  "id": 2441,
+  "name": "T1132.001 - Application Layer Protocol Tunneling",
+  "techniqueId": "T1132",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2441"
+}

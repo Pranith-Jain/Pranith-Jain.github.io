@@ -1,0 +1,9 @@
+{
+  "id": 1600,
+  "name": "T1213.002: Sharepoint",
+  "techniqueId": "T1213",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1600"
+}

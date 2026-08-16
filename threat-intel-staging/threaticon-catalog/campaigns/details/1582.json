@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:43:05.802Z",
+  "name": "payload: Río Grande (Puerto Rico)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 14, 2026",
+  "lastSeen": "Mar 14, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: PR | Sector: Public Sector | Río Grande is a municipality located in Puerto Rico, a U.S. territory in the Caribbean. It has its own local government that manages public services, administration, and community programs for residents. | Source: https://www.ransomware.live/id/UsOtbyBHcmFuZGUgKFB1ZXJ0byBSaWNvKUBwYXlsb2Fk"
+}

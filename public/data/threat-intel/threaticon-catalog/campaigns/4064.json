@@ -3,10 +3,10 @@
   "name": "D1R: ARM",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Jul 13, 2026",
+  "lastSeen": "Jul 13, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to D1R. | Country: GB | Sector: Technology | Website: arm.com | Infostealer data confirmed. | Thanks to leaked database by Synopsys, a roadmap was provided Many other group leaks were cross-referenced and thoroughly analyzed One of the leaked companies gave our team access to ARM center Severely incapacitated by 2FA email/sms-code required by ARM on every step, we were still able to download an interesting tool: Athena Download Manager That requires an SSL certificate of a company that owns ARM products, and downloading by means of Athena allows to bypass multiple 2FA checks that are required when downloading same files from www.arm.com This is now free for download to any reverse engineer on Earth and beyond, thanks to Synopsys company data negligence: | Source: https://www.ransomware.live/id/QVJNQEQxUg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4064"
 }

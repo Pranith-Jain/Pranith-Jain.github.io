@@ -1,0 +1,9 @@
+{
+  "id": 1271,
+  "fetchedAt": "2026-08-15T06:43:21.512Z",
+  "name": "Adversary in the Middle (AiTM)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: High. An adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components."
+}

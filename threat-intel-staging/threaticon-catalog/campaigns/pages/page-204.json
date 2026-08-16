@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4813,
+    "name": "thegentlemen: Traublinger",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Manufacturing | Website: traublinger.de | Infostealer data confirmed. | ***.de Backerei Traublinger is a traditional, family-owned German bakery and confectionery company founded in 1912, headquartered near Munich in Bavaria.With over a century of heritage and around 165 employees, they expertly blend time-honored artisanal baking craftsmanship with modern culinary innovation.The company produces and distributes a wide variety of premium breads, pastries, cakes, and snacks through its extensive network of local retail branches across the region | Source: https://www.ransomware.live/id/VHJhdWJsaW5nZXJAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 4811,
+    "name": "thegentlemen: National Museum",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: DK | Sector: Public Sector | Website: natmus.dk | Infostealer data confirmed. | ***.dk zoominfo.com/c/national-museum/372526094 The National Museum of Denmark, located in the heart of Copenhagen, is the country's premier institution for cultural history, spanning from the Stone Age to the present day. It houses world-renowned archaeological treasures—including Viking hoards, the ancient Sun Chariot, and the Egtved Girl—alongside extensive global ethnographic collections. The museum is dedicated to exploring and sharing Denmark's rich heritage and global human history through engaging, research-driven exhibitions | Source: https://www.ransomware.live/id/TmF0aW9uYWwgTXVzZXVtQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 4807,
+    "name": "thegentlemen: Executive Coach",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4805,
+    "name": "thegentlemen: Linnecken Partner",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4806,
+    "name": "thegentlemen: Centre Medical Crowley",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: CA | Sector: Healthcare | Website: crowleymd.ca | Infostealer data confirmed. | ***.ca zoominfo.com/c/centre-médical-crowley/1340359581 Crowley Medical Centre is a premier healthcare facility in Montreal, located just steps away from the McGill University Health Centre (MUHC). They provide comprehensive, specialized medical care across diverse fields, including family medicine, obstetrics, ophthalmology, and rheumatology, alongside advanced medical aesthetics. Their core mission is to deliver exceptional, patient-centered treatments using state-of-the-art technology within a welcoming and highly professional environment | Source: https://www.ransomware.live/id/Q2VudHJlIE1lZGljYWwgQ3Jvd2xleUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 4810,
+    "name": "thegentlemen: Buratti",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: IT | Sector: Manufacturing | Website: buratti.it | Infostealer data confirmed. | ***.it zoominfo.com/c/buratti-store/533160142 Buratti is a historic, third-generation Italian family business based in Bolzano, renowned for its premium footwear boutiques. They offer a vast selection of elegant, casual, and mountain shoes for men, women, and children from top Italian brands. Additionally, they specialize in professional safety footwear and work accessories for the agricultural and industrial sectors, ensuring maximum protection for workers | Source: https://www.ransomware.live/id/QnVyYXR0aUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 4812,
+    "name": "thegentlemen: Times Software",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: SG | Sector: Technology | Website: timesoftsg.com.sg | Infostealer data confirmed. | ***.com.sg zoominfo.com/c/times-software-pte-ltd/432254282 Times Software Pte Ltd is a trusted Singaporean IT company founded in 1998, specializing in comprehensive Human Resource and Payroll management solutions.They provide businesses with robust software that seamlessly automates timesheets, leave management, and claims while ensuring strict compliance with local CPF, IRAS, and MOM regulations.With a strong focus on boosting corporate productivity, they help organizations simplify complex HR workflows and significantly reduce manual administrative work | Source: https://www.ransomware.live/id/VGltZXMgU29mdHdhcmVAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 4825,
+    "name": "krybit: frey.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: CH | Sector: Technology | Website: frey.com | Infostealer data confirmed. | FREY (Frey Brothers, Inc.) is an American eco-friendly laundry care products company founded in 2017 by brothers Erin an... | Source: https://www.ransomware.live/id/ZnJleS5jb21Aa3J5Yml0"
+  },
+  {
+    "id": 4803,
+    "name": "thegentlemen: Ministarstvo zdravstva Republike Hrvatske",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4804,
+    "name": "thegentlemen: Palmer Sicard",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Sector: Not Found | Website: palmerandsicard.com | Infostealer data confirmed. | ***.com zoominfo.com/c/palmer--sicard-inc/43926372 Palmer & Sicard is a premier, 100% employee-owned mechanical contractor established in 1954 and headquartered in Exeter, New Hampshire. For over 70 years, they have proudly served Northern New England, specializing in comprehensive HVAC systems, commercial plumbing, and custom sheet metal fabrication. Driven by a commitment to excellence, this trusted team delivers dependable, top-tier mechanical solutions from initial project conception through final installation and ongoing service | Source: https://www.ransomware.live/id/UGFsbWVyIFNpY2FyZEB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 4816,
+    "name": "thegentlemen: Kozminski University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Education | Website: kozminski.edu.pl | Infostealer data confirmed. | ***.edu.pl zoominfo.com/c/kozminski-university/372606592 Kozminski University, located in Warsaw, is Poland's premier private business school and a globally recognized academic institution holding the prestigious \"Triple Crown\" accreditation. Consistently ranked among the top European business schools by the Financial Times, it specializes in management, finance, and law. The university is dedicated to shaping future business leaders through innovative, research-driven education and strong international partnership | Source: https://www.ransomware.live/id/S296bWluc2tpIFVuaXZlcnNpdHlAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 4824,
+    "name": "AuditTeam: I-***YS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AuditTeam. | Country: RU | Sector: Not Found | Source: https://www.ransomware.live/id/SS0qKipZU0BBdWRpdFRlYW0="
+  },
+  {
+    "id": 4802,
+    "name": "thegentlemen: Calipage Humblet",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: BE | Sector: Not Found | Website: humblet.calipage.be | Infostealer data confirmed. | ***.calipage.be Papeterie Humblet is a historic Belgian family business founded in 1910 that specializes in comprehensive office and school supplies. Beyond retail, the company provides professional printing and copy services to its local customers. Operating primarily in the Herstal and Blegny regions, they serve as a dedicated partner within the Calipage Benelux network | Source: https://www.ransomware.live/id/Q2FsaXBhZ2UgSHVtYmxldEB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 4795,
+    "name": "shinyhunters: hccs.edu",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4796,
+    "name": "shinyhunters: kodak.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Manufacturing | Website: kodak.com | Infostealer data confirmed. | Over 2.2 million records containing customer PII and other internal corporate data was compromised. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/a29kYWsuY29tQHNoaW55aHVudGVycw=="
+  }
+]

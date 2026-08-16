@@ -1,11 +1,11 @@
 {
   "id": 3163,
   "name": "MeteorExpress | Mysterious Wiper Paralyzes Iranian Trains with Epic Troll",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 25, 2021",
+  "lastSeen": "Sep 25, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #274 (fc8f98a6-daa5-42ef-b6f3-2db535c43c57).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3163"

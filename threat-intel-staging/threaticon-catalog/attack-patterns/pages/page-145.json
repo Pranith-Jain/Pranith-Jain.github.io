@@ -1,0 +1,113 @@
+[
+  {
+    "id": 334,
+    "name": "Client Configurations",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1592",
+    "status": null
+  },
+  {
+    "id": 435,
+    "name": "Search Open Websites/Domains",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1593",
+    "status": null
+  },
+  { "id": 505, "name": "Social Media", "tlp": "white", "confidence": null, "techniqueId": "T1593", "status": null },
+  { "id": 311, "name": "Search Engines", "tlp": "white", "confidence": null, "techniqueId": "T1593", "status": null },
+  {
+    "id": 318,
+    "name": "Code Repositories",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1593",
+    "status": null
+  },
+  {
+    "id": 73,
+    "name": "Search Victim-Owned Websites",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1594",
+    "status": null
+  },
+  { "id": 1299, "name": "T1594.001", "tlp": "white", "confidence": null, "techniqueId": "T1594", "status": null },
+  {
+    "id": 1386,
+    "name": "T1594.001 - Compromise certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1594",
+    "status": null
+  },
+  { "id": 3037, "name": "T1594.002", "tlp": "white", "confidence": null, "techniqueId": "T1594", "status": null },
+  { "id": 1970, "name": "T1594.003", "tlp": "white", "confidence": null, "techniqueId": "T1594", "status": null },
+  {
+    "id": 2016,
+    "name": "T1594.003 - Malicious Scripts: Remote Code Execution via Script Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1594",
+    "status": null
+  },
+  {
+    "id": 1849,
+    "name": "T1594: Search for Data in Local or Web-Based Search Engines",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1594",
+    "status": null
+  },
+  { "id": 292, "name": "Active Scanning", "tlp": "white", "confidence": null, "techniqueId": "T1595", "status": null },
+  {
+    "id": 3010,
+    "name": "T1595 Active Scanning",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1595",
+    "status": null
+  },
+  {
+    "id": 1948,
+    "name": "T1595 Network Access Persistence Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1595",
+    "status": null
+  },
+  {
+    "id": 594,
+    "name": "Scanning IP Blocks",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1595",
+    "status": null
+  },
+  {
+    "id": 1740,
+    "name": "T1595.001 - Supply Chain Compromise: Tampering with Binary or Script Build Process",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1595",
+    "status": null
+  },
+  {
+    "id": 253,
+    "name": "Vulnerability Scanning",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1595",
+    "status": null
+  },
+  {
+    "id": 1989,
+    "name": "T1595.002: Vulnerability Scanning",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1595",
+    "status": null
+  },
+  { "id": 513, "name": "Wordlist Scanning", "tlp": "white", "confidence": null, "techniqueId": "T1595", "status": null }
+]

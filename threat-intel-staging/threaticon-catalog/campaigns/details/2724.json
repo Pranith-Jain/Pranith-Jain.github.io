@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:55:23.236Z",
+  "name": "OSINT - Banking Trojan Attempts To Steal Brazillion$",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 28, 2017",
+  "lastSeen": "Sep 28, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1193 (59cd5d0e-8280-4acd-a27e-427302de0b81)."
+}

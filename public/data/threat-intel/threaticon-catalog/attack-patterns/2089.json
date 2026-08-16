@@ -1,0 +1,9 @@
+{
+  "id": 2089,
+  "name": "T1525.001 -Masquerading",
+  "techniqueId": "T1525",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2089"
+}

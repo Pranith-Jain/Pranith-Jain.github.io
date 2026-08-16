@@ -3,9 +3,9 @@
   "name": "insomnia: Noble Inc.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 7, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Energy | Website: www.nobleoilfieldservices.com | Noble Casing, Inc., founded in 2009, provides casing running and conductor drilling services in the Rocky Mountain region, emphasizing safety, training and equipment upkeep. Subsidiaries Noble Drilling and Noble Trucking support production and rig moves. | Source: https://www.ransomware.live/id/Tm9ibGUgSW5jLkBpbnNvbW5pYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/974"

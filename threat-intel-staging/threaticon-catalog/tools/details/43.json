@@ -1,0 +1,12 @@
+{
+  "id": 43,
+  "fetchedAt": "2026-08-14T04:59:44.457Z",
+  "name": "AsyncRAT",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "AsyncRAT is an open-source remote access tool originally available through the NYANxCAT Github repository that has been used in malicious campaigns.(Citation: Morphisec Snip3 May 2021)(Citation: Cisco Operation Layover September 2021)(Citation: Telefonica Snip3 December 2021)"
+}

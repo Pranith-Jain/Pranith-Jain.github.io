@@ -3,9 +3,9 @@
   "name": "cmdorganization: Stonehenge Therapeutic Community",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 18, 2026",
+  "lastSeen": "May 18, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to cmdorganization. | Country: GB | Sector: Healthcare | Website: www.stonehengetc.com | Stonehenge Therapeutic Community is dedicated to providing expert services to individuals, families, and communities affected by substance use. Their offerings include addiction medicine and withdrawal support, supportive housing, integrated support and justice, and residential services. The organization emphasizes partnership, support, and advocacy, aiming to help clients learn to live effectively and contribute to society. With a history dating back to 1971, Stonehenge has evolved to offer a full spectrum of residential and community-based programs. | Source: https://www.ransomware.live/id/U3RvbmVoZW5nZSBUaGVyYXBldXRpYyBDb21tdW5pdHlAY21kb3JnYW5pemF0aW9u",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3920"

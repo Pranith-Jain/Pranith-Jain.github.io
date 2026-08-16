@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:16:46.022Z",
+  "name": "payload: SPORTON International Inc.",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 16, 2026",
+  "lastSeen": "Jun 16, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: TW | Sector: Manufacturing | Website: sporton.com.tw | Infostealer data confirmed. | Founded in 1986 and headquartered in Taiwan, Sporton International is a Taiwan-based company principally engaged in the provision of testing and certification services for wireless communications and mobile communications products. | Source: https://www.ransomware.live/id/U1BPUlRPTiBJbnRlcm5hdGlvbmFsIEluYy5AcGF5bG9hZA=="
+}

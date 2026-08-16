@@ -1,11 +1,11 @@
 {
   "id": 2774,
   "name": "OSINT - Multi-stage malware sneaks into Google Play",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 15, 2017",
+  "lastSeen": "Nov 15, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1262 (5a26b513-1ffc-497b-8cac-c53a950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2774"

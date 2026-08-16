@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1878,
+    "name": "T1059.004 - Event Reconnaissance: OSINT Gathering",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2276,
+    "name": "T1059.004 - Powershell command line option - Use of encoded or Base64 arguments to execute code",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2802,
+    "name": "T1059.004 Command Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1981,
+    "name": "T1059.004: PowerShell Script Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 602, "name": "Visual Basic", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  { "id": 550, "name": "Python", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  {
+    "id": 2934,
+    "name": "T1059.006 – PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 46, "name": "JavaScript", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  {
+    "id": 1846,
+    "name": "T1059.007: Code Injection - JavaScript",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1674,
+    "name": "T1059.007: JavaScript",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1779,
+    "name": "T1059.007: JavaScript - Delivering payloads using JavaScript code",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 370,
+    "name": "Network Device CLI",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 254, "name": "Cloud API", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  {
+    "id": 184,
+    "name": "AutoHotKey & AutoIT",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 465, "name": "Lua", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  { "id": 576, "name": "Hypervisor CLI", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  {
+    "id": 524,
+    "name": "Container CLI/API",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2910,
+    "name": "T1059.013 – Container CLI/API",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  { "id": 2194, "name": "T1059.015", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null },
+  { "id": 1873, "name": "T1059.POWLOP", "tlp": "white", "confidence": null, "techniqueId": "T1059", "status": null }
+]

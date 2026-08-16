@@ -1,0 +1,12 @@
+{
+  "id": 490,
+  "fetchedAt": "2026-08-14T05:24:31.593Z",
+  "name": "Multi-Event Behavioral Detection for DCOM-Based Remote Code Execution",
+  "tlp": null,
+  "detId": "DET0285",
+  "stixId": "x-mitre-detection-strategy--dbaaa57a-ef28-44c0-bc56-25bc20dc8f28",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0791"]
+}

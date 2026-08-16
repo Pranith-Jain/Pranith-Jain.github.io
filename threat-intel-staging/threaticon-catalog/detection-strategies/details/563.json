@@ -1,0 +1,12 @@
+{
+  "id": 563,
+  "fetchedAt": "2026-08-14T05:54:45.278Z",
+  "name": "Detection Strategy for Masquerading via Breaking Process Trees",
+  "tlp": null,
+  "detId": "DET0443",
+  "stixId": "x-mitre-detection-strategy--eccdd5b4-e19e-4254-909e-4a9c2e3ac27e",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1223", "AN1224"]
+}

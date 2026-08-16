@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:28.179Z",
+  "name": "Malspam via Spambots (2016-04-14)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 14, 2016",
+  "lastSeen": "Apr 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #422 (570f47a0-ee58-4aa8-ac55-96e4950d210f)."
+}

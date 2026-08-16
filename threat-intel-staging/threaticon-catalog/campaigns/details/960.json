@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:09:53.236Z",
+  "name": "thegentlemen: Adaptavist Group LTD",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: GB | Sector: Technology | Website: adaptavist.com | Infostealer data confirmed. | Adaptavist Group LTD is a British platinum Atlassian partner and enterprise software developer serving Fortune 500 clients including NASA, Visa, Deutsche Bank, and government organizations. The company's flagship product is ScriptRunner for Atlassian Jira, Confluence, and Bitbucket. Complete infrastructure compromise: source code of all products (ScriptRunner, Salable licensing platform), 484,220 customer records from HubSpot CRM (GDPR violation), 20,000+ legal tickets with 33,000 documents including 2,000 NDAs and contracts, 3TB+ from Nexus repositories (production secrets, Docker images, Helm charts), Kubernetes, OAuth credentials, Snowflake Data Warehouse, Confluence (24,547 pages, 100+GB documentation), production databases. Licensing system compromised enabling product cloning. | Source: https://www.ransomware.live/id/QWRhcHRhdmlzdCBHcm91cCBMVE..."
+}

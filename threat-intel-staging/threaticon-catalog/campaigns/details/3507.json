@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:10:16.201Z",
+  "name": "OSINT - How Malformed RTF Defeats Security Engines",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 23, 2017",
+  "lastSeen": "Mar 23, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1019 (58d3f093-d6f4-44d1-93ac-3449950d210f)."
+}

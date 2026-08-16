@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1780,
+    "name": "dragonforce: The Delventhal Company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1759,
+    "name": "play: Select Tool",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: CA | Sector: Manufacturing | Website: www.selecttool.com | Canada | Source: https://www.ransomware.live/id/U2VsZWN0IFRvb2xAcGxheQ=="
+  },
+  {
+    "id": 1760,
+    "name": "play: DFW Aero Mechanix",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Transportation/Logistics | Website: www.dfwaero.com | United States | Source: https://www.ransomware.live/id/REZXIEFlcm8gTWVjaGFuaXhAcGxheQ=="
+  },
+  {
+    "id": 1751,
+    "name": "dragonforce: Northern Family Farms",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Agriculture and Food Production | Website: www.northernfamilyfarms.com | Northern Family Farms, located in Merrillan, WI, has been a trusted wholesale supplier of Christmas trees and nursery plants since 1955. They offer a variety of products including Fraser Fir, Balsam Fir, White Pine, and numerous types of nursery plants such as fruits, topiaries, and shrubs. The company serves distributors and businesses across the country, ensuring top-quality plants for retail and landscaping needs. With a commitment to customer satisfaction, they invite potential clients to tour their facilities in West Central Wisconsin. | Source: https://www.ransomware.live/id/Tm9ydGhlcm4gRmFtaWx5IEZhcm1zQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 1752,
+    "name": "nightspire: MAGNETA LOGISTICS, UAB",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: LT | Sector: Transportation/Logistics | Website: magneta.lt | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/TUFHTkVUQSBMT0dJU1RJQ1MsIFVBQkBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1753,
+    "name": "nightspire: 11th Street Veterinary Hospital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Healthcare | Website: www.11thstvet.com | Data is not available now. | Source: https://www.ransomware.live/id/MTF0aCBTdHJlZXQgVmV0ZXJpbmFyeSBIb3NwaXRhbEBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1766,
+    "name": "thegentlemen: LAF Hotel Aree",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Hospitality and Tourism | LAF Hotel is a millennial-focused hotel located in Bangkok, Thailand, on Soi Phahol Yothin 5. Positioned as a place \"to live and to have fun it offers affordable accommodation and is highly recommended by 94% of its reviewers based on 240 reviews. | Source: https://www.ransomware.live/id/TEFGIEhvdGVsIEFyZWVAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 1767,
+    "name": "thegentlemen: Gerleinco",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: CO | Sector: Transportation/Logistics | Website: gerleinco.com | Infostealer data confirmed. | gerleinco.com zoominfo.com/c/gerleinco-sa/430010238 Gerleinco is a leading logistics service provider in Colombia, established in 1916, specializing in container control, multimodal transport, and project logistics. The company offers reliable and dynamic services through innovative technological developments and a dedicated professional team. Gerleinco serves various clients in key ports and commercial cities across the country. Their commitment to effective logistics ensures fulfillment of client needs in a responsible manner | Source: https://www.ransomware.live/id/R2VybGVpbmNvQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 1754,
+    "name": "termite: City of Huntington",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to termite. | Country: US | Sector: Public Sector | Website: www.cityofhuntington.com | Founded in 1871, the City of Huntington is located in western West Virginia. It is the county seat of Cabell County and also stretches into Wayne County. | Press: https://dysruptionhub.com/huntington-wv-cyber-incident/ | Source: https://www.ransomware.live/id/Q2l0eSBvZiBIdW50aW5ndG9uQHRlcm1pdGU="
+  },
+  {
+    "id": 1768,
+    "name": "safepay: smileteam.com.au",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: AU | Sector: Healthcare | Website: smileteam.com.au | Infostealer data confirmed. | Is a privately owned Australian healthcare company specialising in orthodontic treatment and dental alignment services. The organisation was founded around … | Source: https://www.ransomware.live/id/c21pbGV0ZWFtLmNvbS5hdUBzYWZlcGF5"
+  },
+  {
+    "id": 1755,
+    "name": "nightspire: thallos AG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: DE | Sector: Technology | Website: www.thallos.ag | Data is not available now. | Source: https://www.ransomware.live/id/dGhhbGxvcyBBR0BuaWdodHNwaXJl"
+  },
+  {
+    "id": 1769,
+    "name": "qilin: Waterloo Information Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Technology | Website: www.wisl.com | Source: https://www.ransomware.live/id/V2F0ZXJsb28gSW5mb3JtYXRpb24gU3lzdGVtc0BxaWxpbg=="
+  },
+  {
+    "id": 1756,
+    "name": "play: T a Solberg",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: NO | Sector: Not Found | Website: www.tasolberg.com | United States | Source: https://www.ransomware.live/id/VCBhIFNvbGJlcmdAcGxheQ=="
+  },
+  {
+    "id": 1757,
+    "name": "play: Don E Bower",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Construction | Website: www.donebowerinc.com | United States | Source: https://www.ransomware.live/id/RG9uIEUgQm93ZXJAcGxheQ=="
+  },
+  {
+    "id": 1758,
+    "name": "play: Design To Print",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Manufacturing | Website: www.designtoprint.com | United States | Source: https://www.ransomware.live/id/RGVzaWduIFRvIFByaW50QHBsYXk="
+  }
+]

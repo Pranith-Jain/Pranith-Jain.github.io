@@ -3,9 +3,9 @@
   "name": "akira: Verdugo Tool & Engineering",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Feb 13, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: verdugotool.com | Infostealer data confirmed. | Verdugo Tool and Engineering specializes in sheet metal stamping parts, serving industries including aerospace, defense, automotiv e, medical, and commercial for over 50 years. They offer a one-st op shop for all sheet metal needs, providing services such as too l and die design, laser cutting, metal stamping, and various valu e-added services. We will upload 10gb of corporate data soon. Employee personal doc uments, HR files, projects, contracts and agreements, confidentia lity agreements, NDAs, etc. | Source: https://www.ransomware.live/id/VmVyZHVnbyBUb29sICYgRW5naW5lZXJpbmdAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1782"

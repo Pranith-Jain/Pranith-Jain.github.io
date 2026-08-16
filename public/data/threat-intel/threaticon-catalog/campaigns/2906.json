@@ -1,11 +1,11 @@
 {
   "id": 2906,
   "name": "Updating: Tracking Powershell Empire C2 via Urlscan",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 4, 2020",
+  "lastSeen": "Feb 4, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1586 (5e38d6d4-7d88-40ab-8313-4db80a0a020f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2906"

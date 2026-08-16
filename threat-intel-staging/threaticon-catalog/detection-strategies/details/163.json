@@ -1,0 +1,12 @@
+{
+  "id": 163,
+  "fetchedAt": "2026-08-14T05:55:29.228Z",
+  "name": "Detection Strategy for Build Image on Host",
+  "tlp": null,
+  "detId": "DET0459",
+  "stixId": "x-mitre-detection-strategy--62b445ed-7d9d-4c1a-8d4e-6c742ec1b0e2",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1261"]
+}

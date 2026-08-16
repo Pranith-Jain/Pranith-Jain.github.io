@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T01:50:21.845Z",
+  "name": "Malware Discovered in Popular NPM Package, ua-parser-js",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Oct 24, 2021",
+  "lastSeen": "Oct 24, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1661 (ad7665ec-fef2-44eb-a019-b1b25a8aec05)."
+}

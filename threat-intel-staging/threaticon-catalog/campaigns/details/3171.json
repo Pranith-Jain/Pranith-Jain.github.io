@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:42.677Z",
+  "name": "Investigating APT36 or Earth Karkaddan’s Attack Chain and Malware Arsenal",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Feb 7, 2022",
+  "lastSeen": "Feb 7, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #287 (34582dfc-d0bf-403d-8419-2d4fa7a76466)."
+}

@@ -3,9 +3,9 @@
   "name": "incransom: https://sibillacapital.com/",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "May 10, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Financial Services | Website: sibillacapital.com | Infostealer data confirmed. | data | Source: https://www.ransomware.live/id/aHR0cHM6Ly9zaWJpbGxhY2FwaXRhbC5jb20vQGluY3JhbnNvbQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3666"

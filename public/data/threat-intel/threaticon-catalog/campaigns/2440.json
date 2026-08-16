@@ -1,11 +1,11 @@
 {
   "id": 2440,
   "name": "OSINT Unit 42 Identifies New DragonOK Backdoor Malware Deployed Against Japanese Targets by Palo Alto Unit42",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2015",
+  "lastSeen": "Apr 14, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #768 (552e76b6-3b44-410e-a0a9-4fec950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2440"

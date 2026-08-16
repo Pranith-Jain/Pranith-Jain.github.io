@@ -3,9 +3,9 @@
   "name": "qilin: RetireRight Financial Planning",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 10, 2026",
+  "lastSeen": "Mar 10, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Financial Services | Website: www.retirerightfp.com | Source: https://www.ransomware.live/id/UmV0aXJlUmlnaHQgRmluYW5jaWFsIFBsYW5uaW5nQHFpbGlu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1680"

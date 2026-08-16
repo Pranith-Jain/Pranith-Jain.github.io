@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:10:13.298Z",
+  "name": "OSINT - Dimnie: Hiding in Plain Sight",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 29, 2017",
+  "lastSeen": "Mar 29, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1024 (58db5ea0-8440-4687-b86f-4dd4950d210f)."
+}

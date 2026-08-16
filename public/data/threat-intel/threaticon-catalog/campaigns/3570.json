@@ -3,10 +3,10 @@
   "name": "akira: Institute of Private Enterprise Development",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 13, 2026",
+  "lastSeen": "May 13, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Website: ipedgy.com | Infostealer data confirmed. | The Institute of Private Enterprise Development focuses on improving the livelihoods of micro a nd small entrepreneurs by offering loans ranging from $40,000 to $7,500,000 GYD. Their services are designed to support individuals looking to start or grow their businesses, with a signific ant emphasis on female and youth entrepreneurs, as well as those in rural areas. We will upload 55gb of corporate data soon. Detailed clients and employee personal information (passports, DLs, SSNs, ID cards, financial information, credit card details and so on), NDAs , etc. | Source: https://www.ransomware.live/id/SW5zdGl0dXRlIG9mIFByaXZhdGUgRW50ZXJwcmlzZSBEZXZlbG9wbWVudEBha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3570"
 }

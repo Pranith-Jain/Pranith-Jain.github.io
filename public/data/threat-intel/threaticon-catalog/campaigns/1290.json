@@ -3,10 +3,10 @@
   "name": "akira: Sheladia Associates",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 27, 2026",
+  "lastSeen": "Jul 22, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Construction | Website: sheladia.com | Infostealer data confirmed. | Sheladia Associates, Inc. is a multidisciplinary consulting firm specializing in architectural, engineering, and development consu lting services. Established in 1974, the company focuses on infra structure projects in sectors such as transportation, water suppl y, sanitation, and energy across various regions including Asia, Africa, and the Americas. We will upload corporate data soon. Big amount of employee person al documents (passports, driver licenses, credit cards, immigrati on docs and so on), project files, medical information, financial s, contracts and agreements, client files, internal confidential files, NDAs. | Source: https://www.ransomware.live/id/U2hlbGFkaWEgQXNzb2NpYXRlc0Bha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1290"
 }

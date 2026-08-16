@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "CA",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/22bd3d02-780d-43be-a077-be144f90b2be",
+  "description": "personal and medical cards of all clients.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

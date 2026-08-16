@@ -3,9 +3,9 @@
   "name": "lockbit5: gov.krd",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 18, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: IQ | Sector: Public Sector | Website: gov.krd | Infostealer data confirmed. | The Ministry of Higher Education and Scientific Research oversees higher education institutions in t... | Source: https://www.ransomware.live/id/Z292LmtyZEBsb2NrYml0NQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1250"

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4799,
+    "name": "thegentlemen: Enciso Ltda",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: CL | Sector: Not Found | Website: encisoltda.com | Infostealer data confirmed. | ***.com zoominfo.com/c/enciso-ltda/425799840 Enciso Ltda is a trusted Colombian company founded in 1999, specializing in the distribution of industrial safety equipment, medical supplies, and road signaling. Operating from Dosquebradas with four regional branches, they proudly serve over 5,000 clients nationwide. Their core mission is safeguarding workers' health and lives through premium protective equipment and reliable safety solutions | Source: https://www.ransomware.live/id/RW5jaXNvIEx0ZGFAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 4795,
+    "name": "shinyhunters: hccs.edu",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4796,
+    "name": "shinyhunters: kodak.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Manufacturing | Website: kodak.com | Infostealer data confirmed. | Over 2.2 million records containing customer PII and other internal corporate data was compromised. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/a29kYWsuY29tQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 4798,
+    "name": "shinyhunters: Sysco Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Agriculture and Food Production | Over 61 million Salesforce records across several tables, some containing customer data/PII, employee data, and other internal corporate data was compromised. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/U3lzY28gQ29ycG9yYXRpb25Ac2hpbnlodW50ZXJz"
+  },
+  {
+    "id": 4797,
+    "name": "shinyhunters: Deep Well Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Sector: Energy | Over 7k records containing customer PII and other internal corporate data was compromised. This is a final warning to reach out by 18 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 16 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/RGVlcCBXZWxsIFNlcnZpY2VzQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 4794,
+    "name": "AiLock: Röben Tonbaustoffe GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: DE | Sector: Manufacturing | Website: roeben.com | Infostealer data confirmed. | Röben Tonbaustoffe GmbH is the largest private brick manufacturer in Germany, a family-owned business now in its 6th generation. | Source: https://www.ransomware.live/id/UsO2YmVuIFRvbmJhdXN0b2ZmZSBHbWJIQEFpTG9jaw=="
+  },
+  {
+    "id": 4791,
+    "name": "BrainCipher: anglomoil.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to BrainCipher. | Country: GB | Sector: Energy | Website: anglomoil.com | Infostealer data confirmed. | [AI generated] Anglomoil is an Australian company specialising in the manufacture and supply of lubricants and associated products. Operating in the industrial and automotive lubricant sector, it serves mining, transport, agriculture, and general industry markets. Headquartered in Australia, the company produces engine oils, greases, hydraulic fluids, and specialty lubricants, distributing products nationally and to select international markets. | Source: https://www.ransomware.live/id/YW5nbG9tb2lsLmNvbUBCcmFpbkNpcGhlcg=="
+  },
+  {
+    "id": 4792,
+    "name": "qilin: Grupo Indi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Business Services | Website: www.grupoindi.mx | N/A | Source: https://www.ransomware.live/id/R3J1cG8gSW5kaUBxaWxpbg=="
+  },
+  {
+    "id": 4793,
+    "name": "qilin: Can Healthcare Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TR | Sector: Healthcare | Website: www.izmircanhastanesi.com | N/A | Source: https://www.ransomware.live/id/Q2FuIEhlYWx0aGNhcmUgR3JvdXBAcWlsaW4="
+  },
+  {
+    "id": 4787,
+    "name": "BrainCipher: alu-rex.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to BrainCipher. | Country: AT | Sector: Manufacturing | Website: alu-rex.com | Infostealer data confirmed. | [AI generated] Alu-Rex is a Canadian company specializing in the manufacturing of gutter protection systems and accessories. Based in Quebec, Canada, the company produces aluminum-based products designed to prevent debris from clogging eavestroughs. Their product lines include continuous hanger systems and gutter guards primarily marketed to roofing and eavestrough installation professionals across North America. | Source: https://www.ransomware.live/id/YWx1LXJleC5jb21AQnJhaW5DaXBoZXI="
+  },
+  {
+    "id": 4788,
+    "name": "Deadlock: Zhangjiagang Fortune Chemical Co. Ltd. Singapore",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: SG | Sector: Manufacturing | Website: www.fortune-chemical.com | Zhangjiagang Fortune Chemical Co., Ltd. is a Chinese manufacturer established in 2013 that specializes in phosphorus esters, flame retardants, and functional fine chemicals. The company operates globally with over 25,000 tons of annual output and maintains full REACH compliance for international exports. | Source: https://www.ransomware.live/id/WmhhbmdqaWFnYW5nIEZvcnR1bmUgQ2hlbWljYWwgQ28uIEx0ZC4gU2luZ2Fwb3JlQERlYWRsb2Nr"
+  },
+  {
+    "id": 4789,
+    "name": "qilin: Cng Ty Cp T Vn Xd Tng Hp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: VN | Sector: Not Found | Website: www.nagecco.com | N/A | Source: https://www.ransomware.live/id/Q25nIFR5IENwIFQgVm4gWGQgVG5nIEhwQHFpbGlu"
+  },
+  {
+    "id": 4786,
+    "name": "Deadlock: Summa4",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: ES | Sector: Not Found | Website: summa4.es | Infostealer data confirmed. | SUMMA 4 Asesores Legales y Tributarios is a Madrid-based firm specializing in legal and tax advisory for businesses and high-net-worth individuals. Established in 2008, the firm provides tailored strategies in tax, commercial, and labor law, with a particular focus on family businesses and family offices. | Source: https://www.ransomware.live/id/U3VtbWE0QERlYWRsb2Nr"
+  },
+  {
+    "id": 4781,
+    "name": "Deadlock: Nobani Co",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: IR | Sector: Not Found | Website: nobani.com | Infostealer data confirmed. | Nobani & Co a professional financial services firm established in 1994. The company is headquartered in Amman, Jordan, and functions as an independent member of the ⁠Praxity international alliance of accounting and advisory firms. | Source: https://www.ransomware.live/id/Tm9iYW5pIENvQERlYWRsb2Nr"
+  },
+  {
+    "id": 4790,
+    "name": "anubis: KoMiCo",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Sector: Not Found | Inside the internal data of a publicly traded company. | Source: https://www.ransomware.live/id/S29NaUNvQGFudWJpcw=="
+  }
+]

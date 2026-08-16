@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:33:47.672Z",
+  "name": "qilin: Cheongdam OracleClinic",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 5, 2026",
+  "lastSeen": "Mar 5, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: KR | Sector: Healthcare | Website: en.cdoracleclinic.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/Q2hlb25nZGFtIE9yYWNsZUNsaW5pY0BxaWxpbg=="
+}

@@ -1,11 +1,11 @@
 {
   "id": 2461,
   "name": "OSINT Android.Bankosy: All ears on voice call-based 2FA by Symantec",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 16, 2016",
+  "lastSeen": "Jan 16, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #797 (56af4bee-eeb4-4145-b10f-4c7e950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2461"

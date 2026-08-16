@@ -1,0 +1,12 @@
+{
+  "id": 58,
+  "fetchedAt": "2026-08-14T05:01:18.693Z",
+  "name": "Nltest",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "Nltest is a Windows command-line utility used to list domain controllers and enumerate domain trusts.(Citation: Nltest Manual)"
+}

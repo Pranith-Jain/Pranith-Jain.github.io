@@ -1,0 +1,9 @@
+{
+  "id": 2483,
+  "name": "T1595.003 (Active Scanning)",
+  "techniqueId": "T1595",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2483"
+}

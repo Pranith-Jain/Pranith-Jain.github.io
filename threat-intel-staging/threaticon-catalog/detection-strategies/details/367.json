@@ -1,0 +1,12 @@
+{
+  "id": 367,
+  "fetchedAt": "2026-08-14T05:58:43.992Z",
+  "name": "Detection Strategy for Additional Cloud Credentials in IaaS/IdP/SaaS",
+  "tlp": null,
+  "detId": "DET0531",
+  "stixId": "x-mitre-detection-strategy--cd0c92f4-2345-40ae-aa73-ccc1eb78eb14",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1469", "AN1470", "AN1471"]
+}

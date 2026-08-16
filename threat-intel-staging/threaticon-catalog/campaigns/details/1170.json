@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:00:01.114Z",
+  "name": "coinbasecartel: Buffalo Neuroimaging Analysis Center",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 30, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Healthcare | Website: bnac.net | Infostealer data confirmed. | [AI generated] Buffalo Neuroimaging Analysis Center, based in Buffalo, New York, is a pioneer in the application of neuroimaging methods in clinical trials for neurological diseases. It focuses on MRI and MRI-related research, collecting and analyzing results from numerous clinical trials to help develop treatments for diseases such as multiple sclerosis, Alzheimer's, and Parkinson's. | Source: https://www.ransomware.live/id/QnVmZmFsbyBOZXVyb2ltYWdpbmcgQW5hbHlzaXMgQ2VudGVyQGNvaW5iYXNlY2FydGVs"
+}

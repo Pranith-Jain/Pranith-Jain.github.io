@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:03:37.381Z",
+  "name": "LeakBazaar: Gastroenterology & Hepatology",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "Apr 17, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to LeakBazaar. | Country: US | Sector: Healthcare | Website: gandhofcny.com | Infostealer data confirmed. | Full database for sale — 167,303 patients, 124,761 SSN, 49,798 with sensitive diagnoses: - 167,303 patients — 124,761 with SSN, 166,402 (99%) with address, 164,296 (98%) with phone, 85,318 (51%) with email - 1,093,863 diagnoses (ICD-10), 1,547,142 medications, 186,246 pathology specimens with narrative reports - Sensitive (dx + meds): 49,798 patients — 44,861 with SSN. Mental health: 43,902 | Substance/Alcohol: 5,111 | STIs: 2,779 | Cancer: 2,708 | Hepatitis C: 1,906 - Includes notable individuals (politicians, business people, public figures) | Source: https://www.ransomware.live/id/R2FzdHJvZW50ZXJvbG9neSAmIEhlcGF0b2xvZ3lATGVha0JhemFhcg=="
+}

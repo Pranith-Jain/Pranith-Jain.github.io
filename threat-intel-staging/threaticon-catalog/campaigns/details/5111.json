@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:02:25.065Z",
+  "name": "stormous: katholiekamersfoort.nl",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 2, 2026",
+  "lastSeen": "Jun 2, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to stormous. | Country: NL | Sector: Education | Website: katholiekamersfoort.nl | Infostealer data confirmed. | The church website's network (katholiekamersfoort.nl/) has been breached, resulting in the exfiltration of over 10 GB of data. This data pertains to donors, staff, and the personal information of a large number of individuals. The compromised data includes: Databases and Personally Identifiable Information (PII), internal network shares and document, contact lists, board and committee data, as well as system metadata. | Source: https://www.ransomware.live/id/a2F0aG9saWVrYW1lcnNmb29ydC5ubEBzdG9ybW91cw=="
+}

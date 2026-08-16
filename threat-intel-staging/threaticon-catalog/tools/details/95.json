@@ -1,0 +1,12 @@
+{
+  "id": 95,
+  "fetchedAt": "2026-08-14T05:01:42.924Z",
+  "name": "PsExec",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "PsExec is a free Microsoft tool that can be used to execute a program on another computer. It is used by IT administrators and attackers.(Citation: Russinovich Sysinternals)(Citation: SANS PsExec)"
+}

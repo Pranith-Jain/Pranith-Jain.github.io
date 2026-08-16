@@ -1,11 +1,11 @@
 {
   "id": 2020,
   "name": "New Android Trojan â€œXbotâ€ Phishes Credit Cards and Bank Accounts, Encrypts Devices for Ransom",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 18, 2016",
+  "lastSeen": "Feb 18, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #29 (56d74357-dd84-4512-895f-5281c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2020"

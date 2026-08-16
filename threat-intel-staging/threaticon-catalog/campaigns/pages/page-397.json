@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1851,
+    "name": "qilin: ATS Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Not Found | Website: www.theatsgroup.com | Source: https://www.ransomware.live/id/QVRTIEdyb3VwQHFpbGlu"
+  },
+  {
+    "id": 1852,
+    "name": "qilin: Vision Aero",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.vision.aero | Source: https://www.ransomware.live/id/VmlzaW9uIEFlcm9AcWlsaW4="
+  },
+  {
+    "id": 1853,
+    "name": "incransom: cwpa.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1854,
+    "name": "dragonforce: Lincoln Green Brewing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1821,
+    "name": "nightspire: N*X*** ** I**r****c****",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/TipYKioqICoqIEkqKnIqKioqYyoqKipAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 1827,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 1826,
+    "name": "dragonforce: Tenteks Tente",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1825,
+    "name": "incransom: saturnmachine.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1824,
+    "name": "dragonforce: Environmental Air",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: www.env-air.net | Environmental Air, Inc. has been a trusted provider of Sheet Metal Fabrication, Custom Ductwork Fittings, Welding, and HVAC Installation services for over 40 years in Pittsburgh and Western Pennsylvania. They specialize in product design, fabrication, installation, and testing, catering to various sectors, including hospitals, institutional buildings, and retail spaces. The company prides itself on its experience, quality, and value. Their facility is equipped to handle immediate project fabrication and delivery needs | Source: https://www.ransomware.live/id/RW52aXJvbm1lbnRhbCBBaXJAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 1823,
+    "name": "handala: Israel Institute for National Security Studies (INSS)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Public Sector | INSS Hacked Your national security is built on deception, media manipulation, and the brainwashing of Jews. How did your national security institution imagine it could end the war in just a few days? But this time is different, and there will be no end. This is a war between good and evil, and all the… | Source: https://www.ransomware.live/id/SXNyYWVsIEluc3RpdHV0ZSBmb3IgTmF0aW9uYWwgU2VjdXJpdHkgU3R1ZGllcyAoSU5TUylAaGFuZGFsYQ=="
+  },
+  {
+    "id": 1822,
+    "name": "incransom: piglerautomation.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1820,
+    "name": "nightspire: KLEIN IBERICA SA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: ES | Sector: Business Services | Website: www.klein.pro | - Internal Documents- Financial Data | Source: https://www.ransomware.live/id/S0xFSU4gSUJFUklDQSBTQUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1819,
+    "name": "tridentlocker: Jameson Pepple Cantu PLLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to tridentlocker. | Country: US | Sector: Business Services | Website: jpclaw.com | Infostealer data confirmed. | [AI generated] Jameson Pepple Cantu PLLC is a boutique law firm located in Houston, Texas. This firm provides a broad range of legal services but specializes in areas related to business such as Corporate Law, Real Estate, Mergers and Acquisitions, and Securities. The team, made up of experienced professionals, prides themselves in their dedicated and personalized approach to each client's legal needs. | Source: https://www.ransomware.live/id/SmFtZXNvbiBQZXBwbGUgQ2FudHUgUExMQ0B0cmlkZW50bG9ja2Vy"
+  },
+  {
+    "id": 1818,
+    "name": "crypto24: Rowad Modern Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to crypto24. | Country: EG | Sector: Construction | Website: www.rowad-rme.com | [AI generated] Rowad Modern Engineering is an Egypt-based construction firm specializing in the implementation and delivery of various construction projects. The company offers services ranging from civil engineering and construction management to project costing and risk management. It has a prominent role in constructing infrastructure, roads, commercial, and residential buildings. | Source: https://www.ransomware.live/id/Um93YWQgTW9kZXJuIEVuZ2luZWVyaW5nQGNyeXB0bzI0"
+  },
+  {
+    "id": 1817,
+    "name": "nightspire: **a****t ***el*****t Gr*up L**",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/KiphKioqKnQgKioqZWwqKioqKnQgR3IqdXAgTCoqQG5pZ2h0c3BpcmU="
+  }
+]

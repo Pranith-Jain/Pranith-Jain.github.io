@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:11:00.329Z",
+  "name": "OSINT - Hancitor and Ruckguv Reappear, Updated and With Vawtrak On Deck",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 16, 2016",
+  "lastSeen": "May 16, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #551 (5739b34f-01ac-4e80-a403-4a1502de0b81)."
+}

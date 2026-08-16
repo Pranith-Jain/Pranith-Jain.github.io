@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "BR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a4337f9b-47c8-41c5-bc44-db886e66e85d",
+  "description": "megalaser.com.br zoominfo.com/c/megalaser-industria-metalúrgica-ltda/1315472404 \nMegalaser is a Brazilian metallurgical company based in São Paulo, specializing in advanced metalworking services like laser cutting, CNC bending, and robotic welding. Founded in 2006, the manufacturer provides high-quality machined components and assemblies for diverse industries, including renewable energy, mining, automotive, and oil and gas. Their platform highlights a strong commitment to precision engineering, integrated manufacturing solutions, and sustainable industrial practices.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

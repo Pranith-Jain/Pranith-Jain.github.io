@@ -1,15 +1,15 @@
 {
   "slug": "the-gentlemen-avanta-maroc-ex-adecco-2026-08-14",
   "title": "Avanta Maroc Ex Adecco",
-  "group": "The Gentlemen",
-  "discovered": "2026-08-14T00:00:00.000Z",
+  "group": "the gentlemen",
+  "discovered": "2026-08-14T07:24:49.000Z",
   "category": "data_breach",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/avanta-maroc-ex-adecco-the-gentlemen-2026-08",
+  "description": "avanta.ma rocketreach.co/avanta-maroc-ex-adecco-profile_b7352c87c4297b95 \nAvanta Maroc, formerly known as Adecco Maroc, is a prominent human resources and recruitment agency based in Casablanca, Morocco. The company specializes in connecting job seekers with top employers by offering tailored workforce solutions and staffing services. Their platform serves as a vital hub for career opportunities, professional development, and corporate HR management across various industries in the region.",
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
   "activity": null,
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomlook.io"]
 }

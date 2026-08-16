@@ -3,9 +3,9 @@
   "name": "lockbit5: senai.br",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Education | Website: senai.br | Infostealer data confirmed. | SENAI is a leading institution in professional education, offering a wide range of undergraduate, sp... | Source: https://www.ransomware.live/id/c2VuYWkuYnJAbG9ja2JpdDU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1247"

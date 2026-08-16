@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:41:45.355Z",
+  "name": "OSINT - New KeyPass Ransomware Campaign Underway",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 10, 2018",
+  "lastSeen": "Aug 10, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1423 (5b718bda-8d9c-477f-bcd5-4634950d210f)."
+}

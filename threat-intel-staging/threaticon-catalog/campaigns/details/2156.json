@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:18:37.686Z",
+  "name": "Rig Exploit Kit sends Pitou.B Trojan",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 25, 2019",
+  "lastSeen": "Jun 25, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #195 (5cfac06c-9fa4-4083-b6f8-0904c0a8ab16)."
+}

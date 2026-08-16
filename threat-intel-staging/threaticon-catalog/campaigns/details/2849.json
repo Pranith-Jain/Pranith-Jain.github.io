@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:41:58.222Z",
+  "name": "Massive Malvertising Campaign Discovered Attempting 40,000 Infections per Week",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 31, 2018",
+  "lastSeen": "Jul 31, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1401 (5b608c59-6328-49e7-af04-22de0acd0835)."
+}

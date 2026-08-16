@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:12:04.326Z",
+  "name": "“Hey, This Isn’t the Right Site!” Distribution of Malware Exploiting Google Ads Tracking",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 3, 2024",
+  "lastSeen": "Apr 3, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #485 (465bce70-94bb-49a2-99c6-b585210993e8)."
+}

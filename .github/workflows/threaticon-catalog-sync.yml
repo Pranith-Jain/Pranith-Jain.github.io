@@ -1,0 +1,81 @@
+name: Threaticon catalog sync (weekly)
+
+# Re-fetches the threaticon.com extended public-preview catalog (tools,
+# mitigations, data sources, detection strategies, campaigns, attack
+# patterns) and rebuilds public/data/threat-intel/threaticon-catalog/.
+# vulnerabilities (22,190 CVEs) + indicators (480,188 IOCs) are EXCLUDED:
+# their bodies would push public/ past the 20,000 static-asset limit of the
+# Workers free plan. If the data changed, opens a PR for human review.
+
+on:
+  schedule:
+    # Tuesdays 06:00 UTC (avoids clashing with the Monday SI sync).
+    - cron: "0 6 * * 2"
+  workflow_dispatch: {}
+
+concurrency:
+  group: threaticon-catalog-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Sync upstream (6 sections, safe pacing for free-tier rate limits)
+        run: node scripts/sync-threaticon-catalog.mjs --concurrency 1 --gap-ms 1300
+
+      - name: Build manifest
+        run: node scripts/build-threaticon-catalog.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/threat-intel/threaticon-catalog/ changed files ==="
+          git status --short public/data/threat-intel/threaticon-catalog/ | head -40
+          echo "=== staging folder size ==="
+          du -sh threat-intel-staging/threaticon-catalog/ || true
+
+      - name: Open PR if data changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(ti): sync threaticon catalog from upstream"
+          title: "Threaticon catalog upstream sync — ${{ github.event.schedule || 'manual' }}"
+          body: |
+            Automated weekly sync of the extended threaticon.com public-preview
+            catalog (tools, mitigations, data-sources, detection-strategies,
+            campaigns, attack-patterns).
+
+            Re-runs `scripts/sync-threaticon-catalog.mjs --concurrency 1
+            --gap-ms 1300` (resumable crawl — cached pages/details are
+            skipped) and `scripts/build-threaticon-catalog.mjs` (manifest
+            rebuild). Review the diff in `public/data/threat-intel/
+            threaticon-catalog/` and merge if the data looks correct.
+
+            Note: the vulnerabilities (CVEs) and indicators (IOC dictionary)
+            sections are deliberately excluded — ~32k extra bodies would blow
+            the 20k static-asset limit of the Workers free plan.
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/threaticon-catalog-sync
+          delete-branch: true
+          add-paths: |
+            public/data/threat-intel/threaticon-catalog/
+            threat-intel-staging/threaticon-catalog/

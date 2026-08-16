@@ -1,0 +1,12 @@
+{
+  "id": 170,
+  "fetchedAt": "2026-08-14T05:22:14.851Z",
+  "name": "Detection Strategy for Network Device Configuration Dump via Config Repositories",
+  "tlp": null,
+  "detId": "DET0233",
+  "stixId": "x-mitre-detection-strategy--f3bc6ce9-29ad-4ad4-813c-1a4176b5c7a2",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0647"]
+}

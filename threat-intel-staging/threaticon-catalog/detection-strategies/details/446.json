@@ -1,0 +1,12 @@
+{
+  "id": 446,
+  "fetchedAt": "2026-08-14T05:16:15.647Z",
+  "name": "Cross-Platform Behavioral Detection of Scheduled Task/Job Abuse",
+  "tlp": null,
+  "detId": "DET0094",
+  "stixId": "x-mitre-detection-strategy--df11466a-27a2-4cb1-bf73-2a3a4aaee0d9",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0258", "AN0259", "AN0260", "AN0261", "AN0262"]
+}

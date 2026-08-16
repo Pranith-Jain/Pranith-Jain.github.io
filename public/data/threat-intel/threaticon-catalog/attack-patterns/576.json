@@ -1,0 +1,9 @@
+{
+  "id": 576,
+  "name": "Hypervisor CLI",
+  "techniqueId": "DET0558",
+  "added": "May 2, 2026",
+  "description": "Adversaries may abuse hypervisor command line interpreters (CLIs) to execute malicious commands. Hypervisor CLIs typically enable a wide variety of functionality for managing both the hypervisor itself and the guest virtual machines it hosts. For example, on ESXi systems, tools such as `esxcli` and `vim-cmd` allow administrators to configure firewall rules and log forwarding on the hypervisor, list virtual machines, start and stop virtual machines, and more.(Citation: Broadcom ESXCLI Reference)(Citation: Crowdstrike Hypervisor Jackpotting Pt 2 2021)(Citation: LOLESXi) Adversaries may be able to leverage these tools in order to support further actions, such as File and Directory Discovery or Data Encrypted for Impact.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/576"
+}

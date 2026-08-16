@@ -1,0 +1,9 @@
+{
+  "id": 1191,
+  "fetchedAt": "2026-08-15T06:24:39.330Z",
+  "name": "Use of Captured Hashes (Pass The Hash)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary obtains (i.e. steals or purchases) legitimate Windows domain credential hash values to access systems within the domain that leverage the Lan Man (LM) and/or NT Lan Man (NTLM) authentication protocols."
+}

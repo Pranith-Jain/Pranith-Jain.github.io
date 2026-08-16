@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2193,
+    "name": "Highly Evasive Attacker Leverages SolarWinds Supply Chain to Compromise Multiple Global Victims With SUNBURST Backdoor",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #244 (5fd7bbc9-4f68-4057-a6fa-e430c0a8ab16)."
+  },
+  {
+    "id": 2192,
+    "name": "Recent Qakbot (Qbot) activity",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #240 (5fd0c599-ab6c-4ba1-a69a-df9ec0a8ab16)."
+  },
+  {
+    "id": 2191,
+    "name": "Turla Crutch: Keeping the â€œback doorâ€ open",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #239 (47b9e2de-7283-4fd3-bf41-dcf9f19d8c62)."
+  },
+  {
+    "id": 2190,
+    "name": "Epic Manchego â€“ atypical maldoc delivery brings flurry of infostealers",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #238 (5f63a2f3-0e08-439d-b6e6-ad77c0a8ab16)."
+  },
+  {
+    "id": 2189,
+    "name": "Goodbye Mworm, Hello Nworm: TrickBot Updates Propagation Module",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #237 (5f6334e9-c198-41ed-91f7-d928c0a8ab16)."
+  },
+  {
+    "id": 2188,
+    "name": "Dridex botnet 222 (20160315)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #236 (56e87ebe-7b6c-4008-bcfd-42a302de0b81)."
+  },
+  {
+    "id": 2187,
+    "name": "Potential SpamBots (2016-03-15)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #234 (56e7fbe0-55e4-4d2d-ac65-4b19950d210f)."
+  },
+  {
+    "id": 2186,
+    "name": "TA551 (SHATHAK) Word documents with macros pushing ICEDID malware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #230 (5f480dd6-04cc-4925-ada8-d181c0a8ab16)."
+  },
+  {
+    "id": 2185,
+    "name": "Lifting the veil on DeathStalker, a mercenary triumvirate",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #229 (5f480c45-db30-4c8d-9cbb-bcf2c0a8ab16)."
+  },
+  {
+    "id": 2184,
+    "name": "APT Group Chimera - APT Operation Skeleton key Targets Taiwan Semiconductor Vendors",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #228 (5f2fc5a5-4fc0-4987-aec9-d180c0a8ab16)."
+  },
+  {
+    "id": 2183,
+    "name": "TA551 (Shathak) Word docs push IcedID (Bokbot)",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #227 (5f2e8dde-9e08-400a-b76c-a754c0a8ab16)."
+  },
+  {
+    "id": 2182,
+    "name": "OilRig Targets Middle Eastern Telecommunications Organization and Adds Novel C2 Channel with Steganography to Its Inventory",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #226 (5f1d893c-e2c0-4b44-a767-cc46c0a8ab16)."
+  },
+  {
+    "id": 2181,
+    "name": "The Golden Tax Department and the Emergence of GoldenSpy Malware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #225 (5ef79d21-7e30-46fc-934c-ad77c0a8ab16)."
+  },
+  {
+    "id": 2180,
+    "name": "From Agent.BTZ to ComRAT v4",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #224 (5ec81ab8-326c-4e96-91b8-68d10a019371)."
+  },
+  {
+    "id": 2179,
+    "name": "Ramsay: A cyberâ€‘espionage toolkit tailored for airâ€‘gapped networks",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #223 (5ebfb899-22ec-467d-9b20-a754c0a8ab16)."
+  }
+]

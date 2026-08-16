@@ -3,9 +3,9 @@
   "name": "qilin: Calidra",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 8, 2026",
+  "lastSeen": "May 8, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: CL | Sector: Not Found | Website: www.calidra.com | N/A | Source: https://www.ransomware.live/id/Q2FsaWRyYUBxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3703"

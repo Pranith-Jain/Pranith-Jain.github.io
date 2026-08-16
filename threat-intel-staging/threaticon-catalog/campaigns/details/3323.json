@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:23:12.355Z",
+  "name": "OSINT - Operation Ke3chang Resurfaces With New TidePool Malware",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 23, 2016",
+  "lastSeen": "May 23, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #556 (5742ea44-5ff4-4634-99c9-4b32950d210f)."
+}

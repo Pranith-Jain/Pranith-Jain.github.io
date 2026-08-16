@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2224,
+    "name": "New Iranian APT data extraction tool",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #325 (9bd11482-0378-40a5-aca8-c37a0d2b91c8)."
+  },
+  {
+    "id": 2223,
+    "name": "The Curious Case of “Monti” Ransomware: A Real-World Doppelganger BlackBerry Logo",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #320 (858ffb55-b5f6-41da-a9e0-f8f5a818e9ac)."
+  },
+  {
+    "id": 2222,
+    "name": "Attackers target Ukraine using GoMet backdoor",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #315 (96f83b68-7df9-4274-bf6d-289c32553884)."
+  },
+  {
+    "id": 2221,
+    "name": "OSINT - Malicious iBanking application with new uninstall countermeasures",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #314 (56e96cfd-a958-4012-b575-4fe7950d210f)."
+  },
+  {
+    "id": 2220,
+    "name": "Hive ransomware gets upgrades in Rust",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #311 (ab78bd77-3121-46e7-86cc-2f9c06ca782f)."
+  },
+  {
+    "id": 2219,
+    "name": "Symbiote: A New, Nearly-Impossible-to-Detect Linux Threat",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #305 (70ae0c90-43d1-4efc-9e24-4a8dc86c1725)."
+  },
+  {
+    "id": 2218,
+    "name": "Russia’s APT28 uses fear of nuclear war to spread Follina docs in Ukraine",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #304 (c8255e2a-36b1-4d59-805a-aeb73aa8e929)."
+  },
+  {
+    "id": 2217,
+    "name": "Phishing mail impersonating Belgian utility \"De Watergroep\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #302 (c796b72a-3f03-42b0-9879-85c1912dfa3e)."
+  },
+  {
+    "id": 2216,
+    "name": "EU 31st session of the Commission on Crime Prevention and Criminal Justice United Nations on Drugs and Crime themed malware",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #301 (c267101e-b5be-4d49-86e0-ebe32837a2a9)."
+  },
+  {
+    "id": 2215,
+    "name": "BlackCat/ALPHV Ransomware Indicators of Compromise",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #296 (71bcb1d9-d25d-4faa-a9b7-5f909c325fc2)."
+  },
+  {
+    "id": 2214,
+    "name": "CatalanGate Extensive Mercenary Spyware Operation against Catalans Using Pegasus and Candiru",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #295 (44b99662-6963-43e1-90b9-3279e907319a)."
+  },
+  {
+    "id": 2213,
+    "name": "Log4j2 In The Wild | Iranian-Aligned Threat Actor “TunnelVision” Actively Exploiting VMware Horizon",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #290 (496e1602-ea94-4556-b4cc-9a11a54bd730)."
+  },
+  {
+    "id": 2212,
+    "name": "Campaigns abusing corporate trusted infrastructure hunt for corporate credentials on ICS networks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #285 (14e083b6-5d3f-4925-8b7c-19f1ec089859)."
+  },
+  {
+    "id": 2211,
+    "name": "TinyNuke Banking Malware Targets French Entities",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #284 (0945219a-00a3-4478-88f9-cdbb48215ee5)."
+  },
+  {
+    "id": 2210,
+    "name": "Destructive malware targeting Ukrainian organizations",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #283 (67d11e59-bda7-4258-a5c4-b6efb280bb89)."
+  }
+]

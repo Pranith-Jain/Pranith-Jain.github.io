@@ -1,0 +1,92 @@
+[
+  { "id": 646, "name": "NTDS", "tlp": "white", "confidence": null, "techniqueId": "T1003", "status": null },
+  { "id": 1610, "name": "T1003.003: NTDS", "tlp": "white", "confidence": null, "techniqueId": "T1003", "status": null },
+  { "id": 97, "name": "LSA Secrets", "tlp": "white", "confidence": null, "techniqueId": "T1003", "status": null },
+  {
+    "id": 2985,
+    "name": "T1003.004 LSA Secrets",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1676,
+    "name": "T1003.004: LSA Secrets",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 305,
+    "name": "Cached Domain Credentials",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  { "id": 661, "name": "DCSync", "tlp": "white", "confidence": null, "techniqueId": "T1003", "status": null },
+  { "id": 143, "name": "Proc Filesystem", "tlp": "white", "confidence": null, "techniqueId": "T1003", "status": null },
+  {
+    "id": 566,
+    "name": "/etc/passwd and /etc/shadow",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  { "id": 2684, "name": "T1003.6", "tlp": "white", "confidence": null, "techniqueId": "T1003", "status": null },
+  {
+    "id": 1795,
+    "name": "T1003: OS Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2889,
+    "name": "T1003: OS Credential Dumping – credential collection for lateral move",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  { "id": 1924, "name": "T1004", "tlp": "white", "confidence": null, "techniqueId": "T1004", "status": null },
+  { "id": 1575, "name": "T1004.001", "tlp": "white", "confidence": null, "techniqueId": "T1004", "status": null },
+  { "id": 1976, "name": "T1004.004", "tlp": "white", "confidence": null, "techniqueId": "T1004", "status": null },
+  {
+    "id": 189,
+    "name": "Data from Local System",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1005",
+    "status": null
+  },
+  {
+    "id": 2951,
+    "name": "T1005 - Data from Local System",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1005",
+    "status": null
+  },
+  {
+    "id": 1597,
+    "name": "T1005 - spear_phishing_attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1005",
+    "status": null
+  },
+  { "id": 1547, "name": "T1005.001", "tlp": "white", "confidence": null, "techniqueId": "T1005", "status": null },
+  {
+    "id": 2124,
+    "name": "T1005.001 - Data Exfiltration: Application Layer Protocols",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1005",
+    "status": null
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T00:37:33.613Z",
+  "name": "Mitigating Brute Force Attacks on NetScaler Devices",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Dec 16, 2024",
+  "lastSeen": "Dec 16, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1784 (946c05c1-d7b6-4420-b88a-aa2b24addd81)."
+}

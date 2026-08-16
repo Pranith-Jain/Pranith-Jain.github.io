@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:07:22.221Z",
+  "name": "OSINT Angler's best friends by SANS ISC Diary",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 27, 2015",
+  "lastSeen": "Jul 27, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #758 (55bb3422-c610-4b66-aa54-4533950d210b)."
+}

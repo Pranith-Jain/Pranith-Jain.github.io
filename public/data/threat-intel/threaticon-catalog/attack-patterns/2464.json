@@ -1,0 +1,9 @@
+{
+  "id": 2464,
+  "name": "T1003.001 - Credentials from User Input",
+  "techniqueId": "T1003",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2464"
+}

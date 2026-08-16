@@ -1,0 +1,9 @@
+{
+  "id": 735,
+  "name": "Authentication Bypass",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An attacker gains access to application, service, or device with the privileges of an authorized or privileged user by evading or circumventing an authentication mechanism. The attacker is therefore able to access protected data without authentication ever having taken place.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/735"
+}

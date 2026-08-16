@@ -3,9 +3,9 @@
   "name": "killsec: shlomo bit",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 11, 2026",
+  "lastSeen": "Mar 11, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to killsec. | Country: IL | Sector: Not Found | Website: shlomo-bit.co.il | Infostealer data confirmed. | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/c2hsb21vIGJpdEBraWxsc2Vj",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1667"

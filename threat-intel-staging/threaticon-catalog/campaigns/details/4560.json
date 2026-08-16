@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:25:55.101Z",
+  "name": "stormous: maglificioliliana.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 24, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to stormous. | Sector: Not Found | Website: maglificioliliana.com | Infostealer data confirmed. | Over 400 GB of data has been accessed and exfiltrated. This includes product designs, historical fashion lines, and technical specifications for garments. Furthermore, we have obtained customer databases from various parts of the world, financial records, commercial contracts, employee data, personal files for all staff members within the network, daily operational documents, and more. | Source: https://www.ransomware.live/id/bWFnbGlmaWNpb2xpbGlhbmEuY29tQHN0b3Jtb3Vz"
+}

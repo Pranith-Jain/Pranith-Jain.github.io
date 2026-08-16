@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:03:32.762Z",
+  "name": "qilin: State Road and Tollway Authority",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Public Sector | Website: srta.ga.gov | Infostealer data confirmed. | Source: https://www.ransomware.live/id/U3RhdGUgUm9hZCBhbmQgVG9sbHdheSBBdXRob3JpdHlAcWlsaW4="
+}

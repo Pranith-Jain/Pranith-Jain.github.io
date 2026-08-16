@@ -1,0 +1,9 @@
+{
+  "id": 1518,
+  "name": "T1573.002: Asymmetric Cryptography",
+  "techniqueId": "T1573",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1518"
+}

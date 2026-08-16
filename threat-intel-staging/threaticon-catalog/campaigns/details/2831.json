@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:42:39.785Z",
+  "name": "OSINT - PLEAD Downloader Used by BlackTech",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 8, 2018",
+  "lastSeen": "Jun 8, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1372 (5b1a247e-2ca0-4132-9210-4b5c950d210f)."
+}

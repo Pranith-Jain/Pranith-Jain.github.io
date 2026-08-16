@@ -1,0 +1,12 @@
+{
+  "id": 40,
+  "fetchedAt": "2026-08-14T05:20:21.573Z",
+  "name": "Detect MFA Modification or Disabling Across Platforms",
+  "tlp": null,
+  "detId": "DET0190",
+  "stixId": "x-mitre-detection-strategy--eccad822-4f5b-4337-8c8b-825cf617f853",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0543", "AN0544", "AN0545", "AN0546", "AN0547", "AN0548", "AN0549"]
+}

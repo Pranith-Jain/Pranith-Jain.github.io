@@ -5,28 +5,28 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-12T15:39:39.000Z",
-  "lastSeen": "2026-08-12T15:39:39.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "firstSeen": "2026-08-14T05:58:10.000Z",
+  "lastSeen": "2026-08-14T05:58:10.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 0 countries.",
   "frequency": [
     {
-      "date": "2026-08-12",
+      "date": "2026-08-14",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "intellihot-com-537f",
-      "title": "INTELLIHOT.COM — claimed by clop",
-      "pubDate": "2026-08-12T15:39:39.000Z"
+      "slug": "kfc-kosova-5312",
+      "title": "KFC Kosova — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:58:10.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "clop",
-      "name": "clop",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:16.286Z",
+  "name": "Destructive malware targeting Ukrainian organizations",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jan 16, 2022",
+  "lastSeen": "Jan 16, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #283 (67d11e59-bda7-4258-a5c4-b6efb280bb89)."
+}

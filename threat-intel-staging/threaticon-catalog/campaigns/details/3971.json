@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:49:48.015Z",
+  "name": "dragonforce: epbinsurance.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 25, 2026",
+  "lastSeen": "May 25, 2026",
+  "added": "May 26, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Financial Services | Website: epbinsurance.com | Infostealer data confirmed. | Ekblad, Pardee & Bewell, Inc. is an independent insurance agency licensed in Minnesota, Wisconsin, South Dakota, and Arizona, offering a wide range of insurance products including auto, home, life, health, and business insurance. | Source: https://www.ransomware.live/id/ZXBiaW5zdXJhbmNlLmNvbUBkcmFnb25mb3JjZQ=="
+}

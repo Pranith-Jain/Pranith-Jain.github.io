@@ -1,0 +1,9 @@
+{
+  "id": 1522,
+  "name": "T1021.001: Remote Desktop Protocol",
+  "techniqueId": "T1021",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1522"
+}

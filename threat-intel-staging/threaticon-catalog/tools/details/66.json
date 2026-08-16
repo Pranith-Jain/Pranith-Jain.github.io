@@ -1,0 +1,12 @@
+{
+  "id": 66,
+  "fetchedAt": "2026-08-14T05:03:13.927Z",
+  "name": "gsecdump",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "gsecdump is a publicly-available credential dumper used to obtain password hashes and LSA secrets from Windows operating systems. (Citation: TrueSec Gsecdump)"
+}

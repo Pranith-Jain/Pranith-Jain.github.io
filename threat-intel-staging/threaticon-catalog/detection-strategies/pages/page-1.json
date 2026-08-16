@@ -1,0 +1,206 @@
+[
+  {
+    "id": 31,
+    "code": "DET0001",
+    "name": "Detect Access to Cloud Instance Metadata API (IaaS)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 60,
+    "code": "DET0002",
+    "name": "Behavioral Detection of Publish/Subscribe Protocol Misuse for C2",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 68,
+    "code": "DET0003",
+    "name": "T1136.002 Detection Strategy - Domain Account Creation Across Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 116,
+    "code": "DET0004",
+    "name": "Detection Strategy for Hijack Execution Flow using Path Interception by PATH Environment Variable.",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 166,
+    "code": "DET0005",
+    "name": "Renamed Legitimate Utility Execution with Metadata Mismatch and Suspicious Path",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 499,
+    "code": "DET0006",
+    "name": "Detection Strategy for Network Boundary Bridging",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 695,
+    "code": "DET0007",
+    "name": "Detection of Domain Trust Discovery via API, Script, and CLI Enumeration",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 607,
+    "code": "DET0008",
+    "name": "Behavioral Detection of Remote Cloud Logins via Valid Accounts",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 658,
+    "code": "DET0009",
+    "name": "Supply-chain tamper in dependencies/dev-tools (manager→write/install→first-run→egress)",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 623,
+    "code": "DET0010",
+    "name": "Behavioral Detection of Event Triggered Execution Across Platforms",
+    "description": null,
+    "columns": ["6"]
+  },
+  {
+    "id": 609,
+    "code": "DET0011",
+    "name": "Detecting Junk Data in C2 Channels via Behavioral Analysis",
+    "description": null,
+    "columns": ["4"]
+  },
+  { "id": 75, "code": "DET0012", "name": "Detection Strategy for VBA Stomping", "description": null, "columns": ["3"] },
+  {
+    "id": 223,
+    "code": "DET0013",
+    "name": "Detection of Local Browser Artifact Access for Reconnaissance",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 669,
+    "code": "DET0014",
+    "name": "Detection of Data Staging Prior to Exfiltration",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 151,
+    "code": "DET0015",
+    "name": "Detection Strategy for Exclusive Control",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 418,
+    "code": "DET0016",
+    "name": "Security Software Discovery Across Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 577,
+    "code": "DET0017",
+    "name": "Detection Strategy for Application Shimming via sdbinst.exe and Registry Artifacts (Windows)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 105,
+    "code": "DET0018",
+    "name": "Behavior-chain, platform-aware detection strategy for T1129 Shared Modules",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 366,
+    "code": "DET0019",
+    "name": "Detection Strategy for Stripped Payloads Across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 297,
+    "code": "DET0020",
+    "name": "Detect Shell Configuration Modification for Persistence via Event-Triggered Execution",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 26,
+    "code": "DET0021",
+    "name": "Behavioral Detection for Service Stop across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 444,
+    "code": "DET0022",
+    "name": "Detect Forced SMB/WebDAV Authentication via lure files and outbound NTLM",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 266,
+    "code": "DET0023",
+    "name": "Obfuscated Binary Unpacking Detection via Behavioral Patterns",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 240,
+    "code": "DET0024",
+    "name": "Detect Kerberos Ccache File Theft or Abuse (T1558.005)",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 140,
+    "code": "DET0025",
+    "name": "Detecting Electron Application Abuse for Proxy Execution",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 85,
+    "code": "DET0026",
+    "name": "Windows Detection Strategy for T1547.012 - Print Processor DLL Persistence",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 537,
+    "code": "DET0027",
+    "name": "Detection of Web Protocol-Based C2 Over HTTP, HTTPS, or WebSockets",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 252,
+    "code": "DET0028",
+    "name": "Detect Excessive or Unauthorized Bandwidth Usage for Botnet, Proxyjacking, or Scanning Purposes",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 590,
+    "code": "DET0029",
+    "name": "Detect Persistence via Outlook Custom Forms Triggered by Malicious Email",
+    "description": null,
+    "columns": ["2"]
+  },
+  {
+    "id": 677,
+    "code": "DET0030",
+    "name": "Detect Conditional Access Policy Modification in Identity and Cloud Platforms",
+    "description": null,
+    "columns": ["2"]
+  }
+]

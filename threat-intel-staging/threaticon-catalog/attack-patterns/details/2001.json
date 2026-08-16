@@ -1,0 +1,9 @@
+{
+  "id": 2001,
+  "fetchedAt": "2026-08-15T06:50:16.236Z",
+  "name": "T1020.001 - Exfiltration Over Network Protocol",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

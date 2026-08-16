@@ -3,9 +3,9 @@
   "name": "qilin: Musashino University",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 29, 2026",
+  "lastSeen": "Jun 29, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: JP | Sector: Education | Website: www.musashino-u.ac.jp | N/A | Press: https://news.yahoo.co.jp/articles/b0145f49f1ef54b6f780bb805957b6493b20a674 | Source: https://www.ransomware.live/id/TXVzYXNoaW5vIFVuaXZlcnNpdHlAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4478"

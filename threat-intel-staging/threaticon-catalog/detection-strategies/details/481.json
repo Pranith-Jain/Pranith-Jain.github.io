@@ -1,0 +1,12 @@
+{
+  "id": 481,
+  "fetchedAt": "2026-08-14T06:04:11.657Z",
+  "name": "Detection of Tool",
+  "tlp": null,
+  "detId": "DET0852",
+  "stixId": "x-mitre-detection-strategy--cb821d3c-ede3-43a4-915b-f779b04318f6",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1984"]
+}

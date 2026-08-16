@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:30:47.800Z",
+  "name": "anubis: Marnell Financial Services",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 23, 2026",
+  "lastSeen": "Apr 23, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Financial Services | Website: marnellfinancial.com | Infostealer data confirmed. | Data breach at financial company. | Source: https://www.ransomware.live/id/TWFybmVsbCBGaW5hbmNpYWwgU2VydmljZXNAYW51Ymlz"
+}

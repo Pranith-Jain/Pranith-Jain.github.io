@@ -3,9 +3,9 @@
   "name": "qilin: LISI Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 1, 2026",
+  "lastSeen": "Mar 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Manufacturing | Website: www.lisi-group.com | Source: https://www.ransomware.live/id/TElTSSBHcm91cEBxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1952"

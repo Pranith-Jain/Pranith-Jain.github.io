@@ -1,0 +1,9 @@
+{
+  "id": 2274,
+  "name": "T1078.001 - Application Layer Protocol - HTTP servers (for C2 communication)",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2274"
+}

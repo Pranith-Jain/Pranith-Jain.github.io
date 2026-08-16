@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:15.643Z",
+  "name": "Malspam (2016-04-05) - TeslaCrypt",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 5, 2016",
+  "lastSeen": "Apr 5, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #386 (5703b3c1-e6a4-421a-a394-440f950d210f)."
+}

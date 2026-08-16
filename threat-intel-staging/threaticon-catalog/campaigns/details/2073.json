@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:22:10.085Z",
+  "name": "Nile Phish: Large-Scale Phishing Campaign Targeting Egyptian Civil Society",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 2, 2017",
+  "lastSeen": "Feb 2, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #95 (5893689a-3acc-4752-a0cd-11fbc0a8ab16)."
+}

@@ -1,0 +1,9 @@
+{
+  "id": 724,
+  "fetchedAt": "2026-08-15T06:04:19.875Z",
+  "name": "Cross Zone Scripting",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An attacker is able to cause a victim to load content into their web-browser that bypasses security zone controls and gain access to increased privileges to execute scripting code or other web objects such as unsigned ActiveX controls or applets. This is a privilege elevation attack targeted at zone-based web-browser security."
+}

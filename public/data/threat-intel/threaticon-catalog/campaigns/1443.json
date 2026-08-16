@@ -3,9 +3,9 @@
   "name": "worldleaks: Winmate Inc.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 20, 2026",
+  "lastSeen": "Jan 29, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: TW | Sector: Technology | Website: www.winmate.com | [AI generated] Winmate Inc. is a Taiwan-based technology company established in 1996. It specializes in industrial display technology and solutions, with a product line that includes rugged tablets, panel PCs, displays, and embedded automation devices. Known for its innovative, high-performance hardware, Winmate's products are used in a wide variety of industries, including maritime, medical, military, and transportation. | Press: https://emops.twse.com.tw/server-java/t05sr01_1_e?&isNew=Y&seq_no=1&spoke_time=174626&spoke_date=20260324&co_id=3416 | Source: https://www.ransomware.live/id/V2lubWF0ZSBJbmMuQHdvcmxkbGVha3M=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1443"

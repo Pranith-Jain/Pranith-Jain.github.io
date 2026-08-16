@@ -3,9 +3,9 @@
   "name": "nightspire: IOTA HOTEL TBILISI",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Mar 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nightspire. | Country: GE | Sector: Hospitality and Tourism | Website: iotahotels.com | Infostealer data confirmed. | - VIP Lists- Invoices, Passport...- Financial Documents | Source: https://www.ransomware.live/id/SU9UQSBIT1RFTCBUQklMSVNJQG5pZ2h0c3BpcmU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1910"

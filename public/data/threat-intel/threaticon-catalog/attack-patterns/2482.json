@@ -1,0 +1,9 @@
+{
+  "id": 2482,
+  "name": "T1070.004 (Clear Logs)",
+  "techniqueId": "T1070",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2482"
+}

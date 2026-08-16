@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:26:00.518Z",
+  "name": "incransom: Life Bridges",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 25, 2026",
+  "lastSeen": "Jun 25, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: lifebridgesonline.com | Infostealer data confirmed. | Life Bridges is a non-profit organization dedicated to supporting individuals with intellectual and developmental disabilities, providing a range of services including residential support, healthcare, and community living services. Established in 1973, the organization focuses on promoting independence and dignity for its clients through tailored support and therapeutic services. Their intended clients include individuals with various developmental disabilities, as well as their families, ensuring a holistic approach to care and community involvement. Life Bridges is committed to bridging the gap between abilities and disabilities, fostering an inclusive environment where all individuals can thrive. | Source: https://www.ransomware.live/id/TGlmZSBCcmlkZ2VzQGluY3JhbnNvbQ=="
+}

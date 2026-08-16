@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:21:35.657Z",
+  "name": "OSINT Fidelis Threat Advisory #1018 Looking at the Sky for a DarkComet from the Fidelis Cybersecurity",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 4, 2015",
+  "lastSeen": "Aug 4, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #640 (55c902ef-1910-4904-8cee-41cc950d210b)."
+}

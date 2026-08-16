@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:02:41.196Z",
+  "name": "OSINT - Shamoon 2: Return of the Disttrack Wiper",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Nov 30, 2016",
+  "lastSeen": "Nov 30, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #930 (5841317a-9604-4ffe-9260-46b9950d210f)."
+}

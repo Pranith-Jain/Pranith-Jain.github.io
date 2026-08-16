@@ -1,0 +1,9 @@
+{
+  "id": 992,
+  "name": "Malicious Logic Inserted Into Product by Authorized Developer",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary uses their privileged position within an authorized development organization to inject malicious logic into a codebase or product.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/992"
+}

@@ -3,9 +3,9 @@
   "name": "dragonforce: saver.nl",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 25, 2026",
+  "lastSeen": "May 25, 2026",
+  "added": "May 26, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: NL | Sector: Consumer Services | Website: saver.nl | Infostealer data confirmed. | Saver NV operates in waste management, environmental services, and recycling. It employs 20 to 49 people and generates revenues of $5 to $10 million. The company is headquartered in Roosendaal, Noord-Brabant, the Netherlands. | Press: https://www.internetbode.nl/bergen-op-zoom/472401/afvalverwerker-saver-getroffen-door-cyberaanval | Source: https://www.ransomware.live/id/c2F2ZXIubmxAZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3975"

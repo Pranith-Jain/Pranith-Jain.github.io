@@ -1,0 +1,9 @@
+{
+  "id": 1455,
+  "name": "T1566.001 - credential dumping using mimikatz",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1455"
+}

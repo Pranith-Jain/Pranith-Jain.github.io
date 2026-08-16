@@ -1,0 +1,12 @@
+{
+  "id": 6677,
+  "fetchedAt": "2026-08-15T09:06:38.308Z",
+  "name": "termite: Affinia Healthcare",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 28, 2026",
+  "lastSeen": "Jul 28, 2026",
+  "added": "Jul 28, 2026",
+  "description": "Ransomware attack attributed to termite. | Country: US | Sector: Healthcare | Website: affiniahealthcare.org | Infostealer data confirmed. | Affinia Healthcare is dedicated to providing high-quality medical care and exceptional services across multiple locations in the St. Louis area. They offer a comprehensive range of health services including primary care, dental, behavioral health, and specialized programs for all family members, particularly focusing on underprivileged communities. | Source: https://www.ransomware.live/id/QWZmaW5pYSBIZWFsdGhjYXJlQHRlcm1pdGU="
+}

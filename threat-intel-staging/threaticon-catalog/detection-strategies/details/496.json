@@ -1,0 +1,12 @@
+{
+  "id": 496,
+  "fetchedAt": "2026-08-14T06:01:40.717Z",
+  "name": "Cross-Platform Behavioral Detection of File Timestomping via Metadata Tampering",
+  "tlp": null,
+  "detId": "DET0591",
+  "stixId": "x-mitre-detection-strategy--f9d25557-f87b-4920-a98b-8a3c9df4bfce",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1626", "AN1627", "AN1628", "AN1629"]
+}

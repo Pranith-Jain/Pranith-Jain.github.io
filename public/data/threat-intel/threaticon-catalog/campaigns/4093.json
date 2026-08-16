@@ -3,9 +3,9 @@
   "name": "lockbit5: comtri.de",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 11, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Technology | Website: comtri.de | Infostealer data confirmed. | As a leading IT system house in the Stuttgart area, ComTRI GmbH is a highly qualified and trustworth... | Source: https://www.ransomware.live/id/Y29tdHJpLmRlQGxvY2tiaXQ1",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4093"

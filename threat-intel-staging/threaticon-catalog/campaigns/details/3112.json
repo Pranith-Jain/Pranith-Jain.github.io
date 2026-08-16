@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:32:53.741Z",
+  "name": "Phishing mail impersonating KPN",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 27, 2016",
+  "lastSeen": "Apr 27, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #65 (5723c8bd-8fb0-494a-ba67-07a4c0a8ab16)."
+}

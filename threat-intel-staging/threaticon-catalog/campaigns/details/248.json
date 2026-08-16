@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:45:47.163Z",
+  "name": "pear: Kinsmen TeleMiracle",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "Apr 9, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to pear. | Country: CA | Sector: Consumer Services | Website: telemiracle.com | Infostealer data confirmed. | Charitable organization that hosts an annual telethon to raise funds for the Kinsmen Foundation | Source: https://www.ransomware.live/id/S2luc21lbiBUZWxlTWlyYWNsZUBwZWFy"
+}

@@ -3,10 +3,10 @@
   "name": "incransom: Community Connections",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 4, 2026",
+  "lastSeen": "Apr 4, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: communityconnectionsdc.org | Infostealer data confirmed. | Community Connections operates as a non-profit behavioral health organization dedicated to serving vulnerable populations including women, men, youth, and children who face systemic barriers to healthcare access. The organization addresses critical gaps in mental health and substance use treatment by providing comprehensive services tailored to the specific needs of marginalized communities. The organization delivers an integrated continuum of care that combines behavioral health treatment, residential support services, and primary health care coordination. | Press: https://www.maine.gov/agviewer/content/ag/985235c7-cb95-4be2-8792-a1252b4f8318/71000ad5-97b5-4314-ba35-fb6f5d3f6e0a.html | Source: https://www.ransomware.live/id/Q29tbXVuaXR5IENvbm5lY3Rpb25zQGluY3JhbnNvbQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1037"
 }

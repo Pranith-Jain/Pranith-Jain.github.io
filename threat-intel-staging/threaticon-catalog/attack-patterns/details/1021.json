@@ -1,0 +1,9 @@
+{
+  "id": 1021,
+  "fetchedAt": "2026-08-15T06:17:14.050Z",
+  "name": "Signature Spoofing by Improper Validation",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. An adversary exploits a cryptographic weakness in the signature verification algorithm implementation to generate a valid signature without knowing the key."
+}

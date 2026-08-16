@@ -1,0 +1,9 @@
+{
+  "id": 552,
+  "fetchedAt": "2026-08-15T08:34:48.025Z",
+  "name": "Identify Roles",
+  "tlp": "white",
+  "techniqueId": "DET0807",
+  "added": "May 2, 2026",
+  "description": "Adversaries may gather information about identities and roles within the victim organization that can be used during targeting. Information about business roles may reveal a variety of targetable details, including identifiable information for key personnel as well as what data/resources they have access to. Adversaries may gather this information in various ways, such as direct elicitation via Phishing for Information. Information about business roles may also be exposed to adversaries via online or other accessible data sets (ex: Social Media or Search Victim-Owned Websites).(Citation: ThreatPost Broadvoice Leak) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: Phishing for Information or Search Open Websites/Domains), establishing operational resources (ex: Establish Accounts or Compromise Accounts), and/or initial access (ex: Phishing)."
+}

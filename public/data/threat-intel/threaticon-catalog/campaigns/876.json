@@ -3,9 +3,9 @@
   "name": "AiLock: Alvi Associates",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 10, 2026",
+  "lastSeen": "Apr 10, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Construction | Website: alviassociates.com | Infostealer data confirmed. | Founded in 1979, Alvi Associates, Inc. specializes in integrated engineering services for infrastructure projects, including structural, water resources, transportation, and geotechnical engineering. | Source: https://www.ransomware.live/id/QWx2aSBBc3NvY2lhdGVzQEFpTG9jaw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/876"

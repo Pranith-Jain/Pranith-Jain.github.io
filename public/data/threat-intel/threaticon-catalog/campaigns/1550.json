@@ -3,9 +3,9 @@
   "name": "thegentlemen: Kabelovna Kabex",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 16, 2026",
+  "lastSeen": "Mar 16, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: CZ | Sector: Telecommunication | Website: kabex.cz | Infostealer data confirmed. | kabex.cz rocketreach.co/kabelovna-kabex-as-profile_b5947399f662772e Kabelovna Kabex is a Czech special cable manufacturer founded in 1994 . The company specializes in cables for nuclear power plants (including LOCA-cables), hermetic cable penetrations, and power cables up to 30 kV . Kabex is a key supplier to Czech and Slovak nuclear plants and has supplied projects like the Kudankulam NPP in India | Source: https://www.ransomware.live/id/S2FiZWxvdm5hIEthYmV4QHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1550"

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5da47d10-8d7e-4ce0-9d52-6315418e8c56",
+  "description": "tempel.com zoominfo.com/c/tempel/87867666 Tempel Steel Company, a division of Worthington Steel, is a leading global manufacturer of high-precision electrical steel laminations. Established in 1945, the company provides essential components for motors, generators, and transformers used across the automotive, eMobility, and energy sectors. Their platform showcases advanced precision metal stamping and overmolding services designed to improve product performance and efficiency.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

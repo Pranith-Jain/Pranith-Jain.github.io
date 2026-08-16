@@ -1,0 +1,9 @@
+{
+  "id": 1209,
+  "fetchedAt": "2026-08-15T06:25:26.942Z",
+  "name": "Adversary in the Browser (AiTB)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: High. An adversary exploits security vulnerabilities or inherent functionalities of a web browser, in order to manipulate traffic between two endpoints."
+}

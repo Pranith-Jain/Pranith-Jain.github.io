@@ -1,11 +1,11 @@
 {
   "id": 2190,
   "name": "Epic Manchego â€“ atypical maldoc delivery brings flurry of infostealers",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 1, 2020",
+  "lastSeen": "Sep 1, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #238 (5f63a2f3-0e08-439d-b6e6-ad77c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2190"

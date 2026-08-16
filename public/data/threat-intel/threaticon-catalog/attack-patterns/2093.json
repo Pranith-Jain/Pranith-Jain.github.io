@@ -1,0 +1,9 @@
+{
+  "id": 2093,
+  "name": "T1566.001 - Exfiltration Data via Send Email Commissioned by the Remote System",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2093"
+}

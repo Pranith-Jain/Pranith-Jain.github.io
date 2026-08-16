@@ -1,0 +1,12 @@
+{
+  "id": 197,
+  "fetchedAt": "2026-08-14T05:20:16.160Z",
+  "name": "Local Storage Discovery via Drive Enumeration and Filesystem Probing",
+  "tlp": null,
+  "detId": "DET0188",
+  "stixId": "x-mitre-detection-strategy--8c3d7757-f3ab-4c1d-95e1-f712cdecd5a3",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0536", "AN0537", "AN0538", "AN0539"]
+}

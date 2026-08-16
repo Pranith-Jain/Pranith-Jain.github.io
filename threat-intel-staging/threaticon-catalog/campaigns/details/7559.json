@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:41:08.291Z",
+  "name": "thegentlemen: PharmaEssentia",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: TW | Sector: Healthcare | Website: pharmaessentia.com | Infostealer data confirmed. | pharmaessentia.com zoominfo.com/c/pharmaessentia-corp/145441146 PharmaEssentia is a global biopharmaceutical innovator founded in 2003 and headquartered in Taiwan. It specializes in developing best-in-class therapies and biologics for blood disorders, hematologic cancers, and other serious diseases. The company is fully integrated and operates internationally with a strong commercial and clinical presence in the U.S., Europe, and Japan. | Press: https://emops.twse.com.tw/server-java/t05sr01_1_e?&isNew=Y&seq_no=1&spoke_time=224246&spoke_date=20260803&co_id=6446 | Source: https://www.ransomware.live/id/UGhhcm1hRXNzZW50aWFAdGhlZ2VudGxlbWVu"
+}

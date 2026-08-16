@@ -1,0 +1,243 @@
+{
+  "type": "group",
+  "slug": "thegentlemen",
+  "name": "thegentlemen",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 15,
+  "firstSeen": "2026-08-14T05:55:07.000Z",
+  "lastSeen": "2026-08-14T05:59:54.000Z",
+  "summary": "Ransomware group with 15 leak-site victims across 7 sectors and 12 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-14",
+      "count": 15
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "ips-d48e",
+      "title": "IPS — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:59:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gfeller-treuhand-und-verwaltungs-7631",
+      "title": "Gfeller Treuhand und Verwaltungs — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:59:33.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gravity-coffee-74fd",
+      "title": "Gravity Coffee — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:59:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ollies-place-kidswear-51c7",
+      "title": "Ollies Place Kidswear — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:58:51.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-coffee-bean-18a5",
+      "title": "The Coffee Bean — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:58:30.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "kfc-kosova-5312",
+      "title": "KFC Kosova — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:58:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "first-coast-heart-vascular-center-50e6",
+      "title": "First Coast Heart Vascular Center — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:57:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "cityside-homes-d825",
+      "title": "Cityside Homes — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:57:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "retail-business-management-systems-bd01",
+      "title": "Retail Business Management Systems — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:57:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "toa-d48f",
+      "title": "TOA — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:56:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "tempel-c0d8",
+      "title": "Tempel — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:56:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "plaza-auto-mall-520f",
+      "title": "Plaza Auto Mall — claimed by thegentlemen",
+      "pubDate": "2026-08-14T05:56:08.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 5
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 4
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "ips-d48e",
+      "victim": "IPS — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "IT",
+      "pubDate": "2026-08-14T05:59:54.000Z"
+    },
+    {
+      "id": "gfeller-treuhand-und-verwaltungs-7631",
+      "victim": "Gfeller Treuhand und Verwaltungs — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "CH",
+      "pubDate": "2026-08-14T05:59:33.000Z"
+    },
+    {
+      "id": "gravity-coffee-74fd",
+      "victim": "Gravity Coffee — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "US",
+      "pubDate": "2026-08-14T05:59:12.000Z"
+    },
+    {
+      "id": "ollies-place-kidswear-51c7",
+      "victim": "Ollies Place Kidswear — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "AU",
+      "pubDate": "2026-08-14T05:58:51.000Z"
+    },
+    {
+      "id": "the-coffee-bean-18a5",
+      "victim": "The Coffee Bean — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "MY",
+      "pubDate": "2026-08-14T05:58:30.000Z"
+    },
+    {
+      "id": "kfc-kosova-5312",
+      "victim": "KFC Kosova — claimed by thegentlemen",
+      "sector": "Hospitality",
+      "country": null,
+      "pubDate": "2026-08-14T05:58:10.000Z"
+    },
+    {
+      "id": "first-coast-heart-vascular-center-50e6",
+      "victim": "First Coast Heart Vascular Center — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-14T05:57:50.000Z"
+    },
+    {
+      "id": "cityside-homes-d825",
+      "victim": "Cityside Homes — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "GB",
+      "pubDate": "2026-08-14T05:57:29.000Z"
+    },
+    {
+      "id": "retail-business-management-systems-bd01",
+      "victim": "Retail Business Management Systems — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "GB",
+      "pubDate": "2026-08-14T05:57:09.000Z"
+    },
+    {
+      "id": "toa-d48f",
+      "victim": "TOA — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "JP",
+      "pubDate": "2026-08-14T05:56:48.000Z"
+    },
+    {
+      "id": "tempel-c0d8",
+      "victim": "Tempel — claimed by thegentlemen",
+      "sector": "Other",
+      "country": "DE",
+      "pubDate": "2026-08-14T05:56:28.000Z"
+    },
+    {
+      "id": "plaza-auto-mall-520f",
+      "victim": "Plaza Auto Mall — claimed by thegentlemen",
+      "sector": "Retail & E-Commerce",
+      "country": "MX",
+      "pubDate": "2026-08-14T05:56:08.000Z"
+    },
+    {
+      "id": "avanta-maroc-ex-adecco-4dd5",
+      "victim": "Avanta Maroc Ex Adecco — claimed by thegentlemen",
+      "sector": "Professional Services",
+      "country": "MA",
+      "pubDate": "2026-08-14T05:55:47.000Z"
+    },
+    {
+      "id": "ekepis-9e43",
+      "victim": "EKEPIS — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": "GR",
+      "pubDate": "2026-08-14T05:55:27.000Z"
+    },
+    {
+      "id": "megalaser-industria-metalurgica-ltda-44a4",
+      "victim": "Megalaser Industria Metalurgica LTDA — claimed by thegentlemen",
+      "sector": "Manufacturing",
+      "country": "BR",
+      "pubDate": "2026-08-14T05:55:07.000Z"
+    }
+  ]
+}

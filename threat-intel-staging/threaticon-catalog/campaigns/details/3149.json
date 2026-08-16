@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:38.103Z",
+  "name": "ZINC attacks against security researchers",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Feb 1, 2021",
+  "lastSeen": "Feb 1, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #250 (2017b845-f06b-48e4-b8a2-17d1fbd3dbb1)."
+}

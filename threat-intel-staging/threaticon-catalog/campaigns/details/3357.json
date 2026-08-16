@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:21:49.075Z",
+  "name": "OSINT Orcus â€“ Birth of an unusual plugin builder RAT by Palo Alto Unit 42",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 2, 2016",
+  "lastSeen": "Aug 2, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #626 (57a8a426-c8f0-4893-8a2a-475d950d210f)."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "jewelbug-crypto-fraud-espionage-78cd5c09",
+  "title": "Jewelbug APT Group Engages in Espionage and Cryptocurrency Fraud",
+  "link": "https://threatcluster.io/cluster/jewelbug-crypto-fraud-espionage-78cd5c09?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/jewelbug-crypto-fraud-espionage-78cd5c09",
+  "pubDate": "2026-08-13T10:32:35.000Z",
+  "sourceCount": 14,
+  "categories": ["14 Sources"],
+  "description": "The Jewelbug APT group, based in China, has been conducting simultaneous cyber espionage and cryptocurrency fraud operations. Utilizing a single command-and-control platform named XG-Web, the group has compromised over 15 government webmail accounts across multiple countries in the Middle East and Asia. Their operations have resulted in the theft of more than 580,000 browser cookies and over 2,300 email bodies. The group employs a malicious browser extension called 'PDF Viewer' that steals sensitive information and can replace cryptocurrency wallet addresses during transactions. Jewelbug's activities have targeted government, military, and telecommunications sectors, indicating a significant scale of operations. The group has registered hundreds of fake cryptocurrency exchange websites, primarily targeting Chinese-speaking victims. Symantec's research highlights that Jewelbug's dual operations blur the lines between state-sponsored espionage and cybercrime for profit.\n\nKey Points:\n• Jewelbug operates both espionage and cryptocurrency fraud from a single C2 platform.\n• The group has compromised over 15 government webmail accounts, affecting multiple countries.\n• Their malicious browser extension can replace cryptocurrency wallet addresses during transactions.",
+  "sizeBytes": 1278
+}

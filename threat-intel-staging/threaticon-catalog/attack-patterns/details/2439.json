@@ -1,0 +1,9 @@
+{
+  "id": 2439,
+  "fetchedAt": "2026-08-15T07:03:22.576Z",
+  "name": "T1055.002 - Remote Code Execution via Exploit",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

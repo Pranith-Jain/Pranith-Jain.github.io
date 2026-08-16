@@ -1,0 +1,9 @@
+{
+  "id": 1514,
+  "name": "T1102: Web Service",
+  "techniqueId": "T1102",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1514"
+}

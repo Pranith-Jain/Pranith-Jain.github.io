@@ -1,0 +1,9 @@
+{
+  "id": 1437,
+  "name": "T1214.002 - Responder hijacking Windows Security Accounts Manager (SAM)",
+  "techniqueId": "T1214",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1437"
+}

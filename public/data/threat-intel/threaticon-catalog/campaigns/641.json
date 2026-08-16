@@ -3,9 +3,9 @@
   "name": "thegentlemen: Bmtp",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 19, 2026",
+  "lastSeen": "Apr 19, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Transportation/Logistics | Website: bmtp.co.th | Infostealer data confirmed. | bmtp.co.th zoominfo.com/c/bmtp/471078846 BMTP (BMT Pacific Ltd.) is a private container terminal and full-service logistics provider located in Bangkok, Thailand, operating along the Chao Phraya River. The company offers comprehensive import/export cargo handling — including FCL/LCL containers, reefer cargo (225 plugs), oversized and dangerous goods — as well as warehousing, fumigation, and on-site paperless customs clearance. BMTP is ISO 9001:2015 certified, has over 30 years of experience, operates 24/7, and is connected via barge to Laem Chabang deep-sea port | Source: https://www.ransomware.live/id/Qm10cEB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/641"

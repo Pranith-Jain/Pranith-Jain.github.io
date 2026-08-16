@@ -1,11 +1,11 @@
 {
   "id": 3378,
   "name": "OSINT phishing sites and php kits - January 2016 - Part 2 by TechHelpList",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 17, 2016",
+  "lastSeen": "Jan 17, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #653 (56b06c17-0b4c-4a9d-b71b-43f3950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3378"

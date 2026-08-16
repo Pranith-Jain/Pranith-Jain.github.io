@@ -1,0 +1,9 @@
+{
+  "id": 2532,
+  "name": "T1102.001 - User Input - Input Manipulation",
+  "techniqueId": "T1102",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2532"
+}

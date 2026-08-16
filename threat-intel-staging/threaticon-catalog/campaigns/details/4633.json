@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:22:18.876Z",
+  "name": "nova: MIT HJERTE",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Jun 20, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: DK | Sector: Healthcare | Mit-hjerte.de Mit-hjerte.dk er en løsning, der giver mulighed for at målrette information specifikt til den enkelte patient med hjertesygdom - Nova Provide tree and samples from stolen data to the company with decrypt 1 file as sample when its get in touch with support department. | Source: https://www.ransomware.live/id/TUlUIEhKRVJURUBub3Zh"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1196,
+  "name": "Adding a Space to a File Extension",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: Low. An adversary adds a space character to the end of a file extension and takes advantage of an application that does not properly neutralize trailing special elements in file names. This extra space, which can be difficult for a user to notice, affects which default application is used to operate on the file and can be leveraged by the adversary to control execution.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1196"
+}

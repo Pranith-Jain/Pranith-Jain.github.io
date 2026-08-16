@@ -3,9 +3,9 @@
   "name": "coinbasecartel: Nashua",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 30, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: nashua.co.za | Infostealer data confirmed. | [AI generated] Nashua is a South African company specializing in the sale and service of business solutions. They offer a wide range of products, including printers, copiers, multifunction devices, software solutions, and consumables. Beyond hardware, Nashua also provides managed print services, managed document services, and infrastructure service, aiming to streamline and optimize business operations. | Source: https://www.ransomware.live/id/TmFzaHVhQGNvaW5iYXNlY2FydGVs",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1171"

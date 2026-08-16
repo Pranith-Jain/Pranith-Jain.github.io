@@ -3,9 +3,9 @@
   "name": "krybit: Some 0APT false claims",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 14, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to krybit. | Sector: Not Found | Website: Some 0APT false claims | We apologize for this data leak, but it did not affect our operations. The error was in the server settings; the phpMyAd... | Source: https://www.ransomware.live/id/U29tZSAwQVBUIGZhbHNlIGNsYWltc0BrcnliaXQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/741"

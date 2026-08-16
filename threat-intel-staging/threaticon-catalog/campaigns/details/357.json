@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:39:16.822Z",
+  "name": "m3rx: primeproperties.com.au",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 29, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: AU | Sector: Consumer Services | Website: primeproperties.com.au | Infostealer data confirmed. | Prime Properties (NSW) P/L is a privately owned company based in Sydney, Australia, established in 1982, specializing in property investment, building management, and management consultancy services Stolen: 100gb 81k files | Source: https://www.ransomware.live/id/cHJpbWVwcm9wZXJ0aWVzLmNvbS5hdUBtM3J4"
+}

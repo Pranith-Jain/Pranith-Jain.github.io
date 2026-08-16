@@ -1,0 +1,12 @@
+{
+  "id": 118,
+  "fetchedAt": "2026-08-14T05:26:10.607Z",
+  "name": "Detection Strategy for T1542.002 Pre-OS Boot: Component Firmware",
+  "tlp": null,
+  "detId": "DET0323",
+  "stixId": "x-mitre-detection-strategy--a53d62ae-b269-45e8-9937-17def4e28663",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0916", "AN0917", "AN0918"]
+}

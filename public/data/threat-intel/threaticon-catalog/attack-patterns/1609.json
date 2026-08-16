@@ -1,0 +1,9 @@
+{
+  "id": 1609,
+  "name": "T1564.001: Hidden Files and Directories",
+  "techniqueId": "T1564",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1609"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:24:41.663Z",
+  "name": "TargetCompany’s Linux Variant Targets ESXi Environments",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 5, 2024",
+  "lastSeen": "Jun 5, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #506 (7abd1104-926c-490e-8514-898affae1279)."
+}

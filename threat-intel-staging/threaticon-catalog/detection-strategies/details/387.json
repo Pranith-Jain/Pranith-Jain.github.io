@@ -1,0 +1,12 @@
+{
+  "id": 387,
+  "fetchedAt": "2026-08-14T05:55:32.007Z",
+  "name": "Credential Stuffing Detection via Reused Breached Credentials Across Services",
+  "tlp": null,
+  "detId": "DET0460",
+  "stixId": "x-mitre-detection-strategy--630ea167-088b-4958-ac19-0fc59310e262",
+  "analyticCount": 9,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1262", "AN1263", "AN1264", "AN1265", "AN1266", "AN1267", "AN1268", "AN1269", "AN1270"]
+}

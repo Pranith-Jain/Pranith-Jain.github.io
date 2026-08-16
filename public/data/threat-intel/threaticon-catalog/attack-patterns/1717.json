@@ -1,0 +1,9 @@
+{
+  "id": 1717,
+  "name": "T1048.001 - Data Exfiltration via Network: Web Request Protocol",
+  "techniqueId": "T1048",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1717"
+}

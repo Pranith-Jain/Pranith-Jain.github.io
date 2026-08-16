@@ -1,0 +1,12 @@
+{
+  "id": 664,
+  "fetchedAt": "2026-08-14T06:04:03.340Z",
+  "name": "Detection of Identify Business Tempo",
+  "tlp": null,
+  "detId": "DET0849",
+  "stixId": "x-mitre-detection-strategy--f5ac003f-2fdc-4ac5-9f2b-3fb2ab00fe95",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1981"]
+}

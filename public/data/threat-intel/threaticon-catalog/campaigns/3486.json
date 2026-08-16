@@ -1,11 +1,11 @@
 {
   "id": 3486,
   "name": "OSINT - Uncovering the Inner Workings of EyePyramid",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 19, 2017",
+  "lastSeen": "Jan 19, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #965 (58806a6c-14a4-49a9-8d6c-49e6950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3486"

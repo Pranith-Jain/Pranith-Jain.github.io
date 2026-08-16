@@ -1,11 +1,11 @@
 {
   "id": 2231,
   "name": "InfoSec Handlers Diary Blog - SANS Internet Storm Center",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 7, 2022",
+  "lastSeen": "Dec 7, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #339 (e5b080c1-f3c1-49c3-a7bc-446d2d023830).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2231"

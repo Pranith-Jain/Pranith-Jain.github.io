@@ -1,0 +1,9 @@
+{
+  "id": 1117,
+  "fetchedAt": "2026-08-15T06:21:24.446Z",
+  "name": "Group Permission Footprinting",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Low. An adversary exploits functionality meant to identify information about user groups and their permissions on the target system to an authorized user. By knowing what users/permissions are registered on the target system, the adversary can inform further and more targeted malicious behavior. An example Windows command which can list local groups is \"net localgroup\"."
+}

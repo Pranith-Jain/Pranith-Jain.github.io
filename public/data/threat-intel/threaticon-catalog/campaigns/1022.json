@@ -3,9 +3,9 @@
   "name": "thegentlemen: Dreamtoy",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 4, 2026",
+  "lastSeen": "Apr 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Consumer Services | Website: dreamtoy.co.th | Infostealer data confirmed. | dreamtoy.co.th zoominfo.com/c/dreamtoy/539777419 Dream Toy Co., Ltd. specializes in the sale of authentic Japanese toys, including popular brands such as BANDAI, GUNDAM, KAMEN RIDER, and SENTAI. The company offers a wide range of products including action figures, model kits, and collectibles aimed at enthusiasts and fans of Japanese pop culture | Source: https://www.ransomware.live/id/RHJlYW10b3lAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1022"

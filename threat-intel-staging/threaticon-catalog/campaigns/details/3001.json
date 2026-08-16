@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T22:35:32.110Z",
+  "name": "KRVTZ-NET IDS alerts for 2026-02-27",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Feb 27, 2026",
+  "lastSeen": "Feb 27, 2026",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1869 (9a8e444f-c5a6-4e6f-b99b-03ee771a1c03)."
+}

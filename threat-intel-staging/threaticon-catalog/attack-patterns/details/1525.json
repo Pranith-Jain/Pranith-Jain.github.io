@@ -1,0 +1,9 @@
+{
+  "id": 1525,
+  "fetchedAt": "2026-08-15T06:51:01.520Z",
+  "name": "T1021.002: SMB/Windows Admin Shares",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

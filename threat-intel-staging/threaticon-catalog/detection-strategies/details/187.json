@@ -1,0 +1,12 @@
+{
+  "id": 187,
+  "fetchedAt": "2026-08-14T05:17:11.923Z",
+  "name": "Detection Strategy for Safe Mode Boot Abuse",
+  "tlp": null,
+  "detId": "DET0116",
+  "stixId": "x-mitre-detection-strategy--8c92a33f-ac2f-4ae9-9258-7a6a67922ad4",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0323"]
+}

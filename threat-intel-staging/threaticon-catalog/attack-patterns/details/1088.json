@@ -1,0 +1,9 @@
+{
+  "id": 1088,
+  "fetchedAt": "2026-08-15T06:20:07.527Z",
+  "name": "Counterfeit Organizations",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. An adversary creates a false front organizations with the appearance of a legitimate supplier in the critical life cycle path that then injects corrupted/malicious information system components into the organizational supply chain."
+}

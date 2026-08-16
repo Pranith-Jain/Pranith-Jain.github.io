@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:00:48.834Z",
+  "name": "coinbasecartel: Silver Peak",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 30, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Technology | Website: silverpeak.com | Infostealer data confirmed. | [AI generated] Silver Peak is a global software-defined Wide Area Network (SD-WAN) solutions provider. The company develops advanced technologies that route data traffic and help reduce the cost of network hardware. Founded in 2004 and headquartered in Santa Clara, California, Silver Peak serves thousands of customers worldwide, improving their data and application performance across wide area networks. | Source: https://www.ransomware.live/id/U2lsdmVyIFBlYWtAY29pbmJhc2VjYXJ0ZWw="
+}

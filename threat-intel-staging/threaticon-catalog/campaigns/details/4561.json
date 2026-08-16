@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:25:52.520Z",
+  "name": "stormous: lorenzoni-store.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 24, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to stormous. | Country: IT | Sector: Consumer Services | Website: lorenzoni-store.com | Infostealer data confirmed. | Complete data belonging to customers and buyers has been accessed, along with designs, orders, and other assets. This includes all domains associated with the parent company: maglificioliliana.com/ | Source: https://www.ransomware.live/id/bG9yZW56b25pLXN0b3JlLmNvbUBzdG9ybW91cw=="
+}

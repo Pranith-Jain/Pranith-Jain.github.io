@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:30:13.865Z",
+  "name": "aurora: Primed Halberstadt Medizintechnik",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 30, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: DE | Sector: Healthcare | Website: Primed Halberstadt Medizintechnik | [manufacturer] *** GmbH — a German manufacturer of medical devices founded in 1946 and now part of the PE-backed PP Medtech group (Wiesmann & Co. KG). The exfiltration captured four entire server volumes: Daten (883 GB) — File server: 289 employee home directories (547 GB), Czech subsidiary data (66 GB), production processes (162 GB), machine configurations (81 GB) EE (807 GB) — Enterprise system: Apollo ERP, VBANK banking (8 accounts), complete database backup (100.6 GB, dated June 3), product images WINDVSW1 (344 GB) — Windows server: DATEV accounting (115+ data directories including LODAS payroll), bank transfers, DMS exports dmsscan (12 GB) — Scanned documents from 51+ employee DMS mailboxes A database backup (spiel.zip.001–010, 100.6 GB) was created on 2026-06-03 | Source: https://www.ransomware.live/id/UHJpbWVkIEhhbGJlcnN0YWR0IE1lZGl6aW50ZWNobmlrQGF1cm9yYQ=="
+}

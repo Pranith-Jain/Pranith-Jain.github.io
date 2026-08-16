@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:11.703Z",
+  "name": "OSINT - Operation Transparent Tribe",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 16, 2016",
+  "lastSeen": "Mar 16, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #307 (56e95df6-ed08-469a-9a5d-4fc6950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:07:24.932Z",
+  "name": "OSINT An In-Depth Look at How Pawn Stormâ€™s Java Zero-Day Was Used by Trend Micro",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 14, 2015",
+  "lastSeen": "Jul 14, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #757 (55a76999-52e4-45c0-ac44-2ce2950d210b)."
+}

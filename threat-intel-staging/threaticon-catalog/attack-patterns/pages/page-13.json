@@ -1,0 +1,141 @@
+[
+  {
+    "id": 957,
+    "name": "RFID Chip Deactivation or Destruction",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 958,
+    "name": "Physically Hacking Hardware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 959,
+    "name": "Bypassing ATA Password Security",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 960, "name": "Dumpster Diving", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 961, "name": "Pretexting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 962,
+    "name": "Using Meta-characters in E-mail Headers to Inject Malicious Payloads",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 963,
+    "name": "Information Elicitation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 964,
+    "name": "Pretexting via Customer Service",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 965,
+    "name": "Pretexting via Tech Support",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 966,
+    "name": "Pretexting via Delivery Person",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 967,
+    "name": "Pretexting via Phone",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 968,
+    "name": "Manipulate Human Behavior",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 969,
+    "name": "Influence Perception",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 970,
+    "name": "Influence Perception of Reciprocation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 971, "name": "MIME Conversion", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 972,
+    "name": "Influence Perception of Scarcity",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 973,
+    "name": "Influence Perception of Authority",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 974,
+    "name": "Influence Perception of Commitment and Consistency",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 975,
+    "name": "Influence Perception of Liking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 976,
+    "name": "Influence Perception of Consensus or Social Proof",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

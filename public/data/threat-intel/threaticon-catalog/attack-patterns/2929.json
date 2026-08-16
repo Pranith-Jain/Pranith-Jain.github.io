@@ -1,0 +1,9 @@
+{
+  "id": 2929,
+  "name": "T1046 (Network Services Scanning)",
+  "techniqueId": "T1046",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2929"
+}

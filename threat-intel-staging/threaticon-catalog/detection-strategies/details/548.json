@@ -1,0 +1,12 @@
+{
+  "id": 548,
+  "fetchedAt": "2026-08-14T06:03:21.667Z",
+  "name": "Detection of Upload Tool",
+  "tlp": null,
+  "detId": "DET0834",
+  "stixId": "x-mitre-detection-strategy--80d1271b-a18a-469a-a60a-81d8f468b0e6",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1966"]
+}

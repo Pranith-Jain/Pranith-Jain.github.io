@@ -1,0 +1,9 @@
+{
+  "id": 837,
+  "fetchedAt": "2026-08-15T06:09:16.093Z",
+  "name": "Exploiting Incorrectly Configured SSL/TLS",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Likelihood of attack: Low. An adversary takes advantage of incorrectly configured SSL/TLS communications that enables access to data intended to be encrypted. The adversary may also use this type of attack to inject commands or other traffic into the encrypted stream to cause compromise of either the client or server."
+}

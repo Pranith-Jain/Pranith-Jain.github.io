@@ -1,0 +1,12 @@
+{
+  "id": 570,
+  "fetchedAt": "2026-08-14T05:17:43.381Z",
+  "name": "Detection Strategy for Hidden Windows",
+  "tlp": null,
+  "detId": "DET0128",
+  "stixId": "x-mitre-detection-strategy--1167a6c8-d735-4d5d-81f5-d81c6eafe239",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0360", "AN0361", "AN0362"]
+}

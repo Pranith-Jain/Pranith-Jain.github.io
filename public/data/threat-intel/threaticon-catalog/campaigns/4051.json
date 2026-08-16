@@ -3,9 +3,9 @@
   "name": "titan: Cooperate consulting CZ s.r.o.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 13, 2026",
+  "lastSeen": "Jul 13, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to titan. | Country: CZ | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/Q29vcGVyYXRlIGNvbnN1bHRpbmcgQ1ogcy5yLm8uQHRpdGFu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4051"

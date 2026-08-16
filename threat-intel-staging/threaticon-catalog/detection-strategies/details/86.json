@@ -1,0 +1,12 @@
+{
+  "id": 86,
+  "fetchedAt": "2026-08-14T05:20:18.937Z",
+  "name": "Detection Strategy for Indicator Removal from Tools - Post-AV Evasion Modification",
+  "tlp": null,
+  "detId": "DET0189",
+  "stixId": "x-mitre-detection-strategy--6ab338c4-9ed3-4f63-9462-b13cea5a68b0",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0540", "AN0541", "AN0542"]
+}

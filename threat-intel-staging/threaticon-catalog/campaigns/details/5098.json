@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:02:40.406Z",
+  "name": "incransom: Colina Financial Advisors",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 3, 2026",
+  "lastSeen": "Jun 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: BS | Sector: Financial Services | Colina Financial Advisors Limited (CFAL) is a prominent, independent wealth management and investment advisory firm based in Nassau, The Bahamas. Established in 1997, it serves as the investment arm of Colina Holdings Ltd.. The firm provides diverse financial services to both individual and institutional clients. While customers continue to entrust the company with their money, senior executives are actively working to cover up a major data breach involving approximately 500 GB of highly confidential data. The leak includes, but is not limited to: 1. Client Personally Identifiable Information (PII) 2. Client Financial Profiles & Asset Data 3. Proprietary Business Intel & System Data 4. Holistic Estate & Legal Planning 5. Regulatory & Compliance Records Stay tuned for further updates. | Source: https://www.ransomware.live/id/Q29saW5hIEZpbmFuY2lhbCBBZHZpc29yc0BpbmNyYW5zb20="
+}

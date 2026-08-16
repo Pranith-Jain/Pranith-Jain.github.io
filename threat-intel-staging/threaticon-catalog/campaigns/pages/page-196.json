@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4925,
+    "name": "lockbit5: helios.com.bo",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: BO | Sector: Not Found | Website: helios.com.bo | Infostealer data confirmed. | Helios is a Bolivian company that provides measurement and metrology solutions, including the sale o... | Source: https://www.ransomware.live/id/aGVsaW9zLmNvbS5ib0Bsb2NrYml0NQ=="
+  },
+  {
+    "id": 4926,
+    "name": "lockbit5: wessels.group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Business Services | Website: wessels.group | Infostealer data confirmed. | Mission & Vision The focus of Wessels Logistics is on 24-hour transport in the Benelux and Germany,... | Source: https://www.ransomware.live/id/d2Vzc2Vscy5ncm91cEBsb2NrYml0NQ=="
+  },
+  {
+    "id": 4927,
+    "name": "lockbit5: sierravistahospital.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Healthcare | Website: sierravistahospital.com | Infostealer data confirmed. | Sierra Vista Hospital is a private behavioral health facility located in Sacramento, California, off... | Source: https://www.ransomware.live/id/c2llcnJhdmlzdGFob3NwaXRhbC5jb21AbG9ja2JpdDU="
+  },
+  {
+    "id": 4933,
+    "name": "lockbit5: sweetome.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Consumer Services | Website: sweetome.com | Infostealer data confirmed. | Operator of hotel chain brand and provider of real estate operation and management services. The com... | Source: https://www.ransomware.live/id/c3dlZXRvbWUuY29tQGxvY2tiaXQ1"
+  },
+  {
+    "id": 4921,
+    "name": "lockbit5: hgs-wt.at",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: AT | Sector: Not Found | Website: hgs-wt.at | Infostealer data confirmed. | An Austrian company based in Wels that provides audit, tax, and business consulting services to corp... | Source: https://www.ransomware.live/id/aGdzLXd0LmF0QGxvY2tiaXQ1"
+  },
+  {
+    "id": 4922,
+    "name": "lockbit5: grupodetoni.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Business Services | Website: grupodetoni.com.br | Infostealer data confirmed. | grupodetoni.com.br Brazilian agribusiness group engaged in sugarcane cultivation and the production... | Source: https://www.ransomware.live/id/Z3J1cG9kZXRvbmkuY29tLmJyQGxvY2tiaXQ1"
+  },
+  {
+    "id": 4923,
+    "name": "lockbit5: hollandbulbfarms.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Agriculture and Food Production | Website: hollandbulbfarms.com | Infostealer data confirmed. | Holland Bulb Farms is an online store specializing in bulbs, rhizomes, and seedlings The downloaded... | Source: https://www.ransomware.live/id/aG9sbGFuZGJ1bGJmYXJtcy5jb21AbG9ja2JpdDU="
+  },
+  {
+    "id": 4924,
+    "name": "lockbit5: dobarro.com.uy",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: UY | Sector: Consumer Services | Website: dobarro.com.uy | Infostealer data confirmed. | DOBARRO & PICHEL is a Uruguayan company specializing in the sale and maintenance of heating, air con... | Source: https://www.ransomware.live/id/ZG9iYXJyby5jb20udXlAbG9ja2JpdDU="
+  },
+  {
+    "id": 4937,
+    "name": "lamashtu: PatayaFood",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: TH | Sector: Agriculture and Food Production | Website: patayafood.com | Infostealer data confirmed. | PatayaFood is a Thai food manufacturer and supplier producing ingredients, frozen foods, and ready-to-eat products for retail and restaurant customers. They provide quality control and export certifications, plus packaging and logistics services. | Source: https://www.ransomware.live/id/UGF0YXlhRm9vZEBsYW1hc2h0dQ=="
+  },
+  {
+    "id": 4934,
+    "name": "qilin: Bitek System",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: KR | Sector: Technology | Website: www.bitek.co.kr | N/A | Source: https://www.ransomware.live/id/Qml0ZWsgU3lzdGVtQHFpbGlu"
+  },
+  {
+    "id": 4935,
+    "name": "qilin: AltaVista Strategic Partners",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Business Services | Website: www.altavistasp.com | N/A | Source: https://www.ransomware.live/id/QWx0YVZpc3RhIFN0cmF0ZWdpYyBQYXJ0bmVyc0BxaWxpbg=="
+  },
+  {
+    "id": 4938,
+    "name": "qilin: Miller & Zois",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.millerandzois.com | N/A | Source: https://www.ransomware.live/id/TWlsbGVyICYgWm9pc0BxaWxpbg=="
+  },
+  {
+    "id": 4941,
+    "name": "qilin: Bekman Marder Hopper Malarkey & Perlin",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MD | Sector: Business Services | Website: www.mdtrialfirm.com | N/A | Source: https://www.ransomware.live/id/QmVrbWFuIE1hcmRlciBIb3BwZXIgTWFsYXJrZXkgJiBQZXJsaW5AcWlsaW4="
+  },
+  {
+    "id": 4939,
+    "name": "qilin: Iliff",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.ilimer.com | N/A | Source: https://www.ransomware.live/id/SWxpZmZAcWlsaW4="
+  },
+  {
+    "id": 4920,
+    "name": "lockbit5: sumerfaktoring.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: RU | Sector: Financial Services | Website: sumerfaktoring.com | Infostealer data confirmed. | A Turkish financial company that provides factoring services (financing and management of accounts r... | Source: https://www.ransomware.live/id/c3VtZXJmYWt0b3JpbmcuY29tQGxvY2tiaXQ1"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:46:30.849Z",
+  "name": "safepay: tiefenbachergroup.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 17, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Healthcare | Website: tiefenbachergroup.com | Infostealer data confirmed. | Is a 100% family-owned, leading global healthcare company founded in 1963 and based in Hamburg, Germany. The company operates across … | Source: https://www.ransomware.live/id/dGllZmVuYmFjaGVyZ3JvdXAuY29tQHNhZmVwYXk="
+}

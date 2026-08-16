@@ -1,0 +1,127 @@
+[
+  { "id": 2520, "name": "T1040.001", "tlp": "white", "confidence": null, "techniqueId": "T1040", "status": null },
+  {
+    "id": 2465,
+    "name": "T1040.001 - Exfiltration over C2 Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2342,
+    "name": "T1040.001 - Exfiltration via Archive",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  { "id": 1563, "name": "T1040.002", "tlp": "white", "confidence": null, "techniqueId": "T1040", "status": null },
+  {
+    "id": 1462,
+    "name": "T1040.003 - Internal RAT Communication via Remote Desktop Protocol",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  { "id": 1548, "name": "T1040.004", "tlp": "white", "confidence": null, "techniqueId": "T1040", "status": null },
+  {
+    "id": 1598,
+    "name": "T1040.004 - Powershell Over HTTP",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 1895,
+    "name": "T1040.005 - Keylogging as a credential access method",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 2314,
+    "name": "T1040: Compromise Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1040",
+    "status": null
+  },
+  {
+    "id": 412,
+    "name": "Exfiltration Over C2 Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  {
+    "id": 2547,
+    "name": "T1041 (Exfiltration over C2 Channel)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  {
+    "id": 2840,
+    "name": "T1041 - Exfiltration Over Command and Control Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  {
+    "id": 2395,
+    "name": "T1041 - Exfiltration over C2 Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  {
+    "id": 3000,
+    "name": "T1041 Exfiltration Over Command & Control Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  {
+    "id": 2854,
+    "name": "T1041 Exfiltration Over Command and Control Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  {
+    "id": 2667,
+    "name": "T1041 – Exfiltration Over Command and Control Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  { "id": 1593, "name": "T1041.001", "tlp": "white", "confidence": null, "techniqueId": "T1041", "status": null },
+  {
+    "id": 1305,
+    "name": "T1041: Exfiltration Over C2 Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  {
+    "id": 2762,
+    "name": "T1041: Exfiltration Over Command and Control Channel",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1041",
+    "status": null
+  },
+  { "id": 1758, "name": "T1042", "tlp": "white", "confidence": null, "techniqueId": "T1042", "status": null }
+]

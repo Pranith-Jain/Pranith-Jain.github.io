@@ -1,0 +1,9 @@
+{
+  "id": 699,
+  "name": "T1204.002: Malicious File",
+  "techniqueId": "T1204",
+  "added": "May 18, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/699"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:19:50.797Z",
+  "name": "Advanced Mobile Malware Campaign in India uses Malicious MDM",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 12, 2018",
+  "lastSeen": "Jul 12, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #155 (5b483d26-6ed4-4009-9ea1-2f70c0a8ab16)."
+}

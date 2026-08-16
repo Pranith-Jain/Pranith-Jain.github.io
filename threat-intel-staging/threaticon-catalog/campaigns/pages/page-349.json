@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2595,
+    "name": "Erebus Ransomware Utilizes a UAC Bypass and Request a $90 Ransom Payment",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #990 (589b1a8a-1e10-4e76-860a-4cba950d210f)."
+  },
+  {
+    "id": 2594,
+    "name": "OSINT - Trojan.Mirai.1 for Microsoft Windows",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #989 (589b97f0-1e74-420b-bb3e-f4f302de0b81)."
+  },
+  {
+    "id": 2593,
+    "name": "OSINT - The Curious Case of a Reconnaissance Campaign Targeting Ministry and Embassy Sites",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #988 (589a2465-af44-4854-8eea-468d950d210f)."
+  },
+  {
+    "id": 2592,
+    "name": "OSINT - When A Pony Walks Out Of A Pub",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #987 (58996c01-5948-4776-bc9f-4216950d210f)."
+  },
+  {
+    "id": 2591,
+    "name": "OSINT - ikittens: iranian actor resurfaces with malware for mac (macdownloader)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #986 (5898af07-fb0c-4135-b908-491b950d210f)."
+  },
+  {
+    "id": 2590,
+    "name": "OSINT - From RTF to Cobalt Strike passing via Flash",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #985 (58975d16-ec0c-4d21-88bd-41eb02de0b81)."
+  },
+  {
+    "id": 2589,
+    "name": "OSINT - Doctor Web detects several thousand infected Linux devices Linux.Proxy.10",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #984 (589718fa-353c-411d-bbee-4c1902de0b81)."
+  },
+  {
+    "id": 2588,
+    "name": "OSINT - Windows SMBv3 Denial of Service Proof of Concept (0 Day Exploit)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #982 (5894f12f-709c-4502-a896-7dbf02de0b81)."
+  },
+  {
+    "id": 2587,
+    "name": "OSINT: Malicious software targeting financial sector internals",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #981 (5894bd56-d458-489f-a692-41d102de0b81)."
+  },
+  {
+    "id": 2586,
+    "name": "OSINT - Nile Phish: Large-Scale Phishing Campaign Targeting Egyptian Civil Society",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #980 (589327e5-227c-4236-a9b8-fafc950d210f)."
+  },
+  {
+    "id": 2585,
+    "name": "OSINT - Saga 2.0 (Sage 2.0) comes with IP Generation Algorithm (IPGA)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #977 (588f9099-bcc8-4730-b744-4eed02de0b81)."
+  },
+  {
+    "id": 2584,
+    "name": "OSINT - #OCJP-133: Hancitorãƒžãƒ«ã‚¦ã‚§ã‚¢æ„ŸæŸ“ ã¨ ãƒãƒƒã‚­ãƒ³ã‚°ã•ã‚ŒãŸWordpress",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #976 (588df693-0480-41bd-b8fd-4e9302de0b81)."
+  },
+  {
+    "id": 2583,
+    "name": "OSINT - Spotlight on Shamoon",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #975 (588dc8e3-8530-4b69-b71c-45ab02de0b81)."
+  },
+  {
+    "id": 2582,
+    "name": "OSINT - Dridex Banking Trojan Returns, Leverages New UAC Bypass Method",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #973 (588a7bc4-7a38-45c7-bc6f-215902de0b81)."
+  },
+  {
+    "id": 2581,
+    "name": "OSINT - EITest Nabbing Chrome Users with a â€œChrome Fontâ€ Social Engineering Scheme",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #972 (588a6de9-e2f4-4fbc-b09d-427f02de0b81)."
+  }
+]

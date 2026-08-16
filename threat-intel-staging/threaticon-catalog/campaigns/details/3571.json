@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:07:23.569Z",
+  "name": "payload: Gorey Community School",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 13, 2026",
+  "lastSeen": "May 13, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: IE | Sector: Education | Website: goreycs.ie | Infostealer data confirmed. | Gorey Community School is a co-educational, multi-denominational institution located in Gorey, Co. Wexford, under the joint patronage of the Loreto Sisters and Waterford and Wexford ETB | Source: https://www.ransomware.live/id/R29yZXkgQ29tbXVuaXR5IFNjaG9vbEBwYXlsb2Fk"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2488,
+  "fetchedAt": "2026-08-15T08:16:34.985Z",
+  "name": "T1560.001 - Exfiltration via cloud storage (Azure)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

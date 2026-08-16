@@ -3,10 +3,10 @@
   "name": "akira: Alliance Roofing",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Construction | Website: allianceroofingcal.com | Infostealer data confirmed. | Alliance Roofing Company Inc is a national leader in commercial r oofing and waterproofing services with more than 27 years of indu stry experience. Founded in 1986 and established in San Jose, the company has expanded its geographic footprint to serve the Centr al Valley and Northern California region, including Sacramento, R eno, and Modesto, providing comprehensive roofing and waterproofi ng solutions to corporate enterprises, small businesses, and prop erty owners across diverse market segments. We will upload 170gb of corporate data soon. Employee passports, DL, phones, addresses and so on, detailed client information (fin ancials, agreements and so on), projects, drawings and specificat ions, NDA, etc. | Source: https://www.ransomware.live/id/QWxsaWFuY2UgUm9vZmluZ0Bha2lyYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1118"
 }

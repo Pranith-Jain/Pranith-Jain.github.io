@@ -1,0 +1,12 @@
+{
+  "id": 333,
+  "fetchedAt": "2026-08-14T05:38:08.933Z",
+  "name": "Detect Registry and Startup Folder Persistence (Windows)",
+  "tlp": null,
+  "detId": "DET0365",
+  "stixId": "x-mitre-detection-strategy--8febbfe8-91ae-4625-8fc7-656639b90a11",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1032"]
+}

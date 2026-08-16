@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:11:58.443Z",
+  "name": "coinbasecartel: JBS Brazil - Sample uploaded",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: BR | Sector: Agriculture and Food Production | Website: jbs.com.br | Infostealer data confirmed. | [AI generated] JBS Brazil is the world's largest meat processing company, headquartered in São Paulo, Brazil. It operates in the food and agriculture industry, specializing in the processing and distribution of beef, pork, poultry, and lamb products. Founded in 1953, JBS serves customers across more than 150 countries. The company manages thousands of employees and operates numerous processing plants globally, making it a dominant force in the global protein supply chain. | Source: https://www.ransomware.live/id/SkJTIEJyYXppbCAtIFNhbXBsZSB1cGxvYWRlZEBjb2luYmFzZWNhcnRlbA=="
+}

@@ -1,0 +1,12 @@
+{
+  "id": 324,
+  "fetchedAt": "2026-08-14T05:26:56.742Z",
+  "name": "User Execution – Malicious Copy & Paste (browser/email → shell with obfuscated one-liner) – T1204.004",
+  "tlp": null,
+  "detId": "DET0340",
+  "stixId": "x-mitre-detection-strategy--0dabfa5e-9c35-48ec-b825-ff1cce7a3d00",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0962", "AN0963", "AN0964"]
+}

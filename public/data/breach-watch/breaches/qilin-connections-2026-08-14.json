@@ -1,15 +1,15 @@
 {
   "slug": "qilin-connections-2026-08-14",
   "title": "Connections",
-  "group": "qilin",
-  "discovered": "2026-08-14T14:34:23.000Z",
+  "group": "Qilin",
+  "discovered": "2026-08-14T00:00:00.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "BE",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/fe111f65-b66f-4187-91df-dbcfb0a269de",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/connections-qilin-2026-08",
   "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["Darkfield"]
+  "activity": null,
+  "references": ["RecentBreaches.com"]
 }

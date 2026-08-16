@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:17:59.108Z",
+  "name": "incransom: quantinuum.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 1, 2026",
+  "lastSeen": "Aug 1, 2026",
+  "added": "Aug 1, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Technology | Website: quantinuum.com | Infostealer data confirmed. | Quantinuum is a quantum computing company that develops advanced quantum computers, software, and cybersecurity solutions to solve complex scientific and industrial challenges. The company provides full-stack quantum technologies for areas such as materials science, drug discovery, encryption, artificial intelligence, and optimization, helping enterprises and researchers accelerate innovation through quantum computing. The leak dates back to pre-IPO. QUANTINUUM deliberately withheld this information from investors. The exact amount of stolen data will be revealed after publishing. | Source: https://www.ransomware.live/id/cXVhbnRpbnV1bS5jb21AaW5jcmFuc29t"
+}

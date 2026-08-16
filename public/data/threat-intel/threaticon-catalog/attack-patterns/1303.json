@@ -1,0 +1,9 @@
+{
+  "id": 1303,
+  "name": "T1053.005: Scheduled Task",
+  "techniqueId": "T1053",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1303"
+}

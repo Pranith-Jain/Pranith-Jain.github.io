@@ -1,11 +1,11 @@
 {
   "id": 3289,
   "name": "Operation Crimson Palace: Sophos threat hunting unveils multiple clusters of Chinese state-sponsored activity targeting Southeast Asian government",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 8, 2024",
+  "lastSeen": "Jun 8, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #508 (f48f7c30-fe6f-4854-b27e-f86a308da714).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3289"

@@ -3,9 +3,9 @@
   "name": "dragonforce: vegfresh.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 25, 2026",
+  "lastSeen": "May 25, 2026",
+  "added": "May 26, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Agriculture and Food Production | Website: vegfresh.com | Infostealer data confirmed. | Veg-Fresh Farms is a family-owned business committed to providing its customers with the freshest and healthiest produce. The company offers a wide range of products, including organic potatoes and exclusive vine-ripened tomatoes. | Source: https://www.ransomware.live/id/dmVnZnJlc2guY29tQGRyYWdvbmZvcmNl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3976"

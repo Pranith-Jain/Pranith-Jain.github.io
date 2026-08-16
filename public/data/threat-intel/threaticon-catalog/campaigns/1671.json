@@ -3,9 +3,9 @@
   "name": "akira: Paass Logistik",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 10, 2026",
+  "lastSeen": "Oct 20, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Transportation/Logistics | Website: paass-logistik.de | Infostealer data confirmed. | Paass Logistik is a transportation/trucking/railroad company base d out of Köln, Germany. We will upload 26gb of corporate data soon. Employee files (passp orts DLs), detailed financials, clients' files, contracts and agr eements (DHL and others), NDAs and so on. | Source: https://www.ransomware.live/id/UGFhc3MgTG9naXN0aWtAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1671"

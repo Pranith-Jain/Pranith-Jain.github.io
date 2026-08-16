@@ -1,0 +1,12 @@
+{
+  "id": 485,
+  "fetchedAt": "2026-08-14T05:54:07.283Z",
+  "name": "Detect Modification of macOS Startup Items",
+  "tlp": null,
+  "detId": "DET0429",
+  "stixId": "x-mitre-detection-strategy--7eb6ccf9-8fb5-4c7d-8a2c-33081c3ddf81",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1197"]
+}

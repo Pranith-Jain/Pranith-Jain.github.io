@@ -1,0 +1,127 @@
+[
+  {
+    "id": 187,
+    "name": "Indirect Command Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1202",
+    "status": null
+  },
+  {
+    "id": 2312,
+    "name": "T1202: User Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1202",
+    "status": null
+  },
+  {
+    "id": 512,
+    "name": "Exploitation for Client Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 1696,
+    "name": "T1203 - Credential Access from Files",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 1366,
+    "name": "T1203 - Discovery bydll Search",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 2374,
+    "name": "T1203 - Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 2856,
+    "name": "T1203 - Exploit for Client Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 2835,
+    "name": "T1203 - Exploitation for Client Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 1877,
+    "name": "T1203 - spear-phishing via compromised accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 2852,
+    "name": "T1203 Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 2999,
+    "name": "T1203 Exploitation for Client Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  { "id": 1692, "name": "T1203.001", "tlp": "white", "confidence": null, "techniqueId": "T1203", "status": null },
+  {
+    "id": 2229,
+    "name": "T1203.001 - Exploit Public-Exposure Vulnerability",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  {
+    "id": 2185,
+    "name": "T1203.001 - Exploit Publicly disclosed vulnerability in software",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  { "id": 2096, "name": "T1203.002", "tlp": "white", "confidence": null, "techniqueId": "T1203", "status": null },
+  {
+    "id": 1489,
+    "name": "T1203.003 - Exploitation Framework Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  { "id": 1347, "name": "T1203.004", "tlp": "white", "confidence": null, "techniqueId": "T1203", "status": null },
+  {
+    "id": 1626,
+    "name": "T1203: Exploitation for Client Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1203",
+    "status": null
+  },
+  { "id": 3017, "name": "T1203?", "tlp": "white", "confidence": null, "techniqueId": "T1203", "status": null },
+  { "id": 396, "name": "User Execution", "tlp": "white", "confidence": null, "techniqueId": "T1204", "status": null }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:25:48.944Z",
+  "name": "MOD Netherlands uncovers COATHANGER, a stealthy Chinese FortiGate RAT",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Feb 6, 2024",
+  "lastSeen": "Feb 6, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #443 (67033954-cb9d-4aad-ae23-435b246b016e)."
+}

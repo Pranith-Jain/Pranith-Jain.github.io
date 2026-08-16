@@ -3,9 +3,9 @@
   "name": "play: Serrano Industries",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 9, 2026",
+  "lastSeen": "Feb 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to play. | Country: US | Sector: Not Found | Website: www.serrano-ind.com | United States | Source: https://www.ransomware.live/id/U2VycmFubyBJbmR1c3RyaWVzQHBsYXk=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1709"

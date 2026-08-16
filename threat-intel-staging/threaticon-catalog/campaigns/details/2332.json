@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:52.346Z",
+  "name": "OSINT - Targeted Attacks against Banks in the Middle East",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 24, 2016",
+  "lastSeen": "May 24, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #557 (5743f37c-c11c-426d-843b-4d83950d210f)."
+}

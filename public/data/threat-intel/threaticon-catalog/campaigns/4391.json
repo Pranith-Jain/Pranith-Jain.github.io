@@ -3,9 +3,9 @@
   "name": "thegentlemen: Au Vieux Campeur",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: FR | Sector: Consumer Services | Website: auvieuxcampeur.fr | Infostealer data confirmed. | ***.fr Au Vieux Campeur is a premier French retailer and the leading independent outdoor and sports equipment company in Europe.Founded in Paris in 1941, the brand has expanded from a single historic boutique in the Latin Quarter to nearly 50 stores across France and a robust e-commerce platform.They offer an extensive selection of over 1,500 premium brands, providing specialized clothing and gear for a wide variety of activities including mountaineering, diving, skiing, and trail running | Press: https://www.auvieuxcampeur.fr/communique-officiel-cyberattaque | Source: https://www.ransomware.live/id/QXUgVmlldXggQ2FtcGV1ckB0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4391"

@@ -1,0 +1,9 @@
+{
+  "id": 654,
+  "fetchedAt": "2026-08-15T08:28:32.001Z",
+  "name": "Service Execution",
+  "tlp": "white",
+  "techniqueId": "DET0421",
+  "added": "May 2, 2026",
+  "description": "Adversaries may abuse the Windows service control manager to execute malicious commands or payloads. The Windows service control manager (<code>services.exe</code>) is an interface to manage and manipulate services.(Citation: Microsoft Service Control Manager) The service control manager is accessible to users via GUI components as well as system utilities such as <code>sc.exe</code> and Net. PsExec can also be used to execute commands or payloads via a temporary Windows service created through the service control manager API.(Citation: Russinovich Sysinternals) Tools such as PsExec and <code>sc.exe</code> can accept remote servers as arguments and may be used to conduct remote execution. Adversaries may leverage these mechanisms to execute malicious content. This can be done by either executing a new or modified service. This technique is the execution used in conjunction with Windows Service during service persistence or privilege escalation."
+}

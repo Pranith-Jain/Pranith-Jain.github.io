@@ -3,10 +3,10 @@
   "name": "incransom: Kiswire",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 23, 2026",
+  "lastSeen": "Mar 23, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: KR | Sector: Manufacturing | Kiswire Ltd. 37 Gurak-ro 141beon-gil Suyeong-gu Busan, 48212 South Korea www.kiswire.com is a prominent player in the specialty steel wire industry, headquartered in Busan, South Korea. Founded in 1945, the company has established itself as a global leader, manufacturing a wide range of steel wire products for various sectors, including automotive, construction, energy, and electronics. Kiswire exports its products to over 80 countries and maintains a significant production capacity of approximately 1.2 million tons annually. Leaked data: 128 GB (137,688,514,560 bytes) 118,019 Files, 22,024 Folders Special data: technologies, information about manufactured products, control of technological processes and tests, product assembly schemes, material specifications, drawings, product tests, logistics, financial indicators, complete information about employees including complete...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1370"
 }

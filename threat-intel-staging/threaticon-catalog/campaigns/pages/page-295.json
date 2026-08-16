@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3444,
+    "name": "Malspam 2016-08-26 (.js in .zip) - campaign: \"office equipment\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #833 (57c06b68-3140-4c25-9335-4724950d210f)."
+  },
+  {
+    "id": 3443,
+    "name": "Malspam 2016-08-26 (.wsf in .zip) - campaign: \"Voice Message from Outside Caller\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #832 (57c067b5-4cf0-480d-9409-496d950d210f)."
+  },
+  {
+    "id": 3442,
+    "name": "Malspam 2016-08-25 (.js in .zip) - campaign: \"Contract\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #830 (57bea9ac-bb00-4243-be64-bbe9950d210f)."
+  },
+  {
+    "id": 3441,
+    "name": "Malspam 2016-08-24 (.js in .zip) - campaign: \"Statement\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #828 (57bd7251-390c-4ee2-accd-4f69950d210f)."
+  },
+  {
+    "id": 3440,
+    "name": "Malspam 2016-08-23 (.wsf in .zip) - campaign: \"New voice mail message from [RANDOM]\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #827 (57bc3c97-4468-4077-b757-8d97950d210f)."
+  },
+  {
+    "id": 3439,
+    "name": "OSINT TorrentLocker Ransomware Email IoCs 8/16/2016 by neonPrimeTime user on AlienVault OTX",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #817 (57b5a125-6cd0-4060-926d-4bf7950d210f)."
+  },
+  {
+    "id": 3438,
+    "name": "OSINT Rex -Linux P2P Ransom botnet by This Is Security blog",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #815 (57b5892a-bfd8-49f1-8d6b-4a3d950d210f)."
+  },
+  {
+    "id": 3437,
+    "name": "OSINT SSH bruteforce logs from burberry user on AlienVault OTX",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #814 (57b586d3-6c68-4343-9d27-46f3950d210f)."
+  },
+  {
+    "id": 3436,
+    "name": "OSINT - Operation Ghoul: targeted attacks on industrial and engineering organizations",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #811 (57b4b374-aa14-40c1-9518-4dde02de0b81)."
+  },
+  {
+    "id": 3435,
+    "name": "OSINT EFF Report Operation Manul",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #804 (57ab2b08-fcd8-48b2-ba43-4cf3950d210f)."
+  },
+  {
+    "id": 3426,
+    "name": "OSINT Tracking MiniDionis: CozyCarâ€™s New Ride Is Related to Seaduke by Unit 42 Palo Alto Networks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #704 (55a8d7b5-9ab8-476f-982f-1e08950d210b)."
+  },
+  {
+    "id": 3425,
+    "name": "OSINT Bookworm Trojan: A Model of Modular Architecture by Palo Alto Unit 42",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #700 (5642582d-78dc-4e92-b42f-6d9d950d210b)."
+  },
+  {
+    "id": 3422,
+    "name": "OSINT The Dyre Wolf report from IBM",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #697 (551e8745-ace0-461c-b9eb-ce36950d210b)."
+  },
+  {
+    "id": 3421,
+    "name": "OSINT Enterprises Hit by BARTALEX Macro Malware in Recent Spam Outbreak by Trend Micro",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #696 (553ead98-1fb4-4ee6-a8ea-ad6d950d210b)."
+  },
+  {
+    "id": 3419,
+    "name": "OSINT Analysis of KRIPTOVOR: Infostealer+Ransomware by FireEye",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #694 (5526b0e5-e2a4-45cd-abee-a5f5950d210b)."
+  }
+]

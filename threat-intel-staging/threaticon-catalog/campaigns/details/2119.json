@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:20:13.666Z",
+  "name": "The King is dead. Long live the King!",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 9, 2018",
+  "lastSeen": "May 9, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #146 (5b1a8ec4-3900-4584-8c93-184bc0a8ab16)."
+}

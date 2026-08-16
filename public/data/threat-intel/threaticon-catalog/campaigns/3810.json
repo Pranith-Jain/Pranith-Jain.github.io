@@ -3,9 +3,9 @@
   "name": "PrinzEugen: Transitions Pro Centre Val de Loire",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 16, 2026",
+  "lastSeen": "May 3, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to PrinzEugen. | Country: FR | Sector: Business Services | Website: transitionspro-cvl.fr | Infostealer data confirmed. | The swift attack has resulted in both the exfiltration and encryption of hundreds of gigabytes. In the event of complete non-compliance; Files will be fully released for public download. | Source: https://www.ransomware.live/id/VHJhbnNpdGlvbnMgUHJvIENlbnRyZSBWYWwgZGUgTG9pcmVAUHJpbnpFdWdlbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3810"

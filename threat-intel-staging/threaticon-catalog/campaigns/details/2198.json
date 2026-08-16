@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:45.719Z",
+  "name": "More LodaRAT infrastructure targeting Bangladesh uncovered",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Feb 15, 2021",
+  "lastSeen": "Feb 15, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #251 (8c44b315-a146-4e13-baac-996ba98bbf40)."
+}

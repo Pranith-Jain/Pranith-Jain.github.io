@@ -1,0 +1,122 @@
+[
+  {
+    "id": 598,
+    "name": "coinbasecartel: Engie",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: FR | Sector: Energy | Website: engie.com | Infostealer data confirmed. | [AI generated] Engie is a French multinational energy company headquartered in Paris, France. It operates across the electricity generation, natural gas distribution, and renewable energy sectors. The company provides energy services to individuals, businesses, and local authorities worldwide, with activities spanning power production, infrastructure management, and energy efficiency solutions. Engie is active in over 70 countries globally. | Source: https://www.ransomware.live/id/RW5naWVAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 594,
+    "name": "incransom: rheem",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 578,
+    "name": "qilin: Safety Engineering Laboratories",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.safetyengineeringlabs.com | Source: https://www.ransomware.live/id/U2FmZXR5IEVuZ2luZWVyaW5nIExhYm9yYXRvcmllc0BxaWxpbg=="
+  },
+  {
+    "id": 590,
+    "name": "anubis: Samuel I. White, PC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Business Services | Website: siwpc.net | Infostealer data confirmed. | Significant breach at a law firm. | Source: https://www.ransomware.live/id/U2FtdWVsIEkuIFdoaXRlLCBQQ0BhbnViaXM="
+  },
+  {
+    "id": 592,
+    "name": "chaos: polycorp.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: GB | Sector: Manufacturing | Website: www.zoominfo.com/c/polycorp-ltd/30834718 | If the company does not contact us within 48 hours, the files will be published. Polycorp is a privately owned Canadian Company that specializes in the design and manufacture of engineered elastomeric parts that provide our customers with cost effective solutions to their corrosion, abrasion, impac… | Source: https://www.ransomware.live/id/cG9seWNvcnAuY29tQGNoYW9z"
+  },
+  {
+    "id": 603,
+    "name": "payload: JOH Investments Limited",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: JM | Sector: Financial Services | Website: myjohgroup.com | Infostealer data confirmed. | JOH Investments Limited is an officially registered financial entity based in Kingston, Jamaica, holding an active Legal Entity Identifier (LEI) for international operations. The company specializes in investment activities and asset management, maintaining integration with global banking systems for financial transactions. | Source: https://www.ransomware.live/id/Sk9IIEludmVzdG1lbnRzIExpbWl0ZWRAcGF5bG9hZA=="
+  },
+  {
+    "id": 576,
+    "name": "qilin: PTS Office Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.ptsofficesystems.com | Source: https://www.ransomware.live/id/UFRTIE9mZmljZSBTeXN0ZW1zQHFpbGlu"
+  },
+  {
+    "id": 595,
+    "name": "coinbasecartel: SIG.biz",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: CH | Sector: Business Services | Website: sig.biz | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/U0lHLmJpekBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 602,
+    "name": "qilin: SafeRain",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.saferain.com | Source: https://www.ransomware.live/id/U2FmZVJhaW5AcWlsaW4="
+  },
+  {
+    "id": 577,
+    "name": "qilin: STERIMED",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Healthcare | Website: sterimed.fr | Infostealer data confirmed. | Source: https://www.ransomware.live/id/U1RFUklNRURAcWlsaW4="
+  },
+  {
+    "id": 591,
+    "name": "anubis: ViaQuest",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Transportation/Logistics | Website: viaquestinc.com | Infostealer data confirmed. | Large-scale data breach at a care provider for seriously ill patients. | Source: https://www.ransomware.live/id/VmlhUXVlc3RAYW51Ymlz"
+  },
+  {
+    "id": 552,
+    "name": "anubis: Tractial",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: GB | Sector: Manufacturing | Website: tractial.com | Infostealer data confirmed. | A small but substantial data breach at a fintech company. | Source: https://www.ransomware.live/id/VHJhY3RpYWxAYW51Ymlz"
+  },
+  {
+    "id": 574,
+    "name": "qilin: Heartland Steel Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.heartlandsteel.com | Source: https://www.ransomware.live/id/SGVhcnRsYW5kIFN0ZWVsIFByb2R1Y3RzQHFpbGlu"
+  },
+  {
+    "id": 575,
+    "name": "qilin: Huonker GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Manufacturing | Website: hanshuonker.de | Infostealer data confirmed. | Source: https://www.ransomware.live/id/SHVvbmtlciBHbWJIQHFpbGlu"
+  },
+  {
+    "id": 573,
+    "name": "ransomhouse: Jiangsu Zenergy Battery Technologies Group Co., Ltd.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: CN | Sector: Manufacturing | Website: www.zenergy.cn | Zenergy (Jiangsu Zenergy Battery Technologies Group Co., Ltd.) is a Chinese lithium-ion battery manufacturer founded in 2019, specializing in traction batteries for electric vehicles (EVs), energy storage systems (ESS), and aviation batteries. The company delivers end-to-end solutions ranging from individual cells to fully integrated battery packs and battery management systems (BMS). In 2024, Zenergy turned profitable for the first time, and in April 2025, it successfully completed its listing on the Hong Kong Stock Exchange. | Source: https://www.ransomware.live/id/SmlhbmdzdSBaZW5lcmd5IEJhdHRlcnkgVGVjaG5vbG9naWVzIEdyb3VwIENvLiwgTHRkLkByYW5zb21ob3VzZQ=="
+  }
+]

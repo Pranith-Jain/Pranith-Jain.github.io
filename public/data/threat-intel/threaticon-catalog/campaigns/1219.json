@@ -3,9 +3,9 @@
   "name": "lockbit5: tanufwater.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 5, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: OM | Sector: Agriculture and Food Production | Website: tanufwater.com | Infostealer data confirmed. | Swathi Tetali is a Senior Account Manager at National Mineral Water Company SAOG, bringing expertise... | Source: https://www.ransomware.live/id/dGFudWZ3YXRlci5jb21AbG9ja2JpdDU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1219"

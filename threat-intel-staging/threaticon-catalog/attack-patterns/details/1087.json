@@ -1,0 +1,9 @@
+{
+  "id": 1087,
+  "fetchedAt": "2026-08-15T06:20:05.554Z",
+  "name": "Counterfeit Websites",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Adversary creates duplicates of legitimate websites. When users visit a counterfeit site, the site can gather information or upload malware."
+}

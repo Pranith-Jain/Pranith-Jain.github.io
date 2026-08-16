@@ -1,0 +1,9 @@
+{
+  "id": 479,
+  "name": "Remote Email Collection",
+  "techniqueId": "DET0048",
+  "added": "May 2, 2026",
+  "description": "Adversaries may target an Exchange server, Office 365, or Google Workspace to collect sensitive information. Adversaries may leverage a user's credentials and interact directly with the Exchange server to acquire information from within a network. Adversaries may also access externally facing Exchange services, Office 365, or Google Workspace to access email using credentials or access tokens. Tools such as MailSniper can be used to automate searches for specific keywords.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/479"
+}

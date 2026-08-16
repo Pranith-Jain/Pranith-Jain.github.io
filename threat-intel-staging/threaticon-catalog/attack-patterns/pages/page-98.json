@@ -1,0 +1,78 @@
+[
+  {
+    "id": 1383,
+    "name": "T1218 - Web Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  {
+    "id": 449,
+    "name": "Compiled HTML File",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  {
+    "id": 1631,
+    "name": "T1218.001 - Use Webshell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  { "id": 237, "name": "Control Panel", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  { "id": 231, "name": "CMSTP", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  {
+    "id": 2088,
+    "name": "T1218.003 -Credential Dumping via LSASS Memory",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  { "id": 131, "name": "InstallUtil", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  {
+    "id": 2165,
+    "name": "T1218.004: InstallUtil",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  { "id": 377, "name": "Mshta", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  {
+    "id": 1625,
+    "name": "T1218.005: Mshta",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  {
+    "id": 2090,
+    "name": "T1218.006 - Credential Dumping via Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  { "id": 170, "name": "Msiexec", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  { "id": 310, "name": "Odbcconf", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  { "id": 533, "name": "Regsvcs/Regasm", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  { "id": 498, "name": "Regsvr32", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  { "id": 14, "name": "Rundll32", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  {
+    "id": 707,
+    "name": "T1218.011: Rundll32",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1218",
+    "status": null
+  },
+  { "id": 366, "name": "Verclsid", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  { "id": 88, "name": "Mavinject", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null },
+  { "id": 695, "name": "MMC", "tlp": "white", "confidence": null, "techniqueId": "T1218", "status": null }
+]

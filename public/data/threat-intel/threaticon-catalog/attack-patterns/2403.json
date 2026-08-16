@@ -1,0 +1,9 @@
+{
+  "id": 2403,
+  "name": "T1055.003 - Peer-to-Peer Communication",
+  "techniqueId": "T1055",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2403"
+}

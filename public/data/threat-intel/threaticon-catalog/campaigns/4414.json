@@ -3,9 +3,9 @@
   "name": "safepay: dia179.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: dia179.com | Infostealer data confirmed. | Founded in 2007, the firm specializes in industrial architecture, logistics facilities, research centers, production plants, and corporate office buildings. Unlike … | Source: https://www.ransomware.live/id/ZGlhMTc5LmNvbUBzYWZlcGF5",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4414"

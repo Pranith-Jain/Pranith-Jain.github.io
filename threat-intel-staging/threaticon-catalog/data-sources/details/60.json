@@ -1,0 +1,12 @@
+{
+  "id": 60,
+  "fetchedAt": "2026-08-14T05:08:29.268Z",
+  "name": "Social Media",
+  "tlp": null,
+  "dcId": "DC0052",
+  "analyticCount": 4,
+  "strategyCount": 4,
+  "added": null,
+  "description": "Established, compromised, or otherwise acquired by adversaries to conduct reconnaissance, influence operations, social engineering, or other cyber threats. *Data Collection Measures:* - API Monitoring - Social media APIs (e.g., Twitter API, Facebook Graph API) can extract behavioral patterns of accounts. - Web Scraping - Extracts public profile data, friend lists, or interactions to identify impersonation attempts. - Threat Intelligence Feeds - External feeds track malicious personas linked to disinformation campaigns or phishing. - OSINT Tools - Maltego, SpiderFoot, and OpenCTI can map social media persona relationships. - Endpoint Detection - EDR logs user behavior and alerts on suspicious social media interactions. - SIEM Logging - Detects access to known phishing pages or social media abuse via proxy logs. - Dark Web Monitoring - Identifies compromised social media credentials being sold.",
+  "analytics": ["AN1983", "AN2002", "AN2005", "AN2008"]
+}

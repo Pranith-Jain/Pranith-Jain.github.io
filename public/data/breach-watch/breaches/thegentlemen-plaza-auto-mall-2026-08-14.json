@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "MX",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/697d42da-0060-4459-ae49-b883020286fd",
+  "description": "plazaautomall.com zoominfo.com/c/plaza-auto-mall/194512238 Plaza Auto Mall is a family-owned dealership group based in Brooklyn, New York, that has been serving local drivers since 1975. They offer an extensive inventory of over 1,000 new, used, and certified pre-owned vehicles across multiple automotive brands all in one location. The platform also provides comprehensive automotive services, including financing options, vehicle maintenance, parts sales, and a dedicated body shop.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,12 @@
+{
+  "id": 526,
+  "fetchedAt": "2026-08-14T05:53:29.723Z",
+  "name": "Application Exhaustion Flood Detection Across Platforms",
+  "tlp": null,
+  "detId": "DET0415",
+  "stixId": "x-mitre-detection-strategy--430abda8-2a2c-4ab8-bbd6-eb205a189362",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1165", "AN1166", "AN1167", "AN1168"]
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2963,
+  "name": "T1204.002 Malicious File",
+  "techniqueId": "T1204",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2963"
+}

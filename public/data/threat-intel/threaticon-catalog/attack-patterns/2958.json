@@ -1,0 +1,9 @@
+{
+  "id": 2958,
+  "name": "T1086 (PowerShell)",
+  "techniqueId": "T1086",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2958"
+}

@@ -18,6 +18,12 @@
  *                                        entities)
  *   GET  /threat-intel/threaticon/*    — Threaticon actor catalog, malware
  *                                        dictionary, detection coverage, map
+ *   GET  /threat-intel/dphish/*        — dPhish phishing indicators
+ *                                        (TAXII 2.1 collection)
+ *   GET  /threat-intel/living-threat/* — Living Threat Repository incidents
+ *                                        mapped to MITRE ATT&CK chains
+ *   GET  /threat-intel/malwareanalyzer/* — MalwareAnalyzer by Cyble feeds +
+ *                                        live IOC reputation lookup
  *
  * The actual logic lives in worker/lib/threat-intel-manifest.ts (symlinked).
  * Routes read from env.ASSETS — no D1, no KV, no public fetch.
@@ -26,6 +32,7 @@ import { Hono } from 'hono';
 import type { Env } from '../env';
 import { badRequest, internalError, notFound, badGateway, serviceUnavailable } from '../lib/api-error';
 import { logError } from '../lib/logger';
+import { malwareAnalyzerLookup } from '../lib/malwareanalyzer';
 
 async function loadTiMod() {
   return await import('../lib/threat-intel-manifest');
@@ -58,7 +65,10 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
     const idx = await mod.loadTiIndex(c.env.ASSETS);
     const VALID_SEVERITIES = ['critical', 'high', 'medium', 'low', 'unknown'];
     const severityRaw = c.req.query('severity');
-    const severity = severityRaw && VALID_SEVERITIES.includes(severityRaw) ? (severityRaw as any) : undefined;
+    const severity =
+      severityRaw && VALID_SEVERITIES.includes(severityRaw)
+        ? (severityRaw as NonNullable<Parameters<typeof mod.filterCves>[1]>['severity'])
+        : undefined;
     const kevOnly = c.req.query('kev_only') === 'true';
     const vendor = c.req.query('vendor');
     const daysBackRaw = c.req.query('days_back');
@@ -129,7 +139,7 @@ threatIntelRouter.get('/threat-intel/iocs', async (c) => {
     const limit = c.req.query('limit') ? Math.min(100, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
 
     const iocs = mod.filterIocs(idx, {
-      category: (category as any) || undefined,
+      category: (category as NonNullable<Parameters<typeof mod.filterIocs>[1]>['category']) || undefined,
       keyword: keyword || undefined,
       limit,
     });
@@ -873,6 +883,214 @@ threatIntelRouter.get('/threat-intel/threaticon/indicators', async (c) => {
   }
 });
 
+// ─── dPhish phishing feed (dphish.com, TAXII 2.1) ───────────────────────
+// Public TAXII 2.1 collection of phishing indicators (malicious domains,
+// phishing URLs, sender IPs, phone numbers, attachment rules). Data ships
+// in public/data/threat-intel/dphish/. Build: scripts/sync-dphish.mjs &&
+// scripts/build-dphish.mjs.
+
+threatIntelRouter.get('/threat-intel/dphish', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDphishIndex(c.env.ASSETS);
+    return c.json({
+      source: idx.source,
+      sourceUrl: idx.sourceUrl,
+      collectionId: idx.collectionId,
+      description: idx.description,
+      license: idx.license,
+      syncedAt: idx.syncedAt,
+      counts: idx.counts,
+      stats: mod.tiCacheStats().dphish,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_dphish_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/dphish/indicators', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDphishIndex(c.env.ASSETS);
+    const category = c.req.query('category') || undefined;
+    const activeOnly = c.req.query('active_only') === 'true';
+    const keyword = c.req.query('q') || undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(1000, Math.max(1, Number(limitRaw) || 100)) : undefined;
+    const indicators = mod.filterDphishIndicators(idx, { category, activeOnly, keyword, limit });
+    return c.json({
+      total: idx.counts.indicators,
+      returned: indicators.length,
+      filters: { category, active_only: activeOnly || undefined, keyword },
+      indicators,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_dphish_indicators_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/dphish/indicators/:slug', async (c) => {
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getDphishIndicator(c.env.ASSETS, slug);
+    if (!body) return notFound(c, `ti_dphish_indicator_not_found: ${slug}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_dphish_indicator_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+// ─── Living Threat Repository (living-threat.rabitanoor.com) ───────────
+// Real-world incidents continuously mapped to MITRE ATT&CK tactics +
+// techniques with per-kill-chain-stage detection/remediation notes
+// (github.com/HudKSD/Living-Threat, MIT, keyless bootstrap API — newest
+// 5000 incidents of ~21k). Data ships in public/data/threat-intel/
+// living-threat/ (index + sharded bodies). Build: scripts/
+// sync-living-threat.mjs && scripts/build-living-threat.mjs.
+
+threatIntelRouter.get('/threat-intel/living-threat', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadLivingThreatIndex(c.env.ASSETS);
+    return c.json({
+      source: idx.source,
+      sourceUrl: idx.sourceUrl,
+      repoUrl: idx.repoUrl,
+      description: idx.description,
+      license: idx.license,
+      syncedAt: idx.syncedAt,
+      meta: idx.meta,
+      counts: idx.counts,
+      topTechniques: idx.topTechniques.slice(0, 60),
+      topActors: idx.topActors.slice(0, 40),
+      topTools: idx.topTools.slice(0, 40),
+      topSources: idx.topSources.slice(0, 12),
+      stats: mod.tiCacheStats().livingThreat,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_living_threat_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/living-threat/incidents', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadLivingThreatIndex(c.env.ASSETS);
+    const tactic = c.req.query('tactic') || undefined;
+    const technique = c.req.query('technique') || undefined;
+    const severity = c.req.query('severity') || undefined;
+    const actor = c.req.query('actor') || undefined;
+    const keyword = c.req.query('q') || undefined;
+    const minPriorityRaw = c.req.query('min_priority');
+    const minPriority = minPriorityRaw ? Math.max(0, Math.min(100, Number(minPriorityRaw) || 0)) : undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(1000, Math.max(1, Number(limitRaw) || 100)) : undefined;
+    const incidents = mod.filterLivingThreatIncidents(idx, {
+      tactic,
+      technique,
+      severity,
+      actor,
+      keyword,
+      minPriority,
+      limit,
+    });
+    return c.json({
+      total: idx.counts.incidents,
+      returned: incidents.length,
+      filters: { tactic, technique, severity, actor, keyword, min_priority: minPriority },
+      incidents,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_living_threat_incidents_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/living-threat/incidents/:slug', async (c) => {
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getLivingThreatIncident(c.env.ASSETS, slug);
+    if (!body) return notFound(c, `ti_living_threat_incident_not_found: ${slug}`);
+    return c.json(body);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_living_threat_incident_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+// ─── MalwareAnalyzer by Cyble (malwareanalyzer.com) ────────────────────
+// Free, keyless public API: live malicious / newly-observed URL feeds
+// (staged in public/data/threat-intel/malwareanalyzer/) + on-demand
+// live reputation lookups (worker/lib/malwareanalyzer.ts).
+
+threatIntelRouter.get('/threat-intel/malwareanalyzer', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadMaIndex(c.env.ASSETS);
+    return c.json({
+      source: idx.source,
+      sourceUrl: idx.sourceUrl,
+      apiBase: idx.apiBase,
+      description: idx.description,
+      license: idx.license,
+      syncedAt: idx.syncedAt,
+      counts: idx.counts,
+      topApexes: idx.topApexes,
+      stats: mod.tiCacheStats().malwareanalyzer,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_malwareanalyzer_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/malwareanalyzer/feed/:name', async (c) => {
+  const name = c.req.param('name');
+  if (name !== 'malicious' && name !== 'newly-observed') {
+    return badRequest(c, `ti_malwareanalyzer_feed_invalid: ${name} (expected malicious | newly-observed)`);
+  }
+  try {
+    const mod = await loadTiMod();
+    await mod.loadMaIndex(c.env.ASSETS); // warm the LRU cache
+    const verdict = c.req.query('verdict') || undefined;
+    const category = c.req.query('category') || undefined;
+    const keyword = c.req.query('q') || undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(200, Math.max(1, Number(limitRaw) || 200)) : undefined;
+    const entries = await mod.getMaFeed(c.env.ASSETS, name);
+    const out = mod.filterMaFeed(entries, { verdict, category, keyword, limit });
+    return c.json({
+      feed: name,
+      total: entries.length,
+      returned: out.length,
+      filters: { verdict, category, keyword },
+      entries: out,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_malwareanalyzer_feed_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/malwareanalyzer/lookup', async (c) => {
+  const indicator = c.req.query('indicator');
+  if (!indicator) return badRequest(c, 'ti_malwareanalyzer_lookup_missing_indicator');
+  try {
+    const result = await malwareAnalyzerLookup(indicator);
+    if (!result.success && result.error) return badGateway(c, `ti_malwareanalyzer_lookup_failed: ${result.error}`);
+    return c.json(result);
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_malwareanalyzer_lookup_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
 // ─── Live enrichment search routes ──────────────────────────────────────
 const SEARCH_TIMEOUT_MS = 20_000;
 
@@ -1052,7 +1270,7 @@ threatIntelRouter.get('/threat-intel/search/ransomware-live', async (c) => {
 
 // ── Entity relationship graph ──────────────────────────────────────────
 import { registerEntityGraphRoute } from './entity-graph';
-registerEntityGraphRoute(threatIntelRouter as any);
+registerEntityGraphRoute(threatIntelRouter);
 
 // ── STIX 2.1 export ────────────────────────────────────────────────────
 //

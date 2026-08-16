@@ -3,10 +3,10 @@
   "name": "lynx: lifelongaccess.org",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "May 10, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to lynx. | Country: US | Sector: Healthcare | Website: lifelongaccess.org | Infostealer data confirmed. | Lifelong Access is a dedicated organization that supports individuals with disabilities through a wide range of specialized programs tailored to their unique needs. Serving clients from birth to the end of life, it focuses on empowering individuals and breaking down barriers, ensuring they have access to resources that foster thriving lives. The company excels in pediatric therapy and adult services, offering therapies, community day services, behavioral health clinics, and supported employment opportunities. With over 70 years of experience and a team of over 200 professionals, Lifelong Access continues to expand its impact in the McLean County community. | Source: https://www.ransomware.live/id/bGlmZWxvbmdhY2Nlc3Mub3JnQGx5bng=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3647"
 }

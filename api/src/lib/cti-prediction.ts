@@ -8,6 +8,7 @@
 
 import type { D1Database } from '@cloudflare/workers-types';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { extractJson } from './llm-json';
 
 interface PredictionContext {
   total_iocs: number;
@@ -186,14 +187,20 @@ Return ONLY the JSON array.`;
       if (raw.startsWith('json')) raw = raw.slice(4);
     }
 
-    // Try to extract JSON array
-    const startIdx = raw.indexOf('[');
-    const endIdx = raw.lastIndexOf(']');
-    if (startIdx === -1 || endIdx === -1) {
-      return { success: false, predictions: [], context: ctx, error: 'No JSON array found in AI response' };
+    // Try to extract the JSON array. extractJson repairs the common LLM
+    // defects — literal newlines inside strings (which make JSON.parse fail
+    // with "Expected ',' or '}' ... at line N"), trailing commas, fences —
+    // so a sloppy model response doesn't surface a raw parser error to the
+    // user; it degrades to a friendly "try again" instead.
+    const predictions = extractJson<Prediction[]>(raw);
+    if (!predictions) {
+      return {
+        success: false,
+        predictions: [],
+        context: ctx,
+        error: 'AI response was not valid JSON — try again',
+      };
     }
-
-    const predictions: Prediction[] = JSON.parse(raw.slice(startIdx, endIdx + 1));
 
     // Store predictions
     const stmt = db.prepare(`

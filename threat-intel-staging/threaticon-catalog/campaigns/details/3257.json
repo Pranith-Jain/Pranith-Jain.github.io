@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:02.031Z",
+  "name": "NSPX30: A sophisticated AitM-enabled implant evolving since 2005",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jan 24, 2024",
+  "lastSeen": "Jan 24, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #437 (59b940bf-3399-4c52-bf62-d4fd0297b63f)."
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1824,
+  "name": "T1134 - Social Engineering Phishing via Email",
+  "techniqueId": "T1134",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1824"
+}

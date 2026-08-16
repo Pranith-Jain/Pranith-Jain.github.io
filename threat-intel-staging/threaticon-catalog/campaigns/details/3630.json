@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:04:48.040Z",
+  "name": "lamashtu: Depósito Dental Universitario",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to lamashtu. | Country: MX | Sector: Healthcare | Website: ddu.mx | Infostealer data confirmed. | Depósito Dental Universitario (DDU), a Mexican company specializing in the distribution of dental supplies and radiological services. | Source: https://www.ransomware.live/id/RGVww7NzaXRvIERlbnRhbCBVbml2ZXJzaXRhcmlvQGxhbWFzaHR1"
+}

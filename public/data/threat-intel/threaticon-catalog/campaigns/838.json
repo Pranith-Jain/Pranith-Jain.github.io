@@ -3,10 +3,10 @@
   "name": "incransom: bdac.com.au",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 12, 2026",
+  "lastSeen": "Apr 12, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: AU | Sector: Business Services | Website: bdac.com.au | Infostealer data confirmed. | Bendigo and District Aboriginal Co-operative (BDAC) has been providing services and support to the Aboriginal and Torres Strait Islander community of Dja Dja Wurrung for more than 15 years. BDAC is a proud Aboriginal community-controlled organisation, governed by a seven-member board elected by members. It has more than 50 staff - 80 per cent of whom identify as Aboriginal - working across three locations in Bendigo, including the Forest Street medical clinic. The company delivers programs across the core areas of health, education, employment, culture, family and community. BDAC is focused on achieving positive outcomes for and with the company's community, and leads the way in delivering a range of community development and capacity building projects. Employees: 200 Revenue: $19.6 Million Industry: Charitable Organizations Phone Number: +61...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/838"
 }

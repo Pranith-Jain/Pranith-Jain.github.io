@@ -3,10 +3,10 @@
   "name": "cmdorganization: North Dallas Shared Ministries",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 25, 2026",
+  "lastSeen": "May 25, 2026",
+  "added": "May 26, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Consumer Services | Website: www.ndsm.org | Now-Forward is a non-profit organization based in Dallas that provides a range of essential services such as financial aid, medical and dental care, food, clothing, and ESL classes to low-income families. Established to effectively serve the urgent needs of the community, they have been a trusted resource for over 40 years, assisting residents facing unexpected life challenges. The organization supports their mission through donations, volunteer work, and partnerships with local entities, ensuring that 96% of their funds are directed toward client services. Their extensive offerings also include tax preparation and school supply assistance, enabling families to achieve greater stability and self-sufficiency. | Source: https://www.ransomware.live/id/Tm9ydGggRGFsbGFzIFNoYXJlZCBNaW5pc3RyaWVzQGNtZG9yZ2FuaXphdGlvbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3968"
 }

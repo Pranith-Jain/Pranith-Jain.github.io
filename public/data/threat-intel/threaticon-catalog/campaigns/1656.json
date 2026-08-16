@@ -3,10 +3,10 @@
   "name": "akira: Murray's Cheese",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 11, 2026",
+  "lastSeen": "Feb 21, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Agriculture and Food Production | Website: murrayscheese.com | Infostealer data confirmed. | Murray's Cheese, founded in 1940 in Greenwich Village, is the old est cheese shop in New York City. The company specializes in reta il grocery with a focus on premium cheese products. Murray's has earned recognition for its quality offerings and has expanded to multiple locations. The business operates both B2B and B2C models , providing specialty cheese and related products to consumers an d businesses alike. We will upload corporate data soon. Very detailed employee (more than 300 employees) information (passports, DOB, DLs, and so on), financials, clients files, contracts and agreements, projects, i nternal confidential files and so on. | Source: https://www.ransomware.live/id/TXVycmF5J3MgQ2hlZXNlQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1656"
 }

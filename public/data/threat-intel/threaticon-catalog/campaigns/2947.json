@@ -1,11 +1,11 @@
 {
   "id": 2947,
   "name": "Active Exploitation of Two Zero-Day Vulnerabilities in Ivanti Connect Secure VPN",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 11, 2024",
+  "lastSeen": "Jan 11, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1743 (ab1a2393-2d57-46c9-91ab-16a4cc4b0b03).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2947"

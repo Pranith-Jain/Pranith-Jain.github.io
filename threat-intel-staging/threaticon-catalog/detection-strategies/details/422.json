@@ -1,0 +1,12 @@
+{
+  "id": 422,
+  "fetchedAt": "2026-08-14T06:03:13.153Z",
+  "name": "Detection of Digital Certificates",
+  "tlp": null,
+  "detId": "DET0831",
+  "stixId": "x-mitre-detection-strategy--15afa7ae-955a-4c19-b48e-ad13b68d7a54",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1963"]
+}

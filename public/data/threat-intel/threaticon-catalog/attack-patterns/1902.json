@@ -1,0 +1,9 @@
+{
+  "id": 1902,
+  "name": "T1204 - Web Shell",
+  "techniqueId": "T1204",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1902"
+}

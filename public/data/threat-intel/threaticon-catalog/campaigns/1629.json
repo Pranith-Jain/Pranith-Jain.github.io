@@ -3,9 +3,9 @@
   "name": "shinyhunters: Aura Group, Inc",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 12, 2026",
+  "lastSeen": "Mar 12, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Business Services | Over 2M records containing PII and other internal corporate data have been compromised. This is a final warning to reach out by 14 Mar 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 12 Mar 2026 | Warning: FINAL WARNING | Source: https://www.ransomware.live/id/QXVyYSBHcm91cCwgSW5jQHNoaW55aHVudGVycw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1629"

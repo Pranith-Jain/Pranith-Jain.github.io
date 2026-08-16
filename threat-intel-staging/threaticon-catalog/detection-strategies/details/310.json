@@ -1,0 +1,12 @@
+{
+  "id": 310,
+  "fetchedAt": "2026-08-14T05:16:53.695Z",
+  "name": "Detection Strategy for Plist File Modification (T1647)",
+  "tlp": null,
+  "detId": "DET0109",
+  "stixId": "x-mitre-detection-strategy--0548423e-c893-4474-9e5d-7fdd7c2a0a71",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0306"]
+}

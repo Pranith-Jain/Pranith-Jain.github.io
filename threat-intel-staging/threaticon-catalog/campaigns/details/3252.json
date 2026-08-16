@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:15.059Z",
+  "name": "Peach Sandstorm delivers FalseFont to defense sector",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Dec 30, 2023",
+  "lastSeen": "Dec 30, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #429 (5d64872e-8fb0-4548-8dbe-aef4055b8ec9)."
+}

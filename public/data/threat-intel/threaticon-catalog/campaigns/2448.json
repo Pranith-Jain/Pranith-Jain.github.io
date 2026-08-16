@@ -1,11 +1,11 @@
 {
   "id": 2448,
   "name": "OSINT Attacks on East Asia using Google Code for Command and Control by Palo Alto Unit 42",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 15, 2014",
+  "lastSeen": "Aug 15, 2014",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #776 (555dd7c9-2234-44d6-8604-a479950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2448"

@@ -1,0 +1,9 @@
+{
+  "id": 2990,
+  "name": "T1090 External Proxy",
+  "techniqueId": "T1090",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2990"
+}

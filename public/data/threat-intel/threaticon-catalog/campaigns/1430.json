@@ -3,9 +3,9 @@
   "name": "dragonforce: sopower.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 20, 2026",
+  "lastSeen": "Mar 20, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: JP | Sector: Energy | Website: www.sopower.com | industrial electrical service provider located in Baton Rouge, LA. Founded in 1994, it specializes in electrical testing, commissioning, maintenance, switchgear, transformers, and substation services, serving as a trusted ally for power infrastructure | Source: https://www.ransomware.live/id/c29wb3dlci5jb21AZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1430"

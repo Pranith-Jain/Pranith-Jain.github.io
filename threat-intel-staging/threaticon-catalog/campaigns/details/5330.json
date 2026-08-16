@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:52:31.837Z",
+  "name": "2026-07-08 (Wednesday): The Gentlemen C-Based Ransomware Samples",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 8, 2026",
+  "lastSeen": "Jul 8, 2026",
+  "added": "Jul 14, 2026",
+  "description": "2026-07-08 (Wednesday): The Gentlemen C-Based Ransomware Samples. References: https://www.linkedin.com/posts/we-recently-identified-files-likely-associated-share-7480706534059016192-HVMg/, https://x.com/Unit42_Intel/status/2074940861801025697"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 329,
+  "fetchedAt": "2026-08-14T05:55:21.120Z",
+  "name": "Behavior-chain detection for T1134.002 Create Process with Token (Windows)",
+  "tlp": null,
+  "detId": "DET0456",
+  "stixId": "x-mitre-detection-strategy--78aa8d17-c96f-4ba9-b431-f91157f38553",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1253"]
+}

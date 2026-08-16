@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:02:11.736Z",
+  "name": "OSINT - Danger Close: Fancy Bear Tracking of Ukrainian Field Artillery Units",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Dec 22, 2016",
+  "lastSeen": "Dec 22, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #948 (585bd19b-43a4-4b35-9023-4d60950d210f)."
+}

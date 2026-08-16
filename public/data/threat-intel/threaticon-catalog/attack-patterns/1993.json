@@ -1,0 +1,9 @@
+{
+  "id": 1993,
+  "name": "T1082.001",
+  "techniqueId": "T1082",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1993"
+}

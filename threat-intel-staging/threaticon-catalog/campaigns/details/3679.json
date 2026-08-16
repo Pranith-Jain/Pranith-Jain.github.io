@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:02:47.264Z",
+  "name": "thegentlemen: CHX Express",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 9, 2026",
+  "lastSeen": "May 8, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: VE | Sector: Transportation/Logistics | Website: chxpress.com.ve | Infostealer data confirmed. | chxpress.com.ve C.H. Express C.A. is a Venezuelan transportation and logistics company with over 20 years of experience, headquartered in San Diego, Carabobo. The company specializes in national cargo transportation, package delivery services, and light cargo consolidation, covering the entire Venezuelan territory. With a strategic location, modern fleet, and large warehouse facilities, they ensure fast, reliable deliveries and efficient logistics solutions for various industries across the country. | Source: https://www.ransomware.live/id/Q0hYIEV4cHJlc3NAdGhlZ2VudGxlbWVu"
+}

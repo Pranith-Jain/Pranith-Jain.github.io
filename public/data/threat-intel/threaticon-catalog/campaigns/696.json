@@ -3,9 +3,9 @@
   "name": "kairos: FriendlyCare Pharmacy",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 15, 2026",
+  "lastSeen": "Apr 15, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to kairos. | Country: AU | Sector: Healthcare | Website: friendlycare.com.au | Infostealer data confirmed. | FriendlyCare Pharmacy offers a wide range of health and beauty products, including cosmetics, skincare, personal care, and medical devices. Their services cater to various health needs such as asthma care, diabetes management, and first aid supplies. The pharmacy targets a diverse clientele, including individuals seeking general health products, beauty enthusiasts, and families in need of baby care items. With multiple store locations and a commitment to customer satisfaction, they provide a price match guarantee and free shipping on orders over $99. | Source: https://www.ransomware.live/id/RnJpZW5kbHlDYXJlIFBoYXJtYWN5QGthaXJvcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/696"

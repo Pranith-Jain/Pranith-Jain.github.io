@@ -3,10 +3,10 @@
   "name": "dragonforce: Elara Engineering",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 1, 2026",
+  "lastSeen": "Apr 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Construction | Website: elaraeng.com | Infostealer data confirmed. | Elara Engineering is a full-service Mechanical, Electrical, Plumbing, Fire Protection, and Technology consulting engineering firm based in Chicago, Illinois. With 25 years of experience, the company specializes in the design, costing, delivery, and oversight of building and utility systems, offering both pre-design and post-construction services. Their clients include educational institutions, municipal entities, and residential developers, focusing on sustainable and innovative engineering solutions. Elara Engineering is committed to reducing energy consumption and carbon footprints through its projects and embraces diversity within its workforce | Source: https://www.ransomware.live/id/RWxhcmEgRW5naW5lZXJpbmdAZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1105"
 }

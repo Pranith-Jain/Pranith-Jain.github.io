@@ -3,9 +3,9 @@
   "name": "genesis: Dunagan Associates",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 5, 2026",
+  "lastSeen": "Jul 3, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: dunaganassociates.com | Infostealer data confirmed. | Provides services in residential real estate and insurance | Source: https://www.ransomware.live/id/RHVuYWdhbiBBc3NvY2lhdGVzQGdlbmVzaXM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4321"

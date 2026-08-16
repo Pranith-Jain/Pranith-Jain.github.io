@@ -3,10 +3,10 @@
   "name": "incransom: bgcsnv.org",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Apr 2, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Education | Website: bgcsnv.org | Infostealer data confirmed. | Boys & Girls Club of Southern Nevada provides a safe and engaging environment for youth through various programs, including early childhood learning, summer camps, and mental health services. With 13 clubhouses across the region, they aim to support children in achieving their potential regardless of their background. The organization encourages community involvement and offers opportunities for volunteering and sponsorship. Their mission is to create a positive impact on the lives of young people in Southern Nevada. Employees: 200 Revenue: 15.3 Million Industry: Membership Organizations Phone Number: (702) 367-2582 | Source: https://www.ransomware.live/id/Ymdjc252Lm9yZ0BpbmNyYW5zb20=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/682"
 }

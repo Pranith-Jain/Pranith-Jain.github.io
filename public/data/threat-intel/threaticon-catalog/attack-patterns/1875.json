@@ -1,0 +1,9 @@
+{
+  "id": 1875,
+  "name": "T1685.001: Disable or Modify Windows Event Log",
+  "techniqueId": "T1685",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1875"
+}

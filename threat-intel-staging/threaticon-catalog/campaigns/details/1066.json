@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:04:25.089Z",
+  "name": "AiLock: Berning & Söhne GmbH",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: DE | Sector: Manufacturing | Website: berning-net.de | Infostealer data confirmed. | Berning Smart Fasteners boasts 120 years of experience in the development, production, and application of metal components and fasteners. | Source: https://www.ransomware.live/id/QmVybmluZyAmIFPDtmhuZSBHbWJIQEFpTG9jaw=="
+}

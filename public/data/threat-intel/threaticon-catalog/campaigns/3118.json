@@ -1,11 +1,11 @@
 {
   "id": 3118,
   "name": "Spear Phishing Attack Hits Industrial Companies",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 16, 2016",
+  "lastSeen": "Dec 16, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #91 (585822f9-9290-49f9-b036-04e4c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3118"

@@ -1,0 +1,12 @@
+{
+  "id": 382,
+  "fetchedAt": "2026-08-14T05:23:32.420Z",
+  "name": "Detecting Bulk or Anomalous Access to Private Code Repositories via SaaS Platforms",
+  "tlp": null,
+  "detId": "DET0263",
+  "stixId": "x-mitre-detection-strategy--574968c5-ca49-4005-958f-c3ea5a78cfbc",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0732"]
+}

@@ -3,10 +3,10 @@
   "name": "nova: Wolf Technology Group",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 2, 2026",
+  "lastSeen": "Apr 2, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: US | Sector: Technology | Website: wolftg.com | Infostealer data confirmed. | Wolf Technology Group specializes in providing cost-effective IT solutions and services for small businesses, helping them manage their technology needs without the expense of in-house support. Their offerings include Broadband, Infrastructure, VoIP, and managed IT services tailored to individual client requirements. The company focuses on enhancing business performance through improved IT systems and ensuring business continuity with expert support. With a team of certified IT professionals, they provide personalized strategies to optimize technology infrastructure while saving time and money - corp you have 10 days to contact us or everything will be leaked and no recover and will take actions. | Source: https://www.ransomware.live/id/V29sZiBUZWNobm9sb2d5IEdyb3VwQG5vdmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1074"
 }

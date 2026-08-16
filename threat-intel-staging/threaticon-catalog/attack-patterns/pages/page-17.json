@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1037,
+    "name": "Quadratic Data Expansion",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1038,
+    "name": "Regular Expression Exponential Blowup",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1039, "name": "SOAP Array Blowup", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1040, "name": "TCP Fragmentation", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1041, "name": "UDP Fragmentation", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1042, "name": "ICMP Fragmentation", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1043, "name": "File Discovery", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1044,
+    "name": "Probe iOS Screenshots",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1045,
+    "name": "Android Intent Intercept",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1046,
+    "name": "Password Recovery Exploitation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1047, "name": "WebView Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1048,
+    "name": "Android Activity Hijack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1049, "name": "Intent Spoof", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1050, "name": "WebView Exposure", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1051, "name": "Task Impersonation", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1052, "name": "Scheme Squatting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1053, "name": "Tapjacking", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1054, "name": "Physical Theft", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1055, "name": "Shoulder Surfing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1056, "name": "Kerberoasting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

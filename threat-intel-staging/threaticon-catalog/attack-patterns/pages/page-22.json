@@ -1,0 +1,78 @@
+[
+  { "id": 1137, "name": "Traffic Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1138, "name": "Connection Reset", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1139, "name": "TCP RST Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1140,
+    "name": "Absolute Path Traversal",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1141, "name": "DNS Spoofing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1142,
+    "name": "Terrestrial Jamming",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1143, "name": "Argument Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1144,
+    "name": "Reusing Session IDs (aka Session Replay)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1145,
+    "name": "Credential Stuffing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1146, "name": "Jamming", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1147, "name": "Blockage", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1148, "name": "Wi-Fi Jamming", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 1149, "name": "Cellular Jamming", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1150,
+    "name": "Weakening of Cellular Encryption",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1151, "name": "Obstruction", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1152,
+    "name": "Cryptanalysis of Cellular Encryption",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1153,
+    "name": "Cellular Traffic Intercept",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1154, "name": "Session Fixation", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1155,
+    "name": "Cellular Data Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1156, "name": "BitSquatting", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

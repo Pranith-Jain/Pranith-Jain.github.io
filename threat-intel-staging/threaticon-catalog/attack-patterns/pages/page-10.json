@@ -1,0 +1,85 @@
+[
+  { "id": 897, "name": "UDP Ping", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 898, "name": "TCP SYN Ping", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 899,
+    "name": "Using Leading 'Ghost' Character Sequences to Bypass Input Filters",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 900,
+    "name": "Hijacking a Privileged Thread of Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 901, "name": "Port Scanning", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 902, "name": "TCP Connect Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 903, "name": "TCP FIN Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 904, "name": "TCP Xmas Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 905, "name": "TCP Null Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 906, "name": "TCP ACK Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 907, "name": "TCP Window Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 908, "name": "TCP RPC Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  { "id": 909, "name": "UDP Scan", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 910,
+    "name": "Network Topology Mapping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 911,
+    "name": "Accessing/Intercepting/Modifying HTTP Cookies",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 912,
+    "name": "Scanning for Vulnerable Software",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 913,
+    "name": "Active OS Fingerprinting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 914,
+    "name": "Passive OS Fingerprinting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 915,
+    "name": "IP ID Sequencing Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 916,
+    "name": "IP 'ID' Echoed Byte-Order Probe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  }
+]

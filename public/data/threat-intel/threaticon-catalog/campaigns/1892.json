@@ -3,9 +3,9 @@
   "name": "AiLock: Demanor",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Mar 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: NO | Sector: Manufacturing | Website: demanor.no | Infostealer data confirmed. | Demanor AS specializes in providing customized goods lifts and lifting machines tailored to the specific needs and conditions of their clients. | Source: https://www.ransomware.live/id/RGVtYW5vckBBaUxvY2s=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1892"

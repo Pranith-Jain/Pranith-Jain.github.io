@@ -3,10 +3,10 @@
   "name": "incransom: rbh aerospace inc",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Manufacturing | Website: rbhaerospace.com | Infostealer data confirmed. | RBH Aerospace, Inc. -is a manufacturing company located in Long Beach, California, specializing in the production of aerospace components. Established in January 2005, the company focuses on providing high-quality parts for both commercial and military aircraft. Their product offerings include aircraft frames, fuselages, wings, and various metal alloy components such as steel, aluminum, and titanium. 2708 Seaboard Lane, Long Beach, CA 90805 http://www.rbhaerospace.com/ Leaked data 240 GB: Corporate information, including electronic correspondence with counterparties, contracts including NDAs, transactions and payments related to them, STP (STEP) files, part drawings (including those for F-15, F-22), manuals and instructions. | Source: https://www.ransomware.live/id/cmJoIGFlcm9zcGFjZSBpbmNAaW5jcmFuc29t",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3611"
 }

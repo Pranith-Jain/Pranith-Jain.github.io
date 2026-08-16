@@ -3,10 +3,10 @@
   "name": "kairos: Ayuntamiento de Valdemoro",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to kairos. | Country: ES | Sector: Public Sector | Website: valdemoro.es | Infostealer data confirmed. | Ayuntamiento de Valdemoro is the municipal government of Valdemoro, a town in the Madrid region of Spain. The site valdemoro.es is its official portal for residents, local news, and access to administrative services. The council plans and delivers local public services such as urban maintenance, social and cultural programmes, education and sports facilities where it is responsible, and citizen support. It passes local regulations within national and regional law, manages municipal assets, and interacts with higher tiers of government on regional and national programmes. In short, it is the local authority that governs and runs day-to-day public administration for the municipality. | Press: https://alcabodelacalle.es/en-portada/un-posible-ciberataque-afecta-a-los-servidores-del-ayuntamiento-de-valdemoro-e-impide-realizar-tramites/ | Source: https://www.r...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3623"
 }

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:18:50.964Z",
+  "name": "Sodinokibi ransomware exploits WebLogic Server vulnerability",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 30, 2019",
+  "lastSeen": "Apr 30, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #188 (5cca9118-b228-4d3e-8db6-07fbc0a8ab16)."
+}

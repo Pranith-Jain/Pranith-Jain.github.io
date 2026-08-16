@@ -1,0 +1,9 @@
+{
+  "id": 985,
+  "name": "Target Influence via Instant Rapport",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/985"
+}

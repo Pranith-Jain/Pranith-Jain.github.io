@@ -3,9 +3,9 @@
   "name": "qilin: Construction Sciences",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 28, 2026",
+  "lastSeen": "Apr 28, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.constructionsciences.net | N/A | Source: https://www.ransomware.live/id/Q29uc3RydWN0aW9uIFNjaWVuY2VzQHFpbGlu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/371"

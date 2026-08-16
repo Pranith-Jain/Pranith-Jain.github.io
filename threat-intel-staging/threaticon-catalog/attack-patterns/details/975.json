@@ -1,0 +1,9 @@
+{
+  "id": 975,
+  "fetchedAt": "2026-08-15T06:15:15.829Z",
+  "name": "Influence Perception of Liking",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Medium. The adversary influences the target's actions by building a relationship where the target has a liking to the adversary. People are more likely to be influenced by people of whom they are fond, so the adversary attempts to ingratiate themself with the target via actions, appearance, or a combination thereof."
+}

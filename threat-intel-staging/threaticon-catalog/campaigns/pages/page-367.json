@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2284,
+    "name": "ApateWeb: An Evasive Large-Scale Scareware and PUP Delivery Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #450 (d5db3326-37a4-44ae-b023-3369bf6dd1ca)."
+  },
+  {
+    "id": 2283,
+    "name": "Exploring the Latest Mispadu Stealer Variant",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #449 (35a3073a-9193-4c4d-9b90-caeb2e44c06a)."
+  },
+  {
+    "id": 2282,
+    "name": "StripedFly: Perennially flying under the radar",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #448 (162c4ecf-58a6-472f-98c9-9cd6d6c08c70)."
+  },
+  {
+    "id": 2281,
+    "name": "A hack in hand is worth two in the bush",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #447 (f9308085-291a-42b5-869d-d9b60620468d)."
+  },
+  {
+    "id": 2280,
+    "name": "BlueNoroff: new Trojan attacking macOS users",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #446 (e6681fba-80de-4064-bf6b-dccfe4ea5e20)."
+  },
+  {
+    "id": 2279,
+    "name": "HrServ – Previously unknown web shell used in APT attack",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #445 (777e75cd-5083-45d9-8e43-8bc4f7d46237)."
+  },
+  {
+    "id": 2278,
+    "name": "Thanksgiving 2023 security incident",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #444 (11e6c3fa-f482-4c25-8cfa-d78cc4946af4)."
+  },
+  {
+    "id": 2277,
+    "name": "The Nine Lives of Commando Cat: Analysing a Novel Malware Campaign Targeting Docker",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #442 (04c5e67e-357a-4881-bf10-6f4f3a002076)."
+  },
+  {
+    "id": 2276,
+    "name": "Cutting Edge: Suspected APT Targets Ivanti Connect Secure VPN in New Zero-Day Exploitation",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #434 (a9da4722-3b2c-42b6-9bb8-82f2162a171e)."
+  },
+  {
+    "id": 2275,
+    "name": "Gaza Cybergang | Unified Front Targeting Hamas Opposition",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #433 (500ce304-3996-44ab-8a36-be206f89d3de)."
+  },
+  {
+    "id": 2274,
+    "name": "OSINT - Retefe is back in town",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #431 (5714a8d1-52a4-48fa-8696-4066950d210f)."
+  },
+  {
+    "id": 2273,
+    "name": "Barracuda Email Security Gateway Appliance (ESG) Vulnerability",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #428 (5c48086c-5e84-4baa-b664-fd6de90ab67c)."
+  },
+  {
+    "id": 2272,
+    "name": "ToddyCat: Keep calm and check logs",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #423 (7c045c5e-dd4d-4cbc-b654-0866e380a521)."
+  },
+  {
+    "id": 2271,
+    "name": "Void Rabisu Targets Female Political Leaders with New Slimmed-Down ROMCOM Variant",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #421 (cf410edf-b437-4efa-841f-6106f07454bb)."
+  },
+  {
+    "id": 2270,
+    "name": "Charming Kitten Updates POWERSTAR with an InterPlanetary Twist",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #416 (e1e5d5e4-8405-423b-af90-bce32e20c37f)."
+  }
+]

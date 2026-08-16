@@ -1,0 +1,12 @@
+{
+  "id": 62,
+  "fetchedAt": "2026-08-14T06:04:30.106Z",
+  "name": "Detection of Network Devices",
+  "tlp": null,
+  "detId": "DET0859",
+  "stixId": "x-mitre-detection-strategy--31fef61c-301b-4a3d-aced-06632e321926",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1991"]
+}

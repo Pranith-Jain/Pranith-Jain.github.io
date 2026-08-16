@@ -1,0 +1,9 @@
+{
+  "id": 2949,
+  "name": "T1078.004 - Valid Accounts: Default Accounts",
+  "techniqueId": "T1078",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2949"
+}

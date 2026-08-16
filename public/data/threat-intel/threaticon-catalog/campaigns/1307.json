@@ -3,10 +3,10 @@
   "name": "dragonforce: Durable Superior Casters",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 26, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: durablesuperior.com | Infostealer data confirmed. | Durable Superior Casters, Inc. was established in 1991. In a relatively short period of time Durable USA has become the finest manufacturer and importer of casters and wheels in North America. We provide \"Quality without Compromise\" at very competitive prices and prompt shipment from an inventory in excess of 20 million dollars. We also attribute our success to our loyal customers, experienced and knowledgeable staff, and innovative leadership. We offer one of the broadest caster and wheel selections in the world. In addition to our ongoing new product development program we offer custom built casters for manufacturers that have a large unique or special requirement. Our corporate headquarters, largest US assembly plant with onsite Testing Lab and Engineering Department is in Arlington, Texas. Our assembly plant in Ohio helps to service our c...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1307"
 }

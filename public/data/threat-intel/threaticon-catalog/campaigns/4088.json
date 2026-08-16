@@ -3,9 +3,9 @@
   "name": "lockbit5: magna.com.do",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 11, 2026",
+  "lastSeen": "Jun 20, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: DO | Sector: Business Services | Website: magna.com.do | Infostealer data confirmed. | Magna Dominicana has over 50 years of experience offering globally recognized vehicle brands, specia... | Source: https://www.ransomware.live/id/bWFnbmEuY29tLmRvQGxvY2tiaXQ1",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4088"

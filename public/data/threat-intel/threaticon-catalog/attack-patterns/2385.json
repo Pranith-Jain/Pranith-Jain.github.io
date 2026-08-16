@@ -1,0 +1,9 @@
+{
+  "id": 2385,
+  "name": "T1073.001 - Expanding initial access through compromised credentials",
+  "techniqueId": "T1073",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2385"
+}

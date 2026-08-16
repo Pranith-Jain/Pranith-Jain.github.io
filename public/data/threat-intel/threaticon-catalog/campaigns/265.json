@@ -3,10 +3,10 @@
   "name": "blacknevas: Paramount Health Services & Insurance TPA Pvt. Ltd",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 30, 2026",
+  "lastSeen": "Nov 20, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to blacknevas. | Country: IN | Sector: Healthcare | Website: paramounttpa.com | Infostealer data confirmed. | listing fileshttps://gofile.io/d/d34YJQThe website paramounttpa.com belongs to Paramount Health Services &amp; Insurance TPA Pvt. Ltd., a health insurance third-party administrator (TPA) in India. It provides services such as cashless hospitalization claims, reimbursement claims, and ePHR (electronic Personal Health Records) for policyholders. The company, established in 1996, is licensed by IRDAI and offers digital claim intimation | Press: https://www.cnbctv18.com/market/stocks/medi-assist-healthcare-services-share-price-says-subsidiary-paramount-tpa-faced-cyber-incident-systems-restored-19767014.htm | Source: https://www.ransomware.live/id/UGFyYW1vdW50IEhlYWx0aCBTZXJ2aWNlcyAmIEluc3VyYW5jZSBUUEEgUHZ0LiBMdGRAYmxhY2tuZXZhcw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/265"
 }

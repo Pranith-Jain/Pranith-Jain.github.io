@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:57.671Z",
+  "name": "Gamaredon APT targets Ukrainian government agencies in new campaign",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 15, 2022",
+  "lastSeen": "Sep 15, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #352 (45b9a29b-abf7-4343-bf56-b71e7f9d9279)."
+}

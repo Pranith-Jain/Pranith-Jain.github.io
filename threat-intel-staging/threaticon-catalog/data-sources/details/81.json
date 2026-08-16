@@ -1,0 +1,12 @@
+{
+  "id": 81,
+  "fetchedAt": "2026-08-14T05:10:35.163Z",
+  "name": "Passive DNS",
+  "tlp": null,
+  "dcId": "DC0096",
+  "analyticCount": 5,
+  "strategyCount": 5,
+  "added": null,
+  "description": "\"Domain Name: Passive DNS\" captures logged historical and real-time domain name system (DNS) data. This includes records of domain-to-IP address resolutions over time, enabling analysts to track the evolution of domain infrastructure, uncover historical patterns of use, and detect malicious activities tied to domains and their associated IP addresses. Examples: - Historical Resolutions - Shared IP Usage - Temporal Patterns - Malicious Domain Clustering - Historical Lookback This data component can be collected through the following measures: - Passive DNS Platforms: Use platforms that specialize in passive DNS collection and analysis: - Tools: Farsight DNSDB, RiskIQ PassiveTotal, PassiveDNS. - Threat Intelligence Feeds: Integrate passive DNS data from commercial or open-source threat intelligence providers. - Custom DNS Collectors: Deploy custom tools to capture DNS traffic at the network level for analysis. - Cloud DNS Services: Leverage cloud DNS services (e.g., AWS Route 53, Azure DNS) that maintain DNS query logs.",
+  "analytics": ["AN1995", "AN2017", "AN2023", "AN2024", "AN2027"]
+}

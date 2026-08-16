@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:32:40.319Z",
+  "name": "insomnia: METO Systems",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 24, 2026",
+  "lastSeen": "Mar 31, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Technology | Website: www.metosystems.com | METO Systems designs and manufactures stainless-steel industrial material‑handling equipment for regulated industries. Products include lifts, blenders, transporters, and docking systems, they offer installation, training, customization, and support. | Source: https://www.ransomware.live/id/TUVUTyBTeXN0ZW1zQGluc29tbmlh"
+}

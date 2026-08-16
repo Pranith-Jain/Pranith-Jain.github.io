@@ -1,0 +1,148 @@
+[
+  {
+    "id": 403,
+    "name": "Audio-Visual Content",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1683",
+    "status": null
+  },
+  {
+    "id": 205,
+    "name": "Social Engineering",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1684",
+    "status": null
+  },
+  { "id": 557, "name": "Impersonation", "tlp": "white", "confidence": null, "techniqueId": "T1684", "status": null },
+  {
+    "id": 1766,
+    "name": "T1684.001: Impersonation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1684",
+    "status": null
+  },
+  { "id": 689, "name": "Email Spoofing", "tlp": "white", "confidence": null, "techniqueId": "T1684", "status": null },
+  {
+    "id": 504,
+    "name": "Disable or Modify Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 1466,
+    "name": "T1685 -Execution:T1685.001",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 62,
+    "name": "Disable or Modify Windows Event Log",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 1961,
+    "name": "T1685.001 - Use of Legitimate Remote Tools (PsExec for Lateral Movement)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 1875,
+    "name": "T1685.001: Disable or Modify Windows Event Log",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 162,
+    "name": "Disable or Modify Cloud Log",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 47,
+    "name": "Modify or Spoof Tool UI",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 1739,
+    "name": "T1685.003 - Internal Spear Phishing via Malspam",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 110,
+    "name": "Disable or Modify Linux Audit System Log",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 2039,
+    "name": "T1685.004 - Data Exfiltration:ransomware encryption of data on endpoints",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 326,
+    "name": "Clear Windows Event Logs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 1512,
+    "name": "T1685.005: Clear Windows Event Logs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 273,
+    "name": "Clear Linux or Mac System Logs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 1765,
+    "name": "T1685: Disable or Modify Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1685",
+    "status": null
+  },
+  {
+    "id": 649,
+    "name": "Disable or Modify System Firewall",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1686",
+    "status": null
+  }
+]

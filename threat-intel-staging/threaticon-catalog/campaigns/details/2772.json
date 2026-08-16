@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:45:08.833Z",
+  "name": "OSINT - HC7 GOTYA Ransomware Installed via Remote Desktop Services. Spread with PsExec",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 6, 2017",
+  "lastSeen": "Dec 6, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1260 (5a290dd3-ac58-46b1-9334-fe72950d210f)."
+}

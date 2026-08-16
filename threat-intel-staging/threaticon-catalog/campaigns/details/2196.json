@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:51.102Z",
+  "name": "A Deep Dive into Lokibot Infection Chain",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 10, 2021",
+  "lastSeen": "Jan 10, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #247 (5ffab1a2-95d8-4c44-8403-f6b8c0a8ab16)."
+}

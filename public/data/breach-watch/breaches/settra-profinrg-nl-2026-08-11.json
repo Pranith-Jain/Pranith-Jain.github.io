@@ -1,0 +1,15 @@
+{
+  "slug": "settra-profinrg-nl-2026-08-11",
+  "title": "profinrg.nl",
+  "group": "settra",
+  "discovered": "2026-08-11T15:28:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "NL",
+  "sizeBytes": 0,
+  "description": "How Profinergy BV Lost Control of Thousands of Files PROLOGUE: Thousands of files. The complete digi...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

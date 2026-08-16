@@ -1,0 +1,12 @@
+{
+  "id": 20,
+  "fetchedAt": "2026-08-14T05:17:32.871Z",
+  "name": "Behavior-chain detection for T1132.001 Data Encoding: Standard Encoding (Base64/Hex/MIME) across Windows, Linux, macOS, ESXi",
+  "tlp": null,
+  "detId": "DET0124",
+  "stixId": "x-mitre-detection-strategy--1f6a450a-fd29-4e5c-9708-1ae4616c28c3",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0345", "AN0346", "AN0347", "AN0348"]
+}

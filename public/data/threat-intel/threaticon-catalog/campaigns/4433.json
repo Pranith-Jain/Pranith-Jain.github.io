@@ -3,9 +3,9 @@
   "name": "akira: Refinery Hotel",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jul 1, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to akira. | Sector: Hospitality and Tourism | Refinery Hotel is a luxury hotel located near Bryant Park in New York City, offering a modern r einterpretation of a historic hat factory. The hotel features 197 stylish rooms with industrial accents and modern amenities, alongside dining options such as the Parker & Quinn restaurant a nd the Refinery Rooftop bar. We will upload 15gb of corporate data soon. Employee personal information (passports, DLs, SSNs , w9 forms), guests information, financials, contracts and agreements, lots of NDAs, etc. | Source: https://www.ransomware.live/id/UmVmaW5lcnkgSG90ZWxAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4433"

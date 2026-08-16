@@ -3,10 +3,10 @@
   "name": "aurora: Law Offices of Michael A. Freedman, P.A. (maflaw.com)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 23, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: US | Sector: Business Services | Website: maflaw.com | Infostealer data confirmed. | [law] Law Offices of Michael A. Freedman, P.A. (maflaw.com). The exfiltrated corpus is 579 GB used / 143 GB at root level / 196,701 files / 19,231 directories, dated as recently as a year-2026-in-progress client matter. What this means for a plaintiffs' PI firm of ~25 staff: 656 client-matter folders organised across eight yearly parents from June 2019 through 2026-in-progress. Per-client medical records, HIPAA authorisations, police reports, settlement releases, IOLTA distribution sheets, retainer agreements, and treating-provider correspondence. Two staff Outlook archives at 2.1 GB each, plus a 505 MB Outlook backup, plus 27 enumerated .pst files — years of attorney–client privileged correspondence, settlement strategy, opposing-counsel comms. The complete Sage ACT. Pro v18 contact universe — the live database plus eight historical ZIP backups goin...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/346"
 }

@@ -1,0 +1,9 @@
+{
+  "id": 2225,
+  "name": "T1070 (Exploit public facing RPC service)",
+  "techniqueId": "T1070",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2225"
+}

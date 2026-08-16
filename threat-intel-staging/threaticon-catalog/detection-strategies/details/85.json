@@ -1,0 +1,12 @@
+{
+  "id": 85,
+  "fetchedAt": "2026-08-14T05:13:19.066Z",
+  "name": "Windows Detection Strategy for T1547.012 - Print Processor DLL Persistence",
+  "tlp": null,
+  "detId": "DET0026",
+  "stixId": "x-mitre-detection-strategy--b661f959-953f-4329-a43a-f1b060e7626b",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0074"]
+}

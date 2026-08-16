@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:13:25.449Z",
+  "name": "krybit: conrepsa.ro",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 11, 2026",
+  "lastSeen": "Apr 10, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: RO | Sector: Construction | Website: conrepsa.ro | Infostealer data confirmed. | CONREP SA is a Romanian construction, contracting, and infrastructure company, considered one of the most experienced in... | Source: https://www.ransomware.live/id/Y29ucmVwc2Eucm9Aa3J5Yml0"
+}

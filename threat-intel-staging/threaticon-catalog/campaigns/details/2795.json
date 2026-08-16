@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:44:10.228Z",
+  "name": "OSINT Phantom of the Opaera: New KASPERAGENT Malware Campaign by ThreatConnect",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 14, 2017",
+  "lastSeen": "Jun 14, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1293 (5a5df98f-3ea4-4cd5-b1d5-47d5950d210f)."
+}

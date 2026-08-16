@@ -1,0 +1,12 @@
+{
+  "id": 424,
+  "fetchedAt": "2026-08-14T05:53:26.947Z",
+  "name": "Detection of AppleScript-Based Execution on macOS",
+  "tlp": null,
+  "detId": "DET0414",
+  "stixId": "x-mitre-detection-strategy--af66dc57-77fc-42a7-9e84-7a588c3ab516",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1164"]
+}

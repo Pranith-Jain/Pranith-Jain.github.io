@@ -3,9 +3,9 @@
   "name": "qilin: City of Napoleon, Ohio",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 23, 2026",
+  "lastSeen": "Apr 23, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Public Sector | Website: www.napoleonohio.com | Source: https://www.ransomware.live/id/Q2l0eSBvZiBOYXBvbGVvbiwgT2hpb0BxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/533"

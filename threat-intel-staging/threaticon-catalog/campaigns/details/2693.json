@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:56:42.037Z",
+  "name": "OSINT - Ursnif variant found using mouse movement for decryption and evasion",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 24, 2017",
+  "lastSeen": "Jul 24, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1144 (59a3bc82-f214-4bef-ab11-461b950d210f)."
+}

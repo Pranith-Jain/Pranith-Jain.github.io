@@ -1,11 +1,11 @@
 {
   "id": 2594,
   "name": "OSINT - Trojan.Mirai.1 for Microsoft Windows",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 8, 2017",
+  "lastSeen": "Feb 8, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #989 (589b97f0-1e74-420b-bb3e-f4f302de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2594"

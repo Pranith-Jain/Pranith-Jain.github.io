@@ -1,11 +1,11 @@
 {
   "id": 2123,
   "name": "OSINT - New OS X Ransomware KeRanger Infected Transmission BitTorrent Client Installer",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2016",
+  "lastSeen": "Mar 6, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #150 (56dc93a4-5a6c-470d-9c9b-4e9902de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2123"

@@ -1,0 +1,12 @@
+{
+  "id": 209,
+  "fetchedAt": "2026-08-14T05:59:14.126Z",
+  "name": "Registry and LSASS Monitoring for Security Support Provider Abuse",
+  "tlp": null,
+  "detId": "DET0542",
+  "stixId": "x-mitre-detection-strategy--6b47bf45-a3f2-4d4b-884a-3cec3ef3f994",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1495"]
+}

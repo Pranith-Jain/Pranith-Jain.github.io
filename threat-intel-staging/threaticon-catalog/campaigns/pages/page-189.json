@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5037,
+    "name": "akira: Oaks Park",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Consumer Services | Website: oakspark.com | Infostealer data confirmed. | Oaks Amusement Park, located in Portland, Oregon, has been a family-friendly entertainment dest ination since 1905, offering a variety of attractions including rides, a roller rink, and a min i golf course. We will upload 10gb of corporate data soon. Employee information, credit cards, payment details , lots of contracts and agreements, NDAs and so on. | Source: https://www.ransomware.live/id/T2FrcyBQYXJrQGFraXJh"
+  },
+  {
+    "id": 5038,
+    "name": "worldleaks: Access Dental",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Healthcare | Website: www.accessdentalclinics.com | [AI generated] Access Dental is a dental insurance and managed care company operating in the United States. It provides affordable dental health plans primarily to underserved and low-income populations, including Medicaid and individual plan members. The company works with a network of licensed dentists to deliver preventive and restorative dental services, focusing on improving access to oral healthcare across California and other states. | Source: https://www.ransomware.live/id/QWNjZXNzIERlbnRhbEB3b3JsZGxlYWtz"
+  },
+  {
+    "id": 5033,
+    "name": "coinbasecartel: Demand.ioNEW",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Sector: Technology | Website: Demand.io | [AI generated] N/A | Source: https://www.ransomware.live/id/RGVtYW5kLmlvTkVXQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 5039,
+    "name": "nightspire: First Mutual Holdings",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: ZW | Sector: Financial Services | Website: www.firstmutual.co.zw | - Internal Database | Source: https://www.ransomware.live/id/Rmlyc3QgTXV0dWFsIEhvbGRpbmdzQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 5029,
+    "name": "nova: Aspire hospital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: IN | Sector: Healthcare | Website: aspirehospitals.in | Infostealer data confirmed. | Both aspirehospitals.co.in and aspirehospitals.in Under Nova Company Control, servers encrypted and patients data stolen, A Healthcare provider based on Plot No: 163, 208, Ekamra Road, Unit-6, Ganga Nagar, Bhubaneswar, India, Odisha, you need to think well to contact us for recover and to secure patients records - Nova Provide tree and samples from stolen data, free 2 files decrypt to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/QXNwaXJlIGhvc3BpdGFsQG5vdmE="
+  },
+  {
+    "id": 5030,
+    "name": "krybit: schultz.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: BR | Sector: Business Services | Website: schultz.com.br | Infostealer data confirmed. | Schultz Operadora de Turismo helps people explore the world with easy travel planning. They handle everything from airli... | Source: https://www.ransomware.live/id/c2NodWx0ei5jb20uYnJAa3J5Yml0"
+  },
+  {
+    "id": 5031,
+    "name": "anubis: D&M Contractors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: GB | Sector: Construction | Website: dmcontract.co.uk | Infostealer data confirmed. | A small breach, real employee data. | Source: https://www.ransomware.live/id/RCZNIENvbnRyYWN0b3JzQGFudWJpcw=="
+  },
+  {
+    "id": 5025,
+    "name": "genesis: *B*",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Not Found | Website: cavalierflooring.com | Infostealer data confirmed. | A trade association | Source: https://www.ransomware.live/id/KkIqQGdlbmVzaXM="
+  },
+  {
+    "id": 5026,
+    "name": "nova: Universitas Nasional",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5027,
+    "name": "krybit: huashan.com.cn",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: CN | Sector: Not Found | Website: huashan.com.cn | Infostealer data confirmed. | Shantou Huashan Electronic Devices Co., Ltd. (SHEDCL) is a Chinese manufacturer of semiconductor devices and electronic ... | Source: https://www.ransomware.live/id/aHVhc2hhbi5jb20uY25Aa3J5Yml0"
+  },
+  {
+    "id": 5024,
+    "name": "incransom: kelmreuter.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5040,
+    "name": "akira: T/CCI Manufacturing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Manufacturing | T/CCI is a world leader in compressor technology including reciprocating, swash plate, wobble p late, variable compressor and air brake compressor designs. We are an Original Equipment Manufa cturer for trucking, off-highway, agriculture/construction, specialty vehicle and transport ref rigeration markets. We will upload 35gb of corporate data soon. Employee personal docs (passports, DLs, SSNs, payme nt details, credit cards and so on), contracts and agreements, client and partners information, NDAs, financials, lots of confidential files, etc. | Source: https://www.ransomware.live/id/VC9DQ0kgTWFudWZhY3R1cmluZ0Bha2lyYQ=="
+  },
+  {
+    "id": 5028,
+    "name": "anubis: Jeffrey Burr",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Consumer Services | Website: jeffreyburr.com | Infostealer data confirmed. | [www.jeffreyburr.com] | Source: https://www.ransomware.live/id/SmVmZnJleSBCdXJyQGFudWJpcw=="
+  },
+  {
+    "id": 5017,
+    "name": "thegentlemen: Danzo Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: JP | Sector: Not Found | Website: danzogroup.com | Infostealer data confirmed. | ***.com zoominfo.com/c/danzo-group-inc/437505508 Danzo Group is a premier commercial and residential contracting company based in the Los Angeles area, specializing in custom cabinetry and high-end woodworking solutions. Founded in 2005 and operating from a 7,000-square-foot facility in Pomona, California, the company delivers bespoke millwork, custom furniture, and interior storage systems. With a strong focus on fine craftsmanship, they serve diverse clients by providing comprehensive general contracting and tailored design services | Source: https://www.ransomware.live/id/RGFuem8gR3JvdXBAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 5032,
+    "name": "incransom: obrieneng.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Construction | Website: obrieneng.com | Infostealer data confirmed. | contract nda confidential gov\\dot\\military\\va\\sam.gov other | Source: https://www.ransomware.live/id/b2JyaWVuZW5nLmNvbUBpbmNyYW5zb20="
+  }
+]

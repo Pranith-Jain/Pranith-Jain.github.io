@@ -1,0 +1,9 @@
+{
+  "id": 852,
+  "name": "Privilege Escalation",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "An adversary exploits a weakness enabling them to elevate their privilege and perform an action that they are not supposed to be authorized to perform.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/852"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:55.030Z",
+  "name": "Locky of the day (20160520)",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "May 23, 2016",
+  "lastSeen": "May 23, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #554 (5742a093-4190-414a-8a36-4c8d950d210f)."
+}

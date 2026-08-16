@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:03:31.121Z",
+  "name": "LeakBazaar: Katahdin Technology",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "May 8, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to LeakBazaar. | Country: US | Sector: Technology | Website: katahdintechnology.com | Infostealer data confirmed. | Katahdin Technology offers reliable managed IT services tailored for small businesses in Maine. Their services include disaster recovery, network design, cloud solutions, and IT vendor management, all aimed at providing cost-effective and customized IT solutions. With over 20 years of experience, they focus on securing, protecting, and enhancing their clients' IT infrastructure. The company is known for its trustworthy, responsive, and easy-to-work-with approach, ensuring a strong track record of success. | Source: https://www.ransomware.live/id/S2F0YWhkaW4gVGVjaG5vbG9neUBMZWFrQmF6YWFy"
+}

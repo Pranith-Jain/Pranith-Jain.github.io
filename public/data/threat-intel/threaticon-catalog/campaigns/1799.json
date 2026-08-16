@@ -3,10 +3,10 @@
   "name": "incransom: northstaria.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 5, 2026",
+  "lastSeen": "Mar 5, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Financial Services | Website: northstaria.com | Infostealer data confirmed. | North Star Insurance Advisors is the leading final expense telesales company in America, dedicated to serving the senior market, agents, and partners. The company offers innovative training, a competitive compensation structure, and limitless growth opportunities for agents and partners. With over 40 years of combined experience, North Star utilizes proprietary technology to assist families with their final expense needs. As a purpose-driven organization, they prioritize people and aim to provide valuable resources to navigate life's challenges. Employees: 200 Revenue: $44.9 Million Industry: Insurance Phone Number: (636) 205-5005 | Source: https://www.ransomware.live/id/bm9ydGhzdGFyaWEuY29tQGluY3JhbnNvbQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1799"
 }

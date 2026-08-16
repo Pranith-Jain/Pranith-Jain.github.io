@@ -1,11 +1,11 @@
 {
   "id": 2958,
   "name": "OSINT - GreyNoise Observes Active Exploitation of Cisco Vulnerabilities Tied to Salt Typhoon Attacks",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2025",
+  "lastSeen": "Mar 6, 2025",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1790 (18c55588-626c-4e78-8840-45f9014d195c).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2958"

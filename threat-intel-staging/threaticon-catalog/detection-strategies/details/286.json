@@ -1,0 +1,12 @@
+{
+  "id": 286,
+  "fetchedAt": "2026-08-14T05:19:22.735Z",
+  "name": "Firmware Modification via Flash Tool or Corrupted Firmware Upload",
+  "tlp": null,
+  "detId": "DET0167",
+  "stixId": "x-mitre-detection-strategy--ab9027fb-3499-474b-845c-50ee113c3be5",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0474", "AN0475", "AN0476", "AN0477"]
+}

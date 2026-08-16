@@ -1,0 +1,9 @@
+{
+  "id": 765,
+  "fetchedAt": "2026-08-15T06:06:06.842Z",
+  "name": "Detect Unpublicized Web Services",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. An adversary searches a targeted web site for web services that have not been publicized. This attack can be especially dangerous since unpublished but available services may not have adequate security controls placed upon them given that an administrator may believe they are unreachable."
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2071,
+  "fetchedAt": "2026-08-15T06:58:23.869Z",
+  "name": "T1046 - Network Device Disruption: Potential use of network tools for lateral movement or data extraction",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

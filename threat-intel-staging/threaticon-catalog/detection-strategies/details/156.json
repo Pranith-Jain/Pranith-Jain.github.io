@@ -1,0 +1,12 @@
+{
+  "id": 156,
+  "fetchedAt": "2026-08-14T05:18:28.687Z",
+  "name": "Detection of Data Destruction Across Platforms via Mass Overwrite and Deletion Patterns",
+  "tlp": null,
+  "detId": "DET0146",
+  "stixId": "x-mitre-detection-strategy--c54fdf95-c7ac-4ca4-bd99-273e56da20a5",
+  "analyticCount": 6,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0411", "AN0412", "AN0413", "AN0414", "AN0415", "AN0416"]
+}

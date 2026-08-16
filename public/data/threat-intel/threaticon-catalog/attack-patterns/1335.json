@@ -1,0 +1,9 @@
+{
+  "id": 1335,
+  "name": "T1078.004: Data Encrypted for Impact",
+  "techniqueId": "T1078",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1335"
+}

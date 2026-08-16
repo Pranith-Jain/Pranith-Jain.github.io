@@ -3,9 +3,9 @@
   "name": "dragonforce: Encompass",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Feb 2, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Technology | Website: www.encompass-inc.com | Founded in 2001 and headquartered in Clarksville, Virginia, Encompass Solutions is a preferred Epicor partner and Value-Added Re-seller (VAR), that delivers mission-critical ERP software solutions, custom development services, and process improvements for businesses in manufacturing industries. The company prides themselves on being expert business consultants, software implementation specialists, and managed services providers. | Source: https://www.ransomware.live/id/RW5jb21wYXNzQGRyYWdvbmZvcmNl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1889"

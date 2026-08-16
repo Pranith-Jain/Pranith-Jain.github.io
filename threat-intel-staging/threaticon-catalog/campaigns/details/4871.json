@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:12:29.715Z",
+  "name": "krybit: aisem.gob.bo",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 12, 2026",
+  "lastSeen": "Jun 9, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: BO | Sector: Public Sector | Website: aisem.gob.bo | Infostealer data confirmed. | AISEM (Agencia de Infraestructura en Salud y Equipamiento Médico) is a Bolivian government agency responsible for the d... | Source: https://www.ransomware.live/id/YWlzZW0uZ29iLmJvQGtyeWJpdA=="
+}

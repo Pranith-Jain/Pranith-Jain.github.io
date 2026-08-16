@@ -1,0 +1,12 @@
+{
+  "id": 553,
+  "fetchedAt": "2026-08-14T05:24:49.108Z",
+  "name": "Masquerading via Space After Filename - Behavioral Detection Strategy",
+  "tlp": null,
+  "detId": "DET0292",
+  "stixId": "x-mitre-detection-strategy--16462629-5b36-4bb6-a565-de4df01f75d4",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0812", "AN0813"]
+}

@@ -1,0 +1,113 @@
+[
+  { "id": 148, "name": "Drive-by Target", "tlp": "white", "confidence": null, "techniqueId": "T1608", "status": null },
+  {
+    "id": 1375,
+    "name": "T1608.004: Drive-by Target",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1608",
+    "status": null
+  },
+  { "id": 380, "name": "Link Target", "tlp": "white", "confidence": null, "techniqueId": "T1608", "status": null },
+  {
+    "id": 1651,
+    "name": "T1608.005: Link Target",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1608",
+    "status": null
+  },
+  { "id": 621, "name": "SEO Poisoning", "tlp": "white", "confidence": null, "techniqueId": "T1608", "status": null },
+  {
+    "id": 346,
+    "name": "Container Administration Command",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1609",
+    "status": null
+  },
+  { "id": 259, "name": "Deploy Container", "tlp": "white", "confidence": null, "techniqueId": "T1610", "status": null },
+  { "id": 224, "name": "Escape to Host", "tlp": "white", "confidence": null, "techniqueId": "T1611", "status": null },
+  {
+    "id": 364,
+    "name": "Build Image on Host",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1612",
+    "status": null
+  },
+  {
+    "id": 15,
+    "name": "Container and Resource Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1613",
+    "status": null
+  },
+  {
+    "id": 540,
+    "name": "System Location Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1614",
+    "status": null
+  },
+  {
+    "id": 522,
+    "name": "System Language Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1614",
+    "status": null
+  },
+  {
+    "id": 85,
+    "name": "Group Policy Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1615",
+    "status": null
+  },
+  { "id": 3085, "name": "T1616", "tlp": "white", "confidence": null, "techniqueId": "T1616", "status": null },
+  {
+    "id": 384,
+    "name": "Cloud Storage Object Discovery",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1619",
+    "status": null
+  },
+  {
+    "id": 220,
+    "name": "Reflective Code Loading",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1620",
+    "status": null
+  },
+  {
+    "id": 1506,
+    "name": "T1620: Reflective Code Loading",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1620",
+    "status": null
+  },
+  {
+    "id": 416,
+    "name": "Multi-Factor Authentication Request Generation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1621",
+    "status": null
+  },
+  {
+    "id": 2996,
+    "name": "T1621 Data Obfuscation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1621",
+    "status": null
+  },
+  { "id": 2632, "name": "T1621.004", "tlp": "white", "confidence": null, "techniqueId": "T1621", "status": null }
+]

@@ -1,0 +1,9 @@
+{
+  "id": 1673,
+  "name": "T1113: Screen Capture",
+  "techniqueId": "T1113",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1673"
+}

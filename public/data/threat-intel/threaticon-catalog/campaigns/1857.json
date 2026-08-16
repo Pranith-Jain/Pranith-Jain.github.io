@@ -3,9 +3,9 @@
   "name": "akira: ICAFe Companies",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 4, 2026",
+  "lastSeen": "Mar 2, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: icafecompanies.com | Infostealer data confirmed. | Southwest Air Equipment is a single-source equipment supplier ded icated to the spray foam industry, offering comprehensive service s including replacement parts, repairs, and complete spray rig se tups. We will upload corporate data soon. Lots of clients files, NDAs, contracts and agreements, financials, confidential files, a bit o f personal information and so on. | Source: https://www.ransomware.live/id/SUNBRmUgQ29tcGFuaWVzQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1857"

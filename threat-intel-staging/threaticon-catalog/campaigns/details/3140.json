@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:58.757Z",
+  "name": "OSINT - SteamStealer IPs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 14, 2016",
+  "lastSeen": "Mar 14, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #215 (56e6910e-9cdc-4c9a-8ece-4531950d210f)."
+}

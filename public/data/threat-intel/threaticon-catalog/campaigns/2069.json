@@ -1,11 +1,11 @@
 {
   "id": 2069,
   "name": "New wave of Mirai attacking home routers",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 1, 2016",
+  "lastSeen": "Dec 1, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #89 (58408896-9290-4af1-8bc8-0b29c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2069"

@@ -1,0 +1,9 @@
+{
+  "id": 2411,
+  "fetchedAt": "2026-08-15T07:03:37.285Z",
+  "name": "T1055.003: Abuse of Hyper-V or VMware Tools to bypass EDR",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

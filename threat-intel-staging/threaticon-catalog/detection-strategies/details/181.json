@@ -1,0 +1,12 @@
+{
+  "id": 181,
+  "fetchedAt": "2026-08-14T05:49:39.994Z",
+  "name": "Automated Exfiltration Detection Strategy",
+  "tlp": null,
+  "detId": "DET0397",
+  "stixId": "x-mitre-detection-strategy--da5ff985-fd0d-438f-8498-c8dc195f741a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1113", "AN1114", "AN1115"]
+}

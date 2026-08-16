@@ -1,0 +1,162 @@
+[
+  {
+    "id": 2839,
+    "name": "T1003.001 - Credential Dumping: Mimikatz",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1930,
+    "name": "T1003.001 - Credential Dumping: OS Credential Dumping via Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1775,
+    "name": "T1003.001 - Credential Dumping: Windows LSASS memory",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2464,
+    "name": "T1003.001 - Credentials from User Input",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1694,
+    "name": "T1003.001 - Keylogger",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2199,
+    "name": "T1003.001 - Keylogging",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2052,
+    "name": "T1003.001 - Keylogging (Credential Access)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1436,
+    "name": "T1003.001 - Keylogging: Custom Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1370,
+    "name": "T1003.001 - OS Credential Dumping: Unix-Linux lsmod",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1839,
+    "name": "T1003.001 - OS Credential Dumping: Windows Credential Editor",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2182,
+    "name": "T1003.001 - OS Credential Dumping: Windows Registry",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2066,
+    "name": "T1003.001 - Windows Remote Management (WinRM)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1927,
+    "name": "T1003.001 -Credential Dumping via DLL Side-Loading",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2029,
+    "name": "T1003.001 -Credential Dumping: DLL Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2136,
+    "name": "T1003.001 -Credential Dumping: Windows Security Accounts Manager (SAM)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2964,
+    "name": "T1003.001 LSASS Memory",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1511,
+    "name": "T1003.001: LSASS Memory",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 2712,
+    "name": "T1003.001: OS Credential Dumping",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 70,
+    "name": "Security Account Manager",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  },
+  {
+    "id": 1319,
+    "name": "T1003.002: Security Account Manager",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1003",
+    "status": null
+  }
+]

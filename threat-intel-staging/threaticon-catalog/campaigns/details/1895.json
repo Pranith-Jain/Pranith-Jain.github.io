@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:29:07.908Z",
+  "name": "AiLock: ShopBot Tools",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Jan 16, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Manufacturing | Website: shopbottools.com | Infostealer data confirmed. | ShopBot Tools is a leading manufacturer of high-quality CNC routers, designed for machining various materials including wood, plastic, and aluminum. | Source: https://www.ransomware.live/id/U2hvcEJvdCBUb29sc0BBaUxvY2s="
+}

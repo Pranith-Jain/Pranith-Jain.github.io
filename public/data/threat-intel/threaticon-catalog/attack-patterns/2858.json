@@ -1,0 +1,9 @@
+{
+  "id": 2858,
+  "name": "T1059.003 - Command and Scripting Interpreter: Unix Shell",
+  "techniqueId": "T1059",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2858"
+}

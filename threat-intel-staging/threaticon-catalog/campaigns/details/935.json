@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:10:27.136Z",
+  "name": "AuditTeam: joycity",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Mar 5, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AuditTeam. | Country: KR | Sector: Technology | Website: joycity.com | Infostealer data confirmed. | Joycity is a prominent South Korean game developer and publisher founded in 1994 and listed on the KOSDAQ. Renowned for its innovation and global reach, the company originally pioneered the hip-hop-themed sports genre with its self-developed FreeStyle series, which became a cultural milestone for players across Asia. In the mobile era, Joycity successfully pivoted to the Strategy (SLG) genre, producing high-revenue titles like Gunship Battle: Total Warfare and Pirates of the Caribbean: Tides of War, with international markets consistently accounting for over 70% of its total revenue. Currently, Joycity is actively expanding into Web3 technologies and major cross-platform projects. Its blockbuster collaboration with Capcom and Aniplex, Resident Evil Survival Unit, has already surpassed 5 million global downloads as of early 2026, demonstrating the co..."
+}

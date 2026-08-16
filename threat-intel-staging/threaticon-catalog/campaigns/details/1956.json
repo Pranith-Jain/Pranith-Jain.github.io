@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:26:51.018Z",
+  "name": "lockbit5: brassuco.com.br",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 1, 2026",
+  "lastSeen": "Feb 26, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Agriculture and Food Production | Website: brassuco.com.br | Infostealer data confirmed. | Brassuco Alimentos has been a key player in the food industry since 1985. They make tasty drinks and... | Source: https://www.ransomware.live/id/YnJhc3N1Y28uY29tLmJyQGxvY2tiaXQ1"
+}

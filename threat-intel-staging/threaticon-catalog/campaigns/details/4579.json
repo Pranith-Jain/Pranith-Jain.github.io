@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:24:21.153Z",
+  "name": "interlock: Reynella East College",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 23, 2026",
+  "lastSeen": "Jun 23, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: AU | Sector: Not Found | Website: reynellaec.sa.edu.au | Infostealer data confirmed. | Reynella East College is an innovative educational institution offering a comprehensive curriculum for students from preschool to 12th grade. However, the school failed to adequately protect the privacy of its students and staff and made no attempt to do so, resulting in the leak of their sensitive personal data online. We are providing you with 600 GB of interesting files and documents, including contracts, financial reports, personal data, student and staff identification numbers, seating charts, and much more. | Press: https://www.adelaidenow.com.au/news/south-australia/reynella-east-college-targeted-in-major-cyber-attack-all-systems-taken-offline/news-story/4d707167ed4512a627b4bca8c3991afc | Source: https://www.ransomware.live/id/UmV5bmVsbGEgRWFzdCBDb2xsZWdlQGludGVybG9jaw=="
+}

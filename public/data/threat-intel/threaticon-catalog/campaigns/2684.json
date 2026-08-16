@@ -1,11 +1,11 @@
 {
   "id": 2684,
   "name": "OSINT - Fake Snapchat in Google Play Store",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 11, 2017",
+  "lastSeen": "Aug 11, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1127 (598dc10d-2e10-4de5-8745-433202de0b81).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2684"

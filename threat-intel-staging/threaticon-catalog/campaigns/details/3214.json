@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:54.974Z",
+  "name": "In the footsteps of the Fancy Bear: PowerPoint mouse-over event abused to deliver Graphite implants",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 23, 2022",
+  "lastSeen": "Sep 23, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #353 (c4d1d3f7-822e-4746-850e-2b77ea4e4c5c)."
+}

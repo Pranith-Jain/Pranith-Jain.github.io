@@ -6,7 +6,6 @@ import {
   Check,
   Copy,
   Crosshair,
-  Database,
   ExternalLink,
   Globe,
   Map as MapIcon,
@@ -15,23 +14,13 @@ import {
   Shield,
   Skull,
   Target,
-  TriangleAlert,
 } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /*  Types (mirror the API JSON)                                        */
 /* ------------------------------------------------------------------ */
 
-type TabId =
-  | 'actors'
-  | 'malware'
-  | 'coverage'
-  | 'map'
-  | 'campaigns'
-  | 'attack-patterns'
-  | 'vulnerabilities'
-  | 'catalog'
-  | 'indicators';
+type TabId = 'actors' | 'malware' | 'coverage' | 'map' | 'campaigns' | 'attack-patterns' | 'catalog';
 
 interface TiIndex {
   source: string;
@@ -122,13 +111,7 @@ interface TiMapBody {
 }
 
 type CatalogSectionId =
-  | 'tools'
-  | 'mitigations'
-  | 'data-sources'
-  | 'detection-strategies'
-  | 'campaigns'
-  | 'attack-patterns'
-  | 'vulnerabilities';
+  'tools' | 'mitigations' | 'data-sources' | 'detection-strategies' | 'campaigns' | 'attack-patterns';
 
 interface TiCatalogItem {
   id: number;
@@ -174,12 +157,9 @@ interface TiCatalogIndex {
   sections: Record<string, { syncedAt?: string; detailCount: number }>;
 }
 
-interface TiIndicator {
-  value: string;
-  tlp: string | null;
-  confidence: number | null;
-  added: string | null;
-}
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
+/* ------------------------------------------------------------------ */
 
 /* ------------------------------------------------------------------ */
 /*  Shared bits                                                        */
@@ -192,12 +172,10 @@ const TABS: { id: TabId; label: string; icon: typeof Globe }[] = [
   { id: 'map', label: 'Threat Map', icon: MapIcon },
   { id: 'campaigns', label: 'Campaigns', icon: Radar },
   { id: 'attack-patterns', label: 'Attack Patterns', icon: Target },
-  { id: 'vulnerabilities', label: 'Vulnerabilities', icon: TriangleAlert },
   { id: 'catalog', label: 'Controls Catalog', icon: Shield },
-  { id: 'indicators', label: 'Indicators', icon: Database },
 ];
 
-const CATALOG_TAB_IDS = new Set<TabId>(['campaigns', 'attack-patterns', 'vulnerabilities', 'catalog', 'indicators']);
+const CATALOG_TAB_IDS = new Set<TabId>(['campaigns', 'attack-patterns', 'catalog']);
 
 const SMALL_CATALOG_SECTIONS: {
   id: 'tools' | 'mitigations' | 'data-sources' | 'detection-strategies';
@@ -213,7 +191,6 @@ const SMALL_CATALOG_SECTIONS: {
 const CATALOG_CODE_LABEL: Record<CatalogSectionId, string | null> = {
   campaigns: null,
   'attack-patterns': 'techniqueId',
-  vulnerabilities: null,
   tools: null,
   mitigations: 'mitreId',
   'data-sources': 'dcId',
@@ -814,38 +791,6 @@ function CatalogDetailBody({ section, id }: { section: CatalogSectionId; id: num
   );
 }
 
-function IndicatorCard({ ind, copied, onCopy }: { ind: TiIndicator; copied: boolean; onCopy: () => void }) {
-  return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
-      <div className="flex items-start justify-between gap-2 mb-1.5">
-        <p className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ind.value}</p>
-        {ind.tlp && (
-          <Badge
-            cls={
-              TLP_STYLES[ind.tlp.toLowerCase()] ??
-              'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-            }
-          >
-            {ind.tlp.toUpperCase()}
-          </Badge>
-        )}
-      </div>
-      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-        <Confidence value={ind.confidence} />
-        {ind.added && <span className="text-mini font-mono text-slate-500">added {ind.added}</span>}
-        <button
-          onClick={onCopy}
-          className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-          title="Copy indicator value"
-        >
-          {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
-          {copied ? 'Copied!' : 'copy'}
-        </button>
-      </div>
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /*  Page                                                               */
 /* ------------------------------------------------------------------ */
@@ -864,17 +809,10 @@ export default function ThreaticonFeeds() {
   const [catalogIdx, setCatalogIdx] = useState<TiCatalogIndex | null>(null);
   const [campaigns, setCampaigns] = useState<TiCatalogItem[]>([]);
   const [attackPatterns, setAttackPatterns] = useState<TiCatalogItem[]>([]);
-  const [vulns, setVulns] = useState<TiCatalogItem[]>([]);
   const [catalogItems, setCatalogItems] = useState<TiCatalogItem[]>([]);
   const [catalogSection, setCatalogSection] = useState<
     'tools' | 'mitigations' | 'data-sources' | 'detection-strategies'
   >('tools');
-  const [indicators, setIndicators] = useState<TiIndicator[]>([]);
-  const [indicatorTypes, setIndicatorTypes] = useState<Record<string, { count: number; chunks: number }>>({});
-  const [indicatorType, setIndicatorType] = useState<string | null>(null);
-  const [indicatorChunk, setIndicatorChunk] = useState(0);
-  const [sevFilter, setSevFilter] = useState('all');
-  const [indCopied, setIndCopied] = useState<string | null>(null);
 
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
@@ -907,20 +845,6 @@ export default function ThreaticonFeeds() {
     } catch {
       /* extended catalog not built yet — tabs will note it */
     }
-    try {
-      const iRes = await fetch('/api/v1/threat-intel/threaticon/indicators');
-      if (iRes.ok) {
-        const ij = (await iRes.json()) as { types?: Record<string, { count: number; chunks: number }> };
-        const types = ij.types ?? {};
-        if (Object.keys(types).length > 0) {
-          setIndicatorTypes(types);
-          const first = Object.entries(types).sort((a, b) => b[1].count - a[1].count)[0];
-          if (first) setIndicatorType((prev) => prev ?? first[0]);
-        }
-      }
-    } catch {
-      /* indicator dictionary unavailable */
-    }
   }
 
   const loadedTabs = useRef<Set<TabId>>(new Set());
@@ -942,11 +866,9 @@ export default function ThreaticonFeeds() {
                 ? `${base}/catalog/campaigns?limit=1000`
                 : tab === 'attack-patterns'
                   ? `${base}/catalog/attack-patterns?limit=1000`
-                  : tab === 'vulnerabilities'
-                    ? `${base}/catalog/vulnerabilities?limit=1000`
-                    : tab === 'catalog'
-                      ? `${base}/catalog/${catalogSection}?limit=1000`
-                      : '';
+                  : tab === 'catalog'
+                    ? `${base}/catalog/${catalogSection}?limit=1000`
+                    : '';
     (async () => {
       try {
         const r = await fetch(endpoint);
@@ -958,7 +880,6 @@ export default function ThreaticonFeeds() {
         else if (tab === 'map') setMapBody(json as unknown as TiMapBody);
         else if (tab === 'campaigns') setCampaigns((json.items as TiCatalogItem[]) ?? []);
         else if (tab === 'attack-patterns') setAttackPatterns((json.items as TiCatalogItem[]) ?? []);
-        else if (tab === 'vulnerabilities') setVulns((json.items as TiCatalogItem[]) ?? []);
         else if (tab === 'catalog') setCatalogItems((json.items as TiCatalogItem[]) ?? []);
       } catch {
         /* list fetch failure is non-fatal */
@@ -982,26 +903,6 @@ export default function ThreaticonFeeds() {
     })();
     return () => ctl.abort();
   }, [tab, catalogSection]);
-
-  useEffect(() => {
-    if (tab !== 'indicators') return;
-    if (!indicatorType) return;
-    const ctl = new AbortController();
-    (async () => {
-      try {
-        const r = await fetch(
-          `/api/v1/threat-intel/threaticon/indicators?type=${encodeURIComponent(indicatorType)}&chunk=${indicatorChunk}&limit=1000`,
-          { signal: ctl.signal }
-        );
-        if (!r.ok) return;
-        const json = (await r.json()) as { indicators?: TiIndicator[] };
-        setIndicators(json.indicators ?? []);
-      } catch {
-        /* non-fatal */
-      }
-    })();
-    return () => ctl.abort();
-  }, [tab, indicatorType, indicatorChunk]);
 
   const actorTypes = useMemo(() => {
     const m = new Map<string, number>();
@@ -1068,15 +969,6 @@ export default function ThreaticonFeeds() {
     return attackPatterns.filter((a) => !n || `${a.name} ${a.techniqueId ?? ''}`.toLowerCase().includes(n));
   }, [attackPatterns, query]);
 
-  const filteredVulns = useMemo(() => {
-    const n = query.toLowerCase().trim();
-    return vulns.filter((v) => {
-      if (sevFilter !== 'all' && v.severity?.toLowerCase() !== sevFilter) return false;
-      if (n && !`${v.name} ${v.productCwe ?? ''}`.toLowerCase().includes(n)) return false;
-      return true;
-    });
-  }, [vulns, query, sevFilter]);
-
   const filteredCatalogItems = useMemo(() => {
     const n = query.toLowerCase().trim();
     const codeField = CATALOG_CODE_LABEL[catalogSection];
@@ -1087,11 +979,6 @@ export default function ThreaticonFeeds() {
     });
   }, [catalogItems, query, catalogSection]);
 
-  const filteredIndicators = useMemo(() => {
-    const n = query.toLowerCase().trim();
-    return indicators.filter((i) => !n || i.value.toLowerCase().includes(n));
-  }, [indicators, query]);
-
   async function copyText(slug: string) {
     const a = actors.find((x) => x.slug === slug);
     if (!a) return;
@@ -1099,16 +986,6 @@ export default function ThreaticonFeeds() {
       await navigator.clipboard.writeText(`https://threaticon.com/threat-actors/${a.id}`);
       setCopied(slug);
       setTimeout(() => setCopied(null), 1500);
-    } catch {
-      /* clipboard unavailable */
-    }
-  }
-
-  async function copyIndicator(value: string) {
-    try {
-      await navigator.clipboard.writeText(value);
-      setIndCopied(value);
-      setTimeout(() => setIndCopied(null), 1500);
     } catch {
       /* clipboard unavailable */
     }
@@ -1396,49 +1273,6 @@ export default function ThreaticonFeeds() {
             </>
           )}
 
-          {/* Vulnerabilities tab */}
-          {tab === 'vulnerabilities' && (
-            <>
-              <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                <SearchBox query={query} setQuery={setQuery} placeholder="Search vulnerabilities (CVE, product)…" />
-                <select
-                  value={sevFilter}
-                  onChange={(e) => setSevFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
-                >
-                  <option value="all">All severities</option>
-                  {['Critical', 'High', 'Medium', 'Low'].map((s) => (
-                    <option key={s} value={s.toLowerCase()}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-                <select
-                  value={tlpFilter}
-                  onChange={(e) => setTlpFilter(e.target.value)}
-                  className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
-                >
-                  <option value="all">All TLP</option>
-                  {['red', 'amber', 'green', 'white'].map((t) => (
-                    <option key={t} value={t}>
-                      {t.toUpperCase()}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="text-xs text-slate-500 font-mono mb-3">
-                {catalogIdx
-                  ? `Showing ${filteredVulns.length} of ${catalogIdx.counts.vulnerabilities ?? vulns.length} vulnerabilities`
-                  : 'Extended catalog not built yet — run scripts/sync-threaticon-catalog.mjs && scripts/build-threaticon-catalog.mjs'}
-              </div>
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredVulns.map((v) => (
-                  <CatalogCard key={v.id} item={v} section="vulnerabilities" />
-                ))}
-              </div>
-            </>
-          )}
-
           {/* Controls catalog tab */}
           {tab === 'catalog' && (
             <>
@@ -1472,81 +1306,6 @@ export default function ThreaticonFeeds() {
                   <CatalogCard key={i.id} item={i} section={catalogSection} />
                 ))}
               </div>
-            </>
-          )}
-
-          {/* Indicators tab */}
-          {tab === 'indicators' && (
-            <>
-              {!indicatorType ? (
-                <div className="text-xs text-slate-500 font-mono mb-3">
-                  Indicator dictionary not available yet — run scripts/sync-threaticon-catalog.mjs &&
-                  scripts/build-threaticon-catalog.mjs
-                </div>
-              ) : (
-                <>
-                  <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                    <SearchBox query={query} setQuery={setQuery} placeholder="Search within current chunk…" />
-                    <select
-                      value={indicatorType}
-                      onChange={(e) => {
-                        setIndicatorType(e.target.value);
-                        setIndicatorChunk(0);
-                      }}
-                      className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
-                    >
-                      {Object.entries(indicatorTypes)
-                        .sort((a, b) => b[1].count - a[1].count)
-                        .map(([t, meta]) => (
-                          <option key={t} value={t}>
-                            {t} ({meta.count.toLocaleString()})
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    <button
-                      disabled={indicatorChunk <= 0}
-                      onClick={() => setIndicatorChunk((c) => Math.max(0, c - 1))}
-                      className="px-3 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 disabled:opacity-40 disabled:hover:border-slate-200 dark:disabled:hover:border-[rgb(var(--border-400))] transition"
-                    >
-                      ‹ prev chunk
-                    </button>
-                    {(() => {
-                      const meta = indicatorTypes[indicatorType];
-                      const chunkSize = Math.max(1, Math.ceil((meta?.count ?? 0) / (meta?.chunks ?? 1)));
-                      return (
-                        <span className="text-mini font-mono text-slate-500">
-                          records {(indicatorChunk * chunkSize + 1).toLocaleString()}–
-                          {Math.min((indicatorChunk + 1) * chunkSize, meta?.count ?? 0).toLocaleString()} of{' '}
-                          {(meta?.count ?? 0).toLocaleString()} · chunk {indicatorChunk + 1}/{meta?.chunks ?? 1}
-                        </span>
-                      );
-                    })()}
-                    <button
-                      disabled={indicatorChunk + 1 >= (indicatorTypes[indicatorType]?.chunks ?? 1)}
-                      onClick={() => setIndicatorChunk((c) => c + 1)}
-                      className="px-3 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 disabled:opacity-40 disabled:hover:border-slate-200 dark:disabled:hover:border-[rgb(var(--border-400))] transition"
-                    >
-                      next chunk ›
-                    </button>
-                  </div>
-                  <div className="text-xs text-slate-500 font-mono mb-3">
-                    Showing {filteredIndicators.length} of {indicatorTypes[indicatorType]?.count ?? 0} {indicatorType}{' '}
-                    indicators · browsing this dictionary locally, 1,000 records per fetch
-                  </div>
-                  <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                    {filteredIndicators.map((i) => (
-                      <IndicatorCard
-                        key={i.value}
-                        ind={i}
-                        copied={indCopied === i.value}
-                        onCopy={() => copyIndicator(i.value)}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
             </>
           )}
 

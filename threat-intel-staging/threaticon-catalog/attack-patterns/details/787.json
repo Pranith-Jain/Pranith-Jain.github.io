@@ -1,0 +1,9 @@
+{
+  "id": 787,
+  "fetchedAt": "2026-08-15T06:07:04.928Z",
+  "name": "Force the System to Reset Values",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An attacker forces the target into a previous state in order to leverage potential weaknesses in the target dependent upon a prior configuration or state-dependent factors. Even in cases where an attacker may not be able to directly control the configuration of the targeted application, they may be able to reset the configuration to a prior state since many applications implement reset functions."
+}

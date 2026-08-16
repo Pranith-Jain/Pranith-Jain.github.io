@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7100,
+    "name": "Orova: KINGSSON",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: TW | Sector: Other | Website: www.kingsson.com.tw | KINGSSON primarily operates as an OEM/ODM manufacturer, supplying customized security sealing products under customers' own brands. The company markets mainly to distributors and industrial customers rather than retail consumers. | Source: https://www.ransomware.live/id/S0lOR1NTT05AT3JvdmE="
+  },
+  {
+    "id": 7094,
+    "name": "Orova: SBI Manufacturing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Manufacturing | Website: sbimfg.com | SBI Manufacturing is a family-owned company based in Sioux Falls, SD, specializing in metal fabrication and machine welding. They provide services primarily to the agricultural, industrial, and transportation sectors. | Source: https://www.ransomware.live/id/U0JJIE1hbnVmYWN0dXJpbmdAT3JvdmE="
+  },
+  {
+    "id": 7084,
+    "name": "Orova: Apollo Office System",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: JP | Sector: Other | Website: www.apollo-net.com | Since our establishment in May 1970 as an office equipment sales company, we have provided one-stop services to propose office rationalization and a more comfortable office environment. | Source: https://www.ransomware.live/id/QXBvbGxvIE9mZmljZSBTeXN0ZW1AT3JvdmE="
+  },
+  {
+    "id": 7085,
+    "name": "Orova: EMPYREAN INT’L TECHNO DEVICES",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: TW | Sector: Technology | Website: www.empyrean.tw | Taiwan-based telecom and electronics accessories company. They specialize in wearable accessories, such as digital watches and related gear. | Source: https://www.ransomware.live/id/RU1QWVJFQU4gSU5U4oCZTCBURUNITk8gREVWSUNFU0BPcm92YQ=="
+  },
+  {
+    "id": 7092,
+    "name": "qilin: WD Masonry & Concrete",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Other | Website: www.wdmandc.com | N/A | Source: https://www.ransomware.live/id/V0QgTWFzb25yeSAmIENvbmNyZXRlQHFpbGlu"
+  },
+  {
+    "id": 7082,
+    "name": "Orova: eSysTech",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: BR | Sector: Technology | Website: www.esystech.com.br | The company offers customized software solutions and develops new modules and platforms to enhance IT asset management. Its main product, ADOTI, provides comprehensive tools for tracking and managing IT resources, serving clients across various sectors, including Votorantim Cimentos and Unimed. eSysTech has established partnerships with multiple companies to deliver its services effectively. | Source: https://www.ransomware.live/id/ZVN5c1RlY2hAT3JvdmE="
+  },
+  {
+    "id": 7086,
+    "name": "Orova: Texas Medical Screening",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Healthcare | Website: www.texasmedical.com | Texas Medical has helped organizations deliver health screenings without the overhead. Our self-service kiosks are trusted in workplaces, pharmacies, and community spaces across the country. | Source: https://www.ransomware.live/id/VGV4YXMgTWVkaWNhbCBTY3JlZW5pbmdAT3JvdmE="
+  },
+  {
+    "id": 7090,
+    "name": "Orova: SURE TRAVEL COMPANY",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: HK | Sector: Hospitality | Website: www.emis.com/php/company-profile/HK/Sure_Travel_Company_Limited__Sure_Travel_Company_Limited__zh_7017283.html | SURE TRAVEL COMPANY LIMITED was incorporated on 24-JAN-2000 as a Private company limited by shares registered in Hong Kong. | Source: https://www.ransomware.live/id/U1VSRSBUUkFWRUwgQ09NUEFOWUBPcm92YQ=="
+  },
+  {
+    "id": 7083,
+    "name": "Orova: Northeastern Communications & Electrical",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Energy & Utilities | Website: www.northeastcne.com | Northeastern Communications & Electrical LLC, based in Middletown, Connecticut, specializes in the installation of voice, data, and video systems for various building types, including small, medium, and large-scale projects. The company prides itself on delivering high-quality and professional services, backed by years of technical expertise. | Source: https://www.ransomware.live/id/Tm9ydGhlYXN0ZXJuIENvbW11bmljYXRpb25zICYgRWxlY3RyaWNhbEBPcm92YQ=="
+  },
+  {
+    "id": 7091,
+    "name": "gunra: worldtube",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to gunra. | Country: KR | Sector: Technology | Website: worldtube.co.kr | Sector: Manufacturer of new automotive parts | Revenue: US$ 20,000,000 | Source: https://www.ransomware.live/id/d29ybGR0dWJlQGd1bnJh"
+  },
+  {
+    "id": 7087,
+    "name": "Orova: Sc Regional Housing Authority",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Government & Defense | Website: www.scrha.net | SCRHA3 provides affordable housing solutions across South Carolina, focusing on public housing, homeownership, and rental assistance programs. With over 15 years of experience, they offer subsidized housing assistance to qualified families and help low-income families access the private rental market through the Section 8 program. | Source: https://www.ransomware.live/id/U2MgUmVnaW9uYWwgSG91c2luZyBBdXRob3JpdHlAT3JvdmE="
+  },
+  {
+    "id": 7088,
+    "name": "Orova: Bjs Insurance & Financial",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Financial Services | Website: www.bjsinsurance.net | BJS Insurance Services, Inc. was established upon two underlying principles that continue to define the company today.... Integrity and Stability. We're all about Service, we just do what we say we're going to do. We listen to our clients and suggest what plans fit your needs and budget. | Source: https://www.ransomware.live/id/QmpzIEluc3VyYW5jZSAmIEZpbmFuY2lhbEBPcm92YQ=="
+  },
+  {
+    "id": 7089,
+    "name": "Orova: Wisdom Oral Surgery",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: US | Sector: Healthcare | Website: www.wisdom-oralsurgery.com | Wisdom Oral Surgery, located in Fair Lawn, NJ, specializes in a wide range of oral surgery services including dental implants, wisdom teeth extractions, bone grafting, and facial trauma care. The clinic is dedicated to providing exceptional patient comfort and care, utilizing advanced technology for accurate diagnoses and treatments. | Source: https://www.ransomware.live/id/V2lzZG9tIE9yYWwgU3VyZ2VyeUBPcm92YQ=="
+  },
+  {
+    "id": 7081,
+    "name": "Orova: ADG Healthcare",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Orova. | Country: EG | Sector: Healthcare | Website: www.adg-healthcare.com | ADG Healthcare is a company that operates in the Medical Specialists industry. It employs 250to499 people and has 10Mto25M of revenue. The company is headquartered in Cairo, Cairo, Egypt. | Source: https://www.ransomware.live/id/QURHIEhlYWx0aGNhcmVAT3JvdmE="
+  },
+  {
+    "id": 7080,
+    "name": "chaos: healthcarehighways.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Healthcare | Website: healthcarehighways.com | Infostealer data confirmed. | WARNING / DATA LEAK NOTICE Target: Healthcare Highways (healthcarehighways.com) Countdown: 24 Hours If corporate representatives do not establish contact via chat within the next 24 hours, a massive internal data cache comprising 235 GB of sensitive company and client records will be p… | Source: https://www.ransomware.live/id/aGVhbHRoY2FyZWhpZ2h3YXlzLmNvbUBjaGFvcw=="
+  }
+]

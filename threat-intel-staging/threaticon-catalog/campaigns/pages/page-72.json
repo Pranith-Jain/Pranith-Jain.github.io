@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6795,
+    "name": "Black X: Tong Kong E & E Sdn Bhd (95907X)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Black X. | Country: MY | Sector: Manufacturing | Website: https://wa.me/tongkong | It contains sensitive data, including customers and banking records. | Source: https://www.ransomware.live/id/VG9uZyBLb25nIEUgJiBFIFNkbiBCaGQgKDk1OTA3WClAQmxhY2sgWA=="
+  },
+  {
+    "id": 6794,
+    "name": "Black X: sanaa hospital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Black X. | Country: YE | Sector: Healthcare | [AI generated] N/A | Source: https://www.ransomware.live/id/c2FuYWEgaG9zcGl0YWxAQmxhY2sgWA=="
+  },
+  {
+    "id": 6793,
+    "name": "incransom: harwal.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: AE | Sector: Not Found | Website: harwal.net | Harwal.net Harwal Group is the largest plastics recycler in the Middle East, founded in 1938, with an annual processing capacity of over 200,000 tons of plastics and metals. Manufacturing includes construction materials, pre-engineered building systems, industrial packaging, consumer goods, and refrigeration equipment, including commercial chillers and freezers under the Celsius brand. Companies within the group: four main divisions — TSSC, Interplast, Cosmoplast, and Intermetal — unite 28 business units operating in 65 countries worldwide. DATA- 12tb | Source: https://www.ransomware.live/id/aGFyd2FsLm5ldEBpbmNyYW5zb20="
+  },
+  {
+    "id": 6797,
+    "name": "akira: Northwood Country Club",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Hospitality | Website: northwoodcountryclub.org | Northwood Country Club is a private club located in Meridian, Mississippi, known for its beauti ful facilities and convenient city location. The club offers a range of amenities including cha mpionship golf, clubhouse dining, swimming pool, tennis, and fitness services. We will upload corporate data soon. Employee information (name, home addresses, contacts (emerg ency ones) and so on), financials, contracts and agreements, etc. | Source: https://www.ransomware.live/id/Tm9ydGh3b29kIENvdW50cnkgQ2x1YkBha2lyYQ=="
+  },
+  {
+    "id": 6799,
+    "name": "spacebears: StellarRAD Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6786,
+    "name": "thegentlemen: ETA Technology Pvt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: IN | Sector: Technology | Website: etatechnology.in | etatechnology.in zoominfo.com/c/eta-technology-pvt-ltd/432054929 ETA Technology is a Bangalore-based manufacturing company founded in 1991, specializing in the design and production of advanced welding and forging equipment. They build rotary friction welders, friction stir welding systems, electrical upsetters, and custom test rigs for critical industries like automotive, aerospace, and e-mobility. With over 1,300 machines delivered to more than 20 countries, the company is known for its engineering precision, minimal rejection rates, and reliable global support | Source: https://www.ransomware.live/id/RVRBIFRlY2hub2xvZ3kgUHZ0QHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 6782,
+    "name": "aurora: Pyramid Analytics B.V.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6784,
+    "name": "thegentlemen: Malaysian Nuclear Agency",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6785,
+    "name": "thegentlemen: Delkart Industries Pvt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: IN | Sector: Manufacturing | Website: delkartindustries.com | delkartindustries.com zoominfo.com/c/delkart-industries-pvt-ltd/471455561 Delkart Industries is an Indian manufacturing company established in 2017, specializing in custom felts, automobile carpets, and noise and thermal insulation parts. The company serves the automotive, home appliance, robotics, and industrial sectors with high-quality, customized solutions. With multiple manufacturing plants across India and IATF 16949 / ISO 9001 certifications, it ensures reliability, innovation, and trusted partnerships with leading global brands | Source: https://www.ransomware.live/id/RGVsa2FydCBJbmR1c3RyaWVzIFB2dEB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 6781,
+    "name": "aurora: Evosys Laser GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6783,
+    "name": "thegentlemen: Promatrix",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Technology | Website: promatrixcorp.com | promatrixcorp.com zoominfo.com/c/promatrix-corp/347777611 Promatrix Corp is a rapidly growing IT consulting and outsourcing company based in New Jersey, USA. They deliver comprehensive global technology solutions, including web application development, managed IT services, and staff augmentation. The company also specializes in enterprise resource planning (SAP) support and HR outsourcing to help businesses optimize their operations and scale efficiently | Source: https://www.ransomware.live/id/UHJvbWF0cml4QHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 6789,
+    "name": "thegentlemen: Indus Protech Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6787,
+    "name": "thegentlemen: Kontact Consortium India Pvt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6788,
+    "name": "thegentlemen: Upanal CNC Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: PE | Sector: Manufacturing | Website: upanalcnc.com | upanalcnc.com zoominfo.com/c/upanal-cnc-solutions/370526030 Upanal CNC Solutions is an Indian company specializing in advanced metal cutting and metal forming technologies, particularly CNC machinery. Beyond supplying equipment, they provide comprehensive services including machine modernization, 24/7 technical support, and structured training programs for operators and engineers. Headquartered in Bangalore with a technical center in Chennai and an international office in Bahrain, the company serves a trusted network of over 500 clients across various manufacturing industries | Source: https://www.ransomware.live/id/VXBhbmFsIENOQyBTb2x1dGlvbnNAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 6780,
+    "name": "aurora: Van Eijck International Car Rescue",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

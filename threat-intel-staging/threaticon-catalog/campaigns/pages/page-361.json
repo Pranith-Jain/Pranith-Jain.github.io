@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2378,
+    "name": "OSINT The Curious Case of the Document Exploiting an Unknown Vulnerability â€“ Part 2: RATs, Hackers and Rihanna by Fortinet",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #706 (55dc3064-fb18-481a-b837-58f2950d210b)."
+  },
+  {
+    "id": 2376,
+    "name": "OSINT Threat Spotlight: Spam Served With a Side of Dridex from Cisco Talos",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #703 (55244f19-fc08-42e2-8cd9-42c7950d210b)."
+  },
+  {
+    "id": 2375,
+    "name": "OSINT 'Paying-Days' CryptoWall 3.0 Campaign via Magnitude EK report by malwarefor.me",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #702 (556d5db3-e464-477f-96de-adf2950d210b)."
+  },
+  {
+    "id": 2373,
+    "name": "OSINT Microsoft Office Zero-Day CVE-2015-2424 Leveraged By Tsar Team report by iSight",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #637 (5761398f-31d0-46b0-808f-41de950d210f)."
+  },
+  {
+    "id": 2372,
+    "name": "OSINT Threat Group-4127 Targets Google Accounts by Secureworks",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #635 (57724297-147c-41e3-86f6-4586950d210f)."
+  },
+  {
+    "id": 2371,
+    "name": "OSINT H-Worm IOCs from WooYun",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #634 (57780118-b304-434e-b78f-478d950d210f)."
+  },
+  {
+    "id": 2370,
+    "name": "OSINT DarkHotel samples at WooYun",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #633 (5778026d-9670-44e0-9c25-4751950d210f)."
+  },
+  {
+    "id": 2368,
+    "name": "OSINT Lost your iPhone? Be on guard for a perfectly-timed Apple ID phishing attack by Hot For Security",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #629 (57a8931f-6818-42e8-81a2-44ec950d210f)."
+  },
+  {
+    "id": 2367,
+    "name": "OSINT Group5: Syria and the Iranian Connection by Citizen Lab",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #625 (57a89edc-e184-41da-8e51-4f98950d210f)."
+  },
+  {
+    "id": 2366,
+    "name": "OSINT - Strider: Cyberespionage group turns eye of Sauron on targets",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #623 (57a88345-5254-4c97-954d-4ff8950d210f)."
+  },
+  {
+    "id": 2365,
+    "name": "OSINT - NANHAISHU RATing the South China Sea",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #622 (57a33020-bc70-4f69-96f9-118b950d210f)."
+  },
+  {
+    "id": 2364,
+    "name": "OSINT - LuminosityLink RAT",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #621 (57a05786-71b8-49a2-892e-32ec950d210f)."
+  },
+  {
+    "id": 2363,
+    "name": "Guccifer 2.0: All Roads Lead to Russia - Threatconnect report",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #619 (5797c2d2-5784-4ab9-b5c7-4e98950d210f)."
+  },
+  {
+    "id": 2362,
+    "name": "OSINT - Kovter becomes almost file-less, creates a new file type, and gets some new certificates",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #617 (57931fd5-3c78-4dab-b1e9-4cc302de0b81)."
+  },
+  {
+    "id": 2361,
+    "name": "Malspam 2016-07-21 .wsf (campaign: \"fixed invoice\")",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #615 (5790e667-46bc-453e-bb78-44d0950d210f)."
+  }
+]

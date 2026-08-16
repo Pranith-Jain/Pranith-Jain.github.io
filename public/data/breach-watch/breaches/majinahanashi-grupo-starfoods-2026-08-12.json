@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "PT",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9924c4f6-8660-4faf-a1d2-df8ee117438a",
+  "description": "TARGET: starfoods.pt REVENUE: ~ EMPLOYEES: ~ [LEAK / 3420 FILES]",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

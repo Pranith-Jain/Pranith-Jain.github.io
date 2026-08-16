@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1111,
+    "name": "akira: Swagelok",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1110,
+    "name": "qilin: State Road and Tollway Authority",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Public Sector | Website: srta.ga.gov | Infostealer data confirmed. | Source: https://www.ransomware.live/id/U3RhdGUgUm9hZCBhbmQgVG9sbHdheSBBdXRob3JpdHlAcWlsaW4="
+  },
+  {
+    "id": 1109,
+    "name": "SilentRansomGroup: Plunkett Cooney",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: plunkettcooney.com | Infostealer data confirmed. | Founded in 1913 and headquartered in Bloomfield Hills, Michigan. Plunkett Cooney is a law firm with of… | Source: https://www.ransomware.live/id/UGx1bmtldHQgQ29vbmV5QFNpbGVudFJhbnNvbUdyb3Vw"
+  },
+  {
+    "id": 1108,
+    "name": "akira: Builtrite",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: builtrite.com | Infostealer data confirmed. | Northshore Manufacturing offers 3 main product lines that are mar keted under the Builtrite Brand. The company also produce compone nts for several O.E.M.'s and tackle custom projects within the co mpany's realm of expertise. We will upload 40gb of corporate data soon. Detailed employee pas sports, DLs (13 persons), SSNs and other personal information, fi nancials, violations, police records, NDA, etc. | Source: https://www.ransomware.live/id/QnVpbHRyaXRlQGFraXJh"
+  },
+  {
+    "id": 1107,
+    "name": "dragonforce: blossmangas.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Energy | Website: www.blossmangas.com | Blossman Gas, founded in 1951 and located in Ocean Springs, Mississippi, is a family-owned business that provides a wide range of services in the liquefied petroleum gas industry and specializes in gas appliances. | Source: https://www.ransomware.live/id/Ymxvc3NtYW5nYXMuY29tQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 1106,
+    "name": "incransom: Lincoln Property LLC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: lpc.com | Infostealer data confirmed. | Lincoln Property Company www.lpc.com Total data in the leak: : 800GB Leaked data: - Clients: Rockhill Capital & Investments, FOCUS FINANCIAL PARTNERS, LLC, IMA Financial Group, Provident Partners RE, Deutsche Bank AG, Government…. - Data Classification: confidential - Special data: Contracts, NDAs, CONFIDENTIAL Closed Deals,Personal data, INVESTMENTs, Projects, Drawing... - Financial data: financial planning documents, accounting, CONFIDENTIAL INVESTMENT MEMORANDUMs, Fin. Audits 2021-2026, investors information and VERY IMPORTANT information! | Source: https://www.ransomware.live/id/TGluY29sbiBQcm9wZXJ0eSBMTENAaW5jcmFuc29t"
+  },
+  {
+    "id": 1105,
+    "name": "dragonforce: Elara Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1104,
+    "name": "dragonforce: Fountain",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1103,
+    "name": "qilin: Die Linke",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Public Sector | Website: www.die-linke.de | Press: https://www.heise.de/news/Qilin-Linkspartei-meldet-russischen-Ransomware-Angriff-11227181.html | Source: https://www.ransomware.live/id/RGllIExpbmtlQHFpbGlu"
+  },
+  {
+    "id": 1102,
+    "name": "qilin: jursaconsulting",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: SK | Sector: Business Services | Website: www.jursaconsulting.com | Source: https://www.ransomware.live/id/anVyc2Fjb25zdWx0aW5nQHFpbGlu"
+  },
+  {
+    "id": 1101,
+    "name": "qilin: CHEK News",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Telecommunication | Website: www.cheknews.ca | Source: https://www.ransomware.live/id/Q0hFSyBOZXdzQHFpbGlu"
+  },
+  {
+    "id": 1100,
+    "name": "qilin: Neurologic Associates Of Central Brevard",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.neurologicassociatesofbrevard.com | Source: https://www.ransomware.live/id/TmV1cm9sb2dpYyBBc3NvY2lhdGVzIE9mIENlbnRyYWwgQnJldmFyZEBxaWxpbg=="
+  },
+  {
+    "id": 1117,
+    "name": "akira: Tange , Mann & Garza",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: tmgcpas.com | Infostealer data confirmed. | Tange , Mann & Garza is a full-service accounting firm offering a broad range of services for individuals, business owners, execut ives, and independent professionals. We will upload 40gb of corporate data soon. Employee passports DL and so on, detailed client information (financials, agreements a nd so on), NDA, etc. | Source: https://www.ransomware.live/id/VGFuZ2UgLCBNYW5uICYgR2FyemFAYWtpcmE="
+  },
+  {
+    "id": 1098,
+    "name": "incransom: irpea.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: IT | Sector: Not Found | Website: irpea.it | Infostealer data confirmed. | Fondazione IRPEA is a passionate nonprofit organization based in Padua that champions community service and volunteer work. Since being named the European Capital of Volunteering in 2020, they have been dedicated to growing local social projects and supporting community initiatives. Their work focuses on creating meaningful change through volunteer engagement and public support. Employees: 200 Revenue: $24.2 Million Industry: Charitable Organizations Phone Number: +39 498727201 | Source: https://www.ransomware.live/id/aXJwZWEuaXRAaW5jcmFuc29t"
+  },
+  {
+    "id": 1097,
+    "name": "nightspire: The GMP Group ( Premier Singapore Recruitment Firm with Global Reach )",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: SG | Sector: Business Services | Website: gmprecruit.com | Infostealer data confirmed. | - Financial Documents- Salaries Documents- Candidate' PII information Resumes & CV | Source: https://www.ransomware.live/id/VGhlIEdNUCBHcm91cCAoIFByZW1pZXIgU2luZ2Fwb3JlIFJlY3J1aXRtZW50IEZpcm0gd2l0aCBHbG9iYWwgUmVhY2ggKUBuaWdodHNwaXJl"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 584,
+  "fetchedAt": "2026-08-14T06:02:55.784Z",
+  "name": "Detection of Drive-by Target",
+  "tlp": null,
+  "detId": "DET0825",
+  "stixId": "x-mitre-detection-strategy--3e6efcf8-8308-4832-b247-ce08703c7ed9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1957"]
+}

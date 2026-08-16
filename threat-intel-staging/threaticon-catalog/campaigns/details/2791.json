@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:44:20.577Z",
+  "name": "OSINT - First Kotlin-Developed Malicious App Signs Users Up for Premium SMS Services",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 11, 2018",
+  "lastSeen": "Jan 11, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1285 (5a57af9d-a0ec-4e54-a44d-483302de0b81)."
+}

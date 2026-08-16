@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:15.193Z",
+  "name": "OSINT - Retefe banking Trojan targets UK banking customers",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 28, 2016",
+  "lastSeen": "Jun 28, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #589 (57721a0d-8c48-47a5-86d4-458c950d210f)."
+}

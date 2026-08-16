@@ -1,0 +1,9 @@
+{
+  "id": 1889,
+  "fetchedAt": "2026-08-15T06:54:59.973Z",
+  "name": "T1036.004 - Exfiltration Over Alternative Protocols: DNS, T1055.001 - Phishing Spearphishing Email, T1566.001 - Malware Hidden Within Valid Applications",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

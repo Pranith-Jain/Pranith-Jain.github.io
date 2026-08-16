@@ -1,0 +1,29 @@
+[
+  { "id": 2750, "name": "T0852", "tlp": "white", "confidence": null, "techniqueId": "T0852", "status": null },
+  { "id": 2751, "name": "T0853", "tlp": "white", "confidence": null, "techniqueId": "T0853", "status": null },
+  { "id": 2819, "name": "T0855", "tlp": "white", "confidence": null, "techniqueId": "T0855", "status": null },
+  { "id": 2898, "name": "T0857", "tlp": "white", "confidence": null, "techniqueId": "T0857", "status": null },
+  { "id": 2823, "name": "T0859", "tlp": "white", "confidence": null, "techniqueId": "T0859", "status": null },
+  { "id": 2757, "name": "T0862", "tlp": "white", "confidence": null, "techniqueId": "T0862", "status": null },
+  { "id": 2749, "name": "T0865", "tlp": "white", "confidence": null, "techniqueId": "T0865", "status": null },
+  { "id": 2650, "name": "T0866", "tlp": "white", "confidence": null, "techniqueId": "T0866", "status": null },
+  { "id": 2724, "name": "T0867", "tlp": "white", "confidence": null, "techniqueId": "T0867", "status": null },
+  { "id": 2593, "name": "T0874", "tlp": "white", "confidence": null, "techniqueId": "T0874", "status": null },
+  { "id": 2822, "name": "T0878", "tlp": "white", "confidence": null, "techniqueId": "T0878", "status": null },
+  { "id": 2646, "name": "T0882", "tlp": "white", "confidence": null, "techniqueId": "T0882", "status": null },
+  { "id": 2824, "name": "T0883", "tlp": "white", "confidence": null, "techniqueId": "T0883", "status": null },
+  { "id": 3075, "name": "T0884", "tlp": "white", "confidence": null, "techniqueId": "T0884", "status": null },
+  { "id": 2818, "name": "T0886", "tlp": "white", "confidence": null, "techniqueId": "T0886", "status": null },
+  { "id": 2821, "name": "T0889", "tlp": "white", "confidence": null, "techniqueId": "T0889", "status": null },
+  { "id": 2619, "name": "T0890", "tlp": "white", "confidence": null, "techniqueId": "T0890", "status": null },
+  {
+    "id": 2517,
+    "name": "T0995 (Abuse Elevation Control Mechanism)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T0995",
+    "status": null
+  },
+  { "id": 1361, "name": "T1000", "tlp": "white", "confidence": null, "techniqueId": "T1000", "status": null },
+  { "id": 459, "name": "Data Obfuscation", "tlp": "white", "confidence": null, "techniqueId": "T1001", "status": null }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:06.373Z",
+  "name": "The SideWalk may be as dangerous as the CROSSWALK",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 28, 2021",
+  "lastSeen": "Aug 28, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #268 (f35d4a9f-881b-46b7-9d8a-887a40bce133)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6674,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 6672,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6673,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6671,
+    "name": "Deadlock: HİDROMEK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: www.hidromek.com | HİDROMEK is a leading Turkish manufacturer of heavy construction machinery recognized globally for its high-performance award-winning heavy equipment. Founded in Ankara in 1978 by mechanical engineer Hasan Basri Bozkurt the company operates six state-of-the-art production facilities across Turkey and Thailand. Its heavy machinery operates in more than 130 countries spanning six continents. Over 880 gigabytes of sensitive internal data were stolen from this company | Source: https://www.ransomware.live/id/SMSwRFJPTUVLQERlYWRsb2Nr"
+  },
+  {
+    "id": 6670,
+    "name": "Doommageddon: iw steelTEC Makine San. ve Tic. A.Ş.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Status: leaked | Data size: 100 GB | Files: 0 files | Deadline: 2026-03-08T00:00:00Z | Source: https://www.ransomware.live/id/aXcgc3RlZWxURUMgTWFraW5lIFNhbi4gdmUgVGljLiBBLsWeLkBEb29tbWFnZWRkb24="
+  },
+  {
+    "id": 6669,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6668,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6666,
+    "name": "incransom: greenecountyga.gov",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Government & Defense | Website: greenecountyga.gov | Greene County, Georgia is a historic and scenic county located in the east-central \"Lake Country\" region of the state, roughly halfway between Atlanta and Augusta. Established in 1786 as Georgia's 11th county, it is widely known for its combination of rural heritage, historic architecture, and upscale resort living centered around Lake Oconee. | Press: https://dysruptionhub.com/greene-county-georgia-network-outage/ | Source: https://www.ransomware.live/id/Z3JlZW5lY291bnR5Z2EuZ292QGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 6664,
+    "name": "incransom: minigrip.com.mx",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: MX | Sector: Manufacturing | Website: minigrip.com.mx | Infostealer data confirmed. | Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&D, and financial documentation. | Source: https://www.ransomware.live/id/bWluaWdyaXAuY29tLm14QGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 6665,
+    "name": "incransom: DUCON",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: CO | Sector: Manufacturing | Unauthorized access has been gained to the company's confidential files, including client data, proprietary R&D, and financial documentation. | Source: https://www.ransomware.live/id/RFVDT05AaW5jcmFuc29t"
+  },
+  {
+    "id": 6667,
+    "name": "incransom: foundationstofreedom.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Other | Website: foundationstofreedom.org | Foundations to Freedom is a US-registered 501(c)(3) non-profit organization that provides recovery housing, social adaptation programs, and comprehensive therapeutic support for individuals overcoming alcohol and substance abuse, as well as survivors of domestic violence.The organization is dedicated to offering a safe, structured environment for individuals to rebuild their lives from the ground up and maintain long-term sobriety. It is headquartered in DeLand, Florida, USA | Source: https://www.ransomware.live/id/Zm91bmRhdGlvbnN0b2ZyZWVkb20ub3JnQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 6663,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Professional Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 6662,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Professional Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 6661,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 6660,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

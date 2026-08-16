@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1904,
+    "name": "T1059.003 - Exploit Public-Facing Web Application in Azure Storage",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2480,
+    "name": "T1059.003 - HTTP",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1971,
+    "name": "T1059.003 - Input Data Validation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2131,
+    "name": "T1059.003 - Internal Spear Phishing",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1982,
+    "name": "T1059.003 - Malware Communication|Network Socket Inline Code Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1950,
+    "name": "T1059.003 - Malware Installation: DLL Side-Loading",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1677,
+    "name": "T1059.003 - Malware download via HTTP/HTTPS through a C2 server disguise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2113,
+    "name": "T1059.003 - Malware: Component Communication (e.g., C2 communications)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2454,
+    "name": "T1059.003 - Manual Input",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1630,
+    "name": "T1059.003 - Obfuscated Files or Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1612,
+    "name": "T1059.003 - Obfuscated Files or Information: Fileless Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2051,
+    "name": "T1059.003 - Persistence: Scheduled Task/Job (Persistence)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2459,
+    "name": "T1059.003 - Phishing via malicious email attachments",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2159,
+    "name": "T1059.003 - Phishing via spear-phishing attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2446,
+    "name": "T1059.003 - PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2207,
+    "name": "T1059.003 - PowerShell ISE execution via Start-Process",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2120,
+    "name": "T1059.003 - PowerShell Scripting",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2264,
+    "name": "T1059.003 - PowerShell command execution via Start-Process with cmd.exe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2200,
+    "name": "T1059.003 - PowerShell command line argument concatenation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2487,
+    "name": "T1059.003 - PowerShell for lateral movement and persistence",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  }
+]

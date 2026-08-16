@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:47:33.185Z",
+  "name": "krybit: bomuhospital.org",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: KE | Sector: Healthcare | Website: bomuhospital.org | Infostealer data confirmed. | Bomu Hospital is a social enterprise dedicated to providing access to quality healthcare for all individuals, regardless... | Source: https://www.ransomware.live/id/Ym9tdWhvc3BpdGFsLm9yZ0BrcnliaXQ="
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1238,
+  "fetchedAt": "2026-08-15T06:41:43.664Z",
+  "name": "Repo Jacking",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary takes advantage of the redirect property of directly linked Version Control System (VCS) repositories to trick users into incorporating malicious code into their applications."
+}

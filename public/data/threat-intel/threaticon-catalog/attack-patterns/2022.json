@@ -1,0 +1,9 @@
+{
+  "id": 2022,
+  "name": "T1278 - Account Access Removal",
+  "techniqueId": "T1278",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2022"
+}

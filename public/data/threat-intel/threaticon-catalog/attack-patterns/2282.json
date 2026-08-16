@@ -1,0 +1,9 @@
+{
+  "id": 2282,
+  "name": "T1383 - Data Leak via Paste",
+  "techniqueId": "T1383",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2282"
+}

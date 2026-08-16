@@ -1,0 +1,68 @@
+[
+  { "id": 354, "code": "DET0870", "name": "Detection of Social Media Accounts", "description": null, "columns": ["1"] },
+  { "id": 122, "code": "DET0871", "name": "Detection of Server", "description": null, "columns": ["1"] },
+  { "id": 51, "code": "DET0872", "name": "Detection of Malware", "description": null, "columns": ["1"] },
+  { "id": 39, "code": "DET0873", "name": "Detection of Establish Accounts", "description": null, "columns": ["1"] },
+  { "id": 4, "code": "DET0874", "name": "Detection of Server", "description": null, "columns": ["1"] },
+  {
+    "id": 651,
+    "code": "DET0875",
+    "name": "Detection of Code Signing Certificates",
+    "description": null,
+    "columns": ["1"]
+  },
+  { "id": 487, "code": "DET0876", "name": "Detection of Compromise Accounts", "description": null, "columns": ["1"] },
+  { "id": 676, "code": "DET0877", "name": "Detection of DNS/Passive DNS", "description": null, "columns": ["1"] },
+  { "id": 217, "code": "DET0878", "name": "Detection of Spearphishing Link", "description": null, "columns": ["1"] },
+  { "id": 58, "code": "DET0879", "name": "Detection of Cloud Accounts", "description": null, "columns": ["1"] },
+  {
+    "id": 433,
+    "code": "DET0880",
+    "name": "Detection of Purchase Technical Data",
+    "description": null,
+    "columns": ["1"]
+  },
+  { "id": 88, "code": "DET0881", "name": "Detection of SEO Poisoning", "description": null, "columns": ["1"] },
+  { "id": 24, "code": "DET0882", "name": "Detection of Web Services", "description": null, "columns": ["1"] },
+  { "id": 164, "code": "DET0883", "name": "Detection of Botnet", "description": null, "columns": ["1"] },
+  { "id": 120, "code": "DET0884", "name": "Detection of Acquire Access", "description": null, "columns": ["1"] },
+  {
+    "id": 390,
+    "code": "DET0885",
+    "name": "Detection of Compromise Infrastructure",
+    "description": null,
+    "columns": ["1"]
+  },
+  { "id": 416, "code": "DET0886", "name": "Detection of Spearphishing Voice", "description": null, "columns": ["1"] },
+  { "id": 216, "code": "DET0887", "name": "Detection of Hardware", "description": null, "columns": ["1"] },
+  { "id": 81, "code": "DET0888", "name": "Detection of Software", "description": null, "columns": ["1"] },
+  {
+    "id": 380,
+    "code": "DET0889",
+    "name": "Detection of Network Security Appliances",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 500,
+    "code": "DET0890",
+    "name": "Detection of Gather Victim Org Information",
+    "description": null,
+    "columns": ["1"]
+  },
+  { "id": 679, "code": "DET0891", "name": "Detection of DNS Server", "description": null, "columns": ["1"] },
+  { "id": 376, "code": "DET0892", "name": "Detection of Domains", "description": null, "columns": ["1"] },
+  { "id": 253, "code": "DET0893", "name": "Detection of Link Target", "description": null, "columns": ["1"] },
+  { "id": 409, "code": "DET0894", "name": "Detection of Exploits", "description": null, "columns": ["1"] },
+  {
+    "id": 528,
+    "code": "DET0895",
+    "name": "Detection of Acquire Infrastructure",
+    "description": null,
+    "columns": ["1"]
+  },
+  { "id": 471, "code": "DET0896", "name": "Detection of Web Services", "description": null, "columns": ["1"] },
+  { "id": 627, "code": "DET0897", "name": "Detection of Selective Exclusion", "description": null, "columns": ["1"] },
+  { "id": 238, "code": "DET0898", "name": "Detection of Spoofed User-Agent", "description": null, "columns": ["3"] },
+  { "id": 374, "code": "DET0899", "name": "Detect Social Engineering", "description": null, "columns": ["5"] }
+]

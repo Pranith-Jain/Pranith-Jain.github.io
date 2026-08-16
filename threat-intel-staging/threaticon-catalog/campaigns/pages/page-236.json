@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4331,
+    "name": "qilin: TQ Financial Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Sector: Financial Services | Website: www.tqfinancials.com | N/A | Source: https://www.ransomware.live/id/VFEgRmluYW5jaWFsIFNlcnZpY2VzQHFpbGlu"
+  },
+  {
+    "id": 4332,
+    "name": "qilin: Md Lewis",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.mdlewiscpa.com | N/A | Source: https://www.ransomware.live/id/TWQgTGV3aXNAcWlsaW4="
+  },
+  {
+    "id": 4330,
+    "name": "play: Silvestri & Associates Insurance",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Financial Services | Website: www.silvestriandassociates.com | United States | Source: https://www.ransomware.live/id/U2lsdmVzdHJpICYgQXNzb2NpYXRlcyBJbnN1cmFuY2VAcGxheQ=="
+  },
+  {
+    "id": 4333,
+    "name": "qilin: Goodwill Manasota",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.experiencegoodwill.org | N/A | Source: https://www.ransomware.live/id/R29vZHdpbGwgTWFuYXNvdGFAcWlsaW4="
+  },
+  {
+    "id": 4334,
+    "name": "qilin: Sitmatic",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Technology | Website: www.sitmatic.com | N/A | Source: https://www.ransomware.live/id/U2l0bWF0aWNAcWlsaW4="
+  },
+  {
+    "id": 4329,
+    "name": "play: Locati Architects",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: AU | Sector: Construction | Website: www.locatiarchitects.com | United States | Source: https://www.ransomware.live/id/TG9jYXRpIEFyY2hpdGVjdHNAcGxheQ=="
+  },
+  {
+    "id": 4328,
+    "name": "unsafe: Deutsche Bank",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to unsafe. | Country: DE | Sector: Financial Services | Website: db.com | Infostealer data confirmed. | Revenue: 30 billion | Source: https://www.ransomware.live/id/RGV1dHNjaGUgQmFua0B1bnNhZmU="
+  },
+  {
+    "id": 4324,
+    "name": "Wallstreet: Gold Standard Automotive",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Wallstreet. | Country: US | Sector: Manufacturing | Website: goldstandardautomotive.com | Infostealer data confirmed. | Gold Standard Automotive Network administers vehicle service contracts sold through dealerships, offering coverage for repairs after your factory warranty ends, with claim approvals handled through the company. | Source: https://www.ransomware.live/id/R29sZCBTdGFuZGFyZCBBdXRvbW90aXZlQFdhbGxzdHJlZXQ="
+  },
+  {
+    "id": 4325,
+    "name": "Wallstreet: Baraga County Memorial Hospital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Wallstreet. | Country: US | Sector: Healthcare | Website: bcmh.org | Infostealer data confirmed. | Baraga County Memorial Hospital is a critical access hospital serving Baraga County with emergency, surgery, imaging, rehab, and outpatient care. | Source: https://www.ransomware.live/id/QmFyYWdhIENvdW50eSBNZW1vcmlhbCBIb3NwaXRhbEBXYWxsc3RyZWV0"
+  },
+  {
+    "id": 4323,
+    "name": "genesis: East Texas Family Medicine",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: etfmed.com | Infostealer data confirmed. | A healthcare organization | Source: https://www.ransomware.live/id/RWFzdCBUZXhhcyBGYW1pbHkgTWVkaWNpbmVAZ2VuZXNpcw=="
+  },
+  {
+    "id": 4326,
+    "name": "Wallstreet: Edgewood Police Department",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Wallstreet. | Country: US | Sector: Public Sector | Website: edgewood-fl.gov | Infostealer data confirmed. | The Edgewood Police Department is part of the Pierce County Sheriff’s Department, providing public safety and law enforcement services for the city. | Source: https://www.ransomware.live/id/RWRnZXdvb2QgUG9saWNlIERlcGFydG1lbnRAV2FsbHN0cmVldA=="
+  },
+  {
+    "id": 4320,
+    "name": "genesis: Westgate",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Not Found | Website: westgatellc.com | Infostealer data confirmed. | A construction management company | Source: https://www.ransomware.live/id/V2VzdGdhdGVAZ2VuZXNpcw=="
+  },
+  {
+    "id": 4321,
+    "name": "genesis: Dunagan Associates",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: dunaganassociates.com | Infostealer data confirmed. | Provides services in residential real estate and insurance | Source: https://www.ransomware.live/id/RHVuYWdhbiBBc3NvY2lhdGVzQGdlbmVzaXM="
+  },
+  {
+    "id": 4327,
+    "name": "Wallstreet: Asisken",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Wallstreet. | Country: EC | Sector: Not Found | Asisken (asisken.com) is a medical assistance/health insurance company offering prepaid medical coverage and member support services, with a hospital network in Ecuador (and Colombia). | Source: https://www.ransomware.live/id/QXNpc2tlbkBXYWxsc3RyZWV0"
+  },
+  {
+    "id": 4322,
+    "name": "genesis: Synergy Interactive",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Technology | Website: sinyc.com | Infostealer data confirmed. | A provider of staffing services | Source: https://www.ransomware.live/id/U3luZXJneSBJbnRlcmFjdGl2ZUBnZW5lc2lz"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2821,
+    "name": "Keylogger info via Twitter Feed",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1353 (5b043df6-f10c-4de2-a499-2f0d0acd0835)."
+  },
+  {
+    "id": 2820,
+    "name": "Panda Malware Broadens - F5 Blog",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1351 (5af9eb11-bba8-46ab-acc0-b75e0acd0835)."
+  },
+  {
+    "id": 2819,
+    "name": "OSINT - A tale of two zero-days",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1350 (5afafce0-0598-4ca0-b52a-41f4950d210f)."
+  },
+  {
+    "id": 2818,
+    "name": "OSINT - Botnet exploiting GPON Vulnerability",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1348 (5af412ea-4254-4668-b1ea-44bc950d210f)."
+  },
+  {
+    "id": 2817,
+    "name": "OSINT - Lojack Becomes a Double-Agent",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1345 (5aec6eea-74a4-43f9-8910-498d950d210f)."
+  },
+  {
+    "id": 2816,
+    "name": "OSINT - Maktub ransomware: possibly rebranded as Iron",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1338 (5add984c-c0f0-41b0-8ff0-4f6d950d210f)."
+  },
+  {
+    "id": 2815,
+    "name": "Vurten Ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1334 (5ad09f32-ce58-47f3-b137-4411950d210f)."
+  },
+  {
+    "id": 2814,
+    "name": "OSINT - Goodbye Cerber? Hello Magniber Ransomware!",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1333 (5ad059f5-b418-43bc-a901-7c4a950d210f)."
+  },
+  {
+    "id": 2813,
+    "name": "OSINT - The WhiteRose Ransomware Is Decryptable & Tells A Strange Story",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1327 (5ac7752d-a430-4606-8d2b-06b4950d210f)."
+  },
+  {
+    "id": 2812,
+    "name": "OSINT - Black Ruby Ransomware Skips Victims in Iran and Adds a Miner for Good Measure",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1326 (5ac763c9-0ba0-413e-ae2a-4de3950d210f)."
+  },
+  {
+    "id": 2811,
+    "name": "OSINT - The DiskWriter or UselessDisk BootLocker May Be A Wiper",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1325 (5ac6140f-5964-4eb8-81bd-4095950d210f)."
+  },
+  {
+    "id": 2810,
+    "name": "OSINT - Sofacy Uses DealersChoice to Target European Government Agency",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1320 (5aac24b9-0404-4877-8b3f-425e02de0b81)."
+  },
+  {
+    "id": 2809,
+    "name": "OSINT - APT15 is alive and strong: An analysis of RoyalCli and RoyalDNS",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1318 (5aa670db-6ef0-4d81-8e90-9476950d210f)."
+  },
+  {
+    "id": 2808,
+    "name": "OSINT - Royal APT - APT15 - Related Information from NCC Group Cyber Defense Operations Research",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #1317 (5aa64b62-8f2c-4081-a6f9-4480950d210f)."
+  },
+  {
+    "id": 2807,
+    "name": "OSINT - Turla Nautilus Implant",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #1316 (5aa63cdc-2e9c-4621-8499-4c47950d210f)."
+  }
+]

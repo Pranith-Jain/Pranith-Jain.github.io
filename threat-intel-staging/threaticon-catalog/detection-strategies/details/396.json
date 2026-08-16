@@ -1,0 +1,12 @@
+{
+  "id": 396,
+  "fetchedAt": "2026-08-14T05:23:24.136Z",
+  "name": "Detection Strategy for Forged Web Credentials",
+  "tlp": null,
+  "detId": "DET0260",
+  "stixId": "x-mitre-detection-strategy--44f32d03-50ce-480f-b531-481bcc6dc0a8",
+  "analyticCount": 7,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0717", "AN0718", "AN0719", "AN0720", "AN0721", "AN0722", "AN0723"]
+}

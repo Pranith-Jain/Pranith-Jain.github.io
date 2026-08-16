@@ -3,9 +3,9 @@
   "name": "lockbit5: instapack.es",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 28, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: ES | Sector: Business Services | Website: instapack.es | Infostealer data confirmed. | Instapack is a professional courier service with over 30 years of experience, offering immediate del... | Source: https://www.ransomware.live/id/aW5zdGFwYWNrLmVzQGxvY2tiaXQ1",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/353"

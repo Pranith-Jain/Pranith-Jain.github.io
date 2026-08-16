@@ -1,0 +1,9 @@
+{
+  "id": 2104,
+  "name": "T1485 - Credential Dumping",
+  "techniqueId": "T1485",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2104"
+}

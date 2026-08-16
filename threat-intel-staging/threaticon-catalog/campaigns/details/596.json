@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:28:42.502Z",
+  "name": "coinbasecartel: Commscope",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 20, 2026",
+  "lastSeen": "Apr 20, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Telecommunication | Website: Commscope.com | [AI generated] CommScope is an American telecommunications infrastructure company headquartered in Hickory, North Carolina. It designs and manufactures network infrastructure solutions including cables, connectivity systems, wireless equipment, and data center infrastructure. The company serves telecommunications providers, enterprises, and government clients worldwide. Founded in 1976, CommScope operates globally across the broadband, wireless, and enterprise networking industries. | Source: https://www.ransomware.live/id/Q29tbXNjb3BlQGNvaW5iYXNlY2FydGVs"
+}

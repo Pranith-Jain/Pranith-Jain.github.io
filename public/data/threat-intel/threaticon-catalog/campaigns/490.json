@@ -3,9 +3,9 @@
   "name": "lockbit5: bladex.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 26, 2026",
+  "lastSeen": "Apr 22, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: PA | Sector: Technology | Website: bladex.com | Infostealer data confirmed. | Bladex, a multinational bank originally established by the central banks of Latin-American and Carib... | Source: https://www.ransomware.live/id/YmxhZGV4LmNvbUBsb2NrYml0NQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/490"

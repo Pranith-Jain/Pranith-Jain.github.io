@@ -3,9 +3,9 @@
   "name": "safepay: stedwardscatholicfirstschool.co.uk",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to safepay. | Country: GB | Sector: Education | Website: stedwardscatholicfirstschool.co.uk | Infostealer data confirmed. | The school provides education for children aged 5 to 9 years and operates as a Voluntary Aided School under the … | Source: https://www.ransomware.live/id/c3RlZHdhcmRzY2F0aG9saWNmaXJzdHNjaG9vbC5jby51a0BzYWZlcGF5",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4282"

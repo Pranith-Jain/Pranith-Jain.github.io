@@ -1,0 +1,9 @@
+{
+  "id": 1179,
+  "name": "Token Impersonation",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An adversary exploits a weakness in authentication to create an access token (or equivalent) that impersonates a different entity, and then associates a process/thread to that that impersonated token. This action causes a downstream user to make a decision or take action that is based on the assumed identity, and not the response that blocks the adversary.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1179"
+}

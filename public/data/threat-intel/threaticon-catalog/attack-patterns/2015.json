@@ -1,0 +1,9 @@
+{
+  "id": 2015,
+  "name": "T1485 - Ransomware: Data Destruction",
+  "techniqueId": "T1485",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2015"
+}

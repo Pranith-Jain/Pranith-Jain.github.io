@@ -3,9 +3,9 @@
   "name": "qilin: Muller Technology",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 6, 2026",
+  "lastSeen": "Apr 6, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: CH | Sector: Technology | Website: muller-technology.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/TXVsbGVyIFRlY2hub2xvZ3lAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/996"

@@ -1,0 +1,9 @@
+{
+  "id": 581,
+  "fetchedAt": "2026-08-15T08:05:22.162Z",
+  "name": "Server Software Component",
+  "tlp": "white",
+  "techniqueId": "T1505",
+  "added": "May 2, 2026",
+  "description": "Adversaries may abuse legitimate extensible development features of servers to establish persistent access to systems. Enterprise server applications may include features that allow developers to write and install software or scripts to extend the functionality of the main application. Adversaries may install malicious components to extend and abuse server applications.(Citation: volexity_0day_sophos_FW)"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:14:45.759Z",
+  "name": "Prometei botnet improves modules and exhibits new capabilities in recent updates",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 9, 2023",
+  "lastSeen": "Mar 9, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #371 (d7ebcacf-76c8-4c78-a63e-b0bde7c82094)."
+}

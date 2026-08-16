@@ -1,0 +1,9 @@
+{
+  "id": 1515,
+  "name": "T1134.001: Token Impersonation/Theft",
+  "techniqueId": "T1134",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1515"
+}

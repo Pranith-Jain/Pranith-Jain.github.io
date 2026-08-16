@@ -1,0 +1,9 @@
+{
+  "id": 1166,
+  "fetchedAt": "2026-08-15T06:23:34.112Z",
+  "name": "Drop Encryption Level",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. An attacker forces the encryption level to be lowered, thus enabling a successful attack against the encrypted data."
+}

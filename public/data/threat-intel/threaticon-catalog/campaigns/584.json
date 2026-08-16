@@ -3,10 +3,10 @@
   "name": "akira: MAC Construction & Excavating",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 21, 2026",
+  "lastSeen": "Apr 21, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Construction | Website: macconstruction.com | Infostealer data confirmed. | MAC is a diversified construction company with integrated divisio ns working closely together to provide a wide variety of quality construction and excavation services, quality workmanship - produ ced by quality people. We will upload 30gb of corporate data soon. DB data (Salary / Inc ome 2490386 rows, Physical Address 223606 rows,Online Account 123 070 rows, Phone / Fax 111784 rows, Bank / Financial 73100 rows, I P / Device 5923 rows, Password / Secret 1783 rows, Tax ID 1686 ro ws, Name (Person) 1074 rows, Email 967 rows, Photo / Biometric 13 7 rows, FR - Contact 100 rows, Property 28 rows, Employment 18 ro ws, SSN / National ID 8 rows) and a lot of other internal files. | Source: https://www.ransomware.live/id/TUFDIENvbnN0cnVjdGlvbiAmIEV4Y2F2YXRpbmdAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/584"
 }

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:56:19.660Z",
+  "name": "OSINT - Dragonfly: Western energy sector targeted by sophisticated attack group",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 6, 2017",
+  "lastSeen": "Sep 6, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1158 (59afedbe-12f4-4585-9048-4b8b950d210f)."
+}

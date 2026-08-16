@@ -1,0 +1,9 @@
+{
+  "id": 1127,
+  "fetchedAt": "2026-08-15T06:21:51.144Z",
+  "name": "DNS Domain Seizure",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "In this attack pattern, an adversary influences a target's web-hosting company to disable a target domain. The goal is to prevent access to the targeted service provided by that domain. It usually occurs as the result of civil or criminal legal interventions."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:52:02.370Z",
+  "name": "thegentlemen: Groupe BPCE",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 6, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: VN | Sector: Financial Services | Website: bpce-vietnam.com | Infostealer data confirmed. | bpce-vietnam.com zoominfo.com/c/groupe-bpce/457963650 BPCE International (formerly Natixis), the Ho Chi Minh City branch of France’s second-largest banking group, Groupe BPCE. Operating in Vietnam since 1988, it is one of the country's longest-established foreign bank branches, holding a full banking license. The institution specializes in corporate and investment banking, offering specialized finance, trade solutions, and transaction processing to businesses across the region. | Source: https://www.ransomware.live/id/R3JvdXBlIEJQQ0VAdGhlZ2VudGxlbWVu"
+}

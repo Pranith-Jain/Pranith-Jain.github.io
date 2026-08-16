@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:03.668Z",
+  "name": "Return of the Evilnum APT with updated TTPs and new targets",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jul 1, 2022",
+  "lastSeen": "Jul 1, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #310 (5a717019-2b96-48ea-aad0-8532d4f1dad2)."
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2522,
+  "name": "T1075 (Data Extraction via Memory Dump)",
+  "techniqueId": "T1075",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2522"
+}

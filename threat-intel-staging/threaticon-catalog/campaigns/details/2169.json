@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:18:03.363Z",
+  "name": "BRONZE PRESIDENT Targets NGOs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 3, 2020",
+  "lastSeen": "Jan 3, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #212 (5e0f4cf1-d9d4-4243-b077-9c80c0a8ab16)."
+}

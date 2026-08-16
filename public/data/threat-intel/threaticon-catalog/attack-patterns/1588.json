@@ -1,0 +1,9 @@
+{
+  "id": 1588,
+  "name": "T1067 (Malware Code Execution via Web Request)",
+  "techniqueId": "T1067",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1588"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2163,
+  "fetchedAt": "2026-08-15T07:02:19.393Z",
+  "name": "T1055 - Process Injection (e.g., injecting malicious code into legitimate processes)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

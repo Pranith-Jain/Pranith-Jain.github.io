@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:29:28.577Z",
+  "name": "OSINT - Ruby/Gem Warning! is rest-client 1.6.13 hijacked? #713",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Aug 20, 2019",
+  "lastSeen": "Aug 20, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1545 (5d5bfb96-ff34-4470-9107-cfdc950d210f)."
+}

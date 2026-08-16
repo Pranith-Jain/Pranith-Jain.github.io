@@ -1,11 +1,11 @@
 {
   "id": 2181,
   "name": "The Golden Tax Department and the Emergence of GoldenSpy Malware",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 27, 2020",
+  "lastSeen": "Jun 27, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #225 (5ef79d21-7e30-46fc-934c-ad77c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2181"

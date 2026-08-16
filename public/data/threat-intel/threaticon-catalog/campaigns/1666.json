@@ -3,10 +3,10 @@
   "name": "thegentlemen: Docaret",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 11, 2026",
+  "lastSeen": "Mar 11, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: FR | Sector: Business Services | Website: docaret.com | Infostealer data confirmed. | docaret.com zoominfo.com/c/docaret/363588396 For over 30 years, DOCARET has combined excellent technical writing and document management skills with a technical understanding of its customers' business sectors and the type of documentation they require. Our technical writers have a solid technical background and speak the same language as your engineers or technicians. Our translators and associates also have extensive experience in the sectors in which they work. We can also fulfill your requirements in the following areas; communications (brochures and booklets in 2D and 3D), development of digital models and logistic support (provision of technicians or engineers). Our goal is to build strong partnerships with our customers. This ensures efficiency and guarantees high quality and competitive service provisions. As managing director, my object...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1666"
 }

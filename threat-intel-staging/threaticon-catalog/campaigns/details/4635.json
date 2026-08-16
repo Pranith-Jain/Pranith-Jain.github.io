@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:22:59.564Z",
+  "name": "cmdorganization: Pinnacle Re-Tec",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Jun 20, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Business Services | Website: www.pinnacleretec.com | Pinnacle Re-Tec Ltd is a UK-based company specializing in the service, maintenance, repair, reverse engineering, and supply of spare parts for centrifugal pumps and gearboxes. With over 16 years of experience, they provide bespoke solutions focused on cost efficiency and quality assurance across various industries, including oil and gas, power, petrochemical, and water. Their services include pump repairs, testing, and commissioning, catering to both domestic and international clients. Pinnacle Re-Tec is committed to delivering independent advice and support for all brands and types of industrial pumps. | Source: https://www.ransomware.live/id/UGlubmFjbGUgUmUtVGVjQGNtZG9yZ2FuaXphdGlvbg=="
+}

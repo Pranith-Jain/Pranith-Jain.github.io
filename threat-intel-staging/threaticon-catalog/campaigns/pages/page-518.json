@@ -1,0 +1,73 @@
+[
+  { "id": 16, "name": "Satellite Turla", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 13, "name": "DNC Hack", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 14, "name": "OpOlympics", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 15, "name": "Operation Ghost", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  {
+    "id": 11,
+    "name": "TV5 Monde Cyber Caliphate",
+    "tlp": "white",
+    "confidence": 60,
+    "status": null,
+    "description": null
+  },
+  { "id": 10, "name": "Bundestag", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 12, "name": "EFF Attack", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  { "id": 9, "name": "Russian Doll", "tlp": "white", "confidence": 60, "status": null, "description": null },
+  {
+    "id": 7,
+    "name": "2026-02-05 (Thursday): Abuse Of Firebase Developer Accounts For Phishing And Scams",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-02-05 (Thursday): Abuse Of Firebase Developer Accounts For Phishing And Scams. References: https://www.linkedin.com/posts/unit42_scammers-phishing-activity-7425676942294708224-A1LK/, https://x.com/Unit42_Intel/status/2019911322138280191"
+  },
+  {
+    "id": 5,
+    "name": "2026-02-10 (Tuesday): Smishing Impersonating U.s. Wireless Carriers",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-02-10 (Tuesday): Smishing Impersonating U.s. Wireless Carriers. References: https://www.linkedin.com/posts/unit42_smishing-activity-7427498710030499840-leB6/, https://x.com/Unit42_Intel/status/2021733083951546607"
+  },
+  {
+    "id": 6,
+    "name": "2026-02-06 (Friday): Scams And Predatory Services Related To The 2026 Super Bowl",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-02-06 (Friday): Scams And Predatory Services Related To The 2026 Super Bowl. References: https://www.linkedin.com/posts/unit42_scams-biggame-activity-7425966094999437313-ESyQ/, https://x.com/Unit42_Intel/status/2020200473962172507"
+  },
+  {
+    "id": 8,
+    "name": "2026-02-04 (Wednesday): Contagious Interview Campaign Activity",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-02-04 (Wednesday): Contagious Interview Campaign Activity. References: https://www.linkedin.com/posts/unit42_contagiousinterview-invisibleferret-activity-7425286615109132290-VUog/, https://x.com/Unit42_Intel/status/2019520975985840599"
+  },
+  {
+    "id": 4,
+    "name": "2026-02-11 (Wednesday): Remote Access Trojan (Rat) Disguised As Ai-Based Browser Control Extension",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-02-11 (Wednesday): Remote Access Trojan (Rat) Disguised As Ai-Based Browser Control Extension. References: https://www.linkedin.com/posts/unit42_mcp-agentic-browsersecurity-activity-7427762221243621376-VaF8/, https://twitter.com/Unit42_Intel/status/2021996582481064327"
+  },
+  {
+    "id": 3,
+    "name": "2026-02-13 (Friday): Tactics To Evade Web Store Bans On Malicious Browser Extensions",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-02-13 (Friday): Tactics To Evade Web Store Bans On Malicious Browser Extensions. References: https://www.linkedin.com/posts/unit42_malicious-browser-extensions-use-2-flip-to-clean-activity-7428171632235511808-YKL0/, https://x.com/Unit42_Intel/status/2022406009273061441"
+  },
+  {
+    "id": 2,
+    "name": "2026-02-20 (Friday): Tech Support Scam Activity",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-02-20 (Friday): Tech Support Scam Activity. References: https://www.linkedin.com/posts/unit42_tech-support-scams-targeting-japanese-victims-activity-7430650011677335552-dEjt/, https://x.com/Unit42_Intel/status/2024884387238613032"
+  }
+]

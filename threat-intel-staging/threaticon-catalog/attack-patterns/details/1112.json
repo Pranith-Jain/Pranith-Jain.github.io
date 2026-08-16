@@ -1,0 +1,9 @@
+{
+  "id": 1112,
+  "fetchedAt": "2026-08-15T06:21:11.214Z",
+  "name": "Block Logging to Central Repository",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. An adversary prevents host-generated logs being delivered to a central location in an attempt to hide indicators of compromise."
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:31:08.804Z",
+  "name": "coinbasecartel: Peru LNG (Hunt LNG Operating Company)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 23, 2026",
+  "lastSeen": "Apr 23, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: PE | Sector: Energy | Website: perulng.com | Infostealer data confirmed. | [AI generated] Peru LNG, operated by Hunt LNG Operating Company, is an energy company engaged in the liquefaction and export of natural gas in Peru. It operates a liquefied natural gas plant in Pampa Melchorita on the Peruvian coast, processing gas from the Camisea fields. The company exports LNG primarily to international markets, making it a key player in Peru's hydrocarbon and energy export sector. | Source: https://www.ransomware.live/id/UGVydSBMTkcgKEh1bnQgTE5HIE9wZXJhdGluZyBDb21wYW55KUBjb2luYmFzZWNhcnRlbA=="
+}

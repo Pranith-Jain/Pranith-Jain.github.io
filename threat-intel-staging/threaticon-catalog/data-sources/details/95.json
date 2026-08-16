@@ -1,0 +1,12 @@
+{
+  "id": 95,
+  "fetchedAt": "2026-08-14T05:08:24.000Z",
+  "name": "Windows Registry Key Access",
+  "tlp": null,
+  "dcId": "DC0050",
+  "analyticCount": 6,
+  "strategyCount": 6,
+  "added": null,
+  "description": "The action of opening a specific Windows Registry key, typically to read its associated value. This activity can be used for system configuration, application settings retrieval, and security policies.",
+  "analytics": ["AN0628", "AN0671", "AN0694", "AN1133", "AN1393", "AN1561"]
+}

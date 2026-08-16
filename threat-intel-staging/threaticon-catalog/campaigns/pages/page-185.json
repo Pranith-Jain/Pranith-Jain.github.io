@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5099,
+    "name": "akira: Cherokee Distributing Co",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Transportation/Logistics | Cherokee Distributing Company offers the leading brands of beer and other nonalcoholic beverage s. In addition to their headquarters in Knoxville, they manage distribution centers in Chattano oga, Cookeville, Kingsport, Pulaski and Tullahoma. We will upload 40gb of corporate data soon. Employee personal docs (passports, DLs, SSNs), cont racts and agreements, partner and client files, detailed financials, projects, NDAs, confidenti al files, etc. | Source: https://www.ransomware.live/id/Q2hlcm9rZWUgRGlzdHJpYnV0aW5nIENvQGFraXJh"
+  },
+  {
+    "id": 5098,
+    "name": "incransom: Colina Financial Advisors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5100,
+    "name": "akira: Factors Western",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Business Services | Factors Western specializes in providing factoring services to businesses across various indust ries, helping them convert receivables into cash for improved cash flow and business growth. We will upload corporate data soon. Lots of employee and client data (name, phones, passports), hockey players personal information (Connor McDavid and others), contracts and agreements, fin ancials, projects, etc. | Source: https://www.ransomware.live/id/RmFjdG9ycyBXZXN0ZXJuQGFraXJh"
+  },
+  {
+    "id": 5093,
+    "name": "dragonforce: SETS Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5101,
+    "name": "akira: Hal Otey Financial",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Financial Services | Hal Otey Financial offers a range of financial services including wealth management, financial planning, retirement planning, investment management, estate planning, and tax planning. We will upload corporate data soon. Lots client data (passports, DLs, social security numbers, health and insurance files and so on), contracts and agreements, detailed financials, projects, etc. | Source: https://www.ransomware.live/id/SGFsIE90ZXkgRmluYW5jaWFsQGFraXJh"
+  },
+  {
+    "id": 5092,
+    "name": "dragonforce: Copamex",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: MX | Sector: Agriculture and Food Production | Website: copamex.com | Infostealer data confirmed. | Copamex, headquartered in Monterrey, Mexico, and established in 1928, is a paper manufacturing company offering writing and printing, special, corrugated, and kraft paper solutions. | Source: https://www.ransomware.live/id/Q29wYW1leEBkcmFnb25mb3JjZQ=="
+  },
+  {
+    "id": 5091,
+    "name": "anubis: Singing River Health System",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Healthcare | New data breach at a large health system provider. | Source: https://www.ransomware.live/id/U2luZ2luZyBSaXZlciBIZWFsdGggU3lzdGVtQGFudWJpcw=="
+  },
+  {
+    "id": 5114,
+    "name": "qilin: Nova Medical Products",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Healthcare | Website: www.novajoy.com | N/A | Source: https://www.ransomware.live/id/Tm92YSBNZWRpY2FsIFByb2R1Y3RzQHFpbGlu"
+  },
+  {
+    "id": 5094,
+    "name": "nitrogen: Pyramid",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nitrogen. | Country: US | Sector: Not Found | Website: www.pyramidmg.com | Ownership and management of shopping center. Development and redevelopment of real estate properties. Leasing of space to retail chains, restaurants, and entertainment venues | Source: https://www.ransomware.live/id/UHlyYW1pZEBuaXRyb2dlbg=="
+  },
+  {
+    "id": 5089,
+    "name": "genesis: PB White & Co",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Sector: Business Services | Website: . | Infostealer data confirmed. | A provider of financial services | Source: https://www.ransomware.live/id/UEIgV2hpdGUgJiBDb0BnZW5lc2lz"
+  },
+  {
+    "id": 5090,
+    "name": "genesis: Family Medical Associates of Raleigh",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Healthcare | Website: . | Infostealer data confirmed. | A healthcare organization | Source: https://www.ransomware.live/id/RmFtaWx5IE1lZGljYWwgQXNzb2NpYXRlcyBvZiBSYWxlaWdoQGdlbmVzaXM="
+  },
+  {
+    "id": 5088,
+    "name": "cmdorganization: SeeWriteHear",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to cmdorganization. | Country: GB | Sector: Technology | Website: www.seewritehear.com | SeeWriteHear specializes in providing print and digital accessibility solutions, including Braille, large print, and web accessibility services. Their offerings cater to various industries such as education, government, and publishing, ensuring compliance with usability standards. The company focuses on innovative technology to enhance accessibility for individuals with disabilities. With a commitment to information equality, SeeWriteHear serves clients by creating accessible content and providing consulting and training services. | Source: https://www.ransomware.live/id/U2VlV3JpdGVIZWFyQGNtZG9yZ2FuaXphdGlvbg=="
+  },
+  {
+    "id": 5087,
+    "name": "incransom: CUSTOMSIGN",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5082,
+    "name": "thegentlemen: Edgewood Surgical Hospital",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5083,
+    "name": "thegentlemen: Thoresen Thai Agencies",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Transportation/Logistics | Website: thoresen.com | Infostealer data confirmed. | ***.com ***.com/c/thoresen-thai-agencies-plc/56951398 Thoresen is a strategic investment holding company listed on the Stock Exchange of Thailand, with a maritime heritage dating back to 1904. Its core business, Thoresen Shipping, operates a modern fleet of dry bulk carriers transporting commodities like ore, coal, grain, and steel across global trade routes. The group serves major industrial clients in mining, agriculture, and energy sectors, combining owned and chartered vessels to deliver flexible, reliable logistics solutions | Source: https://www.ransomware.live/id/VGhvcmVzZW4gVGhhaSBBZ2VuY2llc0B0aGVnZW50bGVtZW4="
+  }
+]

@@ -3,10 +3,10 @@
   "name": "akira: Buffalo Niagara Convention Center",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 22, 2026",
+  "lastSeen": "May 22, 2026",
+  "added": "May 26, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Hospitality and Tourism | Website: buffaloconvention.com | Infostealer data confirmed. | The Buffalo Convention Center is a premier meetings and convention space located in downtown Bu ffalo, NY, easily accessible from major interstate highways. It caters to event planners, exhib itors, and attendees, offering a beautiful venue surrounded by vibrant city life, including res taurants, shopping, and entertainment. We will upload 46gb of corporate data soon. You are going to get precious data. You will find e mployee personal information (passports, DLs), client and partners information (personal data o f 180,000 people), contracts and agreements, financials, projects, etc. | Source: https://www.ransomware.live/id/QnVmZmFsbyBOaWFnYXJhIENvbnZlbnRpb24gQ2VudGVyQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4034"
 }

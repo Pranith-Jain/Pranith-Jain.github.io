@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7150,
+    "name": "chaos: tomorrowsoffice.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: GB | Sector: Professional Services | Website: tomorrowsoffice.com | Infostealer data confirmed. | URGENT DATA LEAK NOTICE: TOMORROW'S OFFICE Target: Tomorrow’s Office (tomorrowsoffice.com) Status: Ongoing Data Publication Countdown Security researchers have successfully exfiltrated 125 GB of critical and confidential data from the internal infrastructure of Tomorrow’s Office (tomorrowsoff… | Source: https://www.ransomware.live/id/dG9tb3Jyb3dzb2ZmaWNlLmNvbUBjaGFvcw=="
+  },
+  {
+    "id": 7155,
+    "name": "payoutsking: H****r",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Source: https://www.ransomware.live/id/SCoqKipyQHBheW91dHNraW5n"
+  },
+  {
+    "id": 7156,
+    "name": "everest: AKM Enterprises INC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: US | Sector: Other | Website: akmenterprisesinc.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/QUtNIEVudGVycHJpc2VzIElOQ0BldmVyZXN0"
+  },
+  {
+    "id": 7157,
+    "name": "Dark Project: The Metropolitan Entertainment & Convention Authority",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7154,
+    "name": "everest: EPM",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Country: CO | Sector: Energy & Utilities | Website: epm.com.co | Infostealer data confirmed. | [AI generated] EPM (Empresas Públicas de Medellín) is a Colombian public utility company headquartered in Medellín, Colombia. It operates in the energy, water, and telecommunications sectors, providing electricity generation and distribution, water supply, sewage, and natural gas services. It serves millions of customers across Colombia and has expanded operations into other Latin American countries, making it one of the largest public utility groups in the region. | Source: https://www.ransomware.live/id/RVBNQGV2ZXJlc3Q="
+  },
+  {
+    "id": 7153,
+    "name": "qilin: Stade Francais",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Hospitality | Website: www.stadefrancais.com | N/A | Source: https://www.ransomware.live/id/U3RhZGUgRnJhbmNhaXNAcWlsaW4="
+  },
+  {
+    "id": 7152,
+    "name": "Triple X: Henshaw Law",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Triple X. | Country: GB | Sector: Professional Services | 1 terabytes of people's data https://henshawlawak.com/ Henshaw Law, Despite repeated recommendations, no action was taken. The problem remains unresolved, the system is full of bugs, people's documents are at risk, and they won't take any responsibility. Multiple people could commit suicide, what important information has been leaked about them, and who is responsible for why the recommendations weren't taken seriously. what data will leak ? -Personal family files -Passports and licenses -Court ruling and public complaint forms -Documents scans -Forms and emails scans sample : Full download data link : Download | Source: https://www.ransomware.live/id/SGVuc2hhdyBMYXdAVHJpcGxlIFg="
+  },
+  {
+    "id": 7147,
+    "name": "dragonforce: P. A. Inc. (Performance Alloys)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7146,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 7145,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7144,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7143,
+    "name": "Deadlock: HİDROMEK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: www.hidromek.com | HİDROMEK is a leading Turkish manufacturer of heavy construction machinery recognized globally for its high-performance award-winning heavy equipment. Founded in Ankara in 1978 by mechanical engineer Hasan Basri Bozkurt the company operates six state-of-the-art production facilities across Turkey and Thailand. Its heavy machinery operates in more than 130 countries spanning six continents. Over 880 gigabytes of sensitive internal data were stolen from this company | Source: https://www.ransomware.live/id/SMSwRFJPTUVLQERlYWRsb2Nr"
+  },
+  {
+    "id": 7142,
+    "name": "Doommageddon: iw steelTEC Makine San. ve Tic. A.Ş.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Status: leaked | Data size: 100 GB | Files: 0 files | Deadline: 2026-03-08T00:00:00Z | Source: https://www.ransomware.live/id/aXcgc3RlZWxURUMgTWFraW5lIFNhbi4gdmUgVGljLiBBLsWeLkBEb29tbWFnZWRkb24="
+  },
+  {
+    "id": 7141,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 7139,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  }
+]

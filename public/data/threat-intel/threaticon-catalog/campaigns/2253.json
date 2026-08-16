@@ -1,11 +1,11 @@
 {
   "id": 2253,
   "name": "OSINT - GongDa vs. Korean News",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2016",
+  "lastSeen": "Mar 30, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #384 (56fba597-d420-45fe-9a73-46f5950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2253"

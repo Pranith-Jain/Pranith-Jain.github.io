@@ -1,0 +1,9 @@
+{
+  "id": 2316,
+  "fetchedAt": "2026-08-15T07:06:18.085Z",
+  "name": "T1059.001: Command and Scripting Interpreter: PowerShell",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

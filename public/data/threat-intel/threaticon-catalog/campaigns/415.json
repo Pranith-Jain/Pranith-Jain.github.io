@@ -3,9 +3,9 @@
   "name": "apt73: mahidol.ac.th",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to apt73. | Country: TH | Sector: Education | Website: mahidol.ac.th | Infostealer data confirmed. | Mahidol University is a major public research university established in Thailand with deep histor... | Source: https://www.ransomware.live/id/bWFoaWRvbC5hYy50aEBhcHQ3Mw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/415"

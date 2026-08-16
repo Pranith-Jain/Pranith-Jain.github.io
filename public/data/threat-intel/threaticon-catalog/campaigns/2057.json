@@ -1,11 +1,11 @@
 {
   "id": 2057,
   "name": "Group5: Syria and the Iranian Connection",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 2, 2016",
+  "lastSeen": "Aug 2, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #76 (57a98a69-abbc-419b-bb34-21cfc0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2057"

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:59:08.716Z",
+  "name": "akira: Clinical Registry Solutions",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "Apr 9, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: clinicalregistrysolutions.com | Infostealer data confirmed. | Clinical Registry Solutions (CRS) is a healthcare data management company based in New York, Un ited States, formerly operating as Cardiac Registry Support. The company specializes in clinica l data abstraction, medical record abstraction, and registry support services for hospitals, he alth systems, contract research organizations, and clinical staffing firms across the United St ates and Canada. We will upload 41gb of corporate data soon. Detailed employee personal information (passports, DLs, SSNs, health information, and other docs), client documents and personal information, fina ncials, payment details, contracts and agreements, NDAs, and so on. | Source: https://www.ransomware.live/id/Q2xpbmljYWwgUmVnaXN0cnkgU29sdXRpb25zQGFraXJh"
+}

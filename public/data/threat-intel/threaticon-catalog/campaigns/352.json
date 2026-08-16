@@ -3,9 +3,9 @@
   "name": "lockbit5: pricon.com.ph",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: PH | Sector: Business Services | Website: pricon.com.ph | Infostealer data confirmed. | Pricon Microelectronics, Inc. (PMI) is an Original Equipment Manufacturer (OEM) and a subsidiary of... | Source: https://www.ransomware.live/id/cHJpY29uLmNvbS5waEBsb2NrYml0NQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/352"

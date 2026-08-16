@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4636,
+    "name": "lockbit5: probat.ag",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Agriculture and Food Production | Website: probat.ag | Infostealer data confirmed. | PROBAT Bau AG is a leading construction company based in Munich, Ingolstadt, and Upper Bavaria, spec... | Source: https://www.ransomware.live/id/cHJvYmF0LmFnQGxvY2tiaXQ1"
+  },
+  {
+    "id": 4633,
+    "name": "nova: MIT HJERTE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: DK | Sector: Healthcare | Mit-hjerte.de Mit-hjerte.dk er en løsning, der giver mulighed for at målrette information specifikt til den enkelte patient med hjertesygdom - Nova Provide tree and samples from stolen data to the company with decrypt 1 file as sample when its get in touch with support department. | Source: https://www.ransomware.live/id/TUlUIEhKRVJURUBub3Zh"
+  },
+  {
+    "id": 4628,
+    "name": "payload: Editora Irmãos Vitale",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: BR | Sector: Education | Editora Irmãos Vitale is a traditional Brazilian music publisher specializing in music editions and printed music. They offer a range of products including musical works, archives, methods, songbooks, and e-books. Their services also encompass synchronization and licensing for artists and authors. | Source: https://www.ransomware.live/id/RWRpdG9yYSBJcm3Do29zIFZpdGFsZUBwYXlsb2Fk"
+  },
+  {
+    "id": 4629,
+    "name": "payload: Preferred Properties",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Sector: Not Found | Preferred Properties, Inc. is a dynamic and progressive housing development and property management company based in Toledo, Ohio. We specialize in the development of affordable and accessible housing opportunities, and to create integrated housing options for persons living with disabilities. Our development program reflects where we are today with programs under management, and new projects in development. | Source: https://www.ransomware.live/id/UHJlZmVycmVkIFByb3BlcnRpZXNAcGF5bG9hZA=="
+  },
+  {
+    "id": 4630,
+    "name": "ransomexx: Go2Joy (go2joy.vn)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomexx. | Country: VN | Sector: Hospitality and Tourism | Website: go2joy.vn | Infostealer data confirmed. | We have released the complete database of Go2Joy, Vietnam’s leading platform for hourly and short-stay hotel bookings. | Source: https://www.ransomware.live/id/R28ySm95IChnbzJqb3kudm4pQHJhbnNvbWV4eA=="
+  },
+  {
+    "id": 4627,
+    "name": "payload: ENB Versicherungen | myenb.ch",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: CH | Sector: Financial Services | enb AG is an independent insurance broker that collaborates with leading insurance companies to provide tailored insurance solutions. They assist both private and corporate clients in navigating the complexities of insurance products, offering services such as health insurance, vehicle insurance, and liability insurance. The company emphasizes the importance of employee satisfaction and offers professional pension plans and collective accident insurance for businesses. | Source: https://www.ransomware.live/id/RU5CIFZlcnNpY2hlcnVuZ2VuIHwgbXllbmIuY2hAcGF5bG9hZA=="
+  },
+  {
+    "id": 4623,
+    "name": "incransom: Newspaper Media Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Consumer Services | Newspaper Media Group is a local news organization that provides comprehensive coverage of news, sports, entertainment, and community events across various regions, including Central Jersey and South Jersey. They publish multiple newspapers and magazines, ensuring that they reach more households than their competitors in nearly every zip code they cover. Their services are aimed at local communities, delivering news that is often not found elsewhere. With a commitment to connecting readers to the communities they care about, NMG stands out for its focus on local reporting. | Source: https://www.ransomware.live/id/TmV3c3BhcGVyIE1lZGlhIEdyb3VwQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 4625,
+    "name": "worldleaks: L'Archevque & Rivest Ltée",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: CA | Sector: Not Found | Website: www.lrivest.com | [AI generated] N/A | Source: https://www.ransomware.live/id/TCdBcmNoZXZxdWUgJiBSaXZlc3QgTHTDqWVAd29ybGRsZWFrcw=="
+  },
+  {
+    "id": 4626,
+    "name": "worldleaks: Super Finishing",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: BR | Sector: Manufacturing | Website: www.superfinishing.com.br | [AI generated] N/A | Source: https://www.ransomware.live/id/U3VwZXIgRmluaXNoaW5nQHdvcmxkbGVha3M="
+  },
+  {
+    "id": 4631,
+    "name": "nova: Dosab",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: SA | Sector: Manufacturing | Demirtaş Organize Sanayi Bölgesi (DOSAB) provides a range of services including waste water treatment, energy supply, and social facilities to support its industrial clients. The region hosts over 573 active companies and employs around 44,000 people, focusing on sectors such as automotive and textile. DOSAB is committed to sustainability and offers various online services and resources for its members. The organization also emphasizes social responsibility through community engagement and educational initiatives - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/RG9zYWJAbm92YQ=="
+  },
+  {
+    "id": 4622,
+    "name": "nova: Nhà Thành Phố",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: VN | Sector: Not Found | nhathanhpho.com.vn is an Vietnamese real estate listing platform operated by an individual, Đoàn Vinh, which allowed users to buy, sell, and rent properties - Nova Provide tree and samples from stolen data to the company with decrypt 1 file as sample when its get in touch with support department. | Source: https://www.ransomware.live/id/TmjDoCBUaMOgbmggUGjhu5FAbm92YQ=="
+  },
+  {
+    "id": 4620,
+    "name": "nova: Lockers IT",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4621,
+    "name": "nightspire: Artistic Smiles",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Consumer Services | Website: artisticsmiles.org | Infostealer data confirmed. | Data is not available now. | Source: https://www.ransomware.live/id/QXJ0aXN0aWMgU21pbGVzQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 4632,
+    "name": "nova: Hosab",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Sector: Business Services | HOSAB, an organized industrial zone in Bursa, offers a range of services including natural gas, electricity, water management, wastewater treatment, and zero waste management. The company aims to support local businesses and industries by providing essential utilities and infrastructure. HOSAB is committed to sustainability, having received certifications for its environmental management systems. Its intended clients include industrial firms and businesses operating within the organized industrial zone - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/SG9zYWJAbm92YQ=="
+  },
+  {
+    "id": 4615,
+    "name": "cmdorganization: Wall ISD",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Education | Website: www.wallisd.net | Wall ISD is an educational institution that serves students in the Wall, Texas area, providing a range of programs and activities for elementary, middle, and high school students. The district emphasizes inclusivity and equal access to education, ensuring that all students, regardless of their background, have the opportunity to participate in school activities. Wall ISD is committed to fostering a supportive learning environment and offers resources for both new and returning students. The intended clients are students and their families within the Wall community. | Source: https://www.ransomware.live/id/V2FsbCBJU0RAY21kb3JnYW5pemF0aW9u"
+  }
+]

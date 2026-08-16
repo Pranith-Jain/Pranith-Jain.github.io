@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:09:51.857Z",
+  "name": "blackout: www.miatech.net",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 19, 2026",
+  "lastSeen": "Jul 19, 2026",
+  "added": "Jul 19, 2026",
+  "description": "Ransomware attack attributed to blackout. | Country: US | Sector: Technology | Website: www.miatech.net | Miatech is a US-based company that provides passenger travel services for... | Source: https://www.ransomware.live/id/d3d3Lm1pYXRlY2gubmV0QGJsYWNrb3V0"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:25:28.235Z",
+  "name": "Earth Preta Campaign Uses DOPLUGS to Target Asia",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 24, 2024",
+  "lastSeen": "Feb 24, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #468 (eb7a9efc-2098-4db9-a2ae-1f0f853ef803)."
+}

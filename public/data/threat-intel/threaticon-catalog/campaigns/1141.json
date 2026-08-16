@@ -3,10 +3,10 @@
   "name": "beast: Xiamen Tungsten Co. (XTC)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 31, 2026",
+  "lastSeen": "Mar 31, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to beast. | Country: CN | Sector: Manufacturing | Website: xiamentungsten.com | Infostealer data confirmed. | Xiamen Tungsten Co. (XTC) - Full Infrastructure Dump 2026 The market capitalization $13.56 billion USD (600549.SS Shanghai Stock Exchange) Size: 150GB+ (.bak files) with FULL ACCES Content: ERP (Dynamics AX), HR (14GB), LIMS (Lab Tech), Party Committees, ESG, SCM. Format: SQL Backups. FOR SALE IN 1 HANDS ! Price: 20btc This inventory represents a total infrastructure compromise of Xiamen Tungsten Co., Ltd. (XTC). The dataset includes over 160GB of SQL backups covering R&D, ERP, HR, and Government relations. I. High-Capacity Strategic Assets (Over 5GB) ecology202306091936.bak (38GB) � Geological surveys, mine mapping, and environmental resource monitoring. QL_DataCenter_backup (15.8GB) � Centralized corporate data warehouse aggregating all subsidiary streams. QcAdmin20240109.bak (15.5GB) � Master quality control archive; includes all technical specs...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1141"
 }

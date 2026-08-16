@@ -3,9 +3,9 @@
   "name": "akira: Excalibur Rentals",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 7, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to akira. | Sector: Consumer Services | Excalibur Rentals is dedicated to providing reliable rental equipment services, ensuring that c lients can complete their jobs safely, on time, and within budget. They offer a range of equipm ent including boom lifts, telehandlers, and light towers. We will upload 45gb of corporate data soon. Employee personal information (name, addresses, SSN s and so on), contracts and agreements, a bit of financials, customers info, etc. | Source: https://www.ransomware.live/id/RXhjYWxpYnVyIFJlbnRhbHNAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4265"

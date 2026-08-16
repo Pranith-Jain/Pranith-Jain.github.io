@@ -3,9 +3,9 @@
   "name": "qilin: Laclinic-Montreux",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 6, 2026",
+  "lastSeen": "May 6, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: CH | Sector: Healthcare | Website: www.laclinic.ch | N/A | Source: https://www.ransomware.live/id/TGFjbGluaWMtTW9udHJldXhAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3749"

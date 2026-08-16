@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4157,
+    "name": "Deadlock: Bombas Ideal",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: BR | Sector: Manufacturing | Website: www.bombasideal.com | Bombas Ideal is a Spanish manufacturer established in 1902 specializing in water pumps and pressure systems for agricultural, industrial, and fire protection applications. Based in Valencia, the company offers a range of vertical, submerged, and solar pumping solutions with international operations. | Source: https://www.ransomware.live/id/Qm9tYmFzIElkZWFsQERlYWRsb2Nr"
+  },
+  {
+    "id": 4152,
+    "name": "Deadlock: Elmoris",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: LT | Sector: Not Found | Website: www.elmoris.lt | Founded in 1996 in Vilnius, Lithuania, UAB Elmoris is a major manufacturer specializing in light metal packaging and \"twist-off\" lug caps for the food industry. The company is noted for producing PVC-free, environmentally friendly caps and providing metal printing services, holding AEO certification for international trade. | Source: https://www.ransomware.live/id/RWxtb3Jpc0BEZWFkbG9jaw=="
+  },
+  {
+    "id": 4173,
+    "name": "Deadlock: Grupolider | Grupo Actual",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4149,
+    "name": "Deadlock: Grupo Mercurio",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: MX | Sector: Business Services | Website: www.grupomercurio.mx | Grupo Mercurio is a leading Mexican business conglomerate primarily recognized for its dominance in the bicycle and sports industry. Based in San Luis Potosí, the group operates one of the largest bicycle manufacturing plants in Mexico. | Source: https://www.ransomware.live/id/R3J1cG8gTWVyY3VyaW9ARGVhZGxvY2s="
+  },
+  {
+    "id": 4158,
+    "name": "Deadlock: SH Hoteles (Spain)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: ES | Sector: Hospitality and Tourism | Website: www.sh-hoteles.com | This chain operates various urban and beach properties primarily in the Valencia and Alicante regions. Key Properties: SH Valencia Palace: A 5-star hotel located near the city center of Valencia. SH Villa Gadea: A luxury resort in Altea known for its extensive Thalasso-Spa facilities. SH Inglés: A boutique hotel situated in a renovated 18th-century palace in Valencia's historical center. Other locations: Includes properties in Jávea, Denia, and Gandía | Source: https://www.ransomware.live/id/U0ggSG90ZWxlcyAoU3BhaW4pQERlYWRsb2Nr"
+  },
+  {
+    "id": 4151,
+    "name": "Deadlock: Gerusia S.L.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: ES | Sector: Not Found | Website: gerusia.com | Infostealer data confirmed. | Gerusia S.L., a Spanish service company headquartered in Oviedo, Asturias. Founded in 1995 and managed by women, the company provides a wide range of cleaning, auxiliary, and social-sanitary services for both public and private sectors throughout the Asturias region. | Source: https://www.ransomware.live/id/R2VydXNpYSBTLkwuQERlYWRsb2Nr"
+  },
+  {
+    "id": 4144,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4145,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4148,
+    "name": "Deadlock: Zaffrani Srl",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: IT | Sector: Business Services | Website: www.zaffrani.it | Zaffrani Srl, an Italian manufacturer specializing in advanced agricultural machinery. Founded in 1959, the company is headquartered in the Marche region of Italy and has become a global leader in crop harvesting and drying technology. | Source: https://www.ransomware.live/id/WmFmZnJhbmkgU3JsQERlYWRsb2Nr"
+  },
+  {
+    "id": 4146,
+    "name": "Deadlock: VBW Makelaars and Taxateurs",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: NL | Sector: Business Services | Website: www.vbw.nl | VBW Makelaars & Taxateurs specializes in real estate and property valuations in the Netherlands. Real estate agency and certified appraisers | Source: https://www.ransomware.live/id/VkJXIE1ha2VsYWFycyBhbmQgVGF4YXRldXJzQERlYWRsb2Nr"
+  },
+  {
+    "id": 4147,
+    "name": "Deadlock: Eko-Flor Plus d.o.o.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: HR | Sector: Agriculture and Food Production | Website: eko-flor.hr | Infostealer data confirmed. | Eko-Flor Plus d.o.o. is the largest private waste management company in Croatia. Headquartered in Oroslavje, the company specializes in collecting, sorting, and processing municipal and non-hazardous waste. | Source: https://www.ransomware.live/id/RWtvLUZsb3IgUGx1cyBkLm8uby5ARGVhZGxvY2s="
+  },
+  {
+    "id": 4143,
+    "name": "Deadlock: Industrie Tecnologiche it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: IT | Sector: Technology | Website: www.industrietecnologiche.com | Industrie Tecnologiche is a software development center for the food industry. | Source: https://www.ransomware.live/id/SW5kdXN0cmllIFRlY25vbG9naWNoZSBpdEBEZWFkbG9jaw=="
+  },
+  {
+    "id": 4142,
+    "name": "Deadlock: LIVISTO",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: PL | Sector: Not Found | Website: www.livisto.pl | LIVISTO is an international pharmaceutical company with extensive experience in the veterinary market. | Source: https://www.ransomware.live/id/TElWSVNUT0BEZWFkbG9jaw=="
+  },
+  {
+    "id": 4140,
+    "name": "Deadlock: Optimal Care SA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: AR | Sector: Healthcare | Website: www.optimalcaresa.com | Optimal Care Sociedad Anonima manufactures cleaning applications. The Company offers wet wipes for personal care, baby wipes, make-up remover, multipurpose wipes, and cleaning applications. Optimal Care serves customers in Spain. | Source: https://www.ransomware.live/id/T3B0aW1hbCBDYXJlIFNBQERlYWRsb2Nr"
+  },
+  {
+    "id": 4141,
+    "name": "Deadlock: Anidaport - Investimentos Imobiliários Lda., Lisbon, Portugal",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: PT | Sector: Financial Services | [AI generated] N/A | Source: https://www.ransomware.live/id/QW5pZGFwb3J0IC0gSW52ZXN0aW1lbnRvcyBJbW9iaWxpw6FyaW9zIExkYS4sIExpc2JvbiwgUG9ydHVnYWxARGVhZGxvY2s="
+  }
+]

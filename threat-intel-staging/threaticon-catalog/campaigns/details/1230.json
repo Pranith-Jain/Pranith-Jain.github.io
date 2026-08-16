@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:58:25.424Z",
+  "name": "lockbit5: facsrl.net",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 9, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: IT | Sector: Construction | Website: facsrl.net | Infostealer data confirmed. | FAC S.R.L. is a company established in August 1999, specializing in crane rental, lifting services,... | Source: https://www.ransomware.live/id/ZmFjc3JsLm5ldEBsb2NrYml0NQ=="
+}

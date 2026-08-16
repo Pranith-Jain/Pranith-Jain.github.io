@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:55:50.994Z",
+  "name": "M2M - Locky 2017-09-19 : Affid=3, offline, \".ykcol\" : \"HERBALIFE Order Number: 6N01001234\" - \"6N01001234_1.7z\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 20, 2017",
+  "lastSeen": "Sep 20, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1178 (59c28fd3-6c10-44dd-b40d-46f5950d210f)."
+}

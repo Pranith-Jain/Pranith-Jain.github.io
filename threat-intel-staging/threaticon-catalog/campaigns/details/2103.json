@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:20:55.374Z",
+  "name": "Microsoft Office Vulnerabilities Used to Distribute Zyklon Malware in Recent Campaign",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jan 17, 2018",
+  "lastSeen": "Jan 17, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #128 (5a5fc388-48c8-48b8-9f08-043bc0a8ab16)."
+}

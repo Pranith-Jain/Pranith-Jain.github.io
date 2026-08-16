@@ -1,0 +1,12 @@
+{
+  "id": 186,
+  "fetchedAt": "2026-08-14T05:14:11.443Z",
+  "name": "Detection Strategy for T1497 Virtualization/Sandbox Evasion",
+  "tlp": null,
+  "detId": "DET0046",
+  "stixId": "x-mitre-detection-strategy--7f5dde79-7872-48dd-8718-cd2e10d7cbfc",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0127", "AN0128", "AN0129"]
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2474,
+    "name": "OSINT Potential CNC base on CCNE activities described in NSA document leak",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #812 (57b57c2f-9218-4138-bd36-48e4950d210f)."
+  },
+  {
+    "id": 2473,
+    "name": "Malspam 2016-08-17 (.docm) - campaign: \"Order Confirmation-\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #810 (57b472bd-2dc0-4304-90a6-4ad4950d210f)."
+  },
+  {
+    "id": 2472,
+    "name": "OSINT Generic Yara rule to detect PlugX by Jay DiMartino",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #809 (57b47152-b938-42f7-aa36-4bf1950d210f)."
+  },
+  {
+    "id": 2471,
+    "name": "OSINT Additional yara rules for detection Project Sauron by Florian Roth",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #808 (57b327b9-18c8-40f9-b5b8-4bf8950d210f)."
+  },
+  {
+    "id": 2470,
+    "name": "Rule to detect KirBi ticket for Mimikatz by Benjamin Delpy with Contribution of Didier Stevens",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #807 (57b3273b-7588-4042-9276-4eb4950d210f)."
+  },
+  {
+    "id": 2469,
+    "name": "Malspam 2016-08-16 (.wsf in .zip) - campaign: 'Blank 2'",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #806 (57b320b4-4e08-44aa-89b9-428a950d210f)."
+  },
+  {
+    "id": 2468,
+    "name": "OSINT New C2 â€“ Neutrino Exploit Kit via pseudoDarkleech HOPTO.ORG gate delivers CrypMic Ransomware by Broad Analysis",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #805 (57adad28-ac28-49f0-b8d5-7495950d210f)."
+  },
+  {
+    "id": 2466,
+    "name": "OSINT Meet GreenDispenser: A New Breed of ATM Malware by ProofPoint",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #802 (560460c7-a840-4949-a92e-3c09950d210b)."
+  },
+  {
+    "id": 2464,
+    "name": "OSINT phishing sites and php kits - February 2016 - Part 1 by TechHelpList",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #800 (56b06cf0-ac30-4472-93dd-44ce950d210f)."
+  },
+  {
+    "id": 2462,
+    "name": "OSINT RTF Exploit Installs Italian RAT: uWarrior by Palo Alto",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #798 (55dc2f59-7238-468a-8956-575e950d210b)."
+  },
+  {
+    "id": 2461,
+    "name": "OSINT Android.Bankosy: All ears on voice call-based 2FA by Symantec",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #797 (56af4bee-eeb4-4145-b10f-4c7e950d210f)."
+  },
+  {
+    "id": 2460,
+    "name": "OSINT Yara rules for GlassRAT in Loki IOC Scanner by Florian Roth",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #796 (566067e0-5c54-45b4-8dff-4fae950d210b)."
+  },
+  {
+    "id": 2455,
+    "name": "OSINT Infected Korean Website Installs Banking Malware by Cyphort",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #791 (560a3ca1-e110-476e-b730-4765950d210b)."
+  },
+  {
+    "id": 2453,
+    "name": "OSINT Cheshire Cat",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #787 (55d58a12-3644-4378-8ca9-44a6950d210b)."
+  },
+  {
+    "id": 2449,
+    "name": "OSINT Evilgrab Delivered by Watering Hole Attack on President of Myanmarâ€™s Website by Palo Alto Unit 42",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #777 (557e78b6-91ec-4123-87df-424f950d210b)."
+  }
+]

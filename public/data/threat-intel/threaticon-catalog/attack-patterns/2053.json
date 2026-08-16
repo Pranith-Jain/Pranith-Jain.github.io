@@ -1,0 +1,9 @@
+{
+  "id": 2053,
+  "name": "T1056.004 - Valid Accounts (Credential Access)",
+  "techniqueId": "T1056",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2053"
+}

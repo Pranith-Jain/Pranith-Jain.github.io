@@ -1,0 +1,9 @@
+{
+  "id": 1516,
+  "name": "T1068: Exploitation for Privilege Escalation",
+  "techniqueId": "T1068",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1516"
+}

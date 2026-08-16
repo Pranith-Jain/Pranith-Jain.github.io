@@ -1,0 +1,9 @@
+{
+  "id": 2111,
+  "name": "T1201 - Data Exfiltration via Network Tools",
+  "techniqueId": "T1201",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2111"
+}

@@ -1,0 +1,9 @@
+{
+  "id": 863,
+  "name": "Forced Deadlock",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Low. The adversary triggers and exploits a deadlock condition in the target software to cause a denial of service. A deadlock can occur when two or more competing actions are waiting for each other to finish, and thus neither ever does. Deadlock conditions can be difficult to detect.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/863"
+}

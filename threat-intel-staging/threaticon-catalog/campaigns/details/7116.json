@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:02:43.003Z",
+  "name": "2026-07-21 (Tuesday): Further Malicious Infrastructure From Npm And Pypi Supply Chain Packages",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 21, 2026",
+  "lastSeen": "Jul 21, 2026",
+  "added": "Aug 4, 2026",
+  "description": "2026-07-21 (Tuesday): Further Malicious Infrastructure From Npm And Pypi Supply Chain Packages."
+}

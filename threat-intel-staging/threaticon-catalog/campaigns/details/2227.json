@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:15:31.404Z",
+  "name": "Scraper: Ransomware Actor Abuses Genshin Impact Anti-Cheat Driver to Kill Antivirus",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Oct 13, 2022",
+  "lastSeen": "Oct 13, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #332 (5c932f59-3013-44a5-8b85-1199e95db3ee)."
+}

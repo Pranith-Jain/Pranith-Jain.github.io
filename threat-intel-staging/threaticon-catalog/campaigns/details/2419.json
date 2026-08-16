@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:07:43.397Z",
+  "name": "OSINT Password Hygiene: Hiding Your Identity is Difficult for Attackers and Adulterers by Threat Geek",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Sep 18, 2015",
+  "lastSeen": "Sep 18, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #747 (55fff330-003c-4c9b-96ed-44b7950d210b)."
+}

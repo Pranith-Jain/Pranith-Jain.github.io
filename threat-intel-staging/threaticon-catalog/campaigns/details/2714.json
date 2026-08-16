@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:55:48.490Z",
+  "name": "M2M - Locky 2017-09-20 : Affid=3, offline, \".ykcol\" : \"New voice message...\" - \"msg0321.7z\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 22, 2017",
+  "lastSeen": "Sep 22, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1180 (59c56149-8ec4-4490-996e-df79950d210f)."
+}

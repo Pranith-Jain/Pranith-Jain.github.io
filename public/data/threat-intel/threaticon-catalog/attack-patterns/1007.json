@@ -1,0 +1,9 @@
+{
+  "id": 1007,
+  "name": "Cross-Domain Search Timing",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An attacker initiates cross domain HTTP / GET requests and times the server responses. The timing of these responses may leak important information on what is happening on the server. Browser's same origin policy prevents the attacker from directly reading the server responses (in the absence of any other weaknesses), but does not prevent the attacker from timing the responses to requests that the attacker issued cross domain.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1007"
+}

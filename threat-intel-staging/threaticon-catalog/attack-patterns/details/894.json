@@ -1,0 +1,9 @@
+{
+  "id": 894,
+  "fetchedAt": "2026-08-15T06:11:46.054Z",
+  "name": "Timestamp Request",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. This pattern of attack leverages standard requests to learn the exact time associated with a target system. An adversary may be able to use the timestamp returned from the target to attack time-based security algorithms, such as random number generators, or time-based authentication mechanisms."
+}

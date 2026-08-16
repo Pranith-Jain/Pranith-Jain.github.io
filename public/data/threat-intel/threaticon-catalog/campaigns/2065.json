@@ -1,11 +1,11 @@
 {
   "id": 2065,
   "name": "Pawn Storm Ramps Up Spear-phishing Before Zero-Days Get Patched",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Nov 9, 2016",
+  "lastSeen": "Nov 9, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #85 (58235d0e-34d4-41c1-9a2e-04dcc0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2065"

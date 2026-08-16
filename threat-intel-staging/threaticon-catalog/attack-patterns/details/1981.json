@@ -1,0 +1,9 @@
+{
+  "id": 1981,
+  "fetchedAt": "2026-08-15T07:11:48.918Z",
+  "name": "T1059.004: PowerShell Script Execution",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

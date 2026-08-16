@@ -1,0 +1,141 @@
+[
+  { "id": 2519, "name": "T1192.002", "tlp": "white", "confidence": null, "techniqueId": "T1192", "status": null },
+  {
+    "id": 2458,
+    "name": "T1192.002 - User Execution",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2575,
+    "name": "T1192.003 (Multi-Factor Authentication Bypass - Compromised Credential Use)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2327,
+    "name": "T1192.003 (Software Deployment Tools: Malicious Documents)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2506,
+    "name": "T1192.003 - Exploit Public-Facing Application (Web Applications)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2530,
+    "name": "T1192.003 - Phishing - Spearphishing via link",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2335,
+    "name": "T1192.003 - Spearphishing Attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2760,
+    "name": "T1192: Spearphishing Link",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  { "id": 2610, "name": "T1193", "tlp": "white", "confidence": null, "techniqueId": "T1193", "status": null },
+  {
+    "id": 2836,
+    "name": "T1193 - Spearphishing Attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1193",
+    "status": null
+  },
+  {
+    "id": 2834,
+    "name": "T1193 - Spearphishing Attachments",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1193",
+    "status": null
+  },
+  {
+    "id": 2981,
+    "name": "T1193 Sideloading",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1193",
+    "status": null
+  },
+  {
+    "id": 1328,
+    "name": "T1193.001 - Exploitation of Network Device漏洞利用",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1193",
+    "status": null
+  },
+  {
+    "id": 1390,
+    "name": "T1193.001 - Malware: Document Exploitation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1193",
+    "status": null
+  },
+  {
+    "id": 2759,
+    "name": "T1193: Spearphishing Attachment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1193",
+    "status": null
+  },
+  { "id": 2782, "name": "T1194", "tlp": "white", "confidence": null, "techniqueId": "T1194", "status": null },
+  {
+    "id": 1802,
+    "name": "T1194 - Exploitation for Credential Access",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1194",
+    "status": null
+  },
+  {
+    "id": 2982,
+    "name": "T1194.001 PowerShell execution (T1059.001)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1194",
+    "status": null
+  },
+  {
+    "id": 196,
+    "name": "Supply Chain Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1195",
+    "status": null
+  },
+  {
+    "id": 2434,
+    "name": "T1195 - Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1195",
+    "status": null
+  }
+]

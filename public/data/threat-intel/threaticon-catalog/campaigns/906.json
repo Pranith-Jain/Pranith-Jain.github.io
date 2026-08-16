@@ -3,9 +3,9 @@
   "name": "ALP-001: nepgroup.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to ALP-001. | Country: US | Sector: Business Services | Website: nepgroup.com | Infostealer data confirmed. | Country: USA Revenue: $2.1 Billion Storage: 70GB Description: NEP Group, founded in 1984 and headquartered in Pittsburgh, Pennsylvania, offers outside broadcast, studio production, audio and lighting, host broadcast support, and media management services ** WE UPLOADED 10GB As Samples ** ** You Can Download Samples From Leak Page ** Deadline: 2026-04-18 17:22:11 | Source: https://www.ransomware.live/id/bmVwZ3JvdXAuY29tQEFMUC0wMDE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/906"

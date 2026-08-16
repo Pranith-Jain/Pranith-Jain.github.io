@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "MY",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/19a76943-f1ed-4955-9562-5ea06ccdbb07",
+  "description": "coffeebean.com.my zoominfo.com/c/the-coffee-bean/425047768 The Coffee Bean & Tea Leaf Malaysia is the official digital portal for the popular cafe chain, which currently operates over 150 locations across the country. The website allows customers to easily explore the full menu, access exclusive promotions, and manage their MyCBTL loyalty app rewards. It serves as a convenient central platform for ordering premium beverages, redeeming digital vouchers, and staying updated on seasonal cafe offerings.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

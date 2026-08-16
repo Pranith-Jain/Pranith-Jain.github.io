@@ -1,0 +1,9 @@
+{
+  "id": 1966,
+  "name": "T1185 - Use of Programming Scripting Language for Credential Access",
+  "techniqueId": "T1185",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1966"
+}

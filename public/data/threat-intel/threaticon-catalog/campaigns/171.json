@@ -3,10 +3,10 @@
   "name": "m3rx: emtco.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 3, 2026",
+  "lastSeen": "May 3, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to m3rx. | Country: US | Sector: Business Services | Website: emtco.com | Infostealer data confirmed. | +1 3169426147 . Engineered Machine Tool, Inc., based in Wichita, Kansas, specializes in providing manufacturing firms with custom machinery and tooling designed to enhance production efficiency. Since 1987, the company has developed a range of automated machines and equipment, including Automatic Storage and Retrieval Systems and Large Tool Palletizing Systems. EMT offers comprehensive services from initial concept through to complete installation, ensuring tailored solutions for their clients' specific needs. Their focus is on delivering high-performance automation tools for various industrial applications Stolen: 180gb 698k files | Source: https://www.ransomware.live/id/ZW10Y28uY29tQG0zcng=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/171"
 }

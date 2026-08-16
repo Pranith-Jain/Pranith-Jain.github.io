@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:41:32.554Z",
+  "name": "OSINT - `event-stream` dependency attack steals wallets from users of copay",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Nov 26, 2018",
+  "lastSeen": "Nov 26, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1444 (5bfc6891-b838-44fe-bc17-16b702de0b81)."
+}

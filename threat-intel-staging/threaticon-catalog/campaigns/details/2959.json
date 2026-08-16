@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T00:37:28.079Z",
+  "name": "Fake trademark-related invoice",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 7, 2025",
+  "lastSeen": "Apr 7, 2025",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1793 (e1e99c15-81b9-440f-9bc3-3ce9b3a079c1)."
+}

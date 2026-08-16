@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:21:12.991Z",
+  "name": "lockbit5: saude.mt.gov.br",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Mar 19, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Public Sector | Website: saude.mt.gov.br | Infostealer data confirmed. | The State Secretariat of Health of Mato Grosso (SES-MT) serves as the primary executive body of the... | Source: https://www.ransomware.live/id/c2F1ZGUubXQuZ292LmJyQGxvY2tiaXQ1"
+}

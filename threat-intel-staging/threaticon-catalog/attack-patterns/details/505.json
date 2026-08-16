@@ -1,0 +1,9 @@
+{
+  "id": 505,
+  "fetchedAt": "2026-08-15T08:35:09.672Z",
+  "name": "Social Media",
+  "tlp": "white",
+  "techniqueId": "DET0812",
+  "added": "May 2, 2026",
+  "description": "Adversaries may search social media for information about victims that can be used during targeting. Social media sites may contain various information about a victim organization, such as business announcements as well as information about the roles, locations, and interests of staff. Adversaries may search in different social media sites depending on what information they seek to gather. Threat actors may passively harvest data from these sites, as well as use information gathered to create fake profiles/groups to elicit victim’s into revealing specific information (i.e. Spearphishing Service).(Citation: Cyware Social Media) Information from these sources may reveal opportunities for other forms of reconnaissance (ex: Phishing for Information or Search Open Technical Databases), establishing operational resources (ex: Establish Accounts or Compromise Accounts), and/or initial access (ex: Spearphishing via Service)."
+}

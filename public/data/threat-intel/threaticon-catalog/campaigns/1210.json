@@ -3,9 +3,9 @@
   "name": "lockbit5: atrium.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: US | Sector: Technology | Website: atrium.com | Infostealer data confirmed. | Since 1946 Atrium Windows and Doors has produced tens of millions of exceptional products throughout... | Source: https://www.ransomware.live/id/YXRyaXVtLmNvbUBsb2NrYml0NQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1210"

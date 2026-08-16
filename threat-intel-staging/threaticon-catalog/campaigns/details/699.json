@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:24:22.048Z",
+  "name": "vect: S&PGLOBAL, LiteLLM/Trivy campaign (TeamPCP)",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 15, 2026",
+  "lastSeen": "Oct 5, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to vect. | Country: US | Sector: Technology | Website: www.spglobal.com/en | Status: STATUS: NEGOTIATING | Sector: Business Services | Internal projects, secrets, api keys etc DATA SIZE: 250GB | Deadline: 8d 8h | Source: https://www.ransomware.live/id/UyZQR0xPQkFMLCBMaXRlTExNL1RyaXZ5IGNhbXBhaWduIChUZWFtUENQKUB2ZWN0"
+}

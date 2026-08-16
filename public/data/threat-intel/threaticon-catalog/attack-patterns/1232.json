@@ -1,0 +1,9 @@
+{
+  "id": 1232,
+  "name": "Target Programs with Elevated Privileges",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: High. This attack targets programs running with elevated privileges. The adversary tries to leverage a vulnerability in the running program and get arbitrary code to execute with elevated privileges.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1232"
+}

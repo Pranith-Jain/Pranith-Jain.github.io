@@ -1,0 +1,9 @@
+{
+  "id": 1096,
+  "name": "Modify Existing Service",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "When an operating system starts, it also starts programs called services or daemons. Modifying existing services may break existing services or may enable services that are disabled/not commonly used.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1096"
+}

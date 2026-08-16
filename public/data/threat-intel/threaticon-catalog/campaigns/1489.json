@@ -3,9 +3,9 @@
   "name": "qilin: hollu Systemhygiene",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 18, 2026",
+  "lastSeen": "Mar 18, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: AT | Sector: Manufacturing | Website: www.hollu.com | Source: https://www.ransomware.live/id/aG9sbHUgU3lzdGVtaHlnaWVuZUBxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1489"

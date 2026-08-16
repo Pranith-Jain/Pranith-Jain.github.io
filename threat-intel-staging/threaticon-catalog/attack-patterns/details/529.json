@@ -1,0 +1,9 @@
+{
+  "id": 529,
+  "fetchedAt": "2026-08-15T06:49:18.629Z",
+  "name": "Query Registry",
+  "tlp": "white",
+  "techniqueId": "T1012",
+  "added": "May 2, 2026",
+  "description": "Adversaries may interact with the Windows Registry to gather information about the system, configuration, and installed software. The Registry contains a significant amount of information about the operating system, configuration, software, and security.(Citation: Wikipedia Windows Registry) Information can easily be queried using the Reg utility, though other means to access the Registry exist. Some of the information may help adversaries to further their operation within a network. Adversaries may use the information from Query Registry during automated discovery to shape follow-on behaviors, including whether or not the adversary fully infects the target and/or attempts specific actions."
+}

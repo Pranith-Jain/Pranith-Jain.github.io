@@ -1,0 +1,122 @@
+[
+  {
+    "id": 4718,
+    "name": "shinyhunters: NAIC.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4727,
+    "name": "play: Greg Crosslin",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Not Found | Website: www.destinlegal.com | United States | Source: https://www.ransomware.live/id/R3JlZyBDcm9zc2xpbkBwbGF5"
+  },
+  {
+    "id": 4713,
+    "name": "lynx: www.someco.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lynx. | Sector: Not Found | Website: www.someco.com | Southern Mechanical Contractors is a merit shop mechanical and industrial construction firm with over 35 years of experience. They specialize in the design, installation, and service of HVAC, plumbing, process piping, and sheet metal systems for commercial and industrial clients. The company is dedicated to providing operational flexibility and cost-efficiency, ensuring high-quality service at competitive prices. Based in Atlanta, Georgia, they support clients throughout the Southeastern United States with comprehensive project assistance from design to maintenance. | Source: https://www.ransomware.live/id/d3d3LnNvbWVjby5jb21AbHlueA=="
+  },
+  {
+    "id": 4714,
+    "name": "lynx: www.eastersealsia.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4715,
+    "name": "incransom: Horizon Family Medical Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 4712,
+    "name": "akira: Apptricity",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Business Services | Apptricity Corporation is a global enterprise software provider for Supply Chain and Spend Mana gement. Apptricity differs from other manufacturers by offering platform-agnostic, secure solut ions that optimize inventory, asset and expense tracking processes while still being easily int egrated with existing systems. We will upload 12gb of corporate data soon. Employee personal docs (passports, SSNs, DLs, w9s, and other personal information), lots of projects, source codes, NDAs, client and partner file s, agreements and so on. | Source: https://www.ransomware.live/id/QXBwdHJpY2l0eUBha2lyYQ=="
+  },
+  {
+    "id": 4716,
+    "name": "lynx: www.wolfconstruction.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lynx. | Country: US | Sector: Construction | Website: www.wolfconstruction.net | Wolf Construction Services, Inc specializes in commercial wood framing, framing carpentry, wood trims, trim carpentry, and pitched roofing. The company also offers residential re-roofing services in Des Moines and Central Iowa. Their intended clients include both commercial and residential property owners seeking quality construction services. Wolf Construction is currently hiring to expand their team. | Source: https://www.ransomware.live/id/d3d3LndvbGZjb25zdHJ1Y3Rpb24ubmV0QGx5bng="
+  },
+  {
+    "id": 4722,
+    "name": "safepay: seinordovest.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Not Found | Website: seinordovest.it | Infostealer data confirmed. | Headquartered in the Piedmont region, the company operates as a public utility serving numerous municipalities in northwestern Italy. Its mission … | Source: https://www.ransomware.live/id/c2Vpbm9yZG92ZXN0Lml0QHNhZmVwYXk="
+  },
+  {
+    "id": 4710,
+    "name": "bravox: SELECT WINES",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to bravox. | Country: CA | Sector: Agriculture and Food Production | Website: www.selectwines.ca | The company is engaged in importing and distributing premium wines, supplying restaurants, hotels, and retail, and representing international wine brands in the Canadian market. | Source: https://www.ransomware.live/id/U0VMRUNUIFdJTkVTQGJyYXZveA=="
+  },
+  {
+    "id": 4717,
+    "name": "shinyhunters: Amazon owned OneMedical.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Healthcare | Website: OneMedical.com | Over 8.8TB of data was compromised. This is a final warning to reach out by 22 June 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 18 June 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/QW1hem9uIG93bmVkIE9uZU1lZGljYWwuY29tQHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 4731,
+    "name": "ransomhouse: Prince George County",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: US | Sector: Public Sector | Website: www.princegeorgecountyva.gov | Prince George County is a local government entity focused on providing essential services and fostering community development. It offers a range of services including public safety, waste management, parks and recreation, and social services to its residents. The county aims to embrace its rural character while planning for a prosperous future. Its intended clients include local residents, businesses, and visitors seeking information and services related to the county. | Press: https://dysruptionhub.com/prince-george-county-cyber-claim/ | Source: https://www.ransomware.live/id/UHJpbmNlIEdlb3JnZSBDb3VudHlAcmFuc29taG91c2U="
+  },
+  {
+    "id": 4711,
+    "name": "akira: Berg Lilly",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Not Found | Berg Lilly PC is a trusted law firm based in Bozeman, Montana, with over 60 years of experience providing quality legal representation to both local and national clients. The firm specialize s in various areas of law, including business entity law, civil litigation, commercial transact ions, construction law, employment law, estate planning, personal injury, and real estate law. We will upload 50gb of corporate data soon. Clients personal information (passports, SSNs, DLs, addresses, phones, confidential files, medical information, financials and so on), court heari ngs, police reports and other legal documents. | Source: https://www.ransomware.live/id/QmVyZyBMaWxseUBha2lyYQ=="
+  },
+  {
+    "id": 4721,
+    "name": "genesis: The Associated Builders and Contractors of Indiana/Kentucky",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Construction | Website: abcindianakentucky.org | Infostealer data confirmed. | A trade association | Source: https://www.ransomware.live/id/VGhlIEFzc29jaWF0ZWQgQnVpbGRlcnMgYW5kIENvbnRyYWN0b3JzIG9mIEluZGlhbmEvS2VudHVja3lAZ2VuZXNpcw=="
+  },
+  {
+    "id": 4725,
+    "name": "safepay: brscappuccio.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Consumer Services | Website: brscappuccio.it | Infostealer data confirmed. | Headquartered in Casandrino, near Naples in the Campania region, the company specializes in the distribution and supply of medical devices, … | Source: https://www.ransomware.live/id/YnJzY2FwcHVjY2lvLml0QHNhZmVwYXk="
+  },
+  {
+    "id": 4720,
+    "name": "genesis: United Personnel (a division of Masis Staffing Solutions)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to genesis. | Country: US | Sector: Business Services | Website: msastaffing.org | Infostealer data confirmed. | A provider of staffing services | Source: https://www.ransomware.live/id/VW5pdGVkIFBlcnNvbm5lbCAoYSBkaXZpc2lvbiBvZiBNYXNpcyBTdGFmZmluZyBTb2x1dGlvbnMpQGdlbmVzaXM="
+  }
+]

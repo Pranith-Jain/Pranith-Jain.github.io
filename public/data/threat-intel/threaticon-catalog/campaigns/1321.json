@@ -3,10 +3,10 @@
   "name": "incransom: ETFSA",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 26, 2026",
+  "lastSeen": "Mar 25, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: ZA | Sector: Financial Services | Website: etfsa.co.za | Infostealer data confirmed. | ETFSA.co.za is a South African financial services platform specializing in exchange-traded funds (ETFs). It offers a wide range of investment options, allowing individuals to invest in various sectors, indices, and asset classes through low-cost, diversified ETFs. The platform provides educational resources, investment solutions, and tools to help investors manage their portfolios effectively. ETFSA also supports tax-free savings accounts (TFSA) and retirement accounts, making it accessible for long-term wealth building ETFSA.co.za became the target of a cyberattack, and all confidential and personal client data will be published soon. Mike Brown did not worry about the security of his clients' data; he had the opportunity to ensure the safety of such sensitive data, but he preferred to stay on the sidelines. +27 82 653 5645 (m) Mike Brown | So...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1321"
 }

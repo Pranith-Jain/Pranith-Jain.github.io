@@ -1,0 +1,9 @@
+{
+  "id": 2047,
+  "name": "T1094.004 - Exfiltration over Network Tools",
+  "techniqueId": "T1094",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2047"
+}

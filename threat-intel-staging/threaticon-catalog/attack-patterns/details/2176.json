@@ -1,0 +1,9 @@
+{
+  "id": 2176,
+  "fetchedAt": "2026-08-15T06:59:21.258Z",
+  "name": "T1048 - Exfiltration Over C2 Channel",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

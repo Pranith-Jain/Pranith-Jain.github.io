@@ -3,9 +3,9 @@
   "name": "thegentlemen: Das Labor",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 4, 2026",
+  "lastSeen": "Apr 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Healthcare | Website: daslabor.eu | Infostealer data confirmed. | daslabor.eu zoominfo.com/c/friedrich-holzweber/549578383 is an Austrian private medical and chemical diagnostic laboratory led by Dr. Margit Striednig-Zechner and Dr. Beatrix Sterz. The lab offers a dedicated online ordering system called Cyberlab for referring physicians and healthcare professionals, emphasizing quality-oriented and service-driven care. It is a regional clinical diagnostics practice focused on delivering reliable medical and chemical laboratory testing to local healthcare providers | Source: https://www.ransomware.live/id/RGFzIExhYm9yQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1012"

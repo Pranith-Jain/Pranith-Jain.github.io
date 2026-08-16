@@ -3,9 +3,9 @@
   "name": "worldleaks: BMJ Paperpack",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 22, 2026",
+  "lastSeen": "May 22, 2026",
+  "added": "May 26, 2026",
   "description": "Ransomware attack attributed to worldleaks. | Country: ID | Sector: Manufacturing | Website: www.bmjpaperpack.com | [AI generated] N/A | Source: https://www.ransomware.live/id/Qk1KIFBhcGVycGFja0B3b3JsZGxlYWtz",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4028"

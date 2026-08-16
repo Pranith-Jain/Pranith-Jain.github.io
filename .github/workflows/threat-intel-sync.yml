@@ -1,4 +1,4 @@
-name: Threat Intel sync (weekly)
+name: Threat Intel sync (daily)
 
 # Re-fetches NVD recent CVEs, CISA KEV, and Daily-Hunt IOC families,
 # then rebuilds the public/data/threat-intel/ manifest. If the data
@@ -6,7 +6,7 @@ name: Threat Intel sync (weekly)
 
 on:
   schedule:
-    - cron: "30 5 * * 1,4"
+    - cron: "30 5 * * *"
   workflow_dispatch: {}
 
 concurrency:
@@ -44,6 +44,15 @@ jobs:
       - name: Sync ThreatCluster feeds
         run: node scripts/sync-threatcluster.mjs
 
+      - name: Sync dPhish phishing feed (TAXII 2.1)
+        run: node scripts/sync-dphish.mjs
+
+      - name: Sync Living Threat Repository (MITRE-mapped incidents)
+        run: node scripts/sync-living-threat.mjs
+
+      - name: Sync MalwareAnalyzer by Cyble feeds
+        run: node scripts/sync-malwareanalyzer.mjs
+
       - name: Build manifest
         run: node scripts/build-threat-intel.mjs
 
@@ -52,6 +61,15 @@ jobs:
 
       - name: Build ThreatCluster manifest
         run: node scripts/build-threatcluster.mjs
+
+      - name: Build dPhish manifest
+        run: node scripts/build-dphish.mjs
+
+      - name: Build Living Threat manifest
+        run: node scripts/build-living-threat.mjs
+
+      - name: Build MalwareAnalyzer manifest
+        run: node scripts/build-malwareanalyzer.mjs
 
       - name: Show diff stat
         run: |
@@ -66,15 +84,21 @@ jobs:
           commit-message: "chore(ti): sync threat intel from upstream sources"
           title: "Threat Intel upstream sync — ${{ github.event.schedule || 'manual' }}"
           body: |
-            Automated weekly sync of threat intelligence data.
+            Automated daily sync of threat intelligence data.
 
             Re-runs `scripts/sync-threat-intel.mjs` (NVD recent + CISA KEV +
             Daily-Hunt sparse git clone + mthcht/awesome-lists detection CSVs)
             and `scripts/build-threat-intel.mjs` (manifest rebuild). Also syncs
             the darknetlist.is Tor site directory
-            (`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs`)
-            and the ThreatCluster public feeds
-            (`scripts/sync-threatcluster.mjs` + `scripts/build-threatcluster.mjs`).
+            (`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs`),
+            the ThreatCluster public feeds
+            (`scripts/sync-threatcluster.mjs` + `scripts/build-threatcluster.mjs`),
+            and the dPhish public TAXII 2.1 phishing feed
+            (`scripts/sync-dphish.mjs` + `scripts/build-dphish.mjs`).
+            Also syncs the Living Threat Repository MITRE-mapped incidents
+            (`scripts/sync-living-threat.mjs` + `scripts/build-living-threat.mjs`)
+            and the MalwareAnalyzer by Cyble URL feeds
+            (`scripts/sync-malwareanalyzer.mjs` + `scripts/build-malwareanalyzer.mjs`).
             Review the diff in `public/data/threat-intel/` and merge if the
             data looks correct.
 
@@ -86,6 +110,12 @@ jobs:
             - darknetlist.is (Tor site directory, 108 sites across 9 categories)
             - threatcluster.io (5 public feeds: trending clusters, vulnerabilities,
               exploits, dark-web victims, IOC blocklist + MISP manifest)
+            - dphish.com (public TAXII 2.1 collection: phishing domains, URLs,
+              sender IPs, phone numbers, attachment rules)
+            - living-threat.rabitanoor.com (Living Threat Repository — newest
+              5000 of ~21k incidents mapped to MITRE ATT&CK chains)
+            - malwareanalyzer.com (MalwareAnalyzer by Cyble — malicious +
+              newly-observed URL feeds, keyless)
 
             Trigger: `${{ github.event_name }}`
             Run:     `${{ github.run_id }}`

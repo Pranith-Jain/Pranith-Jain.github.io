@@ -1,0 +1,12 @@
+{
+  "id": 686,
+  "fetchedAt": "2026-08-14T05:14:01.135Z",
+  "name": "Detection Strategy for T1218.012 Verclsid Abuse",
+  "tlp": null,
+  "detId": "DET0042",
+  "stixId": "x-mitre-detection-strategy--1d738832-3de4-45f0-98e5-ac37642619e8",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0118"]
+}

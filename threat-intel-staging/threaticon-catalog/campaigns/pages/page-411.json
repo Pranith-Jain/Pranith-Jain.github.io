@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1618,
+    "name": "chaos: flad.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to chaos. | Country: US | Sector: Technology | Website: flad.com | Infostealer data confirmed. | We are announcing a major security breach and data exfiltration from Flad Architects, a leading national firm specializing in high-stakes science and technology infrastructure. Total volume of exfiltrated data: Over 2.2 TB The leaked archive includes critical and sensitive information across the f… | Source: https://www.ransomware.live/id/ZmxhZC5jb21AY2hhb3M="
+  },
+  {
+    "id": 1617,
+    "name": "play: Eagle Industrial Equipment",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Manufacturing | Website: www.eagleie.com | United States | Source: https://www.ransomware.live/id/RWFnbGUgSW5kdXN0cmlhbCBFcXVpcG1lbnRAcGxheQ=="
+  },
+  {
+    "id": 1616,
+    "name": "play: Circle Floors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to play. | Country: US | Sector: Construction | Website: www.circlefloors.com | United States | Source: https://www.ransomware.live/id/Q2lyY2xlIEZsb29yc0BwbGF5"
+  },
+  {
+    "id": 1615,
+    "name": "qilin: Silvon Software",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Technology | Website: www.silvon.com | Source: https://www.ransomware.live/id/U2lsdm9uIFNvZnR3YXJlQHFpbGlu"
+  },
+  {
+    "id": 1614,
+    "name": "qilin: TDS Construction",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.tdsconstruction.com | Source: https://www.ransomware.live/id/VERTIENvbnN0cnVjdGlvbkBxaWxpbg=="
+  },
+  {
+    "id": 1613,
+    "name": "ransomhouse: Bioptik Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: TW | Sector: Technology | Website: www.bioptik.com.tw | Bioptik Technology Inc. is a Taiwan-based biotechnology company specializing in the research, development, production, and worldwide distribution of medical diagnostic devices, reagents, and skincare products. With a fully in-house R&D team and complete vertical integration from development to manufacturing, Bioptik maintains its core commitment to the highest quality standards and maximum customer satisfaction. | Source: https://www.ransomware.live/id/QmlvcHRpayBUZWNobm9sb2d5QHJhbnNvbWhvdXNl"
+  },
+  {
+    "id": 1612,
+    "name": "qilin: Syed Professional Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.syedpro.com | Source: https://www.ransomware.live/id/U3llZCBQcm9mZXNzaW9uYWwgU2VydmljZXNAcWlsaW4="
+  },
+  {
+    "id": 1611,
+    "name": "thegentlemen: ControlGMC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1610,
+    "name": "thegentlemen: St Fabian Catholic",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1609,
+    "name": "thegentlemen: Einstein Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: AU | Sector: Technology | Website: einstein-tech.com.au | Infostealer data confirmed. | einstein-tech.com.au zoominfo.com/c/einstein-technology-pty-ltd/372382819 Einstein Technology Pty Ltd is a company that operates in the Custom Software & IT Services industry. It employs 5to9 people and has 1Mto5M of revenue. The company is headquartered in Lysterfield, Victoria, Australia | Source: https://www.ransomware.live/id/RWluc3RlaW4gVGVjaG5vbG9neUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 1608,
+    "name": "lynx: Africa Insurance",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lynx. | Country: ET | Sector: Financial Services | Website: www.africainsurance.com | Lion of Africa Insurance Company Ltd is a company that operates in the Insurance industry. It employs 100to249 people and has 10Mto25M of revenue. The company is headquartered in Sandton, South Africa. | Source: https://www.ransomware.live/id/QWZyaWNhIEluc3VyYW5jZUBseW54"
+  },
+  {
+    "id": 1607,
+    "name": "lynx: Keller Polska",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lynx. | Country: PL | Sector: Construction | Website: www.kellerpolska.pl | Keller Polska, operating for over 20 years, is a leader in the geotechnical market in Poland and this part of Europe. We carry out both small local projects and the largest and most important for the economy. As one of the Keller Group companies, we also have the financial capabilities, know-how, skills and global reach to handle the most demanding projects. | Source: https://www.ransomware.live/id/S2VsbGVyIFBvbHNrYUBseW54"
+  },
+  {
+    "id": 1634,
+    "name": "handala: Stryker Corporation",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: US | Sector: Healthcare | Website: stryker.com | Infostealer data confirmed. | We announce to the world that, in retaliation for the brutal attack on the Minab school and in response to ongoing cyber assaults against the infrastructure of the Axis of Resistance, our major cyber operation has been executed with complete success. The Zionist-rooted corporation, Stryker, one of the key arms of the global Zionist lobby… | Press: https://www.irishmirror.ie/news/irish-news/stryker-cyber-attack-thousands-irish-36850017.amp | Source: https://www.ransomware.live/id/U3RyeWtlciBDb3Jwb3JhdGlvbkBoYW5kYWxh"
+  },
+  {
+    "id": 1633,
+    "name": "nightspire: Taylor County Property Appraiser Office",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Public Sector | Website: qpublic.net/fl/taylor | - SQL Data- All Pics- Scan Files | Source: https://www.ransomware.live/id/VGF5bG9yIENvdW50eSBQcm9wZXJ0eSBBcHByYWlzZXIgT2ZmaWNlQG5pZ2h0c3BpcmU="
+  },
+  {
+    "id": 1632,
+    "name": "dragonforce: Advanced Rehabilitation Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

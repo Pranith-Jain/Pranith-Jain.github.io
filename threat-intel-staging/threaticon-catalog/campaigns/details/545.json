@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:31:11.344Z",
+  "name": "coinbasecartel: Integer Holdings",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 23, 2026",
+  "lastSeen": "Nov 10, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Manufacturing | Website: integer.net | Infostealer data confirmed. | [AI generated] Integer Holdings is a US-based medical device manufacturer headquartered in Frisco, Texas. The company specializes in producing advanced technologies for the medical, non-medical, and portable medical markets, including batteries, power systems, and implantable components. It serves original equipment manufacturers across cardiac, neuromodulation, and vascular sectors, making it a key supplier in the global medical device industry. | Source: https://www.ransomware.live/id/SW50ZWdlciBIb2xkaW5nc0Bjb2luYmFzZWNhcnRlbA=="
+}

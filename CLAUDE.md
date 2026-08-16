@@ -147,7 +147,7 @@ A second data vertical replicating the SI pattern (`public/data/threat-intel/`, 
 - `api/src/routes/threat-intel-edge-tools.ts` — 9 REST route handlers
 - `api/src/lib/threat-intel-manifest.ts` — symlink to `worker/lib/threat-intel-manifest.ts`
 - `src/pages/ThreatIntel.tsx` — SPA dashboard
-- `.github/workflows/threat-intel-sync.yml` — weekly sync workflow (Mon + Thu 05:30 UTC)
+- `.github/workflows/threat-intel-sync.yml` — daily sync workflow (05:30 UTC)
 - `docs/loops/threat-intel-sync.md` — loop template for manual sync
 - `public/data/threat-intel/` — generated manifest tree (not committed empty; populate via sync + build)
 
@@ -308,54 +308,54 @@ requests/min and a full-profile storm 429s every list fetch).
 future-ish "added" dates (platform test/seed data). Parser notes live in
 `scripts/sync-threaticon.mjs` (section-boundary scoping for actor details).
 
-### Threaticon Extended Catalog (round 2) — Controls, Campaigns, Attack Patterns, CVEs, IOC Dictionary
+### Threaticon Extended Catalog (round 2) — Controls, Campaigns, Attack Patterns
 
 A second manifest tree under `public/data/threat-intel/threaticon-catalog/`
-replicating the remaining public-preview sections: tools (95), mitigations (44),
+replicating the other public-preview sections: tools (95), mitigations (44),
 data-sources (106), detection-strategies (697), campaigns (7,748), attack-patterns
-(3,087), vulnerabilities (22,190), and a chunked 480k-indicator dictionary.
-Login-gated sections (intrusion-sets, observed-data, analysis) are skipped; the
-graph is client-rendered and not replicated.
+(3,087). **vulnerabilities (22,190 CVEs) and the indicators dictionary (480,188
+IOCs) are DELIBERATELY EXCLUDED** — their ~32k extra bodies would push the
+deployment past the 20,000 static-asset limit of the Workers free plan
+(public/ already runs ~18.5k files). Sync/build scripts list only the 6 kept
+sections. Login-gated sections (intrusion-sets, observed-data, analysis) are
+skipped; the graph is client-rendered and not replicated.
 
 **3 MCP tools** (registered on `DFIR_MCP`): `ti_threaticon_catalog`,
-`ti_get_threaticon_catalog_item`, `ti_threaticon_indicators`
+`ti_get_threaticon_catalog_item`, `ti_threaticon_indicators` (returns the
+empty type catalog when the section is absent)
 
 **4 REST routes** under `/api/v1/threat-intel/threaticon/*`:
 `GET /catalog` (index counts + section meta), `GET /catalog/:section` (q, limit
 ≤1000, sections: tools|mitigations|data-sources|detection-strategies|campaigns|
-attack-patterns|vulnerabilities), `GET /catalog/:section/:id` (full body),
+attack-patterns), `GET /catalog/:section/:id` (full body),
 `GET /indicators` (types catalog without `type`; with `type`+`chunk`+q/tlp/
 min_confidence/limit → up to 1,000 records per chunk)
 
 **1 SPA route** at `/threatintel/feeds/threaticon` — tabs: Campaigns,
-Attack Patterns, Vulnerabilities (severity filter), Controls Catalog (4-section
-select), Indicators (type select + chunk paging, search within chunk).
+Attack Patterns, Controls Catalog (4-section select). The Vulnerabilities and
+Indicators tabs were removed when those sections were cut for the 20k asset cap.
 
 **Files**:
 
-- `scripts/sync-threaticon-catalog.mjs` — 8-section crawler into `threat-intel-staging/threaticon-catalog/`; per-page/per-detail caching (resumable), 429 backoff, `--only`/`--concurrency`/`--gap-ms 1300`/`--list-only`/`--details-only`/`--limit-pages`. **Pace matters**: the free tier rate-limits at ~1 req/s sustained — run `--concurrency 1 --gap-ms 1300`; bursts 429 and the 15/30/45s retries make a fast crawl slower than a slow one.
-- `scripts/build-threaticon-catalog.mjs` — slices staging into `public/data/threat-intel/threaticon-catalog/` (index.json + `<section>/<id>.json` + `indicators/<type>[.N].json` 50k/chunk)
+- `scripts/sync-threaticon-catalog.mjs` — 6-section crawler into `threat-intel-staging/threaticon-catalog/`; per-page/per-detail caching (resumable), 429 backoff, `--only`/`--concurrency`/`--gap-ms 1300`/`--list-only`/`--details-only`/`--limit-pages`. **Pace matters**: the free tier rate-limits at ~1 req/s sustained — run `--concurrency 1 --gap-ms 1300`; bursts 429 and the 15/30/45s retries make a fast crawl slower than a slow one.
+- `scripts/build-threaticon-catalog.mjs` — slices staging into `public/data/threat-intel/threaticon-catalog/` (index.json + `<section>/<id>.json`)
 - `worker/lib/threat-intel-manifest.ts` — `TiCatalog*`/`TiThreaticonCatalogIndex` types, `loadThreaticonCatalogIndex`/`getThreaticonCatalogBody`/`loadThreaticonIndicators` + `filterThreaticonCatalog`/`filterThreaticonIndicators`/`threaticonIndicatorTypes`; `tiCacheStats().threaticon.catalog`
 - `worker/mcp-server.ts` — 3 `ti_*` tool registrations; `api/src/lib/agent/mcp-bridge.ts` mirrors
 - `api/src/routes/threat-intel-edge-tools.ts` — 4 catalog route handlers (after `/threaticon/map`)
 - `api/test/routes/threat-intel-catalog.test.ts` — 4 route tests
-- `src/pages/threatintel/Threaticon.tsx` — 5 catalog SPA tabs
-- `public/data/threat-intel/threaticon-catalog/` — generated tree (~35 MB, ~33k bodies + ~10k indicator chunk files)
+- `src/pages/threatintel/Threaticon.tsx` — 3 catalog SPA tabs (campaigns, attack-patterns, controls catalog)
+- `public/data/threat-intel/threaticon-catalog/` — generated tree (~11.5k files incl. bodies)
+- `.github/workflows/threaticon-catalog-sync.yml` — weekly (Tue 06:00 UTC) sync + build + PR. **The crawl staging is git-committed** (`threat-intel-staging/threaticon-catalog/`, ~12k files) so CI resumes incrementally — a full re-crawl (~8h) would exceed the 6h runner limit. When re-seeding, commit the staging in the same PR that adds the data.
 
 **To rebuild**: `node scripts/sync-threaticon-catalog.mjs --concurrency 1 --gap-ms 1300 && node scripts/build-threaticon-catalog.mjs`
 
 **Data layout**:
 
-- `index.json` — counts + per-section meta (syncedAt, detailCount, slim items,
-  indicator type catalog with per-type count/chunks)
+- `index.json` — counts + per-section meta (syncedAt, detailCount, slim items)
 - `<section>/<id>.json` — bodies: per-section detail fields (tools: category/
   aliases; mitigations: M###/STIX id/technique coverage; data-sources: DC###/
   analytic+strategy counts/AN### analytics; detection-strategies: DET###/analytics;
-  campaigns: status/confidence/first+last-seen; attack-patterns: CAPEC/A### ids;
-  vulnerabilities: CVSS score+vector/severity/status/CWE/references)
-- `indicators/<type>.json` / `indicators/<type>.N.json` — IOC records
-  (value/tlp/confidence/added), 50k per chunk; type keys are slugified
-  (`ipv4-address`, `domain`, `sha-256-hash`, …)
+  campaigns: status/confidence/first+last-seen; attack-patterns: CAPEC/A### ids)
 
 **Crawl footguns** (learned the hard way):
 
@@ -367,6 +367,127 @@ select), Indicators (type select + chunk paging, search within chunk).
 - Attack-pattern cards carry their id in a mono span as either `CAPEC-N` or
   `A#### - <name>` — the techniqueId regex captures the `[A-Za-z]+\d+(?:-\d+)?`
   prefix, there is no CAPEC field in the page markup per se.
+
+### dPhish — Phishing Threat-Intel Feed (TAXII 2.1)
+
+A live phishing-IOC vertical from [dphish.com](https://dphish.com/feeds/): a public
+OpenCTI-backed TAXII 2.1 collection (STIX 2.1 indicators) covering malicious domains,
+phishing URLs, sender IPs, phone numbers, and attachment detection rules. **The
+collection endpoint requires no auth even though the discovery/root endpoints 401.**
+Indicators carry OpenCTI extension fields (score, detection, main observable type +
+`observable_values`); category mapping: `Domain-Name→domain`, `IPv4/IPv6-Addr→ipv4/ipv6`,
+`Url→url`, `Phone-Number→phone`, `StixFile→file`, `Email-Addr→email`, else `other`.
+
+**2 MCP tools** (registered on `DFIR_MCP` + mirrored in `api/src/lib/agent/mcp-bridge.ts`):
+`ti_list_dphish` (category / activeOnly / keyword / limit filters),
+`ti_get_dphish_indicator` (full STIX body by slug)
+
+**3 REST routes** under `/api/v1/threat-intel/dphish/*`:
+`GET /dphish` (index + counts + cache), `GET /dphish/indicators`
+(category, active_only, q, limit), `GET /dphish/indicators/:slug`
+
+**1 SPA route** at `/threatintel/feeds/dphish` (expandable indicator cards: value,
+category, active/revoked, confidence, score, STIX pattern, labels, validity).
+
+**IOC provider**: dphish is also registered as a provider adapter
+(`api/src/providers/dphish.ts`, `ProviderId 'dphish'`) in the `/api/v1/ioc/check`
+fan-out (`runIocProviders`) — it matches indicators against the replicated manifest
+through `env.ASSETS` (zero network egress, no key; tiers/providers maps + weights +
+admiralty/confidence registry entries wired). Active indicators → malicious (85),
+revoked/inactive → suspicious (45); domain checks also match URL-entry hosts.
+Tests: `api/test/providers/dphish.test.ts` (5).
+
+**Files**:
+
+- `scripts/sync-dphish.mjs` — TAXII 2.1 paginated fetch (`next` cursors, `added_after`
+  incremental ~24h overlap), normalized → `threat-intel-staging/dphish/indicators.json`
+  (merge by stixId keeps newest `modified`); `scripts/sync-dphish.test.mjs` unit-tests
+  the pure functions (`npm run test:dphish`)
+- `scripts/build-dphish.mjs` — slices into `public/data/threat-intel/dphish/`
+  (index.json + per-slug bodies)
+- `worker/lib/threat-intel-manifest.ts` — `Dphish*` types + `loadDphishIndex` /
+  `getDphishIndicator` / `filterDphishIndicators` + `tiCacheStats().dphish`
+- `api/src/routes/threat-intel-edge-tools.ts` — 3 route handlers
+- `api/test/routes/dphish.test.ts` — 3 route tests
+- `src/pages/threatintel/Dphish.tsx` — SPA page
+
+**To rebuild**: `node scripts/sync-dphish.mjs && node scripts/build-dphish.mjs`
+**Tests**: `npx vitest run worker/lib/threat-intel-manifest.test.ts` (dphish suites) +
+`cd api && npx vitest run test/routes/dphish.test.ts`
+
+### Living Threat Repository — MITRE-mapped Incident Feed (living-threat.rabitanoor.com)
+
+A behavioral vertical replicating the [Living Threat Repository](https://living-threat.rabitanoor.com/)
+(github.com/HudKSD/Living-Threat, MIT): real-world incidents continuously mapped to
+MITRE ATT&CK tactics + techniques via a keyless bootstrap API
+(`GET /api/bootstrap?size=5000`). Each body is AI-enriched — per-kill-chain-stage
+ATT&CK analyses (tactic + technique refs with descriptions), per-stage Detection +
+Remediation notes, CVEs, Threat_Actors, Tools, priority/relevance scores (0–100),
+diamond-model + kill-chain summaries, detection rules/indicators, behavioral +
+data-exfiltration indicators, pyramid of pain, post-incident recommendations.
+
+**2 MCP tools** (registered on `DFIR_MCP` + mirrored in `api/src/lib/agent/mcp-bridge.ts`):
+`ti_list_living_threat` (tactic / technique / severity / actor / keyword / minPriority
+filters), `ti_get_living_threat_incident` (full body by slug)
+
+**3 REST routes** under `/api/v1/threat-intel/living-threat/*`: `/` (index + counts),
+`/incidents` (tactic, technique, severity, actor, q, min_priority, limit), `/incidents/:slug`
+
+**1 SPA route** at `/threatintel/feeds/living-threat` (tactic chips + severity/
+technique filters + expandable incident cards with per-stage detection/remediation,
+CVE/actor pills, kill-chain + diamond-model summaries).
+
+**Data**: `public/data/threat-intel/living-threat/` — `index.json` (slim ~3 MB: 5000
+entries with techniques + actor names for server-side filters) + `shards/0000.json…
+0009.json` (500 full bodies each, ~4 MB). **Sharding is deliberate** — upstream holds
+~21k incidents but bootstrap caps at 5000, and per-incident files would blow the 20k
+static-asset cap (public/ runs ~18.5k files).
+
+**Files**:
+
+- `scripts/sync-living-threat.mjs` — keyless bootstrap fetch (5000 docs) → `threat-intel-staging/living-threat/`
+- `scripts/build-living-threat.mjs` — slim index + 10 shards + tactic/severity/technique/actor/source rollups
+- `worker/lib/threat-intel-manifest.ts` — `LivingThreat*` types, `loadLivingThreatIndex` /
+  `getLivingThreatIncident` (shard-level LRU cache) / `filterLivingThreatIncidents` +
+  `tiCacheStats().livingThreat`
+- `worker/mcp-server.ts` — 2 `ti_*` tool registrations
+- `api/src/routes/threat-intel-edge-tools.ts` — 3 route handlers
+- `api/test/routes/living-threat.test.ts` — 3 route tests
+- `src/pages/threatintel/LivingThreat.tsx` — SPA page
+- `.github/workflows/threat-intel-sync.yml` — daily sync step
+
+**To rebuild**: `node scripts/sync-living-threat.mjs && node scripts/build-living-threat.mjs`
+
+### MalwareAnalyzer by Cyble — Live URL Feeds + IOC Lookup (malwareanalyzer.com)
+
+A keyless vertical replicating the free public API of [MalwareAnalyzer by Cyble](https://malwareanalyzer.com/)
+(free multi-engine malware analysis: static scanning + dynamic detonation, 70k+
+public sample corpus, 46 engines). **No secret required.**
+
+**2 MCP tools** (registered on `DFIR_MCP` + mirrored in `api/src/lib/agent/mcp-bridge.ts`):
+`ti_list_malwareanalyzer` (feed: malicious | newly-observed; verdict / category /
+keyword filters), `ti_malwareanalyzer_lookup` (live reputation lookup for IP /
+domain / URL / hash — verdict, score 0–100, first/last seen, prevalence, tags)
+
+**3 REST routes** under `/api/v1/threat-intel/malwareanalyzer/*`:
+`/` (index + counts + cache), `/feed/:name` (malicious | newly-observed, max 200),
+`/lookup?indicator=` (live upstream call, keyless)
+
+**1 SPA route** at `/threatintel/feeds/malwareanalyzer` (feed tabs, verdict/score
+pills, copy-all pfSense/Pi-hole hostname blocklist, live lookup box).
+
+**Files**:
+
+- `scripts/sync-malwareanalyzer.mjs` — fetches `/v1/feed/malicious` + `/v1/feed/newly-observed` (capped 200) + `/v1/status` → `threat-intel-staging/malwareanalyzer/`
+- `scripts/build-malwareanalyzer.mjs` — slim index + 2 whole-feed files + status (only 4 assets)
+- `worker/lib/threat-intel-manifest.ts` — `Ma*` types, `loadMaIndex` / `getMaFeed` / `filterMaFeed` + `tiCacheStats().malwareanalyzer`
+- `worker/lib/malwareanalyzer.ts` (+ symlink `api/src/lib/malwareanalyzer.ts`) — `malwareAnalyzerLookup` / `malwareAnalyzerStatus` live helpers, graceful degradation
+- `worker/mcp-server.ts` — 2 `ti_*` tool registrations
+- `api/src/routes/threat-intel-edge-tools.ts` — 3 route handlers
+- `api/test/routes/malwareanalyzer.test.ts` — 3 route tests
+- `src/pages/threatintel/MalwareAnalyzer.tsx` — SPA page
+
+**To rebuild**: `node scripts/sync-malwareanalyzer.mjs && node scripts/build-malwareanalyzer.mjs`
 
 ### STIX 2.1 export (cross-vertical)
 

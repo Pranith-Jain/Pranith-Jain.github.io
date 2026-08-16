@@ -1,0 +1,12 @@
+{
+  "id": 68,
+  "fetchedAt": "2026-08-14T05:03:24.727Z",
+  "name": "nbtstat",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "nbtstat is a utility used to troubleshoot NetBIOS name resolution. (Citation: TechNet Nbtstat)"
+}

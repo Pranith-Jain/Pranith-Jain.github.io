@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:29:10.534Z",
+  "name": "AiLock: Dallas Regional Chamber",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Jan 24, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Public Sector | Website: dallaschamber.org | Infostealer data confirmed. | The Dallas Regional Chamber is a prominent business organization known for its role as the economic growth champion and business voice of the Dallas region.It focuses on priorities such as economic development, education, public policy, and quality of life. | Source: https://www.ransomware.live/id/RGFsbGFzIFJlZ2lvbmFsIENoYW1iZXJAQWlMb2Nr"
+}

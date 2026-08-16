@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:07:38.256Z",
+  "name": "OSINT Exploring .XYZ (Another Shady TLD Report) by Blue Coat",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jul 14, 2015",
+  "lastSeen": "Jul 14, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #750 (55bb31a3-dcf4-4731-acdd-4851950d210b)."
+}

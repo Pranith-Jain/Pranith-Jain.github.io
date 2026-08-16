@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1948,
+    "name": "thegentlemen: Ricopia",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: ES | Sector: Technology | Website: ricopia.com | Infostealer data confirmed. | ricopia.com zoominfo.com/c/ricopia/405953806 Ricopia helps businesses upgrade their technology and work smarter. With over 100 tech experts, they've been helping companies of all sizes get better at digital tools for more than 30 years. They do this by checking how a company works, finding ways to improve technology, and helping teams learn new skills. Big names like ING Direct and BNP Paribas trust Ricopia to make their businesses run more smoothly and efficiently | Source: https://www.ransomware.live/id/Umljb3BpYUB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 1947,
+    "name": "thegentlemen: Afezo",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1956,
+    "name": "lockbit5: brassuco.com.br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Agriculture and Food Production | Website: brassuco.com.br | Infostealer data confirmed. | Brassuco Alimentos has been a key player in the food industry since 1985. They make tasty drinks and... | Source: https://www.ransomware.live/id/YnJhc3N1Y28uY29tLmJyQGxvY2tiaXQ1"
+  },
+  {
+    "id": 1946,
+    "name": "incransom: lke-group.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: DE | Sector: Manufacturing | Website: lke-group.com | Infostealer data confirmed. | LKE Group creates custom transport equipment for businesses across different industries. They design and build specialized gear that helps companies move materials, products, and goods more efficiently. From warehouse systems to industrial transport devices, LKE makes machines that solve real moving and handling challenges for factories, logistics centers, and manufacturing plants. Employees: 500 Revenue: $30.4 Million Industry: Architecture, Engineering & Design Phone Number: +49 23650000000 | Source: https://www.ransomware.live/id/bGtlLWdyb3VwLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 1945,
+    "name": "incransom: abramssales.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1959,
+    "name": "qilin: Traffic Tech",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Transportation/Logistics | Website: www.traffictech.com | Source: https://www.ransomware.live/id/VHJhZmZpYyBUZWNoQHFpbGlu"
+  },
+  {
+    "id": 1954,
+    "name": "lockbit5: yaomazi.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: CN | Sector: Agriculture and Food Production | Website: yaomazi.com | Infostealer data confirmed. | Yaomazi Food Co. LTD is located in Hongya, the hometown of Chinese green pepper. After more than 10... | Source: https://www.ransomware.live/id/eWFvbWF6aS5jb21AbG9ja2JpdDU="
+  },
+  {
+    "id": 1944,
+    "name": "incransom: denmark.k12.wi.us",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Education | Website: denmark.k12.wi.us | Infostealer data confirmed. | Denmark High School is a company that employs 100to249 people and has 10Mto25M of revenue. The company is headquartered in Denmark, Wisconsin. Employees: 200 Revenue: $18.2 Million Industry: Education Phone Number: (920) 863-4200 | Press: https://dysruptionhub.com/denmark-schools-outage-wisconsin/ | Source: https://www.ransomware.live/id/ZGVubWFyay5rMTIud2kudXNAaW5jcmFuc29t"
+  },
+  {
+    "id": 1955,
+    "name": "lockbit5: omaxauto.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: IN | Sector: Manufacturing | Website: omaxauto.com | Infostealer data confirmed. | OMAX Autos Limited is a leading manufacturer of sheet metal components, specializing in commercial v... | Press: https://tradebrains.in/omax-autos-reports-ransomware-attack-it-systems-under-investigation-after-cyber-breach/ | Source: https://www.ransomware.live/id/b21heGF1dG8uY29tQGxvY2tiaXQ1"
+  },
+  {
+    "id": 1957,
+    "name": "lockbit5: diesel-electric.co.za",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: ZA | Sector: Energy | Website: diesel-electric.co.za | Infostealer data confirmed. | The Diesel-Electric Group including Bosch Service Dealers, e-CAR Service Centers and Bosch SA togeth... | Source: https://www.ransomware.live/id/ZGllc2VsLWVsZWN0cmljLmNvLnphQGxvY2tiaXQ1"
+  },
+  {
+    "id": 1960,
+    "name": "qilin: PLUS Malaysia Berhad",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MY | Sector: Transportation/Logistics | Website: www.plus.com.my | Source: https://www.ransomware.live/id/UExVUyBNYWxheXNpYSBCZXJoYWRAcWlsaW4="
+  },
+  {
+    "id": 1961,
+    "name": "lapsus$: Eiffage",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: FR | Sector: Construction | Website: eiffage.com | Infostealer data confirmed. | [AI generated] Eiffage S.A. is a French publicly-listed company established in 1993, specializing in civil engineering and construction. Its activities are divided into five main segments: Construction, Infrastructure, Real Estate Development, Metal, and Concessions & Energy. It is known for working on significant projects such as the Eiffel Tower and the Millau Viaduct. Eiffage operates not only in France but also in more than 50 countries worldwide. | Source: https://www.ransomware.live/id/RWlmZmFnZUBsYXBzdXMk"
+  },
+  {
+    "id": 1962,
+    "name": "lapsus$: OSAC Aero",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: FR | Sector: Manufacturing | Website: osac.aero | Infostealer data confirmed. | [AI generated] \"OSAC Aero\" is a Spanish aeronautical engineering company. They provide aeronautical consulting services, product development, aircraft maintenance, and also focus on designing, prototyping, and manufacturing aerostructures. Their innovative solutions have established OSAC as a reliable partner for leading global aerospace organizations. | Source: https://www.ransomware.live/id/T1NBQyBBZXJvQGxhcHN1cyQ="
+  },
+  {
+    "id": 1963,
+    "name": "lapsus$: Salesfloor",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: CA | Sector: Technology | Website: salesfloor.com | Infostealer data confirmed. | [AI generated] Salesfloor is a software company that provides a mobile platform designed to connect retail store associates with online shoppers for a personalized customer experience. It empowers store associates to create and maintain personalized relationships through social selling, online engagement and clienteling tactics. Its services are used by leading retailers around the world. | Source: https://www.ransomware.live/id/U2FsZXNmbG9vckBsYXBzdXMk"
+  },
+  {
+    "id": 1964,
+    "name": "lapsus$: Adidas",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lapsus$. | Country: DE | Sector: Consumer Services | Website: adidas.de | Infostealer data confirmed. | [AI generated] Adidas is a renowned German multinational corporation that specializes in sports apparel, shoes, and accessories. Founded by Adolf Dassler in 1949, its headquarters located in Herzogenaurach, Germany. The company is globally recognized for its performance and lifestyle products, including football kits, running shoes, training gear and streetwear. Today, Adidas stands as one of the leading sports brands worldwide. | Source: https://www.ransomware.live/id/QWRpZGFzQGxhcHN1cyQ="
+  }
+]

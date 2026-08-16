@@ -1,0 +1,9 @@
+{
+  "id": 2007,
+  "name": "T1566.002 (Spear-phishing via email)",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2007"
+}

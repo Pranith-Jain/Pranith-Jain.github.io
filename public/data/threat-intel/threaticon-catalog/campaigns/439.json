@@ -3,9 +3,9 @@
   "name": "apt73: olpro.com.my",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to apt73. | Country: MY | Sector: Consumer Services | Website: olpro.com.my | Infostealer data confirmed. | OLPRO Engineering Sdn Bhd is an engineering company in Malaysia that designs and manufactures ind... | Source: https://www.ransomware.live/id/b2xwcm8uY29tLm15QGFwdDcz",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/439"

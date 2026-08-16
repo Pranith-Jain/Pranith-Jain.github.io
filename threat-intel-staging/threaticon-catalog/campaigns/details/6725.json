@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:21:55.747Z",
+  "name": "cmdorganization: B-K Tool & Design",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 28, 2026",
+  "lastSeen": "Jul 28, 2026",
+  "added": "Jul 28, 2026",
+  "description": "Ransomware attack attributed to cmdorganization. | Country: US | Sector: Manufacturing | Website: www.bktool.com | Founded in 1981, B-K Tool & Design has transformed from a small machine shop into a turn-key automation solutions provider, operating from an 80,000 square foot facility in Kalida, Ohio. The company specializes in designing and building cost-effective equipment to replace inefficient processes, offering a range of services including electrical and mechanical engineering, control integration, and custom machine fabrication. Their product lines feature hot plate welding, high-speed projection welding, and other custom machines tailored to client needs. B-K Tool & Design serves a diverse customer base that relies on their expertise for both new and existing designs. | Source: https://www.ransomware.live/id/Qi1LIFRvb2wgJiBEZXNpZ25AY21kb3JnYW5pemF0aW9u"
+}

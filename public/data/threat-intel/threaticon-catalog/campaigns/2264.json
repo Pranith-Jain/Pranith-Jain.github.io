@@ -1,11 +1,11 @@
 {
   "id": 2264,
   "name": "DarkBit Ransomware Targets Israel with Command-Line Options and Optimized Encryption Routines",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 15, 2023",
+  "lastSeen": "Feb 15, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #400 (2422c4bb-fdff-4d32-a479-b4bde43cce47).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2264"

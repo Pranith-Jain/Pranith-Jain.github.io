@@ -1,0 +1,12 @@
+{
+  "id": 355,
+  "fetchedAt": "2026-08-14T05:19:10.449Z",
+  "name": "Socket-filter trigger → on-host raw-socket activity → reverse connection (T1205.002)",
+  "tlp": null,
+  "detId": "DET0162",
+  "stixId": "x-mitre-detection-strategy--b4cdf164-9cb7-4cad-bdc3-81b5574f364a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0462", "AN0463", "AN0464"]
+}

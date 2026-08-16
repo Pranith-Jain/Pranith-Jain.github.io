@@ -3,9 +3,9 @@
   "name": "safepay: bmiprojects.de",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 6, 2026",
+  "lastSeen": "Jul 6, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Construction | Website: bmiprojects.de | Infostealer data confirmed. | Originally operating under the name Bez Marine Interiors GmbH, the company built on decades of experience in the maritime industry … | Source: https://www.ransomware.live/id/Ym1pcHJvamVjdHMuZGVAc2FmZXBheQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4278"

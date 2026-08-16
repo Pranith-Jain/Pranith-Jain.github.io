@@ -3,9 +3,9 @@
   "name": "apt73: minerasancristobal.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 27, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to apt73. | Country: MX | Sector: Energy | Website: minerasancristobal.com | Infostealer data confirmed. | Minerals & Mining. financial docs, internal docs, personal docs. | Source: https://www.ransomware.live/id/bWluZXJhc2FuY3Jpc3RvYmFsLmNvbUBhcHQ3Mw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/411"

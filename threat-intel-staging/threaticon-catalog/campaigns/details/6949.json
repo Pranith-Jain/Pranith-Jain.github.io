@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T07:09:18.770Z",
+  "name": "shinyhunters: Alcon Inc.",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 2, 2026",
+  "lastSeen": "Aug 1, 2026",
+  "added": "Aug 2, 2026",
+  "description": "Ransomware attack attributed to shinyhunters. | Country: CH | Sector: Healthcare | Website: alcon.com | Infostealer data confirmed. | Over 25 million Salesforce records containing some PII was compromised. This is a final warning to reach out by 4 August 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Source: https://www.ransomware.live/id/QWxjb24gSW5jLkBzaGlueWh1bnRlcnM="
+}

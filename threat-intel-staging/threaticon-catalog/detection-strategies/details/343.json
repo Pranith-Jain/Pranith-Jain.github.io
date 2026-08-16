@@ -1,0 +1,12 @@
+{
+  "id": 343,
+  "fetchedAt": "2026-08-14T05:59:47.209Z",
+  "name": "Detection of Bluetooth-Based Data Exfiltration",
+  "tlp": null,
+  "detId": "DET0554",
+  "stixId": "x-mitre-detection-strategy--267a6c25-8d34-47ae-8357-9ae173adaa13",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1531", "AN1532", "AN1533"]
+}

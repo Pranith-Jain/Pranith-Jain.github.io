@@ -3,9 +3,9 @@
   "name": "akira: Excel Healthcare Receivable Management &Consulting",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 31, 2026",
+  "lastSeen": "Mar 31, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: excelhrmc.com | Infostealer data confirmed. | Excel Healthcare is a specialized firm focusing on revenue cycle management and consulting services for healthcare professionals, including hospitals and medical practices of all sizes. They offe r comprehensive services such as accounts receivable management, insurance follow-up, denial auditing, and consulting on workflow optimization to enhance cash flow and operational efficiency. We will upload 54gb of corporate data soon. Employee and customer personal information, project information, lots of contracts and agreements, etc. | Source: https://www.ransomware.live/id/RXhjZWwgSGVhbHRoY2FyZSBSZWNlaXZhYmxlIE1hbmFnZW1lbnQgJkNvbnN1bHRpbmdAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1147"

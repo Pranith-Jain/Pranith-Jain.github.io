@@ -1,0 +1,115 @@
+[
+  {
+    "id": 3714,
+    "name": "incransom: earthsystems.com.au earthsystemseurope.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: AU | Sector: Business Services | Website: earthsystems.com.au | Infostealer data confirmed. | full corp data nda client contract project | Source: https://www.ransomware.live/id/ZWFydGhzeXN0ZW1zLmNvbS5hdSBlYXJ0aHN5c3RlbXNldXJvcGUuY29tQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 3713,
+    "name": "incransom: autorisk.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Technology | Website: autorisk.org | Infostealer data confirmed. | client data | Source: https://www.ransomware.live/id/YXV0b3Jpc2sub3JnQGluY3JhbnNvbQ=="
+  },
+  {
+    "id": 3712,
+    "name": "incransom: cmswpc.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: cmswpc.com | Infostealer data confirmed. | All patient medical records in their entirety. All data from the medical center, including personal and confidential information, will be stolen. The data will be divided into 7 parts, with each part containing 200–300 GB | Source: https://www.ransomware.live/id/Y21zd3BjLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 3711,
+    "name": "cmdorganization: PennEastern Architects",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  { "id": 3710, "name": "nova: Desysweb", "tlp": "white", "confidence": 80, "status": "Inactive", "description": null },
+  {
+    "id": 3709,
+    "name": "akira: Greenwoods Dental Centre",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: greenwoodsdental.com | Infostealer data confirmed. | Greenwoods Dental & Surgical Centre has been a cornerstone of dental care in Winnipeg. We will upload 90gb of corporate data soon. Detailed employee personal information (passport, D Ls and other personal information), financials, patient information, payment details, NDAs and so on. | Source: https://www.ransomware.live/id/R3JlZW53b29kcyBEZW50YWwgQ2VudHJlQGFraXJh"
+  },
+  {
+    "id": 3708,
+    "name": "akira: Zojirushi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: JP | Sector: Manufacturing | Website: zojirushi.com | Infostealer data confirmed. | Zojirushi specializes in high-quality home appliances, offering a range of products including r ice cookers, water boilers and warmers, breadmakers, coffee makers, and various vacuum insulate d containers. We will upload 38gb of corporate data soon. Employee personal information (passport and other d ocs scans), detailed financials, projects, contracts and so on. | Source: https://www.ransomware.live/id/Wm9qaXJ1c2hpQGFraXJh"
+  },
+  {
+    "id": 3707,
+    "name": "akira: Réseau Radiologique Romand",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3706,
+    "name": "lamashtu: Ashtech Infotech",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: IN | Sector: Technology | Website: ashinfo.com | Infostealer data confirmed. | Ashtech Infotech (India) Pvt. Ltd. is a leading System Integrator and IT service provider based in Mumbai, India. Established in 1986, the company specializes in delivering end-to-end technology solutions to enterprises. | Source: https://www.ransomware.live/id/QXNodGVjaCBJbmZvdGVjaEBsYW1hc2h0dQ=="
+  },
+  {
+    "id": 3705,
+    "name": "lamashtu: Acros Sport GmbH",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: DE | Sector: Manufacturing | Website: acros-components.com | Infostealer data confirmed. | Acros Sport GmbH is a high-end German bicycle component manufacturer based in Renningen, near Stuttgart. Founded in 1999, the company is a specialist in precision bearing technology for cycling | Source: https://www.ransomware.live/id/QWNyb3MgU3BvcnQgR21iSEBsYW1hc2h0dQ=="
+  },
+  {
+    "id": 3704,
+    "name": "dragonforce: CMC Expertise Comptable",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3701,
+    "name": "qilin: Ruiz Barbarin Arquitectos Slp",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: ES | Sector: Construction | Website: www.arquimania.es | N/A | Source: https://www.ransomware.live/id/UnVpeiBCYXJiYXJpbiBBcnF1aXRlY3RvcyBTbHBAcWlsaW4="
+  },
+  {
+    "id": 3700,
+    "name": "qilin: DL Cohen Construction",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.dlcohencc.com | N/A | Source: https://www.ransomware.live/id/REwgQ29oZW4gQ29uc3RydWN0aW9uQHFpbGlu"
+  },
+  {
+    "id": 3699,
+    "name": "qilin: CCD Interiors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Construction | Website: www.ccdinteriors.com | N/A | Source: https://www.ransomware.live/id/Q0NEIEludGVyaW9yc0BxaWxpbg=="
+  },
+  {
+    "id": 3698,
+    "name": "qilin: Advanced Laundry Systems",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.advlaundry.com | N/A | Source: https://www.ransomware.live/id/QWR2YW5jZWQgTGF1bmRyeSBTeXN0ZW1zQHFpbGlu"
+  }
+]

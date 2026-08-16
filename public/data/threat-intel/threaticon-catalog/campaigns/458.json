@@ -3,10 +3,10 @@
   "name": "incransom: BELFOR",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 27, 2026",
+  "lastSeen": "Apr 26, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: SG | Sector: Business Services | BELFOR (Asia) Pte Ltd, Singapore. RecoveryPro Ltd, Japan. Country list: Singapore, Japan, Korea, Taiwan, Thailand, Malaysia. Total Data: 430GB Data: Confidential (Classified) - non-disclosure agreements (NDA's), Personal scan passports, Employee Privacy, Employment contracts, Employment Records, Health Information. Finance Department - Salary & Bonus structures, Internal audit reports, Insurance contracts & payments, Payroll Reports, Benefits & pension details, Internal investigations, Partners agreements, Balance sheets, Budget reports, Credit agreements, Tax filings, Marketing plans. IT Department - IT network infrastructure, Research and development data, SDLC documentation. Other - All projects report & files, Buildings drawings, Object Photo, Photo of damages, Object plans, a lot of internal documentation. Clients: Mitsubishi, Samsung, Toyota, Kawasaki Motors, Sony Technology, Fu...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/458"
 }

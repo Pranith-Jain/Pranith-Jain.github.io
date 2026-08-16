@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:51:16.011Z",
+  "name": "Helix: Highwoods Properties",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 7, 2026",
+  "lastSeen": "Aug 7, 2026",
+  "added": "Aug 7, 2026",
+  "description": "Ransomware attack attributed to Helix. | Country: US | Sector: Other | Website: highwoods.com | Infostealer data confirmed. | SharePoint libraries staged T1 (least) → T4 (most). Release countdown live on Helix. Tiers unlock by stage when each set timer reaches 0. | Source: https://www.ransomware.live/id/SGlnaHdvb2RzIFByb3BlcnRpZXNASGVsaXg="
+}

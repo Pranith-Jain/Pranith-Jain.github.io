@@ -1,0 +1,9 @@
+{
+  "id": 1780,
+  "fetchedAt": "2026-08-15T06:55:11.006Z",
+  "name": "T1036.005: Match Legitimate Resource Name or Location - Masquerading files and processes to blend in with legitimate resources",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

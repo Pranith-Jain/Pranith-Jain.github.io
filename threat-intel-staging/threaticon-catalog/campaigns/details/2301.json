@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:12:14.926Z",
+  "name": "FakeBat delivered via several active malvertising campaigns",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 13, 2024",
+  "lastSeen": "Mar 13, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #475 (c36977b6-fb28-4a34-b625-7b7d02d609cb)."
+}

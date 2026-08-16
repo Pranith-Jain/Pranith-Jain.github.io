@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:01:10.753Z",
+  "name": "OSINT - Doctor Web detects several thousand infected Linux devices Linux.Proxy.10",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Feb 5, 2017",
+  "lastSeen": "Feb 5, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #984 (589718fa-353c-411d-bbee-4c1902de0b81)."
+}

@@ -1,0 +1,9 @@
+{
+  "id": 900,
+  "fetchedAt": "2026-08-15T06:12:01.827Z",
+  "name": "Hijacking a Privileged Thread of Execution",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. Likelihood of attack: Low. An adversary hijacks a privileged thread of execution by injecting malicious code into a running process. By using a privleged thread to do their bidding, adversaries can evade process-based detection that would stop an attack that creates a new process. This can lead to an adversary gaining access to the process's memory and can also enable elevated privileges. The most common way to perform this attack is by suspending an existing thread and manipulating its memory."
+}

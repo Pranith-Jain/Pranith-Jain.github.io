@@ -1,0 +1,12 @@
+{
+  "id": 39,
+  "fetchedAt": "2026-08-14T06:05:08.755Z",
+  "name": "Detection of Establish Accounts",
+  "tlp": null,
+  "detId": "DET0873",
+  "stixId": "x-mitre-detection-strategy--095e0e71-498f-4403-a69f-5a6e4ff50503",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN2005"]
+}

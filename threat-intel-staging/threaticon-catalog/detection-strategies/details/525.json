@@ -1,0 +1,12 @@
+{
+  "id": 525,
+  "fetchedAt": "2026-08-14T05:38:11.766Z",
+  "name": "Detection Strategy for Double File Extension Masquerading",
+  "tlp": null,
+  "detId": "DET0366",
+  "stixId": "x-mitre-detection-strategy--92ce4302-72cb-4b7b-9184-1fc14900d0e1",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1033"]
+}

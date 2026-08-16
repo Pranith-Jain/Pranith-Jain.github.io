@@ -1,0 +1,9 @@
+{
+  "id": 803,
+  "fetchedAt": "2026-08-15T06:07:46.241Z",
+  "name": "Flash Injection",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: High. An attacker tricks a victim to execute malicious flash content that executes commands or makes flash calls specified by the attacker. One example of this attack is cross-site flashing, an attacker controlled parameter to a reference call loads from content specified by the attacker."
+}

@@ -1,11 +1,11 @@
 {
   "id": 2925,
   "name": "Malware Discovered in Popular NPM Package, ua-parser-js",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 24, 2021",
+  "lastSeen": "Oct 24, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1661 (ad7665ec-fef2-44eb-a019-b1b25a8aec05).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2925"

@@ -1,0 +1,9 @@
+{
+  "id": 824,
+  "fetchedAt": "2026-08-15T06:08:41.857Z",
+  "name": "Removal of filters: Input filters, output filters, data masking",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An attacker removes or disables filtering mechanisms on the target application. Input filters prevent invalid data from being sent to an application (for example, overly large inputs that might cause a buffer overflow or other malformed inputs that may not be correctly handled by an application). Input filters might also be designed to constrained executable content."
+}

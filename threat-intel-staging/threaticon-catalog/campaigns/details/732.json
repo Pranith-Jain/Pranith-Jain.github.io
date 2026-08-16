@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:23:06.239Z",
+  "name": "dragonforce: Apply Capnor",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 14, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: NO | Sector: Manufacturing | Website: applycapnor.com | Infostealer data confirmed. | Capnor specializes in laser scanning, engineering, and 3D data management services, offering a comprehensive range of solutions including design engineering, reverse engineering, and dimensional control. Their services cater to various industries such as oil and gas, marine, chemical, power, pulp and paper, automotive, steel, and food. Capnor utilizes advanced technologies like drone inspections and 3D modeling to enhance project efficiency and accuracy. The company is dedicated to providing innovative solutions that improve project lifecycle phases and ensure quality and safety | Source: https://www.ransomware.live/id/QXBwbHkgQ2Fwbm9yQGRyYWdvbmZvcmNl"
+}

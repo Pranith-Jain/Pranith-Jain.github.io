@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:47.019Z",
+  "name": "The Unintentional Leak: A glimpse into the attack vectors of APT37",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 21, 2023",
+  "lastSeen": "Mar 21, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #358 (033e3332-eb5b-45d3-9a5c-68ca17aa9a8d)."
+}

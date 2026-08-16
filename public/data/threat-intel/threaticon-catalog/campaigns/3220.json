@@ -1,11 +1,11 @@
 {
   "id": 3220,
   "name": "Cloud Atlas targets entities in Russia and Belarus amid the ongoing war in Ukraine",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 9, 2022",
+  "lastSeen": "Dec 9, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #361 (866f2e50-efe5-4d58-85c7-33bf3a52443c).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3220"

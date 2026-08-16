@@ -1,0 +1,122 @@
+[
+  {
+    "id": 797,
+    "name": "thegentlemen: Caja De Seguro Social",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 803,
+    "name": "secpo: Richmond Plywood Corporation Limited",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to secpo. | Country: CA | Sector: Manufacturing | Website: richply.com | Infostealer data confirmed. | The total volume of extracted data amounts to approximately 1.09TB (522,925 files total), with a filtered size of 230GB (161,200 files). The files contain references to more than 2,500 unique individuals and 4,000 organizations... | Source: https://www.ransomware.live/id/UmljaG1vbmQgUGx5d29vZCBDb3Jwb3JhdGlvbiBMaW1pdGVkQHNlY3Bv"
+  },
+  {
+    "id": 826,
+    "name": "qilin: Frutcola Olmué",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CL | Sector: Agriculture and Food Production | Website: www.olmue.com | Source: https://www.ransomware.live/id/RnJ1dGNvbGEgT2xtdcOpQHFpbGlu"
+  },
+  {
+    "id": 825,
+    "name": "qilin: Alternativa de Moda SAS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CO | Sector: Consumer Services | Website: www.touche.com.co | Source: https://www.ransomware.live/id/QWx0ZXJuYXRpdmEgZGUgTW9kYSBTQVNAcWlsaW4="
+  },
+  {
+    "id": 824,
+    "name": "qilin: PGDIS.PAPETIQUE PRO",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Manufacturing | Website: www.pgdis.com | Source: https://www.ransomware.live/id/UEdESVMuUEFQRVRJUVVFIFBST0BxaWxpbg=="
+  },
+  {
+    "id": 823,
+    "name": "qilin: J Brand",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.jbrand.co.uk | Source: https://www.ransomware.live/id/SiBCcmFuZEBxaWxpbg=="
+  },
+  {
+    "id": 822,
+    "name": "qilin: Després Mécanique Mobile",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Business Services | Website: www.despresmecanique.ca | Source: https://www.ransomware.live/id/RGVzcHLDqXMgTcOpY2FuaXF1ZSBNb2JpbGVAcWlsaW4="
+  },
+  {
+    "id": 821,
+    "name": "qilin: Herth+Buss",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Manufacturing | Website: www.herthundbuss.com | Source: https://www.ransomware.live/id/SGVydGgrQnVzc0BxaWxpbg=="
+  },
+  {
+    "id": 820,
+    "name": "kairos: Colonial Presbyterian Church",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to kairos. | Country: US | Sector: Consumer Services | Website: colonialkc.org | Infostealer data confirmed. | We are a community of believers who seek to be the Light of Christ in a hurting culture so that the lost are found, the broken are made whole, the fatherless find hope and our city is blessed. | Source: https://www.ransomware.live/id/Q29sb25pYWwgUHJlc2J5dGVyaWFuIENodXJjaEBrYWlyb3M="
+  },
+  {
+    "id": 819,
+    "name": "lynx: sentrydynamics.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 818,
+    "name": "pear: Colorado Pulmonary Intensivists",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Healthcare | Website: cpimedicine.com | Infostealer data confirmed. | Specializes in services related to pulmonology and critical care, including outpatient pulmonary care and sleep medicine | Source: https://www.ransomware.live/id/Q29sb3JhZG8gUHVsbW9uYXJ5IEludGVuc2l2aXN0c0BwZWFy"
+  },
+  {
+    "id": 817,
+    "name": "kairos: Pullen Moving",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to kairos. | Country: US | Sector: Transportation/Logistics | Website: pullenmoving.com | Infostealer data confirmed. | Pullen Moving Company owns and operates two warehouses for storing household goods, office furniture, and industrial equipment in Woodbridge, VA as well as a fleet of vehicles for local, long distance, and international moving. We are proud members of the American Trucking | Source: https://www.ransomware.live/id/UHVsbGVuIE1vdmluZ0BrYWlyb3M="
+  },
+  {
+    "id": 816,
+    "name": "lamashtu: The Seacare Hotel",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: SG | Sector: Hospitality and Tourism | Website: theseacarehotel.com | Infostealer data confirmed. | The Seacare hotel is strategically located near Singapore's top tourist spots such as Orchard Road, Chinatown and Clarke Quay. Enjoy viewing the skyline at our Sky lounge, sweat it out at our well-equipped Gym and savour the most delectable cuisine a | Source: https://www.ransomware.live/id/VGhlIFNlYWNhcmUgSG90ZWxAbGFtYXNodHU="
+  },
+  {
+    "id": 815,
+    "name": "lamashtu: International Assistance Sdn",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: MY | Sector: Business Services | Website: international-assist.com | Infostealer data confirmed. | To provide the highest standard of service which adds value to our customers with the ultimate goal of becoming the preferred healthcare Contact Centre and Third-Party Administrator infrastructure and service provider in Malaysia. | Source: https://www.ransomware.live/id/SW50ZXJuYXRpb25hbCBBc3Npc3RhbmNlIFNkbkBsYW1hc2h0dQ=="
+  },
+  {
+    "id": 814,
+    "name": "lamashtu: Servetto Srl",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lamashtu. | Country: IT | Sector: Business Services | Website: servetto.it | Infostealer data confirmed. | Servetto Srl, einem weltweit führenden italienischen Unternehmen für Kleiderschrank-Zubehör. Bekannt ist die Marke vor allem für den sogenannten „Servetto“ – einen ausziehbaren Garderobenlift (Saliscendi), der den Zugriff auf hohe Schrankbereiche erl | Source: https://www.ransomware.live/id/U2VydmV0dG8gU3JsQGxhbWFzaHR1"
+  }
+]

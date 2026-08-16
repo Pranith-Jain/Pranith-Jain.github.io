@@ -1,11 +1,11 @@
 {
   "id": 2631,
   "name": "OSINT - Similarities Between Carbanak and FIN7 Malware Suggest Actors Are Closely Related",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 28, 2017",
+  "lastSeen": "Apr 28, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1046 (5902dd26-4a34-4d46-be1f-45f8950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2631"

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:23:07.058Z",
+  "name": "OSINT - Looking Into a Cyber-Attack Facilitator in the Netherlands by Trend Micro",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Apr 21, 2016",
+  "lastSeen": "Apr 21, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #559 (57447e7c-91fc-48e4-80b0-67a0950d210f)."
+}

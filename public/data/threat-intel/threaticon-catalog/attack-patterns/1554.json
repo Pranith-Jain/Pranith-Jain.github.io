@@ -1,0 +1,9 @@
+{
+  "id": 1554,
+  "name": "T1543.004 - Ransom Note via Alternate Communication Channel",
+  "techniqueId": "T1543",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1554"
+}

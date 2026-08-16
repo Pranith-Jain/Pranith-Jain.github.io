@@ -1,0 +1,9 @@
+{
+  "id": 2956,
+  "fetchedAt": "2026-08-15T08:11:16.028Z",
+  "name": "T1547.003 (Boot or Logon Autostart Execution: Windows Registry)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

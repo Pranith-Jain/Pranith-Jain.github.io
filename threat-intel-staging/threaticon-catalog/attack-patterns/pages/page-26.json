@@ -1,0 +1,141 @@
+[
+  {
+    "id": 1217,
+    "name": "String Format Overflow in syslog()",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1218,
+    "name": "Software Development Tools Maliciously Altered",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1219,
+    "name": "Requirements for ASIC Functionality Maliciously Altered",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1220,
+    "name": "Malicious Code Implanted During Chip Programming",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1221,
+    "name": "Developer Signing Maliciously Altered Software",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1222,
+    "name": "Design for FPGA Maliciously Altered",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1223,
+    "name": "Retrieve Data from Decommissioned Devices",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1224, "name": "NoSQL Injection", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1225,
+    "name": "Server Motherboard Compromise",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1226,
+    "name": "System Build Data Maliciously Altered",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1227,
+    "name": "Exploitation of Improperly Configured or Implemented Memory Protections",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1228,
+    "name": "Subvert Code-signing Facilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1229,
+    "name": "Exploitation of Improperly Controlled Registers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1230,
+    "name": "Exploitation of Improperly Controlled Hardware Security Identifiers",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1231,
+    "name": "Exploitation of Firmware or ROM Code with Unpatchable Vulnerabilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1232,
+    "name": "Target Programs with Elevated Privileges",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1233, "name": "Metadata Spoofing", "tlp": "white", "confidence": null, "techniqueId": null, "status": null },
+  {
+    "id": 1234,
+    "name": "Spoof Open-Source Software Metadata",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  {
+    "id": 1235,
+    "name": "Spoof Version Control System Commit Metadata",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": null,
+    "status": null
+  },
+  { "id": 1236, "name": "StarJacking", "tlp": "white", "confidence": null, "techniqueId": null, "status": null }
+]

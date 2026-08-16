@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:11:34.998Z",
+  "name": "Ikaruz Red Team | Hacktivist Group Leverages Ransomware for Attention Not Profit",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "May 22, 2024",
+  "lastSeen": "May 22, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #502 (64380592-4bba-43f6-bcd0-eac80fb96a60)."
+}

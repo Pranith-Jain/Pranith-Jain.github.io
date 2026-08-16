@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3760,
+    "name": "thegentlemen: Gator Cases",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3759,
+    "name": "thegentlemen: IPE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: IT | Sector: Not Found | Website: ipesrl.com | Infostealer data confirmed. | ipesrl.com zoominfo.com/c/ipe-srl/372826031 IPE Technologies S.r.l. is an Italian company and the flagship entity of the IPE Group, specializing in the distribution of sealed lead-acid batteries, battery chargers, shielded cables, and Panasonic electronic components across Italy. Active in the sector since 1986, the company distributes premium brands such as Yuasa and Panasonic, alongside its own proprietary brands Remco and RemcoX. Its client base includes alarm system installers, UPS maintenance companies, specialized retailers, and industrial automation and telecommunications firms | Source: https://www.ransomware.live/id/SVBFQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 3758,
+    "name": "thegentlemen: Riggotts",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: GB | Sector: Not Found | Website: riggott.co.uk | Infostealer data confirmed. | riggott.co.uk zoominfo.com/c/riggotts--co-ltd/345701355 Riggotts (Riggott and Company Limited) is one of the UK's leading line marking and surface coating contractors, founded on 2 November 1994 by brothers Nick and Darren Riggott. Headquartered in Tuxford, Newark, Nottinghamshire, the company has grown to operate more than 50 specialist teams working 24/7 across the entire United Kingdom. Estimated annual turnover stands at approximately 8 million | Source: https://www.ransomware.live/id/UmlnZ290dHNAdGhlZ2VudGxlbWVu"
+  },
+  {
+    "id": 3757,
+    "name": "thegentlemen: Da Guan Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: TW | Sector: Technology | Website: daguan-tech.com.tw | Infostealer data confirmed. | daguan-tech.com.tw Da Guan Technology serves as the official distributor of two major brands: Mitsubishi Electric (Japan) and Lifegear (Taiwan) — offering a full range of products including heat recovery ventilators (HRV), bathroom warm-air dryers, ultra-quiet exhaust fans, circulation fans, and fresh-air systems. Their primary sales channels include construction companies, interior designers, plumbing distributors, and premium bathroom retailers | Source: https://www.ransomware.live/id/RGEgR3VhbiBUZWNobm9sb2d5QHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 3756,
+    "name": "thegentlemen: Nrt India",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: IN | Sector: Business Services | Website: nrtindia.com | Infostealer data confirmed. | nrtindia.com zoominfo.com/c/nrt-india/372321597 NRT India is a premier IIT-JEE and NEET coaching institute headquartered in Lucknow, Uttar Pradesh, India. It was originally founded in 1997 by Shree Indu Shekhar Shukla under the name \"NRT,\" and re-established on August 30–31, 2010 by Sir A.N. Pandey, who previously served as Head of Department of Physics at the same institute. The institute now operates study centers in Lucknow, Barabanki, Dehradun, and Pratapgarh | Source: https://www.ransomware.live/id/TnJ0IEluZGlhQHRoZWdlbnRsZW1lbg=="
+  },
+  {
+    "id": 3755,
+    "name": "akira: SDK Environmental",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: GB | Sector: Energy | Website: sdke.co.uk | Infostealer data confirmed. | SDK Environmental is a long-established UK company specializing in environmental services, prim arily catering to local authorities, housing associations, and corporate clients. Their offerin gs include corporate pest control, business-to-business pest control, direct pest control, anim al warden services, and dog collection services. We will upload 10gb of corporate data soon. Employee personal information, client financials an d other documents, contracts and agreements, projects, and so on. | Source: https://www.ransomware.live/id/U0RLIEVudmlyb25tZW50YWxAYWtpcmE="
+  },
+  {
+    "id": 3754,
+    "name": "akira: Clinical Registry Solutions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3751,
+    "name": "kairos: Houk Air Conditioning",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3750,
+    "name": "qilin: Complastex.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: BR | Sector: Manufacturing | Website: www.complastex.com | N/A | Source: https://www.ransomware.live/id/Q29tcGxhc3RleC5jb21AcWlsaW4="
+  },
+  {
+    "id": 3749,
+    "name": "qilin: Laclinic-Montreux",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CH | Sector: Healthcare | Website: www.laclinic.ch | N/A | Source: https://www.ransomware.live/id/TGFjbGluaWMtTW9udHJldXhAcWlsaW4="
+  },
+  {
+    "id": 3748,
+    "name": "qilin: BMTP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: TH | Sector: Transportation/Logistics | Website: bmtp.co.th | Infostealer data confirmed. | N/A | Source: https://www.ransomware.live/id/Qk1UUEBxaWxpbg=="
+  },
+  {
+    "id": 3747,
+    "name": "qilin: Inox Market Service SpA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: IT | Sector: Business Services | Website: www.inoxmarketservice.com | N/A | Source: https://www.ransomware.live/id/SW5veCBNYXJrZXQgU2VydmljZSBTcEFAcWlsaW4="
+  },
+  {
+    "id": 3746,
+    "name": "safepay: soavegel.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Agriculture and Food Production | Website: soavegel.it | Infostealer data confirmed. | Is an Italian food manufacturing company specializing in frozen gastronomic products. Founded in 1935 in Francavilla Fontana, the company has … | Source: https://www.ransomware.live/id/c29hdmVnZWwuaXRAc2FmZXBheQ=="
+  },
+  {
+    "id": 3745,
+    "name": "safepay: globalmerchservices.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: GB | Sector: Business Services | Website: globalmerchservices.com | Infostealer data confirmed. | Global Merchandising Services (GMS) is an international entertainment merchandising company founded in 2008. It specializes in developing and managing merchandise … | Source: https://www.ransomware.live/id/Z2xvYmFsbWVyY2hzZXJ2aWNlcy5jb21Ac2FmZXBheQ=="
+  },
+  {
+    "id": 3744,
+    "name": "safepay: studioubertazzi.it",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: IT | Sector: Consumer Services | Website: studioubertazzi.it | Infostealer data confirmed. | Is an Italian firm that likely operates in the field of professional services such as architecture, design, or engineering consulting. … | Source: https://www.ransomware.live/id/c3R1ZGlvdWJlcnRhenppLml0QHNhZmVwYXk="
+  }
+]

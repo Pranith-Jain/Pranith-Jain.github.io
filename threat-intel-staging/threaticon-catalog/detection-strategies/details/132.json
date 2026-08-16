@@ -1,0 +1,12 @@
+{
+  "id": 132,
+  "fetchedAt": "2026-08-14T05:59:11.300Z",
+  "name": "Detection Strategy for /proc Memory Injection on Linux",
+  "tlp": null,
+  "detId": "DET0541",
+  "stixId": "x-mitre-detection-strategy--452c12a6-e74d-4244-a298-e9adaaf23794",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1494"]
+}

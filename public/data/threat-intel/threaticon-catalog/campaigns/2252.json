@@ -1,11 +1,11 @@
 {
   "id": 2252,
   "name": "OSINT - Taiwan targeted with new cyberespionage back door Trojan",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2016",
+  "lastSeen": "Mar 30, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #383 (56fb756e-0df4-40e4-9756-438e950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2252"

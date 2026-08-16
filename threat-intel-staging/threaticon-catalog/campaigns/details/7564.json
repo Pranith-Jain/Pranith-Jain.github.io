@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:40:50.221Z",
+  "name": "thegentlemen: AnMed",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 10, 2026",
+  "lastSeen": "Aug 9, 2026",
+  "added": "Aug 10, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: US | Sector: Healthcare | Website: anmed.org | Infostealer data confirmed. | anmed.org zoominfo.com/c/anmed/1238269198 AnMed is an independent, not-for-profit health system founded in 1908, serving Upstate South Carolina and northeast Georgia. Its anchor facility, AnMed Medical Center, is a 461-bed acute care hospital located in Anderson, South Carolina. The network provides comprehensive medical services, including emergency care, cardiovascular surgery, advanced imaging, and specialized outpatient clinics. | Source: https://www.ransomware.live/id/QW5NZWRAdGhlZ2VudGxlbWVu"
+}

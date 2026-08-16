@@ -3,9 +3,9 @@
   "name": "payload: Robinsons",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 21, 2026",
+  "lastSeen": "May 21, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to payload. | Country: SG | Sector: Consumer Services | Founded in 1858, Robinsons established itself to become a household name in Singapore, and as a mecca for elevated shopper experiences with their extraordinary product and service innovations. The first flagship - Robinsons The Heeren - opened in November 1858, redefined a new standard for retail experiences in Singapore. | Source: https://www.ransomware.live/id/Um9iaW5zb25zQHBheWxvYWQ=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3849"

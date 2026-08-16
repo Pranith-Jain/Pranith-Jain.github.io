@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:45:49.429Z",
+  "name": "M2M - Locky 2017-11-03 : Affid=3, offline, \".asasin\" : \"Scanned image from MX-2600N\" - \"20171103_123456.doc\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Nov 9, 2017",
+  "lastSeen": "Nov 9, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1239 (5a044feb-cda0-4844-b5f0-2214950d210f)."
+}

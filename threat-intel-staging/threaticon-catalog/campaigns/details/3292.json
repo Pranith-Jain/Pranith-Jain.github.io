@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:24:32.142Z",
+  "name": "New North-Korean based backdoor packs a punch",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 19, 2024",
+  "lastSeen": "Jun 19, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #511 (9ca40e0a-5249-4de0-885b-aa85bb7414c3)."
+}

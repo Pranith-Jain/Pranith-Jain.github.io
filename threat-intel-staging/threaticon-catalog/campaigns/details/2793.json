@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:44:15.516Z",
+  "name": "OSINT - Experts analyzed an Advanced \"all in memory\" CryptoWorm",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 27, 2017",
+  "lastSeen": "Sep 27, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1288 (5a54ca42-e9a0-4d71-a9e6-4f9b950d210f)."
+}

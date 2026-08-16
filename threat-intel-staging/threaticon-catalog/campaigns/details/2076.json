@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:22:02.382Z",
+  "name": "OFF-THE-SHELF RANSOMWARE USED TO TARGET THE HEALTHCARE SECTOR",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 5, 2017",
+  "lastSeen": "Apr 5, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #99 (58e5ecdc-2cdc-4db4-8bb8-1455c0a8ab16)."
+}

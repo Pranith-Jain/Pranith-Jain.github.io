@@ -1,0 +1,9 @@
+{
+  "id": 1296,
+  "fetchedAt": "2026-08-15T07:29:47.325Z",
+  "name": "T1078 - Application Layer Protocol Tunneling (e.g., HTTP/HTTPS)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

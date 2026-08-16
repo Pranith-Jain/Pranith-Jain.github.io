@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:27:44.432Z",
+  "name": "OSINT - Operation C-Major: Information Theft Campaign Targets Military Personnel in India",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 23, 2016",
+  "lastSeen": "Mar 23, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #359 (56f29500-187c-4051-a321-4aba950d210f)."
+}

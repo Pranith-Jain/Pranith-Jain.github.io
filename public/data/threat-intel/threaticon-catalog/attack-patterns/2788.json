@@ -1,0 +1,9 @@
+{
+  "id": 2788,
+  "name": "T1036.001: Masquerading – System Software Name",
+  "techniqueId": "T1036",
+  "added": "Aug 9, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2788"
+}

@@ -3,9 +3,9 @@
   "name": "handala: Verifone",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 11, 2026",
+  "lastSeen": "Mar 11, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to handala. | Country: US | Sector: Technology | Today, Handala Hack has successfully breached the Israeli company Verifone, a leading provider of payment solutions and point-of-sale terminals to countries across the globe. This sophisticated operation has caused widespread disruption in payment systems and terminals, and all related transaction and financial data have been extracted. This attack is a decisive and direct response to… | Source: https://www.ransomware.live/id/VmVyaWZvbmVAaGFuZGFsYQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1635"

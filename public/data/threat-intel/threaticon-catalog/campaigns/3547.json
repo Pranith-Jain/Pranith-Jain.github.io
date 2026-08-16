@@ -3,9 +3,9 @@
   "name": "abyss: technic.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 14, 2026",
+  "lastSeen": "May 14, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to abyss. | Country: US | Sector: Technology | Website: technic.com | Infostealer data confirmed. | Founded in 1944 and headquartered in Woonsocket, Rhode Island, Technic Inc. is an international supplier of electroplating chemicals and equipment. | Source: https://www.ransomware.live/id/dGVjaG5pYy5jb21AYWJ5c3M=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3547"

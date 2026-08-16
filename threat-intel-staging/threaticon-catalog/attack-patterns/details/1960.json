@@ -1,0 +1,9 @@
+{
+  "id": 1960,
+  "fetchedAt": "2026-08-15T07:07:10.797Z",
+  "name": "T1059.003 - Command and Control via C2 Beaconing (Cobalt Strike Beacons)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

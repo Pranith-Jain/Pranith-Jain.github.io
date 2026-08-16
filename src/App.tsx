@@ -193,7 +193,6 @@ const AIReportShowcase = lazy(() => import('./pages/threatintel/AIReportShowcase
 const AgenticReports = lazy(() => import('./pages/threatintel/AgenticReports'));
 
 const AggregatedFeeds = lazy(() => import('./pages/threatintel/AggregatedFeeds'));
-const AnalyticsDashboard = lazy(() => import('./pages/threatintel/AnalyticsDashboard'));
 const Analyze = lazy(() => import('./pages/threatintel/Analyze'));
 const Assessments = lazy(() => import('./pages/threatintel/Assessments'));
 const AttackFlowLibrary = lazy(() => import('./pages/threatintel/AttackFlowLibrary'));
@@ -238,6 +237,9 @@ const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const FeedSources = lazy(() => import('./pages/threatintel/FeedSources'));
 const ThreatClusterFeeds = lazy(() => import('./pages/threatintel/ThreatCluster'));
 const ThreaticonFeeds = lazy(() => import('./pages/threatintel/Threaticon'));
+const DphishFeeds = lazy(() => import('./pages/threatintel/Dphish'));
+const LivingThreatFeeds = lazy(() => import('./pages/threatintel/LivingThreat'));
+const MalwareAnalyzerFeeds = lazy(() => import('./pages/threatintel/MalwareAnalyzer'));
 const ThreatClusterEntities = lazy(() => import('./pages/threatintel/ThreatClusterEntities'));
 
 const GithubAdvisories = lazy(() => import('./pages/threatintel/GithubAdvisories'));
@@ -293,7 +295,6 @@ const ThreatLandscapeIocs = lazy(() => import('./pages/threatintel/ThreatLandsca
 const EntityGraphPage = lazy(() => import('./pages/threatintel/EntityGraphPage'));
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
 
-const ThreatActorCatalog = lazy(() => import('./pages/threatintel/ThreatActorCatalog'));
 const ActorHub = lazy(() => import('./pages/threatintel/ActorHub'));
 const BreachHub = lazy(() => import('./pages/threatintel/BreachHub'));
 const SupplyChainHub = lazy(() => import('./pages/threatintel/SupplyChainHub'));
@@ -576,7 +577,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   // ── Threat Intel: direct page URLs (auto-added by audit) ──
   { path: '/threatintel/actors/hub', Component: ActorHub },
   { path: '/threatintel/actors/attribution', Component: Attribution },
-  { path: '/threatintel/actors/catalog', Component: ThreatActorCatalog },
 
   { path: '/threatintel/campaigns/active', Component: Campaigns },
   { path: '/threatintel/campaigns/lifecycle', Component: CampaignLifecycle },
@@ -603,7 +603,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/predictive/certstream', Component: CertStreamLive },
   { path: '/threatintel/predictive/pir', Component: PirDashboard },
   { path: '/threatintel/predictive/metrics', Component: Metrics },
-  { path: '/threatintel/predictive/analytics', Component: AnalyticsDashboard },
   { path: '/threatintel/predictive/predictions', Component: Predictions },
   { path: '/threatintel/predictive/predictive', Component: PredictiveIntel },
   { path: '/threatintel/predictive/analyze', Component: Analyze },
@@ -630,6 +629,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
     Component: ThreatClusterEntities,
   },
   { path: '/threatintel/feeds/threaticon', Component: ThreaticonFeeds },
+  { path: '/threatintel/feeds/dphish', Component: DphishFeeds },
+  { path: '/threatintel/feeds/living-threat', Component: LivingThreatFeeds },
+  { path: '/threatintel/feeds/malwareanalyzer', Component: MalwareAnalyzerFeeds },
   { path: '/threatintel/feeds/threatfeeds', Component: ThreatFeeds },
   { path: '/threatintel/feeds/mythreatintel', Component: MyThreatIntel },
   { path: '/threatintel/infra/cloud', Component: CloudThreatLandscape },
@@ -924,6 +926,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/soc-vulns', to: '/threatintel/predictive/dashboard' },
   { path: '/threatintel/threat-landscape', to: '/threatintel/predictive/dashboard' },
   { path: '/threatintel/metrics', to: '/threatintel/predictive/dashboard' },
+  { path: '/threatintel/predictive/analytics', to: '/threatintel/predictive/dashboard' },
 
   // ── Malware Hub ─────────────────────────────────────────────────
   { path: '/threatintel/malware-iocs', to: '/threatintel/malware/iocs' },
@@ -997,6 +1000,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   // ── Actor Hub ──────────────────────────────────────────────────
   { path: '/threatintel/actor-kb', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/actors/kb', to: '/threatintel/actors/hub' }, // tab of ActorDirectory
+  { path: '/threatintel/actors/catalog', to: '/threatintel/actors/hub?tab=catalog' },
   { path: '/threatintel/actor-dna', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/actor-timeline', to: '/threatintel/actors/hub' },
   { path: '/threatintel/actor-usernames', to: '/threatintel/actors/hub' },

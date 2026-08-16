@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1378,
+    "name": "osiris: Mantra Softech Pvt",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1377,
+    "name": "akira: CONCEPTNET",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Technology | Website: conceptnet.de | Infostealer data confirmed. | CONCEPTNET GmbH is a leading media agency located in Regensburg, specializing in cross-media marketing solutions. They develop cre ative concepts for web, app, print, and event media, providing ta ilored solutions based on modern technologies since 1996. We will upload 50gb of corporate data soon. Employee personal inf ormation (passports, IDs, addresses, emails and so on), financial s, lots of projects, NDAs, etc. | Press: https://www.mittelbayerische.de/lokales/stadt-regensburg/cyber-attacke-betroffenes-regensburger-unternehmen-nimmt-stellung-20331400 | Source: https://www.ransomware.live/id/Q09OQ0VQVE5FVEBha2lyYQ=="
+  },
+  {
+    "id": 1376,
+    "name": "akira: Nafco",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: JP | Sector: Agriculture and Food Production | Website: nafcofish.com | Infostealer data confirmed. | NAFCO Fish is an industry innovator specializing in responsibly s ourced seafood, providing high-quality products and services to b rick-and-mortar stores, meal kit companies, and e-commerce food r etailers. With over 30 years of experience, they offer a full ran ge of seafood products including frozen, fresh, live, salted, and smoked options, all processed with a focus on safety and quality . We will upload 150gb of corporate data soon. Employee personal in formation (passports, IDs, medical information), financials, cont racts, etc. | Source: https://www.ransomware.live/id/TmFmY29AYWtpcmE="
+  },
+  {
+    "id": 1375,
+    "name": "akira: Rioja Motor",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: ES | Sector: Consumer Services | Website: riojamotor.com | Infostealer data confirmed. | Riojamotor specializes in the sale of new and used vehicles, incl uding brands such as Volkswagen, Audi, Seat, Skoda, and Cupra. Th ey offer financing options and vehicle appraisal services, cateri ng to clients looking for both personal and commercial vehicles. We will upload 17gb of corporate data soon. Employee personal inf ormation (passports, IDs, address, emails and so on), medical inf ormation, client personal docs, financials, lots of projects, cor respondence, etc. | Source: https://www.ransomware.live/id/UmlvamEgTW90b3JAYWtpcmE="
+  },
+  {
+    "id": 1383,
+    "name": "thegentlemen: Distritech",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1374,
+    "name": "insomnia: Atlas Ocean Voyages",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Hospitality and Tourism | Website: www.atlasoceanvoyages.com | Atlas Ocean Voyages offers year-round all-inclusive expedition cruises for under 200 guests, led by expert guides and caring crew. Luxurious yachts sail pole‑to‑pole to pristine, hard‑to‑reach destinations for nature, culture, and culinary exploration. | Source: https://www.ransomware.live/id/QXRsYXMgT2NlYW4gVm95YWdlc0BpbnNvbW5pYQ=="
+  },
+  {
+    "id": 1373,
+    "name": "qilin: Groupe SFPI",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: FR | Sector: Manufacturing | Website: www.sfpi-group.com | Source: https://www.ransomware.live/id/R3JvdXBlIFNGUElAcWlsaW4="
+  },
+  {
+    "id": 1372,
+    "name": "exitium: Marborges Agroindustria",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to exitium. | Country: BR | Sector: Agriculture and Food Production | Website: marborges.com.br | Infostealer data confirmed. | Zoominfo: https://www.zoominfo.com/c/marborges-agroindustria/547271801 Company in Brasil with a bad security. | Source: https://www.ransomware.live/id/TWFyYm9yZ2VzIEFncm9pbmR1c3RyaWFAZXhpdGl1bQ=="
+  },
+  {
+    "id": 1371,
+    "name": "payload: iGLS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: ES | Sector: Healthcare | Website: igls.net | Infostealer data confirmed. | IGLS Laboratorio specializes in genetic and reproductive immunology, providing advanced diagnostic services tailored for assisted reproduction centers, specialists, hospitals, and healthcare institutions worldwide. The company is committed to innovation, utilizing cutting-edge technology and scientific advancements to deliver precise solutions for fertility issues. Their extensive range of services includes preconception, preimplantation, and prenatal testing, aimed at both medical professionals and patients facing infertility challenges. | Source: https://www.ransomware.live/id/aUdMU0BwYXlsb2Fk"
+  },
+  {
+    "id": 1370,
+    "name": "incransom: Kiswire",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1369,
+    "name": "crypto24: Estudio O'Farrell",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to crypto24. | Country: AR | Sector: Business Services | Website: estudio-ofarrell.com | Infostealer data confirmed. | [AI generated] Estudio O'Farrell is a prestigious law firm based in Buenos Aires, Argentina. Known for its comprehensive legal services, the firm specializes in areas such as corporate law, tax law, banking and finance, and labor law among others. Having a history of over 130 years, Estudio O'Farrell has represented multiple high-profile clients and is renowned for its professional and innovative legal solutions. | Source: https://www.ransomware.live/id/RXN0dWRpbyBPJ0ZhcnJlbGxAY3J5cHRvMjQ="
+  },
+  {
+    "id": 1368,
+    "name": "akira: The Russell's Law Firm",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1367,
+    "name": "akira: Gustavo Preston",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Manufacturing | Website: gustavopreston.com | Infostealer data confirmed. | Gustavo Preston Company specializes in designing, selling, and se rvicing commercial pump solutions, including water boosters, wast ewater pumps, and circulator pumps. They offer a range of product s such as packaged pumping systems, elevator pumps, and commercia l water heaters, along with comprehensive pump equipment services like maintenance and repairs. We will upload 31gb of corporate data soon. Employee documents (p assports, DLs, addresses, phones, emails, medical records, credit cards), financials, client information, confidential docs, NDAs, etc. | Source: https://www.ransomware.live/id/R3VzdGF2byBQcmVzdG9uQGFraXJh"
+  },
+  {
+    "id": 1366,
+    "name": "akira: French Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: FR | Sector: Manufacturing | Website: frenchgr.com | Infostealer data confirmed. | French Engineering offers a range of services in Traffic Engineer ing, Water Resources Engineering, and Sustainable Planning and De sign Consulting in Pennsylvania, West Virginia, and Maryland. The ir services include traffic data collection, traffic signal desig n, roadway safety audits, and transportation impact studies, aime d at supporting new commercial, industrial, and residential devel opments. We will upload 72gb of corporate data soon. Employee documents (p assports, DLs, addresses, phones, emails, medical records, credit cards), financials, confidential docs, NDAs, etc. | Source: https://www.ransomware.live/id/RnJlbmNoIEVuZ2luZWVyaW5nQGFraXJh"
+  },
+  {
+    "id": 1365,
+    "name": "dragonforce: M3 Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

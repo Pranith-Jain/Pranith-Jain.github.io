@@ -1,11 +1,11 @@
 {
   "id": 2471,
   "name": "OSINT Additional yara rules for detection Project Sauron by Florian Roth",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 10, 2016",
+  "lastSeen": "Aug 10, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #808 (57b327b9-18c8-40f9-b5b8-4bf8950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2471"

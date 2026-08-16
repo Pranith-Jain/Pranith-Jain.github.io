@@ -1,0 +1,9 @@
+{
+  "id": 2880,
+  "name": "T1048 (Exfiltration Over Alternative Protocol)",
+  "techniqueId": "T1048",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2880"
+}

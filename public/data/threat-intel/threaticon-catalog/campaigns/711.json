@@ -3,9 +3,9 @@
   "name": "coinbasecartel: Questivity",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 15, 2026",
+  "lastSeen": "Apr 15, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | Website: questivity.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/UXVlc3Rpdml0eUBjb2luYmFzZWNhcnRlbA==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/711"

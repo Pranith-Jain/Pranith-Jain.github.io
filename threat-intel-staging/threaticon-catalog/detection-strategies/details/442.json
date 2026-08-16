@@ -1,0 +1,12 @@
+{
+  "id": 442,
+  "fetchedAt": "2026-08-14T06:00:33.969Z",
+  "name": "Detecting Unauthorized Collection from Messaging Applications in SaaS and Office Environments",
+  "tlp": null,
+  "detId": "DET0567",
+  "stixId": "x-mitre-detection-strategy--c69d915c-0cbf-479e-b0b5-bebd7eb7e728",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1565", "AN1566"]
+}

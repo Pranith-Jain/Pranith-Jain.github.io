@@ -3,9 +3,9 @@
   "name": "play: Gordon/Clifford Realty",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 2, 2026",
+  "lastSeen": "Dec 11, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to play. | Country: US | Sector: Business Services | Website: www.gordoncliffordmanagement.com | United States | Source: https://www.ransomware.live/id/R29yZG9uL0NsaWZmb3JkIFJlYWx0eUBwbGF5",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1920"

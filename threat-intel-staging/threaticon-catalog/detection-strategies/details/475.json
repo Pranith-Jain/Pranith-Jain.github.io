@@ -1,0 +1,12 @@
+{
+  "id": 475,
+  "fetchedAt": "2026-08-14T05:18:18.308Z",
+  "name": "Behavioral Detection of CLI Abuse on Network Devices",
+  "tlp": null,
+  "detId": "DET0142",
+  "stixId": "x-mitre-detection-strategy--ca871237-8615-47b7-9981-92d1d920d346",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0399"]
+}

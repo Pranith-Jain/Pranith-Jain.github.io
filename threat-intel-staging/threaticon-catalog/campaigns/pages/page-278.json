@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3697,
+    "name": "qilin: CAD-IT UK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Technology | Website: www.cadituk.com | N/A | Source: https://www.ransomware.live/id/Q0FELUlUIFVLQHFpbGlu"
+  },
+  {
+    "id": 3696,
+    "name": "qilin: Shipping Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AR | Sector: Transportation/Logistics | Website: www.ssa-shipping.com.ar | N/A | Source: https://www.ransomware.live/id/U2hpcHBpbmcgU2VydmljZXNAcWlsaW4="
+  },
+  {
+    "id": 3695,
+    "name": "qilin: Imex International",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Business Services | Website: www.imexinter.com | N/A | Source: https://www.ransomware.live/id/SW1leCBJbnRlcm5hdGlvbmFsQHFpbGlu"
+  },
+  {
+    "id": 3694,
+    "name": "qilin: Exco Technologies",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Manufacturing | Website: www.excocorp.com | N/A | Source: https://www.ransomware.live/id/RXhjbyBUZWNobm9sb2dpZXNAcWlsaW4="
+  },
+  {
+    "id": 3715,
+    "name": "incransom: egnyte.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Technology | Website: egnyte.com | Infostealer data confirmed. | development department EU pl | Source: https://www.ransomware.live/id/ZWdueXRlLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 3703,
+    "name": "qilin: Calidra",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CL | Sector: Not Found | Website: www.calidra.com | N/A | Source: https://www.ransomware.live/id/Q2FsaWRyYUBxaWxpbg=="
+  },
+  {
+    "id": 3702,
+    "name": "qilin: Fogel Capital Management",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: www.fogelcapital.com | N/A | Source: https://www.ransomware.live/id/Rm9nZWwgQ2FwaXRhbCBNYW5hZ2VtZW50QHFpbGlu"
+  },
+  {
+    "id": 3693,
+    "name": "sinobi: Neurotrials Research Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to sinobi. | Country: US | Sector: Healthcare | Website: neurotrials.com | Infostealer data confirmed. | Founded in 1997, NeuroTrials Research is an outpatient and inpatient research facility located in Atlanta. The clinic occupies 12,000 square feet, including a 15-bed, state-of-the-art sleep lab and inpatient clinical research unit, which is designed specifically for the comfort and safety of subjects participating in its clinical trials. Today, NeuroTrials has conducted more than 175 clinical trials on over 2,500 volunteers throughout the Atlanta metro area. | Source: https://www.ransomware.live/id/TmV1cm90cmlhbHMgUmVzZWFyY2ggSW5jQHNpbm9iaQ=="
+  },
+  {
+    "id": 3692,
+    "name": "dragonforce: CF Evans Construction",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Construction | Website: www.cfevans.com | A recognized leader in the multi-family housing construction industry, CF Evans Construction provides a product for developers. The company has thrived amid six decades. The data of this company includes: Corporate correspondence of senior executives Financial documents HR documents Accounting documents Certificates, contracts, passwords, databases, and much more. | Source: https://www.ransomware.live/id/Q0YgRXZhbnMgQ29uc3RydWN0aW9uQGRyYWdvbmZvcmNl"
+  },
+  {
+    "id": 3691,
+    "name": "killsec: mrs holdings",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to killsec. | Country: NG | Sector: Business Services | Website: mrsholdings.com | Infostealer data confirmed. | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/bXJzIGhvbGRpbmdzQGtpbGxzZWM="
+  },
+  {
+    "id": 3690,
+    "name": "incransom: Calsoft Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3689,
+    "name": "pear: Office Furniture Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Manufacturing | Website: ofginc.com | Infostealer data confirmed. | Interior workplace solutions provider | Source: https://www.ransomware.live/id/T2ZmaWNlIEZ1cm5pdHVyZSBHcm91cEBwZWFy"
+  },
+  {
+    "id": 3688,
+    "name": "qilin: Lindabury",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: www.lindabury.com | N/A | Source: https://www.ransomware.live/id/TGluZGFidXJ5QHFpbGlu"
+  },
+  {
+    "id": 3687,
+    "name": "shinyhunters: Houghton Mifflin Harcourt Company",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Education | Website: hmhco.com | Infostealer data confirmed. | Your data was compromised in several of our campaigns throughout the past few months. We urge you to engage with us, it is in your best interests. This is a final warning to reach out by 12 May 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 9 May 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/SG91Z2h0b24gTWlmZmxpbiBIYXJjb3VydCBDb21wYW55QHNoaW55aHVudGVycw=="
+  },
+  {
+    "id": 3686,
+    "name": "lockbit5: vp-brands.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: DE | Sector: Consumer Services | Website: vp-brands.com | Infostealer data confirmed. | We produce quality spirits, evolve brands and push boundaries. As far as it takes. | Source: https://www.ransomware.live/id/dnAtYnJhbmRzLmNvbUBsb2NrYml0NQ=="
+  }
+]

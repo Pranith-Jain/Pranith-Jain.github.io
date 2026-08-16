@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:39:08.837Z",
+  "name": "everest: Super AI",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 28, 2026",
+  "lastSeen": "Apr 28, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: DE | Sector: Technology | Website: super.ai | Infostealer data confirmed. | Automate business processes end-to-end with guaranteed results using super.AI Intelligent Document Processing (IDP). Quickly extract data from complex documents using the latest AI models. | Source: https://www.ransomware.live/id/U3VwZXIgQUlAZXZlcmVzdA=="
+}

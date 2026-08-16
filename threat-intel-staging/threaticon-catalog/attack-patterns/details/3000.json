@@ -1,0 +1,9 @@
+{
+  "id": 3000,
+  "fetchedAt": "2026-08-15T06:57:25.719Z",
+  "name": "T1041 Exfiltration Over Command & Control Channel",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

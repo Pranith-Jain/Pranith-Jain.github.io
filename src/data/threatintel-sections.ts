@@ -119,7 +119,14 @@ export const SECTIONS: Section[] = [
         label: 'SOC Dashboards',
         desc: 'Red/cyan/purple panels - ransomware activity, vulnerability index, and IOC stream with consensus scoring.',
         icon: LayoutDashboard,
-        badge: 'new',
+        badge: 'live',
+      },
+      {
+        to: '/threatintel/predictive/dashboard',
+        label: 'Intel Dashboard',
+        desc: 'Program health, feed reliability, snapshot metrics, CVE landscape, and quick actions.',
+        icon: LayoutDashboard,
+        badge: 'live',
       },
       {
         to: '/threatintel/feeds',

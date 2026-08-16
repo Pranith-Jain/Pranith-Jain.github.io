@@ -1,0 +1,9 @@
+{
+  "id": 2075,
+  "name": "T1036 Lateral Movement",
+  "techniqueId": "T1036",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2075"
+}

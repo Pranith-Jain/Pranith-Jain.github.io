@@ -1,0 +1,12 @@
+{
+  "id": 547,
+  "fetchedAt": "2026-08-14T06:00:07.354Z",
+  "name": "Detect malicious IDE extension install/usage and IDE tunneling",
+  "tlp": null,
+  "detId": "DET0561",
+  "stixId": "x-mitre-detection-strategy--434d1a09-6a53-43ae-8f8c-e0eb853c4a25",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1548", "AN1549", "AN1550"]
+}

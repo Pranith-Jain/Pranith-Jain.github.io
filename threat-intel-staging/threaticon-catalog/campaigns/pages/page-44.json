@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7217,
+    "name": "clop: iva*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Projects, Backups | Source: https://www.ransomware.live/id/aXZhKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7213,
+    "name": "clop: arc*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Technology | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Projects | Source: https://www.ransomware.live/id/YXJjKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7207,
+    "name": "clop: st*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project | Source: https://www.ransomware.live/id/c3QqKioqKioqQGNsb3A="
+  },
+  {
+    "id": 7211,
+    "name": "clop: itk*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Projects | Source: https://www.ransomware.live/id/aXRrKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7209,
+    "name": "clop: flu*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project,Cad-files | Source: https://www.ransomware.live/id/Zmx1KioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7208,
+    "name": "clop: qc*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project | Source: https://www.ransomware.live/id/cWMqKioqKioqQGNsb3A="
+  },
+  {
+    "id": 7212,
+    "name": "clop: G3A*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Projects | Source: https://www.ransomware.live/id/RzNBKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7210,
+    "name": "clop: mid*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Database, Project | Source: https://www.ransomware.live/id/bWlkKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7206,
+    "name": "clop: ecc*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: DBF files, Cad-files, Project, Soft, Backups | Source: https://www.ransomware.live/id/ZWNjKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7205,
+    "name": "clop: ipm*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: PDF files, Cad-files, Soft | Source: https://www.ransomware.live/id/aXBtKioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7204,
+    "name": "clop: nuv*******",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: Project, Soft | Source: https://www.ransomware.live/id/bnV2KioqKioqKkBjbG9w"
+  },
+  {
+    "id": 7202,
+    "name": "Panzer: Surakarta University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 7203,
+    "name": "Panzer: Festina Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Panzer. | Country: CH | Sector: Retail & E-Commerce | Website: festinagroup.com | Infostealer data confirmed. | Festina Group is a major watch and jewelry company that owns six different brands: Festina, Lotus, Lotus Style, Calypso, Candino, and Jaguar. They blend Swiss watchmaking traditions with modern design, creating timepieces that mix classic craftsmanship with contemporary style. Each brand offers something unique, from sporty watches to elegant jewelry, giving customers plenty of choices for different tastes and occasions. | Source: https://www.ransomware.live/id/RmVzdGluYSBHcm91cEBQYW56ZXI="
+  },
+  {
+    "id": 7201,
+    "name": "incransom: vprj.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Not Found | Website: vprj.org | The Virginia Peninsula Regional Jail (VPRJ) is a state-authorized, regional correctional facility located in Williamsburg, Virginia, USA. Opened in 1997, VPRJ provides short-to-medium-term detention services, ensuring public safety and order across the Virginia Peninsula region under the governance of a multi-jurisdictional jail board. | Source: https://www.ransomware.live/id/dnByai5vcmdAaW5jcmFuc29t"
+  },
+  {
+    "id": 7200,
+    "name": "2026-08-05 (Wednesday): New Clickfix Variant Abuses The Legitimate Binary And Webdav To Deploy Infostealer Capabilities",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-08-05 (Wednesday): New Clickfix Variant Abuses The Legitimate Binary And Webdav To Deploy Infostealer Capabilities."
+  }
+]

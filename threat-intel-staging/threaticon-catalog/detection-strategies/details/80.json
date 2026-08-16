@@ -1,0 +1,12 @@
+{
+  "id": 80,
+  "fetchedAt": "2026-08-14T05:59:28.206Z",
+  "name": "Detection Strategy for T1505 - Server Software Component",
+  "tlp": null,
+  "detId": "DET0547",
+  "stixId": "x-mitre-detection-strategy--27b606f9-dde4-456c-8d90-51289313994f",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1507", "AN1508", "AN1509", "AN1510"]
+}

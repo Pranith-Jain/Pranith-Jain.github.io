@@ -1,11 +1,11 @@
 {
   "id": 2056,
   "name": "New Sofacy Attacks Against US Government Agency",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 14, 2016",
+  "lastSeen": "Jun 14, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #72 (57607369-2490-444a-9034-049fc0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2056"

@@ -1,0 +1,12 @@
+{
+  "id": 669,
+  "fetchedAt": "2026-08-14T05:12:47.594Z",
+  "name": "Detection of Data Staging Prior to Exfiltration",
+  "tlp": null,
+  "detId": "DET0014",
+  "stixId": "x-mitre-detection-strategy--11f7fa69-2da4-4280-90d2-abc2f0722683",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0040", "AN0041", "AN0042", "AN0043", "AN0044"]
+}

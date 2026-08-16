@@ -1,0 +1,9 @@
+{
+  "id": 2978,
+  "name": "T1047 – Windows Management Instrumentation (WMI)",
+  "techniqueId": "T1047",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2978"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 455,
+  "fetchedAt": "2026-08-14T05:15:35.167Z",
+  "name": "Behavioral Detection of Malicious Cloud API Scripting",
+  "tlp": null,
+  "detId": "DET0078",
+  "stixId": "x-mitre-detection-strategy--e7bd0f37-f2cf-4e3c-a9c1-c41f63b67e1c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0215"]
+}

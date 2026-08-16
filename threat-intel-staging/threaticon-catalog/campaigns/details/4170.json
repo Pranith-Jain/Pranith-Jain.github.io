@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:41:38.638Z",
+  "name": "Deadlock: PB Sprinkler Engineering Sp. z o.o. and PLISZKA Fire Protection Engineering",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 10, 2026",
+  "lastSeen": "Jul 10, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: PL | Sector: Business Services | Website: pliszka.pl/en | PB Sprinkler Engineering (formerly Pliszka Sprinkler) provides comprehensive fire protection solutions, including technical design in 2D and 3D, and customized, certified systems. The company specializes in electronic detection and fixed gas extinguishing systems. Pliszka is a Polish engineering firm based in Gdańsk with over 30 years of experience specializing in comprehensive active fire protection systems. The company provides design, installation, and maintenance services for automatic extinguishing, fire alarm, and smoke removal systems, along with 24/7 service. | Source: https://www.ransomware.live/id/UEIgU3ByaW5rbGVyIEVuZ2luZWVyaW5nIFNwLiB6IG8uby4gYW5kIFBMSVNaS0EgRmlyZSBQcm90ZWN0aW9uIEVuZ2luZWVyaW5nQERlYWRsb2Nr"
+}

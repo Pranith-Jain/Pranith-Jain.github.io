@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:45:49.711Z",
+  "name": "interlock: Winona County",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Public Sector | Website: winonacounty.gov | Infostealer data confirmed. | Winona County is located in the Mississippi River blufflands of southeastern Minnesota. They have been negligent regarding security and the data they store, which has resulted in a breach and the public disclosure of all the confidential data they held. As a result, we are now able to offer you a large database containing resident records, tax and budget documents, police records, and data from other institutions. | Press: https://www.kttc.com/2026/04/07/national-guard-assist-winona-county-following-cyberattack/ | Source: https://www.ransomware.live/id/V2lub25hIENvdW50eUBpbnRlcmxvY2s="
+}

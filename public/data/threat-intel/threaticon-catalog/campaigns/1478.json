@@ -3,10 +3,10 @@
   "name": "sinobi: Amerinational Management Services (AMS)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 19, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to sinobi. | Country: US | Sector: Business Services | Website: ourams.com | Infostealer data confirmed. | Amerinational Management Services, Inc. specializes in providing comprehensive business solutions for martial arts schools, including marketing, software, and tuition management services. Their offerings encompass ATLAS Martial Arts Software, lead funnel websites, merchant accounts, and after school/summer camp programs. The company targets martial arts school owners looking to enhance their business operations and profitability. With over 40 years of experience, AMS is dedicated to helping martial arts professionals achieve their goals through effective management and marketing tools. | Source: https://www.ransomware.live/id/QW1lcmluYXRpb25hbCBNYW5hZ2VtZW50IFNlcnZpY2VzIChBTVMpQHNpbm9iaQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1478"
 }

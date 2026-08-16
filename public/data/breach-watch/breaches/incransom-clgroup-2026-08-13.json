@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e5e6de36-52e1-4bc5-a931-c7e1abc6da17",
+  "description": "Compunnel, founded in 1994 and headquartered in Plainsboro, New Jersey, provides information technology consulting and staffing, custom business application development, and eLearning services",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

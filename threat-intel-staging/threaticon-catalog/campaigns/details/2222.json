@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:15:44.638Z",
+  "name": "Attackers target Ukraine using GoMet backdoor",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Aug 21, 2022",
+  "lastSeen": "Aug 21, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #315 (96f83b68-7df9-4274-bf6d-289c32553884)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": 49,
+  "fetchedAt": "2026-08-14T05:20:08.988Z",
+  "name": "Behavioral Detection Strategy for Use Alternate Authentication Material: Application Access Token (T1550.001)",
+  "tlp": null,
+  "detId": "DET0185",
+  "stixId": "x-mitre-detection-strategy--afdf49f9-905d-49e4-9e42-5726f35e87e4",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0526", "AN0527", "AN0528", "AN0529", "AN0530"]
+}

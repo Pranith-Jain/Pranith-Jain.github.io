@@ -1,0 +1,9 @@
+{
+  "id": 1270,
+  "fetchedAt": "2026-08-15T06:43:18.839Z",
+  "name": "Log Injection-Tampering-Forging",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. This attack targets the log files of the target host. The attacker injects, manipulates or forges malicious log entries in the log file, allowing them to mislead a log audit, cover traces of attack, or perform other malicious actions. The target host is not properly controlling log access. As a result tainted data is resulting in the log files leading to a failure in accountability, non-repudiation and incident forensics capability."
+}

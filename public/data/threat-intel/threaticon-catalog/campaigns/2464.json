@@ -1,11 +1,11 @@
 {
   "id": 2464,
   "name": "OSINT phishing sites and php kits - February 2016 - Part 1 by TechHelpList",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Feb 2, 2016",
+  "lastSeen": "Feb 2, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #800 (56b06cf0-ac30-4472-93dd-44ce950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2464"

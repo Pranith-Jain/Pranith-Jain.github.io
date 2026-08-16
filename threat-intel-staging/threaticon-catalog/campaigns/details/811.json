@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:15:46.439Z",
+  "name": "lamashtu: FILAIR",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 13, 2026",
+  "lastSeen": "Apr 11, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lamashtu. | Country: FR | Sector: Transportation/Logistics | Website: filair.fr | Infostealer data confirmed. | Since 1953, Filair, a French company, has been designing, manufacturing and retrofitting wire equipment and mechanically welded assemblies. | Source: https://www.ransomware.live/id/RklMQUlSQGxhbWFzaHR1"
+}

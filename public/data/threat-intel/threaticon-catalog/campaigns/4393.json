@@ -3,9 +3,9 @@
   "name": "thegentlemen: Immling",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2026",
+  "lastSeen": "Jun 30, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Not Found | Website: immling.de | Infostealer data confirmed. | ***.de is the official website for the Immling Festival, a renowned classical music and opera event held annually at Gut Immling in Halfing, Germany. Running primarily from June to August since 1997, it features high-quality opera productions and symphony concerts in a picturesque setting. In 2026, the festival celebrates its 30th anniversary, remaining a major cultural highlight in the Chiemgau region | Source: https://www.ransomware.live/id/SW1tbGluZ0B0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4393"

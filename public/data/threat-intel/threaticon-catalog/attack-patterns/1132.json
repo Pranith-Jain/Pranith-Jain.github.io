@@ -1,0 +1,9 @@
+{
+  "id": 1132,
+  "name": "Session Credential Falsification through Prediction",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: High. This attack targets predictable session ID in order to gain privileges. The attacker can predict the session ID used during a transaction to perform spoofing and session hijacking.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1132"
+}

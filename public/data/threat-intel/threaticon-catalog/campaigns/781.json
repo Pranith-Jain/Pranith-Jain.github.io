@@ -3,9 +3,9 @@
   "name": "lockbit5: nucleodediagnostico.mx",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 14, 2026",
+  "lastSeen": "Apr 13, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to lockbit5. | Country: MX | Sector: Healthcare | Website: nucleodediagnostico.mx | Infostealer data confirmed. | Núcleo de Diagnóstico Núcleo de Diagnóstico es un laboratorio de análisis clínicos ubicado en Guada... | Source: https://www.ransomware.live/id/bnVjbGVvZGVkaWFnbm9zdGljby5teEBsb2NrYml0NQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/781"

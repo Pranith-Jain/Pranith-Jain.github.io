@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:40:33.115Z",
+  "name": "BrainCipher: robroy.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 9, 2026",
+  "lastSeen": "Jul 9, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to BrainCipher. | Country: US | Sector: Manufacturing | Website: robroy.com | Infostealer data confirmed. | [AI generated] Rob Roy Industries, operating through robroy.com, is a US-based manufacturer specializing in electrical conduit systems and enclosures. The company produces PVC-coated steel conduit, fiberglass conduit, and industrial enclosures used in corrosive and hazardous environments. Headquartered in Verona, Pennsylvania, Rob Roy serves industries such as oil and gas, chemical processing, wastewater treatment, and utilities, providing durable electrical protection solutions across North America. | Source: https://www.ransomware.live/id/cm9icm95LmNvbUBCcmFpbkNpcGhlcg=="
+}

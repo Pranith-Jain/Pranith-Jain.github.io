@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:06:02.733Z",
+  "name": "interlock: Community College of Beaver County",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Education | Website: https:ccbc.edu | The college serves a diverse student body, including recent high school graduates, adult learners, and those seeking career advancement. By focusing heavily on workforce development but neglecting its security, the college compromised hundreds of records containing personal and confidential information, as well as financial documents, projects, and contracts, which were subsequently leaked to the public. | Source: https://www.ransomware.live/id/Q29tbXVuaXR5IENvbGxlZ2Ugb2YgQmVhdmVyIENvdW50eUBpbnRlcmxvY2s="
+}

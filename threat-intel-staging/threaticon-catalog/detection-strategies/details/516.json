@@ -1,0 +1,12 @@
+{
+  "id": 516,
+  "fetchedAt": "2026-08-14T05:59:58.055Z",
+  "name": "Detection Strategy for ESXi Hypervisor CLI Abuse",
+  "tlp": null,
+  "detId": "DET0558",
+  "stixId": "x-mitre-detection-strategy--5307b508-28e8-44c6-9487-212ccd3ab86c",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1537"]
+}

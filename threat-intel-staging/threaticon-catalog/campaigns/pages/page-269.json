@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3855,
+    "name": "shadowbyt3$: StarBucks Company (StarBucks.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shadowbyt3$. | Country: US | Sector: Hospitality and Tourism | Website: Starbucks.com | StarBucks Failed to reach out to us and didn't pay even $500,000 when we know they can afford it. It's not even that much we were asking for. Since you didn't contact is no negotiations and this is now in the hands of cybercriminals. This is a warning to all companies if you see yourself posted here to reach us. This is the only ammount we have on are servers due to migrating dmca and ignore abuse infrastructure. They were breached on 04/01/2026 and they know they were breached because they closed the s3 bucket starbucks-prod. | Source: https://www.ransomware.live/id/U3RhckJ1Y2tzIENvbXBhbnkgKFN0YXJCdWNrcy5jb21Ac2hhZG93Ynl0MyQ="
+  },
+  {
+    "id": 3856,
+    "name": "qilin: Hamer Childs",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Not Found | Website: www.hamerchilds.co.uk | N/A | Source: https://www.ransomware.live/id/SGFtZXIgQ2hpbGRzQHFpbGlu"
+  },
+  {
+    "id": 3850,
+    "name": "thegentlemen: Grupo Pasquel",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to thegentlemen. | Country: EC | Sector: Agriculture and Food Production | Website: grupopasquel.com | Infostealer data confirmed. | grupopasquel.com zoominfo.com/c/grupo-pasquel/430007218 Grupo Pasquel is a well-established Ecuadorian enterprise from Quito, with over three decades of excellence in construction and hardware retail. Through its Mi Ferre brand, it delivers quality products and integrated solutions, empowering builders and DIY enthusiasts nationwide with trusted service and logistics | Source: https://www.ransomware.live/id/R3J1cG8gUGFzcXVlbEB0aGVnZW50bGVtZW4="
+  },
+  {
+    "id": 3835,
+    "name": "Operation SolarWinds",
+    "tlp": "white",
+    "confidence": 95,
+    "status": "Inactive",
+    "description": "A sophisticated supply chain attack targeting SolarWinds Orion platform affecting thousands of organizations including US government agencies."
+  },
+  {
+    "id": 3833,
+    "name": "Operation SolarWinds",
+    "tlp": "white",
+    "confidence": 95,
+    "status": "Inactive",
+    "description": "A sophisticated supply chain attack targeting SolarWinds Orion platform affecting thousands of organizations including US government agencies."
+  },
+  {
+    "id": 3831,
+    "name": "Operation SolarWinds",
+    "tlp": "white",
+    "confidence": 95,
+    "status": "Inactive",
+    "description": "A sophisticated supply chain attack targeting SolarWinds Orion platform affecting thousands of organizations including US government agencies."
+  },
+  {
+    "id": 3829,
+    "name": "Operation SolarWinds",
+    "tlp": "white",
+    "confidence": 95,
+    "status": "Inactive",
+    "description": "A sophisticated supply chain attack targeting SolarWinds Orion platform affecting thousands of organizations including US government agencies."
+  },
+  {
+    "id": 3828,
+    "name": "dragonforce: Öztekin Group",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: TR | Sector: Construction | Website: www.oztekingroup.com | Öztekin Group specializes in project design and construction of industrial, residential, and commercial buildings. The company emphasizes commitment to promises, respect for project integrity, and adherence to universal standards. Their approach is guided by a dedication to excellent engineering and coordination, aiming to transform visions into reality. They serve clients seeking reliable construction solutions in various sectors. | Source: https://www.ransomware.live/id/w5Z6dGVraW4gR3JvdXBAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 3827,
+    "name": "nightspire: Cabinet d’Étude en Sécurité Pyrotechnique",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Business Services | Website: www.cespyro.com | Data is not available now. | Source: https://www.ransomware.live/id/Q2FiaW5ldCBk4oCZw4l0dWRlIGVuIFPDqWN1cml0w6kgUHlyb3RlY2huaXF1ZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 3826,
+    "name": "qilin: Comercial Echave Turri Limitada",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CL | Sector: Agriculture and Food Production | Website: www.ajj.cl | N/A | Source: https://www.ransomware.live/id/Q29tZXJjaWFsIEVjaGF2ZSBUdXJyaSBMaW1pdGFkYUBxaWxpbg=="
+  },
+  {
+    "id": 3825,
+    "name": "qilin: PNSB Insurance Brokers Sdn Bhd",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MY | Sector: Financial Services | Website: www.pnsbinsbroker.com.my | N/A | Source: https://www.ransomware.live/id/UE5TQiBJbnN1cmFuY2UgQnJva2VycyBTZG4gQmhkQHFpbGlu"
+  },
+  {
+    "id": 3824,
+    "name": "incransom: metaval.com.au",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3823,
+    "name": "nova: URG OEM",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: KR | Sector: Manufacturing | Website: urg.co.kr | Infostealer data confirmed. | urg.co.kr - URG was founded with a sincere desire to provide solutions for customers facing skin concerns. Starting in 1990 with the launch of Shangpree Spa, the company not only delivered high-quality products to customers but also set a new standard for luxury service in the skincare industry—establishing itself as a leading premium spa brand. Building on over 30 years of tradition and expertise, URG has since launched a variety of skincare brands, gaining recognition both domestically and internationally. | Source: https://www.ransomware.live/id/VVJHIE9FTUBub3Zh"
+  },
+  {
+    "id": 3822,
+    "name": "cmdorganization: Holy Name of Jesus",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3821,
+    "name": "dragonforce: Ingelan",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: ES | Sector: Manufacturing | Website: ingelan.com | Infostealer data confirmed. | Ingelan is a provider of engineering solutions for systems and communications environments. It specializes in security of information systems, information systems architecture, communications, and automation of plant systems. The company was founded in 1993 and is headquartered in ??Barcelona, Spain | Source: https://www.ransomware.live/id/SW5nZWxhbkBkcmFnb25mb3JjZQ=="
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "id": 2149,
+  "name": "T1566.001 - Exfiltration Over Web Service Using Encrypted Communications",
+  "techniqueId": "T1566",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2149"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:05:00.195Z",
+  "name": "interlock: The Center for Hearing & Speech",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 2, 2026",
+  "lastSeen": "Apr 2, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to interlock. | Country: US | Sector: Healthcare | Website: https:thecenterforhearingandspeech.localsearch.com | The Hearing and Speech Center provides comprehensive services in hearing diagnostics, speech therapy, and screening for people of all ages. However, it is not responsible for the security of your personal data; as a result of their negligence, a large amount of personal data belonging to clients and employees, as well as their confidential information, projects, and incident reports, was leaked online. | Source: https://www.ransomware.live/id/VGhlIENlbnRlciBmb3IgSGVhcmluZyAmIFNwZWVjaEBpbnRlcmxvY2s="
+}

@@ -1,0 +1,12 @@
+{
+  "id": 262,
+  "fetchedAt": "2026-08-14T05:56:36.374Z",
+  "name": "Multi-Platform Cloud Storage Exfiltration Behavior Chain",
+  "tlp": null,
+  "detId": "DET0484",
+  "stixId": "x-mitre-detection-strategy--1177cbb7-bc00-4a36-8774-d51b7b3c66e9",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1328", "AN1329", "AN1330"]
+}

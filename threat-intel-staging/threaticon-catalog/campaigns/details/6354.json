@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T12:09:44.641Z",
+  "name": "ExfilSquad: Police National Legal Database",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to ExfilSquad. | Country: GB | Sector: Government & Defense | DATA SUMMARY: 135k law enforcement contact records with first/last name, email, police force area, etc. | Source: https://www.ransomware.live/id/UG9saWNlIE5hdGlvbmFsIExlZ2FsIERhdGFiYXNlQEV4ZmlsU3F1YWQ="
+}

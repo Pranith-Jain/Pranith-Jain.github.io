@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:30:43.790Z",
+  "name": "njRAT Spreading Through Active Pastebin Command and Control Tunnel",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Dec 13, 2020",
+  "lastSeen": "Dec 13, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #242 (5fd61f03-15fc-4acd-8a68-e42fc0a8ab16)."
+}

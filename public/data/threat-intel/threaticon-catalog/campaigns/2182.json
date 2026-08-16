@@ -1,11 +1,11 @@
 {
   "id": 2182,
   "name": "OilRig Targets Middle Eastern Telecommunications Organization and Adds Novel C2 Channel with Steganography to Its Inventory",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 26, 2020",
+  "lastSeen": "Jul 26, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #226 (5f1d893c-e2c0-4b44-a767-cc46c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2182"

@@ -1,0 +1,12 @@
+{
+  "id": 694,
+  "fetchedAt": "2026-08-14T05:17:52.990Z",
+  "name": "Detection of Mutex-Based Execution Guardrails Across Platforms",
+  "tlp": null,
+  "detId": "DET0132",
+  "stixId": "x-mitre-detection-strategy--d22f1848-fc32-4fdb-999b-9c0845fb6552",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0372", "AN0373", "AN0374"]
+}

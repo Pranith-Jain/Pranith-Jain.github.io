@@ -3,9 +3,9 @@
   "name": "titan: Abp Autoricambi Srl",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 18, 2026",
+  "lastSeen": "Apr 18, 2026",
+  "added": "May 21, 2026",
   "description": "Ransomware attack attributed to titan. | Country: IT | Sector: Manufacturing | Website: www.abpautoricambi.it | [AI generated] N/A | Source: https://www.ransomware.live/id/QWJwIEF1dG9yaWNhbWJpIFNybEB0aXRhbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3909"

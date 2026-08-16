@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5923,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5924,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5922,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5921,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5920,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5919,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5918,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5903,
+    "name": "kairos: College O'Sullivan de Québec",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to kairos. | Country: CA | Sector: Education | Collège O'Sullivan de Québec offers a variety of training programs both in-class and online, focusing on fields such as administration, insurance, office management, IT, web development, and marketing. The institution aims to equip students with the skills needed for the job market and higher education through quality resources and personalized services. Their target clients include secondary school students, international students, and businesses seeking tailored training solutions. With over 80 years of history, the college is committed to fostering professional and personal competencies among its graduates. | Source: https://www.ransomware.live/id/Q29sbGVnZSBPJ1N1bGxpdmFuIGRlIFF1w6liZWNAa2Fpcm9z"
+  },
+  {
+    "id": 5914,
+    "name": "akira: L&A Transport",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Sector: Transportation/Logistics | L & A Transport is a reputable trucking company with over 50 years of experience in providing a wide range of shipping services, including international shipping, white glove handling, and l ogistics solutions for businesses of all sizes. They specialize in truckloads, container loads, less than container truckloads, and offer warehousing services in Union, NJ. We will upload corporate data soon. Detailed financials, employee information (DLs and so on), contracts, client information, NDAs, etc. | Source: https://www.ransomware.live/id/TCZBIFRyYW5zcG9ydEBha2lyYQ=="
+  },
+  {
+    "id": 5902,
+    "name": "safepay: mende-grundbesitz.de",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Business Services | Website: mende-grundbesitz.de | Infostealer data confirmed. | Founded in 1994, the company specializes in the professional administration of residential, commercial, and mixed-use real estate throughout the Berlin … | Source: https://www.ransomware.live/id/bWVuZGUtZ3J1bmRiZXNpdHouZGVAc2FmZXBheQ=="
+  },
+  {
+    "id": 5901,
+    "name": "safepay: acsmallmaxwell.com.au",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: AU | Sector: Business Services | Website: acsmallmaxwell.com.au | Infostealer data confirmed. | Founded in 1916 by Ambrose Cecil Small, the firm has provided professional accounting and financial services to businesses and individuals … | Source: https://www.ransomware.live/id/YWNzbWFsbG1heHdlbGwuY29tLmF1QHNhZmVwYXk="
+  },
+  {
+    "id": 5908,
+    "name": "anubis: Fairlife / Coca-Cola",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: US | Sector: Agriculture and Food Production | www.fairlife.com | Source: https://www.ransomware.live/id/RmFpcmxpZmUgLyBDb2NhLUNvbGFAYW51Ymlz"
+  },
+  {
+    "id": 5910,
+    "name": "nova: Rumah Sakit Universitas Indonesia (RSUI)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: ID | Sector: Healthcare | Rumah Sakit Universitas Indonesia (RSUI) is the teaching hospital of the University of Indonesia, providing advanced medical care, education, and clinical research in Indonesia - medical data from drive at risk, Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/UnVtYWggU2FraXQgVW5pdmVyc2l0YXMgSW5kb25lc2lhIChSU1VJKUBub3Zh"
+  },
+  {
+    "id": 5909,
+    "name": "nova: Jrd logistics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Sector: Transportation/Logistics | Jrd logistics LTD is an India-based freight forwarding and supply chain company headquartered in Kolkata that provides international logistics, customs clearance, warehousing, and multimodal transport services - Nova Provide tree and samples from stolen data to the company when its get in touch with support department. | Source: https://www.ransomware.live/id/SnJkIGxvZ2lzdGljc0Bub3Zh"
+  },
+  {
+    "id": 5912,
+    "name": "coinbasecartel: Colliers Real Estate",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: US | Sector: Business Services | [AI generated] Colliers International is a global commercial real estate services company headquartered in Toronto, Canada. It operates across more than 60 countries, offering services including property management, investment sales, leasing, valuation, and advisory. The firm serves corporate, institutional, and private clients across office, industrial, retail, and residential property sectors, making it one of the largest real estate services firms worldwide. | Source: https://www.ransomware.live/id/Q29sbGllcnMgUmVhbCBFc3RhdGVAY29pbmJhc2VjYXJ0ZWw="
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:27:42.834Z",
+  "name": "dragonforce: fgv.br",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 2, 2026",
+  "lastSeen": "Mar 2, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: BR | Sector: Education | Website: fgv.br | Infostealer data confirmed. | Fundação Getulio Vargas (FGV) is a prestigious educational institution in Brazil, offering a wide range of programs including undergraduate, MBA, master's, and doctoral courses. It serves students, professionals, and organizations, focusing on developing leadership and providing high-quality education. FGV also engages in research and provides technical assistance to both public and private sectors, contributing to national and international debates. Additionally, FGV promotes cultural initiatives and publishes academic works to enhance education and research in the country. | Press: https://www.tecmundo.com.br/seguranca/411228-fgv-sofre-vazamento-de-152-tb-em-suposto-ataque-cibernetico-do-grupo-dragonforce.htm | Source: https://www.ransomware.live/id/Zmd2LmJyQGRyYWdvbmZvcmNl"
+}

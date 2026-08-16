@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:17:17.833Z",
+  "name": "TA551 (SHATHAK) Word documents with macros pushing ICEDID malware",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Aug 18, 2020",
+  "lastSeen": "Aug 18, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #230 (5f480dd6-04cc-4925-ada8-d181c0a8ab16)."
+}

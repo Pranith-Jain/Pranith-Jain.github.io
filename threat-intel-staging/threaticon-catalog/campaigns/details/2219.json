@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:15:52.634Z",
+  "name": "Symbiote: A New, Nearly-Impossible-to-Detect Linux Threat",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jun 21, 2022",
+  "lastSeen": "Jun 21, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #305 (70ae0c90-43d1-4efc-9e24-4a8dc86c1725)."
+}

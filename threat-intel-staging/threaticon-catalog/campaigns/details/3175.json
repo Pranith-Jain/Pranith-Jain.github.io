@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:29:32.750Z",
+  "name": "Barco Clickshare themed Emotet",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Feb 28, 2022",
+  "lastSeen": "Feb 28, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #292 (db9d401f-8ecb-44f9-a414-d57bbd21d728)."
+}

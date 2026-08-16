@@ -3,9 +3,9 @@
   "name": "coinbasecartel: Studiosus Reisen Munchen",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 30, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to coinbasecartel. | Country: DE | Sector: Hospitality and Tourism | Website: studiosus.com | Infostealer data confirmed. | [AI generated] Studiosus Reisen München is a German travel company based in Munich. It is recognized as one of the leading tour operators in Germany, specializing in cultural and study tours. They aim to provide deeply immersive travel experiences that enrich the understanding of different cultures, histories, and environments. Their large portfolio offers guided tours to more than 100 countries worldwide. | Source: https://www.ransomware.live/id/U3R1ZGlvc3VzIFJlaXNlbiBNdW5jaGVuQGNvaW5iYXNlY2FydGVs",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1172"

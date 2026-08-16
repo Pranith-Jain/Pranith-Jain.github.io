@@ -1,0 +1,12 @@
+{
+  "id": 224,
+  "fetchedAt": "2026-08-14T05:26:18.744Z",
+  "name": "Behavior-chain detection for T1132.002 Data Encoding: Non-Standard Encoding across Windows, Linux, macOS, ESXi",
+  "tlp": null,
+  "detId": "DET0326",
+  "stixId": "x-mitre-detection-strategy--8bcafe59-0a4b-4314-988b-085bf5cdf7a9",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0927", "AN0928", "AN0929", "AN0930"]
+}

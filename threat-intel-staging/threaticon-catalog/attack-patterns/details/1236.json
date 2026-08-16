@@ -1,0 +1,9 @@
+{
+  "id": 1236,
+  "fetchedAt": "2026-08-15T06:41:38.401Z",
+  "name": "StarJacking",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary spoofs software popularity metadata to deceive users into believing that a maliciously provided package is widely used and originates from a trusted source."
+}

@@ -1,11 +1,11 @@
 {
   "id": 3167,
   "name": "PowerPoint attachments, Agent Tesla and code reuse in malware",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Dec 20, 2021",
+  "lastSeen": "Dec 20, 2021",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #280 (3b79b739-7d41-4788-b4bb-5c8d3a6a0a26).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3167"

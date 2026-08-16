@@ -1,0 +1,9 @@
+{
+  "id": 1931,
+  "name": "T1546.002 - System Account Access: Reusing Credentials for Lateral Movement",
+  "techniqueId": "T1546",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1931"
+}

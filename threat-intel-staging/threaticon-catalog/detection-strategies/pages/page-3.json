@@ -1,0 +1,212 @@
+[
+  {
+    "id": 681,
+    "code": "DET0061",
+    "name": "Detect Default File Association Hijack via Registry & Execution Correlation on Windows",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 136,
+    "code": "DET0062",
+    "name": "Detection Strategy for Disable or Modify Linux Audit System Log",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 527,
+    "code": "DET0063",
+    "name": "Cross-Platform Behavioral Detection of Python Execution",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 507,
+    "code": "DET0064",
+    "name": "Detection Strategy for Hijack Execution Flow through Path Interception by Unquoted Path",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 294,
+    "code": "DET0065",
+    "name": "Detection Strategy for Container Administration Command Abuse",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 395,
+    "code": "DET0066",
+    "name": "User Execution – Malicious Link (click → suspicious egress → download/write → follow-on activity)",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 202,
+    "code": "DET0067",
+    "name": "Detection Strategy for Ignore Process Interrupts",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 246,
+    "code": "DET0068",
+    "name": "Detection Strategy for T1505.004 - Malicious IIS Components",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 476,
+    "code": "DET0069",
+    "name": "Detect unauthorized or suspicious Hardware Additions (USB/Thunderbolt/Network)",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 398,
+    "code": "DET0070",
+    "name": "Detection Strategy for Phishing across platforms.",
+    "description": null,
+    "columns": ["6"]
+  },
+  {
+    "id": 462,
+    "code": "DET0071",
+    "name": "Detection of Remote Data Staging Prior to Exfiltration",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 479,
+    "code": "DET0072",
+    "name": "Detect Logon Script Modifications and Execution",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 117,
+    "code": "DET0073",
+    "name": "Detection Strategy for System Services: Systemctl",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 550,
+    "code": "DET0074",
+    "name": "Detect Use of Stolen Web Session Cookies Across Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 256,
+    "code": "DET0075",
+    "name": "Internal Proxy Behavior via Lateral Host-to-Host C2 Relay",
+    "description": null,
+    "columns": ["5"]
+  },
+  {
+    "id": 22,
+    "code": "DET0076",
+    "name": "Behavioral Detection of Visual Basic Execution (VBS/VBA/VBScript)",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 434,
+    "code": "DET0077",
+    "name": "Detection of Exfiltration Over Alternate Network Interfaces",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 455,
+    "code": "DET0078",
+    "name": "Behavioral Detection of Malicious Cloud API Scripting",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 403,
+    "code": "DET0079",
+    "name": "Detection of Remote Service Session Hijacking",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 309,
+    "code": "DET0080",
+    "name": "Exploit Public-Facing Application – multi-signal correlation (request → error → post-exploit process/egress)",
+    "description": null,
+    "columns": ["7"]
+  },
+  {
+    "id": 632,
+    "code": "DET0081",
+    "name": "Detection of Proxy Execution via Trusted Signed Binaries Across Platforms",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 7,
+    "code": "DET0082",
+    "name": "Internal Website and System Content Defacement via UI or Messaging Modifications",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 323,
+    "code": "DET0083",
+    "name": "Container CLI and API Abuse via Docker/Kubernetes (T1059.013)",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 180,
+    "code": "DET0084",
+    "name": "Detection Strategy for Modify Cloud Compute Infrastructure: Delete Cloud Instance",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 154,
+    "code": "DET0085",
+    "name": "Credential Dumping from SAM via Registry Dump and Local File Access",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 410,
+    "code": "DET0086",
+    "name": "Detect WMI Event Subscription for Persistence via WmiPrvSE Process and MOF Compilation",
+    "description": null,
+    "columns": ["1"]
+  },
+  {
+    "id": 254,
+    "code": "DET0087",
+    "name": "Encrypted or Encoded File Payload Detection Strategy",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 69,
+    "code": "DET0088",
+    "name": "Backup Software Discovery via CLI, Registry, and Process Inspection (T1518.002)",
+    "description": null,
+    "columns": ["3"]
+  },
+  {
+    "id": 236,
+    "code": "DET0089",
+    "name": "Behavioral Detection of Keylogging Activity Across Platforms",
+    "description": null,
+    "columns": ["4"]
+  },
+  {
+    "id": 127,
+    "code": "DET0090",
+    "name": "Cross-host C2 via Removable Media Relay",
+    "description": null,
+    "columns": ["3"]
+  }
+]

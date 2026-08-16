@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:39:08.355Z",
+  "name": "anubis: A J Taylor Electrical",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 10, 2026",
+  "lastSeen": "Mar 10, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to anubis. | Country: GB | Sector: Construction | Website: ajtaylor-electrical.com | Infostealer data confirmed. | Data breach at electrical installation company: drawings, tenders, and other data on the healthcare and education sectors. | Source: https://www.ransomware.live/id/QSBKIFRheWxvciBFbGVjdHJpY2FsQGFudWJpcw=="
+}

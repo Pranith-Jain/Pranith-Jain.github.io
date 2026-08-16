@@ -1,11 +1,11 @@
 {
   "id": 2383,
   "name": "OSINT Digging for Groundhogs: Holes in Your Linux Server by Checkpoint",
-  "status": null,
+  "status": "Active",
   "confidence": 40,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Oct 20, 2015",
+  "lastSeen": "Oct 20, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #711 (56313e11-daf8-474d-9dae-4050950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2383"

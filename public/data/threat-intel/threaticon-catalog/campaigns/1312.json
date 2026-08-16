@@ -3,9 +3,9 @@
   "name": "qilin: Kaemmerlen Solutions",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 26, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.kaemmerlensolutions.com | Source: https://www.ransomware.live/id/S2FlbW1lcmxlbiBTb2x1dGlvbnNAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1312"

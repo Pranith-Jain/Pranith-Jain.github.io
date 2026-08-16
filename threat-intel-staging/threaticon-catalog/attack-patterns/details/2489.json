@@ -1,0 +1,9 @@
+{
+  "id": 2489,
+  "fetchedAt": "2026-08-15T06:56:04.527Z",
+  "name": "T1038 - Exploiting credentials through stolen password hashes",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 31, 2026",
+  "description": null
+}

@@ -1,0 +1,9 @@
+{
+  "id": 1778,
+  "name": "T1113: Screen Capture - Capturing sensitive data via screen recording",
+  "techniqueId": "T1113",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1778"
+}

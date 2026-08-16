@@ -1,0 +1,12 @@
+{
+  "id": 190,
+  "fetchedAt": "2026-08-14T05:21:53.369Z",
+  "name": "Detect unauthorized LSASS driver persistence via LSA plugin abuse (Windows)",
+  "tlp": null,
+  "detId": "DET0225",
+  "stixId": "x-mitre-detection-strategy--fbac07bf-65d5-4222-88bb-0ef798417ebb",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0629"]
+}

@@ -1,0 +1,9 @@
+{
+  "id": 2882,
+  "name": "T1657 (Financial Theft)",
+  "techniqueId": "T1657",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2882"
+}

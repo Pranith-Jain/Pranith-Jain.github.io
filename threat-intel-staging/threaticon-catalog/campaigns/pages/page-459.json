@@ -1,0 +1,122 @@
+[
+  {
+    "id": 906,
+    "name": "ALP-001: nepgroup.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ALP-001. | Country: US | Sector: Business Services | Website: nepgroup.com | Infostealer data confirmed. | Country: USA Revenue: $2.1 Billion Storage: 70GB Description: NEP Group, founded in 1984 and headquartered in Pittsburgh, Pennsylvania, offers outside broadcast, studio production, audio and lighting, host broadcast support, and media management services ** WE UPLOADED 10GB As Samples ** ** You Can Download Samples From Leak Page ** Deadline: 2026-04-18 17:22:11 | Source: https://www.ransomware.live/id/bmVwZ3JvdXAuY29tQEFMUC0wMDE="
+  },
+  {
+    "id": 905,
+    "name": "ALP-001: inatech.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ALP-001. | Country: GB | Sector: Technology | Website: inatech.com | Infostealer data confirmed. | Country: United Kingdom Revenue: $31.6 Million Storage: 51GB Description: Inatech is a cloud provider of Energy Trading and Risk Management (ETRM) and fuel management software, focusing on automating processes in the energy sector ** WE UPLOADED 61-File As Samples ** ** You Can Download Samples From Leak Page ** Deadline: 2026-04-18 17:30:58 | Source: https://www.ransomware.live/id/aW5hdGVjaC5jb21AQUxQLTAwMQ=="
+  },
+  {
+    "id": 881,
+    "name": "SilentRansomGroup: Cox, Castle & Nicholson LLP",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: coxcastle.com | Infostealer data confirmed. | Cox, Castle & Nicholson is a leading law firm specializing in real estate and related services, with o… | Source: https://www.ransomware.live/id/Q294LCBDYXN0bGUgJiBOaWNob2xzb24gTExQQFNpbGVudFJhbnNvbUdyb3Vw"
+  },
+  {
+    "id": 904,
+    "name": "beast: irmler.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to beast. | Country: DE | Sector: Business Services | Website: www.irmler.org | irmler.rechtsanwalte specializes exclusively in architectural law, public procurement law and private and public construction law. We are represented in Mecklenburg-Vorpommern and in Schleswig-Holstein at the locations in Schwerin and Lubeck. In the support of procurement procedures, in particular for the award of architect/planning services and architectural competitions, irmler.rechtsanwalte is active nationwide. | Source: https://www.ransomware.live/id/aXJtbGVyLm9yZ0BiZWFzdA=="
+  },
+  {
+    "id": 903,
+    "name": "coinbasecartel: Idera -",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Sector: Technology | 1.5 TB of data | Source: https://www.ransomware.live/id/SWRlcmEgLUBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 894,
+    "name": "akira: Sehlmann Fensterbau",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Manufacturing | Website: sehlmann.de | Infostealer data confirmed. | Sehlmann Fensterbau GmbH specializes in wooden and wood-metal win dows in the Hamburg metropolitan area. They offer optimal window solutions for innovative new constructions and stylish renovation s, providing services from consultation and planning to productio n and installation. We will upload 44gb of corporate data soon. Employee personal fil es (passports, DLs, EU IDs and other files), financials, lots of project files, etc. | Source: https://www.ransomware.live/id/U2VobG1hbm4gRmVuc3RlcmJhdUBha2lyYQ=="
+  },
+  {
+    "id": 902,
+    "name": "coinbasecartel: EasTech",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: TW | Sector: Technology | Website: eastech.com | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/RWFzVGVjaEBjb2luYmFzZWNhcnRlbA=="
+  },
+  {
+    "id": 901,
+    "name": "coinbasecartel: Correios",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: BR | Sector: Transportation/Logistics | Website: correios.com.br | Infostealer data confirmed. | [AI generated] Correios, officially known as Empresa Brasileira de Correios e Telégrafos, is the Brazilian state-owned postal service company. Operating under the federal government of Brazil, it provides mail delivery, logistics, and financial services across the country. Founded in 1969, Correios handles package shipping, express delivery, money orders, and e-commerce logistics, serving millions of customers nationwide through thousands of agencies and distribution centers. | Source: https://www.ransomware.live/id/Q29ycmVpb3NAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 892,
+    "name": "akira: MN Health Insurance Network",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Healthcare | Website: mnhealthnetwork.com | Infostealer data confirmed. | Minnesota Health Insurance Network specializes in providing a wid e range of health insurance products, including individual and fa mily plans, group and small business plans, Medicare plans, denta l and vision insurance, and short-term health insurance. We will upload 23gb of corporate data soon. Client and employee p ersonal information (passports, addresses, phones, emails and so on), projects, financials, contracts and agreements and so on. | Source: https://www.ransomware.live/id/TU4gSGVhbHRoIEluc3VyYW5jZSBOZXR3b3JrQGFraXJh"
+  },
+  {
+    "id": 883,
+    "name": "pear: Siegel Lewitter Malkani",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: sl-employmentlaw.com | Infostealer data confirmed. | A highly respected law firm in the San Francisco Bay Area, specializing in employment law | Source: https://www.ransomware.live/id/U2llZ2VsIExld2l0dGVyIE1hbGthbmlAcGVhcg=="
+  },
+  {
+    "id": 900,
+    "name": "coinbasecartel: KEB",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: DE | Sector: Financial Services | Website: keb-automation.com | Infostealer data confirmed. | [AI generated] KEB, or Korea Exchange Bank, is a South Korean financial institution offering a wide range of banking and financial services including retail banking, corporate banking, foreign exchange, and trade finance. Headquartered in Seoul, South Korea, it has historically been one of the country's leading banks specializing in international transactions. KEB merged with Hana Bank in 2015 to form KEB Hana Bank, operating under Hana Financial Group. | Source: https://www.ransomware.live/id/S0VCQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 884,
+    "name": "pear: Family Psychological Associates",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Healthcare | Website: kcifpa.com | Infostealer data confirmed. | Provides mental health services | Source: https://www.ransomware.live/id/RmFtaWx5IFBzeWNob2xvZ2ljYWwgQXNzb2NpYXRlc0BwZWFy"
+  },
+  {
+    "id": 885,
+    "name": "pear: Powell, Powell & Powell, P.A.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: powelllawfirm.com | Infostealer data confirmed. | A law firm specializing in personal injury cases | Source: https://www.ransomware.live/id/UG93ZWxsLCBQb3dlbGwgJiBQb3dlbGwsIFAuQS5AcGVhcg=="
+  },
+  {
+    "id": 886,
+    "name": "pear: The McLamb Group, Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Business Services | Website: themclambgroup.com | Infostealer data confirmed. | Specializ in warehousing and fulfillment, direct mail services, inventory management, printing and graphic design, and builder services | Source: https://www.ransomware.live/id/VGhlIE1jTGFtYiBHcm91cCwgSW5jQHBlYXI="
+  },
+  {
+    "id": 887,
+    "name": "insomnia: United Medical Doctors",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to insomnia. | Country: US | Sector: Healthcare | Website: www.unitedmd.com | United Medical Doctors (UMD) is an independent multi‑specialty medical‑surgical group with 70+ Southern California locations and 40+ specialties. They focus on high‑quality, compassionate care, patient satisfaction, process improvement, outpatient surgery, clinical research. | Source: https://www.ransomware.live/id/VW5pdGVkIE1lZGljYWwgRG9jdG9yc0BpbnNvbW5pYQ=="
+  }
+]

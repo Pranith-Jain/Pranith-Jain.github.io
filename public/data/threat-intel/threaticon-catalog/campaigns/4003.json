@@ -3,10 +3,10 @@
   "name": "dragonforce: Prologic Construction",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "May 24, 2026",
+  "lastSeen": "May 24, 2026",
+  "added": "May 26, 2026",
+  "description": "Ransomware attack attributed to dragonforce. | Country: CA | Sector: Construction | Website: prologicconstruction.ca | Infostealer data confirmed. | Prologic Construction is a trusted general contractor based in Alberta, specializing in high-quality construction solutions for both public and private sectors since 1999. The company offers a full range of services including commercial, institutional, and municipal projects, ensuring timely completion and adherence to budget. With a commitment to quality craftsmanship and competitive pricing, Prologic Construction has built a strong reputation for reliability and expertise. Their portfolio includes various projects such as school modernizations, arena renovations, and healthcare facilities, reflecting their dedication to excellence and community development | Source: https://www.ransomware.live/id/UHJvbG9naWMgQ29uc3RydWN0aW9uQGRyYWdvbmZvcmNl",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4003"
 }

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 6976,
+    "name": "lockbit5: adventusasia.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to lockbit5. | Country: SG | Sector: Other | Website: adventusasia.com | Infostealer data confirmed. | Adventus is a Top-Rated Information and Communications Technology (ICT) Solutions and Services Provi... | Source: https://www.ransomware.live/id/YWR2ZW50dXNhc2lhLmNvbUBsb2NrYml0NQ=="
+  },
+  {
+    "id": 6973,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Professional Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 6971,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6972,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 6970,
+    "name": "Deadlock: HİDROMEK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Deadlock. | Country: TR | Sector: Manufacturing | Website: www.hidromek.com | HİDROMEK is a leading Turkish manufacturer of heavy construction machinery recognized globally for its high-performance award-winning heavy equipment. Founded in Ankara in 1978 by mechanical engineer Hasan Basri Bozkurt the company operates six state-of-the-art production facilities across Turkey and Thailand. Its heavy machinery operates in more than 130 countries spanning six continents. Over 880 gigabytes of sensitive internal data were stolen from this company | Source: https://www.ransomware.live/id/SMSwRFJPTUVLQERlYWRsb2Nr"
+  },
+  {
+    "id": 6969,
+    "name": "Doommageddon: iw steelTEC Makine San. ve Tic. A.Ş.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Doommageddon. | Country: TR | Sector: Manufacturing | Status: leaked | Data size: 100 GB | Files: 0 files | Deadline: 2026-03-08T00:00:00Z | Source: https://www.ransomware.live/id/aXcgc3RlZWxURUMgTWFraW5lIFNhbi4gdmUgVGljLiBBLsWeLkBEb29tbWFnZWRkb24="
+  },
+  {
+    "id": 6968,
+    "name": "Global Secret Group: Hinduja Tech | BMW Group & Škoda Auto",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to Global Secret Group. | Country: IN | Sector: Manufacturing | Website: hindujatech.com | Infostealer data confirmed. | Country: India | Website: hindujatech.com | Revenue: $381 Million | Industry: Engineering Services, Architecture, Engineering & Design, Product Engineering Solutions | Employees: 2000-5000 | Properties: 515 GB (212,785 Files, 83,982 Folders) | Source: https://www.ransomware.live/id/SGluZHVqYSBUZWNoIHwgQk1XIEdyb3VwICYgxaBrb2RhIEF1dG9AR2xvYmFsIFNlY3JldCBHcm91cA=="
+  },
+  {
+    "id": 6966,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 6967,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 6965,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 6964,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 6963,
+    "name": "qilin: Asset Flooring Group Australia",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Retail & E-Commerce | Website: www.assetflooring.com.au | N/A | Source: https://www.ransomware.live/id/QXNzZXQgRmxvb3JpbmcgR3JvdXAgQXVzdHJhbGlhQHFpbGlu"
+  },
+  {
+    "id": 6962,
+    "name": "qilin: INTERTRUST AUSTRALIA PTY LTD",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AU | Sector: Professional Services | Website: www.seedoutsourcing.com | N/A | Source: https://www.ransomware.live/id/SU5URVJUUlVTVCBBVVNUUkFMSUEgUFRZIExUREBxaWxpbg=="
+  },
+  {
+    "id": 6960,
+    "name": "krybit: www.prohealth.sg",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: SG | Sector: Healthcare | Website: www.prohealth.sg | ProHealth Medical Group Pte Ltd is a Singaporean private primary healthcare group founded in the 1990s, headquartered at... | Source: https://www.ransomware.live/id/d3d3LnByb2hlYWx0aC5zZ0BrcnliaXQ="
+  },
+  {
+    "id": 6961,
+    "name": "incransom: ecfa.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Professional Services | Website: ecfa.org | Infostealer data confirmed. | The Evangelical Council for Financial Accountability (ECFA) is an American accreditation agency founded in 1979 that certifies Christian churches and nonprofits based on financial integrity, board governance, and transparent fundraising. It represents over 2,700 member organizations with billions in collective revenue. | Source: https://www.ransomware.live/id/ZWNmYS5vcmdAaW5jcmFuc29t"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1541,
+    "name": "qilin: MCC Economics",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: mcceconomics.co.uk | Infostealer data confirmed. | Source: https://www.ransomware.live/id/TUNDIEVjb25vbWljc0BxaWxpbg=="
+  },
+  {
+    "id": 1540,
+    "name": "incransom: frazercenter.org",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1539,
+    "name": "qilin: PINNACLE TAX INC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: pinnacle.tax | Infostealer data confirmed. | Source: https://www.ransomware.live/id/UElOTkFDTEUgVEFYIElOQ0BxaWxpbg=="
+  },
+  {
+    "id": 1538,
+    "name": "SilentRansomGroup: Singleton Schreiber",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: US | Sector: Business Services | Website: singletonschreiber.com | Infostealer data confirmed. | This page contains attorney advertising. Singleton Schreiber fight for regular people who have been ha… | Source: https://www.ransomware.live/id/U2luZ2xldG9uIFNjaHJlaWJlckBTaWxlbnRSYW5zb21Hcm91cA=="
+  },
+  {
+    "id": 1537,
+    "name": "incransom: mcquaidinjurylaw.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Business Services | Website: mcquaidinjurylaw.com | Infostealer data confirmed. | Get justice with McQuaid Injury Law. No fees until we win your case in Denver and Phoenix. Your recovery is our priority. | Source: https://www.ransomware.live/id/bWNxdWFpZGluanVyeWxhdy5jb21AaW5jcmFuc29t"
+  },
+  {
+    "id": 1536,
+    "name": "kairos: Folet & Rivoire",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to kairos. | Country: FR | Sector: Business Services | Website: frc-avocats.fr | Infostealer data confirmed. | Notre équipe d'avocats expérimentés, est à même de répondre à la plupart des préoccupations tant des particuliers que des entreprises. Son intervention dans les différents domaines du droit lui permet une approche transversale des solutions à apporter aux problèmes de ses clients. | Source: https://www.ransomware.live/id/Rm9sZXQgJiBSaXZvaXJlQGthaXJvcw=="
+  },
+  {
+    "id": 1535,
+    "name": "qilin: Von Weise Associates",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.vonweiseassociates.com | Source: https://www.ransomware.live/id/Vm9uIFdlaXNlIEFzc29jaWF0ZXNAcWlsaW4="
+  },
+  {
+    "id": 1534,
+    "name": "termite: Noll and Tam Architects",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to termite. | Country: US | Sector: Construction | Website: www.nollandtam.com | Noll &amp;amp; Tam Architects specializes in creating innovative architectural designs that serve the common good. Their projects range from community centers and libraries to veterinary hospitals and educational facilities, emphasizing sustainability and empathy in their approach. | Source: https://www.ransomware.live/id/Tm9sbCBhbmQgVGFtIEFyY2hpdGVjdHNAdGVybWl0ZQ=="
+  },
+  {
+    "id": 1533,
+    "name": "nightspire: S*m**y* **ru**l* ***s**t**g **gi****r*",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/UyptKip5KiAqKnJ1KipsKiAqKipzKip0KipnICoqZ2kqKioqcipAbmlnaHRzcGlyZQ=="
+  },
+  {
+    "id": 1532,
+    "name": "nightspire: G* *r**n*e",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/RyogKnIqKm4qZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1531,
+    "name": "handala: Mossad’s Secret Treasury Exposed: 50,000 Confidential Emails Leaked",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: IL | Sector: Not Found | Today, a shadow has been lifted from one of the darkest layers of the Israeli intelligence and security apparatus. In a sophisticated operation, Handala Hack succeeded in breaching the email systems and confidential data of Ilan Steiner, former Budget Director of Mossad and current Chief Financial Officer of Israel’s National Security Institute, the research and… | Source: https://www.ransomware.live/id/TW9zc2Fk4oCZcyBTZWNyZXQgVHJlYXN1cnkgRXhwb3NlZDogNTAsMDAwIENvbmZpZGVudGlhbCBFbWFpbHMgTGVha2VkQGhhbmRhbGE="
+  },
+  {
+    "id": 1530,
+    "name": "handala: Who is VahidOnline?",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to handala. | Country: IR | Sector: Not Found | The crimes and foolishness of the leaders of the Epstein sect and the Kahanist sect have reached such a level that today, not only the elites and freedom-seekers of the world, but even Western governments and the masses of Jews, Christians, and Muslims have clearly drawn a line separating themselves from these two bloodthirsty… | Source: https://www.ransomware.live/id/V2hvIGlzIFZhaGlkT25saW5lP0BoYW5kYWxh"
+  },
+  {
+    "id": 1529,
+    "name": "AiLock: Solutions Extreme Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: CA | Sector: Technology | Website: solutionsextreme.com | Infostealer data confirmed. | Solutions Extreme is an IT services company that provides cloud computing, managed services, and business continuity solutions to help businesses maintain reliable operations and protect against data loss. | Source: https://www.ransomware.live/id/U29sdXRpb25zIEV4dHJlbWUgVGVjaG5vbG9neUBBaUxvY2s="
+  },
+  {
+    "id": 1549,
+    "name": "thegentlemen: Cortporation Colina",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1521,
+    "name": "sinobi: Teco",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to sinobi. | Country: US | Sector: Energy | Website: www.teco.com | Teco HVAC, LLC is a full-service HVAC and plumbing company serving the Baltimore-Washington and Northern Virginia areas. They are dedicated to providing high-quality service and customer satisfaction, specializing in heating, cooling, and plumbing solutions. The company emphasizes quick and reliable service, ensuring that clients receive prompt assistance for their HVAC and plumbing needs. With a commitment to integrity, quality, and trust, Teco HVAC has been a trusted provider in the region since 2002. | Source: https://www.ransomware.live/id/VGVjb0BzaW5vYmk="
+  }
+]

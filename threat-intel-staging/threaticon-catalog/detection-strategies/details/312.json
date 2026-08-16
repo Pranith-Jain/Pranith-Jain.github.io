@@ -1,0 +1,12 @@
+{
+  "id": 312,
+  "fetchedAt": "2026-08-14T06:01:58.448Z",
+  "name": "Detect Unauthorized Access to Password Managers",
+  "tlp": null,
+  "detId": "DET0597",
+  "stixId": "x-mitre-detection-strategy--a5600691-be46-424a-b8ef-a2c9159da49a",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1641", "AN1642", "AN1643"]
+}

@@ -4,25 +4,91 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-08-12T15:57:32.000Z",
-  "lastSeen": "2026-08-12T15:57:32.000Z",
-  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "mentionCount": 8,
+  "firstSeen": "2026-08-14T08:31:03.000Z",
+  "lastSeen": "2026-08-14T20:27:58.000Z",
+  "summary": "Ransomware group with 8 leak-site victims across 5 sectors and 8 countries.",
   "frequency": [
     {
-      "date": "2026-08-12",
-      "count": 1
+      "date": "2026-08-14",
+      "count": 8
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "united-association-local-union-345-aaf3",
-      "title": "United Association Local Union 345 — claimed by qilin",
-      "pubDate": "2026-08-12T15:57:32.000Z"
+      "slug": "ferrari-mangimi-srl-9857",
+      "title": "FERRARI MANGIMI SRL — claimed by qilin",
+      "pubDate": "2026-08-14T20:27:58.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "connections-a078",
+      "title": "Connections — claimed by qilin",
+      "pubDate": "2026-08-14T14:34:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "aletex-group-e085",
+      "title": "Aletex Group — claimed by qilin",
+      "pubDate": "2026-08-14T10:28:23.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "radiant-1d81",
+      "title": "Radiant — claimed by qilin",
+      "pubDate": "2026-08-14T09:59:13.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lercher-werkzeugbau-1918",
+      "title": "Lercher Werkzeugbau — claimed by qilin",
+      "pubDate": "2026-08-14T08:33:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "3f-e5fe",
+      "title": "3f — claimed by qilin",
+      "pubDate": "2026-08-14T08:32:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "penlink-8d98",
+      "title": "PenLink — claimed by qilin",
+      "pubDate": "2026-08-14T08:31:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "urban-worldwide-e0ce",
+      "title": "Urban Worldwide — claimed by qilin",
+      "pubDate": "2026-08-14T08:31:03.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    },
     {
       "type": "sector",
       "slug": "other",
@@ -33,11 +99,60 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "united-association-local-union-345-aaf3",
-      "victim": "United Association Local Union 345 — claimed by qilin",
-      "sector": "Other",
+      "id": "ferrari-mangimi-srl-9857",
+      "victim": "FERRARI MANGIMI SRL — claimed by qilin",
+      "sector": "Agriculture and Food Production",
+      "country": "IT",
+      "pubDate": "2026-08-14T20:27:58.000Z"
+    },
+    {
+      "id": "connections-a078",
+      "victim": "Connections — claimed by qilin",
+      "sector": "Not Found",
+      "country": "BE",
+      "pubDate": "2026-08-14T14:34:23.000Z"
+    },
+    {
+      "id": "aletex-group-e085",
+      "victim": "Aletex Group — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "ES",
+      "pubDate": "2026-08-14T10:28:23.000Z"
+    },
+    {
+      "id": "radiant-1d81",
+      "victim": "Radiant — claimed by qilin",
+      "sector": "Not Found",
+      "country": "SG",
+      "pubDate": "2026-08-14T09:59:13.000Z"
+    },
+    {
+      "id": "lercher-werkzeugbau-1918",
+      "victim": "Lercher Werkzeugbau — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "AT",
+      "pubDate": "2026-08-14T08:33:29.000Z"
+    },
+    {
+      "id": "3f-e5fe",
+      "victim": "3f — claimed by qilin",
+      "sector": "Not Found",
+      "country": "DK",
+      "pubDate": "2026-08-14T08:32:37.000Z"
+    },
+    {
+      "id": "penlink-8d98",
+      "victim": "PenLink — claimed by qilin",
+      "sector": "Government & Defense",
       "country": "US",
-      "pubDate": "2026-08-12T15:57:32.000Z"
+      "pubDate": "2026-08-14T08:31:42.000Z"
+    },
+    {
+      "id": "urban-worldwide-e0ce",
+      "victim": "Urban Worldwide — claimed by qilin",
+      "sector": "Other",
+      "country": "NL",
+      "pubDate": "2026-08-14T08:31:03.000Z"
     }
   ]
 }

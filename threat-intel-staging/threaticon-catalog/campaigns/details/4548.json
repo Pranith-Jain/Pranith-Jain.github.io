@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:25:42.830Z",
+  "name": "krybit: politur.gob.do",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 25, 2026",
+  "lastSeen": "Jun 25, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to krybit. | Country: DO | Sector: Public Sector | Website: politur.gob.do | Infostealer data confirmed. | POLITUR (Dirección Central de Policía de Turismo / Central Directorate of Tourism Police), now also known as CESTUR (C... | Source: https://www.ransomware.live/id/cG9saXR1ci5nb2IuZG9Aa3J5Yml0"
+}

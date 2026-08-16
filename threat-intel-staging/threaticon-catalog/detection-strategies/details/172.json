@@ -1,0 +1,12 @@
+{
+  "id": 172,
+  "fetchedAt": "2026-08-14T05:23:40.490Z",
+  "name": "Behavioral Detection of Mailbox Data and Log Deletion for Anti-Forensics",
+  "tlp": null,
+  "detId": "DET0266",
+  "stixId": "x-mitre-detection-strategy--08633541-0006-480a-a2d9-e1c81952cc71",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0737", "AN0738", "AN0739", "AN0740"]
+}

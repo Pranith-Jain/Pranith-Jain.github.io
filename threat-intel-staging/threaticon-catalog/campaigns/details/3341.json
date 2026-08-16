@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:22:31.399Z",
+  "name": "Malspam 2016-06-28 (Locky campaign subject: 'report')",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 28, 2016",
+  "lastSeen": "Jun 28, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #591 (577265af-55ac-4489-98e9-041d950d210f)."
+}

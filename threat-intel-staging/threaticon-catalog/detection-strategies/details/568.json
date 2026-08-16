@@ -1,0 +1,12 @@
+{
+  "id": 568,
+  "fetchedAt": "2026-08-14T05:16:41.557Z",
+  "name": "Detect Modification of Authentication Processes Across Platforms",
+  "tlp": null,
+  "detId": "DET0104",
+  "stixId": "x-mitre-detection-strategy--d51dd574-9171-4c46-89bc-0e3bb1178dfe",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0287", "AN0288", "AN0289", "AN0290", "AN0291"]
+}

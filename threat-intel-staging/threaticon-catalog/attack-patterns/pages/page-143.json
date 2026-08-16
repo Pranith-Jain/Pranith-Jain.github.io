@@ -1,0 +1,113 @@
+[
+  {
+    "id": 1646,
+    "name": "T1587.001: Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1587",
+    "status": null
+  },
+  {
+    "id": 159,
+    "name": "Code Signing Certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1587",
+    "status": null
+  },
+  {
+    "id": 1505,
+    "name": "T1587.002: Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1587",
+    "status": null
+  },
+  {
+    "id": 91,
+    "name": "Digital Certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1587",
+    "status": null
+  },
+  {
+    "id": 1796,
+    "name": "T1587.003: Digital Certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1587",
+    "status": null
+  },
+  { "id": 503, "name": "Exploits", "tlp": "white", "confidence": null, "techniqueId": "T1587", "status": null },
+  {
+    "id": 559,
+    "name": "Obtain Capabilities",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1588",
+    "status": null
+  },
+  { "id": 337, "name": "Malware", "tlp": "white", "confidence": null, "techniqueId": "T1588", "status": null },
+  {
+    "id": 1649,
+    "name": "T1588.001: Malware",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1588",
+    "status": null
+  },
+  { "id": 442, "name": "Tool", "tlp": "white", "confidence": null, "techniqueId": "T1588", "status": null },
+  { "id": 703, "name": "T1588.002: Tool", "tlp": "white", "confidence": null, "techniqueId": "T1588", "status": null },
+  {
+    "id": 627,
+    "name": "Code Signing Certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1588",
+    "status": null
+  },
+  {
+    "id": 79,
+    "name": "Digital Certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1588",
+    "status": null
+  },
+  {
+    "id": 1654,
+    "name": "T1588.004: Digital Certificates",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1588",
+    "status": null
+  },
+  { "id": 665, "name": "Exploits", "tlp": "white", "confidence": null, "techniqueId": "T1588", "status": null },
+  { "id": 127, "name": "Vulnerabilities", "tlp": "white", "confidence": null, "techniqueId": "T1588", "status": null },
+  {
+    "id": 37,
+    "name": "Artificial Intelligence",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1588",
+    "status": null
+  },
+  {
+    "id": 246,
+    "name": "Gather Victim Identity Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1589",
+    "status": null
+  },
+  {
+    "id": 3006,
+    "name": "T1589 Gather Victim Identity Information",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1589",
+    "status": null
+  },
+  { "id": 508, "name": "Credentials", "tlp": "white", "confidence": null, "techniqueId": "T1589", "status": null }
+]

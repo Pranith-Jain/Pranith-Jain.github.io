@@ -1,0 +1,9 @@
+{
+  "id": 2058,
+  "fetchedAt": "2026-08-15T07:31:26.622Z",
+  "name": "T1078.001 - OS Credential Dumping: Security Account Manager/SAM",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

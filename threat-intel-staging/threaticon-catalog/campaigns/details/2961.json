@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T00:37:22.732Z",
+  "name": "Microsoft SharePoint Server Remote Code Execution Vulnerability - CVE-2025-53770",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Jul 21, 2025",
+  "lastSeen": "Jul 21, 2025",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1797 (d9da16a2-8444-45cb-8bb4-d27abf23a261)."
+}

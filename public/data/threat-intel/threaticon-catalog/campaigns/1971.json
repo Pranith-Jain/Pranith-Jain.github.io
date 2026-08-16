@@ -3,10 +3,10 @@
   "name": "lynx: https://www.hegelmann.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 1, 2026",
+  "lastSeen": "Mar 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to lynx. | Country: DE | Sector: Transportation/Logistics | Website: hegelmann.com | Infostealer data confirmed. | Hegelmann Group is a family-run logistics company headquartered in Bruchsal, Germany, offering a diverse range of services including road transportation, intermodal solutions, air freight, and maritime transportation. The company has expanded globally to provide tailored logistics and warehousing solutions across various sectors and industries. With a commitment to sustainability, Hegelmann Group continually invests in innovation and multimodal services to meet customer demands. Their fleet includes state-of-the-art trucks and trailers designed for efficient transport of various cargo types | Source: https://www.ransomware.live/id/aHR0cHM6Ly93d3cuaGVnZWxtYW5uLmNvbUBseW54",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1971"
 }

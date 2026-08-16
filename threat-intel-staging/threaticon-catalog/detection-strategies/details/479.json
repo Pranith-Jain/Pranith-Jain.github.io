@@ -1,0 +1,12 @@
+{
+  "id": 479,
+  "fetchedAt": "2026-08-14T05:15:19.294Z",
+  "name": "Detect Logon Script Modifications and Execution",
+  "tlp": null,
+  "detId": "DET0072",
+  "stixId": "x-mitre-detection-strategy--3f27e858-2912-4b43-ac03-f668ef30c47e",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0199"]
+}

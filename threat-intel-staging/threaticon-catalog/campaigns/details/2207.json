@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:16:24.336Z",
+  "name": "Financial Institutions in the Sight of New JsOutProx Attack Waves",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Sep 13, 2021",
+  "lastSeen": "Sep 13, 2021",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #272 (ca364f27-1a08-4c80-9686-541d70586b4f)."
+}

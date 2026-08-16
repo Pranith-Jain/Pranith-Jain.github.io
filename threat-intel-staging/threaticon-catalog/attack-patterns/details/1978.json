@@ -1,0 +1,9 @@
+{
+  "id": 1978,
+  "fetchedAt": "2026-08-15T07:51:16.649Z",
+  "name": "T1205: Obfuscation via Encrypted Files/binaries/subprocessescripts",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

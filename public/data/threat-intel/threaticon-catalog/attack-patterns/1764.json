@@ -1,0 +1,9 @@
+{
+  "id": 1764,
+  "name": "T1497: Virtualization/Sandbox Evasion",
+  "techniqueId": "T1497",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1764"
+}

@@ -3,9 +3,9 @@
   "name": "play: Select Tool",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to play. | Country: CA | Sector: Manufacturing | Website: www.selecttool.com | Canada | Source: https://www.ransomware.live/id/U2VsZWN0IFRvb2xAcGxheQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1759"

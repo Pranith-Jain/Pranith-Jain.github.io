@@ -1,0 +1,9 @@
+{
+  "id": 1769,
+  "fetchedAt": "2026-08-15T07:08:04.579Z",
+  "name": "T1059.003 - Data Exfiltration via Email",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

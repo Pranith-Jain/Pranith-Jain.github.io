@@ -1,0 +1,122 @@
+[
+  {
+    "id": 7768,
+    "name": "CRPxO: DOĞAN HOLDİNG",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Other | Website: doganholding.com.tr | Infostealer data confirmed. | Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB | Source: https://www.ransomware.live/id/RE/EnkFOIEhPTETEsE5HQENSUHhP"
+  },
+  {
+    "id": 7769,
+    "name": "CRPxO: ANADOLU SİGORTA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to CRPxO. | Country: TR | Sector: Financial Services | Sector: Insurance | Data leaked: 1.2 GB | Source: https://www.ransomware.live/id/QU5BRE9MVSBTxLBHT1JUQUBDUlB4Tw=="
+  },
+  {
+    "id": 7767,
+    "name": "krybit: lhyk.com.sg",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: SG | Sector: Other | Website: lhyk.com.sg | LHYK Marine Pte Ltd (Lee Huat Yap Kee) is a Singaporean marine logistics specialist company founded in 1959 and incorpor... | Source: https://www.ransomware.live/id/bGh5ay5jb20uc2dAa3J5Yml0"
+  },
+  {
+    "id": 7765,
+    "name": "krybit: hisstw.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: TW | Sector: Not Found | Website: hisstw.com | HISS Taroko Door & Window Technologies, Inc. (喜室清展股份有限公司) is a Taiwanese innovative R&D manufacturer... | Source: https://www.ransomware.live/id/aGlzc3R3LmNvbUBrcnliaXQ="
+  },
+  {
+    "id": 7766,
+    "name": "krybit: labindia.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: IN | Sector: Healthcare | Website: labindia.com | Infostealer data confirmed. | Labindia Instruments Pvt. Ltd. is an Indian private limited company founded in 1982 by a group of visionary technocrats ... | Source: https://www.ransomware.live/id/bGFiaW5kaWEuY29tQGtyeWJpdA=="
+  },
+  {
+    "id": 7761,
+    "name": "majinahanashi: UAB Biotecha",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: LT | Sector: Healthcare | PUBLICATION SCHEDULED. [LEAK / 20888 FILES] | Source: https://www.ransomware.live/id/VUFCIEJpb3RlY2hhQG1hamluYWhhbmFzaGk="
+  },
+  {
+    "id": 7762,
+    "name": "majinahanashi: ETICOD",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Sector: Not Found | PUBLICATION SCHEDULED. [LEAK / 5730 FILES] | Source: https://www.ransomware.live/id/RVRJQ09EQG1hamluYWhhbmFzaGk="
+  },
+  {
+    "id": 7763,
+    "name": "majinahanashi: CALICHE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: CL | Sector: Energy & Utilities | PUBLICATION SCHEDULED. [LEAK / 39200 FILES] | Source: https://www.ransomware.live/id/Q0FMSUNIRUBtYWppbmFoYW5hc2hp"
+  },
+  {
+    "id": 7764,
+    "name": "emperador: City Government of Baguio",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to emperador. | Country: PH | Sector: Government & Defense | Website: baguio.gov.ph | Infostealer data confirmed. | The City Government of Baguio stands as one of the wealthiest and most prominent local governments in the Philippines. This leak includes highly sensitive and confidential data, such as official contracts, legal permits, identification documents, financial statements, construction blueprints, project proposals, procurement records, and other classified administrative materials. [Size: 2.9 GB | Sector: Government, Finance, Construction] | Source: https://www.ransomware.live/id/Q2l0eSBHb3Zlcm5tZW50IG9mIEJhZ3Vpb0BlbXBlcmFkb3I="
+  },
+  {
+    "id": 7760,
+    "name": "majinahanashi: ALTAIR",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: US | Sector: Technology | PUBLICATION SCHEDULED. [LEAK / 84251 FILES] | Source: https://www.ransomware.live/id/QUxUQUlSQG1hamluYWhhbmFzaGk="
+  },
+  {
+    "id": 7759,
+    "name": "majinahanashi: Camandona SA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: CH | Sector: Not Found | Website: www.camandona.ch | TARGET: https://www.camandona.ch/ REVENUE: $61.7M EMPLOYEES: 200 [LEAK / 9584 FILES] | Source: https://www.ransomware.live/id/Q2FtYW5kb25hIFNBQG1hamluYWhhbmFzaGk="
+  },
+  {
+    "id": 7758,
+    "name": "majinahanashi: Goccia S.p.A.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: IT | Sector: Manufacturing | Website: www.joygioielli.com | TARGET: https://www.joygioielli.com/ https://www.gocciagioielli.com/ REVENUE: €19.2M EMPLOYEES: ~ [LEAK / 3557 FILES] | Source: https://www.ransomware.live/id/R29jY2lhIFMucC5BLkBtYWppbmFoYW5hc2hp"
+  },
+  {
+    "id": 7755,
+    "name": "majinahanashi: WONDR DIAMONDS & D GEM MOUNT",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: US | Sector: Retail & E-Commerce | Website: wondrdiamonds.com | TARGET: wondrdiamonds.com & gemmount.com REVENUE: $12m USD EMPLOYEES: 200+ [LEAK / 247 FILES] | Source: https://www.ransomware.live/id/V09ORFIgRElBTU9ORFMgJiBEIEdFTSBNT1VOVEBtYWppbmFoYW5hc2hp"
+  },
+  {
+    "id": 7756,
+    "name": "majinahanashi: CARIBE / SUBRA",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: CO | Sector: Other | Website: kalimancaribe.com | Infostealer data confirmed. | TARGET: kalimancaribe.com & subra.bg. REVENUE: ~ EMPLOYEES: ~ [LEAK / 21311 FILES] | Source: https://www.ransomware.live/id/Q0FSSUJFIC8gU1VCUkFAbWFqaW5haGFuYXNoaQ=="
+  },
+  {
+    "id": 7757,
+    "name": "majinahanashi: SCHMITZ & NITTENWILM",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to majinahanashi. | Country: DE | Sector: Manufacturing | Website: schmitz-nittenwilm.de | TARGET: schmitz-nittenwilm.de REVENUE: €13,8M EMPLOYEES: ~ [LEAK / 886 FILES] | Source: https://www.ransomware.live/id/U0NITUlUWiAmIE5JVFRFTldJTE1AbWFqaW5haGFuYXNoaQ=="
+  }
+]

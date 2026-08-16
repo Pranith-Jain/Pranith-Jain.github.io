@@ -70,7 +70,14 @@ for (const chunk of css.split('/* ').slice(1)) {
     files.set(name, buf);
   }
   let rule = face.replace(url, `/fonts/${name}`);
-  if (!/font-display\s*:/.test(rule)) rule = rule.replace('@font-face {', '@font-face {\n  font-display: swap;');
+  if (!/font-display\s*:/.test(rule)) {
+    // Display font is 'optional': if it is not ready within the swap window it
+    // renders the system fallback permanently for that load, eliminating the
+    // font-swap CLS in display headings (the old swap+two-font fallback chain
+    // shifted the hero H1 twice). Body/mono fonts keep 'swap'.
+    const display = rule.includes("'Bricolage Grotesque'") ? 'optional' : 'swap';
+    rule = rule.replace('@font-face {', `@font-face {\n  font-display: ${display};`);
+  }
   rules.push(rule.trim());
 }
 

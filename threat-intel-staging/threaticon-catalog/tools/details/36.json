@@ -1,0 +1,12 @@
+{
+  "id": 36,
+  "fetchedAt": "2026-08-14T04:59:57.979Z",
+  "name": "CSPY Downloader",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "CSPY Downloader is a tool designed to evade analysis and download additional payloads used by Kimsuky.(Citation: Cybereason Kimsuky November 2020)"
+}

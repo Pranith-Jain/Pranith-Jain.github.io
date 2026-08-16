@@ -1,11 +1,11 @@
 {
   "id": 3510,
   "name": "OSINT - Part I. Russian APT - APT28 collection of samples including OSX XAgent",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 31, 2017",
+  "lastSeen": "Mar 31, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1029 (58ddf7c2-7200-4f46-aa84-489b950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3510"

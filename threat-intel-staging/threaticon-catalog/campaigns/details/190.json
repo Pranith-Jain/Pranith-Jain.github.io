@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:48:13.434Z",
+  "name": "blackwater: Minidoka Memorial Hospital",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 2, 2026",
+  "lastSeen": "Apr 17, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to blackwater. | Country: US | Sector: Healthcare | Website: minidokamemorial.org | Infostealer data confirmed. | Data will be published after 7 days. | Press: https://dysruptionhub.com/minidoka-hospital-cyber-incident-idaho/ | Source: https://www.ransomware.live/id/TWluaWRva2EgTWVtb3JpYWwgSG9zcGl0YWxAYmxhY2t3YXRlcg=="
+}

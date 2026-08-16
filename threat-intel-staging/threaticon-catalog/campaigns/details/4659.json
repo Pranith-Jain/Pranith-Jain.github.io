@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:21:10.326Z",
+  "name": "lockbit5: sanatoriodelta.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 20, 2026",
+  "lastSeen": "Mar 24, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: CO | Sector: Healthcare | Website: sanatoriodelta.com | Infostealer data confirmed. | Sanatorio Delta is a prominent private medical institution of high complexity with more than 40 year... | Source: https://www.ransomware.live/id/c2FuYXRvcmlvZGVsdGEuY29tQGxvY2tiaXQ1"
+}

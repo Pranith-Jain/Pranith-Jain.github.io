@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:07:06.339Z",
+  "name": "OSINT OSX/Pintsized Backdoor Additional Details by Zataz / Eric Romang",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Mar 24, 2013",
+  "lastSeen": "Mar 24, 2013",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #769 (559f66e6-6e10-468f-9025-81c0950d210b)."
+}

@@ -1,11 +1,11 @@
 {
   "id": 2215,
   "name": "BlackCat/ALPHV Ransomware Indicators of Compromise",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 19, 2022",
+  "lastSeen": "Apr 19, 2022",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #296 (71bcb1d9-d25d-4faa-a9b7-5f909c325fc2).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2215"

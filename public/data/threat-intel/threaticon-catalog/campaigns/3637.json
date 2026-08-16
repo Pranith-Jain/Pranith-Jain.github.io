@@ -3,9 +3,9 @@
   "name": "coinbasecartel: Jozef Stefan Institute (IJS)",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 11, 2026",
+  "lastSeen": "May 11, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to coinbasecartel. | Country: SI | Sector: Education | Website: ijs.si | Infostealer data confirmed. | [AI generated] Jozef Stefan Institute (IJS) is Slovenia's leading research institution, headquartered in Ljubljana. It operates across multiple scientific disciplines including physics, chemistry, biochemistry, electronics, information technology, and environmental sciences. Founded in 1949, it conducts fundamental and applied research, hosts numerous national and international projects, and collaborates with academic and industrial partners. It also plays a key role in educating postgraduate researchers in Slovenia. | Source: https://www.ransomware.live/id/Sm96ZWYgU3RlZmFuIEluc3RpdHV0ZSAoSUpTKUBjb2luYmFzZWNhcnRlbA==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3637"

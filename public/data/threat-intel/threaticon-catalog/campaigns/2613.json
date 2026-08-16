@@ -1,11 +1,11 @@
 {
   "id": 2613,
   "name": "OSINT - Nasty adware hiding in apps on Google Play Store",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 27, 2017",
+  "lastSeen": "Mar 27, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1021 (58d8b418-d034-493a-aed5-40bd950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2613"

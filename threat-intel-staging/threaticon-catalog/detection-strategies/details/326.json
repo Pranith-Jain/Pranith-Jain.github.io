@@ -1,0 +1,12 @@
+{
+  "id": 326,
+  "fetchedAt": "2026-08-14T06:01:35.028Z",
+  "name": "Detect Modification of Authentication Process via Reversible Encryption",
+  "tlp": null,
+  "detId": "DET0589",
+  "stixId": "x-mitre-detection-strategy--b865c4e8-f3de-471e-846c-2290b6d52da9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1621"]
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2072,
+    "name": "Evil: A poor manâ€™s ransomware in JavaScript",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #94 (587fa0bc-de98-4f13-ab43-079bc0a8ab16)."
+  },
+  {
+    "id": 2071,
+    "name": "Carbanak group uses Google for malware command-and-control",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #93 (587fa022-52ac-485f-85cb-079ac0a8ab16)."
+  },
+  {
+    "id": 2070,
+    "name": "The rise of TeleBots: Analyzing disruptive KillDisk attacks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #90 (5850fd1c-9d34-4983-ad28-06f6c0a8ab16)."
+  },
+  {
+    "id": 2069,
+    "name": "New wave of Mirai attacking home routers",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #89 (58408896-9290-4af1-8bc8-0b29c0a8ab16)."
+  },
+  {
+    "id": 2068,
+    "name": "COBALT Logical attacks on ATMs",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #88 (583fc655-e660-4b7c-b17b-09c6c0a8ab16)."
+  },
+  {
+    "id": 2067,
+    "name": "New Carbanak / Anunak Attack Methodology",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #87 (582cce4c-4ecc-4204-82ba-04dcc0a8ab16)."
+  },
+  {
+    "id": 2066,
+    "name": "Ransoc Desktop Locking Ransomware Ransacks Local Files and Social Media Profiles",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #86 (582b43a2-03f0-4dae-ae21-04e3c0a8ab16)."
+  },
+  {
+    "id": 2065,
+    "name": "Pawn Storm Ramps Up Spear-phishing Before Zero-Days Get Patched",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #85 (58235d0e-34d4-41c1-9a2e-04dcc0a8ab16)."
+  },
+  {
+    "id": 2064,
+    "name": "Tech support scammers abuse bug in HTML5 to freeze computers",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #84 (581b74ff-d3f8-4ba9-acf5-229fc0a8ab16)."
+  },
+  {
+    "id": 2063,
+    "name": "OilRig Malware Campaign Updates Toolset and Expands Targets",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #83 (5818d672-8ad0-4d07-b0ba-0a59c0a8ab16)."
+  },
+  {
+    "id": 2062,
+    "name": "Threat Spotlight: GozNym",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #82 (57ebe7f0-0054-4b3b-b273-804fc0a8ab16)."
+  },
+  {
+    "id": 2061,
+    "name": "RIG exploit kit takes on large malvertising campaign",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #81 (57eab741-2a10-4bb5-b177-80bfc0a8ab16)."
+  },
+  {
+    "id": 2060,
+    "name": "PokÃ©mon-themed Umbreon Linux Rootkit Hits x86, ARM Systems",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #80 (57cdf2a2-1abc-4e51-a31d-7e7dc0a8ab16)."
+  },
+  {
+    "id": 2059,
+    "name": "Operation Ghoul: targeted attacks on industrial and engineering organizations",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #78 (57b6b2dd-7368-4146-b874-21d0c0a8ab16)."
+  },
+  {
+    "id": 2058,
+    "name": "Oracle PoS hack",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #77 (57b045d7-2a0c-44cf-86f0-1e0fc0a8ab16)."
+  }
+]

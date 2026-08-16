@@ -1,11 +1,11 @@
 {
   "id": 2023,
   "name": "A case of java trojan (downloader/RCE) for remote minerd hack - MMD-0049-2016",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 9, 2016",
+  "lastSeen": "Jan 9, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #34 (56d768b5-fd74-4e1f-8285-5153c0a8ab16).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2023"

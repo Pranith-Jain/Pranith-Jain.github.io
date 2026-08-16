@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:42:08.625Z",
+  "name": "Talos Blog - Smoking Guns - Smoke Loader learned new tricks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 5, 2018",
+  "lastSeen": "Jul 5, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1391 (5b3e4d3d-0644-43ef-9ebd-30cd0acd0835)."
+}

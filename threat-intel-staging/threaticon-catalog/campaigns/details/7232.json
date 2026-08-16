@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T06:58:11.604Z",
+  "name": "clop: mam*******",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Aug 5, 2026",
+  "lastSeen": "Aug 5, 2026",
+  "added": "Aug 6, 2026",
+  "description": "Ransomware attack attributed to clop. | Sector: Not Found | [CVE‑2026‑12569] Data exfiltrated included the following: .png files, files Windchil | Source: https://www.ransomware.live/id/bWFtKioqKioqKkBjbG9w"
+}

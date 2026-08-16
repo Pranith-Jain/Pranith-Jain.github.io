@@ -3,9 +3,9 @@
   "name": "payload: orientalweavers.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 16, 2026",
+  "lastSeen": "Apr 16, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to payload. | Country: EG | Sector: Manufacturing | Website: orientalweavers.com | Infostealer data confirmed. | Established in 1979, Oriental Weavers is a manufacturer of textiles used to construct rugs, carpet, upholstery, and more. This company is headquartered in Cairo, Egypt | Source: https://www.ransomware.live/id/b3JpZW50YWx3ZWF2ZXJzLmNvbUBwYXlsb2Fk",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/691"

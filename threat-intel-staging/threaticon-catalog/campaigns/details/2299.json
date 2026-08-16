@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:12:20.183Z",
+  "name": "OSINT - New FAREIT Strain Abuses PowerShell",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 25, 2016",
+  "lastSeen": "Apr 25, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #473 (571de8da-be78-4d1d-851f-448d950d210f)."
+}

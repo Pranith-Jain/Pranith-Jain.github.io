@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:25:38.327Z",
+  "name": "safepay: firstcambodia.com.kh",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 17, 2026",
+  "lastSeen": "Jan 24, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: KH | Sector: Hospitality and Tourism | Website: firstcambodia.com.kh | Infostealer data confirmed. | First Cambodia Co., Ltd. is a leading IT services and system integration company headquartered in Phnom Penh, Cambodia. Founded in … | Source: https://www.ransomware.live/id/Zmlyc3RjYW1ib2RpYS5jb20ua2hAc2FmZXBheQ=="
+}

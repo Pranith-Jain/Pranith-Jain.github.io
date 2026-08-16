@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:34:12.381Z",
+  "name": "medusalocker: CourtSmart",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 5, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 6, 2026",
+  "description": "Ransomware attack attributed to medusalocker. | Country: US | Sector: Business Services | Website: courtsmart.com | Infostealer data confirmed. | Court technology company. Domain courtsmart.com / COURTSMART2. Dev server: dev-rich20.courtsmart.com. Connections to JIS.org, nashville.org. | Source: https://www.ransomware.live/id/Q291cnRTbWFydEBtZWR1c2Fsb2NrZXI="
+}

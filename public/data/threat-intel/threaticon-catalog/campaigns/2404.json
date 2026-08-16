@@ -1,11 +1,11 @@
 {
   "id": 2404,
   "name": "OSINT When ELF.BillGates met Windows by Arkoon+Netasq",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Sep 30, 2015",
+  "lastSeen": "Sep 30, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #732 (560c1c35-fd9c-4fb4-9a93-801b950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2404"

@@ -1,11 +1,11 @@
 {
   "id": 3014,
   "name": "KRVTZ-NET IDS alerts for 2026-03-12",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 12, 2026",
+  "lastSeen": "Mar 12, 2026",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1897 (e23fbd54-096a-4de1-8288-e17eb68f04c9).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3014"

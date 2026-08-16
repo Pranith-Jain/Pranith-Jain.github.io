@@ -1,0 +1,9 @@
+{
+  "id": 2576,
+  "name": "T1210.001 - Exploit Public-Facing Application (SOAP-based)",
+  "techniqueId": "T1210",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2576"
+}

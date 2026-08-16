@@ -1,5 +1,5 @@
 import { TabLoader } from '../../components/ui/TabLoader';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Users } from 'lucide-react';
@@ -9,9 +9,10 @@ const ActorTimeline = lazy(() => import('./ActorTimeline'));
 const ActorDNA = lazy(() => import('./ActorDNA'));
 const ActorUsernameSearch = lazy(() => import('./ActorUsernameSearch'));
 const ActorProfiles = lazy(() => import('./ActorProfiles'));
+const ThreatActorCatalog = lazy(() => import('./ThreatActorCatalog'));
 const RelationshipGraph = lazy(() => import('./RelationshipGraph'));
 
-type TabId = 'directory' | 'timeline' | 'dna' | 'usernames' | 'profiles' | 'graph';
+type TabId = 'directory' | 'timeline' | 'dna' | 'usernames' | 'profiles' | 'catalog' | 'graph';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'directory', label: 'Directory', desc: 'Unified actor browser - MITRE ATT&CK, MISP Galaxy, and platform DB' },
@@ -19,6 +20,7 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'dna', label: 'DNA', desc: 'TTP signatures and infrastructure fingerprints' },
   { id: 'usernames', label: 'Usernames', desc: 'Search forum handles across 2M+ records' },
   { id: 'profiles', label: 'Profiles', desc: 'Expandable actor cards - aliases, malware, targeted sectors, campaigns' },
+  { id: 'catalog', label: 'Catalog', desc: 'Curated profiles of 15 major groups - APTs, cybercrime, and ransomware' },
   { id: 'graph', label: 'Graph', desc: 'Visualize actor to actor to IOC connections' },
 ];
 
@@ -29,6 +31,11 @@ export default function ActorHub(): JSX.Element {
     if (tab && TABS.some((t) => t.id === tab)) return tab as TabId;
     return 'directory';
   });
+
+  useEffect(() => {
+    const tab = params.get('tab');
+    if (tab && TABS.some((t) => t.id === tab)) setActiveTab(tab as TabId);
+  }, [params]);
 
   return (
     <DataPageLayout
@@ -70,6 +77,7 @@ export default function ActorHub(): JSX.Element {
           {activeTab === 'dna' && <ActorDNA />}
           {activeTab === 'usernames' && <ActorUsernameSearch />}
           {activeTab === 'profiles' && <ActorProfiles />}
+          {activeTab === 'catalog' && <ThreatActorCatalog />}
           {activeTab === 'graph' && <RelationshipGraph />}
         </Suspense>
       </div>

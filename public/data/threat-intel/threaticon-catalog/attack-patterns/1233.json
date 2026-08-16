@@ -1,0 +1,9 @@
+{
+  "id": 1233,
+  "name": "Metadata Spoofing",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary alters the metadata of a resource (e.g., file, directory, repository, etc.) to present a malicious resource as legitimate/credible.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1233"
+}

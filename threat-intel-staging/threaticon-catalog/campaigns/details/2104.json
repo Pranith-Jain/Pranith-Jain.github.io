@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:20:52.782Z",
+  "name": "Reviewing the spam filters: Malspam pushing Gozi-ISFB",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jan 17, 2018",
+  "lastSeen": "Jan 17, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #129 (5a60481e-bcf4-4c6a-ac1b-0722c0a8ab16)."
+}

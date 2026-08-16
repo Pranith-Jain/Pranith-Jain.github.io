@@ -3,9 +3,9 @@
   "name": "killsec: palram.com",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 17, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to killsec. | Country: IL | Sector: Manufacturing | Website: example.com | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/cGFscmFtLmNvbUBraWxsc2Vj",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1512"

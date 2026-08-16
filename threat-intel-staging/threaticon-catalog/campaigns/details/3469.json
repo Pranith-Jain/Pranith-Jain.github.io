@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:11:55.893Z",
+  "name": "Blueliv Vawtrak v2",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 10, 2016",
+  "lastSeen": "Nov 10, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #915 (582448cc-8644-4ca1-81df-4b86950d210f)."
+}

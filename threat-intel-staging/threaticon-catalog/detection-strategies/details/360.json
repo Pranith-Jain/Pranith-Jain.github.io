@@ -1,0 +1,12 @@
+{
+  "id": 360,
+  "fetchedAt": "2026-08-14T05:13:42.714Z",
+  "name": "Detect Bidirectional Web Service C2 Channels via Process & Network Correlation",
+  "tlp": null,
+  "detId": "DET0035",
+  "stixId": "x-mitre-detection-strategy--dcf2474e-0774-40da-b7e6-f4b60d0ea62f",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0100", "AN0101", "AN0102"]
+}

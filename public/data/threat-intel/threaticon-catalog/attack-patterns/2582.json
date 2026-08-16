@@ -1,0 +1,9 @@
+{
+  "id": 2582,
+  "name": "T1192 - Weaponization of email attachments",
+  "techniqueId": "T1192",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2582"
+}

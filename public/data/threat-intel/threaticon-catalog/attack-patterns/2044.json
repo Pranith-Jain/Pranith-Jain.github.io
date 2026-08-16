@@ -1,0 +1,9 @@
+{
+  "id": 2044,
+  "name": "T1058 - Exploitation for Impact",
+  "techniqueId": "T1058",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2044"
+}

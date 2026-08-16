@@ -1,0 +1,12 @@
+{
+  "id": 348,
+  "fetchedAt": "2026-08-14T05:24:51.763Z",
+  "name": "Detect Hybrid Identity Authentication Process Modification",
+  "tlp": null,
+  "detId": "DET0293",
+  "stixId": "x-mitre-detection-strategy--6b681059-99f7-46ff-bd36-96fd414074d4",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0814", "AN0815", "AN0816", "AN0817", "AN0818"]
+}

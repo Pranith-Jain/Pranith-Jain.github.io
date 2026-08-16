@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:07:35.671Z",
+  "name": "OSINT Neutrino Exploit Kit â€“ One Flash File to Rule Them All by SpiderLabs",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Dec 28, 2015",
+  "lastSeen": "Dec 28, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #752 (56b06dc5-2cac-46c1-9827-40f7950d210f)."
+}

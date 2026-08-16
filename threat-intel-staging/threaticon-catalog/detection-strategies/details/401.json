@@ -1,0 +1,12 @@
+{
+  "id": 401,
+  "fetchedAt": "2026-08-14T06:01:15.730Z",
+  "name": "Detection Strategy for T1542.005 Pre-OS Boot: TFTP Boot",
+  "tlp": null,
+  "detId": "DET0582",
+  "stixId": "x-mitre-detection-strategy--8f6ddd50-aeb8-48ae-8f4a-83b314829ca3",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1603"]
+}

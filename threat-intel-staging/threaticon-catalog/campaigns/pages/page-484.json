@@ -1,0 +1,122 @@
+[
+  {
+    "id": 524,
+    "name": "beast: Lessard Dental",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to beast. | Country: CA | Sector: Healthcare | Website: www.lessarddental.com | Lessard Dental is a family dental practice located in West Edmonton, offering a wide range of services including cosmetic dentistry, dental implants, orthodontics, and emergency care. The clinic is dedicated to providing personalized care tailored to the unique needs of each patient, ensuring a comfortable experience for individuals of all ages. With a team of experienced dentists, they focus on promoting long-term oral health and beautiful smiles. Lessard Dental welcomes new patients and is committed to making dental visits a positive experience. | Source: https://www.ransomware.live/id/TGVzc2FyZCBEZW50YWxAYmVhc3Q="
+  },
+  {
+    "id": 523,
+    "name": "incransom: Dorotea Sweden",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 522,
+    "name": "ransomhouse: Star Energy Geothermal Salak",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: ID | Sector: Energy | Website: www.starenergy.co.id | Star Energy is an Indonesian energy company focused on geothermal power generation and oil & gas exploration, operating a total of 926 MW of geothermal capacity in West Java. The company supplies clean renewable energy to Indonesia’s national grid while actively expanding its geothermal output toward a 1 GW target. Under its parent company, Barito Renewables, Star Energy has committed significant investment to reach 2.3 GW of renewable capacity by 2032, including wind power assets. | Source: https://www.ransomware.live/id/U3RhciBFbmVyZ3kgR2VvdGhlcm1hbCBTYWxha0ByYW5zb21ob3VzZQ=="
+  },
+  {
+    "id": 521,
+    "name": "akira: Rockville Fuel & Feed",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Agriculture and Food Production | Website: rockvilleconcrete.com | Infostealer data confirmed. | Rockville Fuel & Feed Co., Inc. is a premier supplier of ready mix concrete serving the Marylan d suburbs of Washington DC. With multiple plants across five major counties and a fleet of over 65 trucks, the company caters to construction projects of all sizes, ensuring timely and relia ble delivery. We will upload corporate data soon. Employee personal documents (passports, DLs (over 100), med ical and financial information), client information, contracts and agreements, NDAs, etc. | Source: https://www.ransomware.live/id/Um9ja3ZpbGxlIEZ1ZWwgJiBGZWVkQGFraXJh"
+  },
+  {
+    "id": 533,
+    "name": "qilin: City of Napoleon, Ohio",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Public Sector | Website: www.napoleonohio.com | Source: https://www.ransomware.live/id/Q2l0eSBvZiBOYXBvbGVvbiwgT2hpb0BxaWxpbg=="
+  },
+  {
+    "id": 532,
+    "name": "qilin: Clearview Intelligence",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Business Services | Website: www.clearview-intelligence.com | Source: https://www.ransomware.live/id/Q2xlYXJ2aWV3IEludGVsbGlnZW5jZUBxaWxpbg=="
+  },
+  {
+    "id": 505,
+    "name": "qilin: Woodfields Consultants",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: PH | Sector: Business Services | Website: www.wci.com.ph | Source: https://www.ransomware.live/id/V29vZGZpZWxkcyBDb25zdWx0YW50c0BxaWxpbg=="
+  },
+  {
+    "id": 504,
+    "name": "qilin: Chelten House",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: GB | Sector: Not Found | Website: www.cheltenhouse.com | Source: https://www.ransomware.live/id/Q2hlbHRlbiBIb3VzZUBxaWxpbg=="
+  },
+  {
+    "id": 503,
+    "name": "qilin: First County FCU",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: www.firstcountyfcu.org | Source: https://www.ransomware.live/id/Rmlyc3QgQ291bnR5IEZDVUBxaWxpbg=="
+  },
+  {
+    "id": 502,
+    "name": "qilin: SanCor",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AR | Sector: Agriculture and Food Production | Website: www.sancor.com | Source: https://www.ransomware.live/id/U2FuQ29yQHFpbGlu"
+  },
+  {
+    "id": 501,
+    "name": "qilin: KEMBA Indianapolis Credit Union",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Financial Services | Website: www.mykemba.org | Source: https://www.ransomware.live/id/S0VNQkEgSW5kaWFuYXBvbGlzIENyZWRpdCBVbmlvbkBxaWxpbg=="
+  },
+  {
+    "id": 500,
+    "name": "qilin: Leistritz Turbine Technology",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Manufacturing | Website: turbines.leistritz.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/TGVpc3RyaXR6IFR1cmJpbmUgVGVjaG5vbG9neUBxaWxpbg=="
+  },
+  {
+    "id": 515,
+    "name": "qilin: Progressive Propane",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Energy | Website: www.progressivepropane.com | Source: https://www.ransomware.live/id/UHJvZ3Jlc3NpdmUgUHJvcGFuZUBxaWxpbg=="
+  },
+  {
+    "id": 520,
+    "name": "incransom: tlctrialteam.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Healthcare | Website: tlctrialteam.com | Infostealer data confirmed. | TLC Trial Team is a personal injury law firm based in Winter Haven, Florida. The firm handles accident and injury-related cases. | Source: https://www.ransomware.live/id/dGxjdHJpYWx0ZWFtLmNvbUBpbmNyYW5zb20="
+  },
+  {
+    "id": 514,
+    "name": "qilin: Marc Cain",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: DE | Sector: Consumer Services | Website: www.marc-cain.com | Source: https://www.ransomware.live/id/TWFyYyBDYWluQHFpbGlu"
+  }
+]

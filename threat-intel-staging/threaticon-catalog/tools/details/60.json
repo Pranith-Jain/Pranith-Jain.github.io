@@ -1,0 +1,12 @@
+{
+  "id": 60,
+  "fetchedAt": "2026-08-14T05:03:46.189Z",
+  "name": "sqlmap",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "sqlmap is an open source penetration testing tool that can be used to automate the process of detecting and exploiting SQL injection flaws. (Citation: sqlmap Introduction)"
+}

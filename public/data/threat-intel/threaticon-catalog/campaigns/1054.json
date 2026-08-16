@@ -3,9 +3,9 @@
   "name": "akira: Charles River Insurance",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Apr 3, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: charlesriverinsurance.com | Infostealer data confirmed. | Charles River Insurance is an independent insurance agency headqu artered in the state of Massachusetts that focuses on delivering personalized risk management and insurance solutions to individua ls and businesses. We will upload 63gb of corporate data soon. Detailed employee and customer personal information (passport, DLs, SSNs, addresses, p hones, emails and so on), detailed financials, payment details, p rojects, etc. | Source: https://www.ransomware.live/id/Q2hhcmxlcyBSaXZlciBJbnN1cmFuY2VAYWtpcmE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1054"

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:52.949Z",
+  "name": "OSINT Expansion on Additional indicators relating to Sofacy (APT28) phishing blog post by PWC",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 40,
+  "firstSeen": "Nov 18, 2014",
+  "lastSeen": "Nov 18, 2014",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #660 (546bc3e8-d498-4e0c-b169-f2ea950d210b)."
+}

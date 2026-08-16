@@ -1,0 +1,9 @@
+{
+  "id": 2016,
+  "name": "T1594.003 - Malicious Scripts: Remote Code Execution via Script Injection",
+  "techniqueId": "T1594",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2016"
+}

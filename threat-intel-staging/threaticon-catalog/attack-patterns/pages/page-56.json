@@ -1,0 +1,162 @@
+[
+  {
+    "id": 2443,
+    "name": "T1059.003 - Command and Scripting Interpreter (PowerShell)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2556,
+    "name": "T1059.003 - Command and Scripting Interpreter - PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2353,
+    "name": "T1059.003 - Command and Scripting Interpreter: PowerShell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2567,
+    "name": "T1059.003 - Command and Scripting Interpreter: PowerShell (Post-Exploitation)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2474,
+    "name": "T1059.003 - Command and Scripting Interpreter: PowerShell usage",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2858,
+    "name": "T1059.003 - Command and Scripting Interpreter: Unix Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2357,
+    "name": "T1059.003 - Command and Scripting Interpreter: Windows Command Prompt",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2373,
+    "name": "T1059.003 - Command and Scripting Interpreter: Windows Command Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2591,
+    "name": "T1059.003 - Command and Scripting Interpreter: Windows Command Shell (post-compromise activities)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2298,
+    "name": "T1059.003 - Command-Line Interface",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1543,
+    "name": "T1059.003 - Command-Line Interface Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1363,
+    "name": "T1059.003 - Command-Line Interface Tools Allowing Code Execution: Windows Management Instrumentation",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2233,
+    "name": "T1059.003 - Command-line Instrument.exe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1578,
+    "name": "T1059.003 - Command-line interface arguments",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1463,
+    "name": "T1059.003 - Custom Scripting Framework",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2064,
+    "name": "T1059.003 - DLL Hijacking",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1567,
+    "name": "T1059.003 - DLL Injection into explorer.exe",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1769,
+    "name": "T1059.003 - Data Exfiltration via Email",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 1891,
+    "name": "T1059.003 - Email collection from compromised mailbox",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  },
+  {
+    "id": 2237,
+    "name": "T1059.003 - Executive Account Access Through Force Account Credential Use",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1059",
+    "status": null
+  }
+]

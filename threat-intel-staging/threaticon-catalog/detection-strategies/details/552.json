@@ -1,0 +1,12 @@
+{
+  "id": 552,
+  "fetchedAt": "2026-08-14T06:04:51.970Z",
+  "name": "Detection of Vulnerability Scanning",
+  "tlp": null,
+  "detId": "DET0867",
+  "stixId": "x-mitre-detection-strategy--574d055c-4501-4f4d-9b28-1109ad07a087",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1999"]
+}

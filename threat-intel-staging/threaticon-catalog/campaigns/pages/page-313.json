@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3142,
+    "name": "Banco Estado Chile REvil attack",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #232 (5f573f53-5ac0-44f3-9756-d686c0a8ab16)."
+  },
+  {
+    "id": 3141,
+    "name": "Malspam (2016-03-14) - Locky, TeslaCrypt",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #231 (56e6c7d5-4240-4640-a214-4bef950d210f)."
+  },
+  {
+    "id": 3140,
+    "name": "OSINT - SteamStealer IPs",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #215 (56e6910e-9cdc-4c9a-8ece-4531950d210f)."
+  },
+  {
+    "id": 3139,
+    "name": "Operation Ghost - White Paper",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #208 (5d9b516c-e5f0-4e7c-a958-5d8c0a019371)."
+  },
+  {
+    "id": 3138,
+    "name": "Mahalo FIN7: Responding to the Criminal Operatorsâ€™ New Tools and Techniques",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #202 (5da1e411-c430-4fd6-bb05-9c81c0a8ab16)."
+  },
+  {
+    "id": 3137,
+    "name": "OSINT Technical Analysis Tracks the Sakula Malware Family by SecureWorks",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #198 (55c2797f-1cd0-4d5f-92b9-4f93950d210b)."
+  },
+  {
+    "id": 3136,
+    "name": "Machete just got sharper",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #197 (5d3f036b-0f50-4499-af4c-695a0a016219)."
+  },
+  {
+    "id": 3135,
+    "name": "Turla PowerShell blogpost",
+    "tlp": "white",
+    "confidence": 40,
+    "status": null,
+    "description": "Imported from MISP event #193 (5ced8da1-0960-40bc-b5dc-2fed0a016219)."
+  },
+  {
+    "id": 3134,
+    "name": "Qakbot levels up with new obfuscation techniques",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #189 (5ccb48f2-acb4-4b42-a010-03c2c0a8ab16)."
+  },
+  {
+    "id": 3133,
+    "name": "Malspam (2016-03-11) - Locky",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #186 (56e2a7d9-097c-4fae-9f76-4cac950d210f)."
+  },
+  {
+    "id": 3132,
+    "name": "New Mirai Variant Targets Enterprise Wireless Presentation & Display Systems",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #180 (5c93d7f7-7de4-4548-ae4c-403ec0a8ab16)."
+  },
+  {
+    "id": 3131,
+    "name": "OSINT - Android banking trojan masquerades as Flash Player and bypasses 2FA",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #177 (56e27748-1864-476a-9c1c-4d10950d210f)."
+  },
+  {
+    "id": 3130,
+    "name": "Malspam (2016-03-10) - Locky, TeslaCrypt",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #175 (56e17b23-c61c-42e8-9f33-463e950d210f)."
+  },
+  {
+    "id": 3129,
+    "name": "Operation Comando: How to Run a Cheap and Effective Credit Card Business",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #174 (5c8810d4-2404-4772-8a57-47d3c0a8ab16)."
+  },
+  {
+    "id": 3128,
+    "name": "Cerber Ransomware",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #169 (56e12e66-f01c-41be-afea-4d9a950d210f)."
+  }
+]

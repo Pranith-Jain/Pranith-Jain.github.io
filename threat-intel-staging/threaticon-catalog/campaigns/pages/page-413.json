@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1587,
+    "name": "beast: Communicate UK",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1586,
+    "name": "beast: Trinity Catholic High School",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to beast. | Country: US | Sector: Education | Website: www.trinitycatholichs.org | Trinity Catholic High School offers a full array of co-curricular activities and sports programs. Our athletic programs include football, cheerleading, cross country, golf, swimming, tennis, weight lifting, basketball, volleyball, baseball, bowling, girls flag football, softball, lacrosse and track and field. Our State Championships include: football, women's soccer, baseball, wrestling and track. | Source: https://www.ransomware.live/id/VHJpbml0eSBDYXRob2xpYyBIaWdoIFNjaG9vbEBiZWFzdA=="
+  },
+  {
+    "id": 1585,
+    "name": "nightspire: CFTC Metallurgie",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Country: FR | Sector: Manufacturing | Website: www.cftc-metallurgie.com | Data is not available now. | Source: https://www.ransomware.live/id/Q0ZUQyBNZXRhbGx1cmdpZUBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1584,
+    "name": "lynx: indrub.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 1583,
+    "name": "embargo: westport.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to embargo. | Country: US | Sector: Technology | Website: westport.com | Infostealer data confirmed. | We connect synergistic technologies to power a cleaner tomorrow. As a leading supplier of affordable, alternative fuel, low-emissions transportation technologie... - TOTAL QUANTITY 1.8 TB | Source: https://www.ransomware.live/id/d2VzdHBvcnQuY29tQGVtYmFyZ28="
+  },
+  {
+    "id": 1582,
+    "name": "payload: Río Grande (Puerto Rico)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: PR | Sector: Public Sector | Río Grande is a municipality located in Puerto Rico, a U.S. territory in the Caribbean. It has its own local government that manages public services, administration, and community programs for residents. | Source: https://www.ransomware.live/id/UsOtbyBHcmFuZGUgKFB1ZXJ0byBSaWNvKUBwYXlsb2Fk"
+  },
+  {
+    "id": 1581,
+    "name": "payload: Tyler Media",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: US | Sector: Telecommunication | Website: tylermedia.com | Infostealer data confirmed. | Tyler Media is a comprehensive media company in Oklahoma, offering a variety of services that include radio, television, and outdoor advertising. With several radio stations and partnerships with prominent television networks, they cater to a diverse audience, showcasing both English and Spanish content. Their key clients range from local businesses to larger organizations seeking effective marketing solutions and brand awareness. | Source: https://www.ransomware.live/id/VHlsZXIgTWVkaWFAcGF5bG9hZA=="
+  },
+  {
+    "id": 1580,
+    "name": "payload: United Limsun International Trading",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: PH | Sector: Consumer Services | Website: unitedlimsun.com | Infostealer data confirmed. | United Limsun Corporation is a rapidly growing retail and distribution company that selects multifunctional brands of everyday goods for urban travellers. The company specialises in sourcing, supplying, distributing and marketing high-quality goods. | Source: https://www.ransomware.live/id/VW5pdGVkIExpbXN1biBJbnRlcm5hdGlvbmFsIFRyYWRpbmdAcGF5bG9hZA=="
+  },
+  {
+    "id": 1579,
+    "name": "payload: Thai Solar Energy Public",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: TH | Sector: Energy | Website: thaisolarenergy.com | Infostealer data confirmed. | Thai Solar Energy Public Company Limited (TSE) was established in 2008 based in Bangkok, Thailand. TSE is the first in Southeast Asia to have effectively applied an advanced technology to utilize the sun's radiation and converting it into green energy. TSE is in collaboration with several World renowned energy institutes and specialized energy companies to continuously evaluate our performance. | Source: https://www.ransomware.live/id/VGhhaSBTb2xhciBFbmVyZ3kgUHVibGljQHBheWxvYWQ="
+  },
+  {
+    "id": 1578,
+    "name": "payload: Easy Servizi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: IT | Sector: Energy | Website: easyservizi.it | Infostealer data confirmed. | Easy Servizi is an Italian company that provides technical and operational services for utility network operators (gas, electricity, and water), including meter installation and replacement, network support, and customer data management. It operates as a contractor for energy and water companies rather than as a direct service provider to consumers. | Source: https://www.ransomware.live/id/RWFzeSBTZXJ2aXppQHBheWxvYWQ="
+  },
+  {
+    "id": 1577,
+    "name": "payload: In.Sa.Cor",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: US | Sector: Energy | Website: In.Sa.Cor | InSaCor specializes in a wide range of gas-related products and sanitary solutions, including gas regulators, fittings, and various types of plumbing fixtures. Their offerings include high-quality materials for both residential and commercial applications, catering to clients in the construction and maintenance sectors. | Source: https://www.ransomware.live/id/SW4uU2EuQ29yQHBheWxvYWQ="
+  },
+  {
+    "id": 1592,
+    "name": "killsec: NextCapitalTrust",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to killsec. | Sector: Financial Services | Website: example.com | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/TmV4dENhcGl0YWxUcnVzdEBraWxsc2Vj"
+  },
+  {
+    "id": 1593,
+    "name": "nightspire: S** *A* ***E* **T*L",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nightspire. | Sector: Not Found | Data is not available now. | Source: https://www.ransomware.live/id/UyoqICpBKiAqKipFKiAqKlQqTEBuaWdodHNwaXJl"
+  },
+  {
+    "id": 1591,
+    "name": "killsec: meena health",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to killsec. | Sector: Healthcare | Website: example.com | Price ??? Disclosures 0/1 | Source: https://www.ransomware.live/id/bWVlbmEgaGVhbHRoQGtpbGxzZWM="
+  },
+  {
+    "id": 1604,
+    "name": "ransomhouse: Irec Sas",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to ransomhouse. | Country: FR | Sector: Hospitality and Tourism | Website: www.irec.fr | IREC is a company that specializes in providing tickets for amusement parks, concert venues, and sporting events | Source: https://www.ransomware.live/id/SXJlYyBTYXNAcmFuc29taG91c2U="
+  }
+]

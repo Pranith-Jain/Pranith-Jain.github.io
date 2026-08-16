@@ -3,10 +3,10 @@
   "name": "payload: Don-Nan",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 28, 2026",
+  "lastSeen": "Mar 28, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to payload. | Country: US | Sector: Manufacturing | Website: q2als.com | Infostealer data confirmed. | Q2 Artificial Lift Services specializes in the sales, service, engineering, and manufacturing of down hole rod pumps, positioning itself as a leader in artificial lift technology. The company operates from a state-of-the-art 118,000 sq. ft. facility and boasts over 40 service and repair locations across Canada and the USA. Q2 offers a comprehensive range of products, including API pumps, specialty tubing, and production tools, combined with supportive engineering and technical services. Their commitment to quality and innovation enables them to provide tailored solutions that maximize productivity for their clients in the oilfield sector. | Source: https://www.ransomware.live/id/RG9uLU5hbkBwYXlsb2Fk",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1273"
 }

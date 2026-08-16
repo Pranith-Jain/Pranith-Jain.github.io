@@ -1,0 +1,15 @@
+{
+  "slug": "settra-advancedtaxsolutions-com-2026-08-11",
+  "title": "advancedtaxsolutions.com",
+  "group": "settra",
+  "discovered": "2026-08-11T15:27:31.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Frank Rim &amp; Associates: Archive of a Tax Consulting Practice PROLOGUE Every tax case. Initial cl...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

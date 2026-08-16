@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:05:21.827Z",
+  "name": "Malspam 2016-09-05 (.js in .zip) - campaign: \"Credit card receipt\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 5, 2016",
+  "lastSeen": "Sep 5, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #849 (57cd5a06-59e0-44a8-9200-3306950d210f)."
+}

@@ -1,0 +1,12 @@
+{
+  "id": 91,
+  "fetchedAt": "2026-08-14T04:59:39.211Z",
+  "name": "AdFind",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": null,
+  "confidence": 90,
+  "added": null,
+  "description": "AdFind is a free command-line query tool that can be used for gathering information from Active Directory.(Citation: Red Canary Hospital Thwarted Ryuk October 2020)(Citation: FireEye FIN6 Apr 2019)(Citation: FireEye Ryuk and Trickbot January 2019)"
+}

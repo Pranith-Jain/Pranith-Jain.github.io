@@ -60,12 +60,22 @@ import {
   filterThreaticonCatalog,
   filterThreaticonIndicators,
   threaticonIndicatorTypes,
+  loadDphishIndex,
+  getDphishIndicator,
+  filterDphishIndicators,
+  loadLivingThreatIndex,
+  getLivingThreatIncident,
+  filterLivingThreatIncidents,
+  loadMaIndex,
+  getMaFeed,
+  filterMaFeed,
   type TiCatalogSection,
   type TiCatalogBody,
   type TiSeverity,
   type TiIocIndexEntry,
   type TcEntityType,
 } from './lib/threat-intel-manifest';
+import { malwareAnalyzerLookup, malwareAnalyzerStatus } from './lib/malwareanalyzer';
 import { loadDbIndex, getDbBrief, filterBriefs, dbCacheStats, type DbBriefType } from './lib/daily-briefs-manifest';
 import {
   loadWdtbIndex,
@@ -382,7 +392,18 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     schema: A,
     cb: (args: { [K in keyof A]: z.infer<A[K]> }) => Promise<{ content: Array<{ type: string; text: string }> }>
   ): RegisteredTool {
-    return (this.server as any).tool(name, description, schema, async (args: { [K in keyof A]: z.infer<A[K]> }) => {
+    // Cast to the single overload we want (schema + inferred callback args) to
+    // bypass the SDK's overload-2 ambiguity that degrades callback params to
+    // `unknown`.
+    const server = this.server as unknown as {
+      tool(
+        name: string,
+        description: string,
+        schema: A,
+        cb: (args: { [K in keyof A]: z.infer<A[K]> }) => unknown
+      ): RegisteredTool;
+    };
+    return server.tool(name, description, schema, async (args: { [K in keyof A]: z.infer<A[K]> }) => {
       this.rateLimit();
       return cb(args);
     });
@@ -2094,8 +2115,8 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           const idx = await loadBwIndex(ASSETS);
           const breaches = filterBreaches(idx, {
             group: group || undefined,
-            category: (category as any) || undefined,
-            severity: (severity as any) || undefined,
+            category: (category as NonNullable<Parameters<typeof filterBreaches>[1]>['category']) || undefined,
+            severity: (severity as NonNullable<Parameters<typeof filterBreaches>[1]>['severity']) || undefined,
             country: country || undefined,
             daysBack,
             keyword: keyword || undefined,
@@ -3170,6 +3191,187 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             filters: { keyword, tlp, minConfidence },
             indicators: items,
           });
+        }
+      );
+
+      // ── dPhish phishing feed (dphish.com, TAXII 2.1) ────────────────
+      // Public TAXII 2.1 collection of phishing indicators: malicious
+      // domains, phishing URLs, sender IPs, phone numbers, and
+      // attachment rules. Data ships in public/data/threat-intel/dphish/.
+
+      this.tools(
+        'ti_list_dphish',
+        'List phishing indicators from the dPhish public TAXII 2.1 collection (dphish.com): malicious domains, phishing URLs, sender IPs, phone numbers, and attachment detection rules — with active/revoked status, STIX observable type, confidence, OpenCTI score, and validity window. Filter by category, active-only, or keyword. Use ti_get_dphish_indicator to fetch the full STIX body (pattern, description, labels).',
+        {
+          category: z
+            .enum(['domain', 'ipv4', 'ipv6', 'url', 'phone', 'file', 'email', 'other'])
+            .optional()
+            .describe('Filter by indicator category'),
+          activeOnly: z
+            .boolean()
+            .optional()
+            .describe('Only indicators that are live right now (not revoked, within validity window)'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against value / description'),
+          limit: z.number().int().min(1).max(1000).optional().describe('Max indicators to return (default 100)'),
+        },
+        async ({ category, activeOnly, keyword, limit }) => {
+          const idx = await loadDphishIndex(ASSETS);
+          const indicators = filterDphishIndicators(idx, { category, activeOnly, keyword, limit: limit ?? 100 });
+          return untrustedToolResult({
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            syncedAt: idx.syncedAt,
+            counts: idx.counts,
+            returned: indicators.length,
+            indicators,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_dphish_indicator',
+        'Return the full dPhish indicator body for one slug: STIX id, observable value, category, pattern (STIX or YARA), description, created/modified dates, validity window, revoked status, confidence, OpenCTI score, labels, and indicator types. Use ti_list_dphish to discover slugs (e.g. "melbetegypt.com-1a2b3c").',
+        {
+          slug: z
+            .string()
+            .describe('Indicator slug (lowercased, e.g. "185.225.19.240-59c41c"). Get these from ti_list_dphish.'),
+        },
+        async ({ slug }) => {
+          const body = await getDphishIndicator(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'dphish_indicator_not_found',
+              slug,
+              hint: 'Call ti_list_dphish to see available indicator slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      // ── Living Threat Repository (living-threat.rabitanoor.com) ────
+      // Real-world incidents continuously mapped to MITRE ATT&CK tactics +
+      // techniques, with per-kill-chain-stage detection/remediation notes,
+      // CVEs, actors, tools and priority scoring (MIT, keyless bootstrap
+      // API, newest 5000 incidents of ~21k). Bodies ship in sharded JSON;
+      // see scripts/sync-living-threat.mjs + scripts/build-living-threat.mjs.
+
+      this.tools(
+        'ti_list_living_threat',
+        'List incidents from the Living Threat Repository (living-threat.rabitanoor.com): real-world incidents mapped to MITRE ATT&CK tactic/technique chains, with severity, priority score, CVEs/actor/tool counts. Filter by tactic, technique ID (e.g. T1190), severity, actor name, keyword, or minimum priority score. Use ti_get_living_threat_incident to fetch the full incident (per-kill-chain-stage analyses, detection + remediation notes, hunt-pack guidance).',
+        {
+          tactic: z.string().optional().describe('Filter by ATT&CK tactic name (e.g. "Initial Access", "Persistence")'),
+          technique: z.string().optional().describe('Filter by ATT&CK technique ID (e.g. "T1190", "T1059.004")'),
+          severity: z.string().optional().describe('Filter by severity (Critical, High, Moderate, Low)'),
+          actor: z.string().optional().describe('Filter by threat-actor name (substring)'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against title / source / actors / techniques'),
+          minPriority: z
+            .number()
+            .int()
+            .min(0)
+            .max(100)
+            .optional()
+            .describe('Only incidents at/above this priority score (0-100)'),
+          limit: z.number().int().min(1).max(1000).optional().describe('Max incidents to return (default 100)'),
+        },
+        async ({ tactic, technique, severity, actor, keyword, minPriority, limit }) => {
+          const idx = await loadLivingThreatIndex(ASSETS);
+          const incidents = filterLivingThreatIncidents(idx, {
+            tactic,
+            technique,
+            severity,
+            actor,
+            keyword,
+            minPriority,
+            limit: limit ?? 100,
+          });
+          return untrustedToolResult({
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            repoUrl: idx.repoUrl,
+            syncedAt: idx.syncedAt,
+            meta: idx.meta,
+            counts: idx.counts,
+            returned: incidents.length,
+            filters: { tactic, technique, severity, actor, keyword, minPriority },
+            incidents,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_living_threat_incident',
+        'Return the full Living Threat Repository incident for one slug: per-kill-chain-stage analyses with ATT&CK tactic/technique mappings, per-stage detection + remediation notes, CVEs, threat actors, tools, behavioral / data-exfiltration indicators, detection rules, diamond-model + kill-chain summaries, priority/relevance scores, pyramid of pain, and post-incident recommendations. Use ti_list_living_threat to discover slugs (e.g. "amnesiastealer-macos-malware-021625").',
+        {
+          slug: z
+            .string()
+            .describe(
+              'Incident slug (title + sequence, e.g. "AmnesiaStealer__macOS_Malware_Leveraging_ClickFix_Attacks-021625"). Get these from ti_list_living_threat.'
+            ),
+        },
+        async ({ slug }) => {
+          const body = await getLivingThreatIncident(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'living_threat_incident_not_found',
+              slug,
+              hint: 'Call ti_list_living_threat to see available incident slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      // ── MalwareAnalyzer by Cyble (malwareanalyzer.com) ──────────────
+      // Free, keyless public API: live malicious / newly-observed URL
+      // feeds + on-demand IOC reputation lookups (70k+ public sample
+      // corpus, 46 engines). Feeds ship in
+      // public/data/threat-intel/malwareanalyzer/; lookups are live.
+
+      this.tools(
+        'ti_list_malwareanalyzer',
+        'List URL entries from the MalwareAnalyzer by Cyble public feeds (malwareanalyzer.com): verdict=malicious URLs (live malicious feed) or newly-observed scans. Each entry has url, hostname, apex, verdict, score, brands, categories, and scan time. Filter by verdict, category, or keyword. For per-IOC intelligence on any indicator, call ti_malwareanalyzer_lookup.',
+        {
+          feed: z.enum(['malicious', 'newly-observed']).optional().describe('Which feed to list (default malicious)'),
+          verdict: z.string().optional().describe('Filter by verdict (e.g. "malicious", "unknown", "suspicious")'),
+          category: z.string().optional().describe('Filter by category (e.g. "suspicious-infrastructure", "phishing")'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against url / hostname / apex'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max entries to return (default 200)'),
+        },
+        async ({ feed, verdict, category, keyword, limit }) => {
+          const idx = await loadMaIndex(ASSETS);
+          const name = feed ?? 'malicious';
+          const entries = await getMaFeed(ASSETS, name);
+          const out = filterMaFeed(entries, { verdict, category, keyword, limit: limit ?? 200 });
+          return untrustedToolResult({
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            syncedAt: idx.syncedAt,
+            feed: name,
+            counts: idx.counts,
+            returned: out.length,
+            filters: { verdict, category, keyword },
+            entries: out,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_malwareanalyzer_lookup',
+        'Live reputation lookup for a single IOC (IPv4/IPv6, domain, URL, or hash) against MalwareAnalyzer by Cyble (malwareanalyzer.com, keyless): verdict, 0-100 score, first/last seen, prevalence, tags like benigne/malicious categories. Use for enrichment during an investigation. For bulk URL feeds use ti_list_malwareanalyzer.',
+        {
+          indicator: z
+            .string()
+            .describe(
+              'IOC to look up — IP / domain / URL / hash (e.g. "8.8.8.8", "malwareanalyzer.com") — max 1024 chars, no spaces'
+            ),
+        },
+        async ({ indicator }) => {
+          const res = await malwareAnalyzerLookup(indicator);
+          return untrustedToolResult(res);
         }
       );
 

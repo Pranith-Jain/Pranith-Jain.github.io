@@ -1,0 +1,9 @@
+{
+  "id": 976,
+  "name": "Influence Perception of Consensus or Social Proof",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Likelihood of attack: Low. The adversary influences the target's actions by leveraging the inherent human nature to assume behavior of others is appropriate. In situations of uncertainty, people tend to behave in ways they see others behaving. The adversary convinces the target of adopting behavior or actions that is advantageous to the adversary.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/976"
+}

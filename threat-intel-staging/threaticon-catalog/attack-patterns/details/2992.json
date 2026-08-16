@@ -1,0 +1,9 @@
+{
+  "id": 2992,
+  "fetchedAt": "2026-08-15T08:14:15.454Z",
+  "name": "T1555 Credential Dumping and Credential Access from Local System",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Aug 11, 2026",
+  "description": null
+}

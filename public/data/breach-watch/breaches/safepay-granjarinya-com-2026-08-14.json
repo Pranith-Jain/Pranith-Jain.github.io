@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/59b91153-7664-4666-9e6e-074e5106afb1",
+  "description": "Headquartered in Albal, Valencia, the family-owned company traces its origins to three generations of livestock farming. What began as a …",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:46:38.630Z",
+  "name": "safepay: thenavigatorcompany.com",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 17, 2026",
+  "lastSeen": "Mar 17, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: PT | Sector: Manufacturing | Website: thenavigatorcompany.com | Infostealer data confirmed. | Is a major Portuguese producer of forestry, pulp, paper, tissue, and sustainable packaging solutions, recognized as Europe's largest manufacturer of … | Source: https://www.ransomware.live/id/dGhlbmF2aWdhdG9yY29tcGFueS5jb21Ac2FmZXBheQ=="
+}

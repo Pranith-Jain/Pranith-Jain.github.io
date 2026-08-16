@@ -3,9 +3,9 @@
   "name": "incransom: JDV Products",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 23, 2026",
+  "lastSeen": "Mar 23, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Manufacturing | Website: jdvproducts.com | Infostealer data confirmed. | JDV Products, Inc. specializes in providing a wide range of tools and equipment for wire wrapping, including wire wrap guns, wrap tools, and wire handling solutions. The company also features a selection of gas-powered tools and fiber optic tools, ensuring comprehensive support for electrical projects. We have 700GB of data at our disposal, in a week we will publish everything. | Source: https://www.ransomware.live/id/SkRWIFByb2R1Y3RzQGluY3JhbnNvbQ==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1390"

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:10:19.076Z",
+  "name": "lockbit5: santoinacio-rio.com.br",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 11, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lockbit5. | Country: BR | Sector: Business Services | Website: santoinacio-rio.com.br | Infostealer data confirmed. | Colégio Santo Inácio, part of the Jesuit Education Network, has been providing quality education sin... | Source: https://www.ransomware.live/id/c2FudG9pbmFjaW8tcmlvLmNvbS5ickBsb2NrYml0NQ=="
+}

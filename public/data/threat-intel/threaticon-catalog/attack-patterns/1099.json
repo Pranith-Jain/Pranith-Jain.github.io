@@ -1,0 +1,9 @@
+{
+  "id": 1099,
+  "name": "Remote Services with Stolen Credentials",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Very High. This pattern of attack involves an adversary that uses stolen credentials to leverage remote services such as RDP, telnet, SSH, and VNC to log into a system. Once access is gained, any number of malicious activities could be performed.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1099"
+}

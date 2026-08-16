@@ -1,0 +1,12 @@
+{
+  "id": 681,
+  "fetchedAt": "2026-08-14T05:14:50.837Z",
+  "name": "Detect Default File Association Hijack via Registry & Execution Correlation on Windows",
+  "tlp": null,
+  "detId": "DET0061",
+  "stixId": "x-mitre-detection-strategy--61585647-dcc0-4c46-9333-c59796997826",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0170"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": 350,
+  "fetchedAt": "2026-08-14T06:01:55.638Z",
+  "name": "Behavioral Detection of Remote SSH Logins Followed by Post-Login Execution",
+  "tlp": null,
+  "detId": "DET0596",
+  "stixId": "x-mitre-detection-strategy--5367273a-2f30-413e-a961-1dbd323be5b0",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1638", "AN1639", "AN1640"]
+}

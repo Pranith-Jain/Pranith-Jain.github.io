@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2489,
+    "name": "OSINT - German Speakers Targeted by SPAM Leading to Ozone RAT",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #838 (57c52bbb-6a08-4121-951c-417c950d210f)."
+  },
+  {
+    "id": 2490,
+    "name": "Ransomware - Xorist",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #839 (57c4445b-c548-4654-af0b-4be3950d210f)."
+  },
+  {
+    "id": 2488,
+    "name": "OSINT - Dridex Returns To Action For Smaller, More Targeted Attacks",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #834 (57c405cd-ab54-47b8-9eff-7a52950d210f)."
+  },
+  {
+    "id": 2487,
+    "name": "The Million Dollar Dissident - Citizen lab report",
+    "tlp": "white",
+    "confidence": 90,
+    "status": null,
+    "description": "Imported from MISP event #831 (57bf5c07-6b40-428e-8f68-4a9a02de0b81)."
+  },
+  {
+    "id": 2486,
+    "name": "Malspam 2016-08-24 (.hta in .zip) - campaign: \"Emailing{N}.jpg\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #829 (57bd9b3a-c354-481c-b414-424e950d210f)."
+  },
+  {
+    "id": 2485,
+    "name": "OSINT Domains and IPs involved in JS ransomware delivered through email by burberry on AlienVault OTX",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #826 (57b5c11a-d2a0-455f-b409-4851950d210f)."
+  },
+  {
+    "id": 2484,
+    "name": "OSINT Android Marcher: Continuously Evolving Mobile Malware by Zscaler",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #825 (57b5bfb6-f0d8-4a7e-b860-4ca6950d210f)."
+  },
+  {
+    "id": 2483,
+    "name": "OSINT Bad News Bears - Panda Banker Starts Looking More Like a Grizzly by ProofPoint",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #824 (57b5b7eb-208c-4c32-ae59-4ec2950d210f)."
+  },
+  {
+    "id": 2482,
+    "name": "Malspam 2016-08-18 (.wsf in .zip) - campaign: \"Emailing: Label\"",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #823 (57b5adc4-9f48-4cb4-9a0b-4471950d210f)."
+  },
+  {
+    "id": 2481,
+    "name": "Pivot on Shakti domains via PassiveTotal",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #822 (57b5ac3c-6780-4f9c-8734-4e8e950d210f)."
+  },
+  {
+    "id": 2480,
+    "name": "OSINT Shakti Trojan: Document Thief by Malwarebytes",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #821 (57b5a864-be78-4eba-af85-4608950d210f)."
+  },
+  {
+    "id": 2479,
+    "name": "OSINT Shark Ransomware: Ransomware as a service",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #820 (57b5a6a6-334c-4a50-9e23-45b0950d210f)."
+  },
+  {
+    "id": 2477,
+    "name": "OSINT Aveo Malware Family Targets Japanese Speaking Users by Palo Alto networks Unit 42",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #818 (57b5a32c-b744-4674-b727-4cb2950d210f)."
+  },
+  {
+    "id": 2476,
+    "name": "OSINT Snakes in the Satellites: On-going Turla Infrastructure by PassiveTotal",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #816 (57b58ade-2da0-4f50-98b3-4846950d210f)."
+  },
+  {
+    "id": 2475,
+    "name": "OSINT Vawtrak C2 â€“ Pin it by Threat Geek",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #813 (57b585fe-ae40-42d8-bdd7-49d9950d210f)."
+  }
+]

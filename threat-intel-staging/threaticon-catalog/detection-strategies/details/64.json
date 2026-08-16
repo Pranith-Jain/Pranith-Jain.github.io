@@ -1,0 +1,12 @@
+{
+  "id": 64,
+  "fetchedAt": "2026-08-14T05:22:30.671Z",
+  "name": "Detection Strategy for Steal or Forge Authentication Certificates",
+  "tlp": null,
+  "detId": "DET0240",
+  "stixId": "x-mitre-detection-strategy--7b0ea292-22f5-4963-b1c2-0d396fb17619",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0671", "AN0672", "AN0673", "AN0674"]
+}

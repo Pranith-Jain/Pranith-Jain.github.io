@@ -1,0 +1,12 @@
+{
+  "id": 640,
+  "fetchedAt": "2026-08-14T05:20:53.466Z",
+  "name": "Behavioral Detection of Windows Command Shell Execution",
+  "tlp": null,
+  "detId": "DET0202",
+  "stixId": "x-mitre-detection-strategy--1806ad13-6fa8-4cb0-9d91-c8a989a1d9fe",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0578"]
+}

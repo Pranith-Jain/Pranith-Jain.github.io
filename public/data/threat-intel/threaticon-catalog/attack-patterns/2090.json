@@ -1,0 +1,9 @@
+{
+  "id": 2090,
+  "name": "T1218.006 - Credential Dumping via Registry",
+  "techniqueId": "T1218",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2090"
+}

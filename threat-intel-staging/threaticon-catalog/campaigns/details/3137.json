@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:31:06.659Z",
+  "name": "OSINT Technical Analysis Tracks the Sakula Malware Family by SecureWorks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jul 30, 2015",
+  "lastSeen": "Jul 30, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #198 (55c2797f-1cd0-4d5f-92b9-4f93950d210b)."
+}

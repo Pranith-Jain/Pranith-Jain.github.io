@@ -1,0 +1,9 @@
+{
+  "id": 2765,
+  "name": "T1110.001 Password Guessing",
+  "techniqueId": "T1110",
+  "added": "Aug 9, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2765"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:51.777Z",
+  "name": "OSINT - MS Office exploit analysis â€“ CVE-2015-1641",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Apr 12, 2016",
+  "lastSeen": "Apr 12, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #406 (570d57de-f49c-421d-a28d-4d5f950d210f)."
+}

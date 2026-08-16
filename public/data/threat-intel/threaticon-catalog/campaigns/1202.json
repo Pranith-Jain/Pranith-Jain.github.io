@@ -3,9 +3,9 @@
   "name": "sarcoma: GYF",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 30, 2026",
+  "lastSeen": "Mar 30, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to sarcoma. | Sector: Technology | Design and develop IT products and services for the financial marketGeo: Argentina - Leak size: 1.5Tb - Contains: SQL | Source: https://www.ransomware.live/id/R1lGQHNhcmNvbWE=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1202"

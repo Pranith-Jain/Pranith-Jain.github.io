@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T02:39:18.615Z",
+  "name": "Warzone RAT",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Feb 6, 2020",
+  "lastSeen": "Feb 6, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1587 (5e3be06f-d0a8-4ed9-abe9-46be950d210f)."
+}

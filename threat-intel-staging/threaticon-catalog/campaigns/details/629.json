@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:27:28.493Z",
+  "name": "thegentlemen: SYSTHERM INFO",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 19, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: PL | Sector: Technology | Website: systherm-info.pl | Infostealer data confirmed. | systherm-info.pl Systherm Info Sp. z o.o. is a Polish IT company headquartered in Poznan, founded in 1996. It specializes in GIS (Geographic Information Systems), IT solutions, and software security — most notably developing GEO-INFO, a leading land information system widely used in Polish geodesy and surveying. The company also distributes world-class software protection solutions (Sentinel/Gemalto) and holds ISO quality certifications | Source: https://www.ransomware.live/id/U1lTVEhFUk0gSU5GT0B0aGVnZW50bGVtZW4="
+}

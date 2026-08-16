@@ -1,11 +1,11 @@
 {
   "id": 2462,
   "name": "OSINT RTF Exploit Installs Italian RAT: uWarrior by Palo Alto",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Aug 24, 2015",
+  "lastSeen": "Aug 24, 2015",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #798 (55dc2f59-7238-468a-8956-575e950d210b).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2462"

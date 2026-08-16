@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:24:56.934Z",
+  "name": "nova: lpgroup.pt",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jun 24, 2026",
+  "lastSeen": "Jun 24, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to nova. | Country: PT | Sector: Business Services | Website: lpgroup.pt | Infostealer data confirmed. | LP Group, founded in 2006, has already completed approximately 1 million square meters of projects in commercial, logistics, and service areas. Highly complex projects. Compromised data profile given in sample. | Source: https://www.ransomware.live/id/bHBncm91cC5wdEBub3Zh"
+}

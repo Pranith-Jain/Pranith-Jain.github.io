@@ -1,0 +1,12 @@
+{
+  "id": 252,
+  "fetchedAt": "2026-08-14T05:13:24.324Z",
+  "name": "Detect Excessive or Unauthorized Bandwidth Usage for Botnet, Proxyjacking, or Scanning Purposes",
+  "tlp": null,
+  "detId": "DET0028",
+  "stixId": "x-mitre-detection-strategy--c0a23061-c4f3-4003-9e81-e81d50b6d1e2",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0080", "AN0081", "AN0082", "AN0083", "AN0084"]
+}

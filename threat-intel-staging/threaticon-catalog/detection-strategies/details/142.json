@@ -1,0 +1,12 @@
+{
+  "id": 142,
+  "fetchedAt": "2026-08-14T05:14:42.887Z",
+  "name": "Detection Strategy for Web Service: Dead Drop Resolver",
+  "tlp": null,
+  "detId": "DET0058",
+  "stixId": "x-mitre-detection-strategy--70abbe3f-797d-495b-8f76-371408a0f929",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0158", "AN0159", "AN0160", "AN0161"]
+}

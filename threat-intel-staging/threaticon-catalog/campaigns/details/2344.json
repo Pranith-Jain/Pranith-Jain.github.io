@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:10:20.516Z",
+  "name": "OSINT - The Curious Case of an Unknown Trojan Targeting German-Speaking Users",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Jun 22, 2016",
+  "lastSeen": "Jun 22, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #583 (576afc2a-6fd8-4b0d-949b-347902de0b81)."
+}

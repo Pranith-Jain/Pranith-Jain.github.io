@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:39:38.116Z",
+  "name": "aurora: Costa Solutions, LLC",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 29, 2026",
+  "lastSeen": "Apr 29, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to aurora. | Country: US | Sector: Business Services | Website: costasolutions.com | Infostealer data confirmed. | [warehouse] Costa Solutions, LLC — a privately held managed-labor and warehousing company headquartered in San Antonio, Texas, with ~$140M annual revenue and 200–1,000 employees. The file server contained the complete operational, financial, legal, and human resources infrastructure of the company: 3,000–8,000+ individuals' personal data — current employees, former employees (12 years of records), independent contractors, employee dependents, and job applicants. SSNs on W-2s, W-4s, 1099s, I-9s, background checks. Bank account and routing numbers on 200+ direct deposit forms. Medical and injury records — 150+ employee injury/medical files from 2013–2026, FMLA medical certifications, drug test results (random, reasonable suspicion, post-incident, promotional), and workers' compensation claims for 23+ named individuals. CEO's entire file system..."
+}

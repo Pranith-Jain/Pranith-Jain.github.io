@@ -1,0 +1,134 @@
+[
+  {
+    "id": 90,
+    "name": "Match Legitimate Resource Name or Location",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 1531,
+    "name": "T1036.005: Match Legitimate Resource Name or Location",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 1780,
+    "name": "T1036.005: Match Legitimate Resource Name or Location - Masquerading files and processes to blend in with legitimate resources",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 619,
+    "name": "Space after Filename",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 57,
+    "name": "Double File Extension",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 100,
+    "name": "Masquerade File Type",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 157,
+    "name": "Break Process Trees",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 578,
+    "name": "Masquerade Account Name",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 241,
+    "name": "Overwrite Process Arguments",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 464,
+    "name": "Browser Fingerprint",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  { "id": 2722, "name": "T1036.015", "tlp": "white", "confidence": null, "techniqueId": "T1036", "status": null },
+  {
+    "id": 2036,
+    "name": "T1036: Encrypted Network Communication",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 1704,
+    "name": "T1036: Masquerading",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1036",
+    "status": null
+  },
+  {
+    "id": 10,
+    "name": "Boot or Logon Initialization Scripts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1037",
+    "status": null
+  },
+  {
+    "id": 635,
+    "name": "Logon Script (Windows)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1037",
+    "status": null
+  },
+  { "id": 211, "name": "Login Hook", "tlp": "white", "confidence": null, "techniqueId": "T1037", "status": null },
+  {
+    "id": 536,
+    "name": "Network Logon Script",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1037",
+    "status": null
+  },
+  { "id": 596, "name": "RC Scripts", "tlp": "white", "confidence": null, "techniqueId": "T1037", "status": null },
+  { "id": 521, "name": "Startup Items", "tlp": "white", "confidence": null, "techniqueId": "T1037", "status": null },
+  {
+    "id": 1312,
+    "name": "T1037: Boot or Logon Initialization Scripts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1037",
+    "status": null
+  }
+]

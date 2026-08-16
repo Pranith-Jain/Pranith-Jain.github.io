@@ -3,10 +3,10 @@
   "name": "akira: Tax & Accounting Plus",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 16, 2026",
+  "lastSeen": "Mar 16, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to akira. | Country: US | Sector: Financial Services | Website: taxaccountingplus.com | Infostealer data confirmed. | Tax & Accounting Plus, Inc. offers a range of personal and profes sional tax and accounting services with a focus on a low-pressure approach. The firm prides itself on its high client-retention ra te and the quality of its services. They provide various resource s, including financial calculators and tax-related guides, to ass ist clients. We will upload 85gb of corporate data soon. Great amount of clien ts' and employees personal documents (scanned passports, DLs, SSN s, medical records and so on), contracts and agreements, detailed financials, NDAs, partners files and so on. | Source: https://www.ransomware.live/id/VGF4ICYgQWNjb3VudGluZyBQbHVzQGFraXJh",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1542"
 }

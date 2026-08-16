@@ -1,0 +1,9 @@
+{
+  "id": 2349,
+  "name": "T1210.001 - Exploitation of Remote Code Execution Vulnerabilities",
+  "techniqueId": "T1210",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2349"
+}

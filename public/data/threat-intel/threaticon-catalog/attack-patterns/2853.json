@@ -1,0 +1,9 @@
+{
+  "id": 2853,
+  "name": "T1060 Create or Modify System Process (rootkit)",
+  "techniqueId": "T1060",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2853"
+}

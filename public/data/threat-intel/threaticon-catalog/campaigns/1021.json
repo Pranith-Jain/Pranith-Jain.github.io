@@ -3,9 +3,9 @@
   "name": "thegentlemen: UCPS",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 4, 2026",
+  "lastSeen": "Apr 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: TH | Sector: Public Sector | Website: ucpsthai.com | Infostealer data confirmed. | ucpsthai.com United Creation Packaging Solutions (Thailand) Co., Ltd (UCPS) is a leading large-scale integrated packaging and printing company based in Thailand, established in 1994. It is recognized as Asia's largest packaging company and holds the prestigious title of No. 1 in Forest and Paper Products. The company focuses on sustainable, innovative, and eco-friendly packaging solutions for global markets. | Source: https://www.ransomware.live/id/VUNQU0B0aGVnZW50bGVtZW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1021"

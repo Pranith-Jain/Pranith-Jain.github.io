@@ -1,0 +1,9 @@
+{
+  "id": 2253,
+  "name": "T1055 - Process spawning via COM objects or DLLs",
+  "techniqueId": "T1055",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2253"
+}

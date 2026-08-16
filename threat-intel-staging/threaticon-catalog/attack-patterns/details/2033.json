@@ -1,0 +1,9 @@
+{
+  "id": 2033,
+  "fetchedAt": "2026-08-15T07:13:12.186Z",
+  "name": "T1064.001: Exploitation of CVE-2023-28252 (Windows CLFS Driver)",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

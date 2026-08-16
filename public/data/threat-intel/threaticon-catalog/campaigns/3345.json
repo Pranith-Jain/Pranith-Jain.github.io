@@ -1,11 +1,11 @@
 {
   "id": 3345,
   "name": "OSINT - Pacifier APT",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 1, 2016",
+  "lastSeen": "Jul 1, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #599 (57761f00-7058-4077-aa9a-4ab3950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3345"

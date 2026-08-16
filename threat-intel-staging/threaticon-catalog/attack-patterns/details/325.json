@@ -1,0 +1,9 @@
+{
+  "id": 325,
+  "fetchedAt": "2026-08-15T07:50:58.247Z",
+  "name": "Malicious Library",
+  "tlp": "white",
+  "techniqueId": "DET0252",
+  "added": "May 2, 2026",
+  "description": "Adversaries may rely on a user installing a malicious library to facilitate execution. Threat actors may Upload Malware to package managers such as NPM and PyPi, as well as to public code repositories such as GitHub. User may install libraries without realizing they are malicious, thus bypassing techniques that specifically achieve Initial Access. This can lead to the execution of malicious code, such as code that establishes persistence, steals data, or mines cryptocurrency.(Citation: Datadog Security Labs Malicious PyPi Packages 2024)(Citation: Fortinet Malicious NPM Packages 2023) In some cases, threat actors may compromise and backdoor existing popular libraries (i.e., Compromise Software Dependencies and Development Tools). Alternatively, they may create entirely new packages and leverage behaviors such as typosquatting to encourage users to install them."
+}

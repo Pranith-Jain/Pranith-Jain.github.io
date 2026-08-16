@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5799,
+    "name": "krybit: euroins.bg",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: BG | Sector: Financial Services | Website: euroins.bg | Infostealer data confirmed. | Euroins Insurance Company AD (Застрахователна компания Евроинс АД) is one of the first a... | Source: https://www.ransomware.live/id/ZXVyb2lucy5iZ0BrcnliaXQ="
+  },
+  {
+    "id": 5804,
+    "name": "qilin: The Nueva School",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Education | Website: www.nuevaschool.org | N/A | Source: https://www.ransomware.live/id/VGhlIE51ZXZhIFNjaG9vbEBxaWxpbg=="
+  },
+  {
+    "id": 5802,
+    "name": "qilin: Salina Supply",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.salinasupply.com | N/A | Source: https://www.ransomware.live/id/U2FsaW5hIFN1cHBseUBxaWxpbg=="
+  },
+  {
+    "id": 5810,
+    "name": "threeam: tws-tac.net",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to threeam. | Country: DE | Sector: Not Found | Website: tws-tac.net | Infostealer data confirmed. | While ownership has changed over the years, the company has remained locally owned for over 65 years and family-owned for almost 40 years. The company is proud of the company's history and look forward to the future as the company continue to serv | Source: https://www.ransomware.live/id/dHdzLXRhYy5uZXRAdGhyZWVhbQ=="
+  },
+  {
+    "id": 5803,
+    "name": "qilin: St Martha Catholic Church",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Consumer Services | Website: www.stmartha.com | N/A | Source: https://www.ransomware.live/id/U3QgTWFydGhhIENhdGhvbGljIENodXJjaEBxaWxpbg=="
+  },
+  {
+    "id": 5800,
+    "name": "nova: FMZ Tecnologia em Sistemas",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to nova. | Country: BR | Sector: Technology | FMZ Tecnologia em Sistemas is a Brazilian software company that develops solutions for the book industry. Its main product, HORUS, is an ERP system designed for publishers, bookstores, and distributors. The system helps manage inventory, sales, royalties, and consignment operations. The company has over 15 years of experience and is based in São Paulo, Brazil. | Source: https://www.ransomware.live/id/Rk1aIFRlY25vbG9naWEgZW0gU2lzdGVtYXNAbm92YQ=="
+  },
+  {
+    "id": 5798,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5797,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5796,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5795,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5794,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5793,
+    "name": "krybit: SARL CANIS EVENTS SÉCURITÉ PRIVÉE",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to krybit. | Country: FR | Sector: Business Services | Website: SARL CANIS EVENTS SÉCURITÉ PRIVÉE | SARL CANIS EVENTS SÉCURITÉ PRIVÉE is a company operating in the private security and guarding sector, with a focus on... | Source: https://www.ransomware.live/id/U0FSTCBDQU5JUyBFVkVOVFMgU8OJQ1VSSVTDiSBQUklWw4lFQGtyeWJpdA=="
+  },
+  {
+    "id": 5792,
+    "name": "everest: ЕРМ",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to everest. | Sector: Business Services | [AI generated] N/A | Source: https://www.ransomware.live/id/0JXQoNCcQGV2ZXJlc3Q="
+  },
+  {
+    "id": 5791,
+    "name": "anubis: FÉTIS Group & SECOM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to anubis. | Country: FR | Sector: Business Services | Data breach at an engineering company. Financial records, project details, and personal information. | Source: https://www.ransomware.live/id/RsOJVElTIEdyb3VwICYgU0VDT00gRW5naW5lZXJpbmdAYW51Ymlz"
+  },
+  {
+    "id": 5789,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  }
+]

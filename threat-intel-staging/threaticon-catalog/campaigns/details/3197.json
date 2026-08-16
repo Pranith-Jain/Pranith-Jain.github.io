@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:28:39.924Z",
+  "name": "TA505 Group’s TeslaGun In-Depth Analysis",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Sep 12, 2022",
+  "lastSeen": "Sep 12, 2022",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #324 (9db70e24-8bd4-4b1e-a13a-cd82cefb6947)."
+}

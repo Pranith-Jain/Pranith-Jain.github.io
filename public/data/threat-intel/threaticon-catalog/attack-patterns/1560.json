@@ -1,0 +1,9 @@
+{
+  "id": 1560,
+  "name": "T1056.001 - Powershell execution via command-line interface",
+  "techniqueId": "T1056",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1560"
+}

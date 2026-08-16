@@ -1,0 +1,9 @@
+{
+  "id": 1087,
+  "name": "Counterfeit Websites",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: High. Adversary creates duplicates of legitimate websites. When users visit a counterfeit site, the site can gather information or upload malware.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1087"
+}

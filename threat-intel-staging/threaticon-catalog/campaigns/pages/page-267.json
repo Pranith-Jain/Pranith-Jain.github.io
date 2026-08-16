@@ -1,0 +1,115 @@
+[
+  {
+    "id": 3840,
+    "name": "apt73: grupopetersen.com.ar",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: AR | Sector: Agriculture and Food Production | Website: grupopetersen.com.ar | Infostealer data confirmed. | Grupo Petersen is a multidisciplinary financial and industrial group from Argentina, operating in... | Source: https://www.ransomware.live/id/Z3J1cG9wZXRlcnNlbi5jb20uYXJAYXB0NzM="
+  },
+  {
+    "id": 3839,
+    "name": "qilin: Snyder Packaging",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Manufacturing | Website: www.snyderpkg.com | N/A | Source: https://www.ransomware.live/id/U255ZGVyIFBhY2thZ2luZ0BxaWxpbg=="
+  },
+  {
+    "id": 3838,
+    "name": "qilin: Vernon & Ginsburg",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Not Found | Website: www.vernonginsburg.com | N/A | Source: https://www.ransomware.live/id/VmVybm9uICYgR2luc2J1cmdAcWlsaW4="
+  },
+  {
+    "id": 3837,
+    "name": "qilin: ROTO Immobilien",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: AT | Sector: Construction | Website: www.roto-immobilien.at | N/A | Source: https://www.ransomware.live/id/Uk9UTyBJbW1vYmlsaWVuQHFpbGlu"
+  },
+  {
+    "id": 3869,
+    "name": "safepay: olipes.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to safepay. | Country: ES | Sector: Not Found | Website: olipes.com | Infostealer data confirmed. | Founded in 1993 and headquartered in Campo Real, Madrid, the company has become an important independent manufacturer in the European … | Source: https://www.ransomware.live/id/b2xpcGVzLmNvbUBzYWZlcGF5"
+  },
+  {
+    "id": 3864,
+    "name": "pear: Pro Farm Group Inc",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to pear. | Country: US | Sector: Agriculture and Food Production | Website: profarm.com | Infostealer data confirmed. | Experts at discovering, developing, and commercializing naturally derived technologies | Source: https://www.ransomware.live/id/UHJvIEZhcm0gR3JvdXAgSW5jQHBlYXI="
+  },
+  {
+    "id": 3848,
+    "name": "payload: Internal Medicine and Pediatrics of Cullman",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: US | Sector: Healthcare | Internal Medicine and Pediatrics of Cullman provides comprehensive healthcare services for families, focusing on both internal medicine and pediatrics. The practice is staffed by board-certified physicians dedicated to delivering high-quality care using modern medical equipment. They offer a range of services including preventative medicine, in-house lab and radiology, and same-day appointments. | Source: https://www.ransomware.live/id/SW50ZXJuYWwgTWVkaWNpbmUgYW5kIFBlZGlhdHJpY3Mgb2YgQ3VsbG1hbkBwYXlsb2Fk"
+  },
+  {
+    "id": 3872,
+    "name": "dragonforce: ZFG ALTHERM Engineering",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to dragonforce. | Country: AT | Sector: Manufacturing | Website: zfg-altherm.at | Infostealer data confirmed. | ZFG ALTHERM Engineering GmbH specializes in engineering services for technical building equipment. The company focuses on providing high-quality planning and consulting solutions tailored to complex and technically demanding projects. With a commitment to precision, know-how, and experience, they strive to develop individualized solutions for each client. Their target clients include those seeking specialized engineering services in the field of technical building infrastructure. | Source: https://www.ransomware.live/id/WkZHIEFMVEhFUk0gRW5naW5lZXJpbmdAZHJhZ29uZm9yY2U="
+  },
+  {
+    "id": 3849,
+    "name": "payload: Robinsons",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: SG | Sector: Consumer Services | Founded in 1858, Robinsons established itself to become a household name in Singapore, and as a mecca for elevated shopper experiences with their extraordinary product and service innovations. The first flagship - Robinsons The Heeren - opened in November 1858, redefined a new standard for retail experiences in Singapore. | Source: https://www.ransomware.live/id/Um9iaW5zb25zQHBheWxvYWQ="
+  },
+  { "id": 3845, "name": "nova: Neubox", "tlp": "white", "confidence": 80, "status": "Inactive", "description": null },
+  {
+    "id": 3868,
+    "name": "dragonforce: Vega",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3873,
+    "name": "dragonforce: TAURUS INVESTMENT HOLDINGS",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3871,
+    "name": "nova: Wysza Szkoa Biznesu National Louis University",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 3846,
+    "name": "payload: G Theodor Freese",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Manufacturing | GTF Freese is a family-owned company with over 110 years of experience, specializing in ship deck coverings, flooring technology, building protection, and coating systems. The company prides itself on its motto 'We make floors good,' ensuring high-quality products like TEFROTEX and TEFROKA are manufactured under strict quality control according to DIN ISO 9001 standards. | Source: https://www.ransomware.live/id/RyBUaGVvZG9yIEZyZWVzZUBwYXlsb2Fk"
+  },
+  {
+    "id": 3853,
+    "name": "apt73: ungererandcompany.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to apt73. | Country: DE | Sector: Not Found | Website: ungererandcompany.com | Infostealer data confirmed. | Ungerer & The Company is an American company founded in 1893 that develops and manufactures flavo... | Source: https://www.ransomware.live/id/dW5nZXJlcmFuZGNvbXBhbnkuY29tQGFwdDcz"
+  }
+]

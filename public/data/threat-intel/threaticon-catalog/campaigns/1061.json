@@ -3,9 +3,9 @@
   "name": "nightspire: Neptune Mechanical, Inc.",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 3, 2026",
+  "lastSeen": "Mar 29, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to nightspire. | Country: US | Sector: Manufacturing | Website: callneptune.com | Infostealer data confirmed. | - Banking & Financial Systems- Accounting & Tax Records- Payroll & Employee Financial Data- HR & Employee Personal Data- Real Estate & Tenant Data | Source: https://www.ransomware.live/id/TmVwdHVuZSBNZWNoYW5pY2FsLCBJbmMuQG5pZ2h0c3BpcmU=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1061"

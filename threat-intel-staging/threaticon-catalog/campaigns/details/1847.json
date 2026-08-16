@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:32:24.101Z",
+  "name": "incransom: The City of Hesperia, CA",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Mar 4, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to incransom. | Country: US | Sector: Public Sector | Website: hesperiaca.gov | Infostealer data confirmed. | Access was gained to files containing state secrets, non-disclosure agreements, contracts with private and public companies, as well as personal data of employees and government officials. Transactions, payment, and tax documents were also obtained. | Source: https://www.ransomware.live/id/VGhlIENpdHkgb2YgSGVzcGVyaWEsIENBQGluY3JhbnNvbQ=="
+}

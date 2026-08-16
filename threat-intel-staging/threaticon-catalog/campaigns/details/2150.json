@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:18:53.577Z",
+  "name": "Technical Analysis and Solution of WebLogic Server (WLS) Component Vulnerability",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 90,
+  "firstSeen": "Apr 29, 2019",
+  "lastSeen": "Apr 29, 2019",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #187 (5cc68db3-cf08-48fa-b369-07fdc0a8ab16)."
+}

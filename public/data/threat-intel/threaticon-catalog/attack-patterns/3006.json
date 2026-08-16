@@ -1,0 +1,9 @@
+{
+  "id": 3006,
+  "name": "T1589 Gather Victim Identity Information",
+  "techniqueId": "T1589",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/3006"
+}

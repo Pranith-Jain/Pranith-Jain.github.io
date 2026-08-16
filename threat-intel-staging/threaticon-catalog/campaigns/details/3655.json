@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:03:33.704Z",
+  "name": "LeakBazaar: Intuitive Machines",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "May 5, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to LeakBazaar. | Country: US | Sector: Technology | Website: intuitivemachines.com | Infostealer data confirmed. | Intuitive Machines, Inc. designs, manufactures, and operates space products and services in the United States. Its space systems and space infrastructure enable scientific and human exploration and utilization of lunar resources to support sustainable human presence on the moon. The company offers lunar access services, such µNova, lunar surface rover services, fixed lunar surface services, lunar orbit delivery services, rideshare delivery services to lunar orbit, as well as content sales and marketing sponsorships; and orbital services, including satellite delivery and rideshare, satellite servicing and refueling, space station servicing, satellite repositioning, and orbital debris removal. It also provides lunar data services, comprising Lunar data network, lunar south pole and far-side coverage, lunar positioning services, data relay, and da..."
+}

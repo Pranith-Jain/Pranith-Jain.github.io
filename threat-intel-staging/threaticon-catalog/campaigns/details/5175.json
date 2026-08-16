@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T18:59:19.823Z",
+  "name": "lapsus$: VODAFONE",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 29, 2026",
+  "lastSeen": "May 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to lapsus$. | Country: DE | Sector: Telecommunication | Website: vodafone.com | Infostealer data confirmed. | Full Infrastructure, Source Code, GitHub Tree & Internal Network Maps | Source: https://www.ransomware.live/id/Vk9EQUZPTkVAbGFwc3VzJA=="
+}

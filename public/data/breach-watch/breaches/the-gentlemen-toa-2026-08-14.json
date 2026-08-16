@@ -5,11 +5,11 @@
   "discovered": "2026-08-14T00:00:00.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "Japan",
+  "country": null,
   "sizeBytes": 0,
   "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/toa-thegentlemen-2026-08",
+  "source_url": "https://recentbreaches.com/breach/toa-the-gentlemen-2026-08",
   "groupAliases": [],
-  "activity": "Not Found",
+  "activity": null,
   "references": ["RecentBreaches.com"]
 }

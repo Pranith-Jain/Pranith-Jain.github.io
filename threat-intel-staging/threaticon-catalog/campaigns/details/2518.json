@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:04:19.866Z",
+  "name": "Malspam 2016-09-16 (.wsf in .zip) - campaign: \"(SCAN|FAX|DOC|IMG)_{integer}\"",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 16, 2016",
+  "lastSeen": "Sep 16, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #877 (57dc1fe4-0d70-4dde-95fe-46e8950d210f)."
+}

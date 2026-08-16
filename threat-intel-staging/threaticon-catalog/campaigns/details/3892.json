@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T19:53:10.685Z",
+  "name": "safepay: hautarzt-budihardja.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 18, 2026",
+  "lastSeen": "May 18, 2026",
+  "added": "May 21, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Healthcare | Website: hautarzt-budihardja.de | Infostealer data confirmed. | The clinic is led by Dr. med. Debby Budihardja, a board-certified dermatologist and allergologist with extensive clinical experience gained at … | Source: https://www.ransomware.live/id/aGF1dGFyenQtYnVkaWhhcmRqYS5kZUBzYWZlcGF5"
+}

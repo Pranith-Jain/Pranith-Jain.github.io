@@ -3,9 +3,9 @@
   "name": "coinbasecartel: KEB",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to coinbasecartel. | Country: DE | Sector: Financial Services | Website: keb-automation.com | Infostealer data confirmed. | [AI generated] KEB, or Korea Exchange Bank, is a South Korean financial institution offering a wide range of banking and financial services including retail banking, corporate banking, foreign exchange, and trade finance. Headquartered in Seoul, South Korea, it has historically been one of the country's leading banks specializing in international transactions. KEB merged with Hana Bank in 2015 to form KEB Hana Bank, operating under Hana Financial Group. | Source: https://www.ransomware.live/id/S0VCQGNvaW5iYXNlY2FydGVs",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/900"

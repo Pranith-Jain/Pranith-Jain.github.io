@@ -1,0 +1,12 @@
+{
+  "id": 413,
+  "fetchedAt": "2026-08-14T05:16:56.324Z",
+  "name": "Setuid/Setgid Privilege Abuse Detection (Linux/macOS)",
+  "tlp": null,
+  "detId": "DET0110",
+  "stixId": "x-mitre-detection-strategy--bc8cd246-1521-4643-a07e-428d45093b38",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0307", "AN0308"]
+}

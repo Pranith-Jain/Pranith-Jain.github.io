@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5370,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5367,
+    "name": "Deadlock: Weinberg ''93 Építő Kft.",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5368,
+    "name": "Deadlock: Židlochovice city",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": null
+  },
+  {
+    "id": 5366,
+    "name": "qilin: Sedemi",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Not Found | Website: www.sedemi.com | N/A | Source: https://www.ransomware.live/id/U2VkZW1pQHFpbGlu"
+  },
+  {
+    "id": 5365,
+    "name": "2026-04-21 (Tuesday): Lumma Stealer Delivered Via Malicious Search Results",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-04-21 (Tuesday): Lumma Stealer Delivered Via Malicious Search Results. References: https://www.linkedin.com/posts/unit42_seopoisoning-lummastealer-activity-7452468978544996353-pAbX/, https://x.com/Unit42_Intel/status/2046703360527483145"
+  },
+  {
+    "id": 5364,
+    "name": "2026-04-24 (Friday): New Kali365 Phaas Kit Being Abused In The Wild",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-04-24 (Friday): New Kali365 Phaas Kit Being Abused In The Wild. References: https://www.linkedin.com/posts/unit42_kali365-activity-7453512098757853186-4d70/, https://x.com/Unit42_Intel/status/2047746463556333838"
+  },
+  {
+    "id": 5363,
+    "name": "2026-04-28 (Tuesday): Fake Cloud Storage Full Emails",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-04-28 (Tuesday): Fake Cloud Storage Full Emails. References: https://www.linkedin.com/posts/unit42_we-discovered-phishing-emails-falsely-warning-activity-7454968449711357952-gx44/, https://x.com/Unit42_Intel/status/2049202832247595440"
+  },
+  {
+    "id": 5362,
+    "name": "2026-04-30 (Thursday): Pureclaw / Adamant-Locker Clickfix Style Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-04-30 (Thursday): Pureclaw / Adamant-Locker Clickfix Style Campaign. References: https://www.linkedin.com/posts/unit42_clickfix-activity-7455759903513534464-bmQC/, https://x.com/Unit42_Intel/status/2049994251857952828"
+  },
+  {
+    "id": 5361,
+    "name": "2026-05-01 (Friday): Websocket Backdoor Campaign Injecting Credit Card Skimmers",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-01 (Friday): Websocket Backdoor Campaign Injecting Credit Card Skimmers. References: https://www.linkedin.com/posts/websocket-share-7456133360495816704-a8fM/, https://x.com/Unit42_Intel/status/2050367689542000737"
+  },
+  {
+    "id": 5360,
+    "name": "2026-05-05 (Tuesday): Finger Protocol Lolbin C2 Clickfix Campaign",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-05 (Tuesday): Finger Protocol Lolbin C2 Clickfix Campaign. References: https://www.linkedin.com/posts/clickfix-ugcPost-7457448032926830592-0lFL/, https://x.com/Unit42_Intel/status/2051682397188435977"
+  },
+  {
+    "id": 5359,
+    "name": "2026-05-05 (Tuesday): Campaign Targeting Ios Devices Delivers Coruna And Darksword Exploits",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-05 (Tuesday): Campaign Targeting Ios Devices Delivers Coruna And Darksword Exploits. References: https://www.linkedin.com/posts/coruna-darksword-ugcPost-7457547689027837952-wQbS/, https://twitter.com/Unit42_Intel/status/2051782054409355499"
+  },
+  {
+    "id": 5358,
+    "name": "2026-05-07 (Thursday): Phishing Campaign Pivots To Sophisticated Methods",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-07 (Thursday): Phishing Campaign Pivots To Sophisticated Methods. References: https://www.linkedin.com/posts/oauth-ugcPost-7458596609048596480-rEZ_/, https://x.com/Unit42_Intel/status/2052830994885955870"
+  },
+  {
+    "id": 5357,
+    "name": "2026-05-13 [Wednesday]: Dual-Function/Deceptive Crypto Scam Extensions",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-13 [Wednesday]: Dual-Function/Deceptive Crypto Scam Extensions. References: https://www.linkedin.com/posts/crypto-ugcPost-7460742750616014849-VxTj/, https://x.com/Unit42_Intel/status/2054977112126165251"
+  },
+  {
+    "id": 5356,
+    "name": "2026-05-15 (Friday): Malicious Ads Impersonating Linkedin Lead To Castleloader Delivering Asyncrat",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-15 (Friday): Malicious Ads Impersonating Linkedin Lead To Castleloader Delivering Asyncrat. References: https://www.linkedin.com/posts/castleloader-asyncrat-ugcPost-7461165022337994752-0EZ9/, https://x.com/Unit42_Intel/status/2055399390387282242"
+  },
+  {
+    "id": 5355,
+    "name": "2026-05-19 (Tuesday): Analysis Of Domains Taking Advantage Of Fifa World Cup 2026",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "2026-05-19 (Tuesday): Analysis Of Domains Taking Advantage Of Fifa World Cup 2026. References: https://www.linkedin.com/posts/new-analysis-reveals-a-massive-network-of-ugcPost-7466163717815332865-ML0d/, https://x.com/Unit42_Intel/status/2060398101622329383"
+  }
+]

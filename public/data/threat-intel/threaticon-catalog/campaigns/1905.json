@@ -3,9 +3,9 @@
   "name": "AiLock: Lewis Drug",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 3, 2026",
+  "lastSeen": "Jul 6, 2025",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Consumer Services | Website: lewisdrug.com | Infostealer data confirmed. | Founded in 1942, Lewis Drug owns and operates a chain of drug and pharmacy stores.It provides prescription and non-prescription drugs. | Source: https://www.ransomware.live/id/TGV3aXMgRHJ1Z0BBaUxvY2s=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1905"

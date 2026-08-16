@@ -1,0 +1,9 @@
+{
+  "id": 734,
+  "fetchedAt": "2026-08-15T06:04:45.879Z",
+  "name": "Authentication Abuse",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. An attacker obtains unauthorized access to an application, service or device either through knowledge of the inherent weaknesses of an authentication mechanism, or by exploiting a flaw in the authentication scheme's implementation. In such an attack an authentication mechanism is functioning but a carefully controlled sequence of events causes the mechanism to grant access to the attacker."
+}

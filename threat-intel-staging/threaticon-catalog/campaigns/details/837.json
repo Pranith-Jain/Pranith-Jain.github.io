@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:14:39.335Z",
+  "name": "everest: K Subsea Group",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Apr 13, 2026",
+  "lastSeen": "Apr 13, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to everest. | Country: SG | Sector: Energy | Website: ksubsea-group.com | Infostealer data confirmed. | K Subsea is a Singapore based company focused on providing integrated subsea solutions to the energy industry. We have over 800 employees across SEA, both on and offshore | Source: https://www.ransomware.live/id/SyBTdWJzZWEgR3JvdXBAZXZlcmVzdA=="
+}

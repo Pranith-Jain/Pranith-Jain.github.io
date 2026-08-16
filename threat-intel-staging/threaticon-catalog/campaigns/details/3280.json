@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:25:02.838Z",
+  "name": "ArcaneDoor - New espionage-focused campaign found targeting perimeter network devices",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 24, 2024",
+  "lastSeen": "Apr 24, 2024",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #494 (54cfe842-09c0-4257-8fcc-3c1498bbd9f2)."
+}

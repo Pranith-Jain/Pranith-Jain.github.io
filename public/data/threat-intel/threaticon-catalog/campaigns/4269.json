@@ -3,9 +3,9 @@
   "name": "AiLock: Studio Sardano",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 7, 2026",
+  "lastSeen": "Jul 7, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to AiLock. | Country: IT | Sector: Consumer Services | Website: studiosardano-riccione.com | Infostealer data confirmed. | Studio Sardano is a company that operates in the Repair Services industry. It employs 10to19 people and has 1Mto5M of revenue. The company is headquartered in Riccione, Emilia-Romagna, Italy. | Source: https://www.ransomware.live/id/U3R1ZGlvIFNhcmRhbm9AQWlMb2Nr",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4269"

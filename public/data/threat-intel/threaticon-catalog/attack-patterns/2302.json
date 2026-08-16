@@ -1,0 +1,9 @@
+{
+  "id": 2302,
+  "name": "T1192 - Multi-Tiered Attack",
+  "techniqueId": "T1192",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2302"
+}

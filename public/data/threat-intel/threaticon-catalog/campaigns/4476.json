@@ -3,9 +3,9 @@
   "name": "payoutsking: C****h",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jun 29, 2026",
+  "lastSeen": "Jun 29, 2026",
+  "added": "Jul 13, 2026",
   "description": "Ransomware attack attributed to payoutsking. | Country: US | Sector: Not Found | Website: c****.com | Infostealer data confirmed. | Source: https://www.ransomware.live/id/QyoqKipoQHBheW91dHNraW5n",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4476"

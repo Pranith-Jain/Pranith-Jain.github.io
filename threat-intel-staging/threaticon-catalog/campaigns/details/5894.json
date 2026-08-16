@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T17:23:32.764Z",
+  "name": "safepay: wdk.de",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 20, 2026",
+  "lastSeen": "Jul 20, 2026",
+  "added": "Jul 21, 2026",
+  "description": "Ransomware attack attributed to safepay. | Country: DE | Sector: Not Found | Website: wdk.de | Infostealer data confirmed. | Founded in 1950 and headquartered in Frankfurt am Main, the organization serves as the central voice of German manufacturers of … | Source: https://www.ransomware.live/id/d2RrLmRlQHNhZmVwYXk="
+}

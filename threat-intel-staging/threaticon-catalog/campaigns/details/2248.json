@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:14:35.912Z",
+  "name": "New MortalKombat ransomware and Laplas Clipper malware threats deployed in financially motivated campaign",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Feb 14, 2023",
+  "lastSeen": "Feb 14, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #375 (36559390-ef6a-4800-b572-9d98483c525d)."
+}

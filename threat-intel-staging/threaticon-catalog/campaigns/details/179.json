@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T05:49:00.302Z",
+  "name": "mnt6: Photonic",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 2, 2026",
+  "lastSeen": "May 2, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to mnt6. | Country: CA | Sector: Technology | Website: photonic.com | Infostealer data confirmed. | Photonic is delivering scalable, distributed, and fault-tolerant quantum computing and networking technologies. With proven silicon spin qubits, and a native telecom networking interface, Photonic will deliver solutions for previously intractable problems –and unlock solutions for tomorrow’s problem sets. [Revenue: $32.6M] | Source: https://www.ransomware.live/id/UGhvdG9uaWNAbW50Ng=="
+}

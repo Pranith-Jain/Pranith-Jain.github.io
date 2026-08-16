@@ -3,9 +3,9 @@
   "name": "fulcrumsec: BookBlock",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 1, 2026",
+  "lastSeen": "May 1, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to fulcrumsec. | Country: GB | Sector: Technology | Website: bookblock.com | Infostealer data confirmed. | [AI generated] BookBlock is a UK-based premium printing and bookbinding company specializing in high-quality custom notebooks, journals, books, and printed products. It serves both businesses and individual consumers, offering bespoke design and manufacturing services. Operating in the print and publishing industry, BookBlock is known for its craftsmanship and attention to detail, producing products for corporate clients, publishers, and retail customers across the United Kingdom and internationally. | Source: https://www.ransomware.live/id/Qm9va0Jsb2NrQGZ1bGNydW1zZWM=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/224"

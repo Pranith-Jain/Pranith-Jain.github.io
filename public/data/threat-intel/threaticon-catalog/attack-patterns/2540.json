@@ -1,0 +1,9 @@
+{
+  "id": 2540,
+  "name": "T1132.001 - NTFS Alternate Data Streams",
+  "techniqueId": "T1132",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2540"
+}

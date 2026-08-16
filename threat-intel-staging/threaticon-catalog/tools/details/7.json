@@ -1,0 +1,12 @@
+{
+  "id": 7,
+  "fetchedAt": "2026-08-14T05:02:55.411Z",
+  "name": "certutil",
+  "tlp": "white",
+  "status": "Active",
+  "category": "Exploitation",
+  "aliases": "certutil.exe",
+  "confidence": 90,
+  "added": null,
+  "description": "certutil is a command-line utility that can be used to obtain certificate authority information and configure Certificate Services. (Citation: TechNet Certutil)"
+}

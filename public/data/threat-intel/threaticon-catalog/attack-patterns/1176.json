@@ -1,0 +1,9 @@
+{
+  "id": 1176,
+  "name": "TypoSquatting",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Medium. Likelihood of attack: Low. An adversary registers a domain name with at least one character different than a trusted domain. A TypoSquatting attack takes advantage of instances where a user mistypes a URL (e.g. www.goggle.com) or not does visually verify a URL before clicking on it (e.g. phishing attack). As a result, the user is directed to an adversary-controlled destination. TypoSquatting does not require an attack against the trusted domain or complicated reverse engineering.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1176"
+}

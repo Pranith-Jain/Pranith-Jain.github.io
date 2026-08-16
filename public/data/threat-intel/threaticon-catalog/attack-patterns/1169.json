@@ -1,0 +1,9 @@
+{
+  "id": 1169,
+  "name": "Compromising Emanations Attack",
+  "techniqueId": null,
+  "added": "Jul 14, 2026",
+  "description": "Typical severity: Low. Compromising Emanations (CE) are defined as unintentional signals which an attacker may intercept and analyze to disclose the information processed by the targeted equipment. Commercial mobile devices and retransmission devices have displays, buttons, microchips, and radios that emit mechanical emissions in the form of sound or vibrations. Capturing these emissions can help an adversary understand what the device is doing.",
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1169"
+}

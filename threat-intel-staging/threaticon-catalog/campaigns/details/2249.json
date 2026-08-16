@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:14:33.238Z",
+  "name": "OSINT - Malware Employs PowerShell to Infect Systems",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Mar 28, 2016",
+  "lastSeen": "Mar 28, 2016",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #376 (56f8e7c3-74b4-4789-9e6a-6f2302de0b81)."
+}

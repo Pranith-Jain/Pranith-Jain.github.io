@@ -1,0 +1,12 @@
+{
+  "id": 351,
+  "fetchedAt": "2026-08-14T05:52:56.656Z",
+  "name": "Detection Strategy for Traffic Duplication via Mirroring in IaaS and Network Devices",
+  "tlp": null,
+  "detId": "DET0403",
+  "stixId": "x-mitre-detection-strategy--69c06a1c-5b36-432c-871b-813957b3c678",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1131", "AN1132"]
+}

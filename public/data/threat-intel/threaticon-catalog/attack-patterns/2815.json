@@ -1,0 +1,9 @@
+{
+  "id": 2815,
+  "name": "T1100",
+  "techniqueId": "T1100",
+  "added": "Aug 10, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2815"
+}

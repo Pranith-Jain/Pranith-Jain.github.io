@@ -1,0 +1,9 @@
+{
+  "id": 1846,
+  "fetchedAt": "2026-08-15T07:12:02.090Z",
+  "name": "T1059.007: Code Injection - JavaScript",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

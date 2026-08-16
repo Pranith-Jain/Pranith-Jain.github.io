@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:26:25.561Z",
+  "name": "Windows version of the Bibi Wiper by BiBiGun",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 2, 2023",
+  "lastSeen": "Nov 2, 2023",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #424 (29c6ba65-2e06-44bb-95f4-03e55e499c0a)."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3342,
+    "name": "OSINT - The Latest Android Overlay Malware Spreading via SMS Phishing in Europe",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #592 (577375a9-9ab8-4163-84ab-a395950d210f)."
+  },
+  {
+    "id": 3341,
+    "name": "Malspam 2016-06-28 (Locky campaign subject: 'report')",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #591 (577265af-55ac-4489-98e9-041d950d210f)."
+  },
+  {
+    "id": 3340,
+    "name": "Malspam 2016-06-28 (Locky campaign subject: 'Updated')",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #588 (57721299-5610-4220-97b0-4329950d210f)."
+  },
+  {
+    "id": 3337,
+    "name": "Malspam (2016-06-22) - .js in .zip - Locky is back",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #582 (576a3d71-3fec-423a-86cd-3470950d210f)."
+  },
+  {
+    "id": 3336,
+    "name": "OSINT - Mofang: A politically motivated information stealing adversary",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #578 (57608399-aa20-4d2c-b03d-4a69950d210f)."
+  },
+  {
+    "id": 3335,
+    "name": "OSINT - LinkedIn information used to spread banking malware in the Netherlands",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #575 (57595892-e5f4-4419-b6dc-48df950d210f)."
+  },
+  {
+    "id": 3334,
+    "name": "OSINT - Ð‘Ð°Ð½ÐºÐ¾Ð²ÑÐºÐ¸Ð¹ Ñ‚Ñ€Ð¾ÑÐ½ÐµÑ† Lurk: ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ Ð´Ð»Ñ Ð Ð¾ÑÑÐ¸Ð¸ (Banking Trojan Lurk: specially for Russia)",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #571 (574efbb3-e924-4d54-a701-43a1950d210f)."
+  },
+  {
+    "id": 3333,
+    "name": "OSINT - DRIDEXâ€™s New Tricks Lead to Global Spam Outbreak",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #570 (574ed4d9-83c0-4422-a492-423e950d210f)."
+  },
+  {
+    "id": 3332,
+    "name": "A Universal Windows Bootkit An analysis of the MBR bootkit referred to as â€œHDRootâ€",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #569 (574e8687-8af0-40c5-b4dd-baa9950d210f)."
+  },
+  {
+    "id": 3331,
+    "name": "Malspam - 2016-05-27 - Locky - .docm",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #567 (57482a58-58b0-42f8-bf2b-46b0950d210f)."
+  },
+  {
+    "id": 3330,
+    "name": "Malspam 2016-05-27 - Locky (.js in .zip)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #566 (57480ad9-8584-45c5-9a20-45d5950d210f)."
+  },
+  {
+    "id": 3329,
+    "name": "Malspam - Locky - 2016-05-26 (.docm)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #565 (5746bc01-151c-4f41-a957-4b5b950d210f)."
+  },
+  {
+    "id": 3328,
+    "name": "Malspam 2016-05-26 - Locky - samples reversed, xored (0x73 or 0x1c); samples reversed + long xor key",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #564 (57469dce-e55c-4edc-8e0b-43a6950d210f)."
+  },
+  {
+    "id": 3327,
+    "name": "OSINT - CVE-2015-2545: overview of current threats",
+    "tlp": "white",
+    "confidence": 70,
+    "status": null,
+    "description": "Imported from MISP event #563 (57460863-76dc-4272-8116-4ea302de0b81)."
+  },
+  {
+    "id": 3326,
+    "name": "MalSpam - Locky - 2016-05-25 (.js in .zip)",
+    "tlp": "white",
+    "confidence": 50,
+    "status": null,
+    "description": "Imported from MISP event #562 (5745b0f7-3af4-4b0f-aa89-456f950d210f)."
+  }
+]

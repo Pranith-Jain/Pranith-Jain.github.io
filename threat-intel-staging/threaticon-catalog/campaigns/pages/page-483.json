@@ -1,0 +1,122 @@
+[
+  {
+    "id": 543,
+    "name": "coinbasecartel: Sea Telecom Br",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: BR | Sector: Telecommunication | Website: seatelecom.com.br | Infostealer data confirmed. | [AI generated] N/A | Source: https://www.ransomware.live/id/U2VhIFRlbGVjb20gQnJAY29pbmJhc2VjYXJ0ZWw="
+  },
+  {
+    "id": 542,
+    "name": "coinbasecartel: Kementerian Pertanian",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to coinbasecartel. | Country: ID | Sector: Agriculture and Food Production | Website: pertanian.go.id | Infostealer data confirmed. | [AI generated] Kementerian Pertanian is the Ministry of Agriculture of Indonesia, a government institution responsible for formulating and implementing agricultural policies. It oversees food crop production, horticulture, livestock, and plantation sectors. The ministry aims to achieve national food security, improve farmer welfare, and boost agricultural exports. It operates under the Indonesian central government and coordinates with regional agricultural agencies across the country. | Source: https://www.ransomware.live/id/S2VtZW50ZXJpYW4gUGVydGFuaWFuQGNvaW5iYXNlY2FydGVs"
+  },
+  {
+    "id": 541,
+    "name": "worldleaks: Virginia Health Services",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to worldleaks. | Country: US | Sector: Healthcare | Website: www.vahs.com | [AI generated] Virginia Health Services is a healthcare organization based in Virginia, United States. It provides a range of senior care and rehabilitation services, including skilled nursing, assisted living, memory care, and outpatient therapy. Operating multiple facilities across the Hampton Roads region, the company serves elderly and recovering patients, focusing on long-term care, post-acute rehabilitation, and community-based health support services. | Source: https://www.ransomware.live/id/VmlyZ2luaWEgSGVhbHRoIFNlcnZpY2VzQHdvcmxkbGVha3M="
+  },
+  {
+    "id": 540,
+    "name": "akira: Gumpp Kunststoffe",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: DE | Sector: Manufacturing | Website: gumpp-kunststoffe.de | Infostealer data confirmed. | KKG Gumpp is a wholesale company based in Königsbrunn, Bavaria, s pecializing in technical textiles and fabrics for various applica tions. We will upload corporate data soon. Employee personal documents ( passports, DLs), client information, projects, contracts and agre ements, etc. | Source: https://www.ransomware.live/id/R3VtcHAgS3Vuc3RzdG9mZmVAYWtpcmE="
+  },
+  {
+    "id": 539,
+    "name": "bravox: 1st Solution CTC",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to bravox. | Country: DE | Sector: Business Services | Website: www.1sctc.com | The company provides training and audits to improve quality and ensure compliance with standards. | Source: https://www.ransomware.live/id/MXN0IFNvbHV0aW9uIENUQ0BicmF2b3g="
+  },
+  {
+    "id": 538,
+    "name": "akira: Alkegen",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to akira. | Country: US | Sector: Energy | Website: alkegen.com | Infostealer data confirmed. | Alkegen creates high performance specialty materials used in adva nced applications including electric vehicles, energy storage, fi ltration, fire protection and high-temperature insulation, among many others. We will upload 57gb of corporate data soon. Employee personal doc uments (passports, DLs, contacts, addresses, medical information and so on), client personal information, lots of confidential fil es, projects, contracts and agreements, detailed financials, NDAs , etc. | Source: https://www.ransomware.live/id/QWxrZWdlbkBha2lyYQ=="
+  },
+  {
+    "id": 537,
+    "name": "payload: caravaningcity.com",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: DE | Sector: Hospitality and Tourism | Website: caravaningcity.com | Infostealer data confirmed. | Caravaning City is a travel and lifestyle platform focused on caravanning and RV adventures. They provide information, products, and services for camping enthusiasts, including motorhomes, caravans, and camping accessories. The site also offers trip planning resources and guides for exploring caravan-friendly destinations. | Source: https://www.ransomware.live/id/Y2FyYXZhbmluZ2NpdHkuY29tQHBheWxvYWQ="
+  },
+  {
+    "id": 536,
+    "name": "payload: b3-bruck.at",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: AT | Sector: Manufacturing | Website: b3-bruck.at | Infostealer data confirmed. | B3-Bruck is an Austrian company specializing in IT services and network solutions. They provide hosting, virtual servers, and colocation, along with network management and security services. The company also offers IT consulting and infrastructure support for corporate clients. | Source: https://www.ransomware.live/id/YjMtYnJ1Y2suYXRAcGF5bG9hZA=="
+  },
+  {
+    "id": 535,
+    "name": "payload: meditron.com.ve",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to payload. | Country: VE | Sector: Healthcare | Website: meditron.com.ve | Infostealer data confirmed. | Meditron C.A. is a Venezuelan company founded in 1972, specializing in the marketing and after-sales service of medical equipment. They also design, construct, and equip healthcare infrastructures, providing comprehensive solutions in the health sector. Their offerings include a wide range of medical devices and technical support services, catering to various healthcare needs. Meditron represents globally recognized brands and is committed to supporting medical innovation and excellence in Venezuela. | Source: https://www.ransomware.live/id/bWVkaXRyb24uY29tLnZlQHBheWxvYWQ="
+  },
+  {
+    "id": 530,
+    "name": "qilin: Manulife Wealth",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: CA | Sector: Financial Services | Website: www.manulifewealth.ca | Source: https://www.ransomware.live/id/TWFudWxpZmUgV2VhbHRoQHFpbGlu"
+  },
+  {
+    "id": 529,
+    "name": "qilin: B to B Visions",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Business Services | Website: www.btobvisions.com | Source: https://www.ransomware.live/id/QiB0byBCIFZpc2lvbnNAcWlsaW4="
+  },
+  {
+    "id": 528,
+    "name": "AiLock: Mother's Market & Kitchen",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to AiLock. | Country: US | Sector: Consumer Services | Website: mothersmarket.com | Infostealer data confirmed. | Mother's has gained a reputation for having a wide selection for specialized diets, top quality local and organic produce, the county's largest selection of supplements.The data archive contains personal data of employees: ssn+dob+name+home address+phone | Source: https://www.ransomware.live/id/TW90aGVyJ3MgTWFya2V0ICYgS2l0Y2hlbkBBaUxvY2s="
+  },
+  {
+    "id": 527,
+    "name": "SilentRansomGroup: Chartwell Law",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to SilentRansomGroup. | Country: GB | Sector: Business Services | Website: chartwelllaw.com | Infostealer data confirmed. | [AI generated] Chartwell Law is a United States-based law firm specializing in insurance defense litigation. Operating primarily across multiple states, the firm represents insurance companies, self-insured entities, and businesses in matters including workers compensation, general liability, professional liability, and coverage disputes. It is known for providing legal counsel and courtroom representation within the broader insurance and legal services industry. | Source: https://www.ransomware.live/id/Q2hhcnR3ZWxsIExhd0BTaWxlbnRSYW5zb21Hcm91cA=="
+  },
+  {
+    "id": 526,
+    "name": "shinyhunters: ADT, Inc. (adt.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Business Services | Website: adt.com | Infostealer data confirmed. | Over 10M records containing PII and other internal corporate data have been compromised. Pay or Leak. This is a final warning to reach out by 27 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 24 Apri 2026 | Warning: FINAL WARNING PAY OR LEAK | Press: https://www.bleepingcomputer.com/news/security/adt-confirms-data-breach-after-shinyhunters-leak-threat/ | Source: https://www.ransomware.live/id/QURULCBJbmMuIChhZHQuY29tKUBzaGlueWh1bnRlcnM="
+  },
+  {
+    "id": 525,
+    "name": "shinyhunters: Udemy, Inc. (udemy.com)",
+    "tlp": "white",
+    "confidence": 80,
+    "status": "Inactive",
+    "description": "Ransomware attack attributed to shinyhunters. | Country: US | Sector: Education | Website: udemy.com | Infostealer data confirmed. | Over 1.4M records containing PII and other internal corporate data have been compromised. Pay or Leak. This is a final warning to reach out by 27 Apr 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 24 Apr 2026 | Warning: FINAL WARNING PAY OR LEAK | Source: https://www.ransomware.live/id/VWRlbXksIEluYy4gKHVkZW15LmNvbSlAc2hpbnlodW50ZXJz"
+  }
+]

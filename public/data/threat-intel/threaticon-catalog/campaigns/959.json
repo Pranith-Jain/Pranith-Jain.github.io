@@ -3,10 +3,10 @@
   "name": "thegentlemen: EMCO Holding",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Apr 8, 2026",
+  "lastSeen": "Apr 8, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: DE | Sector: Manufacturing | Website: emcoholding.com | Infostealer data confirmed. | emcoholding.com Grupo EMCO Holding is a conglomerate of prestigious companies operating in different areas, guided by a philosophy of excellence and responsibility, with significant investments in Central America. In recent years, the group has diversified and has strongly positioned itself in fields such as the airport sector, cargo terminals, steel production, and steel manufacturing, and is currently developing energy generation projects. Thanks to its major projects, rapid growth, and investments, Grupo EMCO has established itself as one of the most important, strongest, and most prestigious groups in Central America. | Source: https://www.ransomware.live/id/RU1DTyBIb2xkaW5nQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/959"
 }

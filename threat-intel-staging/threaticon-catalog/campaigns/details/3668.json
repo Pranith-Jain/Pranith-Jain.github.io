@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:02:58.015Z",
+  "name": "stormous: ams-group.co.uk FULL DATA DUMP 33GB",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "May 10, 2026",
+  "lastSeen": "May 9, 2026",
+  "added": "May 16, 2026",
+  "description": "Ransomware attack attributed to stormous. | Country: GB | Sector: Business Services | Website: ams-group.co.uk | Infostealer data confirmed. | The extracted data comprises administrative and financial records, payroll sheets, and client and partner directories, alongside technical and engineering specifications, employee records, and business plans. It also includes architectural designs, official contracts, detailed engineering reports, and construction site maps, as well as risk assessments, internal correspondence, and tax and legal information. | Source: https://www.ransomware.live/id/YW1zLWdyb3VwLmNvLnVrIEZVTEwgREFUQSBEVU1QIDMzR0JAc3Rvcm1vdXM="
+}

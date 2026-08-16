@@ -1,11 +1,11 @@
 {
   "id": 3239,
   "name": "The distinctive rattle of APT SideWinder",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 17, 2023",
+  "lastSeen": "May 17, 2023",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #412 (3059dd82-41b6-418b-b3bc-6cc6dcc5e742).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3239"

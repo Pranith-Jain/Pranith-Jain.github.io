@@ -1,11 +1,11 @@
 {
   "id": 2610,
   "name": "OSINT - Winnti Abuses GitHub for C&C Communications",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 23, 2017",
+  "lastSeen": "Mar 23, 2017",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1017 (58d38baa-a47c-40c5-8c8f-45b4950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2610"

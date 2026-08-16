@@ -1,0 +1,12 @@
+{
+  "id": 494,
+  "fetchedAt": "2026-08-14T05:24:41.965Z",
+  "name": "Detection Strategy for Disable or Modify Cloud Log",
+  "tlp": null,
+  "detId": "DET0289",
+  "stixId": "x-mitre-detection-strategy--f0190654-2eda-42a7-9a4d-6edc95aada02",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0801", "AN0802", "AN0803", "AN0804"]
+}

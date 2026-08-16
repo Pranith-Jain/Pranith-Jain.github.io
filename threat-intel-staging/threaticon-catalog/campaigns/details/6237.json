@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T13:39:10.359Z",
+  "name": "Deadlock: Carrier AB",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 25, 2026",
+  "lastSeen": "Jul 25, 2026",
+  "added": "Jul 25, 2026",
+  "description": "Ransomware attack attributed to Deadlock. | Country: SE | Sector: Manufacturing | Website: carrier.se | Infostealer data confirmed. | Carrier Transport AB a Swedish transport and logistics company headquartered in Jordbro near Stockholm. | Source: https://www.ransomware.live/id/Q2FycmllciBBQkBEZWFkbG9jaw=="
+}

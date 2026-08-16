@@ -3,9 +3,9 @@
   "name": "qilin: Grupo D'arc",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 2, 2026",
+  "lastSeen": "Mar 2, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: MX | Sector: Business Services | Website: www.grupodarc.com.ar | Source: https://www.ransomware.live/id/R3J1cG8gRCdhcmNAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1939"

@@ -1,0 +1,9 @@
+{
+  "id": 1525,
+  "name": "T1021.002: SMB/Windows Admin Shares",
+  "techniqueId": "T1021",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1525"
+}

@@ -1,11 +1,11 @@
 {
   "id": 2319,
   "name": "A Dive into Earth Baku’s Latest Campaign",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 28, 2024",
+  "lastSeen": "Jul 28, 2024",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #515 (739fc559-c1ea-427b-9dd6-4999276f537c).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2319"

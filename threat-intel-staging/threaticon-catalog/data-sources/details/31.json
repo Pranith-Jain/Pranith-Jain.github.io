@@ -1,0 +1,12 @@
+{
+  "id": 31,
+  "fetchedAt": "2026-08-14T05:10:07.974Z",
+  "name": "Instance Metadata",
+  "tlp": null,
+  "dcId": "DC0086",
+  "analyticCount": 3,
+  "strategyCount": 3,
+  "added": null,
+  "description": "Contextual data about an instance and activity around it such as name, type, or status",
+  "analytics": ["AN0234", "AN0481", "AN1242"]
+}

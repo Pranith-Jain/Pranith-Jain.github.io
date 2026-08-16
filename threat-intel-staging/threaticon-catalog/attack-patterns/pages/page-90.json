@@ -1,0 +1,141 @@
+[
+  {
+    "id": 2369,
+    "name": "T1190 (Exploit Public-Facing Application)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 2301,
+    "name": "T1190 - Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 2998,
+    "name": "T1190 Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 2366,
+    "name": "T1190.001 (Web Shell)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 2500,
+    "name": "T1190.001 - Exploit Public-Facing Application (SQL Injection)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 2486,
+    "name": "T1190.001 - SQL Injection",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 2388,
+    "name": "T1190.001 - Use of stolen credentials",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 2883,
+    "name": "T1190.001: Exploit Public-Facing Application – FreePBX CVEs",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  {
+    "id": 1534,
+    "name": "T1190: Exploit Public-Facing Application",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1190",
+    "status": null
+  },
+  { "id": 3049, "name": "T1191", "tlp": "white", "confidence": null, "techniqueId": "T1191", "status": null },
+  { "id": 2612, "name": "T1192", "tlp": "white", "confidence": null, "techniqueId": "T1192", "status": null },
+  {
+    "id": 2461,
+    "name": "T1192 - Exploitation of remote services",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2302,
+    "name": "T1192 - Multi-Tiered Attack",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2346,
+    "name": "T1192 - Software Deployment",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2359,
+    "name": "T1192 - Software Deployment Tools",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2432,
+    "name": "T1192 - Use of Valid Accounts",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2582,
+    "name": "T1192 - Weaponization of email attachments",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  { "id": 2563, "name": "T1192.001", "tlp": "white", "confidence": null, "techniqueId": "T1192", "status": null },
+  {
+    "id": 2452,
+    "name": "T1192.001 (Software Deployment Tools: Malicious Document)",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  },
+  {
+    "id": 2422,
+    "name": "T1192.001 - Web Shell",
+    "tlp": "white",
+    "confidence": null,
+    "techniqueId": "T1192",
+    "status": null
+  }
+]

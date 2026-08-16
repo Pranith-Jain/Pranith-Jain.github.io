@@ -1,0 +1,12 @@
+{
+  "id": 149,
+  "fetchedAt": "2026-08-14T05:56:42.030Z",
+  "name": "Detecting Odbcconf Proxy Execution of Malicious DLLs",
+  "tlp": null,
+  "detId": "DET0486",
+  "stixId": "x-mitre-detection-strategy--9407410b-7f35-4d32-be3c-e48ea36573d9",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1335"]
+}

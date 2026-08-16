@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:19:37.760Z",
+  "name": "OSINT Bookworm Trojan: A Model of Modular Architecture by Palo Alto Unit 42",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Nov 10, 2015",
+  "lastSeen": "Nov 10, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #700 (5642582d-78dc-4e92-b42f-6d9d950d210b)."
+}

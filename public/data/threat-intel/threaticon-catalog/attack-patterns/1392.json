@@ -1,0 +1,9 @@
+{
+  "id": 1392,
+  "name": "T1085 - .NET Framework Malware",
+  "techniqueId": "T1085",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1392"
+}

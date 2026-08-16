@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:55:31.090Z",
+  "name": "OSINT - Striking Oil: A Closer Look at Adversary Infrastructure",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Sep 26, 2017",
+  "lastSeen": "Sep 26, 2017",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1188 (59cab250-1480-406f-8e7a-4c7e02de0b81)."
+}

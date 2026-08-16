@@ -1,0 +1,9 @@
+{
+  "id": 1951,
+  "name": "T1233 - Credential Dumping",
+  "techniqueId": "T1233",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1951"
+}

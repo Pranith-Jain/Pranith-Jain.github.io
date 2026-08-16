@@ -1,11 +1,11 @@
 {
   "id": 2437,
   "name": "OSINT Introducing Hi-Zor RAT by Fidelis",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jan 27, 2016",
+  "lastSeen": "Jan 27, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #765 (56af2d05-bff0-4753-b2ed-4074950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2437"

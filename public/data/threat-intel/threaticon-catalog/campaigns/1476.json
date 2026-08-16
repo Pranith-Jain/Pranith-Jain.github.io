@@ -3,10 +3,10 @@
   "name": "spacebears: Bonheure",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 19, 2026",
+  "lastSeen": "Mar 1, 2026",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to spacebears. | Country: JP | Sector: Hospitality and Tourism | Website: bonheure.co.jp | Infostealer data confirmed. | Karaoke BusinessOperation of a network of karaoke establishments, providing leisure and entertainment services for individual and corporate clients. Restaurant Business (Izakaya)Development and management of a chain of food and beverage establishments, primarily in the Japanese izakaya style, as well as other concepts within the HoReCa sector.Real Estate OperationsInvolvement in the real estate market, including property management, leasing, and the potential development of commercial real estate assets.Internet Cafe ManagementOperation of internet cafes that provide customers with internet access along with ancillary services such as relaxation areas, reading materials, and refreshments. https://bonheure.co.jp/ | Source: https://www.ransomware.live/id/Qm9uaGV1cmVAc3BhY2ViZWFycw==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1476"
 }

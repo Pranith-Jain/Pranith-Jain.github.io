@@ -3,9 +3,9 @@
   "name": "dragonforce: Environmental Air",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 4, 2026",
+  "lastSeen": "Mar 4, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to dragonforce. | Country: US | Sector: Manufacturing | Website: www.env-air.net | Environmental Air, Inc. has been a trusted provider of Sheet Metal Fabrication, Custom Ductwork Fittings, Welding, and HVAC Installation services for over 40 years in Pittsburgh and Western Pennsylvania. They specialize in product design, fabrication, installation, and testing, catering to various sectors, including hospitals, institutional buildings, and retail spaces. The company prides itself on its experience, quality, and value. Their facility is equipped to handle immediate project fabrication and delivery needs | Source: https://www.ransomware.live/id/RW52aXJvbm1lbnRhbCBBaXJAZHJhZ29uZm9yY2U=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1824"

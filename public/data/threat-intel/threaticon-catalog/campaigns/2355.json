@@ -1,11 +1,11 @@
 {
   "id": 2355,
   "name": "Malspam 2016-07-13 .wsf campaign",
-  "status": null,
+  "status": "Active",
   "confidence": 50,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 13, 2016",
+  "lastSeen": "Jul 13, 2016",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #607 (5786466b-896c-41f4-a39d-46d1950d210f).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2355"

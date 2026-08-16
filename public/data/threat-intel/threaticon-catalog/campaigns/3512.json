@@ -3,9 +3,9 @@
   "name": "qilin: Turner Supply",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 15, 2026",
+  "lastSeen": "May 15, 2026",
+  "added": "May 16, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: US | Sector: Construction | Website: www.turnersupply.com | N/A | Source: https://www.ransomware.live/id/VHVybmVyIFN1cHBseUBxaWxpbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/3512"

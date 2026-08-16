@@ -1,0 +1,9 @@
+{
+  "id": 1739,
+  "name": "T1685.003 - Internal Spear Phishing via Malspam",
+  "techniqueId": "T1685",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1739"
+}

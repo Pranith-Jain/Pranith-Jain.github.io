@@ -1,0 +1,12 @@
+{
+  "id": 257,
+  "fetchedAt": "2026-08-14T05:25:00.058Z",
+  "name": "Detect Adversary-in-the-Middle via Network and Configuration Anomalies",
+  "tlp": null,
+  "detId": "DET0296",
+  "stixId": "x-mitre-detection-strategy--0eb48c77-9056-4178-900b-7ac23fd1c7cd",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0823", "AN0824", "AN0825", "AN0826"]
+}

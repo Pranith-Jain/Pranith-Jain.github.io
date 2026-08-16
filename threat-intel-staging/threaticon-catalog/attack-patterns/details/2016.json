@@ -1,0 +1,9 @@
+{
+  "id": 2016,
+  "fetchedAt": "2026-08-15T08:35:30.921Z",
+  "name": "T1594.003 - Malicious Scripts: Remote Code Execution via Script Injection",
+  "tlp": "white",
+  "techniqueId": null,
+  "added": "Jul 30, 2026",
+  "description": null
+}

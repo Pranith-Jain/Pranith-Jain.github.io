@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T04:17:44.551Z",
+  "name": "New RedLine Stealer Distributed Using Coronavirus-themed Email Campaign",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Apr 6, 2020",
+  "lastSeen": "Apr 6, 2020",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #220 (5e8b8ba5-df0c-4e7b-bfb4-b27ec0a8ab16)."
+}

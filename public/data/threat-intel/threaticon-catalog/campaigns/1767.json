@@ -3,9 +3,9 @@
   "name": "thegentlemen: Gerleinco",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 6, 2026",
+  "lastSeen": "Mar 6, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to thegentlemen. | Country: CO | Sector: Transportation/Logistics | Website: gerleinco.com | Infostealer data confirmed. | gerleinco.com zoominfo.com/c/gerleinco-sa/430010238 Gerleinco is a leading logistics service provider in Colombia, established in 1916, specializing in container control, multimodal transport, and project logistics. The company offers reliable and dynamic services through innovative technological developments and a dedicated professional team. Gerleinco serves various clients in key ports and commercial cities across the country. Their commitment to effective logistics ensures fulfillment of client needs in a responsible manner | Source: https://www.ransomware.live/id/R2VybGVpbmNvQHRoZWdlbnRsZW1lbg==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1767"

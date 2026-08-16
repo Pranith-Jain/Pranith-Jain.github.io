@@ -1,0 +1,12 @@
+{
+  "id": 165,
+  "fetchedAt": "2026-08-14T05:22:59.662Z",
+  "name": "Behavioral Detection of Cloud Group Enumeration via API and CLI Access",
+  "tlp": null,
+  "detId": "DET0251",
+  "stixId": "x-mitre-detection-strategy--55e10a13-d18d-4ce5-a773-c4ec6bd68d52",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0695", "AN0696", "AN0697"]
+}

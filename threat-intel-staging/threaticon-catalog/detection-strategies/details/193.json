@@ -1,0 +1,12 @@
+{
+  "id": 193,
+  "fetchedAt": "2026-08-14T05:22:51.823Z",
+  "name": "User Execution – Malicious Image (containers & IaaS) – pull/run → start → anomalous behavior (T1204.003)",
+  "tlp": null,
+  "detId": "DET0248",
+  "stixId": "x-mitre-detection-strategy--ee7bd8ff-fbfd-4bb2-9d23-cf3f6ed342c7",
+  "analyticCount": 2,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN0691", "AN0692"]
+}

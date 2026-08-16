@@ -1,0 +1,9 @@
+{
+  "id": 2382,
+  "name": "T1531 - Steal Certificate Private Key",
+  "techniqueId": "T1531",
+  "added": "Jul 31, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2382"
+}

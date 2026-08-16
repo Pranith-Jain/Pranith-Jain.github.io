@@ -68,6 +68,15 @@ import {
   filterThreaticonCatalog,
   filterThreaticonIndicators,
   threaticonIndicatorTypes,
+  loadDphishIndex,
+  getDphishIndicator,
+  filterDphishIndicators,
+  loadLivingThreatIndex,
+  getLivingThreatIncident,
+  filterLivingThreatIncidents,
+  loadMaIndex,
+  getMaFeed,
+  filterMaFeed,
   type TiSeverity,
   type TiIocIndexEntry,
   type TcEntityType,
@@ -94,6 +103,7 @@ import { loadWinRegIndex, getWinRegArtifact, filterArtifacts } from '../winreg-m
 
 // Traceix (SHA-256 AV reputation lookup)
 import { traceixLookup } from '../traceix';
+import { malwareAnalyzerLookup } from '../malwareanalyzer';
 
 // Whoxy (reverse WHOIS)
 import { whoxyReverseWhois } from '../whoxy';
@@ -870,6 +880,208 @@ export function bridgeMcpTools(
           limit: (args.limit as number) ?? 100,
         }),
       };
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  DPHISH PHISHING FEED — ti_*dphish* (dphish.com, TAXII 2.1)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'ti_list_dphish',
+    description:
+      'List phishing indicators from the dPhish public TAXII 2.1 collection (dphish.com): malicious domains, phishing URLs, sender IPs, phone numbers, and attachment rules — with active/revoked status, category, confidence, score, and validity window.',
+    params: [
+      {
+        name: 'category',
+        type: 'string',
+        description: 'Filter by category: domain, ipv4, ipv6, url, phone, file, email, other',
+        required: false,
+      },
+      {
+        name: 'activeOnly',
+        type: 'boolean',
+        description: 'Only indicators live right now (not revoked, within validity window)',
+        required: false,
+      },
+      { name: 'keyword', type: 'string', description: 'Substring match against value / description', required: false },
+      { name: 'limit', type: 'number', description: 'Max indicators (default 100, max 1000)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadDphishIndex(assets);
+      const indicators = filterDphishIndicators(idx, {
+        category: args.category as string | undefined,
+        activeOnly: args.activeOnly as boolean | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 100,
+      });
+      return {
+        source: idx.source,
+        sourceUrl: idx.sourceUrl,
+        syncedAt: idx.syncedAt,
+        counts: idx.counts,
+        returned: indicators.length,
+        indicators,
+      };
+    },
+  });
+
+  add({
+    name: 'ti_get_dphish_indicator',
+    description:
+      'Return the full dPhish indicator body for one slug: STIX id, observable value, category, pattern (STIX or YARA), description, dates, validity window, revoked status, confidence, score, labels, indicator types.',
+    params: [
+      {
+        name: 'slug',
+        type: 'string',
+        description: 'Indicator slug (lowercased, e.g. "185.225.19.240-59c41c") from ti_list_dphish',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getDphishIndicator(assets, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  LIVING THREAT REPOSITORY — ti_*living_threat* (living-threat.rabitanoor.com)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'ti_list_living_threat',
+    description:
+      'List incidents from the Living Threat Repository: real-world incidents mapped to MITRE ATT&CK tactic/technique chains, with severity, priority score, CVE/actor/tool counts. Filter by tactic, technique ID, severity, actor, keyword, or minimum priority.',
+    params: [
+      { name: 'tactic', type: 'string', description: 'ATT&CK tactic name (e.g. "Initial Access")', required: false },
+      { name: 'technique', type: 'string', description: 'ATT&CK technique ID (e.g. "T1190")', required: false },
+      { name: 'severity', type: 'string', description: 'Critical | High | Moderate | Low', required: false },
+      { name: 'actor', type: 'string', description: 'Threat-actor name (substring)', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against title / source / actors / techniques',
+        required: false,
+      },
+      { name: 'minPriority', type: 'number', description: 'Minimum priority score (0-100)', required: false },
+      { name: 'limit', type: 'number', description: 'Max incidents (default 100, max 1000)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadLivingThreatIndex(assets);
+      const incidents = filterLivingThreatIncidents(idx, {
+        tactic: args.tactic as string | undefined,
+        technique: args.technique as string | undefined,
+        severity: args.severity as string | undefined,
+        actor: args.actor as string | undefined,
+        keyword: args.keyword as string | undefined,
+        minPriority: args.minPriority as number | undefined,
+        limit: (args.limit as number) ?? 100,
+      });
+      return {
+        source: idx.source,
+        sourceUrl: idx.sourceUrl,
+        repoUrl: idx.repoUrl,
+        syncedAt: idx.syncedAt,
+        meta: idx.meta,
+        counts: idx.counts,
+        returned: incidents.length,
+        incidents,
+      };
+    },
+  });
+
+  add({
+    name: 'ti_get_living_threat_incident',
+    description:
+      'Return the full Living Threat Repository incident for one slug: per-kill-chain-stage analyses with ATT&CK tactic/technique mappings, per-stage detection + remediation notes, CVEs, actors, tools, detection rules, diamond-model + kill-chain summaries, priority scores, and post-incident recommendations.',
+    params: [
+      {
+        name: 'slug',
+        type: 'string',
+        description: 'Incident slug (title + sequence) from ti_list_living_threat',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getLivingThreatIncident(assets, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  MALWAREANALYZER BY CYBLE — ti_*malwareanalyzer* (malwareanalyzer.com)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'ti_list_malwareanalyzer',
+    description:
+      'List URL entries from the MalwareAnalyzer by Cyble public feeds (malwareanalyzer.com): verdict=malicious URLs or newly-observed scans, with url, hostname, apex, verdict, score, brands, categories, time. Filter by feed, verdict, category, or keyword.',
+    params: [
+      {
+        name: 'feed',
+        type: 'string',
+        description: 'Feed name: malicious (default) or newly-observed',
+        required: false,
+      },
+      {
+        name: 'verdict',
+        type: 'string',
+        description: 'Filter by verdict (malicious | unknown | suspicious)',
+        required: false,
+      },
+      {
+        name: 'category',
+        type: 'string',
+        description: 'Filter by category (e.g. "suspicious-infrastructure")',
+        required: false,
+      },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against url / hostname / apex',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max entries (default 200, max 200)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadMaIndex(assets);
+      const name = (args.feed as string | undefined) === 'newly-observed' ? 'newly-observed' : 'malicious';
+      const entries = await getMaFeed(assets, name);
+      const out = filterMaFeed(entries, {
+        verdict: args.verdict as string | undefined,
+        category: args.category as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 200,
+      });
+      return {
+        source: idx.source,
+        sourceUrl: idx.sourceUrl,
+        syncedAt: idx.syncedAt,
+        feed: name,
+        counts: idx.counts,
+        returned: out.length,
+        entries: out,
+      };
+    },
+  });
+
+  add({
+    name: 'ti_malwareanalyzer_lookup',
+    description:
+      'Live reputation lookup for one IOC (IP / domain / URL / hash) against MalwareAnalyzer by Cyble (keyless): verdict, 0-100 score, first/last seen, prevalence, tags. Use to enrich an indicator during an investigation.',
+    params: [
+      {
+        name: 'indicator',
+        type: 'string',
+        description: 'IOC value (IP / domain / URL / hash), no spaces',
+        required: true,
+      },
+    ],
+    execute: async (args) => {
+      return malwareAnalyzerLookup(args.indicator as string);
     },
   });
 
@@ -1922,7 +2134,10 @@ export function bridgeMcpTools(
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       const idx = await loadDbIndex(assets);
-      return filterBriefs(idx, { type: args.type as any, limit: (args.limit as number) ?? 50 });
+      return filterBriefs(idx, {
+        type: args.type as NonNullable<Parameters<typeof filterBriefs>[1]>['type'],
+        limit: (args.limit as number) ?? 50,
+      });
     },
   });
 
@@ -1936,7 +2151,7 @@ export function bridgeMcpTools(
     ],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
-      return getDbBrief(assets, args.type as any, args.date as string);
+      return getDbBrief(assets, args.type as Parameters<typeof getDbBrief>[1], args.date as string);
     },
   });
 

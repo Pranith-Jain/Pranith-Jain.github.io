@@ -3,9 +3,9 @@
   "name": "qilin: Sacor",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Mar 26, 2026",
+  "lastSeen": "Mar 26, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to qilin. | Country: PT | Sector: Not Found | Website: www.sacor.fr | Source: https://www.ransomware.live/id/U2Fjb3JAcWlsaW4=",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1311"

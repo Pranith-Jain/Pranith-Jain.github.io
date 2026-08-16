@@ -3,10 +3,10 @@
   "name": "stormous: Official Statement: Protecting palatineschool.org Infrastructure",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Jun 28, 2026",
+  "lastSeen": "Jun 28, 2026",
+  "added": "Jul 13, 2026",
+  "description": "Ransomware attack attributed to stormous. | Sector: Education | During our routine network security audits, our team discovered critical structural vulnerabilities within Palatine School, which granted us full, unrestricted access to their central server (PALDC2020). We had the technical capacity to access every directory, including pupil databases (⁠ StudentData NHS NO ) ⁠, ⁠Pupil Admin - Users -FocusIT⁠) and staff records ⁠Personnel⁠.We want to announce that we have locked down this operation and decided to leak absolutely nothing.This is an institution dedicated to children and special needs education. Unlike corporate thieves or ruthless threat actors, we operate with a strict code of ethics: we do not target children, schools, or healthcare facilities.Instead of destroying them, we have chosen to act as an uninvited security audit. We are using our platform to publicly invite the administration of Palatine School to contact us privately. We will provide them with the full technica...",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/4506"
 }

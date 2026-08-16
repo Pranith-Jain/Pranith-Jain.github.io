@@ -1,0 +1,12 @@
+{
+  "id": 625,
+  "fetchedAt": "2026-08-14T05:38:33.737Z",
+  "name": "Detection Strategy for Serverless Execution (T1648)",
+  "tlp": null,
+  "detId": "DET0374",
+  "stixId": "x-mitre-detection-strategy--7a848f8f-4bdc-426c-989e-bc1abfaeb7fa",
+  "analyticCount": 3,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1053", "AN1054", "AN1055"]
+}

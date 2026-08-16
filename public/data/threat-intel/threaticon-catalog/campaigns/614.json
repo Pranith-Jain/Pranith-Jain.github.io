@@ -3,9 +3,9 @@
   "name": "everest: Nutrabio",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Apr 20, 2026",
+  "lastSeen": "Apr 20, 2026",
+  "added": "May 4, 2026",
   "description": "Ransomware attack attributed to everest. | Country: US | Sector: Agriculture and Food Production | Website: nutrabio.com | Infostealer data confirmed. | [AI generated] NutraBio is a US-based dietary supplement manufacturer founded in 1996 and headquartered in Middlesex, New Jersey. The company operates in the health and wellness industry, producing sports nutrition products including protein powders, pre-workouts, vitamins, and recovery supplements. NutraBio is known for its commitment to transparency, using fully disclosed labels and manufacturing products in an FDA-registered, cGMP-certified facility. | Source: https://www.ransomware.live/id/TnV0cmFiaW9AZXZlcmVzdA==",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/614"

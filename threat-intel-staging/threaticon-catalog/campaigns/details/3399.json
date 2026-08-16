@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T20:20:28.566Z",
+  "name": "OSINT Trojan.Win32.Banker.NWT by AlienVault and Telus",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 50,
+  "firstSeen": "Oct 20, 2015",
+  "lastSeen": "Oct 20, 2015",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #674 (56313b33-93f0-426f-99ea-26bc950d210b)."
+}

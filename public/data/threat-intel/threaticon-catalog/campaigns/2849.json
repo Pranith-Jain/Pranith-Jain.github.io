@@ -1,11 +1,11 @@
 {
   "id": 2849,
   "name": "Massive Malvertising Campaign Discovered Attempting 40,000 Infections per Week",
-  "status": null,
+  "status": "Active",
   "confidence": 70,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "Jul 31, 2018",
+  "lastSeen": "Jul 31, 2018",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #1401 (5b608c59-6328-49e7-af04-22de0acd0835).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2849"

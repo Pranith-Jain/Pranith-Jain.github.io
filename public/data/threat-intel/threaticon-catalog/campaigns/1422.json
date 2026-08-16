@@ -3,10 +3,10 @@
   "name": "thegentlemen: Elundini",
   "status": "Inactive",
   "confidence": 80,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
-  "description": null,
+  "firstSeen": "Mar 21, 2026",
+  "lastSeen": "Oct 4, 2025",
+  "added": "May 4, 2026",
+  "description": "Ransomware attack attributed to thegentlemen. | Country: ZA | Sector: Public Sector | Website: elundini.gov.za | Infostealer data confirmed. | elundini.gov.za zoominfo.com/c/elundini/425741285 Elundini Local Municipality (ELM) is dedicated to nurturing the history and sustainable growth of its communities within the Joe Gqabi District of the Eastern Cape province. The municipality is recognized for its good governance, particularly in AG audits. ELM offers various services aimed at community development, including training interventions in fields such as environment, media, technical skills, and public administration. Its intended clients include local residents, businesses, and organizations seeking to invest and engage in community initiatives | Source: https://www.ransomware.live/id/RWx1bmRpbmlAdGhlZ2VudGxlbWVu",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/1422"
 }

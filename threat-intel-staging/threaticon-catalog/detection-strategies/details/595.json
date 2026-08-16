@@ -1,0 +1,12 @@
+{
+  "id": 595,
+  "fetchedAt": "2026-08-14T05:48:58.789Z",
+  "name": "Detection Strategy for Process Hollowing on Windows",
+  "tlp": null,
+  "detId": "DET0382",
+  "stixId": "x-mitre-detection-strategy--8e003575-5a6f-458d-be35-a8606c9b7dea",
+  "analyticCount": 1,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1076"]
+}

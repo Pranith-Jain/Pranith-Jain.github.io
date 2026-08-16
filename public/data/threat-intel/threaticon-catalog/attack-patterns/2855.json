@@ -1,0 +1,9 @@
+{
+  "id": 2855,
+  "name": "T1491.001 System Resource Hijacking: Cryptomining",
+  "techniqueId": "T1491",
+  "added": "Aug 11, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/2855"
+}

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-15T03:42:42.389Z",
+  "name": "Sofacy Group’s Parallel Attacks",
+  "tlp": "white",
+  "status": "Active",
+  "confidence": 70,
+  "firstSeen": "Jun 7, 2018",
+  "lastSeen": "Jun 7, 2018",
+  "added": "May 6, 2026",
+  "description": "Imported from MISP event #1371 (5b194472-fbac-4d90-8504-c0f80acd0835)."
+}

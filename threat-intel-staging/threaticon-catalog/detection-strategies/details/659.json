@@ -1,0 +1,12 @@
+{
+  "id": 659,
+  "fetchedAt": "2026-08-14T06:00:45.156Z",
+  "name": "Detection of System Process Creation or Modification Across Platforms",
+  "tlp": null,
+  "detId": "DET0571",
+  "stixId": "x-mitre-detection-strategy--dab6c58b-2f44-4539-93e1-b03990fc1649",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1575", "AN1576", "AN1577", "AN1578"]
+}

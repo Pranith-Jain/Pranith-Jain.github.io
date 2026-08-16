@@ -1,0 +1,12 @@
+{
+  "id": 622,
+  "fetchedAt": "2026-08-14T05:57:43.596Z",
+  "name": "Detection of Web Session Cookie Theft via File, Memory, and Network Artifacts",
+  "tlp": null,
+  "detId": "DET0509",
+  "stixId": "x-mitre-detection-strategy--26fdbcb2-abc1-4844-8e5d-2c6039336cb7",
+  "analyticCount": 5,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1402", "AN1403", "AN1404", "AN1405", "AN1406"]
+}

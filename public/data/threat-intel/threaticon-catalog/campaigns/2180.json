@@ -1,11 +1,11 @@
 {
   "id": 2180,
   "name": "From Agent.BTZ to ComRAT v4",
-  "status": null,
+  "status": "Active",
   "confidence": 90,
-  "firstSeen": null,
-  "lastSeen": null,
-  "added": null,
+  "firstSeen": "May 22, 2020",
+  "lastSeen": "May 22, 2020",
+  "added": "May 6, 2026",
   "description": "Imported from MISP event #224 (5ec81ab8-326c-4e96-91b8-68d10a019371).",
   "tlp": "white",
   "sourceUrl": "https://threaticon.com/campaigns/2180"

@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "fetchedAt": "2026-08-14T11:47:43.247Z",
+  "name": "Global Secret Group: Novum Energy",
+  "tlp": "white",
+  "status": "Inactive",
+  "confidence": 80,
+  "firstSeen": "Jul 26, 2026",
+  "lastSeen": "Jul 26, 2026",
+  "added": "Jul 26, 2026",
+  "description": "Ransomware attack attributed to Global Secret Group. | Country: US | Sector: Energy & Utilities | Website: novumenergy.com | Country: Texas, United States | Website: novumenergy.com | Revenue: $966 Million | Industry: Convenience Stores, Gas Stations & Liquor Stores | Employees: 51-200 | Properties: 842 GB (971,325 Files, 117,085 Folders) | Source: https://www.ransomware.live/id/Tm92dW0gRW5lcmd5QEdsb2JhbCBTZWNyZXQgR3JvdXA="
+}

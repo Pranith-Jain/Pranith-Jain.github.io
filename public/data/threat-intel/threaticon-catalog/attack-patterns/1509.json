@@ -1,0 +1,9 @@
+{
+  "id": 1509,
+  "name": "T1016.001: Internet Connection Discovery",
+  "techniqueId": "T1016",
+  "added": "Jul 30, 2026",
+  "description": null,
+  "tlp": "white",
+  "sourceUrl": "https://threaticon.com/attack-patterns/1509"
+}

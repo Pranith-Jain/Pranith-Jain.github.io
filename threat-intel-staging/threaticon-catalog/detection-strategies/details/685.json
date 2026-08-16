@@ -1,0 +1,12 @@
+{
+  "id": 685,
+  "fetchedAt": "2026-08-14T05:59:03.267Z",
+  "name": "Detection Strategy for Protocol Tunneling accross OS platforms.",
+  "tlp": null,
+  "detId": "DET0538",
+  "stixId": "x-mitre-detection-strategy--fff8e15e-f7eb-4c07-8b77-8e7ef2eb01b6",
+  "analyticCount": 4,
+  "techniqueCount": 1,
+  "description": null,
+  "analytics": ["AN1483", "AN1484", "AN1485", "AN1486"]
+}
