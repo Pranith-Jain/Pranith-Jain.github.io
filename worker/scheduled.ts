@@ -55,6 +55,7 @@ import { enqueueGpFeeds, shouldSkipGpEnqueue, markGpEnqueue } from '../api/src/r
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
+import type { CyberPulsePrefetch } from '../api/src/routes/cyberpulse-ingest';
 import { fetchXClaims } from '../api/src/routes/x-claims';
 import { checkXHealth } from '../api/src/lib/twitter-auth-graphql';
 import { fetchRedditFeed } from '../api/src/routes/reddit-feed';
@@ -283,7 +284,7 @@ export async function executeCronJob(
           if (csNow.getUTCHours() % 6 === 0) {
             try {
               const { syncDailyBriefs } = await import('./lib/daily-briefs-sync');
-              const result = await syncDailyBriefs(env as any);
+              const result = await syncDailyBriefs(env as unknown as Parameters<typeof syncDailyBriefs>[0]);
               if (result.types.length > 0 || result.errors.length > 0) {
                 console.log(
                   JSON.stringify({
@@ -491,12 +492,18 @@ export async function executeCronJob(
                   }
                 }
               }
+              // The values above (socialItems / redditItems from the gp:warm slices)
+              // are read and passed through HERE — the old `as undefined` casts
+              // discarded the freshly-read X-feed + Reddit items, silently
+              // disabling "keyword search" monitoring on the hourly tick (only
+              // the */30 cron ingested them). runCyberPulseIngestion dedupes by
+              // incident, so passing them is safe alongside the */30 run.
               const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
                 telegramItems: telegramFeed?.items,
-                socialItems: socialItems as undefined,
-                redditItems: redditItems as undefined,
+                socialItems: socialItems as unknown as CyberPulsePrefetch['socialItems'],
+                redditItems: redditItems as unknown as CyberPulsePrefetch['redditItems'],
                 xClaimsBreach,
-                xAccountPosts: xAccountPosts as any,
+                xAccountPosts: xAccountPosts as unknown as CyberPulsePrefetch['xAccountPosts'],
               });
               const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
               const totalDeduped = cpResults.reduce((s, r) => s + r.incidents_deduped, 0);
@@ -1086,8 +1093,8 @@ export async function executeCronJob(
       })()
         .catch(logCronFail('hourly-cron'))
         .finally(releaseLease)
+        .then(() => logCronDone({ path: 'hourly' }))
     );
-    ctx.waitUntil(Promise.resolve().then(() => logCronDone({ path: 'hourly' })));
     return;
   }
 
@@ -1274,10 +1281,10 @@ export async function executeCronJob(
           }
 
           const cpResults = await runCyberPulseIngestion(env, env.BRIEFINGS_DB, {
-            telegramItems: telegramItems as any,
-            socialItems: socialItems as any,
-            redditItems: redditItems as any,
-            xAccountPosts: xAccountPosts as any,
+            telegramItems: telegramItems as unknown as CyberPulsePrefetch['telegramItems'],
+            socialItems: socialItems as unknown as CyberPulsePrefetch['socialItems'],
+            redditItems: redditItems as unknown as CyberPulsePrefetch['redditItems'],
+            xAccountPosts: xAccountPosts as unknown as CyberPulsePrefetch['xAccountPosts'],
           });
           const totalCreated = cpResults.reduce((s, r) => s + r.incidents_created, 0);
           console.log(

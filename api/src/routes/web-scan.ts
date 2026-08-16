@@ -577,7 +577,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       if (done) break;
       if (value) read += value.byteLength;
     }
-    safeNull(reader.cancel());
+    void safeNull(reader.cancel());
   }
 
   const rawHeaders: Record<string, string> = {};

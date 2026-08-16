@@ -108,7 +108,7 @@ async function callGroq(key: string, system: string, user: string, maxTokens = 1
 
 async function callWorkersAI(ai: Env['AI'], system: string, user: string, maxTokens = 1500): Promise<string> {
   const result = (await ai.run(
-    '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as any,
+    '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as Parameters<typeof ai.run>[0],
     {
       messages: [
         { role: 'system', content: system },
@@ -116,8 +116,11 @@ async function callWorkersAI(ai: Env['AI'], system: string, user: string, maxTok
       ],
       max_tokens: maxTokens,
       temperature: 0.2,
-    } as any
-  )) as any;
+    } as Parameters<typeof ai.run>[1]
+  )) as unknown as {
+    response?: string;
+    choices?: Array<{ message?: { content?: string } }>;
+  };
   // Workers AI returns { response: string } for instruct models
   if (typeof result?.response === 'string') return result.response;
   if (typeof result === 'string') return result;

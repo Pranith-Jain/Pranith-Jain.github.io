@@ -10,6 +10,7 @@
  */
 
 import { Hono } from 'hono';
+import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, unauthorized, forbidden, notFound, conflict } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
@@ -37,7 +38,7 @@ function getTokenFromCookie(cookieHeader: string | undefined | null): string | n
   return match?.[1] ?? null;
 }
 
-async function requireUser(c: any) {
+async function requireUser(c: Context<{ Bindings: OrgEnv }>) {
   const token = getTokenFromCookie(c.req.header('cookie'));
   if (!token) return null;
   return validateSession(c.env.BRIEFINGS_DB, token);
@@ -83,7 +84,11 @@ orgs.get('/:slug', async (c) => {
   if (!user) return unauthorized(c, 'Unauthorized');
 
   const slug = c.req.param('slug');
-  const org = await c.env.BRIEFINGS_DB.prepare('SELECT id, name, slug, description, avatar_url, created_by, created_at, updated_at FROM organizations WHERE slug = ?').bind(slug).first();
+  const org = await c.env.BRIEFINGS_DB.prepare(
+    'SELECT id, name, slug, description, avatar_url, created_by, created_at, updated_at FROM organizations WHERE slug = ?'
+  )
+    .bind(slug)
+    .first();
 
   if (!org) {
     return notFound(c, 'Organization not found');

@@ -117,8 +117,7 @@ interface SiIndex {
 
 export async function siIndexHandler(c: Context<{ Bindings: Env }>) {
   const idx = await fetchJson<SiIndex>(c.env, `${DATA_PREFIX}/index.json`);
-  if (!idx)
-    return notFound(c, 'public/data/si/index.json not found');
+  if (!idx) return notFound(c, 'public/data/si/index.json not found');
   return c.json(idx, 200, { 'Cache-Control': 'public, max-age=300, s-maxage=3600' });
 }
 
@@ -147,8 +146,7 @@ export async function siSkillHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.param('slug');
   if (!slug) return badRequest(c, 'missing_slug');
   const body = await fetchJson<Record<string, unknown>>(c.env, `${DATA_PREFIX}/skills/${safeFilename(slug)}.json`);
-  if (!body)
-    return notFound(c, `no skill with slug "${slug}"`);
+  if (!body) return notFound(c, `no skill with slug "${slug}"`);
   // ?stream=true returns the bodyMarkdown as text/markdown stream (no
   // JSON envelope), and ?from_line / ?max_lines select a slice. Useful
   // for large skills (threat-pulse ~100KB) when the client only needs
@@ -208,11 +206,9 @@ export async function siQueryHandler(c: Context<{ Bindings: Env }>) {
 
 export async function siQueryBySlugHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.query('slug');
-  if (!slug)
-    return badRequest(c, 'pass ?slug=cloud/aitm_threat_detection');
+  if (!slug) return badRequest(c, 'pass ?slug=cloud/aitm_threat_detection');
   const body = await fetchJson<Record<string, unknown>>(c.env, `${DATA_PREFIX}/queries/${safeFilename(slug)}.json`);
-  if (!body)
-    return notFound(c, `no query with slug "${slug}"`);
+  if (!body) return notFound(c, `no query with slug "${slug}"`);
   if (c.req.query('stream') === 'true') {
     const text = String(body.bodyMarkdown ?? '');
     const slice = sliceMarkdownLines(
@@ -537,7 +533,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         return badRequest(c, e instanceof Error ? e.message : String(e));
       }
     } else {
-      let body: any;
+      let body: Record<string, unknown>;
       try {
         body = await c.req.json();
       } catch {

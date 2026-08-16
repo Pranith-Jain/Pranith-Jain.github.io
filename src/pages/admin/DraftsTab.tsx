@@ -59,6 +59,7 @@ export default function DraftsTab() {
   const [previewLoading, setPreviewLoading] = useState<string | null>(null);
   const [actionBusy, setActionBusy] = useState<string | null>(null);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- dead code, kept for future social generation feature
   const [_socialGen, _setSocialGen] = useState<Record<string, string>>({});
   const latestPreviewReq = useRef<string | null>(null);
 
@@ -210,6 +211,7 @@ export default function DraftsTab() {
   }
 
   // @ts-expect-error: dead code, kept for future social generation feature
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function _generateSocial(slug: string, platform: string) {
     // The backend /social/:slug/:platform endpoint uses getPostOrDraft which
     // reads from BOTH posts:<slug> and drafts:<slug> KV keys, so this works
@@ -627,6 +629,7 @@ function LinkVerifyBadge({
 }
 
 // @ts-expect-error: dead code, kept for future social generation feature
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function _SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onClick: () => void }) {
   const base = 'px-2 py-1 rounded text-xs border ';
   if (busy === 'busy') {
@@ -660,6 +663,7 @@ function _SocialBtn({ label, busy, onClick }: { label: string; busy?: string; on
  * single line on desktop and wraps gracefully on narrow viewports.
  */
 // @ts-expect-error: dead code, kept for future social generation feature
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function RegenMenu({
   slug,
   busy,

@@ -50,7 +50,7 @@ const CACHE_TTL = 3600;
 const API_TIMEOUT = 15000;
 
 interface GitHubFetchResult {
-  data: any;
+  data: unknown;
   status: number;
   rateLimited: boolean;
 }

@@ -21,6 +21,7 @@ const DataPageLayoutContext = createContext(false);
  *     const insideLayout = useInsideDataPageLayout();
  *     {!insideLayout && <BackLink to="/threatintel">…</BackLink>}
  */
+// eslint-disable-next-line react-refresh/only-export-components -- hook co-located with layout component
 export function useInsideDataPageLayout(): boolean {
   return useContext(DataPageLayoutContext);
 }

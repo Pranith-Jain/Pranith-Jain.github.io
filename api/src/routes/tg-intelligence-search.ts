@@ -13,26 +13,9 @@ import type { Env } from '../env';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { parseBooleanQuery } from '../lib/tg-boolean-search';
-import type { D1Database } from '@cloudflare/workers-types';
 
 function genId(prefix: string): string {
   return `${prefix}_${crypto.randomUUID()}`;
-}
-
-async function ensureTables(db: D1Database): Promise<void> {
-  await db
-    .prepare(
-      `
-    CREATE TABLE IF NOT EXISTS tg_saved_searches (
-      id TEXT PRIMARY KEY, name TEXT NOT NULL, query TEXT NOT NULL,
-      mode TEXT NOT NULL DEFAULT 'boolean', filters TEXT NOT NULL DEFAULT '{}',
-      sort_order TEXT NOT NULL DEFAULT 'newest', date_range TEXT NOT NULL DEFAULT '',
-      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
-      updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
-    )
-  `
-    )
-    .run();
 }
 
 // ─── Boolean Search ───
@@ -191,9 +174,12 @@ export async function tgTimelineHandler(c: Context<{ Bindings: Env }>): Promise<
 export async function tgSavedSearchesListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
-  await ensureTables(db);
 
-  const { results } = await db.prepare('SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches ORDER BY updated_at DESC').all();
+  const { results } = await db
+    .prepare(
+      'SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches ORDER BY updated_at DESC'
+    )
+    .all();
 
   return c.json({ searches: results });
 }
@@ -201,7 +187,6 @@ export async function tgSavedSearchesListHandler(c: Context<{ Bindings: Env }>):
 export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
-  await ensureTables(db);
 
   const body = await safeJsonBody<{
     name: string;
@@ -234,14 +219,18 @@ export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>):
     )
     .run();
 
-  const row = await db.prepare('SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches WHERE id = ?').bind(id).first();
+  const row = await db
+    .prepare(
+      'SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches WHERE id = ?'
+    )
+    .bind(id)
+    .first();
   return c.json(row, 201);
 }
 
 export async function tgSavedSearchDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
-  await ensureTables(db);
 
   const id = c.req.param('id');
   const result = await db.prepare('DELETE FROM tg_saved_searches WHERE id = ?').bind(id).run();

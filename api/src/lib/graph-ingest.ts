@@ -171,7 +171,7 @@ export async function ingestEntitiesNoEnsure(
       // Track IOC in lifecycle table (skip non-IOC types like actor, malware, cve)
       const lifecycleType = nodeToLifecycleType(ent.type);
       if (lifecycleType) {
-        safeNull(recordIocObservation(db, ent.value, lifecycleType, node.confidence, [src.source_name]));
+        void safeNull(recordIocObservation(db, ent.value, lifecycleType, node.confidence, [src.source_name]));
       }
     } catch (e) {
       result.errors.push(`node(${ent.type}:${ent.value}): ${e instanceof Error ? e.message : String(e)}`);

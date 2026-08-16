@@ -94,8 +94,8 @@ const listCacheReq = (): Request => new Request('https://campaigns-cache.interna
 const detailCacheReq = (id: string): Request => new Request(`https://campaigns-cache.internal/v1/detail/${id}`);
 async function invalidateCampaignCaches(id?: string): Promise<void> {
   const cache = campaignsCache();
-  safeNullLog('cache-delete-campaign-list', cache.delete(listCacheReq()));
-  if (id) safeNullLog('cache-delete-campaign-detail', cache.delete(detailCacheReq(id)));
+  void safeNullLog('cache-delete-campaign-list', cache.delete(listCacheReq()));
+  if (id) void safeNullLog('cache-delete-campaign-detail', cache.delete(detailCacheReq(id)));
 }
 
 function indexEntryFor(saved: SavedCampaign): IndexEntry {

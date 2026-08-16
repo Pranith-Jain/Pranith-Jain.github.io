@@ -26,8 +26,8 @@ import {
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
-import { SelfEvalScorecard } from '../../components/threatintel/SelfEvalScorecard';
-import { DataGapsPanel } from '../../components/threatintel/DataGapsPanel';
+import { SelfEvalScorecard, type SelfEvalResult } from '../../components/threatintel/SelfEvalScorecard';
+import { DataGapsPanel, type ToolFailure } from '../../components/threatintel/DataGapsPanel';
 import { InvestigationTrace } from '../../components/threatintel/InvestigationTrace';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
@@ -758,15 +758,15 @@ export default function AgentInvestigator(): JSX.Element {
           />
 
           {/* Self-evaluation scorecard */}
-          {agentState.selfEval && <SelfEvalScorecard selfEval={agentState.selfEval as any} />}
+          {agentState.selfEval && <SelfEvalScorecard selfEval={agentState.selfEval as SelfEvalResult} />}
 
           {/* Data gaps panel */}
           {agentState.dataGaps && agentState.dataGaps.length > 0 && (
-            <DataGapsPanel dataGaps={agentState.dataGaps as any} />
+            <DataGapsPanel dataGaps={agentState.dataGaps as ToolFailure[]} />
           )}
 
           {/* Investigation trace */}
-          {agentState.steps && agentState.steps.length > 0 && <InvestigationTrace steps={agentState.steps as any} />}
+          {agentState.steps && agentState.steps.length > 0 && <InvestigationTrace steps={agentState.steps} />}
         </section>
       )}
 

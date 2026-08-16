@@ -32,7 +32,13 @@ reportsRouter.get('/reports', async (c) => {
     const year = c.req.query('year') ? Number(c.req.query('year')) : undefined;
     const publisher = c.req.query('publisher');
     const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
-    const reports = mod.listReports(idx, { category: category as any, keyword, year, publisher, limit });
+    const reports = mod.listReports(idx, {
+      category: category as NonNullable<Parameters<typeof mod.listReports>[1]>['category'],
+      keyword,
+      year,
+      publisher,
+      limit,
+    });
     return c.json({ count: reports.length, reports });
   } catch (e) {
     logError('loadMod failed', e);

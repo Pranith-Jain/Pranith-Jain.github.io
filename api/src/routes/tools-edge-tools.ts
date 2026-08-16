@@ -34,7 +34,12 @@ toolsRouter.get('/tools', async (c) => {
     const offensive =
       c.req.query('offensive') === 'true' ? true : c.req.query('offensive') === 'false' ? false : undefined;
     const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
-    const results = mod.listTools(idx, { category: category as any, keyword, offensive, limit });
+    const results = mod.listTools(idx, {
+      category: category as NonNullable<Parameters<typeof mod.listTools>[1]>['category'],
+      keyword,
+      offensive,
+      limit,
+    });
     return c.json({ count: results.length, tools: results });
   } catch (e) {
     logError('handler failed', e);

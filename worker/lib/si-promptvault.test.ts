@@ -24,7 +24,6 @@ class Stmt {
     return this.run().then(onFulfilled as any, onRejected as any);
   }
   async first() {
-    const tblTest = (this.sql.match(/FROM\s+(\w+)/i) ?? [])[1];
     if (/COUNT\s*\(\s*\*\s*\)/i.test(this.sql)) {
       const tbl = (this.sql.match(/FROM\s+(\w+)/i) ?? [])[1];
       const t = this.db.tables[tbl!];
@@ -197,7 +196,7 @@ describe('si-promptvault', () => {
   });
 
   it('rates a prompt and updates the average', async () => {
-    const { promptVaultRate, promptVaultGet } = await import('./si-promptvault');
+    const { promptVaultRate } = await import('./si-promptvault');
     const e = env();
     const r1 = await promptVaultRate(e, { slug: 'sigma-rule-from-narrative', rating: 5 });
     const r2 = await promptVaultRate(e, { slug: 'sigma-rule-from-narrative', rating: 3 });

@@ -14,19 +14,6 @@ interface SavedRule {
   created_at: string;
 }
 
-async function ensureTable(db: D1Database): Promise<void> {
-  await db
-    .prepare(
-      `CREATE TABLE IF NOT EXISTS copilot_saved_rules (
-        id TEXT PRIMARY KEY, session_id TEXT, rule_type TEXT NOT NULL,
-        rule_name TEXT NOT NULL DEFAULT '', rule_content TEXT NOT NULL,
-        description TEXT NOT NULL DEFAULT '', context TEXT NOT NULL DEFAULT '',
-        created_at TEXT NOT NULL
-      )`
-    )
-    .run();
-}
-
 export async function copilotRulesSaveHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
@@ -42,7 +29,6 @@ export async function copilotRulesSaveHandler(c: Context<{ Bindings: Env }>): Pr
     }>();
     if (!body.rule_type || !body.rule_content) return badRequest(c, 'rule_type and rule_content required');
 
-    await ensureTable(db);
     const id = `rule_${Date.now()}_${crypto.randomUUID().slice(0, 8)}`;
     const now = new Date().toISOString();
     await db
@@ -74,16 +60,21 @@ export async function copilotRulesListHandler(c: Context<{ Bindings: Env }>): Pr
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    await ensureTable(db);
     const type = c.req.query('type');
     let rows: D1Result<SavedRule>;
     if (type) {
       rows = await db
-        .prepare('SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules WHERE rule_type = ? ORDER BY created_at DESC LIMIT 50')
+        .prepare(
+          'SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules WHERE rule_type = ? ORDER BY created_at DESC LIMIT 50'
+        )
         .bind(type)
         .all<SavedRule>();
     } else {
-      rows = await db.prepare('SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules ORDER BY created_at DESC LIMIT 50').all<SavedRule>();
+      rows = await db
+        .prepare(
+          'SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules ORDER BY created_at DESC LIMIT 50'
+        )
+        .all<SavedRule>();
     }
     return c.json({ rules: rows.results ?? [] });
   } catch (e) {

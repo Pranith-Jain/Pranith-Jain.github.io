@@ -79,12 +79,14 @@ async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
     const result = toEnriched(data);
     // Shadow-write Cache API from KV hit (best-effort, no waitUntil available here)
     if (cached) {
-      caches.default.put(
-        new Request(l1Key),
-        new Response(JSON.stringify(data), {
-          headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, s-maxage=1800' },
-        })
-      );
+      void caches.default
+        .put(
+          new Request(l1Key),
+          new Response(JSON.stringify(data), {
+            headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, s-maxage=1800' },
+          })
+        )
+        .catch(() => {});
     }
     return result;
   } catch (_catchErr) {

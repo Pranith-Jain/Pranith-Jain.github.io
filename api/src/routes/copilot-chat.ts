@@ -77,24 +77,6 @@ function truncate(s: string, max: number): string {
   return s.slice(0, max) + '…';
 }
 
-async function ensureTable(db: D1Database): Promise<void> {
-  await db
-    .prepare(
-      `CREATE TABLE IF NOT EXISTS copilot_sessions (
-        id TEXT PRIMARY KEY,
-        title TEXT NOT NULL DEFAULT '',
-        messages_json TEXT NOT NULL DEFAULT '[]',
-        created_at TEXT NOT NULL DEFAULT (datetime('now')),
-        updated_at TEXT NOT NULL DEFAULT (datetime('now'))
-      )`
-    )
-    .run();
-  await db
-    .prepare(`ALTER TABLE copilot_sessions ADD COLUMN title TEXT NOT NULL DEFAULT ''`)
-    .run()
-    .catch(() => {});
-}
-
 async function loadSession(db: D1Database, id: string): Promise<ChatSession | null> {
   const row = await db
     .prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?')
@@ -137,7 +119,6 @@ export async function copilotChatListHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
-    await ensureTable(db);
     const rows = await db
       .prepare(
         'SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions ORDER BY updated_at DESC LIMIT 50'
@@ -177,8 +158,6 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
 
     const doNamespace = c.env.INVESTIGATOR_AGENT;
     if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
-
-    await ensureTable(db);
 
     let session: ChatSession;
     let isNewSession = false;
@@ -384,7 +363,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
 
       const scheduleNext = (delay: number) => {
         pollDelay = delay;
-        if (!closed) pollTimeout(delay).then(poll);
+        if (!closed) void pollTimeout(delay).then(poll);
       };
 
       const heartbeatInterval = setInterval(() => {
@@ -427,7 +406,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         { once: true }
       );
 
-      poll(); // start first poll
+      void poll(); // start first poll
     },
   });
 
@@ -478,7 +457,6 @@ export async function copilotChatDeleteHandler(c: Context<{ Bindings: Env }>): P
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    await ensureTable(db);
     const existing = await loadSession(db, sessionId);
     if (!existing) return notFound(c, 'session not found');
 
@@ -498,7 +476,6 @@ export async function copilotChatHistoryHandler(c: Context<{ Bindings: Env }>): 
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    await ensureTable(db);
     const session = await loadSession(db, sessionId);
     if (!session) return notFound(c, 'session not found');
 

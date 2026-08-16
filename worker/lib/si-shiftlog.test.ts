@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 /**
  * Minimal D1-shaped in-memory shim. Supports:
@@ -106,7 +106,7 @@ class Stmt {
       let changes = 0;
       for (const row of t.values()) {
         if (String(row[whereCol]) !== String(whereVal)) continue;
-        for (const [c, _v] of setParts) {
+        for (const [c] of setParts) {
           const i = setParts.findIndex((p) => p[0] === c);
           if (i >= 0) {
             // The '= ?' position in the bound params: the SET col=? binds
@@ -203,7 +203,7 @@ describe('si-shiftlog', () => {
   });
 
   it('updates an entry and closes it', async () => {
-    const { shiftlogCreate, shiftlogUpdate, shiftlogClose, shiftlogGet } = await import('./si-shiftlog');
+    const { shiftlogCreate, shiftlogUpdate, shiftlogClose } = await import('./si-shiftlog');
     const e = env();
     const c = await shiftlogCreate(e, { shift: 'afternoon', author: 'a', notes: 'start' });
     const u = await shiftlogUpdate(e, c.id, { notes: 'mid', iocs: ['1.2.3.4'] });

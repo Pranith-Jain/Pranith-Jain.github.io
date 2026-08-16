@@ -549,7 +549,7 @@ export async function autoRunFeedJobs(db: D1Database): Promise<{ ran: number; sa
           savedCount++;
           // Track in IOC lifecycle table
           const lt = nodeType === 'ip' ? 'ipv4' : nodeType;
-          safeNull(recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]));
+          void safeNull(recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]));
         } catch {}
       }
     }

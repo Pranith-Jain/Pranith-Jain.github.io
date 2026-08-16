@@ -75,7 +75,7 @@ async function loadAll(kv: KVNamespace): Promise<ObservableEntry[]> {
   const raw = await safeNullLog('kv-get-observables', kv.get(KV_KEY, 'json'));
   const entries = (raw as ObservableEntry[]) ?? [];
   if (cache && entries.length > 0) {
-    safeNullLog(
+    void safeNullLog(
       'cache-put-observables',
       cache.put(
         OBS_CACHE_KEY,
@@ -92,7 +92,7 @@ async function saveAll(kv: KVNamespace, entries: ObservableEntry[]): Promise<voi
   await kv.put(KV_KEY, JSON.stringify(entries));
   const cache = cacheApi();
   if (cache) {
-    safeNullLog(
+    void safeNullLog(
       'cache-put-observables-save',
       cache.put(
         OBS_CACHE_KEY,
@@ -306,8 +306,7 @@ export async function addObservableNoteHandler(c: Context<{ Bindings: Env }>): P
     author: body.author ?? 'anonymous',
   };
   const entry = { ...entries[idx]! } as ObservableEntry;
-  if (entry.notes.length >= MAX_NOTES_PER_ENTRY)
-    return serviceUnavailable(c, 'note limit reached for this observable');
+  if (entry.notes.length >= MAX_NOTES_PER_ENTRY) return serviceUnavailable(c, 'note limit reached for this observable');
   entry.notes = [...entry.notes, note];
   entry.updated_at = now();
   entries[idx] = entry;

@@ -13,6 +13,7 @@ import { Hono } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound } from '../lib/api-error';
+import type { DbBriefBody } from '../lib/daily-briefs-manifest';
 
 const KV_INDEX_KEY = 'db:index';
 const KV_BODY_PREFIX = 'db:body';
@@ -97,7 +98,12 @@ async function loadIndex(kv?: KVNamespace, assets?: Fetcher): Promise<DbIndex | 
   return null;
 }
 
-async function loadBriefBody(kv?: KVNamespace, assets?: Fetcher, type?: string, date?: string): Promise<any | null> {
+async function loadBriefBody(
+  kv?: KVNamespace,
+  assets?: Fetcher,
+  type?: string,
+  date?: string
+): Promise<DbBriefBody | null> {
   if (kv && type && date) {
     // L1: per-colo Cache-API shadow. Bodies are immutable per (type,date),
     // so a 1h shadow is safe and collapses repeated reads.
@@ -122,7 +128,7 @@ async function loadBriefBody(kv?: KVNamespace, assets?: Fetcher, type?: string, 
         } catch {
           /* best-effort shadow */
         }
-        return raw;
+        return raw as DbBriefBody;
       }
     } catch {
       /* fall through */
@@ -131,7 +137,7 @@ async function loadBriefBody(kv?: KVNamespace, assets?: Fetcher, type?: string, 
   if (assets && type && date) {
     try {
       const mod = await loadDbMod();
-      return await mod.getDbBrief(assets, type as any, date);
+      return await mod.getDbBrief(assets, type as Parameters<typeof mod.getDbBrief>[1], date);
     } catch {
       /* fall through */
     }
@@ -162,7 +168,7 @@ dailyBriefsRouter.get('/daily-briefs/', async (c) => {
 // ─── List dates for a brief type ───────────────────────────────────────
 dailyBriefsRouter.get('/daily-briefs/:type', async (c) => {
   const type = c.req.param('type').toLowerCase();
-  if (!VALID_TYPES.includes(type as any)) {
+  if (!VALID_TYPES.includes(type as (typeof VALID_TYPES)[number])) {
     return badRequest(c, `invalid_type: ${type} — must be cyber, deepfake, or disaster`);
   }
   try {
@@ -180,7 +186,7 @@ dailyBriefsRouter.get('/daily-briefs/:type', async (c) => {
 dailyBriefsRouter.get('/daily-briefs/:type/:date', async (c) => {
   const type = c.req.param('type').toLowerCase();
   const date = c.req.param('date');
-  if (!VALID_TYPES.includes(type as any)) {
+  if (!VALID_TYPES.includes(type as (typeof VALID_TYPES)[number])) {
     return badRequest(c, `invalid_type: ${type} — must be cyber, deepfake, or disaster`);
   }
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {

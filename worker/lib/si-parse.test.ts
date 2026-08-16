@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { siParseText, parseArtifacts, refang, foldHomographs } from './si-parse';
+import { siParseText, refang, foldHomographs } from './si-parse';
 
 describe('si-parse: refang', () => {
   it('refangs hxxp and hxxps', () => {
@@ -53,7 +53,26 @@ Email: cfo@contoso.com
   const r = siParseText(sample);
 
   it('detects all 18 kinds (with non-zero count)', () => {
-    const expected = ['ipv4','ipv6','domain','url','email','md5','sha1','sha256','sha512','cve','mitre','registry','process','dll','filePath','port','mac','asn'] as const;
+    const expected = [
+      'ipv4',
+      'ipv6',
+      'domain',
+      'url',
+      'email',
+      'md5',
+      'sha1',
+      'sha256',
+      'sha512',
+      'cve',
+      'mitre',
+      'registry',
+      'process',
+      'dll',
+      'filePath',
+      'port',
+      'mac',
+      'asn',
+    ] as const;
     for (const k of expected) {
       expect(r.counts[k], `count for ${k} should be > 0`).toBeGreaterThan(0);
     }
@@ -99,7 +118,9 @@ Email: cfo@contoso.com
     // SHA-1 we have is its own complete hash. We just verify that the
     // de-dup logic does not double-count anything.
     const r3 = siParseText(sample);
-    const hashValues = [...r3.artifacts.sha1, ...r3.artifacts.sha256, ...r3.artifacts.sha512, ...r3.artifacts.md5].map((a) => a.value);
+    const hashValues = [...r3.artifacts.sha1, ...r3.artifacts.sha256, ...r3.artifacts.sha512, ...r3.artifacts.md5].map(
+      (a) => a.value
+    );
     const uniq = new Set(hashValues.map((v) => v.toLowerCase()));
     expect(uniq.size).toBe(hashValues.length);
   });

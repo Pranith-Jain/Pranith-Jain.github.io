@@ -191,7 +191,7 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
     config,
     built_at: new Date().toISOString(),
   };
-  safeNullLog(
+  void safeNullLog(
     'cache-put-bloom-filter-built',
     (caches as unknown as { default: Cache }).default.put(
       filterCacheReq(type),

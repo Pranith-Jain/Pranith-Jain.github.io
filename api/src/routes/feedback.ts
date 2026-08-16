@@ -150,7 +150,7 @@ async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
   });
   const feedbacks: Feedback[] = results.filter((f): f is Feedback => f !== null);
   feedbacks.sort((a, b) => b.created_at.localeCompare(a.created_at));
-  safeNullLog(
+  void safeNullLog(
     'cache-put-feedback-list',
     cache.put(
       new Request(FEEDBACK_LIST_CACHE),

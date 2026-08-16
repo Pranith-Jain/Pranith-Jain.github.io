@@ -557,35 +557,39 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     );
   }
 
-  // Mirror published post to D1 for search/scale
+  // Mirror published post to D1 for search/scale (fire-and-forget; failures non-critical)
   if (result.slug && env.BRIEFINGS_DB) {
-    import('./storage/cs-posts-d1').then(({ upsertCsPostD1 }) => {
-      // Fetch the post from KV and upsert into D1
-      import('./storage/posts').then(async ({ getPost }) => {
+    void import('./storage/cs-posts-d1')
+      .then(async ({ upsertCsPostD1 }) => {
+        const { getPost } = await import('./storage/posts');
         try {
           const post = await getPost(env.CASE_STUDIES, result.slug!);
           if (post) await upsertCsPostD1(env.BRIEFINGS_DB!, post);
         } catch {
           // D1 sync is non-critical
         }
-      });
-    });
+      })
+      .catch(() => {});
   }
 
   // Notifications
   if (result.published === 1 && result.slug) {
-    import('./notifications').then(({ notifyPublished }) =>
-      notifyPublished(env as unknown as WebhookEnv, result.slug!, result.slug!, 'published').catch((err) =>
-        console.error('notifyPublished failed:', err)
+    void import('./notifications')
+      .then(({ notifyPublished }) =>
+        notifyPublished(env as unknown as WebhookEnv, result.slug!, result.slug!, 'published').catch((err) =>
+          console.error('notifyPublished failed:', err)
+        )
       )
-    );
+      .catch(() => {});
   }
   if (result.published === 0 && result.slug && env.BLOG_APPROVAL_REQUIRED === 'true') {
-    import('./notifications').then(({ notifyDraftReady }) =>
-      notifyDraftReady(env as unknown as WebhookEnv, result.slug!, result.slug!, 'draft').catch((err) =>
-        console.error('notifyDraftReady failed:', err)
+    void import('./notifications')
+      .then(({ notifyDraftReady }) =>
+        notifyDraftReady(env as unknown as WebhookEnv, result.slug!, result.slug!, 'draft').catch((err) =>
+          console.error('notifyDraftReady failed:', err)
+        )
       )
-    );
+      .catch(() => {});
   }
 
   return result;

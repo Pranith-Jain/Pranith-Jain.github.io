@@ -8,7 +8,7 @@
  * a failing assertion.
  */
 import { describe, it, expect } from 'vitest';
-import { analyzeUrlSignals, calculateUrlRisk, computeAgeInDays, SUSPICIOUS_KEYWORDS, URL_SHORTENERS } from './url-risk';
+import { analyzeUrlSignals, calculateUrlRisk, computeAgeInDays } from './url-risk';
 
 describe('analyzeUrlSignals — static heuristics (signals.py port)', () => {
   it('clean https URL produces no flags', () => {

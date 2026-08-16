@@ -11,7 +11,6 @@ import {
   type ActorIndex,
   type ActorBody,
   type AptmapGraph,
-  type AptmapDataFileMeta,
 } from './etda-actors-manifest';
 
 function mockAssets(files: Record<string, unknown>): Fetcher {

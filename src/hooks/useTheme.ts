@@ -13,8 +13,7 @@ function getInitialTheme(): Theme {
     if (stored && THEME_VALUES.includes(stored)) {
       return stored;
     }
-  } catch (e) {
-  }
+  } catch {}
 
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
@@ -32,7 +31,8 @@ export function useTheme() {
 
     try {
       localStorage.setItem(STORAGE_KEY, theme);
-    } catch (e) {
+    } catch {
+      // private mode / storage full — theme still applies for this session
     }
   }, [theme]);
 

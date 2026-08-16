@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { it, expect, vi, beforeEach } from 'vitest';
 import { whoxyReverseWhois } from './whoxy';
 
 const env: Record<string, string> = { WHOXY_API_KEY: 'fake-key' };

@@ -12,22 +12,9 @@ export interface AgentStep {
   duration?: number;
 }
 
-const ACCENT_STEPS = [
-  'bg-rose-600',
-  'bg-brand-500',
-  'bg-violet-500',
-  'bg-amber-500',
-  'bg-rose-500',
-  'bg-emerald-500',
-];
+const ACCENT_STEPS = ['bg-rose-600', 'bg-brand-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-emerald-500'];
 
-export function StepIndicator({
-  steps,
-  currentStep,
-}: {
-  steps: AgentStep[];
-  currentStep: number;
-}) {
+export function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; currentStep: number }) {
   if (steps.length === 0) return null;
   return (
     <div className="flex flex-wrap gap-1.5 mb-3">
@@ -64,6 +51,7 @@ export function StepIndicator({
 }
 
 /** Minimal markdown renderer (shared between VeraChat + Copilot). */
+// eslint-disable-next-line react-refresh/only-export-components -- shared helper
 export function renderMarkdown(safeMd: string): string {
   let html = safeMd;
   // Fenced code blocks - render before other markdown to protect content

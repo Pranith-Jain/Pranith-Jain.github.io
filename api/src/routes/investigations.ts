@@ -62,56 +62,6 @@ function timelineEntry(type: TimelineEvent['type'], message: string): TimelineEv
 
 // ── D1 table management ──────────────────────────────────────────────────
 
-const DDL = `
-CREATE TABLE IF NOT EXISTS investigations (
-  id TEXT PRIMARY KEY,
-  title TEXT NOT NULL,
-  description TEXT DEFAULT '',
-  severity TEXT NOT NULL DEFAULT 'medium',
-  tlp TEXT NOT NULL DEFAULT 'amber',
-  status TEXT NOT NULL DEFAULT 'open',
-  tags TEXT DEFAULT '[]',
-  created_at TEXT NOT NULL,
-  updated_at TEXT NOT NULL
-);
-CREATE TABLE IF NOT EXISTS investigation_observables (
-  id TEXT PRIMARY KEY,
-  investigation_id TEXT NOT NULL,
-  value TEXT NOT NULL,
-  type TEXT NOT NULL,
-  description TEXT,
-  tags TEXT DEFAULT '[]',
-  created_at TEXT NOT NULL
-);
-CREATE TABLE IF NOT EXISTS investigation_tasks (
-  id TEXT PRIMARY KEY,
-  investigation_id TEXT NOT NULL,
-  title TEXT NOT NULL,
-  description TEXT,
-  status TEXT NOT NULL DEFAULT 'pending',
-  created_at TEXT NOT NULL
-);
-CREATE TABLE IF NOT EXISTS investigation_timeline (
-  id TEXT PRIMARY KEY,
-  investigation_id TEXT NOT NULL,
-  type TEXT NOT NULL,
-  message TEXT NOT NULL,
-  created_at TEXT NOT NULL
-);
-CREATE INDEX IF NOT EXISTS idx_inv_obs_inv ON investigation_observables(investigation_id);
-CREATE INDEX IF NOT EXISTS idx_inv_tasks_inv ON investigation_tasks(investigation_id);
-CREATE INDEX IF NOT EXISTS idx_inv_timeline_inv ON investigation_timeline(investigation_id);
-`;
-
-async function ensureTables(db: D1Database): Promise<void> {
-  const stmts = DDL.split(';')
-    .map((s) => s.trim())
-    .filter(Boolean);
-  for (const stmt of stmts) {
-    await db.prepare(stmt).run();
-  }
-}
-
 // ── Query helpers ────────────────────────────────────────────────────────
 
 function parseTags(raw: unknown): string[] {
@@ -171,13 +121,33 @@ function rowToInvestigation(row: Record<string, unknown>): Omit<Investigation, '
 }
 
 async function loadFullInvestigation(db: D1Database, id: string): Promise<Investigation | null> {
-  const row = await db.prepare('SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations WHERE id = ?').bind(id).first();
+  const row = await db
+    .prepare(
+      'SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations WHERE id = ?'
+    )
+    .bind(id)
+    .first();
   if (!row) return null;
   const base = rowToInvestigation(row as Record<string, unknown>);
   const [observables, tasks, timeline] = await Promise.all([
-    db.prepare('SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
-    db.prepare('SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
-    db.prepare('SELECT id, investigation_id, type, message, created_at FROM investigation_timeline WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
+    db
+      .prepare(
+        'SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE investigation_id = ? ORDER BY created_at'
+      )
+      .bind(id)
+      .all(),
+    db
+      .prepare(
+        'SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE investigation_id = ? ORDER BY created_at'
+      )
+      .bind(id)
+      .all(),
+    db
+      .prepare(
+        'SELECT id, investigation_id, type, message, created_at FROM investigation_timeline WHERE investigation_id = ? ORDER BY created_at'
+      )
+      .bind(id)
+      .all(),
   ]);
   return {
     ...base,
@@ -188,7 +158,11 @@ async function loadFullInvestigation(db: D1Database, id: string): Promise<Invest
 }
 
 async function loadAllInvestigations(db: D1Database): Promise<Investigation[]> {
-  const rows = await db.prepare('SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations ORDER BY updated_at DESC').all();
+  const rows = await db
+    .prepare(
+      'SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations ORDER BY updated_at DESC'
+    )
+    .all();
   if (!rows.results?.length) return [];
 
   const bases = rows.results.map((r) => rowToInvestigation(r as Record<string, unknown>));
@@ -200,15 +174,21 @@ async function loadAllInvestigations(db: D1Database): Promise<Investigation[]> {
   const toBind = ids;
   const [obsResult, tasksResult, tlResult] = await Promise.all([
     db
-      .prepare(`SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
+      .prepare(
+        `SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE investigation_id IN (${placeholder}) ORDER BY created_at`
+      )
       .bind(...toBind)
       .all(),
     db
-      .prepare(`SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
+      .prepare(
+        `SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE investigation_id IN (${placeholder}) ORDER BY created_at`
+      )
       .bind(...toBind)
       .all(),
     db
-      .prepare(`SELECT id, investigation_id, type, message, created_at FROM investigation_timeline WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
+      .prepare(
+        `SELECT id, investigation_id, type, message, created_at FROM investigation_timeline WHERE investigation_id IN (${placeholder}) ORDER BY created_at`
+      )
       .bind(...toBind)
       .all(),
   ]);
@@ -250,7 +230,6 @@ async function loadAllInvestigations(db: D1Database): Promise<Investigation[]> {
 export async function listInvestigationsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'Database not configured');
-  await ensureTables(db);
   const investigations = await loadAllInvestigations(db);
   return c.json({ investigations }, 200, { 'Cache-Control': 'no-store' });
 }
@@ -270,7 +249,6 @@ export async function createInvestigationHandler(c: Context<{ Bindings: Env }>):
   const body = parsed.value;
 
   if (!body.title?.trim()) return badRequest(c, 'title is required');
-  await ensureTables(db);
 
   const now_ = now();
   const inv = {
@@ -321,7 +299,6 @@ export async function getInvestigationHandler(c: Context<{ Bindings: Env }>): Pr
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
-  await ensureTables(db);
 
   const investigation = await loadFullInvestigation(db, id);
   if (!investigation) return notFound(c, 'investigation not found');
@@ -345,9 +322,13 @@ export async function updateInvestigationHandler(c: Context<{ Bindings: Env }>):
   }>(c, { maxBytes: 8 * 1024 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  await ensureTables(db);
 
-  const existing = await db.prepare('SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations WHERE id = ?').bind(id).first();
+  const existing = await db
+    .prepare(
+      'SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations WHERE id = ?'
+    )
+    .bind(id)
+    .first();
   if (!existing) return notFound(c, 'investigation not found');
 
   const inv = rowToInvestigation(existing as Record<string, unknown>);
@@ -394,7 +375,6 @@ export async function deleteInvestigationHandler(c: Context<{ Bindings: Env }>):
 
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
-  await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
   if (!existing) return notFound(c, 'investigation not found');
@@ -422,7 +402,6 @@ export async function addObservableHandler(c: Context<{ Bindings: Env }>): Promi
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
   if (!body.value?.trim() || !body.type) return badRequest(c, 'value and type required');
-  await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
   if (!existing) return notFound(c, 'investigation not found');
@@ -469,10 +448,11 @@ export async function removeObservableHandler(c: Context<{ Bindings: Env }>): Pr
   const id = c.req.param('id');
   const obsId = c.req.param('observableId');
   if (!id || !obsId) return badRequest(c, 'id and observableId required');
-  await ensureTables(db);
 
   const obs = await db
-    .prepare('SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE id = ? AND investigation_id = ?')
+    .prepare(
+      'SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE id = ? AND investigation_id = ?'
+    )
     .bind(obsId, id)
     .first();
   if (!obs) return notFound(c, 'observable not found');
@@ -503,7 +483,6 @@ export async function addTaskHandler(c: Context<{ Bindings: Env }>): Promise<Res
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
   if (!body.title?.trim()) return badRequest(c, 'title required');
-  await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
   if (!existing) return notFound(c, 'investigation not found');
@@ -547,10 +526,11 @@ export async function updateTaskHandler(c: Context<{ Bindings: Env }>): Promise<
   });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  await ensureTables(db);
 
   const taskRow = await db
-    .prepare('SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE id = ? AND investigation_id = ?')
+    .prepare(
+      'SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE id = ? AND investigation_id = ?'
+    )
     .bind(taskId, id)
     .first();
   if (!taskRow) return notFound(c, 'task not found');
@@ -589,7 +569,6 @@ export async function addNoteHandler(c: Context<{ Bindings: Env }>): Promise<Res
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
   if (!body.message?.trim()) return badRequest(c, 'message required');
-  await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
   if (!existing) return notFound(c, 'investigation not found');
