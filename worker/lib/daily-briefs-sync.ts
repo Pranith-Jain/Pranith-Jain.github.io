@@ -1134,7 +1134,7 @@ function parseMaritimeBrief(html: string, date: string) {
 }
 
 interface SyncEnv {
-  KV_CACHE?: any;
+  KV_CACHE?: KVNamespace;
 }
 
 export async function syncDailyBriefs(env: SyncEnv): Promise<{ types: string[]; errors: string[] }> {
@@ -1145,7 +1145,7 @@ export async function syncDailyBriefs(env: SyncEnv): Promise<{ types: string[]; 
     return { types: [], errors: ['KV_CACHE not bound'] };
   }
 
-  const parsers: Record<DbBriefType, (html: string, date: string) => any> = {
+  const parsers: Record<DbBriefType, (html: string, date: string) => unknown> = {
     cyber: parseCyberBrief,
     deepfake: parseDeepfakeBrief,
     disaster: parseDisasterBrief,

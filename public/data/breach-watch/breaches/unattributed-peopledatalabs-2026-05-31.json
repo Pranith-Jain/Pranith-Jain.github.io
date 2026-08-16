@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-peopledatalabs-2026-05-31",
+  "title": "PeopleDataLabs",
+  "group": "Unattributed",
+  "discovered": "2026-05-31T06:27:12.000Z",
+  "category": "data_breach",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "People Data Labs, a data enrichment company, was impacted by a larger data exposure in 2019, with a partial dataset later circulating that contained records with email addresses, locations, full names, and LinkedIn profile information including job positions.",
+  "source_url": "https://xposedornot.com/breach/PeopleDataLabs",
+  "groupAliases": [],
+  "activity": "Information Technology",
+  "references": ["XposedOrNot"]
+}

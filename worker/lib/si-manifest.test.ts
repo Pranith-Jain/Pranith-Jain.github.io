@@ -14,14 +14,12 @@ import {
   loadSiIndex,
   getSiSkill,
   getSiQuery,
-  getSiAutomation,
   filterSkills,
   filterQueries,
   siCacheStats,
   _resetSiCacheForTests,
   clearDocsCache,
   loadDocsIndex,
-  getDoc,
   getRef,
   getRoutingPrompt,
   type SiIndex,
@@ -427,7 +425,7 @@ describe('SI manifest shape smoke test', () => {
       expect(idx.counts.referenceData).toBe(14);
       expect(idx.counts.scripts).toBe(5);
       expect(idx.counts.routingPromptBytes).toBeGreaterThan(80000);
-    } catch (e) {
+    } catch {
       // dist not built; skip.
     }
   });

@@ -737,7 +737,7 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
   // pins an empty feed for the whole TTL and the page blanks for repeat
   // visitors — the exact failure this guards against.
   if (upstreamOk && body.victims.length > 0 && env?.KV_CACHE) {
-    safeNullLog(
+    void safeNullLog(
       'cache-put-ransomware-recent',
       (caches as unknown as { default: Cache }).default.put(
         new Request(RANSOMWARE_RECENT_CACHE_KEY),

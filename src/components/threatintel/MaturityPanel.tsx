@@ -135,9 +135,10 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
   );
 }
 
+const RELIABILITY_GRADES: ReliabilityGrade[] = ['A', 'B', 'C', 'D', 'E', 'F'];
+
 function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Element {
   // Prefer the server-computed distribution; fall back to deriving from sources.
-  const grades: ReliabilityGrade[] = ['A', 'B', 'C', 'D', 'E', 'F'];
   const [dist, total] = useMemo(() => {
     const d: ReliabilityDistribution =
       data.reliability_distribution ??
@@ -146,10 +147,10 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
         acc[k] = (acc[k] ?? 0) + 1;
         return acc;
       }, {});
-    const t = grades.reduce((sum, g) => sum + (d[g] ?? 0), 0);
+    const t = RELIABILITY_GRADES.reduce((sum, g) => sum + (d[g] ?? 0), 0);
     return [d, t] as const;
   }, [data]);
-  const max = Math.max(1, ...grades.map((g) => dist[g] ?? 0));
+  const max = Math.max(1, ...RELIABILITY_GRADES.map((g) => dist[g] ?? 0));
   return (
     <div>
       <div className="flex items-baseline justify-between mb-3">
@@ -159,7 +160,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
         <span className="text-micro font-mono text-slate-500">{total} sources graded</span>
       </div>
       <div className="surface-card p-3 space-y-2">
-        {grades.map((g) => {
+        {RELIABILITY_GRADES.map((g) => {
           const n = dist[g] ?? 0;
           const pct = total > 0 ? (n / total) * 100 : 0;
           const barPct = (n / max) * 100;

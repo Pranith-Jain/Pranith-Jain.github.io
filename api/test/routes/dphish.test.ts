@@ -121,14 +121,22 @@ describe('dPhish routes', () => {
     const body = (await r.json()) as {
       source: string;
       collectionId: string;
+      collectionUrl: string;
       counts: { indicators: number; active: number };
       stats: { indexLoaded: boolean };
+      indicators: Array<{ slug: string; value: string; category: string }>;
     };
     expect(body.source).toBe('dphish.com');
     expect(body.collectionId).toBe('68f57461-5c20-451d-ab32-6357d1fbef0b');
+    expect(body.collectionUrl).toBe(
+      'https://tip.dphish.live/taxii2/root/collections/68f57461-5c20-451d-ab32-6357d1fbef0b/objects/'
+    );
     expect(body.counts.indicators).toBe(2);
     expect(body.counts.active).toBe(2);
     expect(body.stats.indexLoaded).toBe(true);
+    expect(body.indicators).toHaveLength(2);
+    expect(body.indicators[0]!.value).toBe('melbetegypt.com');
+    expect(body.indicators[0]!.category).toBe('domain');
   });
 
   it('GET /dphish/indicators lists with category filter + 404-safe params', async () => {

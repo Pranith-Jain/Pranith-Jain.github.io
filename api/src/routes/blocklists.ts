@@ -35,7 +35,7 @@ async function readAllFromKv(kv: KVNamespace | undefined): Promise<BlocklistAll 
     if (raw && typeof raw === 'object' && 'pfsense' in raw) {
       const all = raw as BlocklistAll;
       // Write-through so subsequent reads in this colo skip KV for the TTL.
-      safeNullLog(
+      void safeNullLog(
         'cache-put-blocklists',
         cache.put(
           new Request(BLOCKLIST_CACHE_KEY),

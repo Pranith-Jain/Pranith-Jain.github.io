@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Pierce Township Pierce Township is a growing community in Ohio that blends rural charm with suburban living, covering 23.5 square miles and home to over 16,000 residents.We are pleased to present:Judicial materials - Grand Jury subpoena response incl. hospital records (Mercy Hospital), public records requests, fire investigation reportsEmployee PII - Social Security numbers (SSA-1945, W-4, Ohio Tax forms), CDL licenses, health insurance waivers, new-hire packetsLegal settlements - Logan Creek v. Pierce Township, Purdue opioid settlement, easement and lease agreementsFinancial records - budgets, tax levies, appropriation reports, invoices, paymentsInternal email archives of township officials and administration    More",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/90d3e5e2-75a7-42ca-ad1d-a92616c2bdfa",
   "groupAliases": [],
   "activity": "Government & Defense",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

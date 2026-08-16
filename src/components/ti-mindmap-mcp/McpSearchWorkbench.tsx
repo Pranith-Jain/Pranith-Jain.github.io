@@ -112,12 +112,16 @@ export function McpSearchWorkbench(props: {
     setHistory(loadHistory());
   }, []);
 
-  // Auto-load latest reports on connect
+  // Auto-load latest reports on connect. `hit`/`busy`/`runLatestReports` are
+  // intentionally excluded: the guard is a snapshot at connect time, and
+  // including them would re-trigger the load after every search/state change.
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (status === 'connected' && apiKey && !hit && !busy) {
       void runLatestReports();
     }
   }, [status, apiKey]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   async function runLatestReports(): Promise<void> {
     if (!apiKey) return;
@@ -183,7 +187,7 @@ export function McpSearchWorkbench(props: {
         setBusy(false);
       }
     },
-    [apiKey, status, q, mode]
+    [apiKey, status, q, mode, timeRange]
   );
 
   async function openReport(r: TiReportSummary): Promise<void> {
@@ -255,7 +259,7 @@ export function McpSearchWorkbench(props: {
     })();
 
     return () => ctrl.abort();
-  }, [severityFilter, hit, apiKey, detailsCache.size]);
+  }, [severityFilter, hit, apiKey, detailsCache]);
 
   const placeholders: Record<Mode, string> = {
     ioc: '8.8.8.8 · evil.com · sha256:…',

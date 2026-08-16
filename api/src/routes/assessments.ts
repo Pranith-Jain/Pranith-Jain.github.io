@@ -84,7 +84,7 @@ async function loadAll(env: Env): Promise<Assessment[]> {
     const assessments: Assessment[] = results.filter((a): a is Assessment => a !== null);
     const sorted = assessments.sort((a, b) => b.created_at.localeCompare(a.created_at));
     if (cache && sorted.length > 0) {
-      safeNullLog(
+      void safeNullLog(
         'cache-put-assessment-index',
         cache.put(
           INDEX_CACHE_KEY,
@@ -109,7 +109,7 @@ async function save(env: Env, assessment: Assessment): Promise<void> {
     await kv.put(`${KV_PREFIX}:index`, JSON.stringify(ids));
   }
   const cache = cacheApi();
-  if (cache) safeNullLog('cache-delete-index', cache.delete(INDEX_CACHE_KEY));
+  if (cache) void safeNullLog('cache-delete-index', cache.delete(INDEX_CACHE_KEY));
 }
 
 /**
@@ -205,7 +205,7 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
     if (!raw) return notFound(c, 'assessment not found');
     const assessment = JSON.parse(raw) as Assessment;
     if (cache) {
-      safeNullLog(
+      void safeNullLog(
         'cache-put-assessment-detail',
         cache.put(
           new Request(cacheKey),
@@ -283,8 +283,8 @@ export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Pr
     }
     const cache = cacheApi();
     if (cache) {
-      safeNullLog('cache-delete-index', cache.delete(INDEX_CACHE_KEY));
-      safeNullLog(
+      void safeNullLog('cache-delete-index', cache.delete(INDEX_CACHE_KEY));
+      void safeNullLog(
         'cache-delete-assessment-detail',
         cache.delete(new Request(`https://assessment-detail-cache.internal/v1/${id}`))
       );

@@ -120,7 +120,12 @@ export function extractFindings(
   const findings: SpecialistFinding[] = [];
   if (!result.data || typeof result.data !== 'object') return findings;
 
-  const data = result.data as Record<string, unknown>;
+  const data = result.data as Record<string, unknown> & {
+    kev?: boolean;
+    cvss?: { score?: number };
+    epss?: { score?: number };
+    verdict?: string;
+  };
 
   // Extract IOCs from check_ioc / enrich_ioc_deep results
   if (result.tool === 'check_ioc' || result.tool === 'enrich_ioc_deep') {
@@ -143,9 +148,9 @@ export function extractFindings(
       findings.push({
         type: 'cve',
         value: String(cveId),
-        confidence: (data as any)?.kev === true ? 'high' : 'medium',
+        confidence: data.kev === true ? 'high' : 'medium',
         source: result.tool,
-        detail: `CVSS: ${(data as any)?.cvss?.score ?? 'N/A'}, EPSS: ${(data as any)?.epss?.score ?? 'N/A'}`,
+        detail: `CVSS: ${data.cvss?.score ?? 'N/A'}, EPSS: ${data.epss?.score ?? 'N/A'}`,
       });
     }
   }
@@ -185,9 +190,9 @@ export function extractFindings(
       findings.push({
         type: 'hash',
         value: String(hash),
-        confidence: (data as any)?.verdict === 'malicious' ? 'high' : 'medium',
+        confidence: data.verdict === 'malicious' ? 'high' : 'medium',
         source: result.tool,
-        detail: `Step ${stepNum}: ${result.tool} → ${(data as any)?.verdict ?? 'unknown'}`,
+        detail: `Step ${stepNum}: ${result.tool} → ${data.verdict ?? 'unknown'}`,
       });
     }
   }

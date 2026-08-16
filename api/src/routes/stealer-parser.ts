@@ -197,7 +197,7 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
             headers: { 'User-Agent': 'threat-intel-parser/1.0' },
           });
           if (res.ok) text = await res.text();
-          else if (res.body) safeNull(res.body.cancel());
+          else if (res.body) void safeNull(res.body.cancel());
         } catch (e) {
           logError('handler failed', e);
           if (e instanceof SsrfError) {

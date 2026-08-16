@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { it, expect, vi, beforeEach } from 'vitest';
 import { traceixLookup } from './traceix';
 
 const env: Record<string, string> = { TRACEIX_API_KEY: 'fake-key' };
@@ -12,8 +12,18 @@ it('returns AV results for a valid SHA-256 hash', async () => {
         success: true,
         request_timestamp: 1700000000,
         results: [
-          { engine: 'ClamAV', engine_type: 'antivirus', file_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', verdict: 'Safe' },
-          { engine: 'BitDefender', engine_type: 'antivirus', file_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', verdict: 'Safe' },
+          {
+            engine: 'ClamAV',
+            engine_type: 'antivirus',
+            file_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+            verdict: 'Safe',
+          },
+          {
+            engine: 'BitDefender',
+            engine_type: 'antivirus',
+            file_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+            verdict: 'Safe',
+          },
         ],
       }),
       { status: 200 }

@@ -99,6 +99,7 @@ export function McpProvider({ children }: { children: ReactNode }): JSX.Element 
   return <Ctx value={value}>{children}</Ctx>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook co-located with provider
 export function useMcp(): McpContextValue {
   const v = useContext(Ctx);
   if (!v) throw new Error('useMcp must be used inside <McpProvider>');

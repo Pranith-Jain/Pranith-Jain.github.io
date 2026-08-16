@@ -195,7 +195,10 @@ export async function stealerForumIntelHandler(c: Context<{ Bindings: Env }>): P
   const cached = await cache.match(cacheReq);
   if (cached) return new Response(cached.body, cached);
 
-  const body = await buildStealerForumIntel(c.env, c.executionCtx as any);
+  const body = await buildStealerForumIntel(
+    c.env,
+    c.executionCtx as unknown as Parameters<typeof buildStealerForumIntel>[1]
+  );
   const cacheable = body.forums.length > 0 || body.chatter.telegram.matches > 0 || body.chatter.reddit.matches > 0;
   const response = new Response(JSON.stringify(body), {
     status: 200,

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Reminger Attorneys at Law is a law firm with a strong presence in Ohio, Kentucky, and Indiana, operati…",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/59adb660-a56f-4fa0-bc9c-36e16ee70f85",
   "groupAliases": [],
   "activity": "Professional Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

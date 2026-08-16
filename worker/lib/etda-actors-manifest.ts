@@ -209,7 +209,7 @@ export interface ActorListOptions {
 }
 
 export function filterActors(idx: ActorIndex, opts: ActorListOptions = {}): ActorIndexEntry[] {
-  const { category, country, sector, hasMitre, keyword, hasTools, limit = 100 } = opts;
+  const { category, country, hasMitre, keyword, hasTools, limit = 100 } = opts;
   const needle = keyword?.toLowerCase();
   const countryNeedle = country?.toLowerCase();
 

@@ -58,8 +58,8 @@ breachWatchRouter.get('/breach-watch/breaches', async (c) => {
 
     const breaches = mod.filterBreaches(idx, {
       group: group || undefined,
-      category: (category as any) || undefined,
-      severity: (severity as any) || undefined,
+      category: (category as NonNullable<Parameters<typeof mod.filterBreaches>[1]>['category']) || undefined,
+      severity: (severity as NonNullable<Parameters<typeof mod.filterBreaches>[1]>['severity']) || undefined,
       country: country || undefined,
       daysBack,
       keyword: keyword || undefined,

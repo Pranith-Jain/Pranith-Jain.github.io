@@ -35,8 +35,8 @@ campaignsRouter.get('/campaigns-catalog', async (c) => {
     const keyword = c.req.query('q');
     const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
     const campaigns = mod.listCampaigns(idx, {
-      status: status as any,
-      category: category as any,
+      status: status as NonNullable<Parameters<typeof mod.listCampaigns>[1]>['status'],
+      category: category as NonNullable<Parameters<typeof mod.listCampaigns>[1]>['category'],
       keyword,
       limit,
     });

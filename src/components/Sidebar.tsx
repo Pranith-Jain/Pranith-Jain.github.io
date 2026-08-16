@@ -90,7 +90,10 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
   const { activeBg, activeIcon, activeDot, focusRing } = toneClasses(config.tone);
   const [expanded, toggle] = useExpandedGroups(location.pathname, config.groups);
 
-  // Auto-expand group containing active page
+  // Auto-expand group containing active page. Intentionally runs only on
+  // pathname change: `expanded`/`toggle` are excluded so the user's manual
+  // expand/collapse isn't fought by re-runs, and `config.groups` is static.
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     for (const group of config.groups) {
       if (group.items.some((item) => isActive(location.pathname, item.href))) {
@@ -100,6 +103,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
       }
     }
   }, [location.pathname]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <>

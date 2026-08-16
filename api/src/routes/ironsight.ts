@@ -52,9 +52,9 @@ export async function ironsightAlertsHandler(c: Context) {
         corsHeaders(c)
       );
 
-    const data: any = await res.json();
+    const data = (await res.json()) as Record<string, unknown>[] | null;
 
-    const alerts = (Array.isArray(data) ? data : []).map((a: any, i: number) => {
+    const alerts = (Array.isArray(data) ? data : []).map((a: Record<string, unknown>, i: number) => {
       const threat = String(a.threat || a.title || 'Alert');
       const cities = Array.isArray(a.cities) ? a.cities.map(String) : [String(a.data || 'Unknown')];
       return {
@@ -116,7 +116,7 @@ export async function ironsightFlightsHandler(c: Context) {
     });
     const seen = new Set<string>();
 
-    const all: any[] = [];
+    const all: Array<Record<string, unknown>> = [];
     for (const list of [milAircraft, regionMil]) {
       for (const a of list) {
         const hex = String(a.hex || '')
@@ -181,7 +181,7 @@ export async function ironsightStrikesHandler(c: Context) {
   try {
     const queries = ['Iran+Israel+missile+strike+intercept', 'Iran+Israel+drone+attack+rocket'];
 
-    const all: any[] = [];
+    const all: Array<Record<string, unknown>> = [];
     for (const q of queries) {
       try {
         const res = await fetchWithTimeout(`https://news.google.com/rss/search?q=${q}&hl=en-US&gl=US&ceid=US:en`, 8000);
@@ -263,7 +263,20 @@ export async function ironsightRegionalHandler(c: Context) {
       { country: 'Jordan', q: 'Jordan+tensions+security', flag: '🇯🇴', color: '#4488cc' },
     ];
 
-    const alerts: any[] = [];
+    interface RegionalAlert {
+      name: string;
+      flag: string;
+      color: string;
+      events: Array<{
+        title: string;
+        source: string;
+        time: string;
+        url: string;
+        severity: 'critical' | 'high' | 'medium' | 'low';
+      }>;
+      level: 'CRITICAL' | 'ALERT' | 'MONITORING' | 'CLEAR';
+    }
+    const alerts: RegionalAlert[] = [];
     for (const { country, q, flag, color } of queries) {
       try {
         const res = await fetchWithTimeout(`https://news.google.com/rss/search?q=${q}&hl=en-US&gl=US&ceid=US:en`, 6000);
@@ -274,7 +287,7 @@ export async function ironsightRegionalHandler(c: Context) {
         const text = await res.text();
         const items = text.match(/<item>([\s\S]*?)<\/item>/g) || [];
 
-        const events = items.slice(0, 3).map((item: any) => {
+        const events = items.slice(0, 3).map((item: string) => {
           const title = (item.match(/<title>([\s\S]*?)<\/title>/)?.[1] || '')
             .replace(/<!\[CDATA\[|\]\]>/g, '')
             .substring(0, 120);
@@ -371,7 +384,12 @@ export async function ironsightCryptoHandler(c: Context) {
     );
     if (!res.ok) throw new Error('fail');
 
-    const data: any = await res.json();
+    const data = (await res.json()) as {
+      bitcoin?: { usd?: number; usd_24h_change?: number };
+      ethereum?: { usd?: number; usd_24h_change?: number };
+      solana?: { usd?: number; usd_24h_change?: number };
+      binancecoin?: { usd?: number; usd_24h_change?: number };
+    };
     const result = [
       {
         symbol: 'BTC',
@@ -416,14 +434,24 @@ export async function ironsightPolymarketHandler(c: Context) {
       'will-iran-nuclear-test-2025',
     ];
 
-    const results: any[] = [];
+    const results: Array<Record<string, unknown>> = [];
     for (const slug of slugs) {
       try {
         const res = await fetchWithTimeout(`https://gamma-api.polymarket.com/markets?slug=${slug}`, 8000);
         if (!res.ok) continue;
 
-        const data: any = await res.json();
-        const market = Array.isArray(data) ? data[0] : data;
+        const data = (await res.json()) as unknown;
+        const market = (Array.isArray(data) ? data[0] : data) as
+          | {
+              id?: string;
+              slug?: string;
+              question?: string;
+              volume?: number;
+              volume24hr?: number;
+              priceChange24hr?: number;
+              outcomes?: string | Array<{ label: string; price: number }>;
+            }
+          | undefined;
         if (market?.question) {
           let outcomes: Array<{ label: string; price: number }> = [];
           try {
@@ -486,7 +514,17 @@ export async function ironsightFiresHandler(c: Context) {
     const dateIdx = header.indexOf('acq_date');
     const timeIdx = header.indexOf('acq_time');
 
-    const events: any[] = [];
+    interface FireEvent {
+      lat: number;
+      lon: number;
+      brightness: number;
+      frp: number;
+      confidence: string;
+      intensity: 'low' | 'medium' | 'high' | 'extreme';
+      datetime: string;
+      possibleExplosion: boolean;
+    }
+    const events: FireEvent[] = [];
     for (const line of lines.slice(1)) {
       const cols = line.split(',');
       if (cols.length < header.length) continue;

@@ -19,7 +19,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
-import { badRequest,internalError,respondError } from '../lib/api-error';
+import { badRequest, internalError, respondError } from '../lib/api-error';
 import { z } from 'zod';
 import { safeNull, safeNullLog } from '../lib/safe-catch';
 
@@ -317,7 +317,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
 
     if (!res.ok) {
       // Consume response body to free the connection.
-      if (res.body) safeNull(res.body.cancel());
+      if (res.body) void safeNull(res.body.cancel());
       return c.json({
         url,
         isOpen: false,
@@ -333,7 +333,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
 
     // Only parse HTML responses
     if (!contentType.includes('text/html') && !contentType.includes('application/xhtml')) {
-      if (res.body) safeNull(res.body.cancel());
+      if (res.body) void safeNull(res.body.cancel());
       return c.json({
         url,
         isOpen: false,

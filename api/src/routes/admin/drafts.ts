@@ -63,9 +63,9 @@ draftsRouter.post('/drafts/:slug/approve', async (c) => {
   // Mirror to D1 for search
   const d1 = c.env.BRIEFINGS_DB as D1Database | undefined;
   if (d1) {
-    import('../../case-study/storage/cs-posts-d1').then(({ upsertCsPostD1 }) =>
-      upsertCsPostD1(d1, promoted).catch((err) => logError('upsertCsPostD1 failed', err))
-    );
+    void import('../../case-study/storage/cs-posts-d1')
+      .then(({ upsertCsPostD1 }) => upsertCsPostD1(d1, promoted).catch((err) => logError('upsertCsPostD1 failed', err)))
+      .catch(() => {});
   }
 
   return c.json({ ok: true, slug: promoted.slug, approvedAt: promoted.approvedAt });

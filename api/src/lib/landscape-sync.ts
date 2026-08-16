@@ -127,8 +127,19 @@ interface OwaspMeta {
 
 const OWASP_RAW_URL = 'https://raw.githubusercontent.com/RicoKomenda/owasp-ai-security-visualizer/main/data.json';
 
+/** Loose shape of the upstream tree (fields optional; leaves use `title`,
+ *  internal nodes use `name`). */
+interface RawOwaspNode {
+  title?: unknown;
+  name?: unknown;
+  description?: unknown;
+  url?: unknown;
+  type?: unknown;
+  children?: RawOwaspNode[];
+}
+
 /** Normalize: source uses `name` for internal nodes, `title` for leaves. */
-function normalizeNode(raw: any): OwaspNode | null {
+function normalizeNode(raw: RawOwaspNode): OwaspNode | null {
   if (!raw || typeof raw !== 'object') return null;
   const title = (raw.title ?? raw.name ?? '').toString().trim();
   const description = (raw.description ?? '').toString().trim();
@@ -266,7 +277,7 @@ export async function syncOwaspAiLandscape(
       signal: ctrl.signal,
     });
     if (!res.ok) return { ok: false, error: `upstream ${res.status}` };
-    const raw = (await res.json()) as { name?: string; description?: string; children?: any[] };
+    const raw = (await res.json()) as { name?: string; description?: string; children?: RawOwaspNode[] };
     const nodes: OwaspNode[] = [];
     for (const c of raw.children ?? []) {
       const n = normalizeNode(c);
@@ -285,7 +296,9 @@ export async function syncOwaspAiLandscape(
       // in KV -- the OWASP upstream updates ~once/day, but the hourly cron
       // re-fetches it. Without this guard we burn a free-tier write every
       // tick (1 read + 1 write = 1 wasted write 23 hours out of 24).
-      await kvPutIfChanged(env.KV_CACHE, OWASP_AI_LANDSCAPE_KV_KEY, JSON.stringify(payload), { expirationTtl: DATA_TTL_S });
+      await kvPutIfChanged(env.KV_CACHE, OWASP_AI_LANDSCAPE_KV_KEY, JSON.stringify(payload), {
+        expirationTtl: DATA_TTL_S,
+      });
       const meta: OwaspMeta = { source: OWASP_RAW_URL, fetchedAt: payload.fetchedAt, ok: true, counts };
       await env.KV_CACHE.put(OWASP_AI_LANDSCAPE_META_KEY, JSON.stringify(meta), { expirationTtl: META_TTL_S });
       // Write-through to the per-colo cache shadow so readers in colos that

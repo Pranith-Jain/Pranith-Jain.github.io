@@ -50,7 +50,7 @@ etdaActorsRouter.get('/apt-actors/actors', async (c) => {
     const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
 
     const actors = mod.filterActors(idx, {
-      category: category as any,
+      category: category as NonNullable<Parameters<typeof mod.filterActors>[1]>['category'],
       country: country || undefined,
       hasMitre,
       hasTools,

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "CF Supply is a Texas-based company that offers a wide range of construction products including \ndrywall, metal framing, insulation, and door hardware. They provide services such as free estim\nates and 24-hour online account access, ensuring convenience for their clients.\n\nWe will upload corporate data soon. Client information (projects, personal information and so o\nn), contracts and agreements and so on.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/02770566-9542-4a18-b695-68db0b886ff0",
   "groupAliases": ["Megazord"],
   "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

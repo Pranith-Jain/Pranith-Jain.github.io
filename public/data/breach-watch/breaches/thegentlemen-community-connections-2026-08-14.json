@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "comconnections.org zoominfo.com/c/community-connections-inc/350834294 Community Connections is a non-profit organization based in Ketchikan, Alaska, dedicated to providing individualized support for children, seniors, and individuals with disabilities. Founded over 40 years ago, their core mission focuses on encouraging independence, community belonging, and improving the overall quality of life for those they serve. The organization offers a wide range of specialized programs, including early childhood learning, mental health support, and comprehensive disability services.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cbda0a67-f2c7-4d36-90e1-c7f7f05005f1",
   "groupAliases": ["the gentlemen"],
   "activity": "Other",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

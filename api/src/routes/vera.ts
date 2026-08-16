@@ -91,21 +91,6 @@ function getLastSubstantiveQuery(messages: VeraMessage[]): { query: string; type
   return null;
 }
 
-async function ensureTable(db: D1Database): Promise<void> {
-  await db
-    .prepare(
-      `CREATE TABLE IF NOT EXISTS vera_sessions (
-        id TEXT PRIMARY KEY,
-        mode TEXT NOT NULL DEFAULT 'ask',
-        messages_json TEXT NOT NULL DEFAULT '[]',
-        created_at TEXT NOT NULL DEFAULT (datetime('now')),
-        updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-        role TEXT DEFAULT 'cti'
-      )`
-    )
-    .run();
-}
-
 async function loadSession(db: D1Database, id: string): Promise<VeraSession | null> {
   const row = await db
     .prepare('SELECT id, mode, messages_json, created_at, updated_at, role FROM vera_sessions WHERE id = ?')
@@ -180,8 +165,6 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
     const doNamespace = c.env.INVESTIGATOR_AGENT;
     if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
-
-    await ensureTable(db);
 
     let session: VeraSession;
     if (body.sessionId) {
@@ -340,92 +323,94 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
         }
       };
 
-      const interval = setInterval(async () => {
-        if (closed) {
-          clearInterval(interval);
-          return;
-        }
-        try {
-          const res = await stub.fetch(`https://agent/state?id=${encodeURIComponent(agentId)}`);
-          if (!res.ok) return;
-          const state = (await res.json()) as AgentState;
+      const interval = setInterval(() => {
+        void (async () => {
+          if (closed) {
+            clearInterval(interval);
+            return;
+          }
+          try {
+            const res = await stub.fetch(`https://agent/state?id=${encodeURIComponent(agentId)}`);
+            if (!res.ok) return;
+            const state = (await res.json()) as AgentState;
 
-          for (const step of state.steps) {
-            if (step.stepNumber > lastStep) {
+            for (const step of state.steps) {
+              if (step.stepNumber > lastStep) {
+                send(
+                  JSON.stringify({
+                    type: 'step',
+                    step,
+                    specialist: (step as { specialist?: string }).specialist ?? null,
+                  })
+                );
+                lastStep = step.stepNumber;
+              }
+            }
+
+            if (state.status === 'done' || state.status === 'error') {
+              clearInterval(interval);
+
+              const report = state.status === 'done' ? (state.report ?? null) : null;
+              const errMsg = state.status === 'error' ? (state.error ?? 'Unknown error') : null;
+
+              const toolsUsed = Array.from(
+                new Set(state.steps.flatMap((s) => (s.results ?? []).map((r) => r.tool).filter(Boolean)))
+              );
+
+              if (report) {
+                session.messages.push({
+                  role: 'assistant',
+                  content: report,
+                  mode: systemMsg.mode,
+                  agent_id: agentId,
+                  query_type: state.queryType,
+                  model_used: state.modelUsed ?? undefined,
+                  processed_at: state.completedAt ?? new Date().toISOString(),
+                  tools_used: toolsUsed,
+                  analyst_role: session.role,
+                });
+
+                const maxHistory = 24;
+                if (session.messages.length > maxHistory) {
+                  session.messages = session.messages.slice(-maxHistory);
+                }
+
+                try {
+                  await saveSession(db, session);
+                } catch (_catchErr) {
+                  logError('handler failed', _catchErr);
+                  /* non-fatal */
+                }
+              }
+
               send(
                 JSON.stringify({
-                  type: 'step',
-                  step,
-                  specialist: (step as { specialist?: string }).specialist ?? null,
+                  type: state.status,
+                  report,
+                  error: errMsg,
+                  modelUsed: state.modelUsed,
+                  toolsUsed,
+                  selfEval: state.selfEval,
+                  qa: state.qa,
+                  dataGaps: state.dataGaps,
+                  cost: state.cost,
+                  priorIntelligence: state.priorIntelligence,
                 })
               );
-              lastStep = step.stepNumber;
-            }
-          }
 
-          if (state.status === 'done' || state.status === 'error') {
-            clearInterval(interval);
-
-            const report = state.status === 'done' ? (state.report ?? null) : null;
-            const errMsg = state.status === 'error' ? (state.error ?? 'Unknown error') : null;
-
-            const toolsUsed = Array.from(
-              new Set(state.steps.flatMap((s) => (s.results ?? []).map((r) => r.tool).filter(Boolean)))
-            );
-
-            if (report) {
-              session.messages.push({
-                role: 'assistant',
-                content: report,
-                mode: systemMsg.mode,
-                agent_id: agentId,
-                query_type: state.queryType,
-                model_used: state.modelUsed ?? undefined,
-                processed_at: state.completedAt ?? new Date().toISOString(),
-                tools_used: toolsUsed,
-                analyst_role: session.role,
-              });
-
-              const maxHistory = 24;
-              if (session.messages.length > maxHistory) {
-                session.messages = session.messages.slice(-maxHistory);
-              }
-
+              closed = true;
               try {
-                await saveSession(db, session);
+                controller.close();
               } catch (_catchErr) {
                 logError('handler failed', _catchErr);
-                /* non-fatal */
+                /* already closed */
               }
             }
-
-            send(
-              JSON.stringify({
-                type: state.status,
-                report,
-                error: errMsg,
-                modelUsed: state.modelUsed,
-                toolsUsed,
-                selfEval: state.selfEval,
-                qa: state.qa,
-                dataGaps: state.dataGaps,
-                cost: state.cost,
-                priorIntelligence: state.priorIntelligence,
-              })
-            );
-
-            closed = true;
-            try {
-              controller.close();
-            } catch (_catchErr) {
-              logError('handler failed', _catchErr);
-              /* already closed */
-            }
+          } catch (_catchErr) {
+            logError('handler failed', _catchErr);
+            /* poll */
           }
-        } catch (_catchErr) {
-          logError('handler failed', _catchErr);
-          /* poll */
-        }
+        })();
       }, 700);
 
       const heartbeat = setInterval(() => {
@@ -467,7 +452,6 @@ export async function veraChatHistoryHandler(c: Context<{ Bindings: Env }>): Pro
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    await ensureTable(db);
     const session = await loadSession(db, sessionId);
     if (!session) return notFound(c, 'session not found');
 
@@ -491,7 +475,6 @@ export async function veraSessionsListHandler(c: Context<{ Bindings: Env }>): Pr
   try {
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
-    await ensureTable(db);
 
     const limit = Math.min(Number(c.req.query('limit') ?? 20), 100);
 
@@ -545,7 +528,6 @@ export async function veraChatDeleteHandler(c: Context<{ Bindings: Env }>): Prom
     const db = c.env.BRIEFINGS_DB as D1Database | undefined;
     if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-    await ensureTable(db);
     const existing = await loadSession(db, sessionId);
     if (!existing) return notFound(c, 'session not found');
 

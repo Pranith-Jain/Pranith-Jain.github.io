@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IN",
   "sizeBytes": 0,
-  "description": "Labindia Instruments Pvt. Ltd. is an Indian private limited company founded in 1982 by a group of visionary technocrats ...",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/9b058b02-d9be-44cb-aa91-fb44eee03be1",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

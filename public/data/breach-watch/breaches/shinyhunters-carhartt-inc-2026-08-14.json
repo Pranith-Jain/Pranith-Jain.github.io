@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Our demand for this Company was $3.3 million. The Company reached out. However, The Company did not try to negotiate. If The Company attempted to negotiate with us The Company would've ended up saving a good chunk of money. Instead they decided to do (see blow); this is also because The Company hired a very unskilled and incompetent negotiator. If The Company hired competency to negotiate for them, this post would've never been published. [21:24:22] carhartt: After careful review and internal discussions with leadership, we have decided not to move forward with negotiations or further discussions. We appreciate your patience throughout this process. There is millions of customers of data involved here. As we always say, these companies don't care. Millions of records of customer data and vast amount of sensitive information and PII containing employee, customer, customer metadata (royalty info), and other internal corporate data was compromised. The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 50GB+ (compressed) | Updated: 13 August 2026 | SHA256: 6b37f770382ce82bfa4677466cc51d9269e5a70436eecf101fae6fa9d5d8e8ac",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/57273f56-22c7-47f6-97b5-05f9ab56d19b",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

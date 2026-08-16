@@ -112,45 +112,6 @@ function isSuspiciousDomain(name: string, baseDomain: string): boolean {
   return suspiciousPatterns.some((p) => p.test(lower) && !p.test(base));
 }
 
-/** Ensure required tables exist. */
-async function ensureTables(db: D1Database): Promise<void> {
-  await db
-    .prepare(
-      `
-    CREATE TABLE IF NOT EXISTS ct_watch (
-      domain TEXT PRIMARY KEY,
-      alert_types TEXT DEFAULT '["new_subdomain","suspicious_name","wildcard"]',
-      added_at TEXT NOT NULL,
-      last_checked TEXT,
-      cert_count INTEGER DEFAULT 0
-    )
-  `
-    )
-    .run();
-  await db
-    .prepare(
-      `
-    CREATE TABLE IF NOT EXISTS ct_certs (
-      id INTEGER,
-      domain TEXT NOT NULL,
-      common_name TEXT,
-      names TEXT,
-      issuer TEXT,
-      not_before TEXT,
-      not_after TEXT,
-      serial TEXT,
-      first_seen TEXT NOT NULL,
-      alert_type TEXT,
-      alert_message TEXT,
-      PRIMARY KEY (domain, id)
-    )
-  `
-    )
-    .run();
-  await db.prepare('CREATE INDEX IF NOT EXISTS idx_ct_certs_domain ON ct_certs(domain)').run();
-  await db.prepare('CREATE INDEX IF NOT EXISTS idx_ct_certs_first_seen ON ct_certs(first_seen)').run();
-}
-
 /** Fetch certificates from crt.sh */
 async function fetchCertificates(domain: string): Promise<CrtShCert[]> {
   try {
@@ -174,9 +135,9 @@ export async function ctWatchedListHandler(c: Context<{ Bindings: Env }>): Promi
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not configured');
 
-  await ensureTables(db);
-
-  const rows = await db.prepare('SELECT domain, alert_types, added_at, last_checked, cert_count FROM ct_watch ORDER BY last_checked DESC').all<WatchConfig>();
+  const rows = await db
+    .prepare('SELECT domain, alert_types, added_at, last_checked, cert_count FROM ct_watch ORDER BY last_checked DESC')
+    .all<WatchConfig>();
 
   return c.json({
     watched: rows.results ?? [],
@@ -205,8 +166,6 @@ export async function ctWatchAddHandler(c: Context<{ Bindings: Env }>): Promise<
   }
 
   const alertTypes = body.alert_types ?? ['new_subdomain', 'suspicious_name', 'wildcard'];
-
-  await ensureTables(db);
 
   await db
     .prepare(
@@ -246,8 +205,6 @@ export async function ctWatchRemoveHandler(c: Context<{ Bindings: Env }>): Promi
   const domain = c.req.param('domain')?.toLowerCase();
   if (!domain) return badRequest(c, 'domain required');
 
-  await ensureTables(db);
-
   await db.prepare('DELETE FROM ct_watch WHERE domain = ?').bind(domain).run();
   await db.prepare('DELETE FROM ct_certs WHERE domain = ?').bind(domain).run();
 
@@ -266,8 +223,6 @@ export async function ctCertsHandler(c: Context<{ Bindings: Env }>): Promise<Res
   const cacheKey = new Request(`https://ct-monitor-cache.internal/v1?domain=${encodeURIComponent(domain)}`);
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-
-  await ensureTables(db);
 
   const limit = Math.min(Math.max(Number(c.req.query('limit')) || 100, 1), 500);
   const days = Math.max(Number(c.req.query('days')) || 30, 1);

@@ -53,7 +53,7 @@ export function ClusterView({ actors, onOpen }: Props) {
       if (mode === 'ttp') return (e.shared.ttps?.length ?? 0) > 0;
       return true;
     });
-  }, [actors, mode, idSet]);
+  }, [mode, idSet]);
 
   const edgeTypeCount = useMemo(() => {
     const counts = { malware: 0, cve: 0, ttp: 0 };
@@ -77,6 +77,70 @@ export function ClusterView({ actors, onOpen }: Props) {
     return map;
   }, [filteredEdges]);
 
+  // Optimized hover handler with RAF
+  const handleHover = useCallback(
+    (nodeId: string | null) => {
+      setHovered(nodeId);
+      const sel = d3.select(svgRef.current!);
+      if (!nodeId) {
+        // Reset all
+        sel
+          .selectAll('.edge-group line')
+          .attr('stroke-opacity', 0.3)
+          .attr('stroke-width', (d: unknown) => {
+            const link = d as LinkDatum;
+            return Math.max(1, Math.min(3, Math.sqrt(link.weight) * 0.6));
+          });
+        sel.selectAll('.edge-group text').attr('opacity', 0);
+        sel.selectAll('.nodes g').attr('opacity', 1);
+        return;
+      }
+
+      const connectedIds = connectedMap.get(nodeId) ?? new Set<string>();
+      connectedIds.add(nodeId);
+
+      // Dim unconnected nodes
+      sel.selectAll('.nodes g').attr('opacity', (d: unknown) => {
+        const node = d as NodeDatum;
+        return connectedIds.has(node.id) ? 1 : 0.12;
+      });
+
+      // Highlight connected edges
+      sel
+        .selectAll('.edge-group line')
+        .attr('stroke-opacity', (d: unknown) => {
+          const link = d as LinkDatum;
+          const src = typeof link.source === 'string' ? link.source : link.source.id;
+          const tgt = typeof link.target === 'string' ? link.target : link.target.id;
+          return src === nodeId || tgt === nodeId ? 0.9 : 0.05;
+        })
+        .attr('stroke-width', (d: unknown) => {
+          const link = d as LinkDatum;
+          const src = typeof link.source === 'string' ? link.source : link.source.id;
+          const tgt = typeof link.target === 'string' ? link.target : link.target.id;
+          return src === nodeId || tgt === nodeId ? Math.max(2, Math.sqrt(link.weight) * 1.2) : 0.3;
+        });
+
+      // Show labels on connected edges
+      sel
+        .selectAll('.edge-group text')
+        .attr('opacity', (d: unknown) => {
+          const link = d as LinkDatum;
+          const src = typeof link.source === 'string' ? link.source : link.source.id;
+          const tgt = typeof link.target === 'string' ? link.target : link.target.id;
+          return src === nodeId || tgt === nodeId ? 1 : 0;
+        })
+        .text((d: unknown) => {
+          const link = d as LinkDatum;
+          const parts: string[] = [];
+          if (link.shared.malware?.length) parts.push(`${link.shared.malware.length}m`);
+          if (link.shared.cves?.length) parts.push(`${link.shared.cves.length}c`);
+          if (link.shared.ttps?.length) parts.push(`${link.shared.ttps.length}t`);
+          return parts.join(' · ');
+        });
+    },
+    [connectedMap]
+  );
   useEffect(() => {
     const wrap = wrapRef.current;
     const svg = svgRef.current;
@@ -300,72 +364,7 @@ export function ClusterView({ actors, onOpen }: Props) {
     return () => {
       sim.stop();
     };
-  }, [actors, filteredEdges, mode, onOpen, actorMap]);
-
-  // Optimized hover handler with RAF
-  const handleHover = useCallback(
-    (nodeId: string | null) => {
-      setHovered(nodeId);
-      const sel = d3.select(svgRef.current!);
-      if (!nodeId) {
-        // Reset all
-        sel
-          .selectAll('.edge-group line')
-          .attr('stroke-opacity', 0.3)
-          .attr('stroke-width', (d: unknown) => {
-            const link = d as LinkDatum;
-            return Math.max(1, Math.min(3, Math.sqrt(link.weight) * 0.6));
-          });
-        sel.selectAll('.edge-group text').attr('opacity', 0);
-        sel.selectAll('.nodes g').attr('opacity', 1);
-        return;
-      }
-
-      const connectedIds = connectedMap.get(nodeId) ?? new Set<string>();
-      connectedIds.add(nodeId);
-
-      // Dim unconnected nodes
-      sel.selectAll('.nodes g').attr('opacity', (d: unknown) => {
-        const node = d as NodeDatum;
-        return connectedIds.has(node.id) ? 1 : 0.12;
-      });
-
-      // Highlight connected edges
-      sel
-        .selectAll('.edge-group line')
-        .attr('stroke-opacity', (d: unknown) => {
-          const link = d as LinkDatum;
-          const src = typeof link.source === 'string' ? link.source : link.source.id;
-          const tgt = typeof link.target === 'string' ? link.target : link.target.id;
-          return src === nodeId || tgt === nodeId ? 0.9 : 0.05;
-        })
-        .attr('stroke-width', (d: unknown) => {
-          const link = d as LinkDatum;
-          const src = typeof link.source === 'string' ? link.source : link.source.id;
-          const tgt = typeof link.target === 'string' ? link.target : link.target.id;
-          return src === nodeId || tgt === nodeId ? Math.max(2, Math.sqrt(link.weight) * 1.2) : 0.3;
-        });
-
-      // Show labels on connected edges
-      sel
-        .selectAll('.edge-group text')
-        .attr('opacity', (d: unknown) => {
-          const link = d as LinkDatum;
-          const src = typeof link.source === 'string' ? link.source : link.source.id;
-          const tgt = typeof link.target === 'string' ? link.target : link.target.id;
-          return src === nodeId || tgt === nodeId ? 1 : 0;
-        })
-        .text((d: unknown) => {
-          const link = d as LinkDatum;
-          const parts: string[] = [];
-          if (link.shared.malware?.length) parts.push(`${link.shared.malware.length}m`);
-          if (link.shared.cves?.length) parts.push(`${link.shared.cves.length}c`);
-          if (link.shared.ttps?.length) parts.push(`${link.shared.ttps.length}t`);
-          return parts.join(' · ');
-        });
-    },
-    [connectedMap]
-  );
+  }, [actors, filteredEdges, mode, onOpen, actorMap, handleHover]);
 
   // Cleanup RAF on unmount
   useEffect(() => {

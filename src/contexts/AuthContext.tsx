@@ -19,6 +19,7 @@ interface AuthContextType {
   refresh: () => Promise<void>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- context co-located with provider
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -83,6 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook co-located with provider
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error('useAuth must be used within AuthProvider');

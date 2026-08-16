@@ -136,7 +136,7 @@ siEdgeToolsRouter.post('/si/parse', async (c) => {
       refang: parsed.data.refang,
       foldHomographs: parsed.data.foldHomographs,
       maxChars: parsed.data.maxChars,
-      kinds: parsed.data.kinds as any,
+      kinds: parsed.data.kinds as NonNullable<Parameters<typeof mod.siParseText>[1]>['kinds'],
     });
     return c.json(result);
   } catch (e) {
@@ -175,7 +175,7 @@ siEdgeToolsRouter.get('/si/shiftlog', async (c) => {
     const mod = await loadShiftLogMod();
     const list = await mod.shiftlogList(c.env, {
       author,
-      shift: shift as any,
+      shift: shift as NonNullable<Parameters<typeof mod.shiftlogList>[1]>['shift'],
       openOnly,
       limit,
     });

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IT",
   "sizeBytes": 0,
-  "description": "TARGET: https://www.joygioielli.com/ https://www.gocciagioielli.com/ REVENUE: €19.2M EMPLOYEES: ~ [LEAK / 3557 FILES]",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/66c42c4a-ca93-4603-876f-b897994b85a5",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

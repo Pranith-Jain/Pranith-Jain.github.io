@@ -213,10 +213,31 @@ export async function riskRegisterGetHandler(c: Context<{ Bindings: Env }>): Pro
   return c.json(JSON.parse(raw) as RiskRegisterEntry);
 }
 
+type RiskRegisterInput = Partial<
+  Pick<
+    RiskRegisterEntry,
+    | 'title'
+    | 'description'
+    | 'category'
+    | 'asset_ids'
+    | 'inherent_level'
+    | 'current_level'
+    | 'residual_level'
+    | 'status'
+    | 'treatment_strategy'
+    | 'treatment_plan'
+    | 'treatment_owner'
+    | 'treatment_due'
+    | 'fair'
+    | 'accepted_until'
+    | 'accepted_justification'
+  >
+>;
+
 export async function riskRegisterCreateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  let body: any;
+  let body: RiskRegisterInput;
   try {
-    body = await c.req.json();
+    body = (await c.req.json()) as RiskRegisterInput;
   } catch {
     return badRequest(c, 'invalid_json_body');
   }
@@ -252,9 +273,9 @@ export async function riskRegisterCreateHandler(c: Context<{ Bindings: Env }>): 
 export async function riskRegisterUpdateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   if (!id) return badRequest(c, 'id required');
-  let body: any;
+  let body: RiskRegisterInput;
   try {
-    body = await c.req.json();
+    body = (await c.req.json()) as RiskRegisterInput;
   } catch {
     return badRequest(c, 'invalid_json_body');
   }

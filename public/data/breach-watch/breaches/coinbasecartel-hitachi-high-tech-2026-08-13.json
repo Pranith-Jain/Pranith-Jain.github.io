@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "JP",
   "sizeBytes": 0,
-  "description": "[AI generated] Hitachi High-Tech is a Japanese technology company headquartered in Tokyo, Japan, and a subsidiary of Hitachi Ltd. It operates in the high-technology and precision equipment industry, specializing in semiconductor manufacturing equipment, analytical and medical instruments, and industrial systems. The company serves sectors including healthcare, electronics, and scientific research, supplying solutions globally across manufacturing and laboratory environments.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b7ddf53e-3d53-493a-b99e-d1aa735c4e1f",
   "groupAliases": ["coinbase cartel"],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

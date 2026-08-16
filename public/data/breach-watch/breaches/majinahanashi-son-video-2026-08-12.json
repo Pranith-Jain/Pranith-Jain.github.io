@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "FR",
   "sizeBytes": 0,
-  "description": "TARGET: Son-Video.com REVENUE: $54M EMPLOYEES: ~51-200 employees [LEAK / 10382 FILES]",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a15ab21f-b562-4b95-a561-2889d2392d8a",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

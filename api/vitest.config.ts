@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { cloudflareTest } from '@cloudflare/vitest-pool-workers';
 import { defineConfig } from 'vitest/config';
 
@@ -5,7 +6,9 @@ export default defineConfig({
   plugins: [
     cloudflareTest({
       singleWorker: true,
-      wrangler: { configPath: '/Users/pranith/Documents/portfolio/wrangler.jsonc' },
+      // Resolve relative to this config file, not the local machine — CI
+      // checkouts live at a different absolute path (/home/runner/work/...).
+      wrangler: { configPath: fileURLToPath(new URL('../wrangler.jsonc', import.meta.url)) },
       // Provider secrets aren't present in the test environment; provider
       // adapters degrade to 'unsupported' without their key and the
       // url-risk / ioc route tests would never exercise the wiring.

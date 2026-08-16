@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "PH",
   "sizeBytes": 0,
-  "description": "The City Government of Baguio stands as one of the wealthiest and most prominent local governments in the Philippines. This leak includes highly sensitive and confidential data, such as official contracts, legal permits, identification documents, financial statements, construction blueprints, project proposals, procurement records, and other classified administrative materials. [Size: 2.9 GB | Sector: Government, Finance, Construction]",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1ac27019-009b-47f7-9387-18c991f563d7",
   "groupAliases": [],
   "activity": "Government & Defense",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

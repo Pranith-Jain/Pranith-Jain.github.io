@@ -221,10 +221,13 @@ export default function TiDashboard() {
     return report.sources.filter((s) => s.title.toLowerCase().includes(q) || s.source_type.toLowerCase().includes(q));
   }, [report, sourceSearch]);
 
-  const matchKeyword = (text: string) => {
-    if (!keywordSearch) return true;
-    return text.toLowerCase().includes(keywordSearch.toLowerCase());
-  };
+  const matchKeyword = useCallback(
+    (text: string) => {
+      if (!keywordSearch) return true;
+      return text.toLowerCase().includes(keywordSearch.toLowerCase());
+    },
+    [keywordSearch]
+  );
 
   const filteredStories = useMemo(() => {
     if (!report?.threat_stories) return [];
@@ -235,7 +238,7 @@ export default function TiDashboard() {
       if (!matchKeyword(text)) return false;
       return true;
     });
-  }, [report, severityFilter, keywordSearch]);
+  }, [report, severityFilter, matchKeyword]);
 
   const filteredActors = useMemo(() => {
     if (!report?.actor_profiles) return [];
@@ -246,7 +249,7 @@ export default function TiDashboard() {
       if (!matchKeyword(text)) return false;
       return true;
     });
-  }, [report, severityFilter, keywordSearch]);
+  }, [report, severityFilter, matchKeyword]);
 
   const filteredSupplyChain = useMemo(() => {
     if (!report?.supply_chain_incidents) return [];
@@ -257,7 +260,7 @@ export default function TiDashboard() {
       if (!matchKeyword(text)) return false;
       return true;
     });
-  }, [report, severityFilter, keywordSearch]);
+  }, [report, severityFilter, matchKeyword]);
 
   const filteredVulns = useMemo(() => {
     if (!report?.critical_vulnerabilities) return [];
@@ -268,7 +271,7 @@ export default function TiDashboard() {
       if (!matchKeyword(text)) return false;
       return true;
     });
-  }, [report, severityFilter, keywordSearch]);
+  }, [report, severityFilter, matchKeyword]);
 
   const showFilter = tab === 'stories' || tab === 'actors' || tab === 'supplychain' || tab === 'vulns';
 

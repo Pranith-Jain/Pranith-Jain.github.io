@@ -107,48 +107,50 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
         }
       };
 
-      const interval = setInterval(async () => {
-        if (closed) {
-          clearInterval(interval);
-          return;
-        }
-        try {
-          const res = await stub.fetch(`https://agent/state?id=${encodeURIComponent(id)}`);
-          if (!res.ok) return;
-          const state = (await res.json()) as AgentState;
-
-          for (const step of state.steps) {
-            if (step.stepNumber > lastStep) {
-              send(JSON.stringify({ type: 'step', step }));
-              lastStep = step.stepNumber;
-            }
-          }
-
-          if (state.status === 'done' || state.status === 'error') {
-            send(
-              JSON.stringify({
-                type: state.status,
-                report: state.report,
-                error: state.error,
-                modelUsed: state.modelUsed,
-                qa: state.qa,
-                actionCard: state.actionCard,
-                steps: state.steps,
-              })
-            );
+      const interval = setInterval(() => {
+        void (async () => {
+          if (closed) {
             clearInterval(interval);
-            closed = true;
-            try {
-              controller.close();
-            } catch (_catchErr) {
-              logError('handler failed', _catchErr);
-              /* already closed */
-            }
+            return;
           }
-        } catch (_catchErr) {
-          logError('handler failed', _catchErr);
-          /* poll error, retry next tick */
-        }
+          try {
+            const res = await stub.fetch(`https://agent/state?id=${encodeURIComponent(id)}`);
+            if (!res.ok) return;
+            const state = (await res.json()) as AgentState;
+
+            for (const step of state.steps) {
+              if (step.stepNumber > lastStep) {
+                send(JSON.stringify({ type: 'step', step }));
+                lastStep = step.stepNumber;
+              }
+            }
+
+            if (state.status === 'done' || state.status === 'error') {
+              send(
+                JSON.stringify({
+                  type: state.status,
+                  report: state.report,
+                  error: state.error,
+                  modelUsed: state.modelUsed,
+                  qa: state.qa,
+                  actionCard: state.actionCard,
+                  steps: state.steps,
+                })
+              );
+              clearInterval(interval);
+              closed = true;
+              try {
+                controller.close();
+              } catch (_catchErr) {
+                logError('handler failed', _catchErr);
+                /* already closed */
+              }
+            }
+          } catch (_catchErr) {
+            logError('handler failed', _catchErr);
+            /* poll error, retry next tick */
+          }
+        })();
       }, 500);
 
       setTimeout(() => {

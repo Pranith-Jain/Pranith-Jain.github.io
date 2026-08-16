@@ -1,4 +1,5 @@
-import type { Hono } from 'hono';
+import type { Context, Hono } from 'hono';
+import type { Env } from '../env';
 import { internalError } from '../lib/api-error';
 import { logError } from '../lib/logger';
 import { writeLastGood } from '../lib/lastgood';
@@ -72,8 +73,8 @@ async function loadTiMod() {
   return await import('../lib/threat-intel-manifest');
 }
 
-export function registerEntityGraphRoute(router: Hono<any>): void {
-  router.get('/threat-intel/entity-graph', async (c: any) => {
+export function registerEntityGraphRoute(router: Hono<{ Bindings: Env }>): void {
+  router.get('/threat-intel/entity-graph', async (c: Context<{ Bindings: Env }>) => {
     try {
       const limit = Math.min(parseInt(c.req.query('limit') ?? '150', 10) || 150, 500);
 
@@ -208,9 +209,7 @@ export function registerEntityGraphRoute(router: Hono<any>): void {
 
       const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
       c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-      c.executionCtx.waitUntil(
-        writeLastGood(c.env, KV_KEY, body, { ttlSeconds: KV_TTL, keyPrefix: '' })
-      );
+      c.executionCtx.waitUntil(writeLastGood(c.env, KV_KEY, body, { ttlSeconds: KV_TTL, keyPrefix: '' }));
       return response;
     } catch (err) {
       logError('entityGraphHandler failed', err);

@@ -281,7 +281,7 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
     } while (cursor);
 
     if (cache && set.size > 0) {
-      safeNullLog(
+      void safeNullLog(
         'cache-put-tifce-detection',
         cache.put(
           new Request(CACHE_KEY),

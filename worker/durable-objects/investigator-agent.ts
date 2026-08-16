@@ -11,7 +11,6 @@ import {
   filterCtiToolCalls,
   canSynthesizeNow,
   getDroppedCalls,
-  MAX_TOOL_FAILURES_PER_SESSION,
   shouldBanTool,
 } from '../../api/src/lib/agent/cti-loop';
 import { observeStep } from '../../api/src/lib/agent/observer';
@@ -380,8 +379,6 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
     const costTracker = this.costTrackers.get(state.id) ?? createCostTracker();
     this.costTrackers.set(state.id, costTracker);
-    const recordUsage = (model: string, inputText: string, outputText: string, role: string) =>
-      recordCompletion(costTracker, model, inputText, outputText, role);
 
     if (isOverBudget(costTracker)) {
       return await this.doSynthesize(

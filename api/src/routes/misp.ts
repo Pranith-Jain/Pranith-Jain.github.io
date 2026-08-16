@@ -66,7 +66,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
     body = await response.json();
   } catch (_catchErr) {
     logError('handler failed', _catchErr);
-    if (response.body) safeNull(response.body.cancel());
+    if (response.body) void safeNull(response.body.cancel());
     return badGateway(c, 'MISP returned invalid JSON');
   }
   return c.json(body, response.ok ? 200 : 502, {

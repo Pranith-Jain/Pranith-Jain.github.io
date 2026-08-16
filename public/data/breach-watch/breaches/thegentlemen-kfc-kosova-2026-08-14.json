@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "kfckosova.com zoominfo.com/c/kfc-kosova/401225793 KFC Kosova is the official regional branch of the global fast-food chain, operating multiple restaurants across Kosovo, including a prominent location at the Albi Mall in Pristina. Their website serves as a central hub for customers to find nearby branches, check out menu options, and access delivery services. Additionally, the platform acts as a primary career portal for local job seekers to apply for various corporate and restaurant positions.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/507ac01e-82d6-4acd-b190-c61bb22d1928",
   "groupAliases": ["the gentlemen"],
   "activity": "Hospitality",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

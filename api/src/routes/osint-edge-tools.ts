@@ -32,7 +32,12 @@ osintRouter.get('/osint', async (c) => {
     const keyword = c.req.query('q');
     const freeOnly = c.req.query('free') === 'true' ? true : undefined;
     const limit = c.req.query('limit') ? Math.min(200, Math.max(1, Number(c.req.query('limit')))) : undefined;
-    const portals = mod.listPortals(idx, { category: category as any, keyword, freeOnly, limit });
+    const portals = mod.listPortals(idx, {
+      category: category as NonNullable<Parameters<typeof mod.listPortals>[1]>['category'],
+      keyword,
+      freeOnly,
+      limit,
+    });
     return c.json({ count: portals.length, portals });
   } catch (e) {
     logError('loadMod failed', e);

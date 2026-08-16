@@ -84,7 +84,7 @@ async function readDynamic(kv: KVNamespace): Promise<ExternalResource[]> {
   if (!raw || !Array.isArray(raw)) return [];
   const items = raw as ExternalResource[];
   if (cache && items.length > 0) {
-    safeNullLog(
+    void safeNullLog(
       'cache-put-ext-resources',
       cache.put(
         RES_CACHE_KEY,
@@ -99,7 +99,7 @@ async function writeDynamic(kv: KVNamespace, items: ExternalResource[]): Promise
   await kv.put(KV_KEY, JSON.stringify(items));
   const cache = resCacheApi();
   if (cache) {
-    safeNullLog(
+    void safeNullLog(
       'cache-put-ext-resources-save',
       cache.put(
         RES_CACHE_KEY,

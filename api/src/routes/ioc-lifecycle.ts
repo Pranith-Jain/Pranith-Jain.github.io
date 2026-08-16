@@ -69,42 +69,6 @@ export interface IocLifecycle {
 }
 
 /**
- * Ensure the ioc_lifecycle table exists. In production this would be a
- * migration, but for edge deployment we create on first access. Gated
- * by a module-level flag so we only run the DDL once per isolate, not
- * on every request (4 D1 round-trips each time).
- */
-let tableReady = false;
-async function ensureTable(db: D1Database): Promise<void> {
-  if (tableReady) return;
-  await db
-    .prepare(
-      `
-    CREATE TABLE IF NOT EXISTS ioc_lifecycle (
-      indicator TEXT PRIMARY KEY,
-      indicator_type TEXT NOT NULL,
-      first_seen TEXT NOT NULL,
-      last_seen TEXT NOT NULL,
-      peak_score INTEGER DEFAULT 0,
-      current_score INTEGER DEFAULT 0,
-      observation_count INTEGER DEFAULT 1,
-      sources_seen TEXT DEFAULT '[]',
-      last_sources TEXT DEFAULT '[]',
-      decay_rate REAL DEFAULT 0.0,
-      tags TEXT DEFAULT '[]',
-      created_at TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    )
-  `
-    )
-    .run();
-  await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_last_seen ON ioc_lifecycle(last_seen)').run();
-  await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_type ON ioc_lifecycle(indicator_type)').run();
-  await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_score ON ioc_lifecycle(peak_score)').run();
-  tableReady = true;
-}
-
-/**
  * Record an IOC observation. Called from the IOC check handler or
  * feed aggregation pipeline to track lifecycle.
  */
@@ -116,8 +80,6 @@ export async function recordIocObservation(
   sources: string[],
   tags: string[] = []
 ): Promise<void> {
-  await ensureTable(db);
-
   const now = new Date().toISOString();
   // Read the current row only to compute the merge inputs (source/tag union,
   // EMA decay). The WRITE below is a single atomic upsert so two concurrent
@@ -132,7 +94,9 @@ export async function recordIocObservation(
   // (b) the next observation re-merges from the live row. A proper fix would
   // use json_insert in SQL, but D1's JSON1 support is limited.
   const existing = await db
-    .prepare('SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?')
+    .prepare(
+      'SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?'
+    )
     .bind(indicator)
     .first<IocLifecycleRow>();
 
@@ -247,10 +211,10 @@ export async function iocLifecycleHandler(c: Context<{ Bindings: Env }>): Promis
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  await ensureTable(db);
-
   const row = await db
-    .prepare('SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?')
+    .prepare(
+      'SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?'
+    )
     .bind(indicator)
     .first<IocLifecycleRow>();
 
@@ -286,8 +250,6 @@ export async function iocLifecycleTrendingHandler(c: Context<{ Bindings: Env }>)
   const cacheKey = new Request('https://ioc-lifecycle-cache.internal/v1/trending');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-
-  await ensureTable(db);
 
   const VALID_TYPES = ['ipv4', 'ipv6', 'domain', 'url', 'hash', 'email'];
   const rawLimit = parseInt(c.req.query('limit') ?? '50', 10);
@@ -332,8 +294,6 @@ export async function iocLifecycleStatsHandler(c: Context<{ Bindings: Env }>): P
   const cacheKey = new Request('https://ioc-lifecycle-cache.internal/v1/stats');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-
-  await ensureTable(db);
 
   const stats = await db
     .prepare(

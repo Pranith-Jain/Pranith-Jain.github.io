@@ -586,7 +586,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       if (!ALLOWED_HOSTS.has(next.hostname.toLowerCase())) {
         return { items: [], error: 'redirect_not_allowlisted' };
       }
-      if (res.body) safeNull(res.body.cancel());
+      if (res.body) void safeNull(res.body.cancel());
       currentUrl = next.toString();
       res = await fetchResilient(currentUrl, fetchInit, resilientOpts);
     }

@@ -80,6 +80,31 @@ interface GhsaMeta {
   rateLimited?: boolean;
 }
 
+/** Loose shape of GitHub's raw advisory JSON (fields are optional;
+ *  upstream omits or renames them in edge cases). */
+interface RawGhsaReference {
+  url?: string;
+}
+interface RawGhsaVulnerability {
+  package?: { ecosystem?: string; name?: string };
+  severity?: string;
+  vulnerable_version_range?: string;
+  patched_versions?: string[];
+  first_patched_version?: string | { identifier?: string };
+}
+interface RawGhsaAdvisory {
+  ghsa_id?: string;
+  id?: string;
+  summary?: string;
+  description?: string;
+  severity?: string;
+  identifiers?: Array<{ type?: string; value?: string }>;
+  references?: Array<string | RawGhsaReference>;
+  published_at?: string;
+  updated_at?: string;
+  vulnerabilities?: RawGhsaVulnerability[];
+}
+
 const GITHUB_API_BASE = 'https://api.github.com';
 const GITHUB_API_VERSION = '2022-11-28';
 
@@ -99,7 +124,7 @@ async function ghsaFetch(
   endpoint: string,
   token?: string,
   timeoutMs = 15000
-): Promise<{ status: number; body: any; rateLimited: boolean }> {
+): Promise<{ status: number; body: unknown; rateLimited: boolean }> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
@@ -131,19 +156,19 @@ async function ghsaFetch(
 }
 
 /** Single-advisory transformer — exported for reuse. */
-export function transformAdvisory(data: any): GitHubSecurityAdvisory {
+export function transformAdvisory(data: RawGhsaAdvisory): GitHubSecurityAdvisory {
   return {
     ghsa_id: data.ghsa_id || data.id || '',
     summary: data.summary || '',
     description: data.description || data.summary || '',
-    severity: (data.severity || 'medium').toLowerCase(),
-    identifiers: data.identifiers || [],
+    severity: (data.severity || 'medium').toLowerCase() as GitHubSecurityAdvisory['severity'],
+    identifiers: (data.identifiers || []).map((i) => ({ type: i.type ?? '', value: i.value ?? '' })),
     references: (data.references || [])
-      .map((r: any) => (typeof r === 'string' ? r : r?.url))
-      .filter((u: any): u is string => typeof u === 'string' && u.length > 0),
+      .map((r) => (typeof r === 'string' ? r : r?.url))
+      .filter((u): u is string => typeof u === 'string' && u.length > 0),
     published_at: data.published_at || '',
     updated_at: data.updated_at || '',
-    vulnerabilities: (data.vulnerabilities || []).map((v: any) => ({
+    vulnerabilities: (data.vulnerabilities || []).map((v) => ({
       package: { ecosystem: v.package?.ecosystem || '', name: v.package?.name || '' },
       severity: v.severity || '',
       vulnerable_version_range: v.vulnerable_version_range || '',
@@ -154,7 +179,7 @@ export function transformAdvisory(data: any): GitHubSecurityAdvisory {
               typeof v.first_patched_version === 'string'
                 ? v.first_patched_version
                 : v.first_patched_version?.identifier,
-            ].filter((x: any): x is string => typeof x === 'string')
+            ].filter((x): x is string => typeof x === 'string')
           : [],
     })),
   };

@@ -36,40 +36,65 @@ jobs:
         run: npm ci --no-fund || npm install --no-fund
 
       - name: Sync upstream (NVD + CISA KEV + Daily-Hunt + awesome-lists)
+        # One flaky upstream (NVD frequently exceeds 30-90s under API load)
+        # must not abort the other verticals — each sync step is isolated.
+        continue-on-error: true
         run: node scripts/sync-threat-intel.mjs
 
       - name: Sync darknetlist.is directory
+        continue-on-error: true
         run: node scripts/sync-darknetlist.mjs
 
       - name: Sync ThreatCluster feeds
+        continue-on-error: true
         run: node scripts/sync-threatcluster.mjs
 
       - name: Sync dPhish phishing feed (TAXII 2.1)
+        continue-on-error: true
         run: node scripts/sync-dphish.mjs
 
       - name: Sync Living Threat Repository (MITRE-mapped incidents)
+        continue-on-error: true
         run: node scripts/sync-living-threat.mjs
 
       - name: Sync MalwareAnalyzer by Cyble feeds
+        continue-on-error: true
         run: node scripts/sync-malwareanalyzer.mjs
 
+      - name: Sync Threaticon catalog (actors, malware, coverage, map)
+        # The main threaticon vertical (actor profiles, malware dictionary,
+        # detection coverage, threat map) — previously only the extended
+        # catalog was automated. Resumable crawl, 429 backoff built in.
+        continue-on-error: true
+        run: node scripts/sync-threaticon.mjs --concurrency 1 --gap-ms 1300
+
       - name: Build manifest
+        continue-on-error: true
         run: node scripts/build-threat-intel.mjs
 
       - name: Build darknetlist manifest
+        continue-on-error: true
         run: node scripts/build-darknetlist.mjs
 
       - name: Build ThreatCluster manifest
+        continue-on-error: true
         run: node scripts/build-threatcluster.mjs
 
       - name: Build dPhish manifest
+        continue-on-error: true
         run: node scripts/build-dphish.mjs
 
       - name: Build Living Threat manifest
+        continue-on-error: true
         run: node scripts/build-living-threat.mjs
 
       - name: Build MalwareAnalyzer manifest
+        continue-on-error: true
         run: node scripts/build-malwareanalyzer.mjs
+
+      - name: Build Threaticon manifest
+        continue-on-error: true
+        run: node scripts/build-threaticon.mjs
 
       - name: Show diff stat
         run: |
@@ -98,7 +123,13 @@ jobs:
             Also syncs the Living Threat Repository MITRE-mapped incidents
             (`scripts/sync-living-threat.mjs` + `scripts/build-living-threat.mjs`)
             and the MalwareAnalyzer by Cyble URL feeds
-            (`scripts/sync-malwareanalyzer.mjs` + `scripts/build-malwareanalyzer.mjs`).
+            (`scripts/sync-malwareanalyzer.mjs` + `scripts/build-malwareanalyzer.mjs`),
+            and the Threaticon main vertical — actor profiles, malware
+            dictionary, detection coverage, threat map
+            (`scripts/sync-threaticon.mjs` + `scripts/build-threaticon.mjs`,
+            paced at 1 req/s for the free-tier rate limits). Each sync/build
+            step is isolated (`continue-on-error`) so one flaky upstream
+            never aborts the remaining verticals.
             Review the diff in `public/data/threat-intel/` and merge if the
             data looks correct.
 

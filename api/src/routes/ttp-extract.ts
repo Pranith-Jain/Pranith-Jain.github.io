@@ -69,7 +69,7 @@ export async function ttpExtractHandler(c: Context<{ Bindings: Env }>): Promise<
     result = { techniques: extractTTPsKeyword(text), model: 'keyword', source: 'keyword' };
   }
 
-  safeNullLog(
+  void safeNullLog(
     'cache-put-ttp-extract',
     caches.default.put(
       key,
