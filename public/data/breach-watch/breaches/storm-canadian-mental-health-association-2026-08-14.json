@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CA",
   "sizeBytes": 0,
-  "description": "The Canadian Mental Health Association provides mental health services and support. The Association offers advocacy, education, research, and services to persons experiencing mental illness throughout Canada and is headquartered in Toronto, Ontario. \nThe company headquarters is located in 595 Montreal Road, Suite 303, Ottawa, ON K1K 4L2 Canada and 250 Dundas Street West, Suite 401, Toronto, ON, M5T 2Z5 Canada. 5K - 10K Employees",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/6a7a40d7-051b-4fb8-9386-c3cfcdd8c58d",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

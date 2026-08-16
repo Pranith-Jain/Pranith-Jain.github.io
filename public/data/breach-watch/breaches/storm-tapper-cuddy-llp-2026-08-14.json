@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CA",
   "sizeBytes": 0,
-  "description": "Tapper Cuddy LLP is a full-service law firm based in Manitoba, specializing in civil litigation, family law, and commercial law. With over 40 years of experience, the firm is dedicated to providing personalized legal representation in a clear and understandable manner. They prioritize client relationships, viewing clients as people rather than cases, and aim to serve a diverse range of legal needs across more than 20 specialized practice areas. Tapper Cuddy LLP is committed to reconciliation and collaboration with Indigenous communities, reflecting their respect for the traditional territories they operate on. \nThe company headquarters is located in 1000â€“330 St. Mary Avenue, Winnipeg, MB R3C 3Z5, Canada. 51-200 Employees",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/75157771-2bc4-4415-8555-5d0d68abd650",
   "groupAliases": [],
   "activity": "Professional Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

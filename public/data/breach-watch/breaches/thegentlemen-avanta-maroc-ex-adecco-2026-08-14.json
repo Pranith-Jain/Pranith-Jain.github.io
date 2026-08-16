@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "MA",
   "sizeBytes": 0,
-  "description": "avanta.ma rocketreach.co/avanta-maroc-ex-adecco-profile_b7352c87c4297b95 \nAvanta Maroc, formerly known as Adecco Maroc, is a prominent human resources and recruitment agency based in Casablanca, Morocco. The company specializes in connecting job seekers with top employers by offering tailored workforce solutions and staffing services. Their platform serves as a vital hub for career opportunities, professional development, and corporate HR management across various industries in the region.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8b2b0bc8-bace-4534-ba69-93872e4efd97",
   "groupAliases": ["the gentlemen"],
   "activity": "Professional Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

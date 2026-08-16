@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "PUBLICATION SCHEDULED. [LEAK / 84251 FILES]",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8fcfb013-851c-45cc-84dc-86fc325bd8d9",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

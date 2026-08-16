@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CL",
   "sizeBytes": 0,
-  "description": "PUBLICATION SCHEDULED. [LEAK / 39200 FILES]",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8530fd59-a414-424f-a4dc-8b5d07402caf",
   "groupAliases": [],
   "activity": "Energy & Utilities",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

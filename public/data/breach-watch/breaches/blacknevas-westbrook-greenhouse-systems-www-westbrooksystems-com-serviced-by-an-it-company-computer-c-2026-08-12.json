@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "A Canadian family-owned company (part of the Westbrook Group of Companies) founded over 50 years ago. It specializes in the design, manufacturing, and installation of commercial greenhouses and related equipment (structures, heating and ventilation systems, benches, and handling materials).Its headquarters and manufacturing facilities are located in the Niagara region (Beamsville, Ontario). It serves clients across North America and operates its own factory spanning approximately 80,000 square feet.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/979301b2-bc06-4729-9671-3574f3340e9e",
   "groupAliases": ["black nevas"],
   "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Data exfiltrated included the following: Projects, Cad-files, Backup files Windchil Total size: 230Gb Revenue: $370,900,000",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/9335d3a3-1ce8-4ec6-bbc2-73cde1f81328",
   "groupAliases": ["Cl0p"],
   "activity": "Technology",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

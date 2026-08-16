@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Customer data, employee data, and other internal corporate data was compromised. The Company engaged with us but made several paltry offers, did not want to pay what we asked for and decided they are okay with the data leak to happen instead of increasing their offer by a little, then we'd likely have accepted and this post would not have gone up. The Company failed to reach an agreement with us despite our incredible patience, all the chances and offers we made. They don't care. | Size: 182GB+ (compressed) | Updated: 14 August 2026 | SHA256: 8a87ba511f25f20a193f05a6578a620b02302c2075a6f2dff428d1f1a826ba63",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/dbad807d-14cc-4451-9d74-5cf9fa3fb964",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

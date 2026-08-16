@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Data exfiltrated included the following: Database, Projects, SQL Backups, Soft installers, Jpeg, Png, PDF - files Total size: 83Gb Revenue: $10,000,000",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f84eb5c8-276f-4505-bbea-ee018bd3d199",
   "groupAliases": ["Cl0p"],
   "activity": "Transportation",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

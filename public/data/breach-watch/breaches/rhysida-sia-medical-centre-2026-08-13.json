@@ -5,11 +5,11 @@
   "discovered": "2026-08-13T17:57:28.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "AU",
+  "country": "LV",
   "sizeBytes": 0,
-  "description": "SIA Medical Centre SIA Medical was established in 1993 and was founded by Dr Martin Sia in Melbourne's northwest. 9 clinics - Box Hill, Burwood, Croydon, Essendon, Footscray, Moonee Ponds, Montrose, Mulgrave and Berwick.We are pleased to present:~20,000 patient medical records - names, dates of birth, Medicare numbers, clinical notes, insurance and work-cover files, full patient dossiersStaff identity documents - passports, driver's licenses, police checks, tax file declarations of doctors and employeesPlaintext credentials - logins and passwords for clinical systems (Synapse imaging, PRODA, terminal server, doctor accounts)HR records - signed employment contracts, staff incident reports, immunisation registersLegal & financial - subpoenas, complaints, Bupa contracts, bank details (BSB/ABN), provider payment forms    More",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/658e6e3d-84d7-4680-a583-53e7cc1aa0b6",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

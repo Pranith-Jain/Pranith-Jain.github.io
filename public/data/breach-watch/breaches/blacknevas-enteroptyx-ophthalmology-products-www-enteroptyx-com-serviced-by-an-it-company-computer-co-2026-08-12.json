@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "There is very little public information available about this company. Judging by its name, it is a small supplier or manufacturer of ophthalmology products (equipment, consumables, or instruments for eye care). There is virtually no detailed data regarding its operations, location, or history in open sources.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/de1c6d69-729b-4d82-8aea-4f87e10d4319",
   "groupAliases": ["black nevas"],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

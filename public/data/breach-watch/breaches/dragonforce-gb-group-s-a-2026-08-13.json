@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "PL",
   "sizeBytes": 0,
-  "description": "GB Group is one of Haiti’s largest private industrial and trading conglomerates. Headquartered in Port-au-Prince, it operates across nine core industries including construction materials, consumer goods, and energy. Recently, the organization transitioned its corporate identity to B|G|O (Builders of Great Opportunities).",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/9722f47e-b98b-4a79-aa83-b2af2197957d",
   "groupAliases": ["DRAGON FORCE"],
   "activity": "Financial Services",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

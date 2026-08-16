@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "TARGET: schmitz-nittenwilm.de REVENUE: €13,8M EMPLOYEES: ~ [LEAK / 886 FILES]",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/4e9d38b6-e878-43f0-9a3d-131a788870c9",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

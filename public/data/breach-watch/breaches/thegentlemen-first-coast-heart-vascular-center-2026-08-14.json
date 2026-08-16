@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "firstcoastheart.com zoominfo.com/c/first-coast-heart--vascular-center/356606344 First Coast Heart & Vascular Center is a premier cardiovascular care provider serving patients across Northeast Florida. Their website highlights a comprehensive range of services, including expert cardiology, electrophysiology, advanced imaging, and vascular surgery. The medical center focuses on delivering innovative, evidence-based treatments and minimally invasive procedures to ensure the highest standard of heart health.",
-  "source_url": "https://www.ransomware.live/",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b6a66d19-f83a-4dfa-8c29-54e4e85479e4",
   "groupAliases": ["the gentlemen"],
   "activity": "Healthcare",
-  "references": ["ransomware.live"]
+  "references": ["Darkfield"]
 }

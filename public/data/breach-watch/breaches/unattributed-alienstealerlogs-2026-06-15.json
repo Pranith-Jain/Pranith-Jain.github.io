@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-alienstealerlogs-2026-06-15",
+  "title": "AlienStealerLogs",
+  "group": "Unattributed",
+  "discovered": "2026-06-15T05:23:45.000Z",
+  "category": "credential_leak",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "ALIEN TXTBASE, a stealer log collection, was exposed in February 2025 when 23 billion rows of logs were obtained from a Telegram channel, revealing 299M unique email addresses along with the websites they were entered into and the passwords used.",
+  "source_url": "https://xposedornot.com/breach/AlienStealerLogs",
+  "groupAliases": [],
+  "activity": "Miscellaneous",
+  "references": ["XposedOrNot"]
+}
