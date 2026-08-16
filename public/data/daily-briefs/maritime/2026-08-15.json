@@ -1,0 +1,48 @@
+{
+  "type": "maritime",
+  "date": "2026-08-15",
+  "threatLevel": "HIGH",
+  "executiveSummary": "Port crane ecosystems and integrated logistics platforms remain the principal near-term maritime cyber exposure, with risk concentrated in remote servicing pathways, third-party network access, and potential access to sensitive logistics data. Confidence: High, based on government advisory detail.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "HIGH"
+      }
+    ],
+    "vendors": [
+      "ZPMC ship-to-shore cranes (OT/PLC ecosystems)",
+      "Nuctech inspection/scanning equipment",
+      "LOGINK logistics information platform"
+    ],
+    "sectors": [
+      "Ports and Terminals",
+      "Maritime Logistics / Supply Chain",
+      "Maritime Technology Vendors",
+      "Commercial Shipping (indirect exposure via terminal/port dependencies)"
+    ]
+  },
+  "keyFindings": [
+    "Active U.S. maritime advisory warns of cyber and supply-chain exposure in foreign-manufactured port equipment, logistics platforms, and ship-to-shore cranes; emphasizes segmentation, access control, and recovery planning. View Advisory",
+    "MARAD's advisory portal confirms relevant advisories remain active as of August 7, 2026, sustaining operational urgency for port/terminal defenders. Advisory List",
+    "Japan's Nichirei Logistics Group experienced extortion impacts to cold-chain shipment and warehouse systems, illustrating knock-on risks to maritime-adjacent supply chains even without direct port OT compromise. View Article",
+    "No GPS/GNSS, AIS, ECDIS, or vessel-navigation compromises are reported in the collected records this cycle."
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Potential exploitation of remotely serviceable crane infrastructure and vendor-maintained equipment (Initial Access via external remote services; Privilege Misuse; Inhibit Response Function) - identifiers not confirmed in sources.",
+      "Abuse of trusted third-party network connections between crane networks and business networks (Lateral Movement via shared services; Network Pivoting) - identifiers not confirmed.",
+      "Collection/access to sensitive logistics data via integrated platforms (Collection and Exfiltration) - identifiers not confirmed.",
+      "Data-theft extortion with public leak-site pressure impacting logistics operations (Data Exfiltration; Impact via business process disruption) - identifiers not confirmed. View Article"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional MARAD/USCG guidance and port-operator segmentation actions tied to 2026-007; continued advisory activity is likely. Confidence: Medium. Advisory List Public disclosures from logistics and distribution providers may continue as incident recoveries proceed; ripple effects on cold-chain scheduling remain possible. Confidence: Medium. View Article Current evidence does not establish active navigation/system interference; immediate risk to GNSS/AIS/ECDIS remains low in this cycle. Confidence: Medium-High.",
+  "relatedCves": []
+}

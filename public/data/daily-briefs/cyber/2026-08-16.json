@@ -1,0 +1,106 @@
+{
+  "type": "cyber",
+  "date": "2026-08-16",
+  "threatLevel": "",
+  "executiveSummary": "OT risk is elevated to CRITICAL this week due to multiple, concurrent, actively exploited pathways directly impacting control environments and their perimeters. U.S. agencies confirmed ongoing campaigns by Iranian-affiliated actors against PLCs controlling water, energy, and municipal services, including project file tampering and alarm/shutdown manipulation, with clear operational impacts such as boil-water notices and sustained manual operations Security Advisory Alert . Perimeter and management-plane devices are under active pressure: Cisco ASA/FTD remote-access gateways are being exploited in the wild to trigger device reload DoS, now added to CISA's KEV catalog; any outage in these gateways can sever remote operations and segmentation protecting OT networks View Article KEV Notice . High-leverage IT-to-OT pivots continue: a critical vCenter flaw (CVE-2026-59310) is being exploited within days of disclosure, with persistence via reverse SSH tunnels observed-threatening virtualized environments that host OT support systems and DMZ services View Article . Edge/VPN risks are compounded by a pre-auth RCE in NetScaler ADC/Gateway when SAML is enabled and a public PoC is available-making mass exploitation plausible for remote access paths frequently used by CI operators Advisory . EV charging infrastructure shows multiple unauthenticated RCE/control-path vulnerabilities capable of disrupting charging operations and enabling lateral movement from EVSE networks-two CISA weekly bulletins detail critical weaknesses across EVbee and Autel chargers Bulletin Bulletin . Supply-chain compromise remains an urgent concern: malicious LiteLLM releases tied to the Trivy compromise exfiltrated CI/CD, cloud, and Kubernetes credentials at scale, with downstream breaches reported; rapid secret rotation and supply-chain hardening are required View Article . Additional escalations: a universal key issue in Johnson Controls' Airwall undermines OT segmentation/remote access ICS Advisory ; state-linked infrastructure operations via covert SOHO/IoT networks heighten stealthy pre-positioning risk across CI Advisory .",
+  "keyFindings": [
+    {
+      "title": "Iranian-affiliated actors actively exploit internet-reachable PLCs across U.S. C",
+      "summary": "Iranian-affiliated actors actively exploit internet-reachable PLCs across U.S. CI to modify logic, alarm handling, and project files-impacting WWS and energy operations Security Advisory ."
+    },
+    {
+      "title": "Water/Wastewater OT systems face ongoing PLC password/IP tampering and modem mis",
+      "summary": "Water/Wastewater OT systems face ongoing PLC password/IP tampering and modem misuse, prompting boil-water notices and manual operations Alert ."
+    },
+    {
+      "title": "Cisco ASA/FTD pre-auth HTTP parsing flaw is exploited to crash RA gateways; CISA",
+      "summary": "Cisco ASA/FTD pre-auth HTTP parsing flaw is exploited to crash RA gateways; CISA added the issue to KEV, mandating urgent patching View Article KEV Notice ."
+    },
+    {
+      "title": "vCenter RCE (CVE-2026-59310) exploited within days; reverse_ssh tunnels used for",
+      "summary": "vCenter RCE (CVE-2026-59310) exploited within days; reverse_ssh tunnels used for persistence and lateral movement in virtualized estates View Article ."
+    },
+    {
+      "title": "NetScaler ADC/Gateway SAML pre-auth RCE with public PoC threatens remote access ",
+      "summary": "NetScaler ADC/Gateway SAML pre-auth RCE with public PoC threatens remote access portals common in CI Advisory ."
+    },
+    {
+      "title": "EVSE",
+      "summary": "EVbee and Autel chargers show multiple unauthenticated RCE/control path issues affecting transport/energy operations CISA Bulletin CISA Bulletin ."
+    },
+    {
+      "title": "Malicious LiteLLM (PyPI) tied to Trivy campaign exfiltrated cloud/CI/CD secrets ",
+      "summary": "Malicious LiteLLM (PyPI) tied to Trivy campaign exfiltrated cloud/CI/CD secrets at scale; likely downstream breach risk until full rotation View Article ."
+    },
+    {
+      "title": "Johnson Controls Airwall universal hardcoded key jeopardizes OT segmentation and",
+      "summary": "Johnson Controls Airwall universal hardcoded key jeopardizes OT segmentation and secure remote access ICS Advisory ."
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "CRITICAL",
+        "label": "Overall OT/ICS Threat Level"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Rockwell Automation PLCs Schneider Electric Modicon Siemens S7-1200 / Desigo / Siveillance / LOGO! Soft Comfort Johnson Controls Airwall / Metasys Cisco ASA/FTD NetScaler ADC/Gateway (SAML) VMware vCenter Zimbra Collaboration Suite EVbee / Autel EV Chargers Eclipse Milo (OPC UA) TrueConf Server SAP MII / ABAP (enterprise-OT bridge)"
+    ],
+    "sectors": [
+      "Water & Wastewater Systems Energy (Generation/Distribution) Transportation & EV Infrastructure Healthcare & Public Health (BAS/HVAC) Critical Manufacturing Government Facilities & Municipal Services Aerospace/Defense industrial base"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Pro-Russia hacktivists compromise internet-exposed VNC-connected HMIs (WWS, Energy, Food/Ag) to change setpoints and suppress alarms. Security Advisory",
+        "China-nexus operators route operations through covert SOHO/IoT networks to pre-position in CI. Advisory",
+        "Lazarus (DPRK) exploits Windows AFD.sys zero-day (CVE-2026-68820) with new backdoors and rootkit against defense/aerospace suppliers. View Article",
+        "Head Mare APT exploits TrueConf Server to backdoor installers and pivot via Microsoft Graph; targets include energy/transport. Research"
+      ]
+    }
+  ],
+  "relevance": "Direct OT Runtime Impact Confirmed PLC tampering and operator lockouts across WWS/Energy environments (logic, alarms, passwords, IP changes) - high likelihood of process disruption. Security Advisory Alert Desigo BACnet controllers DoS leads to loss of HVAC/BMS control in critical facilities (healthcare, data centers). ICS Advisory Johnson Controls Airwall cryptographic key exposure undermines OT segmentation and secure remote access. ICS Advisory High-Risk IT-OT Conduits Exploited vCenter and NetScaler ADC threaten DMZs/jump-hosts and VPNs that bridge to control networks. View Article Advisory ASA/FTD RA gateway exploitation (DoS) can cut authorized OT remote ops and incident response reachability. View Article Supply-chain credential theft (LiteLLM/Trivy) risks unauthorized code deploys into industrial support systems. View Article",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Siemens Desigo DXR/PXC - malformed BACnet DoS; patch controllers and segment BACnet/IP. ICS Advisory",
+        "Johnson Controls Metasys - persistent XSS in BAS UI; patch and keep off the public internet. ICS Advisory",
+        "ANDRITZ HIPASE-250/SCALA - missing auth, hard-coded creds; isolation and rapid patching required. ICS Advisory",
+        "Siemens Siveillance Video - critical RCE; remove internet exposure and update to fixed builds. ICS Advisory",
+        "Siemens LOGO! Soft Comfort ICS Advisory",
+        "OPC UA (Eclipse Milo) - multiple auth bypass/DoS issues; disable weak policies and patch. CISA Bulletin",
+        "PvVue/ICS components - multiple high-impact CVEs in weekly roundups; prioritize vendor notes. CISA Bulletin",
+        "Siemens CAD toolchains (Parasolid, Solid Edge, Femap) - malicious file parsing → RCE; sandbox untrusted models and patch. Parasolid Solid Edge Femap"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Exploit public-facing applications/services (T1190) on NetScaler, vCenter, Zimbra, SharePoint, ASA/FTD, EVSE controllers.",
+      "Valid accounts & external remote services (T1078, T1133) - VPN/RA abuse, IMAP persistence (Zimbra), RA portals.",
+      "Living off the land (PowerShell, BITS, SQL xp_cmdshell), web shells, reverse SSH tunnels for persistence/C2.",
+      "Protocol abuse & controller manipulation in ICS (e.g., EtherNet/IP/Modbus/BACnet) for logic changes, alarm suppression, or DoS.",
+      "Supply chain compromise & credential exfil (malicious packages, CI/CD token theft) enabling downstream intrusion."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1133"
+    ]
+  },
+  "outlook72h": "Expect increased scanning/exploitation attempts for NetScaler SAML endpoints and vCenter /sdk vectors following PoC release and public reporting Advisory View Article . Continued attempts to DoS Cisco ASA/FTD RA portals (HTTP parsing flaw); pre-stage HA/failover and rate-limit exposure View Article . Follow-on OT impact likely where PLCs remain internet-exposed or reachable via weakly segmented VPNs/modems; prioritize lock-down actions now Alert . Supply-chain incident response and broad credential rotation may surface secondary compromises over the week as organizations triage secrets View Article .",
+  "relatedCves": [
+    "CVE-2026-59310",
+    "CVE-2026-68820",
+    "CVE-2025-67649",
+    "CVE-2026-8452",
+    "CVE-2026-64887"
+  ]
+}

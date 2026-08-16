@@ -1,0 +1,36 @@
+{
+  "type": "disaster",
+  "date": "2026-08-15",
+  "overallThreat": "",
+  "executiveSummary": "",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "≥287",
+        "label": ""
+      },
+      {
+        "value": "≥287",
+        "label": ""
+      },
+      {
+        "value": "≥38",
+        "label": ""
+      },
+      {
+        "value": "~20k",
+        "label": ""
+      },
+      {
+        "value": "300k+",
+        "label": ""
+      }
+    ]
+  },
+  "keyFindings": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "",
+  "regionalTrends": []
+}
