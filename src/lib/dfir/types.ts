@@ -90,7 +90,8 @@ export type ProviderId =
   | 'kaspersky'
   | 'vulncheck'
   | 'maltiverse'
-  | 'secrets';
+  | 'secrets'
+  | 'dphish';
 
 export type ProviderErrorCode =
   | 'rate_limited'

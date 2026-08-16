@@ -3598,6 +3598,36 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['dphish', 'phishing', 'taxii', 'stix', 'domain', 'url', 'ioc', 'indicator', 'attachment', 'feed'],
   },
   {
+    path: '/threatintel/feeds/living-threat',
+    label: 'Living Threat Repository',
+    description:
+      'Real-world incidents continuously mapped to MITRE ATT&CK tactics and techniques - per-kill-chain-stage analyses with detection and remediation notes, CVEs, threat actors, tools, priority scoring, diamond model, and hunt-pack guidance.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: [
+      'living threat',
+      'mitre',
+      'attack',
+      'incident',
+      'tactic',
+      'technique',
+      'kill chain',
+      'detection',
+      'remediation',
+      'cve',
+      'actor',
+    ],
+  },
+  {
+    path: '/threatintel/feeds/malwareanalyzer',
+    label: 'MalwareAnalyzer by Cyble',
+    description:
+      'Free keyless multi-engine malware analysis from MalwareAnalyzer by Cyble - live malicious and newly-observed URL feeds with verdicts and scores, plus on-demand IOC reputation lookups across a 70k+ public sample corpus.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: ['malwareanalyzer', 'cyble', 'malware', 'url', 'verdict', 'reputation', 'ioc', 'scan', 'detonation'],
+  },
+  {
     path: '/threatintel/feeds/threatfeeds',
     label: 'Threat Feeds',
     description: 'Threat intelligence feeds.',

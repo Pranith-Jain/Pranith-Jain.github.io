@@ -389,6 +389,14 @@ Indicators carry OpenCTI extension fields (score, detection, main observable typ
 **1 SPA route** at `/threatintel/feeds/dphish` (expandable indicator cards: value,
 category, active/revoked, confidence, score, STIX pattern, labels, validity).
 
+**IOC provider**: dphish is also registered as a provider adapter
+(`api/src/providers/dphish.ts`, `ProviderId 'dphish'`) in the `/api/v1/ioc/check`
+fan-out (`runIocProviders`) — it matches indicators against the replicated manifest
+through `env.ASSETS` (zero network egress, no key; tiers/providers maps + weights +
+admiralty/confidence registry entries wired). Active indicators → malicious (85),
+revoked/inactive → suspicious (45); domain checks also match URL-entry hosts.
+Tests: `api/test/providers/dphish.test.ts` (5).
+
 **Files**:
 
 - `scripts/sync-dphish.mjs` — TAXII 2.1 paginated fetch (`next` cursors, `added_after`
@@ -406,6 +414,80 @@ category, active/revoked, confidence, score, STIX pattern, labels, validity).
 **To rebuild**: `node scripts/sync-dphish.mjs && node scripts/build-dphish.mjs`
 **Tests**: `npx vitest run worker/lib/threat-intel-manifest.test.ts` (dphish suites) +
 `cd api && npx vitest run test/routes/dphish.test.ts`
+
+### Living Threat Repository — MITRE-mapped Incident Feed (living-threat.rabitanoor.com)
+
+A behavioral vertical replicating the [Living Threat Repository](https://living-threat.rabitanoor.com/)
+(github.com/HudKSD/Living-Threat, MIT): real-world incidents continuously mapped to
+MITRE ATT&CK tactics + techniques via a keyless bootstrap API
+(`GET /api/bootstrap?size=5000`). Each body is AI-enriched — per-kill-chain-stage
+ATT&CK analyses (tactic + technique refs with descriptions), per-stage Detection +
+Remediation notes, CVEs, Threat_Actors, Tools, priority/relevance scores (0–100),
+diamond-model + kill-chain summaries, detection rules/indicators, behavioral +
+data-exfiltration indicators, pyramid of pain, post-incident recommendations.
+
+**2 MCP tools** (registered on `DFIR_MCP` + mirrored in `api/src/lib/agent/mcp-bridge.ts`):
+`ti_list_living_threat` (tactic / technique / severity / actor / keyword / minPriority
+filters), `ti_get_living_threat_incident` (full body by slug)
+
+**3 REST routes** under `/api/v1/threat-intel/living-threat/*`: `/` (index + counts),
+`/incidents` (tactic, technique, severity, actor, q, min_priority, limit), `/incidents/:slug`
+
+**1 SPA route** at `/threatintel/feeds/living-threat` (tactic chips + severity/
+technique filters + expandable incident cards with per-stage detection/remediation,
+CVE/actor pills, kill-chain + diamond-model summaries).
+
+**Data**: `public/data/threat-intel/living-threat/` — `index.json` (slim ~3 MB: 5000
+entries with techniques + actor names for server-side filters) + `shards/0000.json…
+0009.json` (500 full bodies each, ~4 MB). **Sharding is deliberate** — upstream holds
+~21k incidents but bootstrap caps at 5000, and per-incident files would blow the 20k
+static-asset cap (public/ runs ~18.5k files).
+
+**Files**:
+
+- `scripts/sync-living-threat.mjs` — keyless bootstrap fetch (5000 docs) → `threat-intel-staging/living-threat/`
+- `scripts/build-living-threat.mjs` — slim index + 10 shards + tactic/severity/technique/actor/source rollups
+- `worker/lib/threat-intel-manifest.ts` — `LivingThreat*` types, `loadLivingThreatIndex` /
+  `getLivingThreatIncident` (shard-level LRU cache) / `filterLivingThreatIncidents` +
+  `tiCacheStats().livingThreat`
+- `worker/mcp-server.ts` — 2 `ti_*` tool registrations
+- `api/src/routes/threat-intel-edge-tools.ts` — 3 route handlers
+- `api/test/routes/living-threat.test.ts` — 3 route tests
+- `src/pages/threatintel/LivingThreat.tsx` — SPA page
+- `.github/workflows/threat-intel-sync.yml` — daily sync step
+
+**To rebuild**: `node scripts/sync-living-threat.mjs && node scripts/build-living-threat.mjs`
+
+### MalwareAnalyzer by Cyble — Live URL Feeds + IOC Lookup (malwareanalyzer.com)
+
+A keyless vertical replicating the free public API of [MalwareAnalyzer by Cyble](https://malwareanalyzer.com/)
+(free multi-engine malware analysis: static scanning + dynamic detonation, 70k+
+public sample corpus, 46 engines). **No secret required.**
+
+**2 MCP tools** (registered on `DFIR_MCP` + mirrored in `api/src/lib/agent/mcp-bridge.ts`):
+`ti_list_malwareanalyzer` (feed: malicious | newly-observed; verdict / category /
+keyword filters), `ti_malwareanalyzer_lookup` (live reputation lookup for IP /
+domain / URL / hash — verdict, score 0–100, first/last seen, prevalence, tags)
+
+**3 REST routes** under `/api/v1/threat-intel/malwareanalyzer/*`:
+`/` (index + counts + cache), `/feed/:name` (malicious | newly-observed, max 200),
+`/lookup?indicator=` (live upstream call, keyless)
+
+**1 SPA route** at `/threatintel/feeds/malwareanalyzer` (feed tabs, verdict/score
+pills, copy-all pfSense/Pi-hole hostname blocklist, live lookup box).
+
+**Files**:
+
+- `scripts/sync-malwareanalyzer.mjs` — fetches `/v1/feed/malicious` + `/v1/feed/newly-observed` (capped 200) + `/v1/status` → `threat-intel-staging/malwareanalyzer/`
+- `scripts/build-malwareanalyzer.mjs` — slim index + 2 whole-feed files + status (only 4 assets)
+- `worker/lib/threat-intel-manifest.ts` — `Ma*` types, `loadMaIndex` / `getMaFeed` / `filterMaFeed` + `tiCacheStats().malwareanalyzer`
+- `worker/lib/malwareanalyzer.ts` (+ symlink `api/src/lib/malwareanalyzer.ts`) — `malwareAnalyzerLookup` / `malwareAnalyzerStatus` live helpers, graceful degradation
+- `worker/mcp-server.ts` — 2 `ti_*` tool registrations
+- `api/src/routes/threat-intel-edge-tools.ts` — 3 route handlers
+- `api/test/routes/malwareanalyzer.test.ts` — 3 route tests
+- `src/pages/threatintel/MalwareAnalyzer.tsx` — SPA page
+
+**To rebuild**: `node scripts/sync-malwareanalyzer.mjs && node scripts/build-malwareanalyzer.mjs`
 
 ### STIX 2.1 export (cross-vertical)
 

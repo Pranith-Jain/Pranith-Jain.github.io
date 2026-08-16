@@ -63,7 +63,8 @@ export type ProviderId =
   | 'fbi-wanted'
   | 'interpol'
   | 'mozilla-tls'
-  | 'virushee';
+  | 'virushee'
+  | 'dphish';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -158,6 +159,11 @@ export interface ProviderEnv {
    *  The hosted API has required `Authorization: ApiKey …` since 2025; the
    *  provider degrades to 'unsupported' (no_api_key) when unset. */
   OPENSANCTIONS_API_KEY?: string;
+  /** Static ASSETS binding (Worker) — used by the `dphish` provider to read
+   *  the replicated dPhish indicator manifest (public/data/threat-intel/dphish/)
+   *  with zero network egress. Optional so provider unit tests compile without
+   *  the binding; the adapter degrades to 'unsupported' when absent. */
+  ASSETS?: Fetcher;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -232,6 +238,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   interpol: ['ipv4', 'domain', 'email'],
   'mozilla-tls': ['domain', 'ipv4', 'ipv6'],
   virushee: ['hash'],
+  dphish: ['ipv4', 'ipv6', 'domain', 'url'],
 };
 
 /**
@@ -306,4 +313,5 @@ export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
   interpol: 2,
   'mozilla-tls': 2,
   virushee: 2,
+  dphish: 1,
 };

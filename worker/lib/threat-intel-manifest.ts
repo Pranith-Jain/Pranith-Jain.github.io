@@ -576,6 +576,163 @@ export interface DphishIndicatorBody extends DphishIndexEntry {
   detection: boolean | null;
 }
 
+// ─── Living Threat Repository (living-threat.rabitanoor.com) ───────────
+//
+// A separate manifest tree under /data/threat-intel/living-threat/: the
+// public Living Threat Repository API (github.com/HudKSD/Living-Threat,
+// MIT) continuously maps real-world incidents to MITRE ATT&CK tactics and
+// techniques. Bodies are AI-enriched (per-kill-chain-stage TTP mappings,
+// detection + remediation notes, CVEs, actors, tools, priority scoring).
+// The bootstrap API caps at 5000 docs, so the build ships the newest 5000
+// in sharded files (10 × 500) to respect the 20k static-asset cap.
+
+export interface LtTacticRef {
+  tactic_id: string;
+  tactic_name: string;
+  tactic_description: string;
+}
+
+export interface LtTechniqueRef {
+  technique_id: string;
+  technique_name: string;
+  technique_description: string;
+}
+
+export interface LtAnalysisStage {
+  Stage: string;
+  Description: string;
+  Detection: string;
+  Remediation: string;
+  Tactics: LtTacticRef[];
+  Technique_Details: LtTechniqueRef[];
+  Techniques: string[];
+}
+
+export interface LivingThreatIndexEntry {
+  slug: string;
+  shard: number;
+  sequence: number | null;
+  id: string | null;
+  title: string;
+  timestamp: string | null;
+  source: string;
+  severity: string;
+  priorityScore: number | null;
+  relevanceScore: number | null;
+  tactics: string[];
+  techniques: string[];
+  actors: string[];
+  techniqueCount: number;
+  cves: number;
+  tools: number;
+  sizeBytes: number;
+}
+
+export interface LivingThreatIndex {
+  source: string;
+  sourceUrl: string;
+  repoUrl: string;
+  description: string;
+  license: string;
+  syncedAt: string;
+  meta: {
+    apiIndex: string | null;
+    latestTs: string | null;
+    latestSeq: number | null;
+    anchorTs: string | null;
+    fetchedAt: string | null;
+    cap: string;
+  };
+  counts: {
+    incidents: number;
+    shards: number;
+    shardSize: number;
+    bySeverity: Record<string, number>;
+    byTactic: Record<string, number>;
+    uniqueCves: number;
+    uniqueTechniques: number;
+  };
+  topTechniques: { id: string; count: number }[];
+  topActors: { name: string; count: number }[];
+  topTools: { name: string; count: number }[];
+  topSources: { url: string; count: number }[];
+  incidents: LivingThreatIndexEntry[];
+}
+
+export interface LivingThreatIncidentBody {
+  slug: string;
+  shard: number;
+  sequence: number | null;
+  id: string | null;
+  index: string | null;
+  source: string | null;
+  Timestamp: string | null;
+  Title: string | null;
+  Severity: string | null;
+  CVEs: string[];
+  Threat_Actors: string[];
+  Tools: string[];
+  Analyses: LtAnalysisStage[];
+  priority_score?: number | null;
+  relevance_score?: number | null;
+  operational_tags?: string[];
+  doc_summary?: string | null;
+  diamond_model_summary?: string | null;
+  kill_chain_summary?: string | null;
+  Detection_Hints?: string[];
+  Detection_Rules_And_Indicators?: string[];
+  Behavioral_Indicators_of_Attackers?: string[];
+  Data_Exfiltration_Indicators?: string[];
+  Pyramid_Of_Pain?: string[];
+  Post_Incident_Recommendations?: string[];
+  Extracted_Entities?: unknown;
+  Adversary?: unknown;
+  Victim?: unknown;
+  Infrastructure?: unknown;
+  Capability?: unknown;
+}
+
+// ─── MalwareAnalyzer by Cyble (malwareanalyzer.com) ────────────────────
+//
+// A separate manifest tree under /data/threat-intel/malwareanalyzer/: the
+// free, keyless public API of MalwareAnalyzer by Cyble. Feeds are small
+// flat records, so the build ships two whole-feed files + a slim index
+// (only 4 static assets). Live reputation lookups go through
+// worker/lib/malwareanalyzer.ts at request time.
+
+export interface MaFeedEntry {
+  url: string;
+  hostname: string;
+  apex: string | null;
+  verdict: string;
+  score: number | null;
+  brands: string[];
+  categories: string[];
+  time: string | null;
+}
+
+export type MaFeedName = 'malicious' | 'newly-observed';
+
+export interface MaIndex {
+  source: string;
+  sourceUrl: string;
+  apiBase: string;
+  description: string;
+  license: string;
+  syncedAt: string;
+  counts: {
+    malicious: number;
+    newlyObserved: number;
+    byVerdict: Record<string, number>;
+    byCategory: Record<string, number>;
+  };
+  topApexes: { name: string; count: number }[];
+  feeds: {
+    malicious: MaFeedEntry[];
+    newlyObserved: MaFeedEntry[];
+  };
+}
+
 const DATA_PREFIX = '/data/threat-intel';
 const MAX_BODY_CACHE = 200;
 
@@ -598,6 +755,8 @@ const tcVictimCache: BodyCache<TcVictimBody> = { map: new Map(), hits: 0, misses
 const tcEntityCache: BodyCache<TcEntityBody> = { map: new Map(), hits: 0, misses: 0 };
 const tiActorCache: BodyCache<TiThreaticonActorBody> = { map: new Map(), hits: 0, misses: 0 };
 const dphishBodyCache: BodyCache<DphishIndicatorBody> = { map: new Map(), hits: 0, misses: 0 };
+const ltShardCache: BodyCache<LivingThreatIncidentBody[]> = { map: new Map(), hits: 0, misses: 0 };
+const maFeedCache: BodyCache<MaFeedEntry[]> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: TiIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedKev: TiKevEntry[] | null = null;
@@ -615,6 +774,10 @@ let cachedTiCoverage: TiThreaticonCoverageBody | null = null;
 let cachedTiMap: TiThreaticonMapBody | null = null;
 let cachedDphishIndex: DphishIndex | null = null;
 let cachedDphishIndexAt: number | null = null;
+let cachedLtIndex: LivingThreatIndex | null = null;
+let cachedLtIndexAt: number | null = null;
+let cachedMaIndex: MaIndex | null = null;
+let cachedMaIndexAt: number | null = null;
 
 function safeFilename(slug: string): string {
   return slug.replace(/\//g, '__').replace(/[^A-Za-z0-9._-]/g, '_');
@@ -1014,6 +1177,124 @@ export async function getDphishIndicator(assets: Fetcher, slug: string): Promise
   );
   if (!body) return null;
   return recordHit(dphishBodyCache, key, body);
+}
+
+// ─── Living Threat loaders ──────────────────────────────────────────────
+
+export async function loadLivingThreatIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<LivingThreatIndex> {
+  if (cachedLtIndex && !opts.forceRefresh) return cachedLtIndex;
+  const idx = await fetchJson<LivingThreatIndex>(assets, `${DATA_PREFIX}/living-threat/index.json`);
+  if (!idx) {
+    throw new Error(
+      `Living Threat manifest not found at ${DATA_PREFIX}/living-threat/index.json — ` +
+        'did the build run? Run `node scripts/sync-living-threat.mjs && node scripts/build-living-threat.mjs`.'
+    );
+  }
+  cachedLtIndex = idx;
+  cachedLtIndexAt = Date.now();
+  return idx;
+}
+
+export async function getLivingThreatIncident(assets: Fetcher, slug: string): Promise<LivingThreatIncidentBody | null> {
+  const idx = await loadLivingThreatIndex(assets);
+  const entry = idx.incidents.find((i) => i.slug === slug);
+  if (!entry) return null;
+  const shardKey = String(entry.shard).padStart(4, '0');
+  const cacheKey = `shard-${shardKey}`;
+  const hit = trackHit(ltShardCache, cacheKey);
+  let shard: LivingThreatIncidentBody[] | null = hit ?? null;
+  if (!shard) {
+    shard = await fetchJson<LivingThreatIncidentBody[]>(assets, `${DATA_PREFIX}/living-threat/shards/${shardKey}.json`);
+    if (!shard) return null;
+    recordHit(ltShardCache, cacheKey, shard);
+  }
+  return shard.find((b) => b.slug === slug) ?? null;
+}
+
+export interface TiListLivingThreatOptions {
+  tactic?: string;
+  technique?: string;
+  severity?: string;
+  actor?: string;
+  keyword?: string;
+  minPriority?: number;
+  limit?: number;
+}
+
+export function filterLivingThreatIncidents(
+  idx: LivingThreatIndex,
+  opts: TiListLivingThreatOptions = {}
+): LivingThreatIndexEntry[] {
+  const { tactic, technique, severity, actor, keyword, minPriority, limit = 100 } = opts;
+  const needle = keyword?.toLowerCase();
+  const tacNeedle = tactic?.toLowerCase();
+  const actNeedle = actor?.toLowerCase();
+  const sevNeedle = severity?.toLowerCase();
+  const out: LivingThreatIndexEntry[] = [];
+  for (const e of idx.incidents) {
+    if (sevNeedle && e.severity.toLowerCase() !== sevNeedle && !e.severity.toLowerCase().includes(sevNeedle)) continue;
+    if (minPriority !== undefined && (e.priorityScore ?? 0) < minPriority) continue;
+    if (tacNeedle && !e.tactics.some((t) => t.toLowerCase() === tacNeedle || t.toLowerCase().includes(tacNeedle)))
+      continue;
+    if (technique && !e.techniques.includes(technique.toUpperCase())) continue;
+    if (actNeedle && !e.actors.some((a) => a.toLowerCase().includes(actNeedle))) continue;
+    if (needle) {
+      const hay = `${e.title} ${e.source} ${e.actors.join(' ')} ${e.techniques.join(' ')}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(e);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+// ─── MalwareAnalyzer loaders ────────────────────────────────────────────
+
+export async function loadMaIndex(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<MaIndex> {
+  if (cachedMaIndex && !opts.forceRefresh) return cachedMaIndex;
+  const idx = await fetchJson<MaIndex>(assets, `${DATA_PREFIX}/malwareanalyzer/index.json`);
+  if (!idx) {
+    throw new Error(
+      `MalwareAnalyzer manifest not found at ${DATA_PREFIX}/malwareanalyzer/index.json — ` +
+        'did the build run? Run `node scripts/sync-malwareanalyzer.mjs && node scripts/build-malwareanalyzer.mjs`.'
+    );
+  }
+  cachedMaIndex = idx;
+  cachedMaIndexAt = Date.now();
+  return idx;
+}
+
+export async function getMaFeed(assets: Fetcher, name: MaFeedName): Promise<MaFeedEntry[]> {
+  const cacheKey = `feed-${name}`;
+  const hit = trackHit(maFeedCache, cacheKey);
+  if (hit) return hit;
+  const feed = await fetchJson<MaFeedEntry[]>(assets, `${DATA_PREFIX}/malwareanalyzer/${name}.json`);
+  if (!feed) return [];
+  return recordHit(maFeedCache, cacheKey, feed);
+}
+
+export interface TiListMaOptions {
+  verdict?: string;
+  category?: string;
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterMaFeed(entries: MaFeedEntry[], opts: TiListMaOptions = {}): MaFeedEntry[] {
+  const { verdict, category, keyword, limit = 200 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: MaFeedEntry[] = [];
+  for (const e of entries) {
+    if (verdict && e.verdict !== verdict) continue;
+    if (category && !e.categories.some((c) => c.toLowerCase() === category.toLowerCase())) continue;
+    if (needle && !`${e.url} ${e.hostname} ${e.apex ?? ''}`.toLowerCase().includes(needle)) continue;
+    out.push(e);
+    if (out.length >= limit) break;
+  }
+  return out;
 }
 
 export interface TiListCatalogOptions {
@@ -1629,6 +1910,16 @@ export function tiCacheStats(): {
     indexAgeMs: number | null;
     bodies: { size: number; hits: number; misses: number };
   };
+  livingThreat: {
+    indexLoaded: boolean;
+    indexAgeMs: number | null;
+    shards: { size: number; hits: number; misses: number };
+  };
+  malwareanalyzer: {
+    indexLoaded: boolean;
+    indexAgeMs: number | null;
+    feeds: { size: number; hits: number; misses: number };
+  };
 } {
   return {
     indexLoaded: cachedIndex !== null,
@@ -1686,6 +1977,16 @@ export function tiCacheStats(): {
       indexLoaded: cachedDphishIndex !== null,
       indexAgeMs: cachedDphishIndexAt ? Date.now() - cachedDphishIndexAt : null,
       bodies: { size: dphishBodyCache.map.size, hits: dphishBodyCache.hits, misses: dphishBodyCache.misses },
+    },
+    livingThreat: {
+      indexLoaded: cachedLtIndex !== null,
+      indexAgeMs: cachedLtIndexAt ? Date.now() - cachedLtIndexAt : null,
+      shards: { size: ltShardCache.map.size, hits: ltShardCache.hits, misses: ltShardCache.misses },
+    },
+    malwareanalyzer: {
+      indexLoaded: cachedMaIndex !== null,
+      indexAgeMs: cachedMaIndexAt ? Date.now() - cachedMaIndexAt : null,
+      feeds: { size: maFeedCache.map.size, hits: maFeedCache.hits, misses: maFeedCache.misses },
     },
   };
 }
@@ -1746,6 +2047,14 @@ export function _resetTiCacheForTests(): void {
   dphishBodyCache.hits = dphishBodyCache.misses = 0;
   cachedDphishIndex = null;
   cachedDphishIndexAt = null;
+  ltShardCache.map.clear();
+  ltShardCache.hits = ltShardCache.misses = 0;
+  cachedLtIndex = null;
+  cachedLtIndexAt = null;
+  maFeedCache.map.clear();
+  maFeedCache.hits = maFeedCache.misses = 0;
+  cachedMaIndex = null;
+  cachedMaIndexAt = null;
 }
 
 export { severityFromScore };

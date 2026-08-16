@@ -473,6 +473,22 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'DphishFeeds',
         badge: 'live',
       },
+      {
+        path: '/threatintel/feeds/living-threat',
+        tabId: 'living-threat',
+        label: 'Living Threat Repository',
+        desc: 'Real-world incidents continuously mapped to MITRE ATT&CK tactic/technique chains - per-kill-chain-stage detection + remediation notes, CVEs, actors, and hunting guidance.',
+        compVar: 'LivingThreatFeeds',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/feeds/malwareanalyzer',
+        tabId: 'malwareanalyzer',
+        label: 'MalwareAnalyzer by Cyble',
+        desc: 'Free keyless multi-engine malware analysis - live malicious / newly-observed URL feeds plus on-demand IOC reputation lookups.',
+        compVar: 'MalwareAnalyzerFeeds',
+        badge: 'live',
+      },
     ],
   },
   {

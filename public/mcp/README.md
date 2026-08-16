@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**299 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**303 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (187)
+### other (191)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -150,6 +150,7 @@
 - `ti_get_detection_list` - Return the full detection list body with all entries (indicator values + metadata: description, tool, severity, category, reference, regex). Optionally search within the list by keyword or severity. Use ti_list_detection_lists first to discover slugs.
 - `ti_get_dphish_indicator` - Return the full dPhish indicator body for one slug: STIX id, observable value, category, pattern (STIX or YARA), description, created/modified dates, validity window, revoked status, confidence, OpenCTI score, labels, and indicator types. Use ti_list_dphish to discover slugs (e.g. "melbetegypt.com-1a2b3c").
 - `ti_get_ioc` - Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.
+- `ti_get_living_threat_incident` - Return the full Living Threat Repository incident for one slug: per-kill-chain-stage analyses with ATT&CK tactic/technique mappings, per-stage detection + remediation notes, CVEs, threat actors, tools, behavioral / data-exfiltration indicators, detection rules, diamond-model + kill-chain summaries, priority/relevance scores, pyramid of pain, and post-incident recommendations. Use ti_list_living_threat to discover slugs (e.g. "amnesiastealer-macos-malware-021625").
 - `ti_get_threaticon_actor` - Return the full Threaticon actor profile: executive summary, key capabilities, goals & targeting, MITRE ATT&CK tactics and techniques (T-numbers), software/tooling, IOC patterns, recommended actions, campaigns & victims, targeted sectors and countries, aliases, and confidence. Use ti_list_threaticon_actors to discover slugs.
 - `ti_get_threaticon_catalog_item` - Return the full Threaticon catalog body for one item: description, TLP, status, IDs (CAPEC/CVE/MITRE), CVSS, first/last-seen, references, and section-specific fields. Use ti_threaticon_catalog to discover ids.
 - `ti_list_cves` - List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.
@@ -158,7 +159,10 @@
 - `ti_list_dphish` - List phishing indicators from the dPhish public TAXII 2.1 collection (dphish.com): malicious domains, phishing URLs, sender IPs, phone numbers, and attachment detection rules — with active/revoked status, STIX observable type, confidence, OpenCTI score, and validity window. Filter by category, active-only, or keyword. Use ti_get_dphish_indicator to fetch the full STIX body (pattern, description, labels).
 - `ti_list_iocs` - List IOC families (ransomware, malware, APT groups, C2 frameworks, stealers, phishing kits) from the threat-intel vertical, sourced from Daily-Hunt references and tracked by this Worker.
 - `ti_list_kev` - Return the full CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates. Each entry includes vendor, product, short description, required action, and due date.
+- `ti_list_living_threat` - List incidents from the Living Threat Repository (living-threat.rabitanoor.com): real-world incidents mapped to MITRE ATT&CK tactic/technique chains, with severity, priority score, CVEs/actor/tool counts. Filter by tactic, technique ID (e.g. T1190), severity, actor name, keyword, or minimum priority score. Use ti_get_living_threat_incident to fetch the full incident (per-kill-chain-stage analyses, detection + remediation notes, hunt-pack guidance).
+- `ti_list_malwareanalyzer` - List URL entries from the MalwareAnalyzer by Cyble public feeds (malwareanalyzer.com): verdict=malicious URLs (live malicious feed) or newly-observed scans. Each entry has url, hostname, apex, verdict, score, brands, categories, and scan time. Filter by verdict, category, or keyword. For per-IOC intelligence on any indicator, call ti_malwareanalyzer_lookup.
 - `ti_list_threaticon_actors` - List threat-actor profiles from the Threaticon catalog (threaticon.com): name, MITRE ATT&CK ID, status, TLP, confidence, types, origin country, and per-actor technique/tool/geo counts. Filter by type, country, TLP, status, MITRE presence, or keyword. Use ti_get_threaticon_actor to fetch the full profile.
+- `ti_malwareanalyzer_lookup` - Live reputation lookup for a single IOC (IPv4/IPv6, domain, URL, or hash) against MalwareAnalyzer by Cyble (malwareanalyzer.com, keyless): verdict, 0-100 score, first/last seen, prevalence, tags like benigne/malicious categories. Use for enrichment during an investigation. For bulk URL feeds use ti_list_malwareanalyzer.
 - `ti_search_malwarebazaar` - Search MalwareBazaar (abuse.ch) for malware samples by tag or signature. Returns SHA-256, MD5, file name, type, malware family signature, tags, and timestamps. Tries tag search first, falls back to signature. Free API — no key required.
 - `ti_search_otx` - Search AlienVault OTX for threat pulses matching a query. Returns pulse metadata (name, tags, TLP, malware families, MITRE ATT&CK IDs) and indicators for the top 5 pulses. Requires OTX_API_KEY (free at otx.alienvault.com).
 - `ti_search_ransomware_live` - Search ransomware.live for ransomware group profiles. Returns group description, .onion leak-site URLs, recent victims (with country/sector), MITRE ATT&CK TTPs, and known tools. Free public API — no key required.

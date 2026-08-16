@@ -30,6 +30,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     vulncheck: 4,
     stopforumspam: 2,
     dshield: 3,
+    dphish: 3,
   },
   ipv6: {
     maltiverse: 4,
@@ -56,6 +57,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     kaspersky: 3,
     stopforumspam: 2,
     dshield: 3,
+    dphish: 3,
   },
   domain: {
     maltiverse: 4,
@@ -73,6 +75,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     phishstats: 3,
     digitalside: 3,
     kaspersky: 3,
+    dphish: 4,
   },
   url: {
     maltiverse: 4,
@@ -87,6 +90,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     phishstats: 3,
     digitalside: 3,
     kaspersky: 3,
+    dphish: 4,
   },
   hash: {
     maltiverse: 4,

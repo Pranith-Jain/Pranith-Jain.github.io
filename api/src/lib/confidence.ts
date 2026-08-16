@@ -114,6 +114,15 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     category: 'primary',
     description: 'Curated commercial phishing feed',
   },
+  dphish: {
+    id: 'dphish',
+    name: 'dPhish Feed',
+    reliability: 'B',
+    category: 'primary',
+    description:
+      'OpenCTI-backed TAXII 2.1 phishing indicator collection — malicious domains, phishing URLs, sender IPs, phone numbers, attachment rules',
+    known_bias: 'Public collection; indicator scope limited to what dphish.com publishes',
+  },
   'hudson-rock': {
     id: 'hudson-rock',
     name: 'Hudson Rock',
