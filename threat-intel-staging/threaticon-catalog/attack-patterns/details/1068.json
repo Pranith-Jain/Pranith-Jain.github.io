@@ -1,9 +1,0 @@
-{
-  "id": 1068,
-  "fetchedAt": "2026-08-15T06:19:16.164Z",
-  "name": "Malicious Software Implanted",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An attacker implants malicious software into the system in the supply chain distribution channel, with purpose of causing malicious disruption or allowing for additional compromise when the system is deployed."
-}

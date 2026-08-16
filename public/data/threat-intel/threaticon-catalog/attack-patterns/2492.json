@@ -1,9 +1,0 @@
-{
-  "id": 2492,
-  "name": "T1566.001 - Deception using fake updates or files",
-  "techniqueId": "T1566",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2492"
-}

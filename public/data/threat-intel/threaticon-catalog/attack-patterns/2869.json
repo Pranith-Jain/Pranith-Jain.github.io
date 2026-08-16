@@ -1,9 +1,0 @@
-{
-  "id": 2869,
-  "name": "T1110.001 – Brute Force: Password Guessing",
-  "techniqueId": "T1110",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2869"
-}

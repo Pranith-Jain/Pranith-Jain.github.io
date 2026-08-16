@@ -1,9 +1,0 @@
-{
-  "id": 1264,
-  "fetchedAt": "2026-08-15T06:43:03.056Z",
-  "name": "Forceful Browsing",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An attacker employs forceful browsing (direct URL entry) to access portions of a website that are otherwise unreachable. Usually, a front controller or similar design pattern is employed to protect access to portions of a web application. Forceful browsing enables an attacker to access information, perform privileged operations and otherwise reach sections of the web application that have been improperly protected."
-}

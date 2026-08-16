@@ -1,9 +1,0 @@
-{
-  "id": 1226,
-  "fetchedAt": "2026-08-15T06:41:11.656Z",
-  "name": "System Build Data Maliciously Altered",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. During the system build process, the system is deliberately misconfigured by the alteration of the build data. Access to system configuration data files and build processes is susceptible to deliberate misconfiguration of the system."
-}

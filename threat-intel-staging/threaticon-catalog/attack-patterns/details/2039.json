@@ -1,9 +1,0 @@
-{
-  "id": 2039,
-  "fetchedAt": "2026-08-15T08:42:22.414Z",
-  "name": "T1685.004 - Data Exfiltration:ransomware encryption of data on endpoints",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

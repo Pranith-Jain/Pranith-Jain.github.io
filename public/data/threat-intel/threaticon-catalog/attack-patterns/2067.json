@@ -1,9 +1,0 @@
-{
-  "id": 2067,
-  "name": "T1552 - Web Shell Usage",
-  "techniqueId": "T1552",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2067"
-}

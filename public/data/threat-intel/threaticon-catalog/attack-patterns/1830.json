@@ -1,9 +1,0 @@
-{
-  "id": 1830,
-  "name": "T1554.002 - OAuth Device Code Harvesting",
-  "techniqueId": "T1554",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1830"
-}

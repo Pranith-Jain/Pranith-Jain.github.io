@@ -1,9 +1,0 @@
-{
-  "id": 2806,
-  "name": "T1204.004 User Execution: Malicious File",
-  "techniqueId": "T1204",
-  "added": "Aug 9, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2806"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1172,
-  "name": "Smudge Attack",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Attacks that reveal the password/passcode pattern on a touchscreen device by detecting oil smudges left behind by the user’s fingers.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1172"
-}

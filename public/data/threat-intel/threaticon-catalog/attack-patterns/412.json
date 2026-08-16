@@ -1,9 +1,0 @@
-{
-  "id": 412,
-  "name": "Exfiltration Over C2 Channel",
-  "techniqueId": "T1041",
-  "added": "May 2, 2026",
-  "description": "Adversaries may steal data by exfiltrating it over an existing command and control channel. Stolen data is encoded into the normal communications channel using the same protocol as command and control communications.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/412"
-}

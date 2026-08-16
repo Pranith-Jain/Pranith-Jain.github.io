@@ -1,9 +1,0 @@
-{
-  "id": 864,
-  "name": "XML Injection",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Likelihood of attack: High. An attacker utilizes crafted XML user-controllable input to probe, attack, and inject data into the XML database, using techniques similar to SQL injection. The user-controllable input can allow for unauthorized viewing of data, bypassing authentication or the front-end application for direct XML database access, and possibly altering database information.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/864"
-}

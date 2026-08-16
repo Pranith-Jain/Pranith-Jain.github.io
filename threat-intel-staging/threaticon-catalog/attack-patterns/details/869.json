@@ -1,9 +1,0 @@
-{
-  "id": 869,
-  "fetchedAt": "2026-08-15T06:10:40.303Z",
-  "name": "Leveraging Race Conditions",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. The adversary targets a race condition occurring when multiple processes access and manipulate the same resource concurrently, and the outcome of the execution depends on the particular order in which the access takes place. The adversary can leverage a race condition by \"running the race\", modifying the resource and modifying the normal execution flow. For instance, a race condition can occur while accessing a file: the adversary can trick the system by replacing the original file with their version and cause the system to read the malicious file."
-}

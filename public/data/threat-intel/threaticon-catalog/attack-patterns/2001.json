@@ -1,9 +1,0 @@
-{
-  "id": 2001,
-  "name": "T1020.001 - Exfiltration Over Network Protocol",
-  "techniqueId": "T1020",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2001"
-}

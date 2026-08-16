@@ -1,9 +1,0 @@
-{
-  "id": 1004,
-  "name": "Overflow Variables and Tags",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. This type of attack leverages the use of tags or variables from a formatted configuration data to cause buffer overflow. The adversary crafts a malicious HTML page or configuration file that includes oversized strings, thus causing an overflow.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1004"
-}

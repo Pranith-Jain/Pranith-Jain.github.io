@@ -1,9 +1,0 @@
-{
-  "id": 1980,
-  "name": "T1053: Scheduled Task/Job Persistence",
-  "techniqueId": "T1053",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1980"
-}

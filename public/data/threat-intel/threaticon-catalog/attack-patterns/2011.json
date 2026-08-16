@@ -1,9 +1,0 @@
-{
-  "id": 2011,
-  "name": "T1254 - Use of Web Service",
-  "techniqueId": "T1254",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2011"
-}

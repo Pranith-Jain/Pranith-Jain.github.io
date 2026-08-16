@@ -1,9 +1,0 @@
-{
-  "id": 1483,
-  "name": "T1055 - Non-proprietary tools for data dump",
-  "techniqueId": "T1055",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1483"
-}

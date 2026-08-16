@@ -1,9 +1,0 @@
-{
-  "id": 1454,
-  "name": "T1055 - spear phishing via email attachments",
-  "techniqueId": "T1055",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1454"
-}

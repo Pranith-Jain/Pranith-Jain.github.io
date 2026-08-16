@@ -1,9 +1,0 @@
-{
-  "id": 700,
-  "name": "T1574.001: DLL",
-  "techniqueId": "T1574",
-  "added": "May 18, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/700"
-}

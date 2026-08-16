@@ -1,9 +1,0 @@
-{
-  "id": 2579,
-  "name": "T1060 - Exploit Public-Facing Application",
-  "techniqueId": "T1060",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2579"
-}

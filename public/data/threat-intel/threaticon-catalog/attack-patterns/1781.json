@@ -1,9 +1,0 @@
-{
-  "id": 1781,
-  "name": "T1204.002: Malicious File - Distributing malicious files to compromise systems",
-  "techniqueId": "T1204",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1781"
-}

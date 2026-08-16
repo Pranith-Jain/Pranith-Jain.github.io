@@ -1,9 +1,0 @@
-{
-  "id": 1607,
-  "fetchedAt": "2026-08-15T08:27:24.278Z",
-  "name": "T1567.002: Exfiltration to Cloud Storage",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

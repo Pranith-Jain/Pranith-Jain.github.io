@@ -1,9 +1,0 @@
-{
-  "id": 1428,
-  "name": "T1053.PS2PowerShell",
-  "techniqueId": "T1053",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1428"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 856,
-  "fetchedAt": "2026-08-15T06:10:06.470Z",
-  "name": "Resource Injection",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An adversary exploits weaknesses in input validation by manipulating resource identifiers enabling the unintended modification or specification of a resource."
-}

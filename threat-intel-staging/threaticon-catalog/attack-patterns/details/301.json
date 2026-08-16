@@ -1,9 +1,0 @@
-{
-  "id": 301,
-  "fetchedAt": "2026-08-15T07:04:43.006Z",
-  "name": "Web Portal Capture",
-  "tlp": "white",
-  "techniqueId": "DET0480",
-  "added": "May 2, 2026",
-  "description": "Adversaries may install code on externally facing portals, such as a VPN login page, to capture and transmit credentials of users who attempt to log into the service. For example, a compromised login page may log provided user credentials before logging the user in to the service. This variation on input capture may be conducted post-compromise using legitimate administrative access as a backup measure to maintain network access through External Remote Services and Valid Accounts or as part of the initial compromise by exploitation of the externally facing web service.(Citation: Volexity Virtual Private Keylogging)"
-}

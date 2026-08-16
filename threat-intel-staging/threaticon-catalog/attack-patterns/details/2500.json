@@ -1,9 +1,0 @@
-{
-  "id": 2500,
-  "fetchedAt": "2026-08-15T07:46:36.431Z",
-  "name": "T1190.001 - Exploit Public-Facing Application (SQL Injection)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 31, 2026",
-  "description": null
-}

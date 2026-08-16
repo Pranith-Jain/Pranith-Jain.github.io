@@ -1,9 +1,0 @@
-{
-  "id": 1415,
-  "name": "T1030.001 - Phishing via spear-phishing attachment",
-  "techniqueId": "T1030",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1415"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2380,
-  "name": "T1078.003 - Network Services",
-  "techniqueId": "T1078",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2380"
-}

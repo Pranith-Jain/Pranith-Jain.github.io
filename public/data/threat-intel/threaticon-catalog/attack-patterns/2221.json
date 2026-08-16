@@ -1,9 +1,0 @@
-{
-  "id": 2221,
-  "name": "T1566 - Data Exfiltration through Rogue Web Servers",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2221"
-}

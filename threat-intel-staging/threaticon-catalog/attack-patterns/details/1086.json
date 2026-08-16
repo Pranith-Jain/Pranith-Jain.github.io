@@ -1,9 +1,0 @@
-{
-  "id": 1086,
-  "fetchedAt": "2026-08-15T06:20:02.861Z",
-  "name": "Targeted Malware",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary develops targeted malware that takes advantage of a known vulnerability in an organizational information technology environment. The malware crafted for these attacks is based specifically on information gathered about the technology environment. Successfully executing the malware enables an adversary to achieve a wide variety of negative technical impacts."
-}

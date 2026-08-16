@@ -1,9 +1,0 @@
-{
-  "id": 1841,
-  "name": "T1184 - Remote File Hash Calculation",
-  "techniqueId": "T1184",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1841"
-}

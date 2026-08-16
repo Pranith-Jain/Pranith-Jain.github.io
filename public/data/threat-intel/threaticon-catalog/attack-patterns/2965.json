@@ -1,9 +1,0 @@
-{
-  "id": 2965,
-  "name": "T1204.004 Malicious Copy and Paste",
-  "techniqueId": "T1204",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2965"
-}

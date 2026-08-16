@@ -1,9 +1,0 @@
-{
-  "id": 836,
-  "name": "Communication Channel Manipulation",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/836"
-}

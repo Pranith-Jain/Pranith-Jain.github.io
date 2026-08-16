@@ -1,9 +1,0 @@
-{
-  "id": 930,
-  "fetchedAt": "2026-08-15T06:13:19.531Z",
-  "name": "ICMP Error Message Echoing Integrity Probe",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Medium. An adversary uses a technique to generate an ICMP Error message (Port Unreachable, Destination Unreachable, Redirect, Source Quench, Time Exceeded, Parameter Problem) from a target and then analyze the integrity of data returned or \"Quoted\" from the originating request that generated the error message."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2420,
-  "name": "T1204.001 (User Execution via Malicious Documents)",
-  "techniqueId": "T1204",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2420"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1567,
-  "name": "T1059.003 - DLL Injection into explorer.exe",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1567"
-}

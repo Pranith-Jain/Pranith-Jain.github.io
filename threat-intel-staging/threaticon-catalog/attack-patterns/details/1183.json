@@ -1,9 +1,0 @@
-{
-  "id": 1183,
-  "fetchedAt": "2026-08-15T06:24:18.839Z",
-  "name": "Collect Data from Clipboard",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Low. The adversary exploits an application that allows for the copying of sensitive data or information by collecting information copied to the clipboard. Data copied to the clipboard can be accessed by other applications, such as malware built to exfiltrate or log clipboard contents on a periodic basis. In this way, the adversary aims to garner information to which they are unauthorized."
-}

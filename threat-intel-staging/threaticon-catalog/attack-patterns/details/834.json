@@ -1,9 +1,0 @@
-{
-  "id": 834,
-  "fetchedAt": "2026-08-15T06:09:08.151Z",
-  "name": "Functionality Misuse",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: Medium. An adversary leverages a legitimate capability of an application in such a way as to achieve a negative technical impact. The system functionality is not altered or modified but used in a way that was not intended. This is often accomplished through the overuse of a specific functionality or by leveraging functionality with design flaws that enables the adversary to gain access to unauthorized, sensitive data."
-}

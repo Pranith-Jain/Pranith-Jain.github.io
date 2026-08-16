@@ -1,9 +1,0 @@
-{
-  "id": 1341,
-  "name": "T1574 - Data Destruction",
-  "techniqueId": "T1574",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1341"
-}

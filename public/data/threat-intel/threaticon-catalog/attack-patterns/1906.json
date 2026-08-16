@@ -1,9 +1,0 @@
-{
-  "id": 1906,
-  "name": "T1132 - Web Shell Creation",
-  "techniqueId": "T1132",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1906"
-}

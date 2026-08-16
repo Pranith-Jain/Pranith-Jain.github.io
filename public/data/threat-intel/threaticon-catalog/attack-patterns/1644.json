@@ -1,9 +1,0 @@
-{
-  "id": 1644,
-  "name": "T1566 - impact processes and binaries",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1644"
-}

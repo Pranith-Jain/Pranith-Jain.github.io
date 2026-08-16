@@ -1,9 +1,0 @@
-{
-  "id": 2252,
-  "name": "T1105 - Application Layer Interception",
-  "techniqueId": "T1105",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2252"
-}

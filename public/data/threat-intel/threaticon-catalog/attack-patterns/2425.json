@@ -1,9 +1,0 @@
-{
-  "id": 2425,
-  "name": "T1068 - Privilege Escalation",
-  "techniqueId": "T1068",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2425"
-}

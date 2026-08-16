@@ -1,9 +1,0 @@
-{
-  "id": 435,
-  "fetchedAt": "2026-08-15T08:35:07.070Z",
-  "name": "Search Open Websites/Domains",
-  "tlp": "white",
-  "techniqueId": "T1593",
-  "added": "May 2, 2026",
-  "description": "Adversaries may search freely available websites and/or domains for information about victims that can be used during targeting. Information about victims may be available in various online sites, such as social media, new sites, or those hosting information about business operations such as hiring or requested/rewarded contracts.(Citation: Cyware Social Media)(Citation: SecurityTrails Google Hacking)(Citation: ExploitDB GoogleHacking) Adversaries may search in different online sites depending on what information they seek to gather. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: Phishing for Information or Search Open Technical Databases), establishing operational resources (ex: Establish Accounts or Compromise Accounts), and/or initial access (ex: External Remote Services or Phishing)."
-}

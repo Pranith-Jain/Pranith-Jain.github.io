@@ -1,9 +1,0 @@
-{
-  "id": 1910,
-  "name": "T1043 -ansomware Execution from Memebership Initial Access",
-  "techniqueId": "T1043",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1910"
-}

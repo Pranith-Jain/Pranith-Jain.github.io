@@ -1,9 +1,0 @@
-{
-  "id": 1849,
-  "name": "T1594: Search for Data in Local or Web-Based Search Engines",
-  "techniqueId": "T1594",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1849"
-}

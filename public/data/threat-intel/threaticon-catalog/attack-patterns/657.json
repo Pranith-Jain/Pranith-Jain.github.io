@@ -1,9 +1,0 @@
-{
-  "id": 657,
-  "name": "Fallback Channels",
-  "techniqueId": "T1008",
-  "added": "May 2, 2026",
-  "description": "Adversaries may use fallback or alternate communication channels if the primary channel is compromised or inaccessible in order to maintain reliable command and control and to avoid data transfer thresholds.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/657"
-}

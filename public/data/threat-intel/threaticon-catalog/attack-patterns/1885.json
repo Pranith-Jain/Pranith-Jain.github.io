@@ -1,9 +1,0 @@
-{
-  "id": 1885,
-  "name": "T1057: Process Discovery",
-  "techniqueId": "T1057",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1885"
-}

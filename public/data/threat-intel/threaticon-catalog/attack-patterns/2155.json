@@ -1,9 +1,0 @@
-{
-  "id": 2155,
-  "name": "T1025 - Fraudulent Messages",
-  "techniqueId": "T1025",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2155"
-}

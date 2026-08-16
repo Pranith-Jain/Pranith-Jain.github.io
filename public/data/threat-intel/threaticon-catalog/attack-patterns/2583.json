@@ -1,9 +1,0 @@
-{
-  "id": 2583,
-  "name": "T1055 - Data manipulation for data exfiltration",
-  "techniqueId": "T1055",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2583"
-}

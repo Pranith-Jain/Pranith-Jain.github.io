@@ -1,9 +1,0 @@
-{
-  "id": 715,
-  "name": "T1059.003: Command and Scripting Interpreter: Windows Command Shell",
-  "techniqueId": "T1059",
-  "added": "May 25, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/715"
-}

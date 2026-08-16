@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-15T05:59:40Z",
-  "syncedAt": "2026-08-15T05:59:40.556Z",
+  "generatedAt": "2026-08-16T18:24:58Z",
+  "syncedAt": "2026-08-16T18:24:58.950Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
   "count": 38,
   "iocs": [

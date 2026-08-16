@@ -1,9 +1,0 @@
-{
-  "id": 347,
-  "name": "File and Directory Discovery",
-  "techniqueId": "T1083",
-  "added": "May 2, 2026",
-  "description": "Adversaries may enumerate files and directories or may search in specific locations of a host or network share for certain information within a file system. Adversaries may use the information from File and Directory Discovery during automated discovery to shape follow-on behaviors, including whether or not the adversary fully infects the target and/or attempts specific actions. Many command shell utilities can be used to obtain this information. Examples include <code>dir</code>, <code>tree</code>, <code>ls</code>, <code>find</code>, and <code>locate</code>.(Citation: Windows Commands JPCERT) Custom tools may also be used to gather file and directory information and interact with the Native API. Adversaries may also leverage a Network Device CLI on network devices to gather file and directory information (e.g. <code>dir</code>, <code>show flash</code>, and/or <code>nvram</code>).(Citation: US-CERT-TA18-106A) Some files and directories may require elevated or specific user permissions to access.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/347"
-}

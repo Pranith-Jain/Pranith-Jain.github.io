@@ -1,9 +1,0 @@
-{
-  "id": 2919,
-  "name": "T1030 – Data Transfer Size Limits",
-  "techniqueId": "T1030",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2919"
-}

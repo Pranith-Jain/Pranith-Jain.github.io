@@ -1,9 +1,0 @@
-{
-  "id": 2098,
-  "fetchedAt": "2026-08-15T07:32:44.295Z",
-  "name": "T1078.005 - OS Credential Dumping: Cloud API Keys",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

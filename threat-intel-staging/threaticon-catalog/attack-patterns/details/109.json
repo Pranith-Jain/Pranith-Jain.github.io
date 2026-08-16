@@ -1,9 +1,0 @@
-{
-  "id": 109,
-  "fetchedAt": "2026-08-15T08:34:45.156Z",
-  "name": "Identify Business Tempo",
-  "tlp": "white",
-  "techniqueId": "DET0849",
-  "added": "May 2, 2026",
-  "description": "Adversaries may gather information about the victim's business tempo that can be used during targeting. Information about an organization’s business tempo may include a variety of details, including operational hours/days of the week. This information may also reveal times/dates of purchases and shipments of the victim’s hardware and software resources. Adversaries may gather this information in various ways, such as direct elicitation via Phishing for Information. Information about business tempo may also be exposed to adversaries via online or other accessible data sets (ex: Social Media or Search Victim-Owned Websites).(Citation: ThreatPost Broadvoice Leak) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: Phishing for Information or Search Open Websites/Domains), establishing operational resources (ex: Establish Accounts or Compromise Accounts), and/or initial access (ex: Supply Chain Compromise or Trusted Relationship)"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1438,
-  "name": "T1555 - Modify Cloud Compute Instance Configuration",
-  "techniqueId": "T1555",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1438"
-}

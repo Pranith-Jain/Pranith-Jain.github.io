@@ -1,9 +1,0 @@
-{
-  "id": 1889,
-  "name": "T1036.004 - Exfiltration Over Alternative Protocols: DNS, T1055.001 - Phishing Spearphishing Email, T1566.001 - Malware Hidden Within Valid Applications",
-  "techniqueId": "T1036",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1889"
-}

@@ -1,0 +1,14 @@
+{
+  "id": "vr-advogados-9764",
+  "victim": "VR Advogados",
+  "group": "Barracuda",
+  "sector": "Professional Services",
+  "country": "BR",
+  "title": "VR Advogados — claimed by Barracuda",
+  "link": "https://threatcluster.io/dark-web/victim/VR%20Advogados",
+  "guid": "darkweb-victim:barracuda:vr advogados",
+  "pubDate": "2026-08-15T12:50:32.000Z",
+  "categories": ["Group: Barracuda", "Sector: Professional Services", "Country: BR"],
+  "description": "BR · Professional Services · VR Advogados, a Brazilian law firm, neglected its clients’ personal data, violating laws regarding data storage and confidentiality—they posted and shared all of their clients’ documents, passport information, and powers of attorney via a Discord server. We hacked it. Now we have 3,000 documents belonging to all of their clients—passports, powers of attorney, declarations, personal and work-relate",
+  "sizeBytes": 429
+}

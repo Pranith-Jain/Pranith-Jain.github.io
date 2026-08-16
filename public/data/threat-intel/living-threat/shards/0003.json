@@ -3,6 +3,169 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Unknown adversary responsible for the ransomware attack on ChipSoft.",
+      "Known_Campaigns": [],
+      "Motivation": "Financial gain through ransomware deployment.",
+      "Sophistication": "",
+      "Strategic_Objectives": "Disrupt healthcare services and extract ransom payments.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Ransomware used to disrupt ChipSoft's digital services.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": ["Ransomware"],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Electronic Health Record systems"],
+      "Breach_Types": ["Ransomware"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["ChipSoft"],
+      "Countries": ["Netherlands"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["ransomware", "cyberattack", "healthcare", "EHR", "Z-CERT"],
+      "Malware_Families": ["Ransomware"],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Healthcare"],
+      "Software": ["HiX", "Zorgportaal", "HiX Mobile", "Zorgplatform"],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "ChipSoft's digital services and platforms, including HiX, Zorgportaal, HiX Mobile, and Zorgplatform, were targeted.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-04-09T15:46:00Z",
+    "Title": "Ransomware Attack on Dutch Healthcare Software Vendor ChipSoft",
+    "Tools": ["HiX", "Zorgportaal", "HiX Mobile", "Zorgplatform"],
+    "Victim": {
+      "Access_Vectors": ["Digital services"],
+      "Data_Types_At_Risk": ["Sensitive patient data"],
+      "Description": "ChipSoft, a Dutch healthcare software vendor, and its associated healthcare institutions.",
+      "Geography": "Netherlands",
+      "Impact_Severity": "High",
+      "Industry": "Healthcare",
+      "Security_Posture": "Compromised",
+      "Targeted_Assets": ["Electronic Health Record systems", "Digital health services"]
+    },
+    "diamond_model_summary": "The ransomware attack on ChipSoft, a major Dutch healthcare software vendor, highlights the vulnerability of healthcare IT systems. The adversary remains unidentified, but the attack's financial motivation is clear. ChipSoft's infrastructure, including its HiX platform, was targeted, affecting multiple Dutch hospitals.",
+    "doc_summary": "Dutch healthcare software vendor ChipSoft experienced a ransomware attack, impacting its website and digital services. ChipSoft, a major provider of Electronic Health Record (EHR) systems in the Netherlands, had its flagship platform HiX affected. The incident led to the disconnection of systems like Zorgportaal, HiX Mobile, and Zorgplatform. The country's computer emergency response team for cybersecurity in healthcare, Z-CERT, is involved in the recovery process. The attack has affected hospitals such as Sint Jans Gasthuis in Weert, Laurentius in Roermond, and VieCuri hospital in Venlo. The incident highlights the vulnerability of healthcare IT systems to cyberattacks, which can be lucrative for threat actors due to the sensitive data involved.",
+    "enrichment": null,
+    "id": "7a9138e9e4b114280668a0d4a29649a0",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The ransomware attack on ChipSoft involved multiple stages of the cyber kill chain, although specific tactics and techniques remain unidentified. The attack disrupted ChipSoft's digital services, impacting healthcare institutions across the Netherlands. The incident underscores the importance of robust cybersecurity measures in the healthcare sector.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 60,
+    "pyramid_of_pain_summary": "The ransomware attack on ChipSoft did not yield specific indicators such as hashes, IPs, or domains. The lack of detailed indicators limits the ability to apply the Pyramid of Pain effectively. This summary serves as a placeholder due to insufficient data, emphasizing the need for comprehensive threat intelligence.",
+    "relevance_score": 51,
+    "sequence": 20133,
+    "source": "https://www.bleepingcomputer.com/news/security/healthcare-it-solutions-provider-chipsoft-hit-by-ransomware-attack/",
+    "slug": "Ransomware_Attack_on_Dutch_Healthcare_Software_Vendor_ChipSoft-020133",
+    "shard": 3
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Info-stealing malware targeting session cookies",
       "Known_Campaigns": [],
       "Motivation": "Unauthorized access to user accounts",
@@ -105588,269 +105751,6 @@
     "sequence": 19635,
     "source": "https://www.bleepingcomputer.com/news/security/clawjacked-attack-let-malicious-websites-hijack-openclaw-to-steal-data/",
     "slug": "ClawJacked_Vulnerability_in_OpenClaw_AI_Platform-019635",
-    "shard": 3
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary exploited the ClawJacked vulnerability to connect to AI agents via a malicious website.",
-      "Known_Campaigns": [],
-      "Motivation": "Compromise AI agents for unauthorized control and data access.",
-      "Sophistication": "Moderate",
-      "Strategic_Objectives": "Gain control over AI agents and exploit their access to enterprise systems.",
-      "TTPs_Employed": ["Social engineering", "WebSocket exploitation", "Prompt injection"]
-    },
-    "Analyses": [
-      {
-        "Description": "Adversaries likely identified vulnerable OpenClaw instances through social engineering.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify vulnerabilities.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Identify vulnerable systems and configurations.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Host Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "Creation of malicious websites to exploit the ClawJacked vulnerability.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Developing resources to support operations.",
-            "tactic_id": "TA0042",
-            "tactic_name": "Resource Development"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Developing malicious websites and scripts.",
-            "technique_id": "T1587.001",
-            "technique_name": "Develop Capabilities"
-          }
-        ],
-        "Techniques": ["T1587.001"]
-      },
-      {
-        "Description": "Malicious websites delivered the exploit to users visiting them.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to victim systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute code.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Exploitation of the ClawJacked vulnerability to connect to AI agents.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities to gain access.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Installation of malicious skills and malware via ClawHub.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to systems.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using WMI for persistence.",
-            "technique_id": "T1546.003",
-            "technique_name": "Windows Management Instrumentation Event Subscription"
-          }
-        ],
-        "Techniques": ["T1546.003"]
-      },
-      {
-        "Description": "Establishing control over AI agents via WebSocket connections.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Communicating with compromised systems.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols for C2 communication.",
-            "technique_id": "T1071.001",
-            "technique_name": "Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Manipulating AI agent behavior and accessing sensitive data.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Capturing screenshots of sensitive information.",
-            "technique_id": "T1113",
-            "technique_name": "Screen Capture"
-          }
-        ],
-        "Techniques": ["T1113"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of WebSocket server vulnerabilities and use of malicious skills to deliver malware.",
-      "Exploits": ["ClawJacked vulnerability", "Log poisoning vulnerability"],
-      "Lateral_Movement_Tools": [],
-      "Malware": ["Atomic Stealer"],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["AI agents", "WebSocket servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": [
-        "Oasis Security",
-        "Bitsight",
-        "NeuralTrust",
-        "Eye Security",
-        "Endor Labs",
-        "Trend Micro",
-        "Microsoft"
-      ],
-      "Countries": [],
-      "Domains": ["openclawcli.vercel.app"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["91.92.242.30"],
-      "Keywords": ["ClawJacked", "WebSocket", "AI agent", "vulnerability", "exploit", "malware", "security patch"],
-      "Malware_Families": ["Atomic Stealer"],
-      "Malware_Filenames": [],
-      "Patches": ["2026.2.25", "2026.2.13"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["OpenClaw"],
-      "Technologies": ["WebSocket", "AI agents"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": [
-        "CVE-2026-25593",
-        "CVE-2026-24763",
-        "CVE-2026-25157",
-        "CVE-2026-25475",
-        "CVE-2026-26319",
-        "CVE-2026-26322",
-        "CVE-2026-26329"
-      ]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["WebSocket"],
-      "Description": "Malicious websites and ClawHub platform used to exploit vulnerabilities and deliver malware.",
-      "Domains": ["openclawcli.vercel.app"],
-      "Hosting_Providers": [],
-      "IPs": ["91.92.242.30"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["openclawcli.vercel.app"],
-      "Hash_Values": [],
-      "IP_Addresses": ["91.92.242.30"],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": ["Cookie Spider", "@liuhui1010", "26medias", "BobVonNeumann"],
-    "Timestamp": "2026-02-27T18:30:00Z",
-    "Title": "OpenClaw ClawJacked Vulnerability Exploitation",
-    "Tools": ["OpenClaw"],
-    "Victim": {
-      "Access_Vectors": ["WebSocket", "Malicious websites"],
-      "Data_Types_At_Risk": ["AI agent control", "Device registration data"],
-      "Description": "Developers using OpenClaw on their local machines were targeted.",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to relaxed local connection security",
-      "Targeted_Assets": ["AI agents", "Localhost WebSocket servers"]
-    },
-    "diamond_model_summary": "The ClawJacked incident involved adversaries exploiting a vulnerability in OpenClaw's WebSocket server to gain unauthorized access to AI agents. The adversaries used malicious websites to connect to the local WebSocket server, bypassing security mechanisms. The infrastructure included domains and IPs used for delivering exploits and malware. Victims were primarily developers using OpenClaw, with the technology sector being the most affected. The adversaries' strategic objective was to control AI agents and exploit their access to enterprise systems.",
-    "doc_summary": "OpenClaw has addressed a high-severity vulnerability named ClawJacked, which allowed malicious websites to connect to a locally running AI agent via a WebSocket server bound to localhost. The flaw was fixed in version 2026.2.25. The vulnerability relaxed security mechanisms for local connections, enabling automatic device registration without user confirmation. OpenClaw also patched a log poisoning vulnerability in version 2026.2.13, which could lead to prompt injections. Multiple CVEs were addressed, including CVE-2026-25593, CVE-2026-24763, and others, which posed risks such as remote code execution and authentication bypass. Malicious skills on ClawHub were used to deliver Atomic Stealer malware. Microsoft advised deploying OpenClaw in isolated environments due to security risks.",
-    "enrichment": null,
-    "id": "5a55e681b9d31634e6c38e8920a3c93af7b45a23ac4552ec1a94fca10e059d64",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The ClawJacked incident followed a structured kill chain, starting with reconnaissance to identify vulnerable OpenClaw instances. Weaponization involved creating malicious websites to exploit the vulnerability. Delivery was achieved through social engineering, leading to exploitation of the WebSocket server. Installation of malicious skills and malware followed, establishing command and control over AI agents. The final stage involved actions on objectives, manipulating AI agent behavior and accessing sensitive data. The incident highlights the need for robust security measures in AI agent deployments.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "The ClawJacked incident's pyramid of pain includes IP addresses and domains used for delivering exploits and malware. The adversaries' use of specific infrastructure components, such as the domain openclawcli.vercel.app and IP address 91.92.242.30, represents a significant challenge for defenders. These indicators are crucial for detection and response efforts. The incident underscores the importance of monitoring network traffic and implementing security controls to detect and mitigate such threats. The pyramid of pain scoring reflects the complexity of addressing these indicators.",
-    "relevance_score": 78,
-    "sequence": 19634,
-    "source": "https://thehackernews.com/2026/02/clawjacked-flaw-lets-malicious-sites.html",
-    "slug": "OpenClaw_ClawJacked_Vulnerability_Exploitation-019634",
     "shard": 3
   }
 ]

@@ -1,9 +1,0 @@
-{
-  "id": 958,
-  "name": "Physically Hacking Hardware",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary exploits a weakness in access control to gain access to currently installed hardware and precedes to implement changes or secretly replace a hardware component which undermines the system's integrity for the purpose of carrying out an attack.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/958"
-}

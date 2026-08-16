@@ -1,9 +1,0 @@
-{
-  "id": 981,
-  "name": "Target Influence via Eye Cues",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. The adversary gains information via non-verbal means from the target through eye movements.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/981"
-}

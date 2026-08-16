@@ -1,9 +1,0 @@
-{
-  "id": 1839,
-  "fetchedAt": "2026-08-15T06:47:32.171Z",
-  "name": "T1003.001 - OS Credential Dumping: Windows Credential Editor",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

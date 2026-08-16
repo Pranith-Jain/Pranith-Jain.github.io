@@ -1,9 +1,0 @@
-{
-  "id": 1797,
-  "name": "T1566.003 - Espionage Script Injection",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1797"
-}

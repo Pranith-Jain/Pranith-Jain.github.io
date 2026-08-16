@@ -1,9 +1,0 @@
-{
-  "id": 2078,
-  "name": "T1059.003 - Process Injection: Virtual memory operations that allocate space for code segments between existing processes.",
-  "techniqueId": "T1059",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2078"
-}

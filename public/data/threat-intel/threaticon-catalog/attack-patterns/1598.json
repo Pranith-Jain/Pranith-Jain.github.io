@@ -1,9 +1,0 @@
-{
-  "id": 1598,
-  "name": "T1040.004 - Powershell Over HTTP",
-  "techniqueId": "T1040",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1598"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1075,
-  "fetchedAt": "2026-08-15T06:19:34.177Z",
-  "name": "Altered Installed BIOS",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An attacker with access to download and update system software sends a maliciously altered BIOS to the victim or victim supplier/integrator, which when installed allows for future exploitation."
-}

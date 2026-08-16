@@ -1,9 +1,0 @@
-{
-  "id": 562,
-  "fetchedAt": "2026-08-15T08:31:14.104Z",
-  "name": "Create Cloud Instance",
-  "tlp": "white",
-  "techniqueId": "DET0449",
-  "added": "May 2, 2026",
-  "description": "An adversary may create a new instance or virtual machine (VM) within the compute service of a cloud account to evade defenses. Creating a new instance may allow an adversary to bypass firewall rules and permissions that exist on instances currently residing within an account. An adversary may Create Snapshot of one or more volumes in an account, create a new instance, mount the snapshots, and then apply a less restrictive security policy to collect Data from Local System or for Remote Data Staging.(Citation: Mandiant M-Trends 2020) Creating a new instance may also allow an adversary to carry out malicious activity within an environment without affecting the execution of current running instances."
-}

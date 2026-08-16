@@ -1,9 +1,0 @@
-{
-  "id": 247,
-  "fetchedAt": "2026-08-15T08:16:08.857Z",
-  "name": "Archive Collected Data",
-  "tlp": "white",
-  "techniqueId": "T1560",
-  "added": "May 2, 2026",
-  "description": "An adversary may compress and/or encrypt data that is collected prior to exfiltration. Compressing the data can help to obfuscate the collected data and minimize the amount of data sent over the network.(Citation: DOJ GRU Indictment Jul 2018) Encryption can be used to hide information that is being exfiltrated from detection or make exfiltration less conspicuous upon inspection by a defender. Both compression and encryption are done prior to exfiltration, and can be performed using a utility, 3rd party library, or custom method."
-}

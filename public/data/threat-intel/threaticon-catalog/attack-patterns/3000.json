@@ -1,9 +1,0 @@
-{
-  "id": 3000,
-  "name": "T1041 Exfiltration Over Command & Control Channel",
-  "techniqueId": "T1041",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/3000"
-}

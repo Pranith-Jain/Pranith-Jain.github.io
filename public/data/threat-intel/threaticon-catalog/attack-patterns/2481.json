@@ -1,9 +1,0 @@
-{
-  "id": 2481,
-  "name": "T1053.005 (Scheduled Task Creation)",
-  "techniqueId": "T1053",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2481"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2185,
-  "name": "T1203.001 - Exploit Publicly disclosed vulnerability in software",
-  "techniqueId": "T1203",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2185"
-}

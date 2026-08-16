@@ -1,9 +1,0 @@
-{
-  "id": 1155,
-  "name": "Cellular Data Injection",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Adversaries inject data into mobile technology traffic (data flows or signaling data) to disrupt communications or conduct additional surveillance operations.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1155"
-}

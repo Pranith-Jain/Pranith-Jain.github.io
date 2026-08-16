@@ -1,9 +1,0 @@
-{
-  "id": 2713,
-  "name": "T1059.003: PowerShell",
-  "techniqueId": "T1059",
-  "added": "Aug 6, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2713"
-}

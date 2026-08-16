@@ -1,9 +1,0 @@
-{
-  "id": 796,
-  "fetchedAt": "2026-08-15T06:07:28.276Z",
-  "name": "Configuration/Environment Manipulation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. An attacker manipulates files or settings external to a target application which affect the behavior of that application. For example, many applications use external configuration files and libraries - modification of these entities or otherwise affecting the application's ability to use them would constitute a configuration/environment manipulation attack."
-}

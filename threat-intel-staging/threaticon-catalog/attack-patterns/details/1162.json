@@ -1,9 +1,0 @@
-{
-  "id": 1162,
-  "fetchedAt": "2026-08-15T06:23:23.638Z",
-  "name": "Cellular Rogue Base Station",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. In this attack scenario, the attacker imitates a cellular base station with their own \"rogue\" base station equipment. Since cellular devices connect to whatever station has the strongest signal, the attacker can easily convince a targeted cellular device (e.g. the retransmission device) to talk to the rogue base station."
-}

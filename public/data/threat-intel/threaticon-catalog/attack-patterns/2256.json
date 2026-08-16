@@ -1,9 +1,0 @@
-{
-  "id": 2256,
-  "name": "T1043.004 - Adversary Scripting: VBA Macros in Documents",
-  "techniqueId": "T1043",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2256"
-}

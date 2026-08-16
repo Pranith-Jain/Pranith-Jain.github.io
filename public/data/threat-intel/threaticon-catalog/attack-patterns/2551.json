@@ -1,9 +1,0 @@
-{
-  "id": 2551,
-  "name": "T1134 (User Execution: Malicious Document)",
-  "techniqueId": "T1134",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2551"
-}

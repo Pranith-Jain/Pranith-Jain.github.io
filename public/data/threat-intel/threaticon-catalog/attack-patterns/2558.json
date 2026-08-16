@@ -1,9 +1,0 @@
-{
-  "id": 2558,
-  "name": "T1040 - Deletion of Logs",
-  "techniqueId": "T1040",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2558"
-}

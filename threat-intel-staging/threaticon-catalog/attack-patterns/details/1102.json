@@ -1,9 +1,0 @@
-{
-  "id": 1102,
-  "fetchedAt": "2026-08-15T06:20:44.386Z",
-  "name": "Orbital Jamming",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. In this attack pattern, the adversary sends disruptive signals at a target satellite using a rogue uplink station to disrupt the intended transmission. Those within the satellite's footprint are prevented from reaching the satellite's targeted or neighboring channels. The satellite's footprint size depends upon its position in the sky; higher orbital satellites cover multiple continents."
-}

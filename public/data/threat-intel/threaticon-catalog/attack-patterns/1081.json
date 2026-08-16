@@ -1,9 +1,0 @@
-{
-  "id": 1081,
-  "name": "Open-Source Library Manipulation",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. Adversaries implant malicious code in open source software (OSS) libraries to have it widely distributed, as OSS is commonly downloaded by developers and other users to incorporate into software development projects. The adversary can have a particular system in mind to target, or the implantation can be the first stage of follow-on attacks on many systems.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1081"
-}

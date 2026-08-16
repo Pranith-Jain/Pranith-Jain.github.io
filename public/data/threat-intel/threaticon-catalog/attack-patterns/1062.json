@@ -1,9 +1,0 @@
-{
-  "id": 1062,
-  "name": "Documentation Alteration to Produce Under-performing Systems",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An attacker with access to a manufacturer's documentation alters the descriptions of system capabilities with the intent of causing errors in derived system requirements, impacting the overall effectiveness and capability of the system, allowing an attacker to take advantage of the introduced system capability flaw once the system is deployed.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1062"
-}

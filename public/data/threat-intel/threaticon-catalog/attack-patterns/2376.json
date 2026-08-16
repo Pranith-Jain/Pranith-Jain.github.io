@@ -1,9 +1,0 @@
-{
-  "id": 2376,
-  "name": "T1137.001 - SMB Execution",
-  "techniqueId": "T1137",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2376"
-}

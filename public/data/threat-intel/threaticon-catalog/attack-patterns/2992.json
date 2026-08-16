@@ -1,9 +1,0 @@
-{
-  "id": 2992,
-  "name": "T1555 Credential Dumping and Credential Access from Local System",
-  "techniqueId": "T1555",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2992"
-}

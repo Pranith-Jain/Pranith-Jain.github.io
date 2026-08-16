@@ -1,9 +1,0 @@
-{
-  "id": 1725,
-  "name": "T1555.004 - Botnet Communication: IRC",
-  "techniqueId": "T1555",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1725"
-}

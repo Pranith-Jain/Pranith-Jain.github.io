@@ -1,9 +1,0 @@
-{
-  "id": 1992,
-  "name": "T1583.003: Virtual Private Server",
-  "techniqueId": "T1583",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1992"
-}

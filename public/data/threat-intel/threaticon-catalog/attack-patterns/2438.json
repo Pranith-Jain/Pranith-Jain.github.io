@@ -1,9 +1,0 @@
-{
-  "id": 2438,
-  "name": "T1566.001 - C2 over DNS for communication",
-  "techniqueId": "T1566",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2438"
-}

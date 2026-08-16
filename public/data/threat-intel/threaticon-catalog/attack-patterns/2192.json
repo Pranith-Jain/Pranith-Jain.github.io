@@ -1,9 +1,0 @@
-{
-  "id": 2192,
-  "name": "T1485 - Delete system files/directories",
-  "techniqueId": "T1485",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2192"
-}

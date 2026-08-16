@@ -1,9 +1,0 @@
-{
-  "id": 1383,
-  "name": "T1218 - Web Shell",
-  "techniqueId": "T1218",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1383"
-}

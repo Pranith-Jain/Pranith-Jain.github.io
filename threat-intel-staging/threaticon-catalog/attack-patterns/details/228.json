@@ -1,9 +1,0 @@
-{
-  "id": 228,
-  "fetchedAt": "2026-08-15T08:28:41.852Z",
-  "name": "Systemctl",
-  "tlp": "white",
-  "techniqueId": "DET0073",
-  "added": "May 2, 2026",
-  "description": "Adversaries may abuse systemctl to execute commands or programs. Systemctl is the primary interface for systemd, the Linux init system and service manager. Typically invoked from a shell, Systemctl can also be integrated into scripts or applications. Adversaries may use systemctl to execute commands or programs as Systemd Services. Common subcommands include: `systemctl start`, `systemctl stop`, `systemctl enable`, `systemctl disable`, and `systemctl status`.(Citation: Red Hat Systemctl 2022)"
-}

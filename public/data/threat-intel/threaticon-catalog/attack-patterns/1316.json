@@ -1,9 +1,0 @@
-{
-  "id": 1316,
-  "name": "T1133: External Remote Services",
-  "techniqueId": "T1133",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1316"
-}

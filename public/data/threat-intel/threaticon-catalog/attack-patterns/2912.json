@@ -1,9 +1,0 @@
-{
-  "id": 2912,
-  "name": "T1195 – Supply Chain Compromise",
-  "techniqueId": "T1195",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2912"
-}

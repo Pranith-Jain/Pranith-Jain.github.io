@@ -1,9 +1,0 @@
-{
-  "id": 1291,
-  "name": "T1210.001 - Use non-numeric account names in an attempt to conceal malicious activity on systems running MBSA",
-  "techniqueId": "T1210",
-  "added": "Jul 29, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1291"
-}

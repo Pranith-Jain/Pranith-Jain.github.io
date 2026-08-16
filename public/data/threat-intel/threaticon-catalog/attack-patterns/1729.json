@@ -1,9 +1,0 @@
-{
-  "id": 1729,
-  "name": "T1491 - DDoS",
-  "techniqueId": "T1491",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1729"
-}

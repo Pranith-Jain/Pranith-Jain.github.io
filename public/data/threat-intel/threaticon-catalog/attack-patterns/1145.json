@@ -1,9 +1,0 @@
-{
-  "id": 1145,
-  "name": "Credential Stuffing",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An adversary tries known username/password combinations against different systems, applications, or services to gain additional authenticated access. Credential Stuffing attacks rely upon the fact that many users leverage the same username/password combination for multiple systems, applications, and services.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1145"
-}

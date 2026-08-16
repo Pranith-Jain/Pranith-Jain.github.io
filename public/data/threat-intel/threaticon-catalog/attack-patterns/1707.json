@@ -1,9 +1,0 @@
-{
-  "id": 1707,
-  "name": "T1189: Drive-by Compromise",
-  "techniqueId": "T1189",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1707"
-}

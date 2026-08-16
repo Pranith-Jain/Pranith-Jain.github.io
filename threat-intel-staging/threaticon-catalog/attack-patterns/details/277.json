@@ -1,9 +1,0 @@
-{
-  "id": 277,
-  "fetchedAt": "2026-08-15T06:51:28.575Z",
-  "name": "Windows Remote Management",
-  "tlp": "white",
-  "techniqueId": "DET0477",
-  "added": "May 2, 2026",
-  "description": "Adversaries may use Valid Accounts to interact with remote systems using Windows Remote Management (WinRM). The adversary may then perform actions as the logged-on user. WinRM is the name of both a Windows service and a protocol that allows a user to interact with a remote system (e.g., run an executable, modify the Registry, modify services).(Citation: Microsoft WinRM) It may be called with the `winrm` command or by any number of programs such as PowerShell.(Citation: Jacobsen 2014) WinRM can be used as a method of remotely interacting with Windows Management Instrumentation.(Citation: MSDN WMI)"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1135,
-  "name": "Stored XSS",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very High. Likelihood of attack: High. An adversary utilizes a form of Cross-site Scripting (XSS) where a malicious script is persistently \"stored\" within the data storage of a vulnerable web application as valid input.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1135"
-}

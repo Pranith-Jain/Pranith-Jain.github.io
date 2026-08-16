@@ -1,9 +1,0 @@
-{
-  "id": 956,
-  "fetchedAt": "2026-08-15T06:14:26.457Z",
-  "name": "Manipulating Writeable Terminal Devices",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very High. Likelihood of attack: High. This attack exploits terminal devices that allow themselves to be written to by other users. The attacker sends command strings to the target terminal device hoping that the target user will hit enter and thereby execute the malicious command with their privileges. The attacker can send the results (such as copying /etc/passwd) to a known directory and collect once the attack has succeeded."
-}

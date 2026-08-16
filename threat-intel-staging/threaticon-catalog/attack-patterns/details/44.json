@@ -1,9 +1,0 @@
-{
-  "id": 44,
-  "fetchedAt": "2026-08-15T06:49:23.787Z",
-  "name": "Rootkit",
-  "tlp": "white",
-  "techniqueId": "T1014",
-  "added": "May 2, 2026",
-  "description": "Adversaries may use rootkits to hide the presence of programs, files, network connections, services, drivers, and other system components. Rootkits are programs that hide the existence of malware by intercepting/hooking and modifying operating system API calls that supply system information. (Citation: Symantec Windows Rootkits) Rootkits or rootkit enabling functionality may reside at the user or kernel level in the operating system or lower, to include a hypervisor or System Firmware. (Citation: Wikipedia Rootkit) Rootkits have been seen for Windows, Linux, and Mac OS X systems. (Citation: CrowdStrike Linux Rootkit) (Citation: BlackHat Mac OSX Rootkit) Rootkits that reside or modify boot sectors are known as Bootkits and specifically target the boot process of the operating system."
-}

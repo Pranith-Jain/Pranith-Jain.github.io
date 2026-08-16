@@ -1,9 +1,0 @@
-{
-  "id": 1974,
-  "name": "T1265 - Access through Residential Proxies",
-  "techniqueId": "T1265",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1974"
-}

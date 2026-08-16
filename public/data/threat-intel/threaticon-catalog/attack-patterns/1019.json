@@ -1,9 +1,0 @@
-{
-  "id": 1019,
-  "name": "Signature Spoof",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An attacker generates a message or datablock that causes the recipient to believe that the message or datablock was generated and cryptographically signed by an authoritative or reputable source, misleading a victim or victim operating system into performing malicious actions.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1019"
-}

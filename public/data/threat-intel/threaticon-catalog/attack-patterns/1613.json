@@ -1,9 +1,0 @@
-{
-  "id": 1613,
-  "name": "T1055 - Data Collection: Network Query and Exfiltration",
-  "techniqueId": "T1055",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1613"
-}

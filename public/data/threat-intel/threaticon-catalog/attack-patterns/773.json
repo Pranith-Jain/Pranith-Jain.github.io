@@ -1,9 +1,0 @@
-{
-  "id": 773,
-  "name": "Identity Spoofing",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: Medium. Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/773"
-}

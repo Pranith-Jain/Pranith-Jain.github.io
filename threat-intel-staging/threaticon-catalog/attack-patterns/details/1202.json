@@ -1,9 +1,0 @@
-{
-  "id": 1202,
-  "fetchedAt": "2026-08-15T06:25:08.033Z",
-  "name": "Credential Prompt Impersonation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary, through a previously installed malicious application, impersonates a credential prompt in an attempt to steal a user's credentials."
-}

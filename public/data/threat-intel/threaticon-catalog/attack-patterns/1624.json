@@ -1,9 +1,0 @@
-{
-  "id": 1624,
-  "name": "T1069.002: Domain Groups",
-  "techniqueId": "T1069",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1624"
-}

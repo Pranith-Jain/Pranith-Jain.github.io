@@ -1,9 +1,0 @@
-{
-  "id": 963,
-  "fetchedAt": "2026-08-15T06:14:44.334Z",
-  "name": "Information Elicitation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An adversary engages an individual using any combination of social engineering methods for the purpose of extracting information. Accurate contextual and environmental queues, such as knowing important information about the target company or individual can greatly increase the success of the attack and the quality of information gathered. Authentic mimicry combined with detailed knowledge increases the success of elicitation attacks."
-}

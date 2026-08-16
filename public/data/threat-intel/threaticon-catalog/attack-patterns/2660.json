@@ -1,9 +1,0 @@
-{
-  "id": 2660,
-  "name": "T1543.001 – Create or Modify System Process: Windows Service",
-  "techniqueId": "T1543",
-  "added": "Aug 5, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2660"
-}

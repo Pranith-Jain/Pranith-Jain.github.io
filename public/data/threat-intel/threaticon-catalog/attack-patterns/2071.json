@@ -1,9 +1,0 @@
-{
-  "id": 2071,
-  "name": "T1046 - Network Device Disruption: Potential use of network tools for lateral movement or data extraction",
-  "techniqueId": "T1046",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2071"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1688,
-  "name": "T1567.002 - Data compressed/decompressed",
-  "techniqueId": "T1567",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1688"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2191,
-  "name": "T1531 - OS Credential Dumping",
-  "techniqueId": "T1531",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2191"
-}

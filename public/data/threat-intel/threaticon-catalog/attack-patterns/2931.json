@@ -1,9 +1,0 @@
-{
-  "id": 2931,
-  "name": "T1020 (Automated Exfiltration)",
-  "techniqueId": "T1020",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2931"
-}

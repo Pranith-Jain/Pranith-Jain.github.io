@@ -1,9 +1,0 @@
-{
-  "id": 2076,
-  "name": "T1254 Defense-Evasion",
-  "techniqueId": "T1254",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2076"
-}

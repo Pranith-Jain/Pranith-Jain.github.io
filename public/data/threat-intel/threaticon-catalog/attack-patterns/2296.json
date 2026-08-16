@@ -1,9 +1,0 @@
-{
-  "id": 2296,
-  "name": "T1490 - Ingress Tool Transfer",
-  "techniqueId": "T1490",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2296"
-}

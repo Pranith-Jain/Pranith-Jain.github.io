@@ -1,9 +1,0 @@
-{
-  "id": 925,
-  "fetchedAt": "2026-08-15T06:13:07.229Z",
-  "name": "TCP Initial Window Size Probe",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Medium. This OS fingerprinting probe checks the initial TCP Window size. TCP stacks limit the range of sequence numbers allowable within a session to maintain the \"connected\" state within TCP protocol logic. The initial window size specifies a range of acceptable sequence numbers that will qualify as a response to an ACK packet within a session. Various operating systems use different Initial window sizes. The initial window size can be sampled by establishing an ordinary TCP connection."
-}

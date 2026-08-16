@@ -1,9 +1,0 @@
-{
-  "id": 1587,
-  "name": "T1045 (Defense Evasion - Malicious Script)",
-  "techniqueId": "T1045",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1587"
-}

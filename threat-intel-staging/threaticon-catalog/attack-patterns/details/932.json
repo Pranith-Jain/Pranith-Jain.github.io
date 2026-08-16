@@ -1,9 +1,0 @@
-{
-  "id": 932,
-  "fetchedAt": "2026-08-15T06:13:24.755Z",
-  "name": "ICMP IP 'ID' Field Error Message Probe",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Medium. An adversary sends a UDP datagram having an assigned value to its internet identification field (ID) to a closed port on a target to observe the manner in which this bit is echoed back in the ICMP error message. This allows the attacker to construct a fingerprint of specific OS behaviors."
-}

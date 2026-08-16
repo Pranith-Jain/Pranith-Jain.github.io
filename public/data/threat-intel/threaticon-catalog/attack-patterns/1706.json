@@ -1,9 +1,0 @@
-{
-  "id": 1706,
-  "name": "T1095: Non-Application Layer Protocol",
-  "techniqueId": "T1095",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1706"
-}

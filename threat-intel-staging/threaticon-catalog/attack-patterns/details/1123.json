@@ -1,9 +1,0 @@
-{
-  "id": 1123,
-  "fetchedAt": "2026-08-15T06:21:40.515Z",
-  "name": "Security Software Footprinting",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Adversaries may attempt to get a listing of security tools that are installed on the system and their configurations. This may include security related system features (such as a built-in firewall or anti-spyware) as well as third-party security software."
-}

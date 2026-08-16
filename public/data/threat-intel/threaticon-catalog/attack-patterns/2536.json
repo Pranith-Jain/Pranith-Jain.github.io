@@ -1,9 +1,0 @@
-{
-  "id": 2536,
-  "name": "T1486 - MFA Bypass",
-  "techniqueId": "T1486",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2536"
-}

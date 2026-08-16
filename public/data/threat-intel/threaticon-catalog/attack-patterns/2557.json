@@ -1,9 +1,0 @@
-{
-  "id": 2557,
-  "name": "T1132.001 - Standard Definition for Communication between a Remote System and the Target System - Remote Services - RDP",
-  "techniqueId": "T1132",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2557"
-}

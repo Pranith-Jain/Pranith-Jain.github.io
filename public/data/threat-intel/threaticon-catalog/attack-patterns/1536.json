@@ -1,9 +1,0 @@
-{
-  "id": 1536,
-  "name": "T1217: Browser Information Discovery",
-  "techniqueId": "T1217",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1536"
-}

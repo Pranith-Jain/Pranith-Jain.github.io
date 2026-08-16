@@ -1,9 +1,0 @@
-{
-  "id": 2592,
-  "name": "T1071.001 - Application Layer Protocol: HTTPS (data exfiltration)",
-  "techniqueId": "T1071",
-  "added": "Aug 1, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2592"
-}

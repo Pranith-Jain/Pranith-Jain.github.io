@@ -1,9 +1,0 @@
-{
-  "id": 1112,
-  "name": "Block Logging to Central Repository",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An adversary prevents host-generated logs being delivered to a central location in an attempt to hide indicators of compromise.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1112"
-}

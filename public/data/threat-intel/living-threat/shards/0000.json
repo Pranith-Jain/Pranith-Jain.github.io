@@ -3,6 +3,181 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Unknown threat actor targeting Threema with DDoS attacks.",
+      "Known_Campaigns": [],
+      "Motivation": "Disruption of service",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Disrupt Threema's secure messaging service",
+      "TTPs_Employed": ["DDoS"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The adversary executed DDoS attacks to disrupt Threema's services.",
+        "Detection": "Monitor network traffic for unusual spikes • Analyze logs for repeated access attempts",
+        "Remediation": "Implement DDoS protection measures • Engage with ISP for traffic filtering",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "The adversary aims to manipulate, interrupt, or destroy systems and data.",
+            "tactic_id": "TA0040",
+            "tactic_name": "Impact"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "The adversary overwhelms the target with traffic to disrupt services.",
+            "technique_id": "T1499",
+            "technique_name": "Endpoint Denial of Service"
+          }
+        ],
+        "Techniques": ["T1499"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Changing attack patterns to evade defenses"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Changing attack patterns"],
+      "Description": "The adversary employed DDoS attacks to disrupt Threema's services.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["DDoS attack tools"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Messaging service infrastructure"],
+      "Breach_Types": ["DDoS"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Threema", "Nine"],
+      "Countries": ["Switzerland", "India", "China"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["DDoS", "secure messaging", "service disruption"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Threema"],
+      "Technologies": ["DDoS protection"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Threema's server infrastructure and colocation partner Nine were targeted.",
+      "Domains": [],
+      "Hosting_Providers": ["Nine"],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Enhance DDoS protection", "Review and update incident response plans"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["DDoS", "Changing attack patterns"],
+      "Tools": ["DDoS attack tools"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2026-08-16T13:29:00Z",
+    "Title": "DDoS Attacks Disrupt Threema Secure Messaging Service",
+    "Tools": ["DDoS attack tools", "Threema"],
+    "Victim": {
+      "Access_Vectors": ["Network"],
+      "Data_Types_At_Risk": [],
+      "Description": "Threema, a secure messaging service, and its users.",
+      "Geography": "Switzerland",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Reactive",
+      "Targeted_Assets": ["Messaging service infrastructure"]
+    },
+    "diamond_model_summary": "The incident involved a DDoS attack targeting Threema, a secure messaging service. The adversary's capability included the use of DDoS tools to disrupt services. The infrastructure targeted included Threema's server infrastructure and its colocation partner, Nine. The victim was Threema, a technology company based in Switzerland, with users affected in Switzerland, India, and China.",
+    "doc_summary": "Multiple distributed denial-of-service (DDoS) attacks targeted Threema, a secure messaging service, causing severe disruptions. Threema On-Prem users were unaffected. The attacks were difficult to defend against due to constantly changing patterns. Threema, developed by a Swiss company, relies on its own server infrastructure in Switzerland. The attacks began on Tuesday, October 3, 2023, around 6 PM UTC, causing service interruptions. Threema initially attributed the issue to a network outage with its colocation partner, Nine. Despite resolving the network issue, DDoS attacks continued, affecting users in Switzerland, India, and China. Threema confirmed the attacks and warned of intermittent outages. The company implemented specialized DDoS protection to mitigate future incidents.",
+    "enrichment": null,
+    "id": "e501b86f4a24ef28638a39dfdbc8be63",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack primarily involved the 'Actions on Objectives' stage, where the adversary executed DDoS attacks to disrupt Threema's services. The tactics and techniques used included 'Impact' and 'Endpoint Denial of Service'. Detection involved monitoring network traffic for unusual spikes, while remediation included implementing DDoS protection measures.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 65,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes the use of DDoS attack tools and changing attack patterns as behavioral indicators. No specific IP addresses, domains, or hash values were identified. The focus is on the adversary's tactics and techniques, which are challenging to detect and mitigate due to their dynamic nature.",
+    "relevance_score": 45,
+    "sequence": 21626,
+    "source": "https://www.bleepingcomputer.com/news/security/large-scale-ddos-attacks-disrupted-threema-secure-messaging-service/",
+    "slug": "DDoS_Attacks_Disrupt_Threema_Secure_Messaging_Service-021626",
+    "shard": 0
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "The adversary behind AmnesiaStealer is leveraging ClickFix attacks to target macOS users, focusing on stealing sensitive information and gaining remote control over authenticated sessions.",
       "Known_Campaigns": ["ClickFix"],
       "Motivation": "Financial gain through data theft and unauthorized access to cryptocurrency wallets.",
@@ -105611,178 +105786,6 @@
     "sequence": 21129,
     "source": "https://thehackernews.com/2026/07/suspected-china-nexus-hackers-use-fake.html",
     "slug": "Operation_DragonReturn__China-Nexus_Threat_Targeting_Indian_Taxpayers-021129",
-    "shard": 0
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "No significant information detected",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": [],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Exaforce", "Guardant Health", "Forcepoint"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "AI SOC",
-        "SIEM",
-        "SOAR",
-        "Exabots",
-        "MDR",
-        "security operations",
-        "real-time data",
-        "knowledge graph"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": [],
-      "Technologies": ["AI agents", "real-time data platform", "knowledge graph"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2026-07-05T18:30:00Z",
-    "Title": "Analysis of AI SOC Platforms and Exaforce Capabilities",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": [],
-      "Data_Types_At_Risk": [],
-      "Description": "No significant information detected",
-      "Geography": "",
-      "Impact_Severity": "",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": []
-    },
-    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
-    "doc_summary": "The text discusses the evaluation of AI SOC platforms, focusing on the differences between SIEM, SOAR, and AI SOC vendors. It highlights the importance of platforms that materially change outcomes for security teams, emphasizing investigation time, false-positive volume, and total cost of running a SOC. The Exaforce platform is presented as an agentic AI SOC platform with Exabots that cover the full SOC lifecycle, including detection, triage, investigation, and response. The platform's real-time data correlation and knowledge graph capabilities are emphasized, along with its ability to reduce investigation time and improve response times. The text also mentions Guardant Health and Forcepoint as case studies for Exaforce's implementation.",
-    "enrichment": null,
-    "id": "6820150483b8ced328ee78cd1de7a58a51fb111a102009c55b8f4fc2a675a737",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
-    "relevance_score": 35,
-    "sequence": 21128,
-    "source": "https://thehackernews.com/2026/07/how-to-evaluate-ai-soc-platform-in-2026.html",
-    "slug": "Analysis_of_AI_SOC_Platforms_and_Exaforce_Capabilities-021128",
     "shard": 0
   }
 ]

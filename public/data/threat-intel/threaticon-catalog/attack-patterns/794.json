@@ -1,9 +1,0 @@
-{
-  "id": 794,
-  "name": "Flash Parameter Injection",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: High. An adversary takes advantage of improper data validation to inject malicious global parameters into a Flash file embedded within an HTML document. Flash files can leverage user-submitted data to configure the Flash document and access the embedding HTML document.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/794"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1093,
-  "fetchedAt": "2026-08-15T06:20:20.752Z",
-  "name": "Local Execution of Code",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary installs and executes malicious code on the target system in an effort to achieve a negative technical impact. Examples include rootkits, ransomware, spyware, adware, and others."
-}

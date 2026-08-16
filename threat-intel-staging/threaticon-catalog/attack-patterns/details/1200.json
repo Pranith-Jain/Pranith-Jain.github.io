@@ -1,9 +1,0 @@
-{
-  "id": 1200,
-  "fetchedAt": "2026-08-15T06:25:02.583Z",
-  "name": "Use of Known Kerberos Credentials",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary obtains (i.e. steals or purchases) legitimate Kerberos credentials (e.g. Kerberos service account userID/password or Kerberos Tickets) with the goal of achieving authenticated access to additional systems, applications, or services within the domain."
-}

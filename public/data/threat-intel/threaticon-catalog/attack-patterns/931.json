@@ -1,9 +1,0 @@
-{
-  "id": 931,
-  "name": "ICMP IP Total Length Field Probe",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Medium. An adversary sends a UDP packet to a closed port on the target machine to solicit an IP Header's total length field value within the echoed 'Port Unreachable\" error message. This type of behavior is useful for building a signature-base of operating system responses, particularly when error messages contain other types of information that is useful identifying specific operating system responses.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/931"
-}

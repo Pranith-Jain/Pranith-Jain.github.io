@@ -1,9 +1,0 @@
-{
-  "id": 2927,
-  "name": "T1078.001 (Valid Accounts: Cloud Accounts)",
-  "techniqueId": "T1078",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2927"
-}

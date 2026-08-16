@@ -1,9 +1,0 @@
-{
-  "id": 2544,
-  "name": "T1135.002 (RDP Brute Force)",
-  "techniqueId": "T1135",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2544"
-}

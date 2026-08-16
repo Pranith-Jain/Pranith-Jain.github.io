@@ -1,9 +1,0 @@
-{
-  "id": 1090,
-  "fetchedAt": "2026-08-15T06:20:13.015Z",
-  "name": "Incomplete Data Deletion in a Multi-Tenant Environment",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: Low. An adversary obtains unauthorized information due to insecure or incomplete data deletion in a multi-tenant environment. If a cloud provider fails to completely delete storage and data from former cloud tenants' systems/resources, once these resources are allocated to new, potentially malicious tenants, the latter can probe the provided resources for sensitive information still there."
-}

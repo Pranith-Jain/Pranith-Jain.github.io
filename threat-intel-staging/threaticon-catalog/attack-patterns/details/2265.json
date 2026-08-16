@@ -1,9 +1,0 @@
-{
-  "id": 2265,
-  "fetchedAt": "2026-08-15T06:46:43.859Z",
-  "name": "T1003 - Credential Dumping: OS credential dumping",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

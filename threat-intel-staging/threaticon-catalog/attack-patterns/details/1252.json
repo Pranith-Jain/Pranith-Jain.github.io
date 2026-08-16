@@ -1,9 +1,0 @@
-{
-  "id": 1252,
-  "fetchedAt": "2026-08-15T06:42:31.509Z",
-  "name": "Manipulating Writeable Configuration Files",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very High. Likelihood of attack: High. Generally these are manually edited files that are not in the preview of the system administrators, any ability on the attackers' behalf to modify these files, for example in a CVS repository, gives unauthorized access directly to the application, the same as authorized users."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2407,
-  "fetchedAt": "2026-08-15T07:03:20.056Z",
-  "name": "T1055.002 - Privilege Escalation via Service Account",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 31, 2026",
-  "description": null
-}

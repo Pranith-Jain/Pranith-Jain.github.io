@@ -1,9 +1,0 @@
-{
-  "id": 1150,
-  "fetchedAt": "2026-08-15T06:22:51.621Z",
-  "name": "Weakening of Cellular Encryption",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. An attacker, with control of a Cellular Rogue Base Station or through cooperation with a Malicious Mobile Network Operator can force the mobile device (e.g., the retransmission device) to use no encryption (A5/0 mode) or to use easily breakable encryption (A5/1 or A5/2 mode)."
-}

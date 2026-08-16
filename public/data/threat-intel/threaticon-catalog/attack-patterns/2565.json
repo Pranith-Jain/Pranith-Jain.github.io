@@ -1,9 +1,0 @@
-{
-  "id": 2565,
-  "name": "T1210.001 - Exploit Public-Facing Application (Card Processing System Vulnerabilities)",
-  "techniqueId": "T1210",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2565"
-}

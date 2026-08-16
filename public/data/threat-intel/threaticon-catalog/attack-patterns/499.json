@@ -1,9 +1,0 @@
-{
-  "id": 499,
-  "name": "Exfiltration to Text Storage Sites",
-  "techniqueId": "DET0284",
-  "added": "May 2, 2026",
-  "description": "Adversaries may exfiltrate data to text storage sites instead of their primary command and control channel. Text storage sites, such as <code>pastebin[.]com</code>, are commonly used by developers to share code and other information. Text storage sites are often used to host malicious code for C2 communication (e.g., Stage Capabilities), but adversaries may also use these sites to exfiltrate collected data. Furthermore, paid features and encryption options may allow adversaries to conceal and store data more securely.(Citation: Pastebin EchoSec) **Note:** This is distinct from Exfiltration to Code Repository, which highlight access to code repositories via APIs.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/499"
-}

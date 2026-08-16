@@ -1,9 +1,0 @@
-{
-  "id": 2575,
-  "fetchedAt": "2026-08-15T07:47:23.656Z",
-  "name": "T1192.003 (Multi-Factor Authentication Bypass - Compromised Credential Use)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 31, 2026",
-  "description": null
-}

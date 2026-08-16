@@ -1,9 +1,0 @@
-{
-  "id": 1275,
-  "name": "Phishing",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very High. Likelihood of attack: High. Phishing is a social engineering technique where an attacker masquerades as a legitimate entity with which the victim might do business in order to prompt the user to reveal some confidential information (very frequently authentication credentials) that can later be used by an attacker. Phishing is essentially a form of information gathering or \"fishing\" for information.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1275"
-}

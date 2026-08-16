@@ -1,9 +1,0 @@
-{
-  "id": 708,
-  "name": "T1027.013: Encrypted/Encoded File",
-  "techniqueId": "T1027",
-  "added": "May 18, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/708"
-}

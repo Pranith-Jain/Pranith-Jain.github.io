@@ -1,9 +1,0 @@
-{
-  "id": 1023,
-  "fetchedAt": "2026-08-15T06:17:19.173Z",
-  "name": "Signature Spoofing by Mixing Signed and Unsigned Content",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An attacker exploits the underlying complexity of a data structure that allows for both signed and unsigned content, to cause unsigned data to be processed as though it were signed data."
-}

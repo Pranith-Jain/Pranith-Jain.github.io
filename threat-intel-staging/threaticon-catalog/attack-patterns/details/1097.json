@@ -1,9 +1,0 @@
-{
-  "id": 1097,
-  "fetchedAt": "2026-08-15T06:20:31.351Z",
-  "name": "Install Rootkit",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary exploits a weakness in authentication to install malware that alters the functionality and information provide by targeted operating system API calls. Often referred to as rootkits, it is often used to hide the presence of programs, files, network connections, services, drivers, and other system components."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 3009,
-  "name": "T1592 Gather Victim Host Information",
-  "techniqueId": "T1592",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/3009"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2116,
-  "name": "T1566.001 - Credential Access: OS Credential Dumping",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2116"
-}

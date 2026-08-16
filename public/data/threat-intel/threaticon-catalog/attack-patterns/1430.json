@@ -1,9 +1,0 @@
-{
-  "id": 1430,
-  "name": "T1046.004 - Network Sniffing over HTTPS",
-  "techniqueId": "T1046",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1430"
-}

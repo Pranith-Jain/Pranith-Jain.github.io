@@ -1,9 +1,0 @@
-{
-  "id": 1868,
-  "name": "T1071.001 - Internal Communication via Remote Access Tools",
-  "techniqueId": "T1071",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1868"
-}

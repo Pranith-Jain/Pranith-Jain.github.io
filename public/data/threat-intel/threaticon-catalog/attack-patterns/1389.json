@@ -1,9 +1,0 @@
-{
-  "id": 1389,
-  "name": "T1076 - Spear-Phishing via Email",
-  "techniqueId": "T1076",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1389"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2177,
-  "name": "T1074 - Data Encrypted for Impact",
-  "techniqueId": "T1074",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2177"
-}

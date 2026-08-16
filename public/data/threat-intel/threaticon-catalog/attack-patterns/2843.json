@@ -1,9 +1,0 @@
-{
-  "id": 2843,
-  "name": "T1115 - Clipboard Data Manipulation",
-  "techniqueId": "T1115",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2843"
-}

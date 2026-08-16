@@ -1,9 +1,0 @@
-{
-  "id": 2518,
-  "name": "T1031 (Data from Cloud Service)",
-  "techniqueId": "T1031",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2518"
-}

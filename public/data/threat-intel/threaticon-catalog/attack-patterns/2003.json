@@ -1,9 +1,0 @@
-{
-  "id": 2003,
-  "name": "T1027.003 - Use of Programming Script Language for Command and Control Communication",
-  "techniqueId": "T1027",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2003"
-}

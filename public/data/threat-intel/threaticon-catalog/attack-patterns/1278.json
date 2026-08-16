@@ -1,9 +1,0 @@
-{
-  "id": 1278,
-  "name": "T1055: Process Injection",
-  "techniqueId": "T1055",
-  "added": "Jul 26, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1278"
-}

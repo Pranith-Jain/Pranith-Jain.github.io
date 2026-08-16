@@ -1,9 +1,0 @@
-{
-  "id": 1453,
-  "fetchedAt": "2026-08-15T07:09:25.058Z",
-  "name": "T1059.003 - Process injection: Virtual address space manipulation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

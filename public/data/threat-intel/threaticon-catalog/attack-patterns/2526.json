@@ -1,9 +1,0 @@
-{
-  "id": 2526,
-  "name": "T1132.001 - Exploit Public-Facing Application - Web Application",
-  "techniqueId": "T1132",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2526"
-}

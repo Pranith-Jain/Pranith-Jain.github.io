@@ -1,9 +1,0 @@
-{
-  "id": 807,
-  "name": "Malicious Software Update",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. An adversary uses deceptive methods to cause a user or an automated process to download and install dangerous code believed to be a valid update that originates from an adversary controlled source.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/807"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2489,
-  "name": "T1038 - Exploiting credentials through stolen password hashes",
-  "techniqueId": "T1038",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2489"
-}

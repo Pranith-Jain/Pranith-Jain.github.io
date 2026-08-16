@@ -1,9 +1,0 @@
-{
-  "id": 1957,
-  "fetchedAt": "2026-08-15T06:59:23.901Z",
-  "name": "T1048 - Exfiltration Over Cryptographic Protocol",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

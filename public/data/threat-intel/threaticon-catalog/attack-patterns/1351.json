@@ -1,9 +1,0 @@
-{
-  "id": 1351,
-  "name": "T1098.001 - OS Credential Dumping: Windows",
-  "techniqueId": "T1098",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1351"
-}

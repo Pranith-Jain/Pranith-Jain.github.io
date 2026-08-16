@@ -1,9 +1,0 @@
-{
-  "id": 1628,
-  "name": "T1134 - Credential Harvesting via Phishing",
-  "techniqueId": "T1134",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1628"
-}

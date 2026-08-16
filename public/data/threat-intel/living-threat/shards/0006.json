@@ -3,6 +3,241 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "The adversary employs sophisticated phishing techniques to exploit OAuth consent in Microsoft accounts.",
+      "Known_Campaigns": ["ConsentFix"],
+      "Motivation": "Access to sensitive information and control over Microsoft accounts.",
+      "Sophistication": "High",
+      "Strategic_Objectives": "Compromise Microsoft accounts without requiring passwords or bypassing MFA.",
+      "TTPs_Employed": ["OAuth consent manipulation", "ClickFix-style social engineering"]
+    },
+    "Analyses": [
+      {
+        "Description": "The adversary identifies potential targets through Google Search results.",
+        "Detection": "Monitor unusual search result patterns leading to phishing sites.",
+        "Remediation": "Educate users on recognizing phishing links in search results.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify potential targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting information about victim identities.",
+            "technique_id": "T1592",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1592"]
+      },
+      {
+        "Description": "The attack uses OAuth consent manipulation to prepare for account compromise.",
+        "Detection": "Monitor OAuth consent requests for unusual patterns.",
+        "Remediation": "Implement stricter OAuth consent policies.",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to victim systems.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using valid accounts to gain access.",
+            "technique_id": "T1078",
+            "technique_name": "Valid Accounts"
+          }
+        ],
+        "Techniques": ["T1078"]
+      },
+      {
+        "Description": "Malicious links are delivered via Google Search results.",
+        "Detection": "Analyze search result traffic for anomalies.",
+        "Remediation": "Block access to known phishing domains.",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Executing malicious code on victim systems.",
+            "tactic_id": "TA0002",
+            "tactic_name": "Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Tricking users into executing malicious content.",
+            "technique_id": "T1204",
+            "technique_name": "User Execution"
+          }
+        ],
+        "Techniques": ["T1204"]
+      },
+      {
+        "Description": "Victims are tricked into establishing an OAuth connection with the attacker.",
+        "Detection": "Monitor OAuth token usage for anomalies.",
+        "Remediation": "Revoke suspicious OAuth tokens immediately.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Obtaining credentials to access systems.",
+            "tactic_id": "TA0006",
+            "tactic_name": "Credential Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using OAuth tokens to access accounts.",
+            "technique_id": "T1550",
+            "technique_name": "Use Alternate Authentication Material"
+          }
+        ],
+        "Techniques": ["T1550"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "The attacker gains control over the victim's Microsoft account.",
+        "Detection": "Monitor account activity for unusual patterns.",
+        "Remediation": "Implement multi-factor authentication for all accounts.",
+        "Stage": "Command and Control",
+        "Tactics": [
+          {
+            "tactic_description": "Establishing a command and control channel.",
+            "tactic_id": "TA0011",
+            "tactic_name": "Command and Control"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Using application layer protocols for C2.",
+            "technique_id": "T1071",
+            "technique_name": "Application Layer Protocol"
+          }
+        ],
+        "Techniques": ["T1071"]
+      },
+      {
+        "Description": "The attacker accesses sensitive information and resources.",
+        "Detection": "Monitor access to sensitive resources for anomalies.",
+        "Remediation": "Restrict access to sensitive resources based on need-to-know.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data from compromised systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting emails from compromised accounts.",
+            "technique_id": "T1114",
+            "technique_name": "Email Collection"
+          }
+        ],
+        "Techniques": ["T1114"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["IP-based blocking", "Conditional JavaScript loading"],
+      "Description": "The attack leverages OAuth consent manipulation and advanced social engineering techniques.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Azure CLI"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Microsoft accounts"],
+      "Breach_Types": ["Phishing"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft"],
+      "Countries": ["United States", "Indonesia"],
+      "Domains": ["trustpointassurance.com", "fastwaycheck.com", "previewcentral.com"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": ["United States", "Indonesia"],
+      "Keywords": ["ConsentFix", "OAuth", "phishing", "Azure CLI", "Microsoft accounts"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": ["Compromised websites", "Phishing domains"],
+      "Sectors": ["Technology"],
+      "Software": ["Azure CLI"],
+      "Technologies": ["OAuth", "Azure CLI"],
+      "Threat_Infrastructure": ["Phishing domains"],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "The infrastructure includes compromised legitimate websites and phishing domains.",
+      "Domains": ["trustpointassurance.com", "fastwaycheck.com", "previewcentral.com"],
+      "Hosting_Providers": [],
+      "IPs": ["United States", "Indonesia"],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["trustpointassurance.com", "fastwaycheck.com", "previewcentral.com"],
+      "Hash_Values": [],
+      "IP_Addresses": ["United States", "Indonesia"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["OAuth consent manipulation", "ClickFix-style social engineering"],
+      "Tools": ["Azure CLI"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-12-12T08:48:29Z",
+    "Title": "ConsentFix Phishing Attack on Microsoft Accounts",
+    "Tools": ["Azure CLI"],
+    "Victim": {
+      "Access_Vectors": ["Browser-based OAuth consent"],
+      "Data_Types_At_Risk": ["Account credentials", "Sensitive information"],
+      "Description": "Targets are users of Microsoft accounts, particularly within enterprise environments.",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable to OAuth consent manipulation",
+      "Targeted_Assets": ["Microsoft accounts"]
+    },
+    "diamond_model_summary": "The ConsentFix phishing attack is a sophisticated campaign targeting Microsoft accounts by exploiting OAuth consent manipulation. The adversary uses advanced social engineering techniques to trick users into establishing an OAuth connection with the attacker's Azure CLI instance. This attack leverages the implicit trust of Azure CLI within enterprise environments, bypassing traditional security measures. The infrastructure includes compromised legitimate websites and phishing domains, with IP addresses originating from the United States and Indonesia. Victims are primarily users of Microsoft accounts, particularly within the technology sector. The attack's high sophistication and effectiveness highlight the need for enhanced monitoring and user education on OAuth consent risks.",
+    "doc_summary": "Security researchers at Push have identified a sophisticated phishing attack called ConsentFix, targeting Microsoft accounts by manipulating OAuth consent. The attack abuses the Azure CLI OAuth application, a first-party Microsoft tool, to gain implicit trust in enterprise environments. ConsentFix operates within the browser context, bypassing traditional email-based anti-phishing controls by delivering malicious links through Google Search results. The attack involves a fake Cloudflare Turnstile CAPTCHA to filter targets and uses IP-based blocking to prevent unauthorized access. Victims are tricked into establishing an OAuth connection between their Microsoft account and the attacker's Azure CLI instance, granting full account access without passwords or MFA circumvention. The campaign uses advanced detection evasion techniques, including synchronized IP blocking and conditional JavaScript loading. Phishing domains like trustpointassurance.com, fastwaycheck.com, and previewcentral.com are associated with the campaign, with suspicious IP addresses from the United States and Indonesia. Security teams are advised to monitor these indicators and educate users about OAuth consent risks in cloud authentication systems.",
+    "enrichment": { "processed_at": "2026-02-18T00:38:05.391836+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "d158355dbf253a4dbd506b0a2b468026656c8639",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The ConsentFix attack follows a structured kill chain, starting with reconnaissance through Google Search results to identify potential targets. The weaponization phase involves OAuth consent manipulation to prepare for account compromise. Delivery is achieved via malicious links in search results, leading to exploitation where victims establish an OAuth connection with the attacker. The command and control stage involves the attacker gaining control over the victim's Microsoft account, followed by actions on objectives where sensitive information is accessed. The attack's advanced detection evasion techniques and use of trusted infrastructure make it challenging to detect and mitigate.",
+    "operational_tags": ["High Priority", "C2"],
+    "priority_score": 98,
+    "pyramid_of_pain_summary": "The ConsentFix attack presents significant challenges in the Pyramid of Pain, with multiple indicators at various levels. The use of phishing domains like trustpointassurance.com, fastwaycheck.com, and previewcentral.com, along with IP addresses from the United States and Indonesia, complicates detection efforts. The attack leverages trusted tools like Azure CLI, making it difficult to distinguish malicious activity from legitimate use. The advanced social engineering techniques and OAuth consent manipulation employed in the attack further increase the difficulty of detection and response. Security teams must focus on monitoring and analyzing these indicators to effectively counter the threat.",
+    "relevance_score": 51,
+    "sequence": 18652,
+    "source": "https://gbhackers.com/consentfix-attack-lets-hackers-hijack-microsoft-accounts/",
+    "slug": "ConsentFix_Phishing_Attack_on_Microsoft_Accounts-018652",
+    "shard": 6
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "No significant information detected",
       "Known_Campaigns": [],
       "Motivation": "",
@@ -103000,169 +103235,6 @@
     "sequence": 18162,
     "source": "https://thehackernews.com/2025/11/mysterious-smudgedserpent-hackers.html",
     "slug": "UNK_SmudgedSerpent_Cyber_Espionage_Campaign_Targeting_Academics_and_Poli-018162",
-    "shard": 6
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Exploitation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Samsung Knox provides a built-in security platform with hardware and software protections for Samsung Galaxy devices.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Samsung Knox", "Knox E-FOTA"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Mobile Devices"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Samsung"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Android security", "Samsung Galaxy", "enterprise security", "AI-powered malware defense"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Various"],
-      "Software": ["Samsung Knox", "Knox E-FOTA"],
-      "Technologies": ["AI-powered malware defense", "Knox E-FOTA"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Samsung Galaxy devices secured by Samsung Knox.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": [],
-      "Tools": ["Samsung Knox", "Knox E-FOTA"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Low",
-    "Threat_Actors": [],
-    "Timestamp": "2025-11-04T18:30:00Z",
-    "Title": "Analysis of Samsung Knox Security Features",
-    "Tools": ["Samsung Knox", "Knox E-FOTA"],
-    "Victim": {
-      "Access_Vectors": ["Mobile Network"],
-      "Data_Types_At_Risk": ["Work Data"],
-      "Description": "Enterprises using Samsung Galaxy devices.",
-      "Geography": "Global",
-      "Impact_Severity": "Low",
-      "Industry": "Various",
-      "Security_Posture": "Enhanced with Samsung Knox",
-      "Targeted_Assets": ["Mobile Devices"]
-    },
-    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
-    "doc_summary": "The text discusses the security features of Samsung Knox on Samsung Galaxy devices, emphasizing the importance of layered, proactive protection for Android phones. It addresses common myths about Android security, highlighting the role of Samsung Knox in providing enterprise-grade resilience. The platform combines hardware and software protections, offering IT admins control over app curation and sideloading prevention. AI-powered malware defense is also a key feature. The text underscores the significance of addressing human vulnerabilities and maintaining updated security patches. Samsung Knox E-FOTA is mentioned as a tool for strategic update management, transforming mobile updates into a predictable process. The overall message is that Samsung Knox shifts Android from a perceived risk to a secure, enterprise-ready platform.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:33.029751+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "ccb1a61ad26fd12d783af2c471ca760b824272d0eb29a905a16ac0b43651b382",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
-    "operational_tags": [],
-    "priority_score": 20,
-    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
-    "relevance_score": 43,
-    "sequence": 18161,
-    "source": "https://thehackernews.com/2025/11/securing-open-android-ecosystem-with.html",
-    "slug": "Analysis_of_Samsung_Knox_Security_Features-018161",
     "shard": 6
   }
 ]

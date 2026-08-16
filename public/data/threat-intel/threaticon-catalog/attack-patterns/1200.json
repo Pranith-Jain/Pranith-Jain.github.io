@@ -1,9 +1,0 @@
-{
-  "id": 1200,
-  "name": "Use of Known Kerberos Credentials",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary obtains (i.e. steals or purchases) legitimate Kerberos credentials (e.g. Kerberos service account userID/password or Kerberos Tickets) with the goal of achieving authenticated access to additional systems, applications, or services within the domain.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1200"
-}

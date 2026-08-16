@@ -1,9 +1,0 @@
-{
-  "id": 2114,
-  "fetchedAt": "2026-08-15T07:30:05.809Z",
-  "name": "T1078 - Internal Network Communications (e.g., using legitimate protocols for C2)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

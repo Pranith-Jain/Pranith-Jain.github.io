@@ -1,9 +1,0 @@
-{
-  "id": 1789,
-  "name": "T1566.001 - Network Monitoring Tools deployment for traffic analysis",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1789"
-}

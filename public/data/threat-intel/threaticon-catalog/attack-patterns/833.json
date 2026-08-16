@@ -1,9 +1,0 @@
-{
-  "id": 833,
-  "name": "Exploitation of Trusted Identifiers",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An adversary guesses, obtains, or \"rides\" a trusted identifier (e.g. session ID, resource ID, cookie, etc.) to perform authorized actions under the guise of an authenticated user or service.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/833"
-}

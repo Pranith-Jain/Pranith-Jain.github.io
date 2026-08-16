@@ -1,9 +1,0 @@
-{
-  "id": 1121,
-  "fetchedAt": "2026-08-15T06:21:35.141Z",
-  "name": "Restful Privilege Elevation",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: High. An adversary identifies a Rest HTTP (Get, Put, Delete) style permission method allowing them to perform various malicious actions upon server data due to lack of access control mechanisms implemented within the application service accepting HTTP messages."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2127,
-  "name": "T1568.001 - Use of Anti-Forensics to Prevent Artifact Creation",
-  "techniqueId": "T1568",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2127"
-}

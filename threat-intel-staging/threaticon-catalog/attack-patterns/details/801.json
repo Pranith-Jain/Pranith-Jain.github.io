@@ -1,9 +1,0 @@
-{
-  "id": 801,
-  "fetchedAt": "2026-08-15T06:07:41.154Z",
-  "name": "Exploiting Incorrectly Configured Access Control Security Levels",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: High. An attacker exploits a weakness in the configuration of access controls and is able to bypass the intended protection that these measures guard against and thereby obtain unauthorized access to the system or network. Sensitive functionality should always be protected with access controls. However configuring all but the most trivial access control systems can be very complicated and there are many opportunities for mistakes. If an attacker can learn of incorrectly configured access security settings, they may be able to exploit this in an attack."
-}

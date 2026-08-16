@@ -4,13 +4,13 @@
   "repoUrl": "https://github.com/HudKSD/Living-Threat",
   "description": "Living Threat Repository — real-world incidents continuously mapped to MITRE ATT&CK tactics and techniques, with per-kill-chain-stage detection + remediation notes (AI-enriched), CVEs, threat actors, tools, priority scoring, and hunt-pack guidance.",
   "license": "MIT (github.com/HudKSD/Living-Threat); ATT&CK is a MITRE trademark — platform not affiliated with MITRE",
-  "syncedAt": "2026-08-16T16:23:11.058Z",
+  "syncedAt": "2026-08-16T18:25:23.496Z",
   "meta": {
     "apiIndex": null,
-    "latestTs": "2026-08-16T11:07:00Z",
-    "latestSeq": 21625,
-    "anchorTs": "2026-08-16T11:07:00Z",
-    "fetchedAt": "2026-08-16T16:22:37Z",
+    "latestTs": "2026-08-16T13:29:00Z",
+    "latestSeq": 21626,
+    "anchorTs": "2026-08-16T13:29:00Z",
+    "fetchedAt": "2026-08-16T18:25:19Z",
     "cap": "Upstream /api/bootstrap caps at 5000 docs; index holds ~21k. Newest 5000 shipped."
   },
   "counts": {
@@ -39,20 +39,20 @@
       "Collection": 1606,
       "Command and Control": 1534,
       "Exfiltration": 528,
-      "Impact": 632
+      "Impact": 633
     },
     "uniqueCves": 811,
     "uniqueTechniques": 281
   },
   "topTechniques": [
-    { "id": "T1190", "count": 1795 },
-    { "id": "T1203", "count": 1332 },
+    { "id": "T1190", "count": 1794 },
+    { "id": "T1203", "count": 1331 },
     { "id": "T1592", "count": 901 },
     { "id": "T1595", "count": 870 },
     { "id": "T1078", "count": 802 },
     { "id": "T1071.001", "count": 728 },
     { "id": "T1587.001", "count": 728 },
-    { "id": "T1071", "count": 635 },
+    { "id": "T1071", "count": 634 },
     { "id": "T1547", "count": 523 },
     { "id": "T1005", "count": 438 },
     { "id": "T1566", "count": 338 },
@@ -65,7 +65,7 @@
     { "id": "T1027", "count": 205 },
     { "id": "T1547.001", "count": 204 },
     { "id": "T1068", "count": 204 },
-    { "id": "T1499", "count": 202 },
+    { "id": "T1499", "count": 203 },
     { "id": "T1020", "count": 197 },
     { "id": "T1003", "count": 178 },
     { "id": "T1105", "count": 175 },
@@ -220,6 +220,25 @@
     }
   ],
   "incidents": [
+    {
+      "slug": "DDoS_Attacks_Disrupt_Threema_Secure_Messaging_Service-021626",
+      "shard": 0,
+      "sequence": 21626,
+      "id": "e501b86f4a24ef28638a39dfdbc8be63",
+      "title": "DDoS Attacks Disrupt Threema Secure Messaging Service",
+      "timestamp": "2026-08-16T13:29:00Z",
+      "source": "https://www.bleepingcomputer.com/news/security/large-scale-ddos-attacks-disrupted-threema-secure-messaging-service/",
+      "severity": "High",
+      "priorityScore": 65,
+      "relevanceScore": 45,
+      "tactics": ["Impact"],
+      "techniques": ["T1499"],
+      "actors": [],
+      "techniqueCount": 1,
+      "cves": 0,
+      "tools": 2,
+      "sizeBytes": 6294
+    },
     {
       "slug": "AmnesiaStealer__macOS_Malware_Leveraging_ClickFix_Attacks-021625",
       "shard": 0,
@@ -10669,7 +10688,7 @@
     },
     {
       "slug": "Analysis_of_AI_SOC_Platforms_and_Exaforce_Capabilities-021128",
-      "shard": 0,
+      "shard": 1,
       "sequence": 21128,
       "id": "6820150483b8ced328ee78cd1de7a58a51fb111a102009c55b8f4fc2a675a737",
       "title": "Analysis of AI SOC Platforms and Exaforce Capabilities",
@@ -21163,7 +21182,7 @@
     },
     {
       "slug": "Identity_Exposure_via_Cached_Credentials_in_Hybrid_Environments-020632",
-      "shard": 1,
+      "shard": 2,
       "sequence": 20632,
       "id": "d5b77950a9cdc89d2fb0f60b4e941ca47aa2e8ab5fd394e301934256040a69fe",
       "title": "Identity Exposure via Cached Credentials in Hybrid Environments",
@@ -31400,7 +31419,7 @@
     },
     {
       "slug": "Ransomware_Attack_on_Dutch_Healthcare_Software_Vendor_ChipSoft-020133",
-      "shard": 2,
+      "shard": 3,
       "sequence": 20133,
       "id": "7a9138e9e4b114280668a0d4a29649a0",
       "title": "Ransomware Attack on Dutch Healthcare Software Vendor ChipSoft",
@@ -41922,7 +41941,7 @@
     },
     {
       "slug": "OpenClaw_ClawJacked_Vulnerability_Exploitation-019634",
-      "shard": 3,
+      "shard": 4,
       "sequence": 19634,
       "id": "5a55e681b9d31634e6c38e8920a3c93af7b45a23ac4552ec1a94fca10e059d64",
       "title": "OpenClaw ClawJacked Vulnerability Exploitation",
@@ -52406,7 +52425,7 @@
     },
     {
       "slug": "MAR-10386789-1.v1___Log4Shell___CISA-019139",
-      "shard": 4,
+      "shard": 5,
       "sequence": 19139,
       "id": "55adba46d0a546f4796645d51b3097c2dd730efe",
       "title": "MAR-10386789-1.v1 – Log4Shell | CISA",
@@ -62607,7 +62626,7 @@
     },
     {
       "slug": "ConsentFix_Phishing_Attack_on_Microsoft_Accounts-018652",
-      "shard": 5,
+      "shard": 6,
       "sequence": 18652,
       "id": "d158355dbf253a4dbd506b0a2b468026656c8639",
       "title": "ConsentFix Phishing Attack on Microsoft Accounts",
@@ -72968,7 +72987,7 @@
     },
     {
       "slug": "Analysis_of_Samsung_Knox_Security_Features-018161",
-      "shard": 6,
+      "shard": 7,
       "sequence": 18161,
       "id": "ccb1a61ad26fd12d783af2c471ca760b824272d0eb29a905a16ac0b43651b382",
       "title": "Analysis of Samsung Knox Security Features",
@@ -83972,7 +83991,7 @@
     },
     {
       "slug": "Critical_Use-After-Free_Vulnerabilities_in_Windows_BitLocker-017660",
-      "shard": 7,
+      "shard": 8,
       "sequence": 17660,
       "id": "4a8538da94ac3e666e1db57d1484e2adfd6792d0",
       "title": "Critical Use-After-Free Vulnerabilities in Windows BitLocker",
@@ -93886,7 +93905,7 @@
     },
     {
       "slug": "Critical_RCE_Vulnerabilities_in_Android_System_-_January_2025_Security_B-017161",
-      "shard": 8,
+      "shard": 9,
       "sequence": 17161,
       "id": "11b6fe29df56808cca94fb9ca33b36bf7e68be00",
       "title": "Critical RCE Vulnerabilities in Android System - January 2025 Security Bulletin",
@@ -103945,29 +103964,6 @@
       "cves": 0,
       "tools": 2,
       "sizeBytes": 6833
-    },
-    {
-      "slug": "Exploitation_of_Visual_Studio_Debugging_Vulnerabilities-016661",
-      "shard": 9,
-      "sequence": 16661,
-      "id": "bbfa0c5ed1e2ed8c20cec769bf8b2ece481dc415",
-      "title": "Exploitation of Visual Studio Debugging Vulnerabilities",
-      "timestamp": "2024-10-07T11:00:03Z",
-      "source": "https://gbhackers.com/cve-2024-30052-visual-studio-exploit/",
-      "severity": "High",
-      "priorityScore": 87,
-      "relevanceScore": 53,
-      "tactics": [
-        "Exploit Public-Facing Application",
-        "Exploitation for Client Execution",
-        "Application Layer Protocol"
-      ],
-      "techniques": ["T1190", "T1203", "T1071"],
-      "actors": [],
-      "techniqueCount": 3,
-      "cves": 0,
-      "tools": 3,
-      "sizeBytes": 8785
     }
   ]
 }

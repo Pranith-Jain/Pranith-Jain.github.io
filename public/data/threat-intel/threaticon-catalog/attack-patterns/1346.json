@@ -1,9 +1,0 @@
-{
-  "id": 1346,
-  "name": "T1553 Phishing - Content Isolation",
-  "techniqueId": "T1553",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1346"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1092,
-  "name": "Contaminate Resource",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary contaminates organizational information systems (including devices and networks) by causing them to handle information of a classification/sensitivity for which they have not been authorized. When this happens, the contaminated information system, device, or network must be brought offline to investigate and mitigate the data spill, which denies availability of the system until the investigation is complete.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1092"
-}

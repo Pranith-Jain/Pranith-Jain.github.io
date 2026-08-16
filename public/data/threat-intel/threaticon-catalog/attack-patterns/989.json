@@ -1,9 +1,0 @@
-{
-  "id": 989,
-  "name": "Hardware Integrity Attack",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary exploits a weakness in the system maintenance process and causes a change to be made to a technology, product, component, or sub-component or a new one installed during its deployed use at the victim location for the purpose of carrying out an attack.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/989"
-}

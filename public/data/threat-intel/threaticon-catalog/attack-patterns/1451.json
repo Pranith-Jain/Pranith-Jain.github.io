@@ -1,9 +1,0 @@
-{
-  "id": 1451,
-  "name": "T1584.003 (False Flags)",
-  "techniqueId": "T1584",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1451"
-}

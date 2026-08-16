@@ -1,9 +1,0 @@
-{
-  "id": 1098,
-  "fetchedAt": "2026-08-15T06:20:34.074Z",
-  "name": "Functionality Bypass",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Medium. An adversary attacks a system by bypassing some or all functionality intended to protect it. Often, a system user will think that protection is in place, but the functionality behind those protections has been disabled by the adversary."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2853,
-  "fetchedAt": "2026-08-15T07:12:40.903Z",
-  "name": "T1060 Create or Modify System Process (rootkit)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Aug 11, 2026",
-  "description": null
-}

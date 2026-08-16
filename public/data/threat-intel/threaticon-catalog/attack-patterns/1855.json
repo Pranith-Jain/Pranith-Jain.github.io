@@ -1,9 +1,0 @@
-{
-  "id": 1855,
-  "name": "T1064.004 - Remote File Execution via mshta.exe",
-  "techniqueId": "T1064",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1855"
-}

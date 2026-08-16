@@ -1,9 +1,0 @@
-{
-  "id": 1096,
-  "fetchedAt": "2026-08-15T06:20:28.658Z",
-  "name": "Modify Existing Service",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "When an operating system starts, it also starts programs called services or daemons. Modifying existing services may break existing services or may enable services that are disabled/not commonly used."
-}

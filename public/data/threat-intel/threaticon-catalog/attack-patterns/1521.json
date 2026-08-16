@@ -1,9 +1,0 @@
-{
-  "id": 1521,
-  "name": "T1018: Remote System Discovery",
-  "techniqueId": "T1018",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1521"
-}

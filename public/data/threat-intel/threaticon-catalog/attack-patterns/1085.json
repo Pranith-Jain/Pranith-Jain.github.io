@@ -1,9 +1,0 @@
-{
-  "id": 1085,
-  "name": "Application Fingerprinting",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. An adversary engages in fingerprinting activities to determine the type or version of an application installed on a remote target.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1085"
-}

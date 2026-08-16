@@ -1,9 +1,0 @@
-{
-  "id": 1404,
-  "name": "T1072.001 - Spear Phishing Email",
-  "techniqueId": "T1072",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1404"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2885,
-  "fetchedAt": "2026-08-15T08:09:24.973Z",
-  "name": "T1543.003: Create or Modify System Process – cron job persistence",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Aug 11, 2026",
-  "description": null
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2276,
-  "fetchedAt": "2026-08-15T07:11:43.866Z",
-  "name": "T1059.004 - Powershell command line option - Use of encoded or Base64 arguments to execute code",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

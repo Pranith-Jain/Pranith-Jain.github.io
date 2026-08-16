@@ -3,6 +3,193 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Potential local attackers with access to affected systems",
+      "Known_Campaigns": [],
+      "Motivation": "Privilege escalation",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Gain elevated privileges on compromised systems",
+      "TTPs_Employed": ["Use-after-free exploitation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of use-after-free vulnerabilities in BitLocker",
+        "Detection": "Monitor for unusual BitLocker service behavior",
+        "Remediation": "Apply security patches immediately",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the system through local means",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to gain higher privileges",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for privilege escalation and system control",
+        "Detection": "Audit local user accounts for unauthorized privilege changes",
+        "Remediation": "Restrict local user privileges",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining higher-level permissions on the system",
+            "tactic_id": "TA0004",
+            "tactic_name": "Privilege Escalation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to gain higher privileges",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of local access vulnerabilities"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of use-after-free vulnerabilities in BitLocker",
+      "Exploits": ["CVE-2025-54911", "CVE-2025-54912"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual BitLocker service behavior"],
+    "Extracted_Entities": {
+      "Assets": ["Encrypted drives"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": ["BitLocker"],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-54911", "CVE-2025-54912", "use-after-free", "BitLocker"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["September 2025 security updates"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Windows BitLocker"],
+      "Technologies": ["Drive encryption"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-54911", "CVE-2025-54912"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Local access required for exploitation",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply security patches", "Restrict local user privileges"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Use-after-free exploitation"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Endpoint protection measures"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-09-10T07:10:40Z",
+    "Title": "Critical Use-After-Free Vulnerabilities in Windows BitLocker",
+    "Tools": ["Windows BitLocker"],
+    "Victim": {
+      "Access_Vectors": ["Local access"],
+      "Data_Types_At_Risk": ["Encrypted data"],
+      "Description": "Users and administrators of Windows 10 and 11 systems with BitLocker enabled",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable to privilege escalation",
+      "Targeted_Assets": ["BitLocker encrypted drives"]
+    },
+    "diamond_model_summary": "The incident involves local attackers exploiting use-after-free vulnerabilities in Windows BitLocker, identified as CVE-2025-54911 and CVE-2025-54912. These vulnerabilities allow for privilege escalation, potentially leading to full system control. The adversary's capability is moderate, requiring local access and some user interaction. The infrastructure is limited to local access, with victims being users of Windows 10 and 11 systems with BitLocker enabled. The impact severity is high, given the potential for privilege escalation and system compromise.",
+    "doc_summary": "Microsoft has issued a warning about two critical security vulnerabilities in Windows BitLocker, identified as CVE-2025-54911 and CVE-2025-54912. These use-after-free flaws, disclosed on September 9, 2025, could allow attackers to gain elevated privileges on affected systems. BitLocker, a widely used drive encryption feature, is vulnerable to these issues, which require local access and some user interaction. The vulnerabilities have CVSS scores of 7.3 and 7.8, respectively. Microsoft has released security updates for Windows 10 and 11 to address these flaws. Administrators are urged to apply patches immediately to prevent potential attacks. Systems unable to update should restrict local user privileges and monitor for unusual BitLocker behavior. Disabling BitLocker is not recommended as a long-term solution. The vulnerabilities highlight the importance of timely patch management and endpoint protection measures.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:51.455430+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "4a8538da94ac3e666e1db57d1484e2adfd6792d0",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves exploiting use-after-free vulnerabilities in Windows BitLocker, allowing local attackers to gain elevated privileges. The exploitation stage is critical, with CVE-2025-54911 and CVE-2025-54912 being the primary vulnerabilities. The attack requires local access and some user interaction, with the potential for privilege escalation and system control. Detection involves monitoring BitLocker service behavior and auditing local user accounts. Remediation includes applying security patches and restricting local user privileges.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 72,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on TTPs, as the vulnerabilities CVE-2025-54911 and CVE-2025-54912 are exploited for privilege escalation. No specific hash values, IP addresses, or domain names are identified. The primary challenge is detecting and mitigating the use-after-free exploitation technique. The scoring reflects the emphasis on TTPs, with a raw score of 10 out of a possible 32, indicating a significant focus on understanding and mitigating the exploitation technique.",
+    "relevance_score": 43,
+    "sequence": 17660,
+    "source": "https://gbhackers.com/windows-bitlocker-flaw/",
+    "slug": "Critical_Use-After-Free_Vulnerabilities_in_Windows_BitLocker-017660",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Potential adversaries include cybercriminals or state-sponsored actors targeting PostgreSQL environments.",
       "Known_Campaigns": [],
       "Motivation": "Access to sensitive data and potential for further cyberattacks.",
@@ -97517,184 +97704,6 @@
     "sequence": 17162,
     "source": "https://gbhackers.com/hertz-data-breach/",
     "slug": "Hertz_Data_Breach_via_Cleo_Communications_File_Transfer_Platform-017162",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential threat actors exploiting RCE vulnerabilities in Android System.",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized access to Android devices.",
-      "Sophistication": "Moderate to high, given the ability to bypass security mitigations.",
-      "Strategic_Objectives": "Compromise Android devices for data theft or control.",
-      "TTPs_Employed": ["Remote Code Execution"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of RCE vulnerabilities in Android System.",
-        "Detection": "Monitor for unusual application behavior • Check for unauthorized code execution",
-        "Remediation": "Apply latest security patches • Enable Google Play Protect",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to Android devices through RCE vulnerabilities.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute code on Android devices.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of RCE vulnerabilities in Android System.",
-      "Exploits": ["RCE vulnerabilities in Android System"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unusual application behavior",
-      "Check for unauthorized code execution"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Android devices"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Google"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["RCE vulnerabilities", "Android Security Bulletin", "Google Play Protect"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["2025-01-05 security patch"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Consumer Electronics"],
-      "Software": ["Android"],
-      "Technologies": ["Android System"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Remote Code Execution"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No specific infrastructure details detected.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply latest security patches", "Enable Google Play Protect"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote Code Execution"],
-      "Tools": ["Android System"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["ANY.RUN Threat Intelligence Lookup"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-01-07T07:06:09Z",
-    "Title": "Critical RCE Vulnerabilities in Android System - January 2025 Security Bulletin",
-    "Tools": ["Android System", "Android"],
-    "Victim": {
-      "Access_Vectors": ["Remote"],
-      "Data_Types_At_Risk": ["Personal data", "Device control"],
-      "Description": "Android device users globally.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Consumer Electronics",
-      "Security_Posture": "Vulnerable if not updated",
-      "Targeted_Assets": ["Android devices"]
-    },
-    "diamond_model_summary": "The incident involves potential adversaries exploiting Remote Code Execution vulnerabilities in the Android System. The capability is characterized by the exploitation of these vulnerabilities, with the infrastructure details remaining unspecified. The victims are Android device users globally, with a critical impact severity due to the potential for unauthorized code execution.",
-    "doc_summary": "The January 2025 Android Security Bulletin highlights critical vulnerabilities affecting Android devices, urging users to update to the latest security patch level, 2025-01-05, to mitigate risks. The bulletin details Remote Code Execution (RCE) vulnerabilities within the Android System component, which could allow attackers to execute harmful code without additional privileges. Android partners were informed a month prior, and source code patches will be released in the Android Open Source Project (AOSP) repository. Google Play Protect provides essential protections, and users are advised to stay updated to ensure device security. The bulletin categorizes vulnerabilities by CVE IDs and affected components, emphasizing the importance of regular updates for a safer mobile experience.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:05.172746+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "11b6fe29df56808cca94fb9ca33b36bf7e68be00",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis identifies the exploitation stage as critical, with threat actors potentially exploiting RCE vulnerabilities in the Android System to gain initial access. The lack of significant activity in other stages suggests a focus on exploiting these vulnerabilities for unauthorized code execution. Detection and remediation efforts should focus on applying security patches and enabling Google Play Protect.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis reveals a lack of specific indicators such as hash values, IP addresses, or domain names. The focus is on the exploitation of RCE vulnerabilities, with the primary tool being the Android System itself. The absence of detailed TTPs or infrastructure indicators limits the ability to provide a comprehensive analysis, emphasizing the need for proactive patching and security measures.",
-    "relevance_score": 45,
-    "sequence": 17161,
-    "source": "https://gbhackers.com/android-security-updates-2/",
-    "slug": "Critical_RCE_Vulnerabilities_in_Android_System_-_January_2025_Security_B-017161",
     "shard": 8
   }
 ]

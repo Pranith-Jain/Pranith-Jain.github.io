@@ -1,9 +1,0 @@
-{
-  "id": 1751,
-  "fetchedAt": "2026-08-15T08:26:08.419Z",
-  "name": "T1566.003 - OS Credential Dumping: Registry Hive/Local Security Authority (LSA)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

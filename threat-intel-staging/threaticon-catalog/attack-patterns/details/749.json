@@ -1,9 +1,0 @@
-{
-  "id": 749,
-  "fetchedAt": "2026-08-15T06:05:25.534Z",
-  "name": "Subverting Environment Variable Values",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Very High. Likelihood of attack: High. The adversary directly or indirectly modifies environment variables used by or controlling the target software. The adversary's goal is to cause the target software to deviate from its expected operation in a manner that benefits the adversary."
-}

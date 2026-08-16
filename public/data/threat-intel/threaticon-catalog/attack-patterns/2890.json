@@ -1,9 +1,0 @@
-{
-  "id": 2890,
-  "name": "T1552.002: Unsecured Credentials – .conf file extraction",
-  "techniqueId": "T1552",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2890"
-}

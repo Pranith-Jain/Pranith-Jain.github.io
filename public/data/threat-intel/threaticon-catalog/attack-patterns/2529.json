@@ -1,9 +1,0 @@
-{
-  "id": 2529,
-  "name": "T1547.001 - Child Process: Hidden",
-  "techniqueId": "T1547",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2529"
-}

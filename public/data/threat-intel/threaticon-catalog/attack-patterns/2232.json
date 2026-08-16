@@ -1,9 +1,0 @@
-{
-  "id": 2232,
-  "name": "T1805 - Data Destruction/Encryption",
-  "techniqueId": "T1805",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2232"
-}

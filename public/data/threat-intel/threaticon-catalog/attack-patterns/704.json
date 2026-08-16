@@ -1,9 +1,0 @@
-{
-  "id": 704,
-  "name": "T1027.010: Command Obfuscation",
-  "techniqueId": "T1027",
-  "added": "May 18, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/704"
-}

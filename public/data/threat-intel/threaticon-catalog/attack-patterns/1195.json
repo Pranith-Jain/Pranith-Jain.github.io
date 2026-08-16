@@ -1,9 +1,0 @@
-{
-  "id": 1195,
-  "name": "Collect Data from Screen Capture",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. Likelihood of attack: Medium. An adversary gathers sensitive information by exploiting the system's screen capture functionality. Through screenshots, the adversary aims to see what happens on the screen over the course of an operation. The adversary can leverage information gathered in order to carry out further attacks.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1195"
-}

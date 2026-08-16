@@ -1,9 +1,0 @@
-{
-  "id": 2991,
-  "name": "T1079 Remote File Copy",
-  "techniqueId": "T1079",
-  "added": "Aug 11, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2991"
-}

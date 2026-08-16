@@ -1,9 +1,0 @@
-{
-  "id": 1105,
-  "fetchedAt": "2026-08-15T06:20:52.408Z",
-  "name": "Modify Shared File",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "An adversary manipulates the files in a shared location by adding malicious programs, scripts, or exploit code to valid content. Once a user opens the shared content, the tainted content is executed."
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1990,
-  "name": "T1056.003: Web Portal Capture",
-  "techniqueId": "T1056",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1990"
-}

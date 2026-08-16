@@ -1,9 +1,0 @@
-{
-  "id": 2235,
-  "name": "T1003 -Credential dumping via Registry tools",
-  "techniqueId": "T1003",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2235"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2426,
-  "name": "T1027 - Bootkit",
-  "techniqueId": "T1027",
-  "added": "Jul 31, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/2426"
-}

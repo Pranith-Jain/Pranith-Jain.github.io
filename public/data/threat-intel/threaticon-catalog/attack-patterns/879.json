@@ -1,9 +1,0 @@
-{
-  "id": 879,
-  "name": "HTTP Verb Tampering",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. An attacker modifies the HTTP Verb (e.g. GET, PUT, TRACE, etc.) in order to bypass access restrictions. Some web environments allow administrators to restrict access based on the HTTP Verb used with requests. However, attackers can often provide a different HTTP Verb, or even provide a random string as a verb in order to bypass these protections. This allows the attacker to access data that should otherwise be protected.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/879"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 860,
-  "fetchedAt": "2026-08-15T06:10:16.849Z",
-  "name": "XSS Using Doubled Characters",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Medium. The adversary bypasses input validation by using doubled characters in order to perform a cross-site scripting attack. Some filters fail to recognize dangerous sequences if they are preceded by repeated characters. For example, by doubling the < before a script command, ("
-}

@@ -1,9 +1,0 @@
-{
-  "id": 1580,
-  "name": "T1071.001 - Web Shell Creation via DLL Injection",
-  "techniqueId": "T1071",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1580"
-}

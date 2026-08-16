@@ -1,9 +1,0 @@
-{
-  "id": 1961,
-  "fetchedAt": "2026-08-15T08:42:06.396Z",
-  "name": "T1685.001 - Use of Legitimate Remote Tools (PsExec for Lateral Movement)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

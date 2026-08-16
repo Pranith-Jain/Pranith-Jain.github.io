@@ -1,9 +1,0 @@
-{
-  "id": 1115,
-  "name": "Services Footprinting",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: Low. Likelihood of attack: Low. An adversary exploits functionality meant to identify information about the services on the target system to an authorized user. By knowing what services are registered on the target system, the adversary can learn about the target environment as a means towards further malicious behavior. Depending on the operating system, commands that can obtain services information include \"sc\" and \"tasklist/svc\" using Tasklist, and \"net start\" using Net.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1115"
-}

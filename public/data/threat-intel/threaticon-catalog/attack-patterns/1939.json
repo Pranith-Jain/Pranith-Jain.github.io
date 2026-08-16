@@ -1,9 +1,0 @@
-{
-  "id": 1939,
-  "name": "T1485 Dropping Tools for persistence and exfiltration.",
-  "techniqueId": "T1485",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1939"
-}

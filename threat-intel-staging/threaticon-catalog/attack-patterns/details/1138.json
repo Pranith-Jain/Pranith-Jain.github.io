@@ -1,9 +1,0 @@
-{
-  "id": 1138,
-  "fetchedAt": "2026-08-15T06:22:19.840Z",
-  "name": "Connection Reset",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "In this attack pattern, an adversary injects a connection reset packet to one or both ends of a target's connection. The attacker is therefore able to have the target and/or the destination server sever the connection without having to directly filter the traffic between them."
-}

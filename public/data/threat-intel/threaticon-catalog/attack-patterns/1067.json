@@ -1,9 +1,0 @@
-{
-  "id": 1067,
-  "name": "Malicious Hardware Component Replacement",
-  "techniqueId": null,
-  "added": "Jul 14, 2026",
-  "description": "Typical severity: High. Likelihood of attack: Low. An adversary replaces legitimate hardware in the system with faulty counterfeit or tampered hardware in the supply chain distribution channel, with purpose of causing malicious disruption or allowing for additional compromise when the system is deployed.",
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1067"
-}

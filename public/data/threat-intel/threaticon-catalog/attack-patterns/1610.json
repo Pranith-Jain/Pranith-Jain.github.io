@@ -1,9 +1,0 @@
-{
-  "id": 1610,
-  "name": "T1003.003: NTDS",
-  "techniqueId": "T1003",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1610"
-}

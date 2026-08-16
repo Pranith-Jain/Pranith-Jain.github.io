@@ -1,9 +1,0 @@
-{
-  "id": 1961,
-  "name": "T1685.001 - Use of Legitimate Remote Tools (PsExec for Lateral Movement)",
-  "techniqueId": "T1685",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1961"
-}

@@ -1,9 +1,0 @@
-{
-  "id": 2592,
-  "fetchedAt": "2026-08-15T07:21:58.645Z",
-  "name": "T1071.001 - Application Layer Protocol: HTTPS (data exfiltration)",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Aug 1, 2026",
-  "description": null
-}

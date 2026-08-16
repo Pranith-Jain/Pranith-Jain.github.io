@@ -1,9 +1,0 @@
-{
-  "id": 1370,
-  "fetchedAt": "2026-08-15T06:47:29.578Z",
-  "name": "T1003.001 - OS Credential Dumping: Unix-Linux lsmod",
-  "tlp": "white",
-  "techniqueId": null,
-  "added": "Jul 30, 2026",
-  "description": null
-}

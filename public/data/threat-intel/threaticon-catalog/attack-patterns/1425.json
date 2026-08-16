@@ -1,9 +1,0 @@
-{
-  "id": 1425,
-  "name": "T1566.002 - Phishing via Email Attachment (Spear-Phishing)",
-  "techniqueId": "T1566",
-  "added": "Jul 30, 2026",
-  "description": null,
-  "tlp": "white",
-  "sourceUrl": "https://threaticon.com/attack-patterns/1425"
-}
