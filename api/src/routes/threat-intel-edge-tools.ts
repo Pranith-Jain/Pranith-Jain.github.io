@@ -897,10 +897,12 @@ threatIntelRouter.get('/threat-intel/dphish', async (c) => {
       source: idx.source,
       sourceUrl: idx.sourceUrl,
       collectionId: idx.collectionId,
+      collectionUrl: idx.collectionUrl,
       description: idx.description,
       license: idx.license,
       syncedAt: idx.syncedAt,
       counts: idx.counts,
+      indicators: idx.indicators,
       stats: mod.tiCacheStats().dphish,
     });
   } catch (e) {

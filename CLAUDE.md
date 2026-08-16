@@ -147,7 +147,10 @@ A second data vertical replicating the SI pattern (`public/data/threat-intel/`, 
 - `api/src/routes/threat-intel-edge-tools.ts` — 9 REST route handlers
 - `api/src/lib/threat-intel-manifest.ts` — symlink to `worker/lib/threat-intel-manifest.ts`
 - `src/pages/ThreatIntel.tsx` — SPA dashboard
-- `.github/workflows/threat-intel-sync.yml` — daily sync workflow (05:30 UTC)
+- `.github/workflows/threat-intel-sync.yml` — daily sync workflow (05:30 UTC). Each sync/build
+  step is isolated with `continue-on-error` so one flaky upstream (NVD times out under load)
+  never aborts the other verticals; covers threat-intel, darknetlist, ThreatCluster, dPhish,
+  Living Threat, MalwareAnalyzer, and Threaticon (main vertical, 1 req/s pacing).
 - `docs/loops/threat-intel-sync.md` — loop template for manual sync
 - `public/data/threat-intel/` — generated manifest tree (not committed empty; populate via sync + build)
 

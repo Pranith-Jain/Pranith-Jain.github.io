@@ -48,23 +48,37 @@ function ensureStaging() {
   mkdirSync(STAGING, { recursive: true });
 }
 
-async function fetchJson(url, dest) {
+async function fetchJson(url, dest, opts = {}) {
   console.log(`  → ${url}`);
-  const res = await fetch(url, {
-    headers: {
-      'user-agent': 'pranithjain-threat-intel-sync/1.0 (+https://pranithjain.qzz.io)',
-      ...(process.env.NVD_API_KEY ? { apiKey: process.env.NVD_API_KEY } : {}),
-    },
-    signal: AbortSignal.timeout(30_000),
-  });
-  if (!res.ok) {
-    throw new Error(`fetch failed: ${url} → ${res.status} ${res.statusText}`);
+  const { timeoutMs = 90_000, retries = 1 } = opts;
+  let lastErr;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          'user-agent': 'pranithjain-threat-intel-sync/1.0 (+https://pranithjain.qzz.io)',
+          ...(process.env.NVD_API_KEY ? { apiKey: process.env.NVD_API_KEY } : {}),
+        },
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+      if (!res.ok) {
+        throw new Error(`fetch failed: ${url} → ${res.status} ${res.statusText}`);
+      }
+      const text = await res.text();
+      writeFileSync(dest, text);
+      const parsed = JSON.parse(text);
+      console.log(`    wrote ${text.length} bytes to ${dest}`);
+      return parsed;
+    } catch (err) {
+      lastErr = err;
+      if (attempt < retries) {
+        const waitMs = 5_000 * (attempt + 1);
+        console.warn(`  ⚠ attempt ${attempt + 1} failed (${err instanceof Error ? err.message : err}); retrying in ${waitMs}ms`);
+        await new Promise((r) => setTimeout(r, waitMs));
+      }
+    }
   }
-  const text = await res.text();
-  writeFileSync(dest, text);
-  const parsed = JSON.parse(text);
-  console.log(`    wrote ${text.length} bytes to ${dest}`);
-  return parsed;
+  throw lastErr;
 }
 
 async function fetchKev() {
