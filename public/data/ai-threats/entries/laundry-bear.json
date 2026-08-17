@@ -1,0 +1,13 @@
+{
+  "slug": "laundry-bear",
+  "name": "LAUNDRY BEAR",
+  "akas": "Void Blizzard (Microsoft); CL-STA-1114 (Unit 42); TA488 (Proofpoint)",
+  "brief": "A joint advisory from CISA, FBI and NSA with international partners (AA26-204A) attributes to the Russian state-supported actor LAUNDRY BEAR a phishing campaign against users of the Zimbra Collaboration Suite, targeting government, defense, energy, technology, education, media, law enforcement and non-governmental organizations since at least July 2025. The actor weaponized CVE-2025-66376, a cross-site scripting flaw caused by insufficient sanitization of CSS `@import` directives in message content, so that simply opening a crafted phishing email caused Zimbra's own webmail interface to execute attacker-supplied JavaScript inside the victim's authenticated session. Harvested material — up to 90 days of email history per victim, the organization's internal directory, live two-factor authentication tokens and any application passcode generated after compromise — was exfiltrated to \"Flowerbed\", a container-based collection framework running on short-lived virtual private servers. The advisory assesses that AI tools were used to help develop the Flowerbed codebase. *Analyst note: government joint advisory (trusted tier); the AI-assistance finding is an assessment stated by the authoring agencies, not a recovered artifact. Microsoft separately assesses the actor as active since at least April 2024 — the span below reflects the campaign window described in this advisory.*",
+  "ttps": ["T1114.002", "T1203", "T1566", "T1587.001", "T1588.007"],
+  "categories": ["LLM-aided development"],
+  "reported": "Jul 2026",
+  "activity": "Jul 2025 – Jul 2026",
+  "table": "main",
+  "sizeBytes": 1388,
+  "ttpMd": "**LLM-aided development** T1588.007 - Obtain Capabilities: Artificial Intelligence (AI tooling assessed as used to build the Flowerbed framework)<br><br>T1587.001 - Develop Capabilities: Malware (Flowerbed collection framework)<br><br>T1566 - Phishing (crafted Zimbra phishing mail)<br><br>T1203 - Exploitation for Client Execution (CVE-2025-66376 XSS executing on message open)<br><br>T1114.002 - Email Collection: Remote Email Collection (90 days of mail per victim)"
+}
