@@ -1,8 +1,8 @@
 {
   "source": "darknetlist.is",
   "url": "https://darknetlist.is/",
-  "rebuiltAt": "2026-08-06T07:30:15Z",
-  "syncedAt": "2026-08-06T07:59:38.021Z",
+  "rebuiltAt": "2026-08-17T05:56:46Z",
+  "syncedAt": "2026-08-17T06:13:26.304Z",
   "categoryCount": 9,
   "siteCount": 108,
   "categories": [
@@ -12,7 +12,7 @@
       "description": "active market venues and their mirrors",
       "siteCount": 25,
       "mirrorCount": 62,
-      "upCount": 25,
+      "upCount": 33,
       "sites": [
         {
           "name": "Allure",
@@ -20,12 +20,12 @@
           "url": "http://c5lpbpiufttwjm4daqb6kiyaspwbyedgnshhayhomksf65ebp2ckaeqd.onion",
           "onion": "c5lpbpiufttwjm4daqb6kiyaspwbyedgnshhayhomksf65ebp2ckaeqd",
           "category": "markets",
-          "status": "up",
-          "upMirrors": 1,
+          "status": "down",
+          "upMirrors": 0,
           "totalMirrors": 1,
-          "latencyMs": 2158,
-          "httpCode": "200",
-          "pageSize": "127kb",
+          "latencyMs": null,
+          "httpCode": "n/a",
+          "pageSize": "53kb",
           "fingerprint": "4BAFDC5B",
           "recommended": false
         },
@@ -40,7 +40,7 @@
           "totalMirrors": 1,
           "latencyMs": 2080,
           "httpCode": "200",
-          "pageSize": "64kb",
+          "pageSize": "45kb",
           "fingerprint": "77DD14C9",
           "recommended": false
         },
@@ -55,7 +55,7 @@
           "totalMirrors": 2,
           "latencyMs": 1917,
           "httpCode": "200",
-          "pageSize": "33kb",
+          "pageSize": "105kb",
           "fingerprint": "37878848",
           "recommended": false
         },
@@ -70,7 +70,7 @@
           "totalMirrors": 4,
           "latencyMs": 882,
           "httpCode": "200",
-          "pageSize": "159kb",
+          "pageSize": "179kb",
           "fingerprint": "95C5A688",
           "recommended": false
         },
@@ -85,7 +85,7 @@
           "totalMirrors": 2,
           "latencyMs": 778,
           "httpCode": "200",
-          "pageSize": "72kb",
+          "pageSize": "15kb",
           "fingerprint": "847C1C5D",
           "recommended": false
         },
@@ -100,7 +100,7 @@
           "totalMirrors": 1,
           "latencyMs": 1342,
           "httpCode": "200",
-          "pageSize": "48kb",
+          "pageSize": "96kb",
           "fingerprint": "A799C570",
           "recommended": false
         },
@@ -111,11 +111,11 @@
           "onion": "eg5pj3r4xhybxgfkjnkhbhwgkuonp5wtla3mbpuzphzk6lxkhftnvuyd",
           "category": "markets",
           "status": "up",
-          "upMirrors": 2,
+          "upMirrors": 1,
           "totalMirrors": 3,
-          "latencyMs": 898,
+          "latencyMs": null,
           "httpCode": "200",
-          "pageSize": "128kb",
+          "pageSize": "141kb",
           "fingerprint": "DFE83C72",
           "recommended": false
         },
@@ -130,7 +130,7 @@
           "totalMirrors": 3,
           "latencyMs": 1217,
           "httpCode": "200",
-          "pageSize": "175kb",
+          "pageSize": "24kb",
           "fingerprint": "737F2F32",
           "recommended": false
         },
@@ -145,7 +145,7 @@
           "totalMirrors": 3,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "182kb",
+          "pageSize": "93kb",
           "fingerprint": "ACCFA8EC",
           "recommended": false
         },
@@ -160,7 +160,7 @@
           "totalMirrors": 1,
           "latencyMs": 1269,
           "httpCode": "200",
-          "pageSize": "31kb",
+          "pageSize": "98kb",
           "fingerprint": "D12029EB",
           "recommended": false
         },
@@ -175,7 +175,7 @@
           "totalMirrors": 1,
           "latencyMs": 2312,
           "httpCode": "200",
-          "pageSize": "85kb",
+          "pageSize": "19kb",
           "fingerprint": "7C446355",
           "recommended": false
         },
@@ -185,12 +185,12 @@
           "url": "http://euphor2ivtwosiz6zspq7rdzzmyyo5nvr76qtgc473e2hnhffsred6qd.onion",
           "onion": "euphor2ivtwosiz6zspq7rdzzmyyo5nvr76qtgc473e2hnhffsred6qd",
           "category": "markets",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 2,
-          "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "72kb",
+          "latencyMs": 2326,
+          "httpCode": "200",
+          "pageSize": "176kb",
           "fingerprint": "C4E10BEE",
           "recommended": false
         },
@@ -205,7 +205,7 @@
           "totalMirrors": 1,
           "latencyMs": 1898,
           "httpCode": "200",
-          "pageSize": "102kb",
+          "pageSize": "33kb",
           "fingerprint": "04D855DD",
           "recommended": false
         },
@@ -220,7 +220,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "21kb",
+          "pageSize": "15kb",
           "fingerprint": "41569E21",
           "recommended": false
         },
@@ -230,12 +230,12 @@
           "url": "http://eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad.onion",
           "onion": "eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad",
           "category": "markets",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 1,
-          "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "19kb",
+          "latencyMs": 688,
+          "httpCode": "200",
+          "pageSize": "151kb",
           "fingerprint": "29BE5716",
           "recommended": false
         },
@@ -250,7 +250,7 @@
           "totalMirrors": 5,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "95kb",
+          "pageSize": "101kb",
           "fingerprint": "EC99C178",
           "recommended": false
         },
@@ -265,7 +265,7 @@
           "totalMirrors": 1,
           "latencyMs": 2367,
           "httpCode": "200",
-          "pageSize": "166kb",
+          "pageSize": "65kb",
           "fingerprint": "36899B6E",
           "recommended": false
         },
@@ -275,12 +275,12 @@
           "url": "http://nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd.onion",
           "onion": "nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd",
           "category": "markets",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 2,
           "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "149kb",
+          "httpCode": "200",
+          "pageSize": "26kb",
           "fingerprint": "1C76CC39",
           "recommended": false
         },
@@ -295,7 +295,7 @@
           "totalMirrors": 2,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "37kb",
+          "pageSize": "51kb",
           "fingerprint": "FFA95D89",
           "recommended": false
         },
@@ -306,11 +306,11 @@
           "onion": "primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd",
           "category": "markets",
           "status": "up",
-          "upMirrors": 4,
+          "upMirrors": 6,
           "totalMirrors": 7,
           "latencyMs": null,
           "httpCode": "200",
-          "pageSize": "32kb",
+          "pageSize": "109kb",
           "fingerprint": "56250578",
           "recommended": false
         },
@@ -325,7 +325,7 @@
           "totalMirrors": 1,
           "latencyMs": 905,
           "httpCode": "200",
-          "pageSize": "13kb",
+          "pageSize": "163kb",
           "fingerprint": "16BD6996",
           "recommended": false
         },
@@ -335,12 +335,12 @@
           "url": "http://vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd.onion",
           "onion": "vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd",
           "category": "markets",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 1,
-          "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "154kb",
+          "latencyMs": 1777,
+          "httpCode": "200",
+          "pageSize": "103kb",
           "fingerprint": "39F75B6F",
           "recommended": false
         },
@@ -351,11 +351,11 @@
           "onion": "trzm.cc",
           "category": "markets",
           "status": "up",
-          "upMirrors": 1,
+          "upMirrors": 5,
           "totalMirrors": 12,
           "latencyMs": null,
           "httpCode": "200",
-          "pageSize": "41kb",
+          "pageSize": "122kb",
           "fingerprint": "F8B083B6",
           "recommended": false
         },
@@ -370,7 +370,7 @@
           "totalMirrors": 3,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "28kb",
+          "pageSize": "97kb",
           "fingerprint": "9CD92901",
           "recommended": false
         },
@@ -385,7 +385,7 @@
           "totalMirrors": 1,
           "latencyMs": 1714,
           "httpCode": "200",
-          "pageSize": "120kb",
+          "pageSize": "155kb",
           "fingerprint": "6AA284FB",
           "recommended": false
         }
@@ -397,7 +397,7 @@
       "description": "darknet search engines and indexers",
       "siteCount": 11,
       "mirrorCount": 11,
-      "upCount": 7,
+      "upCount": 9,
       "sites": [
         {
           "name": "Ahmia",
@@ -410,7 +410,7 @@
           "totalMirrors": 1,
           "latencyMs": 1513,
           "httpCode": "200",
-          "pageSize": "137kb",
+          "pageSize": "66kb",
           "fingerprint": "AF45908E",
           "recommended": false
         },
@@ -420,12 +420,12 @@
           "url": "http://search.brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/",
           "onion": "search.brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/",
           "category": "search",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 1,
-          "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "142kb",
+          "latencyMs": 913,
+          "httpCode": "200",
+          "pageSize": "191kb",
           "fingerprint": "69E9BEB5",
           "recommended": true
         },
@@ -440,7 +440,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "115kb",
+          "pageSize": "94kb",
           "fingerprint": "50B5B6FE",
           "recommended": false
         },
@@ -455,7 +455,7 @@
           "totalMirrors": 1,
           "latencyMs": 1904,
           "httpCode": "200",
-          "pageSize": "151kb",
+          "pageSize": "142kb",
           "fingerprint": "2D7C6898",
           "recommended": false
         },
@@ -470,7 +470,7 @@
           "totalMirrors": 1,
           "latencyMs": 647,
           "httpCode": "200",
-          "pageSize": "130kb",
+          "pageSize": "110kb",
           "fingerprint": "BB594151",
           "recommended": false
         },
@@ -480,12 +480,12 @@
           "url": "http://grams64rarzrk7rzdaz2fpb7lehcyi7zrrf5kd6w2uoamp7jw2aq6vyd.onion",
           "onion": "grams64rarzrk7rzdaz2fpb7lehcyi7zrrf5kd6w2uoamp7jw2aq6vyd",
           "category": "search",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 1,
-          "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "42kb",
+          "latencyMs": 2383,
+          "httpCode": "200",
+          "pageSize": "174kb",
           "fingerprint": "6781B31F",
           "recommended": false
         },
@@ -500,7 +500,7 @@
           "totalMirrors": 1,
           "latencyMs": 1726,
           "httpCode": "200",
-          "pageSize": "139kb",
+          "pageSize": "30kb",
           "fingerprint": "08354A9F",
           "recommended": false
         },
@@ -515,7 +515,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "172kb",
+          "pageSize": "166kb",
           "fingerprint": "CABEFB5A",
           "recommended": false
         },
@@ -530,7 +530,7 @@
           "totalMirrors": 1,
           "latencyMs": 1139,
           "httpCode": "200",
-          "pageSize": "94kb",
+          "pageSize": "25kb",
           "fingerprint": "77CDE5C3",
           "recommended": false
         },
@@ -545,7 +545,7 @@
           "totalMirrors": 1,
           "latencyMs": 683,
           "httpCode": "200",
-          "pageSize": "48kb",
+          "pageSize": "57kb",
           "fingerprint": "1D6A5F71",
           "recommended": false
         },
@@ -560,7 +560,7 @@
           "totalMirrors": 1,
           "latencyMs": 1767,
           "httpCode": "200",
-          "pageSize": "88kb",
+          "pageSize": "26kb",
           "fingerprint": "8389029C",
           "recommended": false
         }
@@ -572,7 +572,7 @@
       "description": "community discussion and vendor review boards",
       "siteCount": 20,
       "mirrorCount": 22,
-      "upCount": 13,
+      "upCount": 11,
       "sites": [
         {
           "name": "Ark Forum",
@@ -585,7 +585,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "74kb",
+          "pageSize": "75kb",
           "fingerprint": "612BD192",
           "recommended": false
         },
@@ -600,7 +600,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "165kb",
+          "pageSize": "150kb",
           "fingerprint": "E0D31AFC",
           "recommended": false
         },
@@ -615,7 +615,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "28kb",
+          "pageSize": "32kb",
           "fingerprint": "C790F51B",
           "recommended": false
         },
@@ -630,7 +630,7 @@
           "totalMirrors": 1,
           "latencyMs": 893,
           "httpCode": "200",
-          "pageSize": "158kb",
+          "pageSize": "43kb",
           "fingerprint": "A8E65BCA",
           "recommended": false
         },
@@ -645,7 +645,7 @@
           "totalMirrors": 2,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "130kb",
+          "pageSize": "40kb",
           "fingerprint": "780372C6",
           "recommended": false
         },
@@ -655,12 +655,12 @@
           "url": "http://enxx3byspwsdo446jujc52ucy2pf5urdbhqw3kbsfhlfjwmbpj5smdad.onion/",
           "onion": "enxx3byspwsdo446jujc52ucy2pf5urdbhqw3kbsfhlfjwmbpj5smdad.onion/",
           "category": "forums",
-          "status": "up",
-          "upMirrors": 1,
+          "status": "down",
+          "upMirrors": 0,
           "totalMirrors": 1,
-          "latencyMs": 692,
-          "httpCode": "200",
-          "pageSize": "135kb",
+          "latencyMs": null,
+          "httpCode": "n/a",
+          "pageSize": "147kb",
           "fingerprint": "24E9DF88",
           "recommended": false
         },
@@ -675,7 +675,7 @@
           "totalMirrors": 1,
           "latencyMs": 1451,
           "httpCode": "200",
-          "pageSize": "180kb",
+          "pageSize": "183kb",
           "fingerprint": "75BB7A96",
           "recommended": false
         },
@@ -690,7 +690,7 @@
           "totalMirrors": 1,
           "latencyMs": 974,
           "httpCode": "200",
-          "pageSize": "24kb",
+          "pageSize": "87kb",
           "fingerprint": "B48ACAB6",
           "recommended": false
         },
@@ -705,7 +705,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "78kb",
+          "pageSize": "16kb",
           "fingerprint": "25D4AF85",
           "recommended": false
         },
@@ -720,7 +720,7 @@
           "totalMirrors": 1,
           "latencyMs": 1323,
           "httpCode": "200",
-          "pageSize": "97kb",
+          "pageSize": "174kb",
           "fingerprint": "F08AB0A9",
           "recommended": false
         },
@@ -735,7 +735,7 @@
           "totalMirrors": 1,
           "latencyMs": 1632,
           "httpCode": "200",
-          "pageSize": "144kb",
+          "pageSize": "21kb",
           "fingerprint": "DFBF5833",
           "recommended": false
         },
@@ -750,7 +750,7 @@
           "totalMirrors": 2,
           "latencyMs": 2206,
           "httpCode": "200",
-          "pageSize": "124kb",
+          "pageSize": "166kb",
           "fingerprint": "3B7AEE8B",
           "recommended": true
         },
@@ -765,7 +765,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "159kb",
+          "pageSize": "81kb",
           "fingerprint": "DA9A967C",
           "recommended": false
         },
@@ -780,7 +780,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "134kb",
+          "pageSize": "187kb",
           "fingerprint": "9AC5AA51",
           "recommended": false
         },
@@ -795,7 +795,7 @@
           "totalMirrors": 1,
           "latencyMs": 1821,
           "httpCode": "200",
-          "pageSize": "48kb",
+          "pageSize": "147kb",
           "fingerprint": "930CECB9",
           "recommended": false
         },
@@ -810,7 +810,7 @@
           "totalMirrors": 1,
           "latencyMs": 1468,
           "httpCode": "200",
-          "pageSize": "65kb",
+          "pageSize": "45kb",
           "fingerprint": "9B3D2824",
           "recommended": false
         },
@@ -825,7 +825,7 @@
           "totalMirrors": 1,
           "latencyMs": 2336,
           "httpCode": "200",
-          "pageSize": "61kb",
+          "pageSize": "140kb",
           "fingerprint": "C3BBE7CE",
           "recommended": false
         },
@@ -840,7 +840,7 @@
           "totalMirrors": 1,
           "latencyMs": 2136,
           "httpCode": "200",
-          "pageSize": "164kb",
+          "pageSize": "48kb",
           "fingerprint": "22E2AD29",
           "recommended": false
         },
@@ -850,12 +850,12 @@
           "url": "http://tenebrispoyfrcup4k24lciwrh4gc5735hmld4dweq7his7zh423opqd.onion",
           "onion": "tenebrispoyfrcup4k24lciwrh4gc5735hmld4dweq7his7zh423opqd",
           "category": "forums",
-          "status": "up",
-          "upMirrors": 1,
+          "status": "down",
+          "upMirrors": 0,
           "totalMirrors": 1,
-          "latencyMs": 2396,
-          "httpCode": "200",
-          "pageSize": "48kb",
+          "latencyMs": null,
+          "httpCode": "n/a",
+          "pageSize": "120kb",
           "fingerprint": "C034EFCB",
           "recommended": false
         },
@@ -870,7 +870,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "43kb",
+          "pageSize": "191kb",
           "fingerprint": "083418E0",
           "recommended": false
         }
@@ -895,7 +895,7 @@
           "totalMirrors": 1,
           "latencyMs": 2339,
           "httpCode": "200",
-          "pageSize": "70kb",
+          "pageSize": "131kb",
           "fingerprint": "DC424585",
           "recommended": false
         },
@@ -910,7 +910,7 @@
           "totalMirrors": 1,
           "latencyMs": 1522,
           "httpCode": "200",
-          "pageSize": "80kb",
+          "pageSize": "28kb",
           "fingerprint": "86DF1FFB",
           "recommended": true
         },
@@ -925,7 +925,7 @@
           "totalMirrors": 1,
           "latencyMs": 2040,
           "httpCode": "200",
-          "pageSize": "78kb",
+          "pageSize": "38kb",
           "fingerprint": "CA27D603",
           "recommended": false
         },
@@ -940,7 +940,7 @@
           "totalMirrors": 1,
           "latencyMs": 1333,
           "httpCode": "200",
-          "pageSize": "163kb",
+          "pageSize": "133kb",
           "fingerprint": "B480C48C",
           "recommended": true
         },
@@ -955,7 +955,7 @@
           "totalMirrors": 1,
           "latencyMs": 1161,
           "httpCode": "200",
-          "pageSize": "154kb",
+          "pageSize": "32kb",
           "fingerprint": "5484A6BE",
           "recommended": false
         },
@@ -970,7 +970,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "39kb",
+          "pageSize": "184kb",
           "fingerprint": "F0B83208",
           "recommended": false
         },
@@ -985,7 +985,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "17kb",
+          "pageSize": "155kb",
           "fingerprint": "B1F9E445",
           "recommended": false
         },
@@ -1000,7 +1000,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "35kb",
+          "pageSize": "183kb",
           "fingerprint": "5DE98242",
           "recommended": false
         }
@@ -1025,7 +1025,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "121kb",
+          "pageSize": "119kb",
           "fingerprint": "8C00CB6C",
           "recommended": false
         },
@@ -1040,7 +1040,7 @@
           "totalMirrors": 1,
           "latencyMs": 601,
           "httpCode": "200",
-          "pageSize": "117kb",
+          "pageSize": "147kb",
           "fingerprint": "4C5F041A",
           "recommended": false
         },
@@ -1055,7 +1055,7 @@
           "totalMirrors": 1,
           "latencyMs": 780,
           "httpCode": "200",
-          "pageSize": "157kb",
+          "pageSize": "41kb",
           "fingerprint": "2D521449",
           "recommended": false
         },
@@ -1070,7 +1070,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "64kb",
+          "pageSize": "132kb",
           "fingerprint": "C90A19E1",
           "recommended": false
         },
@@ -1085,7 +1085,7 @@
           "totalMirrors": 1,
           "latencyMs": 857,
           "httpCode": "200",
-          "pageSize": "48kb",
+          "pageSize": "22kb",
           "fingerprint": "F9FCFD5F",
           "recommended": true
         },
@@ -1100,7 +1100,7 @@
           "totalMirrors": 1,
           "latencyMs": 1323,
           "httpCode": "200",
-          "pageSize": "165kb",
+          "pageSize": "26kb",
           "fingerprint": "738D58AF",
           "recommended": true
         },
@@ -1115,7 +1115,7 @@
           "totalMirrors": 1,
           "latencyMs": 526,
           "httpCode": "200",
-          "pageSize": "77kb",
+          "pageSize": "57kb",
           "fingerprint": "15093D7E",
           "recommended": false
         },
@@ -1130,7 +1130,7 @@
           "totalMirrors": 1,
           "latencyMs": 681,
           "httpCode": "200",
-          "pageSize": "99kb",
+          "pageSize": "84kb",
           "fingerprint": "5249040F",
           "recommended": false
         }
@@ -1142,7 +1142,7 @@
       "description": "encrypted messaging and mail",
       "siteCount": 10,
       "mirrorCount": 10,
-      "upCount": 7,
+      "upCount": 9,
       "sites": [
         {
           "name": "cock.li",
@@ -1155,7 +1155,7 @@
           "totalMirrors": 1,
           "latencyMs": 1136,
           "httpCode": "200",
-          "pageSize": "75kb",
+          "pageSize": "108kb",
           "fingerprint": "7C9F1EB5",
           "recommended": false
         },
@@ -1170,7 +1170,7 @@
           "totalMirrors": 1,
           "latencyMs": 838,
           "httpCode": "200",
-          "pageSize": "76kb",
+          "pageSize": "171kb",
           "fingerprint": "A7BCB9E8",
           "recommended": false
         },
@@ -1185,7 +1185,7 @@
           "totalMirrors": 1,
           "latencyMs": 1398,
           "httpCode": "200",
-          "pageSize": "144kb",
+          "pageSize": "72kb",
           "fingerprint": "59E42F01",
           "recommended": false
         },
@@ -1200,7 +1200,7 @@
           "totalMirrors": 1,
           "latencyMs": 1659,
           "httpCode": "200",
-          "pageSize": "172kb",
+          "pageSize": "61kb",
           "fingerprint": "74290AA1",
           "recommended": false
         },
@@ -1210,12 +1210,12 @@
           "url": "http://mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/",
           "onion": "mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/",
           "category": "communications",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 1,
-          "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "148kb",
+          "latencyMs": 2275,
+          "httpCode": "200",
+          "pageSize": "99kb",
           "fingerprint": "983EDDF6",
           "recommended": false
         },
@@ -1225,12 +1225,12 @@
           "url": "http://6n5nbusxgyw46juqo3nt5v4zuivdbc7mzm74wlhg7arggetaui4yp4id.onion/",
           "onion": "6n5nbusxgyw46juqo3nt5v4zuivdbc7mzm74wlhg7arggetaui4yp4id.onion/",
           "category": "communications",
-          "status": "down",
-          "upMirrors": 0,
+          "status": "up",
+          "upMirrors": 1,
           "totalMirrors": 1,
-          "latencyMs": null,
-          "httpCode": "n/a",
-          "pageSize": "108kb",
+          "latencyMs": 964,
+          "httpCode": "200",
+          "pageSize": "75kb",
           "fingerprint": "8586384F",
           "recommended": false
         },
@@ -1245,7 +1245,7 @@
           "totalMirrors": 1,
           "latencyMs": 1404,
           "httpCode": "200",
-          "pageSize": "53kb",
+          "pageSize": "103kb",
           "fingerprint": "79836904",
           "recommended": false
         },
@@ -1260,7 +1260,7 @@
           "totalMirrors": 1,
           "latencyMs": 1027,
           "httpCode": "200",
-          "pageSize": "155kb",
+          "pageSize": "163kb",
           "fingerprint": "330ECEF1",
           "recommended": false
         },
@@ -1275,7 +1275,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "170kb",
+          "pageSize": "90kb",
           "fingerprint": "1B332728",
           "recommended": false
         },
@@ -1290,7 +1290,7 @@
           "totalMirrors": 1,
           "latencyMs": 1377,
           "httpCode": "200",
-          "pageSize": "170kb",
+          "pageSize": "17kb",
           "fingerprint": "D746EB06",
           "recommended": false
         }
@@ -1302,7 +1302,7 @@
       "description": "blockchain explorers and privacy coin infrastructure",
       "siteCount": 10,
       "mirrorCount": 10,
-      "upCount": 9,
+      "upCount": 8,
       "sites": [
         {
           "name": "Ask&Bid",
@@ -1315,7 +1315,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "128kb",
+          "pageSize": "30kb",
           "fingerprint": "80634F09",
           "recommended": false
         },
@@ -1330,7 +1330,7 @@
           "totalMirrors": 1,
           "latencyMs": 981,
           "httpCode": "200",
-          "pageSize": "171kb",
+          "pageSize": "113kb",
           "fingerprint": "20E3559D",
           "recommended": false
         },
@@ -1345,7 +1345,7 @@
           "totalMirrors": 1,
           "latencyMs": 790,
           "httpCode": "200",
-          "pageSize": "21kb",
+          "pageSize": "185kb",
           "fingerprint": "DAAA6164",
           "recommended": false
         },
@@ -1360,7 +1360,7 @@
           "totalMirrors": 1,
           "latencyMs": 1205,
           "httpCode": "200",
-          "pageSize": "120kb",
+          "pageSize": "181kb",
           "fingerprint": "48A674E3",
           "recommended": false
         },
@@ -1375,7 +1375,7 @@
           "totalMirrors": 1,
           "latencyMs": 2121,
           "httpCode": "200",
-          "pageSize": "22kb",
+          "pageSize": "131kb",
           "fingerprint": "E5C7A121",
           "recommended": false
         },
@@ -1390,7 +1390,7 @@
           "totalMirrors": 1,
           "latencyMs": 1113,
           "httpCode": "200",
-          "pageSize": "162kb",
+          "pageSize": "39kb",
           "fingerprint": "1565E8E3",
           "recommended": true
         },
@@ -1405,7 +1405,7 @@
           "totalMirrors": 1,
           "latencyMs": 2198,
           "httpCode": "200",
-          "pageSize": "39kb",
+          "pageSize": "112kb",
           "fingerprint": "F13D61B2",
           "recommended": false
         },
@@ -1420,7 +1420,7 @@
           "totalMirrors": 1,
           "latencyMs": 2324,
           "httpCode": "200",
-          "pageSize": "154kb",
+          "pageSize": "131kb",
           "fingerprint": "024C5BB1",
           "recommended": false
         },
@@ -1430,12 +1430,12 @@
           "url": "http://65bsisadnxvw4kfz7h7a3jwcyenrhluuj3kd5toslfzxbk5q4m3wy6qd.onion",
           "onion": "65bsisadnxvw4kfz7h7a3jwcyenrhluuj3kd5toslfzxbk5q4m3wy6qd",
           "category": "crypto",
-          "status": "up",
-          "upMirrors": 1,
+          "status": "down",
+          "upMirrors": 0,
           "totalMirrors": 1,
-          "latencyMs": 904,
-          "httpCode": "200",
-          "pageSize": "114kb",
+          "latencyMs": null,
+          "httpCode": "n/a",
+          "pageSize": "96kb",
           "fingerprint": "4640565C",
           "recommended": false
         },
@@ -1450,7 +1450,7 @@
           "totalMirrors": 1,
           "latencyMs": 1071,
           "httpCode": "200",
-          "pageSize": "164kb",
+          "pageSize": "22kb",
           "fingerprint": "FDA11FC9",
           "recommended": false
         }
@@ -1475,7 +1475,7 @@
           "totalMirrors": 1,
           "latencyMs": 694,
           "httpCode": "200",
-          "pageSize": "153kb",
+          "pageSize": "54kb",
           "fingerprint": "BF5DFA08",
           "recommended": false
         },
@@ -1490,7 +1490,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "32kb",
+          "pageSize": "107kb",
           "fingerprint": "25192D6B",
           "recommended": false
         },
@@ -1505,7 +1505,7 @@
           "totalMirrors": 1,
           "latencyMs": 621,
           "httpCode": "200",
-          "pageSize": "176kb",
+          "pageSize": "30kb",
           "fingerprint": "C53A2C9E",
           "recommended": true
         },
@@ -1520,7 +1520,7 @@
           "totalMirrors": 1,
           "latencyMs": 1887,
           "httpCode": "200",
-          "pageSize": "168kb",
+          "pageSize": "184kb",
           "fingerprint": "C7316E52",
           "recommended": false
         },
@@ -1535,7 +1535,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "77kb",
+          "pageSize": "57kb",
           "fingerprint": "0F2DE25F",
           "recommended": false
         },
@@ -1550,7 +1550,7 @@
           "totalMirrors": 1,
           "latencyMs": 1325,
           "httpCode": "200",
-          "pageSize": "97kb",
+          "pageSize": "92kb",
           "fingerprint": "38126093",
           "recommended": false
         },
@@ -1565,7 +1565,7 @@
           "totalMirrors": 1,
           "latencyMs": 1098,
           "httpCode": "200",
-          "pageSize": "93kb",
+          "pageSize": "116kb",
           "fingerprint": "C5D8BC24",
           "recommended": true
         },
@@ -1580,7 +1580,7 @@
           "totalMirrors": 1,
           "latencyMs": 1364,
           "httpCode": "200",
-          "pageSize": "150kb",
+          "pageSize": "139kb",
           "fingerprint": "3F504522",
           "recommended": false
         },
@@ -1595,7 +1595,7 @@
           "totalMirrors": 1,
           "latencyMs": 826,
           "httpCode": "200",
-          "pageSize": "74kb",
+          "pageSize": "19kb",
           "fingerprint": "5A4513BA",
           "recommended": false
         },
@@ -1610,7 +1610,7 @@
           "totalMirrors": 1,
           "latencyMs": 1017,
           "httpCode": "200",
-          "pageSize": "141kb",
+          "pageSize": "190kb",
           "fingerprint": "7120A63B",
           "recommended": true
         },
@@ -1625,7 +1625,7 @@
           "totalMirrors": 1,
           "latencyMs": 769,
           "httpCode": "200",
-          "pageSize": "99kb",
+          "pageSize": "121kb",
           "fingerprint": "1F04C529",
           "recommended": false
         },
@@ -1640,7 +1640,7 @@
           "totalMirrors": 1,
           "latencyMs": 2466,
           "httpCode": "200",
-          "pageSize": "178kb",
+          "pageSize": "161kb",
           "fingerprint": "8637FCCD",
           "recommended": false
         },
@@ -1655,7 +1655,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "145kb",
+          "pageSize": "12kb",
           "fingerprint": "708BB976",
           "recommended": false
         },
@@ -1670,7 +1670,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "104kb",
+          "pageSize": "167kb",
           "fingerprint": "0E54F301",
           "recommended": true
         }
@@ -1695,7 +1695,7 @@
           "totalMirrors": 1,
           "latencyMs": 1856,
           "httpCode": "200",
-          "pageSize": "163kb",
+          "pageSize": "52kb",
           "fingerprint": "66ADCF08",
           "recommended": false
         },
@@ -1710,7 +1710,7 @@
           "totalMirrors": 1,
           "latencyMs": null,
           "httpCode": "n/a",
-          "pageSize": "121kb",
+          "pageSize": "165kb",
           "fingerprint": "D03DE63B",
           "recommended": false
         }
@@ -1724,12 +1724,12 @@
       "url": "http://c5lpbpiufttwjm4daqb6kiyaspwbyedgnshhayhomksf65ebp2ckaeqd.onion",
       "onion": "c5lpbpiufttwjm4daqb6kiyaspwbyedgnshhayhomksf65ebp2ckaeqd",
       "category": "markets",
-      "status": "up",
-      "upMirrors": 1,
+      "status": "down",
+      "upMirrors": 0,
       "totalMirrors": 1,
-      "latencyMs": 2158,
-      "httpCode": "200",
-      "pageSize": "127kb",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "53kb",
       "fingerprint": "4BAFDC5B",
       "recommended": false
     },
@@ -1744,7 +1744,7 @@
       "totalMirrors": 1,
       "latencyMs": 2080,
       "httpCode": "200",
-      "pageSize": "64kb",
+      "pageSize": "45kb",
       "fingerprint": "77DD14C9",
       "recommended": false
     },
@@ -1759,7 +1759,7 @@
       "totalMirrors": 2,
       "latencyMs": 1917,
       "httpCode": "200",
-      "pageSize": "33kb",
+      "pageSize": "105kb",
       "fingerprint": "37878848",
       "recommended": false
     },
@@ -1774,7 +1774,7 @@
       "totalMirrors": 4,
       "latencyMs": 882,
       "httpCode": "200",
-      "pageSize": "159kb",
+      "pageSize": "179kb",
       "fingerprint": "95C5A688",
       "recommended": false
     },
@@ -1789,7 +1789,7 @@
       "totalMirrors": 2,
       "latencyMs": 778,
       "httpCode": "200",
-      "pageSize": "72kb",
+      "pageSize": "15kb",
       "fingerprint": "847C1C5D",
       "recommended": false
     },
@@ -1804,7 +1804,7 @@
       "totalMirrors": 1,
       "latencyMs": 1342,
       "httpCode": "200",
-      "pageSize": "48kb",
+      "pageSize": "96kb",
       "fingerprint": "A799C570",
       "recommended": false
     },
@@ -1815,11 +1815,11 @@
       "onion": "eg5pj3r4xhybxgfkjnkhbhwgkuonp5wtla3mbpuzphzk6lxkhftnvuyd",
       "category": "markets",
       "status": "up",
-      "upMirrors": 2,
+      "upMirrors": 1,
       "totalMirrors": 3,
-      "latencyMs": 898,
+      "latencyMs": null,
       "httpCode": "200",
-      "pageSize": "128kb",
+      "pageSize": "141kb",
       "fingerprint": "DFE83C72",
       "recommended": false
     },
@@ -1834,7 +1834,7 @@
       "totalMirrors": 3,
       "latencyMs": 1217,
       "httpCode": "200",
-      "pageSize": "175kb",
+      "pageSize": "24kb",
       "fingerprint": "737F2F32",
       "recommended": false
     },
@@ -1849,7 +1849,7 @@
       "totalMirrors": 3,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "182kb",
+      "pageSize": "93kb",
       "fingerprint": "ACCFA8EC",
       "recommended": false
     },
@@ -1864,7 +1864,7 @@
       "totalMirrors": 1,
       "latencyMs": 1269,
       "httpCode": "200",
-      "pageSize": "31kb",
+      "pageSize": "98kb",
       "fingerprint": "D12029EB",
       "recommended": false
     },
@@ -1879,7 +1879,7 @@
       "totalMirrors": 1,
       "latencyMs": 2312,
       "httpCode": "200",
-      "pageSize": "85kb",
+      "pageSize": "19kb",
       "fingerprint": "7C446355",
       "recommended": false
     },
@@ -1889,12 +1889,12 @@
       "url": "http://euphor2ivtwosiz6zspq7rdzzmyyo5nvr76qtgc473e2hnhffsred6qd.onion",
       "onion": "euphor2ivtwosiz6zspq7rdzzmyyo5nvr76qtgc473e2hnhffsred6qd",
       "category": "markets",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 2,
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "72kb",
+      "latencyMs": 2326,
+      "httpCode": "200",
+      "pageSize": "176kb",
       "fingerprint": "C4E10BEE",
       "recommended": false
     },
@@ -1909,7 +1909,7 @@
       "totalMirrors": 1,
       "latencyMs": 1898,
       "httpCode": "200",
-      "pageSize": "102kb",
+      "pageSize": "33kb",
       "fingerprint": "04D855DD",
       "recommended": false
     },
@@ -1924,7 +1924,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "21kb",
+      "pageSize": "15kb",
       "fingerprint": "41569E21",
       "recommended": false
     },
@@ -1934,12 +1934,12 @@
       "url": "http://eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad.onion",
       "onion": "eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad",
       "category": "markets",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "19kb",
+      "latencyMs": 688,
+      "httpCode": "200",
+      "pageSize": "151kb",
       "fingerprint": "29BE5716",
       "recommended": false
     },
@@ -1954,7 +1954,7 @@
       "totalMirrors": 5,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "95kb",
+      "pageSize": "101kb",
       "fingerprint": "EC99C178",
       "recommended": false
     },
@@ -1969,7 +1969,7 @@
       "totalMirrors": 1,
       "latencyMs": 2367,
       "httpCode": "200",
-      "pageSize": "166kb",
+      "pageSize": "65kb",
       "fingerprint": "36899B6E",
       "recommended": false
     },
@@ -1979,12 +1979,12 @@
       "url": "http://nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd.onion",
       "onion": "nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd",
       "category": "markets",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 2,
       "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "149kb",
+      "httpCode": "200",
+      "pageSize": "26kb",
       "fingerprint": "1C76CC39",
       "recommended": false
     },
@@ -1999,7 +1999,7 @@
       "totalMirrors": 2,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "37kb",
+      "pageSize": "51kb",
       "fingerprint": "FFA95D89",
       "recommended": false
     },
@@ -2010,11 +2010,11 @@
       "onion": "primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd",
       "category": "markets",
       "status": "up",
-      "upMirrors": 4,
+      "upMirrors": 6,
       "totalMirrors": 7,
       "latencyMs": null,
       "httpCode": "200",
-      "pageSize": "32kb",
+      "pageSize": "109kb",
       "fingerprint": "56250578",
       "recommended": false
     },
@@ -2029,7 +2029,7 @@
       "totalMirrors": 1,
       "latencyMs": 905,
       "httpCode": "200",
-      "pageSize": "13kb",
+      "pageSize": "163kb",
       "fingerprint": "16BD6996",
       "recommended": false
     },
@@ -2039,12 +2039,12 @@
       "url": "http://vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd.onion",
       "onion": "vck75uosucwzxgyp6yofroujgtasyuubkem7jh65r5ha5fmb6ztv6qqd",
       "category": "markets",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "154kb",
+      "latencyMs": 1777,
+      "httpCode": "200",
+      "pageSize": "103kb",
       "fingerprint": "39F75B6F",
       "recommended": false
     },
@@ -2055,11 +2055,11 @@
       "onion": "trzm.cc",
       "category": "markets",
       "status": "up",
-      "upMirrors": 1,
+      "upMirrors": 5,
       "totalMirrors": 12,
       "latencyMs": null,
       "httpCode": "200",
-      "pageSize": "41kb",
+      "pageSize": "122kb",
       "fingerprint": "F8B083B6",
       "recommended": false
     },
@@ -2074,7 +2074,7 @@
       "totalMirrors": 3,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "28kb",
+      "pageSize": "97kb",
       "fingerprint": "9CD92901",
       "recommended": false
     },
@@ -2089,7 +2089,7 @@
       "totalMirrors": 1,
       "latencyMs": 1714,
       "httpCode": "200",
-      "pageSize": "120kb",
+      "pageSize": "155kb",
       "fingerprint": "6AA284FB",
       "recommended": false
     },
@@ -2104,7 +2104,7 @@
       "totalMirrors": 1,
       "latencyMs": 1513,
       "httpCode": "200",
-      "pageSize": "137kb",
+      "pageSize": "66kb",
       "fingerprint": "AF45908E",
       "recommended": false
     },
@@ -2114,12 +2114,12 @@
       "url": "http://search.brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/",
       "onion": "search.brave4u7jddbv7cyviptqjc7jusxh72uik7zt6adtckl5f4nwy2v72qd.onion/",
       "category": "search",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "142kb",
+      "latencyMs": 913,
+      "httpCode": "200",
+      "pageSize": "191kb",
       "fingerprint": "69E9BEB5",
       "recommended": true
     },
@@ -2134,7 +2134,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "115kb",
+      "pageSize": "94kb",
       "fingerprint": "50B5B6FE",
       "recommended": false
     },
@@ -2149,7 +2149,7 @@
       "totalMirrors": 1,
       "latencyMs": 1904,
       "httpCode": "200",
-      "pageSize": "151kb",
+      "pageSize": "142kb",
       "fingerprint": "2D7C6898",
       "recommended": false
     },
@@ -2164,7 +2164,7 @@
       "totalMirrors": 1,
       "latencyMs": 647,
       "httpCode": "200",
-      "pageSize": "130kb",
+      "pageSize": "110kb",
       "fingerprint": "BB594151",
       "recommended": false
     },
@@ -2174,12 +2174,12 @@
       "url": "http://grams64rarzrk7rzdaz2fpb7lehcyi7zrrf5kd6w2uoamp7jw2aq6vyd.onion",
       "onion": "grams64rarzrk7rzdaz2fpb7lehcyi7zrrf5kd6w2uoamp7jw2aq6vyd",
       "category": "search",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "42kb",
+      "latencyMs": 2383,
+      "httpCode": "200",
+      "pageSize": "174kb",
       "fingerprint": "6781B31F",
       "recommended": false
     },
@@ -2194,7 +2194,7 @@
       "totalMirrors": 1,
       "latencyMs": 1726,
       "httpCode": "200",
-      "pageSize": "139kb",
+      "pageSize": "30kb",
       "fingerprint": "08354A9F",
       "recommended": false
     },
@@ -2209,7 +2209,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "172kb",
+      "pageSize": "166kb",
       "fingerprint": "CABEFB5A",
       "recommended": false
     },
@@ -2224,7 +2224,7 @@
       "totalMirrors": 1,
       "latencyMs": 1139,
       "httpCode": "200",
-      "pageSize": "94kb",
+      "pageSize": "25kb",
       "fingerprint": "77CDE5C3",
       "recommended": false
     },
@@ -2239,7 +2239,7 @@
       "totalMirrors": 1,
       "latencyMs": 683,
       "httpCode": "200",
-      "pageSize": "48kb",
+      "pageSize": "57kb",
       "fingerprint": "1D6A5F71",
       "recommended": false
     },
@@ -2254,7 +2254,7 @@
       "totalMirrors": 1,
       "latencyMs": 1767,
       "httpCode": "200",
-      "pageSize": "88kb",
+      "pageSize": "26kb",
       "fingerprint": "8389029C",
       "recommended": false
     },
@@ -2269,7 +2269,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "74kb",
+      "pageSize": "75kb",
       "fingerprint": "612BD192",
       "recommended": false
     },
@@ -2284,7 +2284,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "165kb",
+      "pageSize": "150kb",
       "fingerprint": "E0D31AFC",
       "recommended": false
     },
@@ -2299,7 +2299,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "28kb",
+      "pageSize": "32kb",
       "fingerprint": "C790F51B",
       "recommended": false
     },
@@ -2314,7 +2314,7 @@
       "totalMirrors": 1,
       "latencyMs": 893,
       "httpCode": "200",
-      "pageSize": "158kb",
+      "pageSize": "43kb",
       "fingerprint": "A8E65BCA",
       "recommended": false
     },
@@ -2329,7 +2329,7 @@
       "totalMirrors": 2,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "130kb",
+      "pageSize": "40kb",
       "fingerprint": "780372C6",
       "recommended": false
     },
@@ -2339,12 +2339,12 @@
       "url": "http://enxx3byspwsdo446jujc52ucy2pf5urdbhqw3kbsfhlfjwmbpj5smdad.onion/",
       "onion": "enxx3byspwsdo446jujc52ucy2pf5urdbhqw3kbsfhlfjwmbpj5smdad.onion/",
       "category": "forums",
-      "status": "up",
-      "upMirrors": 1,
+      "status": "down",
+      "upMirrors": 0,
       "totalMirrors": 1,
-      "latencyMs": 692,
-      "httpCode": "200",
-      "pageSize": "135kb",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "147kb",
       "fingerprint": "24E9DF88",
       "recommended": false
     },
@@ -2359,7 +2359,7 @@
       "totalMirrors": 1,
       "latencyMs": 1451,
       "httpCode": "200",
-      "pageSize": "180kb",
+      "pageSize": "183kb",
       "fingerprint": "75BB7A96",
       "recommended": false
     },
@@ -2374,7 +2374,7 @@
       "totalMirrors": 1,
       "latencyMs": 974,
       "httpCode": "200",
-      "pageSize": "24kb",
+      "pageSize": "87kb",
       "fingerprint": "B48ACAB6",
       "recommended": false
     },
@@ -2389,7 +2389,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "78kb",
+      "pageSize": "16kb",
       "fingerprint": "25D4AF85",
       "recommended": false
     },
@@ -2404,7 +2404,7 @@
       "totalMirrors": 1,
       "latencyMs": 1323,
       "httpCode": "200",
-      "pageSize": "97kb",
+      "pageSize": "174kb",
       "fingerprint": "F08AB0A9",
       "recommended": false
     },
@@ -2419,7 +2419,7 @@
       "totalMirrors": 1,
       "latencyMs": 1632,
       "httpCode": "200",
-      "pageSize": "144kb",
+      "pageSize": "21kb",
       "fingerprint": "DFBF5833",
       "recommended": false
     },
@@ -2434,7 +2434,7 @@
       "totalMirrors": 2,
       "latencyMs": 2206,
       "httpCode": "200",
-      "pageSize": "124kb",
+      "pageSize": "166kb",
       "fingerprint": "3B7AEE8B",
       "recommended": true
     },
@@ -2449,7 +2449,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "159kb",
+      "pageSize": "81kb",
       "fingerprint": "DA9A967C",
       "recommended": false
     },
@@ -2464,7 +2464,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "134kb",
+      "pageSize": "187kb",
       "fingerprint": "9AC5AA51",
       "recommended": false
     },
@@ -2479,7 +2479,7 @@
       "totalMirrors": 1,
       "latencyMs": 1821,
       "httpCode": "200",
-      "pageSize": "48kb",
+      "pageSize": "147kb",
       "fingerprint": "930CECB9",
       "recommended": false
     },
@@ -2494,7 +2494,7 @@
       "totalMirrors": 1,
       "latencyMs": 1468,
       "httpCode": "200",
-      "pageSize": "65kb",
+      "pageSize": "45kb",
       "fingerprint": "9B3D2824",
       "recommended": false
     },
@@ -2509,7 +2509,7 @@
       "totalMirrors": 1,
       "latencyMs": 2336,
       "httpCode": "200",
-      "pageSize": "61kb",
+      "pageSize": "140kb",
       "fingerprint": "C3BBE7CE",
       "recommended": false
     },
@@ -2524,7 +2524,7 @@
       "totalMirrors": 1,
       "latencyMs": 2136,
       "httpCode": "200",
-      "pageSize": "164kb",
+      "pageSize": "48kb",
       "fingerprint": "22E2AD29",
       "recommended": false
     },
@@ -2534,12 +2534,12 @@
       "url": "http://tenebrispoyfrcup4k24lciwrh4gc5735hmld4dweq7his7zh423opqd.onion",
       "onion": "tenebrispoyfrcup4k24lciwrh4gc5735hmld4dweq7his7zh423opqd",
       "category": "forums",
-      "status": "up",
-      "upMirrors": 1,
+      "status": "down",
+      "upMirrors": 0,
       "totalMirrors": 1,
-      "latencyMs": 2396,
-      "httpCode": "200",
-      "pageSize": "48kb",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "120kb",
       "fingerprint": "C034EFCB",
       "recommended": false
     },
@@ -2554,7 +2554,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "43kb",
+      "pageSize": "191kb",
       "fingerprint": "083418E0",
       "recommended": false
     },
@@ -2569,7 +2569,7 @@
       "totalMirrors": 1,
       "latencyMs": 2339,
       "httpCode": "200",
-      "pageSize": "70kb",
+      "pageSize": "131kb",
       "fingerprint": "DC424585",
       "recommended": false
     },
@@ -2584,7 +2584,7 @@
       "totalMirrors": 1,
       "latencyMs": 1522,
       "httpCode": "200",
-      "pageSize": "80kb",
+      "pageSize": "28kb",
       "fingerprint": "86DF1FFB",
       "recommended": true
     },
@@ -2599,7 +2599,7 @@
       "totalMirrors": 1,
       "latencyMs": 2040,
       "httpCode": "200",
-      "pageSize": "78kb",
+      "pageSize": "38kb",
       "fingerprint": "CA27D603",
       "recommended": false
     },
@@ -2614,7 +2614,7 @@
       "totalMirrors": 1,
       "latencyMs": 1333,
       "httpCode": "200",
-      "pageSize": "163kb",
+      "pageSize": "133kb",
       "fingerprint": "B480C48C",
       "recommended": true
     },
@@ -2629,7 +2629,7 @@
       "totalMirrors": 1,
       "latencyMs": 1161,
       "httpCode": "200",
-      "pageSize": "154kb",
+      "pageSize": "32kb",
       "fingerprint": "5484A6BE",
       "recommended": false
     },
@@ -2644,7 +2644,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "39kb",
+      "pageSize": "184kb",
       "fingerprint": "F0B83208",
       "recommended": false
     },
@@ -2659,7 +2659,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "17kb",
+      "pageSize": "155kb",
       "fingerprint": "B1F9E445",
       "recommended": false
     },
@@ -2674,7 +2674,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "35kb",
+      "pageSize": "183kb",
       "fingerprint": "5DE98242",
       "recommended": false
     },
@@ -2689,7 +2689,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "121kb",
+      "pageSize": "119kb",
       "fingerprint": "8C00CB6C",
       "recommended": false
     },
@@ -2704,7 +2704,7 @@
       "totalMirrors": 1,
       "latencyMs": 601,
       "httpCode": "200",
-      "pageSize": "117kb",
+      "pageSize": "147kb",
       "fingerprint": "4C5F041A",
       "recommended": false
     },
@@ -2719,7 +2719,7 @@
       "totalMirrors": 1,
       "latencyMs": 780,
       "httpCode": "200",
-      "pageSize": "157kb",
+      "pageSize": "41kb",
       "fingerprint": "2D521449",
       "recommended": false
     },
@@ -2734,7 +2734,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "64kb",
+      "pageSize": "132kb",
       "fingerprint": "C90A19E1",
       "recommended": false
     },
@@ -2749,7 +2749,7 @@
       "totalMirrors": 1,
       "latencyMs": 857,
       "httpCode": "200",
-      "pageSize": "48kb",
+      "pageSize": "22kb",
       "fingerprint": "F9FCFD5F",
       "recommended": true
     },
@@ -2764,7 +2764,7 @@
       "totalMirrors": 1,
       "latencyMs": 1323,
       "httpCode": "200",
-      "pageSize": "165kb",
+      "pageSize": "26kb",
       "fingerprint": "738D58AF",
       "recommended": true
     },
@@ -2779,7 +2779,7 @@
       "totalMirrors": 1,
       "latencyMs": 526,
       "httpCode": "200",
-      "pageSize": "77kb",
+      "pageSize": "57kb",
       "fingerprint": "15093D7E",
       "recommended": false
     },
@@ -2794,7 +2794,7 @@
       "totalMirrors": 1,
       "latencyMs": 681,
       "httpCode": "200",
-      "pageSize": "99kb",
+      "pageSize": "84kb",
       "fingerprint": "5249040F",
       "recommended": false
     },
@@ -2809,7 +2809,7 @@
       "totalMirrors": 1,
       "latencyMs": 1136,
       "httpCode": "200",
-      "pageSize": "75kb",
+      "pageSize": "108kb",
       "fingerprint": "7C9F1EB5",
       "recommended": false
     },
@@ -2824,7 +2824,7 @@
       "totalMirrors": 1,
       "latencyMs": 838,
       "httpCode": "200",
-      "pageSize": "76kb",
+      "pageSize": "171kb",
       "fingerprint": "A7BCB9E8",
       "recommended": false
     },
@@ -2839,7 +2839,7 @@
       "totalMirrors": 1,
       "latencyMs": 1398,
       "httpCode": "200",
-      "pageSize": "144kb",
+      "pageSize": "72kb",
       "fingerprint": "59E42F01",
       "recommended": false
     },
@@ -2854,7 +2854,7 @@
       "totalMirrors": 1,
       "latencyMs": 1659,
       "httpCode": "200",
-      "pageSize": "172kb",
+      "pageSize": "61kb",
       "fingerprint": "74290AA1",
       "recommended": false
     },
@@ -2864,12 +2864,12 @@
       "url": "http://mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/",
       "onion": "mail.danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/",
       "category": "communications",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "148kb",
+      "latencyMs": 2275,
+      "httpCode": "200",
+      "pageSize": "99kb",
       "fingerprint": "983EDDF6",
       "recommended": false
     },
@@ -2879,12 +2879,12 @@
       "url": "http://6n5nbusxgyw46juqo3nt5v4zuivdbc7mzm74wlhg7arggetaui4yp4id.onion/",
       "onion": "6n5nbusxgyw46juqo3nt5v4zuivdbc7mzm74wlhg7arggetaui4yp4id.onion/",
       "category": "communications",
-      "status": "down",
-      "upMirrors": 0,
+      "status": "up",
+      "upMirrors": 1,
       "totalMirrors": 1,
-      "latencyMs": null,
-      "httpCode": "n/a",
-      "pageSize": "108kb",
+      "latencyMs": 964,
+      "httpCode": "200",
+      "pageSize": "75kb",
       "fingerprint": "8586384F",
       "recommended": false
     },
@@ -2899,7 +2899,7 @@
       "totalMirrors": 1,
       "latencyMs": 1404,
       "httpCode": "200",
-      "pageSize": "53kb",
+      "pageSize": "103kb",
       "fingerprint": "79836904",
       "recommended": false
     },
@@ -2914,7 +2914,7 @@
       "totalMirrors": 1,
       "latencyMs": 1027,
       "httpCode": "200",
-      "pageSize": "155kb",
+      "pageSize": "163kb",
       "fingerprint": "330ECEF1",
       "recommended": false
     },
@@ -2929,7 +2929,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "170kb",
+      "pageSize": "90kb",
       "fingerprint": "1B332728",
       "recommended": false
     },
@@ -2944,7 +2944,7 @@
       "totalMirrors": 1,
       "latencyMs": 1377,
       "httpCode": "200",
-      "pageSize": "170kb",
+      "pageSize": "17kb",
       "fingerprint": "D746EB06",
       "recommended": false
     },
@@ -2959,7 +2959,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "128kb",
+      "pageSize": "30kb",
       "fingerprint": "80634F09",
       "recommended": false
     },
@@ -2974,7 +2974,7 @@
       "totalMirrors": 1,
       "latencyMs": 981,
       "httpCode": "200",
-      "pageSize": "171kb",
+      "pageSize": "113kb",
       "fingerprint": "20E3559D",
       "recommended": false
     },
@@ -2989,7 +2989,7 @@
       "totalMirrors": 1,
       "latencyMs": 790,
       "httpCode": "200",
-      "pageSize": "21kb",
+      "pageSize": "185kb",
       "fingerprint": "DAAA6164",
       "recommended": false
     },
@@ -3004,7 +3004,7 @@
       "totalMirrors": 1,
       "latencyMs": 1205,
       "httpCode": "200",
-      "pageSize": "120kb",
+      "pageSize": "181kb",
       "fingerprint": "48A674E3",
       "recommended": false
     },
@@ -3019,7 +3019,7 @@
       "totalMirrors": 1,
       "latencyMs": 2121,
       "httpCode": "200",
-      "pageSize": "22kb",
+      "pageSize": "131kb",
       "fingerprint": "E5C7A121",
       "recommended": false
     },
@@ -3034,7 +3034,7 @@
       "totalMirrors": 1,
       "latencyMs": 1113,
       "httpCode": "200",
-      "pageSize": "162kb",
+      "pageSize": "39kb",
       "fingerprint": "1565E8E3",
       "recommended": true
     },
@@ -3049,7 +3049,7 @@
       "totalMirrors": 1,
       "latencyMs": 2198,
       "httpCode": "200",
-      "pageSize": "39kb",
+      "pageSize": "112kb",
       "fingerprint": "F13D61B2",
       "recommended": false
     },
@@ -3064,7 +3064,7 @@
       "totalMirrors": 1,
       "latencyMs": 2324,
       "httpCode": "200",
-      "pageSize": "154kb",
+      "pageSize": "131kb",
       "fingerprint": "024C5BB1",
       "recommended": false
     },
@@ -3074,12 +3074,12 @@
       "url": "http://65bsisadnxvw4kfz7h7a3jwcyenrhluuj3kd5toslfzxbk5q4m3wy6qd.onion",
       "onion": "65bsisadnxvw4kfz7h7a3jwcyenrhluuj3kd5toslfzxbk5q4m3wy6qd",
       "category": "crypto",
-      "status": "up",
-      "upMirrors": 1,
+      "status": "down",
+      "upMirrors": 0,
       "totalMirrors": 1,
-      "latencyMs": 904,
-      "httpCode": "200",
-      "pageSize": "114kb",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "96kb",
       "fingerprint": "4640565C",
       "recommended": false
     },
@@ -3094,7 +3094,7 @@
       "totalMirrors": 1,
       "latencyMs": 1071,
       "httpCode": "200",
-      "pageSize": "164kb",
+      "pageSize": "22kb",
       "fingerprint": "FDA11FC9",
       "recommended": false
     },
@@ -3109,7 +3109,7 @@
       "totalMirrors": 1,
       "latencyMs": 694,
       "httpCode": "200",
-      "pageSize": "153kb",
+      "pageSize": "54kb",
       "fingerprint": "BF5DFA08",
       "recommended": false
     },
@@ -3124,7 +3124,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "32kb",
+      "pageSize": "107kb",
       "fingerprint": "25192D6B",
       "recommended": false
     },
@@ -3139,7 +3139,7 @@
       "totalMirrors": 1,
       "latencyMs": 621,
       "httpCode": "200",
-      "pageSize": "176kb",
+      "pageSize": "30kb",
       "fingerprint": "C53A2C9E",
       "recommended": true
     },
@@ -3154,7 +3154,7 @@
       "totalMirrors": 1,
       "latencyMs": 1887,
       "httpCode": "200",
-      "pageSize": "168kb",
+      "pageSize": "184kb",
       "fingerprint": "C7316E52",
       "recommended": false
     },
@@ -3169,7 +3169,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "77kb",
+      "pageSize": "57kb",
       "fingerprint": "0F2DE25F",
       "recommended": false
     },
@@ -3184,7 +3184,7 @@
       "totalMirrors": 1,
       "latencyMs": 1325,
       "httpCode": "200",
-      "pageSize": "97kb",
+      "pageSize": "92kb",
       "fingerprint": "38126093",
       "recommended": false
     },
@@ -3199,7 +3199,7 @@
       "totalMirrors": 1,
       "latencyMs": 1098,
       "httpCode": "200",
-      "pageSize": "93kb",
+      "pageSize": "116kb",
       "fingerprint": "C5D8BC24",
       "recommended": true
     },
@@ -3214,7 +3214,7 @@
       "totalMirrors": 1,
       "latencyMs": 1364,
       "httpCode": "200",
-      "pageSize": "150kb",
+      "pageSize": "139kb",
       "fingerprint": "3F504522",
       "recommended": false
     },
@@ -3229,7 +3229,7 @@
       "totalMirrors": 1,
       "latencyMs": 826,
       "httpCode": "200",
-      "pageSize": "74kb",
+      "pageSize": "19kb",
       "fingerprint": "5A4513BA",
       "recommended": false
     },
@@ -3244,7 +3244,7 @@
       "totalMirrors": 1,
       "latencyMs": 1017,
       "httpCode": "200",
-      "pageSize": "141kb",
+      "pageSize": "190kb",
       "fingerprint": "7120A63B",
       "recommended": true
     },
@@ -3259,7 +3259,7 @@
       "totalMirrors": 1,
       "latencyMs": 769,
       "httpCode": "200",
-      "pageSize": "99kb",
+      "pageSize": "121kb",
       "fingerprint": "1F04C529",
       "recommended": false
     },
@@ -3274,7 +3274,7 @@
       "totalMirrors": 1,
       "latencyMs": 2466,
       "httpCode": "200",
-      "pageSize": "178kb",
+      "pageSize": "161kb",
       "fingerprint": "8637FCCD",
       "recommended": false
     },
@@ -3289,7 +3289,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "145kb",
+      "pageSize": "12kb",
       "fingerprint": "708BB976",
       "recommended": false
     },
@@ -3304,7 +3304,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "104kb",
+      "pageSize": "167kb",
       "fingerprint": "0E54F301",
       "recommended": true
     },
@@ -3319,7 +3319,7 @@
       "totalMirrors": 1,
       "latencyMs": 1856,
       "httpCode": "200",
-      "pageSize": "163kb",
+      "pageSize": "52kb",
       "fingerprint": "66ADCF08",
       "recommended": false
     },
@@ -3334,7 +3334,7 @@
       "totalMirrors": 1,
       "latencyMs": null,
       "httpCode": "n/a",
-      "pageSize": "121kb",
+      "pageSize": "165kb",
       "fingerprint": "D03DE63B",
       "recommended": false
     }

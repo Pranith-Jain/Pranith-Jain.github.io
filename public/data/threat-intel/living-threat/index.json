@@ -4,13 +4,13 @@
   "repoUrl": "https://github.com/HudKSD/Living-Threat",
   "description": "Living Threat Repository — real-world incidents continuously mapped to MITRE ATT&CK tactics and techniques, with per-kill-chain-stage detection + remediation notes (AI-enriched), CVEs, threat actors, tools, priority scoring, and hunt-pack guidance.",
   "license": "MIT (github.com/HudKSD/Living-Threat); ATT&CK is a MITRE trademark — platform not affiliated with MITRE",
-  "syncedAt": "2026-08-16T16:23:11.058Z",
+  "syncedAt": "2026-08-17T06:14:04.231Z",
   "meta": {
     "apiIndex": null,
-    "latestTs": "2026-08-16T11:07:00Z",
-    "latestSeq": 21625,
-    "anchorTs": "2026-08-16T11:07:00Z",
-    "fetchedAt": "2026-08-16T16:22:37Z",
+    "latestTs": "2026-08-16T18:28:00Z",
+    "latestSeq": 21628,
+    "anchorTs": "2026-08-16T18:28:00Z",
+    "fetchedAt": "2026-08-17T06:13:53Z",
     "cap": "Upstream /api/bootstrap caps at 5000 docs; index holds ~21k. Newest 5000 shipped."
   },
   "counts": {
@@ -18,17 +18,17 @@
     "shards": 10,
     "shardSize": 500,
     "bySeverity": {
-      "High": 2809,
-      "Critical": 1455,
+      "High": 2810,
+      "Critical": 1454,
       "Low": 471,
       "Moderate": 262,
       "Moderate to high": 2,
       "Potentially significant": 1
     },
     "byTactic": {
-      "Reconnaissance": 1893,
+      "Reconnaissance": 1894,
       "Resource Development": 1274,
-      "Initial Access": 3533,
+      "Initial Access": 3532,
       "Execution": 816,
       "Persistence": 1483,
       "Privilege Escalation": 118,
@@ -38,21 +38,21 @@
       "Lateral Movement": 59,
       "Collection": 1606,
       "Command and Control": 1534,
-      "Exfiltration": 528,
-      "Impact": 632
+      "Exfiltration": 529,
+      "Impact": 633
     },
     "uniqueCves": 811,
     "uniqueTechniques": 281
   },
   "topTechniques": [
-    { "id": "T1190", "count": 1795 },
-    { "id": "T1203", "count": 1332 },
-    { "id": "T1592", "count": 901 },
+    { "id": "T1190", "count": 1793 },
+    { "id": "T1203", "count": 1331 },
+    { "id": "T1592", "count": 902 },
     { "id": "T1595", "count": 870 },
     { "id": "T1078", "count": 802 },
     { "id": "T1071.001", "count": 728 },
     { "id": "T1587.001", "count": 728 },
-    { "id": "T1071", "count": 635 },
+    { "id": "T1071", "count": 634 },
     { "id": "T1547", "count": 523 },
     { "id": "T1005", "count": 438 },
     { "id": "T1566", "count": 338 },
@@ -65,7 +65,7 @@
     { "id": "T1027", "count": 205 },
     { "id": "T1547.001", "count": 204 },
     { "id": "T1068", "count": 204 },
-    { "id": "T1499", "count": 202 },
+    { "id": "T1499", "count": 203 },
     { "id": "T1020", "count": 197 },
     { "id": "T1003", "count": 178 },
     { "id": "T1105", "count": 175 },
@@ -83,8 +83,8 @@
     { "id": "T1598", "count": 62 },
     { "id": "T1102", "count": 58 },
     { "id": "T1102.001", "count": 54 },
+    { "id": "T1567", "count": 53 },
     { "id": "T1053.005", "count": 53 },
-    { "id": "T1567", "count": 52 },
     { "id": "T1560", "count": 52 },
     { "id": "T1505.003", "count": 50 },
     { "id": "T1546", "count": 47 },
@@ -144,9 +144,9 @@
     { "name": "Sofacy", "count": 8 },
     { "name": "Earth Empusa", "count": 8 },
     { "name": "Evil Eye", "count": 8 },
+    { "name": "Unknown Threat Actor", "count": 7 },
     { "name": "Transparent Tribe", "count": 7 },
-    { "name": "UNC5792", "count": 7 },
-    { "name": "UNC4221", "count": 7 }
+    { "name": "UNC5792", "count": 7 }
   ],
   "topTools": [
     { "name": "Google Chrome", "count": 144 },
@@ -220,6 +220,63 @@
     }
   ],
   "incidents": [
+    {
+      "slug": "Major_Outage_Affecting_Anthropic_Services-021628",
+      "shard": 0,
+      "sequence": 21628,
+      "id": "e30595b74caa557816d14d85fbd36d04",
+      "title": "Major Outage Affecting Anthropic Services",
+      "timestamp": "2026-08-16T18:28:00Z",
+      "source": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-confirms-claude-is-down-in-major-outage-affecting-multiple-services/",
+      "severity": "High",
+      "priorityScore": 60,
+      "relevanceScore": 35,
+      "tactics": [],
+      "techniques": [],
+      "actors": [],
+      "techniqueCount": 0,
+      "cves": 0,
+      "tools": 0,
+      "sizeBytes": 5248
+    },
+    {
+      "slug": "SafePal_Data_Breach_Exposes_Customer_Order_Information-021627",
+      "shard": 0,
+      "sequence": 21627,
+      "id": "793e8e1e64e2627118f8a98fd57ade30",
+      "title": "SafePal Data Breach Exposes Customer Order Information",
+      "timestamp": "2026-08-16T19:47:00Z",
+      "source": "https://www.bleepingcomputer.com/news/security/safepal-data-breach-impacts-39-798-customers-stolen-info-for-sale/",
+      "severity": "High",
+      "priorityScore": 69,
+      "relevanceScore": 49,
+      "tactics": ["Reconnaissance", "Initial Access", "Exfiltration"],
+      "techniques": ["T1592", "T1190", "T1567"],
+      "actors": ["Unknown Threat Actor"],
+      "techniqueCount": 3,
+      "cves": 0,
+      "tools": 0,
+      "sizeBytes": 6970
+    },
+    {
+      "slug": "DDoS_Attacks_Disrupt_Threema_Secure_Messaging_Service-021626",
+      "shard": 0,
+      "sequence": 21626,
+      "id": "e501b86f4a24ef28638a39dfdbc8be63",
+      "title": "DDoS Attacks Disrupt Threema Secure Messaging Service",
+      "timestamp": "2026-08-16T13:29:00Z",
+      "source": "https://www.bleepingcomputer.com/news/security/large-scale-ddos-attacks-disrupted-threema-secure-messaging-service/",
+      "severity": "High",
+      "priorityScore": 65,
+      "relevanceScore": 45,
+      "tactics": ["Impact"],
+      "techniques": ["T1499"],
+      "actors": [],
+      "techniqueCount": 1,
+      "cves": 0,
+      "tools": 2,
+      "sizeBytes": 6294
+    },
     {
       "slug": "AmnesiaStealer__macOS_Malware_Leveraging_ClickFix_Attacks-021625",
       "shard": 0,
@@ -10624,7 +10681,7 @@
     },
     {
       "slug": "NetNut_Residential_Proxy_Network_Disruption-021130",
-      "shard": 0,
+      "shard": 1,
       "sequence": 21130,
       "id": "cd04d93b37a55539278314e0d781db67e7df90b184eee0286dd98fb7a2816f28",
       "title": "NetNut Residential Proxy Network Disruption",
@@ -10643,7 +10700,7 @@
     },
     {
       "slug": "Operation_DragonReturn__China-Nexus_Threat_Targeting_Indian_Taxpayers-021129",
-      "shard": 0,
+      "shard": 1,
       "sequence": 21129,
       "id": "8189a92ce7bdf5d2b4b0e48abf76595b01f90c94307a3913c63f533f93e3b351",
       "title": "Operation DragonReturn: China-Nexus Threat Targeting Indian Taxpayers",
@@ -10669,7 +10726,7 @@
     },
     {
       "slug": "Analysis_of_AI_SOC_Platforms_and_Exaforce_Capabilities-021128",
-      "shard": 0,
+      "shard": 1,
       "sequence": 21128,
       "id": "6820150483b8ced328ee78cd1de7a58a51fb111a102009c55b8f4fc2a675a737",
       "title": "Analysis of AI SOC Platforms and Exaforce Capabilities",
@@ -21125,7 +21182,7 @@
     },
     {
       "slug": "Apache_OFBiz_Authentication_Bypass_and_RCE_Vulnerability-020634",
-      "shard": 1,
+      "shard": 2,
       "sequence": 20634,
       "id": "f568eba2f9fdfb98718ccecc44ed0d57a8c4938f",
       "title": "Apache OFBiz Authentication Bypass and RCE Vulnerability",
@@ -21144,7 +21201,7 @@
     },
     {
       "slug": "NGINX_Zero-Day_Vulnerability__nginx-poolslip__Exposes_Servers_to_RCE-020633",
-      "shard": 1,
+      "shard": 2,
       "sequence": 20633,
       "id": "6ee46d324239a6ce549ced65ca27b7e8885e1c19",
       "title": "NGINX Zero-Day Vulnerability 'nginx-poolslip' Exposes Servers to RCE",
@@ -21163,7 +21220,7 @@
     },
     {
       "slug": "Identity_Exposure_via_Cached_Credentials_in_Hybrid_Environments-020632",
-      "shard": 1,
+      "shard": 2,
       "sequence": 20632,
       "id": "d5b77950a9cdc89d2fb0f60b4e941ca47aa2e8ab5fd394e301934256040a69fe",
       "title": "Identity Exposure via Cached Credentials in Hybrid Environments",
@@ -31362,7 +31419,7 @@
     },
     {
       "slug": "Eurail_B.V._Data_Breach_Exposes_Personal_Information_of_308_777_Individu-020135",
-      "shard": 2,
+      "shard": 3,
       "sequence": 20135,
       "id": "161b619ac8202e60c3c867f48431eec1",
       "title": "Eurail B.V. Data Breach Exposes Personal Information of 308,777 Individuals",
@@ -31381,7 +31438,7 @@
     },
     {
       "slug": "Early_Detection_of_Cyber_Threats_via_Underground_Channels-020134",
-      "shard": 2,
+      "shard": 3,
       "sequence": 20134,
       "id": "f24f41d7c6c5d646e05018a3c2e93cea",
       "title": "Early Detection of Cyber Threats via Underground Channels",
@@ -31400,7 +31457,7 @@
     },
     {
       "slug": "Ransomware_Attack_on_Dutch_Healthcare_Software_Vendor_ChipSoft-020133",
-      "shard": 2,
+      "shard": 3,
       "sequence": 20133,
       "id": "7a9138e9e4b114280668a0d4a29649a0",
       "title": "Ransomware Attack on Dutch Healthcare Software Vendor ChipSoft",
@@ -41869,7 +41926,7 @@
     },
     {
       "slug": "Compromised_Chrome_Extension__QuickLens__Used_for_Malware_Distribution_a-019636",
-      "shard": 3,
+      "shard": 4,
       "sequence": 19636,
       "id": "beb3dd0552074e3c8bd9af284ab39541",
       "title": "Compromised Chrome Extension 'QuickLens' Used for Malware Distribution and Crypto Theft",
@@ -41896,7 +41953,7 @@
     },
     {
       "slug": "ClawJacked_Vulnerability_in_OpenClaw_AI_Platform-019635",
-      "shard": 3,
+      "shard": 4,
       "sequence": 19635,
       "id": "4cb79021a23bdc20042bbc3897047fc5",
       "title": "ClawJacked Vulnerability in OpenClaw AI Platform",
@@ -41922,7 +41979,7 @@
     },
     {
       "slug": "OpenClaw_ClawJacked_Vulnerability_Exploitation-019634",
-      "shard": 3,
+      "shard": 4,
       "sequence": 19634,
       "id": "5a55e681b9d31634e6c38e8920a3c93af7b45a23ac4552ec1a94fca10e059d64",
       "title": "OpenClaw ClawJacked Vulnerability Exploitation",
@@ -52368,7 +52425,7 @@
     },
     {
       "slug": "Using_Nmap_for_Network_Device_Discovery_and_Security_Assessment-019141",
-      "shard": 4,
+      "shard": 5,
       "sequence": 19141,
       "id": "aabe5538f21daeedc78cf666e8c611e894d3f8b1",
       "title": "Using Nmap for Network Device Discovery and Security Assessment",
@@ -52387,7 +52444,7 @@
     },
     {
       "slug": "Analysis_of_Webpage_Loading_Issue__Potential_Cyber_Incident-019140",
-      "shard": 4,
+      "shard": 5,
       "sequence": 19140,
       "id": "8541c29e2b9c25723a290fddabf6180378687978",
       "title": "Analysis of Webpage Loading Issue: Potential Cyber Incident",
@@ -52406,7 +52463,7 @@
     },
     {
       "slug": "MAR-10386789-1.v1___Log4Shell___CISA-019139",
-      "shard": 4,
+      "shard": 5,
       "sequence": 19139,
       "id": "55adba46d0a546f4796645d51b3097c2dd730efe",
       "title": "MAR-10386789-1.v1 – Log4Shell | CISA",
@@ -62569,7 +62626,7 @@
     },
     {
       "slug": "Elevation-of-Privilege_Vulnerabilities_in_Windows_Remote_Access_Connecti-018654",
-      "shard": 5,
+      "shard": 6,
       "sequence": 18654,
       "id": "2f3c78f422c88c0fc966f2f5a16fb3e43fc61e0e",
       "title": "Elevation-of-Privilege Vulnerabilities in Windows Remote Access Connection Manager",
@@ -62588,7 +62645,7 @@
     },
     {
       "slug": "Zero-Day_Vulnerability_in_Gogs_Exploited_for_Remote_Code_Execution-018653",
-      "shard": 5,
+      "shard": 6,
       "sequence": 18653,
       "id": "acc559a8d38cef34c2021faf05a2062814e63fcf",
       "title": "Zero-Day Vulnerability in Gogs Exploited for Remote Code Execution",
@@ -62607,7 +62664,7 @@
     },
     {
       "slug": "ConsentFix_Phishing_Attack_on_Microsoft_Accounts-018652",
-      "shard": 5,
+      "shard": 6,
       "sequence": 18652,
       "id": "d158355dbf253a4dbd506b0a2b468026656c8639",
       "title": "ConsentFix Phishing Attack on Microsoft Accounts",
@@ -72914,7 +72971,7 @@
     },
     {
       "slug": "Sanctions_on_North_Korean_Financial_Network_for_Cybercrime_and_IT_Worker-018163",
-      "shard": 6,
+      "shard": 7,
       "sequence": 18163,
       "id": "a27ec118e73dbbd3baa656f6dc5b63ade8b3c2a118a80f0010e110e2f9373bdf",
       "title": "Sanctions on North Korean Financial Network for Cybercrime and IT Worker Fraud",
@@ -72941,7 +72998,7 @@
     },
     {
       "slug": "UNK_SmudgedSerpent_Cyber_Espionage_Campaign_Targeting_Academics_and_Poli-018162",
-      "shard": 6,
+      "shard": 7,
       "sequence": 18162,
       "id": "8a6a0efa3c82865e332a49cf275fc8cb4b66bff1da38818fbec54259b591afd7",
       "title": "UNK_SmudgedSerpent Cyber Espionage Campaign Targeting Academics and Policy Experts",
@@ -72968,7 +73025,7 @@
     },
     {
       "slug": "Analysis_of_Samsung_Knox_Security_Features-018161",
-      "shard": 6,
+      "shard": 7,
       "sequence": 18161,
       "id": "ccb1a61ad26fd12d783af2c471ca760b824272d0eb29a905a16ac0b43651b382",
       "title": "Analysis of Samsung Knox Security Features",
@@ -83934,7 +83991,7 @@
     },
     {
       "slug": "Google_Chrome_Security_Update_for_Critical_Vulnerabilities_CVE-2025-1020-017662",
-      "shard": 7,
+      "shard": 8,
       "sequence": 17662,
       "id": "a829c46c902de68e79c0ad3941326dff659d1b21",
       "title": "Google Chrome Security Update for Critical Vulnerabilities CVE-2025-10200 and CVE-2025-10201",
@@ -83953,7 +84010,7 @@
     },
     {
       "slug": "Critical_Vulnerability_in_SAP_NetWeaver_AS_Java_Deploy_Service-017661",
-      "shard": 7,
+      "shard": 8,
       "sequence": 17661,
       "id": "ffad8dc6cded0ef6be015f58b831afc064ce9ddf",
       "title": "Critical Vulnerability in SAP NetWeaver AS Java Deploy Service",
@@ -83972,7 +84029,7 @@
     },
     {
       "slug": "Critical_Use-After-Free_Vulnerabilities_in_Windows_BitLocker-017660",
-      "shard": 7,
+      "shard": 8,
       "sequence": 17660,
       "id": "4a8538da94ac3e666e1db57d1484e2adfd6792d0",
       "title": "Critical Use-After-Free Vulnerabilities in Windows BitLocker",
@@ -93848,7 +93905,7 @@
     },
     {
       "slug": "Docusnap_Vulnerability_Exposes_Sensitive_Network_Information-017163",
-      "shard": 8,
+      "shard": 9,
       "sequence": 17163,
       "id": "fe66e0971b5e5ed15bfcb396ccb3a7048860cdfd",
       "title": "Docusnap Vulnerability Exposes Sensitive Network Information",
@@ -93867,7 +93924,7 @@
     },
     {
       "slug": "Hertz_Data_Breach_via_Cleo_Communications_File_Transfer_Platform-017162",
-      "shard": 8,
+      "shard": 9,
       "sequence": 17162,
       "id": "a48bce7b80b471c22ea0b6b023c003d53226c907",
       "title": "Hertz Data Breach via Cleo Communications File Transfer Platform",
@@ -93886,7 +93943,7 @@
     },
     {
       "slug": "Critical_RCE_Vulnerabilities_in_Android_System_-_January_2025_Security_B-017161",
-      "shard": 8,
+      "shard": 9,
       "sequence": 17161,
       "id": "11b6fe29df56808cca94fb9ca33b36bf7e68be00",
       "title": "Critical RCE Vulnerabilities in Android System - January 2025 Security Bulletin",
@@ -103907,67 +103964,6 @@
       "cves": 0,
       "tools": 2,
       "sizeBytes": 7301
-    },
-    {
-      "slug": "CISA_Warns_of_Critical_Vulnerabilities_in_D-Link__DrayTek__Motion_Spell_-016663",
-      "shard": 9,
-      "sequence": 16663,
-      "id": "d1c8161ffd13d0c351f3f425e4e1a8625166929a",
-      "title": "CISA Warns of Critical Vulnerabilities in D-Link, DrayTek, Motion Spell, and SAP Products",
-      "timestamp": "2024-10-01T06:15:26Z",
-      "source": "https://gbhackers.com/cisa-warns-of-four-vulnerabilities/",
-      "severity": "Critical",
-      "priorityScore": 85,
-      "relevanceScore": 53,
-      "tactics": ["Initial Access"],
-      "techniques": ["T1190"],
-      "actors": [],
-      "techniqueCount": 1,
-      "cves": 0,
-      "tools": 4,
-      "sizeBytes": 6978
-    },
-    {
-      "slug": "Analysis_of_High-Severity_Vulnerabilities_in_F5_BIG-IP_and_BIG-IQ_Device-016662",
-      "shard": 9,
-      "sequence": 16662,
-      "id": "9d6920f614268985e496a72f99413dbb202068c1",
-      "title": "Analysis of High-Severity Vulnerabilities in F5 BIG-IP and BIG-IQ Devices",
-      "timestamp": "2022-11-17T18:16:24Z",
-      "source": "https://gbhackers.com/remote-code-execution-bug-in-f5/",
-      "severity": "High",
-      "priorityScore": 65,
-      "relevanceScore": 45,
-      "tactics": ["Initial Access"],
-      "techniques": ["T1190"],
-      "actors": [],
-      "techniqueCount": 1,
-      "cves": 0,
-      "tools": 2,
-      "sizeBytes": 6833
-    },
-    {
-      "slug": "Exploitation_of_Visual_Studio_Debugging_Vulnerabilities-016661",
-      "shard": 9,
-      "sequence": 16661,
-      "id": "bbfa0c5ed1e2ed8c20cec769bf8b2ece481dc415",
-      "title": "Exploitation of Visual Studio Debugging Vulnerabilities",
-      "timestamp": "2024-10-07T11:00:03Z",
-      "source": "https://gbhackers.com/cve-2024-30052-visual-studio-exploit/",
-      "severity": "High",
-      "priorityScore": 87,
-      "relevanceScore": 53,
-      "tactics": [
-        "Exploit Public-Facing Application",
-        "Exploitation for Client Execution",
-        "Application Layer Protocol"
-      ],
-      "techniques": ["T1190", "T1203", "T1071"],
-      "actors": [],
-      "techniqueCount": 3,
-      "cves": 0,
-      "tools": 3,
-      "sizeBytes": 8785
     }
   ]
 }

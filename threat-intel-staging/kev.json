@@ -1,9 +1,69 @@
 {
     "title": "CISA Catalog of Known Exploited Vulnerabilities",
-    "catalogVersion": "2026.08.05",
-    "dateReleased": "2026-08-05T16:50:38.6458Z",
-    "count": 1661,
+    "catalogVersion": "2026.08.14",
+    "dateReleased": "2026-08-14T16:34:49.0391Z",
+    "count": 1665,
     "vulnerabilities": [
+        {
+            "cveID": "CVE-2026-20349",
+            "vendorProject": "Cisco",
+            "product": "Secure Firewall Adaptive Security Appliance (ASA) and Secure Firewall Threat Defense (FTD) ",
+            "vulnerabilityName": "Cisco Secure Firewall Adaptive Security Appliance (ASA) and Secure Firewall Threat Defense (FTD) Heap Inspection Vulnerability",
+            "dateAdded": "2026-08-11",
+            "shortDescription": "Cisco Secure Firewall Adaptive Security Appliance (ASA) and Secure Firewall Threat Defense (FTD) contain a heap inspection vulnerability that could allow an unauthenticated, remote attacker to cause the device to reload unexpectedly, resulting in a denial of service (DoS) condition.",
+            "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+            "dueDate": "2026-08-14",
+            "knownRansomwareCampaignUse": "Unknown",
+            "notes": "https:\/\/sec.cloudapps.cisco.com\/security\/center\/content\/CiscoSecurityAdvisory\/cisco-sa-asaftd-vpn-dos-dzv4mQFF ; BOD 26-04: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2026-20349",
+            "cwes": [
+                "CWE-244"
+            ]
+        },
+        {
+            "cveID": "CVE-2026-68820",
+            "vendorProject": "Microsoft",
+            "product": "Windows Ancillary Function Driver for WinSock ",
+            "vulnerabilityName": "Microsoft Windows Ancillary Function Driver for WinSock Use-After-Free Vulnerability",
+            "dateAdded": "2026-08-11",
+            "shortDescription": "Microsoft Windows Ancillary Function Driver for WinSock contains a use-after-free vulnerability that allows an authorized attacker to elevate privileges locally.",
+            "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+            "dueDate": "2026-08-25",
+            "knownRansomwareCampaignUse": "Unknown",
+            "notes": "https:\/\/portal.msrc.microsoft.com\/en-US\/security-guidance\/advisory\/CVE-2026-68820 ; BOD 26-04: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2026-68820",
+            "cwes": [
+                "CWE-416"
+            ]
+        },
+        {
+            "cveID": "CVE-2026-72898",
+            "vendorProject": "Metabase",
+            "product": "Metabase",
+            "vulnerabilityName": "Metabase SQL Injection Vulnerability",
+            "dateAdded": "2026-08-11",
+            "shortDescription": "Metabase contains a SQL Injection vulnerability that allows an unauthenticated remote attacker to inject arbitrary SQL into the Metabase application database, which can give them administrator access to the instance. From there, the attacker could change the application configuration, steal stored credentials for the connected databases, read any data accessible through those connections, and export data.",
+            "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+            "dueDate": "2026-08-14",
+            "knownRansomwareCampaignUse": "Unknown",
+            "notes": "https:\/\/www.metabase.com\/blog\/security-update ; https:\/\/github.com\/metabase\/metabase\/security\/advisories\/GHSA-vwf4-m7j8-wcjf ; BOD 26-04: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2026-72898",
+            "cwes": [
+                "CWE-89"
+            ]
+        },
+        {
+            "cveID": "CVE-2026-8037",
+            "vendorProject": "Progress",
+            "product": "LoadMaster",
+            "vulnerabilityName": "Progress LoadMaster Command Injection Vulnerability",
+            "dateAdded": "2026-08-07",
+            "shortDescription": "Progress LoadMaster contains a command injection vulnerability that allows an un-authenticated attacker to execute arbitrary commands on the LoadMaster appliance by exploiting unsanitized input in multiple command endpoints.",
+            "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+            "dueDate": "2026-08-10",
+            "knownRansomwareCampaignUse": "Unknown",
+            "notes": "https:\/\/community.progress.com\/s\/article\/LoadMaster-Critical-Security-Bulletin-June-2026-CVE-2026-8037-CVE-2026-33691 ; BOD 26-04: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2026-8037",
+            "cwes": [
+                "CWE-77"
+            ]
+        },
         {
             "cveID": "CVE-2026-63077",
             "vendorProject": "JetBrains",
@@ -40,7 +100,7 @@
             "product": "Tomcat",
             "vulnerabilityName": "Apache Tomcat Missing Encryption of Sensitive Data Vulnerability",
             "dateAdded": "2026-08-04",
-            "shortDescription": "Apache Tomcat contains a missing encryption of sensitive data vulnerability that allows the bypass of the EncryptInterceptor.",
+            "shortDescription": "Apache Tomcat contains a missing encryption of sensitive data vulnerability that allows the bypass of the EncryptInterceptor. This vulnerability can be chained with CVE\u20112025\u201124813.",
             "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
             "dueDate": "2026-08-07",
             "knownRansomwareCampaignUse": "Unknown",
@@ -465,7 +525,7 @@
             "shortDescription": "Microsoft SharePoint Server contains a deserialization of untrusted data vulnerability which allows an authorized attacker to execute code over a network.",
             "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
             "dueDate": "2026-07-04",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/msrc.microsoft.com\/update-guide\/vulnerability\/CVE-2026-45659 ; BOD 26-04: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https:\/\/www.cisa.gov\/news-events\/directives\/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2026-45659",
             "cwes": [
                 "CWE-502"
@@ -1455,7 +1515,7 @@
             "shortDescription": "Microsoft Windows contains a link following vulnerability that allows for privilege escalation",
             "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
             "dueDate": "2026-04-27",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/msrc.microsoft.com\/update-guide\/vulnerability\/CVE-2025-60710 ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2025-60710",
             "cwes": [
                 "CWE-59"
@@ -3950,7 +4010,7 @@
             "shortDescription": "RARLAB WinRAR contains a path traversal vulnerability affecting the Windows version of WinRAR. This vulnerability could allow an attacker to execute arbitrary code by crafting malicious archive files.",
             "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
             "dueDate": "2025-09-02",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/www.win-rar.com\/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=283&cHash=a64b4a8f662d3639dec8d65f47bc93c5 ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2025-8088",
             "cwes": [
                 "CWE-35"
@@ -4742,7 +4802,7 @@
             "shortDescription": "SAP NetWeaver Visual Composer Metadata Uploader contains a deserialization vulnerability that allows a privileged attacker to compromise the confidentiality, integrity, and availability of the host system by deserializing untrusted or malicious content.",
             "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
             "dueDate": "2025-06-05",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "SAP users must have an account to log in and access the patch: https:\/\/me.sap.com\/notes\/3604119 ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2025-42999",
             "cwes": [
                 "CWE-502"
@@ -5198,7 +5258,7 @@
             "product": "Tomcat",
             "vulnerabilityName": "Apache Tomcat Path Equivalence Vulnerability",
             "dateAdded": "2025-04-01",
-            "shortDescription": "Apache Tomcat contains a path equivalence vulnerability that allows a remote attacker to execute code, disclose information, or inject malicious content via a partial PUT request.",
+            "shortDescription": "Apache Tomcat contains a path equivalence vulnerability that allows a remote attacker to execute code, disclose information, or inject malicious content via a partial PUT request. This vulnerability can be chained with CVE\u20112026\u201134486.",
             "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
             "dueDate": "2025-04-22",
             "knownRansomwareCampaignUse": "Unknown",
@@ -5966,7 +6026,7 @@
             "shortDescription": "CyberoamOS (CROS) contains a SQL injection vulnerability in the WebAdmin that allows an unauthenticated attacker to execute arbitrary SQL statements remotely.",
             "requiredAction": "The impacted product is end-of-life (EoL) and\/or end-of-service (EoS). Users should discontinue utilization of the product.",
             "dueDate": "2025-02-27",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/support.sophos.com\/support\/s\/article\/KBA-000007526 ; https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2020-29574",
             "cwes": [
                 "CWE-89"
@@ -7231,7 +7291,7 @@
             "shortDescription": "Microsoft SQL Server Reporting Services contains a deserialization vulnerability when handling page requests incorrectly. An authenticated attacker can exploit this vulnerability to execute code in the context of the Report Server service account.",
             "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
             "dueDate": "2024-10-09",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/msrc.microsoft.com\/update-guide\/en-US\/advisory\/CVE-2020-0618  ;  https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2020-0618",
             "cwes": [
                 "CWE-502"
@@ -7932,7 +7992,7 @@
             "shortDescription": "Rejetto HTTP File Server contains an improper neutralization of special elements used in a template engine vulnerability. This allows a remote, unauthenticated attacker to execute commands on the affected system by sending a specially crafted HTTP request.",
             "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
             "dueDate": "2024-07-30",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "The patched Rejetto HTTP File Server (HFS) is version 3: https:\/\/github.com\/rejetto\/hfs?tab=readme-ov-file#installation, https:\/\/www.rejetto.com\/hfs\/ ;   https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2024-23692",
             "cwes": [
                 "CWE-1336"
@@ -13100,7 +13160,7 @@
             "shortDescription": "The Red Hat polkit pkexec utility contains an out-of-bounds read and write vulnerability that allows for privilege escalation with administrative rights.",
             "requiredAction": "Apply updates per vendor instructions.",
             "dueDate": "2022-07-18",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2021-4034",
             "cwes": [
                 "CWE-787"
@@ -15994,7 +16054,7 @@
             "shortDescription": "The Microsoft JScript nd VBScript engines, as used in Internet Explorer and other products, allow attackers to execute remote code or cause a denial of service (memory corruption) via a crafted web site.",
             "requiredAction": "Apply updates per vendor instructions.",
             "dueDate": "2022-04-18",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2016-0189",
             "cwes": [
                 "CWE-119"
@@ -19463,7 +19523,7 @@
             "shortDescription": "Microsoft Win32k contains an unspecified vulnerability that allows for privilege escalation.",
             "requiredAction": "Apply updates per vendor instructions.",
             "dueDate": "2022-02-18",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2022-21882",
             "cwes": [
                 "CWE-787"
@@ -21726,7 +21786,7 @@
             "shortDescription": "Fortinet FortiOS contains a default configuration vulnerability that may allow an unauthenticated attacker on the same subnet to intercept sensitive information by impersonating the Lightweight Directory Access Protocol (LDAP) server.",
             "requiredAction": "Apply updates per vendor instructions.",
             "dueDate": "2022-05-03",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2019-5591",
             "cwes": [
                 "CWE-306"
@@ -22785,7 +22845,7 @@
             "shortDescription": "Microsoft Win32k contains an unspecified vulnerability due to it failing to properly handle objects in memory causing privilege escalation. Successful exploitation allows an attacker to run code in kernel mode.",
             "requiredAction": "Apply updates per vendor instructions.",
             "dueDate": "2022-05-03",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2019-0803",
             "cwes": []
         },
@@ -22970,7 +23030,7 @@
             "shortDescription": "Microsoft Office contains a memory corruption vulnerability due to the way objects are handled in memory. Successful exploitation allows for remote code execution in the context of the current user. This vulnerability is known to be chained with CVE-2018-0798.",
             "requiredAction": "Apply updates per vendor instructions.",
             "dueDate": "2022-05-03",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2018-0802",
             "cwes": [
                 "CWE-787"
@@ -23160,7 +23220,7 @@
             "shortDescription": "Microsoft Internet Explorer contains a memory corruption vulnerability due to how the Scripting Engine handles objects in memory, leading to remote code execution.",
             "requiredAction": "Apply updates per vendor instructions.",
             "dueDate": "2022-05-03",
-            "knownRansomwareCampaignUse": "Unknown",
+            "knownRansomwareCampaignUse": "Known",
             "notes": "https:\/\/nvd.nist.gov\/vuln\/detail\/CVE-2020-0968",
             "cwes": [
                 "CWE-787"

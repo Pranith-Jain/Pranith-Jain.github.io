@@ -28,7 +28,7 @@
     "Defense Sector",
     "Energy Sector"
   ],
-  "aliases": ["tracked as"],
+  "aliases": [],
   "targetedSectors": ["Government", "Defense", "Energy"],
   "targetedCountries": [],
   "tactics": ["Defense Evasion", "Execution", "Persistence", "Command and Control", "Exfiltration"],

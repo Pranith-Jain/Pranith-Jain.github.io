@@ -1,0 +1,94 @@
+{
+  "type": "group",
+  "slug": "xpl0itrs",
+  "name": "xpl0itrs",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-08-15T21:42:27.000Z",
+  "lastSeen": "2026-08-15T21:44:14.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-15",
+      "count": 4
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "dynatrace-db82",
+      "title": "Dynatrace — claimed by xpl0itrs",
+      "pubDate": "2026-08-15T21:44:14.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "oz-hair-amp-beauty-e11a",
+      "title": "Oz Hair &amp; Beauty — claimed by xpl0itrs",
+      "pubDate": "2026-08-15T21:43:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "-96d8",
+      "title": "********* — claimed by xpl0itrs",
+      "pubDate": "2026-08-15T21:43:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "rapidfort-bf9a",
+      "title": "RapidFort — claimed by xpl0itrs",
+      "pubDate": "2026-08-15T21:42:27.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "dynatrace-db82",
+      "victim": "Dynatrace — claimed by xpl0itrs",
+      "sector": "Technology",
+      "country": "AT",
+      "pubDate": "2026-08-15T21:44:14.000Z"
+    },
+    {
+      "id": "oz-hair-amp-beauty-e11a",
+      "victim": "Oz Hair &amp; Beauty — claimed by xpl0itrs",
+      "sector": "Retail & E-Commerce",
+      "country": "AU",
+      "pubDate": "2026-08-15T21:43:39.000Z"
+    },
+    {
+      "id": "-96d8",
+      "victim": "********* — claimed by xpl0itrs",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-08-15T21:43:02.000Z"
+    },
+    {
+      "id": "rapidfort-bf9a",
+      "victim": "RapidFort — claimed by xpl0itrs",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-15T21:42:27.000Z"
+    }
+  ]
+}

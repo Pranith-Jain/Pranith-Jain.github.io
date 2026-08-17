@@ -1,0 +1,11 @@
+{
+  "slug": "project-cav3rn-uses-google-apps-script-and-dns-to-hide-c2-tr-c52c1591",
+  "title": "Project CAV3RN Enhances Espionage Tactics Using Google Apps Script and DNS",
+  "link": "https://threatcluster.io/cluster/project-cav3rn-uses-google-apps-script-and-dns-to-hide-c2-tr-c52c1591?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/project-cav3rn-uses-google-apps-script-and-dns-to-hide-c2-tr-c52c1591",
+  "pubDate": "2026-08-12T07:44:42.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Project CAV3RN is a modular cyberespionage framework targeting organizations in Israel. Recent developments reveal its use of a sophisticated command-and-control (C2) design that dynamically combines direct HTTPS traffic with Google Apps Script relays. This approach enhances resilience and network camouflage, allowing operators to avoid detection. The framework's architecture includes a local broker that manages DLL components and facilitates runtime upgrades. Key components like GoogleService.dll have been identified, which utilize DNS A-record responses to determine the communication method for each transaction. The framework's ongoing evolution indicates a significant threat to Israeli organizations, with potential implications for broader cybersecurity. The attack method leverages existing cloud services to obscure malicious activities.\n\nKey Points:\n• Project CAV3RN targets Israeli organizations with advanced cyberespionage techniques.\n• The framework uses Google Apps Script and DNS to obscure command-and-control traffic.\n• Recent findings indicate a focus on resilience and modularity in its architecture.",
+  "sizeBytes": 1126
+}

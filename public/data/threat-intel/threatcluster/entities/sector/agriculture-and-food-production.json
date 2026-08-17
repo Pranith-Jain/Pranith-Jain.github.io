@@ -4,49 +4,31 @@
   "name": "Agriculture and Food Production",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-14T13:54:40.000Z",
-  "lastSeen": "2026-08-14T20:27:58.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 3 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-16T14:52:11.000Z",
+  "lastSeen": "2026-08-16T15:59:09.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-14",
-      "count": 4
+      "date": "2026-08-16",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ferrari-mangimi-srl-9857",
-      "title": "FERRARI MANGIMI SRL — claimed by qilin",
-      "pubDate": "2026-08-14T20:27:58.000Z"
+      "slug": "mulino-padano-b91f",
+      "title": "Mulino Padano — claimed by qilin",
+      "pubDate": "2026-08-16T15:59:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "granjarinya-com-bc77",
-      "title": "granjarinya.com — claimed by safepay",
-      "pubDate": "2026-08-14T17:28:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "serruya-private-equity-b9e6",
-      "title": "Serruya private equity — claimed by coinbasecartel",
-      "pubDate": "2026-08-14T13:55:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sweet-water-holdings-8bae",
-      "title": "Sweet Water Holdings — claimed by coinbasecartel",
-      "pubDate": "2026-08-14T13:54:40.000Z"
+      "slug": "agricolagalbusera-it-9bb7",
+      "title": "agricolagalbusera.it — claimed by lockbit5",
+      "pubDate": "2026-08-16T14:52:11.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "group",
-      "slug": "coinbasecartel",
-      "name": "coinbasecartel",
-      "weight": 2
-    },
     {
       "type": "group",
       "slug": "qilin",
@@ -55,8 +37,8 @@
     },
     {
       "type": "group",
-      "slug": "safepay",
-      "name": "safepay",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 1
     }
   ],

@@ -1,6 +1,507 @@
 [
   {
     "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "Nmap is used to identify hosts and services on a network.",
+        "Detection": "Monitor network traffic for unusual scanning activity.",
+        "Remediation": "Implement network segmentation and access controls.",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to identify potential targets.",
+            "tactic_id": "TA0043",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Actively scanning a network to gather information.",
+            "technique_id": "T1595",
+            "technique_name": "Active Scanning"
+          }
+        ],
+        "Techniques": ["T1595"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Scan evasion techniques"],
+      "Description": "Nmap is a powerful network scanning tool used for detecting hosts and services.",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Nmap"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": ["nmap -sV 192.168.1.220"],
+      "Companies": [],
+      "Countries": [],
+      "Domains": ["smarttv.isp.net", "macbook.isp.net"],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": ["192.168.1.220", "192.168.1.73", "192.168.1.158"],
+      "Keywords": ["network scanning", "Nmap", "reconnaissance", "penetration testing"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": ["Nmap", "Metasploitable", "VirtualBox"],
+      "Technologies": ["Apache", "OpenSSH", "MySQL"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": ["smarttv.isp.net", "macbook.isp.net"],
+      "Hash_Values": [],
+      "IP_Addresses": ["192.168.1.220", "192.168.1.73", "192.168.1.158"],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Active Scanning"],
+      "Tools": ["Nmap"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Low",
+    "Threat_Actors": [],
+    "Timestamp": "2021-06-21T21:08:00Z",
+    "Title": "Using Nmap for Network Device Discovery and Security Assessment",
+    "Tools": ["Nmap", "Metasploitable", "VirtualBox"],
+    "Victim": {
+      "Access_Vectors": [],
+      "Data_Types_At_Risk": [],
+      "Description": "No significant information detected",
+      "Geography": "",
+      "Impact_Severity": "",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "The Diamond Model analysis for this incident is limited due to the lack of specific adversary information. The use of Nmap suggests a capability for network reconnaissance, but no specific infrastructure or victim details are available. This summary is a placeholder due to insufficient data.",
+    "doc_summary": "The article from Securing Ninja provides a comprehensive guide on using Nmap, a network scanning tool, to identify devices and services on a network. It emphasizes the importance of detecting unauthorized devices for network security and outlines various Nmap features, including service version detection, OS fingerprinting, and evasion techniques. The guide includes command line options for scanning local networks, specifying target hosts, and adjusting scan speeds. It also discusses the potential risks of using Nmap, such as triggering DDoS attacks or being blocked by network defenses. The article serves as a valuable resource for penetration testers and cybersecurity professionals seeking to enhance their network reconnaissance capabilities.",
+    "enrichment": { "processed_at": "2026-02-18T00:30:47.486619+00:00", "source_fields": [], "version": "v1" },
+    "id": "aabe5538f21daeedc78cf666e8c611e894d3f8b1",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "The MITRE ATT&CK kill chain analysis primarily identifies the reconnaissance stage, where Nmap is used to scan networks and identify hosts and services. No further stages of the kill chain are detailed in the provided text, resulting in a limited analysis. This summary is extended to meet the character requirement.",
+    "operational_tags": [],
+    "priority_score": 25,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis is constrained by the lack of specific indicators such as hashes or domain names. The primary tool identified is Nmap, used for network scanning. This summary serves as a placeholder due to the limited data available in the text.",
+    "relevance_score": 49,
+    "sequence": 19141,
+    "source": "https://securingninja.com/how-to-use-nmap-to-find-devices-on-your-network/",
+    "slug": "Using_Nmap_for_Network_Device_Discovery_and_Security_Assessment-019141",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "No significant information detected",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": [],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Low",
+    "Threat_Actors": [],
+    "Timestamp": "2016-07-15T13:29:50Z",
+    "Title": "Analysis of Webpage Loading Issue: Potential Cyber Incident",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": [],
+      "Data_Types_At_Risk": [],
+      "Description": "No significant information detected",
+      "Geography": "",
+      "Impact_Severity": "",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "Information is not available to provide a detailed diamond model summary. Due to a lack of data, no adversary, capability, infrastructure, or victim details could be inferred. This is a fallback summary generated due to insufficient information. To meet the 300-character requirement, additional text is included here. Please note that this placeholder summary lacks substantive insight and is only used because insufficient information was available from the provided text.",
+    "doc_summary": "The document discusses a client challenge where a required part of a site couldn't load, potentially due to browser extensions, network issues, or browser settings. It advises checking the connection, disabling ad blockers, or using a different browser. The text highlights the importance of understanding how browser configurations, network conditions, and extensions can impact web application functionality and security. Keywords include browser extension, network issues, ad blockers, browser settings, web application, cybersecurity, client challenge, and site loading. The document serves as a reminder of the potential cybersecurity implications of client-side configurations and the need for thorough analysis in troubleshooting web application access issues.",
+    "enrichment": { "processed_at": "2026-02-18T00:30:47.486573+00:00", "source_fields": [], "version": "v1" },
+    "id": "8541c29e2b9c25723a290fddabf6180378687978",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "Information is not available to provide a detailed kill chain summary. No relevant tactics or techniques could be identified beyond generic placeholders. This fallback summary is extended to meet the 300-character minimum requirement. It should not be considered a meaningful analytical product, merely a placeholder due to lack of input. Additional padding text ensures the length requirement is met.",
+    "operational_tags": [],
+    "priority_score": 20,
+    "pyramid_of_pain_summary": "Information is not available to provide a meaningful pyramid of pain summary. Since no specific indicators (hashes, IPs, domains, tools, TTPs) were identified, this summary is purely a fallback. To meet the 300-char requirement, extra text is added. This placeholder does not offer substantive insight and is used due to insufficient data.",
+    "relevance_score": 35,
+    "sequence": 19140,
+    "source": "https://www.scribd.com/document/835138488/24-AttackingCommonApplications",
+    "slug": "Analysis_of_Webpage_Loading_Issue__Potential_Cyber_Incident-019140",
+    "shard": 5
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "No significant information detected",
+      "Known_Campaigns": [],
+      "Motivation": "",
+      "Sophistication": "",
+      "Strategic_Objectives": "",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Exploitation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "No significant information detected",
+      "Exploits": [],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": [],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": [],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": [],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": [],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": []
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No significant information detected",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": [],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": [],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "Low",
+    "Threat_Actors": [],
+    "Timestamp": "2026-01-22T08:18:02Z",
+    "Title": "MAR-10386789-1.v1 – Log4Shell | CISA",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": [],
+      "Data_Types_At_Risk": [],
+      "Description": "No significant information detected",
+      "Geography": "",
+      "Impact_Severity": "",
+      "Industry": "",
+      "Security_Posture": "",
+      "Targeted_Assets": []
+    },
+    "diamond_model_summary": "No summary available.",
+    "doc_summary": "",
+    "enrichment": { "processed_at": "2026-02-18T00:30:47.486532+00:00", "source_fields": [], "version": "v1" },
+    "id": "55adba46d0a546f4796645d51b3097c2dd730efe",
+    "index": "data_cached_compute",
+    "kill_chain_summary": "No summary available.",
+    "operational_tags": [],
+    "priority_score": 20,
+    "pyramid_of_pain_summary": "No summary available.",
+    "relevance_score": 30,
+    "sequence": 19139,
+    "source": null,
+    "slug": "MAR-10386789-1.v1___Log4Shell___CISA-019139",
+    "shard": 5
+  },
+  {
+    "Adversary": {
       "Aliases": ["dogedays"],
       "Associated_Groups": [],
       "Description": "The adversary is a group named dogedays involved in cryptomining and ransomware operations.",
@@ -100864,634 +101365,6 @@
     "sequence": 18655,
     "source": "https://gbhackers.com/notepad-flaw-attackers-hijack-update-traffic/",
     "slug": "Notepad___Update_Mechanism_Vulnerability_and_MitM_Attack-018655",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No significant information detected",
-      "Known_Campaigns": [],
-      "Motivation": "",
-      "Sophistication": "",
-      "Strategic_Objectives": "",
-      "TTPs_Employed": []
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities CVE-2025-62474 and CVE-2025-62472 to gain elevated privileges.",
-        "Detection": "Monitor for unusual privilege escalation activities. • Check for unauthorized access attempts on Windows systems.",
-        "Remediation": "Apply security patches provided by Microsoft. • Restrict unnecessary elevated access permissions.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "The adversary is trying to gain higher-level permissions.",
-            "tactic_id": "TA0004",
-            "tactic_name": "Privilege Escalation"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability to elevate privileges.",
-            "technique_id": "T1068",
-            "technique_name": "Exploitation for Privilege Escalation"
-          }
-        ],
-        "Techniques": ["T1068"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of improper access control and memory management vulnerabilities in Windows Remote Access Connection Manager.",
-      "Exploits": ["CVE-2025-62474", "CVE-2025-62472"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Windows systems"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": [
-        "elevation-of-privilege",
-        "vulnerabilities",
-        "CVE-2025-62474",
-        "CVE-2025-62472",
-        "improper access control",
-        "memory management"
-      ],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": [],
-      "Software": ["Windows Remote Access Connection Manager"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-62474", "CVE-2025-62472"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No significant information detected",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of CVE-2025-62474", "Exploitation of CVE-2025-62472"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-12-12T06:41:34Z",
-    "Title": "Elevation-of-Privilege Vulnerabilities in Windows Remote Access Connection Manager",
-    "Tools": ["Windows Remote Access Connection Manager"],
-    "Victim": {
-      "Access_Vectors": ["Local authenticated access"],
-      "Data_Types_At_Risk": [],
-      "Description": "Organizations using Windows Remote Access Connection Manager",
-      "Geography": "",
-      "Impact_Severity": "High",
-      "Industry": "",
-      "Security_Posture": "",
-      "Targeted_Assets": ["Windows systems"]
-    },
-    "diamond_model_summary": "The incident involves two elevation-of-privilege vulnerabilities in Windows Remote Access Connection Manager, identified as CVE-2025-62474 and CVE-2025-62472. These vulnerabilities allow local authenticated attackers to gain elevated privileges due to improper access control and memory management issues. The adversary's capability is focused on exploiting these specific vulnerabilities, with no significant infrastructure or victim details available. Organizations should prioritize patching these vulnerabilities to mitigate potential risks.",
-    "doc_summary": "Microsoft disclosed two elevation-of-privilege vulnerabilities, CVE-2025-62474 and CVE-2025-62472, in Windows Remote Access Connection Manager. These vulnerabilities, rated Important, allow authenticated local attackers to gain elevated privileges due to improper access control and memory management issues. Released on December 9, 2025, they require local access with low privileges to exploit. Both vulnerabilities have a CVSS v3.1 base score of 7.8, indicating high impact potential. Organizations should prioritize patching these vulnerabilities to prevent potential system compromise. The attack vector is local, with low complexity and minimal privileges required. No user interaction is necessary for exploitation. IT administrators should apply security updates promptly and monitor Microsoft security advisories for patch deployment information.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:05.391964+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "2f3c78f422c88c0fc966f2f5a16fb3e43fc61e0e",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain for this incident primarily involves the exploitation stage, where attackers leverage vulnerabilities CVE-2025-62474 and CVE-2025-62472 to escalate privileges on Windows systems. The attack vector is local, with low complexity and minimal privileges required. No significant activity is detected in other stages of the kill chain, such as reconnaissance, weaponization, delivery, installation, command and control, or actions on objectives. Organizations should focus on applying security patches and monitoring for unusual privilege escalation activities.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is limited due to the lack of specific indicators such as hashes, IP addresses, or domains. The primary focus is on the TTPs related to the exploitation of vulnerabilities CVE-2025-62474 and CVE-2025-62472. Organizations should prioritize patching these vulnerabilities and monitoring for related exploitation activities. The absence of detailed indicators limits the ability to provide a comprehensive Pyramid of Pain analysis.",
-    "relevance_score": 41,
-    "sequence": 18654,
-    "source": "https://gbhackers.com/windows-remote-access-connection-manager-flaws/",
-    "slug": "Elevation-of-Privilege_Vulnerabilities_in_Windows_Remote_Access_Connecti-018654",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Threat actors exploiting a zero-day vulnerability in Gogs for RCE.",
-      "Known_Campaigns": [],
-      "Motivation": "Potentially financial or strategic gain through server control.",
-      "Sophistication": "High, due to the use of zero-day exploits and automated attacks.",
-      "Strategic_Objectives": "Gain control over vulnerable Gogs servers for further exploitation.",
-      "TTPs_Employed": ["Exploitation of zero-day vulnerabilities", "Use of symbolic links for path traversal"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of Gogs zero-day vulnerability for RCE.",
-        "Detection": "Monitor for unusual symbolic link creation in repositories. • Detect unauthorized changes to SSH configuration files.",
-        "Remediation": "Implement strict validation for symbolic link destinations. • Apply available patches and updates to Gogs.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the target system.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting a vulnerability in a public-facing application.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Installation of reverse SSH shells for persistence.",
-        "Detection": "Monitor for creation of scheduled tasks related to SSH connections.",
-        "Remediation": "Review and restrict repository creation permissions.",
-        "Stage": "Installation",
-        "Tactics": [
-          {
-            "tactic_description": "Maintaining access to the system.",
-            "tactic_id": "TA0003",
-            "tactic_name": "Persistence"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Creating or modifying scheduled tasks to execute code.",
-            "technique_id": "T1053",
-            "technique_name": "Scheduled Task/Job"
-          }
-        ],
-        "Techniques": ["T1053"]
-      },
-      {
-        "Description": "Use of Supershell framework for C2 operations.",
-        "Detection": "Monitor for unusual outbound SSH connections.",
-        "Remediation": "Implement network segmentation to limit C2 communication.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Establishing a command and control channel.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using web protocols for C2 communication.",
-            "technique_id": "T1071.001",
-            "technique_name": "Application Layer Protocol: Web Protocols"
-          }
-        ],
-        "Techniques": ["T1071.001"]
-      },
-      {
-        "Description": "Overwriting SSH configuration files for RCE.",
-        "Detection": "Detect unauthorized modifications to system files.",
-        "Remediation": "Regularly audit and monitor critical system files.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Evading detection and defenses.",
-            "tactic_id": "TA0005",
-            "tactic_name": "Defense Evasion"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Disabling or modifying security tools.",
-            "technique_id": "T1562.001",
-            "technique_name": "Impair Defenses: Disable or Modify Tools"
-          }
-        ],
-        "Techniques": ["T1562.001"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of Gogs zero-day vulnerability for RCE.",
-      "Exploits": ["CVE-2025-8110"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": ["Reverse SSH shells"],
-      "Tools": ["Supershell"],
-      "Zero_Days": ["CVE-2025-8110"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["servers"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Wiz"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["zero-day", "vulnerability", "remote code execution", "symbolic link", "path traversal"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["Gogs"],
-      "Technologies": ["Git"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-8110", "CVE-2024-55947"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": ["SSH"],
-      "Description": "Compromised Gogs servers used for C2 operations.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Symbolic link exploitation", "Remote code execution"],
-      "Tools": ["Supershell"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-12-12T05:22:06Z",
-    "Title": "Zero-Day Vulnerability in Gogs Exploited for Remote Code Execution",
-    "Tools": ["Supershell", "Gogs"],
-    "Victim": {
-      "Access_Vectors": ["Remote"],
-      "Data_Types_At_Risk": ["System files"],
-      "Description": "Public-facing Gogs instances vulnerable to zero-day exploit.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to lack of patch.",
-      "Targeted_Assets": ["Gogs servers"]
-    },
-    "diamond_model_summary": "The incident involves a zero-day vulnerability in Gogs, exploited by threat actors to achieve remote code execution. The adversary uses the Supershell framework for persistence and control, targeting public-facing Gogs instances globally. The capability includes exploiting symbolic link validation failures, with infrastructure comprising compromised servers. Victims are primarily in the technology sector, with high impact severity due to the lack of available patches.",
-    "doc_summary": "Security researchers have identified a zero-day vulnerability in Gogs, a self-hosted Git service, tracked as CVE-2025-8110. This flaw allows attackers to bypass a previously patched issue, CVE-2024-55947, by exploiting a failure to validate symbolic link destinations. Attackers with repository creation permissions can upload a symbolic link pointing outside the repository, enabling them to overwrite sensitive system files and achieve Remote Code Execution (RCE). Over 700 servers have been compromised, with threat actors using the Supershell framework to establish reverse SSH shells for persistence and control. Approximately 50% of public-facing Gogs instances show signs of infection. No official patch is available as of December 2025, leaving thousands of instances vulnerable.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:05.391897+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "acc559a8d38cef34c2021faf05a2062814e63fcf",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack begins with exploiting a zero-day vulnerability in Gogs, allowing initial access through symbolic link manipulation. Installation of reverse SSH shells follows, enabling persistence. Command and control are maintained via the Supershell framework, with actions on objectives including overwriting SSH configuration files for remote code execution. Detection focuses on monitoring symbolic link creation and unauthorized file modifications, while remediation involves applying patches and restricting permissions.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 88,
-    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes tools like the Supershell framework and TTPs involving symbolic link exploitation and remote code execution. No specific hashes, IP addresses, or domains are identified, limiting the ability to disrupt the adversary's operations. The focus is on detecting behavioral indicators such as unusual SSH connections and unauthorized file changes, with remediation efforts aimed at patching and permission management.",
-    "relevance_score": 51,
-    "sequence": 18653,
-    "source": "https://gbhackers.com/gogs-0-day-actively-exploited/",
-    "slug": "Zero-Day_Vulnerability_in_Gogs_Exploited_for_Remote_Code_Execution-018653",
-    "shard": 5
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary employs sophisticated phishing techniques to exploit OAuth consent in Microsoft accounts.",
-      "Known_Campaigns": ["ConsentFix"],
-      "Motivation": "Access to sensitive information and control over Microsoft accounts.",
-      "Sophistication": "High",
-      "Strategic_Objectives": "Compromise Microsoft accounts without requiring passwords or bypassing MFA.",
-      "TTPs_Employed": ["OAuth consent manipulation", "ClickFix-style social engineering"]
-    },
-    "Analyses": [
-      {
-        "Description": "The adversary identifies potential targets through Google Search results.",
-        "Detection": "Monitor unusual search result patterns leading to phishing sites.",
-        "Remediation": "Educate users on recognizing phishing links in search results.",
-        "Stage": "Reconnaissance",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering information to identify potential targets.",
-            "tactic_id": "TA0043",
-            "tactic_name": "Reconnaissance"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting information about victim identities.",
-            "technique_id": "T1592",
-            "technique_name": "Gather Victim Identity Information"
-          }
-        ],
-        "Techniques": ["T1592"]
-      },
-      {
-        "Description": "The attack uses OAuth consent manipulation to prepare for account compromise.",
-        "Detection": "Monitor OAuth consent requests for unusual patterns.",
-        "Remediation": "Implement stricter OAuth consent policies.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to victim systems.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using valid accounts to gain access.",
-            "technique_id": "T1078",
-            "technique_name": "Valid Accounts"
-          }
-        ],
-        "Techniques": ["T1078"]
-      },
-      {
-        "Description": "Malicious links are delivered via Google Search results.",
-        "Detection": "Analyze search result traffic for anomalies.",
-        "Remediation": "Block access to known phishing domains.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Executing malicious code on victim systems.",
-            "tactic_id": "TA0002",
-            "tactic_name": "Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Tricking users into executing malicious content.",
-            "technique_id": "T1204",
-            "technique_name": "User Execution"
-          }
-        ],
-        "Techniques": ["T1204"]
-      },
-      {
-        "Description": "Victims are tricked into establishing an OAuth connection with the attacker.",
-        "Detection": "Monitor OAuth token usage for anomalies.",
-        "Remediation": "Revoke suspicious OAuth tokens immediately.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Obtaining credentials to access systems.",
-            "tactic_id": "TA0006",
-            "tactic_name": "Credential Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using OAuth tokens to access accounts.",
-            "technique_id": "T1550",
-            "technique_name": "Use Alternate Authentication Material"
-          }
-        ],
-        "Techniques": ["T1550"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "The attacker gains control over the victim's Microsoft account.",
-        "Detection": "Monitor account activity for unusual patterns.",
-        "Remediation": "Implement multi-factor authentication for all accounts.",
-        "Stage": "Command and Control",
-        "Tactics": [
-          {
-            "tactic_description": "Establishing a command and control channel.",
-            "tactic_id": "TA0011",
-            "tactic_name": "Command and Control"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Using application layer protocols for C2.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      },
-      {
-        "Description": "The attacker accesses sensitive information and resources.",
-        "Detection": "Monitor access to sensitive resources for anomalies.",
-        "Remediation": "Restrict access to sensitive resources based on need-to-know.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting emails from compromised accounts.",
-            "technique_id": "T1114",
-            "technique_name": "Email Collection"
-          }
-        ],
-        "Techniques": ["T1114"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["IP-based blocking", "Conditional JavaScript loading"],
-      "Description": "The attack leverages OAuth consent manipulation and advanced social engineering techniques.",
-      "Exploits": [],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Azure CLI"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Microsoft accounts"],
-      "Breach_Types": ["Phishing"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft"],
-      "Countries": ["United States", "Indonesia"],
-      "Domains": ["trustpointassurance.com", "fastwaycheck.com", "previewcentral.com"],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": ["United States", "Indonesia"],
-      "Keywords": ["ConsentFix", "OAuth", "phishing", "Azure CLI", "Microsoft accounts"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": ["Compromised websites", "Phishing domains"],
-      "Sectors": ["Technology"],
-      "Software": ["Azure CLI"],
-      "Technologies": ["OAuth", "Azure CLI"],
-      "Threat_Infrastructure": ["Phishing domains"],
-      "Vulnerabilities": []
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "The infrastructure includes compromised legitimate websites and phishing domains.",
-      "Domains": ["trustpointassurance.com", "fastwaycheck.com", "previewcentral.com"],
-      "Hosting_Providers": [],
-      "IPs": ["United States", "Indonesia"],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": ["trustpointassurance.com", "fastwaycheck.com", "previewcentral.com"],
-      "Hash_Values": [],
-      "IP_Addresses": ["United States", "Indonesia"],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["OAuth consent manipulation", "ClickFix-style social engineering"],
-      "Tools": ["Azure CLI"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-12-12T08:48:29Z",
-    "Title": "ConsentFix Phishing Attack on Microsoft Accounts",
-    "Tools": ["Azure CLI"],
-    "Victim": {
-      "Access_Vectors": ["Browser-based OAuth consent"],
-      "Data_Types_At_Risk": ["Account credentials", "Sensitive information"],
-      "Description": "Targets are users of Microsoft accounts, particularly within enterprise environments.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable to OAuth consent manipulation",
-      "Targeted_Assets": ["Microsoft accounts"]
-    },
-    "diamond_model_summary": "The ConsentFix phishing attack is a sophisticated campaign targeting Microsoft accounts by exploiting OAuth consent manipulation. The adversary uses advanced social engineering techniques to trick users into establishing an OAuth connection with the attacker's Azure CLI instance. This attack leverages the implicit trust of Azure CLI within enterprise environments, bypassing traditional security measures. The infrastructure includes compromised legitimate websites and phishing domains, with IP addresses originating from the United States and Indonesia. Victims are primarily users of Microsoft accounts, particularly within the technology sector. The attack's high sophistication and effectiveness highlight the need for enhanced monitoring and user education on OAuth consent risks.",
-    "doc_summary": "Security researchers at Push have identified a sophisticated phishing attack called ConsentFix, targeting Microsoft accounts by manipulating OAuth consent. The attack abuses the Azure CLI OAuth application, a first-party Microsoft tool, to gain implicit trust in enterprise environments. ConsentFix operates within the browser context, bypassing traditional email-based anti-phishing controls by delivering malicious links through Google Search results. The attack involves a fake Cloudflare Turnstile CAPTCHA to filter targets and uses IP-based blocking to prevent unauthorized access. Victims are tricked into establishing an OAuth connection between their Microsoft account and the attacker's Azure CLI instance, granting full account access without passwords or MFA circumvention. The campaign uses advanced detection evasion techniques, including synchronized IP blocking and conditional JavaScript loading. Phishing domains like trustpointassurance.com, fastwaycheck.com, and previewcentral.com are associated with the campaign, with suspicious IP addresses from the United States and Indonesia. Security teams are advised to monitor these indicators and educate users about OAuth consent risks in cloud authentication systems.",
-    "enrichment": { "processed_at": "2026-02-18T00:38:05.391836+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "d158355dbf253a4dbd506b0a2b468026656c8639",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The ConsentFix attack follows a structured kill chain, starting with reconnaissance through Google Search results to identify potential targets. The weaponization phase involves OAuth consent manipulation to prepare for account compromise. Delivery is achieved via malicious links in search results, leading to exploitation where victims establish an OAuth connection with the attacker. The command and control stage involves the attacker gaining control over the victim's Microsoft account, followed by actions on objectives where sensitive information is accessed. The attack's advanced detection evasion techniques and use of trusted infrastructure make it challenging to detect and mitigate.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 98,
-    "pyramid_of_pain_summary": "The ConsentFix attack presents significant challenges in the Pyramid of Pain, with multiple indicators at various levels. The use of phishing domains like trustpointassurance.com, fastwaycheck.com, and previewcentral.com, along with IP addresses from the United States and Indonesia, complicates detection efforts. The attack leverages trusted tools like Azure CLI, making it difficult to distinguish malicious activity from legitimate use. The advanced social engineering techniques and OAuth consent manipulation employed in the attack further increase the difficulty of detection and response. Security teams must focus on monitoring and analyzing these indicators to effectively counter the threat.",
-    "relevance_score": 51,
-    "sequence": 18652,
-    "source": "https://gbhackers.com/consentfix-attack-lets-hackers-hijack-microsoft-accounts/",
-    "slug": "ConsentFix_Phishing_Attack_on_Microsoft_Accounts-018652",
     "shard": 5
   }
 ]

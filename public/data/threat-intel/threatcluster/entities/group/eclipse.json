@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "eclipse",
+  "name": "Eclipse",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-16T16:18:45.000Z",
+  "lastSeen": "2026-08-16T16:18:45.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-16",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "moscord-45c8",
+      "title": "Moscord — claimed by Eclipse",
+      "pubDate": "2026-08-16T16:18:45.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "moscord-45c8",
+      "victim": "Moscord — claimed by Eclipse",
+      "sector": "Not Found",
+      "country": "SG",
+      "pubDate": "2026-08-16T16:18:45.000Z"
+    }
+  ]
+}

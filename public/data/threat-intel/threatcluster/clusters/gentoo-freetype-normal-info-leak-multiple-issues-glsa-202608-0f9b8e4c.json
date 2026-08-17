@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/gentoo-freetype-normal-info-leak-multiple-issues-glsa-202608-0f9b8e4c?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/gentoo-freetype-normal-info-leak-multiple-issues-glsa-202608-0f9b8e4c",
   "pubDate": "2026-08-14T05:16:37.000Z",
-  "sourceCount": 8,
-  "categories": ["8 Sources"],
+  "sourceCount": 11,
+  "categories": ["11 Sources"],
   "description": "A series of high-severity vulnerabilities have been identified across various Gentoo Linux packages, including Apache HTTPD, Exim, Dnsmasq, and others. These vulnerabilities, such as CVE-2026-41163 and CVE-2026-40684, could allow for remote code execution and privilege escalation. Systems running affected versions are at risk, with no known workarounds currently available. The vulnerabilities were disclosed between August 12 and August 14, 2026, and are part of ongoing security advisories from Gentoo. Security professionals are urged to audit Linux privileges to mitigate potential compromises. The vulnerabilities affect a wide range of applications, emphasizing the need for immediate attention from system administrators.\n\nKey Points:\n• Multiple high-severity vulnerabilities found in Gentoo Linux packages.\n• No known workarounds are available for the identified vulnerabilities.\n• Immediate auditing of Linux privileges is recommended to limit risks.",
   "sizeBytes": 961
 }

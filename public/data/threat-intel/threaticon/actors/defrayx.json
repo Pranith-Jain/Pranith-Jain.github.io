@@ -11,7 +11,7 @@
   "originCode": null,
   "sophistication": null,
   "resourceLevel": null,
-  "motivation": null,
+  "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
     "Ransomware",
@@ -19,11 +19,22 @@
     "Healthcare sector",
     "Manufacturing sector",
     "APT-like activity",
+    "Initial Access",
     "Healthcare Targeting"
   ],
-  "aliases": ["Hive0091"],
-  "targetedSectors": [],
-  "targetedCountries": [],
+  "aliases": ["Hive0091", "ArechClient2", "PrintNightmare", "APT28"],
+  "targetedSectors": [
+    "Defense",
+    "Healthcare",
+    "Media",
+    "Financial services",
+    "Manufacturing",
+    "Energy",
+    "Critical infrastructure",
+    "Government",
+    "Information technology"
+  ],
+  "targetedCountries": ["US", "GB", "KP", "CN"],
   "tactics": ["Ransomware", "Initial Access", "Execution", "Defense Evasion", "Credential Access", "Discovery"],
   "techniques": [
     "T1566.002 (Phishing via Email)",

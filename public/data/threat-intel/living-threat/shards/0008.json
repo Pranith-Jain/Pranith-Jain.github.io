@@ -3,6 +3,600 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "No specific adversary identified; vulnerabilities were discovered by security researchers.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential exploitation of vulnerabilities for remote code execution and system compromise.",
+      "Sophistication": "High, due to the nature of the vulnerabilities.",
+      "Strategic_Objectives": "Exploitation of browser vulnerabilities for unauthorized access and control.",
+      "TTPs_Employed": []
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of use-after-free and inappropriate implementation vulnerabilities.",
+        "Detection": "Monitor for unusual browser behavior • Use advanced detection tools",
+        "Remediation": "Apply security patches • Update Chrome to the latest version",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploitation of vulnerabilities to gain initial access.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in client applications to execute code.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of use-after-free and inappropriate implementation vulnerabilities.",
+      "Exploits": ["CVE-2025-10200", "CVE-2025-10201"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual browser behavior", "Use advanced detection tools"],
+    "Extracted_Entities": {
+      "Assets": ["Web browsers"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Google"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-10200", "CVE-2025-10201", "ServiceWorker", "Mojo"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [
+        "Chrome version 140.0.7339.127/.128 for Windows, 140.0.7339.132/.133 for Mac, 140.0.7339.127 for Linux"
+      ],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Google Chrome"],
+      "Technologies": ["ServiceWorker", "Mojo"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-10200", "CVE-2025-10201"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No specific infrastructure identified; vulnerabilities affect Chrome browser components.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply security patches", "Update Chrome to the latest version"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of CVE-2025-10200", "Exploitation of CVE-2025-10201"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [
+      "AddressSanitizer",
+      "MemorySanitizer",
+      "UndefinedBehaviorSanitizer",
+      "Control Flow Integrity",
+      "libFuzzer",
+      "AFL"
+    ],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-09-10T05:16:08Z",
+    "Title": "Google Chrome Security Update for Critical Vulnerabilities CVE-2025-10200 and CVE-2025-10201",
+    "Tools": ["Google Chrome"],
+    "Victim": {
+      "Access_Vectors": ["Remote code execution"],
+      "Data_Types_At_Risk": ["User data", "System integrity"],
+      "Description": "Users of Google Chrome across Windows, Mac, and Linux platforms.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable until patched",
+      "Targeted_Assets": ["Web browsers", "User systems"]
+    },
+    "diamond_model_summary": "The incident involves critical vulnerabilities in Google Chrome, specifically CVE-2025-10200 and CVE-2025-10201. These vulnerabilities were discovered by security researchers and could allow remote code execution and system compromise. The adversary is not specifically identified, but the potential impact is significant due to the widespread use of Chrome. The vulnerabilities affect the ServiceWorker and Mojo components, posing risks to user systems globally. Google's rapid response and patching efforts highlight the importance of timely updates to mitigate such threats.",
+    "doc_summary": "Google has released an urgent security update for Chrome to address two significant vulnerabilities, including a critical remote code execution flaw that could allow attackers to completely compromise user systems. The stable channel update brings Chrome to version 140.0.7339.127/.128 for Windows, 140.0.7339.132/.133 for Mac, and 140.0.7339.127 for Linux. The most severe issue fixed in this update is CVE-2025-10200, a critical use-after-free vulnerability in Chrome’s ServiceWorker component. This flaw carries the highest severity rating and earned security researcher Looben Yang a substantial $43,000 bounty for the discovery. Use-after-free vulnerabilities occur when programs continue to use memory after it has been freed, potentially allowing attackers to execute malicious code remotely. ServiceWorkers are background scripts that enable web applications to function offline and handle network requests. A vulnerability in this component poses significant risks as it operates with elevated privileges and can affect how web pages interact with the browser’s core functionality. The flaw was reported on August 22, 2025, demonstrating Google’s commitment to rapid vulnerability disclosure and patching. The second vulnerability, CVE-2025-10201, affects Chrome’s Mojo inter-process communication system and received a high severity rating. Security researchers Sahan Fernando and an anonymous contributor discovered this inappropriate implementation flaw, earning a combined $30,000 reward. Mojo facilitates secure communication between different Chrome processes, making vulnerabilities in this system particularly concerning for browser security architecture. Inappropriate implementation vulnerabilities typically involve incorrect handling of security boundaries or improper validation of data passing between system components. While not as immediately exploitable as use-after-free flaws, these issues can still lead to privilege escalation or security bypass scenarios. Chrome’s security team emphasizes that the update will roll out gradually over the coming days and weeks to ensure stability across the massive user base. The company maintains its policy of restricting access to detailed vulnerability information until most users receive the security patches, preventing potential exploitation during the update period. Google continues leveraging advanced detection tools including AddressSanitizer, MemorySanitizer, UndefinedBehaviorSanitizer, Control Flow Integrity, libFuzzer, and AFL to identify security issues during development. This proactive approach helps prevent vulnerabilities from reaching stable releases. Users should immediately update their Chrome browsers through the Help menu’s “About Google Chrome” option to ensure protection against these critical security flaws.",
+    "enrichment": { "processed_at": "2026-02-18T00:36:34.733691+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "a829c46c902de68e79c0ad3941326dff659d1b21",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The incident primarily involves the exploitation stage of the cyber kill chain, with vulnerabilities CVE-2025-10200 and CVE-2025-10201 being exploited for potential remote code execution. The vulnerabilities affect Chrome's ServiceWorker and Mojo components, posing significant risks to user systems. Google's security update aims to mitigate these threats by patching the vulnerabilities. The incident underscores the importance of applying security patches promptly to prevent exploitation and maintain system integrity.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 89,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs related to the exploitation of vulnerabilities CVE-2025-10200 and CVE-2025-10201. These vulnerabilities affect Chrome's ServiceWorker and Mojo components, posing significant risks to user systems. The incident highlights the importance of timely patching and monitoring for unusual browser behavior to detect potential exploitation. Google's use of advanced detection tools helps prevent vulnerabilities from reaching stable releases, emphasizing the need for proactive security measures.",
+    "relevance_score": 41,
+    "sequence": 17662,
+    "source": "https://gbhackers.com/chrome-security-update-fixes-critical-flaw/",
+    "slug": "Google_Chrome_Security_Update_for_Critical_Vulnerabilities_CVE-2025-1020-017662",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Authenticated attackers exploiting SAP NetWeaver vulnerability",
+      "Known_Campaigns": [],
+      "Motivation": "System compromise and data exfiltration",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Gain unauthorized access and control over SAP systems",
+      "TTPs_Employed": ["Credential stuffing", "Social engineering"]
+    },
+    "Analyses": [
+      {
+        "Description": "Attackers gather low-privileged credentials",
+        "Detection": "Monitor for unusual login attempts",
+        "Remediation": "Implement multi-factor authentication",
+        "Stage": "Reconnaissance",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering information to plan future operations",
+            "tactic_id": "TA0001",
+            "tactic_name": "Reconnaissance"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting credentials through social engineering or credential stuffing",
+            "technique_id": "T1589",
+            "technique_name": "Gather Victim Identity Information"
+          }
+        ],
+        "Techniques": ["T1589"]
+      },
+      {
+        "Description": "Crafting malicious multipart requests",
+        "Detection": "Inspect multipart/form-data requests",
+        "Remediation": "Validate file types and enforce RBAC",
+        "Stage": "Weaponization",
+        "Tactics": [
+          {
+            "tactic_description": "Preparing a payload to exploit a vulnerability",
+            "tactic_id": "TA0002",
+            "tactic_name": "Weaponization"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Creating malicious files for upload",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "Uploading malicious files to the Deploy Web Service",
+        "Detection": "Monitor file uploads to deployment endpoints",
+        "Remediation": "Restrict access to deployment services",
+        "Stage": "Delivery",
+        "Tactics": [
+          {
+            "tactic_description": "Transmitting the payload to the target",
+            "tactic_id": "TA0003",
+            "tactic_name": "Delivery"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Uploading files to a target system",
+            "technique_id": "T1105",
+            "technique_name": "Ingress Tool Transfer"
+          }
+        ],
+        "Techniques": ["T1105"]
+      },
+      {
+        "Description": "Executing uploaded malicious files",
+        "Detection": "Monitor execution of uploaded files",
+        "Remediation": "Apply security patches immediately",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting a vulnerability to execute code",
+            "tactic_id": "TA0004",
+            "tactic_name": "Exploitation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Executing scripts or commands on a target system",
+            "technique_id": "T1059",
+            "technique_name": "Command and Scripting Interpreter"
+          }
+        ],
+        "Techniques": ["T1059"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential data exfiltration and lateral movement",
+        "Detection": "Monitor for unusual data transfers",
+        "Remediation": "Implement data loss prevention solutions",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Stealing data from a compromised system",
+            "tactic_id": "TA0005",
+            "tactic_name": "Exfiltration"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exfiltrating data using automated tools",
+            "technique_id": "T1020",
+            "technique_name": "Automated Exfiltration"
+          }
+        ],
+        "Techniques": ["T1020"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Use of low-privileged credentials"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of insecure file upload and access control weaknesses",
+      "Exploits": ["CVE-2025-42922"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Malicious multipart requests"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unexpected URL access patterns"],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor POST requests to DeployWS endpoints"],
+    "Extracted_Entities": {
+      "Assets": ["SAP systems"],
+      "Breach_Types": ["Remote code execution"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Redrays"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-42922", "Deploy Web Service", "RBAC"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["SAP Security Note 3643865"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Enterprise software"],
+      "Software": ["SAP NetWeaver AS Java"],
+      "Technologies": ["multipart/form-data"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-42922"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "SAP NetWeaver AS Java Deploy Service",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply patches", "Restrict access to deployment services"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Credential stuffing", "Social engineering"],
+      "Tools": ["Malicious multipart requests"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Audit logging", "Dependency analysis"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-09-10T06:10:41Z",
+    "Title": "Critical Vulnerability in SAP NetWeaver AS Java Deploy Service",
+    "Tools": ["Malicious multipart requests", "SAP NetWeaver AS Java"],
+    "Victim": {
+      "Access_Vectors": ["Web service endpoints"],
+      "Data_Types_At_Risk": ["System data", "User credentials"],
+      "Description": "Organizations using SAP NetWeaver AS Java",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Enterprise software",
+      "Security_Posture": "Vulnerable due to insufficient access controls",
+      "Targeted_Assets": ["SAP systems", "Sensitive data"]
+    },
+    "diamond_model_summary": "The incident involves authenticated attackers exploiting a vulnerability in SAP NetWeaver AS Java Deploy Service, tracked as CVE-2025-42922. The adversaries leverage insecure file upload mechanisms to execute arbitrary code, potentially compromising entire systems. The attack targets organizations using SAP systems, highlighting the need for robust access controls and file validation.",
+    "doc_summary": "A critical security vulnerability, CVE-2025-42922, has been discovered in SAP NetWeaver AS Java Deploy Service, allowing authenticated attackers to execute arbitrary code and potentially compromise entire systems. The flaw affects the Deploy Web Service component, stemming from insecure file upload mechanisms and insufficient access control validation. Attackers can exploit this by obtaining low-privileged credentials through methods like credential stuffing or social engineering, then uploading malicious files to the system. Organizations are urged to apply patches from SAP Security Note 3643865 and implement monitoring for indicators of compromise, such as suspicious POST requests to DeployWS endpoints. The vulnerability highlights the importance of robust access controls and file validation in enterprise applications.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:51.455472+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "ffad8dc6cded0ef6be015f58b831afc064ce9ddf",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack begins with reconnaissance, where attackers gather low-privileged credentials through methods like credential stuffing. They then weaponize by crafting malicious multipart requests, which are delivered to the SAP Deploy Web Service. Exploitation occurs when these files are executed, leading to potential data exfiltration and lateral movement. Organizations must apply patches and monitor for indicators of compromise.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 100,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident includes TTPs such as credential stuffing and social engineering, as well as tools like malicious multipart requests. No specific hash values, IP addresses, or domain names were identified. The focus is on detecting and mitigating the exploitation of insecure file upload mechanisms and insufficient access controls in SAP systems.",
+    "relevance_score": 53,
+    "sequence": 17661,
+    "source": "https://gbhackers.com/critical-sap-netweaver-flaw/",
+    "slug": "Critical_Vulnerability_in_SAP_NetWeaver_AS_Java_Deploy_Service-017661",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential local attackers with access to affected systems",
+      "Known_Campaigns": [],
+      "Motivation": "Privilege escalation",
+      "Sophistication": "Moderate",
+      "Strategic_Objectives": "Gain elevated privileges on compromised systems",
+      "TTPs_Employed": ["Use-after-free exploitation"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of use-after-free vulnerabilities in BitLocker",
+        "Detection": "Monitor for unusual BitLocker service behavior",
+        "Remediation": "Apply security patches immediately",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the system through local means",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to gain higher privileges",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Potential for privilege escalation and system control",
+        "Detection": "Audit local user accounts for unauthorized privilege changes",
+        "Remediation": "Restrict local user privileges",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining higher-level permissions on the system",
+            "tactic_id": "TA0004",
+            "tactic_name": "Privilege Escalation"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to gain higher privileges",
+            "technique_id": "T1068",
+            "technique_name": "Exploitation for Privilege Escalation"
+          }
+        ],
+        "Techniques": ["T1068"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of local access vulnerabilities"],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of use-after-free vulnerabilities in BitLocker",
+      "Exploits": ["CVE-2025-54911", "CVE-2025-54912"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unusual BitLocker service behavior"],
+    "Extracted_Entities": {
+      "Assets": ["Encrypted drives"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Microsoft"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": ["BitLocker"],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["CVE-2025-54911", "CVE-2025-54912", "use-after-free", "BitLocker"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["September 2025 security updates"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Technology"],
+      "Software": ["Windows BitLocker"],
+      "Technologies": ["Drive encryption"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-54911", "CVE-2025-54912"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Local access required for exploitation",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply security patches", "Restrict local user privileges"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Use-after-free exploitation"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Endpoint protection measures"],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-09-10T07:10:40Z",
+    "Title": "Critical Use-After-Free Vulnerabilities in Windows BitLocker",
+    "Tools": ["Windows BitLocker"],
+    "Victim": {
+      "Access_Vectors": ["Local access"],
+      "Data_Types_At_Risk": ["Encrypted data"],
+      "Description": "Users and administrators of Windows 10 and 11 systems with BitLocker enabled",
+      "Geography": "Global",
+      "Impact_Severity": "High",
+      "Industry": "Technology",
+      "Security_Posture": "Vulnerable to privilege escalation",
+      "Targeted_Assets": ["BitLocker encrypted drives"]
+    },
+    "diamond_model_summary": "The incident involves local attackers exploiting use-after-free vulnerabilities in Windows BitLocker, identified as CVE-2025-54911 and CVE-2025-54912. These vulnerabilities allow for privilege escalation, potentially leading to full system control. The adversary's capability is moderate, requiring local access and some user interaction. The infrastructure is limited to local access, with victims being users of Windows 10 and 11 systems with BitLocker enabled. The impact severity is high, given the potential for privilege escalation and system compromise.",
+    "doc_summary": "Microsoft has issued a warning about two critical security vulnerabilities in Windows BitLocker, identified as CVE-2025-54911 and CVE-2025-54912. These use-after-free flaws, disclosed on September 9, 2025, could allow attackers to gain elevated privileges on affected systems. BitLocker, a widely used drive encryption feature, is vulnerable to these issues, which require local access and some user interaction. The vulnerabilities have CVSS scores of 7.3 and 7.8, respectively. Microsoft has released security updates for Windows 10 and 11 to address these flaws. Administrators are urged to apply patches immediately to prevent potential attacks. Systems unable to update should restrict local user privileges and monitor for unusual BitLocker behavior. Disabling BitLocker is not recommended as a long-term solution. The vulnerabilities highlight the importance of timely patch management and endpoint protection measures.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:51.455430+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "4a8538da94ac3e666e1db57d1484e2adfd6792d0",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack involves exploiting use-after-free vulnerabilities in Windows BitLocker, allowing local attackers to gain elevated privileges. The exploitation stage is critical, with CVE-2025-54911 and CVE-2025-54912 being the primary vulnerabilities. The attack requires local access and some user interaction, with the potential for privilege escalation and system control. Detection involves monitoring BitLocker service behavior and auditing local user accounts. Remediation includes applying security patches and restricting local user privileges.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 72,
+    "pyramid_of_pain_summary": "The Pyramid of Pain for this incident is primarily focused on TTPs, as the vulnerabilities CVE-2025-54911 and CVE-2025-54912 are exploited for privilege escalation. No specific hash values, IP addresses, or domain names are identified. The primary challenge is detecting and mitigating the use-after-free exploitation technique. The scoring reflects the emphasis on TTPs, with a raw score of 10 out of a possible 32, indicating a significant focus on understanding and mitigating the exploitation technique.",
+    "relevance_score": 43,
+    "sequence": 17660,
+    "source": "https://gbhackers.com/windows-bitlocker-flaw/",
+    "slug": "Critical_Use-After-Free_Vulnerabilities_in_Windows_BitLocker-017660",
+    "shard": 8
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "Potential adversaries include cybercriminals or state-sponsored actors targeting PostgreSQL environments.",
       "Known_Campaigns": [],
       "Motivation": "Access to sensitive data and potential for further cyberattacks.",
@@ -97137,564 +97731,6 @@
     "sequence": 17164,
     "source": "https://gbhackers.com/vim-vulnerability-cve-2025-27423/",
     "slug": "CVE-2025-27423__High-Severity_Vulnerability_in_Vim_s_tar.vim_Plugin-017164",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential internal threat actors or compromised accounts exploiting weak encryption.",
-      "Known_Campaigns": [],
-      "Motivation": "Access to sensitive network information for potential exploitation.",
-      "Sophistication": "Moderate, due to the ability to exploit weak encryption mechanisms.",
-      "Strategic_Objectives": "Gain access to sensitive system inventory data.",
-      "TTPs_Employed": ["Use of hardcoded encryption keys", "Exploitation of weak encryption mechanisms"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of weak encryption in Docusnap's Windows client software.",
-        "Detection": "Monitor for unauthorized access to Docusnap inventory files.",
-        "Remediation": "Implement strong encryption practices and rotate keys regularly.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities in client software to execute unauthorized actions.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in client software to execute unauthorized actions.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Access to sensitive system inventory data for potential exploitation.",
-        "Detection": "Monitor for unusual access patterns to sensitive data.",
-        "Remediation": "Restrict access to sensitive data and implement network segmentation.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Accessing sensitive data to gain further access or information.",
-            "tactic_id": "T1003",
-            "tactic_name": "Credential Dumping"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Accessing sensitive data to gain further access or information.",
-            "technique_id": "T1003",
-            "technique_name": "Credential Dumping"
-          }
-        ],
-        "Techniques": ["T1003"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": ["Exploitation of weak encryption mechanisms."],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Bypassing security through obscurity measures"],
-      "Description": "Exploitation of weak encryption in Docusnap's Windows client software.",
-      "Exploits": ["CVE-2025-26849"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Python script for decryption"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": ["Unusual access patterns to sensitive data."],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unauthorized access to Docusnap inventory files."],
-    "Extracted_Entities": {
-      "Assets": ["System inventory files"],
-      "Breach_Types": ["Data exposure"],
-      "Command_Lines_Or_Scripts": ["Python script"],
-      "Companies": ["RedTeam Pentesting GmbH"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": ["AES-256-CBC"],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["vulnerability", "encryption", "Docusnap", "CVE-2025-26849"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["Version 14"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Information Technology"],
-      "Software": ["Docusnap"],
-      "Technologies": ["AES-256-CBC"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2025-26849"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Docusnap's IT infrastructure documentation tool and its Windows client software.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Implement strong encryption practices and rotate keys regularly."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of weak encryption mechanisms"],
-      "Tools": ["Python script"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["Network segmentation", "Real-time auditing"],
-    "Severity": "Moderate",
-    "Threat_Actors": [],
-    "Timestamp": "2025-03-04T11:13:00Z",
-    "Title": "Docusnap Vulnerability Exposes Sensitive Network Information",
-    "Tools": ["Python script for decryption", "Python script", "Docusnap"],
-    "Victim": {
-      "Access_Vectors": ["Docusnap Windows client software"],
-      "Data_Types_At_Risk": ["Installed applications", "Firewall configurations", "Local administrator accounts"],
-      "Description": "Organizations using Docusnap for IT infrastructure documentation.",
-      "Geography": "Global",
-      "Impact_Severity": "Medium",
-      "Industry": "Information Technology",
-      "Security_Posture": "Medium",
-      "Targeted_Assets": ["System inventory files", "Network configurations"]
-    },
-    "diamond_model_summary": "The Docusnap vulnerability incident involves potential internal threat actors exploiting weak encryption mechanisms in Docusnap's Windows client software. The adversary's capability includes using a Python script to decrypt sensitive system inventory files. The infrastructure affected is Docusnap's IT documentation tool, and the victims are organizations using Docusnap for IT infrastructure documentation. The incident highlights the need for strong encryption practices and third-party risk management.",
-    "doc_summary": "A recently disclosed vulnerability in Docusnap's Windows client software (CVE-2025-26849) allows attackers to decrypt sensitive system inventory files using a hardcoded encryption key, exposing critical network information. Cybersecurity researchers at RedTeam Pentesting GmbH found that inventory files generated by Docusnap Client for Windows, containing details like installed applications, firewall configurations, and local administrator accounts, used weak encryption mechanisms. Docusnap, a leading IT infrastructure documentation tool, employs client agents to gather system data from Windows domains, storing it as XML files encrypted with AES-256-CBC before uploading to a central server. However, security analysts discovered two critical implementation flaws: a static encryption key and inadequate vendor remediation. Despite being notified in November 2024, Docusnap's initial patch merely rotated the AES key while retaining the flawed static encryption approach. The vulnerability, rated as medium severity (CVSSv3: 5.3), doesn't expose credentials or enable direct system access but lowers the barrier for internal threat actors. Organizations using Docusnap for regulatory compliance documentation may inadvertently create concentrated repositories of sensitive data, violating GDPR and HIPAA requirements. Until a cryptographically sound fix is released, enterprises should implement workarounds like restricting SMB share permissions and monitoring file access patterns.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.707569+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "fe66e0971b5e5ed15bfcb396ccb3a7048860cdfd",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The Docusnap vulnerability incident primarily involves the exploitation stage, where weak encryption in Docusnap's Windows client software is exploited to access sensitive system inventory data. The adversary's actions on objectives include accessing sensitive data for potential exploitation. Detection involves monitoring for unauthorized access to Docusnap inventory files, and remediation includes implementing strong encryption practices and network segmentation. The incident underscores the importance of robust encryption and access controls.",
-    "operational_tags": [],
-    "priority_score": 52,
-    "pyramid_of_pain_summary": "The Docusnap vulnerability incident involves indicators such as a hardcoded encryption key and a Python script used for decryption. These indicators fall under the 'Tools' and 'TTPs' categories in the Pyramid of Pain. The incident highlights the challenges of addressing hardcoded credentials and weak encryption mechanisms. Organizations should focus on implementing strong encryption practices and monitoring for unauthorized access to sensitive data to mitigate the impact of such vulnerabilities.",
-    "relevance_score": 51,
-    "sequence": 17163,
-    "source": "https://gbhackers.com/docusnap-for-windows-flaw/",
-    "slug": "Docusnap_Vulnerability_Exposes_Sensitive_Network_Information-017163",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Unknown threat actors exploiting zero-day vulnerabilities in Cleo's platform.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential financial gain through identity theft.",
-      "Sophistication": "Moderate, due to the use of zero-day vulnerabilities.",
-      "Strategic_Objectives": "Access to sensitive personal information for potential misuse.",
-      "TTPs_Employed": ["Exploitation of zero-day vulnerabilities"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of zero-day vulnerabilities in Cleo's platform.",
-        "Detection": "Monitor for unusual access patterns to the file transfer platform.",
-        "Remediation": "Patch and update systems to close vulnerabilities.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system through vulnerabilities.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Unauthorized access to sensitive personal information.",
-        "Detection": "Monitor for data exfiltration activities.",
-        "Remediation": "Implement data loss prevention solutions.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Gathering data of interest from compromised systems.",
-            "tactic_id": "TA0009",
-            "tactic_name": "Collection"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Collecting data from local systems.",
-            "technique_id": "T1005",
-            "technique_name": "Data from Local System"
-          }
-        ],
-        "Techniques": ["T1005"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of zero-day vulnerabilities in file transfer platforms.",
-      "Exploits": ["Zero-day vulnerabilities"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": ["Exploited in October and December 2024"]
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Personal information"],
-      "Breach_Types": ["Data breach"],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Hertz Corporation", "Cleo Communications US, LLC", "Kroll"],
-      "Countries": ["United States of America"],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["data breach", "identity theft", "zero-day vulnerabilities", "file transfer platform"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Car Rental"],
-      "Software": [],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Zero-day vulnerabilities"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Cleo Communications US, LLC's file transfer platform.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Implement regular security audits and vulnerability assessments."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of zero-day vulnerabilities"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2025-04-15T10:57:44Z",
-    "Title": "Hertz Data Breach via Cleo Communications File Transfer Platform",
-    "Tools": [],
-    "Victim": {
-      "Access_Vectors": ["Exploited file transfer platform"],
-      "Data_Types_At_Risk": [
-        "Names",
-        "Contact details",
-        "Dates of birth",
-        "Credit card information",
-        "Drivers’ license data"
-      ],
-      "Description": "Customers of Hertz, Dollar, and Thrifty brands.",
-      "Geography": "United States of America",
-      "Impact_Severity": "High",
-      "Industry": "Car Rental",
-      "Security_Posture": "Compromised due to third-party vendor vulnerabilities.",
-      "Targeted_Assets": ["Personal information"]
-    },
-    "diamond_model_summary": "The Hertz data breach involved unknown adversaries exploiting zero-day vulnerabilities in Cleo Communications' file transfer platform. The adversaries demonstrated moderate sophistication by leveraging these vulnerabilities to access sensitive personal information of Hertz customers. The infrastructure involved was Cleo's platform, and the victims were customers of Hertz, Dollar, and Thrifty brands. The breach highlights the importance of securing third-party vendor platforms to protect sensitive data.",
-    "doc_summary": "The Hertz Corporation confirmed a data breach affecting customers of its Hertz, Dollar, and Thrifty brands due to an attack on Cleo Communications US, LLC's file transfer platform. Exploited zero-day vulnerabilities in October and December 2024 allowed unauthorized access to sensitive personal information, including names, contact details, dates of birth, credit card information, and more. Hertz became aware of the breach on February 10, 2025, and completed an analysis by April 2, 2025. No fraudulent use of data has been reported, but Hertz offers free identity monitoring services through Kroll. The incident has been reported to law enforcement and regulators.",
-    "enrichment": { "processed_at": "2026-02-18T00:35:29.707544+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "a48bce7b80b471c22ea0b6b023c003d53226c907",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The attack on Hertz involved exploiting zero-day vulnerabilities in Cleo's file transfer platform, allowing unauthorized access to sensitive personal information. The exploitation stage was critical, as it enabled initial access and subsequent data collection. No significant activity was detected in other stages of the kill chain, such as weaponization, delivery, installation, or command and control. The breach underscores the need for robust detection and remediation strategies to prevent similar incidents.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 70,
-    "pyramid_of_pain_summary": "The Hertz data breach primarily involved the exploitation of zero-day vulnerabilities, which are challenging to detect and remediate. No specific indicators such as hash values, IP addresses, or domain names were identified. The incident highlights the difficulty of addressing zero-day vulnerabilities and the importance of proactive security measures. The lack of specific indicators limits the ability to apply the Pyramid of Pain effectively in this case.",
-    "relevance_score": 39,
-    "sequence": 17162,
-    "source": "https://gbhackers.com/hertz-data-breach/",
-    "slug": "Hertz_Data_Breach_via_Cleo_Communications_File_Transfer_Platform-017162",
-    "shard": 8
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential threat actors exploiting RCE vulnerabilities in Android System.",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized access to Android devices.",
-      "Sophistication": "Moderate to high, given the ability to bypass security mitigations.",
-      "Strategic_Objectives": "Compromise Android devices for data theft or control.",
-      "TTPs_Employed": ["Remote Code Execution"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of RCE vulnerabilities in Android System.",
-        "Detection": "Monitor for unusual application behavior • Check for unauthorized code execution",
-        "Remediation": "Apply latest security patches • Enable Google Play Protect",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to Android devices through RCE vulnerabilities.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities to execute code on Android devices.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of RCE vulnerabilities in Android System.",
-      "Exploits": ["RCE vulnerabilities in Android System"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [
-      "Monitor for unusual application behavior",
-      "Check for unauthorized code execution"
-    ],
-    "Extracted_Entities": {
-      "Assets": ["Android devices"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Google"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["RCE vulnerabilities", "Android Security Bulletin", "Google Play Protect"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": ["2025-01-05 security patch"],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Consumer Electronics"],
-      "Software": ["Android"],
-      "Technologies": ["Android System"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["Remote Code Execution"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No specific infrastructure details detected.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply latest security patches", "Enable Google Play Protect"],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote Code Execution"],
-      "Tools": ["Android System"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["ANY.RUN Threat Intelligence Lookup"],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2025-01-07T07:06:09Z",
-    "Title": "Critical RCE Vulnerabilities in Android System - January 2025 Security Bulletin",
-    "Tools": ["Android System", "Android"],
-    "Victim": {
-      "Access_Vectors": ["Remote"],
-      "Data_Types_At_Risk": ["Personal data", "Device control"],
-      "Description": "Android device users globally.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Consumer Electronics",
-      "Security_Posture": "Vulnerable if not updated",
-      "Targeted_Assets": ["Android devices"]
-    },
-    "diamond_model_summary": "The incident involves potential adversaries exploiting Remote Code Execution vulnerabilities in the Android System. The capability is characterized by the exploitation of these vulnerabilities, with the infrastructure details remaining unspecified. The victims are Android device users globally, with a critical impact severity due to the potential for unauthorized code execution.",
-    "doc_summary": "The January 2025 Android Security Bulletin highlights critical vulnerabilities affecting Android devices, urging users to update to the latest security patch level, 2025-01-05, to mitigate risks. The bulletin details Remote Code Execution (RCE) vulnerabilities within the Android System component, which could allow attackers to execute harmful code without additional privileges. Android partners were informed a month prior, and source code patches will be released in the Android Open Source Project (AOSP) repository. Google Play Protect provides essential protections, and users are advised to stay updated to ensure device security. The bulletin categorizes vulnerabilities by CVE IDs and affected components, emphasizing the importance of regular updates for a safer mobile experience.",
-    "enrichment": { "processed_at": "2026-02-18T00:37:05.172746+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "11b6fe29df56808cca94fb9ca33b36bf7e68be00",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis identifies the exploitation stage as critical, with threat actors potentially exploiting RCE vulnerabilities in the Android System to gain initial access. The lack of significant activity in other stages suggests a focus on exploiting these vulnerabilities for unauthorized code execution. Detection and remediation efforts should focus on applying security patches and enabling Google Play Protect.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 89,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis reveals a lack of specific indicators such as hash values, IP addresses, or domain names. The focus is on the exploitation of RCE vulnerabilities, with the primary tool being the Android System itself. The absence of detailed TTPs or infrastructure indicators limits the ability to provide a comprehensive analysis, emphasizing the need for proactive patching and security measures.",
-    "relevance_score": 45,
-    "sequence": 17161,
-    "source": "https://gbhackers.com/android-security-updates-2/",
-    "slug": "Critical_RCE_Vulnerabilities_in_Android_System_-_January_2025_Security_B-017161",
     "shard": 8
   }
 ]

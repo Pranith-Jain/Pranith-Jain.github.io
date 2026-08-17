@@ -1,0 +1,11 @@
+{
+  "slug": "suse-perl-important-heap-overflow-issues-fixed-in-advisory-2-7609ab3d",
+  "title": "Multiple Vulnerabilities in SUSE Perl and Himmelblau Addressed in Recent Advisories",
+  "link": "https://threatcluster.io/cluster/suse-perl-important-heap-overflow-issues-fixed-in-advisory-2-7609ab3d?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/suse-perl-important-heap-overflow-issues-fixed-in-advisory-2-7609ab3d",
+  "pubDate": "2026-08-11T21:04:42.000Z",
+  "sourceCount": 6,
+  "categories": ["6 Sources"],
+  "description": "Recent updates for SUSE Perl address several critical vulnerabilities, including CVE-2026-8376, CVE-2026-12087, and CVE-2026-57432, which involve heap buffer overflows and integer overflows that could lead to out-of-bounds memory access. These vulnerabilities affect various SUSE Linux Enterprise products, including versions 15 SP5 and Micro. The updates were released on August 11, 2026, and are crucial for preventing potential exploitation. Additionally, the Himmelblau update fixed multiple OpenSSL-related vulnerabilities, including CVE-2026-41676 and CVE-2026-41898, which could lead to buffer overflows and information leaks. Users are urged to apply the patches immediately to mitigate risks associated with these vulnerabilities.\n\nKey Points:\n• SUSE Perl vulnerabilities include heap and integer overflows, affecting multiple Linux products.\n• Critical CVEs like CVE-2026-8376 and CVE-2026-12087 require immediate patching.\n• Himmelblau update addresses significant OpenSSL vulnerabilities that pose security risks.",
+  "sizeBytes": 1025
+}
