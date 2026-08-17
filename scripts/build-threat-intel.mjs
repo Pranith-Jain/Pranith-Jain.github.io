@@ -219,12 +219,15 @@ if (!existsSync(STAGING)) {
   process.exit(1);
 }
 
-// Wipe and rebuild the manifest tree.
-if (existsSync(OUT)) rmSync(OUT, { recursive: true });
-ensureDir(join(OUT, 'cves'));
-ensureDir(join(OUT, 'iocs'));
-ensureDir(join(OUT, 'sectors'));
-ensureDir(join(OUT, 'lists'));
+// Wipe and rebuild ONLY the manifest subtrees this script owns
+// (cves/iocs/sectors/lists). The threat-intel dir also holds trees owned
+// by other build scripts (threaticon/, threaticon-catalog/, threatcluster/,
+// darknet/, dphish/, living-threat/, malwareanalyzer/) — wiping the root
+// deletes them from git even when their own build fails.
+for (const sub of ['cves', 'iocs', 'sectors', 'lists']) {
+  if (existsSync(join(OUT, sub))) rmSync(join(OUT, sub), { recursive: true });
+  ensureDir(join(OUT, sub));
+}
 
 // ─── CISA KEV ──────────────────────────────────────────────────────────
 const kevJson = readJsonIfExists(join(STAGING, 'kev.json'));

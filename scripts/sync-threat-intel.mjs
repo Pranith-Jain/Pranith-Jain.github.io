@@ -42,10 +42,16 @@ const DAILY_HUNT_REPO = 'https://github.com/TheRavenFile/Daily-Hunt.git';
 const ARGUS_TRENDING_URL = 'https://argus.rootxvishal.com/data/trending.json';
 
 function ensureStaging() {
-  if (existsSync(STAGING)) {
-    rmSync(STAGING, { recursive: true });
-  }
+  // Only clean paths THIS script owns. The staging root also holds
+  // committed state owned by other verticals (threaticon-catalog/ for the
+  // weekly resumable crawl) — wiping it all would delete them from git.
   mkdirSync(STAGING, { recursive: true });
+  for (const owned of ['nvd-recent.json', 'kev.json', 'argus-trending.json']) {
+    if (existsSync(join(STAGING, owned))) rmSync(join(STAGING, owned));
+  }
+  for (const owned of ['daily-hunt', 'awesome-lists']) {
+    if (existsSync(join(STAGING, owned))) rmSync(join(STAGING, owned), { recursive: true });
+  }
 }
 
 async function fetchJson(url, dest, opts = {}) {

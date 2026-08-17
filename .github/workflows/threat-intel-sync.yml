@@ -80,6 +80,12 @@ jobs:
         continue-on-error: true
         run: node scripts/build-threatcluster.mjs
 
+      - name: Build ThreatCluster entities
+        # build-threatcluster wipes threatcluster/ (incl. entities/) — this
+        # step must re-derive the entity tree or every run deletes it.
+        continue-on-error: true
+        run: node scripts/build-tc-entities.mjs
+
       - name: Build dPhish manifest
         continue-on-error: true
         run: node scripts/build-dphish.mjs

@@ -139,12 +139,14 @@ async function pool(items, limit, worker, gapMs = 150) {
     while (cursor < items.length) {
       const i = cursor++;
       results[i] = await worker(items[i], i);
-      await new Promise((r) => setTimeout(r, gapMs));
+      await sleep(gapMs);
     }
   });
   await Promise.all(runners);
   return results;
 }
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /* ------------------------------------------------------------------ */
 /* 1. Detection coverage (single page, 493 techniques)                 */
@@ -261,6 +263,7 @@ async function syncMalware() {
     page++;
     malwarePagesDone++;
     if (paged(malwarePagesDone, 615)) break;
+    if (GAP_MS > 0) await sleep(GAP_MS);
   }
   writeStaged('malware/list.json', {
     source: 'threaticon.com/malware',
@@ -357,6 +360,7 @@ async function syncActorsList() {
     actorPagesDone++;
     if (paged(actorPagesDone, 100)) break;
     if (ACTORS_PAGES > 0 && actorPagesDone >= ACTORS_PAGES) break;
+    if (GAP_MS > 0) await sleep(GAP_MS);
   }
   writeStaged('actors/index.json', {
     source: 'threaticon.com/threat-actors',
@@ -542,7 +546,7 @@ async function syncActorDetails(ids) {
     if ((detailFetched + detailSkipped) % 50 === 0) {
       console.log(`    details: ${detailFetched} fetched`);
     }
-  });
+  }, GAP_MS);
   console.log(`  actor details: ${detailFetched} fetched, ${detailSkipped} cached`);
 }
 
