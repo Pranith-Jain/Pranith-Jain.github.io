@@ -1,0 +1,92 @@
+{
+  "type": "maritime",
+  "date": "2026-08-16",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates an incident at North Carolina Ports (Charlotte Inland Port, Wilmington, Morehead City) on 6 Aug 2026 that disrupted operations and required manual workarounds, implying short-term logistics delays and potential terminal gate congestion. Confidence is low due to reliance on community reposting and the absence of official technical detail or attribution. Source Current reporting suggests the broader Marine Transportation System continues to face credential-focused and remote-access abuses highlighted by the U.S. Coast Guard in 2025 (phishing, help-desk impersonation, MFA fatigue, remote tools misuse, and data encryption for impact). These behaviors remain relevant to both port IT and connected OT environments. Government Advisory The collected intelligence supports an assessment that supply-chain and port OT risk remains elevated by foreign-manufactured, remotely serviceable equipment exposure highlighted by MARAD's still-active 2026 advisory, though it does not confirm active exploitation. Maritime Advisory There are no new, validated maritime-specific CVE disclosures in this dataset, and no confirmed navigation (GNSS/AIS/ECDIS) compromise. As such, immediate navigation safety risks are unchanged. Principal issues requiring immediate attention: verify remote-access and vendor-maintenance controls at port and terminal environments; monitor for credential attacks and lateral movement from IT to OT; and track authoritative updates on the NC Ports event for operational continuity planning. Confidence in this overall assessment is medium given mixed source quality and limited technical detail on the reported incident.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "MODERATE",
+        "label": "Overall Level"
+      },
+      {
+        "value": "10",
+        "label": "Records Analyzed"
+      },
+      {
+        "value": "3",
+        "label": "Unique Events"
+      },
+      {
+        "value": "1",
+        "label": "Active Incidents"
+      },
+      {
+        "value": "1",
+        "label": "C:ESCALATE"
+      },
+      {
+        "value": "1",
+        "label": "B:MONITOR"
+      },
+      {
+        "value": "1",
+        "label": "A:IGNORE"
+      },
+      {
+        "value": "1",
+        "label": "Port/Terminal Threats"
+      },
+      {
+        "value": "0",
+        "label": "Navigation Threats"
+      },
+      {
+        "value": "0",
+        "label": "Vessel Threats"
+      },
+      {
+        "value": "1",
+        "label": "OT/ICS Threats"
+      },
+      {
+        "value": "0",
+        "label": "Vulns / CVEs"
+      },
+      {
+        "value": "2",
+        "label": "High-Confidence Items"
+      }
+    ],
+    "vendors": [
+      "Remotely serviceable port equipment (e.g., ship-to-shore cranes) noted by MARAD as potential risk exposure; no specific vendor named in the provided data. Maritime Advisory"
+    ],
+    "sectors": [
+      "Ports and terminals (U.S.; NC Ports reported)",
+      "Broader Marine Transportation System (per USCG advisory)"
+    ]
+  },
+  "keyFindings": [
+    "Port operations disruption reported at North Carolina Ports (Wilmington, Morehead City, Charlotte Inland Port) on 6 Aug 2026; manual fallbacks imply logistics impact. Confidence low pending official confirmation. View Article",
+    "U.S. Coast Guard alert documents prevalent MTS cyber techniques: phishing, help-desk impersonation, remote-access tool abuse, MFA fatigue, account misuse, cloud collection, and data encryption for impact; includes allowlisting and log-review mitigations. Government Advisory",
+    "MARAD advisory (active; published Apr 24, 2026) warns that foreign-manufactured port equipment, including remotely serviceable STS cranes, may introduce IT/OT risk across ports and terminals. Maritime Advisory"
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Phishing and help-desk impersonation for initial access and credential capture (USCG advisory).",
+      "Abuse of remote-access software; MFA fatigue techniques; account takeover and misuse (USCG advisory).",
+      "Data encryption for impact (ransomware outcomes) noted in prior MTS incidents (USCG advisory).",
+      "Formal ATT&CK technique identifiers were not provided in the sources; the above behaviors are described in plain language without assigning specific IDs.",
+      "NC Ports event: Insufficient technical evidence to map TTPs."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for authoritative updates or confirmations related to the NC Ports disruption, including any public statements or operational notices. Immediate risk for affected logistics lanes may remain elevated until systems are confirmed stable. Confidence: low-to-medium. Supporting Report Continued attempts leveraging phishing, remote-access tool misuse, and MFA fatigue are likely across MTS enterprises; review detections and access controls accordingly over the next 72 hours. Confidence: high. Government Advisory There is insufficient information to determine any navigation system risk escalation during the period; maintain standard watch and cross-check procedures. Confidence: medium.",
+  "relatedCves": []
+}

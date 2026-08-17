@@ -1,0 +1,54 @@
+{
+  "type": "disaster",
+  "date": "2026-08-16",
+  "overallThreat": "",
+  "executiveSummary": "A high-casualty earthquake struck western Colombia (Cali, Pereira, Quibdó, Manizales), killing at least 111 people with widespread building collapse and ongoing search and rescue. View Article A strong quake in Indonesia's East Nusa Tenggara/Flores region killed at least 53 people, destroyed 900+ homes, and displaced about 5,000 to temporary shelters; access and utilities were disrupted. View Article Wildfires in British Columbia's Okanagan region forced more than 20,000 evacuations, caused at least one death, and remain too dangerous for full damage assessment; lodging and reception centers were activated. View Article Typhoon conditions and a subsequent tropical storm disrupted eastern China and northern Luzon: China preemptively relocated 300,000+ people with major air/rail suspensions; in the Philippines, at least 19 died and ~98,000 were displaced (over 1 million affected). View Article Supporting Report Record flooding in Indiana killed at least five people, triggered 350+ evacuations and boat rescues, and prompted a federal emergency declaration. View Article Roughly 97 million people across the Central Plains to the Southeast (U.S.) remained under heat advisories with dangerous heat stress risk and limited overnight relief. View Article Belgium's High Fens wildfire prompted ~600 evacuations; a cross-border response was mobilized as smoke drifted into Germany. View Article",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Earthquakes in Colombia and Indonesia are the week's deadliest events, with conf",
+      "summary": "Earthquakes in Colombia and Indonesia are the week's deadliest events, with confirmed fatalities of at least 111 and 53 respectively and reports of trapped/missing persons in both contexts. Source Source"
+    },
+    {
+      "title": "Wildfires in British Columbia displaced more than 20,000 people, caused at least",
+      "summary": "Wildfires in British Columbia displaced more than 20,000 people, caused at least one death, and continue to pose access and assessment challenges; emergency sheltering capacity was expanded. Source"
+    },
+    {
+      "title": "Tropical cyclone impacts in China and the Philippines drove large-scale relocati",
+      "summary": "Tropical cyclone impacts in China and the Philippines drove large-scale relocations and transport shutdowns; flight cancellations across China exceeded 2,000 over the storm period (reporting windows vary). Source"
+    },
+    {
+      "title": "Indiana's record flooding led to at least five deaths, extensive evacuations, an",
+      "summary": "Indiana's record flooding led to at least five deaths, extensive evacuations, and a federal emergency declaration, underscoring elevated U.S. Midwest flood risk in saturated basins. Source"
+    },
+    {
+      "title": "Extreme heat advisories covered ~97 million people in the U.S., sustaining healt",
+      "summary": "Extreme heat advisories covered ~97 million people in the U.S., sustaining health risks for vulnerable populations and compounding wildfire conditions. Source"
+    },
+    {
+      "title": "Severe storms in the broader Midwest caused at least one additional death and wi",
+      "summary": "Severe storms in the broader Midwest caused at least one additional death and widespread power outages and airport disruption across Illinois, Indiana, and Ohio. Source"
+    },
+    {
+      "title": "Flash flooding in Ohio resulted in child and adult fatalities with ongoing water",
+      "summary": "Flash flooding in Ohio resulted in child and adult fatalities with ongoing water rescues amid significant utility impacts. Source"
+    },
+    {
+      "title": "Pakistan's monsoon floods earlier in the period killed at least 107 people and f",
+      "summary": "Pakistan's monsoon floods earlier in the period killed at least 107 people and forced evacuations into relief camps, indicating persistent South Asian seasonal risk. View Article"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Colombia and Indonesia earthquakes: Continued life-saving operations and needs assessments; expect evolving casualty and displacement figures as access improves. Source Source Okanagan wildfires (Canada): Fire behavior and smoke conditions may continue to impede returns and assessments; maintain readiness for additional evacuations if winds shift. Source China/Philippines storm impacts: Residual flooding/landslide risks and transport normalization likely to proceed unevenly; monitor for secondary hazards in saturated terrain. Source U.S. Midwest: Rivers in flood and localized flash-flood potential sustain rescue, shelter, and debris-management needs. Source U.S. Heat: Health risk persists where advisories remain; prioritize cooling access and outreach to vulnerable groups. Source",
+  "regionalTrends": [
+    "Americas: High-impact seismic events (Colombia) and significant wildfire activity (British Columbia; parts of U.S. Northwest) continue to stress emergency services. Source",
+    "East and Southeast Asia: Tropical cyclone hazards remain seasonally elevated; large-scale relocations and transport disruption likely with additional systems. Source",
+    "South Asia: Monsoon flooding persists with significant mortality and displacement in Pakistan. View Article",
+    "Europe: Heat and wildfire risks are elevated in parts of Western Europe; Belgium's High Fens event required cross-border assets. View Article",
+    "United States: Concurrent hazards-extreme heat in the Central/Southeast and severe storms/flooding in the Midwest-are stressing local response capacity. Source"
+  ]
+}
