@@ -11,7 +11,7 @@
   "originCode": null,
   "sophistication": null,
   "resourceLevel": null,
-  "motivation": null,
+  "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
     "State-sponsored",
@@ -23,9 +23,23 @@
     "Financial Targeting",
     "Backdoor / C2"
   ],
-  "aliases": [],
-  "targetedSectors": [],
-  "targetedCountries": [],
+  "aliases": ["Sapphire Sleet", "APT38", "info", "Stardust Chollima"],
+  "targetedSectors": [
+    "Financial services",
+    "Government",
+    "Defense",
+    "Pharmaceutical",
+    "Education",
+    "Nuclear",
+    "Entertainment",
+    "Healthcare",
+    "Telecommunications",
+    "Manufacturing",
+    "Media",
+    "Aerospace",
+    "Think tank"
+  ],
+  "targetedCountries": ["KP", "US", "KR", "JP", "CA", "TW", "IN"],
   "tactics": [
     "Initial Access",
     "Persistence",

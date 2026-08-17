@@ -4,78 +4,126 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-14T08:31:03.000Z",
-  "lastSeen": "2026-08-14T20:27:58.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 5 sectors and 8 countries.",
+  "mentionCount": 19,
+  "firstSeen": "2026-08-16T09:29:25.000Z",
+  "lastSeen": "2026-08-16T18:58:39.000Z",
+  "summary": "Ransomware group with 19 leak-site victims across 10 sectors and 10 countries.",
   "frequency": [
     {
-      "date": "2026-08-14",
-      "count": 8
+      "date": "2026-08-16",
+      "count": 19
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "ferrari-mangimi-srl-9857",
-      "title": "FERRARI MANGIMI SRL — claimed by qilin",
-      "pubDate": "2026-08-14T20:27:58.000Z"
+      "slug": "teikoku-usa-5c5c",
+      "title": "Teikoku USA — claimed by qilin",
+      "pubDate": "2026-08-16T18:58:39.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "connections-a078",
-      "title": "Connections — claimed by qilin",
-      "pubDate": "2026-08-14T14:34:23.000Z"
+      "slug": "agunsa-7c9b",
+      "title": "AGUNSA — claimed by qilin",
+      "pubDate": "2026-08-16T18:58:03.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "aletex-group-e085",
-      "title": "Aletex Group — claimed by qilin",
-      "pubDate": "2026-08-14T10:28:23.000Z"
+      "slug": "coface-81ce",
+      "title": "Coface — claimed by qilin",
+      "pubDate": "2026-08-16T18:57:25.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "radiant-1d81",
-      "title": "Radiant — claimed by qilin",
-      "pubDate": "2026-08-14T09:59:13.000Z"
+      "slug": "spoonful-of-comfort-de4e",
+      "title": "Spoonful of Comfort — claimed by qilin",
+      "pubDate": "2026-08-16T18:56:41.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "lercher-werkzeugbau-1918",
-      "title": "Lercher Werkzeugbau — claimed by qilin",
-      "pubDate": "2026-08-14T08:33:29.000Z"
+      "slug": "mulino-padano-b91f",
+      "title": "Mulino Padano — claimed by qilin",
+      "pubDate": "2026-08-16T15:59:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "3f-e5fe",
-      "title": "3f — claimed by qilin",
-      "pubDate": "2026-08-14T08:32:37.000Z"
+      "slug": "weba-meubelen-e26d",
+      "title": "WEBA Meubelen — claimed by qilin",
+      "pubDate": "2026-08-16T15:58:24.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "penlink-8d98",
-      "title": "PenLink — claimed by qilin",
-      "pubDate": "2026-08-14T08:31:42.000Z"
+      "slug": "mosaid-technologies-2d26",
+      "title": "MOSAID Technologies — claimed by qilin",
+      "pubDate": "2026-08-16T12:31:17.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "urban-worldwide-e0ce",
-      "title": "Urban Worldwide — claimed by qilin",
-      "pubDate": "2026-08-14T08:31:03.000Z"
+      "slug": "invensity-cc07",
+      "title": "INVENSITY — claimed by qilin",
+      "pubDate": "2026-08-16T12:30:37.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "megawide-6acb",
+      "title": "Megawide — claimed by qilin",
+      "pubDate": "2026-08-16T12:29:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "desatera-sdn-bhd-e152",
+      "title": "Desatera Sdn Bhd — claimed by qilin",
+      "pubDate": "2026-08-16T11:31:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "loescher-editore-torino-1e2a",
+      "title": "Loescher editore Torino — claimed by qilin",
+      "pubDate": "2026-08-16T11:31:11.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "botek-5932",
+      "title": "Botek — claimed by qilin",
+      "pubDate": "2026-08-16T11:30:31.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 6
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 3
     },
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "transportation",
+      "name": "Transportation",
       "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
     },
     {
       "type": "sector",
@@ -85,74 +133,157 @@
     },
     {
       "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
+      "slug": "retail-e-commerce",
+      "name": "Retail & E-Commerce",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "ferrari-mangimi-srl-9857",
-      "victim": "FERRARI MANGIMI SRL — claimed by qilin",
+      "id": "teikoku-usa-5c5c",
+      "victim": "Teikoku USA — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-16T18:58:39.000Z"
+    },
+    {
+      "id": "agunsa-7c9b",
+      "victim": "AGUNSA — claimed by qilin",
+      "sector": "Transportation",
+      "country": "CL",
+      "pubDate": "2026-08-16T18:58:03.000Z"
+    },
+    {
+      "id": "coface-81ce",
+      "victim": "Coface — claimed by qilin",
+      "sector": "Financial Services",
+      "country": "IT",
+      "pubDate": "2026-08-16T18:57:25.000Z"
+    },
+    {
+      "id": "spoonful-of-comfort-de4e",
+      "victim": "Spoonful of Comfort — claimed by qilin",
+      "sector": "Hospitality",
+      "country": "US",
+      "pubDate": "2026-08-16T18:56:41.000Z"
+    },
+    {
+      "id": "mulino-padano-b91f",
+      "victim": "Mulino Padano — claimed by qilin",
       "sector": "Agriculture and Food Production",
       "country": "IT",
-      "pubDate": "2026-08-14T20:27:58.000Z"
+      "pubDate": "2026-08-16T15:59:09.000Z"
     },
     {
-      "id": "connections-a078",
-      "victim": "Connections — claimed by qilin",
-      "sector": "Not Found",
+      "id": "weba-meubelen-e26d",
+      "victim": "WEBA Meubelen — claimed by qilin",
+      "sector": "Retail & E-Commerce",
       "country": "BE",
-      "pubDate": "2026-08-14T14:34:23.000Z"
+      "pubDate": "2026-08-16T15:58:24.000Z"
     },
     {
-      "id": "aletex-group-e085",
-      "victim": "Aletex Group — claimed by qilin",
+      "id": "mosaid-technologies-2d26",
+      "victim": "MOSAID Technologies — claimed by qilin",
+      "sector": "Technology",
+      "country": "CA",
+      "pubDate": "2026-08-16T12:31:17.000Z"
+    },
+    {
+      "id": "invensity-cc07",
+      "victim": "INVENSITY — claimed by qilin",
+      "sector": "Technology",
+      "country": "DE",
+      "pubDate": "2026-08-16T12:30:37.000Z"
+    },
+    {
+      "id": "megawide-6acb",
+      "victim": "Megawide — claimed by qilin",
       "sector": "Manufacturing",
-      "country": "ES",
-      "pubDate": "2026-08-14T10:28:23.000Z"
+      "country": "PH",
+      "pubDate": "2026-08-16T12:29:59.000Z"
     },
     {
-      "id": "radiant-1d81",
-      "victim": "Radiant — claimed by qilin",
+      "id": "desatera-sdn-bhd-e152",
+      "victim": "Desatera Sdn Bhd — claimed by qilin",
       "sector": "Not Found",
-      "country": "SG",
-      "pubDate": "2026-08-14T09:59:13.000Z"
+      "country": "MY",
+      "pubDate": "2026-08-16T11:31:50.000Z"
     },
     {
-      "id": "lercher-werkzeugbau-1918",
-      "victim": "Lercher Werkzeugbau — claimed by qilin",
+      "id": "loescher-editore-torino-1e2a",
+      "victim": "Loescher editore Torino — claimed by qilin",
+      "sector": "Education",
+      "country": "IT",
+      "pubDate": "2026-08-16T11:31:11.000Z"
+    },
+    {
+      "id": "botek-5932",
+      "victim": "Botek — claimed by qilin",
       "sector": "Manufacturing",
-      "country": "AT",
-      "pubDate": "2026-08-14T08:33:29.000Z"
+      "country": "DE",
+      "pubDate": "2026-08-16T11:30:31.000Z"
     },
     {
-      "id": "3f-e5fe",
-      "victim": "3f — claimed by qilin",
-      "sector": "Not Found",
-      "country": "DK",
-      "pubDate": "2026-08-14T08:32:37.000Z"
+      "id": "zanichelli-5ebe",
+      "victim": "Zanichelli — claimed by qilin",
+      "sector": "Education",
+      "country": "IT",
+      "pubDate": "2026-08-16T11:29:51.000Z"
     },
     {
-      "id": "penlink-8d98",
-      "victim": "PenLink — claimed by qilin",
-      "sector": "Government & Defense",
+      "id": "jone-pr-cision-e93b",
+      "victim": "Jone Précision — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "FR",
+      "pubDate": "2026-08-16T09:32:36.000Z"
+    },
+    {
+      "id": "arnall-golden-gregory-fe83",
+      "victim": "Arnall Golden Gregory — claimed by qilin",
+      "sector": "Professional Services",
       "country": "US",
-      "pubDate": "2026-08-14T08:31:42.000Z"
+      "pubDate": "2026-08-16T09:31:57.000Z"
     },
     {
-      "id": "urban-worldwide-e0ce",
-      "victim": "Urban Worldwide — claimed by qilin",
-      "sector": "Other",
-      "country": "NL",
-      "pubDate": "2026-08-14T08:31:03.000Z"
+      "id": "ascii-group-9e00",
+      "victim": "ASCII Group — claimed by qilin",
+      "sector": "Technology",
+      "country": "JP",
+      "pubDate": "2026-08-16T09:31:19.000Z"
+    },
+    {
+      "id": "delta-ways-444d",
+      "victim": "DELTA WAYS — claimed by qilin",
+      "sector": "Transportation",
+      "country": "DE",
+      "pubDate": "2026-08-16T09:30:40.000Z"
+    },
+    {
+      "id": "motorenmaier-gmbh-bbc6",
+      "victim": "motorenmaier gmbh — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-08-16T09:30:02.000Z"
+    },
+    {
+      "id": "double-h-equipment-7b2b",
+      "victim": "Double H Equipment — claimed by qilin",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-16T09:29:25.000Z"
     }
   ]
 }

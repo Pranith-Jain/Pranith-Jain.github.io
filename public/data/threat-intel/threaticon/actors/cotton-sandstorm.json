@@ -11,7 +11,7 @@
   "originCode": null,
   "sophistication": null,
   "resourceLevel": null,
-  "motivation": null,
+  "motivation": "Disruption",
   "added": "May 17, 2026",
   "tags": [
     "APT",
@@ -23,8 +23,26 @@
     "Government Targeting"
   ],
   "aliases": ["Emennet Pasargad", "Holy Souls", "MARNANBRIDGE", "NEPTUNIUM"],
-  "targetedSectors": ["Government", "Financial services", "Telecommunications", "Non profit", "Energy"],
-  "targetedCountries": [],
+  "targetedSectors": [
+    "Government",
+    "Financial services",
+    "Telecommunications",
+    "Non profit",
+    "Energy",
+    "Defense",
+    "Media",
+    "Critical infrastructure",
+    "Transportation",
+    "Education",
+    "Manufacturing",
+    "Think tank",
+    "Healthcare",
+    "Information technology",
+    "Utilities",
+    "Oil gas",
+    "Aerospace"
+  ],
+  "targetedCountries": ["IR", "IL", "US", "RU", "AE", "KP", "IN", "NL"],
   "tactics": ["Espionage", "Disruption", "Exfiltration"],
   "techniques": [
     "T1072.001 - Spear Phishing Email",

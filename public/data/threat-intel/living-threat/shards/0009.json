@@ -3,6 +3,564 @@
     "Adversary": {
       "Aliases": [],
       "Associated_Groups": [],
+      "Description": "Potential internal threat actors or compromised accounts exploiting weak encryption.",
+      "Known_Campaigns": [],
+      "Motivation": "Access to sensitive network information for potential exploitation.",
+      "Sophistication": "Moderate, due to the ability to exploit weak encryption mechanisms.",
+      "Strategic_Objectives": "Gain access to sensitive system inventory data.",
+      "TTPs_Employed": ["Use of hardcoded encryption keys", "Exploitation of weak encryption mechanisms"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of weak encryption in Docusnap's Windows client software.",
+        "Detection": "Monitor for unauthorized access to Docusnap inventory files.",
+        "Remediation": "Implement strong encryption practices and rotate keys regularly.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Exploiting vulnerabilities in client software to execute unauthorized actions.",
+            "tactic_id": "T1203",
+            "tactic_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in client software to execute unauthorized actions.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Access to sensitive system inventory data for potential exploitation.",
+        "Detection": "Monitor for unusual access patterns to sensitive data.",
+        "Remediation": "Restrict access to sensitive data and implement network segmentation.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Accessing sensitive data to gain further access or information.",
+            "tactic_id": "T1003",
+            "tactic_name": "Credential Dumping"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Accessing sensitive data to gain further access or information.",
+            "technique_id": "T1003",
+            "technique_name": "Credential Dumping"
+          }
+        ],
+        "Techniques": ["T1003"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": ["Exploitation of weak encryption mechanisms."],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": ["Bypassing security through obscurity measures"],
+      "Description": "Exploitation of weak encryption in Docusnap's Windows client software.",
+      "Exploits": ["CVE-2025-26849"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": ["Python script for decryption"],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": ["Unusual access patterns to sensitive data."],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": ["Monitor for unauthorized access to Docusnap inventory files."],
+    "Extracted_Entities": {
+      "Assets": ["System inventory files"],
+      "Breach_Types": ["Data exposure"],
+      "Command_Lines_Or_Scripts": ["Python script"],
+      "Companies": ["RedTeam Pentesting GmbH"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": ["AES-256-CBC"],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["vulnerability", "encryption", "Docusnap", "CVE-2025-26849"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["Version 14"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Information Technology"],
+      "Software": ["Docusnap"],
+      "Technologies": ["AES-256-CBC"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["CVE-2025-26849"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Docusnap's IT infrastructure documentation tool and its Windows client software.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Implement strong encryption practices and rotate keys regularly."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of weak encryption mechanisms"],
+      "Tools": ["Python script"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["Network segmentation", "Real-time auditing"],
+    "Severity": "Moderate",
+    "Threat_Actors": [],
+    "Timestamp": "2025-03-04T11:13:00Z",
+    "Title": "Docusnap Vulnerability Exposes Sensitive Network Information",
+    "Tools": ["Python script for decryption", "Python script", "Docusnap"],
+    "Victim": {
+      "Access_Vectors": ["Docusnap Windows client software"],
+      "Data_Types_At_Risk": ["Installed applications", "Firewall configurations", "Local administrator accounts"],
+      "Description": "Organizations using Docusnap for IT infrastructure documentation.",
+      "Geography": "Global",
+      "Impact_Severity": "Medium",
+      "Industry": "Information Technology",
+      "Security_Posture": "Medium",
+      "Targeted_Assets": ["System inventory files", "Network configurations"]
+    },
+    "diamond_model_summary": "The Docusnap vulnerability incident involves potential internal threat actors exploiting weak encryption mechanisms in Docusnap's Windows client software. The adversary's capability includes using a Python script to decrypt sensitive system inventory files. The infrastructure affected is Docusnap's IT documentation tool, and the victims are organizations using Docusnap for IT infrastructure documentation. The incident highlights the need for strong encryption practices and third-party risk management.",
+    "doc_summary": "A recently disclosed vulnerability in Docusnap's Windows client software (CVE-2025-26849) allows attackers to decrypt sensitive system inventory files using a hardcoded encryption key, exposing critical network information. Cybersecurity researchers at RedTeam Pentesting GmbH found that inventory files generated by Docusnap Client for Windows, containing details like installed applications, firewall configurations, and local administrator accounts, used weak encryption mechanisms. Docusnap, a leading IT infrastructure documentation tool, employs client agents to gather system data from Windows domains, storing it as XML files encrypted with AES-256-CBC before uploading to a central server. However, security analysts discovered two critical implementation flaws: a static encryption key and inadequate vendor remediation. Despite being notified in November 2024, Docusnap's initial patch merely rotated the AES key while retaining the flawed static encryption approach. The vulnerability, rated as medium severity (CVSSv3: 5.3), doesn't expose credentials or enable direct system access but lowers the barrier for internal threat actors. Organizations using Docusnap for regulatory compliance documentation may inadvertently create concentrated repositories of sensitive data, violating GDPR and HIPAA requirements. Until a cryptographically sound fix is released, enterprises should implement workarounds like restricting SMB share permissions and monitoring file access patterns.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:29.707569+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "fe66e0971b5e5ed15bfcb396ccb3a7048860cdfd",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The Docusnap vulnerability incident primarily involves the exploitation stage, where weak encryption in Docusnap's Windows client software is exploited to access sensitive system inventory data. The adversary's actions on objectives include accessing sensitive data for potential exploitation. Detection involves monitoring for unauthorized access to Docusnap inventory files, and remediation includes implementing strong encryption practices and network segmentation. The incident underscores the importance of robust encryption and access controls.",
+    "operational_tags": [],
+    "priority_score": 52,
+    "pyramid_of_pain_summary": "The Docusnap vulnerability incident involves indicators such as a hardcoded encryption key and a Python script used for decryption. These indicators fall under the 'Tools' and 'TTPs' categories in the Pyramid of Pain. The incident highlights the challenges of addressing hardcoded credentials and weak encryption mechanisms. Organizations should focus on implementing strong encryption practices and monitoring for unauthorized access to sensitive data to mitigate the impact of such vulnerabilities.",
+    "relevance_score": 51,
+    "sequence": 17163,
+    "source": "https://gbhackers.com/docusnap-for-windows-flaw/",
+    "slug": "Docusnap_Vulnerability_Exposes_Sensitive_Network_Information-017163",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Unknown threat actors exploiting zero-day vulnerabilities in Cleo's platform.",
+      "Known_Campaigns": [],
+      "Motivation": "Potential financial gain through identity theft.",
+      "Sophistication": "Moderate, due to the use of zero-day vulnerabilities.",
+      "Strategic_Objectives": "Access to sensitive personal information for potential misuse.",
+      "TTPs_Employed": ["Exploitation of zero-day vulnerabilities"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of zero-day vulnerabilities in Cleo's platform.",
+        "Detection": "Monitor for unusual access patterns to the file transfer platform.",
+        "Remediation": "Patch and update systems to close vulnerabilities.",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to the system through vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities in public-facing applications.",
+            "technique_id": "T1190",
+            "technique_name": "Exploit Public-Facing Application"
+          }
+        ],
+        "Techniques": ["T1190"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Unauthorized access to sensitive personal information.",
+        "Detection": "Monitor for data exfiltration activities.",
+        "Remediation": "Implement data loss prevention solutions.",
+        "Stage": "Actions on Objectives",
+        "Tactics": [
+          {
+            "tactic_description": "Gathering data of interest from compromised systems.",
+            "tactic_id": "TA0009",
+            "tactic_name": "Collection"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Collecting data from local systems.",
+            "technique_id": "T1005",
+            "technique_name": "Data from Local System"
+          }
+        ],
+        "Techniques": ["T1005"]
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of zero-day vulnerabilities in file transfer platforms.",
+      "Exploits": ["Zero-day vulnerabilities"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": ["Exploited in October and December 2024"]
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [],
+    "Extracted_Entities": {
+      "Assets": ["Personal information"],
+      "Breach_Types": ["Data breach"],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Hertz Corporation", "Cleo Communications US, LLC", "Kroll"],
+      "Countries": ["United States of America"],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["data breach", "identity theft", "zero-day vulnerabilities", "file transfer platform"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": [],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Car Rental"],
+      "Software": [],
+      "Technologies": [],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["Zero-day vulnerabilities"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "Cleo Communications US, LLC's file transfer platform.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Implement regular security audits and vulnerability assessments."],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Exploitation of zero-day vulnerabilities"],
+      "Tools": []
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": [],
+    "Severity": "High",
+    "Threat_Actors": [],
+    "Timestamp": "2025-04-15T10:57:44Z",
+    "Title": "Hertz Data Breach via Cleo Communications File Transfer Platform",
+    "Tools": [],
+    "Victim": {
+      "Access_Vectors": ["Exploited file transfer platform"],
+      "Data_Types_At_Risk": [
+        "Names",
+        "Contact details",
+        "Dates of birth",
+        "Credit card information",
+        "Drivers’ license data"
+      ],
+      "Description": "Customers of Hertz, Dollar, and Thrifty brands.",
+      "Geography": "United States of America",
+      "Impact_Severity": "High",
+      "Industry": "Car Rental",
+      "Security_Posture": "Compromised due to third-party vendor vulnerabilities.",
+      "Targeted_Assets": ["Personal information"]
+    },
+    "diamond_model_summary": "The Hertz data breach involved unknown adversaries exploiting zero-day vulnerabilities in Cleo Communications' file transfer platform. The adversaries demonstrated moderate sophistication by leveraging these vulnerabilities to access sensitive personal information of Hertz customers. The infrastructure involved was Cleo's platform, and the victims were customers of Hertz, Dollar, and Thrifty brands. The breach highlights the importance of securing third-party vendor platforms to protect sensitive data.",
+    "doc_summary": "The Hertz Corporation confirmed a data breach affecting customers of its Hertz, Dollar, and Thrifty brands due to an attack on Cleo Communications US, LLC's file transfer platform. Exploited zero-day vulnerabilities in October and December 2024 allowed unauthorized access to sensitive personal information, including names, contact details, dates of birth, credit card information, and more. Hertz became aware of the breach on February 10, 2025, and completed an analysis by April 2, 2025. No fraudulent use of data has been reported, but Hertz offers free identity monitoring services through Kroll. The incident has been reported to law enforcement and regulators.",
+    "enrichment": { "processed_at": "2026-02-18T00:35:29.707544+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "a48bce7b80b471c22ea0b6b023c003d53226c907",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The attack on Hertz involved exploiting zero-day vulnerabilities in Cleo's file transfer platform, allowing unauthorized access to sensitive personal information. The exploitation stage was critical, as it enabled initial access and subsequent data collection. No significant activity was detected in other stages of the kill chain, such as weaponization, delivery, installation, or command and control. The breach underscores the need for robust detection and remediation strategies to prevent similar incidents.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 70,
+    "pyramid_of_pain_summary": "The Hertz data breach primarily involved the exploitation of zero-day vulnerabilities, which are challenging to detect and remediate. No specific indicators such as hash values, IP addresses, or domain names were identified. The incident highlights the difficulty of addressing zero-day vulnerabilities and the importance of proactive security measures. The lack of specific indicators limits the ability to apply the Pyramid of Pain effectively in this case.",
+    "relevance_score": 39,
+    "sequence": 17162,
+    "source": "https://gbhackers.com/hertz-data-breach/",
+    "slug": "Hertz_Data_Breach_via_Cleo_Communications_File_Transfer_Platform-017162",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
+      "Description": "Potential threat actors exploiting RCE vulnerabilities in Android System.",
+      "Known_Campaigns": [],
+      "Motivation": "Gain unauthorized access to Android devices.",
+      "Sophistication": "Moderate to high, given the ability to bypass security mitigations.",
+      "Strategic_Objectives": "Compromise Android devices for data theft or control.",
+      "TTPs_Employed": ["Remote Code Execution"]
+    },
+    "Analyses": [
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Reconnaissance",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Weaponization",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Delivery",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "Exploitation of RCE vulnerabilities in Android System.",
+        "Detection": "Monitor for unusual application behavior • Check for unauthorized code execution",
+        "Remediation": "Apply latest security patches • Enable Google Play Protect",
+        "Stage": "Exploitation",
+        "Tactics": [
+          {
+            "tactic_description": "Gaining access to Android devices through RCE vulnerabilities.",
+            "tactic_id": "TA0001",
+            "tactic_name": "Initial Access"
+          }
+        ],
+        "Technique_Details": [
+          {
+            "technique_description": "Exploiting vulnerabilities to execute code on Android devices.",
+            "technique_id": "T1203",
+            "technique_name": "Exploitation for Client Execution"
+          }
+        ],
+        "Techniques": ["T1203"]
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Installation",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Command and Control",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      },
+      {
+        "Description": "No significant activity detected",
+        "Detection": "",
+        "Remediation": "",
+        "Stage": "Actions on Objectives",
+        "Tactics": [],
+        "Technique_Details": [],
+        "Techniques": []
+      }
+    ],
+    "Behavioral_Indicators_of_Attackers": [],
+    "CVEs": [],
+    "Capability": {
+      "Defensive_Evasion_Tactics": [],
+      "Description": "Exploitation of RCE vulnerabilities in Android System.",
+      "Exploits": ["RCE vulnerabilities in Android System"],
+      "Lateral_Movement_Tools": [],
+      "Malware": [],
+      "Persistence_Mechanisms": [],
+      "Tools": [],
+      "Zero_Days": []
+    },
+    "Data_Exfiltration_Indicators": [],
+    "Detection_Hints": [],
+    "Detection_Rules_And_Indicators": [
+      "Monitor for unusual application behavior",
+      "Check for unauthorized code execution"
+    ],
+    "Extracted_Entities": {
+      "Assets": ["Android devices"],
+      "Breach_Types": [],
+      "Command_Lines_Or_Scripts": [],
+      "Companies": ["Google"],
+      "Countries": [],
+      "Domains": [],
+      "Email_Addresses": [],
+      "Encryption_Tools": [],
+      "File_Hashes": [],
+      "IP_Addresses": [],
+      "Keywords": ["RCE vulnerabilities", "Android Security Bulletin", "Google Play Protect"],
+      "Malware_Families": [],
+      "Malware_Filenames": [],
+      "Patches": ["2025-01-05 security patch"],
+      "Phishing_Infrastructure": [],
+      "Sectors": ["Consumer Electronics"],
+      "Software": ["Android"],
+      "Technologies": ["Android System"],
+      "Threat_Infrastructure": [],
+      "Vulnerabilities": ["Remote Code Execution"]
+    },
+    "Infrastructure": {
+      "Botnets": [],
+      "C2_Servers": [],
+      "Communication_Protocols": [],
+      "Description": "No specific infrastructure details detected.",
+      "Domains": [],
+      "Hosting_Providers": [],
+      "IPs": [],
+      "SSL_Certificates": []
+    },
+    "Post_Incident_Recommendations": ["Apply latest security patches", "Enable Google Play Protect"],
+    "Pyramid_Of_Pain": {
+      "Domain_Names": [],
+      "Hash_Values": [],
+      "IP_Addresses": [],
+      "Network_Host_Artifacts": [],
+      "TTPs": ["Remote Code Execution"],
+      "Tools": ["Android System"]
+    },
+    "Recommended_Tools_And_Techniques_For_Analysis": ["ANY.RUN Threat Intelligence Lookup"],
+    "Severity": "Critical",
+    "Threat_Actors": [],
+    "Timestamp": "2025-01-07T07:06:09Z",
+    "Title": "Critical RCE Vulnerabilities in Android System - January 2025 Security Bulletin",
+    "Tools": ["Android System", "Android"],
+    "Victim": {
+      "Access_Vectors": ["Remote"],
+      "Data_Types_At_Risk": ["Personal data", "Device control"],
+      "Description": "Android device users globally.",
+      "Geography": "Global",
+      "Impact_Severity": "Critical",
+      "Industry": "Consumer Electronics",
+      "Security_Posture": "Vulnerable if not updated",
+      "Targeted_Assets": ["Android devices"]
+    },
+    "diamond_model_summary": "The incident involves potential adversaries exploiting Remote Code Execution vulnerabilities in the Android System. The capability is characterized by the exploitation of these vulnerabilities, with the infrastructure details remaining unspecified. The victims are Android device users globally, with a critical impact severity due to the potential for unauthorized code execution.",
+    "doc_summary": "The January 2025 Android Security Bulletin highlights critical vulnerabilities affecting Android devices, urging users to update to the latest security patch level, 2025-01-05, to mitigate risks. The bulletin details Remote Code Execution (RCE) vulnerabilities within the Android System component, which could allow attackers to execute harmful code without additional privileges. Android partners were informed a month prior, and source code patches will be released in the Android Open Source Project (AOSP) repository. Google Play Protect provides essential protections, and users are advised to stay updated to ensure device security. The bulletin categorizes vulnerabilities by CVE IDs and affected components, emphasizing the importance of regular updates for a safer mobile experience.",
+    "enrichment": { "processed_at": "2026-02-18T00:37:05.172746+00:00", "source_fields": ["title"], "version": "v1" },
+    "id": "11b6fe29df56808cca94fb9ca33b36bf7e68be00",
+    "index": "data_cached_global_airball",
+    "kill_chain_summary": "The kill chain analysis identifies the exploitation stage as critical, with threat actors potentially exploiting RCE vulnerabilities in the Android System to gain initial access. The lack of significant activity in other stages suggests a focus on exploiting these vulnerabilities for unauthorized code execution. Detection and remediation efforts should focus on applying security patches and enabling Google Play Protect.",
+    "operational_tags": ["High Priority"],
+    "priority_score": 89,
+    "pyramid_of_pain_summary": "The Pyramid of Pain analysis reveals a lack of specific indicators such as hash values, IP addresses, or domain names. The focus is on the exploitation of RCE vulnerabilities, with the primary tool being the Android System itself. The absence of detailed TTPs or infrastructure indicators limits the ability to provide a comprehensive analysis, emphasizing the need for proactive patching and security measures.",
+    "relevance_score": 45,
+    "sequence": 17161,
+    "source": "https://gbhackers.com/android-security-updates-2/",
+    "slug": "Critical_RCE_Vulnerabilities_in_Android_System_-_January_2025_Security_B-017161",
+    "shard": 9
+  },
+  {
+    "Adversary": {
+      "Aliases": [],
+      "Associated_Groups": [],
       "Description": "State-aligned hacking groups exploiting Android vulnerabilities.",
       "Known_Campaigns": [],
       "Motivation": "Gain unauthorized access and control over Android devices.",
@@ -98622,567 +99180,6 @@
     "sequence": 16664,
     "source": "https://gbhackers.com/leaked-wallpaper-vulnerability-exposes-windows/",
     "slug": "CVE-2024-38100__Critical_Windows_File_Explorer_Vulnerability_Exploited_v-016664",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "No specific adversary identified; potential for remote, unauthenticated attackers exploiting vulnerabilities.",
-      "Known_Campaigns": [],
-      "Motivation": "Potential for privilege escalation, remote code execution, and denial-of-service.",
-      "Sophistication": "Moderate, leveraging known vulnerabilities.",
-      "Strategic_Objectives": "Exploitation of unpatched vulnerabilities for unauthorized access and control.",
-      "TTPs_Employed": ["OS command injection", "Null pointer dereference", "Deserialization of untrusted data"]
-    },
-    "Analyses": [
-      {
-        "Description": "No specific reconnaissance activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No specific weaponization activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No specific delivery activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities in D-Link, DrayTek, Motion Spell, and SAP products.",
-        "Detection": "Monitor for unusual network traffic and system behavior.",
-        "Remediation": "Apply vendor-recommended patches and mitigations.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Exploitation of public-facing applications.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploitation of vulnerabilities in public-facing applications.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No specific installation activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No specific command and control activity detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No specific actions on objectives detected.",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of known vulnerabilities in outdated or unpatched systems.",
-      "Exploits": ["CVE-2023-25280", "CVE-2020-15415", "CVE-2021-4043", "CVE-2019-0344"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["Routers", "Software Platforms"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["D-Link", "DrayTek", "Motion Spell", "SAP"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CISA", "vulnerabilities", "exploitation", "mitigation"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology", "Telecommunications"],
-      "Software": ["D-Link DIR-820", "DrayTek Vigor3900", "Motion Spell GPAC", "SAP Commerce Cloud"],
-      "Technologies": [],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2023-25280", "CVE-2020-15415", "CVE-2021-4043", "CVE-2019-0344"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "Vulnerable products include routers and software platforms from D-Link, DrayTek, Motion Spell, and SAP.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["OS command injection", "Null pointer dereference", "Deserialization of untrusted data"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "Critical",
-    "Threat_Actors": [],
-    "Timestamp": "2024-10-01T06:15:26Z",
-    "Title": "CISA Warns of Critical Vulnerabilities in D-Link, DrayTek, Motion Spell, and SAP Products",
-    "Tools": ["D-Link DIR-820", "DrayTek Vigor3900", "Motion Spell GPAC", "SAP Commerce Cloud"],
-    "Victim": {
-      "Access_Vectors": ["Remote Exploitation"],
-      "Data_Types_At_Risk": ["System Control", "Media Processing"],
-      "Description": "Users of D-Link, DrayTek, Motion Spell, and SAP products.",
-      "Geography": "Global",
-      "Impact_Severity": "Critical",
-      "Industry": "Technology and Telecommunications",
-      "Security_Posture": "Vulnerable due to unpatched systems.",
-      "Targeted_Assets": ["Routers", "Software Platforms"]
-    },
-    "diamond_model_summary": "The incident involves exploitation of critical vulnerabilities in products from D-Link, DrayTek, Motion Spell, and SAP. The adversary is likely motivated by the potential for privilege escalation and remote code execution. The infrastructure includes vulnerable routers and software platforms, with victims being global users of these products. The capabilities involve exploiting known vulnerabilities for unauthorized access.",
-    "doc_summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has issued a warning about four critical vulnerabilities being actively exploited. These vulnerabilities affect products from D-Link, DrayTek, Motion Spell, and SAP, posing significant risks to users worldwide. The vulnerabilities include OS command injection flaws in D-Link DIR-820 and DrayTek routers, a null pointer dereference in Motion Spell's GPAC software, and deserialization of untrusted data in SAP Commerce Cloud. CISA advises users to apply vendor-recommended mitigations or discontinue use of affected products. The advisory emphasizes the urgency of addressing these vulnerabilities by October 21, 2024, to protect systems from potential exploitation.",
-    "enrichment": { "processed_at": "2026-02-18T00:34:52.826159+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "d1c8161ffd13d0c351f3f425e4e1a8625166929a",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals exploitation as the primary stage, with vulnerabilities in D-Link, DrayTek, Motion Spell, and SAP products being targeted. The tactics involve initial access through exploitation of public-facing applications. Detection focuses on monitoring network traffic and system behavior, while remediation involves applying vendor-recommended patches and mitigations.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 85,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies vulnerabilities as the primary indicators, with no specific hash values, IP addresses, or domain names detected. The focus is on known vulnerabilities in D-Link, DrayTek, Motion Spell, and SAP products, which are critical for adversaries to exploit. The lack of specific indicators highlights the importance of patching and mitigation to disrupt adversary operations.",
-    "relevance_score": 53,
-    "sequence": 16663,
-    "source": "https://gbhackers.com/cisa-warns-of-four-vulnerabilities/",
-    "slug": "CISA_Warns_of_Critical_Vulnerabilities_in_D-Link__DrayTek__Motion_Spell_-016663",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "Potential attackers exploiting vulnerabilities in F5 devices.",
-      "Known_Campaigns": [],
-      "Motivation": "Gain unauthorized access and control over F5 devices.",
-      "Sophistication": "Moderate, requires knowledge of network and convincing an administrator.",
-      "Strategic_Objectives": "Compromise F5 devices for unauthorized access.",
-      "TTPs_Employed": ["Remote code execution", "Cross-site request forgery"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Weaponization",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Delivery",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Exploitation of vulnerabilities CVE-2022-41622 and CVE-2022-41800.",
-        "Detection": "Monitor for unusual access patterns to F5 devices.",
-        "Remediation": "Apply patches and limit access to trusted networks.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Gaining access to the system through vulnerabilities.",
-            "tactic_id": "TA0001",
-            "tactic_name": "Initial Access"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in F5 devices.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Actions on Objectives",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": [],
-      "Description": "Exploitation of vulnerabilities in F5 devices for remote code execution.",
-      "Exploits": ["CVE-2022-41622", "CVE-2022-41800"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": [],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": [],
-    "Extracted_Entities": {
-      "Assets": ["F5 BIG-IP devices", "F5 BIG-IQ devices"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["F5 Networks", "Rapid7"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["CVE-2022-41622", "CVE-2022-41800", "remote code execution", "cross-site request forgery"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Technology"],
-      "Software": ["F5 BIG-IP", "F5 BIG-IQ"],
-      "Technologies": ["iControl SOAP", "iControl REST"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["CVE-2022-41622", "CVE-2022-41800"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "F5 BIG-IP and BIG-IQ devices with vulnerable configurations.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": [],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Remote code execution", "Cross-site request forgery"],
-      "Tools": []
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": [],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2022-11-17T18:16:24Z",
-    "Title": "Analysis of High-Severity Vulnerabilities in F5 BIG-IP and BIG-IQ Devices",
-    "Tools": ["F5 BIG-IP", "F5 BIG-IQ"],
-    "Victim": {
-      "Access_Vectors": ["Web browser authentication", "iControl REST"],
-      "Data_Types_At_Risk": ["Administrative credentials", "System configurations"],
-      "Description": "Organizations using F5 BIG-IP and BIG-IQ devices.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Technology",
-      "Security_Posture": "Vulnerable due to misconfigurations",
-      "Targeted_Assets": ["F5 BIG-IP devices", "F5 BIG-IQ devices"]
-    },
-    "diamond_model_summary": "The incident involves adversaries exploiting vulnerabilities in F5 BIG-IP and BIG-IQ devices, specifically CVE-2022-41622 and CVE-2022-41800. The adversaries aim to gain unauthorized access and control over these devices. The infrastructure targeted includes F5 devices with vulnerable configurations, and the victims are organizations using these devices, primarily in the technology sector. The capabilities of the adversaries include exploiting remote code execution vulnerabilities, with the potential impact being high due to the possibility of gaining root access.",
-    "doc_summary": "Experts from Rapid7 identified vulnerabilities in F5 BIG-IP and BIG-IQ devices, including two high-severity remote code execution vulnerabilities, CVE-2022-41622 and CVE-2022-41800. CVE-2022-41622 is an unauthenticated remote code execution via cross-site request forgery (CSRF) impacting BIG-IP and BIG-IQ products, allowing attackers to gain root access. CVE-2022-41800 allows an attacker with administrative rights to execute arbitrary shell commands via RPM specification files in Appliance mode iControl REST. F5 advises against using basic authentication for web browser authentication and recommends limiting access to iControl REST to trustworthy networks. The vulnerabilities highlight the need for robust security measures in managing F5 devices.",
-    "enrichment": { "processed_at": "2026-02-18T00:34:52.826097+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "9d6920f614268985e496a72f99413dbb202068c1",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals that the adversaries exploit vulnerabilities in F5 devices to gain initial access. The exploitation stage involves leveraging CVE-2022-41622 and CVE-2022-41800 for remote code execution. Detection involves monitoring for unusual access patterns, while remediation includes applying patches and limiting access to trusted networks. The incident highlights the importance of securing management interfaces and avoiding basic authentication in web browsers.",
-    "operational_tags": ["High Priority"],
-    "priority_score": 65,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis indicates that the incident involves specific TTPs related to remote code execution and cross-site request forgery. No specific hash values, IP addresses, or domain names were identified, but the focus is on the exploitation of known vulnerabilities in F5 devices. The tools and techniques used by the adversaries are critical to understanding the threat landscape and implementing effective defenses.",
-    "relevance_score": 45,
-    "sequence": 16662,
-    "source": "https://gbhackers.com/remote-code-execution-bug-in-f5/",
-    "slug": "Analysis_of_High-Severity_Vulnerabilities_in_F5_BIG-IP_and_BIG-IQ_Device-016662",
-    "shard": 9
-  },
-  {
-    "Adversary": {
-      "Aliases": [],
-      "Associated_Groups": [],
-      "Description": "The adversary exploits vulnerabilities in Visual Studio's debugging process.",
-      "Known_Campaigns": [],
-      "Motivation": "To execute arbitrary code and potentially expose sensitive information.",
-      "Sophistication": "Moderate, leveraging known vulnerabilities in debugging tools.",
-      "Strategic_Objectives": "To exploit debugging vulnerabilities for code execution.",
-      "TTPs_Employed": ["Exploitation of embedded source files in Portable PDBs"]
-    },
-    "Analyses": [
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Reconnaissance",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Crafting of malicious source files to exploit Visual Studio vulnerabilities.",
-        "Detection": "Monitor for unusual file extensions in debugging sessions.",
-        "Remediation": "Apply patches and updates to Visual Studio.",
-        "Stage": "Weaponization",
-        "Tactics": [
-          {
-            "tactic_description": "Exploiting vulnerabilities in Visual Studio's handling of embedded source files.",
-            "tactic_id": "T1190",
-            "tactic_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Exploiting vulnerabilities in Visual Studio's handling of embedded source files.",
-            "technique_id": "T1190",
-            "technique_name": "Exploit Public-Facing Application"
-          }
-        ],
-        "Techniques": ["T1190"]
-      },
-      {
-        "Description": "Embedding malicious source files within Portable PDBs.",
-        "Detection": "Inspect PDB files for unusual embedded content.",
-        "Remediation": "Validate and sanitize embedded source files.",
-        "Stage": "Delivery",
-        "Tactics": [
-          {
-            "tactic_description": "Embedding malicious source files within Portable PDBs.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Embedding malicious source files within Portable PDBs.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "Execution of arbitrary code via manipulated source files.",
-        "Detection": "Monitor for execution of unexpected external programs during debugging.",
-        "Remediation": "Implement strict validation of file extensions and contents.",
-        "Stage": "Exploitation",
-        "Tactics": [
-          {
-            "tactic_description": "Execution of arbitrary code via manipulated source files.",
-            "tactic_id": "T1203",
-            "tactic_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Execution of arbitrary code via manipulated source files.",
-            "technique_id": "T1203",
-            "technique_name": "Exploitation for Client Execution"
-          }
-        ],
-        "Techniques": ["T1203"]
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Installation",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "No significant activity detected",
-        "Detection": "",
-        "Remediation": "",
-        "Stage": "Command and Control",
-        "Tactics": [],
-        "Technique_Details": [],
-        "Techniques": []
-      },
-      {
-        "Description": "Potential exposure of sensitive information through code execution.",
-        "Detection": "Monitor for unexpected data access during debugging.",
-        "Remediation": "Restrict access to sensitive data during debugging sessions.",
-        "Stage": "Actions on Objectives",
-        "Tactics": [
-          {
-            "tactic_description": "Potential exposure of sensitive information through code execution.",
-            "tactic_id": "T1071",
-            "tactic_name": "Application Layer Protocol"
-          }
-        ],
-        "Technique_Details": [
-          {
-            "technique_description": "Potential exposure of sensitive information through code execution.",
-            "technique_id": "T1071",
-            "technique_name": "Application Layer Protocol"
-          }
-        ],
-        "Techniques": ["T1071"]
-      }
-    ],
-    "Behavioral_Indicators_of_Attackers": [],
-    "CVEs": [],
-    "Capability": {
-      "Defensive_Evasion_Tactics": ["Manipulation of file extensions and contents"],
-      "Description": "Exploitation of Visual Studio's handling of embedded source files.",
-      "Exploits": ["Arbitrary code execution via embedded source files"],
-      "Lateral_Movement_Tools": [],
-      "Malware": [],
-      "Persistence_Mechanisms": [],
-      "Tools": ["Visual Studio", "C# program for exploit creation"],
-      "Zero_Days": []
-    },
-    "Data_Exfiltration_Indicators": [],
-    "Detection_Hints": [],
-    "Detection_Rules_And_Indicators": ["Monitor for unusual file extensions in debugging sessions."],
-    "Extracted_Entities": {
-      "Assets": ["Debugging tools", "Source files"],
-      "Breach_Types": [],
-      "Command_Lines_Or_Scripts": [],
-      "Companies": ["Microsoft"],
-      "Countries": [],
-      "Domains": [],
-      "Email_Addresses": [],
-      "Encryption_Tools": [],
-      "File_Hashes": [],
-      "IP_Addresses": [],
-      "Keywords": ["Visual Studio", "Portable PDB", "arbitrary code execution"],
-      "Malware_Families": [],
-      "Malware_Filenames": [],
-      "Patches": [],
-      "Phishing_Infrastructure": [],
-      "Sectors": ["Software Development"],
-      "Software": ["Visual Studio"],
-      "Technologies": ["Portable PDB format"],
-      "Threat_Infrastructure": [],
-      "Vulnerabilities": ["ACE vulnerability"]
-    },
-    "Infrastructure": {
-      "Botnets": [],
-      "C2_Servers": [],
-      "Communication_Protocols": [],
-      "Description": "No specific infrastructure details detected.",
-      "Domains": [],
-      "Hosting_Providers": [],
-      "IPs": [],
-      "SSL_Certificates": []
-    },
-    "Post_Incident_Recommendations": ["Apply patches and updates to Visual Studio."],
-    "Pyramid_Of_Pain": {
-      "Domain_Names": [],
-      "Hash_Values": [],
-      "IP_Addresses": [],
-      "Network_Host_Artifacts": [],
-      "TTPs": ["Exploitation of embedded source files in Portable PDBs"],
-      "Tools": ["Visual Studio", "C# program"]
-    },
-    "Recommended_Tools_And_Techniques_For_Analysis": ["ANY.RUN’s Safe Browsing Tool"],
-    "Severity": "High",
-    "Threat_Actors": [],
-    "Timestamp": "2024-10-07T11:00:03Z",
-    "Title": "Exploitation of Visual Studio Debugging Vulnerabilities",
-    "Tools": ["Visual Studio", "C# program for exploit creation", "C# program"],
-    "Victim": {
-      "Access_Vectors": ["Embedded source files in Portable PDBs"],
-      "Data_Types_At_Risk": ["Source code", "Executable files"],
-      "Description": "Users of Visual Studio debugging tools.",
-      "Geography": "Global",
-      "Impact_Severity": "High",
-      "Industry": "Software Development",
-      "Security_Posture": "Vulnerable due to unpatched debugging tools.",
-      "Targeted_Assets": ["Debugging tools", "Source files"]
-    },
-    "diamond_model_summary": "The incident involves an adversary exploiting vulnerabilities in Visual Studio's debugging process to execute arbitrary code. The capability includes manipulating embedded source files within Portable PDBs. The infrastructure details are not specified, but the victim is identified as users of Visual Studio debugging tools, particularly in the software development industry. The attack highlights the need for validating and sanitizing embedded source files to prevent such vulnerabilities.",
-    "doc_summary": "The report discusses a cybersecurity incident involving the exploitation of vulnerabilities in Visual Studio's handling of debugging dump files. Researchers identified a method to execute arbitrary code by embedding malicious source files within Portable PDBs. This vulnerability allows attackers to manipulate file extensions and contents, leading Visual Studio to open these files with external programs, potentially executing arbitrary code. The incident highlights the importance of validating and sanitizing embedded source files to prevent such attacks. The analysis also identifies file extensions like CHM, HTA, and PY as potential vectors for code execution. A proof-of-concept demonstrated the vulnerability by tricking Visual Studio into treating a PDF as a valid source file, leading to code execution. The incident underscores the need for addressing security vulnerabilities in debugging tools to prevent potential attacks.",
-    "enrichment": { "processed_at": "2026-02-18T00:34:52.826132+00:00", "source_fields": ["title"], "version": "v1" },
-    "id": "bbfa0c5ed1e2ed8c20cec769bf8b2ece481dc415",
-    "index": "data_cached_global_airball",
-    "kill_chain_summary": "The kill chain analysis reveals that the adversary weaponized malicious source files to exploit Visual Studio vulnerabilities, delivering them via embedded Portable PDBs. The exploitation stage involves executing arbitrary code through manipulated source files. The actions on objectives include potential exposure of sensitive information. Detection involves monitoring for unusual file extensions and execution of unexpected external programs during debugging. Remediation includes applying patches and validating embedded source files.",
-    "operational_tags": ["High Priority", "C2"],
-    "priority_score": 87,
-    "pyramid_of_pain_summary": "The Pyramid of Pain analysis identifies the use of specific file extensions (CHM, HTA, PY) as potential indicators of compromise. These extensions can be manipulated to execute arbitrary code, posing a significant challenge for defenders. The tools used include Visual Studio and a C# program for exploit creation. The TTPs involve exploiting embedded source files in Portable PDBs. The analysis underscores the importance of monitoring for unusual file extensions and applying patches to mitigate these vulnerabilities.",
-    "relevance_score": 53,
-    "sequence": 16661,
-    "source": "https://gbhackers.com/cve-2024-30052-visual-studio-exploit/",
-    "slug": "Exploitation_of_Visual_Studio_Debugging_Vulnerabilities-016661",
     "shard": 9
   }
 ]

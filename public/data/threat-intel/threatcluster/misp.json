@@ -1,7 +1,7 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-15T05:59:42.517Z",
+  "syncedAt": "2026-08-17T06:13:28.377Z",
   "eventCount": 6,
   "events": [
     {
@@ -21,23 +21,6 @@
         "type:vulnerability",
         "misp-galaxy:threat-actor=\"Lazarus\"",
         "misp-galaxy:threat-actor=\"Lazarus Group\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "7033c078-aa7d-556c-9767-7f759f7fa1ce",
-      "info": "Head Mare Hackers Exploit TrueConf Vulnerabilities to Deploy Backdoors",
-      "date": "2026-08-08",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1786210543",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:ransomware",
-        "type:malware",
-        "type:vulnerability"
       ],
       "orgc": "ThreatCluster"
     },
@@ -70,6 +53,26 @@
       "orgc": "ThreatCluster"
     },
     {
+      "uuid": "30599276-9ca6-553b-b32d-ae6117f5804e",
+      "info": "Critical Authentication Bypass Vulnerability in WordPress Plugin CVE-2026-15341",
+      "date": "2026-08-16",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786871841",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "80db36ab-8289-5d81-81fc-ac5a50adad17",
+      "info": "Critical Stored XSS Vulnerabilities Found in SiYuan Versions Before 3.7.4",
+      "date": "2026-08-16",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786874615",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
       "uuid": "49b385e3-1f17-50da-82f6-12a9d8a3525f",
       "info": "Critical OS Command Injection Vulnerability in wg-easy 15.3.0 Disclosed",
       "date": "2026-08-12",
@@ -77,24 +80,6 @@
       "threat_level_id": "2",
       "timestamp": "1786502480",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "37b3c35c-aaf0-55d6-8cdc-6e35e464e022",
-      "info": "Kimsuky Expands AI Capabilities for Cyberattacks",
-      "date": "2026-08-10",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1786334520",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:apt",
-        "type:ransomware",
-        "type:malware",
-        "misp-galaxy:threat-actor=\"Kimsuky\""
-      ],
       "orgc": "ThreatCluster"
     }
   ]

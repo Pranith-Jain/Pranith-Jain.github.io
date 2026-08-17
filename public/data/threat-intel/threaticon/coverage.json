@@ -1,6 +1,6 @@
 {
   "source": "threaticon.com/detection-coverage",
-  "syncedAt": "2026-08-14T03:28:52.423Z",
+  "syncedAt": "2026-08-17T06:14:17.901Z",
   "techniqueCount": 493,
   "tactics": {
     "Reconnaissance": { "techniqueCount": 46, "coveragePct": 100 },
@@ -23,7 +23,7 @@
       "techniqueId": "T1589",
       "name": "Gather Victim Identity Information",
       "tactic": "Reconnaissance",
-      "rules": 36
+      "rules": 38
     },
     { "patternId": 508, "techniqueId": "T1589.001", "name": "Credentials", "tactic": "Reconnaissance", "rules": 13 },
     {
@@ -39,7 +39,7 @@
       "techniqueId": "T1590",
       "name": "Gather Victim Network Information",
       "tactic": "Reconnaissance",
-      "rules": 22
+      "rules": 23
     },
     {
       "patternId": 614,
@@ -105,7 +105,7 @@
       "techniqueId": "T1592",
       "name": "Gather Victim Host Information",
       "tactic": "Reconnaissance",
-      "rules": 22
+      "rules": 23
     },
     { "patternId": 112, "techniqueId": "T1592.001", "name": "Hardware", "tactic": "Reconnaissance", "rules": 4 },
     { "patternId": 500, "techniqueId": "T1592.002", "name": "Software", "tactic": "Reconnaissance", "rules": 6 },
@@ -115,7 +115,7 @@
       "techniqueId": "T1592.004",
       "name": "Client Configurations",
       "tactic": "Reconnaissance",
-      "rules": 6
+      "rules": 7
     },
     {
       "patternId": 435,
@@ -138,29 +138,29 @@
       "techniqueId": "T1594",
       "name": "Search Victim-Owned Websites",
       "tactic": "Reconnaissance",
-      "rules": 15
+      "rules": 17
     },
-    { "patternId": 292, "techniqueId": "T1595", "name": "Active Scanning", "tactic": "Reconnaissance", "rules": 104 },
+    { "patternId": 292, "techniqueId": "T1595", "name": "Active Scanning", "tactic": "Reconnaissance", "rules": 111 },
     {
       "patternId": 594,
       "techniqueId": "T1595.001",
       "name": "Scanning IP Blocks",
       "tactic": "Reconnaissance",
-      "rules": 12
+      "rules": 13
     },
     {
       "patternId": 253,
       "techniqueId": "T1595.002",
       "name": "Vulnerability Scanning",
       "tactic": "Reconnaissance",
-      "rules": 36
+      "rules": 40
     },
     {
       "patternId": 513,
       "techniqueId": "T1595.003",
       "name": "Wordlist Scanning",
       "tactic": "Reconnaissance",
-      "rules": 10
+      "rules": 13
     },
     {
       "patternId": 255,
@@ -206,7 +206,7 @@
       "techniqueId": "T1598",
       "name": "Phishing for Information",
       "tactic": "Reconnaissance",
-      "rules": 22
+      "rules": 25
     },
     {
       "patternId": 677,
@@ -248,38 +248,38 @@
       "techniqueId": "T1682",
       "name": "Query Public AI Services",
       "tactic": "Reconnaissance",
-      "rules": 5
+      "rules": 6
     },
     {
       "patternId": 13,
       "techniqueId": "T1583",
       "name": "Acquire Infrastructure",
       "tactic": "Resource Development",
-      "rules": 159
+      "rules": 176
     },
-    { "patternId": 202, "techniqueId": "T1583.001", "name": "Domains", "tactic": "Resource Development", "rules": 90 },
+    { "patternId": 202, "techniqueId": "T1583.001", "name": "Domains", "tactic": "Resource Development", "rules": 95 },
     {
       "patternId": 80,
       "techniqueId": "T1583.002",
       "name": "DNS Server",
       "tactic": "Resource Development",
-      "rules": 10
+      "rules": 11
     },
     {
       "patternId": 343,
       "techniqueId": "T1583.003",
       "name": "Virtual Private Server",
       "tactic": "Resource Development",
-      "rules": 51
+      "rules": 55
     },
-    { "patternId": 276, "techniqueId": "T1583.004", "name": "Server", "tactic": "Resource Development", "rules": 35 },
+    { "patternId": 276, "techniqueId": "T1583.004", "name": "Server", "tactic": "Resource Development", "rules": 39 },
     { "patternId": 144, "techniqueId": "T1583.005", "name": "Botnet", "tactic": "Resource Development", "rules": 8 },
     {
       "patternId": 392,
       "techniqueId": "T1583.006",
       "name": "Web Services",
       "tactic": "Resource Development",
-      "rules": 33
+      "rules": 34
     },
     { "patternId": 16, "techniqueId": "T1583.007", "name": "Serverless", "tactic": "Resource Development", "rules": 3 },
     {
@@ -287,16 +287,16 @@
       "techniqueId": "T1583.008",
       "name": "Malvertising",
       "tactic": "Resource Development",
-      "rules": 3
+      "rules": 4
     },
     {
       "patternId": 360,
       "techniqueId": "T1584",
       "name": "Compromise Infrastructure",
       "tactic": "Resource Development",
-      "rules": 112
+      "rules": 124
     },
-    { "patternId": 680, "techniqueId": "T1584.001", "name": "Domains", "tactic": "Resource Development", "rules": 23 },
+    { "patternId": 680, "techniqueId": "T1584.001", "name": "Domains", "tactic": "Resource Development", "rules": 25 },
     {
       "patternId": 526,
       "techniqueId": "T1584.002",
@@ -309,16 +309,16 @@
       "techniqueId": "T1584.003",
       "name": "Virtual Private Server",
       "tactic": "Resource Development",
-      "rules": 15
+      "rules": 16
     },
-    { "patternId": 609, "techniqueId": "T1584.004", "name": "Server", "tactic": "Resource Development", "rules": 25 },
+    { "patternId": 609, "techniqueId": "T1584.004", "name": "Server", "tactic": "Resource Development", "rules": 26 },
     { "patternId": 369, "techniqueId": "T1584.005", "name": "Botnet", "tactic": "Resource Development", "rules": 12 },
     {
       "patternId": 461,
       "techniqueId": "T1584.006",
       "name": "Web Services",
       "tactic": "Resource Development",
-      "rules": 7
+      "rules": 8
     },
     {
       "patternId": 600,
@@ -339,7 +339,7 @@
       "techniqueId": "T1585",
       "name": "Establish Accounts",
       "tactic": "Resource Development",
-      "rules": 43
+      "rules": 45
     },
     {
       "patternId": 471,
@@ -353,7 +353,7 @@
       "techniqueId": "T1585.002",
       "name": "Email Accounts",
       "tactic": "Resource Development",
-      "rules": 25
+      "rules": 27
     },
     {
       "patternId": 410,
@@ -367,7 +367,7 @@
       "techniqueId": "T1586",
       "name": "Compromise Accounts",
       "tactic": "Resource Development",
-      "rules": 98
+      "rules": 102
     },
     {
       "patternId": 118,
@@ -381,7 +381,7 @@
       "techniqueId": "T1586.002",
       "name": "Email Accounts",
       "tactic": "Resource Development",
-      "rules": 22
+      "rules": 24
     },
     {
       "patternId": 192,
@@ -395,9 +395,9 @@
       "techniqueId": "T1587",
       "name": "Develop Capabilities",
       "tactic": "Resource Development",
-      "rules": 47
+      "rules": 51
     },
-    { "patternId": 102, "techniqueId": "T1587.001", "name": "Malware", "tactic": "Resource Development", "rules": 53 },
+    { "patternId": 102, "techniqueId": "T1587.001", "name": "Malware", "tactic": "Resource Development", "rules": 55 },
     {
       "patternId": 159,
       "techniqueId": "T1587.002",
@@ -418,10 +418,10 @@
       "techniqueId": "T1588",
       "name": "Obtain Capabilities",
       "tactic": "Resource Development",
-      "rules": 53
+      "rules": 61
     },
     { "patternId": 337, "techniqueId": "T1588.001", "name": "Malware", "tactic": "Resource Development", "rules": 30 },
-    { "patternId": 442, "techniqueId": "T1588.002", "name": "Tool", "tactic": "Resource Development", "rules": 101 },
+    { "patternId": 442, "techniqueId": "T1588.002", "name": "Tool", "tactic": "Resource Development", "rules": 103 },
     {
       "patternId": 627,
       "techniqueId": "T1588.003",
@@ -442,7 +442,7 @@
       "techniqueId": "T1588.006",
       "name": "Vulnerabilities",
       "tactic": "Resource Development",
-      "rules": 8
+      "rules": 9
     },
     {
       "patternId": 37,
@@ -456,21 +456,21 @@
       "techniqueId": "T1608",
       "name": "Stage Capabilities",
       "tactic": "Resource Development",
-      "rules": 23
+      "rules": 24
     },
     {
       "patternId": 195,
       "techniqueId": "T1608.001",
       "name": "Upload Malware",
       "tactic": "Resource Development",
-      "rules": 43
+      "rules": 45
     },
     {
       "patternId": 239,
       "techniqueId": "T1608.002",
       "name": "Upload Tool",
       "tactic": "Resource Development",
-      "rules": 14
+      "rules": 15
     },
     {
       "patternId": 520,
@@ -505,7 +505,7 @@
       "techniqueId": "T1650",
       "name": "Acquire Access",
       "tactic": "Resource Development",
-      "rules": 73
+      "rules": 76
     },
     {
       "patternId": 482,
@@ -533,35 +533,35 @@
       "techniqueId": "T1189",
       "name": "Drive-by Compromise",
       "tactic": "Initial Access",
-      "rules": 116
+      "rules": 129
     },
     {
       "patternId": 197,
       "techniqueId": "T1190",
       "name": "Exploit Public-Facing Application",
       "tactic": "Initial Access",
-      "rules": 261
+      "rules": 286
     },
     {
       "patternId": 196,
       "techniqueId": "T1195",
       "name": "Supply Chain Compromise",
       "tactic": "Initial Access",
-      "rules": 34
+      "rules": 48
     },
     {
       "patternId": 78,
       "techniqueId": "T1195.001",
       "name": "Compromise Software Dependencies and Development Tools",
       "tactic": "Initial Access",
-      "rules": 10
+      "rules": 15
     },
     {
       "patternId": 509,
       "techniqueId": "T1195.002",
       "name": "Compromise Software Supply Chain",
       "tactic": "Initial Access",
-      "rules": 22
+      "rules": 28
     },
     {
       "patternId": 178,
@@ -575,37 +575,37 @@
       "techniqueId": "T1199",
       "name": "Trusted Relationship",
       "tactic": "Initial Access",
-      "rules": 25
+      "rules": 28
     },
-    { "patternId": 579, "techniqueId": "T1200", "name": "Hardware Additions", "tactic": "Initial Access", "rules": 5 },
-    { "patternId": 447, "techniqueId": "T1566", "name": "Phishing", "tactic": "Initial Access", "rules": 143 },
+    { "patternId": 579, "techniqueId": "T1200", "name": "Hardware Additions", "tactic": "Initial Access", "rules": 7 },
+    { "patternId": 447, "techniqueId": "T1566", "name": "Phishing", "tactic": "Initial Access", "rules": 169 },
     {
       "patternId": 136,
       "techniqueId": "T1566.001",
       "name": "Spearphishing Attachment",
       "tactic": "Initial Access",
-      "rules": 273
+      "rules": 292
     },
     {
       "patternId": 128,
       "techniqueId": "T1566.002",
       "name": "Spearphishing Link",
       "tactic": "Initial Access",
-      "rules": 133
+      "rules": 151
     },
     {
       "patternId": 672,
       "techniqueId": "T1566.003",
       "name": "Spearphishing via Service",
       "tactic": "Initial Access",
-      "rules": 30
+      "rules": 49
     },
     {
       "patternId": 502,
       "techniqueId": "T1566.004",
       "name": "Spearphishing Voice",
       "tactic": "Initial Access",
-      "rules": 12
+      "rules": 13
     },
     { "patternId": 212, "techniqueId": "T1659", "name": "Content Injection", "tactic": "Initial Access", "rules": 50 },
     { "patternId": 691, "techniqueId": "T1669", "name": "Wi-Fi Networks", "tactic": "Initial Access", "rules": 5 },
@@ -614,52 +614,52 @@
       "techniqueId": "T1047",
       "name": "Windows Management Instrumentation",
       "tactic": "Execution",
-      "rules": 96
+      "rules": 109
     },
-    { "patternId": 169, "techniqueId": "T1053", "name": "Scheduled Task/Job", "tactic": "Execution", "rules": 64 },
-    { "patternId": 663, "techniqueId": "T1053.002", "name": "At", "tactic": "Execution", "rules": 9 },
-    { "patternId": 125, "techniqueId": "T1053.003", "name": "Cron", "tactic": "Execution", "rules": 13 },
-    { "patternId": 2, "techniqueId": "T1053.005", "name": "Scheduled Task", "tactic": "Execution", "rules": 128 },
-    { "patternId": 446, "techniqueId": "T1053.006", "name": "Systemd Timers", "tactic": "Execution", "rules": 10 },
+    { "patternId": 169, "techniqueId": "T1053", "name": "Scheduled Task/Job", "tactic": "Execution", "rules": 76 },
+    { "patternId": 663, "techniqueId": "T1053.002", "name": "At", "tactic": "Execution", "rules": 10 },
+    { "patternId": 125, "techniqueId": "T1053.003", "name": "Cron", "tactic": "Execution", "rules": 18 },
+    { "patternId": 2, "techniqueId": "T1053.005", "name": "Scheduled Task", "tactic": "Execution", "rules": 143 },
+    { "patternId": 446, "techniqueId": "T1053.006", "name": "Systemd Timers", "tactic": "Execution", "rules": 11 },
     {
       "patternId": 55,
       "techniqueId": "T1053.007",
       "name": "Container Orchestration Job",
       "tactic": "Execution",
-      "rules": 4
+      "rules": 5
     },
     {
       "patternId": 324,
       "techniqueId": "T1059",
       "name": "Command and Scripting Interpreter",
       "tactic": "Execution",
-      "rules": 236
+      "rules": 270
     },
-    { "patternId": 419, "techniqueId": "T1059.001", "name": "PowerShell", "tactic": "Execution", "rules": 219 },
-    { "patternId": 175, "techniqueId": "T1059.002", "name": "AppleScript", "tactic": "Execution", "rules": 9 },
+    { "patternId": 419, "techniqueId": "T1059.001", "name": "PowerShell", "tactic": "Execution", "rules": 242 },
+    { "patternId": 175, "techniqueId": "T1059.002", "name": "AppleScript", "tactic": "Execution", "rules": 11 },
     {
       "patternId": 569,
       "techniqueId": "T1059.003",
       "name": "Windows Command Shell",
       "tactic": "Execution",
-      "rules": 195
+      "rules": 221
     },
-    { "patternId": 454, "techniqueId": "T1059.004", "name": "Unix Shell", "tactic": "Execution", "rules": 34 },
-    { "patternId": 602, "techniqueId": "T1059.005", "name": "Visual Basic", "tactic": "Execution", "rules": 73 },
-    { "patternId": 550, "techniqueId": "T1059.006", "name": "Python", "tactic": "Execution", "rules": 40 },
-    { "patternId": 46, "techniqueId": "T1059.007", "name": "JavaScript", "tactic": "Execution", "rules": 55 },
-    { "patternId": 370, "techniqueId": "T1059.008", "name": "Network Device CLI", "tactic": "Execution", "rules": 7 },
-    { "patternId": 254, "techniqueId": "T1059.009", "name": "Cloud API", "tactic": "Execution", "rules": 11 },
+    { "patternId": 454, "techniqueId": "T1059.004", "name": "Unix Shell", "tactic": "Execution", "rules": 38 },
+    { "patternId": 602, "techniqueId": "T1059.005", "name": "Visual Basic", "tactic": "Execution", "rules": 79 },
+    { "patternId": 550, "techniqueId": "T1059.006", "name": "Python", "tactic": "Execution", "rules": 43 },
+    { "patternId": 46, "techniqueId": "T1059.007", "name": "JavaScript", "tactic": "Execution", "rules": 60 },
+    { "patternId": 370, "techniqueId": "T1059.008", "name": "Network Device CLI", "tactic": "Execution", "rules": 8 },
+    { "patternId": 254, "techniqueId": "T1059.009", "name": "Cloud API", "tactic": "Execution", "rules": 12 },
     {
       "patternId": 184,
       "techniqueId": "T1059.010",
       "name": "AutoHotKey &amp; AutoIT",
       "tactic": "Execution",
-      "rules": 9
+      "rules": 10
     },
-    { "patternId": 465, "techniqueId": "T1059.011", "name": "Lua", "tactic": "Execution", "rules": 7 },
-    { "patternId": 576, "techniqueId": "T1059.012", "name": "Hypervisor CLI", "tactic": "Execution", "rules": 5 },
-    { "patternId": 524, "techniqueId": "T1059.013", "name": "Container CLI/API", "tactic": "Execution", "rules": 18 },
+    { "patternId": 465, "techniqueId": "T1059.011", "name": "Lua", "tactic": "Execution", "rules": 8 },
+    { "patternId": 576, "techniqueId": "T1059.012", "name": "Hypervisor CLI", "tactic": "Execution", "rules": 6 },
+    { "patternId": 524, "techniqueId": "T1059.013", "name": "Container CLI/API", "tactic": "Execution", "rules": 23 },
     {
       "patternId": 411,
       "techniqueId": "T1072",
@@ -667,68 +667,68 @@
       "tactic": "Execution",
       "rules": 28
     },
-    { "patternId": 179, "techniqueId": "T1106", "name": "Native API", "tactic": "Execution", "rules": 66 },
-    { "patternId": 30, "techniqueId": "T1129", "name": "Shared Modules", "tactic": "Execution", "rules": 27 },
+    { "patternId": 179, "techniqueId": "T1106", "name": "Native API", "tactic": "Execution", "rules": 75 },
+    { "patternId": 30, "techniqueId": "T1129", "name": "Shared Modules", "tactic": "Execution", "rules": 32 },
     {
       "patternId": 512,
       "techniqueId": "T1203",
       "name": "Exploitation for Client Execution",
       "tactic": "Execution",
-      "rules": 143
+      "rules": 154
     },
-    { "patternId": 396, "techniqueId": "T1204", "name": "User Execution", "tactic": "Execution", "rules": 98 },
-    { "patternId": 651, "techniqueId": "T1204.001", "name": "Malicious Link", "tactic": "Execution", "rules": 74 },
-    { "patternId": 108, "techniqueId": "T1204.002", "name": "Malicious File", "tactic": "Execution", "rules": 161 },
-    { "patternId": 467, "techniqueId": "T1204.003", "name": "Malicious Image", "tactic": "Execution", "rules": 7 },
+    { "patternId": 396, "techniqueId": "T1204", "name": "User Execution", "tactic": "Execution", "rules": 108 },
+    { "patternId": 651, "techniqueId": "T1204.001", "name": "Malicious Link", "tactic": "Execution", "rules": 84 },
+    { "patternId": 108, "techniqueId": "T1204.002", "name": "Malicious File", "tactic": "Execution", "rules": 173 },
+    { "patternId": 467, "techniqueId": "T1204.003", "name": "Malicious Image", "tactic": "Execution", "rules": 9 },
     {
       "patternId": 611,
       "techniqueId": "T1204.004",
       "name": "Malicious Copy and Paste",
       "tactic": "Execution",
-      "rules": 26
+      "rules": 29
     },
-    { "patternId": 325, "techniqueId": "T1204.005", "name": "Malicious Library", "tactic": "Execution", "rules": 6 },
+    { "patternId": 325, "techniqueId": "T1204.005", "name": "Malicious Library", "tactic": "Execution", "rules": 8 },
     {
       "patternId": 458,
       "techniqueId": "T1559",
       "name": "Inter-Process Communication",
       "tactic": "Execution",
-      "rules": 37
+      "rules": 42
     },
     {
       "patternId": 138,
       "techniqueId": "T1559.001",
       "name": "Component Object Model",
       "tactic": "Execution",
-      "rules": 19
+      "rules": 23
     },
     {
       "patternId": 107,
       "techniqueId": "T1559.002",
       "name": "Dynamic Data Exchange",
       "tactic": "Execution",
-      "rules": 27
+      "rules": 31
     },
-    { "patternId": 372, "techniqueId": "T1559.003", "name": "XPC Services", "tactic": "Execution", "rules": 11 },
-    { "patternId": 568, "techniqueId": "T1569", "name": "System Services", "tactic": "Execution", "rules": 15 },
+    { "patternId": 372, "techniqueId": "T1559.003", "name": "XPC Services", "tactic": "Execution", "rules": 15 },
+    { "patternId": 568, "techniqueId": "T1569", "name": "System Services", "tactic": "Execution", "rules": 17 },
     { "patternId": 368, "techniqueId": "T1569.001", "name": "Launchctl", "tactic": "Execution", "rules": 2 },
-    { "patternId": 654, "techniqueId": "T1569.002", "name": "Service Execution", "tactic": "Execution", "rules": 37 },
+    { "patternId": 654, "techniqueId": "T1569.002", "name": "Service Execution", "tactic": "Execution", "rules": 38 },
     { "patternId": 228, "techniqueId": "T1569.003", "name": "Systemctl", "tactic": "Execution", "rules": 3 },
     {
       "patternId": 346,
       "techniqueId": "T1609",
       "name": "Container Administration Command",
       "tactic": "Execution",
-      "rules": 60
+      "rules": 65
     },
-    { "patternId": 259, "techniqueId": "T1610", "name": "Deploy Container", "tactic": "Execution", "rules": 17 },
+    { "patternId": 259, "techniqueId": "T1610", "name": "Deploy Container", "tactic": "Execution", "rules": 23 },
     { "patternId": 628, "techniqueId": "T1648", "name": "Serverless Execution", "tactic": "Execution", "rules": 6 },
     {
       "patternId": 592,
       "techniqueId": "T1651",
       "name": "Cloud Administration Command",
       "tactic": "Execution",
-      "rules": 75
+      "rules": 77
     },
     { "patternId": 285, "techniqueId": "T1674", "name": "Input Injection", "tactic": "Execution", "rules": 7 },
     {
@@ -736,7 +736,7 @@
       "techniqueId": "T1675",
       "name": "ESXi Administration Command",
       "tactic": "Execution",
-      "rules": 6
+      "rules": 7
     },
     {
       "patternId": 330,
@@ -750,7 +750,7 @@
       "techniqueId": "T1037",
       "name": "Boot or Logon Initialization Scripts",
       "tactic": "Persistence",
-      "rules": 101
+      "rules": 105
     },
     {
       "patternId": 635,
@@ -769,27 +769,27 @@
     },
     { "patternId": 596, "techniqueId": "T1037.004", "name": "RC Scripts", "tactic": "Persistence", "rules": 7 },
     { "patternId": 521, "techniqueId": "T1037.005", "name": "Startup Items", "tactic": "Persistence", "rules": 2 },
-    { "patternId": 436, "techniqueId": "T1098", "name": "Account Manipulation", "tactic": "Persistence", "rules": 137 },
+    { "patternId": 436, "techniqueId": "T1098", "name": "Account Manipulation", "tactic": "Persistence", "rules": 153 },
     {
       "patternId": 395,
       "techniqueId": "T1098.001",
       "name": "Additional Cloud Credentials",
       "tactic": "Persistence",
-      "rules": 11
+      "rules": 12
     },
     {
       "patternId": 626,
       "techniqueId": "T1098.002",
       "name": "Additional Email Delegate Permissions",
       "tactic": "Persistence",
-      "rules": 8
+      "rules": 10
     },
     {
       "patternId": 134,
       "techniqueId": "T1098.003",
       "name": "Additional Cloud Roles",
       "tactic": "Persistence",
-      "rules": 11
+      "rules": 14
     },
     {
       "patternId": 306,
@@ -803,7 +803,7 @@
       "techniqueId": "T1098.005",
       "name": "Device Registration",
       "tactic": "Persistence",
-      "rules": 6
+      "rules": 7
     },
     {
       "patternId": 168,
@@ -824,18 +824,18 @@
       "techniqueId": "T1133",
       "name": "External Remote Services",
       "tactic": "Persistence",
-      "rules": 133
+      "rules": 159
     },
-    { "patternId": 607, "techniqueId": "T1136", "name": "Create Account", "tactic": "Persistence", "rules": 79 },
-    { "patternId": 283, "techniqueId": "T1136.001", "name": "Local Account", "tactic": "Persistence", "rules": 38 },
-    { "patternId": 327, "techniqueId": "T1136.002", "name": "Domain Account", "tactic": "Persistence", "rules": 15 },
-    { "patternId": 433, "techniqueId": "T1136.003", "name": "Cloud Account", "tactic": "Persistence", "rules": 9 },
+    { "patternId": 607, "techniqueId": "T1136", "name": "Create Account", "tactic": "Persistence", "rules": 87 },
+    { "patternId": 283, "techniqueId": "T1136.001", "name": "Local Account", "tactic": "Persistence", "rules": 41 },
+    { "patternId": 327, "techniqueId": "T1136.002", "name": "Domain Account", "tactic": "Persistence", "rules": 19 },
+    { "patternId": 433, "techniqueId": "T1136.003", "name": "Cloud Account", "tactic": "Persistence", "rules": 10 },
     {
       "patternId": 130,
       "techniqueId": "T1137",
       "name": "Office Application Startup",
       "tactic": "Persistence",
-      "rules": 13
+      "rules": 14
     },
     {
       "patternId": 342,
@@ -863,31 +863,31 @@
       "techniqueId": "T1505",
       "name": "Server Software Component",
       "tactic": "Persistence",
-      "rules": 29
+      "rules": 35
     },
     {
       "patternId": 681,
       "techniqueId": "T1505.001",
       "name": "SQL Stored Procedures",
       "tactic": "Persistence",
-      "rules": 6
+      "rules": 7
     },
-    { "patternId": 163, "techniqueId": "T1505.002", "name": "Transport Agent", "tactic": "Persistence", "rules": 9 },
-    { "patternId": 271, "techniqueId": "T1505.003", "name": "Web Shell", "tactic": "Persistence", "rules": 62 },
-    { "patternId": 480, "techniqueId": "T1505.004", "name": "IIS Components", "tactic": "Persistence", "rules": 8 },
+    { "patternId": 163, "techniqueId": "T1505.002", "name": "Transport Agent", "tactic": "Persistence", "rules": 10 },
+    { "patternId": 271, "techniqueId": "T1505.003", "name": "Web Shell", "tactic": "Persistence", "rules": 69 },
+    { "patternId": 480, "techniqueId": "T1505.004", "name": "IIS Components", "tactic": "Persistence", "rules": 9 },
     {
       "patternId": 174,
       "techniqueId": "T1505.005",
       "name": "Terminal Services DLL",
       "tactic": "Persistence",
-      "rules": 5
+      "rules": 6
     },
     {
       "patternId": 678,
       "techniqueId": "T1505.006",
       "name": "vSphere Installation Bundles",
       "tactic": "Persistence",
-      "rules": 6
+      "rules": 7
     },
     { "patternId": 235, "techniqueId": "T1525", "name": "Implant Internal Image", "tactic": "Persistence", "rules": 8 },
     {
@@ -895,11 +895,11 @@
       "techniqueId": "T1543",
       "name": "Create or Modify System Process",
       "tactic": "Persistence",
-      "rules": 87
+      "rules": 90
     },
     { "patternId": 567, "techniqueId": "T1543.001", "name": "Launch Agent", "tactic": "Persistence", "rules": 6 },
     { "patternId": 604, "techniqueId": "T1543.002", "name": "Systemd Service", "tactic": "Persistence", "rules": 11 },
-    { "patternId": 122, "techniqueId": "T1543.003", "name": "Windows Service", "tactic": "Persistence", "rules": 63 },
+    { "patternId": 122, "techniqueId": "T1543.003", "name": "Windows Service", "tactic": "Persistence", "rules": 69 },
     { "patternId": 261, "techniqueId": "T1543.004", "name": "Launch Daemon", "tactic": "Persistence", "rules": 3 },
     { "patternId": 468, "techniqueId": "T1543.005", "name": "Container Service", "tactic": "Persistence", "rules": 3 },
     { "patternId": 667, "techniqueId": "T1546.017", "name": "Udev Rules", "tactic": "Persistence", "rules": 2 },
@@ -908,28 +908,28 @@
       "techniqueId": "T1546.018",
       "name": "Python Startup Hooks",
       "tactic": "Persistence",
-      "rules": 1
+      "rules": 2
     },
     {
       "patternId": 96,
       "techniqueId": "T1547",
       "name": "Boot or Logon Autostart Execution",
       "tactic": "Persistence",
-      "rules": 131
+      "rules": 140
     },
     {
       "patternId": 431,
       "techniqueId": "T1547.001",
       "name": "Registry Run Keys / Startup Folder",
       "tactic": "Persistence",
-      "rules": 101
+      "rules": 113
     },
     {
       "patternId": 497,
       "techniqueId": "T1547.002",
       "name": "Authentication Package",
       "tactic": "Persistence",
-      "rules": 3
+      "rules": 4
     },
     { "patternId": 280, "techniqueId": "T1547.003", "name": "Time Providers", "tactic": "Persistence", "rules": 7 },
     {
@@ -937,14 +937,14 @@
       "techniqueId": "T1547.004",
       "name": "Winlogon Helper DLL",
       "tactic": "Persistence",
-      "rules": 13
+      "rules": 14
     },
     {
       "patternId": 240,
       "techniqueId": "T1547.005",
       "name": "Security Support Provider",
       "tactic": "Persistence",
-      "rules": 2
+      "rules": 3
     },
     {
       "patternId": 438,
@@ -960,22 +960,22 @@
       "tactic": "Persistence",
       "rules": 3
     },
-    { "patternId": 653, "techniqueId": "T1547.008", "name": "LSASS Driver", "tactic": "Persistence", "rules": 4 },
+    { "patternId": 653, "techniqueId": "T1547.008", "name": "LSASS Driver", "tactic": "Persistence", "rules": 5 },
     {
       "patternId": 226,
       "techniqueId": "T1547.009",
       "name": "Shortcut Modification",
       "tactic": "Persistence",
-      "rules": 18
+      "rules": 20
     },
-    { "patternId": 209, "techniqueId": "T1547.010", "name": "Port Monitors", "tactic": "Persistence", "rules": 2 },
-    { "patternId": 135, "techniqueId": "T1547.012", "name": "Print Processors", "tactic": "Persistence", "rules": 3 },
+    { "patternId": 209, "techniqueId": "T1547.010", "name": "Port Monitors", "tactic": "Persistence", "rules": 3 },
+    { "patternId": 135, "techniqueId": "T1547.012", "name": "Print Processors", "tactic": "Persistence", "rules": 4 },
     {
       "patternId": 608,
       "techniqueId": "T1547.013",
       "name": "XDG Autostart Entries",
       "tactic": "Persistence",
-      "rules": 5
+      "rules": 6
     },
     { "patternId": 105, "techniqueId": "T1547.014", "name": "Active Setup", "tactic": "Persistence", "rules": 1 },
     { "patternId": 378, "techniqueId": "T1547.015", "name": "Login Items", "tactic": "Persistence", "rules": 2 },
@@ -984,7 +984,7 @@
       "techniqueId": "T1554",
       "name": "Compromise Host Software Binary",
       "tactic": "Persistence",
-      "rules": 68
+      "rules": 72
     },
     { "patternId": 632, "techniqueId": "T1653", "name": "Power Settings", "tactic": "Persistence", "rules": 5 },
     { "patternId": 605, "techniqueId": "T1668", "name": "Exclusive Control", "tactic": "Persistence", "rules": 1 },
@@ -993,21 +993,21 @@
       "techniqueId": "T1671",
       "name": "Cloud Application Integration",
       "tactic": "Persistence",
-      "rules": 72
+      "rules": 74
     },
     {
       "patternId": 473,
       "techniqueId": "T1068",
       "name": "Exploitation for Privilege Escalation",
       "tactic": "Privilege Escalation",
-      "rules": 122
+      "rules": 126
     },
     {
       "patternId": 486,
       "techniqueId": "T1546",
       "name": "Event Triggered Execution",
       "tactic": "Privilege Escalation",
-      "rules": 36
+      "rules": 42
     },
     {
       "patternId": 420,
@@ -1021,14 +1021,14 @@
       "techniqueId": "T1546.002",
       "name": "Screensaver",
       "tactic": "Privilege Escalation",
-      "rules": 4
+      "rules": 5
     },
     {
       "patternId": 406,
       "techniqueId": "T1546.003",
       "name": "Windows Management Instrumentation Event Subscription",
       "tactic": "Privilege Escalation",
-      "rules": 17
+      "rules": 18
     },
     {
       "patternId": 487,
@@ -1050,7 +1050,7 @@
       "techniqueId": "T1546.007",
       "name": "Netsh Helper DLL",
       "tactic": "Privilege Escalation",
-      "rules": 2
+      "rules": 3
     },
     {
       "patternId": 320,
@@ -1071,7 +1071,7 @@
       "techniqueId": "T1546.010",
       "name": "AppInit DLLs",
       "tactic": "Privilege Escalation",
-      "rules": 6
+      "rules": 7
     },
     {
       "patternId": 207,
@@ -1085,14 +1085,14 @@
       "techniqueId": "T1546.012",
       "name": "Image File Execution Options Injection",
       "tactic": "Privilege Escalation",
-      "rules": 3
+      "rules": 4
     },
     {
       "patternId": 45,
       "techniqueId": "T1546.013",
       "name": "PowerShell Profile",
       "tactic": "Privilege Escalation",
-      "rules": 5
+      "rules": 6
     },
     { "patternId": 425, "techniqueId": "T1546.014", "name": "Emond", "tactic": "Privilege Escalation", "rules": 2 },
     {
@@ -1100,7 +1100,7 @@
       "techniqueId": "T1546.015",
       "name": "Component Object Model Hijacking",
       "tactic": "Privilege Escalation",
-      "rules": 2
+      "rules": 4
     },
     {
       "patternId": 593,
@@ -1114,7 +1114,7 @@
       "techniqueId": "T1548",
       "name": "Abuse Elevation Control Mechanism",
       "tactic": "Privilege Escalation",
-      "rules": 117
+      "rules": 129
     },
     {
       "patternId": 296,
@@ -1128,7 +1128,7 @@
       "techniqueId": "T1548.002",
       "name": "Bypass User Account Control",
       "tactic": "Privilege Escalation",
-      "rules": 40
+      "rules": 45
     },
     {
       "patternId": 61,
@@ -1163,67 +1163,67 @@
       "techniqueId": "T1611",
       "name": "Escape to Host",
       "tactic": "Privilege Escalation",
-      "rules": 9
+      "rules": 10
     },
     {
       "patternId": 29,
       "techniqueId": "T1003",
       "name": "OS Credential Dumping",
       "tactic": "Credential Access",
-      "rules": 92
+      "rules": 108
     },
     {
       "patternId": 290,
       "techniqueId": "T1003.001",
       "name": "LSASS Memory",
       "tactic": "Credential Access",
-      "rules": 84
+      "rules": 92
     },
     {
       "patternId": 70,
       "techniqueId": "T1003.002",
       "name": "Security Account Manager",
       "tactic": "Credential Access",
-      "rules": 36
+      "rules": 37
     },
-    { "patternId": 646, "techniqueId": "T1003.003", "name": "NTDS", "tactic": "Credential Access", "rules": 27 },
-    { "patternId": 97, "techniqueId": "T1003.004", "name": "LSA Secrets", "tactic": "Credential Access", "rules": 18 },
+    { "patternId": 646, "techniqueId": "T1003.003", "name": "NTDS", "tactic": "Credential Access", "rules": 28 },
+    { "patternId": 97, "techniqueId": "T1003.004", "name": "LSA Secrets", "tactic": "Credential Access", "rules": 21 },
     {
       "patternId": 305,
       "techniqueId": "T1003.005",
       "name": "Cached Domain Credentials",
       "tactic": "Credential Access",
-      "rules": 11
+      "rules": 12
     },
-    { "patternId": 661, "techniqueId": "T1003.006", "name": "DCSync", "tactic": "Credential Access", "rules": 11 },
+    { "patternId": 661, "techniqueId": "T1003.006", "name": "DCSync", "tactic": "Credential Access", "rules": 13 },
     {
       "patternId": 143,
       "techniqueId": "T1003.007",
       "name": "Proc Filesystem",
       "tactic": "Credential Access",
-      "rules": 3
+      "rules": 4
     },
     {
       "patternId": 566,
       "techniqueId": "T1003.008",
       "name": "/etc/passwd and /etc/shadow",
       "tactic": "Credential Access",
-      "rules": 4
+      "rules": 5
     },
     {
       "patternId": 150,
       "techniqueId": "T1040",
       "name": "Network Sniffing",
       "tactic": "Credential Access",
-      "rules": 29
+      "rules": 30
     },
-    { "patternId": 453, "techniqueId": "T1110", "name": "Brute Force", "tactic": "Credential Access", "rules": 132 },
+    { "patternId": 453, "techniqueId": "T1110", "name": "Brute Force", "tactic": "Credential Access", "rules": 146 },
     {
       "patternId": 26,
       "techniqueId": "T1110.001",
       "name": "Password Guessing",
       "tactic": "Credential Access",
-      "rules": 20
+      "rules": 21
     },
     {
       "patternId": 93,
@@ -1237,21 +1237,21 @@
       "techniqueId": "T1110.003",
       "name": "Password Spraying",
       "tactic": "Credential Access",
-      "rules": 26
+      "rules": 29
     },
     {
       "patternId": 476,
       "techniqueId": "T1110.004",
       "name": "Credential Stuffing",
       "tactic": "Credential Access",
-      "rules": 12
+      "rules": 13
     },
     {
       "patternId": 598,
       "techniqueId": "T1111",
       "name": "Multi-Factor Authentication Interception",
       "tactic": "Credential Access",
-      "rules": 14
+      "rules": 17
     },
     {
       "patternId": 488,
@@ -1265,35 +1265,35 @@
       "techniqueId": "T1212",
       "name": "Exploitation for Credential Access",
       "tactic": "Credential Access",
-      "rules": 12
+      "rules": 14
     },
     {
       "patternId": 393,
       "techniqueId": "T1528",
       "name": "Steal Application Access Token",
       "tactic": "Credential Access",
-      "rules": 19
+      "rules": 21
     },
     {
       "patternId": 54,
       "techniqueId": "T1539",
       "name": "Steal Web Session Cookie",
       "tactic": "Credential Access",
-      "rules": 24
+      "rules": 34
     },
     {
       "patternId": 208,
       "techniqueId": "T1552",
       "name": "Unsecured Credentials",
       "tactic": "Credential Access",
-      "rules": 26
+      "rules": 28
     },
     {
       "patternId": 375,
       "techniqueId": "T1552.001",
       "name": "Credentials In Files",
       "tactic": "Credential Access",
-      "rules": 31
+      "rules": 32
     },
     {
       "patternId": 154,
@@ -1335,7 +1335,7 @@
       "techniqueId": "T1552.007",
       "name": "Container API",
       "tactic": "Credential Access",
-      "rules": 6
+      "rules": 7
     },
     {
       "patternId": 418,
@@ -1349,7 +1349,7 @@
       "techniqueId": "T1555",
       "name": "Credentials from Password Stores",
       "tactic": "Credential Access",
-      "rules": 93
+      "rules": 100
     },
     { "patternId": 95, "techniqueId": "T1555.001", "name": "Keychain", "tactic": "Credential Access", "rules": 6 },
     {
@@ -1364,7 +1364,7 @@
       "techniqueId": "T1555.003",
       "name": "Credentials from Web Browsers",
       "tactic": "Credential Access",
-      "rules": 51
+      "rules": 53
     },
     {
       "patternId": 577,
@@ -1392,14 +1392,14 @@
       "techniqueId": "T1557",
       "name": "Adversary-in-the-Middle",
       "tactic": "Credential Access",
-      "rules": 102
+      "rules": 116
     },
     {
       "patternId": 288,
       "techniqueId": "T1557.001",
       "name": "Name Resolution Poisoning and SMB Relay",
       "tactic": "Credential Access",
-      "rules": 10
+      "rules": 11
     },
     {
       "patternId": 546,
@@ -1421,43 +1421,43 @@
       "techniqueId": "T1558",
       "name": "Steal or Forge Kerberos Tickets",
       "tactic": "Credential Access",
-      "rules": 14
+      "rules": 19
     },
     {
       "patternId": 332,
       "techniqueId": "T1558.001",
       "name": "Golden Ticket",
       "tactic": "Credential Access",
-      "rules": 12
+      "rules": 15
     },
     {
       "patternId": 573,
       "techniqueId": "T1558.002",
       "name": "Silver Ticket",
       "tactic": "Credential Access",
-      "rules": 9
+      "rules": 12
     },
     {
       "patternId": 660,
       "techniqueId": "T1558.003",
       "name": "Kerberoasting",
       "tactic": "Credential Access",
-      "rules": 11
+      "rules": 14
     },
     {
       "patternId": 182,
       "techniqueId": "T1558.004",
       "name": "AS-REP Roasting",
       "tactic": "Credential Access",
-      "rules": 17
+      "rules": 21
     },
-    { "patternId": 180, "techniqueId": "T1558.005", "name": "Ccache Files", "tactic": "Credential Access", "rules": 5 },
+    { "patternId": 180, "techniqueId": "T1558.005", "name": "Ccache Files", "tactic": "Credential Access", "rules": 7 },
     {
       "patternId": 415,
       "techniqueId": "T1606",
       "name": "Forge Web Credentials",
       "tactic": "Credential Access",
-      "rules": 8
+      "rules": 9
     },
     { "patternId": 385, "techniqueId": "T1606.001", "name": "Web Cookies", "tactic": "Credential Access", "rules": 3 },
     { "patternId": 99, "techniqueId": "T1606.002", "name": "SAML Tokens", "tactic": "Credential Access", "rules": 6 },
@@ -1466,36 +1466,36 @@
       "techniqueId": "T1621",
       "name": "Multi-Factor Authentication Request Generation",
       "tactic": "Credential Access",
-      "rules": 12
+      "rules": 13
     },
     {
       "patternId": 357,
       "techniqueId": "T1649",
       "name": "Steal or Forge Authentication Certificates",
       "tactic": "Credential Access",
-      "rules": 12
+      "rules": 13
     },
     {
       "patternId": 149,
       "techniqueId": "T1007",
       "name": "System Service Discovery",
       "tactic": "Discovery",
-      "rules": 26
+      "rules": 28
     },
     {
       "patternId": 227,
       "techniqueId": "T1010",
       "name": "Application Window Discovery",
       "tactic": "Discovery",
-      "rules": 77
+      "rules": 82
     },
-    { "patternId": 529, "techniqueId": "T1012", "name": "Query Registry", "tactic": "Discovery", "rules": 44 },
+    { "patternId": 529, "techniqueId": "T1012", "name": "Query Registry", "tactic": "Discovery", "rules": 50 },
     {
       "patternId": 316,
       "techniqueId": "T1016",
       "name": "System Network Configuration Discovery",
       "tactic": "Discovery",
-      "rules": 82
+      "rules": 89
     },
     {
       "patternId": 60,
@@ -1505,67 +1505,67 @@
       "rules": 23
     },
     { "patternId": 221, "techniqueId": "T1016.002", "name": "Wi-Fi Discovery", "tactic": "Discovery", "rules": 6 },
-    { "patternId": 612, "techniqueId": "T1018", "name": "Remote System Discovery", "tactic": "Discovery", "rules": 81 },
+    { "patternId": 612, "techniqueId": "T1018", "name": "Remote System Discovery", "tactic": "Discovery", "rules": 84 },
     {
       "patternId": 12,
       "techniqueId": "T1033",
       "name": "System Owner/User Discovery",
       "tactic": "Discovery",
-      "rules": 76
+      "rules": 78
     },
     {
       "patternId": 613,
       "techniqueId": "T1046",
       "name": "Network Service Discovery",
       "tactic": "Discovery",
-      "rules": 86
+      "rules": 96
     },
     {
       "patternId": 359,
       "techniqueId": "T1049",
       "name": "System Network Connections Discovery",
       "tactic": "Discovery",
-      "rules": 52
+      "rules": 56
     },
-    { "patternId": 404, "techniqueId": "T1057", "name": "Process Discovery", "tactic": "Discovery", "rules": 101 },
+    { "patternId": 404, "techniqueId": "T1057", "name": "Process Discovery", "tactic": "Discovery", "rules": 113 },
     {
       "patternId": 68,
       "techniqueId": "T1069",
       "name": "Permission Groups Discovery",
       "tactic": "Discovery",
-      "rules": 18
+      "rules": 20
     },
-    { "patternId": 434, "techniqueId": "T1069.001", "name": "Local Groups", "tactic": "Discovery", "rules": 12 },
-    { "patternId": 126, "techniqueId": "T1069.002", "name": "Domain Groups", "tactic": "Discovery", "rules": 20 },
+    { "patternId": 434, "techniqueId": "T1069.001", "name": "Local Groups", "tactic": "Discovery", "rules": 13 },
+    { "patternId": 126, "techniqueId": "T1069.002", "name": "Domain Groups", "tactic": "Discovery", "rules": 22 },
     { "patternId": 74, "techniqueId": "T1069.003", "name": "Cloud Groups", "tactic": "Discovery", "rules": 5 },
     {
       "patternId": 164,
       "techniqueId": "T1082",
       "name": "System Information Discovery",
       "tactic": "Discovery",
-      "rules": 147
+      "rules": 162
     },
     {
       "patternId": 347,
       "techniqueId": "T1083",
       "name": "File and Directory Discovery",
       "tactic": "Discovery",
-      "rules": 148
+      "rules": 167
     },
-    { "patternId": 322, "techniqueId": "T1087", "name": "Account Discovery", "tactic": "Discovery", "rules": 127 },
-    { "patternId": 117, "techniqueId": "T1087.001", "name": "Local Account", "tactic": "Discovery", "rules": 34 },
-    { "patternId": 104, "techniqueId": "T1087.002", "name": "Domain Account", "tactic": "Discovery", "rules": 48 },
+    { "patternId": 322, "techniqueId": "T1087", "name": "Account Discovery", "tactic": "Discovery", "rules": 136 },
+    { "patternId": 117, "techniqueId": "T1087.001", "name": "Local Account", "tactic": "Discovery", "rules": 35 },
+    { "patternId": 104, "techniqueId": "T1087.002", "name": "Domain Account", "tactic": "Discovery", "rules": 51 },
     { "patternId": 229, "techniqueId": "T1087.003", "name": "Email Account", "tactic": "Discovery", "rules": 5 },
-    { "patternId": 402, "techniqueId": "T1087.004", "name": "Cloud Account", "tactic": "Discovery", "rules": 7 },
+    { "patternId": 402, "techniqueId": "T1087.004", "name": "Cloud Account", "tactic": "Discovery", "rules": 8 },
     {
       "patternId": 156,
       "techniqueId": "T1120",
       "name": "Peripheral Device Discovery",
       "tactic": "Discovery",
-      "rules": 26
+      "rules": 27
     },
-    { "patternId": 662, "techniqueId": "T1124", "name": "System Time Discovery", "tactic": "Discovery", "rules": 30 },
-    { "patternId": 155, "techniqueId": "T1135", "name": "Network Share Discovery", "tactic": "Discovery", "rules": 49 },
+    { "patternId": 662, "techniqueId": "T1124", "name": "System Time Discovery", "tactic": "Discovery", "rules": 36 },
+    { "patternId": 155, "techniqueId": "T1135", "name": "Network Share Discovery", "tactic": "Discovery", "rules": 58 },
     {
       "patternId": 485,
       "techniqueId": "T1201",
@@ -1578,39 +1578,39 @@
       "techniqueId": "T1217",
       "name": "Browser Information Discovery",
       "tactic": "Discovery",
-      "rules": 89
+      "rules": 92
     },
-    { "patternId": 331, "techniqueId": "T1482", "name": "Domain Trust Discovery", "tactic": "Discovery", "rules": 31 },
-    { "patternId": 615, "techniqueId": "T1518", "name": "Software Discovery", "tactic": "Discovery", "rules": 35 },
+    { "patternId": 331, "techniqueId": "T1482", "name": "Domain Trust Discovery", "tactic": "Discovery", "rules": 33 },
+    { "patternId": 615, "techniqueId": "T1518", "name": "Software Discovery", "tactic": "Discovery", "rules": 43 },
     {
       "patternId": 547,
       "techniqueId": "T1518.001",
       "name": "Security Software Discovery",
       "tactic": "Discovery",
-      "rules": 40
+      "rules": 42
     },
     {
       "patternId": 225,
       "techniqueId": "T1518.002",
       "name": "Backup Software Discovery",
       "tactic": "Discovery",
-      "rules": 13
+      "rules": 18
     },
-    { "patternId": 610, "techniqueId": "T1526", "name": "Cloud Service Discovery", "tactic": "Discovery", "rules": 65 },
-    { "patternId": 616, "techniqueId": "T1538", "name": "Cloud Service Dashboard", "tactic": "Discovery", "rules": 69 },
+    { "patternId": 610, "techniqueId": "T1526", "name": "Cloud Service Discovery", "tactic": "Discovery", "rules": 66 },
+    { "patternId": 616, "techniqueId": "T1538", "name": "Cloud Service Dashboard", "tactic": "Discovery", "rules": 71 },
     {
       "patternId": 262,
       "techniqueId": "T1580",
       "name": "Cloud Infrastructure Discovery",
       "tactic": "Discovery",
-      "rules": 76
+      "rules": 79
     },
     {
       "patternId": 15,
       "techniqueId": "T1613",
       "name": "Container and Resource Discovery",
       "tactic": "Discovery",
-      "rules": 55
+      "rules": 57
     },
     {
       "patternId": 540,
@@ -1632,7 +1632,7 @@
       "techniqueId": "T1619",
       "name": "Cloud Storage Object Discovery",
       "tactic": "Discovery",
-      "rules": 64
+      "rules": 66
     },
     { "patternId": 103, "techniqueId": "T1652", "name": "Device Driver Discovery", "tactic": "Discovery", "rules": 2 },
     { "patternId": 386, "techniqueId": "T1654", "name": "Log Enumeration", "tactic": "Discovery", "rules": 10 },
@@ -1643,21 +1643,21 @@
       "tactic": "Discovery",
       "rules": 2
     },
-    { "patternId": 658, "techniqueId": "T1680", "name": "Local Storage Discovery", "tactic": "Discovery", "rules": 13 },
-    { "patternId": 250, "techniqueId": "T1021", "name": "Remote Services", "tactic": "Lateral Movement", "rules": 75 },
+    { "patternId": 658, "techniqueId": "T1680", "name": "Local Storage Discovery", "tactic": "Discovery", "rules": 16 },
+    { "patternId": 250, "techniqueId": "T1021", "name": "Remote Services", "tactic": "Lateral Movement", "rules": 88 },
     {
       "patternId": 634,
       "techniqueId": "T1021.001",
       "name": "Remote Desktop Protocol",
       "tactic": "Lateral Movement",
-      "rules": 73
+      "rules": 82
     },
     {
       "patternId": 234,
       "techniqueId": "T1021.002",
       "name": "SMB/Windows Admin Shares",
       "tactic": "Lateral Movement",
-      "rules": 45
+      "rules": 47
     },
     {
       "patternId": 298,
@@ -1666,7 +1666,7 @@
       "tactic": "Lateral Movement",
       "rules": 7
     },
-    { "patternId": 133, "techniqueId": "T1021.004", "name": "SSH", "tactic": "Lateral Movement", "rules": 53 },
+    { "patternId": 133, "techniqueId": "T1021.004", "name": "SSH", "tactic": "Lateral Movement", "rules": 54 },
     { "patternId": 5, "techniqueId": "T1021.005", "name": "VNC", "tactic": "Lateral Movement", "rules": 10 },
     {
       "patternId": 277,
@@ -1680,7 +1680,7 @@
       "techniqueId": "T1021.007",
       "name": "Cloud Services",
       "tactic": "Lateral Movement",
-      "rules": 9
+      "rules": 10
     },
     {
       "patternId": 216,
@@ -1701,56 +1701,56 @@
       "techniqueId": "T1091",
       "name": "Replication Through Removable Media",
       "tactic": "Lateral Movement",
-      "rules": 21
+      "rules": 26
     },
     {
       "patternId": 428,
       "techniqueId": "T1210",
       "name": "Exploitation of Remote Services",
       "tactic": "Lateral Movement",
-      "rules": 36
+      "rules": 48
     },
     {
       "patternId": 429,
       "techniqueId": "T1534",
       "name": "Internal Spearphishing",
       "tactic": "Lateral Movement",
-      "rules": 19
+      "rules": 22
     },
     {
       "patternId": 242,
       "techniqueId": "T1550",
       "name": "Use Alternate Authentication Material",
       "tactic": "Lateral Movement",
-      "rules": 26
+      "rules": 31
     },
     {
       "patternId": 652,
       "techniqueId": "T1550.001",
       "name": "Application Access Token",
       "tactic": "Lateral Movement",
-      "rules": 27
+      "rules": 32
     },
     {
       "patternId": 622,
       "techniqueId": "T1550.002",
       "name": "Pass the Hash",
       "tactic": "Lateral Movement",
-      "rules": 25
+      "rules": 27
     },
     {
       "patternId": 345,
       "techniqueId": "T1550.003",
       "name": "Pass the Ticket",
       "tactic": "Lateral Movement",
-      "rules": 10
+      "rules": 12
     },
     {
       "patternId": 531,
       "techniqueId": "T1550.004",
       "name": "Web Session Cookie",
       "tactic": "Lateral Movement",
-      "rules": 3
+      "rules": 4
     },
     {
       "patternId": 268,
@@ -1766,33 +1766,33 @@
       "techniqueId": "T1570",
       "name": "Lateral Tool Transfer",
       "tactic": "Lateral Movement",
-      "rules": 41
+      "rules": 47
     },
     {
       "patternId": 189,
       "techniqueId": "T1005",
       "name": "Data from Local System",
       "tactic": "Collection",
-      "rules": 136
+      "rules": 148
     },
     {
       "patternId": 87,
       "techniqueId": "T1025",
       "name": "Data from Removable Media",
       "tactic": "Collection",
-      "rules": 14
+      "rules": 16
     },
     {
       "patternId": 460,
       "techniqueId": "T1039",
       "name": "Data from Network Shared Drive",
       "tactic": "Collection",
-      "rules": 19
+      "rules": 20
     },
-    { "patternId": 501, "techniqueId": "T1056", "name": "Input Capture", "tactic": "Collection", "rules": 32 },
-    { "patternId": 23, "techniqueId": "T1056.001", "name": "Keylogging", "tactic": "Collection", "rules": 54 },
+    { "patternId": 501, "techniqueId": "T1056", "name": "Input Capture", "tactic": "Collection", "rules": 36 },
+    { "patternId": 23, "techniqueId": "T1056.001", "name": "Keylogging", "tactic": "Collection", "rules": 58 },
     { "patternId": 440, "techniqueId": "T1056.002", "name": "GUI Input Capture", "tactic": "Collection", "rules": 7 },
-    { "patternId": 301, "techniqueId": "T1056.003", "name": "Web Portal Capture", "tactic": "Collection", "rules": 9 },
+    { "patternId": 301, "techniqueId": "T1056.003", "name": "Web Portal Capture", "tactic": "Collection", "rules": 11 },
     {
       "patternId": 668,
       "techniqueId": "T1056.004",
@@ -1800,23 +1800,23 @@
       "tactic": "Collection",
       "rules": 6
     },
-    { "patternId": 356, "techniqueId": "T1074", "name": "Data Staged", "tactic": "Collection", "rules": 65 },
-    { "patternId": 89, "techniqueId": "T1074.001", "name": "Local Data Staging", "tactic": "Collection", "rules": 41 },
+    { "patternId": 356, "techniqueId": "T1074", "name": "Data Staged", "tactic": "Collection", "rules": 70 },
+    { "patternId": 89, "techniqueId": "T1074.001", "name": "Local Data Staging", "tactic": "Collection", "rules": 45 },
     {
       "patternId": 167,
       "techniqueId": "T1074.002",
       "name": "Remote Data Staging",
       "tactic": "Collection",
-      "rules": 15
+      "rules": 16
     },
-    { "patternId": 8, "techniqueId": "T1113", "name": "Screen Capture", "tactic": "Collection", "rules": 62 },
-    { "patternId": 69, "techniqueId": "T1114", "name": "Email Collection", "tactic": "Collection", "rules": 38 },
+    { "patternId": 8, "techniqueId": "T1113", "name": "Screen Capture", "tactic": "Collection", "rules": 72 },
+    { "patternId": 69, "techniqueId": "T1114", "name": "Email Collection", "tactic": "Collection", "rules": 44 },
     {
       "patternId": 94,
       "techniqueId": "T1114.001",
       "name": "Local Email Collection",
       "tactic": "Collection",
-      "rules": 13
+      "rules": 14
     },
     {
       "patternId": 479,
@@ -1830,29 +1830,29 @@
       "techniqueId": "T1114.003",
       "name": "Email Forwarding Rule",
       "tactic": "Collection",
-      "rules": 18
+      "rules": 19
     },
-    { "patternId": 142, "techniqueId": "T1115", "name": "Clipboard Data", "tactic": "Collection", "rules": 84 },
-    { "patternId": 140, "techniqueId": "T1119", "name": "Automated Collection", "tactic": "Collection", "rules": 121 },
-    { "patternId": 50, "techniqueId": "T1123", "name": "Audio Capture", "tactic": "Collection", "rules": 92 },
-    { "patternId": 314, "techniqueId": "T1125", "name": "Video Capture", "tactic": "Collection", "rules": 18 },
+    { "patternId": 142, "techniqueId": "T1115", "name": "Clipboard Data", "tactic": "Collection", "rules": 89 },
+    { "patternId": 140, "techniqueId": "T1119", "name": "Automated Collection", "tactic": "Collection", "rules": 126 },
+    { "patternId": 50, "techniqueId": "T1123", "name": "Audio Capture", "tactic": "Collection", "rules": 102 },
+    { "patternId": 314, "techniqueId": "T1125", "name": "Video Capture", "tactic": "Collection", "rules": 24 },
     {
       "patternId": 249,
       "techniqueId": "T1185",
       "name": "Browser Session Hijacking",
       "tactic": "Collection",
-      "rules": 75
+      "rules": 78
     },
     {
       "patternId": 574,
       "techniqueId": "T1213",
       "name": "Data from Information Repositories",
       "tactic": "Collection",
-      "rules": 47
+      "rules": 53
     },
     { "patternId": 344, "techniqueId": "T1213.001", "name": "Confluence", "tactic": "Collection", "rules": 7 },
     { "patternId": 35, "techniqueId": "T1213.002", "name": "Sharepoint", "tactic": "Collection", "rules": 15 },
-    { "patternId": 564, "techniqueId": "T1213.003", "name": "Code Repositories", "tactic": "Collection", "rules": 12 },
+    { "patternId": 564, "techniqueId": "T1213.003", "name": "Code Repositories", "tactic": "Collection", "rules": 13 },
     {
       "patternId": 506,
       "techniqueId": "T1213.004",
@@ -1873,36 +1873,36 @@
       "techniqueId": "T1530",
       "name": "Data from Cloud Storage",
       "tactic": "Collection",
-      "rules": 43
+      "rules": 49
     },
     {
       "patternId": 247,
       "techniqueId": "T1560",
       "name": "Archive Collected Data",
       "tactic": "Collection",
-      "rules": 147
+      "rules": 165
     },
-    { "patternId": 4, "techniqueId": "T1560.001", "name": "Archive via Utility", "tactic": "Collection", "rules": 60 },
+    { "patternId": 4, "techniqueId": "T1560.001", "name": "Archive via Utility", "tactic": "Collection", "rules": 66 },
     {
       "patternId": 203,
       "techniqueId": "T1560.002",
       "name": "Archive via Library",
       "tactic": "Collection",
-      "rules": 15
+      "rules": 19
     },
     {
       "patternId": 64,
       "techniqueId": "T1560.003",
       "name": "Archive via Custom Method",
       "tactic": "Collection",
-      "rules": 16
+      "rules": 21
     },
     {
       "patternId": 31,
       "techniqueId": "T1602",
       "name": "Data from Configuration Repository",
       "tactic": "Collection",
-      "rules": 13
+      "rules": 15
     },
     { "patternId": 648, "techniqueId": "T1602.001", "name": "SNMP (MIB Dump)", "tactic": "Collection", "rules": 8 },
     {
@@ -1917,7 +1917,7 @@
       "techniqueId": "T1001",
       "name": "Data Obfuscation",
       "tactic": "Command & Control",
-      "rules": 29
+      "rules": 31
     },
     { "patternId": 676, "techniqueId": "T1001.001", "name": "Junk Data", "tactic": "Command & Control", "rules": 5 },
     {
@@ -1946,14 +1946,14 @@
       "techniqueId": "T1071",
       "name": "Application Layer Protocol",
       "tactic": "Command & Control",
-      "rules": 209
+      "rules": 230
     },
     {
       "patternId": 601,
       "techniqueId": "T1071.001",
       "name": "Web Protocols",
       "tactic": "Command & Control",
-      "rules": 181
+      "rules": 200
     },
     {
       "patternId": 422,
@@ -1969,7 +1969,7 @@
       "tactic": "Command & Control",
       "rules": 28
     },
-    { "patternId": 82, "techniqueId": "T1071.004", "name": "DNS", "tactic": "Command & Control", "rules": 46 },
+    { "patternId": 82, "techniqueId": "T1071.004", "name": "DNS", "tactic": "Command & Control", "rules": 53 },
     {
       "patternId": 111,
       "techniqueId": "T1071.005",
@@ -1977,63 +1977,63 @@
       "tactic": "Command & Control",
       "rules": 8
     },
-    { "patternId": 323, "techniqueId": "T1090", "name": "Proxy", "tactic": "Command & Control", "rules": 68 },
+    { "patternId": 323, "techniqueId": "T1090", "name": "Proxy", "tactic": "Command & Control", "rules": 77 },
     {
       "patternId": 673,
       "techniqueId": "T1090.001",
       "name": "Internal Proxy",
       "tactic": "Command & Control",
-      "rules": 19
+      "rules": 21
     },
     {
       "patternId": 300,
       "techniqueId": "T1090.002",
       "name": "External Proxy",
       "tactic": "Command & Control",
-      "rules": 22
+      "rules": 25
     },
     {
       "patternId": 452,
       "techniqueId": "T1090.003",
       "name": "Multi-hop Proxy",
       "tactic": "Command & Control",
-      "rules": 27
+      "rules": 32
     },
     {
       "patternId": 545,
       "techniqueId": "T1090.004",
       "name": "Domain Fronting",
       "tactic": "Command & Control",
-      "rules": 8
+      "rules": 9
     },
     {
       "patternId": 286,
       "techniqueId": "T1092",
       "name": "Communication Through Removable Media",
       "tactic": "Command & Control",
-      "rules": 63
+      "rules": 66
     },
     {
       "patternId": 523,
       "techniqueId": "T1095",
       "name": "Non-Application Layer Protocol",
       "tactic": "Command & Control",
-      "rules": 39
+      "rules": 47
     },
-    { "patternId": 374, "techniqueId": "T1102", "name": "Web Service", "tactic": "Command & Control", "rules": 48 },
+    { "patternId": 374, "techniqueId": "T1102", "name": "Web Service", "tactic": "Command & Control", "rules": 57 },
     {
       "patternId": 675,
       "techniqueId": "T1102.001",
       "name": "Dead Drop Resolver",
       "tactic": "Command & Control",
-      "rules": 13
+      "rules": 17
     },
     {
       "patternId": 511,
       "techniqueId": "T1102.002",
       "name": "Bidirectional Communication",
       "tactic": "Command & Control",
-      "rules": 24
+      "rules": 25
     },
     {
       "patternId": 426,
@@ -2054,29 +2054,29 @@
       "techniqueId": "T1105",
       "name": "Ingress Tool Transfer",
       "tactic": "Command & Control",
-      "rules": 283
+      "rules": 311
     },
-    { "patternId": 553, "techniqueId": "T1132", "name": "Data Encoding", "tactic": "Command & Control", "rules": 22 },
+    { "patternId": 553, "techniqueId": "T1132", "name": "Data Encoding", "tactic": "Command & Control", "rules": 23 },
     {
       "patternId": 17,
       "techniqueId": "T1132.001",
       "name": "Standard Encoding",
       "tactic": "Command & Control",
-      "rules": 32
+      "rules": 44
     },
     {
       "patternId": 583,
       "techniqueId": "T1132.002",
       "name": "Non-Standard Encoding",
       "tactic": "Command & Control",
-      "rules": 15
+      "rules": 22
     },
     {
       "patternId": 201,
       "techniqueId": "T1219",
       "name": "Remote Access Tools",
       "tactic": "Command & Control",
-      "rules": 54
+      "rules": 56
     },
     {
       "patternId": 335,
@@ -2104,7 +2104,7 @@
       "techniqueId": "T1568",
       "name": "Dynamic Resolution",
       "tactic": "Command & Control",
-      "rules": 32
+      "rules": 45
     },
     {
       "patternId": 123,
@@ -2125,28 +2125,28 @@
       "techniqueId": "T1568.003",
       "name": "DNS Calculation",
       "tactic": "Command & Control",
-      "rules": 2
+      "rules": 4
     },
     {
       "patternId": 470,
       "techniqueId": "T1571",
       "name": "Non-Standard Port",
       "tactic": "Command & Control",
-      "rules": 41
+      "rules": 45
     },
     {
       "patternId": 236,
       "techniqueId": "T1572",
       "name": "Protocol Tunneling",
       "tactic": "Command & Control",
-      "rules": 37
+      "rules": 46
     },
     {
       "patternId": 496,
       "techniqueId": "T1573",
       "name": "Encrypted Channel",
       "tactic": "Command & Control",
-      "rules": 48
+      "rules": 58
     },
     {
       "patternId": 116,
@@ -2160,7 +2160,7 @@
       "techniqueId": "T1573.002",
       "name": "Asymmetric Cryptography",
       "tactic": "Command & Control",
-      "rules": 26
+      "rules": 30
     },
     {
       "patternId": 637,
@@ -2174,7 +2174,7 @@
       "techniqueId": "T1011",
       "name": "Exfiltration Over Other Network Medium",
       "tactic": "Exfiltration",
-      "rules": 3
+      "rules": 7
     },
     {
       "patternId": 278,
@@ -2188,7 +2188,7 @@
       "techniqueId": "T1020",
       "name": "Automated Exfiltration",
       "tactic": "Exfiltration",
-      "rules": 94
+      "rules": 107
     },
     {
       "patternId": 351,
@@ -2203,21 +2203,21 @@
       "techniqueId": "T1030",
       "name": "Data Transfer Size Limits",
       "tactic": "Exfiltration",
-      "rules": 20
+      "rules": 22
     },
     {
       "patternId": 412,
       "techniqueId": "T1041",
       "name": "Exfiltration Over C2 Channel",
       "tactic": "Exfiltration",
-      "rules": 180
+      "rules": 188
     },
     {
       "patternId": 437,
       "techniqueId": "T1048",
       "name": "Exfiltration Over Alternative Protocol",
       "tactic": "Exfiltration",
-      "rules": 85
+      "rules": 97
     },
     {
       "patternId": 341,
@@ -2231,7 +2231,7 @@
       "techniqueId": "T1048.002",
       "name": "Exfiltration Over Asymmetric Encrypted Non-C2 Protocol",
       "tactic": "Exfiltration",
-      "rules": 9
+      "rules": 10
     },
     {
       "patternId": 685,
@@ -2252,35 +2252,35 @@
       "techniqueId": "T1052.001",
       "name": "Exfiltration over USB",
       "tactic": "Exfiltration",
-      "rules": 8
+      "rules": 9
     },
     {
       "patternId": 585,
       "techniqueId": "T1537",
       "name": "Transfer Data to Cloud Account",
       "tactic": "Exfiltration",
-      "rules": 12
+      "rules": 14
     },
     {
       "patternId": 200,
       "techniqueId": "T1567",
       "name": "Exfiltration Over Web Service",
       "tactic": "Exfiltration",
-      "rules": 91
+      "rules": 111
     },
     {
       "patternId": 388,
       "techniqueId": "T1567.001",
       "name": "Exfiltration to Code Repository",
       "tactic": "Exfiltration",
-      "rules": 7
+      "rules": 8
     },
     {
       "patternId": 517,
       "techniqueId": "T1567.002",
       "name": "Exfiltration to Cloud Storage",
       "tactic": "Exfiltration",
-      "rules": 46
+      "rules": 51
     },
     {
       "patternId": 499,
@@ -2296,7 +2296,7 @@
       "tactic": "Exfiltration",
       "rules": 2
     },
-    { "patternId": 582, "techniqueId": "T1485", "name": "Data Destruction", "tactic": "Impact", "rules": 56 },
+    { "patternId": 582, "techniqueId": "T1485", "name": "Data Destruction", "tactic": "Impact", "rules": 72 },
     {
       "patternId": 49,
       "techniqueId": "T1485.001",
@@ -2304,19 +2304,19 @@
       "tactic": "Impact",
       "rules": 3
     },
-    { "patternId": 491, "techniqueId": "T1486", "name": "Data Encrypted for Impact", "tactic": "Impact", "rules": 154 },
-    { "patternId": 101, "techniqueId": "T1489", "name": "Service Stop", "tactic": "Impact", "rules": 32 },
-    { "patternId": 670, "techniqueId": "T1490", "name": "Inhibit System Recovery", "tactic": "Impact", "rules": 50 },
-    { "patternId": 265, "techniqueId": "T1491", "name": "Defacement", "tactic": "Impact", "rules": 13 },
-    { "patternId": 397, "techniqueId": "T1491.001", "name": "Internal Defacement", "tactic": "Impact", "rules": 11 },
+    { "patternId": 491, "techniqueId": "T1486", "name": "Data Encrypted for Impact", "tactic": "Impact", "rules": 176 },
+    { "patternId": 101, "techniqueId": "T1489", "name": "Service Stop", "tactic": "Impact", "rules": 37 },
+    { "patternId": 670, "techniqueId": "T1490", "name": "Inhibit System Recovery", "tactic": "Impact", "rules": 65 },
+    { "patternId": 265, "techniqueId": "T1491", "name": "Defacement", "tactic": "Impact", "rules": 16 },
+    { "patternId": 397, "techniqueId": "T1491.001", "name": "Internal Defacement", "tactic": "Impact", "rules": 12 },
     { "patternId": 40, "techniqueId": "T1491.002", "name": "External Defacement", "tactic": "Impact", "rules": 6 },
-    { "patternId": 669, "techniqueId": "T1495", "name": "Firmware Corruption", "tactic": "Impact", "rules": 5 },
-    { "patternId": 556, "techniqueId": "T1496", "name": "Resource Hijacking", "tactic": "Impact", "rules": 13 },
+    { "patternId": 669, "techniqueId": "T1495", "name": "Firmware Corruption", "tactic": "Impact", "rules": 8 },
+    { "patternId": 556, "techniqueId": "T1496", "name": "Resource Hijacking", "tactic": "Impact", "rules": 19 },
     { "patternId": 450, "techniqueId": "T1496.001", "name": "Compute Hijacking", "tactic": "Impact", "rules": 5 },
     { "patternId": 321, "techniqueId": "T1496.002", "name": "Bandwidth Hijacking", "tactic": "Impact", "rules": 1 },
     { "patternId": 59, "techniqueId": "T1496.003", "name": "SMS Pumping", "tactic": "Impact", "rules": 2 },
     { "patternId": 409, "techniqueId": "T1496.004", "name": "Cloud Service Hijacking", "tactic": "Impact", "rules": 2 },
-    { "patternId": 591, "techniqueId": "T1498", "name": "Network Denial of Service", "tactic": "Impact", "rules": 25 },
+    { "patternId": 591, "techniqueId": "T1498", "name": "Network Denial of Service", "tactic": "Impact", "rules": 36 },
     { "patternId": 33, "techniqueId": "T1498.001", "name": "Direct Network Flood", "tactic": "Impact", "rules": 7 },
     {
       "patternId": 172,
@@ -2325,7 +2325,7 @@
       "tactic": "Impact",
       "rules": 3
     },
-    { "patternId": 537, "techniqueId": "T1499", "name": "Endpoint Denial of Service", "tactic": "Impact", "rules": 32 },
+    { "patternId": 537, "techniqueId": "T1499", "name": "Endpoint Denial of Service", "tactic": "Impact", "rules": 33 },
     { "patternId": 43, "techniqueId": "T1499.001", "name": "OS Exhaustion Flood", "tactic": "Impact", "rules": 3 },
     {
       "patternId": 177,
@@ -2348,28 +2348,28 @@
       "tactic": "Impact",
       "rules": 4
     },
-    { "patternId": 694, "techniqueId": "T1529", "name": "System Shutdown/Reboot", "tactic": "Impact", "rules": 16 },
-    { "patternId": 475, "techniqueId": "T1531", "name": "Account Access Removal", "tactic": "Impact", "rules": 76 },
-    { "patternId": 81, "techniqueId": "T1561", "name": "Disk Wipe", "tactic": "Impact", "rules": 24 },
+    { "patternId": 694, "techniqueId": "T1529", "name": "System Shutdown/Reboot", "tactic": "Impact", "rules": 18 },
+    { "patternId": 475, "techniqueId": "T1531", "name": "Account Access Removal", "tactic": "Impact", "rules": 80 },
+    { "patternId": 81, "techniqueId": "T1561", "name": "Disk Wipe", "tactic": "Impact", "rules": 27 },
     { "patternId": 683, "techniqueId": "T1561.001", "name": "Disk Content Wipe", "tactic": "Impact", "rules": 6 },
     { "patternId": 32, "techniqueId": "T1561.002", "name": "Disk Structure Wipe", "tactic": "Impact", "rules": 8 },
-    { "patternId": 457, "techniqueId": "T1565", "name": "Data Manipulation", "tactic": "Impact", "rules": 11 },
+    { "patternId": 457, "techniqueId": "T1565", "name": "Data Manipulation", "tactic": "Impact", "rules": 13 },
     { "patternId": 92, "techniqueId": "T1565.001", "name": "Stored Data Manipulation", "tactic": "Impact", "rules": 5 },
     {
       "patternId": 565,
       "techniqueId": "T1565.002",
       "name": "Transmitted Data Manipulation",
       "tactic": "Impact",
-      "rules": 4
+      "rules": 5
     },
     {
       "patternId": 153,
       "techniqueId": "T1565.003",
       "name": "Runtime Data Manipulation",
       "tactic": "Impact",
-      "rules": 4
+      "rules": 5
     },
-    { "patternId": 382, "techniqueId": "T1657", "name": "Financial Theft", "tactic": "Impact", "rules": 72 },
+    { "patternId": 382, "techniqueId": "T1657", "name": "Financial Theft", "tactic": "Impact", "rules": 77 },
     { "patternId": 514, "techniqueId": "T1667", "name": "Email Bombing", "tactic": "Impact", "rules": 4 }
   ]
 }

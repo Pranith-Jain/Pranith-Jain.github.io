@@ -1,0 +1,81 @@
+{
+  "type": "group",
+  "slug": "direwolf",
+  "name": "direwolf",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 3,
+  "firstSeen": "2026-08-15T20:25:42.000Z",
+  "lastSeen": "2026-08-15T20:27:05.000Z",
+  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-15",
+      "count": 3
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "dodopayments-6ae7",
+      "title": "DodoPayments — claimed by direwolf",
+      "pubDate": "2026-08-15T20:27:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "aam-hoa-management-e406",
+      "title": "AAM:HOA Management — claimed by direwolf",
+      "pubDate": "2026-08-15T20:26:22.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "totvs-b400",
+      "title": "TOTVS — claimed by direwolf",
+      "pubDate": "2026-08-15T20:25:42.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "dodopayments-6ae7",
+      "victim": "DodoPayments — claimed by direwolf",
+      "sector": "Financial Services",
+      "country": "IN",
+      "pubDate": "2026-08-15T20:27:05.000Z"
+    },
+    {
+      "id": "aam-hoa-management-e406",
+      "victim": "AAM:HOA Management — claimed by direwolf",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-15T20:26:22.000Z"
+    },
+    {
+      "id": "totvs-b400",
+      "victim": "TOTVS — claimed by direwolf",
+      "sector": "Technology",
+      "country": "BR",
+      "pubDate": "2026-08-15T20:25:42.000Z"
+    }
+  ]
+}

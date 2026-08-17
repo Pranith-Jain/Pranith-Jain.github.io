@@ -1,10 +1,10 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-15T05:59:40Z",
-  "syncedAt": "2026-08-15T05:59:40.556Z",
+  "generatedAt": "2026-08-17T06:13:28Z",
+  "syncedAt": "2026-08-17T06:13:28.070Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 38,
+  "count": 36,
   "iocs": [
     {
       "type": "ipv4",
@@ -599,38 +599,6 @@
           "source": "Rapid7",
           "url": "https://www.rapid7.com/blog/post/tr-exposed-webdav-malware-delivery-lab-analysis",
           "pub_date": "2026-07-20T15:43:55+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "evil.com",
-      "confidence": "high",
-      "reason": "Clearly identified as an exfiltration vector for data",
-      "first_seen": "2026-07-17T18:47:17.820605+00:00",
-      "last_seen": "2026-07-17T18:47:17.820605+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "simonwillison.net",
-          "url": "https://simonwillison.net/tags/lethal-trifecta/",
-          "pub_date": "2026-07-17T18:47:17.820605+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "my-salesforce-cms.com",
-      "confidence": "high",
-      "reason": "Registered by researchers to demonstrate data leak, indicating attacker control",
-      "first_seen": "2026-07-17T18:47:17.820605+00:00",
-      "last_seen": "2026-07-17T18:47:17.820605+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "simonwillison.net",
-          "url": "https://simonwillison.net/tags/lethal-trifecta/",
-          "pub_date": "2026-07-17T18:47:17.820605+00:00"
         }
       ]
     }

@@ -11,7 +11,7 @@
   "originCode": null,
   "sophistication": null,
   "resourceLevel": null,
-  "motivation": null,
+  "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
     "APT",
@@ -23,9 +23,9 @@
     "Government Targeting",
     "Hacktivism"
   ],
-  "aliases": ["UAC-0109"],
-  "targetedSectors": [],
-  "targetedCountries": [],
+  "aliases": ["UAC-0109", "OBJECT_NAME", "malicious actors", "APT groups"],
+  "targetedSectors": ["Defense", "Financial services", "Government", "Education", "Non profit"],
+  "targetedCountries": ["RU", "US", "UA", "CN", "SA"],
   "tactics": ["Disruption", "Collection"],
   "techniques": ["T1566.001", "T1485"],
   "tools": ["Low Orbit Ion Cannon (LOIC)", "Custom DDoS tools", "Scripting frameworks for website defacements"],
