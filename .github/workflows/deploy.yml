@@ -4,17 +4,20 @@ name: Deploy
 # lint + typecheck + test + budget; this workflow adds the one thing CI lacks:
 # an actual deploy plus post-deploy verification.
 #
-# To enable continuous deployment:
+# Continuous deployment: every push to main runs the gate (tsc + build +
+# budgets) and deploys when CLOUDFLARE_API_TOKEN is present. Without the
+# token the gate still runs and the deploy step skips cleanly — so enabling
+# the push trigger is safe before the secret exists.
+#
+# To finish the setup:
 #   1. Add CLOUDFLARE_API_TOKEN as a repository secret (a Cloudflare API token
-#      with Workers deploy permission). Without it the gate still runs but the
-#      deploy step skips cleanly.
+#      with Workers deploy permission).
 #   2. Optionally add SMOKE_API_KEY (a readonly API key) to run the full
 #      post-deploy smoke suite instead of just the public-page check.
-#   3. To auto-deploy on merge to main, uncomment the `push` trigger below.
 on:
   workflow_dispatch:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
 
 # Never cancel an in-progress deploy — a half-deployed worker is worse than a
 # queued one. Concurrent triggers queue instead.

@@ -2,7 +2,9 @@ name: Threat Intel sync (daily)
 
 # Re-fetches NVD recent CVEs, CISA KEV, and Daily-Hunt IOC families,
 # then rebuilds the public/data/threat-intel/ manifest. If the data
-# changed, opens a PR with the diff so a human can review + merge.
+# changed, opens a PR and auto-merges it into main so the data lands
+# the same day (main is unprotected; the merge is data-only).
+# deploy.yml then gates + deploys the merge on main.
 
 on:
   schedule:
@@ -110,6 +112,7 @@ jobs:
           du -sh threat-intel-staging/ || true
 
       - name: Open PR if data changed
+        id: pr
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "chore(ti): sync threat intel from upstream sources"
@@ -135,9 +138,11 @@ jobs:
             (`scripts/sync-threaticon.mjs` + `scripts/build-threaticon.mjs`,
             paced at 1 req/s for the free-tier rate limits). Each sync/build
             step is isolated (`continue-on-error`) so one flaky upstream
-            never aborts the remaining verticals.
-            Review the diff in `public/data/threat-intel/` and merge if the
-            data looks correct.
+            never aborts the remaining verticals. The PR is auto-merged by
+            the same run (data-only changes; main is unprotected), and
+            deploy.yml gates + deploys the merge on main.
+            Review the diff in `public/data/threat-intel/` if you want to
+            audit the data.
 
             Sources:
             - NVD (recent CVEs, last 7 days)
@@ -161,3 +166,14 @@ jobs:
           add-paths: |
             public/data/threat-intel/
             threat-intel-staging/
+
+      - name: Auto-merge sync PR
+        # The sync output is data-only and main is unprotected, so the PR
+        # merges itself here — no human in the loop for the daily data land.
+        # (create-pull-request outputs nothing when there were no changes.)
+        if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge "${{ steps.pr.outputs.pull-request-number }}" \
+            --merge --delete-branch
