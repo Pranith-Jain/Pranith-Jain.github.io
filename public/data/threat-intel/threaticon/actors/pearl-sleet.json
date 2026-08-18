@@ -13,7 +13,19 @@
   "resourceLevel": null,
   "motivation": "Ideology",
   "added": "May 17, 2026",
-  "tags": ["Nation-state", "Cyber Espionage", "North Korea", "Media Organizations", "APT"],
+  "tags": [
+    "North Korea",
+    "Espionage",
+    "South Korea",
+    "Advanced Persistent Threat",
+    "InformationStealer",
+    "State-Sponsored",
+    "Initial Access",
+    "APT",
+    "Nation-state",
+    "Cyber Espionage",
+    "Media Organizations"
+  ],
   "aliases": ["DEV-0215", "LAWRENCIUM", "malicious actors", "APT groups"],
   "targetedSectors": [
     "Government",
@@ -57,39 +69,74 @@
     "AU"
   ],
   "tactics": [
-    "Reconnaissance",
-    "Persistence",
-    "Privilege Escalation",
-    "Defense Evasion",
-    "Credential Access",
-    "Discovery",
-    "Lateral Movement",
-    "Collection",
+    "Initial Access",
+    "Execution",
     "Exfiltration",
-    "Impact"
+    "Espionage",
+    "Impact",
+    "Persistence",
+    "Defense Evasion",
+    "Preparation",
+    "Collection"
   ],
-  "techniques": [],
-  "tools": ["Custom malware", "Spear phishing tools"],
+  "techniques": [
+    "T1566.002",
+    "T1059",
+    "T1189",
+    "T1566",
+    "T1195",
+    "T1408",
+    "T1568",
+    "T1583.004",
+    "T1566.003",
+    "T3212",
+    "T1195.003"
+  ],
+  "tools": [
+    "StrelaStealer",
+    "FakeUpdates",
+    "InvisibleFerret",
+    "WhisperGate",
+    "Tiger RAT",
+    "Agent Tesla",
+    "Lumma Stealer",
+    "BATLOADER",
+    "Ghost RAT",
+    "ShadowPad",
+    "Capcut",
+    "TeamCity",
+    "3CX"
+  ],
   "iocPatterns": [
-    "Spear-phishing emails targeting defectors",
-    "Malware embedded in malicious attachments or links",
-    "C2 infrastructure communication patterns"
+    "Malvertising-based delivery",
+    "In-memory execution",
+    "Supply chain compromises",
+    "Cryptocurrency heists",
+    "Spear-phishing via fraudulent employment",
+    "Multiple language content distribution"
   ],
   "keyCapabilities": [
-    "Spear phishing attacks",
-    "Malware development/deployment",
-    "Data exfiltration",
-    "C2 infrastructure management"
+    "Advanced-sophistication operations",
+    "Espionage",
+    "Information theft via stealer malware",
+    "Malvertising-based delivery",
+    "Multi-stage in-memory execution",
+    "Supply chain attacks",
+    "Cryptocurrency heists",
+    "Spear-phishing through fraudulent tactics",
+    "Intelligence collection"
   ],
   "recommendedActions": [
-    "Implement advanced email filtering solutions to detect spear-phishing attempts.",
-    "Monitor for unusual network activity indicative of persistent threats.",
-    "Conduct regular security training on recognizing phishing emails.",
-    "Segment networks and apply least privilege principles to mitigate lateral movement."
+    "Block known domains associated with Stealer malware distributions.",
+    "Implement advanced endpoint detection for multi-stage loader executions (e.g., BATLOADER).",
+    "Monitor and block malicious redirects originating from malvertising ads.",
+    "Audit third-party software integrations to mitigate supply chain risks in infrastructure.",
+    "\"Deploy enhanced monitoring for identity-based phishing schemes, including fraudulent recruitment roles.\"",
+    "\"Enable multi-factor authentication (MFA) on all high-value accounts and external-facing portals.\", \"Implement cross-lingual analysis of social media content to detect coordinated influence operations.\\"
   ],
-  "campaignsText": "Pearl Sleet has conducted long-term campaigns targeting specific individuals and organizations. Their operations suggest a focus on maintaining persistence and secrecy, aligning with typical nation-state espionage tactics.",
-  "description": "Pearl Sleet (DEV-0215, LAWRENCIUM) is a North Korea-based cyber espionage group targeting defectors and media organizations. They have been active since at least 2012, focusing on intelligence gathering likely linked to political or internal security objectives.",
-  "goals": "Pearl Sleet targets defectors and media organizations to gather intelligence that could be used for political manipulation or national security in North Korea. Their targeting strategy reflects a focus on sectors likely to hold sensitive information regarding the regime or its citizens.",
+  "campaignsText": "Pearl Sleet exhibits a consistent operational tempo focused on long-term intelligence collection. A notable pattern is the transition from traditional phishing to sophisticated malvertising campaigns and multi-stage loader chains (e.g., BATLOADER) to facilitate initial access. The group purposefully targets non-profit, media, and government sectors in East Asia, specifically targeting human rights activists' support networks. While some shared infrastructure and 'Sleet' taxonomy overlap with other North Korean actors who pursue financial motives, Pearl Sleet remains distinctly focused on espionage-driven activities.",
+  "description": "Pearl Sleet is a sophisticated North Korean state-sponsored threat actor primarily focused on espionage and intelligence gathering against South Korean entities, particularly those involved with human rights defectors. The group utilizes a diverse arsenal including stealer malware, supply chain attacks, and malvertising to facilitate information theft.",
+  "goals": "The primary strategic objective of Pearl Sleet is intelligence collection through espionage activities directed at political, media, and human rights targets. Specifically, they target South Korean entities that interact with North Korean defectors. Furthermore, the actor demonstrates broader ambitions related to financial gain via cryptocurrency heists and infrastructure disruption through various information technology sectors.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1012",
   "sourceUrl": "https://threaticon.com/threat-actors/1012"
 }

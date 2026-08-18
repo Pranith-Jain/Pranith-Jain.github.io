@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-in-fortinet-products-allow-unauthor-a97e7a2c",
+  "title": "Critical Vulnerabilities in Fortinet Products Allow Unauthorized Access",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-fortinet-products-allow-unauthor-a97e7a2c?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-fortinet-products-allow-unauthor-a97e7a2c",
+  "pubDate": "2026-08-14T13:08:57.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "Fortinet has disclosed multiple vulnerabilities affecting its products, including FortiWeb, FortiManager, and FortiClientWindows. The most critical, CVE-2026-26035, allows remote unauthenticated access to FortiWeb instances if the wildcard option is enabled. Other vulnerabilities, CVE-2026-70468 and CVE-2026-70465, also pose significant risks, permitting unauthorized access under specific conditions. Patches have been released for affected versions, including 7.2.13, 7.4.12, 7.6.7, and 8.0.3 for FortiWeb. Administrators are advised to apply these patches promptly, as these products are often central to corporate networks. The vulnerabilities were published on August 12, 2026, and there are currently no reports of active exploitation. However, the potential for serious breaches remains high, prompting urgent action from security teams.\n\nKey Points:\n• CVE-2026-26035 allows remote unauthenticated access to FortiWeb if wildcard option is enabled.\n• Patches for critical vulnerabilities have been released for multiple Fortinet products.\n• Administrators are urged to apply patches immediately to mitigate risks of unauthorized access.",
+  "sizeBytes": 1144
+}

@@ -4,71 +4,115 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-16T09:29:25.000Z",
-  "lastSeen": "2026-08-16T18:58:39.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 2 ransomware groups and 4 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-08-16T18:58:39.000Z",
+  "lastSeen": "2026-08-18T04:21:54.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 7 ransomware groups and 5 countries.",
   "frequency": [
     {
       "date": "2026-08-16",
-      "count": 7
+      "count": 1
+    },
+    {
+      "date": "2026-08-17",
+      "count": 5
+    },
+    {
+      "date": "2026-08-18",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "standard-tool-amp-die-dbde",
+      "title": "Standard Tool &amp; Die — claimed by Storm",
+      "pubDate": "2026-08-18T04:21:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "scholle-ipn-sig-cf38",
+      "title": "Scholle IPN / SIG — claimed by anubis",
+      "pubDate": "2026-08-18T03:21:51.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "bmw-group-fbb5",
+      "title": "BMW Group — claimed by xpl0itrs",
+      "pubDate": "2026-08-17T18:30:10.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-rubber-group-1122",
+      "title": "The Rubber Group — claimed by Global Secret Group",
+      "pubDate": "2026-08-17T18:22:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "dl-e-amp-c-5ca6",
+      "title": "DL E&amp;C — claimed by Panzer",
+      "pubDate": "2026-08-17T17:22:22.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "doimo-cucine-b3f1",
+      "title": "Doimo Cucine — claimed by Panzer",
+      "pubDate": "2026-08-17T10:51:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lloyd-coils-europe-5f85",
+      "title": "Lloyd Coils Europe — claimed by aurora",
+      "pubDate": "2026-08-17T09:52:52.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "teikoku-usa-5c5c",
       "title": "Teikoku USA — claimed by qilin",
       "pubDate": "2026-08-16T18:58:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "bija-industrie-1612",
-      "title": "Bija Industrie — claimed by medusalocker",
-      "pubDate": "2026-08-16T15:20:22.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "megawide-6acb",
-      "title": "Megawide — claimed by qilin",
-      "pubDate": "2026-08-16T12:29:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "botek-5932",
-      "title": "Botek — claimed by qilin",
-      "pubDate": "2026-08-16T11:30:31.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "jone-pr-cision-e93b",
-      "title": "Jone Précision — claimed by qilin",
-      "pubDate": "2026-08-16T09:32:36.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "motorenmaier-gmbh-bbc6",
-      "title": "motorenmaier gmbh — claimed by qilin",
-      "pubDate": "2026-08-16T09:30:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "double-h-equipment-7b2b",
-      "title": "Double H Equipment — claimed by qilin",
-      "pubDate": "2026-08-16T09:29:25.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 6
+      "slug": "panzer",
+      "name": "Panzer",
+      "weight": 2
     },
     {
       "type": "group",
-      "slug": "medusalocker",
-      "name": "medusalocker",
+      "slug": "storm",
+      "name": "Storm",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "anubis",
+      "name": "anubis",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "xpl0itrs",
+      "name": "xpl0itrs",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "global-secret-group",
+      "name": "Global Secret Group",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "aurora",
+      "name": "aurora",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 1
     }
   ],

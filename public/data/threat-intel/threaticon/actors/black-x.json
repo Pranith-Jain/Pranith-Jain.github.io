@@ -13,7 +13,17 @@
   "resourceLevel": null,
   "motivation": "Organizational gain",
   "added": "Jul 13, 2026",
-  "tags": ["Criminal", "Ransomware", "Financial Gain", "Global"],
+  "tags": [
+    "APT",
+    "Ransomware",
+    "Cybercrime",
+    "Double Extortion",
+    "Critical Infrastructure",
+    "Initial Access",
+    "Criminal",
+    "Financial Gain",
+    "Global"
+  ],
   "aliases": ["tracked as", "Professor X", "Abyss"],
   "targetedSectors": [
     "Defense",
@@ -24,34 +34,58 @@
     "Critical infrastructure"
   ],
   "targetedCountries": ["RU"],
-  "tactics": ["Exfiltration of Data", "Data Destruction", "Impersonation"],
-  "techniques": [
-    "T1059.003 - Spear phishing Attachment",
-    "T1566.001 - Data Encrypted for Impact",
-    "T1254 - Use of Web Service",
-    "T1078.001 Malware"
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Command and Control",
+    "Exfiltration",
+    "Impact"
   ],
-  "tools": ["Cobalt Strike", "Double extortion ransomware", "Phishing Kits"],
+  "techniques": ["T1204.002", "T1204", "T1204.001", "T1102.001", "T8802", "T1566.001", "T1059"],
+  "tools": [
+    "Windows Credential Editor",
+    "PowerShell",
+    "Web Shells",
+    "Titan",
+    "BQTlock",
+    "BELLHOP",
+    "BianLian Ransomware",
+    "Keyloggers",
+    "Custom RATs"
+  ],
   "iocPatterns": [
-    "Phishing emails with malicious links",
-    "Encrypted files and network traffic spikes",
-    "Use of C2 servers for command"
+    "Spear-phishing with malicious .exe files",
+    "Use of multi-stage payloads for credential theft",
+    "C2 communication through Dead Drop Resolvers",
+    "Deployment of web shells in compromised servers",
+    "Tor-based ransom negotiation websites"
   ],
   "keyCapabilities": [
-    "Ransomware deployment",
-    "Network intrusion techniques",
     "Spear-phishing campaigns",
-    "Internal network propagation"
+    "Malware delivery & execution",
+    "Credential theft and manipulation",
+    "Web shell deployment for persistence",
+    "Data exfiltration (Double Extortion)",
+    "C2 obfuscation via Dead Drop Resolvers",
+    "Infrastructure rotation",
+    "Ransomware distribution"
   ],
   "recommendedActions": [
-    "Strengthen email filtering and phishing detection",
-    "Implement endpoint detection and response solutions",
-    "Conduct regular data backups in secure locations",
-    "Educate employees on recognizing phishing attempts"
+    "Implement Multi-Factor Authentication (MFA) across all enterprise accounts.",
+    "Deploy advanced email security filters to block and detonate malicious attachments/links.",
+    "Restrict PowerShell execution policies for non-administrative users.",
+    "Use Endpoint Detection and Response (EDR) to monitor for unauthorized tools like Windows Credential Editor.",
+    "Secure critical infrastructure networks by segmenting them from general corporate environments.",
+    "Maintain offline, immutable backups of critical system data and sensitive information.",
+    "Conduct regular 'active phish' training for employees in high-risk departments.",
+    "Implement strict egress filtering on web servers to block non-standard ports/protocols."
   ],
-  "campaignsText": "Black X's campaigns, including 'Daechang Solution' and 'Wonjin Plastic Surgery', exhibit targeted attacks across sectors. Their operational tempo suggests a shift towards prolonged internal network diffusion, indicating evolving tactics beyond initial ransom demands to include data theft.",
-  "description": "Black X is a medium-sophisticated criminal threat actor specializing in ransomware attacks with a primary focus on financial gain. Known for targeting various sectors including healthcare, legal, and IT through campaigns such as Daechang Solution and Wonjin Plastic Surgery, Black X poses an ongoing risk to organizations globally. With recent activity tracked up to July 2026, they continue to adapt their strategies to maximize disruption and financial extraction.",
-  "goals": "Black X targets various sectors to maximize victim diversity and potential financial gain. Their strategic approach suggests they focus on industries with high payout potential and vulnerability to disruption. The selection of specific entities within these sectors indicates a tactical method to ensure successful ransom demands, aligning with their objective of organizational-gain and financial extraction.",
+  "campaignsText": "Black X exhibits a high operational tempo with active campaigns targeting diverse organizations globally. Recent campaign data indicates success in compromising entities such as 'Daechang Solution', 'elektroverband-bayern', and various healthcare facilities ('sanaa hospital'). The group's pattern shows a focus on multi-stage attacks where infection is followed by period of lateral movement and data exfiltration before the final ransomware deployment. They are known to use specific infrastructure targets, including Tor portals for negotiations, which suggests an established operational model designed to maximize some high-value ransom payouts.",
+  "description": "Black X (also known as Professor X or Abyss) is a sophisticated cybercriminal organization primarily engaged in 'Big Game Hunting' to deploy ransomware and orchestrate double extortion schemes. They target high-value sectors, including critical infrastructure, government, and manufacturing, utilizing a wide array of malicious tools and techniques to achieve financial gain.",
+  "goals": "The primary strategic objective of Black X is financial gain through ransomware extortion. They employ a 'Big Game Hunting' strategy, intentionally targeting organizations with critical functions or significant resources (e.g., defense contractors, critical infrastructure providers, and healthcare facilities) to maximize the urgency of ransom payments. By targeting sectors where downtime or data leaks carry heavy consequences, they increase their leverage over victims. Their geographic scope is broad, but they show a specific affinity for organizations in manufacturing and government roles, potentially seeking to exploit high-value corporate assets globally.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1577",
   "sourceUrl": "https://threaticon.com/threat-actors/1577"
 }

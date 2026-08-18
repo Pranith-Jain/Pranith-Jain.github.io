@@ -18,6 +18,12 @@
   "targetedSectors": [
     "Government",
     "Defense",
+    "Execution",
+    "Reconnaissance",
+    "Resource Development",
+    "Family",
+    "Family",
+    "Family",
     "Phishing",
     "Backdoor / C2",
     "Data Exfiltration",

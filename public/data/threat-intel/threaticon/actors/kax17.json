@@ -11,7 +11,7 @@
   "originCode": null,
   "sophistication": null,
   "resourceLevel": null,
-  "motivation": null,
+  "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
     "APT",
@@ -21,9 +21,17 @@
     "Network Monitoring",
     "Ransomware"
   ],
-  "aliases": [],
-  "targetedSectors": [],
-  "targetedCountries": [],
+  "aliases": ["000-10", "000", "routers", "relays"],
+  "targetedSectors": [
+    "Defense",
+    "Financial services",
+    "Education",
+    "Government",
+    "Manufacturing",
+    "Retail",
+    "Healthcare"
+  ],
+  "targetedCountries": ["US", "UA"],
   "tactics": ["Reconnaissance", "Command and Control", "Data Exfiltration", "Defense Evasion"],
   "techniques": [
     "T1046 (Data from Network Shared Memory)",

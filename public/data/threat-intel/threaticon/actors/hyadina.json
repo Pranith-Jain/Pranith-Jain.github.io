@@ -14,13 +14,16 @@
   "motivation": "Financial gain",
   "added": "Jul 12, 2026",
   "tags": [
-    "APT",
     "Ransomware",
+    "EDR Evasion",
+    "Financial Crime",
     "Critical Infrastructure",
-    "Energy Sector",
-    "HealthcareSector",
+    "Initial Access",
     "Phishing",
-    "Data Exfiltration"
+    "Data Exfiltration",
+    "APT",
+    "Energy Sector",
+    "HealthcareSector"
   ],
   "aliases": ["user mode", "tracked as"],
   "targetedSectors": [
@@ -35,35 +38,50 @@
     "Food agriculture"
   ],
   "targetedCountries": ["US"],
-  "tactics": ["Credential Access", "Execution", "Lateral Movement", "Defense Evasion", "Collection"],
-  "techniques": ["T1070.003", "T1082", "T1566.001", "T1093", "T1566.004"],
-  "tools": ["AnyDesk", "PoisonX Kernel Driver", "PsExec", "NirSoft tools", "Custom credential theft toolkit"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Impact"
+  ],
+  "techniques": ["T1219", "T1059.001", "T1103", "T1485", "T1566.001", "T1136.001", "T1567", "T1078"],
+  "tools": ["AnyDesk", "PsExec", "PoisonX", "NirSoft Tools", "PlugX", "Mimikatz", "PowerShell", "Carbon", "Ramsay"],
   "iocPatterns": [
-    "Remotefile dropped with AnyDesk remote access tool",
-    "Malicious Microsoft-signed kernel driver activity (PoisonX)",
-    "Lateral movement using PsExec over command-line interface",
-    "Spear-phishing emails with malicious Office documents",
-    "Encrypted files renamed with victim organization names as extensions"
+    "Use of signed malicious kernel drivers (BYOND) for EDR evasion",
+    "Utilization of AnyDesk for remote management",
+    "Broad credential harvesting using NirSoft utilities",
+    "PsExec usage for internal lateral movement",
+    "Deployment of evolving ransomware variants (Monster, Beast, GodDamn)",
+    "Extended dwell times for reconnaissance prior to payload execution"
   ],
   "keyCapabilities": [
-    "Developing advanced ransomware iterations",
-    "Using AnyDesk for remote access",
-    "Employing the PoisonX kernel driver for defense evasion",
-    "Deploying comprehensive credential theft toolkits",
-    "Leveraging PsExec for lateral movement",
-    "Spear-phishing with malicious Office documents",
-    "Kernel-level persistence techniques"
+    "Bring Your Own Vulnerable Driver (BYOVD) evasion",
+    "Kernel-level security tool termination",
+    "Multistage ransomware deployment",
+    "Credential harvesting via diverse toolsets",
+    "Lateral movement using legitimate administrative tools",
+    "Remote access management integration",
+    "Strategic reconnaissance during dwell periods"
   ],
   "recommendedActions": [
-    "Implement network monitoring for AnyDesk-related processes",
-    "Enhance kernel-level security to detect malicious drivers",
-    "Conduct regular backups and ensure air-gapped storage",
-    "Enforce multi-factor authentication (MFA) for critical systems",
-    "Monitor for异常 process termination patterns indicative of PoisonX"
+    "Implement strict controls or blocking of known-malicious signed drivers.",
+    "Monitor and restrict the use of AnyDesk on sensitive endpoints.",
+    "Deploy EDR solutions configured to detect both common tools and anomalous kernel activities.",
+    "Restrict PsExec usage to authorized administrative accounts.",
+    "Implement multi-factor authentication (MFA) for all external and internal service access.",
+    "Conduct regular audits of local administrator rights across the network.",
+    "Monitor for suspicious credential dumping behavior using NirSoft or similar tools.",
+    "Maintain a robust offline backup strategy to recover from ransomware impacts."
   ],
-  "campaignsText": "Hyadina's campaigns are characterized by prolonged dwell periods, sophisticated toolkits, and targeting high-value sectors. Their June 2026 attack highlights the use of multiple techniques to achieve persistence and maximize damage. Notable past operations include the deployment of GodDamn ransomware in large-scale attacks against energy and healthcare organizations.",
-  "description": "Hyadina, operating under the alias associated with the GodDamn ransomware, represents a sophisticated threat actor demonstrating advanced tactics in ransomware development and deployment. The group has evolved through iterations including Monster (2022) and Beast (2024), showcasing increasing technical complexity. Their recent attack in June 2026 exhibited the use of AnyDesk for remote access, PoisonX kernel driver for defense evasion, and comprehensive credential harvesting tools, highlighting their capability to disrupt critical operations.",
-  "goals": "Hyadina's primary goal appears to be financial gain through ransom demands, targeting sectors and organizations that offer high-value assets for encryption. While exact motivations are unclear, their focus on kernel-level persistence and sophisticated tools suggests a strategic approach to maximize data loss and disruption. The targeted sectors include energy and healthcare, which are critical and often have stringent recovery requirements.",
+  "campaignsText": "The actor's campaign history reveals a clear progression in technical complexity, moving from standard ransomware payloads to highly sophisticated evasion techniques. The transition through the Monster, Beast, and GodDamn iterations suggests an iterative development cycle aimed at bypassing increasingly robust EDR solutions. Their operations are marked by a deliberate 'quiet' phase lasting up to four days where they systematically compromise internal credentials and stage data before triggering the final encryption event.",
+  "description": "Hyadina is a sophisticated ransomware threat actor focused on financial gain by targeting high-value sectors like healthcare, manufacturing, and critical infrastructure. The group utilizes advanced evasion tactics, including the use of signed malicious kernel drivers (PoisonX) to bypass security controls, combined with multi-stage lateral movement and credential theft.",
+  "goals": "Hyadina specifically targets organizations within the manufacturing, healthcare, government, education, and energy sectors within the United States. These industries are targeted because they often possess significant capital and have low tolerance for downtime, making them prime candidates for high-value ransomware negotiations. The actor's strategic goal is to leverage data theft and operational disruption as a means of financial extortion.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1534",
   "sourceUrl": "https://threaticon.com/threat-actors/1534"
 }

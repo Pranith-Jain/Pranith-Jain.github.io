@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/honeymyte-deploys-upgraded-coolclient-backdoor-in-cyber-espi-23ee7d40?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/honeymyte-deploys-upgraded-coolclient-backdoor-in-cyber-espi-23ee7d40",
   "pubDate": "2026-08-14T12:34:02.000Z",
-  "sourceCount": 7,
-  "categories": ["7 Sources"],
+  "sourceCount": 10,
+  "categories": ["10 Sources"],
   "description": "The HoneyMyte APT group has deployed an upgraded variant of the CoolClient backdoor in cyber-espionage campaigns targeting organizations in Myanmar, Mongolia, Pakistan, India, and Russia. This new variant introduces a signed kernel-mode driver that enhances the malware's stealth, allowing it to hide processes and protect files from detection. The attack method involves using the PlugX backdoor for initial access, followed by the deployment of CoolClient components. The attackers configured Microsoft Defender to ignore a fake Windows Defender directory and renamed a legitimate executable to facilitate the malware's execution. The updated CoolClient can now communicate with the kernel driver through IOCTL requests, significantly complicating remediation efforts. This evolution marks a significant increase in the malware's capabilities and poses a serious threat to targeted organizations.\n\nKey Points:\n• HoneyMyte APT's CoolClient backdoor now includes a kernel-mode driver for enhanced stealth.\n• The malware targets organizations in Myanmar, Mongolia, Pakistan, India, and Russia.\n• Attackers use PlugX for initial access, followed by deploying CoolClient components.",
   "sizeBytes": 1179
 }

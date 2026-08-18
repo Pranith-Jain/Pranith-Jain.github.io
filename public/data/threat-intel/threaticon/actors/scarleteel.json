@@ -11,7 +11,7 @@
   "originCode": null,
   "sophistication": null,
   "resourceLevel": null,
-  "motivation": null,
+  "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
     "APT",
@@ -20,10 +20,11 @@
     "Intellectual Property Theft",
     "Cryptomining",
     "Misconfiguration Exploitation",
+    "Initial Access",
     "Critical Infrastructure"
   ],
-  "aliases": [],
-  "targetedSectors": [],
+  "aliases": ["Lazarus", "TraderTraitor"],
+  "targetedSectors": ["Financial services", "Defense", "Non profit", "Mining", "Media", "Government"],
   "targetedCountries": [],
   "tactics": ["Credential Access", "Defense Evasion", "Lateral Movement", "Exfiltration", "Disruption"],
   "techniques": ["T1566.001", "T1203", "T1078", "T1545", "T1091"],

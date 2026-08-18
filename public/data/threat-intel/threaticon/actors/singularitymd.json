@@ -11,7 +11,7 @@
   "originCode": null,
   "sophistication": null,
   "resourceLevel": null,
-  "motivation": null,
+  "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
     "Ransomware",
@@ -19,12 +19,23 @@
     "Credential Exploitation",
     "Cyber Extortion",
     "Data Theft",
+    "Initial Access",
     "Financial Targeting",
     "Critical Infrastructure"
   ],
-  "aliases": [],
-  "targetedSectors": [],
-  "targetedCountries": [],
+  "aliases": ["APT28", "Pawn Storm", "Fancy Bear", "Sednit"],
+  "targetedSectors": [
+    "Defense",
+    "Media",
+    "Education",
+    "Government",
+    "Financial services",
+    "Non profit",
+    "Telecommunications",
+    "Healthcare",
+    "Information technology"
+  ],
+  "targetedCountries": ["US", "RU", "CN", "IR", "IL", "SA"],
   "tactics": [
     "Initial Access",
     "Credential Access",

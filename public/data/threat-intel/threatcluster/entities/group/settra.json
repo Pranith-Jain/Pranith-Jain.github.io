@@ -4,14 +4,14 @@
   "name": "settra",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-16T15:26:34.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-16T15:27:05.000Z",
   "lastSeen": "2026-08-16T15:27:38.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 2 sectors and 2 countries.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-08-16",
-      "count": 3
+      "count": 2
     }
   ],
   "recentActivity": [
@@ -26,25 +26,19 @@
       "slug": "airoyal-biz-f203",
       "title": "airoyal.biz — claimed by settra",
       "pubDate": "2026-08-16T15:27:05.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tiltstudio-com-b649",
-      "title": "tiltstudio.com — claimed by settra",
-      "pubDate": "2026-08-16T15:26:34.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 2
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "technology",
+      "name": "Technology",
       "weight": 1
     }
   ],
@@ -63,13 +57,6 @@
       "sector": "Technology",
       "country": null,
       "pubDate": "2026-08-16T15:27:05.000Z"
-    },
-    {
-      "id": "tiltstudio-com-b649",
-      "victim": "tiltstudio.com — claimed by settra",
-      "sector": "Technology",
-      "country": "DE",
-      "pubDate": "2026-08-16T15:26:34.000Z"
     }
   ]
 }

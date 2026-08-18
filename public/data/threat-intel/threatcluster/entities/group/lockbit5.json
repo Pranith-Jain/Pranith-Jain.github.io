@@ -4,67 +4,25 @@
   "name": "lockbit5",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-08-16T14:51:08.000Z",
-  "lastSeen": "2026-08-16T14:53:14.000Z",
-  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 3 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-18T03:55:20.000Z",
+  "lastSeen": "2026-08-18T03:55:20.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-16",
-      "count": 5
+      "date": "2026-08-18",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "actua-fr-de91",
-      "title": "actua.fr — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:53:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dupouy-associes-fr-c7cb",
-      "title": "dupouy-associes.fr — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:52:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "agricolagalbusera-it-9bb7",
-      "title": "agricolagalbusera.it — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:52:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "tecosim-com-6ea6",
-      "title": "tecosim.com — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:51:40.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "vgrn-de-873b",
-      "title": "vgrn.de — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:51:08.000Z"
+      "slug": "terra-petra-com-4412",
+      "title": "terra-petra.com — claimed by lockbit5",
+      "pubDate": "2026-08-18T03:55:20.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 1
-    },
     {
       "type": "sector",
       "slug": "energy-utilities",
@@ -75,39 +33,11 @@
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "actua-fr-de91",
-      "victim": "actua.fr — claimed by lockbit5",
-      "sector": "Professional Services",
-      "country": "FR",
-      "pubDate": "2026-08-16T14:53:14.000Z"
-    },
-    {
-      "id": "dupouy-associes-fr-c7cb",
-      "victim": "dupouy-associes.fr — claimed by lockbit5",
-      "sector": "Professional Services",
-      "country": "FR",
-      "pubDate": "2026-08-16T14:52:43.000Z"
-    },
-    {
-      "id": "agricolagalbusera-it-9bb7",
-      "victim": "agricolagalbusera.it — claimed by lockbit5",
-      "sector": "Agriculture and Food Production",
-      "country": "IT",
-      "pubDate": "2026-08-16T14:52:11.000Z"
-    },
-    {
-      "id": "tecosim-com-6ea6",
-      "victim": "tecosim.com — claimed by lockbit5",
-      "sector": "Technology",
-      "country": "DE",
-      "pubDate": "2026-08-16T14:51:40.000Z"
-    },
-    {
-      "id": "vgrn-de-873b",
-      "victim": "vgrn.de — claimed by lockbit5",
+      "id": "terra-petra-com-4412",
+      "victim": "terra-petra.com — claimed by lockbit5",
       "sector": "Energy & Utilities",
       "country": "DE",
-      "pubDate": "2026-08-16T14:51:08.000Z"
+      "pubDate": "2026-08-18T03:55:20.000Z"
     }
   ]
 }

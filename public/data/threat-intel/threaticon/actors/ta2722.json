@@ -13,7 +13,18 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["Healthcare Targeting", "Critical Infrastructure", "Phishing", "Government Targeting"],
+  "tags": [
+    "Cybercriminal",
+    "RAT",
+    "Phishing",
+    "Balikbayan Foxes",
+    "Information Theft",
+    "State-sponsored overlap",
+    "Initial Access",
+    "Healthcare Targeting",
+    "Critical Infrastructure",
+    "Government Targeting"
+  ],
   "aliases": ["Balikbayan Foxes", "distributing Remcos", "NanoCore remote access trojans", "APT28"],
   "targetedSectors": [
     "Government",
@@ -60,15 +71,36 @@
     "PK",
     "AE"
   ],
-  "tactics": [],
-  "techniques": [],
-  "tools": [],
-  "iocPatterns": [],
-  "keyCapabilities": [],
-  "recommendedActions": [],
-  "campaignsText": null,
-  "description": null,
-  "goals": null,
+  "tactics": ["Initial Access", "Persistence", "Defense Evasion", "Command and Control"],
+  "techniques": ["T1566.003", "T1036", "T1071", "T1568", "T1496"],
+  "tools": ["Remcos", "NanoCore", "w64time.dll", "Cobalt Strike", "PlugX"],
+  "iocPatterns": [
+    "OneDrive phishing links",
+    "Government entity impersonation (Philippines)",
+    "Malicious DLL placement in system32 folder",
+    "Remcos/NanoCore RAT signatures"
+  ],
+  "keyCapabilities": [
+    "Remote Access Trojan (RAT) distribution",
+    "Phishing via cloud storage links",
+    "Government entity impersonation",
+    "Command and Control (C2) communication",
+    "Local hardware interaction",
+    "Distributed Denial of Service (DDoS) execution",
+    "Information gathering and reconnaissance"
+  ],
+  "recommendedActions": [
+    "Block known malicious IP addresses and domains associated with Remcos/NanoCore C2 infrastructure.",
+    "Implement email filtering to flag or block links to high-risk cloud storage providers (e.g., OneDrive) when presented as government communications.",
+    "Deploy automated endpoint detection sensors to alert on unauthorized file creation in \\system32\\.",
+    "Conduct targeted security awareness training focusing on the risks of government impersonation and suspicious link activation.",
+    "Implement network segmentation to limit lateral movement once a remote access tool is deployed.",
+    "Use updated YARA rules to flag known malicious elements like w64time.dll and related RAT artifacts.",
+    "Deploy web protection services to block access to known malicious domains involved in the TA22 campaign."
+  ],
+  "campaignsText": "TA2722 maintains a consistent operational tempo since 2020, focusing on multi-regional targets in sectors such as shipping, manufacturing, and pharmaceuticals. Their campaigns are notable for their high degree of social engineering, where they use specific regional personas (e.g., Philippine government officials) to increase the likelihood of engagement from potential victims across North America and Southeast Asia_.",
+  "description": "TA2722, also known as Balikbayan Foxes, is a prolific cybercriminal threat actor that utilizes phishing and government impersonation to deliver Remote Access Trojans (RATs) such as Remcos and NanoCore. The group targets diverse sectors across North America, Europe, and Southeast Asia with the primary objectives of information gathering, follow-on malware deployment, and business email compromise (BEC).",
+  "goals": "The primary motive of TA2722 is financial gain derived from both immediate theft and long-term information gathering. Their targeting profile is broad and multi-sectoral, specifically targeting organizations in the manufacturing, pharmaceutical, energy, shipping/logistics, and telecommunications sectors across North America, Europe, and Southeast Asia. By utilizing specific government impersonation tactics (notably Philippine agencies), the actor targets individuals who have business relationships with these entities to facilitate unauthorized access for reconnaissance or subsequent financial fraud.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1040",
   "sourceUrl": "https://threaticon.com/threat-actors/1040"
 }

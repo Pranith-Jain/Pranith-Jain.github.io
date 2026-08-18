@@ -2,8 +2,8 @@
   "source": "threaticon.com",
   "url": "https://threaticon.com/",
   "description": "Threaticon is a STIX 2.1 / TAXII 2.1 threat-intel platform (solo-run by Jefferson Shillingford) aggregating threat actors, malware families, campaigns, CVEs and ATT&CK detection coverage. Public preview content mirrored for read-only reference — structured facts only, AI-generated prose excluded.",
-  "syncedAt": "2026-08-17T06:14:17.901Z",
-  "builtAt": "2026-08-17T07:39:55.338Z",
+  "syncedAt": "2026-08-18T05:55:49.606Z",
+  "builtAt": "2026-08-18T07:15:55.892Z",
   "counts": {
     "actors": 1500,
     "actorsWithProfiles": 1500,
@@ -13,7 +13,7 @@
     "tactics": 13,
     "originCountries": 22,
     "targetedCountries": 37,
-    "sectors": 53
+    "sectors": 57
   },
   "tactics": {
     "Reconnaissance": { "techniqueCount": 46, "coveragePct": 100 },
@@ -554,7 +554,7 @@
       "countryOfOrigin": "I",
       "techniquesCount": 2,
       "toolsCount": 2,
-      "targetedCountriesCount": 0,
+      "targetedCountriesCount": 36,
       "tagsCount": 5,
       "added": "May 17, 2026"
     },
@@ -2235,10 +2235,10 @@
       "types": ["Criminal"],
       "originCode": "RU",
       "countryOfOrigin": "Russia (RU)",
-      "techniquesCount": 4,
-      "toolsCount": 3,
+      "techniquesCount": 7,
+      "toolsCount": 9,
       "targetedCountriesCount": 1,
-      "tagsCount": 4,
+      "tagsCount": 9,
       "added": "Jul 13, 2026"
     },
     {
@@ -2252,10 +2252,10 @@
       "types": ["Nation-State"],
       "originCode": null,
       "countryOfOrigin": "P",
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 95,
+      "toolsCount": 14,
       "targetedCountriesCount": 5,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -2303,10 +2303,10 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 6,
-      "toolsCount": 7,
+      "techniquesCount": 12,
+      "toolsCount": 8,
       "targetedCountriesCount": 32,
-      "tagsCount": 5,
+      "tagsCount": 9,
       "added": "Jul 13, 2026"
     },
     {
@@ -2473,10 +2473,10 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 5,
-      "toolsCount": 3,
+      "techniquesCount": 15,
+      "toolsCount": 12,
       "targetedCountriesCount": 32,
-      "tagsCount": 6,
+      "tagsCount": 11,
       "added": "Jul 21, 2026"
     },
     {
@@ -2592,10 +2592,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 5,
-      "toolsCount": 2,
+      "techniquesCount": 35,
+      "toolsCount": 10,
       "targetedCountriesCount": 0,
-      "tagsCount": 7,
+      "tagsCount": 13,
       "added": "May 17, 2026"
     },
     {
@@ -2677,10 +2677,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "I",
-      "techniquesCount": 5,
-      "toolsCount": 4,
+      "techniquesCount": 16,
+      "toolsCount": 11,
       "targetedCountriesCount": 11,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -2813,10 +2813,10 @@
       "types": ["Criminal"],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 6,
-      "toolsCount": 5,
+      "techniquesCount": 7,
+      "toolsCount": 4,
       "targetedCountriesCount": 0,
-      "tagsCount": 5,
+      "tagsCount": 8,
       "added": "Jul 13, 2026"
     },
     {
@@ -3136,10 +3136,10 @@
       "types": [],
       "originCode": "US",
       "countryOfOrigin": "United States (US)",
-      "techniquesCount": 0,
-      "toolsCount": 1,
+      "techniquesCount": 15,
+      "toolsCount": 13,
       "targetedCountriesCount": 35,
-      "tagsCount": 5,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -3272,10 +3272,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 2,
-      "toolsCount": 2,
+      "techniquesCount": 10,
+      "toolsCount": 10,
       "targetedCountriesCount": 1,
-      "tagsCount": 5,
+      "tagsCount": 10,
       "added": "May 17, 2026"
     },
     {
@@ -3289,10 +3289,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "I",
-      "techniquesCount": 0,
-      "toolsCount": 2,
+      "techniquesCount": 27,
+      "toolsCount": 14,
       "targetedCountriesCount": 12,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -3460,9 +3460,9 @@
       "originCode": null,
       "countryOfOrigin": "R",
       "techniquesCount": 4,
-      "toolsCount": 2,
+      "toolsCount": 8,
       "targetedCountriesCount": 5,
-      "tagsCount": 6,
+      "tagsCount": 14,
       "added": "May 17, 2026"
     },
     {
@@ -3748,10 +3748,10 @@
       "types": [],
       "originCode": "US",
       "countryOfOrigin": "United States (US)",
-      "techniquesCount": 5,
-      "toolsCount": 2,
+      "techniquesCount": 8,
+      "toolsCount": 10,
       "targetedCountriesCount": 2,
-      "tagsCount": 7,
+      "tagsCount": 10,
       "added": "May 17, 2026"
     },
     {
@@ -4071,10 +4071,10 @@
       "types": [],
       "originCode": "IR",
       "countryOfOrigin": "Iran (IR)",
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 11,
+      "toolsCount": 8,
       "targetedCountriesCount": 0,
-      "tagsCount": 2,
+      "tagsCount": 12,
       "added": "Jul 13, 2026"
     },
     {
@@ -4192,8 +4192,8 @@
       "countryOfOrigin": "I",
       "techniquesCount": 5,
       "toolsCount": 3,
-      "targetedCountriesCount": 0,
-      "tagsCount": 6,
+      "targetedCountriesCount": 32,
+      "tagsCount": 7,
       "added": "May 17, 2026"
     },
     {
@@ -4428,10 +4428,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "I",
-      "techniquesCount": 4,
-      "toolsCount": 3,
+      "techniquesCount": 18,
+      "toolsCount": 11,
       "targetedCountriesCount": 8,
-      "tagsCount": 7,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -4787,7 +4787,7 @@
       "countryOfOrigin": "I",
       "techniquesCount": 6,
       "toolsCount": 3,
-      "targetedCountriesCount": 0,
+      "targetedCountriesCount": 11,
       "tagsCount": 7,
       "added": "May 17, 2026"
     },
@@ -4870,10 +4870,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "B",
-      "techniquesCount": 5,
-      "toolsCount": 5,
+      "techniquesCount": 18,
+      "toolsCount": 11,
       "targetedCountriesCount": 0,
-      "tagsCount": 7,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -4904,10 +4904,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "I",
-      "techniquesCount": 5,
-      "toolsCount": 3,
+      "techniquesCount": 44,
+      "toolsCount": 19,
       "targetedCountriesCount": 22,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -4921,10 +4921,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "U",
-      "techniquesCount": 3,
-      "toolsCount": 3,
+      "techniquesCount": 10,
+      "toolsCount": 6,
       "targetedCountriesCount": 7,
-      "tagsCount": 6,
+      "tagsCount": 12,
       "added": "May 17, 2026"
     },
     {
@@ -4989,10 +4989,10 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 2,
-      "toolsCount": 2,
+      "techniquesCount": 14,
+      "toolsCount": 16,
       "targetedCountriesCount": 14,
-      "tagsCount": 3,
+      "tagsCount": 8,
       "added": "Jul 13, 2026"
     },
     {
@@ -5259,12 +5259,12 @@
       "tlp": "white",
       "confidence": 60,
       "types": [],
-      "originCode": null,
-      "countryOfOrigin": null,
+      "originCode": "RU",
+      "countryOfOrigin": "Russia (RU)",
       "techniquesCount": 3,
       "toolsCount": 3,
-      "targetedCountriesCount": 0,
-      "tagsCount": 7,
+      "targetedCountriesCount": 5,
+      "tagsCount": 8,
       "added": "May 17, 2026"
     },
     {
@@ -5519,7 +5519,7 @@
       "techniquesCount": 0,
       "toolsCount": 0,
       "targetedCountriesCount": 11,
-      "tagsCount": 3,
+      "tagsCount": 4,
       "added": "May 26, 2026"
     },
     {
@@ -5635,10 +5635,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "A",
-      "techniquesCount": 3,
-      "toolsCount": 2,
+      "techniquesCount": 23,
+      "toolsCount": 42,
       "targetedCountriesCount": 8,
-      "tagsCount": 5,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -5752,12 +5752,12 @@
       "tlp": "white",
       "confidence": 60,
       "types": [],
-      "originCode": null,
-      "countryOfOrigin": null,
+      "originCode": "US",
+      "countryOfOrigin": "United States (US)",
       "techniquesCount": 5,
       "toolsCount": 3,
-      "targetedCountriesCount": 0,
-      "tagsCount": 6,
+      "targetedCountriesCount": 3,
+      "tagsCount": 7,
       "added": "May 17, 2026"
     },
     {
@@ -5841,8 +5841,8 @@
       "countryOfOrigin": "C",
       "techniquesCount": 5,
       "toolsCount": 4,
-      "targetedCountriesCount": 0,
-      "tagsCount": 7,
+      "targetedCountriesCount": 21,
+      "tagsCount": 8,
       "added": "May 17, 2026"
     },
     {
@@ -6213,10 +6213,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 4,
-      "toolsCount": 3,
+      "techniquesCount": 15,
+      "toolsCount": 11,
       "targetedCountriesCount": 8,
-      "tagsCount": 5,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -6315,10 +6315,10 @@
       "types": ["Nation-State"],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 4,
-      "toolsCount": 6,
+      "techniquesCount": 8,
+      "toolsCount": 7,
       "targetedCountriesCount": 0,
-      "tagsCount": 9,
+      "tagsCount": 14,
       "added": "May 26, 2026"
     },
     {
@@ -6468,10 +6468,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 5,
-      "toolsCount": 4,
+      "techniquesCount": 32,
+      "toolsCount": 23,
       "targetedCountriesCount": 17,
-      "tagsCount": 9,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -6553,10 +6553,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 4,
-      "toolsCount": 3,
+      "techniquesCount": 20,
+      "toolsCount": 10,
       "targetedCountriesCount": 33,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -6638,10 +6638,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "I",
-      "techniquesCount": 5,
-      "toolsCount": 3,
+      "techniquesCount": 7,
+      "toolsCount": 14,
       "targetedCountriesCount": 12,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -7352,10 +7352,10 @@
       "types": [],
       "originCode": "IN",
       "countryOfOrigin": "India (IN)",
-      "techniquesCount": 2,
-      "toolsCount": 1,
+      "techniquesCount": 33,
+      "toolsCount": 15,
       "targetedCountriesCount": 25,
-      "tagsCount": 5,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -7403,10 +7403,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 3,
-      "toolsCount": 2,
+      "techniquesCount": 38,
+      "toolsCount": 12,
       "targetedCountriesCount": 23,
-      "tagsCount": 3,
+      "tagsCount": 10,
       "added": "May 17, 2026"
     },
     {
@@ -8661,10 +8661,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "I",
-      "techniquesCount": 4,
-      "toolsCount": 4,
+      "techniquesCount": 47,
+      "toolsCount": 20,
       "targetedCountriesCount": 23,
-      "tagsCount": 5,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -9191,7 +9191,7 @@
       "techniquesCount": 4,
       "toolsCount": 2,
       "targetedCountriesCount": 24,
-      "tagsCount": 6,
+      "tagsCount": 7,
       "added": "May 17, 2026"
     },
     {
@@ -9443,10 +9443,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 8,
+      "toolsCount": 8,
       "targetedCountriesCount": 0,
-      "tagsCount": 3,
+      "tagsCount": 8,
       "added": "Jul 13, 2026"
     },
     {
@@ -9647,10 +9647,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 5,
-      "toolsCount": 5,
+      "techniquesCount": 8,
+      "toolsCount": 9,
       "targetedCountriesCount": 1,
-      "tagsCount": 7,
+      "tagsCount": 10,
       "added": "Jul 12, 2026"
     },
     {
@@ -10106,10 +10106,10 @@
       "types": ["Nation-State"],
       "originCode": "IR",
       "countryOfOrigin": "Iran (IR)",
-      "techniquesCount": 2,
-      "toolsCount": 1,
+      "techniquesCount": 7,
+      "toolsCount": 7,
       "targetedCountriesCount": 31,
-      "tagsCount": 6,
+      "tagsCount": 10,
       "added": "Jul 15, 2026"
     },
     {
@@ -10327,10 +10327,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 3,
-      "toolsCount": 2,
+      "techniquesCount": 15,
+      "toolsCount": 10,
       "targetedCountriesCount": 33,
-      "tagsCount": 7,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -10344,10 +10344,10 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 3,
-      "toolsCount": 3,
+      "techniquesCount": 7,
+      "toolsCount": 0,
       "targetedCountriesCount": 32,
-      "tagsCount": 4,
+      "tagsCount": 9,
       "added": "Jul 21, 2026"
     },
     {
@@ -10397,7 +10397,7 @@
       "countryOfOrigin": null,
       "techniquesCount": 5,
       "toolsCount": 4,
-      "targetedCountriesCount": 0,
+      "targetedCountriesCount": 2,
       "tagsCount": 6,
       "added": "May 17, 2026"
     },
@@ -10597,11 +10597,11 @@
       "tlp": "white",
       "confidence": 60,
       "types": [],
-      "originCode": null,
-      "countryOfOrigin": null,
+      "originCode": "CN",
+      "countryOfOrigin": "China (CN)",
       "techniquesCount": 5,
       "toolsCount": 3,
-      "targetedCountriesCount": 0,
+      "targetedCountriesCount": 29,
       "tagsCount": 4,
       "added": "May 17, 2026"
     },
@@ -10786,10 +10786,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 4,
-      "toolsCount": 2,
+      "techniquesCount": 11,
+      "toolsCount": 12,
       "targetedCountriesCount": 15,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -10905,10 +10905,10 @@
       "types": [],
       "originCode": "US",
       "countryOfOrigin": "United States (US)",
-      "techniquesCount": 7,
-      "toolsCount": 3,
+      "techniquesCount": 8,
+      "toolsCount": 7,
       "targetedCountriesCount": 7,
-      "tagsCount": 6,
+      "tagsCount": 8,
       "added": "May 17, 2026"
     },
     {
@@ -10973,10 +10973,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 2,
-      "toolsCount": 4,
+      "techniquesCount": 6,
+      "toolsCount": 6,
       "targetedCountriesCount": 2,
-      "tagsCount": 3,
+      "tagsCount": 7,
       "added": "May 17, 2026"
     },
     {
@@ -12707,8 +12707,8 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 28,
-      "toolsCount": 13,
+      "techniquesCount": 11,
+      "toolsCount": 15,
       "targetedCountriesCount": 32,
       "tagsCount": 15,
       "added": "Jul 23, 2026"
@@ -12894,10 +12894,10 @@
       "types": [],
       "originCode": "US",
       "countryOfOrigin": "United States (US)",
-      "techniquesCount": 0,
-      "toolsCount": 1,
+      "techniquesCount": 26,
+      "toolsCount": 11,
       "targetedCountriesCount": 6,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -12911,10 +12911,10 @@
       "types": ["Nation-State"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 29,
-      "toolsCount": 3,
+      "techniquesCount": 70,
+      "toolsCount": 64,
       "targetedCountriesCount": 33,
-      "tagsCount": 5,
+      "tagsCount": 15,
       "added": "Jul 21, 2026"
     },
     {
@@ -13166,8 +13166,8 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 20,
-      "toolsCount": 18,
+      "techniquesCount": 12,
+      "toolsCount": 12,
       "targetedCountriesCount": 15,
       "tagsCount": 15,
       "added": "Jul 23, 2026"
@@ -13742,12 +13742,12 @@
       "tlp": "white",
       "confidence": 60,
       "types": [],
-      "originCode": null,
-      "countryOfOrigin": null,
+      "originCode": "GB",
+      "countryOfOrigin": "United Kingdom (GB)",
       "techniquesCount": 0,
       "toolsCount": 2,
-      "targetedCountriesCount": 0,
-      "tagsCount": 4,
+      "targetedCountriesCount": 3,
+      "tagsCount": 5,
       "added": "May 17, 2026"
     },
     {
@@ -13965,10 +13965,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "R",
-      "techniquesCount": 0,
-      "toolsCount": 1,
+      "techniquesCount": 29,
+      "toolsCount": 23,
       "targetedCountriesCount": 24,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -13999,10 +13999,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 5,
-      "toolsCount": 3,
+      "techniquesCount": 6,
+      "toolsCount": 11,
       "targetedCountriesCount": 3,
-      "tagsCount": 7,
+      "tagsCount": 14,
       "added": "May 17, 2026"
     },
     {
@@ -14067,10 +14067,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 3,
-      "toolsCount": 2,
+      "techniquesCount": 9,
+      "toolsCount": 12,
       "targetedCountriesCount": 31,
-      "tagsCount": 4,
+      "tagsCount": 11,
       "added": "May 17, 2026"
     },
     {
@@ -14169,10 +14169,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 3,
-      "toolsCount": 1,
+      "techniquesCount": 9,
+      "toolsCount": 5,
       "targetedCountriesCount": 26,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -14441,10 +14441,10 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 40,
+      "toolsCount": 11,
       "targetedCountriesCount": 32,
-      "tagsCount": 1,
+      "tagsCount": 7,
       "added": "Aug 6, 2026"
     },
     {
@@ -14662,10 +14662,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "K",
-      "techniquesCount": 0,
-      "toolsCount": 2,
+      "techniquesCount": 11,
+      "toolsCount": 13,
       "targetedCountriesCount": 18,
-      "tagsCount": 5,
+      "tagsCount": 11,
       "added": "May 17, 2026"
     },
     {
@@ -14985,10 +14985,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 4,
-      "toolsCount": 5,
+      "techniquesCount": 6,
+      "toolsCount": 6,
       "targetedCountriesCount": 2,
-      "tagsCount": 5,
+      "tagsCount": 9,
       "added": "Jul 19, 2026"
     },
     {
@@ -15138,10 +15138,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 5,
-      "toolsCount": 5,
+      "techniquesCount": 72,
+      "toolsCount": 12,
       "targetedCountriesCount": 6,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -15170,12 +15170,12 @@
       "tlp": "white",
       "confidence": 60,
       "types": [],
-      "originCode": null,
-      "countryOfOrigin": null,
+      "originCode": "IR",
+      "countryOfOrigin": "Iran (IR)",
       "techniquesCount": 4,
       "toolsCount": 2,
-      "targetedCountriesCount": 0,
-      "tagsCount": 3,
+      "targetedCountriesCount": 6,
+      "tagsCount": 4,
       "added": "May 17, 2026"
     },
     {
@@ -15801,10 +15801,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 6,
+      "toolsCount": 4,
       "targetedCountriesCount": 0,
-      "tagsCount": 1,
+      "tagsCount": 8,
       "added": "Jul 12, 2026"
     },
     {
@@ -16277,10 +16277,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 2,
-      "toolsCount": 1,
+      "techniquesCount": 12,
+      "toolsCount": 12,
       "targetedCountriesCount": 17,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -16311,10 +16311,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 3,
-      "toolsCount": 3,
+      "techniquesCount": 5,
+      "toolsCount": 5,
       "targetedCountriesCount": 10,
-      "tagsCount": 7,
+      "tagsCount": 14,
       "added": "May 17, 2026"
     },
     {
@@ -17011,7 +17011,7 @@
       "techniquesCount": 5,
       "toolsCount": 4,
       "targetedCountriesCount": 0,
-      "tagsCount": 7,
+      "tagsCount": 8,
       "added": "May 17, 2026"
     },
     {
@@ -17365,10 +17365,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 6,
-      "toolsCount": 6,
+      "techniquesCount": 8,
+      "toolsCount": 4,
       "targetedCountriesCount": 0,
-      "tagsCount": 7,
+      "tagsCount": 11,
       "added": "Jul 12, 2026"
     },
     {
@@ -17433,10 +17433,10 @@
       "types": [],
       "originCode": "IR",
       "countryOfOrigin": "Iran (IR)",
-      "techniquesCount": 6,
-      "toolsCount": 3,
+      "techniquesCount": 52,
+      "toolsCount": 22,
       "targetedCountriesCount": 14,
-      "tagsCount": 5,
+      "tagsCount": 11,
       "added": "May 17, 2026"
     },
     {
@@ -17467,10 +17467,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 0,
-      "toolsCount": 2,
+      "techniquesCount": 48,
+      "toolsCount": 19,
       "targetedCountriesCount": 3,
-      "tagsCount": 6,
+      "tagsCount": 13,
       "added": "May 17, 2026"
     },
     {
@@ -17960,10 +17960,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 4,
+      "techniquesCount": 6,
       "toolsCount": 5,
       "targetedCountriesCount": 0,
-      "tagsCount": 11,
+      "tagsCount": 15,
       "added": "Jul 12, 2026"
     },
     {
@@ -18030,8 +18030,8 @@
       "countryOfOrigin": null,
       "techniquesCount": 3,
       "toolsCount": 5,
-      "targetedCountriesCount": 0,
-      "tagsCount": 7,
+      "targetedCountriesCount": 6,
+      "tagsCount": 8,
       "added": "May 17, 2026"
     },
     {
@@ -18844,10 +18844,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "K",
-      "techniquesCount": 3,
-      "toolsCount": 3,
+      "techniquesCount": 18,
+      "toolsCount": 27,
       "targetedCountriesCount": 25,
-      "tagsCount": 9,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -18997,10 +18997,10 @@
       "types": [],
       "originCode": "IR",
       "countryOfOrigin": "Iran (IR)",
-      "techniquesCount": 3,
-      "toolsCount": 2,
+      "techniquesCount": 58,
+      "toolsCount": 19,
       "targetedCountriesCount": 11,
-      "tagsCount": 5,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -19014,10 +19014,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "E",
-      "techniquesCount": 4,
-      "toolsCount": 3,
+      "techniquesCount": 15,
+      "toolsCount": 11,
       "targetedCountriesCount": 5,
-      "tagsCount": 4,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -19286,10 +19286,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 0,
-      "toolsCount": 3,
+      "techniquesCount": 8,
+      "toolsCount": 9,
       "targetedCountriesCount": 14,
-      "tagsCount": 4,
+      "tagsCount": 11,
       "added": "May 17, 2026"
     },
     {
@@ -19303,10 +19303,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 1,
-      "toolsCount": 4,
+      "techniquesCount": 30,
+      "toolsCount": 15,
       "targetedCountriesCount": 7,
-      "tagsCount": 5,
+      "tagsCount": 12,
       "added": "May 17, 2026"
     },
     {
@@ -19881,10 +19881,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 4,
-      "toolsCount": 3,
+      "techniquesCount": 3,
+      "toolsCount": 2,
       "targetedCountriesCount": 4,
-      "tagsCount": 7,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -19898,10 +19898,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 5,
-      "toolsCount": 3,
+      "techniquesCount": 7,
+      "toolsCount": 5,
       "targetedCountriesCount": 8,
-      "tagsCount": 6,
+      "tagsCount": 10,
       "added": "May 17, 2026"
     },
     {
@@ -19915,10 +19915,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 5,
+      "toolsCount": 5,
       "targetedCountriesCount": 18,
-      "tagsCount": 4,
+      "tagsCount": 10,
       "added": "May 17, 2026"
     },
     {
@@ -19949,10 +19949,10 @@
       "types": [],
       "originCode": "ES",
       "countryOfOrigin": "Spain (ES)",
-      "techniquesCount": 2,
-      "toolsCount": 2,
+      "techniquesCount": 27,
+      "toolsCount": 11,
       "targetedCountriesCount": 5,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -20476,10 +20476,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "R",
-      "techniquesCount": 5,
+      "techniquesCount": 6,
       "toolsCount": 4,
       "targetedCountriesCount": 0,
-      "tagsCount": 8,
+      "tagsCount": 13,
       "added": "May 17, 2026"
     },
     {
@@ -20629,10 +20629,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 6,
-      "toolsCount": 5,
+      "techniquesCount": 68,
+      "toolsCount": 29,
       "targetedCountriesCount": 24,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -20648,8 +20648,8 @@
       "countryOfOrigin": "I",
       "techniquesCount": 0,
       "toolsCount": 0,
-      "targetedCountriesCount": 0,
-      "tagsCount": 2,
+      "targetedCountriesCount": 17,
+      "tagsCount": 3,
       "added": "May 17, 2026"
     },
     {
@@ -21258,10 +21258,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 5,
-      "toolsCount": 6,
+      "techniquesCount": 20,
+      "toolsCount": 19,
       "targetedCountriesCount": 17,
-      "tagsCount": 8,
+      "tagsCount": 9,
       "added": "May 17, 2026"
     },
     {
@@ -21496,10 +21496,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 13,
+      "toolsCount": 11,
       "targetedCountriesCount": 23,
-      "tagsCount": 1,
+      "tagsCount": 6,
       "added": "Aug 1, 2026"
     },
     {
@@ -21783,11 +21783,11 @@
       "tlp": "white",
       "confidence": 60,
       "types": [],
-      "originCode": null,
-      "countryOfOrigin": null,
+      "originCode": "TW",
+      "countryOfOrigin": "Taiwan (TW)",
       "techniquesCount": 0,
       "toolsCount": 1,
-      "targetedCountriesCount": 0,
+      "targetedCountriesCount": 6,
       "tagsCount": 5,
       "added": "May 17, 2026"
     },
@@ -21904,10 +21904,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 32,
+      "toolsCount": 13,
       "targetedCountriesCount": 0,
-      "tagsCount": 1,
+      "tagsCount": 11,
       "added": "May 17, 2026"
     },
     {
@@ -22431,10 +22431,10 @@
       "types": ["Criminal"],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 3,
-      "toolsCount": 2,
+      "techniquesCount": 31,
+      "toolsCount": 20,
       "targetedCountriesCount": 15,
-      "tagsCount": 5,
+      "tagsCount": 10,
       "added": "Jul 19, 2026"
     },
     {
@@ -22604,7 +22604,7 @@
       "techniquesCount": 0,
       "toolsCount": 0,
       "targetedCountriesCount": 0,
-      "tagsCount": 2,
+      "tagsCount": 3,
       "added": "May 17, 2026"
     },
     {
@@ -22652,10 +22652,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 0,
-      "toolsCount": 3,
+      "techniquesCount": 55,
+      "toolsCount": 16,
       "targetedCountriesCount": 9,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -23145,10 +23145,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 4,
-      "toolsCount": 4,
+      "techniquesCount": 20,
+      "toolsCount": 14,
       "targetedCountriesCount": 6,
-      "tagsCount": 6,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -23281,10 +23281,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 32,
+      "toolsCount": 10,
       "targetedCountriesCount": 1,
-      "tagsCount": 4,
+      "tagsCount": 8,
       "added": "May 17, 2026"
     },
     {
@@ -23655,10 +23655,10 @@
       "types": [],
       "originCode": "CN",
       "countryOfOrigin": "China (CN)",
-      "techniquesCount": 3,
-      "toolsCount": 2,
+      "techniquesCount": 0,
+      "toolsCount": 26,
       "targetedCountriesCount": 27,
-      "tagsCount": 7,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -23706,10 +23706,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "C",
-      "techniquesCount": 4,
-      "toolsCount": 3,
+      "techniquesCount": 35,
+      "toolsCount": 19,
       "targetedCountriesCount": 26,
-      "tagsCount": 8,
+      "tagsCount": 15,
       "added": "May 17, 2026"
     },
     {
@@ -24301,10 +24301,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": "I",
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 28,
+      "toolsCount": 6,
       "targetedCountriesCount": 34,
-      "tagsCount": 4,
+      "tagsCount": 13,
       "added": "May 17, 2026"
     },
     {
@@ -24437,10 +24437,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 0,
-      "toolsCount": 0,
+      "techniquesCount": 5,
+      "toolsCount": 2,
       "targetedCountriesCount": 0,
-      "tagsCount": 2,
+      "tagsCount": 6,
       "added": "May 17, 2026"
     },
     {
@@ -24471,10 +24471,10 @@
       "types": [],
       "originCode": null,
       "countryOfOrigin": null,
-      "techniquesCount": 5,
-      "toolsCount": 4,
+      "techniquesCount": 50,
+      "toolsCount": 16,
       "targetedCountriesCount": 0,
-      "tagsCount": 6,
+      "tagsCount": 14,
       "added": "May 17, 2026"
     },
     {
@@ -24967,7 +24967,7 @@
       "techniquesCount": 3,
       "toolsCount": 2,
       "targetedCountriesCount": 0,
-      "tagsCount": 5,
+      "tagsCount": 6,
       "added": "May 17, 2026"
     },
     {
@@ -25015,10 +25015,10 @@
       "types": [],
       "originCode": "IR",
       "countryOfOrigin": "Iran (IR)",
-      "techniquesCount": 38,
-      "toolsCount": 23,
+      "techniquesCount": 14,
+      "toolsCount": 9,
       "targetedCountriesCount": 16,
-      "tagsCount": 14,
+      "tagsCount": 15,
       "added": "Jul 24, 2026"
     },
     {
@@ -25119,7 +25119,7 @@
       "countryOfOrigin": "R",
       "techniquesCount": 0,
       "toolsCount": 0,
-      "targetedCountriesCount": 0,
+      "targetedCountriesCount": 13,
       "tagsCount": 3,
       "added": "May 17, 2026"
     },
@@ -25137,7 +25137,7 @@
       "techniquesCount": 4,
       "toolsCount": 1,
       "targetedCountriesCount": 0,
-      "tagsCount": 4,
+      "tagsCount": 5,
       "added": "May 17, 2026"
     },
     {
@@ -25457,10 +25457,10 @@
       "types": [],
       "originCode": "IL",
       "countryOfOrigin": "Israel (IL)",
-      "techniquesCount": 0,
-      "toolsCount": 1,
+      "techniquesCount": 6,
+      "toolsCount": 6,
       "targetedCountriesCount": 12,
-      "tagsCount": 7,
+      "tagsCount": 12,
       "added": "May 17, 2026"
     },
     {

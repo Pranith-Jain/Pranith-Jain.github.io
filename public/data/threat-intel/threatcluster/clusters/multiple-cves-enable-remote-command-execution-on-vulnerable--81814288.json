@@ -1,0 +1,11 @@
+{
+  "slug": "multiple-cves-enable-remote-command-execution-on-vulnerable--81814288",
+  "title": "Multiple CVEs Enable Remote Command Execution on Vulnerable Routers and Servers",
+  "link": "https://threatcluster.io/cluster/multiple-cves-enable-remote-command-execution-on-vulnerable--81814288?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/multiple-cves-enable-remote-command-execution-on-vulnerable--81814288",
+  "pubDate": "2026-08-17T16:32:43.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "Two critical vulnerabilities have been identified that allow remote attackers to execute arbitrary commands. CVE-2016-6277 affects various NETGEAR routers, including R6250, R6400, and R7000, allowing exploitation through shell metacharacters in the path info to cgi-bin. CVE-2007-3010 impacts Alcatel OmniPCX Enterprise Communication Server R7.1 and earlier, enabling similar command execution via the user parameter during a ping action. Both vulnerabilities have been added to the CISA Known Exploited Vulnerabilities Catalog, indicating active exploitation. Users of the affected systems are advised to consult the CISA guidance for remediation steps. The vulnerabilities pose significant risks to network security and operational integrity.\n\nKey Points:\n• CVE-2016-6277 affects multiple NETGEAR routers, allowing remote command execution.\n• CVE-2007-3010 impacts Alcatel OmniPCX servers, enabling similar exploitation methods.\n• Both vulnerabilities are actively exploited and listed in CISA's Known Exploited Vulnerabilities Catalog.",
+  "sizeBytes": 1038
+}

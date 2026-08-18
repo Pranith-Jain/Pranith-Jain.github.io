@@ -13,7 +13,7 @@
   "resourceLevel": null,
   "motivation": null,
   "added": "May 17, 2026",
-  "tags": ["Ransomware", "Phishing"],
+  "tags": ["Initial Access", "Ransomware", "Phishing"],
   "aliases": ["Hive0127"],
   "targetedSectors": [],
   "targetedCountries": [],

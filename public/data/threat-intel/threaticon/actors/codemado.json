@@ -13,7 +13,20 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "Jul 13, 2026",
-  "tags": ["Initial Access", "Phishing"],
+  "tags": [
+    "Ransomware",
+    "Wiper",
+    "Codemado",
+    "BLUERABBIT",
+    "Golang Malware",
+    "RabbitMQ C2",
+    "Backdoor",
+    "Data Destruction",
+    "Log Tampering",
+    "AiTm",
+    "Initial Access",
+    "Phishing"
+  ],
   "aliases": ["tracked as", "Eagle Werewolf", "Void Blizzard", "Laundry Bear"],
   "targetedSectors": [
     "Financial services",
@@ -28,15 +41,61 @@
     "Oil gas"
   ],
   "targetedCountries": [],
-  "tactics": [],
-  "techniques": [],
-  "tools": [],
-  "iocPatterns": [],
-  "keyCapabilities": [],
-  "recommendedActions": [],
-  "campaignsText": null,
-  "description": null,
-  "goals": null,
+  "tactics": ["Persistence", "Command and Control", "Impact", "Execution", "Defense Evasion"],
+  "techniques": [
+    "T1566.001",
+    "T1053.005",
+    "T1112",
+    "T1485",
+    "T1486",
+    "T1070",
+    "T1059.001",
+    "T1106",
+    "T1070.004",
+    "T1562.001",
+    "T1059.003"
+  ],
+  "tools": [
+    "GigaWiper",
+    "Magniber",
+    "RabbitMQ",
+    "Crucio",
+    "FlockWiper",
+    "Evilginx",
+    "Risk Management (RMM) tools",
+    "Microsoft Teams"
+  ],
+  "iocPatterns": [
+    "IP addresses 185.182.193.21:5544 (RabbitMQ) and 185.182.191.21:7542 (Redis)",
+    "File extension .candy",
+    "Registry Path HKCU\\SOFTWARE\\OneDrive\\Environment",
+    "Scheduled Task Name 'OneDrive Update'",
+    "Firewall rule name impersonation"
+  ],
+  "keyCapabilities": [
+    "Modular backdoor functionality (GigaWiper)",
+    "Integrated wiper and 'fake' ransomware capabilities",
+    "Golang-based malware development",
+    "C2 communications via RabbitMQ and Redis",
+    "Persistence through masqueraded scheduled tasks and registry keys",
+    "Automated Windows event log deletion (System, Setup, Application, ForwardedEvents)",
+    "Infrastructure masquerading of firewall rules",
+    "AiTM phishing for MFA bypass",
+    "Data encryption using AES-CBC"
+  ],
+  "recommendedActions": [
+    "Block and alert on any outbound traffic to non-standard ports 5544 and 7542.",
+    "Implement FIDO2-based hardware security keys or other phish-resistant MFA to mitigate AiTM attacks.",
+    "Monitor for the creation of scheduled tasks or registry entries masquerading as OneDrive services.",
+    "Alert on any files created with the .candy extension in production environments.",
+    "Conduct automated audits of firewall rules to identify and block impersonated standard system names.",
+    "Implement EDR rules to detect multi-pass disk wiping commands (e.g., usage of DeviceIoControl).",
+    "Monitor for unauthorized attempts to clear or delete Windows System, Setup, or Application event logs.",
+    "Regularly audit and alert on the use of Rapid Transport Protocol (RabbitMQ) and Redis for internal system communication."
+  ],
+  "campaignsText": "Codemado has been active since 2018, showing a steady operational tempo focused on high-value targets. They have been observed conducting sophisticated phishing campaigns specifically targeting Microsoft 365 credentials to circumvent MFA. Their activities indicate a dual-mode strategy: initial access and credential harvesting via AiTM platforms, followed by the deployment of GigaWiper for potential extortion or data destruction. Recent activity has been tracked through mid-2026, characterized by highly coordinated infrastructure that supports both long-term persistence and immediate, destructive impact.",
+  "description": "Codemado (also known as BLUERABBIT or UNC1549) is an Egyptian threat actor specializing in high-impact attacks that combine identity theft via AiTM phishing with destructive malware capabilities. The group utilizes a modular Go-based backdoor named GigaWiper to perform both data encryption and disk wiping across diverse sectors including government, defense, and healthcare.",
+  "goals": "The primary motive of Codemado is financial gain, supported by its membership in the 'The Quarry' cybercrime syndicate. However, their ability to deploy destructive wipers suggests a willingness to cause maximum disruption for extortion or as a secondary impact tactic. The actor targets a broad array of high-value sectors including government, defense, healthcare, aerospace, and oil and gas across multiple regions, notably targeting organizations in the United States, Canada, and Europe.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1570",
   "sourceUrl": "https://threaticon.com/threat-actors/1570"
 }

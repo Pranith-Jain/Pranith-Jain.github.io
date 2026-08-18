@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/usn-8633-1-linux-kernel-vulnerabilities-e06b309f?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/usn-8633-1-linux-kernel-vulnerabilities-e06b309f",
   "pubDate": "2026-08-12T20:01:49.000Z",
-  "sourceCount": 45,
-  "categories": ["45 Sources"],
+  "sourceCount": 47,
+  "categories": ["47 Sources"],
   "description": "A series of vulnerabilities in the Linux kernel have been identified, with significant risks posed to systems running affected versions. Notably, CVE-2025-27558 allows attackers to inject packets due to improper handling of aggregated frames in mesh networks, while CVE-2026-43503 presents a logic flaw that could enable privilege escalation. These vulnerabilities affect subsystems including x86 architecture, network drivers, and file systems. The updates released on August 12, 2026, aim to mitigate these risks. Users are advised to apply the patches promptly and reboot their systems to ensure all changes take effect. The vulnerabilities could potentially lead to system compromise if left unaddressed.\n\nKey Points:\n• Multiple vulnerabilities in the Linux kernel could allow for system compromise.\n• CVE-2025-27558 and CVE-2026-43503 are critical flaws requiring immediate attention.\n• Affected subsystems include network drivers, x86 architecture, and file systems.",
   "sizeBytes": 972
 }

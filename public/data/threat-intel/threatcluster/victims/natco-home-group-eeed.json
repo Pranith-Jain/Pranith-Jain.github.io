@@ -1,0 +1,14 @@
+{
+  "id": "natco-home-group-eeed",
+  "victim": "Natco Home Group",
+  "group": "aurora",
+  "sector": "Retail & E-Commerce",
+  "country": "US",
+  "title": "Natco Home Group — claimed by aurora",
+  "link": "https://threatcluster.io/dark-web/victim/Natco%20Home%20Group",
+  "guid": "darkweb-victim:aurora:natco home group",
+  "pubDate": "2026-08-17T14:22:18.000Z",
+  "categories": ["Group: aurora", "Sector: Retail & E-Commerce", "Country: US"],
+  "description": "US · Retail &amp; E-Commerce · [manufacturer] Natco Home Group — a fourth-generation, family-owned home furnishings manufacturer headquartered in West Warwick, Rhode Island, with ~800 employees, ~$100M annual revenue, and facilities across seven US states.\n\nThe exfiltrated dataset spans the company's entire corporate history and includes:\n\nSocial Security numbers in plaintext for 100–120 legacy employees dating back to 1979 in",
+  "sizeBytes": 430
+}

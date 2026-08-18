@@ -1,0 +1,11 @@
+{
+  "slug": "download-more-ram-attack-bypasses-windows-11-security-defens-ddd027cf",
+  "title": "Download More RAM Attack Bypasses Windows 11 Security Defenses",
+  "link": "https://threatcluster.io/cluster/download-more-ram-attack-bypasses-windows-11-security-defens-ddd027cf?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/download-more-ram-attack-bypasses-windows-11-security-defens-ddd027cf",
+  "pubDate": "2026-08-13T16:33:43.000Z",
+  "sourceCount": 10,
+  "categories": ["10 Sources"],
+  "description": "Researchers have identified a new attack, termed 'Download More RAM', that allows attackers to bypass Windows 11's Virtualization-Based Security (VBS) and disable Microsoft Defender without physical access to the target machine. This attack exploits vulnerabilities in certain consumer DDR4 and DDR5 memory modules, specifically targeting the unprotected Serial Presence Detect (SPD) data. The attack enables arbitrary memory read/write operations, compromising the operating system and its security features. Microsoft has acknowledged the issue as CVE-2026-23670 and released a partial mitigation in April 2026. The research was presented at the 2026 USENIX Security Symposium, highlighting a significant flaw in trust assumptions surrounding Windows security. The attack can be executed using a simple script, making it suitable for automated, large-scale exploitation. Major manufacturers like Corsair, G.Skill, and ADATA have been identified as having vulnerable products, affecting a significant portion of the high-performance memory market.\n\nKey Points:\n• The 'Download More RAM' attack bypasses Windows 11 security without physical access.\n• CVE-2026-23670 was assigned to this vulnerability, with a partial patch released in April 2026.\n• Affected memory modules from Corsair, G.Skill, and ADATA account for over 55% of the high-performance market.",
+  "sizeBytes": 1358
+}

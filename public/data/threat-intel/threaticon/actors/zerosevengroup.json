@@ -14,13 +14,18 @@
   "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
+    "Cybercriminal",
+    "Data Theft",
+    "Extortion",
+    "Manufacturing Sector",
+    "Infrastructure Target",
+    "Ransomware",
+    "Data Exfiltration",
     "APT",
     "espionage",
     "ransomware",
     "critical-infrastructure",
-    "automotive-sector",
-    "Ransomware",
-    "Data Exfiltration"
+    "automotive-sector"
   ],
   "aliases": [],
   "targetedSectors": [
@@ -41,29 +46,49 @@
     "Healthcare"
   ],
   "targetedCountries": ["US", "BR", "IL", "SG", "AE", "UA", "MX", "FR", "IN", "RU", "PL", "DE"],
-  "tactics": [],
-  "techniques": [],
-  "tools": ["Custom exploit code (based on buffer overflow techniques)"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Privilege Escalation",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Exfiltration",
+    "Impact"
+  ],
+  "techniques": ["T1563", "T1098", "T1134", "T1071", "T1059", "T1311"],
+  "tools": ["AD-Recon", "PlugX", "Mimikatz", "Cobalt Strike", "Metasploit Framework", "RansomHub"],
   "iocPatterns": [
-    "Spear-phishing attempts exploiting known vulnerabilities",
-    "Network traffic anomalies indicative of lateral movement",
-    "Unusual buffer overflow activity in system memory"
+    "Data dumps on BreachForums",
+    "Custom tools for Active Directory hunting",
+    "PlugX related infection chains",
+    "Large-volume outbound data flows"
   ],
   "keyCapabilities": [
-    "Buffer overflow exploits",
-    "Network access to critical infrastructure",
-    "Data theft on a massive scale",
-    "Ransomware deployment threats"
+    "Large-scale data exfiltration (hundreds of GB)",
+    "Active Directory reconnaissance and mapping",
+    "Remote service session hijacking",
+    "Credential harvesting via automated tools",
+    "Buffer overflow exploitation",
+    "Dual-track extortion (leak site & ransomware)",
+    "Internal network persistence"
   ],
   "recommendedActions": [
-    "Patch and maintain updated systems against known vulnerabilities",
-    "Implement network monitoring for unusual traffic patterns",
-    "Conduct regular employee training to mitigate phishing risks",
-    "Establish a robust incident response plan for potential ransomware attacks"
+    "Implement Multi-Factor Authentication (MFA) across all external-facing services and internal legacy systems.",
+    "Harden Active Directory environments by auditing permissions and restricting administrative privileges.",
+    "Deploy an EDR solution capable of detecting common lateral movement tools like Mimikatz or PlugX.",
+    "Perform regular network segmentation between corporate, industrial control systems, and R&D networks.",
+    "Implement Data Loss Prevention (DLP) solutions to alert on large outbound data transfers.",
+    "Conduct routine vulnerability assessments specifically targeting buffer overflow vulnerabilities in public-facing applications.",
+    "Establish a robust incident response plan for 'double extortion' scenarios where both data publication and ransomware are utilized.",
+    "Audit third-party access points, as the group has been known to leverage third-party vulnerabilities to compromise primary targets."
   ],
-  "campaignsText": "ZeroSevenGroup has demonstrated persistence in targeting critical infrastructure and large organizations. Their campaign patterns include long-term access to networks, such as the alleged full network control over Israeli infrastructure. Past operations have focused on data exfiltration from automotive and financial sectors. Notable campaigns include the Toyota breach and the unauthorized access to Israeli systems, which highlights their capacity for cross-sectoral attacks. While specific timelines are unclear, ZeroSevenGroup operates with a strategic focus on high-impact targets.",
-  "description": "ZeroSevenGroup is a threat actor known for significant breaches targeting critical infrastructure, including a U.S. branch of Toyota and Israeli infrastructure. They have demonstrated advanced capabilities in data theft and ransomware threats, leveraging techniques like buffer overflow attacks.",
-  "goals": "ZeroSevenGroup appears to target sectors with high-value data, such as automotive manufacturing, financial services, and critical national infrastructure. Their selection of geographic regions like the U.S., Israel, and potentially other Middle Eastern countries suggests an interest in both economic powerhouses and strategic geopolitical interests. The group's goals likely include data exfiltration for potential financial gain or espionage, as well as disruption through ransomware campaigns, targeting organizations with significant reputational and operational exposure.",
+  "campaignsText": "ZeroSevenGroup follows a pattern of targeted high-value attacks on multinational corporations and critical infrastructure. Their operations are characterized by slow, deliberate movement within the network to ensure maximum data collection before an 'exit' (exfiltration). They have been observed in campaigns targeting manufacturing (2024 Toyota breach) and energy/infrastructure components. Their timeline suggests a persistent interest in long-term access rather than immediate impact, often resulting in massive data dumps on known leak sites to extort victims.",
+  "description": "ZeroSevenGroup is a sophisticated, financially motivated cybercriminal threat actor specializing in large-scale data exfiltration and double extortion tactics. They have demonstrated the ability to breach multi-national corporations and critical infrastructure to steal vast amounts of sensitive intellectual property and personal information.",
+  "goals": "The strategic goals of ZeroSevenGroup are centered on high-value data monetization through theft and extortion. They target sectors with dense intellectual property (manufacturing, mining, nuclear/energy) and critical infrastructure that can be used as leverage in negotiations. By targeting large entities like Toyota or critical Israeli systems, they aim to maximize the visibility of their breaches, thereby increasing the pressure on organizations to pay ransoms while simultaneously selling data on underground forums.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1139",
   "sourceUrl": "https://threaticon.com/threat-actors/1139"
 }

@@ -14,13 +14,20 @@
   "motivation": "Espionage",
   "added": "May 17, 2026",
   "tags": [
+    "Operation Ghoul",
+    "Industrial Sector Targeting",
+    "Spear Phishing",
+    "Data Theft",
+    "Typosquatting",
+    "Malware Campaign",
+    "Intellectual Property Theft",
+    "Initial Access",
+    "Financial Targeting",
+    "Phishing",
     "APT",
     "Financial Gain",
     "Spear-Phishing",
-    "Intellectual Property Theft",
-    "Industrial Sector",
-    "Financial Targeting",
-    "Phishing"
+    "Industrial Sector"
   ],
   "aliases": ["schema"],
   "targetedSectors": [
@@ -35,40 +42,59 @@
     "Chemical"
   ],
   "targetedCountries": ["US", "AE", "CN"],
-  "tactics": ["Initial Access", "Execution", "Persistence", "Exfiltration"],
-  "techniques": [
-    "T1059.003 - Use of email client protocols for initial access",
-    "T1566.001 - Phishing for initial access",
-    "T1192 - Weaponization of email attachments",
-    "T1055 - Data manipulation for data exfiltration",
-    "T1560 - Exploitation of remote services for lateral movement"
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Defense Evasion",
+    "Collection",
+    "Command and Control",
+    "Persistence",
+    "Credential Access"
   ],
+  "techniques": ["T1566.001", "T1584", "T1059", "T1566", "T1036", "T1105"],
   "tools": [
-    "Custom malware tailored for data extraction",
-    "Advanced phishing kits for email spoofing",
-    "DNS-based command and control infrastructure"
+    "ZeuS",
+    "Pony/FareIT",
+    "LokiBot",
+    "Luminosity RAT",
+    "NetWire RAT",
+    "HawkEye",
+    "ISR Stealer",
+    "iSpy keylogger",
+    "Data Protector",
+    "PlugX",
+    "Bumblebee"
   ],
   "iocPatterns": [
-    "Spear-phishing emails with macro-laced Office documents",
-    "C2 communications utilizing DNS for stealthy data transmission",
-    "Staging infrastructure hosted on bulletproof hosting services"
+    "RTF files containing exploits",
+    "Archives with malicious executables",
+    "Documents with macros or OLE objects",
+    "Data Protector .NET packers",
+    "Typosquatted domains for C&C",
+    "Compromised web host assets"
   ],
   "keyCapabilities": [
-    "Advanced social engineering techniques, including spear-phishing with highly credible impersonations",
-    "Malware deployment through carefully crafted email campaigns",
-    "Persistent network infiltration and data exfiltration strategies",
-    "Effective evasion of detection mechanisms in target organizations"
+    "Spear-phishing",
+    "Exploitation of CVE-2015-1641",
+    "Off-the-shelf malware deployment",
+    "Malware packing and obfuscation (.NET/Data Protector)",
+    "Command-and-control infrastructure management",
+    "Domain mimicry and typosquatting",
+    "Compromised website exploitation"
   ],
   "recommendedActions": [
-    "Implement advanced email filtering to detect and block spear-phishing attempts",
-    "Conduct regular security awareness training to educate employees on phishing risks",
-    "Deploy network monitoring tools to detect anomalous DNS traffic indicative of C2 communications",
-    "Regularly update endpoint protection solutions to detect and neutralize custom malware",
-    "Conduct penetration testing to identify and mitigate vulnerabilities in email and network security"
+    "Patch known vulnerabilities, specifically CVE-2015-1641.",
+    "Implement email filtering to block and quarantine RTF files from untrusted sources.",
+    "Deploy endpoint protection capable of detecting and blocking .NET packer signatures like Data Protector.",
+    "Integrate DNS filtering to identify and block look-alike/typosquatted domains.",
+    "Implement multi-factor authentication (MFA) for all internal systems to mitigate risk from stolen credentials.",
+    "Audit external web assets to ensure they are not being used as hosting platforms for malicious content.",
+    "Conduct employee awareness training focused on sophisticated spear-phishing lures and 'payment advice' scams.",
+    "Monitor network traffic for communication with known RAT command and control domains."
   ],
-  "campaignsText": "Operation Ghoul's campaigns exhibit a high operational tempo, with a focus on large-scale targeting across geographically diverse regions. The group's preference for industrial and engineering sectors highlights a strategic choice to exploit high-value intellectual property and operational data. Notably, their campaigns have often gone undetected for extended periods, suggesting the use of stealthy tactics to avoid detection. Past operations indicate a reliance on spear-phishing as the primary entry vector, underscoring the importance of email security in mitigating these threats.",
-  "description": "Operation Ghoul is a financially motivated threat actor targeting industrial and engineering sectors across 30 countries, leveraging sophisticated social engineering techniques such as spear-phishing emails masquerading as payment advisories from UAE banks. Their primary goal is to illicitly obtain intellectual property and business intelligence for monetary gain, with attacks frequently succeeding against organizations lacking robust threat detection capabilities.",
-  "goals": "Operation Ghoul's primary strategic objective is financial gain, achieved through the acquisition and sale of stolen intellectual property and business intelligence. The focus on industrial and engineering sectors likely stems from the high value of proprietary research, development, and operational data held by organizations in these fields. By targeting entities in these sectors, the group can access a wealth of information with significant market value. Additionally, the attacks on banking accounts suggest a dual motivation, where both direct financial theft and the broader exploitation of stolen data are pursued. This targeting profile indicates a preference for organizations with weaker cybersecurity defenses, as evidenced by the success rate of their campaigns against unprepared victims.",
+  "campaignsText": "Operation Ghoul's campaigns are characterized by high volume and targeted relevance. Since 2016, the actor has focused on industrial sectors like metallurgy, power, and logistics. Their operation is cyclical but consistent, utilizing a mix of automated phishing for reach and specifically crafted 'business-ready' lures to infiltrate target organizations. There is significant evidence linking these tactics to segments of the criminal underground that specialize in Business Email Compromise (BEC) and multi-stage malware distribution.",
+  "description": "Operation Ghoul is a profit-driven threat actor targeting industrial, engineering, and infrastructure sectors across 30 countries to steal intellectual property and sensitive business intelligence. The group employs sophisticated spear-phishing tactics, utilizing tailored lures and known exploit techniques like CVE-2015-1641 to deliver a suite of off-the-shelf malware.",
+  "goals": "The strategic objective of Operation Ghoul is primarily financial gain through the theft and sale of high-value industrial intellectual property and sensitive business intelligence. They specifically target sectors where trade secrets are critical, including manufacturing, energy, and chemical production. By targeting these specific sectors, the actors seek to compromise corporate operations for subsequent monetization on illicit markets or via extortion.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1048",
   "sourceUrl": "https://threaticon.com/threat-actors/1048"
 }

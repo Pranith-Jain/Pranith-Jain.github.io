@@ -15,12 +15,15 @@
   "added": "May 17, 2026",
   "tags": [
     "APT",
+    "espionage",
+    "China-nexus",
+    "supply-chain",
+    "critical-infrastructure",
+    "Supply Chain Attack",
+    "Backdoor / C2",
     "nation-state",
     "supply chain",
-    "espionage",
-    "financial-sector",
-    "Supply Chain Attack",
-    "Backdoor / C2"
+    "financial-sector"
   ],
   "aliases": ["tracked as", "APT27", "CL-STA-0043", "Winnti"],
   "targetedSectors": [
@@ -46,43 +49,57 @@
   ],
   "targetedCountries": ["US", "CN"],
   "tactics": [
-    "Lateral Movement (TA0001)",
-    "Defense Evasion (TA0005)",
-    "Credential Access (TA0006)",
-    "Discovery (TA0007)"
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Command and Control",
+    "Exfiltration"
   ],
-  "techniques": [
-    "T1059.003 - Command-Line Interface Tools Allowing Code Execution",
-    "T1003 -Credential Dumping",
-    "T1566.001 - System Account Takes Over",
-    "T1203 - Discovery bydll Search",
-    "T1486 - Modify Cloud Instance Configuration"
+  "techniques": ["T1574.001", "T1059.001", "T1036", "T1212", "T1181", "T1070.004", "T1105", "T1071"],
+  "tools": [
+    "Airstalk",
+    "PlugX",
+    "China Chopper",
+    "Ghost RAT",
+    "Cobalt Strike",
+    "PowerShell",
+    "Wevtutil",
+    "Impacket",
+    "HTRAN",
+    "NSEngine"
   ],
-  "tools": ["Airstalk malware", "PowerShell scripts"],
   "iocPatterns": [
-    "Use of signed binaries with revoked certificates",
-    "Manipulation of PE file timestamps in executable files",
-    "Multi-threaded C2 communication channels using custom protocols",
-    "Artbitrary code execution via .NET CLI (dotnet.exe)",
-    "Lateral movement across internal networks"
+    "DLL Side-loading using legitimate system binaries",
+    "Use of certificates with recent dates/revoked status for signing malware",
+    "Multi-threaded heartbeat signals in .NET C2 traffic",
+    "Deployment of China Chopper webshells on web servers",
+    "Utilization of PowerShell scripts for initial execution and discovery",
+    "Communication via compromised domains related to media or tech services"
   ],
   "keyCapabilities": [
-    "Airstalk malware family (PowerShell and .NET variants)",
-    "Multi-threaded C2 protocol implementation",
-    "Defense evasion techniques (signed binaries, PE timestamp manipulation)",
-    "Advanced persistence mechanisms",
-    "Supply chain attack tactics"
+    "DLL Side-loading",
+    "Multi-threaded C2 Communication",
+    "Sophisticated PowerShell Manipulation",
+    "Supply Chain Infrastructure Integration",
+    "Automated Discovery and Propagation",
+    "Robust Persistence via system binaries"
   ],
   "recommendedActions": [
-    "Implement robust monitoring for PowerShell script execution and suspicious .NET processes.",
-    "Conduct regular supply chain risk assessments to identify vulnerabilities in vendor ecosystems.",
-    "Deploy YARA rules to detect Airstalk-related patterns in network traffic.",
-    "Enhance endpoint detection capabilities to identify multi-threaded C2 activities.",
-    "Enforce strict access controls on sensitive systems following a breach or compromise."
+    "Implement EDR solutions capable of detecting DLL side-loading techniques.",
+    "Monitor and block network traffic associated with known 'China Chopper' infrastructure.",
+    "Enforce strict PowerShell execution policies and script block logging (ScriptBlockLogging).",
+    "Audit system for the presence of unauthorized .NET assemblies or suspicious DLLs in standard directories.",
+    "Blacklist domains associated with known malware families like Airstalk and PlugX.",
+    "Implement certificate transparency monitoring to detect oddly signed binaries.",
+    "Segment critical infrastructure systems from internet-facing assets to limit lateral movement.",
+    "Perform regular hunts for well-known webshell signatures on public-facing web servers."
   ],
-  "campaignsText": "CL-STA-1009 has demonstrated a consistent focus on supply chain attacks, with an emphasis on targeting critical infrastructure. The actor’s operational tempo suggests a patient and deliberate approach, with campaigns extending over significant periods to achieve deeper infiltration. Notable past operations may include targeted compromises of software vendors or logistics providers. Campaign activity was first observed in [quarter] 2022, and recent sightings were reported as late as [year]. Victims have included financial services firms and manufacturing companies.",
-  "description": "CL-STA-1009 is suspected to be a nation-state actor employing the Airstalk malware family. This threat actor has demonstrated advanced capabilities through its use of multi-threaded C2 protocols, defense evasion techniques (e.g., signed binaries with revoked certificates), and targeting supply chain attacks. The actor's adaptive malware development indicates a persistent and sophisticated threat that organizations should closely monitor.",
-  "goals": "CL-STA-1009 likely operates with strategic goals that include espionage, data exfiltration, and long-term influence in targeted sectors. The selection of supply chain attacks indicates an interest in disrupting or compromising critical business processes. Targeted sectors may include technology, manufacturing, and financial services, where supply chains offer significant opportunities for disruption or gain. The actor's focus on adaptive malware development suggests a desire to remain undetected while maintaining operational effectiveness.",
+  "campaignsText": "The actor is associated with the 'Iron Tiger' and 'A Tale of Two Targets' campaigns, showcasing a history of multi-stage operations. Recently, their activity was categorized under 'Operation Diplomatic Specter' (TGR-STA-0043) in 2024. They exhibit an operational tempo that allows them to pivot between high-volume commodity malware usage and highly tailored, custom-coded evidence for targeted espionage. Their infrastructure often involves multi-tiered C2 servers to mask the true origin of their commands.",
+  "description": "CL-STA-1009 (also known as APT27 or Mustang Panda) is a highly sophisticated and persistent threat actor primarily engaged in espionage and intellectual property theft. The group utilizes advanced malware frameworks like Airstalk and common tools such as PlugX to conduct large-scale operations targeting government, critical infrastructure, and manufacturing sectors globally.",
+  "goals": "The actor's objectives are primarily defined by state-sponsored espionage goals, including the theft of intellectual property, monitoring of dissidents, and pre-positioning within critical infrastructure networks. They target a broad spectrum of sectors—including government, manufacturing, defense, and energy—with a specific focus on entities in the US and other regions of strategic interest to Chinese interests. Their targeting profile suggests an intent to gather high-level intelligence and gain long-term access to sensitive systems during geopolitical tensions.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1337",
   "sourceUrl": "https://threaticon.com/threat-actors/1337"
 }

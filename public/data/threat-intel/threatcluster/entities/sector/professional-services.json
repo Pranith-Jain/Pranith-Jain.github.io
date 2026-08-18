@@ -4,65 +4,31 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-08-15T20:26:22.000Z",
-  "lastSeen": "2026-08-16T15:00:10.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 2 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-17T16:22:52.000Z",
+  "lastSeen": "2026-08-17T21:30:02.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-15",
-      "count": 1
-    },
-    {
-      "date": "2026-08-16",
-      "count": 4
+      "date": "2026-08-17",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "kennedy-jenks-64b0",
-      "title": "Kennedy Jenks — claimed by Helix",
-      "pubDate": "2026-08-16T15:00:10.000Z"
+      "slug": "white-daters-amp-associates-inc-6f04",
+      "title": "White-Daters &amp; Associates, Inc — claimed by qilin",
+      "pubDate": "2026-08-17T21:30:02.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "actua-fr-de91",
-      "title": "actua.fr — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:53:14.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "dupouy-associes-fr-c7cb",
-      "title": "dupouy-associes.fr — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:52:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "arnall-golden-gregory-fe83",
-      "title": "Arnall Golden Gregory — claimed by qilin",
-      "pubDate": "2026-08-16T09:31:57.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "aam-hoa-management-e406",
-      "title": "AAM:HOA Management — claimed by direwolf",
-      "pubDate": "2026-08-15T20:26:22.000Z"
+      "slug": "planungsgruppe-m-m-ag-d968",
+      "title": "Planungsgruppe M+M AG — claimed by aurora",
+      "pubDate": "2026-08-17T16:22:52.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "group",
-      "slug": "lockbit5",
-      "name": "lockbit5",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "helix",
-      "name": "Helix",
-      "weight": 1
-    },
     {
       "type": "group",
       "slug": "qilin",
@@ -71,8 +37,8 @@
     },
     {
       "type": "group",
-      "slug": "direwolf",
-      "name": "direwolf",
+      "slug": "aurora",
+      "name": "aurora",
       "weight": 1
     }
   ],

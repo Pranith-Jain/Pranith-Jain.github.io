@@ -4,59 +4,95 @@
   "name": "Panzer",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-16T11:52:15.000Z",
-  "lastSeen": "2026-08-16T17:52:24.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-16T17:52:24.000Z",
+  "lastSeen": "2026-08-17T17:22:22.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 4 countries.",
   "frequency": [
     {
       "date": "2026-08-16",
-      "count": 2
+      "count": 1
+    },
+    {
+      "date": "2026-08-17",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "sagasta-sro-5ab7",
-      "title": "SAGASTA sro — claimed by Panzer",
-      "pubDate": "2026-08-16T17:52:24.000Z"
+      "slug": "dl-e-amp-c-5ca6",
+      "title": "DL E&amp;C — claimed by Panzer",
+      "pubDate": "2026-08-17T17:22:22.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "infosat-7bf1",
-      "title": "Infosat — claimed by Panzer",
-      "pubDate": "2026-08-16T11:52:15.000Z"
+      "slug": "castilla-la-mancha-4e0f",
+      "title": "Castilla La Mancha — claimed by Panzer",
+      "pubDate": "2026-08-17T11:52:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "doimo-cucine-b3f1",
+      "title": "Doimo Cucine — claimed by Panzer",
+      "pubDate": "2026-08-17T10:51:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sagasta-sro-5ab7",
+      "title": "SAGASTA sro — claimed by Panzer",
+      "pubDate": "2026-08-16T17:52:24.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
       "weight": 1
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
+      "id": "dl-e-amp-c-5ca6",
+      "victim": "DL E&amp;C — claimed by Panzer",
+      "sector": "Manufacturing",
+      "country": "KR",
+      "pubDate": "2026-08-17T17:22:22.000Z"
+    },
+    {
+      "id": "castilla-la-mancha-4e0f",
+      "victim": "Castilla La Mancha — claimed by Panzer",
+      "sector": "Government & Defense",
+      "country": "ES",
+      "pubDate": "2026-08-17T11:52:02.000Z"
+    },
+    {
+      "id": "doimo-cucine-b3f1",
+      "victim": "Doimo Cucine — claimed by Panzer",
+      "sector": "Manufacturing",
+      "country": "IT",
+      "pubDate": "2026-08-17T10:51:42.000Z"
+    },
+    {
       "id": "sagasta-sro-5ab7",
       "victim": "SAGASTA sro — claimed by Panzer",
       "sector": "Not Found",
       "country": "CZ",
       "pubDate": "2026-08-16T17:52:24.000Z"
-    },
-    {
-      "id": "infosat-7bf1",
-      "victim": "Infosat — claimed by Panzer",
-      "sector": "Technology",
-      "country": null,
-      "pubDate": "2026-08-16T11:52:15.000Z"
     }
   ]
 }

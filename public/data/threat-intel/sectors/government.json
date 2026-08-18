@@ -1,19 +1,12 @@
 {
   "sector": "government",
   "title": "Government sector brief",
-  "generatedAt": "2026-08-17",
+  "generatedAt": "2026-08-18",
   "topCount": 8,
-  "preview": "CVE-2026-16232 (critical) leads with priority 93.",
-  "sizeBytes": 2819,
+  "preview": "CVE-2025-14733 (critical) leads with priority 92.",
+  "sizeBytes": 2818,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
   "topThreats": [
-    {
-      "cveId": "CVE-2026-16232",
-      "title": "An authentication bypass vulnerability in the Check Point SmartConsole login process allows an unauthenticated remote at",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.8; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
     {
       "cveId": "CVE-2025-14733",
       "title": "An Out-of-bounds Write vulnerability in the WatchGuard Fireware OS iked process may allow a remote unauthenticated attac",
@@ -29,15 +22,8 @@
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     },
     {
-      "cveId": "CVE-2026-8037",
-      "title": "OS Command Injection Remote Code Execution Vulnerability in API in Progress ADC Products allows an un-authenticated atta",
-      "relevance": "broadly-critical",
-      "risk": "CVSS 9.6; actively exploited.",
-      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
-    },
-    {
-      "cveId": "CVE-2025-9242",
-      "title": "An Out-of-bounds Write vulnerability in the WatchGuard Fireware OS iked process may allow a remote unauthenticated attac",
+      "cveId": "CVE-2026-9198",
+      "title": "IBM Langflow OSS 1.0.0 through 1.10.0 allows unauthenticated attackers to chain /api/v1/auto_login (mints SUPERUSER toke",
       "relevance": "broadly-critical",
       "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
@@ -61,6 +47,20 @@
       "title": "Pulse Connect Secure 9.0R3/9.1R1 and higher is vulnerable to an authentication bypass vulnerability exposed by the Windo",
       "relevance": "broadly-critical",
       "risk": "CVSS 10; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2020-0796",
+      "title": "A remote code execution vulnerability exists in the way that the Microsoft Server Message Block 3.1.1 (SMBv3) protocol h",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 10; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2021-21985",
+      "title": "The vSphere Client (HTML5) contains a remote code execution vulnerability due to lack of input validation in the Virtual",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
       "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
     }
   ]

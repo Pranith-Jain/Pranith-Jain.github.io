@@ -4,78 +4,85 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-15T20:25:42.000Z",
-  "lastSeen": "2026-08-15T20:27:05.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-17T14:23:55.000Z",
+  "lastSeen": "2026-08-17T14:54:40.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-15",
-      "count": 3
+      "date": "2026-08-17",
+      "count": 4
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "dodopayments-6ae7",
-      "title": "DodoPayments — claimed by direwolf",
-      "pubDate": "2026-08-15T20:27:05.000Z"
+      "slug": "arizona-state-university-asu-c152",
+      "title": "Arizona State University (ASU) — claimed by direwolf",
+      "pubDate": "2026-08-17T14:54:40.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "aam-hoa-management-e406",
-      "title": "AAM:HOA Management — claimed by direwolf",
-      "pubDate": "2026-08-15T20:26:22.000Z"
+      "slug": "wishfully-studios-81c0",
+      "title": "Wishfully Studios — claimed by direwolf",
+      "pubDate": "2026-08-17T14:53:46.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "totvs-b400",
-      "title": "TOTVS — claimed by direwolf",
-      "pubDate": "2026-08-15T20:25:42.000Z"
+      "slug": "mighty-kingdom-328d",
+      "title": "Mighty Kingdom — claimed by direwolf",
+      "pubDate": "2026-08-17T14:24:29.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "eva-ai-limited-70f1",
+      "title": "Eva AI Limited — claimed by direwolf",
+      "pubDate": "2026-08-17T14:23:55.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
       "slug": "technology",
       "name": "Technology",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "dodopayments-6ae7",
-      "victim": "DodoPayments — claimed by direwolf",
-      "sector": "Financial Services",
-      "country": "IN",
-      "pubDate": "2026-08-15T20:27:05.000Z"
-    },
-    {
-      "id": "aam-hoa-management-e406",
-      "victim": "AAM:HOA Management — claimed by direwolf",
-      "sector": "Professional Services",
+      "id": "arizona-state-university-asu-c152",
+      "victim": "Arizona State University (ASU) — claimed by direwolf",
+      "sector": "Education",
       "country": "US",
-      "pubDate": "2026-08-15T20:26:22.000Z"
+      "pubDate": "2026-08-17T14:54:40.000Z"
     },
     {
-      "id": "totvs-b400",
-      "victim": "TOTVS — claimed by direwolf",
+      "id": "wishfully-studios-81c0",
+      "victim": "Wishfully Studios — claimed by direwolf",
       "sector": "Technology",
-      "country": "BR",
-      "pubDate": "2026-08-15T20:25:42.000Z"
+      "country": "SE",
+      "pubDate": "2026-08-17T14:53:46.000Z"
+    },
+    {
+      "id": "mighty-kingdom-328d",
+      "victim": "Mighty Kingdom — claimed by direwolf",
+      "sector": "Technology",
+      "country": "AU",
+      "pubDate": "2026-08-17T14:24:29.000Z"
+    },
+    {
+      "id": "eva-ai-limited-70f1",
+      "victim": "Eva AI Limited — claimed by direwolf",
+      "sector": "Technology",
+      "country": "GB",
+      "pubDate": "2026-08-17T14:23:55.000Z"
     }
   ]
 }

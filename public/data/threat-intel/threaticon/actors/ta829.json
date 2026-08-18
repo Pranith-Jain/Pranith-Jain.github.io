@@ -15,46 +15,52 @@
   "added": "May 17, 2026",
   "tags": [
     "APT",
-    "Cyber espionage",
-    "Financial fraud",
-    "Critical infrastructure targeting",
+    "Espionage",
+    "Financial Fraud",
     "Russia-aligned",
+    "Zero-Day",
+    "RAT",
+    "Initial Access",
     "Critical Infrastructure",
     "Zero-Day Exploitation",
-    "Backdoor / C2"
+    "Backdoor / C2",
+    "Cyber espionage",
+    "Financial fraud",
+    "Critical infrastructure targeting"
   ],
   "aliases": ["tracked as"],
   "targetedSectors": [],
   "targetedCountries": [],
-  "tactics": ["Collection", "Exploitation", "Defense-Evasion"],
-  "techniques": ["T1078", "T1546", "T1059.002", "T1021.003", "T1039"],
-  "tools": [
-    "RomCom RAT",
-    "Remedy Package - related exploit tool (potential)",
-    "Custom ratelimiter application - likely a custom tool",
-    "SlipScreen strain - potential malware variant"
-  ],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Command and Control", "Exfiltration"],
+  "techniques": ["T1203", "T1566.001", "T1499", "T1071", "T1059", "T1204"],
+  "tools": ["RomCom RAT", "SlipScren", "MikroTik Router Proxy", "REM Proxy Services"],
   "iocPatterns": [
-    "Remedy package delivery mechanism in emails or network traffic",
-    "Phishing emails targeting critical sector employees",
-    "Network traffic anomalies originating from MikroTik IP addresses",
-    "Indicators of RomCom RAT activity including specific process names and file hashes"
+    "Zero-day exploits targeting major web browsers",
+    "Command and control traffic routed via compromised MikroTik hardware",
+    "Multi-hop proxy relay networks (REM Proxy)",
+    "Presence of RomCom RAT on victim machines",
+    "Detection of SlipScreen malware signature"
   ],
   "keyCapabilities": [
-    "Exploitation of zero-day vulnerabilities in major software platforms",
-    "Use of RomCom RAT for persistence and data exfiltration",
-    "ployment of REM Proxy services via compromised MikroTik routers",
-    "High-level operational security (OpSec) to disguise attack origins"
+    "Zero-day vulnerability exploitation in major web browsers and OS",
+    "Remote Access Trojan (RAT) deployment for persistent espionage",
+    "Command and Control (C2) infrastructure masking via multi-hop relays",
+    "Operation of compromised networking hardware (MikroTik) as proxy nodes",
+    "Hybrid threat operations combining state interests with cybercrime"
   ],
   "recommendedActions": [
-    "Monitor for Remedy package-related email attachments and network payloads",
-    "Implement network segmentation to limit lateral movement in compromised networks",
-    "Conduct regular updates of MikroTik devices and monitor for signs of compromise",
-    "Enhance endpoint detection solutions with custom rules targeting TA829's known TTPs"
+    "Apply all critical security patches for Microsoft Windows and Mozilla Firefox immediately.",
+    "Implement strict egress filtering to block known non-standard proxy ports and traffic to residential IP ranges.",
+    "Analyze network logs for signs of communication with high volumes of MikroTik router IPs used for relaying.",
+    "Deploy endpoint detection systems that specifically monitor for RomCom RAT behavior signatures.",
+    "Integrate threat intelligence feeds focusing on Russian-sponsored tools like SlipScreen.",
+    "Establish a managed hunting routine to identify non-standard proxy chains in outbound traffic.",
+    "Segment critical networks to limit the lateral movement of any successfully planted RATs.",
+    "Monitor for suspicious 'heartbeat' signals typical of remote access trojans."
   ],
-  "campaignsText": "TA829's campaigns typically involve targeted attacks against high-value sectors, with evidence of long-term operational persistence. Their use of REM Proxy infrastructure and MikroTik routers suggests a patient, well-resourced threat group capable of maintaining persistent access to victim networks. Key campaign attributes include the deployment of zero-day exploits, stealthy propagation via C2 channels, and data exfiltration through compromised systems.",
-  "description": "TA829 is a Russia-aligned threat actor known for leveraging the RomCom RAT, REM Proxy services, and zero-day vulnerabilities targeting critical sectors. Their operations combine espionage with financial fraud, making them a significant risk to organizations in government, energy, healthcare, and critical infrastructure.",
-  "goals": "TA829 appears motivated by both intelligence gathering, likely for espionage purposes, and financial gain through cyberattacks. Their targeting of government, critical infrastructure, energy, and healthcare sectors indicates a focus on high-value assets that offer significant data and potential monetization opportunities.",
+  "campaignsText": "The actor exhibits the characteristics of a persistent threat with an established operational tempo. They utilize a hybrid-mode approach that blends espionage and fraud, suggesting it is not interested solely in state goals but also seeks out immediate financial benefit. Their use of specific tools like RomCom and SlipScreen suggests established scripts or modules, while their reliance on MikroTik proxies indicates a robust infrastructure planned for long-term evasion. Overlap with UNK_GreenSec suggests that TA829 may operate within an ecosystem of closely related Russian-linked groups.",
+  "description": "TA829 is a Russian-aligned threat actor that executes hybrid operations involving both state-sponsored espionage and financially motivated cyberattacks. The group is highly sophisticated, utilizing zero-day vulnerabilities in mainstream software and complex proxy networks to mask its activities.",
+  "goals": "TA829 aims to achieve a combination of intelligence collection and financial profit. Their strategic objectives suggest they target high-value targets for state-related information while simultaneously pursuing victims that offer opportunities for financial theft. By targeting both government/corporate sectors (for espionage) and any entity with viable financial assets, their reach is broad. They specifically seek out systems where long-term persistence can be maintained to conduct thorough reconnaissance.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1317",
   "sourceUrl": "https://threaticon.com/threat-actors/1317"
 }

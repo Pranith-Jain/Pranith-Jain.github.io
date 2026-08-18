@@ -13,7 +13,7 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 26, 2026",
-  "tags": ["Ransomware", "Financial Targeting", "Backdoor / C2"],
+  "tags": ["Initial Access", "Ransomware", "Financial Targeting", "Backdoor / C2"],
   "aliases": ["tracked as", "a checkout fee"],
   "targetedSectors": [
     "Financial services",

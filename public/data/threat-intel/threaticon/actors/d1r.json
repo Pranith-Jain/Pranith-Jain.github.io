@@ -13,7 +13,16 @@
   "resourceLevel": null,
   "motivation": "Organizational gain",
   "added": "Jul 13, 2026",
-  "tags": ["Ransomware", "Financial-Motiv", "APT3"],
+  "tags": [
+    "APT",
+    "Ransomware",
+    "Cybercrime",
+    "Double Extortion",
+    "Manufacturing Sector",
+    "Information Technology",
+    "Financial-Motiv",
+    "APT3"
+  ],
   "aliases": ["tracked as", "Jul 6", "Bjorka"],
   "targetedSectors": [
     "Financial services",
@@ -39,26 +48,72 @@
     "Hospitality"
   ],
   "targetedCountries": ["US", "IL", "BR", "IR", "IN", "AU", "GB", "AE", "JP", "RO", "PK", "CA", "FR", "RU"],
-  "tactics": ["Exfiltration: Data Transfer Methods", "Initial Access tactics"],
-  "techniques": ["T1566.001", "T1059.003"],
-  "tools": ["Custom ransomware framework", "Phishing kits"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Evasion", "Impact", "Collection", "Discovery"],
+  "techniques": [
+    "T1561",
+    "T1040",
+    "T1071",
+    "T1053",
+    "T1560.002",
+    "T1036",
+    "T1055",
+    "T1185",
+    "T1204",
+    "T1110",
+    "T1486",
+    "T1136",
+    "T1105",
+    "T1021.001"
+  ],
+  "tools": [
+    "RansomHub",
+    "BlackCat",
+    "Babuk",
+    "Akira",
+    "Royal",
+    "Embargo",
+    "Solar",
+    "Clop",
+    "Qilin",
+    "ConnectWise",
+    "ScreenConnect",
+    "Telegram",
+    "LockBit",
+    "Anubis",
+    "Medusa",
+    "Conti"
+  ],
   "iocPatterns": [
-    "Spear-phishing email campaigns",
-    "Encrypted C2 communication channels",
-    "Malicious scripts delivery via M365"
+    "Ransomware notes left in system directories",
+    "Usage of RDP for lateral movement and initial breach",
+    "File masquerading as common PDF or utility files (e.g., AcroRd32.exe)",
+    "Leveraging popular tools like ScreenConnect and Telegram for out-of-band management",
+    "Evidence of data staging prior to encryption/extortion",
+    "Utilization of known ransomware strains as components in a broader attack chain"
   ],
   "keyCapabilities": [
-    "Spear-phishing with malicious email attachments",
-    "Polymorphic ransomware deployment",
-    "Data exfiltration techniques"
+    "Ransomware deployment and data encryption",
+    "Data exfiltration for double extortion",
+    "Infrastructure recycling for tool reuse",
+    "Credential harvesting and brute force attacks",
+    "Lateral movement using RDP",
+    "Persistence through scheduled tasks",
+    "Defense evasion via process injection and masquerading",
+    "Network sniffing and automated reconnaissance"
   ],
   "recommendedActions": [
-    "Implement advanced email filtering and threat detection solutions",
-    "Monitor network traffic for signs of data exfiltration"
+    "Disable or secure RDP access; enforce MFA for all external logins.",
+    "Implement egress filtering to block communication with known malicious IP ranges and common tools like Telegram (unless business-justified).",
+    "Deploy EDR solutions configured to detect masquerading, process injection, and lateral movement.",
+    "Establish an immutable backup policy to mitigate impact from T1561 (Disk Wipe) activities.",
+    "Implement network segmentation between critical production environments and the broader corporate network.",
+    "Conduct regular phishing simulations focusing on credential harvesting tactics.",
+    "Monitor for unusual volumes of data being moved to external cloud providers or unfamiliar file-sharing sites (Data Exfiltration monitoring).",
+    "Perform proactive threat hunting for scheduled tasks and persistence mechanisms in common system directories."
   ],
-  "campaignsText": "The d1r threat actor has initiated campaigns such as 'D1R: Bosch', 'D1R: ARM', and 'D1R: Synopsys', targeting various sectors, though specific details remain undisclosed. While early in their activity, these campaigns suggest a methodical approach to selecting high-value targets for maximum extortion potential.",
-  "description": "The threat actor d1r is a newly identified cybercriminal group operating with medium sophistication, primarily targeting organizations for ransomware attacks and financial gain. Despite limited activity observed as of July 13, 2026, this group poses a moderate risk due to their strategic objectives in the cybercrime landscape.",
-  "goals": "The d1r threat actor appears to target industries that would yield significant financial returns through ransomware operations. While specific sectors have not been definitively identified, their choice of campaigns like 'D1R: Bosch' and others suggests an interest in high-profile or critical infrastructure targets. The group's strategy revolves around maximizing financial gain through data exfiltration and extortion.",
+  "campaignsText": "d1r exhibits a highly targeted operational tempo, focusing on major players in the technology and manufacturing sectors. Their campaigns (e.g., targets like Bosch and ARM) indicate a strategic focus on high-impact environments. They are noted for using a 'recycling' strategy where they adopt tools from established groups (such as Clop or LockBit) to ensure their operations remain viable while maximizing reach across global geographies including the US, EU, and Asia.",
+  "description": "d1r is an emerging criminal threat actor specialized in high-impact ransomware and double extortion tactics targeting critical infrastructure, manufacturing, and technology sectors. The group utilizes a 'recycling model' of established malware tools and obfuscation techniques to maximize disruption and financial gain.",
+  "goals": "The primary objective of d1r is financial gain through professionalized criminal extortion. They specifically target sectors where downtime or data loss is catastrophic, such as manufacturing (e.g., Bosch), electronics (e.g., ARM), and software development (e.g., Synopsys). By targeting these entities, they aim to leverage 'public pressure' to demand high-value ransoms from organizations that cannot afford operational downtime or the public exposure of proprietary trade secrets.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1582",
   "sourceUrl": "https://threaticon.com/threat-actors/1582"
 }
