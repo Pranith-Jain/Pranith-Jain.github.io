@@ -231,6 +231,10 @@ const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
 const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
 const F3ead = lazy(() => import('./pages/threatintel/F3ead'));
+const F2t2ea = lazy(() => import('./pages/threatintel/F2t2ea'));
+const Ooda = lazy(() => import('./pages/threatintel/Ooda'));
+const KillChainV2 = lazy(() => import('./pages/threatintel/KillChainV2'));
+const UnifiedKillChain = lazy(() => import('./pages/threatintel/UnifiedKillChain'));
 const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
 const FeedQuality = lazy(() => import('./pages/threatintel/FeedQuality'));
 const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
@@ -651,6 +655,10 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/wiki/wiki', Component: Wiki },
   { path: '/threatintel/wiki/mitre', Component: MitreMatrix },
   { path: '/threatintel/wiki/f3ead', Component: F3ead },
+  { path: '/threatintel/wiki/f2t2ea', Component: F2t2ea },
+  { path: '/threatintel/wiki/ooda', Component: Ooda },
+  { path: '/threatintel/wiki/kill-chain-v2', Component: KillChainV2 },
+  { path: '/threatintel/wiki/unified-kill-chain', Component: UnifiedKillChain },
   { path: '/threatintel/wiki/insider', Component: InsiderThreatMatrix },
   { path: '/threatintel/wiki/owasp', Component: OwaspAiLandscape },
   { path: '/threatintel/wiki/llm', Component: LlmThreatAtlas },
@@ -959,6 +967,10 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/owasp-ai-landscape', to: '/threatintel/wiki/owasp' },
   { path: '/threatintel/insider-threat-matrix', to: '/threatintel/wiki/insider' },
   { path: '/threatintel/f3ead', to: '/threatintel/wiki/f3ead' },
+  { path: '/threatintel/f2t2ea', to: '/threatintel/wiki/f2t2ea' },
+  { path: '/threatintel/ooda', to: '/threatintel/wiki/ooda' },
+  { path: '/threatintel/kill-chain-v2', to: '/threatintel/wiki/kill-chain-v2' },
+  { path: '/threatintel/unified-kill-chain', to: '/threatintel/wiki/unified-kill-chain' },
   { path: '/threatintel/llm-threat-atlas', to: '/threatintel/wiki/llm' },
   { path: '/threatintel/atlas', to: '/threatintel/catalog?cat=wiki' },
 

@@ -254,6 +254,10 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Threat Intel Wiki](https://pranithjain.qzz.io/threatintel/wiki/wiki) (threatintel): Long-form articles on Telegram OSINT, dark-web monitoring.
 - [MITRE ATT&CK](https://pranithjain.qzz.io/threatintel/wiki/mitre) (threatintel): MITRE ATT&CK matrix with technique pivots.
 - [F3EAD](https://pranithjain.qzz.io/threatintel/wiki/f3ead) (threatintel): F3EAD intelligence workflow framework.
+- [F2T2EA](https://pranithjain.qzz.io/threatintel/wiki/f2t2ea) (threatintel): F2T2EA joint targeting cycle (Find, Fix, Track, Target, Engage, Assess).
+- [OODA Loop](https://pranithjain.qzz.io/threatintel/wiki/ooda) (threatintel): OODA decision cycle (Observe, Orient, Decide, Act) - the tempo layer under targeting frameworks.
+- [Kill Chain v2](https://pranithjain.qzz.io/threatintel/wiki/kill-chain-v2) (threatintel): Cyber Kill Chain v2 - the 7-phase chain plus lateral movement and a campaign overlay.
+- [Unified Kill Chain](https://pranithjain.qzz.io/threatintel/wiki/unified-kill-chain) (threatintel): Unified Kill Chain - 18 phases across In / Through / Out cycles (Pols 2017).
 - [Insider Threat Matrix](https://pranithjain.qzz.io/threatintel/wiki/insider) (threatintel): Insider threat matrix and detection guidance.
 - [OWASP AI Landscape](https://pranithjain.qzz.io/threatintel/wiki/owasp) (threatintel): OWASP AI security landscape and LLM top-10.
 - [LLM Threat Atlas](https://pranithjain.qzz.io/threatintel/wiki/llm) (threatintel): MITRE ATLAS - LLM/AI threat atlas.

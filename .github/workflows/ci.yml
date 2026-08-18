@@ -26,6 +26,16 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci --no-fund
+      # api/ has its own package.json + lockfile. The nested api/eslint.config.js
+      # cascades under ESLint 10 flat config; without api/node_modules it
+      # resolves typescript-eslint from the ROOT install (same module instance
+      # as the root config), and both configs register their tsconfigRootDir
+      # candidates into one shared set → "multiple candidate TSConfigRootDirs"
+      # parse errors on every file without explicit parser options. A separate
+      # instance per config dir keeps each set single-candidate.
+      - name: install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
       # Zero-warning baseline: the codebase is currently clean (0 eslint
       # warnings across ~894 files after the no-explicit-any cleanup + the
       # hexagonal refactor). --max-warnings 0 keeps it that way — any new

@@ -1,27 +1,28 @@
 /**
- * /threatintel/f3ead -- F3EAD: Find, Fix, Finish, Exploit, Analyze, Disseminate.
+ * /threatintel/ooda -- OODA Loop: Observe, Orient, Decide, Act.
  *
- * Originally a US Special Operations Forces (USSOF) targeting doctrine
- * (descended from F2T2EA in FM 3-05.40 / JP 3-05.1), adapted to Cyber
- * Threat Intelligence by fusing the ops side (Find -> Fix -> Finish)
- * with the intelligence cycle (Exploit -> Analyze -> Disseminate).
+ * John Boyd's decision cycle (USAF, 1970s-80s, briefed as "A Discourse
+ * on Winning and Losing"). The OODA loop describes how a decision-maker
+ * processes information and acts faster than an opponent -- the
+ * "get inside their OODA loop" concept from Boyd's fighter-pilot
+ * experience. It is the tempo-setting cycle underneath targeting
+ * frameworks like F2T2EA and F3EAD.
  *
  * This page is static (no backend roundtrip) -- the value is the
  * structured doctrine, the platform cross-links, and the concrete
  * incident walkthrough that makes the loop visible. It follows the
- * same pattern as ACH.tsx, InsiderThreatMatrix.tsx, and the other
- * framework pages in the `frameworks` catalog group.
+ * same pattern as F3ead.tsx, F2t2ea.tsx, and the other framework
+ * pages in the `frameworks` catalog group.
  */
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Crosshair,
-  MapPin,
-  Wrench,
-  FlaskConical,
-  Brain,
-  Megaphone,
+  Eye,
+  Compass,
+  Scale,
+  Zap,
   ChevronDown,
   ChevronRight,
   ExternalLink,
@@ -30,6 +31,7 @@ import {
   CheckCircle2,
   Sparkles,
   BookOpen,
+  Wrench,
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
@@ -38,14 +40,14 @@ import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 // Phase model
 // ---------------------------------------------------------------------------
 
-type PhaseId = 'find' | 'fix' | 'finish' | 'exploit' | 'analyze' | 'disseminate';
+type PhaseId = 'observe' | 'orient' | 'decide' | 'act';
 
 interface Phase {
   id: PhaseId;
   number: number;
   name: string;
   short: string;
-  icon: typeof Crosshair;
+  icon: typeof Eye;
   /** Hex tailwind accents per phase -- used on the loop diagram cards. */
   accent: string;
   ringClass: string;
@@ -61,148 +63,100 @@ interface Phase {
 
 const PHASES: Phase[] = [
   {
-    id: 'find',
+    id: 'observe',
     number: 1,
-    name: 'Find',
-    short: 'Identify the threat',
-    icon: MapPin,
+    name: 'Observe',
+    short: 'Collect what is happening',
+    icon: Eye,
     accent: 'bg-sky-500/10',
     ringClass: 'ring-sky-400/60 dark:ring-sky-500/40',
-    who: 'Intel + SOC (tipping, intel reqs, PIRs, OSINT, dark-web)',
-    defenderGoal: 'Surface the actor, campaign, or activity that warrants attention.',
+    who: 'SOC + Intel (telemetry, feeds, tipping)',
+    defenderGoal: 'See the environment as it actually is -- not as you assume it is.',
     description:
-      'Proactive and reactive identification of adversary activity. The Find phase is fed by intelligence requirements (PIRs), tipping from partners, anomaly reports, and the Disseminate outputs of prior F3EAD cycles.',
+      'The raw intake of the loop: telemetry, logs, intel feeds, partner tipping, and the results of your own prior Actions. Observation is worthless without the Orient step -- the same data means different things to different analysts.',
     deliverables: [
-      'Named actor, campaign, or hypothesis',
-      'Priority Intelligence Requirements (PIRs)',
-      'Initial collection plan',
+      'Raw alerts, logs, and feed hits',
+      'Collection gaps noted (what we cannot see)',
+      'Updated situational picture',
     ],
     pitfalls: [
-      'Skipping PIRs -- results in undirected hunting and noisy reports.',
-      'Treating Find as a one-off. It is continuous; every cycle re-opens it.',
+      'Falling into an alert-driven loop -- reacting to every ping without orienting first.',
+      'Assuming your sensors see everything. Gaps in coverage are data too.',
     ],
-    attackMapping: 'Maps loosely to ATT&CK Reconnaissance + Resource Development.',
+    attackMapping: 'Maps loosely to ATT&CK Reconnaissance + telemetry sources (TA0007-ish).',
+    platformTool: { to: '/dfir/ioc-check', label: 'IOC check (multi-engine)' },
+  },
+  {
+    id: 'orient',
+    number: 2,
+    name: 'Orient',
+    short: 'Shape the picture with context',
+    icon: Compass,
+    accent: 'bg-amber-500/10',
+    ringClass: 'ring-amber-400/60 dark:ring-amber-500/40',
+    who: 'CTI analysts + threat hunters + DFIR',
+    defenderGoal: 'Give the observed data meaning -- via training, culture, and prior intel.',
+    description:
+      "Boyd called Orient the schwerpunkt (main effort) of the loop: the analyst's mental models, prior knowledge, intel baseline, and assumptions filter what Observation means. Two analysts observing the same alert can orient to completely different threats. In cyber, Orient is where ATT&CK mapping, actor profiles, and kill-chain context get applied.",
+    deliverables: [
+      'Contextualized hypothesis (what this alert likely means)',
+      'ATT&CK + actor mapping for the observed activity',
+      'Assumptions and biases explicitly listed',
+    ],
+    pitfalls: [
+      'Skipping Orient -- jumping from Observe straight to Decide ("it looks like X, act").',
+      'Orient drift -- assumptions from last month that no longer hold.',
+    ],
+    attackMapping: 'Consumes ATT&CK + Diamond + actor intelligence to interpret the observation.',
     platformTool: { to: '/threatintel/ach', label: 'ACH (analyze competing hypotheses)' },
   },
   {
-    id: 'fix',
-    number: 2,
-    name: 'Fix',
-    short: 'Pinpoint presence in the environment',
-    icon: Crosshair,
-    accent: 'bg-amber-500/10',
-    ringClass: 'ring-amber-400/60 dark:ring-amber-500/40',
-    who: 'SOC + threat hunting + IR',
-    defenderGoal: 'Confirm the adversary is (or was) actually in the environment.',
-    description:
-      "Hypothesis-driven hunting, detection engineering, and triage. The output of Fix is a concrete set of observed activity in the defender's own telemetry, not just external reporting.",
-    deliverables: [
-      'Affected hosts, accounts, and time windows',
-      'Working detections for the activity',
-      'Scope of compromise',
-    ],
-    pitfalls: [
-      'Stopping at "we found a hit" without scope.',
-      'Hunting without a hypothesis -- turns into log grep with no conclusion.',
-    ],
-    attackMapping: 'Covers ATT&CK Initial Access through Execution and Persistence.',
-    platformTool: { to: '/dfir/threat-hunt', label: 'Threat hunt workbench' },
-  },
-  {
-    id: 'finish',
+    id: 'decide',
     number: 3,
-    name: 'Finish',
-    short: 'Remove / restrict the threat',
-    icon: Wrench,
-    accent: 'bg-severity-critical/10',
-    ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
-    who: 'IR + SecOps + asset owners',
-    defenderGoal: 'Stop the bleed, evict the actor, restore trust.',
+    name: 'Decide',
+    short: 'Choose a course of action',
+    icon: Scale,
+    accent: 'bg-emerald-500/10',
+    ringClass: 'ring-emerald-400/60 dark:ring-emerald-500/40',
+    who: 'IR lead + SOC + leadership',
+    defenderGoal: 'Select the response that best fits the oriented picture.',
     description:
-      'Containment, eradication, and recovery. The action arm of F3EAD. Every Finish action MUST be paired with an Exploit step below -- otherwise the team fixes the symptom and learns nothing for the next cycle.',
+      'The action-selection step: given the oriented picture, pick a response -- contain, block, sinkhole, investigate further, or deliberately do nothing. Boyd stressed that decisions must be made with imperfect information; waiting for perfect certainty forfeits tempo. In cyber, Decide is where the chosen response is weighed against rules of engagement and risk.',
     deliverables: [
-      'Containment actions (isolate host, revoke token, block IOC)',
-      'Eradication + recovery evidence',
-      'Operational lessons (what slowed the response?)',
+      'Chosen response + rationale',
+      'Rules-of-engagement / risk check',
+      'Trigger to re-observe (what would change the decision)',
     ],
     pitfalls: [
-      'Skipping the "why" -- kicking the actor out without capturing artifacts.',
-      'Going loud before Exploit runs -- tipping the actor to change tradecraft.',
+      'Analysis paralysis -- waiting for certainty while the adversary moves.',
+      'Deciding without an explicit re-observe trigger, so the loop stalls.',
     ],
-    attackMapping: 'Aligned with NIST SP 800-61 IR phases: Containment, Eradication, Recovery.',
+    attackMapping: 'Aligned with NIST SP 800-61 IR decision gates: containment strategy selection.',
     platformTool: { to: '/dfir/ir-playbooks', label: 'IR playbooks' },
   },
   {
-    id: 'exploit',
+    id: 'act',
     number: 4,
-    name: 'Exploit',
-    short: 'Extract tradecraft & IOCs',
-    icon: FlaskConical,
+    name: 'Act',
+    short: 'Execute and change the picture',
+    icon: Zap,
     accent: 'bg-severity-critical/10',
     ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
-    who: 'IR + DFIR + intel',
-    defenderGoal: 'Pull every artifact out of the incident before the cleanup wipes it.',
+    who: 'IR + SecOps + asset owners',
+    defenderGoal: 'Execute the decision, then re-observe the changed environment.',
     description:
-      'Acquisition and preservation of evidence: memory, disk, logs, binaries, scripts, persistence mechanisms, infrastructure. Exploit is the bridge between ops and intel -- without it, the analyst has nothing to Analyze.',
+      "Execution: block, isolate, patch, evict. Action changes the environment, which the next Observe cycle picks up. Boyd's key point: Act fast enough that the adversary must react to YOU -- getting inside their loop means they keep responding to your moves instead of setting the tempo.",
     deliverables: [
-      'IOCs (hashes, IPs, domains, URLs, JA3, file names, mutexes)',
-      'TTPs (ATT&CK technique IDs)',
-      'Captured samples + sandbox reports',
+      'Executed action log',
+      'Post-action telemetry baseline for the next Observe',
+      'Tempo assessment (did we outpace the adversary?)',
     ],
     pitfalls: [
-      'Reimaging before triage -- destroying the chain of custody.',
-      'IOCs without context. A hash is not intelligence; "this Lazarus loader checks in over ChaCha20/HTTP" is.',
+      'Acting without re-observation -- assuming the world froze after your action.',
+      'Going loud with no evidence capture, so the next loop has nothing to orient on.',
     ],
-    attackMapping: 'Sources the data the rest of ATT&CK needs to be useful in your environment.',
-    platformTool: { to: '/threatintel/ioc-enrichment', label: 'IOC enrichment & lifecycle' },
-  },
-  {
-    id: 'analyze',
-    number: 5,
-    name: 'Analyze',
-    short: 'Triage, enrich, attribute',
-    icon: Brain,
-    accent: 'bg-emerald-500/10',
-    ringClass: 'ring-emerald-400/60 dark:ring-emerald-500/40',
-    who: 'CTI analysts + DFIR',
-    defenderGoal: 'Turn artifacts into understanding -- what, who, why, so what.',
-    description:
-      "Pivot, correlate, enrich, weigh evidence, and either confirm or reject the originating hypothesis. Analyze is where ATT&CK, Diamond Model, ACH, and the platform's own intel bundle come together.",
-    deliverables: [
-      'Diamond Model event reconstruction',
-      'ATT&CK technique / software / group mapping',
-      'Updated confidence in attribution (or explicit "unknown")',
-    ],
-    pitfalls: [
-      'Forced attribution. "Unknown actor" is a valid, defensible answer.',
-      'Confirmation bias -- the analyst who set the hypothesis should not be the only one testing it.',
-    ],
-    attackMapping: 'Consumes ATT&CK + Diamond outputs; produces intel that drives the next Find.',
-    platformTool: { to: '/threatintel/ach', label: 'Analysis of Competing Hypotheses' },
-  },
-  {
-    id: 'disseminate',
-    number: 6,
-    name: 'Disseminate',
-    short: 'Deliver intel to stakeholders',
-    icon: Megaphone,
-    accent: 'bg-rose-500/10',
-    ringClass: 'ring-indigo-400/60 dark:ring-indigo-500/40',
-    who: 'CTI lead + comms + leadership',
-    defenderGoal: 'Right intel, right audience, right format, right time.',
-    description:
-      "Reports, briefings, signatures, countermeasures, and most importantly: feedback that re-opens the Find phase of the next cycle. Disseminate is the production step that justifies the team's existence to leadership.",
-    deliverables: [
-      'Executive briefing (1-pager + 5W)',
-      'Technical writeup (TTPs, IOCs, ATT&CK mapping)',
-      'Detection signatures (Sigma / YARA / Snort / Wazuh)',
-    ],
-    pitfalls: [
-      'Publishing once and stopping. A report with no audience plan is shelfware.',
-      'Skipping the feedback loop -- Disseminate must produce the PIRs that start the next cycle.',
-    ],
-    attackMapping: 'Outputs are what let defenders across the org act on the ATT&CK mapping.',
-    platformTool: { to: '/threatintel/briefings', label: 'Briefings & writeups' },
+    attackMapping: 'Aligned with NIST SP 800-61 IR phases: Containment, Eradication, Recovery.',
+    platformTool: { to: '/dfir/blocklists', label: 'Blocklists (exportable)' },
   },
 ];
 
@@ -221,69 +175,43 @@ interface WalkStep {
 
 const WALK: WalkStep[] = [
   {
-    phase: 'find',
-    title: 'Tip: Lazarus exploiting CVE-2025-55182',
+    phase: 'observe',
+    title: 'Telemetry: RSC deserialization probes',
     prompt:
-      'A partner feed + a CTF IoC report named Lazarus exploiting CVE-2025-55182 against financial / blockchain infra. The platform pulls the sample into the AI Report showcase.',
+      'A partner feed + a CTF IoC report named Lazarus exploiting CVE-2025-55182. Simultaneously the WAF + load balancer logs show the list.txt scanning pattern hitting our Next.js 15.x prod apps.',
+    artifacts: ['Raw hits: greynoise + ctfiot + perimeter logs', 'Noted gap: no visibility into staging app telemetry'],
+  },
+  {
+    phase: 'orient',
+    title: 'Context: Lazarus targets financial / blockchain infra',
+    prompt:
+      'ATT&CK + Diamond mapping: the scanning pattern and the follow-up RSC deserialization POST match known Lazarus tradecraft against React/Next.js surfaces. Bias check: the "Lazarus" label is a working hypothesis, not a confirmed attribution.',
     artifacts: [
-      'PIR: "Is Lazarus using CVE-2025-55182 against our React/Next.js surface?"',
-      'Initial collection plan: greynoise + ctfiot + our perimeter logs',
+      'Hypothesis: "Lazarus RSC RCE against our Next.js surface"',
+      'Assumptions listed (financial motivation, known tooling)',
     ],
   },
   {
-    phase: 'fix',
-    title: 'Hunt across Next.js footprint',
+    phase: 'decide',
+    title: 'Pick the response: isolate + block + patch',
     prompt:
-      'Hypothesis: RSC deserialization RCE probes. Pivot through WAF + load balancer + app logs. Detect the inbound list.txt scanning pattern and the follow-up POST that triggers the RCE.',
-    artifacts: [
-      'Hypothesis-driven Sigma rule on RSC deserialization signatures',
-      'Scope: 3 Next.js 15.x apps in prod, 1 in staging',
-    ],
+      'Weigh options against risk and tempo: isolate the 3 prod apps, perimeter-block the C2 domains, stage the vendor patch. Decide to preserve evidence (memory + disk images) before cleanup. Set the re-observe trigger: watch for new scanning on the staging surface.',
+    artifacts: ['Chosen response + ROE sign-off', 'Re-observe trigger: staging-surface scans within 24h'],
   },
   {
-    phase: 'finish',
-    title: 'Eradicate the foothold',
+    phase: 'act',
+    title: 'Execute, then re-observe',
     prompt:
-      'Isolate the 3 prod apps, rotate secrets, deploy the vendor patch, restore from a known-good image, take a final memory + disk image for Exploit.',
-    artifacts: ['IR timeline (NIST SP 800-61)', 'Containment + eradication evidence pack'],
-  },
-  {
-    phase: 'exploit',
-    title: 'Pull artifacts before reimage',
-    prompt:
-      'Capture the loader (Manuscrypt variant), the brndlog.txt config, the MsSecurityObj mutex, the C2 ChaCha20/HTTP traffic, the Akagi64 UAC bypass binary, and the MultiRelay lateral-movement tool.',
+      'Block C2 domains, isolate the apps, rotate secrets, deploy the patch, capture images. Then immediately re-observe: beaconing drops to zero on blocked domains, but 12h later the staging Next.js app shows the same scan pattern -- the adversary re-tooled, and the loop starts again.',
     artifacts: [
-      'IOCs: file names, mutex, registry key, C2 URI pattern, JA3',
-      'TTPs mapped to ATT&CK (T1190, T1548.002, T1055, T1071.001, T1027)',
-    ],
-  },
-  {
-    phase: 'analyze',
-    title: 'Diamond + ATT&CK + ACH',
-    prompt:
-      'Build a Diamond event per affected host. Cross-reference ATT&CK technique IDs with the Lazarus software list. Run ACH against competing hypotheses (Lazarus vs. DPRK-aligned unaffiliated vs. false flag).',
-    artifacts: [
-      'Diamond Model cards (3 hosts)',
-      'ACH matrix with diagnostic evidence',
-      'Confidence assessment: "high confidence Lazarus, low confidence specific subgroup"',
-    ],
-  },
-  {
-    phase: 'disseminate',
-    title: 'Brief leadership + push detections',
-    prompt:
-      "5W briefing for the CISO + technical writeup for SOC + new Sigma / YARA signatures. The IOCs and TTPs also feed the next cycle's Find phase via the intel bundle.",
-    artifacts: [
-      '5W executive briefing',
-      'Technical report (with ATT&CK + Diamond)',
-      'Sigma / YARA / Wazuh rules deployed to prod',
-      'New PIRs queued for the next cycle',
+      'Action log (blocklist, isolation, patching)',
+      'Post-action telemetry showing the adversary re-tooling',
     ],
   },
 ];
 
 // ---------------------------------------------------------------------------
-// Comparison table: F3EAD vs. the other frameworks on the platform
+// Comparison table: OODA vs. the other frameworks on the platform
 // ---------------------------------------------------------------------------
 
 interface FrameworkRow {
@@ -298,12 +226,12 @@ interface FrameworkRow {
 
 const COMPARISON: FrameworkRow[] = [
   {
-    name: 'F3EAD',
+    name: 'OODA Loop',
     kind: 'process',
-    question: 'How does the team operate end-to-end on a target?',
-    primaryUser: 'CTI + SOC + IR',
-    platformPage: '/threatintel/f3ead',
-    note: 'Closes the ops-intel feedback loop. Pairs with every other framework here.',
+    question: 'How fast can we decide and act?',
+    primaryUser: 'IR + SOC (tempo)',
+    platformPage: '/threatintel/ooda',
+    note: "Boyd's decision cycle. The inner loop that sets the tempo underneath F2T2EA / F3EAD.",
   },
   {
     name: 'F2T2EA',
@@ -311,7 +239,15 @@ const COMPARISON: FrameworkRow[] = [
     question: 'How do we locate, track, and act on a target?',
     primaryUser: 'Ops + IR (targeting)',
     platformPage: '/threatintel/f2t2ea',
-    note: 'The joint targeting cycle F3EAD descends from -- ops-pure, Assess carries the learning.',
+    note: 'The joint targeting cycle. OODA runs inside its Find-Target-Engage phases.',
+  },
+  {
+    name: 'F3EAD',
+    kind: 'process',
+    question: 'How does the team operate end-to-end on a target?',
+    primaryUser: 'CTI + SOC + IR',
+    platformPage: '/threatintel/f3ead',
+    note: 'F2T2EA plus an explicit intelligence cycle (Exploit/Analyze/Disseminate).',
   },
   {
     name: 'Lockheed Kill Chain',
@@ -319,15 +255,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'What phases did the intrusion pass through?',
     primaryUser: 'DFIR + SOC',
     platformPage: '/dfir/kill-chain',
-    note: 'Linear, 7 phases. Criticised for being too sequential for modern intrusions.',
-  },
-  {
-    name: 'Cyber Kill Chain v2',
-    kind: 'content',
-    question: 'How do multiple intrusions and lateral movement fit the chain?',
-    primaryUser: 'DFIR + SOC',
-    platformPage: '/threatintel/kill-chain-v2',
-    note: "Lockheed Martin's 2015 extension -- adds lateral movement and campaign-level tracking to the original chain.",
+    note: 'Linear, 7 phases. Describes the intrusion, not the decision cycle.',
   },
   {
     name: 'Unified Kill Chain',
@@ -338,20 +266,12 @@ const COMPARISON: FrameworkRow[] = [
     note: 'The 18-phase meta-framework (Pols 2017) synthesizing the kill chain + ATT&CK.',
   },
   {
-    name: 'OODA Loop',
-    kind: 'process',
-    question: 'How fast can we decide and act?',
-    primaryUser: 'IR + SOC (tempo)',
-    platformPage: '/threatintel/ooda',
-    note: "Boyd's Observe-Orient-Decide-Act decision cycle. The tempo layer that drives how fast F3EAD cycles.",
-  },
-  {
     name: 'MITRE ATT&CK',
     kind: 'content',
     question: 'Which specific techniques did the adversary use?',
     primaryUser: 'Detection eng + CTI',
     platformPage: '/threatintel/mitre',
-    note: 'The shared vocabulary. F3EAD uses ATT&CK inside the Analyze phase.',
+    note: 'The shared vocabulary. ATT&CK mapping happens inside Orient.',
   },
   {
     name: 'Diamond Model',
@@ -359,7 +279,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'Who did what to whom, and how?',
     primaryUser: 'CTI + IR',
     platformPage: '/dfir/diamond',
-    note: 'Per-event reconstruction. Slots into Analyze.',
+    note: 'Per-event reconstruction. Feeds Orient and Assess.',
   },
   {
     name: 'ACH',
@@ -367,15 +287,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'Which hypothesis best explains the evidence?',
     primaryUser: 'CTI analysts',
     platformPage: '/threatintel/ach',
-    note: 'Structured analytic technique used inside the Analyze phase.',
-  },
-  {
-    name: 'Insider Threat Matrix',
-    kind: 'content',
-    question: 'What motive, means, preparation, or infringement is in play?',
-    primaryUser: 'Insider-threat teams',
-    platformPage: '/threatintel/insider-threat-matrix',
-    note: 'Domain-specific framework. Sits inside Fix for insider-led cases.',
+    note: 'Structured analytic technique used inside Orient and Decide.',
   },
 ];
 
@@ -383,8 +295,8 @@ const COMPARISON: FrameworkRow[] = [
 // Component
 // ---------------------------------------------------------------------------
 
-export default function F3ead(): JSX.Element {
-  const [openPhase, setOpenPhase] = useState<PhaseId | null>('find');
+export default function Ooda(): JSX.Element {
+  const [openPhase, setOpenPhase] = useState<PhaseId | null>('observe');
   const [walkStep, setWalkStep] = useState<number>(0);
 
   const currentWalk = WALK[walkStep]!;
@@ -396,13 +308,13 @@ export default function F3ead(): JSX.Element {
       backTo="/threatintel"
       backLabel="back to threat intel"
       icon={<Crosshair size={28} />}
-      title="F3EAD: Find, Fix, Finish, Exploit, Analyze, Disseminate"
+      title="OODA Loop: Observe, Orient, Decide, Act"
       description={
         <>
-          Originally a US Special Operations Forces (USSOF) targeting doctrine, F3EAD fuses the operations side (Find
-          &rarr; Fix &rarr; Finish) with the intelligence cycle (Exploit &rarr; Analyze &rarr; Disseminate). Adapted to
-          Cyber Threat Intelligence to close the ops&ndash;intel gap. The key insight: the cycle is a <em>loop</em>, not
-          a pipeline -- Disseminate feeds the Find of the next cycle.
+          John Boyd's decision cycle from fighter combat, adapted to cyber defense. The OODA loop is how a team
+          <em>out-tempos</em> an adversary: Observe the environment, Orient it with context and prior knowledge, Decide
+          a response, and Act -- then loop. The key insight: the loop is <em>continuous</em>, and speed comes from
+          compressing it. OODA is the tempo-setting cycle underneath targeting frameworks like F2T2EA and F3EAD.
         </>
       }
       maxWidthClass="max-w-7xl"
@@ -410,13 +322,13 @@ export default function F3ead(): JSX.Element {
       {/* ── The loop diagram ─────────────────────────────────────────── */}
       <section className="mb-12">
         <header className="flex items-end justify-between mb-4">
-          <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">The F3EAD loop</h2>
+          <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">The OODA loop</h2>
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400 hidden sm:block">
-            ops &rarr; intel &rarr; feedback to ops
+            observe &rarr; orient &rarr; decide &rarr; act &rarr; repeat
           </p>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 relative">
           {PHASES.map((p, i) => {
             const Icon = p.icon;
             const isLast = i === PHASES.length - 1;
@@ -446,10 +358,10 @@ export default function F3ead(): JSX.Element {
                     <p className="text-xs text-muted mt-0.5">{p.short}</p>
                   </div>
                 </button>
-                {/* Loop arrow back to Find on the last card. */}
+                {/* Loop arrow back to Observe on the last card. */}
                 {isLast && (
                   <div className="hidden lg:flex absolute -bottom-3 left-1/2 -translate-x-1/2 items-center gap-1 text-micro font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-300 bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <Sparkles className="h-3 w-3" /> loops back to Find
+                    <Sparkles className="h-3 w-3" /> loops back to Observe
                   </div>
                 )}
               </div>
@@ -543,10 +455,10 @@ export default function F3ead(): JSX.Element {
       <section className="mb-12">
         <header className="mb-4">
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
-            Walk an incident through F3EAD
+            Walk an incident through OODA
           </h2>
           <p className="text-sm text-muted mt-1 max-w-3xl">
-            A 6-step click-through using the Lazarus / Copperhedge sample already in the platform's
+            A 4-step click-through using the Lazarus / Copperhedge sample already in the platform's
             <Link to="/threatintel/research-hub/ai" className="text-rose-600 dark:text-rose-400 hover:underline mx-1">
               AI Report showcase
             </Link>
@@ -618,7 +530,7 @@ export default function F3ead(): JSX.Element {
             <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {walkStep < WALK.length - 1
                 ? `next: ${PHASES.find((p) => p.id === WALK[walkStep + 1]!.phase)!.name}`
-                : 'cycle complete -- loops back to Find'}
+                : 'cycle complete -- loops back to Observe'}
             </p>
             <button
               type="button"
@@ -636,11 +548,11 @@ export default function F3ead(): JSX.Element {
       <section className="mb-12">
         <header className="mb-4">
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
-            F3EAD vs. the other frameworks on the platform
+            OODA vs. the other frameworks on the platform
           </h2>
           <p className="text-sm text-muted mt-1 max-w-3xl">
-            F3EAD is a <strong>process</strong> framework. It does not replace ATT&CK, the Kill Chain, or Diamond; it
-            sits beside them as the loop that turns their outputs into action.
+            OODA is a <strong>process</strong> framework about decision tempo. It does not replace ATT&CK, the Kill
+            Chain, or Diamond; it sits underneath them as the cycle that turns their outputs into faster decisions.
           </p>
         </header>
 
@@ -725,41 +637,40 @@ export default function F3ead(): JSX.Element {
         </header>
         <ul className="space-y-1.5 text-xs text-muted">
           <li>
-            <strong className="text-slate-800 dark:text-slate-200">FM 3-05.40 (Army Special Operations Forces)</strong>{' '}
-            &mdash; the doctrinal origin of the F2T2EA / F3EAD targeting cycle. See the{' '}
-            <Link to="/threatintel/f2t2ea" className="text-rose-600 dark:text-rose-400 hover:underline">
-              full F2T2EA reference page
-            </Link>
-            .
-          </li>
-          <li>
-            <strong className="text-slate-800 dark:text-slate-200">JP 3-05.1 (Joint Special Operations)</strong> &mdash;
-            joint doctrine for the targeting pipeline F3EAD is derived from.
+            <strong className="text-slate-800 dark:text-slate-200">
+              John Boyd, "A Discourse on Winning and Losing"
+            </strong>{' '}
+            &mdash; the 1987 briefing that formalized the OODA loop.
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">
-              SANS FOR578 &mdash; Cyber Threat Intelligence
+              Robert Coram, "Boyd: The Fighter Pilot Who Changed the Art of War" (2002)
             </strong>{' '}
-            &mdash; the canonical CTI adaptation of F3EAD taught in industry training.
+            &mdash; the biography that carried OODA from military circles into business and cyber.
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">
-              CREST (UK) &mdash; Cyber Threat Intelligence maturity guidance
+              "Getting Inside the Enemy's OODA Loop" (Boyd, 1987)
             </strong>{' '}
-            &mdash; the ops&ndash;intel feedback loop is treated as a maturity marker.
+            &mdash; the tempo argument: act faster than the adversary can react.
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">
               MITRE ATT&CK Blog: "F3EAD: Operationalizing Cyber Threat Intelligence" (2018)
             </strong>{' '}
-            &mdash; the write-up that pushed F3EAD from SOF doctrine into the CTI mainstream.
+            &mdash; positions the F2T2EA / F3EAD targeting cycle that OODA tempo drives.
+          </li>
+          <li>
+            <strong className="text-slate-800 dark:text-slate-200">
+              SANS FOR578 &mdash; Cyber Threat Intelligence
+            </strong>{' '}
+            &mdash; treats decision cycles (OODA) as the tempo layer under the CTI workflow.
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">
               NIST SP 800-61 rev 2 &mdash; Computer Security Incident Handling Guide
             </strong>{' '}
-            &mdash; the IR phases (Preparation, Detection &amp; Analysis, Containment, Eradication, Recovery,
-            Post-Incident Activity) that the Finish phase aligns to.
+            &mdash; the IR phases that the Decide and Act steps align to.
           </li>
         </ul>
       </section>
