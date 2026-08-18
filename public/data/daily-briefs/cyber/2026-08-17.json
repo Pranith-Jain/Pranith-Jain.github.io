@@ -2,125 +2,112 @@
   "type": "cyber",
   "date": "2026-08-17",
   "threatLevel": "",
-  "executiveSummary": "Multiple government advisories and vendor reports confirm active, OT-relevant threat activity at the edge and within operations-supporting systems. Pro-Russia hacktivists are opportunistically accessing internet-exposed HMIs via VNC and changing setpoints; U.S. water sector PLCs have been locked and reconfigured; and pre-auth exploits against widely deployed edge services (NetScaler ADC and Cisco ASA/FTD) are being weaponized in the wild. Concurrently, exploited SQL injection in Metabase enables admin takeover and downstream database credential theft, and hard-coded keys in an OT segmentation platform (JCI Airwall) elevate lateral-movement risk into ICS networks. Defensive priority is immediate exposure reduction, rapid patching of edge/KEV items, and validation of segmentation and monitoring on OT conduits. Pro-Russia hacktivists are actively abusing exposed VNC on OT HMIs (water, energy, food/ag). Confirmed loss-of-view and parameter changes require immediate removal of internet-facing VNC and strong authentication. Security Advisory CISA warns of increased activity targeting PLCs in the U.S. Water/Wastewater sector (password changes, IP reconfigs, manual mode/boil-water). Security Advisory NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) has public PoC; disable/lock down SAML SP/IdP and patch per vendor guidance. Advisory Cisco ASA/FTD Remote Access SSL VPN flaw (CVE-2026-20349) is exploited to force device reloads (DoS); federal KEV listing increases urgency. View Article KEV Notice Metabase SQLi (CVE-2026-72898/72899) is under active exploitation to seize admin access and harvest DB credentials; block /api/session/reset_password and patch. Advisory Johnson Controls Airwall identical key (CVE-2026-64887) undermines OT network segmentation/micro-segmentation controls until upgraded and keys rotated. ICS Advisory China-nexus actors continue using large covert SOHO/IoT botnets to route intrusions and pre-position in critical infrastructure-harden edge/IoT and restrict egress. Joint Advisory TrueConf server exploits deliver backdoors used for lateral movement (energy, transport, electronics)-patch and validate installer signatures; hunt for provided IOCs. Supporting Report",
+  "executiveSummary": "Iranian-affiliated APTs are actively exploiting internet-exposed PLCs (Rockwell, Schneider, Siemens), modifying logic and HMI data in US Water and Energy, causing real operational disruption. Immediate removal of PLCs from the internet, mode locks, and OT segmentation are critical. Security Advisory CISA warns of a surge in WWS incidents where adversaries lock out operators by changing PLC credentials and IPs; undocumented cellular modem paths are a recurring weak point. Prioritize exposure hunts, strong auth, and jump-hosted access. Alert A novel OT intrusion pathway via misconfigured private cellular APNs enabled a December 2025 turbine and water-treatment shutdown in Poland's energy sector; similar APN risks likely exist globally in distributed OT estates. Supporting Report Widely deployed edge and management platforms are under active exploitation or KEV action: VMware vCenter RCE (persistence via reverse_ssh), Citrix NetScaler pre-auth RCE (public PoC), Fortinet \"FortiBleed\" leaked device credentials, and Cisco FMC hard-coded password. View Article Security Advisory Multiple CISA weekly bulletins enumerate high-impact OT CVEs: unauthenticated Modbus/TCP access on Delta PLCs, industrial data acquisition RCE (ibaPDA), and EVSE/OCPP flaws (Autel, EVbee) that could disrupt operations if exposed. Bulletin Bulletin Nation-state pre-positioning persists: China-nexus actors leverage covert SOHO/IoT proxy networks to stage access to CNI; Russia-linked units abuse router/SNMP/Smart-Install misconfigurations for credential theft and traffic capture. Advisory Advisory Targeted supply chain and collaboration stack risks: Head Mare APT exploits TrueConf to deliver ICS-relevant backdoors; Cl0p claims PTC Windchill/FlexPLM data theft (engineering docs); Zimbra zero-day mass-exfiltration is active. Supporting Report View Article OT-adjacent botnet pressure: a new Mirai strain (\"Evooo1Bot\") exploits multiple router/RTU CVEs including Mitsubishi/INEA ME-RTU used in water/SCADA, turning victims into SOCKS proxies and DDoS nodes. View Article",
   "keyFindings": [
     {
-      "title": "Pro-Russia hacktivist activity against internet-exposed HMIs via VNC continues t",
-      "summary": "Pro-Russia hacktivist activity against internet-exposed HMIs via VNC continues to cause operational impact (setpoint changes, alarm suppression). Security Advisory"
+      "title": "Confirmed PLC logic tampering in US WWS and Energy; internet exposure and weak/a",
+      "summary": "Confirmed PLC logic tampering in US WWS and Energy; internet exposure and weak/absent auth remain primary drivers. Security Advisory"
     },
     {
-      "title": "U.S. WWS utilities experienced PLC lockouts and reconfiguration tied to exposed/",
-      "summary": "U.S. WWS utilities experienced PLC lockouts and reconfiguration tied to exposed/weakly protected OT paths; CISA urges immediate OT exposure reductions. Security Advisory"
+      "title": "Critical perimeter device exploitation enables OT pivots",
+      "summary": "vCenter RCE with persistence, NetScaler pre-auth RCE, FortiGate credential leakage at scale. View Article Advisory"
     },
     {
-      "title": "NetScaler ADC/Gateway SAML pre-auth RCE (CVE-2026-8452) has public PoC; attacker",
-      "summary": "NetScaler ADC/Gateway SAML pre-auth RCE (CVE-2026-8452) has public PoC; attackers can drop webshells-patch/lockdown SAML immediately. Advisory"
+      "title": "Vendor OT advisories continue across building automation and engineering stacks ",
+      "summary": "Vendor OT advisories continue across building automation and engineering stacks (Johnson Controls Airwall, Siemens Siveillance Video, Solid Edge, Desigo controllers). Security Advisory Security Advisory"
     },
     {
-      "title": "Cisco ASA/FTD Remote Access SSL VPN DoS (CVE-2026-20349) exploited in the wild, ",
-      "summary": "Cisco ASA/FTD Remote Access SSL VPN DoS (CVE-2026-20349) exploited in the wild, now on KEV-apply hotfixes and constrain VPN exposure. View Article"
+      "title": "EV charging infrastructure vulnerabilities (Autel, EVbee) and industrial middlew",
+      "summary": "EV charging infrastructure vulnerabilities (Autel, EVbee) and industrial middleware (ActiveMQ, NiFi/IoTDB) broaden the OT attack surface. Bulletin Bulletin"
     },
     {
-      "title": "Metabase SQLi (CVE-2026-72898/72899) enables admin takeover and theft of downstr",
-      "summary": "Metabase SQLi (CVE-2026-72898/72899) enables admin takeover and theft of downstream DB creds; block risky endpoint and rotate secrets. Advisory"
-    },
-    {
-      "title": "Johnson Controls Airwall identical key (CVE-2026-64887) weakens OT segmentation;",
-      "summary": "Johnson Controls Airwall identical key (CVE-2026-64887) weakens OT segmentation; upgrade/rotate keys to restore control-plane trust. ICS Advisory"
+      "title": "Engineering/PLM data exposure via PTC Windchill/FlexPLM exploitation heightens f",
+      "summary": "Engineering/PLM data exposure via PTC Windchill/FlexPLM exploitation heightens follow-on OT intrusion risk. View Article"
     }
   ],
   "dashboard": {
     "kpis": [
       {
-        "value": "HIGH",
-        "label": "Overall OT Threat Level"
+        "value": "CRITICAL",
+        "label": "Current OT Threat Level"
       },
       {
-        "value": "Escalate: 12 • Monitor: 12 • Ignore: 8",
-        "label": "Events by Decision"
+        "value": "20+",
+        "label": "Escalate Events Tracked"
       },
       {
-        "value": "6+",
-        "label": "KEV/Actively Exploited"
+        "value": "15+",
+        "label": "Active Exploitation / KEV Items"
       },
       {
-        "value": "Cisco, NetScaler, JCI, ANDRITZ, Metabase",
-        "label": "Priority Vendors/Tech"
-      },
-      {
-        "value": "",
-        "label": "Water & Wastewater Systems"
-      },
-      {
-        "value": "",
-        "label": "Energy & Critical Manufacturing"
-      },
-      {
-        "value": "",
-        "label": "Buildings/BAS"
-      },
-      {
-        "value": "",
-        "label": "Telecom/Comms"
-      },
-      {
-        "value": "",
-        "label": "Gov/Public Sector"
-      },
-      {
-        "value": "",
-        "label": "Transportation"
+        "value": "30+",
+        "label": "Vendors/Tech Affected"
       }
     ],
     "activelyExploited": [],
     "vendors": [
-      "Cisco ASA/FTD; NetScaler ADC/Gateway (SAML SP/IdP); Johnson Controls Airwall; ANDRITZ HIPASE-250/SCALA; Metabase; TrueConf Server; OT HMIs over VNC; Router/SOHO/IoT ecosystems leveraged by PRC/FSB operations; PLCs in WWS; perimeter VPN/SSL portals; Microsoft AFD (WinSock) LPE (KEV context)."
+      "PLC/Control Rockwell Automation (MicroLogix/CompactLogix), Schneider Modicon M340, Siemens S7-1200 Delta Electronics PLCs, ibaPDA/ibaDatCoordinator, OPC UA (Eclipse Milo) Perimeter/Management VMware vCenter, Citrix NetScaler ADC/Gateway, Fortinet FortiGate/FMC, Cisco ASA/FTD, Progress (Kemp) LoadMaster Facilities & Apps Johnson Controls Airwall & Metasys, Siemens Siveillance Video, Solid Edge/Simcenter, Desigo controllers EVSE/OCPP (Autel, EVbee), Apache NiFi/IoTDB/ActiveMQ"
     ],
     "sectors": [
-      "Water & Wastewater Systems Direct PLC targeting Energy & Critical Manufacturing Edge pivots, controllers Buildings/BAS VMS/segmentation issues Telecom/Comms Router/edge persistence Gov/Public Sector Enterprise pivots Transportation Conferencing supply-chain"
+      "Water and Wastewater Systems (confirmed OT impact) Energy generation and distribution (turbine/process water incident; OT targeting) Critical Manufacturing and Industrial Design (engineering toolchains, PLM data exposure) Transportation and Facilities (BAS/VMS controllers; EV charging ecosystems) Telecom and ISP backbones (router/Smart-Install/SNMP tradecraft) Healthcare (BAS/VMS, supply chain, identity platforms)"
     ]
   },
   "topThreats": [],
-  "threatActors": [],
-  "relevance": "Edge pathways dominate risk: VPN/ADC flaws (ASA/FTD, NetScaler) and router compromise (FSB targeting, PRC covert botnets) enable initial access and pre-positioning near OT conduits. Security Advisory Joint Advisory Direct OT disruption remains plausible and observed: VNC-exposed HMIs manipulated; PLC lockouts in WWS; building/energy automation controllers with new vulnerabilities (JCI Airwall, ANDRITZ HIPASE). ICS Advisory ICS Advisory Enterprise apps as OT pivots: Metabase SQLi and TrueConf server exploitation provide credentials and footholds that can reach DMZ/historians used to broker OT access. JPCERT Advisory Research =420px cols) -->",
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iranian-affiliated APT: PLC exploitation and logic tampering against US critical infrastructure. Advisory",
+        "China-nexus operators: covert SOHO/IoT proxy networks used for pre-positioning across CNI. Advisory",
+        "Russia-linked units/hacktivists: router/SNMP/Smart-Install abuse; opportunistic VNC HMI attacks causing loss of view. Advisory Advisory",
+        "Head Mare APT: TrueConf zero-days to deploy PhantomCore/PhantomGraph across energy/transport targets. Research",
+        "Lazarus: Windows LPE (CVE-2026-68820) in \"Dream Job\" campaigns, threatening defense/aerospace supply chains. View Article"
+      ]
+    }
+  ],
+  "relevance": "Direct OT impact confirmed: PLC logic manipulation (US WWS/Energy) and Poland turbine/water-treatment shutdown via private APN exposure. OT-adjacent vectors: exploitation of vCenter, NetScaler, FortiGate/FMC, LoadMaster, Cisco ASA/FTD DoS, and Zimbra/SharePoint identity paths enabling IT→OT pivots. Operational technologies at risk: Delta Electronics PLCs, ibaPDA acquisition, EVSE/OCPP, building automation (Johnson Controls/Siemens), video management (Siveillance), OPC UA stacks (Eclipse Milo). Supply chain/documentation exposure (PTC Windchill/FlexPLM, TrueConf APT) elevates targeting precision against industrial sites.",
   "cveWatch": [
     {
       "category": "Vulnerability and CVE Watch",
       "items": [
-        "Johnson Controls Airwall identical key (CVE-2026-64887): update to v4.1.0+, rotate keys, audit policy/control-plane access. ICS Advisory",
-        "ANDRITZ HIPASE-250/SCALA (≤7.20): hard-coded creds, missing auth, recoverable passwords-patch and segment protection/automation networks. ICS Advisory",
-        "NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) under active research/PoC; prioritize patching SAML SP/IdP deployments. Advisory",
-        "Metabase SQLi (CVE-2026-72898/72899) exploited; block /api/session/reset_password and rotate DB/app secrets. Advisory",
-        "Cisco ASA/FTD RA SSL VPN DoS (CVE-2026-20349) exploited; apply hotfixes and minimize portal exposure. View Article"
+        "Delta PLC unauthenticated Modbus/TCP access; ibaPDA/ibaDatCoordinator deserialization RCE; Eclipse tinydtls pre-auth DTLS OOB read. Bulletin",
+        "EVSE/OCPP: Autel MaxiCharger and EVbee DC-80 multiple unauth RCE/DoS and insecure update paths. Bulletin Bulletin",
+        "Citrix NetScaler ADC/Gateway pre-auth RCE (CVE-2026-8452) - public PoC; patch and hunt for webshells. Advisory",
+        "VMware vCenter critical RCE (CVE-2026-59310) actively exploited for persistence. View Article",
+        "Johnson Controls Airwall hard-coded cryptographic key (CVE-2026-64887) - immediate upgrade and key rotation. ICS Advisory",
+        "OPC UA Eclipse Milo, Apache NiFi/CXF/IoTDB in IT/OT bridges - harden policies and upgrade. Bulletin",
+        "Microsoft Windows AFD.sys LPE (CVE-2026-68820) actively exploited; SharePoint auth bypass (CVE-2026-55040) probed post-PoC. View Article View Article"
       ]
     }
   ],
   "events": [],
   "ttps": {
     "descriptions": [
-      "Exploit Public-Facing Application (T1190): NetScaler ADC SAML pre-auth RCE; Metabase SQLi; ASA/FTD RA VPN DoS.",
-      "Valid Accounts & Brute Force (T1078/T1110.003): VNC to HMIs; FortiGate default/admin creds (Gunra).",
-      "Remote Services (T1021.005 / ICS protocols): VNC/RDP; PLC online edits and mode changes (WWS incidents).",
-      "Ingress Tool Transfer & Web Shell (T1105/T1505.003): Theme/web directories on NetScaler; IIS web shell for TrueConf.",
-      "Exfiltration over Web/Cloud (T1567): OneDrive/Graph C2 and exports (TrueConf campaign); Metabase data export abuse.",
-      "Router/Edge Persistence: SNMP Set-Requests & Smart Install (FSB Ctr 16); covert SOHO/IoT botnets (PRC advisory)."
+      "Internet-exposed remote access and HMIs (VNC/5900-5910), weak/default credentials; loss of view/control (ATT&CK for ICS: T0814, T0830). Advisory",
+      "Edge-device compromise and persistence: NetScaler SAML heap overflow webshells; vCenter reverse_ssh, cron/systemd timers (Enterprise T1053, T1574). Advisory",
+      "Router/SNMP config exfil via Set-Requests; Smart-Install/TFTP/FTP misuse for credential theft and traffic capture (Enterprise T1040/T1552). Advisory",
+      "Supply-chain abuse and cloud APIs: TrueConf zero-days (PhantomCore/Graph), Zimbra CSS @import XSS exfil (Enterprise T1539/T1567). Research Advisory"
     ],
     "mitreIds": [
-      "T1190",
-      "T1078",
-      "T1110.003",
-      "T1021.005",
-      "T1105",
-      "T1505.003",
+      "T0814",
+      "T0830",
+      "T1053",
+      "T1574",
+      "T1040",
+      "T1552",
+      "T1539",
       "T1567"
     ]
   },
-  "outlook72h": "Expect scanning and exploitation attempts on NetScaler ADC SAML and ASA/FTD RA portals to continue-complete patching and lock-down within 72 hours. Conduct emergency external surface review: take down any exposed VNC/RDP/PLC/HMI services; implement temporary IP allow-listing where decommissioning is staged. Rotate credentials and tokens tied to Metabase and connected databases; inspect for suspicious admin activity and session anomalies. Increase router/edge telemetry to SIEM (SNMP Set-Requests, Smart Install, TFTP/FTP egress) and validate OOB management isolation.",
+  "outlook72h": "Prioritize emergency patching and hunts on: vCenter (CVE-2026-59310), NetScaler (CVE-2026-8452), FortiGate/FortiOS (FortiBleed exposure), Cisco FMC hard-coded password KEV, Progress LoadMaster KEV. Immediate external-attack-surface sweep for VNC, PLC ports (102/502/2222/44818), OCPP endpoints, and router/SNMP/Smart-Install exposure. Apply controller mode locks, rotate PLC/HMI and vendor remote credentials, and validate OT backups/golden logic images offline. Increase monitoring for reverse_ssh beacons, webshell paths (/var/vpn/theme/*.php), anomalous SAML payload sizes, and abnormal OCPP/AMQP traffic.",
   "relatedCves": [
+    "CVE-2026-68820",
     "CVE-2026-8452",
-    "CVE-2026-20349",
-    "CVE-2026-72898",
+    "CVE-2026-59310",
     "CVE-2026-64887",
-    "CVE-2026-59310"
+    "CVE-2026-55040",
+    "CVE-2026-8037",
+    "CVE-2025-66376",
+    "CVE-2026-12569"
   ]
 }

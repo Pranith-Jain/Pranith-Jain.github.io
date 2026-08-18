@@ -1,0 +1,96 @@
+{
+  "type": "disaster",
+  "date": "2026-08-17",
+  "overallThreat": "",
+  "executiveSummary": "Two major earthquakes produced mass casualties and urban collapse in Western Colombia (≥287 fatalities reported; entrapment persists) and on Indonesia's Flores Island (≥54 fatalities; thousands awaiting aid). View Article Supporting Report Record river flooding in Indiana caused at least seven deaths, severe damage to roads/bridges, and large power outages; shelters and rescues continued statewide. View Article Fast-moving wildfires in British Columbia displaced more than 20,000 people and caused at least one death; returns remain unsafe in several communities. View Article Severe drought in southwestern Somalia is driving displacement and emergency food insecurity affecting around 2 million people; aid shortfalls persist. View Article A tropical storm system swept roughly 100 homes off foundations on Hawai'i Island, triggering search-and-rescue operations; no deaths immediately reported. View Article Typhoon-related flooding and landslides disrupted transport across eastern China and northern Luzon; millions affected and relocations mounted. View Article Note: Some casualty and impact figures vary by source and are evolving as assessments continue.",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Western Colombia",
+      "summary": "Large-scale building collapse with ongoing entrapment days after the quake; initial missing-persons figures were high, and international SAR was mobilized. View Article"
+    },
+    {
+      "title": "Indonesia (Flores)",
+      "summary": "At least 54 deaths and widespread building damage; significant delays in aid to remote communities reported. View Article"
+    },
+    {
+      "title": "Indiana Floods",
+      "summary": "At least seven fatalities, >350 evacuations and numerous rescues; roads/bridges washed out and ~130,000 without power at peak. View Article"
+    },
+    {
+      "title": "British Columbia Wildfires",
+      "summary": ">20,000 evacuees; at least one fatality; reception centers and emergency lodging activated; returns remain unsafe in hard-hit zones. View Article"
+    },
+    {
+      "title": "Somalia Drought",
+      "summary": "Displacement into camps surged; around 2 million people face emergency food insecurity; water access and aid pipelines strained. View Article"
+    },
+    {
+      "title": "Hawai'i Island Storm",
+      "summary": "~100 homes destroyed or swept from foundations; SAR and family assistance needs ongoing. View Article"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least 287 fatalities reported; large rubble fields and entrapment persist across multiple cities including Cali and Pereira; international SAR ongoing. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/colombia-earthquake-rescue-search-quake-fd8948bee8acf98009e60615fc62694d",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least 54 deaths; hundreds of homes damaged; thousands still awaiting assistance days after the quake. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/ec45607ccc22d9df2d5cfe4ab82d33eb",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least seven killed; >350 evacuations and numerous rescues; roads/bridges washed out and ~130,000 without power at peak. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/aa3624a3ff1a0d241f62ec980a23e856",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "More than 20,000 evacuated; at least one fatality; returns remain unsafe; reception and emergency lodging underway. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/06918cee1330c511babd1732f29e7cb5",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Displacement surging into camps; about 2 million people face emergency food insecurity; water access strained. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/28d37013c290c3327b50911a9bcfc8c2",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Colombia Earthquake: SAR window remains open but narrowing; anticipate additional recoveries and rising confirmed tolls as access improves. Urban safety cordons likely to expand pending structural assessments. Source Indonesia (Flores) Earthquake: Aftershocks possible; priority on medical evacuation, WASH, shelter, and last-mile distribution to remote villages. Source Indiana Flooding: Gradual recession on some rivers; expect ongoing sheltering, debris removal, and infrastructure inspections; fatality counts may update as assessments proceed. Source British Columbia Wildfires: Weather-driven flare-ups remain possible; additional evacuation alerts or orders may occur with wind shifts and terrain-driven spread. Source East Asia Tropical Impacts: Continued cleanup and residual flooding/landslide risk; transport normalization will be phased as safety checks complete. Source Somalia Drought: No short-term relief expected; monitor malnutrition admissions and water trucking capacity at displacement sites. Source",
+  "regionalTrends": []
+}

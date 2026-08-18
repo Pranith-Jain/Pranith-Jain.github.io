@@ -1,0 +1,210 @@
+{
+  "type": "maritime",
+  "date": "2026-08-17",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates two priority areas this cycle: unverified but operationally significant disruption claims at North Carolina Ports that reportedly forced manual workarounds across multiple terminals, and resumed AIS spoofing with elevated \"dark\" transits in the Strait of Hormuz degrading maritime situational awareness. Confidence is low for the NC Ports claims due to community-sourced origin, and medium for the Hormuz spoofing based on an established maritime industry outlet. View Article View Article Current reporting suggests a persistent strategic risk to port OT and logistics data flows stemming from foreign adversarial technological influence, as highlighted in a standing MARAD worldwide advisory. This reinforces supply-chain and third-party equipment risk considerations for terminals and carriers. Government Advisory The collected intelligence supports an assessment that the overall maritime cyber threat level is MODERATE this cycle, driven by credible navigation integrity concerns at a critical chokepoint and an unverified but potentially disruptive U.S. port incident, tempered by a lack of confirmed exploitation of specific maritime OT vulnerabilities. Confidence in this assessment is medium.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "MODERATE",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "6",
+        "label": "Total Intelligence Records (with decision)"
+      },
+      {
+        "value": "3",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "2",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "1",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "2",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "1",
+        "label": "Navigation-related Threats"
+      },
+      {
+        "value": "1",
+        "label": "Port or Terminal Threats"
+      },
+      {
+        "value": "1",
+        "label": "High-Confidence Assessments"
+      },
+      {
+        "value": "0",
+        "label": "Vulnerabilities or CVEs"
+      }
+    ],
+    "vendors": [],
+    "sectors": [
+      "Ports and Terminals - Operational continuity and supply-chain visibility",
+      "Deep Sea Shipping - Navigation awareness in Strait of Hormuz",
+      "Logistics and Intermodal - Appointment systems and EDI fallbacks (precautionary)"
+    ]
+  },
+  "keyFindings": [
+    "Unverified but operationally meaningful reports suggest a cyber incident at North Carolina Ports led to manual fallback across multiple facilities, indicating potential disruption to gate, terminal, or back-office processes. Confidence: Low. View Article",
+    "AIS spoofing activity and increased dark transits in the Strait of Hormuz are degrading maritime situational awareness, heightening navigation and deconfliction risk in a critical chokepoint. Confidence: Medium. View Article",
+    "MARAD's worldwide advisory continues to warn about foreign adversarial technological and cyber influence affecting port equipment and logistics platforms, reinforcing supply-chain and third-party risk vigilance. Confidence: High. Government Advisory"
+  ],
+  "topThreats": [
+    {
+      "title": "",
+      "action": "Degraded AIS integrity and increased AIS-off behavior in a congested, strategic chokepoint raise collision, deconfliction, and security-screening risks for commercial traffic and regional authorities. Operational impact: Potential loss of view for traffic services and shipmasters; increased bridge team workload and need for cross-sensor verification; possible delays for screening and routing. Recommended defensive attention: Emphasize multi-sensor navigation verification (radar/ARPA, ECDIS overlays, visual fixes), track continuity checks, and shore-side monitoring for anomalous patterns. Navigation risk Supply-chain impact: Possible",
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/index.php/article/dark-transits-of-hormuz-and-spoofing-increase-as-ships-avoid-omani-route",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "If accurate, disruptions across Wilmington, Morehead City, and Charlotte Inland Port could impact gate operations, cargo processing, and appointment systems, creating local throughput delays and logistics backlogs. Operational impact: Potential dependence on paper/manual processes; degraded visibility for drayage and yard operations; possible appointment rescheduling and carrier notifications. Recommended defensive attention: Elevate incident response readiness with port partners; verify business continuity runbooks; tighten remote access and vendor change controls pending clarity. Navigation impact: None reported Supply-chain impact: Confirmed (per reporting)",
+      "sources": [
+        {
+          "url": "https://www.reddit.com/r/Charlotte/comments/1vgr5a3/cyberattack_impacts_operations_at_nc_ports_in/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Advisory underscores strategic risks from foreign-made port equipment and logistics platforms influencing cyber exposure and data security across terminals and carriers. Operational impact: Potential dependency and visibility risks within port OT and logistics data flows; long-arc supply-chain governance implications. Recommended defensive attention: Review supplier and equipment provenance; reassess third-party data sharing and access; coordinate with port authorities on risk controls.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "Strait of Hormuz - AIS spoofing and increased \"dark\" transits",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/index.php/article/dark-transits-of-hormuz-and-spoofing-increase-as-ships-avoid-omani-route",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "North Carolina Ports - Reported cyberattack with manual fallbacks",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.reddit.com/r/Charlotte/comments/1vgr5a3/cyberattack_impacts_operations_at_nc_ports_in/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "MARAD 2026-007 - Worldwide advisory on foreign adversarial technological and cyber influence",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "No qualifying recent maritime cyber article identified (window-limited search)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": []
+    },
+    {
+      "title": "No qualifying article identified in the past 10 days",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": []
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "Strait of Hormuz - AIS spoofing and increased \"dark\" transits",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/index.php/article/dark-transits-of-hormuz-and-spoofing-increase-as-ships-avoid-omani-route",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "North Carolina Ports - Reported cyberattack with manual fallbacks",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.reddit.com/r/Charlotte/comments/1vgr5a3/cyberattack_impacts_operations_at_nc_ports_in/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "MARAD 2026-007 - Worldwide advisory on foreign adversarial technological and cyber influence",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "No qualifying recent maritime cyber article identified (window-limited search)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": []
+    },
+    {
+      "title": "No qualifying article identified in the past 10 days",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": []
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "AIS spoofing and AIS-off behaviors observed in Hormuz (behavioral description; no confirmed ATT&CK mapping in provided sources).",
+      "Potential IT system disruption at a port authority (NC Ports) inferred from manual fallback reporting; no technical kill chain details available.",
+      "Supply-chain exposure via foreign-manufactured equipment and data platforms (strategic risk per MARAD advisory), not a discrete TTP but a risk vector affecting initial access and persistence opportunities in OT ecosystems."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional confirmation or clarification regarding the reported NC Ports disruption, including any official statements or operational advisories. Confidence: Low. View Article Continued reporting on AIS spoofing and dark transits in the Strait of Hormuz is likely; bridge teams transiting the area should maintain heightened verification and communications discipline. Confidence: Medium. View Article Strategic supply-chain controls for port OT and logistics platforms remain salient; additional sector advisories or partner notices may emerge, but there is insufficient information to determine timing. Confidence: Medium. Government Advisory",
+  "relatedCves": []
+}
