@@ -1,0 +1,15 @@
+{
+  "slug": "xpl0itrs-2026-08-15",
+  "title": "*********",
+  "group": "xpl0itrs",
+  "discovered": "2026-08-15T21:43:02.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/93ec2ede-52a0-4be1-aa42-fa6e4ea1c061",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

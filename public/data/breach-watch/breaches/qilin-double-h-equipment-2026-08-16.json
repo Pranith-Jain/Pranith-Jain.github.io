@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-double-h-equipment-2026-08-16",
+  "title": "Double H Equipment",
+  "group": "qilin",
+  "discovered": "2026-08-16T09:29:25.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/dd82c016-b3ac-42ae-afca-bc8104d0bb19",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

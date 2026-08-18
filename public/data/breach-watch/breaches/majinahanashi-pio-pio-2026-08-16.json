@@ -1,0 +1,15 @@
+{
+  "slug": "majinahanashi-pio-pio-2026-08-16",
+  "title": "PIO PIO",
+  "group": "majinahanashi",
+  "discovered": "2026-08-16T08:48:20.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CO",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f46830fa-91c7-41b6-9551-1bfb420a71e4",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

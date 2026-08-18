@@ -1,0 +1,15 @@
+{
+  "slug": "ms13089-servmarmg-cl-2026-08-15",
+  "title": "servmarmg.cl",
+  "group": "ms13089",
+  "discovered": "2026-08-15T19:00:56.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CL",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8f466183-0ecc-4137-9cb0-e26df3b127ae",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

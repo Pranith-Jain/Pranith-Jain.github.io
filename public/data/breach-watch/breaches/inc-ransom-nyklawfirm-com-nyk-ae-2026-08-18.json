@@ -1,0 +1,15 @@
+{
+  "slug": "inc-ransom-nyklawfirm-com-nyk-ae-2026-08-18",
+  "title": "nyklawfirm.com nyk.ae",
+  "group": "INC Ransom",
+  "discovered": "2026-08-18T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/nyklawfirm-com-nyk-ae-inc-ransom-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

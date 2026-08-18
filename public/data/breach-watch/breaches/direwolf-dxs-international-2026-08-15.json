@@ -1,0 +1,15 @@
+{
+  "slug": "direwolf-dxs-international-2026-08-15",
+  "title": "DXS International",
+  "group": "direwolf",
+  "discovered": "2026-08-15T20:23:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/2e244f75-5b31-4439-b301-8f8b5768965d",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

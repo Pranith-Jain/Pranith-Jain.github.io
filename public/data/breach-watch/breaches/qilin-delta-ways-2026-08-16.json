@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-delta-ways-2026-08-16",
+  "title": "DELTA WAYS",
+  "group": "qilin",
+  "discovered": "2026-08-16T09:30:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/676b768b-9556-4153-aa86-8fce70026916",
+  "groupAliases": [],
+  "activity": "Transportation",
+  "references": ["Darkfield"]
+}

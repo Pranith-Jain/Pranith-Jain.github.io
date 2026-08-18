@@ -1,0 +1,15 @@
+{
+  "slug": "ms13-089-servmarmg-cl-chile-valpara-so-2026-08-15",
+  "title": "servmarmg.cl (Chile, Valparaíso)",
+  "group": "ms13-089",
+  "discovered": "2026-08-15T20:32:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Empresa con más de 25 años de experiencia en el rubro marítimo, orientada a ejecutar operaciones con estándares de calidad, control de riesgo y tiempos de respuesta consistentes...",
+  "source_url": "https://www.ransomlook.io/screenshots/ms13-089/servmarmgcl (Chile, Valparaíso).png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

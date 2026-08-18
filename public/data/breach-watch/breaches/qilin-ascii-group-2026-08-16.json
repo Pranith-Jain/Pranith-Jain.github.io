@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-ascii-group-2026-08-16",
+  "title": "ASCII Group",
+  "group": "qilin",
+  "discovered": "2026-08-16T09:31:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a9cb8309-0c88-44a6-86d9-5bce4af76e2f",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

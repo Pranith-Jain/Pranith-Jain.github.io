@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-vgrn-de-2026-08-16",
+  "title": "vgrn.de",
+  "group": "lockbit5",
+  "discovered": "2026-08-16T14:51:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/34efe915-287a-4aee-a8b2-048cde9714ce",
+  "groupAliases": [],
+  "activity": "Energy & Utilities",
+  "references": ["Darkfield"]
+}

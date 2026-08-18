@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-desatera-sdn-bhd-2026-08-16",
+  "title": "Desatera Sdn Bhd",
+  "group": "qilin",
+  "discovered": "2026-08-16T11:31:50.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/36be7d17-b2f6-44ee-a242-e7d7531901b8",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

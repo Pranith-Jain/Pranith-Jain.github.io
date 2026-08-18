@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-mulino-padano-2026-08-16",
+  "title": "Mulino Padano",
+  "group": "qilin",
+  "discovered": "2026-08-16T15:59:09.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f4e3e6ec-27bc-44f8-aea1-4e2066d16aa0",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "xpl0itrs-oz-hair-beauty-2026-08-15",
+  "title": "Oz Hair & Beauty",
+  "group": "xpl0itrs",
+  "discovered": "2026-08-15T21:43:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c17e3a49-356c-4231-ac34-5a7dbc6b67aa",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

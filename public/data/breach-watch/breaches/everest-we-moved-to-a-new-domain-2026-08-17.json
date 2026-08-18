@@ -1,0 +1,15 @@
+{
+  "slug": "everest-we-moved-to-a-new-domain-2026-08-17",
+  "title": "We moved to a new domain",
+  "group": "everest",
+  "discovered": "2026-08-17T15:01:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion/news/We_moved_to_a_new_domain",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-teikoku-usa-2026-08-16",
+  "title": "Teikoku USA",
+  "group": "qilin",
+  "discovered": "2026-08-16T18:58:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a969f2af-212a-47da-81d1-8cc0848b0a9e",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

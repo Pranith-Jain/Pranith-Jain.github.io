@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-asset-management-and-advisory-firm-2026-08-17",
+  "title": "Unknown (asset management and advisory firm)",
+  "group": "safepay",
+  "discovered": "2026-08-17T02:31:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/972b9fe3-dbd9-4ed5-b074-c1548bb773fe",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

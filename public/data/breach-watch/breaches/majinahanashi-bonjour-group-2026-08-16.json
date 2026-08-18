@@ -1,0 +1,15 @@
+{
+  "slug": "majinahanashi-bonjour-group-2026-08-16",
+  "title": "BONJOUR GROUP",
+  "group": "majinahanashi",
+  "discovered": "2026-08-16T08:47:47.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/46395192-15e0-4249-af06-ff80bf69cbcc",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

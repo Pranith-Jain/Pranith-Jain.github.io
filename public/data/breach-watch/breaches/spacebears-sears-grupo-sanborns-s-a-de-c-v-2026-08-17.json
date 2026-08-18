@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-sears-grupo-sanborns-s-a-de-c-v-2026-08-17",
+  "title": "SEARS (Grupo Sanborns, S.A. de C.V.)",
+  "group": "Spacebears",
+  "discovered": "2026-08-17T02:43:55.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Mexico",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/25e1c630-ad8f-4493-b2e2-d6b04ee14e9e",
+  "groupAliases": ["space bears"],
+  "activity": "Retail",
+  "references": ["Darkfield"]
+}

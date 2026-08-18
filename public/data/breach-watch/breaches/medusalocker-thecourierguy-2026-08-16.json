@@ -1,0 +1,15 @@
+{
+  "slug": "medusalocker-thecourierguy-2026-08-16",
+  "title": "Thecourierguy",
+  "group": "medusalocker",
+  "discovered": "2026-08-16T15:19:49.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ZA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/43819401-691f-4023-a27e-f0618fc92759",
+  "groupAliases": [],
+  "activity": "Transportation",
+  "references": ["Darkfield"]
+}

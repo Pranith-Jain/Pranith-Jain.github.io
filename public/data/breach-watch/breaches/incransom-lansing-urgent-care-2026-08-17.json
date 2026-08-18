@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-lansing-urgent-care-2026-08-17",
+  "title": "Lansing Urgent Care",
+  "group": "incransom",
+  "discovered": "2026-08-17T18:25:39.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/426b9b26-1775-414c-895e-918868ac51e4",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

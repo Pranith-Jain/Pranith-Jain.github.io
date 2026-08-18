@@ -1,0 +1,15 @@
+{
+  "slug": "storm-standard-tool-die-2026-08-18",
+  "title": "Standard Tool & Die",
+  "group": "Storm",
+  "discovered": "2026-08-18T04:21:54.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f961a431-bf80-4a61-987a-c5f849a4a203",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

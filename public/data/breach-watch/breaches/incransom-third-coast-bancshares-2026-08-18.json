@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-third-coast-bancshares-2026-08-18",
+  "title": "Third Coast Bancshares",
+  "group": "incransom",
+  "discovered": "2026-08-18T00:26:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/02b90358-fd1f-427e-ac5a-1f6797257da2",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}
