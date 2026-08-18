@@ -332,10 +332,169 @@ The key insight: it is a **loop**, not a pipeline. The Disseminate phase produce
 ## See also
 
 - [Full F3EAD reference page](/threatintel/f3ead) -- loop diagram, phase detail, Lazarus / Copperhedge walkthrough, comparison table
+- [F2T2EA](/threatintel/f2t2ea) -- the joint targeting cycle F3EAD descends from
+- [Cyber Kill Chain v2](/threatintel/kill-chain-v2) -- the chain content F3EAD operates on
 - [MITRE ATT&CK](/threatintel/mitre) -- the shared technique vocabulary used inside the Analyze phase
 - [Diamond Model](/dfir/diamond) -- per-event reconstruction
 - [ACH](/threatintel/ach) -- structured analytic technique used inside Analyze
 - [IR Playbooks](/dfir/ir-playbooks) -- the Finish phase
+`,
+  },
+  {
+    slug: 'f2t2ea',
+    title: 'F2T2EA (Find, Fix, Track, Target, Engage, Assess)',
+    category: 'Threat Intelligence',
+    description:
+      "The US joint targeting cycle (JP 3-60) from which F3EAD descends: locate the adversary, pin it down, keep eyes on it, decide what to do, execute, and measure the effect. Ops-pure -- Assess carries the learning back into the next cycle's Find.",
+    body: `## What is F2T2EA?
+
+F2T2EA is the six-phase US joint targeting cycle codified in JP 3-60 and the doctrinal ancestor of F3EAD (FM 3-05.40 / JP 3-05.1). It is ops-pure -- Find, Fix, Track, Target, Engage, Assess -- with no separate intelligence phase. Where F3EAD fuses the ops side with the intelligence cycle (Exploit, Analyze, Disseminate), F2T2EA keeps the learning inside Assess: after every engagement the team measures the effect and that assessment re-opens the Find phase of the next cycle.
+
+The key insight: it is a **loop**, not a pipeline. Every phase exists to make the next one more certain, and Assess is the discipline that keeps the cycle repeatable instead of a one-off fire drill.
+
+## The six phases
+
+| # | Phase | Owner | Output |
+|---|---|---|---|
+| 1 | **Find** | Intel + SOC | Named target (host, account, domain, infrastructure); PIRs |
+| 2 | **Fix** | SOC + threat hunting + IR | Confirmed location / identity with corroborating evidence |
+| 3 | **Track** | SOC + threat hunting | Surveillance timeline, infra churn, change alerts |
+| 4 | **Target** | IR + SecOps + leadership | Engagement option, desired effect, rules of engagement |
+| 5 | **Engage** | IR + SecOps | Executed action log, before/after telemetry |
+| 6 | **Assess** | CTI + IR | Effectiveness vs. desired effect, new PIRs |
+
+## Why it matters
+
+- F2T2EA is a **process** framework from joint targeting doctrine. It does not replace ATT&CK, the Lockheed Kill Chain, or the Diamond Model -- those are **content** frameworks describing what the adversary did. F2T2EA describes how a team locates, tracks, and acts on a target.
+- The Find-to-Fix discipline is the core: you cannot Engage a target you cannot Fix, and you cannot Fix a target you are not continuously Tracking.
+- F3EAD is the CTI adaptation: it collapses Track/Target/Engage into Finish and swaps Assess for the full intelligence cycle, which is why most defender teams run F3EAD while F2T2EA remains the ops-side original.
+
+## See also
+
+- [Full F2T2EA reference page](/threatintel/f2t2ea) -- loop diagram, phase detail, Lazarus / Copperhedge walkthrough, comparison table
+- [F3EAD](/threatintel/f3ead) -- the CTI adaptation that descends from F2T2EA
+- [OODA Loop](/threatintel/ooda) -- Boyd's decision cycle, the tempo layer that drives how fast this cycle runs
+- [Cyber Kill Chain v2](/threatintel/kill-chain-v2) -- the chain content the targeting cycle acts on
+- [MITRE ATT&CK](/threatintel/mitre) -- the shared technique vocabulary used to describe what the target is doing
+- [Diamond Model](/dfir/diamond) -- per-event reconstruction that helps Fix and Assess
+- [ACH](/threatintel/ach) -- structured analytic technique used inside Fix and Assess
+- [IR Playbooks](/dfir/ir-playbooks) -- the Target and Engage phases
+`,
+  },
+  {
+    slug: 'ooda',
+    title: 'OODA Loop (Observe, Orient, Decide, Act)',
+    category: 'Threat Intelligence',
+    description:
+      "John Boyd's decision cycle from fighter combat: observe the environment, orient it with context and prior knowledge, decide a response, act -- then loop. The tempo-setting cycle underneath targeting frameworks like F2T2EA and F3EAD.",
+    body: `## What is the OODA Loop?
+
+The OODA loop is John Boyd's four-step decision cycle, developed from his fighter-pilot experience in the 1970s-80s and briefed as "A Discourse on Winning and Losing." It describes how a decision-maker processes information and acts faster than an opponent -- the famous "get inside their OODA loop" concept. In cyber defense it is the tempo layer: the cycle that determines how quickly a team can observe an intrusion, orient on it, decide a response, and act before the adversary re-tools.
+
+The key insight: it is a **continuous loop**, not a pipeline. Speed comes from compressing the cycle, and every Action changes the environment that the next Observe picks up.
+
+## The four phases
+
+| # | Phase | Owner | Output |
+|---|---|---|---|
+| 1 | **Observe** | SOC + Intel | Raw telemetry, alerts, feed hits; noted collection gaps |
+| 2 | **Orient** | CTI + hunting + DFIR | Contextualized hypothesis; ATT&CK + actor mapping; explicit assumptions |
+| 3 | **Decide** | IR lead + SOC | Chosen response + rationale; rules-of-engagement check |
+| 4 | **Act** | IR + SecOps | Executed action log; post-action telemetry baseline |
+
+## Why it matters
+
+- OODA is a **process** framework about decision tempo. It does not replace ATT&CK, the Lockheed Kill Chain, or the Diamond Model -- those are **content** frameworks describing what the adversary did. OODA describes how fast the team turns their outputs into decisions.
+- Boyd called Orient the schwerpunkt (main effort): two analysts observing the same alert can orient to completely different threats, so the quality of the loop lives or dies on context and prior knowledge.
+- F2T2EA and F3EAD are the targeting/CTI workflows that run at the tempo OODA sets. Teams that skip the loop -- jumping from Observe straight to Act -- trade tempo for guesswork.
+
+## See also
+
+- [Full OODA reference page](/threatintel/ooda) -- loop diagram, phase detail, Lazarus / Copperhedge walkthrough, comparison table
+- [F2T2EA](/threatintel/f2t2ea) -- the joint targeting cycle OODA tempo drives
+- [Cyber Kill Chain v2](/threatintel/kill-chain-v2) -- the chain content OODA tempo responds to
+- [F3EAD](/threatintel/f3ead) -- the CTI adaptation of the targeting cycle
+- [MITRE ATT&CK](/threatintel/mitre) -- the shared vocabulary used inside Orient
+- [Diamond Model](/dfir/diamond) -- per-event reconstruction that feeds Orient
+- [ACH](/threatintel/ach) -- structured analytic technique used inside Orient and Decide
+`,
+  },
+  {
+    slug: 'kill-chain-v2',
+    title: 'Cyber Kill Chain v2 (Lateral Movement + Campaign Overlay)',
+    category: 'Threat Intelligence',
+    description:
+      "Lockheed Martin's 2015 extension of the 2011 Cyber Kill Chain: adds an explicit Lateral Movement phase -- post-exploitation is where modern intrusions live -- and a Campaign overlay, because one actor runs multiple intrusions in parallel.",
+    body: `## What is the Cyber Kill Chain v2?
+
+The Cyber Kill Chain v2 is Lockheed Martin's 2015 extension of the original 2011 chain (Hutchins, Cloppert, Amin). The original seven phases describe a single intrusion; v2 makes two additions that address the chain's biggest blind spot:
+
+1. **Lateral Movement as an explicit phase** -- post-exploitation is where modern intrusions actually live. The attacker pivots from the beachhead to other hosts (credential theft, pass-the-hash, remote services) to reach the objective. Most ransomware intrusions are lateral-movement-first.
+2. **Campaign overlay** -- one actor runs multiple concurrent intrusions, so defenders must track the chain per-intrusion AND across the campaign.
+
+The key insight: the chain is **per-intrusion**, the campaign is **per-actor**. Blocking one intrusion without hunting the campaign leaves the actor's other footholds intact.
+
+## The eight phases
+
+| # | Phase | Owner | Output |
+|---|---|---|---|
+| 1 | **Reconnaissance** | Intel + SOC | Target profile; likely initial-access vectors |
+| 2 | **Weaponization** | Intel (invisible) | Weaponized artifact inventory; hardening checklist |
+| 3 | **Delivery** | SOC + mail/web | Blocked / allowed delivery events |
+| 4 | **Exploitation** | SOC + EDR + IR | Execution event; CVE/KEV context |
+| 5 | **Installation** | IR + DFIR | Persistence mechanisms; forensic artifacts |
+| 6 | **Lateral Movement** (v2) | SOC + hunting + IR | Movement timeline; credential-exposure assessment |
+| 7 | **Command & Control** | SOC + network | Beaconing timeline; C2 inventory |
+| 8 | **Actions on Objectives** | IR + SecOps | Impact assessment; campaign linkage |
+
+## Why it matters
+
+- The Kill Chain is a **content** framework -- it describes what the adversary did. It does not replace ATT&CK (the technique vocabulary), Diamond (the who), or the process frameworks (F3EAD, F2T2EA, OODA) -- it feeds them.
+- The original chain's biggest criticism was that it ends at "actions on objectives" with no east-west coverage. v2's Lateral Movement phase fixes exactly that gap.
+- The campaign overlay answers the question defenders actually face: "is this the only intrusion?" -- the answer is almost always no.
+
+## See also
+
+- [Full Kill Chain v2 reference page](/threatintel/kill-chain-v2) -- phase detail, Lazarus / Copperhedge walkthrough, comparison table
+- [Unified Kill Chain](/threatintel/unified-kill-chain) -- the 18-phase meta-framework that supersedes the chain
+- [Lockheed Kill Chain](/dfir/kill-chain) -- the original 7-phase surface on the platform
+- [MITRE ATT&CK](/threatintel/mitre) -- the technique vocabulary each phase maps onto
+- [Diamond Model](/dfir/diamond) -- per-event reconstruction that fills in the who
+- [F3EAD](/threatintel/f3ead) -- the process workflow the team runs on the chain
+- [OODA Loop](/threatintel/ooda) -- the tempo at which the team responds to the chain
+`,
+  },
+  {
+    slug: 'unified-kill-chain',
+    title: 'Unified Kill Chain (UKC) - In, Through, Out (18 phases)',
+    category: 'Threat Intelligence',
+    description:
+      "Paul Pols' 2017 meta-framework synthesizing the Lockheed Cyber Kill Chain and MITRE ATT&CK into 18 phases across three strategic cycles -- In (foothold), Through (propagation), Out (objectives). Non-linear: attacks are campaigns, not chains.",
+    body: `## What is the Unified Kill Chain?
+
+The Unified Kill Chain (UKC) is Paul Pols' 2017 meta-framework that synthesizes the Lockheed Martin Cyber Kill Chain and MITRE ATT&CK into 18 distinct phases across three strategic cycles. Its core claim: attacks are **campaigns, not chains** -- phases loop, repeat, and run in parallel, and half the model covers the post-compromise activity the original chain largely ignored.
+
+The three cycles:
+
+- **In** (phases 1-8): gaining access and establishing a foothold -- Reconnaissance, Weaponization, Social Engineering, Delivery, Exploitation, Persistence, Defense Evasion, Command & Control.
+- **Through** (phases 9-14): network propagation and positioning -- Pivoting, Discovery, Privilege Escalation, Execution, Credential Access, Lateral Movement.
+- **Out** (phases 15-18): achieving strategic objectives -- Collection, Exfiltration, Impact, Objectives.
+
+## Why it matters
+
+- The UKC fixes the original chain's two blind spots: the perimeter/malware focus (adding Social Engineering as an explicit phase and a full Through cycle for post-compromise work) and the linear-sequence assumption (phases can loop, repeat, or run in parallel).
+- Adversaries typically cycle Discovery → Credential Access → Lateral Movement → Discovery repeatedly while mapping the network -- the Through cycle is where most organizations have their weakest detection coverage.
+- The UKC is a **content** meta-framework. It does not replace ATT&CK (the technique vocabulary) or the process frameworks (F3EAD, F2T2EA, OODA); it feeds them a complete picture of the campaign.
+
+## See also
+
+- [Full Unified Kill Chain reference page](/threatintel/unified-kill-chain) -- cycle diagram, phase detail, Lazarus / Copperhedge walkthrough, comparison table
+- [Cyber Kill Chain v2](/threatintel/kill-chain-v2) -- the Lockheed extension the UKC supersedes
+- [Lockheed Kill Chain](/dfir/kill-chain) -- the original 7-phase chain
+- [MITRE ATT&CK](/threatintel/mitre) -- the technique vocabulary each UKC phase maps onto
+- [Diamond Model](/dfir/diamond) -- per-event reconstruction that fills in the who
+- [F3EAD](/threatintel/f3ead) -- the process workflow the team runs on the campaign
+- [OODA Loop](/threatintel/ooda) -- the tempo at which the team responds to the campaign
 `,
   },
   {

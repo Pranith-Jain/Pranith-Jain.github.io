@@ -1,27 +1,29 @@
 /**
- * /threatintel/f3ead -- F3EAD: Find, Fix, Finish, Exploit, Analyze, Disseminate.
+ * /threatintel/f2t2ea -- F2T2EA: Find, Fix, Track, Target, Engage, Assess.
  *
- * Originally a US Special Operations Forces (USSOF) targeting doctrine
- * (descended from F2T2EA in FM 3-05.40 / JP 3-05.1), adapted to Cyber
- * Threat Intelligence by fusing the ops side (Find -> Fix -> Finish)
- * with the intelligence cycle (Exploit -> Analyze -> Disseminate).
+ * The US joint targeting cycle (JP 3-60) from which F3EAD descends.
+ * F3EAD collapses Track/Target/Engage into Finish and swaps Assess for
+ * the intelligence cycle (Exploit -> Analyze -> Disseminate); F2T2EA is
+ * the ops-pure original -- no explicit intelligence feedback loop, the
+ * Assess phase carries the learning instead.
  *
  * This page is static (no backend roundtrip) -- the value is the
  * structured doctrine, the platform cross-links, and the concrete
  * incident walkthrough that makes the loop visible. It follows the
- * same pattern as ACH.tsx, InsiderThreatMatrix.tsx, and the other
- * framework pages in the `frameworks` catalog group.
+ * same pattern as F3ead.tsx and the other framework pages in the
+ * `frameworks` catalog group.
  */
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Crosshair,
-  MapPin,
+  Radar,
+  Satellite,
+  Target,
+  Zap,
+  Gauge,
   Wrench,
-  FlaskConical,
-  Brain,
-  Megaphone,
   ChevronDown,
   ChevronRight,
   ExternalLink,
@@ -38,7 +40,7 @@ import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 // Phase model
 // ---------------------------------------------------------------------------
 
-type PhaseId = 'find' | 'fix' | 'finish' | 'exploit' | 'analyze' | 'disseminate';
+type PhaseId = 'find' | 'fix' | 'track' | 'target' | 'engage' | 'assess';
 
 interface Phase {
   id: PhaseId;
@@ -64,22 +66,22 @@ const PHASES: Phase[] = [
     id: 'find',
     number: 1,
     name: 'Find',
-    short: 'Identify the threat',
-    icon: MapPin,
+    short: 'Locate the target',
+    icon: Radar,
     accent: 'bg-sky-500/10',
     ringClass: 'ring-sky-400/60 dark:ring-sky-500/40',
     who: 'Intel + SOC (tipping, intel reqs, PIRs, OSINT, dark-web)',
-    defenderGoal: 'Surface the actor, campaign, or activity that warrants attention.',
+    defenderGoal: 'Discover the adversary, campaign, or asset that warrants action.',
     description:
-      'Proactive and reactive identification of adversary activity. The Find phase is fed by intelligence requirements (PIRs), tipping from partners, anomaly reports, and the Disseminate outputs of prior F3EAD cycles.',
+      'The collection half of the cycle: identify targets of interest from PIRs, partner tipping, anomaly reports, and the Assess outputs of prior cycles. In F2T2EA, Find is deliberately broad -- you locate before you decide anything about the target.',
     deliverables: [
-      'Named actor, campaign, or hypothesis',
+      'Named target (host, account, domain, or infrastructure set)',
       'Priority Intelligence Requirements (PIRs)',
       'Initial collection plan',
     ],
     pitfalls: [
-      'Skipping PIRs -- results in undirected hunting and noisy reports.',
-      'Treating Find as a one-off. It is continuous; every cycle re-opens it.',
+      'Skipping PIRs -- results in undirected collection and noisy leads.',
+      'Confusing Find with Fix. Locating is not the same as pinning the target down.',
     ],
     attackMapping: 'Maps loosely to ATT&CK Reconnaissance + Resource Development.',
     platformTool: { to: '/threatintel/ach', label: 'ACH (analyze competing hypotheses)' },
@@ -88,120 +90,120 @@ const PHASES: Phase[] = [
     id: 'fix',
     number: 2,
     name: 'Fix',
-    short: 'Pinpoint presence in the environment',
+    short: 'Pin the target in time and space',
     icon: Crosshair,
     accent: 'bg-amber-500/10',
     ringClass: 'ring-amber-400/60 dark:ring-amber-500/40',
     who: 'SOC + threat hunting + IR',
-    defenderGoal: 'Confirm the adversary is (or was) actually in the environment.',
+    defenderGoal: 'Confirm exactly where the target is, with enough certainty to act.',
     description:
-      "Hypothesis-driven hunting, detection engineering, and triage. The output of Fix is a concrete set of observed activity in the defender's own telemetry, not just external reporting.",
+      "Fix is where a lead becomes a location. The analyst confirms the target's presence with corroborating telemetry -- IPs, hostnames, hashes, accounts, timestamps -- and drops any target that cannot be fixed. A target you cannot Fix is a target you cannot Engage.",
     deliverables: [
-      'Affected hosts, accounts, and time windows',
-      'Working detections for the activity',
-      'Scope of compromise',
+      'Confirmed location / identity (IP, host, account, domain)',
+      'Corroborating evidence set',
+      'Time window of activity',
     ],
     pitfalls: [
-      'Stopping at "we found a hit" without scope.',
-      'Hunting without a hypothesis -- turns into log grep with no conclusion.',
+      'Acting on an unverified tip -- Engagement on a ghost wastes the team.',
+      'Stopping at one source. Fix requires independent corroboration.',
     ],
     attackMapping: 'Covers ATT&CK Initial Access through Execution and Persistence.',
     platformTool: { to: '/dfir/threat-hunt', label: 'Threat hunt workbench' },
   },
   {
-    id: 'finish',
+    id: 'track',
     number: 3,
-    name: 'Finish',
-    short: 'Remove / restrict the threat',
-    icon: Wrench,
-    accent: 'bg-severity-critical/10',
-    ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
-    who: 'IR + SecOps + asset owners',
-    defenderGoal: 'Stop the bleed, evict the actor, restore trust.',
+    name: 'Track',
+    short: 'Maintain continuous surveillance',
+    icon: Satellite,
+    accent: 'bg-cyan-500/10',
+    ringClass: 'ring-cyan-400/60 dark:ring-cyan-500/40',
+    who: 'SOC + threat hunting (sustained monitoring)',
+    defenderGoal: 'Keep eyes on the target so it cannot slip away before Engage.',
     description:
-      'Containment, eradication, and recovery. The action arm of F3EAD. Every Finish action MUST be paired with an Exploit step below -- otherwise the team fixes the symptom and learns nothing for the next cycle.',
+      'Continuous monitoring of the fixed target -- movement, infrastructure churn, beaconing, command-and-control changes. Track is the phase F3EAD absorbed into Finish; in F2T2EA it is its own discipline because the target may sit for days or weeks before the decision to engage.',
     deliverables: [
-      'Containment actions (isolate host, revoke token, block IOC)',
-      'Eradication + recovery evidence',
-      'Operational lessons (what slowed the response?)',
+      'Surveillance timeline (beaconing / logins / infra changes)',
+      'Tracked target status board',
+      'Change alerts (new IPs, domains, hashes)',
     ],
     pitfalls: [
-      'Skipping the "why" -- kicking the actor out without capturing artifacts.',
-      'Going loud before Exploit runs -- tipping the actor to change tradecraft.',
+      'Letting Track go stale -- the target moves and the team engages the ghost.',
+      'Tracking so passively that the target is lost in log noise.',
     ],
-    attackMapping: 'Aligned with NIST SP 800-61 IR phases: Containment, Eradication, Recovery.',
+    attackMapping: 'Covers ATT&CK Command and Control + lateral movement observation.',
+    platformTool: { to: '/threatintel/iocs/c2', label: 'C2 tracker' },
+  },
+  {
+    id: 'target',
+    number: 4,
+    name: 'Target',
+    short: 'Decide what to do to it',
+    icon: Target,
+    accent: 'bg-severity-critical/10',
+    ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
+    who: 'IR + SecOps + leadership (decision authority)',
+    defenderGoal: 'Choose the engagement option that achieves the desired effect.',
+    description:
+      'The decision gate: pick the action -- block, sinkhole, isolate, evict, takedown, or simply continue tracking -- and the desired effect. Targeting is where rules of engagement, legality, and operational risk get weighed. In a defender context it is also where you decide what NOT to touch.',
+    deliverables: [
+      'Engagement option + desired effect',
+      'Rules of engagement / legal review',
+      'Contingency plan (what if the action fails or tips the actor)',
+    ],
+    pitfalls: [
+      'Choosing an option without an exit criteria -- the action becomes open-ended.',
+      'Forgetting that Engage has second-order effects (tipping, collateral).',
+    ],
+    attackMapping: 'Aligned with NIST SP 800-61 IR decision gates: Containment strategy selection.',
     platformTool: { to: '/dfir/ir-playbooks', label: 'IR playbooks' },
   },
   {
-    id: 'exploit',
-    number: 4,
-    name: 'Exploit',
-    short: 'Extract tradecraft & IOCs',
-    icon: FlaskConical,
+    id: 'engage',
+    number: 5,
+    name: 'Engage',
+    short: 'Execute the action',
+    icon: Zap,
     accent: 'bg-severity-critical/10',
     ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
-    who: 'IR + DFIR + intel',
-    defenderGoal: 'Pull every artifact out of the incident before the cleanup wipes it.',
+    who: 'IR + SecOps + asset owners',
+    defenderGoal: 'Deliver the chosen action precisely and capture the result.',
     description:
-      'Acquisition and preservation of evidence: memory, disk, logs, binaries, scripts, persistence mechanisms, infrastructure. Exploit is the bridge between ops and intel -- without it, the analyst has nothing to Analyze.',
+      'Execution: block the IOC, isolate the host, sinkhole the domain, revoke the token, apply the containment. Engage in F2T2EA is the ops arm -- in F3EAD this merges into Finish. Every Engage should be paired with evidence capture so Assess has something to measure.',
     deliverables: [
-      'IOCs (hashes, IPs, domains, URLs, JA3, file names, mutexes)',
-      'TTPs (ATT&CK technique IDs)',
-      'Captured samples + sandbox reports',
+      'Executed action log (what, when, where, by whom)',
+      'Before/after telemetry for assessment',
+      'Collateral-damage report if the action was broad',
     ],
     pitfalls: [
-      'Reimaging before triage -- destroying the chain of custody.',
-      'IOCs without context. A hash is not intelligence; "this Lazarus loader checks in over ChaCha20/HTTP" is.',
+      'Engaging without a captured baseline -- Assess becomes guesswork.',
+      'Going loud before the plan is approved -- tipping the actor during Target review.',
     ],
-    attackMapping: 'Sources the data the rest of ATT&CK needs to be useful in your environment.',
-    platformTool: { to: '/threatintel/ioc-enrichment', label: 'IOC enrichment & lifecycle' },
+    attackMapping: 'Aligned with NIST SP 800-61 IR phases: Containment, Eradication, Recovery.',
+    platformTool: { to: '/dfir/blocklists', label: 'Blocklists (exportable)' },
   },
   {
-    id: 'analyze',
-    number: 5,
-    name: 'Analyze',
-    short: 'Triage, enrich, attribute',
-    icon: Brain,
+    id: 'assess',
+    number: 6,
+    name: 'Assess',
+    short: 'Measure the effect, feed the next cycle',
+    icon: Gauge,
     accent: 'bg-emerald-500/10',
     ringClass: 'ring-emerald-400/60 dark:ring-emerald-500/40',
-    who: 'CTI analysts + DFIR',
-    defenderGoal: 'Turn artifacts into understanding -- what, who, why, so what.',
+    who: 'CTI analysts + IR',
+    defenderGoal: 'Determine whether the engagement achieved its desired effect.',
     description:
-      "Pivot, correlate, enrich, weigh evidence, and either confirm or reject the originating hypothesis. Analyze is where ATT&CK, Diamond Model, ACH, and the platform's own intel bundle come together.",
+      "Compare the post-Engage state against the desired effect: did the beaconing stop? Did the actor re-tool? Is the host clean? Assess closes the loop -- its findings become new PIRs and targets for the next cycle's Find. This is the phase F3EAD replaced with the full intelligence cycle (Exploit / Analyze / Disseminate).",
     deliverables: [
-      'Diamond Model event reconstruction',
-      'ATT&CK technique / software / group mapping',
-      'Updated confidence in attribution (or explicit "unknown")',
+      'Effectiveness assessment vs. desired effect',
+      'Lessons learned (what slowed the cycle?)',
+      'New PIRs / re-targeting recommendations',
     ],
     pitfalls: [
-      'Forced attribution. "Unknown actor" is a valid, defensible answer.',
-      'Confirmation bias -- the analyst who set the hypothesis should not be the only one testing it.',
+      'Skipping Assess -- the cycle becomes a fire-drill with no learning.',
+      'Measuring activity instead of effect (counted blocks, not stopped intrusions).',
     ],
-    attackMapping: 'Consumes ATT&CK + Diamond outputs; produces intel that drives the next Find.',
-    platformTool: { to: '/threatintel/ach', label: 'Analysis of Competing Hypotheses' },
-  },
-  {
-    id: 'disseminate',
-    number: 6,
-    name: 'Disseminate',
-    short: 'Deliver intel to stakeholders',
-    icon: Megaphone,
-    accent: 'bg-rose-500/10',
-    ringClass: 'ring-indigo-400/60 dark:ring-indigo-500/40',
-    who: 'CTI lead + comms + leadership',
-    defenderGoal: 'Right intel, right audience, right format, right time.',
-    description:
-      "Reports, briefings, signatures, countermeasures, and most importantly: feedback that re-opens the Find phase of the next cycle. Disseminate is the production step that justifies the team's existence to leadership.",
-    deliverables: [
-      'Executive briefing (1-pager + 5W)',
-      'Technical writeup (TTPs, IOCs, ATT&CK mapping)',
-      'Detection signatures (Sigma / YARA / Snort / Wazuh)',
-    ],
-    pitfalls: [
-      'Publishing once and stopping. A report with no audience plan is shelfware.',
-      'Skipping the feedback loop -- Disseminate must produce the PIRs that start the next cycle.',
-    ],
-    attackMapping: 'Outputs are what let defenders across the org act on the ATT&CK mapping.',
+    attackMapping: 'Produces the feedback that drives the next cycle of ATT&CK-mapped activity.',
     platformTool: { to: '/threatintel/briefings', label: 'Briefings & writeups' },
   },
 ];
@@ -232,58 +234,43 @@ const WALK: WalkStep[] = [
   },
   {
     phase: 'fix',
-    title: 'Hunt across Next.js footprint',
+    title: 'Pin the RCE to a specific host',
     prompt:
-      'Hypothesis: RSC deserialization RCE probes. Pivot through WAF + load balancer + app logs. Detect the inbound list.txt scanning pattern and the follow-up POST that triggers the RCE.',
-    artifacts: [
-      'Hypothesis-driven Sigma rule on RSC deserialization signatures',
-      'Scope: 3 Next.js 15.x apps in prod, 1 in staging',
-    ],
+      'Corroborate the tip: the list.txt scanning pattern hits one Next.js 15.x prod app, and the follow-up POST that triggers the RSC deserialization RCE lands on the same origin. Three independent log sources agree.',
+    artifacts: ['Fixed target: origin host + app + time window', 'Corroborating evidence set (WAF + LB + app logs)'],
   },
   {
-    phase: 'finish',
-    title: 'Eradicate the foothold',
+    phase: 'track',
+    title: 'Watch the C2 channel',
     prompt:
-      'Isolate the 3 prod apps, rotate secrets, deploy the vendor patch, restore from a known-good image, take a final memory + disk image for Exploit.',
-    artifacts: ['IR timeline (NIST SP 800-61)', 'Containment + eradication evidence pack'],
+      'Sustain monitoring: the loader checks in over ChaCha20/HTTP to a rotating set of C2 domains. Track infra churn and new beacons for 48h while the legal/ROE review runs.',
+    artifacts: ['C2 domain / IP rotation timeline', 'Beaconing frequency + JA3 fingerprint log'],
   },
   {
-    phase: 'exploit',
-    title: 'Pull artifacts before reimage',
+    phase: 'target',
+    title: 'Decide: sinkhole vs. block vs. evict',
     prompt:
-      'Capture the loader (Manuscrypt variant), the brndlog.txt config, the MsSecurityObj mutex, the C2 ChaCha20/HTTP traffic, the Akagi64 UAC bypass binary, and the MultiRelay lateral-movement tool.',
-    artifacts: [
-      'IOCs: file names, mutex, registry key, C2 URI pattern, JA3',
-      'TTPs mapped to ATT&CK (T1190, T1548.002, T1055, T1071.001, T1027)',
-    ],
+      'Weigh options against the desired effect (stop exfiltration, preserve evidence, avoid tipping). Decision: perimeter-block the C2 domains + isolate the 3 prod apps, with the vendor patch staged for the same window.',
+    artifacts: ['Engagement option + desired effect', 'ROE / legal sign-off + exit criteria'],
   },
   {
-    phase: 'analyze',
-    title: 'Diamond + ATT&CK + ACH',
+    phase: 'engage',
+    title: 'Execute the containment window',
     prompt:
-      'Build a Diamond event per affected host. Cross-reference ATT&CK technique IDs with the Lazarus software list. Run ACH against competing hypotheses (Lazarus vs. DPRK-aligned unaffiliated vs. false flag).',
-    artifacts: [
-      'Diamond Model cards (3 hosts)',
-      'ACH matrix with diagnostic evidence',
-      'Confidence assessment: "high confidence Lazarus, low confidence specific subgroup"',
-    ],
+      'Block the C2 domains at the perimeter, isolate the 3 prod apps, rotate secrets, deploy the vendor patch. Capture before/after telemetry and a final memory + disk image during the same window.',
+    artifacts: ['Action log (blocklist entries, isolation, patching)', 'Before/after beacon counts for Assess'],
   },
   {
-    phase: 'disseminate',
-    title: 'Brief leadership + push detections',
+    phase: 'assess',
+    title: 'Did the beacons stop?',
     prompt:
-      "5W briefing for the CISO + technical writeup for SOC + new Sigma / YARA signatures. The IOCs and TTPs also feed the next cycle's Find phase via the intel bundle.",
-    artifacts: [
-      '5W executive briefing',
-      'Technical report (with ATT&CK + Diamond)',
-      'Sigma / YARA / Wazuh rules deployed to prod',
-      'New PIRs queued for the next cycle',
-    ],
+      'Compare post-Engage telemetry: beaconing drops to zero on blocked domains, but the actor starts probing a staging Next.js app with the same technique 12h later. Assess produces new PIRs and re-opens Find for the staging surface.',
+    artifacts: ['Effectiveness assessment (stopped, but actor re-tooling)', 'Lessons + new PIRs for the next cycle'],
   },
 ];
 
 // ---------------------------------------------------------------------------
-// Comparison table: F3EAD vs. the other frameworks on the platform
+// Comparison table: F2T2EA vs. F3EAD and the other frameworks
 // ---------------------------------------------------------------------------
 
 interface FrameworkRow {
@@ -298,20 +285,20 @@ interface FrameworkRow {
 
 const COMPARISON: FrameworkRow[] = [
   {
-    name: 'F3EAD',
-    kind: 'process',
-    question: 'How does the team operate end-to-end on a target?',
-    primaryUser: 'CTI + SOC + IR',
-    platformPage: '/threatintel/f3ead',
-    note: 'Closes the ops-intel feedback loop. Pairs with every other framework here.',
-  },
-  {
     name: 'F2T2EA',
     kind: 'process',
     question: 'How do we locate, track, and act on a target?',
     primaryUser: 'Ops + IR (targeting)',
     platformPage: '/threatintel/f2t2ea',
-    note: 'The joint targeting cycle F3EAD descends from -- ops-pure, Assess carries the learning.',
+    note: 'The joint targeting cycle. Ops-pure -- the Assess phase carries the learning.',
+  },
+  {
+    name: 'F3EAD',
+    kind: 'process',
+    question: 'How does the team operate end-to-end on a target?',
+    primaryUser: 'CTI + SOC + IR',
+    platformPage: '/threatintel/f3ead',
+    note: 'F2T2EA plus an explicit intelligence cycle (Exploit/Analyze/Disseminate).',
   },
   {
     name: 'Lockheed Kill Chain',
@@ -319,7 +306,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'What phases did the intrusion pass through?',
     primaryUser: 'DFIR + SOC',
     platformPage: '/dfir/kill-chain',
-    note: 'Linear, 7 phases. Criticised for being too sequential for modern intrusions.',
+    note: 'Linear, 7 phases. Describes the intrusion, not the targeting decision.',
   },
   {
     name: 'Cyber Kill Chain v2',
@@ -343,7 +330,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'How fast can we decide and act?',
     primaryUser: 'IR + SOC (tempo)',
     platformPage: '/threatintel/ooda',
-    note: "Boyd's Observe-Orient-Decide-Act decision cycle. The tempo layer that drives how fast F3EAD cycles.",
+    note: "Boyd's Observe-Orient-Decide-Act decision cycle. Not a targeting framework -- the inner loop that sets the tempo F2T2EA runs at.",
   },
   {
     name: 'MITRE ATT&CK',
@@ -351,7 +338,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'Which specific techniques did the adversary use?',
     primaryUser: 'Detection eng + CTI',
     platformPage: '/threatintel/mitre',
-    note: 'The shared vocabulary. F3EAD uses ATT&CK inside the Analyze phase.',
+    note: 'The shared vocabulary. F2T2EA maps its phases onto ATT&CK tactics.',
   },
   {
     name: 'Diamond Model',
@@ -359,7 +346,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'Who did what to whom, and how?',
     primaryUser: 'CTI + IR',
     platformPage: '/dfir/diamond',
-    note: 'Per-event reconstruction. Slots into Analyze.',
+    note: 'Per-event reconstruction. Helps Fix and Assess.',
   },
   {
     name: 'ACH',
@@ -367,15 +354,7 @@ const COMPARISON: FrameworkRow[] = [
     question: 'Which hypothesis best explains the evidence?',
     primaryUser: 'CTI analysts',
     platformPage: '/threatintel/ach',
-    note: 'Structured analytic technique used inside the Analyze phase.',
-  },
-  {
-    name: 'Insider Threat Matrix',
-    kind: 'content',
-    question: 'What motive, means, preparation, or infringement is in play?',
-    primaryUser: 'Insider-threat teams',
-    platformPage: '/threatintel/insider-threat-matrix',
-    note: 'Domain-specific framework. Sits inside Fix for insider-led cases.',
+    note: 'Structured analytic technique used inside Fix and Assess.',
   },
 ];
 
@@ -383,7 +362,7 @@ const COMPARISON: FrameworkRow[] = [
 // Component
 // ---------------------------------------------------------------------------
 
-export default function F3ead(): JSX.Element {
+export default function F2t2ea(): JSX.Element {
   const [openPhase, setOpenPhase] = useState<PhaseId | null>('find');
   const [walkStep, setWalkStep] = useState<number>(0);
 
@@ -396,13 +375,14 @@ export default function F3ead(): JSX.Element {
       backTo="/threatintel"
       backLabel="back to threat intel"
       icon={<Crosshair size={28} />}
-      title="F3EAD: Find, Fix, Finish, Exploit, Analyze, Disseminate"
+      title="F2T2EA: Find, Fix, Track, Target, Engage, Assess"
       description={
         <>
-          Originally a US Special Operations Forces (USSOF) targeting doctrine, F3EAD fuses the operations side (Find
-          &rarr; Fix &rarr; Finish) with the intelligence cycle (Exploit &rarr; Analyze &rarr; Disseminate). Adapted to
-          Cyber Threat Intelligence to close the ops&ndash;intel gap. The key insight: the cycle is a <em>loop</em>, not
-          a pipeline -- Disseminate feeds the Find of the next cycle.
+          The US joint targeting cycle (JP 3-60) that F3EAD descends from. F2T2EA is the ops-pure original: Find &rarr;
+          Fix &rarr; Track &rarr; Target &rarr; Engage &rarr; Assess. Adapted to Cyber Threat Intelligence it is the
+          discipline of <em>locating</em> an adversary, <em>pinning</em> it down, <em>watching</em> it,{' '}
+          <em>deciding</em> what to do, <em>doing</em> it, and <em>measuring</em> the result. The key insight: Assess
+          feeds the Find of the next cycle -- the loop is what makes targeting repeatable.
         </>
       }
       maxWidthClass="max-w-7xl"
@@ -410,9 +390,9 @@ export default function F3ead(): JSX.Element {
       {/* ── The loop diagram ─────────────────────────────────────────── */}
       <section className="mb-12">
         <header className="flex items-end justify-between mb-4">
-          <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">The F3EAD loop</h2>
+          <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">The F2T2EA loop</h2>
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400 hidden sm:block">
-            ops &rarr; intel &rarr; feedback to ops
+            locate &rarr; act &rarr; feedback to locate
           </p>
         </header>
 
@@ -543,7 +523,7 @@ export default function F3ead(): JSX.Element {
       <section className="mb-12">
         <header className="mb-4">
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
-            Walk an incident through F3EAD
+            Walk an incident through F2T2EA
           </h2>
           <p className="text-sm text-muted mt-1 max-w-3xl">
             A 6-step click-through using the Lazarus / Copperhedge sample already in the platform's
@@ -636,11 +616,11 @@ export default function F3ead(): JSX.Element {
       <section className="mb-12">
         <header className="mb-4">
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
-            F3EAD vs. the other frameworks on the platform
+            F2T2EA vs. the other frameworks on the platform
           </h2>
           <p className="text-sm text-muted mt-1 max-w-3xl">
-            F3EAD is a <strong>process</strong> framework. It does not replace ATT&CK, the Kill Chain, or Diamond; it
-            sits beside them as the loop that turns their outputs into action.
+            F2T2EA is a <strong>process</strong> framework from joint targeting doctrine. It does not replace ATT&CK,
+            the Kill Chain, or Diamond; it sits beside them as the loop that turns their outputs into a decision to act.
           </p>
         </header>
 
@@ -725,41 +705,39 @@ export default function F3ead(): JSX.Element {
         </header>
         <ul className="space-y-1.5 text-xs text-muted">
           <li>
+            <strong className="text-slate-800 dark:text-slate-200">JP 3-60 (Joint Targeting)</strong> &mdash; the joint
+            doctrine that codifies the Find&ndash;Fix&ndash;Track&ndash;Target&ndash;Engage&ndash;Assess cycle.
+          </li>
+          <li>
             <strong className="text-slate-800 dark:text-slate-200">FM 3-05.40 (Army Special Operations Forces)</strong>{' '}
-            &mdash; the doctrinal origin of the F2T2EA / F3EAD targeting cycle. See the{' '}
-            <Link to="/threatintel/f2t2ea" className="text-rose-600 dark:text-rose-400 hover:underline">
-              full F2T2EA reference page
-            </Link>
-            .
+            &mdash; the doctrinal source the F2T2EA / F3EAD targeting cycle descends from.
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">JP 3-05.1 (Joint Special Operations)</strong> &mdash;
-            joint doctrine for the targeting pipeline F3EAD is derived from.
+            joint special-operations doctrine that adapts F2T2EA into the F3EAD process. See the{' '}
+            <Link to="/threatintel/f3ead" className="text-rose-600 dark:text-rose-400 hover:underline">
+              full F3EAD reference page
+            </Link>
+            .
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">
               SANS FOR578 &mdash; Cyber Threat Intelligence
             </strong>{' '}
-            &mdash; the canonical CTI adaptation of F3EAD taught in industry training.
-          </li>
-          <li>
-            <strong className="text-slate-800 dark:text-slate-200">
-              CREST (UK) &mdash; Cyber Threat Intelligence maturity guidance
-            </strong>{' '}
-            &mdash; the ops&ndash;intel feedback loop is treated as a maturity marker.
+            &mdash; teaches F3EAD (the F2T2EA descendant) as the canonical CTI workflow.
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">
               MITRE ATT&CK Blog: "F3EAD: Operationalizing Cyber Threat Intelligence" (2018)
             </strong>{' '}
-            &mdash; the write-up that pushed F3EAD from SOF doctrine into the CTI mainstream.
+            &mdash; traces the lineage from joint targeting (F2T2EA) to the CTI mainstream.
           </li>
           <li>
             <strong className="text-slate-800 dark:text-slate-200">
               NIST SP 800-61 rev 2 &mdash; Computer Security Incident Handling Guide
             </strong>{' '}
             &mdash; the IR phases (Preparation, Detection &amp; Analysis, Containment, Eradication, Recovery,
-            Post-Incident Activity) that the Finish phase aligns to.
+            Post-Incident Activity) that Target and Engage align to.
           </li>
         </ul>
       </section>
