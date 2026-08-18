@@ -207,14 +207,14 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'CRUCIBLE · DFIR Toolkit',
     description:
       'CRUCIBLE — 90+ free, browser-side DFIR tools: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
-    image: '/og-dfir.png?v=7',
+    image: '/og-dfir.png',
     imageAlt: 'CRUCIBLE DFIR toolkit — 90+ free browser-side digital forensics and incident response tools',
   },
   '/radar': {
     title: 'SCOUT · Recon Scanner',
     description:
       'SCOUT — deep crawl, JS analysis, API discovery, secret detection, and 0-100 security scoring. Free, browser-driven recon.',
-    image: '/og-scout.png?v=7',
+    image: '/og-scout.png',
     imageAlt: 'SCOUT recon scanner — deep crawl, JS analysis, API discovery, and security scoring',
   },
   '/copilot': {
@@ -226,7 +226,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'PANOPTICON · Threat Intel Platform',
     description:
       'PANOPTICON — live ransomware leaks, CVE × CISA KEV, cross-source IOC correlation, actor × MITRE, STIX 2.1 export. Edge-hosted and free.',
-    image: '/og-threatintel.png?v=7',
+    image: '/og-threatintel.png',
     imageAlt: 'PANOPTICON threat intel platform — live ransomware leaks, CVE/KEV, IOC correlation, and STIX export',
   },
   '/threatintel/external-resources': {
@@ -243,7 +243,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'ARGUS · Threat Nexus',
     description:
       'ARGUS — nation-state threat intel dashboard with 3D globe, actor dossiers, relationship graphs, and live threat feeds. Interactive D3 + three.js.',
-    image: '/og-argus.png?v=7',
+    image: '/og-argus.png',
     imageAlt: 'ARGUS threat nexus — nation-state dashboard with 3D globe, actor dossiers, and relationship graphs',
   },
   '/threatintel/correlation': {
