@@ -6,6 +6,12 @@ export default defineConfig({
   plugins: [
     cloudflareTest({
       singleWorker: true,
+      // wrangler.jsonc declares an `ai` binding and a KV namespace with
+      // `remote: true`; both force the pool to open a REMOTE proxy session
+      // (needs Cloudflare credentials). CI has none, so tests fail with
+      // "No credentials found". The suite never exercises those remote
+      // resources, so stay fully local.
+      remoteBindings: false,
       // Resolve relative to this config file, not the local machine — CI
       // checkouts live at a different absolute path (/home/runner/work/...).
       wrangler: { configPath: fileURLToPath(new URL('../wrangler.jsonc', import.meta.url)) },
