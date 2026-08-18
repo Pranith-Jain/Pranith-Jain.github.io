@@ -15,11 +15,17 @@
   "added": "May 17, 2026",
   "tags": [
     "Hacktivism",
-    "Geopolitical",
-    "Cyber-Espionage",
+    "Pro-Ukrainian",
+    "Critical Infrastructure",
+    "Russia-Ukraine Conflict",
+    "Data Leak",
+    "Russian Federation Targets",
+    "Initial Access",
     "Financial Targeting",
     "Data Exfiltration",
-    "Government Targeting"
+    "Government Targeting",
+    "Geopolitical",
+    "Cyber-Espionage"
   ],
   "aliases": ["Cyber Anarchy Squad", "APT28", "Cozy Bear", "Pawn Storm"],
   "targetedSectors": [
@@ -38,30 +44,51 @@
     "Education"
   ],
   "targetedCountries": ["RU", "UA", "BY", "PL", "US", "IR", "KR"],
-  "tactics": ["Lateral Movement", "Exfiltration", "Disruption"],
-  "techniques": ["T1074.001", "T1566", "T1216"],
-  "tools": ["Custom Malware", "Open-Source Tools (e.g., Kali Linux)", "DDoS Tools"],
+  "tactics": ["Impact", "Exfiltration", "Persistence", "Initial Access", "Execution", "Command and Control"],
+  "techniques": [
+    "T1213",
+    "T1568",
+    "T1566",
+    "T1566.001",
+    "T1204.002",
+    "T1059.003",
+    "T1059.004",
+    "T1071",
+    "T8804",
+    "T1056.003"
+  ],
+  "tools": ["XWorm RAT", "XenoRAT", "VShell", "SYNful Knock", "MacroPack", "PowerShell"],
   "iocPatterns": [
-    "Spear-phishing campaigns mimicking legitimate communications",
-    "Network traffic anomalies indicating exfiltration or DDoS",
-    "Malicious scripts in web pages"
+    "Phishing-related domains",
+    "Weaponized XLS macro files",
+    "Obfuscated PowerShell scripts",
+    "Malicious LNK files",
+    "Base64 encoded payloads",
+    "Router firmware alterations"
   ],
   "keyCapabilities": [
-    "Network Intrusion",
-    "DDoS Attacks",
-    "Data Exfiltration",
-    "Website Defacement",
-    "Malware Deployment",
-    "Social Engineering"
+    "Data theft and exfiltration",
+    "Critical infrastructure and SCADA systems targeting",
+    "Network equipment wiping and disruption",
+    "Phishing-based initial access",
+    "Social media information operations",
+    "Remote Access Trojan (RAT) deployment",
+    "Industrial control system (ICS) manipulation",
+    "Automated data leakage"
   ],
   "recommendedActions": [
-    "Monitor for异常网络流量",
-    "Enhance network security controls",
-    "Leverage threat intelligence feeds"
+    "Implement email gateways to block malicious LNK files and macro-enabled documents.",
+    "Segment network management interfaces from public-facing services.",
+    "Monitor for unauthorized changes to HMI names or industrial control settings.",
+    "Update and patch known vulnerabilities in Cisco and other networking hardware (e.g., CVE-2018-0171).",
+    "Establish automated alerts for PowerShell execution involving Base64 encoding.",
+    "Conduct regular audits of router configurations and firmware integrity.",
+    "Monitor Telegram channels for public declarations of breach activity to inform incident response.",
+    "Implement geo-fencing or IP filtering for remote access into critical infrastructure."
   ],
-  "campaignsText": "Campaigns are often triggered by geopolitical events, targeting high-profile entities. The group's operational tempo increases during periods of heightened international tensions. Their methods include disrupting services to cause public and economic instability.",
-  "description": "Cyber.Anarchy.Squad is a pro-Ukrainian hacktivist group targeting Russian entities. They disrupt services and leak sensitive data, using techniques like network equipment wiping and website defacing.",
-  "goals": "The group aims to support Ukraine's stance against Russian policies through cyberattacks. Their primary targets include Russian telecom companies, financial institutions, and government agencies, chosen for their strategic importance to Russia's economy and stability.",
+  "campaignsText": "Cyber.Anarchy.Squad maintains a consistent operational focus on the Russian sector of the conflict since 2022. They are known for rapid turnaround from breach to disclosure, often announcing takedowns (such as those against 'Investment Projects') via Telegram shortly after occurrence. Their activity patterns suggest a high tempo aligned with specific geopolitical triggers. While they operate primarily as hacktivists, their overlap in tactics and targeted sectors suggests they may share information or infrastructure with other pro-Ukrainian actors like GhostWriter.",
+  "description": "Cyber.Anarchy.Squad is a pro-Ukrainian hacktivist collective targeting Russian and Belarusian critical infrastructure, particularly in the telecommunications, finance, and government sectors. They specialize in disruptive tactics such as router firmware wiping, data exfiltration for public leakage, and utilizing various remote access trojans (RATs) to impact services during the Russia-Ukraine conflict.",
+  "goals": "The primary objectives of Cyber.Anarchy.Squad are ideological and retaliatory; they aim to disrupt Russian-affiliated services and gather intelligence for public exposure. Their targeting profile is highly specific to the Russia-Ukraine conflict, focusing on entities within the Russian Federation and Belarus that support state infrastructure or economic interests (e.g., telecom providers, investment platforms, and healthcare facilities).",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1060",
   "sourceUrl": "https://threaticon.com/threat-actors/1060"
 }

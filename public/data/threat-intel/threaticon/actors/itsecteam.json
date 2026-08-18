@@ -13,7 +13,18 @@
   "resourceLevel": "Government",
   "motivation": "Espionage",
   "added": "Jul 15, 2026",
-  "tags": ["nation-state", "espionage", "cyber-physical", "Initial Access", "APT", "DDoS"],
+  "tags": [
+    "APT",
+    "Iran",
+    "Espionage",
+    "Infrastructure Target",
+    "State-Sponsored",
+    "Initial Access",
+    "DDoS",
+    "nation-state",
+    "espionage",
+    "cyber-physical"
+  ],
   "aliases": ["tracked as", "Cobalt Illusion", "APT28", "Pawn Storm"],
   "targetedSectors": [
     "Financial services",
@@ -77,19 +88,46 @@
     "AZ",
     "KZ"
   ],
-  "tactics": ["Sabotage", "Disruption"],
-  "techniques": ["T1492.001", "T1503.001"],
-  "tools": ["Botnet malware"],
-  "iocPatterns": ["Large-scale DDoS attack patterns", "Botnet-based command and control"],
-  "keyCapabilities": ["Nation-state backed operations", "Large-scale DDoS campaigns", "Botnet control"],
-  "recommendedActions": [
-    "Enhance DDoS protection with multi-layered defense strategies",
-    "Monitor for botnet-related anomalies in network traffic",
-    "Conduct regular security assessments of critical infrastructure"
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Collection",
+    "Command and Control",
+    "Exfiltration"
   ],
-  "campaignsText": "ITSecTeam has demonstrated a history of conducting prolonged campaigns targeting the U.S., with notable operations in 2012-2013. The group's members were linked to a significant DDoS campaign that disrupted American financial and energy sectors, suggesting ongoing operational activity. Indictments in 2016 highlight their continued interest in disrupting U.S. interests.",
-  "description": "ITSecTeam is a nation-state threat actor linked to Iran's Islamic Revolutionary Guard Corps (IRGC), known for orchestrating significant denial-of-service (DDoS) attacks against U.S. targets between 2012 and 2013. The group has demonstrated capabilities in large-scale cyber disruptions, with three individuals associated with ITSecTeam indicted by the U.S. Justice Department in 2016.",
-  "goals": "ITSecTeam's primary objective appears to be disrupting U.S. critical infrastructure and public sector services through DDoS attacks, possibly as part of broader geopolitical and ideological goals. The group targets sectors such as government, finance, and energy, focusing on high-profile American organizations to achieve maximum impact.",
+  "techniques": ["T1190", "T1132.001", "T1542", "T1213", "T1681", "T1678", "T1127"],
+  "tools": ["Havij", "T9000", "Plat1", "Cobalt Strike", "Mimikatz", "TrickBot", "PowerShell"],
+  "iocPatterns": [
+    "SQL injection payloads used for automated vulnerability discovery",
+    "C2 communications using custom backdoors such as T9000/Plat1",
+    "Use of certutil.exe and powershell for file manipulation and download tasks",
+    "Infrastructure involving domains specifically registered for exploitation or long-term staging"
+  ],
+  "keyCapabilities": [
+    "Automated SQL Injection",
+    "Tailored Backdoor Deployment (T9000/Plat1)",
+    "Data Exfiltration from Information Repositories",
+    "Exploitation of Public-Facing Applications",
+    "Use of Obfuscation and Encoding",
+    "Persistence in Government Networks"
+  ],
+  "recommendedActions": [
+    "Patch all public-facing applications to mitigate risk from automated scanning tools like Havij.",
+    "Implement strict egress filtering to block communication with known malicious C2 infrastructure.",
+    "Deploy EDR solutions to monitor and alert on the misuse of legitimate system binaries (e.g., certutil.exe, net.exe).",
+    "Conduct regular SQL injection vulnerability assessments on web-facing enterprise applications.",
+    "Use behavior-based analysis to detect unusual patterns in information repository access.",
+    "Implement multi-factor authentication (MFA) for all remote access points and internal administrative systems.",
+    "Segment critical infrastructure networks from, and with, public-facing internet gateways.",
+    "Conduct periodic hunting for established backdoor signatures like Plat1 or T9000 variants."
+  ],
+  "campaignsText": "The actor has been active for several years, with notable activity periods in 2012-2013 during a phase of disruptive attacks against the US. Their more recent operations involve sophisticated espionage campaigns using specialized backdoors like T9000 to gather information from Western organizations. The group is noted for its persistence and ability to target high-value international targets across various sectors, suggesting a steady operational tempo focused on strategic intelligence gathering.",
+  "description": "ITSecTeam is a sophisticated, state-sponsored threat actor primarily linked to intelligence operations and espionage on behalf of Iranian interests. The group has been identified as responsible for significant disruptive activities against U.S. infrastructure and utilizes a variety of custom backdoors and automated exploitation tools to breach government and critical sectors.",
+  "goals": "The primary goal of ITSecTeam is espionage to support Iranian strategic interests. They target a broad spectrum of sectors including government, defense, energy, and telecommunications across dozens of countries (including the US, UK, and several Middle Eastern and Asian nations) to gather sensitive intelligence regarding military capabilities, infrastructure vulnerabilities, and political sentiments. By targeting these sectors, they seek to establish long-term access for policy exploitation and strategic advantage.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1598",
   "sourceUrl": "https://threaticon.com/threat-actors/1598"
 }

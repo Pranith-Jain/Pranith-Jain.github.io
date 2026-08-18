@@ -13,7 +13,23 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["APT", "Mobile Threat", "Zero-click Exploit", "nation-state activity", "Ransomware", "Backdoor / C2"],
+  "tags": [
+    "iOS",
+    "Zero-Click",
+    "iMessage",
+    "TriangleDB",
+    "Mobile Malware",
+    "Spyware",
+    "Sophisticated Threat Actor",
+    "Memory Corruption",
+    "Initial Access",
+    "Ransomware",
+    "APT",
+    "Backdoor / C2",
+    "Mobile Threat",
+    "Zero-click Exploit",
+    "nation-state activity"
+  ],
   "aliases": ["Careto", "STATIC TUNDRA", "Sandworm Team", "CovertNetwork-1658"],
   "targetedSectors": [
     "Financial services",
@@ -72,24 +88,46 @@
     "EG",
     "NL"
   ],
-  "tactics": ["Exploitation for Corporate Espionage", "Initial Access", "Defense Evasion"],
-  "techniques": ["T1059", "T1285", "T1078"],
-  "tools": ["TriangleDB"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Command and Control",
+    "Collection",
+    "Privilege Escalation",
+    "Defense Evasion"
+  ],
+  "techniques": ["T1636.001", "T1566.003", "T1498", "T1071", "T1059", "T1014", "T1070.001", "T1012", "T1548"],
+  "tools": ["TriangleDB", "Binary Validator", "IMAgent", "KUMA", "Safari"],
   "iocPatterns": [
-    "Malicious iMessage attachments",
-    "Presence of TriangleDB implant",
-    "Network traffic from affected devices to C2 servers"
+    "C2 domain list matching confirmed malicious activity",
+    "System-level messages such as 'Software Update Failed' during iOS updates",
+    "Behavioral indicators for the IMAgent process (purging artifacts)",
+    "Unauthorized background Safari redirections",
+    "Anomalies in iTunes backups or iMessage metadata",
+    "Presence of TriangleDB payload segments"
   ],
-  "keyCapabilities": ["Zero-click exploitation", "Mobile device infection", "Persistent implant deployment"],
+  "keyCapabilities": [
+    "Zero-click iMessage exploitation",
+    "Root privilege execution on iOS",
+    "Bypassing Pointer Authentication Code (PAC)",
+    "Multi-stage payload execution",
+    "Memory protection bypass using hardware vulnerabilities",
+    "Forensic evasion and artifact purging",
+    "Automated infrastructure validation"
+  ],
   "recommendedActions": [
-    "Apply Apple patches promptly",
-    "Monitor for unusual iOS device behavior",
-    "Implement MDM solutions for anomaly detection",
-    "Enhance endpoint visibility and use EDR tools"
+    "Implement network monitoring to detect and block connections to known C2 infrastructure.",
+    "Deploy advanced mobile threat detection (MTD) solutions capable of detecting IMAgent-like cleanup behaviors.",
+    "Monitor for systemic 'Software Update' errors as a leading indicator of exploitation attempts.",
+    "Conduct memory and filesystem forensics on suspected devices to identify TriangleDB presence.",
+    "Enforce strict organizational policies regarding the use of iMessage on corporate-managed mobile assets.",
+    "Integrate SIEM alerts for unusual background activity in web browsers (Safari) on managed devices.",
+    "Perform frequent analysis of iTunes backups to check for persistent malware artifacts."
   ],
-  "campaignsText": "Operation Triangulation's persistence since 2019 indicates a dedicated adversary targeting mobile platforms. Their focus on zero-click exploits ensures infections without user interaction, highlighting technical expertise and strategic patience.",
-  "description": "Operation Triangulation is a high-sophistication APT campaign exploiting zero-click vulnerabilities in Apple's iMessage to target iOS devices. The actors deploy the TriangleDB implant, indicating a focus on advanced, mobile-based attacks.",
-  "goals": "The actors likely aim for espionage or data theft, targeting high-value individuals in sectors like government and corporate spheres. Their strategy suggests a focus on discrete, long-term access to sensitive information, aligning with APT behavior often linked to nation-state activities.",
+  "campaignsText": "Operation Triangulation is characterized by a patient, high-sophistication operational tempo. Since 2019, the campaign has consistently targeted mobile infrastructure with highly resilient exploits. The use of zero-click delivery and multi-stage infection chains indicates a mature operation capable of persistent presence in target environments. Analysis suggests a deliberate focus on compromising device integrity to allow for long-term surveillance.",
+  "description": "Operation Triangulation is a highly sophisticated, long-running APT campaign utilizing zero-click iMessage vulnerabilities to deliver and install the TriangleDB implant on iOS devices. The operation leverages complex chain of vulnerabilities including memory protection bypasses and root execution capabilities to maintain persistent access on high-value mobile targets.",
+  "goals": "The threat actor targets a very broad and critical range of sectors including government, defense, energy, telecommunications, and critical infrastructure across over 25 countries. While some raw indicators suggest financial motivations, the advanced technical capabilities—specifically the use of multiple zero-day exploits and zero-click delivery methods—suggest a primary focus on intelligence gathering and strategic espionage against high-interest individuals and entities.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1047",
   "sourceUrl": "https://threaticon.com/threat-actors/1047"
 }

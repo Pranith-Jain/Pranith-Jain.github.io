@@ -14,13 +14,20 @@
   "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
+    "APT",
+    "Cybercrime",
+    "Malware",
+    "Rat",
+    "Hospitality",
+    "Financially Motivated",
+    "Initial Access",
+    "Backdoor / C2",
     "cybercrime",
     "financial-motivation",
     "hospitality-sector",
     "Latin-America",
     "malware",
-    "social-engineering",
-    "Backdoor / C2"
+    "social-engineering"
   ],
   "aliases": ["TA558", "that hit hotels", "Jripbot", "Morpho"],
   "targetedSectors": [
@@ -34,26 +41,35 @@
     "Defense"
   ],
   "targetedCountries": ["AE", "BR", "LB", "MX", "ES", "RU", "TR", "EG", "BY", "IT"],
-  "tactics": ["Initial Access", "Credential Access", "Lateral Movement"],
-  "techniques": ["T1059", "T1078.001", "T1021.002"],
-  "tools": ["Custom Remote Access Trojan (RAT)", "Social Engineering Tools", "Credential Dumper"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Evasion", "Command and Control", "Exfiltration"],
+  "techniques": ["T1566.002", "T1036", "T1059.003", "T1567", "T1059.001"],
+  "tools": ["VenomRAT", "GodRAT", "gh0st RAT", "PowerShell", "AutoIt"],
   "iocPatterns": [
-    "Spear-phishing emails targeting hotel staff",
-    "Compromised hotel systems listed for sale online",
-    "Phishing emails with malicious links sent from new domains"
+    "Spear-phishing with macro-laden documents or malicious script files",
+    "Redirects to fraudulent document storage websites (e.g., hosting sites used as staging)",
+    "Use of RAT families such as VenomRAT and GodRAT for persistent C2",
+    "Social engineering lures regarding job applications, invoices, and reservation details"
   ],
-  "keyCapabilities": ["Use of remote access Trojans", "Social engineering tactics", "Data theft and credential sale"],
+  "keyCapabilities": [
+    "Social engineering and phishing execution",
+    "Remote Access Trojan (RAT) deployment and management",
+    "Malware distribution via fraudulent cloud storage links",
+    "Credential harvesting from compromised systems",
+    "Evasion of security controls to maintain long-term persistence in hospitality networks"
+  ],
   "recommendedActions": [
-    "Implement employee training on social engineering attacks",
-    "Deploy endpoint detection and response (EDR) solutions",
-    "Regularly update software to mitigate known vulnerabilities",
-    "Secure guest data storage and access controls",
-    "Monitor for suspicious activity in third-party vendor systems",
-    "Apply multi-factor authentication where possible"
+    "Implement advanced email filtering to block malicious links and known-malicious file types (.scr, .exe).",
+    "Deploy an Endpoint Detection and Response (EDR) solution specifically tuned to alert on RAT behaviors.",
+    "Isolate hotel front desk systems from the primary corporate network using VLAN segmentation.",
+    "Enforce Multi-Factor Authentication (MFA) for all staff access points and guest portals.",
+    "Conduct targeted phishing awareness training focusing on 'scam' invoice/job offer lures for hospitality staff.",
+    "Perform regular security audits of any hosted document storage sites used by employees or guests.",
+    "Implement a rigid blocklist for known malicious domains associated with fraudulent document hosting.",
+    "Monitor network traffic for non-standard communication from front-desk workstations to external IPs."
   ],
-  "campaignsText": "RevengeHotels has demonstrated persistence over years, focusing on hotel systems. They sell stolen data in dark web markets and adapt tactics to target specific system vulnerabilities.",
-  "description": "RevengeHotels is a cybercrime campaign active since 2015, targeting hotels in Latin America to steal credit card data and sell system credentials on the dark web.",
-  "goals": "The primary goal of RevengeHotels is monetary gain through data theft. They target the hospitality sector, particularly hotels in Latin America, due to their accessible payment systems. Their victims are often mid-sized to large hotels with less sophisticated security measures.",
+  "campaignsText": "RevengeHotels has shown a consistent operational focus on the hospitality industry for over a decade. A notable progression in their tactics was observed when they transitioned from community-centric distribution (such as Skype-based files) to targeted, high-conversion phishing campaigns using fraudulent document hosting sites. Between June and August 2025, a specific surge was noted targeting Brazil and Spain. The actor maintains a steady operational tempo, regularly updating its RAT offerings—most recently integrating VenomRAT—to maintain reliable access to victim networks.",
+  "description": "RevengeHotels (TA558) is a persistent cybercrime actor targeting the hospitality, tourism, and travel industries since at least 2015. The group specializes in stealing credit card data from hotel guests by deploying remote access trojans (RATs) like VenomRAT and GodRAT via sophisticated social engineering and phishing campaigns.",
+  "goals": "The primary objective of RevengeHotels is financial gain through the theft of personally identifiable information (PII) and payment card industry (PCI) data. They specifically target the hospitality sector because these organizations process high volumes of credit card transactions for thousands of diverse travelers every day. By compromising hotel front desks, the actor can harvest guest data at scale. Their targeting also extends to other high-value sectors like financial services and infrastructure when there is a secondary opportunity for profit or data monetization.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1046",
   "sourceUrl": "https://threaticon.com/threat-actors/1046"
 }

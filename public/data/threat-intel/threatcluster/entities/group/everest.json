@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "everest",
+  "name": "everest",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-17T14:25:14.000Z",
+  "lastSeen": "2026-08-17T14:25:14.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-17",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "rx-networks-0432",
+      "title": "Rx Networks — claimed by everest",
+      "pubDate": "2026-08-17T14:25:14.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "rx-networks-0432",
+      "victim": "Rx Networks — claimed by everest",
+      "sector": "Technology",
+      "country": "CA",
+      "pubDate": "2026-08-17T14:25:14.000Z"
+    }
+  ]
+}

@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/apt36-suspected-in-patchcord-espionage-campaign-using-google-219e20fe?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/apt36-suspected-in-patchcord-espionage-campaign-using-google-219e20fe",
   "pubDate": "2026-08-16T07:24:53.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
   "description": "Acronis has identified a new backdoor named PATCHCORD, attributed to APT36, targeting Afghan telecom and South Asian infrastructure. The attack utilizes fake VPN tools and Google Sheets as command and control (C2) infrastructure. This espionage campaign is particularly stealthy, indicating a sophisticated approach to disguise malicious activities. The backdoor is designed to infiltrate critical systems, posing a significant risk to the affected sectors. The operation appears to be ongoing, with Acronis documenting its findings in a recent report. The specific tools and methods used in this campaign have not been disclosed in detail, but the implications for national security are considerable. Organizations in the targeted regions are advised to enhance their security measures against such threats.\n\nKey Points:\n• APT36 is using a new backdoor called PATCHCORD for espionage activities.\n• The attack targets Afghan telecom and South Asian infrastructure through fake VPNs.\n• Google Sheets is utilized as a command and control mechanism for the malware.",
   "sizeBytes": 1062
 }

@@ -13,7 +13,23 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["APT", "phishing", "financial-sector", "Phishing-as-a-Service", "Phishing", "Backdoor / C2"],
+  "tags": [
+    "Phishing-as-a-Service",
+    "PhaaS",
+    "AitM",
+    "Credential Theft",
+    "Smishing",
+    "Financial Fraud",
+    "Fraud-as-a-Service",
+    "Takedown",
+    "Canada International Targeting",
+    "Multi-Tenant Infrastructure",
+    "Initial Access",
+    "Phishing",
+    "Backdoor / C2",
+    "APT",
+    "phishing"
+  ],
   "aliases": ["LabRat", "real-time victim control module", "SnappyClient", "YoroTrooper"],
   "targetedSectors": [
     "Financial services",
@@ -30,36 +46,80 @@
     "Education"
   ],
   "targetedCountries": ["GB", "US", "CA", "RU", "SG", "AU", "VN", "CN", "FR", "IT", "RO", "EG", "BR", "NL", "IN"],
-  "tactics": ["Initial Access", "Execution", "Credential Access", "Impact"],
-  "techniques": [
-    "T1192.003 - Phishing - Spearphishing via link",
-    "T1204.002 - User Execution - Malicious File",
-    "T1566.001 - Phishing - Social Engineering",
-    "T1102.001 - User Input - Input Manipulation"
+  "tactics": [
+    "Initial Access",
+    "Resource Development",
+    "Execution",
+    "Credential Access",
+    "Social Engineering",
+    "Collection",
+    "Command and Control",
+    "Evasion",
+    "Impact",
+    "Exfiltration",
+    "Defense Evasion",
+    "Privilege Escalation"
   ],
-  "tools": ["LabRat", "LabSend"],
+  "techniques": [
+    "T1566",
+    "T1566.001",
+    "T1566.002",
+    "T1566.003",
+    "T1589",
+    "T1498",
+    "T1078",
+    "T1129",
+    "T1059",
+    "T1211",
+    "T1516"
+  ],
+  "tools": [
+    "LabHost",
+    "LabRat",
+    "LabSend",
+    "Frappo",
+    "EvilGinx2",
+    "LabCVV",
+    "LabRefund",
+    "SnappyClient",
+    "JuStuff",
+    "FakeSecurity",
+    "Illum",
+    "ReactGet"
+  ],
   "iocPatterns": [
-    "Spear-phishing via SMS with lures targeting financial institutions",
-    "Use of LabRat and LabSend for campaign control",
-    "Malicious URLs or payloads embedded in phishing messages",
-    "Phishing campaigns with subscription-based access patterns"
+    "Phishing-as-a-Service (PhaaS) panels",
+    "Adversary-in-the-Middle (AitM) proxy servers",
+    "Smishing links for 'customs' or 'delivery' scams",
+    "Domain rotation on labs, sends, and report keywords",
+    "Telegram channels for criminal recruitment and infrastructure updates",
+    "Fraudulent payment gateways",
+    "Automated SMS distribution bots"
   ],
   "keyCapabilities": [
-    "Phishing-as-a-Service (PaaS) infrastructure with automated campaign deployment",
-    "Real-time campaign orchestration using LabRat and LabSend tools",
-    "SMS-based phishing lures for targeted victim engagement",
-    "Custom phishing tooling tailored for financial institutions"
+    "Phishing-as-a-Service (PhaaS)",
+    "Adversary-in-the-Middle (AitM) 2FA bypass",
+    "Multi-tenant campaign management",
+    "Automated smishing/SMS distribution",
+    "Real-time victim monitoring and interaction",
+    "Large-scale brand impersonation",
+    "Geofencing and device fingerprinting",
+    "Fraudulent refund processing",
+    "Infrastructure automation for fraudulent sites"
   ],
   "recommendedActions": [
-    "Implement multi-factor authentication (MFA) for all banking systems and user accounts",
-    "Enhance employee training on phishing and social engineering detection, with a focus on SMS-based threats",
-    "Deploy advanced threat intelligence platforms to detect LabHost infrastructure and indicators",
-    "Monitor for unusual network activity or login patterns indicative of credential theft",
-    "Conduct regular penetration testing to identify vulnerabilities exploitable by PaaS models"
+    "Implement hardware-based MFA (e.g., FIDO2) to prevent AitM a-type 2FA bypass.",
+    "Deploy brand protection services to identify and take down fraudulent sites impersonating logistics or banking firms.",
+    "Incorporate multi-factor authentication that checks for proxy/VPN usage in the fraud detection stack.",
+    "Block known malicious domains associated with LabSend, including labsend.co and its subdomains.",
+    "Implement real-time monitoring and blocking of high-risk traffic behavior matching AitM patterns.",
+    "Execute proactive communication campaigns to educate customers on likely smishing lures regarding payment fees.",
+    "Update mail/SMS gateways to block keywords related to common fraudulent 'customs' or 'lost package' phrases.",
+    "Perform periodic audits of transaction sources to detect potential anomalies from known compromised card pools."
   ],
-  "campaignsText": "LabHost's campaigns exhibit a structured operational tempo, with a focus on the Canadian financial sector. Their use of subscription-based services suggests an ongoing, scalable model targeting organizations with the capacity to pay for phishing infrastructure. The group's reliance on SMS lures and customized tools indicates a focus on bypassing traditional email defenses. While no specific campaigns are linked in available data, their operational methods align with known PaaS models, implying a preference for low-cost, high-impact targeting. Their campaigns may be part of a larger ecosystem of cybercriminal services.",
-  "description": "LabHost is a threat actor group targeting Canadian banks through Phishing-as-a-Service campaigns, leveraging tools such as LabRat and LabSend for real-time attack orchestration. While their tactics resemble those of the Frappo group, LabHost operates independently and offers distinct subscription-based services. Their campaigns are specifically tailored to the financial sector, suggesting a focus on credential theft and fraud.",
-  "goals": "LabHost's primary objective appears to be financial gain through fraud and credential theft, as evidenced by their focus on banks. Their targeting of the Canadian financial sector suggests an exploitation of regulatory environments, potential vulnerabilities, or the high value of financial data in this region. The use of subscription-based phishing services indicates a long-term monetization strategy, targeting organizations with resources to pay for such services. Their campaigns suggest a preference for sectors with access to sensitive data, which can be exploited for ongoing financial or strategic advantages.",
+  "campaignsText": "Since 2021, LabHost has maintained a high operational tempo as a centralized hub for credential harvesting and financial fraud. Between its inception and the April 2024 takedown, it operated on a large scale, offering distinct tiers of access to over 2,000 criminals who utilized the infrastructure to target international markets. Their campaigns were characterized by highly specific, branded lures—particularly targeting Canadian banking systems' Interac payments and European logistics services using smishing. The group showed significant organizational sophistication in managing thousands of rotating domains and specialized modules like 'LabSend' for automated mobile-based distribution.",
+  "description": "LabHost is a large-scale Phishing-as-a-Service (PhaaS) organization that provided sophisticated infrastructure for thousands of criminal actors to conduct multi-layered phishing and smishing campaigns. The operation was primarily focused on financial gain by bypassing two-factor authentication (2FA) to target global banking customers and retail entities.",
+  "goals": "The primary objectives of LabHost are financial fraud, specifically credit card data theft (CC info), fraudulent payment processing, and identity theft. Their operations demonstrate a clear focus on targeting consumers interacting with major banking institutions (focused heavily on Canadian/US brands like Scotiabank and RBC) and logistics chains (DHL, An Post). By leveraging smishing templates for 'customs charges' or 'package delays,' they systematically harvest PII and payment credentials from a global audience across roughly 91 countries.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1059",
   "sourceUrl": "https://threaticon.com/threat-actors/1059"
 }

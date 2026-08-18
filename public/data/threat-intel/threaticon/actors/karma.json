@@ -13,7 +13,17 @@
   "resourceLevel": null,
   "motivation": "Organizational gain",
   "added": "Jul 21, 2026",
-  "tags": ["ransomware", "double-extortion", "organized-criminal", "enterprise-targeting"],
+  "tags": [
+    "Ransomware",
+    "RaaS",
+    "Double-Extortion",
+    "Cybercrime",
+    "Initial Access",
+    "ransomware",
+    "double-extortion",
+    "organized-criminal",
+    "enterprise-targeting"
+  ],
   "aliases": ["tracked as", "Sandworm Team", "Operation Cleaver", "Shell Crew"],
   "targetedSectors": [
     "Government",
@@ -80,29 +90,38 @@
     "AZ",
     "KZ"
   ],
-  "tactics": ["Exfiltration", "Credential Access", "Data Destruction"],
-  "techniques": ["T1059.003", "T1078", "T1204"],
-  "tools": ["Double extortion ransomware toolkit", "Ransomware encryption tools", "Network communication tools"],
+  "tactics": ["Impact", "Initial Access", "Exfiltration", "Command and Control", "Credential Access"],
+  "techniques": ["T1557.004", "T1557.003", "T1557.001", "T1585.001", "T1486", "T1020", "T1566"],
+  "tools": [],
   "iocPatterns": [
-    "Encrypted files with specific extensions (e.g., .karma)",
-    "Presence of ransom notes in text files",
-    "Network traffic indicative of C2 communication"
+    "Ransom notes demanding payment via cryptocurrency",
+    "Exfiltration of sensitive files before encryption",
+    "Use of AiTM techniques for credential theft",
+    "Social media accounts used for phishing or lure generation",
+    "Infrastructure likely shared with other RaaS affiliates"
   ],
   "keyCapabilities": [
-    "Double extortion attacks",
-    "Ransomware-as-a-Service (RaaS) operations",
-    "Targeted enterprise-level attacks in specific sectors"
+    "Double-extortion ransomware execution",
+    "Ransomware-as-a-Service (RaaS) administration",
+    "Adversary-in-the-Middle (AiT) attacks",
+    "Social media account exploitation",
+    "Data exfiltration and negotiation",
+    "Multitude of malware iterations (e.g., BlackByte, REvil strains)",
+    "Offensive infrastructure management"
   ],
   "recommendedActions": [
-    "Implement robust backups and ensure they are air-gapped to prevent data loss",
-    "Enforce strict network segmentation to limit lateral movement",
-    "Conduct regular employee training on phishing and social engineering attacks",
-    "Monitor for known ransomware TTPs and indicators of compromise (IoCs)",
-    "Establish incident response plans to handle potential ransomware events"
+    "Implement multi-factor authentication (MFA) to mitigate the risk from Adversary-in-the-Middle attacks.",
+    "Segment internal networks to limit potential lateral movement during an infection.",
+    "Perform regular, offline backups of critical data to ensure restoration capabilities without paying ransom.",
+    "Establish a robust data loss prevention (DLP) strategy to identify and block unauthorized data exfiltration.",
+    "Conduct security awareness training focusing on social media phishing and suspicious document links.",
+    "Monitor network traffic for signs of DNS or ARP poisoning indicators.",
+    "Implement endpoint detection and response (EDR) tools to flag and block known RaaS malware families.",
+    "Regularly audit and rotate credentials for high-value target systems."
   ],
-  "campaignsText": "Karma's campaigns typically involve targeted attacks against critical infrastructure sectors, leveraging RaaS modules for rapid deployment and customization. The group has demonstrated a preference for high-impact targets, with known victims including healthcare providers and manufacturing firms. Notable operations include multiple double-extortion incidents, where stolen data is used to coerce payments. Campaign activity appears to be coordinated, with 'farnetwork' managing the distribution of attack modules and ransomware infrastructure.",
-  "description": "Karma is a ransomware group observed since mid-2021, linked to previous strains like Nefilim and FiveHands. Operating as a criminal organization with medium sophistication, Karma focuses on double-extortion attacks against enterprises in healthcare, manufacturing, and technology sectors. The group is managed by the threat actor 'farnetwork' and operates multiple ransomware-as-a-service (RaaS) programs across related strains.",
-  "goals": "Karma's primary goal is financial gain through ransomware attacks. The group targets enterprises in healthcare, manufacturing, and technology sectors due to their high data sensitivity and potential for significant financial losses. By leveraging double-extortion tactics, Karma aims to increase pressure on victims to comply with demands. The choice of targeted industries suggests a focus on environments where downtime or data loss would have severe consequences, making these sectors more likely to pay ransoms.",
+  "campaignsText": "Since its emergence in 2021, Karma has shown a consistent pattern of high-volume targeting across diverse sectors (Education, Finance, Manufacturing). They frequently leverage multi-persona campaigns to disguise their tracks. Evidence suggests they move quickly from initial infection to exfiltration before deploying the final ransomware payload, characteristic of professional RaaS operations.",
+  "description": "Karma is a criminal ransomware organization specializing in double-extortion attacks against diverse sectors including healthcare, manufacturing, and technology. Formed in mid-2021 as part of a lineage including Nefilim and FiveHands, the group operates under the 'farnetwork' management to maximize financial gains through RaaS (Ransomware-as-a-Service) operations.",
+  "goals": "The primary objective of Karma is financial gain through cyber extortion. By targeting industries with low tolerance for downtime or data leaks—such as healthcare, manufacturing, and energy—they maximize the pressure on victims to pay significant ransoms. Their targets are globally distributed, spanning over 30 countries, indicating a non-discriminatory, high-volume recruitment of targets based on availability rather than specific regional sentiment.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1627",
   "sourceUrl": "https://threaticon.com/threat-actors/1627"
 }

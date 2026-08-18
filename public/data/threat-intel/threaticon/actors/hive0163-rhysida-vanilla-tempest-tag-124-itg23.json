@@ -13,7 +13,16 @@
   "resourceLevel": null,
   "motivation": null,
   "added": "Jul 13, 2026",
-  "tags": ["Ransomware", "Phishing", "Backdoor / C2"],
+  "tags": [
+    "ransomware",
+    "cybercrime",
+    "malware",
+    "infrastructure\", \"government-targeting\"",
+    "Initial Access",
+    "Ransomware",
+    "Phishing",
+    "Backdoor / C2"
+  ],
   "aliases": ["tracked as"],
   "targetedSectors": [
     "Aerospace",
@@ -32,15 +41,48 @@
     "Transportation"
   ],
   "targetedCountries": [],
-  "tactics": [],
-  "techniques": [],
-  "tools": [],
-  "iocPatterns": [],
-  "keyCapabilities": [],
-  "recommendedActions": [],
-  "campaignsText": null,
-  "description": null,
-  "goals": null,
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Credential Access",
+    "Discovery",
+    "Lateral Movement",
+    "Collection",
+    "Impact"
+  ],
+  "techniques": ["T1566.001", "T1059.001", "T1185", "T1497", "T1136", "T1027", "T1547.001", "T1566.003"],
+  "tools": ["NodeSnake", "InterlockRAT", "JunkFiction", "Supper", "Endico", "Broomstick", "Tomb crypter", "ClickFix"],
+  "iocPatterns": [
+    "Trojanized installers delivering custom RAT payloads",
+    "ClickFix campaigns used to trick users into disabling security protections",
+    "Script-based automation for broad distribution",
+    "Advanced obfuscation utilizing custom crypters (Tomb)",
+    "Custom WDAC policy implementation for evasion"
+  ],
+  "keyCapabilities": [
+    "Custom malware development (NodeSnake, InterlockRAT)",
+    "Advanced evasion techniques including custom WDAC policies",
+    "Large-scale delivery via Trojanized installers",
+    "Execution of ClickFix campaigns for initial access",
+    "Infrastructure management through traffic distribution systems",
+    "Credential phishing and harvesting tools",
+    "Sophisticated crypter usage (Tomb)"
+  ],
+  "recommendedActions": [
+    "Implement strict application allow-listing and monitor for unauthorized WDAC changes.",
+    "Block known malicious URLs and IP addresses associated with JunkFiction and NodeSnake payloads.",
+    "Deploy end-point detection and response (EDR) to identify suspicious PowerShell or script execution.",
+    "Disable or restrict the use of macros in Office applications via Group Policy.",
+    "Conduct user awareness training targeting social engineering and ClickFix navigation patterns.",
+    "Perform regular audits of credentials for evidence of harvesting or unauthorized access.",
+    "Enable MFA across all external-facing services and internal management platforms.",
+    "Segment critical network zones to prevent lateral movement by ransomware actors."
+  ],
+  "campaignsText": "The actor ecosystem has been observed over a period of more than two years, demonstrating sustained operational tempo. Data indicates an active transition between infrastructure and tools among the rhysida and hive0163 groups, suggesting they function as a synchronized ransomware network. They frequently utilize Trojanized installers and ClickFix methods to gain initial foothold in U.S.-based organizations within kritisch sectors like energy, manufacturing, and healthcare.",
+  "description": "The hive0163 (Interlock) and rhysida groups constitute a sophisticated, interconnected ransomware ecosystem targeting diverse critical infrastructure sectors in the United States. These actors utilize highly customized malware, advanced evasion techniques such as custom WDAC policies, and large-scale distribution networks to conduct high-impact extortion campaigns.",
+  "goals": "The primary objective of these threat actors is financial gain through large-scale ransomware operations. They target a wide spectrum of critical infrastructure sectors within the United States—including healthcare, energy, manufacturing, and government services—to maximize the potential 'pain point' created by system outages and data loss. By maintaining a diverse target profile, they ensure operational longevity even if specific niches become more heavily defended.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1550",
   "sourceUrl": "https://threaticon.com/threat-actors/1550"
 }

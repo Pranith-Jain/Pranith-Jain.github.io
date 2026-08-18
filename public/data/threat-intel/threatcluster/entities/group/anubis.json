@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "anubis",
+  "name": "anubis",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-18T03:21:51.000Z",
+  "lastSeen": "2026-08-18T03:21:51.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-18",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "scholle-ipn-sig-cf38",
+      "title": "Scholle IPN / SIG — claimed by anubis",
+      "pubDate": "2026-08-18T03:21:51.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "scholle-ipn-sig-cf38",
+      "victim": "Scholle IPN / SIG — claimed by anubis",
+      "sector": "Manufacturing",
+      "country": "DE",
+      "pubDate": "2026-08-18T03:21:51.000Z"
+    }
+  ]
+}

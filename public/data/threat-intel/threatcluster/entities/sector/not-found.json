@@ -4,21 +4,43 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-15T21:43:02.000Z",
-  "lastSeen": "2026-08-16T17:52:24.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-08-16T16:18:45.000Z",
+  "lastSeen": "2026-08-18T02:50:19.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 5 countries.",
   "frequency": [
     {
-      "date": "2026-08-15",
+      "date": "2026-08-16",
+      "count": 2
+    },
+    {
+      "date": "2026-08-17",
       "count": 1
     },
     {
-      "date": "2026-08-16",
-      "count": 3
+      "date": "2026-08-18",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "de-up-f115",
+      "title": "De***up — claimed by AuditTeam",
+      "pubDate": "2026-08-18T02:50:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "sd-associates-sdn-bhd-9431",
+      "title": "SD Associates Sdn Bhd — claimed by incransom",
+      "pubDate": "2026-08-18T00:26:41.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "vermont-xcenter-3a6f",
+      "title": "Vermont XCenter — claimed by dragonforce",
+      "pubDate": "2026-08-17T09:24:54.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "sagasta-sro-5ab7",
@@ -30,21 +52,27 @@
       "slug": "moscord-45c8",
       "title": "Moscord — claimed by Eclipse",
       "pubDate": "2026-08-16T16:18:45.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "desatera-sdn-bhd-e152",
-      "title": "Desatera Sdn Bhd — claimed by qilin",
-      "pubDate": "2026-08-16T11:31:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "-96d8",
-      "title": "********* — claimed by xpl0itrs",
-      "pubDate": "2026-08-15T21:43:02.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "auditteam",
+      "name": "AuditTeam",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "incransom",
+      "name": "incransom",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "dragonforce",
+      "name": "dragonforce",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "panzer",
@@ -55,18 +83,6 @@
       "type": "group",
       "slug": "eclipse",
       "name": "Eclipse",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "xpl0itrs",
-      "name": "xpl0itrs",
       "weight": 1
     }
   ],

@@ -13,7 +13,7 @@
   "resourceLevel": null,
   "motivation": null,
   "added": "May 17, 2026",
-  "tags": ["APT group", "Cloud compromise", "Credential theft", "Email abuse"],
+  "tags": ["APT group", "Cloud compromise", "Credential theft", "Email abuse", "Initial Access"],
   "aliases": [],
   "targetedSectors": [],
   "targetedCountries": [],

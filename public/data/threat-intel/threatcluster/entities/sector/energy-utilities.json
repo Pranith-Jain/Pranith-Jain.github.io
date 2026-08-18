@@ -4,22 +4,32 @@
   "name": "Energy & Utilities",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 1,
-  "firstSeen": "2026-08-16T14:51:08.000Z",
-  "lastSeen": "2026-08-16T14:51:08.000Z",
-  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-17T21:30:42.000Z",
+  "lastSeen": "2026-08-18T03:55:20.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-16",
+      "date": "2026-08-17",
+      "count": 1
+    },
+    {
+      "date": "2026-08-18",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "vgrn-de-873b",
-      "title": "vgrn.de — claimed by lockbit5",
-      "pubDate": "2026-08-16T14:51:08.000Z"
+      "slug": "terra-petra-com-4412",
+      "title": "terra-petra.com — claimed by lockbit5",
+      "pubDate": "2026-08-18T03:55:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gsw-gemeinschaftsstadtwerke-gmbh-5a15",
+      "title": "GSW Gemeinschaftsstadtwerke GmbH — claimed by qilin",
+      "pubDate": "2026-08-17T21:30:42.000Z"
     }
   ],
   "relatedEntities": [
@@ -27,6 +37,12 @@
       "type": "group",
       "slug": "lockbit5",
       "name": "lockbit5",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
       "weight": 1
     }
   ],

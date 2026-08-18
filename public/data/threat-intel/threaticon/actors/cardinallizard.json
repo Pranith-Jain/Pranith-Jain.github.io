@@ -13,33 +13,81 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["APT", "espionage", "China-linked", "Asia-focused", "Phishing"],
+  "tags": [
+    "APT",
+    "Espionage",
+    "Infrastructure_Target_Defense",
+    "Asia_Operations",
+    "China-Linked",
+    "Initial Access",
+    "Phishing",
+    "espionage",
+    "China-linked",
+    "Asia-focused"
+  ],
   "aliases": ["NGT6DE", "MGT-K in different variations", "APT28", "Pawn Storm"],
   "targetedSectors": ["Government", "Think tank", "Defense", "Energy"],
   "targetedCountries": ["KP"],
-  "tactics": ["Reconnaissance", "Initial Access", "Persistence", "Data Collection"],
-  "techniques": ["T1059.003", "T1055"],
-  "tools": ["Custom malware", "Potential use of Cobalt Strike (if linked to shared tools)"],
+  "tactics": [
+    "Initial Access",
+    "Execution",
+    "Persistence",
+    "Defense Evasion",
+    "Discovery",
+    "Collection",
+    "Command and Control"
+  ],
+  "techniques": [
+    "T1566.001",
+    "T1059.001",
+    "T1059.003",
+    "T1102.001",
+    "T1071.001",
+    "T843",
+    "T1185",
+    "T1036",
+    "T1213",
+    "T830"
+  ],
+  "tools": [
+    "Gootloader",
+    "Ghost RAT",
+    "Agent1 Tesla",
+    "Cobalt Strike",
+    "PowerShell",
+    "IcedID",
+    "BITS Jobs",
+    "ClickOnce",
+    "MSBuild",
+    "Systemd"
+  ],
   "iocPatterns": [
-    "Spear-phishing emails",
-    "Malware with anti-detection features",
-    "C2 infrastructure linked to known Chinese domains"
+    "Spear-phishing with macro-enabled documents",
+    "Usage of legitimate system tools for persistence (LOTL)",
+    "C2 communication using common port conventions or standard protocols like BITS",
+    "Rapid deployment of information-stealing modules"
   ],
   "keyCapabilities": [
-    "Spear-phishing campaigns",
-    "Custom malware development",
-    "Anti-detection techniques",
-    "Potential use of shared infrastructure with other actors"
+    "Spear-phishing infrastructure management",
+    "Custom malware development with anti-forensics",
+    "Living-off-the-Land (LotL) techniques",
+    "Automated credential harvesting",
+    "Data exfiltration across custom C2 channels",
+    "Bypassing EDR through system service exploitation"
   ],
   "recommendedActions": [
-    "Implement multi-factor authentication for critical systems.",
-    "Conduct regular phishing simulations to train employees.",
-    "Monitor network traffic for signs of C2 activity.",
-    "Use endpoint detection and response (EDR) tools to identify custom malware."
+    "Implement strict email filtering and sandboxing for all incoming external attachments.",
+    "Deploy EDR solutions capable of detecting process hollowing and injection.",
+    "Use PowerShell Execution Policies (e.g., AllSigned) to limit script execution.",
+    "Monitor and alert on unusual BITS Job activities or ClickOnce applications.",
+    "Conduct regular hunting missions focused on identifying 'known-good' tool abuse for long-term persistence.",
+    "Enforce Multi-Factor Authentication (MFA) across all infrastructure, specifically for accounts with high privileges.",
+    "Segment critical networks (defense/energy systems) from the general corporate network.",
+    "Implement automated analysis of suspicious files and domains within a sandbox environment."
   ],
-  "campaignsText": "CardinalLizard's campaigns demonstrate a focus on stealth and long-term access. They have targeted organizations in Asia since 2018, with notable operations involving energy and telecommunications sectors. Their use of custom malware indicates a high level of sophistication. No specific campaigns are publicly documented beyond their general targeting patterns.",
-  "description": "CardinalLizard is a cyber threat actor linked to China, primarily active since 2018, targeting entities in Asia. Known for sophisticated attacks involving spear-phishing and custom malware with anti-detection features, CardinalLizard poses a significant threat to organizations in their targeted sectors.",
-  "goals": "CardinalLizard's strategic objectives appear to include intelligence collection and espionage against critical infrastructure in Asia. Their targeting of sectors like energy and telecommunications suggests a focus on gaining access to sensitive information and disrupting operations. Typical victims are government entities, private sector organizations, and those operating within China's geopolitical interests.",
+  "campaignsText": "CardinalLizard exhibits a consistent operational tempo since 2018, with an emphasis on the Asia region. They often utilize broad-spectrum tools like Gootloader to facilitate entry into high-value targets in the defense and energy sectors. The presence of both sophisticated custom backdoors and common commodity malware (like Agent Tesla) suggests a flexible campaign model that allows them to maintain presence while quickly gathering data from compromised systems.",
+  "description": "CardinalLizard is a sophisticated threat actor likely associated with Chinese interests, actively targeting government, defense, and energy sectors in Asia since 2018. The group utilizes a combination of spear-phishing, custom malware with anti-detection features, and legitimate 'living-off-the-land' techniques to achieve objectives that span espionage and potentially financial gain.",
+  "goals": "CardinalLizard's strategic objectives revolve around intelligence collection and potentially disruptive activities within critical infrastructure sectors, particularly defense and energy. By targeting governments and think tanks in Asia (and territories associated with KP), they aim to gain access to sensitive policy documents, geopolitical data, and operational secrets. Their inclusion of common information-stealing tools suggests a dual-purpose objective: establishing advanced persistent presence for long-term espionage while maintaining the capability to exfiltrate valuable credentials for financial or strategic leverage.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1049",
   "sourceUrl": "https://threaticon.com/threat-actors/1049"
 }

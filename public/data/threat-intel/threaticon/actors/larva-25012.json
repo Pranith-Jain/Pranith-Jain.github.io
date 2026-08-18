@@ -13,7 +13,7 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["APT", "Proxyware", "Malvertising"],
+  "tags": ["APT", "Proxyware", "Cybercrime", "Financial Gain", "Trojan", "Social Engineering", "Malvertising"],
   "aliases": ["tracked as", "the", "the Newscaster Team", "the euechinoids"],
   "targetedSectors": [
     "Education",
@@ -28,28 +28,37 @@
     "Transportation"
   ],
   "targetedCountries": ["GB", "US"],
-  "tactics": ["Reconnaissance", "Exfiltration"],
-  "techniques": ["T1059", "T1566"],
-  "tools": ["DigitalPulse", "Honeygain", "Infatica", "Notepad++ (malicious installer)"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Defense Evasion", "Command and Control"],
+  "techniques": ["T1036.005", "T1036.001", "T1059.001", "T1547.001", "T1218", "T6793"],
+  "tools": ["Honeygain", "Infatica", "DigitalPulse", "Python Loaders", "Mimikatz", "Custom Proxyware Tools"],
   "iocPatterns": [
-    "Spear-phishing campaigns via malicious advertisements",
-    "Payload delivered via Notepad++ installer",
-    "Windows process injection into explorer.exe"
+    "Fake websites offering cracked versions of Notepad++",
+    "Advertisements leading to 'Free YouTube' download tools",
+    "Python-based loaders appearing in system logs",
+    "Unexpected growth in outbound traffic to known proxy IP ranges",
+    "Injection into explorer.exe processes"
   ],
   "keyCapabilities": [
     "Proxyware deployment",
-    "Notepad++ installer disguise",
-    "Windows process injection",
-    "Python-based loader usage"
+    "Social engineering via fake installers",
+    "Python-based loader development",
+    "Process injection (explorer.exe)",
+    "Malware masquerading",
+    "Ad-based distribution infrastructure"
   ],
   "recommendedActions": [
-    "Enhance network monitoring to detect suspicious processes and outbound communications from infected systems.",
-    "Educate users on the risks of downloading software from untrusted sources or engaging with pop-up ads on questionable websites.",
-    "Implement endpoint detection and response (EDR) solutions to identify and block malicious Python-based loaders and process injection activities."
+    "Block access to the specific malicious domains identified distributing fake Notepad++ installers.",
+    "Implement EDR rules to detect and alert on unauthorized Python-based loaders executing from temp directories.",
+    "Monitor 'explorer.exe' for suspicious memory injections or joined modules.",
+    "Utilize DNS filtering to block known proxyware communication endpoints (Honeygain, etc.).",
+    "Conduct a network audit to identify internal systems transmitting traffic to large pools of residential IP addresses.",
+    "Educate staff against the use of 'cracked' software or third-party sites for media downloads.",
+    "Deploy web gateway scanning to intercept and block suspicious ad-driven landing pages.",
+    "Scan corporate networks specifically for the presence of DigitalPulse, Honeygain, or Infatica binaries."
   ],
-  "campaignsText": "Larva-25012 has been active since at least 2024, with campaigns focusing on distributing Proxyware through malicious advertisements. Their targeting appears to be broad, with a focus on users visiting websites offering free YouTube video downloads or cracked software. Despite their activity since 2024, there is limited information about specific campaigns, victimology, or the geographic scope of their operations.",
-  "description": "Larva-25012 is an unidentified threat actor known for deploying Proxyware through malicious Notepad++ installers. They inject Proxyware into the Windows Explorer process, use Python-based loaders to evade detection, and distribute their payloads via advertisements on websites offering free YouTube video downloads or fake cracked software. The actor has been active since at least 2024, targeting users in an unspecified manner with multiple types of Proxyware.",
-  "goals": "The strategic objectives of Larva-25012 remain unclear due to limited available intelligence. However, their use of Proxyware suggests a focus on establishing long-term control over targeted systems for potential surveillance or data theft. Their targeting appears to be indiscriminate, as they distribute malware through general-interest websites, preying on users seeking free content or software cracks. This broad targeting indicates that Larva-25012 is likely not limited to specific sectors or regions.",
+  "campaignsText": "Since at least 2024, Larva-25012 has shown a consistent pattern of using advertisement-driven distribution to compromise end-user devices. Their campaigns specifically target the delivery gap where users search for 'cracked' or 'free' versions of software. The discovery of multiple proxyware variants (DigitalPulse, Honeygain, Infatica) suggests an active and ongoing effort to build a stable merchant network under these monikers.",
+  "description": "Larva-25012 is a financially motivated threat actor active since 2024 that specializes in the distribution of 'Proxyware' by masquerading as legitimate software installers. The group targets users seeking free tools and cracked software to hijack system resources for monetized proxy traffic.",
+  "goals": "The primary objective of Larva-25012 is financial gain via the exploitation of user resources. Rather than traditional data theft or state intelligence gathering, this actor seeks to commoditize the internet connectivity and IP reputations of its victims. They target a wide array of sectors—including government, defense, and finance—specifically in high-value geographic regions like the United States and Great Britain (GB). These locations are prime targets because their residential and corporate IP spaces are highly valuable when sold as proxy nodes for other illicit activities.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1286",
   "sourceUrl": "https://threaticon.com/threat-actors/1286"
 }

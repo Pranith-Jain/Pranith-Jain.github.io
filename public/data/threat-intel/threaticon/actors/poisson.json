@@ -13,34 +13,51 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "Jul 19, 2026",
-  "tags": ["APT", "fileless malware", "VPN-mesh-based persistence", "Financial Targeting", "Backdoor / C2"],
+  "tags": [
+    "APT",
+    "Cybercrime",
+    "Financial_Fraud",
+    "Fileless_Malware",
+    "VPN_Mesh",
+    "France_Target",
+    "Initial Access",
+    "Financial Targeting",
+    "Backdoor / C2"
+  ],
   "aliases": ["tracked as", "a Poisson random measure", "monkeypox", "a Poisson point field"],
   "targetedSectors": ["Financial services", "Non profit", "Healthcare", "Manufacturing", "Education", "Government"],
   "targetedCountries": ["GB", "FR"],
-  "tactics": ["Initial Access", "Execution", "Persistence", "Privilege Escalation"],
-  "techniques": ["T1059.003", "T1055", "T1566.001", "T1071.001"],
-  "tools": ["Havoc C2 framework", "Backblaze B2 storage", "DuckDNS", "Tailscale VPN", "OpenSSH"],
+  "tactics": ["Initial Access", "Execution", "Persistence", "Command and Control", "Credential Access", "Exfiltration"],
+  "techniques": ["T1059.003", "T1074", "T1105", "T1563.002", "T1566.001", "T1572"],
+  "tools": ["Havoc", "Tailscale", "DuckDNS", "Backblaze B2", "OpenSSH", "Python-based Keyloggers"],
   "iocPatterns": [
-    "Spear-phishing with macro-laced Office documents",
-    "C2 over DNS using fast-flux",
-    "Staging infrastructure on free-tier cloud services"
+    "Fileless Python scripts appearing in local processes",
+    "Unusual installations of Tailscale or OpenSSH on non-server devices",
+    "DNS lookups for DuckDNS subdomains from internal hosts",
+    "Outbound traffic toward Backblaze B2 storage services",
+    "Spear-phishing attempts using French language and localized content"
   ],
   "keyCapabilities": [
-    "Multi-stage fileless attacks",
-    "Python keylogger development",
-    "Free-tier infrastructure utilization",
-    "OpenSSH and Tailscale VPN installation",
-    "VPN-mesh-based persistence"
+    "Multi-stage fileless execution",
+    "Python-based credential harvesting",
+    "VPN mesh networking for persistence",
+    "Havoc C2 framework deployment",
+    "Infrastructure masking via DuckDNS/Backblaze",
+    "Overcoming C2 take-down remediation"
   ],
   "recommendedActions": [
-    "Implement robust network segmentation and access controls",
-    "Utilize endpoint detection and response (EDR) tools",
-    "Conduct regular security audits and vulnerability assessments",
-    "Develop incident response plans to address VPN-mesh-based persistence"
+    "Implement EDR policies to alert on the execution of Python scripts in unexpected directories or by unauthorized accounts.",
+    "Monitor for and block the installation of VPN mesh software (e.g., Tailscale, ZeroTier) unless expressly permitted by IT policy.",
+    "Restrict outbound traffic to known cloud storage providers like Backblaze B2 unless a valid business use case is verified.",
+    "Conduct audits for OpenSSH services running on endpoints that do not require remote management capabilities.",
+    "Implement Multi-Factor Authentication (MFA) across all internal and external portals, specifically focusing on banking-related systems.",
+    "Perform DNS filtering to block subdomains hosted on DuckDNS or other high-risk dynamic DNS providers.",
+    "Conduct employee awareness training focused on identifying spear-phishing attempts that utilize local languages as a means of trust.",
+    "Integrate automated analysis of outbound traffic to identify 'beaconing' behavior from unconventional ports/protocols."
   ],
-  "campaignsText": "The Poisson actor's campaign patterns suggest a high degree of planning and sophistication. The actor's use of multi-stage fileless attacks and VPN-mesh-based persistence indicates a desire to maintain long-term access to compromised networks. The actor's targeting of French-speaking organizations and individuals suggests a specific geographic focus, potentially indicating a regional or linguistically-based motivation. Notable past operations include the compromise of a French automotive small business and four French individuals, highlighting the actor's ability to target and compromise multiple organizations and individuals.",
-  "description": "The Poisson threat actor is a French-speaking entity that has been observed targeting French automotive small businesses and individuals, utilizing a multi-stage fileless attack to harvest banking and email credentials. The actor leverages free-tier infrastructure and creates persistent access through the installation of OpenSSH and Tailscale VPN on victim machines. This persistence allows the actor to maintain access even after the C2 server is taken down.",
-  "goals": "The Poisson threat actor's strategic objectives appear to be focused on harvesting sensitive information, such as banking and email credentials, from French-speaking organizations and individuals. The actor's targeting of automotive small businesses and individuals suggests a potential interest in the French economy or industry. The actor's use of VPN-mesh-based persistence and multi-stage fileless attacks indicates a high degree of sophistication and a desire to maintain long-term access to compromised networks.",
+  "campaignsText": "The threat actor was observed in a specific operation (Operation Poisson) where they targeted a French automotive small business and four individuals over a 33-day period. The campaign demonstrated an advanced persistence model: even after the primary C2 infrastructure was taken offline, the victim machines remained reachable via the established Tailscale VPN mesh for 18 days. This indicates a deliberate strategy to bypass standard incident response procedures that rely on blocking IPs or domains.",
+  "description": "The 'Poisson' threat actor is a cybercriminal entity targeting French-speaking individuals and small businesses for financial gain. They specialize in multi-stage fileless attacks, utilizing Python-based keyloggers and sophisticated VPN-mesh networking (Tailscale) to maintain persistent access even after primary command-and-control infrastructure is dismantled.",
+  "goals": "The threat actor aims primarily for financial gain by targeting high-value information, specifically banking and email credentials. They target a diverse range of sectors including manufacturing, healthcare, education, and government services in France and Great Britain. The strategy appears designed to harvest data from French-speaking users who may be less prepared for sophisticated multi-stage fileless attacks or those targeted through tailored spear-phishing campaigns.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1614",
   "sourceUrl": "https://threaticon.com/threat-actors/1614"
 }

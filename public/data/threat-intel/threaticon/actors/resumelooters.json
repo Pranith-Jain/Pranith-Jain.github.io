@@ -13,7 +13,23 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["Web-Attacks", "APT group", "Malware", "Initial Access", "Critical Infrastructure", "Data Exfiltration"],
+  "tags": [
+    "DataTheft",
+    "SQLInjection",
+    "XSS",
+    "ResumeLooters",
+    "AsiaPacific",
+    "Cybercrime",
+    "CredentialHarvesting",
+    "InformationStealer",
+    "PrivacyBreach",
+    "Initial Access",
+    "Critical Infrastructure",
+    "Data Exfiltration",
+    "Web-Attacks",
+    "APT group",
+    "Malware"
+  ],
   "aliases": ["SnappyClient", "YoroTrooper", "SQLi"],
   "targetedSectors": [
     "Financial services",
@@ -51,29 +67,75 @@
     "EG",
     "NL"
   ],
-  "tactics": ["Reconnaissance", "Network Access Exploitation"],
-  "techniques": ["T1567.001", "T1062"],
-  "tools": ["Custom script injection tool"],
+  "tactics": [
+    "Initial Access",
+    "Collection",
+    "Exfiltration",
+    "Execution",
+    "Defense Evasion",
+    "Command and Control",
+    "Discovery",
+    "Action on Objectives"
+  ],
+  "techniques": [
+    "T1189",
+    "T1505.002",
+    "T1190",
+    "T1071",
+    "T1566",
+    "T1105",
+    "T1036",
+    "T1543",
+    "T1059.001",
+    "T1027",
+    "T1583.001",
+    "T1595.002"
+  ],
+  "tools": [
+    "sqlmap",
+    "Acunetix",
+    "BeEF Framework",
+    "X-Ray",
+    "Metasploit",
+    "Dirsearch",
+    "PowerShell",
+    "html2canvas",
+    "SilabRAT",
+    "SnappyClient",
+    "Phoenix",
+    "Burp Suite"
+  ],
   "iocPatterns": [
-    "Spear-phishing emails requesting website login credentials",
-    "Unusual web requests indicative of SQL injection attempts",
-    "Injection scripts in web form fields"
+    "SQL injection payloads (e.g., 'OR 1=1')",
+    "XSS script tags in input fields",
+    "PowerShell IEX download strings",
+    "Requests to hardcoded IPs (139.84.168.189)",
+    "Domain lookups for sb8.co and 8r.ae",
+    "Data transmission via 'htmlcode' and 'filename' parameters"
   ],
   "keyCapabilities": [
-    "SQL injection attacks (T1567)",
-    "Cross-Site Scripting (XSS) (T1062)",
-    "Script injection for credential theft attempts",
-    "Potential lateral movement if admin access is achieved"
+    "SQL injection exploitation (In-band, Inferential, and Out-of-band)",
+    "Cross-Site Scripting (XSS) script deployment",
+    "Automated web scraping using html2canvas library",
+    "Remote payload execution via PowerShell IEX commands",
+    "Credential harvesting through malicious hidden iframes",
+    "Data exfiltration over HTTP POST to hosted infrastructure",
+    "Vulnerability scouting via sqlmap and Acunetix",
+    "Information stealer automation for PII collection"
   ],
   "recommendedActions": [
-    "Patch websites for SQL injection and XSS vulnerabilities.",
-    "Implement a Web Application Firewall (WAF).",
-    "Monitor server logs for script injection attempts.",
-    "Educate staff on phishing attacks."
+    "Deploy Web Application Firewalls (WAF) to filter SQLi and XSS patterns.",
+    "Utilize Parameterized Queries or Prepared Statements for all database interactions.",
+    "Implement strict Input Validation and Sanitization on all user-facing forms.",
+    "Block known malicious IPs: 139.84.168.189 and related domains sb8.co, 8r.ae.",
+    "Enforce a Content Security Policy (CSP) to mitigate unauthorized script execution.",
+    "Monitor network traffic for outgoing requests containing 'htmlcode' or 'filename' parameters.",
+    "Audit the application to ensure standard libraries like html2canvas are not utilized unnecessarily.",
+    "Perform regular vulnerability scans using tools such as Acunetix before new deployments."
   ],
-  "campaignsText": "ResumeLooters has been active since early 2023, targeting websites with vulnerable forms. Campaign patterns suggest an attempt to compromise admin access but no confirmed success yet. The group likely develops its capabilities over time.",
-  "description": "ResumeLooters have emerged as a threat group actively compromising websites through SQL injection and XSS attacks since early 2023. Despite their efforts to steal admin credentials via malicious scripts, there’s no confirmed success yet. Their targeting suggests a focus on disrupting or damaging website operations.",
-  "goals": "Their primary goal seems to be compromising websites likely for disruption or data collection. Targeted sectors and countries aren't specified beyond the 65 known compromises, suggesting a broad focus.",
+  "campaignsText": "ResumeLooters demonstrates a consistent and methodical campaign pattern starting in early 2023, with significant activity observed between November and December 2023. Their strategy involves high-volume scraping of the Asia-Pacific region (comprising over 70% of their targets). The group maintains an organized pipeline from initial reconnaissance using automated tools like sqlmap to the end-stage monetization on international Telegram networks, showing a clear operational flow focused specifically on recruiting infrastructure.",
+  "description": "ResumeLooters is a financially motivated threat actor that targets recruitment platforms and retail websites to steal large volumes of personally identifiable information (PII). The group primarily utilizes common web vulnerabilities, including SQL injection (SQLi) and Cross-Site Scripting (XSS), to compromise over 65 sites and harvest the data of millions of job seekers.",
+  "goals": "The primary objective of ResumeLooters is financial gain through the theft and subsequent monetization of personally identifiable information (PII). Their target profile is highly specific: they prioritize recruitment agencies, job search platforms, and various retail websites, with a significant geographical concentration on the Asia-Pacific (APAC) region. By compromising sites that host resume submissions, the group targets individuals during key phases of their professional lives, ensuring a steady supply of high-value records to sell via underground digital markets.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1057",
   "sourceUrl": "https://threaticon.com/threat-actors/1057"
 }

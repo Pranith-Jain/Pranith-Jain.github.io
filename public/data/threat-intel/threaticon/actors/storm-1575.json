@@ -13,7 +13,19 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["APT", "Phishing", "Espionage", "Credential Theft"],
+  "tags": [
+    "Phishing",
+    "PhaaS",
+    "M365",
+    "Credential Theft",
+    "Mobile Malware",
+    "Data Exfiltration",
+    "Maas",
+    "SnappyClient",
+    "Tycoon",
+    "APT",
+    "Espionage"
+  ],
   "aliases": ["SnappyClient", "YoroTrooper"],
   "targetedSectors": [
     "Financial services",
@@ -32,30 +44,48 @@
     "Think tank"
   ],
   "targetedCountries": ["RU", "US", "SG", "AU", "VN", "IN", "IL", "FR", "IT", "RO", "EG", "BR", "NL", "KP"],
-  "tactics": ["Phishing"],
-  "techniques": [],
-  "tools": ["Dadsec platform", "Custom credential-harvesting tools", "Domain Generation Algorithm (DGA) tools"],
+  "tactics": ["Initial Access", "Collection", "Execution", "Exfiltration"],
+  "techniques": ["T1409", "T1426", "T1422", "T1533", "T1418", "T1437", "T1544", "T1521"],
+  "tools": [
+    "Dadsec",
+    "Salty 2FA",
+    "Tycoon 2FA",
+    "TriangleDB",
+    "SilabRAT",
+    "SnappyClient",
+    "Phoenix System",
+    "Phantom Stealer",
+    "GTFire"
+  ],
   "iocPatterns": [
-    "Spear-phishing emails with malicious links",
-    "Domain Generation Algorithm (DGA)-based domains",
-    "Hosting credential-harvesting pages on compromised websites"
+    "Phishing-as-a-service (PhaS) infrastructure",
+    "GitHub-hosted phishing pages",
+    "SheetBest API for credential logging",
+    "Heartbeat beacons for hardware identifier collection"
   ],
   "keyCapabilities": [
-    "Phishing campaign orchestration",
-    "Domain Generation Algorithm (DGA) usage for creating malicious domains",
-    "Credential harvesting via phishing pages",
-    "Persistence in campaigns despite updates or defenses"
+    "Phishing-as-a-Service (PhaaS) platform development and support",
+    "Malware-as-a-Service (MaaS) distribution",
+    "Large-scale Microsoft 365 credential harvesting",
+    "Mobile application data exfiltration (WhatsApp, Telegram)",
+    "Automatic credential logging via SheetBest API integration",
+    "Collection of hardware identifiers via heartbeat beacons",
+    "Deployment of multi-brand phishing infrastructure",
+    "Development and operation of specialized mobile spyware"
   ],
   "recommendedActions": [
-    "Implement multi-factor authentication (MFA) for Microsoft 365 accounts",
-    "Educate users about phishing indicators and suspicious emails",
-    "Monitor for DGA-based domain registration activity in the network",
-    "Use endpoint detection and response (EDR) solutions to detect malicious activity",
-    "Regularly update and patch Microsoft 365 environments"
+    "Enforce FIDO2 or other phish-resistant MFA methods for all Microsoft 365 accounts.",
+    "Block and monitor traffic related to known PhaaS domains like Dadsec and Salty 2FA.",
+    "Incorporate threat intelligence feeds into email security gateways to block malicious phishing link patterns.",
+    "Implement EDR solutions capable of detecting and blocking unauthorized heartbeat signals from unknown processes.",
+    "Monitor and restrict mobile applications' access to outbound network traffic for messaging apps like WhatsApp and Telegram.",
+    "Conduct awareness training specifically targeting sophisticated 2FA-bypass phishing atempts.",
+    "Audit network logs for connections to GitHub Pages or SheetBest API endpoints originating from internal assets.",
+    "Perform regular audits of user credentials and cross-reference with known leaked credential databases."
   ],
-  "campaignsText": "Storm-1575's campaigns exhibit a high level of persistence and adaptability. They target large organizations globally, leveraging phishing emails to distribute malicious links. Their use of DGAs for hosting credential-harvesting pages indicates an attempt to circumvent traditional domain-based detection mechanisms. Notable operations include the sustained targeting of Microsoft 365 credentials across various industries, suggesting a focus on long-term access rather than immediate impact.",
-  "description": "Storm-1575 is a threat actor identified by Microsoft in phishing campaigns leveraging the Dadsec platform. They employ Domain Generation Algorithms (DGAs) to host credential harvesting pages, targeting global organizations to steal Microsoft 365 credentials. Their activities suggest a focus on large-scale credential theft, potentially for long-term access or espionage.",
-  "goals": "Storm-1575's strategic objective appears to be the theft of sensitive credentials, likely to enable unauthorized access to target organizations' Microsoft 365 environments. Their targeting profile is global, with a focus on industries and sectors that hold valuable data or provide strategic advantages. This suggests they may aim for espionage, financial gain, or other objectives that require prolonged access to targeted systems.",
+  "campaignsText": "Storm-1575 demonstrates a consistent pattern of infrastructure development to facilitate automated phishing campaigns. They are notably linked to Operation Triangulation, which focused on compromising mobile devices for information theft from encrypted messaging apps via TriangleDB. Their work is characterized by a 'wholesale' approach to cybercrime—maintaining multiple phish-kits (e.g., Salty 2FA) and distributing malware families like SilabRAT under various brand names, indicating an organized operational scale intended to provide both high volume for themselves and capability to others.",
+  "description": "Storm-1575 is a sophisticated threat actor specializing in Phishing-as-a-Service (PhaaS) and Malware-as-a-Service (MaaS) operations, primarily aimed at harvesting Microsoft 365 credentials. They utilize advanced infrastructure like the Dadsec platform and specialized tools such as TriangleDB to exfiltrate sensitive data from mobile messaging applications.",
+  "goals": "The primary objective of Storm-1575 is financial gain through the monetization of stolen credentials and the delivery of specialized malware services (MaaS/PhaaS) to secondary actors. Their targeting profile is exceptionally broad, encompassing sectors such as defense, government, financial services, and critical infrastructure across North America, Europe, and Asia. They specifically target enterprise-level software like Microsoft 365 to compromise accounts within large organizations.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1038",
   "sourceUrl": "https://threaticon.com/threat-actors/1038"
 }

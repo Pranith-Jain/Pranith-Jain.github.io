@@ -15,7 +15,7 @@
   "added": "May 17, 2026",
   "tags": ["Government Targeting"],
   "aliases": [],
-  "targetedSectors": ["Government", "Government Targeting", "Unknown", "0", "0"],
+  "targetedSectors": ["Government", "Reconnaissance", "Government Targeting", "Unknown", "0", "0"],
   "targetedCountries": [],
   "tactics": [],
   "techniques": [],

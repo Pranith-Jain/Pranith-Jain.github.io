@@ -10,7 +10,7 @@
   "totalMirrors": 1,
   "latencyMs": 2312,
   "httpCode": "200",
-  "pageSize": "19kb",
+  "pageSize": "133kb",
   "fingerprint": "7C446355",
   "recommended": false,
   "isOnion": true

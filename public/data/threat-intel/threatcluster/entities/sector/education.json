@@ -5,20 +5,32 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 4,
-  "firstSeen": "2026-08-16T11:29:51.000Z",
-  "lastSeen": "2026-08-17T02:20:41.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 2 ransomware groups and 2 countries.",
+  "firstSeen": "2026-08-16T21:50:56.000Z",
+  "lastSeen": "2026-08-17T21:29:24.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-08-16",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2026-08-17",
-      "count": 1
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "the-university-of-the-west-indies-279e",
+      "title": "The University of the West Indies — claimed by qilin",
+      "pubDate": "2026-08-17T21:29:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "arizona-state-university-asu-c152",
+      "title": "Arizona State University (ASU) — claimed by direwolf",
+      "pubDate": "2026-08-17T14:54:40.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "albania-s-official-national-teacher-training-portal-895b",
@@ -30,18 +42,6 @@
       "slug": "albania-s-official-national-teacher-training-portal-b4d8",
       "title": "Albania's official national teacher training portal. — claimed by emperador",
       "pubDate": "2026-08-16T21:50:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "loescher-editore-torino-1e2a",
-      "title": "Loescher editore Torino — claimed by qilin",
-      "pubDate": "2026-08-16T11:31:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "zanichelli-5ebe",
-      "title": "Zanichelli — claimed by qilin",
-      "pubDate": "2026-08-16T11:29:51.000Z"
     }
   ],
   "relatedEntities": [
@@ -55,7 +55,13 @@
       "type": "group",
       "slug": "qilin",
       "name": "qilin",
-      "weight": 2
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "direwolf",
+      "name": "direwolf",
+      "weight": 1
     }
   ],
   "mitreTechniques": []

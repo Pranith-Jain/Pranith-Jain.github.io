@@ -13,7 +13,22 @@
   "resourceLevel": null,
   "motivation": "Disruption",
   "added": "May 17, 2026",
-  "tags": ["APT", "Critical Infrastructure", "Malware", "ICS/SCADA", "State-Sponsored", "Espionage"],
+  "tags": [
+    "ICS",
+    "SCADA",
+    "Critical Infrastructure",
+    "Chernovite",
+    "Pipedream",
+    "Omron",
+    "Schneider Electric",
+    "Industrial Control Systems",
+    "PLC Targeting",
+    "APT",
+    "Malware",
+    "ICS/SCADA",
+    "State-Sponsored",
+    "Espionage"
+  ],
   "aliases": [],
   "targetedSectors": [
     "Manufacturing",
@@ -26,32 +41,38 @@
     "Utilities"
   ],
   "targetedCountries": ["US", "CN", "PL", "CA", "IR"],
-  "tactics": ["Network Intrusion", "Exfiltration / Collection", "Lateral Access", "Impact Infrastructure"],
-  "techniques": ["T1070", "T1485", "T1059", "T1267"],
-  "tools": ["PIPEDREAM ICS Malware", "Custom tools for ICS protocol exploitation"],
+  "tactics": ["Impact", "Inhibit Response Function", "Impair Process Control"],
+  "techniques": ["T0858", "T0846.003", "T0809", "T0886"],
+  "tools": ["Pipedream", "INCONTROLLER", "SDelete", "EVILSCHOLAR", "BADOMEN", "DUSTTUNNEL", "MOUSEHOLE", "LAZYCARGO"],
   "iocPatterns": [
-    "Spear-phishing emails targeting ICS personnel",
-    "Network traffic from/to known ICS protocols (e.g., Modbus/TCP)",
-    "Presence of PIPEDREAM-related binaries in industrial systems",
-    "Lateral movement across ICS networks",
-    "Unusual command-and-control communication patterns"
+    "Remote HTTP calls for PLC configuration changes",
+    "Wiping of Omron PLC memory",
+    "Execution of SDelete or similar file-wiping binaries",
+    "Manipulation of Modbus/OPC UA traffic\", \"Large-scale automated deletion of files in system directories"
   ],
   "keyCapabilities": [
-    "Develops and deploys modular ICS malware (PIPEDREAM)",
-    "Exploits zero-day vulnerabilities",
-    "Highly skilled in ICS protocol manipulation",
-    "Conducts extensive pre-attack research on target environments"
+    "Development of modular ICS attack frameworks (PIPEDREAM)",
+    "Wiping PLC memory and resetting hardware configurations",
+    "Execution of a wide range of industrial-specific techniques via specialized toolkits",
+    "Manipulation of industrial protocols including Modbus and OPC UA",
+    "Remote exploitation of device operating modes via HTTP services",
+    "Support for heterogeneous PLC hardware (Omron, Schneider Electric, CoDeSyS)",
+    "Deployment of dedicated modules for lateral movement and data destruction",
+    "Exploitation of native functionality to bypass traditional security controls"
   ],
   "recommendedActions": [
-    "Deploy network monitoring for ICS protocols",
-    "Implement strict access controls on OT/ICS networks",
-    "Regularly update and patch ICS software/hardware",
-    "Conduct employee training to identify phishing attempts",
-    "Establish incident response plans specific to ICS compromise"
+    "Implement strict network segmentation between IT and OT environments.",
+    "Monitor for unauthorized or unusual industrial protocol traffic (Modbus, OPC UA).",
+    "Alert on the use of file shredding tools like SDelete within the ICS environment.",
+    "Conduct periodic audits of PLC memory configurations to detect unauthorized changes.",
+    "Restrict all remote HTTP access to devices managing critical infrastructure components.",
+    "Implement a whitelist-based policy for firmware updates and logic changes.",
+    "Deploy IDS/IPS specifically tuned for industrial protocol manipulation.",
+    "Harden system accounts by limiting permissions for service accounts interacting with PLCs."
   ],
-  "campaignsText": "Chernovite’s campaigns are characterized by targeted attacks against critical infrastructure, with an emphasis on operational disruption. The group demonstrates a patient and methodical approach in compromising their targets, likely indicating a long-term strategic vision. Notable past operations include the deployment of PIPEDREAM malware to compromise ICS environments. Their targeting patterns suggest a focus on industrial sectors globally, but especially in regions where critical infrastructure is vulnerable or strategically significant.",
-  "description": "Chernovite is a sophisticated cyber threat actor known for developing and deploying the PIPEDREAM malware framework, targeting industrial control systems (ICS) to disrupt critical infrastructure. Their operations pose significant risks to sectors like energy and utilities, making them a high-priority threat to organizations in these industries.",
-  "goals": "Chernovite’s primary strategic objective appears to be the compromise of industrial control systems (ICS), likely with the intent to cause operational disruptions or physical damage. Their targeting focus on critical infrastructure sectors such as energy, utilities, and manufacturing, suggesting an interest in strategic industries that underpin national security and economic stability. The group’s victims are typically organizations operating in ICS environments, including those in the public and private sectors。",
+  "campaignsText": "Chernovite has been active since 2021 and shows a consistent focus on infrastructure sabotage. They demonstrate an advanced preparation phase, building modular tools like PIPEDREAM that allow them to target various industrial hardware brands with different protocols simultaneously. Their operational tempo suggests high sophistication, moving from general reconnaissance to targeted ICS-specific destruction in critical sectors such as electricity and gas.",
+  "description": "Chernovite is a sophisticated threat actor specializing in the destruction and disruption of Industrial Control Systems (ICS) and SCADA infrastructure. Utilizing the modular PIPEDREAM framework, the group targets critical sectors including energy, manufacturing, and utilities to compromise physical processes.",
+  "goals": "Chernovite's primary objectives are the degradation and disruption of industrial processes. They specifically target sectors vital to national stability and safety, including energyed (electric and gas), manufacturing, oil and gas, mining, and water treatment. The goal is not mere data theft but rather high-impact sabotage that affects physical reliability.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A946",
   "sourceUrl": "https://threaticon.com/threat-actors/946"
 }

@@ -13,7 +13,17 @@
   "resourceLevel": null,
   "motivation": "Organizational gain",
   "added": "Jul 13, 2026",
-  "tags": ["Criminal", "Ransomware", "Espionage", "Finance-sector", "Initial Access"],
+  "tags": [
+    "APT",
+    "Ransomware",
+    "Cybercrime",
+    "Exfiltration",
+    "Data Theft",
+    "Initial Access",
+    "Criminal",
+    "Espionage",
+    "Finance-sector"
+  ],
   "aliases": ["tracked as", "Sandworm Team", "Operation Cleaver", "Shell Crew"],
   "targetedSectors": [
     "Government",
@@ -83,51 +93,61 @@
   ],
   "tactics": [
     "Initial Access",
-    "Credential Access",
-    "Execution Permissions",
+    "Execution",
     "Persistence",
+    "Privilege Escalation",
     "Defense Evasion",
+    "Credential Access",
     "Discovery",
+    "Lateral Movement",
     "Collection",
     "Exfiltration",
     "Impact"
   ],
-  "techniques": ["T1566.003", "T1003", "T1047", "T1005", "T1055", "T1048"],
-  "tools": [
-    "Custom RAT",
-    "Spear-phishing toolset",
-    "Mimikatz-like credential dumping tools",
-    "Exploitation frameworks",
-    "Cobalt Strike (for C2)",
-    "Bruteforce RDP tools",
-    "PSExec"
+  "techniques": [
+    "T1059.001",
+    "T1486",
+    "T1219",
+    "T1558.003",
+    "T1074.001",
+    "T1021.001",
+    "T1112",
+    "T1070.001",
+    "T1105",
+    "T1562.001",
+    "T1562.004",
+    "T1484.001"
   ],
+  "tools": ["AnyDesk", "WinSCP", "PowerShell", "Nmap", "Machete", "Akira", "Cobalt Strike", "Winnti"],
   "iocPatterns": [
-    "Spear-phishing emails with malicious attachments",
-    "Lateral movement using PSExec and other tools",
-    "Scheduled task persistence mechanisms",
-    "RDP brute-force attempts",
-    "DNS or HTTP-based command and control communication"
+    "Ransom notes identifying the 'BlackField' or 'BlackFL' moniker.",
+    "Usage of AnyDesk for persistent remote access during pre-encryption phases.",
+    "Large volumes of data transferred over standard protocols (e.g., HTTP/S) to exfiltration points.",
+    "Execution of PowerShell scripts used for credential harvesting and bypasses.",
+    "Specific usage of the Machete and Akira ransomware variants."
   ],
   "keyCapabilities": [
-    "Spear-phishing attacks",
-    "Exploitation of vulnerabilities",
     "Ransomware deployment",
-    "Credential dumping techniques",
-    "Data exfiltration"
+    "Data exfiltration for double extortion",
+    "PowerShell-based lateral movement",
+    "Credential harvesting (Kerberoasting)",
+    "Remote access management",
+    "Exploitation of public-facing applications",
+    "Network service discovery"
   ],
   "recommendedActions": [
-    "Implement multi-factor authentication for RDP access",
-    "Monitor for phishing emails with malicious links or attachments",
-    "Deploy endpoint detection and response (EDR) solutions",
-    "Segment networks to limit lateral movement potential",
-    "Educate staff on identifying suspicious emails",
-    "Conduct regular backups and ensure they are secure",
-    "Implement network traffic monitoring for unusual patterns"
+    "Implement Multi-Factor Authentication (MFA) on all external-facing services, especially RDP/VPN.",
+    "Disable or strictly whitelist remote management tools like AnyDesk for non-IT staff.",
+    "Enable PowerShell Execution Policies and restricted logging for high-risk commands.",
+    "Deploy Endpoint Detection and Response (EDR) to monitor for 'Living off the Land' techniques.",
+    "Regularly audit, rotate, and secure service account passwords to prevent Kerberoasting.",
+    "Perform routine backups of critical data and test restoration procedures offline.",
+    "Block known malicious IP ranges associated with high-frequency remote access tools.",
+    "Monitor network traffic for large outbound transfers to unknown or new destinations."
   ],
-  "campaignsText": "Blackfield has conducted at least two campaigns targeting specific victims, primarily in Brazil and Taiwan, with a focus on financial gain through ransomware. Their campaign patterns suggest a short operational window, possibly indicating testing or limited resource availability. The group may expand their geographic scope based on successful operations and victim response behavior.",
-  "description": "Blackfield is a medium-sophistication criminal threat actor group primarily motivated by financial gain through ransomware campaigns. Emerging in late June 2026, they have exhibited targeted operations with limited but impactful outreach, posing a notable risk to selected organizations.",
-  "goals": "Blackfield's strategic objectives appear centered on disrupting targeted organizations to enable ransomware deployment, seeking direct financial gains through ransom payments. Their targeting profile suggests an emphasis on sectors where the impact of ransomware is maximized, potentially focusing on industries with significant operational downtime costs or valuable intellectual property. The group's limited geographic reach so far— Brazil and Taiwan—may indicate either early-stage expansion or a specific strategic focus on certain regions.",
+  "campaignsText": "Blackfield displays a consistent operational tempo focused on large-scale infrastructure targets. Recent activity highlights specific interests in regional telecommunications and government hubs, as evidenced by the ccic.com.tw findings. The group consistently employs standard administrative tools to blend in with legitimate network traffic during the discovery phase, suggesting an intent to remain undetected for as long as possible before the final ransomware deployment.",
+  "description": "Blackfield (also known as BlackFL) is a cybercriminal organization specializing in high-impact ransomware operations targeting diverse industries, including critical infrastructure, finance, and healthcare. The group utilizes a multi-stage attack chain involving remote access tools, PowerShell exploitation, and data exfiltration to maximize leverage for extortion.",
+  "goals": "The primary objective of Blackfield is financial gain through extortion. They target organizations with high-value data or critical services—such as government agencies, energy providers, and healthcare systems—where operational downtime results in severe consequences. This focus allows them to demand significantly higher ransoms from victims who have little choice but to pay to restore services.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1578",
   "sourceUrl": "https://threaticon.com/threat-actors/1578"
 }

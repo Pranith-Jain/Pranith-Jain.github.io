@@ -13,7 +13,7 @@
   "resourceLevel": "Government",
   "motivation": "Financial gain",
   "added": "May 17, 2026",
-  "tags": ["APT", "nation-state", "cyber_espionage", "public_sector", "IT_industry", "Backdoor / C2"],
+  "tags": ["APT", "nation-state", "cyber_espionage", "public_sector", "IT_industry", "Initial Access", "Backdoor / C2"],
   "aliases": ["Strontium", "Fancy Bear", "APT35", "Onyx Sleet"],
   "targetedSectors": [
     "Government",

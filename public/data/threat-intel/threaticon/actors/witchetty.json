@@ -13,7 +13,7 @@
   "resourceLevel": null,
   "motivation": null,
   "added": "May 17, 2026",
-  "tags": ["APT", "espionage", "government", "Backdoor / C2", "Government Targeting"],
+  "tags": ["APT", "espionage", "government", "Initial Access", "Backdoor / C2", "Government Targeting"],
   "aliases": ["LookingFrog"],
   "targetedSectors": [],
   "targetedCountries": [],

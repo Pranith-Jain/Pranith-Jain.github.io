@@ -13,7 +13,14 @@
   "resourceLevel": null,
   "motivation": "Financial gain",
   "added": "Aug 1, 2026",
-  "tags": ["Initial Access"],
+  "tags": [
+    "Ransomware",
+    "Cybercrime",
+    "Manufacturing-Sector",
+    "Russia-Targeted",
+    "Industrial-Control",
+    "Initial Access"
+  ],
   "aliases": ["Bearlyfy", "Labubu", "Laboo.boo", "Babuk"],
   "targetedSectors": [
     "Manufacturing",
@@ -66,15 +73,64 @@
     "NL",
     "KP"
   ],
-  "tactics": [],
-  "techniques": [],
-  "tools": [],
-  "iocPatterns": [],
-  "keyCapabilities": [],
-  "recommendedActions": [],
-  "campaignsText": null,
-  "description": null,
-  "goals": null,
+  "tactics": ["Initial Access", "Execution", "Persistence", "Discovery", "Lateral Movement", "Collection", "Impact"],
+  "techniques": [
+    "T1110",
+    "T1486",
+    "T1568",
+    "T1567",
+    "T1133",
+    "T1059",
+    "T1071",
+    "T1134",
+    "T1119",
+    "T1555",
+    "T1543",
+    "T1213",
+    "T1583"
+  ],
+  "tools": [
+    "GenieLocker",
+    "LockBit",
+    "RedAlert",
+    "Babuk",
+    "Mimikatz",
+    "SoftPerfect Network Scanner",
+    "fscan",
+    "PsExec",
+    "PAExec",
+    "PowerShell",
+    "Bash"
+  ],
+  "iocPatterns": [
+    "Credential harvesting from trusted third-party partners",
+    "Usage of fscan/SoftPerfect for network scanning",
+    "Dual-homed ransomware (PE and ELF) distributions",
+    "Utilization of .epf files in targeting 1C infrastructure"
+  ],
+  "keyCapabilities": [
+    "Credential harvesting via third-party partnerships",
+    "VPN exploitation using stolen certificates",
+    "Cross-platform ransomware deployment (Windows/Linux)",
+    "Internal network mapping and scanning",
+    "1C server exploitation",
+    "Automware script execution (PowerShell, Bash)",
+    "Lateral movement via RDP",
+    "Sophisticated encryption implementation"
+  ],
+  "recommendedActions": [
+    "Enforce Multi-Factor Authentication (MFA) on all VPN and remote access portals.",
+    "Implement strict certificate management protocols to prevent the use of stolen certificates for unauthorized access.",
+    "Segment internal networks, particularly isolating ESXi host systems from general corporate traffic.",
+    "Monitor and alert on the execution of network scanning tools like fscan or SoftPerfect inside the LAN.",
+    "Restrict the creation and execution of .epf files associated with 1C services.",
+    "Rotate credentials for all third-party contractors immediately.",
+    "Implement EDR solutions to detect PowerShell-based post-exploitation scripts.",
+    "Conduct regular audits of internal server permissions specifically regarding RDP access."
+  ],
+  "campaignsText": "Toy Ghouls has consistently targeted the Russian industrial landscape since at least 2025. Their campaign pattern shows a clear evolution from reusing known ransomware-as-a-service (RaaS) tools to developing bespoke payloads like GenieLocker, which indicates an increasing level of technical sophistication and independence. They frequently target infrastructure that involves manufacturing and telecommunications, often moving quickly from initial access through VPNs to final encryption within a few days.",
+  "description": "Toy Ghouls is a financially motivated cybercriminal group that primarily targets Russian manufacturing, telecommunications, and construction sectors using a blend of established ransomware families and custom-built' tools. Since early 2025, the group has shifted toward more sophisticated, self-developed payloads like GenieLocker, which demonstrates dual compatibility for both Windows and Linux environments.",
+  "goals": "The primary objective of Toy Ghouls is financial gain through extortion. They strategically target organizations within Russia to maximize impact in sectors essential to the local economy, including manufacturing, construction, automotive production, and telecommunications. By targeting these specific industrials, they aim for high-pressure situations where companies may be more likely to pay ransoms to restore critical operations.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1683",
   "sourceUrl": "https://threaticon.com/threat-actors/1683"
 }

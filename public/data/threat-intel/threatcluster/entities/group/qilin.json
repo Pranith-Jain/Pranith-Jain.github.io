@@ -4,17 +4,45 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 19,
-  "firstSeen": "2026-08-16T09:29:25.000Z",
-  "lastSeen": "2026-08-16T18:58:39.000Z",
-  "summary": "Ransomware group with 19 leak-site victims across 10 sectors and 10 countries.",
+  "mentionCount": 10,
+  "firstSeen": "2026-08-16T15:58:24.000Z",
+  "lastSeen": "2026-08-17T21:30:42.000Z",
+  "summary": "Ransomware group with 10 leak-site victims across 10 sectors and 6 countries.",
   "frequency": [
     {
       "date": "2026-08-16",
-      "count": 19
+      "count": 6
+    },
+    {
+      "date": "2026-08-17",
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "gsw-gemeinschaftsstadtwerke-gmbh-5a15",
+      "title": "GSW Gemeinschaftsstadtwerke GmbH — claimed by qilin",
+      "pubDate": "2026-08-17T21:30:42.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "white-daters-amp-associates-inc-6f04",
+      "title": "White-Daters &amp; Associates, Inc — claimed by qilin",
+      "pubDate": "2026-08-17T21:30:02.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "the-university-of-the-west-indies-279e",
+      "title": "The University of the West Indies — claimed by qilin",
+      "pubDate": "2026-08-17T21:29:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "empireworks-dc65",
+      "title": "EmpireWorks — claimed by qilin",
+      "pubDate": "2026-08-17T21:28:43.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "teikoku-usa-5c5c",
@@ -50,68 +78,44 @@
       "slug": "weba-meubelen-e26d",
       "title": "WEBA Meubelen — claimed by qilin",
       "pubDate": "2026-08-16T15:58:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "mosaid-technologies-2d26",
-      "title": "MOSAID Technologies — claimed by qilin",
-      "pubDate": "2026-08-16T12:31:17.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "invensity-cc07",
-      "title": "INVENSITY — claimed by qilin",
-      "pubDate": "2026-08-16T12:30:37.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "megawide-6acb",
-      "title": "Megawide — claimed by qilin",
-      "pubDate": "2026-08-16T12:29:59.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "desatera-sdn-bhd-e152",
-      "title": "Desatera Sdn Bhd — claimed by qilin",
-      "pubDate": "2026-08-16T11:31:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "loescher-editore-torino-1e2a",
-      "title": "Loescher editore Torino — claimed by qilin",
-      "pubDate": "2026-08-16T11:31:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "botek-5932",
-      "title": "Botek — claimed by qilin",
-      "pubDate": "2026-08-16T11:30:31.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 6
+      "slug": "energy-utilities",
+      "name": "Energy & Utilities",
+      "weight": 1
     },
     {
       "type": "sector",
-      "slug": "technology",
-      "name": "Technology",
-      "weight": 3
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 2
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
     },
     {
       "type": "sector",
       "slug": "education",
       "name": "Education",
-      "weight": 2
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
     },
     {
       "type": "sector",
@@ -136,22 +140,38 @@
       "slug": "retail-e-commerce",
       "name": "Retail & E-Commerce",
       "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "professional-services",
-      "name": "Professional Services",
-      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "gsw-gemeinschaftsstadtwerke-gmbh-5a15",
+      "victim": "GSW Gemeinschaftsstadtwerke GmbH — claimed by qilin",
+      "sector": "Energy & Utilities",
+      "country": "DE",
+      "pubDate": "2026-08-17T21:30:42.000Z"
+    },
+    {
+      "id": "white-daters-amp-associates-inc-6f04",
+      "victim": "White-Daters &amp; Associates, Inc — claimed by qilin",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-17T21:30:02.000Z"
+    },
+    {
+      "id": "the-university-of-the-west-indies-279e",
+      "victim": "The University of the West Indies — claimed by qilin",
+      "sector": "Education",
+      "country": "TT",
+      "pubDate": "2026-08-17T21:29:24.000Z"
+    },
+    {
+      "id": "empireworks-dc65",
+      "victim": "EmpireWorks — claimed by qilin",
+      "sector": "Other",
+      "country": null,
+      "pubDate": "2026-08-17T21:28:43.000Z"
+    },
     {
       "id": "teikoku-usa-5c5c",
       "victim": "Teikoku USA — claimed by qilin",
@@ -193,97 +213,6 @@
       "sector": "Retail & E-Commerce",
       "country": "BE",
       "pubDate": "2026-08-16T15:58:24.000Z"
-    },
-    {
-      "id": "mosaid-technologies-2d26",
-      "victim": "MOSAID Technologies — claimed by qilin",
-      "sector": "Technology",
-      "country": "CA",
-      "pubDate": "2026-08-16T12:31:17.000Z"
-    },
-    {
-      "id": "invensity-cc07",
-      "victim": "INVENSITY — claimed by qilin",
-      "sector": "Technology",
-      "country": "DE",
-      "pubDate": "2026-08-16T12:30:37.000Z"
-    },
-    {
-      "id": "megawide-6acb",
-      "victim": "Megawide — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "PH",
-      "pubDate": "2026-08-16T12:29:59.000Z"
-    },
-    {
-      "id": "desatera-sdn-bhd-e152",
-      "victim": "Desatera Sdn Bhd — claimed by qilin",
-      "sector": "Not Found",
-      "country": "MY",
-      "pubDate": "2026-08-16T11:31:50.000Z"
-    },
-    {
-      "id": "loescher-editore-torino-1e2a",
-      "victim": "Loescher editore Torino — claimed by qilin",
-      "sector": "Education",
-      "country": "IT",
-      "pubDate": "2026-08-16T11:31:11.000Z"
-    },
-    {
-      "id": "botek-5932",
-      "victim": "Botek — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "DE",
-      "pubDate": "2026-08-16T11:30:31.000Z"
-    },
-    {
-      "id": "zanichelli-5ebe",
-      "victim": "Zanichelli — claimed by qilin",
-      "sector": "Education",
-      "country": "IT",
-      "pubDate": "2026-08-16T11:29:51.000Z"
-    },
-    {
-      "id": "jone-pr-cision-e93b",
-      "victim": "Jone Précision — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "FR",
-      "pubDate": "2026-08-16T09:32:36.000Z"
-    },
-    {
-      "id": "arnall-golden-gregory-fe83",
-      "victim": "Arnall Golden Gregory — claimed by qilin",
-      "sector": "Professional Services",
-      "country": "US",
-      "pubDate": "2026-08-16T09:31:57.000Z"
-    },
-    {
-      "id": "ascii-group-9e00",
-      "victim": "ASCII Group — claimed by qilin",
-      "sector": "Technology",
-      "country": "JP",
-      "pubDate": "2026-08-16T09:31:19.000Z"
-    },
-    {
-      "id": "delta-ways-444d",
-      "victim": "DELTA WAYS — claimed by qilin",
-      "sector": "Transportation",
-      "country": "DE",
-      "pubDate": "2026-08-16T09:30:40.000Z"
-    },
-    {
-      "id": "motorenmaier-gmbh-bbc6",
-      "victim": "motorenmaier gmbh — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "DE",
-      "pubDate": "2026-08-16T09:30:02.000Z"
-    },
-    {
-      "id": "double-h-equipment-7b2b",
-      "victim": "Double H Equipment — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-08-16T09:29:25.000Z"
     }
   ]
 }

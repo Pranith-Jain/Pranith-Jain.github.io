@@ -14,51 +14,57 @@
   "motivation": "Financial gain",
   "added": "May 17, 2026",
   "tags": [
+    "TA2552",
+    "APT28",
+    "Pawn Storm",
+    "Sednit",
+    "O365 Abuse",
+    "OAuth Phishing",
+    "MexOAuth",
+    "Credential Harvesting",
+    "Initial Access",
+    "Financial Targeting",
+    "Supply Chain Attack",
     "Phishing",
     "Spear Phishing",
     "Office 365 Abuse",
-    "Financial Espionage",
-    "Language-based TTP",
-    "Financial Targeting",
-    "Supply Chain Attack"
+    "Financial Espionage"
   ],
   "aliases": ["APT28", "Pawn Storm", "Fancy Bear", "Sednit"],
   "targetedSectors": ["Government", "Non profit", "Think tank", "Defense", "Energy"],
   "targetedCountries": ["IR", "IL", "SA", "US"],
-  "tactics": ["Credential Access", "Collection", "Reconnaissance"],
-  "techniques": [
-    "T1098.003 - Valid Accounts",
-    "T1134 - Social Engineering Phishing via Email",
-    "T1059 - External Remote Console Access",
-    "T1566.002 - Account Access Removal"
-  ],
-  "tools": [
-    "Custom phishing templates",
-    "Third-party O365 application interfaces",
-    "Social engineering tools to craft Spanish language lures"
-  ],
+  "tactics": ["Initial Access", "Persistence", "Credential Access"],
+  "techniques": ["T1566.003", "T1594", "T1402"],
+  "tools": ["MexOAuth", "TA2552"],
   "iocPatterns": [
-    "Phishing emails sent from legitimate domains but containing malicious links",
-    "Redirects to Microsoft O365 third-party app consent pages",
-    "Unusual OAuth token grant requests for read-only user permissions",
-    "Scheduled spikes in login attempts or application access attempts"
+    "Phishing URLs",
+    "Consent URLs",
+    "Redirect URIs",
+    "Client IDs",
+    "Malicious ClientIDs",
+    "Brand-mimicking lure patterns"
   ],
   "keyCapabilities": [
-    "OAuth2-based phishing",
-    "Third-party application abuse",
-    "Language-specific spear-phishing campaigns",
-    "Credential harvesting via social engineering"
+    "Social engineering",
+    "Phishing for O365 third-party application access",
+    "OAuth authorization flow exploitation",
+    "Malicious application development for cloud service access",
+    "Infrastructure concealment via Cloudflare and compromised sites",
+    "Credential harvesting through scoped permissions (Mail.Read, Contacts.Read)"
   ],
   "recommendedActions": [
-    "Implement multi-factor authentication (MFA) for Office 365 accounts",
-    "Monitor login activity, especially during off-hours",
-    "Educate users about phishing tactics, particularly language-based spear-phishing campaigns",
-    "Use email filtering to detect and block suspicious emails",
-    "Conduct regular audits of third-party app permissions in O365"
+    "Audit O365/Google Workspace third-party application permissions to identify and revoke high-risk or unnecessary grants.",
+    "Configure alert rules for non-standard or suspicious OAuth scopes like Mail.Read and Contacts.Read.",
+    "Implement detection rules for redirects from known phishing URLs to Microsoft's consent page.",
+    "Block known malicious domains including those on the .xyz, .in, and .ru TLDs associated with MexOAuth.",
+    "Conduct security awareness training specifically highlighting OAuth 'consent' scams and brand-mimicking lures.",
+    "Monitor for discrepancies between landing page content (e.g., Netflix) and subsequent redirect outcomes.",
+    "Restrict end-users from registering third-party apps if not required by business operations.",
+    "Use CASB or identity protection tools to alert on access requests from unusual IP ranges or geographic locations."
   ],
-  "campaignsText": "TA2552 has demonstrated persistence and operational security in their campaigns. Their targeting of Spanish-speaking individuals across various global sectors suggests a broad but focused approach, likely aiming for maximal access while minimizing detection. The use of legitimate OAuth consent flows makes their activities harder to detect compared to traditional malware-based attacks. Notable past operations include multiple waves of phishing campaigns tracked by Proofpoint since August 2019, with a steady increase in activity through early 2020.",
-  "description": "TA2552 is a threat actor exploiting Microsoft Office 365 third-party application access since January 2020. They use Spanish-language phishing lures to deceive users into granting unauthorized access to their O365 accounts, enabling reconnaissance and data theft. This actor targets individuals likely fluent in Spanish, leveraging language-specific tactics to compromise user credentials and intercept sensitive communications.",
-  "goals": "TA2552's strategic objectives appear centered on gaining unauthorized access to Microsoft Office 365 accounts for intelligence gathering and potential data exfiltration. Their targeting profile focuses on users who are Spanish speakers, likely due to the effectiveness of language-based phishing in reducing victim suspicion. The group's narrow focus on O365 third-party application abuse suggests they aim to operate under the radar while maximizing access to sensitive corporate and personal communications.",
+  "campaignsText": "The actor is primarily associated with the 'MexOAuth' campaign, which since early 2020 has targeted Spanish-speaking users, specifically in Mexico. This campaign utilizes a sophisticated infrastructure of custom domains and compromised sites to host OAuth consent pages. They frequently employ lures related to local government services or popular streaming memberships to drive user interaction. Their operations are characterized by high precision in choosing target languages and regional themes to maximize conversion rates for token theft.",
+  "description": "TA2552 is a sophisticated threat actor that specializes in abusing Microsoft Office 365 third-party application (3PA) access via OAuth token phishing. The group targets Spanish-speaking individuals, particularly in Mexico, utilizing high-affinity brand lures to gain unauthorized permissions to sensitive email and contact data.",
+  "goals": "The primary goal of TA2552 is the theft of sensitive information and long-term account persistence through OAuth token harvesting. By acquiring 'read-only' permissions, they can conduct sophisticated reconnaissance on target mailboxes and contacts to identify high-value targets or intercept communications between financial institutions. Their targeting strategy specifically leverages language-specific lures (Spanish) to engage users in Mexico, though their broader intelligence profile indicates interests in the government, defense, and energy sectors across several countries.",
   "killChain": "https://threaticon.com/graph/kill-chain?entity=threat_actor%3A1039",
   "sourceUrl": "https://threaticon.com/threat-actors/1039"
 }
