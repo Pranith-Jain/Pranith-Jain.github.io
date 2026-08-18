@@ -115,10 +115,13 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
 
   it('gives a deep page a UNIQUE generated page card (og:image + twitter:image)', async () => {
     const html = await serve('/dfir/cve');
-    expect(metaByProperty(html, 'og:image')).toContain('/api/v1/og-image/page/%2Fdfir%2Fcve.png');
-    expect(metaByName(html, 'twitter:image')).toContain('/api/v1/og-image/page/%2Fdfir%2Fcve.png');
-    // query-free: X's card parser drops og:image URLs that carry query strings
-    expect(metaByProperty(html, 'og:image')).not.toContain('?p=');
+    expect(metaByProperty(html, 'og:image')).toContain('/api/v1/og-image/page/dfir.cve.png');
+    expect(metaByName(html, 'twitter:image')).toContain('/api/v1/og-image/page/dfir.cve.png');
+    // X-compat contract: the card image URL must contain no query string and
+    // no percent-encoded separators — X's parser drops query-string images
+    // and corrupts %2F on re-fetch, in both cases rendering chip-without-image.
+    expect(metaByProperty(html, 'og:image')).not.toContain('?');
+    expect(metaByProperty(html, 'og:image')).not.toContain('%2F');
     // and it differs from the section landing card
     expect(metaByProperty(html, 'og:image')).not.toContain('/og-dfir.png');
   });

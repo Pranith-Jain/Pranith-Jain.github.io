@@ -7,14 +7,17 @@
  * Two card URL shapes:
  *   - Entity cards:  /api/v1/og-image/(briefing|blog)/<slug>.png
  *                    data-driven from D1 / KV (one card per briefing / post).
- *   - Page cards:    /api/v1/og-image/page/<encodeURIComponent(path)>.png
+ *   - Page cards:    /api/v1/og-image/page/<dot-encoded-path>.png
  *                    generated for ANY route so every URL has a unique card.
- *                    The route path is embedded in the PATH (percent-encoded),
- *                    NOT a query param — X/Twitter's card parser drops og:image
- *                    URLs that carry a query string (it never fetches them, so
- *                    the card renders without an image or not at all). The
- *                    legacy `?p=` form is still accepted for cached/deployed
- *                    HTML that referenced it.
+ *                    The route path is dot-encoded (slashes → dots, so
+ *                    /dfir/cve → "dfir.cve") and embedded in the URL PATH.
+ *                    Percent-encoded (`%2F`) and query (`?p=`) forms were
+ *                    both tried and FAILED on X/Twitter: its card parser
+ *                    decodes `%2F` when re-fetching the image and hits a
+ *                    404, while query-string image URLs are dropped
+ *                    outright — in both cases the card renders as a chip
+ *                    with no image. The legacy forms are still accepted
+ *                    for already-cached meta.
  */
 export type OgImageType = 'briefing' | 'blog' | 'page';
 
@@ -23,10 +26,10 @@ const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog)\/([a-z0-9][a-z0-9-]{0
 /** Pathname of the generic per-page card endpoint (legacy query form). */
 export const OG_PAGE_PATH = '/api/v1/og-image/page.png';
 
-/** Path prefix of the query-free per-page card endpoint. */
+/** Path prefix of the dot-encoded per-page card endpoint. */
 export const OG_PAGE_PREFIX = '/api/v1/og-image/page/';
 
-const OG_PAGE_PATH_RE = /^\/api\/v1\/og-image\/page\/(.+)\.png$/i;
+const OG_PAGE_DOT_RE = /^\/api\/v1\/og-image\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i;
 
 /** Parse `/api/v1/og-image/:type/:slug.png` into its parts, or null if the
  *  path is not a valid entity-card OG-image request. */
@@ -41,8 +44,22 @@ export function matchOgImagePath(pathname: string): { type: 'briefing' | 'blog';
  *  valid page-card request. Rejects empty paths and anything that isn't a
  *  site-relative path starting with "/". */
 export function matchOgPagePath(url: URL): string | null {
-  // Preferred query-free form: /api/v1/og-image/page/<url-encoded-path>.png
-  const pm = OG_PAGE_PATH_RE.exec(url.pathname);
+  // Legacy `?p=` form first — `/page.png` is the exact legacy pathname and
+  // also matches the dot-form regex below, so it must win before that.
+  if (url.pathname === OG_PAGE_PATH) {
+    const p = url.searchParams.get('p');
+    if (!p) return null;
+    if (!p.startsWith('/') || p.length > 200) return null;
+    return p;
+  }
+  // Preferred slash-free dot form: /api/v1/og-image/page/dfir.cve.png
+  // (no encoded separators — X's parser re-encodes %2F wrongly and
+  // kills the image, and it drops query-string image URLs outright).
+  const dm = OG_PAGE_DOT_RE.exec(url.pathname);
+  if (dm) return `/${dm[1]!.replace(/\./g, '/')}`;
+  // Percent-encoded path form — accepted for meta already emitted by
+  // intermediate deployments.
+  const pm = /^\/api\/v1\/og-image\/page\/(.+)\.png$/i.exec(url.pathname);
   if (pm) {
     try {
       const p = decodeURIComponent(pm[1]!);
@@ -52,17 +69,17 @@ export function matchOgPagePath(url: URL): string | null {
     }
     return null;
   }
-  // Legacy `?p=` form — still accepted for previously-emitted meta tags.
-  if (url.pathname !== OG_PAGE_PATH) return null;
-  const p = url.searchParams.get('p');
-  if (!p) return null;
-  if (!p.startsWith('/') || p.length > 200) return null;
-  return p;
+  return null;
 }
 
 /** Build the page-card URL for a route path (used by the meta rewriter to set
- *  og:image / twitter:image to a unique generated card). Query-free: the path
- *  is percent-encoded into the URL path so X's card parser doesn't drop it. */
+ *  og:image / twitter:image to a unique generated card). Slash-free dot
+ *  encoding: X's card parser corrupts percent-encoded slashes when it
+ *  re-fetches the image, so the path must contain no encoded separators. */
 export function pageCardUrl(pathname: string): string {
-  return `${OG_PAGE_PREFIX}${encodeURIComponent(pathname)}.png`;
+  const flat = pathname
+    .replace(/^\/+/, '')
+    .replace(/\/+/g, '.')
+    .replace(/\.png$/i, '');
+  return `${OG_PAGE_PREFIX}${flat}.png`;
 }
