@@ -14,6 +14,7 @@ import { handleScheduled } from './scheduled';
 import { handleQueue } from './queue-consumer';
 import { logStartupValidation } from './bindings';
 import { handleWebSocketUpgrade } from './ws-router';
+import { isSocialCrawler } from './og-route';
 import { handleMcp } from './mcp-handler';
 import { DfirMcpServer } from './mcp-server';
 import { handleRadarCrawl } from './radar-handler';
@@ -47,6 +48,17 @@ function generateRequestId(): string {
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    // Social-card crawlers (X/Twitter, LinkedIn, Facebook, Slack, Discord,
+    // Telegram) fetch share URLs over plain http when the link was shared
+    // without a scheme (X stores bare domains as http://). X's card crawler
+    // does NOT follow redirects, so an http→https 301 at the edge makes it
+    // give up and cache "no card" — while LinkedIn (which follows redirects)
+    // still renders the card. Serve known crawlers a 200 over http and
+    // redirect everyone else to https.
+    if (url.protocol === 'http:' && !isSocialCrawler(request)) {
+      return Response.redirect(`https://${url.host}${url.pathname}${url.search}`, 301);
+    }
 
     // Cold-start binding validation.
     logStartupValidation(env as unknown as Record<string, unknown>);

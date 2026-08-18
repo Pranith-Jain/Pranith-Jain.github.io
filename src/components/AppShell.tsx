@@ -167,8 +167,12 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
     recordVisit(mode, location.pathname, label);
   }, [location.pathname, mode]);
 
+  /* min-h-dvh (not min-h-screen): 100vh on iOS includes the area behind the
+     collapsing URL bar, which pushes the bottom nav/footer below the fold on
+     first paint and causes a jump when the bar collapses. dvh tracks the
+     visible viewport. */
   return (
-    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
+    <div className="min-h-dvh flex flex-col text-slate-900 dark:text-slate-50">
       <SkipToContent />
       <TopBar
         sectionLabel={section.label}

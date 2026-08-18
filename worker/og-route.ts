@@ -24,10 +24,10 @@ const OG_LIMIT = 60;
  * so a 20/min cap was 429ing a fraction of their fetches → "some links show
  * no image". Bypass the limiter for known crawler user-agents.
  */
-const CRAWLER_UA_RE =
+export const CRAWLER_UA_RE =
   /twitterbot|linkedinbot|facebookexternalhit|facebot|slackbot|discordbot|telegrambot|whatsapp|googlebot|bingbot|duckduckbot|pinterestbot|yandexbot/i;
 
-function isSocialCrawler(request: Request): boolean {
+export function isSocialCrawler(request: Request): boolean {
   const ua = request.headers.get('user-agent') ?? '';
   return CRAWLER_UA_RE.test(ua);
 }

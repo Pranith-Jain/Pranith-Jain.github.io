@@ -486,7 +486,7 @@ export default function ThreatFeeds(): JSX.Element {
         {annotated.slice(0, 200).map(({ item, section }) => (
           <li
             key={item.link ?? `${item.title}-${item.pubDate}`}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3"
+            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 [content-visibility:auto] [contain-intrinsic-size:auto_140px]"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
               <a

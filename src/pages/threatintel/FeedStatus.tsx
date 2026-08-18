@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJsonCached } from '../../lib/api-client';
+import { memoryCache } from '../../infrastructure/cache/memory-cache';
 import { Activity, ExternalLink, RefreshCw } from 'lucide-react';
 import { type Status, PILL, CREDIBILITY, RELIABILITY_TONE, ageString } from '../../components/status/statusTones';
 
@@ -35,24 +37,20 @@ export default function FeedStatus(): JSX.Element {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    const ac = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/feed-status', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
-      .then((r) => {
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<FeedStatusResponse>;
-      })
+    // Manual refresh must bypass the 30s client cache.
+    if (refreshKey > 0) memoryCache.delete('/api/v1/feed-status');
+    fetchJsonCached<FeedStatusResponse>('/api/v1/feed-status', 30_000)
       .then((d) => {
         setData(d);
       })
       .catch((e: Error) => {
-        if (e.name !== 'AbortError') setError(e.message);
+        setError(e.message);
       })
       .finally(() => {
         setLoading(false);
       });
-    return () => ac.abort();
   }, [refreshKey]);
 
   return (
