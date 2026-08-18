@@ -1,0 +1,15 @@
+{
+  "slug": "aurora-natco-home-group-2026-08-17",
+  "title": "Natco Home Group",
+  "group": "aurora",
+  "discovered": "2026-08-17T14:22:18.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0053aef0-0504-45d9-8280-17239c6aefb4",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

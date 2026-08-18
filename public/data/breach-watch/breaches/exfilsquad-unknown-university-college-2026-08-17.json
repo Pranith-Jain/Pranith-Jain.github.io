@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-unknown-university-college-2026-08-17",
+  "title": "Unknown University/College",
+  "group": "ExfilSquad",
+  "discovered": "2026-08-17T02:34:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1547b57b-8999-46b4-81d2-abf4f7baea5e",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "orova-smartsoft-2026-08-16",
+  "title": "Smartsoft",
+  "group": "Orova",
+  "discovered": "2026-08-16T08:52:41.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TW",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/80edc1a9-3325-430f-9182-2248ba5d9371",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

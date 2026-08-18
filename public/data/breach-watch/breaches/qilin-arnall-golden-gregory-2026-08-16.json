@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-arnall-golden-gregory-2026-08-16",
+  "title": "Arnall Golden Gregory",
+  "group": "qilin",
+  "discovered": "2026-08-16T09:31:57.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/fce4ab02-583b-4e51-bb19-26fe4ff6c9bc",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

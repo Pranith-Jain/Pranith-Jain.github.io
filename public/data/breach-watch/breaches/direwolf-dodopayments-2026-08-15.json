@@ -1,0 +1,15 @@
+{
+  "slug": "direwolf-dodopayments-2026-08-15",
+  "title": "DodoPayments",
+  "group": "direwolf",
+  "discovered": "2026-08-15T20:27:05.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/7e36f5a3-49d5-4a2e-9c77-3efd4d0c142d",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

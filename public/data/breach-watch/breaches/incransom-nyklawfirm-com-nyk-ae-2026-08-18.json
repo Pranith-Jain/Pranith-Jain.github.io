@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-nyklawfirm-com-nyk-ae-2026-08-18",
+  "title": "nyklawfirm.com nyk.ae",
+  "group": "incransom",
+  "discovered": "2026-08-18T10:25:50.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c95e50c3-22fe-4681-9d83-e4fbfdab440c",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

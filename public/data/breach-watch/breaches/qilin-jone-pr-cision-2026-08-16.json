@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-jone-pr-cision-2026-08-16",
+  "title": "Jone Précision",
+  "group": "qilin",
+  "discovered": "2026-08-16T09:32:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0d0f84c0-f3f5-422b-a747-1c944a664d6d",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

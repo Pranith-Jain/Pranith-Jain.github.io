@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bitcoin, ExternalLink, Search } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJsonCached } from '../../lib/api-client';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
@@ -81,14 +82,9 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
 
   useEffect(() => {
     let cancelled = false;
-    const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/ransomwhere?limit=1000', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json() as Promise<RansomwhereResponse>;
-      })
+    fetchJsonCached<RansomwhereResponse>('/api/v1/ransomwhere?limit=1000', 60_000)
       .then((d) => {
         if (!cancelled) setData(d);
       })
@@ -100,7 +96,6 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
       });
     return () => {
       cancelled = true;
-      ctrl.abort();
     };
   }, []);
 

@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-weba-meubelen-2026-08-16",
+  "title": "WEBA Meubelen",
+  "group": "qilin",
+  "discovered": "2026-08-16T15:58:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/eb7d3ef4-0783-423d-b6be-1cd9fefefb4f",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

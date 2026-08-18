@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Shield, Server, Search, Bug, Globe, Database, ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJsonCached } from '../../lib/api-client';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
@@ -76,39 +77,22 @@ export default function AggregatedFeeds() {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
-  const loadRef = useRef<AbortController | null>(null);
-
   const load = useCallback(() => {
-    loadRef.current?.abort();
-    const ctrl = new AbortController();
-    loadRef.current = ctrl;
     setLoading(true);
     setError(null);
-    fetch('/api/v1/aggregated-feeds', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
-      .then((r) => {
-        if (ctrl.signal.aborted) return;
-        if (r.ok) return r.json();
-        throw new Error(`HTTP ${r.status}`);
-      })
-      .then((d: AggregatedFeedsResponse | undefined) => {
-        if (!ctrl.signal.aborted && d) {
-          setData(d);
-          setLoading(false);
-        }
+    fetchJsonCached<AggregatedFeedsResponse>('/api/v1/aggregated-feeds', 60_000)
+      .then((d) => {
+        setData(d);
+        setLoading(false);
       })
       .catch((e) => {
-        if (!ctrl.signal.aborted) {
-          setError(String(e));
-          setLoading(false);
-        }
+        setError(String(e));
+        setLoading(false);
       });
   }, []);
 
   useEffect(() => {
     load();
-    return () => {
-      loadRef.current?.abort();
-    };
   }, [load]);
 
   const filteredFeeds = data?.feeds.filter((f) => {

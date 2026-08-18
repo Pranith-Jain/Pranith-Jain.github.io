@@ -1,0 +1,15 @@
+{
+  "slug": "xpl0itrs-dynatrace-2026-08-15",
+  "title": "Dynatrace",
+  "group": "xpl0itrs",
+  "discovered": "2026-08-15T21:44:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/927ed141-b6ec-4080-a0de-c74bba7bc59b",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "storm-westco-motors-cairns-2026-08-18",
+  "title": "Westco Motors Cairns",
+  "group": "Storm",
+  "discovered": "2026-08-18T04:21:24.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f2e894e7-cf4a-4e52-96c7-bb760d452591",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

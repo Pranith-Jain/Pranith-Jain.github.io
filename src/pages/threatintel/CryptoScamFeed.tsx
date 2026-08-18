@@ -3,6 +3,8 @@ import { Bitcoin, Copy, Check, RefreshCw, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
+import { fetchJsonCached } from '../../lib/api-client';
+import { memoryCache } from '../../infrastructure/cache/memory-cache';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
@@ -33,24 +35,20 @@ export default function CryptoScamFeed(): JSX.Element {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const ac = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/crypto-scam-feed', { signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]) })
-      .then((r) => {
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<CryptoScamResponse>;
-      })
+    // Manual refresh must bypass the 60s client cache.
+    if (refreshKey > 0) memoryCache.delete('/api/v1/crypto-scam-feed');
+    fetchJsonCached<CryptoScamResponse>('/api/v1/crypto-scam-feed', 60_000)
       .then((d) => {
         setData(d);
       })
       .catch((e: Error) => {
-        if (e.name !== 'AbortError') setError(e.message);
+        setError(e.message);
       })
       .finally(() => {
         setLoading(false);
       });
-    return () => ac.abort();
   }, [refreshKey]);
 
   const topTlds = useMemo(() => {

@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { fetchJsonCached } from '../../lib/api-client';
+import { memoryCache } from '../../infrastructure/cache/memory-cache';
 import {
   Activity,
   AlertTriangle,
@@ -171,21 +173,9 @@ function useFetch<T>(
       return;
     }
     let alive = true;
-    const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch(url, { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(20_000)]) })
-      .then(async (r) => {
-        const j = await r.json().catch(() => ({}));
-        if (!r.ok) {
-          const detail =
-            (j as { error?: string }).error === 'not_configured'
-              ? 'ransomware.live PRO key is not configured on the server.'
-              : `${(j as { error?: string }).error ?? 'request failed'} (HTTP ${r.status})`;
-          throw new Error(detail);
-        }
-        return j as T;
-      })
+    fetchJsonCached<T>(url, 30_000)
       .then((d) => {
         if (alive) {
           fetchedRef.current = true;
@@ -193,14 +183,19 @@ function useFetch<T>(
         }
       })
       .catch((e: { name?: string; message?: string }) => {
-        if (alive && e.name !== 'AbortError') setError(e.message ?? String(e));
+        if (alive && e.name !== 'AbortError') {
+          setError(
+            e.message === 'not_configured'
+              ? 'ransomware.live PRO key is not configured on the server.'
+              : (e.message ?? String(e))
+          );
+        }
       })
       .finally(() => {
         if (alive) setLoading(false);
       });
     return () => {
       alive = false;
-      ctrl.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, tick, ...deps]);
@@ -208,8 +203,9 @@ function useFetch<T>(
   const refresh = useCallback(() => {
     fetchedRef.current = false;
     setData(null);
+    if (url) memoryCache.delete(url); // force a real refetch, not the 30s cache
     setTick((t) => t + 1);
-  }, []);
+  }, [url]);
 
   return { data, loading, error, refresh };
 }

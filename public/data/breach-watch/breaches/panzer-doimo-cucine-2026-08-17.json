@@ -1,0 +1,15 @@
+{
+  "slug": "panzer-doimo-cucine-2026-08-17",
+  "title": "Doimo Cucine",
+  "group": "Panzer",
+  "discovered": "2026-08-17T10:51:42.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1be42a77-8279-493d-b895-9d4c2990b085",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

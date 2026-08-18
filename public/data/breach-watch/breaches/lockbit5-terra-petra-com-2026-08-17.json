@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-terra-petra-com-2026-08-17",
+  "title": "terra-petra.com",
+  "group": "lockbit5",
+  "discovered": "2026-08-17T18:35:02.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Terra-Petra is an environmental engineering firm specializing in contaminated soil and groundwater c...",
+  "source_url": "https://www.ransomlook.io/screenshots/lockbit5/terra-petracom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

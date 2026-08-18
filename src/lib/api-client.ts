@@ -1,3 +1,5 @@
+import { memoryCache } from '../infrastructure/cache/memory-cache';
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -106,3 +108,32 @@ export const api = {
     return () => es.close();
   },
 };
+
+/**
+ * Plain-fetch drop-in that routes through the shared memory cache (30s TTL by
+ * default, in-flight dedup, and sessionStorage persistence across reloads).
+ * For feed-style pages that previously called `fetch(url).then(r => r.json())`
+ * directly and so re-fetched on every mount and every hard reload.
+ *
+ * Throws an Error with the upstream `error` message (when the body carries
+ * one) so callers that surface error details keep working. Failed/error
+ * responses are NOT cached - only successful ones are.
+ */
+export async function fetchJsonCached<T>(url: string, ttl = 30_000, timeoutMs = 20_000): Promise<T> {
+  return memoryCache.dedup<T>(
+    url,
+    async () => {
+      const res = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+      const body = (await res.json().catch(() => null)) as T | null;
+      if (!res.ok) {
+        const msg =
+          body && typeof body === 'object' && 'error' in body
+            ? ((body as { error?: string }).error ?? `HTTP ${res.status}`)
+            : `HTTP ${res.status}`;
+        throw new Error(msg);
+      }
+      return body as T;
+    },
+    ttl
+  );
+}

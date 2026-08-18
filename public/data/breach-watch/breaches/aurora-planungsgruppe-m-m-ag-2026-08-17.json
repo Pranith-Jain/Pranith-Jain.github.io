@@ -1,0 +1,15 @@
+{
+  "slug": "aurora-planungsgruppe-m-m-ag-2026-08-17",
+  "title": "Planungsgruppe M+M AG",
+  "group": "aurora",
+  "discovered": "2026-08-17T16:22:52.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/14a6877c-fee0-42e4-a304-2f82e0974477",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

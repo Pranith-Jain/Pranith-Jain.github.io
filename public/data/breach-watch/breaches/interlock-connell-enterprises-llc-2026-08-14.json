@@ -1,15 +1,15 @@
 {
   "slug": "interlock-connell-enterprises-llc-2026-08-14",
   "title": "Connell Enterprises LLC",
-  "group": "Interlock",
-  "discovered": "2026-08-14T00:00:00.000Z",
+  "group": "interlock",
+  "discovered": "2026-08-14T14:32:04.000Z",
   "category": "data_breach",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/connell-enterprises-llc-interlock-2026-08",
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/abd9e3d2-7fb1-475f-95fa-91342206bcbe",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Other",
+  "references": ["Darkfield"]
 }

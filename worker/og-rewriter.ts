@@ -719,45 +719,30 @@ export async function resolveBlogJsonLd(url: URL, env: Env): Promise<string> {
 }
 
 /**
- * Routes that must be served `noindex`: the credential-input DFIR tools (a
- * public masked-password field reads as a deceptive "user login" to Google
- * Safe Browsing) plus the admin login. These are kept CRAWLABLE (noindex, not
- * robots Disallow) on purpose — Google must be able to re-crawl a flagged page
- * to confirm it is clean and lift a Safe Browsing warning; Disallow would block
+ * Routes that must be served `noindex`: ONLY the credential-input surfaces —
+ * some DFIR tools read a password/passphrase/API key in a masked field, and
+ * Google Safe Browsing classifies a masked password field on a non-login page
+ * as credential harvesting ("Possible Phishing Detected on User Login"); the
+ * admin login is private. These are kept CRAWLABLE (noindex, not robots
+ * Disallow) on purpose — Google must be able to re-crawl a flagged page to
+ * confirm it is clean and lift a Safe Browsing warning; Disallow would block
  * that re-review. /admin is additionally Disallow-ed in robots.txt (it is
  * genuinely private and never needs a Safe Browsing re-review).
+ *
+ * IMPORTANT: this list must stay minimal. Every content page with no
+ * credential input must be indexable — an over-broad list lands dozens of
+ * legitimate tool/darkweb/malware/phishing CONTENT pages in Google's
+ * "Pages with noindex" report (Search Console "page indexing"): those pages
+ * have no password fields and the Safe Browsing rationale does not apply.
+ * The og-rewriter contract test (src/test/og-rewriter.contract.test.ts)
+ * asserts noindex on exactly these surfaces and index everywhere else.
  */
 const NOINDEX_PREFIXES = [
   '/dfir/breach',
   '/dfir/pgp-tool',
   '/dfir/phishing',
-  '/dfir/stealer-parser',
-  '/dfir/lolbins',
-  '/dfir/powershell-deobf',
-  '/dfir/ransomware-quant',
-  '/dfir/malware-analyzer',
-  '/dfir/infostealer-intel',
-  '/dfir/open-directory',
-  '/dfir/web-scan',
-  '/dfir/subdomain-takeover',
-  '/dfir/phishops',
-  '/dfir/phishbook',
-  '/dfir/xss-payloads',
   '/threatintel/telegram-leaks/channels',
   '/threatintel/misp-browser',
-  '/threatintel/darkweb',
-  '/threatintel/ransomware',
-  '/threatintel/malware',
-  '/threatintel/phishing',
-  '/threatintel/breach',
-  '/threatintel/c2-tracker',
-  '/threatintel/infostealer',
-  '/threatintel/crypto-scam',
-  '/threatintel/scam-watch',
-  '/threatintel/darkweb-tools',
-  '/threatintel/malware-iocs',
-  '/threatintel/phishing-wordlists',
-  '/threatintel/tools/darknet-intel',
   '/admin',
 ];
 function shouldNoindex(pathname: string): boolean {

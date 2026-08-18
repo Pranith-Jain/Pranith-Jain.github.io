@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-tecosim-com-2026-08-16",
+  "title": "tecosim.com",
+  "group": "lockbit5",
+  "discovered": "2026-08-16T14:51:40.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/bf875545-a4c1-4979-976c-288f9beb9a7c",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

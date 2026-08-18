@@ -115,7 +115,7 @@ function BreachCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-rose-500/40 transition-colors ${
+      className={`w-full text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-rose-500/40 transition-colors [content-visibility:auto] [contain-intrinsic-size:auto_120px] ${
         selected
           ? 'border-rose-500/60 ring-1 ring-rose-500/30'
           : 'border-slate-200 dark:border-[rgb(var(--border-400))]'

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FileDown, Loader2, Search, ShieldAlert } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJsonCached } from '../../lib/api-client';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -110,12 +111,9 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
   const [pdfBusy, setPdfBusy] = useState(false);
 
   useEffect(() => {
-    const ctrl = new AbortController();
-    fetch('/api/v1/rl/groups', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]) })
-      .then((r) => (r.ok ? (r.json() as Promise<RlEnvelope<{ groups?: GroupListItem[] }>>) : null))
+    fetchJsonCached<RlEnvelope<{ groups?: GroupListItem[] }>>('/api/v1/rl/groups', 60_000)
       .then((d) => setGroups(d?.data.groups ?? []))
       .catch(() => setGroups([]));
-    return () => ctrl.abort();
   }, []);
 
   useEffect(() => {
@@ -124,7 +122,6 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
       setProfile(null);
       return;
     }
-    const ctrl = new AbortController();
     let cancelled = false;
     setLoading(true);
     setError(null);
@@ -135,23 +132,20 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
     setPdfError(null);
     setVictims([]);
 
-    const signal = AbortSignal.any([ctrl.signal, AbortSignal.timeout(15000)]);
-
-    const profileReq = fetch(`/api/v1/rl/group/${encodeURIComponent(g)}`, { signal }).then(async (r) => {
-      if (r.status === 503) {
-        throw new Error('__not_configured__');
-      }
-      if (!r.ok) throw new Error(`Couldn't load group profile (HTTP ${r.status}).`);
-      return (await r.json()) as RlEnvelope<GroupProfile>;
+    const profileReq = fetchJsonCached<RlEnvelope<GroupProfile>>(
+      `/api/v1/rl/group/${encodeURIComponent(g)}`,
+      60_000
+    ).catch((e: Error) => {
+      throw e;
     });
 
-    const yaraReq = fetch(`/api/v1/rl/yara/${encodeURIComponent(g)}`, { signal })
-      .then((r) => (r.ok ? r.json() : null))
-      .catch(() => null);
+    const yaraReq = fetchJsonCached<RlEnvelope<unknown>>(`/api/v1/rl/yara/${encodeURIComponent(g)}`, 60_000).catch(
+      () => null
+    );
 
-    const victimsReq = fetch('/api/v1/rl/victims-recent', { signal })
-      .then((r) => (r.ok ? r.json() : null))
-      .catch(() => null);
+    const victimsReq = fetchJsonCached<RlEnvelope<{ victims?: RlVictim[] }>>('/api/v1/rl/victims-recent', 60_000).catch(
+      () => null
+    );
 
     Promise.all([profileReq, yaraReq, victimsReq])
       .then(([p, y, vr]) => {
@@ -171,7 +165,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
       })
       .catch((e: Error) => {
         if (cancelled) return;
-        if (e.message === '__not_configured__') setNotConfigured(true);
+        if (e.message === '__not_configured__' || e.message === 'not_configured') setNotConfigured(true);
         else setError(e.message);
       })
       .finally(() => {
@@ -180,7 +174,6 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
 
     return () => {
       cancelled = true;
-      ctrl.abort();
     };
   }, [selected]);
 
@@ -517,17 +510,57 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
             <Section title={`Exploited vulnerabilities (${vulns.length})`}>
               <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <DataTable
-                  columns={[
-                    { key: 'CVE', header: 'CVE', sortValue: (v: typeof vulns[number]) => v.CVE, render: (v) => (
-                      <a href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined} target="_blank" rel="noopener noreferrer" className="font-mono text-meta text-rose-600 dark:text-rose-400 hover:underline transition-colors">{v.CVE}</a>
-                    ) },
-                    { key: 'severity', header: 'Severity', sortValue: (v: typeof vulns[number]) => v.severity ?? '', render: (v) => (
-                      <span className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}>{v.severity ?? '-'}</span>
-                    ) },
-                    { key: 'CVSS', header: 'CVSS', sortValue: (v: typeof vulns[number]) => v.CVSS ?? '', render: (v) => <span className="font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '-'}</span> },
-                    { key: 'Vendor', header: 'Vendor', sortValue: (v: typeof vulns[number]) => v.Vendor ?? '', render: (v) => <span className="text-meta text-muted">{v.Vendor ?? '-'}</span> },
-                    { key: 'Product', header: 'Product', sortValue: (v: typeof vulns[number]) => v.Product ?? '', render: (v) => <span className="text-meta text-muted">{v.Product ?? '-'}</span> },
-                  ] as DataTableColumn<typeof vulns[number]>[]}
+                  columns={
+                    [
+                      {
+                        key: 'CVE',
+                        header: 'CVE',
+                        sortValue: (v: (typeof vulns)[number]) => v.CVE,
+                        render: (v) => (
+                          <a
+                            href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-meta text-rose-600 dark:text-rose-400 hover:underline transition-colors"
+                          >
+                            {v.CVE}
+                          </a>
+                        ),
+                      },
+                      {
+                        key: 'severity',
+                        header: 'Severity',
+                        sortValue: (v: (typeof vulns)[number]) => v.severity ?? '',
+                        render: (v) => (
+                          <span
+                            className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}
+                          >
+                            {v.severity ?? '-'}
+                          </span>
+                        ),
+                      },
+                      {
+                        key: 'CVSS',
+                        header: 'CVSS',
+                        sortValue: (v: (typeof vulns)[number]) => v.CVSS ?? '',
+                        render: (v) => (
+                          <span className="font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '-'}</span>
+                        ),
+                      },
+                      {
+                        key: 'Vendor',
+                        header: 'Vendor',
+                        sortValue: (v: (typeof vulns)[number]) => v.Vendor ?? '',
+                        render: (v) => <span className="text-meta text-muted">{v.Vendor ?? '-'}</span>,
+                      },
+                      {
+                        key: 'Product',
+                        header: 'Product',
+                        sortValue: (v: (typeof vulns)[number]) => v.Product ?? '',
+                        render: (v) => <span className="text-meta text-muted">{v.Product ?? '-'}</span>,
+                      },
+                    ] as DataTableColumn<(typeof vulns)[number]>[]
+                  }
                   rows={vulns}
                   rowKey={(v, i) => `${v.CVE}-${i}`}
                 />
@@ -570,12 +603,42 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
               </p>
               <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <DataTable
-                  columns={[
-                    { key: 'victim', header: 'Victim', sortValue: (v: typeof victims[number]) => v.victim ?? '', render: (v) => <span className="text-meta text-slate-700 dark:text-slate-300 break-all">{v.victim ?? '-'}</span> },
-                    { key: 'country', header: 'Country', sortValue: (v: typeof victims[number]) => v.country ?? '', render: (v) => <span className="text-meta text-muted">{v.country ?? '-'}</span> },
-                    { key: 'sector', header: 'Sector', sortValue: (v: typeof victims[number]) => v.activity ?? '', render: (v) => <span className="text-meta text-muted">{v.activity ?? '-'}</span> },
-                    { key: 'disclosed', header: 'Disclosed', sortValue: (v: typeof victims[number]) => v.discovered ?? v.attackdate ?? '', render: (v) => <span className="font-mono text-mini text-slate-500 whitespace-nowrap">{(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '-'}</span> },
-                  ] as DataTableColumn<typeof victims[number]>[]}
+                  columns={
+                    [
+                      {
+                        key: 'victim',
+                        header: 'Victim',
+                        sortValue: (v: (typeof victims)[number]) => v.victim ?? '',
+                        render: (v) => (
+                          <span className="text-meta text-slate-700 dark:text-slate-300 break-all">
+                            {v.victim ?? '-'}
+                          </span>
+                        ),
+                      },
+                      {
+                        key: 'country',
+                        header: 'Country',
+                        sortValue: (v: (typeof victims)[number]) => v.country ?? '',
+                        render: (v) => <span className="text-meta text-muted">{v.country ?? '-'}</span>,
+                      },
+                      {
+                        key: 'sector',
+                        header: 'Sector',
+                        sortValue: (v: (typeof victims)[number]) => v.activity ?? '',
+                        render: (v) => <span className="text-meta text-muted">{v.activity ?? '-'}</span>,
+                      },
+                      {
+                        key: 'disclosed',
+                        header: 'Disclosed',
+                        sortValue: (v: (typeof victims)[number]) => v.discovered ?? v.attackdate ?? '',
+                        render: (v) => (
+                          <span className="font-mono text-mini text-slate-500 whitespace-nowrap">
+                            {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '-'}
+                          </span>
+                        ),
+                      },
+                    ] as DataTableColumn<(typeof victims)[number]>[]
+                  }
                   rows={victims}
                   rowKey={(v, i) => `${v.victim}-${i}`}
                 />

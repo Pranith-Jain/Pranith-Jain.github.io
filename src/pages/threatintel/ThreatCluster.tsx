@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJsonCached } from '../../lib/api-client';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import {
   Activity,
@@ -186,7 +187,7 @@ function SearchBox({
 
 function ClusterCard({ item }: { item: TcCluster }) {
   return (
-    <details className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30">
+    <details className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]">
       <summary className="cursor-pointer list-none">
         <div className="flex items-start justify-between gap-2 mb-1.5">
           <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">{item.title}</h3>
@@ -301,9 +302,7 @@ export default function ThreatCluster(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/threat-intel/threatcluster');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setIdx((await res.json()) as TcIndex);
+      setIdx(await fetchJsonCached<TcIndex>('/api/v1/threat-intel/threatcluster', 60_000));
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -325,9 +324,7 @@ export default function ThreatCluster(): JSX.Element {
           : `${base}/${tab}?limit=500`;
     (async () => {
       try {
-        const r = await fetch(endpoint);
-        if (!r.ok) return;
-        const json = (await r.json()) as Record<string, unknown>;
+        const json = await fetchJsonCached<Record<string, unknown>>(endpoint, 60_000);
         if (tab === 'clusters') setClusters((json.clusters as TcCluster[]) ?? []);
         else if (tab === 'vulnerabilities') setVulns((json.vulnerabilities as TcVuln[]) ?? []);
         else if (tab === 'exploits') setExploits((json.exploits as TcExploit[]) ?? []);
@@ -512,7 +509,7 @@ export default function ThreatCluster(): JSX.Element {
                   return (
                     <details
                       key={v.cveId}
-                      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30"
+                      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]"
                     >
                       <summary className="cursor-pointer list-none">
                         <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -569,7 +566,7 @@ export default function ThreatCluster(): JSX.Element {
                 {filteredExploits.map((e) => (
                   <details
                     key={e.cveId}
-                    className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30"
+                    className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4 open:border-rose-500/30 [content-visibility:auto] [contain-intrinsic-size:auto_180px]"
                   >
                     <summary className="cursor-pointer list-none">
                       <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -771,10 +768,9 @@ function useDetail<T>(path: string) {
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    fetch(path)
-      .then((r) => (r.ok ? r.json() : null))
+    fetchJsonCached<T>(path, 60_000)
       .then((j) => {
-        if (!cancelled) setBody(j as T);
+        if (!cancelled) setBody(j);
       })
       .catch(() => undefined)
       .finally(() => {

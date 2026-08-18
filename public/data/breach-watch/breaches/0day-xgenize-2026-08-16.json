@@ -1,0 +1,15 @@
+{
+  "slug": "0day-xgenize-2026-08-16",
+  "title": "XGenize",
+  "group": "0DAY",
+  "discovered": "2026-08-16T02:58:43.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/f5670e1e-5528-4483-8728-79ca93454eba",
+  "groupAliases": [],
+  "activity": "Technology / Artificial Intelligence",
+  "references": ["Darkfield"]
+}

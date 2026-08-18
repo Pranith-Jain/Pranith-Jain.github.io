@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-air-cooled-water-chiller-manufacturer-2026-08-17",
+  "title": "Unknown (air-cooled water chiller manufacturer)",
+  "group": "safepay",
+  "discovered": "2026-08-17T02:31:01.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/29571f17-4959-48dc-8059-574f9ac94e5a",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

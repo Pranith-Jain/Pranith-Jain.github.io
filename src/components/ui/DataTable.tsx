@@ -124,7 +124,7 @@ export function DataTable<T>({
             sortedRows.map((row, i) => (
               <tr
                 key={rowKey(row, i)}
-                className={`border-t border-slate-200/70 align-top dark:border-[rgb(var(--border-400))]/70 ${rowClassName?.(row) ?? ''}`}
+                className={`border-t border-slate-200/70 align-top dark:border-[rgb(var(--border-400))]/70 [content-visibility:auto] [contain-intrinsic-size:auto_64px] ${rowClassName?.(row) ?? ''}`}
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
                 role={onRowClick ? 'button' : undefined}
                 tabIndex={onRowClick ? 0 : undefined}

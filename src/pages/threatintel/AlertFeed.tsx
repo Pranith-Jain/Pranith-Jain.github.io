@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJsonCached } from '../../lib/api-client';
 import { Bell, BellOff, RefreshCw, CheckCircle, XCircle, AlertTriangle, Shield, Info, Skull } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
@@ -60,13 +61,10 @@ export default function AlertFeed() {
     try {
       const params = new URLSearchParams();
       if (filter !== 'all') params.set('severity', filter);
-      const [alertRes, statsRes] = await Promise.all([
-        fetch(`/api/v1/estate/alerts?${params}`),
-        fetch('/api/v1/estate/alerts/stats'),
+      const [alertData, statsData] = await Promise.all([
+        fetchJsonCached<{ alerts?: Alert[] }>(`/api/v1/estate/alerts?${params}`, 30_000),
+        fetchJsonCached<AlertStats>('/api/v1/estate/alerts/stats', 30_000),
       ]);
-      if (!alertRes.ok || !statsRes.ok) throw new Error('Failed to load alerts');
-      const alertData = await alertRes.json();
-      const statsData = await statsRes.json();
       setAlerts(alertData.alerts ?? []);
       setStats(statsData);
     } catch (e) {

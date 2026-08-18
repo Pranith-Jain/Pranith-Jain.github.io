@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-the-university-of-the-west-indies-2026-08-17",
+  "title": "The University of the West Indies",
+  "group": "qilin",
+  "discovered": "2026-08-17T21:29:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f463bc87-9c46-4d9c-8985-8c9cd8ef1e5a",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

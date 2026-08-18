@@ -1,0 +1,15 @@
+{
+  "slug": "inc-ransom-ssf-int-com-ssf-ing-de-2026-08-18",
+  "title": "ssf-int.com  ssf-ing.de",
+  "group": "INC Ransom",
+  "discovered": "2026-08-18T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/ssf-int-com-ssf-ing-de-inc-ransom-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

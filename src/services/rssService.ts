@@ -1,4 +1,5 @@
 import { rssFeeds, type RSSFeed } from '../data/rssFeeds';
+import { memoryCache } from '../infrastructure/cache/memory-cache';
 
 export interface FeedItem {
   title: string;
@@ -259,17 +260,16 @@ async function fetchOneBatch(urls: string[], limit: number, perSource: number): 
   }
 }
 
-export async function fetchAggregatedFeed(
-  feedIds: string[],
-  options: { limit?: number; perSource?: number } = {}
-): Promise<AggregatedFeedResponse | null> {
-  const feeds = rssFeeds.filter((f) => feedIds.includes(f.id));
-  if (feeds.length === 0) return null;
-  const urlList = feeds.map((f) => f.url).filter((u) => !u.startsWith('/')); // synthesised feeds aren't aggregator-eligible
-  if (urlList.length === 0) return null;
-  const limit = options.limit ?? 100;
-  const perSource = options.perSource ?? 5;
+/** 60s client cache - matches the doc comment above and the server's edge
+ *  cache, so re-visits (and hard reloads via the persisted memory cache)
+ *  paint instantly instead of re-running a 15-30 URL server fan-out. */
+const AGG_CACHE_TTL = 60_000;
 
+async function fetchAggregatedFeedUncached(
+  urlList: string[],
+  limit: number,
+  perSource: number
+): Promise<AggregatedFeedResponse | null> {
   // Single-batch path - keeps a request fast when the URL count is small.
   if (urlList.length <= AGGREGATOR_CHUNK_SIZE) {
     return fetchOneBatch(urlList, limit, perSource);
@@ -312,6 +312,24 @@ export async function fetchAggregatedFeed(
   merged.items = merged.items.slice(0, limit);
   merged.total_items = merged.items.length;
   return merged;
+}
+
+export async function fetchAggregatedFeed(
+  feedIds: string[],
+  options: { limit?: number; perSource?: number } = {}
+): Promise<AggregatedFeedResponse | null> {
+  const feeds = rssFeeds.filter((f) => feedIds.includes(f.id));
+  if (feeds.length === 0) return null;
+  const urlList = feeds.map((f) => f.url).filter((u) => !u.startsWith('/')); // synthesised feeds aren't aggregator-eligible
+  if (urlList.length === 0) return null;
+  const limit = options.limit ?? 100;
+  const perSource = options.perSource ?? 5;
+  const key = `agg:${urlList.join('|')}:${limit}:${perSource}`;
+  return memoryCache.dedup<AggregatedFeedResponse | null>(
+    key,
+    () => fetchAggregatedFeedUncached(urlList, limit, perSource),
+    AGG_CACHE_TTL
+  );
 }
 
 // Get all feeds

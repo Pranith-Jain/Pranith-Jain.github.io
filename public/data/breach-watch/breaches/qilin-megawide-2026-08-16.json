@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-megawide-2026-08-16",
+  "title": "Megawide",
+  "group": "qilin",
+  "discovered": "2026-08-16T12:29:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PH",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/42285a9f-7116-46f8-a691-0be912cac062",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

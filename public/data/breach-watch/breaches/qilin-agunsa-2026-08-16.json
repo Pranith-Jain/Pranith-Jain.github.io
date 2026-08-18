@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-agunsa-2026-08-16",
+  "title": "AGUNSA",
+  "group": "qilin",
+  "discovered": "2026-08-16T18:58:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CL",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/6298c7e7-e387-4826-991b-f48e09fbad3c",
+  "groupAliases": [],
+  "activity": "Transportation",
+  "references": ["Darkfield"]
+}

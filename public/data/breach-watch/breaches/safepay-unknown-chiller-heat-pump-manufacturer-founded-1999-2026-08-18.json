@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-unknown-chiller-heat-pump-manufacturer-founded-1999-2026-08-18",
+  "title": "Unknown (chiller/heat pump manufacturer, founded 1999)",
+  "group": "safepay",
+  "discovered": "2026-08-18T02:33:10.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/52a357b0-a93c-4a52-bec5-90a768da2689",
+  "groupAliases": [],
+  "activity": "Manufacturing/HVAC",
+  "references": ["Darkfield"]
+}

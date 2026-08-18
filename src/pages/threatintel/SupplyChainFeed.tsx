@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJsonCached } from '../../lib/api-client';
 import {
   AlertTriangle,
   CheckCircle,
@@ -135,9 +136,7 @@ export default function SupplyChainFeed(): JSX.Element {
     try {
       const params = new URLSearchParams({ limit: '200' });
       if (ecoFilter) params.set('ecosystem', ecoFilter);
-      const res = await fetch(`/api/v1/depx/feed?${params}`);
-      if (!res.ok) throw new Error(`Feed unavailable (${res.status})`);
-      setFeed(await res.json());
+      setFeed(await fetchJsonCached<FeedResponse>(`/api/v1/depx/feed?${params}`, 30_000));
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -159,9 +158,7 @@ export default function SupplyChainFeed(): JSX.Element {
       const params = input.includes(':')
         ? new URLSearchParams({ ref: input })
         : new URLSearchParams({ ecosystem: 'npm', package: input });
-      const res = await fetch(`/api/v1/depx/feed/check?${params}`);
-      if (!res.ok) throw new Error(`Check failed (${res.status})`);
-      setCheckResult(await res.json());
+      setCheckResult(await fetchJsonCached<CheckResponse>(`/api/v1/depx/feed/check?${params}`, 15_000));
     } catch (e) {
       setCheckError(e instanceof Error ? e.message : String(e));
     } finally {

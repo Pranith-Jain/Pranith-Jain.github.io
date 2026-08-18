@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-empireworks-2026-08-17",
+  "title": "EmpireWorks",
+  "group": "qilin",
+  "discovered": "2026-08-17T21:28:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/b5c1e1ae-d533-4449-b8a1-a1564a07f12d",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "direwolf-wishfully-studios-2026-08-17",
+  "title": "Wishfully Studios",
+  "group": "direwolf",
+  "discovered": "2026-08-17T14:53:46.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "SE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/52866a59-596a-488a-b8e8-d9f7d565443d",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

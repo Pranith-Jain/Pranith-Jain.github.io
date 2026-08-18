@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-sd-associates-sdn-bhd-2026-08-18",
+  "title": "SD Associates Sdn Bhd",
+  "group": "incransom",
+  "discovered": "2026-08-18T00:26:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/bae58326-f864-4df0-a175-33d31ed170d2",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}
