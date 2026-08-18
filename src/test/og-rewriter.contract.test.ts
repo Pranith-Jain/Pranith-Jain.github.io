@@ -115,8 +115,10 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
 
   it('gives a deep page a UNIQUE generated page card (og:image + twitter:image)', async () => {
     const html = await serve('/dfir/cve');
-    expect(metaByProperty(html, 'og:image')).toContain('/api/v1/og-image/page.png?p=');
-    expect(metaByName(html, 'twitter:image')).toContain('/api/v1/og-image/page.png?p=');
+    expect(metaByProperty(html, 'og:image')).toContain('/api/v1/og-image/page/%2Fdfir%2Fcve.png');
+    expect(metaByName(html, 'twitter:image')).toContain('/api/v1/og-image/page/%2Fdfir%2Fcve.png');
+    // query-free: X's card parser drops og:image URLs that carry query strings
+    expect(metaByProperty(html, 'og:image')).not.toContain('?p=');
     // and it differs from the section landing card
     expect(metaByProperty(html, 'og:image')).not.toContain('/og-dfir.png');
   });
