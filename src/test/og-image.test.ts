@@ -103,9 +103,16 @@ describe('matchOgImagePath', () => {
 });
 
 describe('matchOgPagePath', () => {
-  it('decodes the route path from the query-free encoded-path form', () => {
+  it('decodes the route path from the slash-free dot form', () => {
+    expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page/dfir.cve.png'))).toBe('/dfir/cve');
+    expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page/about.png'))).toBe('/about');
+    expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page/threatintel.correlation.png'))).toBe(
+      '/threatintel/correlation'
+    );
+  });
+
+  it('still accepts the percent-encoded path form (intermediate deploys)', () => {
     expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page/%2Fdfir%2Fcve.png'))).toBe('/dfir/cve');
-    expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page/%2Fabout.png'))).toBe('/about');
   });
 
   it('still accepts the legacy ?p= form', () => {
@@ -114,10 +121,11 @@ describe('matchOgPagePath', () => {
   });
 
   it.each([
-    'https://x/api/v1/og-image/page.png', // missing ?p=
+    'https://x/api/v1/og-image/page.png', // legacy endpoint without ?p=
     'https://x/api/v1/og-image/page.png?p=dfir', // not site-relative
     'https://x/api/v1/og-image/briefing/foo.png?p=%2Fdfir', // wrong pathname
-    'https://x/api/v1/og-image/page/.png', // empty encoded path
+    'https://x/api/v1/og-image/page/.png', // no segments
+    'https://x/api/v1/og-image/page/dfir%40cve.png', // percent-encoded non-slash chars are not dot-encoded
   ])('rejects %s', (u) => {
     expect(matchOgPagePath(new URL(u))).toBeNull();
   });
@@ -166,7 +174,7 @@ describe('resolveOg dynamic image wiring', () => {
 
   it('gives a deep tool page its OWN unique page card (not the section card)', async () => {
     const og = await resolveOg(new URL('https://pranithjain.qzz.io/dfir/cve'), {} as never);
-    expect(og?.image).toBe('/api/v1/og-image/page/%2Fdfir%2Fcve.png');
+    expect(og?.image).toBe('/api/v1/og-image/page/dfir.cve.png');
     expect(og?.title).toContain('CVE');
   });
 
