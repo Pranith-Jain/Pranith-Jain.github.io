@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-connections-2026-08-14",
-  "title": "Connections",
-  "group": "qilin",
-  "discovered": "2026-08-14T14:34:23.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-connections-2026-08-14","title":"Connections","group":"qilin","discovered":"2026-08-14T14:34:23.000Z","category":"ransomware","severity":"critical","country":"BE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

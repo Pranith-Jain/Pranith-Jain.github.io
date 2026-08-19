@@ -1,15 +1,1 @@
-{
-  "slug": "settra-galmack-com-ec-2026-08-16",
-  "title": "galmack.com.ec",
-  "group": "settra",
-  "discovered": "2026-08-16T15:27:38.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "EC",
-  "sizeBytes": 0,
-  "description": "GALMACK S.A.: Internal Documents of an Ecuadorian Auto Dealership Holding PROLOGUE Inside: monthly b...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"settra-galmack-com-ec-2026-08-16","title":"galmack.com.ec","group":"settra","discovered":"2026-08-16T15:27:38.000Z","category":"data_breach","severity":"high","country":"EC","sizeBytes":0,"description":"GALMACK S.A.: Internal Documents of an Ecuadorian Auto Dealership Holding PROLOGUE Inside: monthly b...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

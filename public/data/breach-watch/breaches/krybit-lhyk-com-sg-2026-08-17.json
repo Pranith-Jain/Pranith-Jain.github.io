@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-lhyk-com-sg-2026-08-17",
-  "title": "lhyk.com.sg",
-  "group": "krybit",
-  "discovered": "2026-08-17T18:07:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/2126d4e8e748b01c022bb4c8b74a674adcab995ab861bf99c810422bfec6d57f",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"krybit-lhyk-com-sg-2026-08-17","title":"lhyk.com.sg","group":"krybit","discovered":"2026-08-17T18:07:47.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/2126d4e8e748b01c022bb4c8b74a674adcab995ab861bf99c810422bfec6d57f","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

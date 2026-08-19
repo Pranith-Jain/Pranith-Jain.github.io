@@ -1,15 +1,1 @@
-{
-  "slug": "exfilsquad-unknown-company-842k-records-2026-08-19",
-  "title": "Unknown Company (842K records)",
-  "group": "ExfilSquad",
-  "discovered": "2026-08-19T02:50:22.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/25b81608-33db-4166-aa56-7e47cc4a8dfb",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["Darkfield"]
-}
+{"slug":"exfilsquad-unknown-company-842k-records-2026-08-19","title":"Unknown Company (842K records)","group":"ExfilSquad","discovered":"2026-08-19T02:50:22.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/25b81608-33db-4166-aa56-7e47cc4a8dfb","groupAliases":[],"activity":null,"references":["Darkfield"]}

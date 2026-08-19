@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-dupouy-associes-fr-2026-08-16",
-  "title": "dupouy-associes.fr",
-  "group": "lockbit5",
-  "discovered": "2026-08-16T14:52:43.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Dupouy et Associes - Crowe Horwath is a company that operates in the Accounting Services industry.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-dupouy-associes-fr-2026-08-16","title":"dupouy-associes.fr","group":"lockbit5","discovered":"2026-08-16T14:52:43.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"Dupouy et Associes - Crowe Horwath is a company that operates in the Accounting Services industry.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

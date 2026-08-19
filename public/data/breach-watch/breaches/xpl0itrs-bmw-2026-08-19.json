@@ -1,15 +1,1 @@
-{
-  "slug": "xpl0itrs-bmw-2026-08-19",
-  "title": "BMW",
-  "group": "xpl0itrs",
-  "discovered": "2026-08-19T02:35:28.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/b172342b-24f8-4f40-86a5-c51836007722",
-  "groupAliases": [],
-  "activity": "Automotive",
-  "references": ["Darkfield"]
-}
+{"slug":"xpl0itrs-bmw-2026-08-19","title":"BMW","group":"xpl0itrs","discovered":"2026-08-19T02:35:28.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/b172342b-24f8-4f40-86a5-c51836007722","groupAliases":[],"activity":"Automotive","references":["Darkfield"]}

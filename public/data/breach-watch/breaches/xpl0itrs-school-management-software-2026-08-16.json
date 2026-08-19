@@ -1,15 +1,1 @@
-{
-  "slug": "xpl0itrs-school-management-software-2026-08-16",
-  "title": "*********\nSchool management software",
-  "group": "xpl0itrs",
-  "discovered": "2026-08-16T18:10:22.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://2kieaq6jnwgrru62wwtxaafg35q6rzweg7y2xjfnbhvq5wd4eojqv6yd.onion/company/apj39fjogm3w90vmxmq3ct3t0mx209",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"xpl0itrs-school-management-software-2026-08-16","title":"*********\nSchool management software","group":"xpl0itrs","discovered":"2026-08-16T18:10:22.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://2kieaq6jnwgrru62wwtxaafg35q6rzweg7y2xjfnbhvq5wd4eojqv6yd.onion/company/apj39fjogm3w90vmxmq3ct3t0mx209","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

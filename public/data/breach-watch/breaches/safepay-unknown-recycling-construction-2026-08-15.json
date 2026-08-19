@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-unknown-recycling-construction-2026-08-15",
-  "title": "Unknown (Recycling/Construction)",
-  "group": "safepay",
-  "discovered": "2026-08-15T02:32:18.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/bee948e1-97a6-4a2a-81f9-f49aa99ed0ef",
-  "groupAliases": [],
-  "activity": "Waste Management/Recycling",
-  "references": ["Darkfield"]
-}
+{"slug":"safepay-unknown-recycling-construction-2026-08-15","title":"Unknown (Recycling/Construction)","group":"safepay","discovered":"2026-08-15T02:32:18.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/bee948e1-97a6-4a2a-81f9-f49aa99ed0ef","groupAliases":[],"activity":"Waste Management/Recycling","references":["Darkfield"]}

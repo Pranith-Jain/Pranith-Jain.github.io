@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-all-parts-dry-cleaning-2026-08-16",
-  "title": "All Parts Dry Cleaning",
-  "group": "medusalocker",
-  "discovered": "2026-08-16T15:21:25.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Dry cleaning & laundry. Domain: allpartsdrycleaning.co.uk. | United Kingdom",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-all-parts-dry-cleaning-2026-08-16","title":"All Parts Dry Cleaning","group":"medusalocker","discovered":"2026-08-16T15:21:25.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"Dry cleaning & laundry. Domain: allpartsdrycleaning.co.uk. | United Kingdom","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

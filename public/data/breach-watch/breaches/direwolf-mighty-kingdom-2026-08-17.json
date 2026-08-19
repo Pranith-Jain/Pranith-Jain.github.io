@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-mighty-kingdom-2026-08-17",
-  "title": "Mighty Kingdom",
-  "group": "direwolf",
-  "discovered": "2026-08-17T14:24:29.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "Multimedia, Games",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"direwolf-mighty-kingdom-2026-08-17","title":"Mighty Kingdom","group":"direwolf","discovered":"2026-08-17T14:24:29.000Z","category":"data_breach","severity":"high","country":"AU","sizeBytes":0,"description":"Multimedia, Games","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Technology","references":["ransomware.live"]}

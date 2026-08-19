@@ -1,15 +1,1 @@
-{
-  "slug": "xpl0itrs-dynatrace-2026-08-15",
-  "title": "Dynatrace",
-  "group": "xpl0itrs",
-  "discovered": "2026-08-15T21:44:14.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "AT",
-  "sizeBytes": 0,
-  "description": "AI observability platform",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"xpl0itrs-dynatrace-2026-08-15","title":"Dynatrace","group":"xpl0itrs","discovered":"2026-08-15T21:44:14.000Z","category":"data_breach","severity":"high","country":"AT","sizeBytes":0,"description":"AI observability platform","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-serengetiestates-co-za-2026-08-17",
-  "title": "www.serengetiestates.co.za",
-  "group": "krybit",
-  "discovered": "2026-08-17T18:07:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/7e121542cd77343c3ec610ab2858bc58699b2db394b17158f892e8aecab5efa5",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"krybit-www-serengetiestates-co-za-2026-08-17","title":"www.serengetiestates.co.za","group":"krybit","discovered":"2026-08-17T18:07:47.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/7e121542cd77343c3ec610ab2858bc58699b2db394b17158f892e8aecab5efa5","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "leaknet-the-11tb-nyc-health-hospitals-archive-is-now-public-2026-08-18",
-  "title": "The 11TB NYC Health + Hospitals Archive is Now Public",
-  "group": "leaknet",
-  "discovered": "2026-08-18T14:36:23.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "#NYCHealthHospitals #HealthcareBreach #DataLeak #HIPAA #SenateHELP #Cassidy #Mamdani #CyberSecurity #DataBreach #PatientPrivacy #HIV #MedicalRecords #12MillionNot1Point8 #HealthcareSecurity #2026Breach #NYC #PublicHealth #SenateInvestigation",
-  "source_url": "https://www.ransomlook.io/screenshots/leaknet/The 11TB NYC Health + Hospitals Archive is Now Public.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"leaknet-the-11tb-nyc-health-hospitals-archive-is-now-public-2026-08-18","title":"The 11TB NYC Health + Hospitals Archive is Now Public","group":"leaknet","discovered":"2026-08-18T14:36:23.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"#NYCHealthHospitals #HealthcareBreach #DataLeak #HIPAA #SenateHELP #Cassidy #Mamdani #CyberSecurity #DataBreach #PatientPrivacy #HIV #MedicalRecords #12MillionNot1Point8 #HealthcareSecurity #2026Breach #NYC #PublicHealth #SenateInvestigation","source_url":"https://www.ransomlook.io/screenshots/leaknet/The 11TB NYC Health + Hospitals Archive is Now Public.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

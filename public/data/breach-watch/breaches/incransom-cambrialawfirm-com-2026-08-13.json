@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-cambrialawfirm-com-2026-08-13",
-  "title": "cambrialawfirm.com",
-  "group": "incransom",
-  "discovered": "2026-08-13T23:26:32.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "personal and medical cards of all clients.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-cambrialawfirm-com-2026-08-13","title":"cambrialawfirm.com","group":"incransom","discovered":"2026-08-13T23:26:32.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"personal and medical cards of all clients.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}

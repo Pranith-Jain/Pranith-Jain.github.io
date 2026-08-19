@@ -1,15 +1,1 @@
-{
-  "slug": "emperador-prefeitura-municipal-de-arcos-2026-08-18",
-  "title": "Prefeitura Municipal de Arcos",
-  "group": "Emperador",
-  "discovered": "2026-08-18T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/prefeitura-municipal-de-arcos-emperador-2026-08",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"emperador-prefeitura-municipal-de-arcos-2026-08-18","title":"Prefeitura Municipal de Arcos","group":"Emperador","discovered":"2026-08-18T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/prefeitura-municipal-de-arcos-emperador-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}

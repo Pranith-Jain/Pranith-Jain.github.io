@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-gamaus-com-2026-08-12",
-  "title": "gamaus.com",
-  "group": "incransom",
-  "discovered": "2026-08-12T19:25:55.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "https://www.zoominfo.com/c/greater-austin-merchants-cooperative-association/98978085\r greater-austin-merchants-cooperative-association\r 400gb",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-gamaus-com-2026-08-12","title":"gamaus.com","group":"incransom","discovered":"2026-08-12T19:25:55.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"https://www.zoominfo.com/c/greater-austin-merchants-cooperative-association/98978085\r greater-austin-merchants-cooperative-association\r 400gb","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Technology","references":["ransomware.live"]}

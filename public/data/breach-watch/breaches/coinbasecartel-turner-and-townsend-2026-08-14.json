@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-turner-and-townsend-2026-08-14",
-  "title": "Turner and Townsend",
-  "group": "coinbasecartel",
-  "discovered": "2026-08-14T13:56:02.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "[AI generated] Turner and Townsend is a global professional services company headquartered in the United Kingdom. Founded in 1946, it operates in the construction, real estate, infrastructure, and natural resources sectors. The firm provides project management, cost management, and programme management services. It operates in over 50 countries, serving both public and private sector clients across major capital investment programmes worldwide.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-turner-and-townsend-2026-08-14","title":"Turner and Townsend","group":"coinbasecartel","discovered":"2026-08-14T13:56:02.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"[AI generated] Turner and Townsend is a global professional services company headquartered in the United Kingdom. Founded in 1946, it operates in the construction, real estate, infrastructure, and natural resources sectors. The firm provides project management, cost management, and programme management services. It operates in over 50 countries, serving both public and private sector clients across major capital investment programmes worldwide.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["ransomware.live"]}

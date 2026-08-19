@@ -1,15 +1,1 @@
-{
-  "slug": "inc-ransom-sd-associates-sdn-bhd-2026-08-18",
-  "title": "SD Associates Sdn Bhd",
-  "group": "INC Ransom",
-  "discovered": "2026-08-18T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "Malaysia",
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/sd-associates-sdn-bhd-incransom-2026-08",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"inc-ransom-sd-associates-sdn-bhd-2026-08-18","title":"SD Associates Sdn Bhd","group":"INC Ransom","discovered":"2026-08-18T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/sd-associates-sdn-bhd-inc-ransom-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}

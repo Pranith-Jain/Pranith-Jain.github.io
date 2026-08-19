@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-aletex-group-2026-08-14",
-  "title": "Aletex Group",
-  "group": "qilin",
-  "discovered": "2026-08-14T10:28:23.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ES",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-aletex-group-2026-08-14","title":"Aletex Group","group":"qilin","discovered":"2026-08-14T10:28:23.000Z","category":"ransomware","severity":"critical","country":"ES","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

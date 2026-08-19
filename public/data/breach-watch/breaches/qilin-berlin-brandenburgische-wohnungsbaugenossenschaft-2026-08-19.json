@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-berlin-brandenburgische-wohnungsbaugenossenschaft-2026-08-19",
-  "title": "Berlin Brandenburgische Wohnungsbaugenossenschaft",
-  "group": "qilin",
-  "discovered": "2026-08-19T02:07:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=e32521d0-321e-4489-9db8-5a937a8d9fce",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"qilin-berlin-brandenburgische-wohnungsbaugenossenschaft-2026-08-19","title":"Berlin Brandenburgische Wohnungsbaugenossenschaft","group":"qilin","discovered":"2026-08-19T02:07:18.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=e32521d0-321e-4489-9db8-5a937a8d9fce","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

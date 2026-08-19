@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-metabase-2026-08-14",
-  "title": "Metabase",
-  "group": "shinyhunters",
-  "discovered": "2026-08-14T06:01:01.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": ":P | Updated: 12 August 2026 | SHA256: 84daf8f33954a0b03238a1e0da3ee109d5bc32acc134cfdddfac36b4b75d2480",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-metabase-2026-08-14","title":"Metabase","group":"shinyhunters","discovered":"2026-08-14T06:01:01.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":":P | Updated: 12 August 2026 | SHA256: 84daf8f33954a0b03238a1e0da3ee109d5bc32acc134cfdddfac36b4b75d2480","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

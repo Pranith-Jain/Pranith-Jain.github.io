@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-photon-health-inc-2026-08-19",
-  "title": "Photon Health, Inc.",
-  "group": "Direwolf",
-  "discovered": "2026-08-19T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/photon-health-inc-direwolf-2026-08",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"direwolf-photon-health-inc-2026-08-19","title":"Photon Health, Inc.","group":"Direwolf","discovered":"2026-08-19T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/photon-health-inc-direwolf-2026-08","groupAliases":["DIRE WOLF"],"activity":null,"references":["RecentBreaches.com"]}

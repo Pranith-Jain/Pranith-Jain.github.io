@@ -1,15 +1,1 @@
-{
-  "slug": "rhysida-pierce-township-2026-08-15",
-  "title": "Pierce Township",
-  "group": "Rhysida",
-  "discovered": "2026-08-15T02:30:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/100271d1-2e40-47e9-b450-2fd489e46ad7",
-  "groupAliases": [],
-  "activity": "Government",
-  "references": ["Darkfield"]
-}
+{"slug":"rhysida-pierce-township-2026-08-15","title":"Pierce Township","group":"Rhysida","discovered":"2026-08-15T02:30:44.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/100271d1-2e40-47e9-b450-2fd489e46ad7","groupAliases":[],"activity":"Government","references":["Darkfield"]}

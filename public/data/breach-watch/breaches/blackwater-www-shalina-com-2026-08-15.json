@@ -1,15 +1,1 @@
-{
-  "slug": "blackwater-www-shalina-com-2026-08-15",
-  "title": "www.shalina.com",
-  "group": "blackwater",
-  "discovered": "2026-08-15T09:23:19.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "system breach, data blocking",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["BLACK WATER"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"blackwater-www-shalina-com-2026-08-15","title":"www.shalina.com","group":"blackwater","discovered":"2026-08-15T09:23:19.000Z","category":"data_breach","severity":"high","country":"IN","sizeBytes":0,"description":"system breach, data blocking","source_url":"https://www.ransomware.live/","groupAliases":["BLACK WATER"],"activity":"Not Found","references":["ransomware.live"]}

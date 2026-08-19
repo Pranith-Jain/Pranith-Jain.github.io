@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-metabase-2026-08-18",
-  "title": "Metabase",
-  "group": "shinyhunters",
-  "discovered": "2026-08-18T07:46:05.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": ":P",
-  "source_url": "https://www.ransomlook.io/recent",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"shinyhunters-metabase-2026-08-18","title":"Metabase","group":"shinyhunters","discovered":"2026-08-18T07:46:05.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":":P","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

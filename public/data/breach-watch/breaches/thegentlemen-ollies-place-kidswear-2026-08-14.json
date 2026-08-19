@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-ollies-place-kidswear-2026-08-14",
-  "title": "Ollies Place Kidswear",
-  "group": "thegentlemen",
-  "discovered": "2026-08-14T05:58:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "olliesplace.com.au zoominfo.com/c/ollies-place-kidswear/359503050 Ollie's Place is an Australian retail brand specializing in high-quality, trendy, and comfortable clothing for babies and children. The company offers a unique shopping experience both online and through physical stores across Australia, featuring vibrant prints and stylish designs. They focus on providing fashionable, value-for-money pieces for kids' everyday wear and special milestones.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-ollies-place-kidswear-2026-08-14","title":"Ollies Place Kidswear","group":"thegentlemen","discovered":"2026-08-14T05:58:51.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"olliesplace.com.au zoominfo.com/c/ollies-place-kidswear/359503050 Ollie's Place is an Australian retail brand specializing in high-quality, trendy, and comfortable clothing for babies and children. The company offers a unique shopping experience both online and through physical stores across Australia, featuring vibrant prints and stylish designs. They focus on providing fashionable, value-for-money pieces for kids' everyday wear and special milestones.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

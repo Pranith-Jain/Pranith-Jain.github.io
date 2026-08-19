@@ -1,15 +1,1 @@
-{
-  "slug": "everest-rx-networks-2026-08-17",
-  "title": "Rx Networks",
-  "group": "everest",
-  "discovered": "2026-08-17T14:25:14.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "[AI generated] Rx Networks is a Canadian technology company headquartered in Vancouver, British Columbia. It specializes in positioning and location technologies, providing GPS and GNSS assistance data solutions. The company serves the mobile and connected devices industry, offering services that improve location acquisition speed and accuracy. Its clients include device manufacturers, chipset vendors, and mobile network operators worldwide.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"everest-rx-networks-2026-08-17","title":"Rx Networks","group":"everest","discovered":"2026-08-17T14:25:14.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"[AI generated] Rx Networks is a Canadian technology company headquartered in Vancouver, British Columbia. It specializes in positioning and location technologies, providing GPS and GNSS assistance data solutions. The company serves the mobile and connected devices industry, offering services that improve location acquisition speed and accuracy. Its clients include device manufacturers, chipset vendors, and mobile network operators worldwide.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-prohealth-sg-2026-08-17",
-  "title": "www.prohealth.sg",
-  "group": "krybit",
-  "discovered": "2026-08-17T18:07:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/b26f712ae9a60d8aee7b5ca340e91954282701f31c9a817d379b67204c1d0700",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"krybit-www-prohealth-sg-2026-08-17","title":"www.prohealth.sg","group":"krybit","discovered":"2026-08-17T18:07:47.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/b26f712ae9a60d8aee7b5ca340e91954282701f31c9a817d379b67204c1d0700","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "blacknevas-westbrook-greenhouse-systems-www-westbrooksystems-com-serviced-by-an-it-company-computer-c-2026-08-12",
-  "title": "Westbrook Greenhouse Systems www.westbrooksystems.com serviced by an IT company Computer C...",
-  "group": "blacknevas",
-  "discovered": "2026-08-12T16:23:20.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A Canadian family-owned company (part of the Westbrook Group of Companies) founded over 50 years ago. It specializes in the design, manufacturing, and installation of commercial greenhouses and related equipment (structures, heating and ventilation systems, benches, and handling materials).Its headquarters and manufacturing facilities are located in the Niagara region (Beamsville, Ontario). It serves clients across North America and operates its own factory spanning approximately 80,000 square feet.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["black nevas"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"blacknevas-westbrook-greenhouse-systems-www-westbrooksystems-com-serviced-by-an-it-company-computer-c-2026-08-12","title":"Westbrook Greenhouse Systems www.westbrooksystems.com serviced by an IT company Computer C...","group":"blacknevas","discovered":"2026-08-12T16:23:20.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A Canadian family-owned company (part of the Westbrook Group of Companies) founded over 50 years ago. It specializes in the design, manufacturing, and installation of commercial greenhouses and related equipment (structures, heating and ventilation systems, benches, and handling materials).Its headquarters and manufacturing facilities are located in the Niagara region (Beamsville, Ontario). It serves clients across North America and operates its own factory spanning approximately 80,000 square feet.","source_url":"https://www.ransomware.live/","groupAliases":["black nevas"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

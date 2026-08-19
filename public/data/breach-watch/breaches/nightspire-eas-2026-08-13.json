@@ -1,15 +1,1 @@
-{
-  "slug": "nightspire-eas-2026-08-13",
-  "title": "eas****",
-  "group": "nightspire",
-  "discovered": "2026-08-13T03:25:50.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Data is not available now.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["NIGHT SPIRE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"nightspire-eas-2026-08-13","title":"eas****","group":"nightspire","discovered":"2026-08-13T03:25:50.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Data is not available now.","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Not Found","references":["ransomware.live"]}

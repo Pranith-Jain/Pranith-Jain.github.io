@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-gfeller-treuhand-und-verwaltungs-2026-08-14",
-  "title": "Gfeller Treuhand und Verwaltungs",
-  "group": "thegentlemen",
-  "discovered": "2026-08-14T05:59:33.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CH",
-  "sizeBytes": 0,
-  "description": "gfeller-treuhand.ch zoominfo.com/c/gfeller-treuhand-und-verwaltungs-ag/372661395 Gfeller Treuhand und Verwaltungs AG is a Swiss real estate and fiduciary company based in Dübendorf, operating since 1980. They specialize in comprehensive property management, real estate sales, and leasing services. The firm provides professional administrative support, utilizing modern IT solutions to efficiently handle property maintenance and tenant relations.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-gfeller-treuhand-und-verwaltungs-2026-08-14","title":"Gfeller Treuhand und Verwaltungs","group":"thegentlemen","discovered":"2026-08-14T05:59:33.000Z","category":"ransomware","severity":"critical","country":"CH","sizeBytes":0,"description":"gfeller-treuhand.ch zoominfo.com/c/gfeller-treuhand-und-verwaltungs-ag/372661395 Gfeller Treuhand und Verwaltungs AG is a Swiss real estate and fiduciary company based in Dübendorf, operating since 1980. They specialize in comprehensive property management, real estate sales, and leasing services. The firm provides professional administrative support, utilizing modern IT solutions to efficiently handle property maintenance and tenant relations.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}

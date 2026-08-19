@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-dcpartner-co-za-2026-08-17",
-  "title": "www.dcpartner.co.za",
-  "group": "krybit",
-  "discovered": "2026-08-17T18:07:47.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/1c48e1797ee85061116a99218394864a578a742c61184b9c0562ce5f65f96283",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"krybit-www-dcpartner-co-za-2026-08-17","title":"www.dcpartner.co.za","group":"krybit","discovered":"2026-08-17T18:07:47.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion/blog/1c48e1797ee85061116a99218394864a578a742c61184b9c0562ce5f65f96283","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

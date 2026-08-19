@@ -1,15 +1,1 @@
-{
-  "slug": "play-coltrane-systems-2026-08-18",
-  "title": "Coltrane Systems",
-  "group": "play",
-  "discovered": "2026-08-18T17:31:54.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "United States",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["PlayCrypt"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"play-coltrane-systems-2026-08-18","title":"Coltrane Systems","group":"Play","discovered":"2026-08-18T00:00:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/coltrane-systems-play-2026-08","groupAliases":["PlayCrypt"],"activity":null,"references":["RecentBreaches.com"]}

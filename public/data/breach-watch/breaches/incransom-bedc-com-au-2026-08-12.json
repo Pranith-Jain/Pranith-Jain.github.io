@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-bedc-com-au-2026-08-12",
-  "title": "BEDC.COM.AU",
-  "group": "incransom",
-  "discovered": "2026-08-12T15:54:25.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "Brighton East Dental Clinic (BEDC) is a family dental clinic dedicated to providing comprehensive dental care for families in Brighton, Caulfield, and Bentleigh. They offer a wide range of services including kids dentistry, general dentistry, cosmetic procedures, and preventative care, with a strong emphasis on patient needs and comfort. With over 30 years of experience, their team of certified dentists focuses on creating healthy, happy smiles while accepting all major health funds. The clinic is known for its convenient evening hours and commitment to emergency dental care.\r Employees: 50\r Revenue: $5 Million\r Industry: Dental Practice Management\r Phone Number: +61 395788500",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Energy & Utilities",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-bedc-com-au-2026-08-12","title":"BEDC.COM.AU","group":"incransom","discovered":"2026-08-12T15:54:25.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"Brighton East Dental Clinic (BEDC) is a family dental clinic dedicated to providing comprehensive dental care for families in Brighton, Caulfield, and Bentleigh. They offer a wide range of services including kids dentistry, general dentistry, cosmetic procedures, and preventative care, with a strong emphasis on patient needs and comfort. With over 30 years of experience, their team of certified dentists focuses on creating healthy, happy smiles while accepting all major health funds. The clinic is known for its convenient evening hours and commitment to emergency dental care.\r Employees: 50\r Revenue: $5 Million\r Industry: Dental Practice Management\r Phone Number: +61 395788500","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Energy & Utilities","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-penlink-2026-08-14",
-  "title": "PenLink",
-  "group": "qilin",
-  "discovered": "2026-08-14T08:31:42.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Government & Defense",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-penlink-2026-08-14","title":"PenLink","group":"qilin","discovered":"2026-08-14T08:31:42.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

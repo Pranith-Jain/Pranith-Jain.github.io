@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-dxs-international-2026-08-15",
-  "title": "DXS International",
-  "group": "direwolf",
-  "discovered": "2026-08-15T20:23:39.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Healthcare",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"direwolf-dxs-international-2026-08-15","title":"DXS International","group":"direwolf","discovered":"2026-08-15T20:23:39.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"Healthcare","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Technology","references":["ransomware.live"]}

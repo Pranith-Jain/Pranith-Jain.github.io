@@ -1,15 +1,1 @@
-{
-  "slug": "audit-team-audit-entity-de-up-2026-08-18",
-  "title": "AUDIT ENTITY: De***up",
-  "group": "audit team",
-  "discovered": "2026-08-18T06:49:22.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "AUDIT ID: 22C42D81C3DA7328 / DISCOVERY DATE: 2026-08-18",
-  "source_url": "https://www.ransomlook.io/screenshots/audit team/AUDIT ENTITY: De***up.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"audit-team-audit-entity-de-up-2026-08-18","title":"AUDIT ENTITY: De***up","group":"audit team","discovered":"2026-08-18T06:49:22.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"AUDIT ID: 22C42D81C3DA7328 / DISCOVERY DATE: 2026-08-18","source_url":"https://www.ransomlook.io/screenshots/audit team/AUDIT ENTITY: De***up.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

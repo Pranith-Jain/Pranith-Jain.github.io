@@ -1,15 +1,1 @@
-{
-  "slug": "securotrop-lepi-enterprises-2026-08-15",
-  "title": "Lepi Enterprises",
-  "group": "securotrop",
-  "discovered": "2026-08-15T14:58:33.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: AWAITING\nSize: 692 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"securotrop-lepi-enterprises-2026-08-15","title":"Lepi Enterprises","group":"securotrop","discovered":"2026-08-15T14:58:33.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Status: AWAITING\nSize: 692 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

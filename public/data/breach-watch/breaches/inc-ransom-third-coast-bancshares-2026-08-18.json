@@ -1,15 +1,1 @@
-{
-  "slug": "inc-ransom-third-coast-bancshares-2026-08-18",
-  "title": "Third Coast Bancshares",
-  "group": "INC Ransom",
-  "discovered": "2026-08-18T00:00:00.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/third-coast-bancshares-inc-ransom-2026-08",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"inc-ransom-third-coast-bancshares-2026-08-18","title":"Third Coast Bancshares","group":"inc ransom","discovered":"2026-08-18T15:30:16.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"https://www.ransomlook.io/screenshots/inc ransom/Third Coast Bancshares.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

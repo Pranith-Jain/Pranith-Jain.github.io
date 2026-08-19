@@ -1,15 +1,1 @@
-{
-  "slug": "blacknevas-jack-rutherford-customs-brokers-ltd-the-rutherford-group-www-therg-ca-serviced-by-an-it-2026-08-12",
-  "title": "Jack Rutherford Customs Brokers Ltd / The Rutherford Group www.therg.ca serviced by an IT ...",
-  "group": "blacknevas",
-  "discovered": "2026-08-12T16:21:57.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "Jack Rutherford Customs Brokers Ltd. is a Canadian customs brokerage company currently operating under the brand name The Rutherford Group. The company provides comprehensive logistics services, primarily: customs brokerage (import and export clearance, clearance through Canadian and US customs, compliance consulting, CARM, surety bonds, etc.). They have PIP (Partners in Protection) status.Transportation: shipping within Canada, the US, and internationally.Warehousing: bonded warehouses (including CBSA sufferance), pick &amp; pack, storage, including FDA-certified warehouses in Port Huron, Michigan.The company was founded in 1974 by Jack Rutherford in Stratford, Ontario. Now a family-owned business (second generation – John Rutherford), it positions itself as a one-stop shop for cross-border logistics.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["black nevas"],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"blacknevas-jack-rutherford-customs-brokers-ltd-the-rutherford-group-www-therg-ca-serviced-by-an-it-2026-08-12","title":"Jack Rutherford Customs Brokers Ltd / The Rutherford Group www.therg.ca serviced by an IT ...","group":"blacknevas","discovered":"2026-08-12T16:21:57.000Z","category":"ransomware","severity":"high","country":"CA","sizeBytes":0,"description":"Jack Rutherford Customs Brokers Ltd. is a Canadian customs brokerage company currently operating under the brand name The Rutherford Group. The company provides comprehensive logistics services, primarily: customs brokerage (import and export clearance, clearance through Canadian and US customs, compliance consulting, CARM, surety bonds, etc.). They have PIP (Partners in Protection) status.Transportation: shipping within Canada, the US, and internationally.Warehousing: bonded warehouses (including CBSA sufferance), pick &amp; pack, storage, including FDA-certified warehouses in Port Huron, Michigan.The company was founded in 1974 by Jack Rutherford in Stratford, Ontario. Now a family-owned business (second generation – John Rutherford), it positions itself as a one-stop shop for cross-border logistics.","source_url":"https://www.ransomware.live/","groupAliases":["black nevas"],"activity":"Professional Services","references":["ransomware.live"]}

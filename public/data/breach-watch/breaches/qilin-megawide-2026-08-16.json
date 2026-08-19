@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-megawide-2026-08-16",
-  "title": "Megawide",
-  "group": "qilin",
-  "discovered": "2026-08-16T12:29:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PH",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-megawide-2026-08-16","title":"Megawide","group":"qilin","discovered":"2026-08-16T12:29:59.000Z","category":"ransomware","severity":"critical","country":"PH","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

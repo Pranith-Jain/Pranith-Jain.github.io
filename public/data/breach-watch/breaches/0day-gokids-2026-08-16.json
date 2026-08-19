@@ -1,15 +1,1 @@
-{
-  "slug": "0day-gokids-2026-08-16",
-  "title": "GoKids",
-  "group": "0DAY",
-  "discovered": "2026-08-16T02:58:43.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/bc781dc8-875b-4fdb-8c89-f479a4c2fa8a",
-  "groupAliases": [],
-  "activity": "Education / Mobile Apps",
-  "references": ["Darkfield"]
-}
+{"slug":"0day-gokids-2026-08-16","title":"GoKids","group":"0DAY","discovered":"2026-08-16T02:58:43.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/bc781dc8-875b-4fdb-8c89-f479a4c2fa8a","groupAliases":[],"activity":"Education / Mobile Apps","references":["Darkfield"]}

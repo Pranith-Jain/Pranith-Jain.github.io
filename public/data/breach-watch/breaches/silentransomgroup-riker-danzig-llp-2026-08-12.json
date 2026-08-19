@@ -1,15 +1,1 @@
-{
-  "slug": "silentransomgroup-riker-danzig-llp-2026-08-12",
-  "title": "Riker Danzig LLP",
-  "group": "SilentRansomGroup",
-  "discovered": "2026-08-12T19:51:27.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "[AI generated] Riker Danzig LLP is a prominent full-service law firm based in the United States, primarily operating in New Jersey. Founded in 1882, the firm provides legal services across a wide range of practice areas including litigation, corporate law, real estate, environmental law, and insurance. It serves clients spanning industries such as finance, healthcare, and manufacturing, and is recognized as one of New Jersey's leading law firms.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"silentransomgroup-riker-danzig-llp-2026-08-12","title":"Riker Danzig LLP","group":"SilentRansomGroup","discovered":"2026-08-12T19:51:27.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Riker Danzig LLP is a prominent full-service law firm based in the United States, primarily operating in New Jersey. Founded in 1882, the firm provides legal services across a wide range of practice areas including litigation, corporate law, real estate, environmental law, and insurance. It serves clients spanning industries such as finance, healthcare, and manufacturing, and is recognized as one of New Jersey's leading law firms.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-unknown-friedberg-bavaria-software-company-2026-08-17",
-  "title": "Unknown (Friedberg, Bavaria software company)",
-  "group": "safepay",
-  "discovered": "2026-08-17T02:31:01.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "Germany",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/d63d8942-5091-4870-acc0-cd9714800021",
-  "groupAliases": [],
-  "activity": "Technology/Software",
-  "references": ["Darkfield"]
-}
+{"slug":"safepay-unknown-friedberg-bavaria-software-company-2026-08-17","title":"Unknown (Friedberg, Bavaria software company)","group":"safepay","discovered":"2026-08-17T02:31:01.000Z","category":"ransomware","severity":"high","country":"Germany","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/d63d8942-5091-4870-acc0-cd9714800021","groupAliases":[],"activity":"Technology/Software","references":["Darkfield"]}

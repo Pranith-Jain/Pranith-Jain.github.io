@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-cen-cenelec-2026-08-15",
-  "title": "CEN & CENELEC",
-  "group": "coinbasecartel",
-  "discovered": "2026-08-15T02:35:42.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/a3a88186-f08d-495a-af92-8cdbe7a90500",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Standards Organization",
-  "references": ["Darkfield"]
-}
+{"slug":"coinbasecartel-cen-cenelec-2026-08-15","title":"CEN & CENELEC","group":"coinbasecartel","discovered":"2026-08-15T02:35:42.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/a3a88186-f08d-495a-af92-8cdbe7a90500","groupAliases":["coinbase cartel"],"activity":"Standards Organization","references":["Darkfield"]}

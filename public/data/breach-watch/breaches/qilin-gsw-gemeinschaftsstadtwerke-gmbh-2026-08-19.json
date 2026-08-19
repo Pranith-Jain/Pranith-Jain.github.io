@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-gsw-gemeinschaftsstadtwerke-gmbh-2026-08-19",
-  "title": "GSW Gemeinschaftsstadtwerke GmbH",
-  "group": "qilin",
-  "discovered": "2026-08-19T02:07:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=deca91c9-6f89-4a66-8100-9c70cd25f8f1",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"qilin-gsw-gemeinschaftsstadtwerke-gmbh-2026-08-19","title":"GSW Gemeinschaftsstadtwerke GmbH","group":"qilin","discovered":"2026-08-19T02:07:18.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":null,"source_url":"http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=deca91c9-6f89-4a66-8100-9c70cd25f8f1","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

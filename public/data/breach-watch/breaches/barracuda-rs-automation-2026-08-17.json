@@ -1,15 +1,1 @@
-{
-  "slug": "barracuda-rs-automation-2026-08-17",
-  "title": "RS Automation",
-  "group": "Barracuda",
-  "discovered": "2026-08-17T02:32:23.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "South Korea",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/470cc28b-8574-483f-9a4c-6f84a0e27db2",
-  "groupAliases": [],
-  "activity": "Manufacturing/Automation",
-  "references": ["Darkfield"]
-}
+{"slug":"barracuda-rs-automation-2026-08-17","title":"RS Automation","group":"Barracuda","discovered":"2026-08-17T02:32:23.000Z","category":"data_breach","severity":"high","country":"South Korea","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/470cc28b-8574-483f-9a4c-6f84a0e27db2","groupAliases":[],"activity":"Manufacturing/Automation","references":["Darkfield"]}

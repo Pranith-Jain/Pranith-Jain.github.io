@@ -1,15 +1,1 @@
-{
-  "slug": "helix-kennedy-jenks-2026-08-16",
-  "title": "Kennedy Jenks",
-  "group": "HELIX",
-  "discovered": "2026-08-16T02:48:23.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/13c3dc8e-ae07-4103-bf14-12eeb724cf33",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["Darkfield"]
-}
+{"slug":"helix-kennedy-jenks-2026-08-16","title":"Kennedy Jenks","group":"HELIX","discovered":"2026-08-16T02:48:23.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/13c3dc8e-ae07-4103-bf14-12eeb724cf33","groupAliases":[],"activity":null,"references":["Darkfield"]}

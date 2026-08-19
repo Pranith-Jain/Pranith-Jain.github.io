@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-eva-ai-limited-2026-08-17",
-  "title": "Eva AI Limited",
-  "group": "direwolf",
-  "discovered": "2026-08-17T14:23:55.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Human Resources",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"direwolf-eva-ai-limited-2026-08-17","title":"Eva AI Limited","group":"direwolf","discovered":"2026-08-17T14:23:55.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"Human Resources","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Technology","references":["ransomware.live"]}

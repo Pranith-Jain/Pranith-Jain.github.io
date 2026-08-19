@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-lercher-werkzeugbau-2026-08-14",
-  "title": "Lercher Werkzeugbau",
-  "group": "qilin",
-  "discovered": "2026-08-14T08:33:29.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AT",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-lercher-werkzeugbau-2026-08-14","title":"Lercher Werkzeugbau","group":"qilin","discovered":"2026-08-14T08:33:29.000Z","category":"ransomware","severity":"critical","country":"AT","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-cmpm-group-2026-08-19",
-  "title": "CMPM Group",
-  "group": "genesis",
-  "discovered": "2026-08-19T02:58:57.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: negotiating",
-  "source_url": "https://darkfield.orizon.one/victims/31702c43-69c4-47a5-b788-221652aebb9c",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["Darkfield"]
-}
+{"slug":"genesis-cmpm-group-2026-08-19","title":"CMPM Group","group":"genesis","discovered":"2026-08-19T02:58:57.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Status: negotiating","source_url":"https://darkfield.orizon.one/victims/31702c43-69c4-47a5-b788-221652aebb9c","groupAliases":[],"activity":"Healthcare","references":["Darkfield"]}

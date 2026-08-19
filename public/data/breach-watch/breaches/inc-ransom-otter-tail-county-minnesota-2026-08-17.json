@@ -1,15 +1,1 @@
-{
-  "slug": "inc-ransom-otter-tail-county-minnesota-2026-08-17",
-  "title": "Otter Tail County, Minnesota",
-  "group": "inc ransom",
-  "discovered": "2026-08-17T14:36:21.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomlook.io/screenshots/inc ransom/Otter Tail County, Minnesota.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"inc-ransom-otter-tail-county-minnesota-2026-08-17","title":"Otter Tail County, Minnesota","group":"inc ransom","discovered":"2026-08-17T14:36:21.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"https://www.ransomlook.io/screenshots/inc ransom/Otter Tail County, Minnesota.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

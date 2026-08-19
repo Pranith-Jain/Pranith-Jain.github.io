@@ -1,15 +1,1 @@
-{
-  "slug": "medusalocker-bija-industrie-2026-08-16",
-  "title": "Bija Industrie",
-  "group": "medusalocker",
-  "discovered": "2026-08-16T15:20:22.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Organization with 693 emails extracted. Domain: bija-industrie.com",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"medusalocker-bija-industrie-2026-08-16","title":"Bija Industrie","group":"medusalocker","discovered":"2026-08-16T15:20:22.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"Organization with 693 emails extracted. Domain: bija-industrie.com","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

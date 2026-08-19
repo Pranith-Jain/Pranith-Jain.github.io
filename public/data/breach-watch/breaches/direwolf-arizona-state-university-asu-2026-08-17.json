@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-arizona-state-university-asu-2026-08-17",
-  "title": "Arizona State University (ASU)",
-  "group": "direwolf",
-  "discovered": "2026-08-17T14:54:40.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Colleges,Universities",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": "Education",
-  "references": ["ransomware.live"]
-}
+{"slug":"direwolf-arizona-state-university-asu-2026-08-17","title":"Arizona State University (ASU)","group":"direwolf","discovered":"2026-08-17T14:54:40.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Colleges,Universities","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Education","references":["ransomware.live"]}

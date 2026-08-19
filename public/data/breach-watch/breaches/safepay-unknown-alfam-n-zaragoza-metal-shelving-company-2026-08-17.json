@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-unknown-alfam-n-zaragoza-metal-shelving-company-2026-08-17",
-  "title": "Unknown (Alfamén, Zaragoza metal shelving company)",
-  "group": "safepay",
-  "discovered": "2026-08-17T02:30:59.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "Spain",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/3a7db316-2fa0-4cb2-b0a9-2bf4bf7db6f1",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["Darkfield"]
-}
+{"slug":"safepay-unknown-alfam-n-zaragoza-metal-shelving-company-2026-08-17","title":"Unknown (Alfamén, Zaragoza metal shelving company)","group":"safepay","discovered":"2026-08-17T02:30:59.000Z","category":"ransomware","severity":"high","country":"Spain","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/3a7db316-2fa0-4cb2-b0a9-2bf4bf7db6f1","groupAliases":[],"activity":"Manufacturing","references":["Darkfield"]}

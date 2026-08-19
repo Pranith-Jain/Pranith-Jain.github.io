@@ -1,15 +1,1 @@
-{
-  "slug": "exfilsquad-unknown-municipality-6m-records-2026-08-18",
-  "title": "Unknown Municipality (6M records)",
-  "group": "ExfilSquad",
-  "discovered": "2026-08-18T02:50:50.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/a808ba90-4180-4388-9d52-597cf1df1e4e",
-  "groupAliases": [],
-  "activity": "Government/Municipal",
-  "references": ["Darkfield"]
-}
+{"slug":"exfilsquad-unknown-municipality-6m-records-2026-08-18","title":"Unknown Municipality (6M records)","group":"ExfilSquad","discovered":"2026-08-18T02:50:50.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/a808ba90-4180-4388-9d52-597cf1df1e4e","groupAliases":[],"activity":"Government/Municipal","references":["Darkfield"]}

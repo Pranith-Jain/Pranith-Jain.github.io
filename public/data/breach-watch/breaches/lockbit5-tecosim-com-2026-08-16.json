@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-tecosim-com-2026-08-16",
-  "title": "tecosim.com",
-  "group": "lockbit5",
-  "discovered": "2026-08-16T14:51:40.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "TECOSIM is a technology corporation specializing in computer-aided engineering (CAE). They are headq...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"lockbit5-tecosim-com-2026-08-16","title":"tecosim.com","group":"lockbit5","discovered":"2026-08-16T14:51:40.000Z","category":"ransomware","severity":"high","country":"DE","sizeBytes":0,"description":"TECOSIM is a technology corporation specializing in computer-aided engineering (CAE). They are headq...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

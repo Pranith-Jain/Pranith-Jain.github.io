@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-lloyd-coils-europe-2026-08-17",
-  "title": "Lloyd Coils Europe",
-  "group": "aurora",
-  "discovered": "2026-08-17T09:52:52.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "[manufacturer] 4 Coils Technology s.r.o. (trading as Lloyd Coils Europe) is a Czech-headquartered manufacturer of custom heat exchangers for the HVAC&R industry, with offices in Germany, France, and the United Kingdom. They serve 200+ OEM customers across 39 countries — names like Carrier, Daikin, Trane, Systemair, Remak, GEA, Swegon, and VTS.\n\nTheir competitive advantage comes from two things: decades of thermodynamic engineering expertise embodied in their MyCoil selection software (licensed to OEM customers worldwide), and a manufacturing capability for custom heat exchangers. Approximately 200 employees work across four countries.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-lloyd-coils-europe-2026-08-17","title":"Lloyd Coils Europe","group":"aurora","discovered":"2026-08-17T09:52:52.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"[manufacturer] 4 Coils Technology s.r.o. (trading as Lloyd Coils Europe) is a Czech-headquartered manufacturer of custom heat exchangers for the HVAC&R industry, with offices in Germany, France, and the United Kingdom. They serve 200+ OEM customers across 39 countries — names like Carrier, Daikin, Trane, Systemair, Remak, GEA, Swegon, and VTS.\n\nTheir competitive advantage comes from two things: decades of thermodynamic engineering expertise embodied in their MyCoil selection software (licensed to OEM customers worldwide), and a manufacturing capability for custom heat exchangers. Approximately 200 employees work across four countries.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

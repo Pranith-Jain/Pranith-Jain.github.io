@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-m-b-kahn-construction-co-2026-08-15",
-  "title": "M.B. Kahn Construction Co.",
-  "group": "coinbasecartel",
-  "discovered": "2026-08-15T02:35:42.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: listed",
-  "source_url": "https://darkfield.orizon.one/victims/f835621d-9685-4c59-a1be-ce91d21b8dac",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Construction",
-  "references": ["Darkfield"]
-}
+{"slug":"coinbasecartel-m-b-kahn-construction-co-2026-08-15","title":"M.B. Kahn Construction Co.","group":"coinbasecartel","discovered":"2026-08-15T02:35:42.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Status: listed","source_url":"https://darkfield.orizon.one/victims/f835621d-9685-4c59-a1be-ce91d21b8dac","groupAliases":["coinbase cartel"],"activity":"Construction","references":["Darkfield"]}

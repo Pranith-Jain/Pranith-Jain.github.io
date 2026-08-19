@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-planungsgruppe-m-m-ag-2026-08-17",
-  "title": "Planungsgruppe M+M AG",
-  "group": "aurora",
-  "discovered": "2026-08-17T16:22:52.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Planungsgruppe M+M AG is a German Aktiengesellschaft headquartered in Böblingen, Baden-Württemberg, with approximately 432 employees across 10 offices (Böblingen, Stuttgart, München, Nürnberg, Regensburg, Ingolstadt, Augsburg, Esslingen, Mannheim, Frankfurt). Annual revenue: approximately €52 million. The firm provides architecture, urban planning, structural engineering, building physics, fire protection, BIM, landscape planning, and interior design services. Over 5,200 projects completed across decades of operation.\n\nThe exfiltrated dataset spans two complete file servers (MMBB04, MMBB05), plus the DATEV financial processing archives, SFirm banking software databases, the ELO document management system, Outlook email archives (PSTs), and payroll/HR data — a total of 268 GB across approximately 124,000 files, covering 2006 to 2026.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-planungsgruppe-m-m-ag-2026-08-17","title":"Planungsgruppe M+M AG","group":"aurora","discovered":"2026-08-17T16:22:52.000Z","category":"data_breach","severity":"high","country":"DE","sizeBytes":0,"description":"Planungsgruppe M+M AG is a German Aktiengesellschaft headquartered in Böblingen, Baden-Württemberg, with approximately 432 employees across 10 offices (Böblingen, Stuttgart, München, Nürnberg, Regensburg, Ingolstadt, Augsburg, Esslingen, Mannheim, Frankfurt). Annual revenue: approximately €52 million. The firm provides architecture, urban planning, structural engineering, building physics, fire protection, BIM, landscape planning, and interior design services. Over 5,200 projects completed across decades of operation.\n\nThe exfiltrated dataset spans two complete file servers (MMBB04, MMBB05), plus the DATEV financial processing archives, SFirm banking software databases, the ELO document management system, Outlook email archives (PSTs), and payroll/HR data — a total of 268 GB across approximately 124,000 files, covering 2006 to 2026.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
