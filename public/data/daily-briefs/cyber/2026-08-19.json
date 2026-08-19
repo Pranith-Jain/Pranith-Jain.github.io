@@ -1,0 +1,109 @@
+{
+  "type": "cyber",
+  "date": "2026-08-19",
+  "threatLevel": "",
+  "executiveSummary": "This brief highlights multiple active and high-impact threats to critical infrastructure environments, including confirmed exploitation of PLCs and OT remote access gateways, perimeter appliance zero-days with public PoC, and targeted campaigns abusing cloud identity and collaboration platforms to gain footholds for potential IT-to-OT pivoting. Government advisories report ongoing, real-world compromise of industrial PLCs across Water/Wastewater and Energy, including malicious logic edits and HMI tampering. Immediate removal of internet exposure and integrity checks are advised Security Advisory Alert . Pre-auth RCE on NetScaler ADC/Gateway (public PoC) enables immediate perimeter compromise and credential theft, with strong implications for remote access into OT if gateways bridge into control zones Advisory . VMware vCenter CVE-2026-59310 exploitation for ESXi ransomware observed by IR teams threatens virtualization underpinnings of many industrial environments; patching and IOC hunts are urgent View Article . Weekly government bulletins include multiple OT/ICS-critical flaws (e.g., OPC UA Eclipse Milo in ICS stacks; PcVue HMI weaknesses; EV charging infrastructure RCE). Patching and segmentation should be prioritized CISA Bulletin CISA Bulletin . Advanced campaigns abusing Microsoft 365/Graph and Google Apps Script blend into enterprise traffic and target sensitive sectors including nuclear-related individuals; identity hardening and egress controls are required View Article . Current 72h Outlook Elevated scanning and exploitation attempts on edge/IDP, OT-adjacent Actively Exploited Items Multiple (KEV/Advisories) Primary Risk Vectors Perimeter VPN/ADC, vCenter, PLC exposure Segmentation Priority IT/OT isolation & jump hosts",
+  "keyFindings": [
+    {
+      "title": "Iranian-affiliated actors actively manipulated PLC logic and HMI data in U.S. cr",
+      "summary": "Iranian-affiliated actors actively manipulated PLC logic and HMI data in U.S. critical sectors; remove direct PLC internet exposure and validate logic integrity Security Advisory ."
+    },
+    {
+      "title": "Water/Wastewater utilities reported operational impacts from internet-exposed PL",
+      "summary": "Water/Wastewater utilities reported operational impacts from internet-exposed PLCs and undocumented cellular modem paths; disconnect, enforce VPN/MFA, and restore from clean backups Alert ."
+    },
+    {
+      "title": "NetScaler ADC/Gateway CVE-2026-8452 pre-auth RCE has public PoC; patch immediate",
+      "summary": "NetScaler ADC/Gateway CVE-2026-8452 pre-auth RCE has public PoC; patch immediately and hunt for web shells and AAA anomalies Advisory ."
+    },
+    {
+      "title": "VMware vCenter CVE-2026-59310 widely exploited for ESXi ransomware; apply vendor",
+      "summary": "VMware vCenter CVE-2026-59310 widely exploited for ESXi ransomware; apply vendor fixes, restrict management to internal networks, and audit SSO group changes View Article ."
+    },
+    {
+      "title": "OPC UA (Eclipse Milo) and HMI (PcVue) vulnerabilities can enable unauthorized re",
+      "summary": "OPC UA (Eclipse Milo) and HMI (PcVue) vulnerabilities can enable unauthorized reads/writes/DoS across ICS stacks; prioritize updates and enforce ICS-aware firewalls CISA Bulletin CISA Bulletin ."
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Elevated scanning and exploitation attempts on edge/IDP, OT-adjacent",
+        "label": "Current 72h Outlook"
+      },
+      {
+        "value": "Multiple (KEV/Advisories)",
+        "label": "Actively Exploited Items"
+      },
+      {
+        "value": "Perimeter VPN/ADC, vCenter, PLC exposure",
+        "label": "Primary Risk Vectors"
+      },
+      {
+        "value": "IT/OT isolation & jump hosts",
+        "label": "Segmentation Priority"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Observed across the reporting period PLC/Controllers: Rockwell (CompactLogix, Micro850) PLC: Schneider Modicon M340/BMX P34 PLC: Siemens S7-1200 HMI/SCADA: PcVue OPC UA: Eclipse Milo Remote Access: Johnson Controls Airwall Perimeter: NetScaler ADC/Gateway Virtualization: VMware vCenter/ESXi Identity/Cloud: Microsoft 365/Graph, Google Apps Script Charging Infra: EVbee DC-80"
+    ],
+    "sectors": [
+      "Water and Wastewater Systems",
+      "Energy",
+      "Transportation",
+      "Critical Manufacturing",
+      "Commercial Facilities",
+      "Government Services"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Gunra (Conti-lineage) targets edge devices and enterprise identity; double extortion with VM-centric encryption Security Advisory .",
+        "vCenter exploited to deploy Babuk-derived ransomware to ESXi; persistence via systemd/cron and SSO manipulation View Article .",
+        "CAV3RN/HOLLOWGRAPH abuse DNS and Google Apps Script, plus Microsoft Graph/Calendar, to blend with enterprise traffic View Article .",
+        "LAUNDRY BEAR (Void Blizzard) mass-exfiltrates Zimbra mail via XSS zero-day, maintains IMAP persistence with app passcodes Security Advisory ."
+      ]
+    }
+  ],
+  "relevance": "Multiple items directly impact industrial control environments: Direct PLC manipulation (logic edits, alarm bypass) in Water/Wastewater and Energy poses immediate safety and operational risk Security Advisory . Perimeter RCE (NetScaler ADC/Gateway) and exploited vCenter flaws are high-probability ingress paths into IT hosting and jump hosts that often bridge to OT Advisory View Article . Core ICS protocol stacks and HMI platforms face auth and DoS issues that can enable unauthorized control or loss of view CISA Bulletin CISA Bulletin .",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "OPC UA (Eclipse Milo): role/authorization bypass and DoS across 0.6.0-1.1.4 threaten ICS communications layers CISA Bulletin .",
+        "PcVue HMI: weak credential protection/credential recovery could yield privileged OT access CISA Bulletin .",
+        "EV charging infrastructure (EVbee DC-80): unauthenticated command execution and unsigned firmware enable remote manipulation/DoS CISA Bulletin .",
+        "Johnson Controls Airwall: hardcoded cryptographic key in remote access/segmentation platform; rotate keys and upgrade to v4.1.0+ ICS Advisory .",
+        "NetScaler ADC/Gateway CVE-2026-8452: unauthenticated RCE (public PoC); patch and hunt for web shells Advisory ."
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial access via perimeter RCE and VPN/ADC appliances; router/SD-WAN abuse for covert ingress Advisory .",
+      "Persistence and privilege escalation on vCenter/ESXi via systemd/cron, SSO group manipulation (ATT&CK: T1053, T1098) View Article .",
+      "AiTM and cloud abuse: DNS-steered C2, Google Apps Script relays, Microsoft Graph/Calendar covert channels (ATT&CK: T1071, T1102) View Article .",
+      "Exfiltration and persistence via mail platform app passcodes; webmail XSS zero-day mass email exfil (ATT&CK: T1056, T1114) Security Advisory .",
+      "OT manipulation: unauthorized PLC logic/project edits, alarm disablement, mode changes; ICS protocol misuse (Modbus TCP, ENIP/CIP, S7) Security Advisory ."
+    ],
+    "mitreIds": [
+      "T1053",
+      "T1098",
+      "T1071",
+      "T1102",
+      "T1056",
+      "T1114"
+    ]
+  },
+  "outlook72h": "Expect scanning and exploit attempts on NetScaler ADC/Gateway SAML endpoints; maintain heightened WAF/IPS monitoring Advisory . Continue exploit activity against vCenter; pre-stage rollback plans and ensure immutable backups for vCenter/ESXi configs View Article . Watch for identity phishing/AiTM using cloud relays (Apps Script/Graph); enforce token protection/CAE and conditional access View Article .",
+  "relatedCves": [
+    "CVE-2026-59310",
+    "CVE-2026-8452",
+    "CVE-2026-72898"
+  ]
+}

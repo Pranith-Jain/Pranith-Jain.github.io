@@ -1,0 +1,506 @@
+{
+  "type": "disaster",
+  "date": "2026-08-18",
+  "overallThreat": "",
+  "executiveSummary": "Indonesia: A powerful earthquake on Flores Island caused at least 68 deaths, over 200 injuries, and displaced more than 19,000 people; extensive damage includes 4,500+ homes and 370+ public facilities, with access impeded by blocked roads and landslides. Source View Article Colombia: A major earthquake in western Colombia severely damaged urban areas including Cali, with at least 287 deaths reported, nearly 4,000 injured, and hundreds missing as search-and-rescue operations continued. Source United States: Severe storms and flooding in Indiana and the mid-Atlantic caused multiple fatalities, mass evacuations, and disaster declarations; rescues and damage assessments are ongoing. Source View Article Canada: Wildfires in British Columbia's Okanagan region killed one person and forced more than 20,000 evacuations; large-scale emergency lodging and ongoing access restrictions point to protracted displacement needs. Source View Article Europe: A lethal wildfire in Greece (2 dead, 9 injured) and a large cross-border blaze in Belgium prompted evacuations and home losses, underscoring persistent regional fire risk under hot, dry conditions. Source Asia weather systems: Heavy rains in South Korea and the Philippines drove casualties, evacuations, and school disruptions, while Typhoon Dolphin triggered 300,000+ relocations in China and displacement in the Philippines. Source View Article Afghanistan: Flash floods in the east killed 23, injured 125, and damaged bridges, roads, water systems, a clinic, and markets-compounding WASH and access challenges. Supporting Report Figures vary across sources and are likely to change as assessments progress.",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Flores Island quake has damaged at least 4,500 homes and 370+ public facilities ",
+      "summary": "Flores Island quake has damaged at least 4,500 homes and 370+ public facilities (including 122 health facilities and 252 schools), straining local health and education systems. Source"
+    },
+    {
+      "title": "Blocked roads and landslides are delaying aid in Flores; field hospitals were es",
+      "summary": "Blocked roads and landslides are delaying aid in Flores; field hospitals were established as local hospitals sustained damage. View Article"
+    },
+    {
+      "title": "Colombia's urban search-and-rescue remains high priority with hundreds missing a",
+      "summary": "Colombia's urban search-and-rescue remains high priority with hundreds missing and nearly 4,000 injured amid widespread building collapse. Source"
+    },
+    {
+      "title": "Indiana floods led to disaster declarations and federal assistance, with at leas",
+      "summary": "Indiana floods led to disaster declarations and federal assistance, with at least hundreds evacuated in one county and fatalities reported. Source"
+    },
+    {
+      "title": "Okanagan (BC) wildfires displaced 20,000+ people; emergency lodging scaled to 1,",
+      "summary": "Okanagan (BC) wildfires displaced 20,000+ people; emergency lodging scaled to 1,600 hotel rooms and 1,000 group spaces, indicating multi-day sheltering needs. Source"
+    },
+    {
+      "title": "Spokane-area wildfires destroyed ~600 structures and forced ~60,000 evacuations;",
+      "summary": "Spokane-area wildfires destroyed ~600 structures and forced ~60,000 evacuations; critical infrastructure disruptions include power and public facilities. View Article"
+    },
+    {
+      "title": "European wildfire risk remains elevated; Greece recorded 2 deaths and 9 injuries",
+      "summary": "European wildfire risk remains elevated; Greece recorded 2 deaths and 9 injuries, while evacuations continued in Belgium's High Fens. Source"
+    },
+    {
+      "title": "Monsoon and typhoon interactions in East/Southeast Asia are sustaining flood and",
+      "summary": "Monsoon and typhoon interactions in East/Southeast Asia are sustaining flood and landslide risks, with millions affected in the Philippines and large-scale relocations in China. Source View Article"
+    },
+    {
+      "title": "Afghanistan floods disrupted safe water networks and damaged markets and bridges",
+      "summary": "Afghanistan floods disrupted safe water networks and damaged markets and bridges, heightening WASH and access concerns. Supporting Report"
+    },
+    {
+      "title": "Access constraints",
+      "summary": "blocked roads, landslides, submerged routes (Indonesia, Afghanistan, US floods)."
+    },
+    {
+      "title": "Health system strain",
+      "summary": "damaged hospitals/clinics, field hospitals, heat exposure risks."
+    },
+    {
+      "title": "Displacement and sheltering",
+      "summary": "multi-day reception centers and hoteling (BC), mass relocations (China), evacuation centers (Indonesia, Philippines)."
+    },
+    {
+      "title": "Utilities disruption",
+      "summary": "power outages (Spokane, South Korea), school disruptions (PH, SK, Indonesia)."
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Earthquake - Flores Island, East Nusa Tenggara, Indonesia",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Shelter/WASH",
+        "Medical",
+        "Logistics"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/70f07f6bbaf611924b98594356f25b32",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/ec45607ccc22d9df2d5cfe4ab82d33eb",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/c31ad3cf07fa83d2d443e8d85e5c9d84",
+          "label": "Initial Update"
+        }
+      ]
+    },
+    {
+      "title": "Earthquake - Cali and western Colombia",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Urban SAR",
+        "Shelter"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fd8948bee8acf98009e60615fc62694d",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Severe Storms and Flooding - Indiana and Mid-Atlantic, USA",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Shelter",
+        "Food/Cash",
+        "Debris"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/df4201a28c303852432144447db78cf0",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/aa3624a3ff1a0d241f62ec980a23e856",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/e56886e1802ed6e8cc12617daba08e24",
+          "label": "Regional Update"
+        }
+      ]
+    },
+    {
+      "title": "Flash Floods - Eastern Afghanistan",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "WASH",
+        "Access"
+      ],
+      "sources": [
+        {
+          "url": "https://www.unicef.org/afghanistan/documents/unicef-afghanistan-flash-update-1-eastern-region-flash-floods",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Wildfires - Greece and Belgium (High Fens)",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Evacuations",
+        "Shelter"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/cd5a8524ca3136b009422bd24eb4194e",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Earthquake - Flores Island, East Nusa Tenggara, Indonesia",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Shelter/WASH",
+        "Medical",
+        "Logistics"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/70f07f6bbaf611924b98594356f25b32",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/ec45607ccc22d9df2d5cfe4ab82d33eb",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/c31ad3cf07fa83d2d443e8d85e5c9d84",
+          "label": "Initial Update"
+        }
+      ]
+    },
+    {
+      "title": "Earthquake - Cali and western Colombia",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Urban SAR",
+        "Shelter"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/fd8948bee8acf98009e60615fc62694d",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Severe Storms and Flooding - Indiana and Mid-Atlantic, USA",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Shelter",
+        "Food/Cash",
+        "Debris"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/df4201a28c303852432144447db78cf0",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/aa3624a3ff1a0d241f62ec980a23e856",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/e56886e1802ed6e8cc12617daba08e24",
+          "label": "Regional Update"
+        }
+      ]
+    },
+    {
+      "title": "Flash Floods - Eastern Afghanistan",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "WASH",
+        "Access"
+      ],
+      "sources": [
+        {
+          "url": "https://www.unicef.org/afghanistan/documents/unicef-afghanistan-flash-update-1-eastern-region-flash-floods",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Wildfires - Greece and Belgium (High Fens)",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Evacuations",
+        "Shelter"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/cd5a8524ca3136b009422bd24eb4194e",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Wildfires - Okanagan Region, British Columbia, Canada",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Shelter",
+        "Access",
+        "Protection"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/06918cee1330c511babd1732f29e7cb5",
+          "label": "Update"
+        }
+      ]
+    },
+    {
+      "title": "Wildfires - Spokane Area, Washington, USA",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Evacuations",
+        "Power",
+        "Critical Facilities"
+      ],
+      "sources": [
+        {
+          "url": "https://www.local10.com/news/2026/08/02/fires-near-spokane-washington-have-burned-600-structures-and-forced-60000-evacuations/",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.local10.com/news/2026/08/02/eastern-washington-fires-have-burned-600-structures-and-forced-the-evacuation-of-60000-people/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Typhoon Dolphin - China (Zhejiang/Shanghai) and Philippines (Luzon)",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Evacuations",
+        "Transport",
+        "Shelter"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d40f4d49b0d89935366f360f1f13afd8",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Heavy Rains, Flooding, and Landslides - South Korea & Northern Philippines",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Shelter",
+        "Power",
+        "Education"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d21d2fdcc8391e152bce35686a62dc96",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Building Collapses - Tripoli, Lebanon",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Shelter",
+        "Protection"
+      ],
+      "sources": [
+        {
+          "url": "https://go-api.ifrc.org/api/downloadfile/94352/MDRLB020do",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "MONITOR",
+      "severity": "escalate",
+      "text": "",
+      "chips": [
+        "Health",
+        "Fire Weather",
+        "Evacuation Readiness",
+        "Fire Weather"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/db329527d454636ca0140b14c17358f3",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/594390d448a480564ec7db6b15b5fffc",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://www.theguardian.com/world/wildfires/2026/aug/02/all",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "ESCALATE",
+      "severity": "monitor",
+      "text": "",
+      "chips": [
+        "Shelter/WASH",
+        "Medical",
+        "Logistics",
+        "Urban SAR",
+        "Shelter",
+        "Shelter",
+        "Food/Cash",
+        "Debris",
+        "WASH",
+        "Access",
+        "Evacuations",
+        "Shelter",
+        "Shelter",
+        "Access",
+        "Protection",
+        "Evacuations",
+        "Power",
+        "Critical Facilities",
+        "Evacuations",
+        "Transport",
+        "Shelter",
+        "Shelter",
+        "Power",
+        "Education",
+        "Shelter",
+        "Protection"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/70f07f6bbaf611924b98594356f25b32",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/ec45607ccc22d9df2d5cfe4ab82d33eb",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/c31ad3cf07fa83d2d443e8d85e5c9d84",
+          "label": "Initial Update"
+        },
+        {
+          "url": "https://apnews.com/article/fd8948bee8acf98009e60615fc62694d",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/df4201a28c303852432144447db78cf0",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/aa3624a3ff1a0d241f62ec980a23e856",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/e56886e1802ed6e8cc12617daba08e24",
+          "label": "Regional Update"
+        },
+        {
+          "url": "https://www.unicef.org/afghanistan/documents/unicef-afghanistan-flash-update-1-eastern-region-flash-floods",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/cd5a8524ca3136b009422bd24eb4194e",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/f6b876ca4cfbb4efef623b44ace43b04",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/06918cee1330c511babd1732f29e7cb5",
+          "label": "Update"
+        },
+        {
+          "url": "https://www.local10.com/news/2026/08/02/fires-near-spokane-washington-have-burned-600-structures-and-forced-60000-evacuations/",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.local10.com/news/2026/08/02/eastern-washington-fires-have-burned-600-structures-and-forced-the-evacuation-of-60000-people/",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://apnews.com/article/d40f4d49b0d89935366f360f1f13afd8",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/d21d2fdcc8391e152bce35686a62dc96",
+          "label": "View Article"
+        },
+        {
+          "url": "https://go-api.ifrc.org/api/downloadfile/94352/MDRLB020do",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Extreme Heat - United States (nationwide/western)",
+      "severity": "monitor",
+      "text": "",
+      "chips": [
+        "Health",
+        "Fire Weather"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/db329527d454636ca0140b14c17358f3",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/594390d448a480564ec7db6b15b5fffc",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Wildfire Watch - Attica near Athens, Greece",
+      "severity": "monitor",
+      "text": "",
+      "chips": [
+        "Evacuation Readiness",
+        "Fire Weather"
+      ],
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/wildfires/2026/aug/02/all",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "outlook72h": "Indonesia (Flores): Expect continued access constraints from landslides and debris; prioritize road clearance and field medical support while monitoring for aftershocks. Source Colombia: Urban SAR likely to remain life-saving; anticipate shifting casualty figures as rubble removal progresses. Source US Midwest (Indiana): Risk of residual flooding and unsafe re-entry; continue evacuations assistance, debris management, and WASH support. Source BC and Spokane wildfires: Evacuation posture and sheltering likely to persist; monitor wind shifts and air quality; critical infrastructure protection ongoing. Source Source East/Southeast Asia: Continued flood/landslide disruptions possible where soils are saturated; sustain evacuation center support and WASH interventions. Source Source Forecast-dependent uncertainties remain; prioritize flexible logistics and protection for vulnerable groups.",
+  "regionalTrends": [
+    "Seismic: Significant impacts across the Pacific Rim (Indonesia) and northern Andes (Colombia) with aftershock and secondary hazard potential (landslides, structural failure). Source Source",
+    "Hydromet: Monsoon rains, typhoon interactions, and mid-latitude storm systems are driving flood and landslide emergencies in Asia and the US Midwest. Source Source",
+    "Fire Weather: Heat and drought continue to elevate wildfire risk across Western North America and southern Europe, with rapid spread and evacuation dynamics. Source Source"
+  ]
+}

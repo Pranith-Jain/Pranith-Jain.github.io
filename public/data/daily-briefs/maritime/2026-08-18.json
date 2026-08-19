@@ -1,0 +1,43 @@
+{
+  "type": "maritime",
+  "date": "2026-08-18",
+  "threatLevel": "Unknown",
+  "executiveSummary": "North Carolina Ports reported a confirmed cyberattack that caused systems-wide outages and disrupted gate and cargo operations across multiple facilities, creating immediate logistics impacts in the U.S. South Atlantic region. View Article",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "Technologies of concern (per MARAD): LOGINK logistics platform; Nuctech scanners; PRC-manufactured ship-to-shore cranes. Government Advisory",
+      "North Carolina Ports incident: impacted IT systems; specific vendors and products not named in reporting. View Article"
+    ],
+    "sectors": [
+      "Ports and Terminals: operational disruption (NC Ports) and strategic technology risk (MARAD advisory).",
+      "Inland Logistics Nodes: Charlotte Inland Port experienced related slowdowns due to the IT incident."
+    ]
+  },
+  "keyFindings": [
+    "Confirmed port cyberattack disrupted IT operations and slowed gates at North Carolina Ports (Wilmington, Morehead City, Charlotte Inland Port); supply-chain impact confirmed. View Article",
+    "MARAD Advisory 2026-007 warns of cyber and intelligence risks tied to foreign-manufactured port technology (LOGINK, Nuctech, PRC cranes) and urges segmentation, access control, monitoring, backups, and remote-access hardening. Government Advisory",
+    "No navigation-system compromise or AIS/GNSS anomalies are reported in the current dataset. (Analytical synthesis)",
+    "No CVEs or malware families are specified in the supplied reporting. (Analytical synthesis)"
+  ],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "North Carolina Ports: Initial access, propagation method, and objectives are not disclosed in reporting; no confirmable ATT&CK mappings available.",
+      "MARAD advisory context suggests potential risks related to external remote services and supply-chain dependencies for port OT; formal technique IDs are not assigned in the sources. (Analytical characterization based on advisory)"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor official updates and restoration milestones at North Carolina Ports; additional operational notices are likely as systems are recovered. Confidence: medium. Supporting Report Expect follow-on risk reviews at other U.S. ports focused on vendor access and segmentation in response to MARAD 2026-007. Confidence: medium. Government Advisory Current evidence does not establish navigation-system risk in this reporting window; maintain standard GNSS/AIS anomaly monitoring. Confidence: high. (Synthesis)",
+  "relatedCves": []
+}
