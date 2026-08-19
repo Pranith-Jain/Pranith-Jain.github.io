@@ -65,6 +65,9 @@ stats.html
 .wrangler/
 .wrangler-dryrun/
 
+# Prompt-eval harness CSV output (scripts/prompt-eval.mjs)
+/artifacts/
+
 # Browser-automation artifacts (Playwright MCP)
 .playwright-mcp/
 page-*.png

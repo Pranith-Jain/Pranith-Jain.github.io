@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "AU",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1aced970-0646-4209-be4e-1fed579af242",
+  "description": "olliesplace.com.au zoominfo.com/c/ollies-place-kidswear/359503050 Ollie's Place is an Australian retail brand specializing in high-quality, trendy, and comfortable clothing for babies and children. The company offers a unique shopping experience both online and through physical stores across Australia, featuring vibrant prints and stylish designs. They focus on providing fashionable, value-for-money pieces for kids' everyday wear and special milestones.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["the gentlemen"],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

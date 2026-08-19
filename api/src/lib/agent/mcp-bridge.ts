@@ -154,7 +154,13 @@ import { torStatus, torFetchOnion, torScrapeOnion, torSearchOnion, torExitNodes,
 // depx (supply-chain malicious packages) — uses REST route, not a lib
 // breach_vip_search — uses REST route
 
-type EnvWithAssets = { ASSETS?: Fetcher; TRACEIX_API_KEY?: string; WHOXY_API_KEY?: string };
+type EnvWithAssets = {
+  ASSETS?: Fetcher;
+  TRACEIX_API_KEY?: string;
+  WHOXY_API_KEY?: string;
+  TRUECALLER_API_KEY?: string;
+  INTELX_API_KEY?: string;
+};
 
 /**
  * Build AgentTool[] entries for MCP-only tools, calling library
@@ -1399,6 +1405,22 @@ export function bridgeMcpTools(
   });
 
   // ══════════════════════════════════════════════════════════════════════
+  //  TRUECALLER — Reverse Phone Lookup
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'truecaller_lookup',
+    description:
+      'Reverse phone number lookup via Truecaller — get caller name, carrier, spam score, and location data.',
+    params: [{ name: 'phone', type: 'string', description: 'Phone number to look up (any format)', required: true }],
+    execute: async (args) => {
+      if (!env.TRUECALLER_API_KEY) throw new Error('TRUECALLER_API_KEY not configured');
+      const { truecallerLookup } = await import('../truecaller');
+      return truecallerLookup({ TRUECALLER_API_KEY: env.TRUECALLER_API_KEY }, args.phone as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
   //  DEPX — Supply-Chain Intelligence (REST-backed)
   // ══════════════════════════════════════════════════════════════════════
 
@@ -2197,6 +2219,18 @@ export function bridgeMcpTools(
   );
   dnGet('get_today_briefing', "Get today's threat intelligence briefing.", () => '/api/v1/briefings/today', []);
   dnGet('list_briefings', 'List available threat intelligence briefings.', () => '/api/v1/briefings/list', []);
+  dnGet(
+    'briefings_related',
+    'Find prior briefings related to a given briefing — links by shared IOCs (domains/IPs/hashes/URL hosts) or shared tactic keywords, ranked by match count then severity. Case-triage linkage.',
+    (a) =>
+      `/api/v1/briefings/related?slug=${encodeURIComponent(String(a.slug))}${
+        a.limit ? `&limit=${encodeURIComponent(String(a.limit))}` : ''
+      }`,
+    [
+      { name: 'slug', description: 'Briefing slug, e.g. daily-2026-08-18', required: true },
+      { name: 'limit', description: 'Max related briefings (default 5)', required: false },
+    ]
+  );
   dnGet(
     'get_feed_status',
     'Get the status of all threat intelligence feeds (health, last fetch, error count).',

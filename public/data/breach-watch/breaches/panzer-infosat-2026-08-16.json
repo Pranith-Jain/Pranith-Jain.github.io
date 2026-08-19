@@ -7,9 +7,9 @@
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/7965f584-6ed5-4c9b-ae9d-9bfc5fd72904",
+  "description": "A company focused on new technologies serving information, communications and security systems.It was created at the dawn of the third millennium, with the primary mission of serving its clients and committing to its partners for overall and sustainable performance.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

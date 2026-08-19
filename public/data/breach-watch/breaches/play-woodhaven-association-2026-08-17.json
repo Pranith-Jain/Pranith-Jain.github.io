@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9b073591-4aaa-4bc1-be6d-5dfa2295a6ee",
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["PlayCrypt"],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

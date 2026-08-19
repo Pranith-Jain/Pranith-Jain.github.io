@@ -1,0 +1,15 @@
+{
+  "slug": "silentransomgroup-reminger-2026-08-13",
+  "title": "Reminger",
+  "group": "SilentRansomGroup",
+  "discovered": "2026-08-13T23:52:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Reminger Attorneys at Law is a law firm with a strong presence in Ohio, Kentucky, and Indiana, operati…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

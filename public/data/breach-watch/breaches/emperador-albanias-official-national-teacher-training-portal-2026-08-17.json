@@ -1,0 +1,15 @@
+{
+  "slug": "emperador-albanias-official-national-teacher-training-portal-2026-08-17",
+  "title": "Albania's Official National Teacher Training Portal",
+  "group": "emperador",
+  "discovered": "2026-08-17T02:20:41.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AL",
+  "sizeBytes": 0,
+  "description": "Albania’s official national teacher training portal provides centralized professional development resources and accredited programs for educators nationwide.\n\nThis leak include data such as;\nRoughly ~100k Full national ID numbers, full names and teacher certificates in PDF. [Size: 5.9 GB | Sector: Education, Government]",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

@@ -59,6 +59,8 @@ const Traceix = lazy(() => import('./pages/Traceix'));
 const NhiScan = lazy(() => import('./pages/NhiScan'));
 const UrlRisk = lazy(() => import('./pages/dfir/UrlRisk'));
 const Whoxy = lazy(() => import('./pages/Whoxy'));
+const IntelXPage = lazy(() => import('./pages/IntelX'));
+const TruecallerPage = lazy(() => import('./pages/Truecaller'));
 const Cerast = lazy(() => import('./pages/threatintel/Cerast'));
 const ThreatMonInfostealer = lazy(() => import('./pages/threatintel/ThreatMonInfostealer'));
 const Projects = lazy(() => import('./pages/Projects'));
@@ -431,6 +433,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/traceix', Component: Traceix },
   { path: '/dfir/nhi-scan', Component: NhiScan },
   { path: '/dfir/whoxy', Component: Whoxy },
+  { path: '/dfir/intelx', Component: IntelXPage },
+  { path: '/dfir/truecaller', Component: TruecallerPage },
   { path: '/threatintel/apt-actors', Component: ETDAActors },
   { path: '/threatintel/aptmap', Component: Aptmap },
   { path: '/threatintel/external/cerast', Component: Cerast },

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/426b9b26-1775-414c-895e-918868ac51e4",
+  "description": "Lansing Urgent Care provides a range of urgent care services for both adults and children, including on-site medications, lab tests, and X-rays. Their facilities are designed for quick visits, with an average wait time of under one hour, and they offer telemedicine options for added convenience. The company caters to patients seeking immediate medical attention, sports physicals, and occupational health services. With multiple locations in Lansing, Okemos, and surrounding areas, they aim to deliver friendly and efficient healthcare.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["inc ransom", "INC"],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -295,6 +295,9 @@ export interface Env {
   /** Whoxy.com Reverse WHOIS API key.
    *  Set via `wrangler secret put WHOXY_API_KEY`. Paid ($0.01/query at whoxy.com). */
   WHOXY_API_KEY?: string;
+  /** Truecaller reverse phone lookup API key.
+   *  Set via `wrangler secret put TRUECALLER_API_KEY`. Free tier at truecaller.com. */
+  TRUECALLER_API_KEY?: string;
   /** Webamon pro campaign-intelligence API key (x-api-key mode).
    *  Set via `wrangler secret put WEBAMON_API_KEY`. Powers the campaign/changes/
    *  clusters endpoints (intel.webamon.com estate brief) at pro.webamon.com. */

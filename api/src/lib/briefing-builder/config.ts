@@ -288,3 +288,9 @@ export const VICTIM_TRAILING_DESCRIPTORS = [
 export const IOC_FEED_SOURCES = new Set(['URLhaus', 'MalwareBazaar', 'ThreatFox', 'TweetFeed']);
 
 export const BRIEFING_MAX_AGE_DAYS = 30;
+
+// Case-triage linkage bounds (see related.ts). Kept small: the stamp runs on
+// every briefing write inside the daily cron, and scans bounded by
+// RELATED_MAX_CANDIDATES recent rows via json_extract (never full bodies).
+export const RELATED_LIMIT = 5;
+export const RELATED_MAX_CANDIDATES = 40;

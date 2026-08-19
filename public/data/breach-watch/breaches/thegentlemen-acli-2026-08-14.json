@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-acli-2026-08-14",
+  "title": "Acli",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:54:25.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "acli.it zoominfo.com/c/acli/372618594 ACLI (Christian Associations of Italian Workers) is a major Italian Catholic social promotion organization founded in 1944 to advocate for labor rights and human dignity. Operating a vast network of local clubs, the association provides essential community services, including tax assistance, employment support, and vocational training. Today, it continues to champion social solidarity, democratic participation, and active citizenship across Italy and internationally.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

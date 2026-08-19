@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/676b768b-9556-4153-aa86-8fce70026916",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Transportation",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

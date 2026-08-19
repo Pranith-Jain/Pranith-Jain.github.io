@@ -712,6 +712,23 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/intelx',
+    label: 'IntelligenceX Search',
+    description:
+      'Leaked data + phonebook search via IntelligenceX - emails, domains, BTC, IBANs, paste sites, breach archives.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['intelx', 'leak', 'breach', 'phonebook', 'email', 'domain', 'btc', 'iban', 'paste'],
+  },
+  {
+    path: '/dfir/truecaller',
+    label: 'Truecaller Lookup',
+    description: 'Reverse phone lookup via Truecaller - caller name, carrier, spam score, and location data.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['truecaller', 'phone', 'reverse', 'caller', 'spam', 'carrier', 'lookup'],
+  },
+  {
     path: '/dfir/winreg',
     label: 'Windows Registry Artifacts',
     description: '292 registry forensic artifacts across 16 categories, mapped to MITRE ATT&CK.',

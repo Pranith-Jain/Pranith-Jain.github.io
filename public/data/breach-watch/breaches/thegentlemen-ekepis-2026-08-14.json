@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ekepis-2026-08-14",
+  "title": "EKEPIS",
+  "group": "thegentlemen",
+  "discovered": "2026-08-14T05:55:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GR",
+  "sizeBytes": 0,
+  "description": "ekepis.gr rocketreach.co/ekepis-ethniko-kentro-pistopoiisis-domon-profile_b6d46b6ac7408ffe EKEPIS was Greece's National Centre for the Accreditation of Continuing Vocational Training, responsible for certifying adult educators and lifelong learning providers. The organization no longer exists, as its accreditation and certification duties were absorbed by EOPPEP (ΕΟΠΠΕΠ), the National Organisation for the Certification of Qualifications and Vocational Guidance. Today, anyone looking for their services must go through EOPPEP or the official Greek government portal, since the old ekepis.gr domain is no longer an official resource.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

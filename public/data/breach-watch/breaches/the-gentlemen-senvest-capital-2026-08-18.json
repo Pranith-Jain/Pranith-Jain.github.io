@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-senvest-capital-2026-08-18",
+  "title": "Senvest Capital",
+  "group": "The Gentlemen",
+  "discovered": "2026-08-18T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/senvest-capital-the-gentlemen-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

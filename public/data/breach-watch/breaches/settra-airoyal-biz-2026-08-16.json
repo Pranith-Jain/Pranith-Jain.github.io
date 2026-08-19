@@ -7,9 +7,9 @@
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/03446ec6-fed2-4207-9b2b-12711be8b636",
+  "description": "AIROYAL COMPANY: Internal Documents of an American Industrial Components Distributor PROLOGUE We hav...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

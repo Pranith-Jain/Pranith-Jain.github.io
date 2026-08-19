@@ -1,15 +1,15 @@
 {
   "slug": "gunra-bomohsa-2026-08-18",
-  "title": "BOMOHSA",
-  "group": "gunra",
-  "discovered": "2026-08-18T10:55:52.000Z",
+  "title": "Bomohsa",
+  "group": "Gunra",
+  "discovered": "2026-08-18T00:00:00.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "HN",
+  "country": "Honduras",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/413341df-8b52-4a09-bbd6-1a878715b429",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/bomohsa-gunra-2026-08",
   "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["Darkfield"]
+  "activity": null,
+  "references": ["RecentBreaches.com"]
 }

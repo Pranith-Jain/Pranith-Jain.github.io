@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3a9d59cc-210d-4f20-a67c-dfc9c79d22c8",
+  "description": "Cozad Asset Management, Inc. provides the highest quality professional and personalized financi\nal services and advice to individuals, families and institutional investors throughout the coun\ntry.\n\nWe will upload 13gb corporate data soon. Employee personal information (passport, DLs, SSN), fi\nnancials, confidential files, contracts and agreements, legal files and so on.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["Megazord"],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

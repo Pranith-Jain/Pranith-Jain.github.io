@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-logitech-streamlabs-2026-08-18",
+  "title": "Logitech/ Streamlabs",
+  "group": "shinyhunters",
+  "discovered": "2026-08-18T13:19:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "This is a final warning to reach out by 21 Aug 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 18 Aug 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

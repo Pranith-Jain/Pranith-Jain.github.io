@@ -203,6 +203,7 @@ import {
   briefingsForActorHandler,
   briefingPrintHandler,
   briefingIocsTxtHandler,
+  briefingsRelatedHandler,
 } from './routes/briefings';
 import { briefingRenderHandler } from './routes/briefing-render';
 import { briefingsRssHandler } from './routes/briefings-rss';
@@ -1030,6 +1031,7 @@ import { traceixRouter } from './routes/traceix';
 import { profileStatsRouter } from './routes/profile-stats';
 import { nhiScanRouter } from './routes/nhi-scan';
 import { whoxyRouter } from './routes/whoxy';
+import { truecallerRouter } from './routes/truecaller';
 import { fullhuntRouter } from './routes/fullhunt';
 import { opensanctionsRouter } from './routes/opensanctions';
 import { cloakRouter } from './routes/cloak-edge-tools';
@@ -1476,6 +1478,7 @@ app.get('/api/v1/threat-hunt', validate('query', searchSchema), threatHuntHandle
 app.get('/api/v1/hunt/v2', huntV2Handler);
 app.get('/api/v1/pageviews', pageViewsHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
+app.get('/api/v1/briefings/related', briefingsRelatedHandler);
 app.get('/api/v1/briefings/rss', briefingsRssHandler);
 app.get('/api/v1/briefings/today', todayBriefingHandler);
 app.post('/api/v1/briefings/build', validate('query', briefingBuildSchema), buildBriefingHandler);
@@ -2084,6 +2087,11 @@ app.route('/api/v1', nhiScanRouter);
 // Requires WHOXY_API_KEY Worker secret.
 // Endpoint: GET /api/v1/whoxy/reverse?q=<term>&type=email|name|company|keyword
 app.route('/api/v1', whoxyRouter);
+
+// Truecaller — reverse phone lookup (caller name, carrier, spam score).
+// Requires TRUECALLER_API_KEY Worker secret.
+// Endpoint: GET /api/v1/truecaller/lookup?phone=<number>
+app.route('/api/v1', truecallerRouter);
 
 // FullHunt — attack surface discovery.
 // Requires FULLHUNT_API_KEY Worker secret (free at fullhunt.io).

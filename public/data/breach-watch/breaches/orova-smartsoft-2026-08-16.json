@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "TW",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/80edc1a9-3325-430f-9182-2248ba5d9371",
+  "description": "Say goodbye to cumbersome and difficult-to-maintain traditional architectures and regain control of your processes. Redefine enterprise standards with the high performance and low-code platform of .NET 8.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

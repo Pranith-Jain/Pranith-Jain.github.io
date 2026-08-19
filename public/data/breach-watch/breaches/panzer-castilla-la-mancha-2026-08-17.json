@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "ES",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/2710a603-21c9-45ec-a79d-1f06635247da",
+  "description": "The Government of Castilla-La Mancha provides a wide range of services and information related to public administration, economy, education, health, and social services. It aims to support various sectors including agriculture, tourism, and employment, while also addressing issues like sustainability and equality. The intended clients include residents of Castilla-La Mancha, businesses, and individuals seeking assistance in various life situations. The government also promotes transparency and participation through its digital platforms.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Government & Defense",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

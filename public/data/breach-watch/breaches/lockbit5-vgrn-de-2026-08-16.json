@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/34efe915-287a-4aee-a8b2-048cde9714ce",
+  "description": "Verbandsgemeinde Rhein-Nahe is a company that operates in the Government industry.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Energy & Utilities",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/bf875545-a4c1-4979-976c-288f9beb9a7c",
+  "description": "TECOSIM is a technology corporation specializing in computer-aided engineering (CAE). They are headq...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

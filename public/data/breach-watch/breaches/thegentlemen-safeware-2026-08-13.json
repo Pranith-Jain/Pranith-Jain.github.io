@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-safeware-2026-08-13",
+  "title": "Safeware",
+  "group": "thegentlemen",
+  "discovered": "2026-08-13T07:29:47.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "safewareinc.com Safeware Inc. is a national leader providing safety and security solutions for first responders, schools, and government agencies.\nFor over 40 years, they have supplied advanced protective equipment and public preparedness training across the United States.\nThe company simplifies government purchasing by offering specialized gear through competitive cooperative contract pricing.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

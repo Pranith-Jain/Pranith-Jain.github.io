@@ -97,6 +97,18 @@ interface BriefingStats {
   ransomware_victims: number;
 }
 
+/** Case-triage linkage ref (stamped into the body at write time by the API). */
+interface RelatedBriefingRef {
+  slug: string;
+  type: 'daily' | 'weekly' | 'landscape';
+  title: string;
+  date_range: string;
+  range_end: string;
+  severity: Severity;
+  match_count: number;
+  keyword_match: boolean;
+}
+
 interface Briefing {
   slug: string;
   type: 'daily' | 'weekly' | 'landscape';
@@ -114,6 +126,7 @@ interface Briefing {
   ioc_dump?: { count: number; rawTotal: number; content: string };
   mitre_techniques: string[];
   sources: string[];
+  related_briefings?: RelatedBriefingRef[];
 }
 
 /**
@@ -818,6 +831,52 @@ export default function BriefingDetail(): JSX.Element {
             <StatPill label="medium" value={stats.medium} accent="text-amber-600 dark:text-amber-400" />
             <StatPill label="low" value={stats.low} accent="text-slate-600 dark:text-slate-300" />
           </div>
+        </section>
+      )}
+
+      {/* Related briefings — case-triage linkage: prior briefs sharing IOCs
+          or tactic keywords with this one (stamped at write time by the API,
+          available live via /api/v1/briefings/related). */}
+      {briefing.type !== 'landscape' && !!briefing.related_briefings?.length && (
+        <section className="surface-card p-4 mb-8">
+          <div className="flex items-center gap-2 mb-3">
+            <Compass size={15} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
+            <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Related briefings</h2>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+              shared IOCs · tactic keywords
+            </span>
+          </div>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {briefing.related_briefings.slice(0, 4).map((rel) => (
+              <li key={rel.slug}>
+                <a
+                  href={`/threatintel/briefings/${encodeURIComponent(rel.slug)}`}
+                  className="flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-100))] px-3 py-2.5 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors group"
+                >
+                  <span
+                    className={`mt-0.5 shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono uppercase tracking-wide ${
+                      SEVERITY_TONE[rel.severity === 'unknown' ? 'low' : rel.severity]
+                    }`}
+                  >
+                    {rel.severity}
+                  </span>
+                  <span className="min-w-0 leading-tight">
+                    <span className="block text-xs font-medium text-slate-800 dark:text-slate-200 group-hover:text-brand-600 dark:group-hover:text-brand-400 truncate">
+                      {rel.title}
+                    </span>
+                    <span className="block text-[10px] font-mono text-slate-400 mt-0.5">
+                      {rel.type} · {rel.date_range}
+                      <span className="ml-2 inline-flex items-center gap-1">
+                        <Sparkles size={9} aria-hidden="true" />
+                        {rel.match_count} shared
+                        {rel.keyword_match ? ' kw' : ' ioc'}
+                      </span>
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 

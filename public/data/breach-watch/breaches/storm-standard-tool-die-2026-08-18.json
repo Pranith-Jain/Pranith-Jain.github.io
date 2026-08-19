@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f961a431-bf80-4a61-987a-c5f849a4a203",
+  "description": "Standard Tool & Die specializes in designing and manufacturing die cast dies, plastic molds, and trim dies for various industries including automotive, appliance, furniture, and household goods. The company offers single source manufacturing solutions and focuses on precision machining for both domestic and international clients. They are committed to developing cost-effective and time-saving strategies while continually investing in advanced equipment. Standard Tool aims to provide effective solutions to industry challenges through innovative design and strategic thinking. \nThe company headquarters is located in 2950 Johnson Road, Stevensville, MI 49127, United States. 51-200 Employees",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

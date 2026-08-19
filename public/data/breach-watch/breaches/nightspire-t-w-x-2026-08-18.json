@@ -7,9 +7,9 @@
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9b3f78a9-b26c-491c-b4a4-8b5a1ee6ea78",
+  "description": "Data is not available now.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["NIGHT SPIRE"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

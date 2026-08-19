@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d9eed89e-f590-43f1-8a83-952f9317cf66",
+  "description": "Terra-Petra is an environmental engineering firm specializing in contaminated soil and groundwater c...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Energy & Utilities",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

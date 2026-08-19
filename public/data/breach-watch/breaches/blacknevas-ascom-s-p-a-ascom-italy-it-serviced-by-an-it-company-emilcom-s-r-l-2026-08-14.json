@@ -1,0 +1,15 @@
+{
+  "slug": "blacknevas-ascom-s-p-a-ascom-italy-it-serviced-by-an-it-company-emilcom-s-r-l-2026-08-14",
+  "title": "ASCOM S.p.A. ascom-italy.it serviced by an IT company Emilcom S.r.l.",
+  "group": "blacknevas",
+  "discovered": "2026-08-14T02:53:46.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "ASCOM S.p.A. is an Italian manufacturer of heavy lifting equipment for the marine (marinas &amp; shipyards) and industrial sectors. Founded in 1972 by Gian Franco Schedoni in Formigine (Modena), the company began with overhead cranes and expanded into boat hoists (travel lifts) around 1982.Today it is a global specialist in travel lifts, gantry cranes, overhead cranes, and fully customized lifting solutions, with thousands of machines operating in over 50 countries. Production is fully in-house (9,000 m² facility), supported by its own engineering team using FEM analysis and modern CAD tools.Key facts:Certified ISO 9001, 14001 &amp; 45001; all equipment CE-markedFocus on quality, customization, and sustainabilityServes marinas, shipyards, infrastructure, steel mills, renewable energy, mining, and moreHeadquarters: Via Della Fornace 16, 41043 Formigine (MO), ItalyPhone: +39 059 558038Email: info@ascom-italy.itWebsite: ascom-italy.it",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["black nevas"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

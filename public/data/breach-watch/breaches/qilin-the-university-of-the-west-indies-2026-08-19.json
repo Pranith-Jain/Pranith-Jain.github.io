@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-the-university-of-the-west-indies-2026-08-19",
+  "title": "The University of the West Indies",
+  "group": "qilin",
+  "discovered": "2026-08-19T02:07:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion/site/blog?uuid=15a6c22a-8567-4ffc-8992-3675d3574010",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

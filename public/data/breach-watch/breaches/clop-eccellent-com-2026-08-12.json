@@ -1,0 +1,15 @@
+{
+  "slug": "clop-eccellent-com-2026-08-12",
+  "title": "ECCELLENT.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:48:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Data exfiltrated included the following: DBF files, Cad-files, Project, Soft, Backups Total size: 241Gb Revenue: $5,000,000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

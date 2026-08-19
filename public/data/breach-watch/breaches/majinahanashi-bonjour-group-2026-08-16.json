@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IN",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/46395192-15e0-4249-af06-ff80bf69cbcc",
+  "description": "TARGET: bonjourgroup.net, bonjourretail.com REVENUE: $57.8 Million EMPLOYEES: 501-1,000 employees [LEAK / 5620 FILES]",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

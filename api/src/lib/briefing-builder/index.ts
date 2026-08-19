@@ -32,7 +32,25 @@ export {
   safeJsonParse,
 } from './aggregate';
 
-export { buildBriefing, writeBriefing, capBriefingForStorage, sweepOldBriefings, listBriefings, readBriefing } from './build';
+export {
+  buildBriefing,
+  writeBriefing,
+  capBriefingForStorage,
+  sweepOldBriefings,
+  listBriefings,
+  readBriefing,
+} from './build';
+
+export {
+  normalizeIocValue,
+  briefingIocKeySet,
+  summaryKeywordOverlap,
+  severityFromStats,
+  rankRelatedBriefings,
+  findRelatedBriefings,
+  stampRelatedBriefings,
+  RELATED_KEYWORDS,
+} from './related';
 
 export {
   BRIEFING_MAX_AGE_DAYS,
@@ -56,4 +74,5 @@ export type {
   CategoryRule,
   WeeklyDailyRollup,
   WeeklyMergeInput,
+  RelatedBriefingRef,
 } from './types';

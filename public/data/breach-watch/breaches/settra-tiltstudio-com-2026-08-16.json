@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/43f00702-6c92-4ad5-b93e-a45627b887b9",
+  "description": "The Tilt Studio Archives Investigation of a Corporate Archive Leak from an Entertainment Network PRO...",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

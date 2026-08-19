@@ -1,0 +1,15 @@
+{
+  "slug": "direwolf-infoflo-crm-2026-08-19",
+  "title": "InfoFlo CRM",
+  "group": "Direwolf",
+  "discovered": "2026-08-19T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/infoflo-crm-direwolf-2026-08",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

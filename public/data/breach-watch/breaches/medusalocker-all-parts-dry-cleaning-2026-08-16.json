@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "GB",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/49bc32b2-4eec-488e-aa96-43604923a183",
+  "description": "Dry cleaning & laundry. Domain: allpartsdrycleaning.co.uk. | United Kingdom",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

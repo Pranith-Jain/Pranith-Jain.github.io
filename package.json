@@ -43,7 +43,10 @@
     "check:all": "npm run lint && npm run typecheck && npm run typecheck:api && npm run test:run && npm run check:coverage",
     "test:cert-in": "node --test scripts/cert-in-diff.test.mjs",
     "test:dphish": "node --test scripts/sync-dphish.test.mjs",
-    "test:scripts": "npm run test:mcp && npm run test:cert-in && npm run test:dphish"
+    "test:scripts": "npm run test:mcp && npm run test:cert-in && npm run test:dphish && npm run test:prompt-eval",
+    "prompt:eval": "node scripts/prompt-eval.mjs",
+    "prompt:eval:live": "USE_LLM=true node scripts/prompt-eval.mjs",
+    "test:prompt-eval": "node --test scripts/prompt-eval.test.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

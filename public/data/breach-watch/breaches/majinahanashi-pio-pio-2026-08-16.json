@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "CO",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f46830fa-91c7-41b6-9551-1bfb420a71e4",
+  "description": "TARGET: piopio.com.co REVENUE: $5m EMPLOYEES: 33 staff [LEAK / 6306 FILES]",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

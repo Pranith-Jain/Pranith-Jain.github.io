@@ -139,6 +139,8 @@ import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { traceixLookup } from './lib/traceix';
 import { whoxyReverseWhois } from './lib/whoxy';
+import { truecallerLookup } from './lib/truecaller';
+import { intelxSearch, intelxPhonebook } from './lib/intelx';
 import {
   parseFleet as nhiParseFleet,
   scan as nhiScanFleet,
@@ -240,6 +242,10 @@ type Env = {
   INTERNAL_TOKEN_SECRET?: string;
   /** AlienVault OTX API key — free at otx.alienvault.com. Optional; ti_search_otx degrades to an error when unset. */
   OTX_API_KEY?: string;
+  /** Truecaller reverse phone lookup key. Optional; truecaller_lookup degrades to error when unset. */
+  TRUECALLER_API_KEY?: string;
+  /** IntelligenceX API key (paid). Optional; intelx_search/intelx_phonebook degrade to error when unset. */
+  INTELX_API_KEY?: string;
 };
 
 const API_BASE_DEFAULT = 'https://pranithjain.qzz.io';
@@ -727,6 +733,25 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       async ({ limit }) => {
         const qs = limit ? `?limit=${limit}` : '';
         const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/briefings/list${qs}`, this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── Related Briefings (case-triage linkage) ─────────────────────────
+    this.tools(
+      'briefings_related',
+      'Find prior briefings related to a given briefing — links by shared IOCs (domains/IPs/hashes/URL hosts) or shared tactic keywords, ranked by match count then severity then recency. Case-triage linkage (port of the CTI case-queue related-case matcher).',
+      {
+        slug: z.string().describe('Briefing slug, e.g. daily-2026-08-18'),
+        limit: z.number().optional().describe('Max related briefings (default 5)'),
+      },
+      async ({ slug, limit }) => {
+        const qs = `?slug=${encodeURIComponent(slug)}${limit ? `&limit=${limit}` : ''}`;
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/briefings/related${qs}`,
+          this.apiKey
+        );
         return untrustedToolResult(data);
       }
     );
@@ -4307,6 +4332,45 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ query, type }) => {
           const r = await whoxyReverseWhois(this.env as { WHOXY_API_KEY?: string }, query, type ?? 'email');
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Truecaller — reverse phone lookup ─────────────────────────────
+      this.tools(
+        'truecaller_lookup',
+        'Reverse phone number lookup via Truecaller — get caller name, carrier, spam score, and location data. Requires TRUECALLER_API_KEY secret (register at truecaller.com).',
+        {
+          phone: z.string().describe('Phone number to look up (any format — E.164, local, with/without +).'),
+        },
+        async ({ phone }) => {
+          const r = await truecallerLookup(this.env as { TRUECALLER_API_KEY?: string }, phone);
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── IntelligenceX — leaked-data search + phonebook ───────────────
+      this.tools(
+        'intelx_search',
+        'Search IntelligenceX for leaked data, paste sites, breach archives, and dark-web content. Supports emails, domains, URLs, BTC addresses, IBANs, credit cards, phone numbers. Requires INTELX_API_KEY (paid).',
+        {
+          q: z.string().describe('Search term — email, domain, keyword, BTC address, IBAN, etc.'),
+          max_results: z.number().optional().describe('Max results (default 20)'),
+        },
+        async ({ q, max_results }) => {
+          const r = await intelxSearch(this.env as { INTELX_API_KEY?: string }, q, { maxResults: max_results });
+          return untrustedToolResult(r);
+        }
+      );
+      this.tools(
+        'intelx_phonebook',
+        'IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term (name, domain, keyword). Requires INTELX_API_KEY (paid).',
+        {
+          q: z.string().describe('Search term — name, domain, or keyword'),
+          max_results: z.number().optional().describe('Max results (default 20)'),
+        },
+        async ({ q, max_results }) => {
+          const r = await intelxPhonebook(this.env as { INTELX_API_KEY?: string }, q, { maxResults: max_results });
           return untrustedToolResult(r);
         }
       );

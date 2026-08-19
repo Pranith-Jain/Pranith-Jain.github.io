@@ -548,7 +548,7 @@ Step ${step}/${maxSteps}.
 
 Strategy:
 - Step 1: unified_search (find related intel) + cross_correlate
-- Step 2: analyze_campaign (lifecycle, kill chain, attribution)
+- Step 2: analyze_campaign (lifecycle, kill chain, attribution) + briefings_related (link this campaign to prior briefings sharing IOCs)
 - Step 3: Synthesize with campaign map, kill chain, and attributed actors.`;
     },
   },
@@ -638,7 +638,7 @@ Step ${step}/${maxSteps}.
 
 Strategy:
 - Step 1: get_threat_pulse (current threat landscape) + unified_search
-- Step 2: get_ransomware_map + get_supply_chain_attacks for context
+- Step 2: get_ransomware_map + get_supply_chain_attacks for context + briefings_related (link to prior briefs)
 - Step 3: Synthesize with strategic assessment.`;
     },
   },
@@ -816,6 +816,9 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'hr_search_domain',
     'hr_domain_overview',
     'whoxy_reverse_whois',
+    'truecaller_lookup',
+    'intelx_search',
+    'intelx_phonebook',
   ],
   'malware-analysis': [
     'sample_scan',
@@ -852,6 +855,7 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'cross_correlate',
     'reconstruct_attack_chain',
     'parse_threat_report',
+    'briefings_related',
   ],
   'dark-web': [
     'get_breach_forums',
@@ -904,6 +908,7 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'nhi_scan',
     'nhi_inventory',
     'nhi_owasp_catalog',
+    'briefings_related',
   ],
   'supply-chain': [
     'depx_feed',
@@ -1036,6 +1041,7 @@ const ALWAYS_AVAILABLE_TOOLS = new Set([
   'ti_list_iocs',
   'ti_list_darknet',
   'ti_stats',
+  'briefings_related',
 ]);
 
 /**

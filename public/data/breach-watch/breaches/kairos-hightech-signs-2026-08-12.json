@@ -1,0 +1,15 @@
+{
+  "slug": "kairos-hightech-signs-2026-08-12",
+  "title": "Hightech Signs",
+  "group": "kairos",
+  "discovered": "2026-08-12T20:25:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Hightech Signs, Inc. is a full-service sign shop located in Charlottesville, Virginia, specializing in custom sign production and creative consultation. They offer a wide range of products including engraving services, banners, vehicle graphics, and window lettering. Their services cater to clients in Central Virginia, providing fast turnaround and excellent customer service. Hightech Signs aims to meet the diverse signage needs of businesses and organizations in the region.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

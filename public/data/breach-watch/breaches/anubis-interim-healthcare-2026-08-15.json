@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e7b69242-a80c-4179-b5f4-f1cd488a9423",
+  "description": "Home Healthcare Agency & Medical Staffing.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

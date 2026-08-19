@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "BR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/5f7b32ab-fa1e-4787-8b75-098082ea9f49",
+  "description": "Tecnologías de Código Abierto S.L., trading as Tecnoabi, is a Málaga, Spain-based B2B software development firm registered in 2008 that specializes in Java, .NET, and proprietary solutions such as VirtRoom and CMMS software. Located in Málaga TechPark, the company maintains extensive expertise in after-sales management systems and is an official Google Play developer. For more details, visit the official website at tecnoabi.com. Stolen: 300 GB 63,434 Files",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

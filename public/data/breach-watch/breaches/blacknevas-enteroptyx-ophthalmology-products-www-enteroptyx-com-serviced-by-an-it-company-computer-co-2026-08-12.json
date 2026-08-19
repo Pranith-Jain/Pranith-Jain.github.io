@@ -1,0 +1,15 @@
+{
+  "slug": "blacknevas-enteroptyx-ophthalmology-products-www-enteroptyx-com-serviced-by-an-it-company-computer-co-2026-08-12",
+  "title": "Enteroptyx Ophthalmology Products www.enteroptyx.com serviced by an IT company Computer Co...",
+  "group": "blacknevas",
+  "discovered": "2026-08-12T16:22:38.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "There is very little public information available about this company. Judging by its name, it is a small supplier or manufacturer of ophthalmology products (equipment, consumables, or instruments for eye care). There is virtually no detailed data regarding its operations, location, or history in open sources.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["black nevas"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "NL",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d4966963-e585-4d63-8357-eceade4703f2",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

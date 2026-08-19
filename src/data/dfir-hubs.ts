@@ -614,6 +614,22 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'BrandImpersonation',
       },
       {
+        path: '/dfir/intelx',
+        tabId: 'intelx',
+        label: 'IntelligenceX Search',
+        desc: 'Leaked data + phonebook search via IntelligenceX — emails, domains, BTC, IBANs, paste sites, breach archives.',
+        compVar: 'IntelXPage',
+        keywords: ['intelx', 'leak', 'breach', 'phonebook', 'email', 'domain', 'btc', 'iban'],
+      },
+      {
+        path: '/dfir/truecaller',
+        tabId: 'truecaller',
+        label: 'Truecaller Lookup',
+        desc: 'Reverse phone lookup via Truecaller — caller name, carrier, spam score, and location data.',
+        compVar: 'TruecallerPage',
+        keywords: ['truecaller', 'phone', 'reverse', 'caller', 'spam', 'carrier'],
+      },
+      {
         path: '/dfir/nhi-scan',
         tabId: 'nhi-scan',
         label: 'NHI Scanner',

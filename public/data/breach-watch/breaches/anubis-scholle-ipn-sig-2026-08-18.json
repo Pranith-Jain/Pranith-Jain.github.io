@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "DE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/297fee72-8fb4-4e8d-957a-78c1219f8101",
+  "description": "Data breach at a global leader in packaging manufacturing.",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

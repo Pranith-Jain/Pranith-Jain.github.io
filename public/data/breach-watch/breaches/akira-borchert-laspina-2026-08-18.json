@@ -1,15 +1,15 @@
 {
   "slug": "akira-borchert-laspina-2026-08-18",
   "title": "Borchert & LaSpina",
-  "group": "akira",
-  "discovered": "2026-08-18T17:43:22.000Z",
+  "group": "Akira",
+  "discovered": "2026-08-18T00:00:00.000Z",
   "category": "ransomware",
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Borchert & LaSpina, P.C. is a respected law firm located in Queens, New York, with a team of six experienced attorneys specializing in various areas of law including real estate, mortgage foreclosure, commercial litigation, personal injury, and elder law.We will upload corporate data soon. Client personal information (lots of passports, DLs, SSNs and other information), financials, confidential legal files, contracts and so on.",
-  "source_url": "https://www.ransomlook.io/recent",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/borchert-laspina-akira-2026-08",
   "groupAliases": ["Megazord"],
   "activity": null,
-  "references": ["ransomlook.io"]
+  "references": ["RecentBreaches.com"]
 }

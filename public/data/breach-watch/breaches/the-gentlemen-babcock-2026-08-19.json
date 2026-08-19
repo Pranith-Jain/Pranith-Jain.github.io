@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-babcock-2026-08-19",
+  "title": "Babcock",
+  "group": "the gentlemen",
+  "discovered": "2026-08-19T08:12:28.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "babcock.co.za rocketreach.co/babcock-international-group-africa-profile_b5cda591f42e0b42 Babcock Africa is a leading engineering and asset management company specializing in critical infrastructure and heavy equipment across the African continent. With over 130 years of experience, it provides lifetime engineering solutions, including industrial power systems, construction machinery, plant hire, and defense support. The company partners with demanding sectors such as energy, mining, transport, and manufacturing to ensure safe, reliable, and efficient operations. Its core focus is on designing, building, and sustaining complex assets through comprehensive maintenance and innovative technical services.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

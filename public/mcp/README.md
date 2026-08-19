@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**303 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**307 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,11 +14,12 @@
 
 ## Tools by category
 
-### other (191)
+### other (195)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
 - `ai_threats_stats` - Return cache + manifest stats for the AI Threat Actors data: total entries, index load state, body-cache hit ratios.
+- `briefings_related` - Find prior briefings related to a given briefing — links by shared IOCs (domains/IPs/hashes/URL hosts) or shared tactic keywords, ranked by match count then severity then recency. Case-triage linkage (port of the CTI case-queue related-case matcher).
 - `btc_abuse_check` - Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
 - `bw_get_breach` - Return the full body of a single breach/leak claim by slug. Includes description, source URL, activity sector, and references. Use bw_list_breaches first to discover slugs.
 - `bw_list_breaches` - List live breach/leak/ransomware claims from free public trackers. Filter by threat actor group, category (ransomware, data_breach, combo_list, source_code, credential_leak), severity, country, days back, or free-text keyword.
@@ -98,6 +99,8 @@
 - `get_ioc_lifecycle` - Get the lifecycle data for an IOC — when it first appeared, last seen, activity trend, and decay rate. Use this to understand if an indicator is still active or dormant.
 - `get_threat_pulse` - Get a global threat overview — top active threat actors, trending malware families, most exploited CVEs, and geopolitical cyber events from the past week.
 - `get_trending_iocs` - Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.
+- `intelx_phonebook` - IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term (name, domain, keyword). Requires INTELX_API_KEY (paid).
+- `intelx_search` - Search IntelligenceX for leaked data, paste sites, breach archives, and dark-web content. Supports emails, domains, URLs, BTC addresses, IBANs, credit cards, phone numbers. Requires INTELX_API_KEY (paid).
 - `interpol_notice_detail` - Get details of a specific INTERPOL Red Notice by entity ID. Returns full charge info, arrest warrant details, and physical description. No API key required.
 - `interpol_search` - Search INTERPOL Red Notices for wanted persons by name, forename, or nationality. Returns entity IDs, charges, and issuing countries. No API key required.
 - `lookup_cisa_kev` - Search the CISA Known Exploited Vulnerabilities (KEV) catalog. Filter by CVE ID, vendor, product, keyword, recency (days), or ransomware-only. Returns matching KEV entries with date_added, due_date, and ransomware status. The full catalog has 1,200+ actively-exploited vulnerabilities.
@@ -182,6 +185,7 @@
 - `tor_status` - Check the dark web access gateway status. Uses public tor2web gateways to reach .onion sites (no local Tor daemon required). Returns available gateways and method info.
 - `trace_crypto_address` - Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.
 - `traceix_lookup` - Look up a SHA-256 file hash against traceix.com (PCEF) for antivirus/reputation results. Returns per-engine verdicts (Safe/Malicious/Unknown/Failed). Powered by Perkins Fund AI. Requires TRACEIX_API_KEY secret.
+- `truecaller_lookup` - Reverse phone number lookup via Truecaller — get caller name, carrier, spam score, and location data. Requires TRUECALLER_API_KEY secret (register at truecaller.com).
 - `username_generate_patterns` - Generate username variations for typosquatting detection and OSINT. Returns common patterns: leetspeak, double letters, prefix/suffix variations, dot/underscore/hyphen separators, number suffixes.
 - `username_scrape_profiles` - Scrape profile metadata (display name, bio, avatar, follower counts) from platforms where the username is found. Returns rich profile data, not just found/not-found.
 - `virushee_check` - Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.

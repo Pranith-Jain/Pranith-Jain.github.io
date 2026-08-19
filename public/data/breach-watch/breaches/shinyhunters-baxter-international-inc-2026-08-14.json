@@ -7,9 +7,9 @@
   "severity": "critical",
   "country": "US",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/0179e753-e09b-46d9-84c3-46858f63f9b0",
+  "description": "Over 7.1M Salesforce records containing some PII was compromised. This is a final warning to reach out by 17 Aug 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 14 Aug 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Healthcare",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

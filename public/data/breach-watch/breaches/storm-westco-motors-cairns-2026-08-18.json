@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AU",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f2e894e7-cf4a-4e52-96c7-bb760d452591",
+  "description": "Westco Motors Cairns is a family-owned and operated multi-franchise dealership offering new and used vehicles from brands such as Nissan, Mazda, Volkswagen, BMW, and LDV. With over 25 years of experience, the dealership prides itself on delivering exceptional customer service and employs over a hundred local staff. Their services include vehicle sales, trade-ins, financing, servicing, and parts sales, catering to a diverse clientele in the Cairns area. Westco Motors aims to create a welcoming environment, treating every customer as part of their family.. \nThe company headquarters is located in 347 Mulgrave Road, Bungalow, QLD 4870, Australia. 51-200 Employees",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

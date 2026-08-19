@@ -1,0 +1,15 @@
+{
+  "slug": "3am-mecasem-org-2026-08-18",
+  "title": "mecasem.org",
+  "group": "3am",
+  "discovered": "2026-08-18T22:35:15.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "The group gives quality and reliability the highest priority in the through execution of all its business activities. Therefore MECASEM provides a wide range of solutions ISO 17025 (COFRAC) accredited and EN 9100 and ISO 9001 certified. Since 2012 | PUBLISHED 1% | Views: 33",
+  "source_url": "https://www.ransomlook.io/screenshots/3am/mecasemorg.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

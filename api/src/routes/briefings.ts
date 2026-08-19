@@ -5,6 +5,7 @@ import { logError } from '../lib/logger';
 import {
   BRIEFING_MAX_AGE_DAYS,
   buildBriefing,
+  findRelatedBriefings,
   listBriefings,
   readBriefing,
   sweepOldBriefings,
@@ -194,6 +195,34 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
 }
 
 type AdminCtx = Context<{ Bindings: Env }>;
+
+/**
+ * GET /api/v1/briefings/related?slug=…&limit=…
+ *
+ * Case-triage linkage on demand: finds prior briefings related to the given
+ * one by normalized-IOC overlap (with the shared-tactic-keyword fallback),
+ * ranked by match count then severity then recency. Computed live from the
+ * briefings table (json_extract over the slim fields — never full bodies),
+ * so it stays fresh regardless of when the stored stamp was written.
+ */
+export async function briefingsRelatedHandler(c: Context<{ Bindings: Env }>) {
+  const db = dbOrError(c);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
+  const slugRaw = c.req.query('slug')?.trim();
+  if (!slugRaw) return badRequest(c, 'missing slug');
+  if (!/^[a-z0-9-]+$/i.test(slugRaw)) return badRequest(c, 'invalid slug');
+  const limitRaw = c.req.query('limit');
+  const limit = limitRaw ? Math.min(Math.max(parseInt(limitRaw, 10) || 5, 1), 20) : 5;
+  try {
+    const briefing = await readBriefing(db, slugRaw);
+    if (!briefing) return notFound(c);
+    const related_briefings = await findRelatedBriefings(db, briefing, { limit });
+    return c.json({ slug: briefing.slug, count: related_briefings.length, related_briefings });
+  } catch (err) {
+    logError('briefings-related', err instanceof Error ? err : new Error(String(err)));
+    return internalError(c, 'failed to compute related briefings');
+  }
+}
 
 /**
  * Admin gate for briefing mutations (build / backfill / sweep).

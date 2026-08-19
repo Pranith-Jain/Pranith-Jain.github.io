@@ -1,0 +1,15 @@
+{
+  "slug": "clop-nuvitia-com-2026-08-12",
+  "title": "NUVITIA.COM",
+  "group": "clop",
+  "discovered": "2026-08-12T15:49:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ES",
+  "sizeBytes": 0,
+  "description": "Data exfiltrated included the following: Project, Soft Total size: 89.8Gb Revenue: $5,000,000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

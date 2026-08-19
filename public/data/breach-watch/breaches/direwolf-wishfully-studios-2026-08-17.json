@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "SE",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/52866a59-596a-488a-b8e8-d9f7d565443d",
+  "description": "Games",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DIRE WOLF"],
   "activity": "Technology",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

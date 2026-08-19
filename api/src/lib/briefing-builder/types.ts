@@ -3,6 +3,20 @@ import type { IocEntry } from '../ioc-feed-parsers';
 export type BriefingType = 'daily' | 'weekly' | 'landscape';
 export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
 
+/** Reference to a related briefing (case-triage linkage — see related.ts). */
+export interface RelatedBriefingRef {
+  slug: string;
+  type: BriefingType;
+  title: string;
+  date_range: string;
+  range_end: string;
+  severity: Severity;
+  /** Number of shared normalized IOCs (0 when matched via keywords only). */
+  match_count: number;
+  /** True when the link came from the shared-tactic-keyword fallback. */
+  keyword_match: boolean;
+}
+
 export interface BriefingFinding {
   id: string;
   title: string;
@@ -93,6 +107,12 @@ export interface Briefing {
   ioc_dump?: BriefingIocDump;
   mitre_techniques: string[];
   sources: string[];
+  /**
+   * Case-triage linkage (port of the CTI case queue's related-case matching):
+   * prior briefings sharing normalized IOCs or tactic keywords. Stamped at
+   * write time; served inline with the body and via /api/v1/briefings/related.
+   */
+  related_briefings?: RelatedBriefingRef[];
   degraded?: boolean;
 }
 

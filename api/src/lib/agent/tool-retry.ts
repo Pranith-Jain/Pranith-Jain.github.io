@@ -130,6 +130,12 @@ const SUCCESS_NEXT_ACTIONS: Record<string, string[]> = {
   // Search → correlate the findings
   unified_search: ['correlate_iocs', 'cross_correlate'],
   darkweb_multi_search: ['unified_search', 'correlate_iocs'],
+  // IntelX / Truecaller → pivot to enrichment
+  intelx_search: ['check_ioc', 'lookup_domain', 'breach_vip_search'],
+  intelx_phonebook: ['lookup_email', 'check_breach', 'whoxy_reverse_whois'],
+  dn_intelx_search: ['check_ioc', 'lookup_domain'],
+  dn_intelx_phonebook: ['lookup_email', 'check_breach'],
+  truecaller_lookup: ['check_breach', 'lookup_domain'],
   // Correlation → nothing further (terminal enrichment)
   correlate_iocs: ['get_relationships'],
   cross_correlate: ['get_relationships', 'correlate_iocs'],

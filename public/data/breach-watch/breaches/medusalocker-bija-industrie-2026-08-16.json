@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "FR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ddfd882a-7799-43a6-baad-2fc59bdd392c",
+  "description": "Organization with 693 emails extracted. Domain: bija-industrie.com",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Manufacturing",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

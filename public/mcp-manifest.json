@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 303 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 307 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 303,
-  "generatedAt": "2026-08-18T15:54:15.484Z",
+  "toolCount": 307,
+  "generatedAt": "2026-08-19T06:13:48.769Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -58,6 +58,11 @@
       "name": "breach_vip_search",
       "description": "Search the BreachVIP breach corpus (10B+ records, 1000+ datasets) directly. Supports 10 field types (email, username, domain, ip, phone, password, name, uuid, steamid, discordid). Returns grouped metadata: breach name, record count, and exposed data classes — raw credentials are never surfaced.",
       "category": "breach"
+    },
+    {
+      "name": "briefings_related",
+      "description": "Find prior briefings related to a given briefing — links by shared IOCs (domains/IPs/hashes/URL hosts) or shared tactic keywords, ranked by match count then severity then recency. Case-triage linkage (port of the CTI case-queue related-case matcher).",
+      "category": "other"
     },
     {
       "name": "btc_abuse_check",
@@ -593,6 +598,16 @@
       "name": "hr_third_party_risk",
       "description": "Assess third-party / supply-chain risk for a domain. Returns employee URLs, third-party service URLs, and user URLs where credentials were compromised — indicating supply chain exposure.",
       "category": "hudson"
+    },
+    {
+      "name": "intelx_phonebook",
+      "description": "IntelligenceX Phonebook — find emails, domains, and URLs associated with a search term (name, domain, keyword). Requires INTELX_API_KEY (paid).",
+      "category": "other"
+    },
+    {
+      "name": "intelx_search",
+      "description": "Search IntelligenceX for leaked data, paste sites, breach archives, and dark-web content. Supports emails, domains, URLs, BTC addresses, IBANs, credit cards, phone numbers. Requires INTELX_API_KEY (paid).",
+      "category": "other"
     },
     {
       "name": "interpol_notice_detail",
@@ -1367,6 +1382,11 @@
     {
       "name": "traceix_lookup",
       "description": "Look up a SHA-256 file hash against traceix.com (PCEF) for antivirus/reputation results. Returns per-engine verdicts (Safe/Malicious/Unknown/Failed). Powered by Perkins Fund AI. Requires TRACEIX_API_KEY secret.",
+      "category": "other"
+    },
+    {
+      "name": "truecaller_lookup",
+      "description": "Reverse phone number lookup via Truecaller — get caller name, carrier, spam score, and location data. Requires TRUECALLER_API_KEY secret (register at truecaller.com).",
       "category": "other"
     },
     {

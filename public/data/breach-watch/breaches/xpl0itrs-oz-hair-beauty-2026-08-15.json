@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "AU",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c17e3a49-356c-4231-ac34-5a7dbc6b67aa",
+  "description": "Hair and beauty products",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

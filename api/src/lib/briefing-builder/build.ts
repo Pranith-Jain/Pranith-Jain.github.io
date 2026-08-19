@@ -7,7 +7,8 @@ import { getCampaignIntel, type WebamonCampaignIntel } from '../webamon-campaign
 import { normalizeGroup } from '../group-normalize';
 import { computeDailyWindow, computeLiveDailyWindow } from '../briefing-window';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../../routes/cve-recent';
-import { BRIEFING_MAX_AGE_DAYS, IOC_FEED_SOURCES } from './config';
+import { BRIEFING_MAX_AGE_DAYS, IOC_FEED_SOURCES, RELATED_LIMIT, RELATED_MAX_CANDIDATES } from './config';
+import { stampRelatedBriefings } from './related';
 import {
   withLastGood,
   fetchKev,
@@ -750,6 +751,11 @@ export async function writeBriefing(
   // IOC dump + ransomware victim list can push the body past that, which would
   // fail the whole INSERT (no briefing at all) — trim to fit before persisting.
   const storable = capBriefingForStorage(briefing);
+
+  // Case-triage linkage: stamp prior-briefing relations (IOC overlap +
+  // tactic keywords) into the body so every reader carries them. Best-effort
+  // — a scan failure must never block the write.
+  await stampRelatedBriefings(db, storable, { limit: RELATED_LIMIT, maxCandidates: RELATED_MAX_CANDIDATES });
 
   await db
     .prepare(

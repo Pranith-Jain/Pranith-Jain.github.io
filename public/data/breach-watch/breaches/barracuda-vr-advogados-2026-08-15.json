@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "BR",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/77e40217-7104-4633-b758-a07ddeca7acf",
+  "description": "VR Advogados, a Brazilian law firm, neglected its clients’ personal data, violating laws regarding data storage and confidentiality—they posted and shared all of their clients’ documents, passport information, and powers of attorney via a Discord server. We hacked it. Now we have 3,000 documents belonging to all of their clients—passports, powers of attorney, declarations, personal and work-related correspondence, and more. The firm hasn’t responded to us for three days; if this continues, we’ll start selling the data. | Status: upcoming | Size: 10 GB | Starts at $30000.00",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Professional Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

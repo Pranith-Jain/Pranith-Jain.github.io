@@ -7,9 +7,9 @@
   "severity": "high",
   "country": "IN",
   "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/7e36f5a3-49d5-4a2e-9c77-3efd4d0c142d",
+  "description": "Financial Software",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": ["DIRE WOLF"],
   "activity": "Financial Services",
-  "references": ["Darkfield"]
+  "references": ["ransomware.live"]
 }

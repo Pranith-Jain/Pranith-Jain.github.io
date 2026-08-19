@@ -43,6 +43,7 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'cyber_news',
     'get_trending_iocs',
     'get_feed_status',
+    'briefings_related',
   ]),
   detection: filterBanned([
     'check_ioc',
@@ -81,6 +82,7 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'lookup_domain',
     'lookup_asn',
     'scan_website',
+    'briefings_related',
   ]),
   cti: filterBanned([
     'enrich_actor',
@@ -108,6 +110,7 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'get_today_briefing',
     'ti_brief_sector',
     'get_feed_status',
+    'briefings_related',
   ]),
 };
 

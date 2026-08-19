@@ -1,0 +1,15 @@
+{
+  "slug": "payload-zara-investment-holding-2026-08-13",
+  "title": "Zara Investment Holding",
+  "group": "payload",
+  "discovered": "2026-08-13T12:29:45.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "JO",
+  "sizeBytes": 0,
+  "description": "Zara Investment Holding (zaraholding.com) is a leading Jordanian investment group established in 1994. The company specializes in the tourism and hospitality sector, serving as the largest owner of five-star hotels and luxury resorts in key destinations across the country, including Amman, Petra, and the Dead Sea. Playing a vital role in Jordan's economy, the holding provides approximately 30% of the nation's total five-star hotel capacity.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}
