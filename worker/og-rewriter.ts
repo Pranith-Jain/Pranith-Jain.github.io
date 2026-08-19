@@ -314,6 +314,49 @@ function escapeAttr(s: string): string {
 }
 
 /**
+ * SEO content injected into prerendered pages that render an empty <main>
+ * (just a Suspense loading spinner). Google sees zero unique content and
+ * declines to index. This function detects the thin-content pattern and
+ * replaces it with meaningful text — title (h1), description, and section
+ * context — that Googlebot can index. React hydration replaces this on mount.
+ */
+function injectSeoContent(html: string, pathname?: string): string {
+  if (!pathname || pathname === '/') return html;
+  // Detect the thin-content pattern: <main> containing only the
+  // animate-fade-in-up > SectionLoader (spinner + sr-only "Loading…").
+  const mainMatch = html.match(/(<main[^>]*id="main-content"[^>]*>)(.*?)(<\/main>)/s);
+  if (!mainMatch) return html;
+  const mainOpen = mainMatch[1]!;
+  const mainBody = mainMatch[2]!;
+  const mainClose = mainMatch[3]!;
+  // If the main body already has substantial content (≥200 chars of visible
+  // text beyond the spinner), the component rendered during SSR — skip.
+  const textOnly = mainBody.replace(/<[^>]+>/g, '').trim();
+  if (textOnly.length > 200) return html;
+  // Look up the page's metadata from OG overrides or derive from path.
+  const meta = ogMetaForPath(pathname);
+  if (!meta) return html;
+  const title = escapeAttr(meta.title.replace(/\s*[·•]\s*pranithjain\.qzz\.io.*$/i, ''));
+  const desc = escapeAttr(meta.description);
+  // Section-aware context blurb for Google — different per top-level path.
+  const section = pathname.startsWith('/dfir')
+    ? 'DFIR toolkit'
+    : pathname.startsWith('/threatintel')
+      ? 'threat intelligence platform'
+      : 'security tool';
+  const seoBlock = `
+    <section class="seo-prerender" aria-label="Page information">
+      <h1>${title}</h1>
+      <p>${desc}</p>
+      <p>This is a free, browser-based ${section} on pranithjain.qzz.io. No signup required — all processing runs locally in your browser.</p>
+    </section>`;
+  // Inject the SEO block inside <main> before the thin content.
+  // The SectionLoader div + Suspense markers will be replaced by React hydration.
+  const patched = mainOpen + seoBlock + mainBody + mainClose;
+  return html.replace(mainMatch[0], patched);
+}
+
+/**
  * Always corrects the canonical URL + og:url + twitter:url to the actual
  * requested page. Without this, EVERY non-overridden deep link (notably
  * /blog/:slug) was served index.html's build-time og:url/canonical pointing
@@ -326,7 +369,13 @@ function escapeAttr(s: string): string {
  * (the caller used to read body → OG rewrite → Response → read body again
  * for nonce injection, doubling memory traffic on every HTML response).
  */
-function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string, nonce?: string): string {
+function rewriteHtml(
+  html: string,
+  override: OgOverride | null,
+  fullUrl: string,
+  nonce?: string,
+  pathname?: string
+): string {
   const u = escapeAttr(fullUrl);
   // NOTE: attribute gaps use `\s+`, not a literal space. index.html is
   // prettier-formatted, which wraps long meta tags across multiple lines (the
@@ -417,6 +466,13 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
     root = root.replace(/<title>[^<]*<\/title>/g, '');
     out = head + root;
   }
+  // ── SEO content injection for thin-content prerendered pages ──
+  // Prerendered pages under <Suspense fallback={<SectionLoader />}> produce
+  // an empty <main> with just a loading spinner. Googlebot sees zero unique
+  // content → "Crawled - currently not indexed." Inject a visible <section>
+  // with the page title + description + key context so Google has something
+  // to index. React hydration replaces this on mount.
+  out = injectSeoContent(out, pathname);
   return out;
 }
 
@@ -795,7 +851,13 @@ export async function injectOgMeta(
   }
   const ogOverride = await resolveOg(url, env);
   const blogLd = await resolveBlogJsonLd(url, env);
-  let ogRewritten = rewriteHtml(html, ogOverride, `${CANONICAL_ORIGIN}${url.pathname}${url.search}`);
+  let ogRewritten = rewriteHtml(
+    html,
+    ogOverride,
+    `${CANONICAL_ORIGIN}${url.pathname}${url.search}`,
+    undefined,
+    url.pathname
+  );
   if (blogLd) ogRewritten = ogRewritten.replace(/<\/head>/i, `${blogLd}</head>`);
   if (shouldNoindex(url.pathname)) {
     ogRewritten = ogRewritten.replace(

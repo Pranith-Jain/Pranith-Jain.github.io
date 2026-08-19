@@ -88,10 +88,8 @@ const ROUTES = [
   '/threatintel/feeds/catalog',
   '/threatintel/feeds/mythreatintel',
   '/threatintel/feeds/quality',
-  '/threatintel/feeds/reliability',
   '/threatintel/feeds/scheduler',
   '/threatintel/feeds/sources',
-  '/threatintel/feeds/status',
   '/threatintel/feeds/threatfeeds',
   '/threatintel/infra/cloud',
   '/threatintel/infra/domain',
@@ -107,11 +105,9 @@ const ROUTES = [
   '/threatintel/iocs/live',
   '/threatintel/iocs/map',
   '/threatintel/iocs/observable',
-  '/threatintel/iocs/soc',
   '/threatintel/malware/iocs',
   '/threatintel/malware/malpedia',
   '/threatintel/malware/maltrail',
-  '/threatintel/malware/packages',
   '/threatintel/malware/sandbox',
   '/threatintel/malware/vault',
   '/threatintel/osint/cli',
@@ -140,7 +136,6 @@ const ROUTES = [
   '/threatintel/research-hub/ai',
   '/threatintel/research-hub/agentic',
   '/threatintel/research-hub/attack-flow',
-  '/threatintel/research-hub/campaign-gen',
   '/threatintel/research-hub/knowledge',
   '/threatintel/research-hub/post',
   '/threatintel/research-hub/redhunt',
@@ -153,15 +148,8 @@ const ROUTES = [
   '/threatintel/social/crypto-scam',
   '/threatintel/social/firehose',
   '/threatintel/social/news',
-  '/threatintel/social/reddit',
-  '/threatintel/social/scraped-intel',
-  '/threatintel/social/telegram-channels',
-  '/threatintel/social/telegram-leaks',
-  '/threatintel/social/telegram-settings',
-  '/threatintel/social/telegram-stats',
   '/threatintel/social/x-hub',
   '/threatintel/tools/copilot',
-  '/threatintel/tools/graph',
   '/threatintel/investigation-suite',
   '/threatintel/tools/mcp',
   '/threatintel/tools/misp',
@@ -190,10 +178,8 @@ const ROUTES = [
   //    but missing here, so they were served as the bare SPA shell and
   //    cached 24h as "prerendered". Now generated like their siblings. ──
   '/dfir/threat-graph',
-  '/dfir/sandbox',
   '/dfir/ir-playbooks',
   '/dfir/stealer-parser',
-  '/dfir/taxii',
   '/dfir/whois-history',
   '/dfir/passive-dns',
   '/dfir/open-directory',
@@ -212,7 +198,6 @@ const ROUTES = [
   '/dfir/hash-calc',
   '/dfir/codec',
   '/dfir/punycode',
-  '/dfir/dork-builder',
   '/dfir/brand-impersonation',
 
   // ── DFIR: image / media (3) — 0 API calls ─────────────────────
@@ -226,7 +211,6 @@ const ROUTES = [
   '/dfir/evtx',
   '/dfir/sqlite',
   '/dfir/ios-backup',
-  '/dfir/mobile-sqlite',
   '/dfir/apk-analyzer',
 
   // ── DFIR: binary / log analyzers (5) — 0 API calls ────────────
@@ -236,9 +220,6 @@ const ROUTES = [
 
   // ── DFIR: detection & analysis (8) — 0 API calls ──────────────
   '/dfir/rule-converter',
-  '/dfir/rule-playground',
-  '/dfir/yara',
-  '/dfir/detection-lab',
   '/dfir/prompt-injection',
   '/dfir/pi-taxonomy',
   '/dfir/mcp-audit',
@@ -266,8 +247,6 @@ const ROUTES = [
   '/dfir/osv-scan',
 
   // ── DFIR: STIX (2) — 0 API calls ──────────────────────────────
-  '/dfir/stix',
-  '/dfir/stix-builder',
 
   // ── DFIR: security frameworks (3) — 0 API calls ───────────────
   '/dfir/nhi',
@@ -304,17 +283,11 @@ const ROUTES = [
 
   // ── DFIR: tools that fetch /api/v1/* on mount (33) ────────────
   // Prerendered chrome + loading state, then client hydrates.
-  '/dfir/ioc-check',
   '/dfir/phishing',
-  '/dfir/domain',
-  '/dfir/domain-rep',
-  '/dfir/full-spectrum',
   '/dfir/exposure',
   '/dfir/exposed-host',
-  '/dfir/dashboard',
   '/dfir/cve',
   '/dfir/cert-search',
-  '/dfir/atlas',
   '/dfir/asn',
   '/dfir/breach',
   '/dfir/traceix',
@@ -330,37 +303,23 @@ const ROUTES = [
   '/dfir/url-preview',
   '/dfir/subdomain-takeover',
   '/dfir/extract',
-  '/dfir/ioc-pivot',
   '/dfir/google-dorks',
   '/dfir/linux-triage',
   '/dfir/email-defense',
   '/dfir/dmarc-analyzer',
   '/dfir/dlp-scan',
-  '/dfir/username',
   '/dfir/wayback',
   '/dfir/log-parser',
   '/dfir/socmint',
-  '/dfir/web-scan',
-  '/dfir/malware-scan',
-  '/dfir/sample-scan',
   '/dfir/eml',
   '/dfir/email-rep',
   '/dfir/email-osnit',
-  '/dfir/crypto-trace',
 
   // ── Static threatintel catalogs (11) — 0 API calls ────────────
-  '/threatintel/mitre',
-  '/threatintel/actor-kb',
-  '/threatintel/actor-dna',
-  '/threatintel/campaign-lifecycle',
-  '/threatintel/attribution',
-  '/threatintel/intelligence-gaps',
-  '/threatintel/cross-campaign',
   '/threatintel/most-wanted',
   '/threatintel/apt-tracker',
   '/threatintel/extremists',
   '/threatintel/predators',
-  '/threatintel/rules',
   // '/threatintel/briefings' removed from prerender: list is data-driven
   // (fetches /api/v1/briefings/list on mount). Prerendering the empty
   // initial state causes a React 18 hydration mismatch that leaves the
@@ -369,28 +328,14 @@ const ROUTES = [
 
   // ── ThreatIntel pages (4) — 0 API calls ───────────────────────
   '/threatintel/about',
-  '/threatintel/external-resources',
-  '/threatintel/threatsignal',
-  '/threatintel/bitwire-blocklist',
-  '/threatintel/owasp-ai-landscape',
-  '/threatintel/curated-toolbox',
-  '/threatintel/redhunt-labs',
-  '/threatintel/redhunt-insights',
-  '/threatintel/ai-report',
   '/threatintel/mcp-search',
   '/threatintel/live-center',
   '/threatintel/telegram',
-  '/threatintel/telegram-monitor',
   '/threatintel/source-health',
   '/threatintel/soc-dashboard',
   '/threatintel/cyberpulse',
-  '/threatintel/telegram-iocs',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
-  '/threatintel/awesome-lists',
-  '/threatintel/secops-tools',
-  '/threatintel/cve-resources',
-  '/threatintel/osint-framework',
 
   // ── H3AD-SEC AI suite (1 tab-hub) — prerendered chrome ─
   '/dfir/ai-suite',
@@ -402,64 +347,12 @@ const ROUTES = [
 
   // ── ThreatIntel: live-feed surfaces (38) — prerendered chrome ─
   // Client hydrates and fetches /api/v1/* on mount.
-  '/threatintel/pulse',
-  '/threatintel/ransomware-map',
-  '/threatintel/certstream',
-  '/threatintel/campaign-generator',
-  '/threatintel/malicious-packages',
-  '/threatintel/x-watch',
-  '/threatintel/x-live',
-  '/threatintel/mythreatintel',
-  '/threatintel/cybersec',
-  '/threatintel/breach',
-  '/threatintel/reddit',
-  '/threatintel/x',
-  '/threatintel/status',
-  '/threatintel/metrics',
-  '/threatintel/soc-ransomware',
-  '/threatintel/soc-vulns',
-  '/threatintel/soc-iocs',
-  '/threatintel/correlation',
-  '/threatintel/actor-timeline',
-  '/threatintel/re-leaks',
-  '/threatintel/c2-tracker',
-  '/threatintel/signal',
-  '/threatintel/research',
-  '/threatintel/cve-list',
-  '/threatintel/threat-map',
-  '/threatintel/facilities',
-  '/threatintel/deepdarkcti',
+  // '/threatintel/reddit' removed — redirect to /threatintel/social/firehose
+  // '/threatintel/status' removed — redirect to /threatintel/catalog?cat=social
+  // '/threatintel/metrics' removed — redirect to /threatintel/predictive/dashboard
   '/threatintel/ransomware-live',
-  '/threatintel/ransomwhere',
-  '/threatintel/infostealer',
-  '/threatintel/feed-sources',
-  '/threatintel/settings',
-  '/threatintel/negotiations',
-  '/threatintel/maltrail',
-  '/threatintel/malpedia',
-  '/threatintel/breach-forums',
-  '/threatintel/domain-monitor',
-  '/threatintel/scam-watch',
-  '/threatintel/tech-ai-news',
   '/threatintel/onion-watch',
-  '/threatintel/telegram-watch',
-  '/threatintel/telegram-settings',
-  '/threatintel/misp-browser',
-  '/threatintel/search',
-  '/threatintel/ioc-enrichment',
-  '/threatintel/copilot',
-  '/threatintel/copilot-chat',
-  '/threatintel/observe',
-  '/threatintel/watches',
-  '/threatintel/workspaces',
   // Live-feed surfaces that were already prerendered
-  '/threatintel/threat-feeds',
-  '/threatintel/writeups',
-  '/threatintel/cyber-crime',
-  '/threatintel/ransomware-activity',
-  '/threatintel/live-iocs',
-  '/threatintel/assessments',
-  '/threatintel/feed-quality',
 
   // ── Phase 4 (2026-06-04): 43 real static routes that existed in App.tsx
   //    but had no entry here or in worker/router.ts PRERENDERED_ROUTES.
@@ -469,7 +362,6 @@ const ROUTES = [
 
   // ── Portfolio (2) ────────────────────────────────────────────
   '/admin',
-  '/copilot',
 
   // ── DFIR: real pages (10) ────────────────────────────────────
   '/dfir/asset-intel',
@@ -477,59 +369,13 @@ const ROUTES = [
   '/dfir/ct-monitor',
   '/dfir/file',
   '/dfir/host-graph',
-  '/dfir/identity-lookup',
   '/dfir/report-hub',
-  '/dfir/threat-hunt',
 
   // ── Phase 5: New gap features ─────────────────────────────────
   '/dfir/export-hub',
 
   // ── ThreatIntel: real pages, not redirects (28) ──────────────
-  '/threatintel/ach',
-  '/threatintel/actor-usernames',
-  '/threatintel/aggregated-feeds',
-  '/threatintel/predictions',
-  '/threatintel/analyze',
-  '/threatintel/atlas',
-  '/threatintel/collection-slo',
-  '/threatintel/cross-correlate',
-  '/threatintel/crypto-scams',
-  '/threatintel/darkweb-tools',
-  '/threatintel/entity-resolution',
-  '/threatintel/feed-catalog',
-  '/threatintel/feed-scheduler',
-  '/threatintel/f3ead',
-  '/threatintel/f2t2ea',
-  '/threatintel/ooda',
-  '/threatintel/kill-chain-v2',
-  '/threatintel/unified-kill-chain',
-  '/threatintel/insider-threat-matrix',
-  '/threatintel/intel-dashboard',
-  '/threatintel/investigations',
-  '/threatintel/malware-iocs',
-  '/threatintel/malware-vault',
-  '/threatintel/observable-db',
-  '/threatintel/phishing-wordlists',
-  '/threatintel/pir-dashboard',
-  '/threatintel/threat-actor-db',
   '/threatintel/dashboard-hub',
-  '/threatintel/projectdiscovery',
-  '/threatintel/ransom-report',
-  '/threatintel/relationship-graph',
-  '/threatintel/source-reliability',
-  '/threatintel/telegram-leaks',
-  '/threatintel/telegram-leaks/channels',
-  '/threatintel/telegram-leaks/stats',
-  '/threatintel/yara',
-  '/threatintel/llm-threat-atlas',
-  '/threatintel/osint-map',
-  '/threatintel/osint-cli-tools',
-  '/threatintel/reports',
-  '/threatintel/stix-bundles',
-  '/threatintel/ioc-feeds',
-  '/threatintel/malware-sandbox',
-  '/threatintel/threat-actor-catalog',
-  '/threatintel/threat-landscape',
   '/dfir/copilot',
   '/dfir/orkl',
   '/dfir/wifi-investigation',
@@ -539,7 +385,6 @@ const ROUTES = [
 
   // ── Previously shell-only static pages (SEO/CWV: crawlable first paint) ─
   '/argus',
-  '/threat-intel',
   '/dfir/agent-history',
   '/dfir/csrf-poc',
   '/dfir/detection-chokepoints',
@@ -550,7 +395,6 @@ const ROUTES = [
   '/threatintel/aptmap',
   '/threatintel/estate',
   '/threatintel/infra/ai-honeypot',
-  '/threatintel/tools/kev-catalog',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

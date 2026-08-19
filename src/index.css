@@ -613,6 +613,20 @@
   animation: pop-in 0.15s ease-out both;
 }
 
+/* SEO prerender content — injected by the edge OG rewriter for pages that
+   render an empty <main> during SSR (Suspense loading spinner). Visible to
+   Googlebot before React hydrates; hidden once the app mounts so users never
+   see the static fallback. Uses a one-frame delay so the content is in the
+   DOM long enough for Google's initial HTML parse but hidden before paint. */
+.seo-prerender {
+  animation: seo-hide 0s 0.01s forwards;
+}
+@keyframes seo-hide {
+  to {
+    display: none;
+  }
+}
+
 .animate-severity-ping {
   animation: severity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
