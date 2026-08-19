@@ -4,57 +4,40 @@
   "name": "emperador",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-16T21:50:56.000Z",
-  "lastSeen": "2026-08-17T02:20:41.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 1 sector and 1 country.",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-18T07:51:43.000Z",
+  "lastSeen": "2026-08-18T07:51:43.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-16",
-      "count": 1
-    },
-    {
-      "date": "2026-08-17",
+      "date": "2026-08-18",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "albania-s-official-national-teacher-training-portal-895b",
-      "title": "Albania's Official National Teacher Training Portal — claimed by emperador",
-      "pubDate": "2026-08-17T02:20:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "albania-s-official-national-teacher-training-portal-b4d8",
-      "title": "Albania's official national teacher training portal. — claimed by emperador",
-      "pubDate": "2026-08-16T21:50:56.000Z"
+      "slug": "prefeitura-municipal-de-arcos-3558",
+      "title": "Prefeitura Municipal de Arcos — claimed by emperador",
+      "pubDate": "2026-08-18T07:51:43.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "education",
-      "name": "Education",
-      "weight": 2
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "albania-s-official-national-teacher-training-portal-895b",
-      "victim": "Albania's Official National Teacher Training Portal — claimed by emperador",
-      "sector": "Education",
-      "country": "AL",
-      "pubDate": "2026-08-17T02:20:41.000Z"
-    },
-    {
-      "id": "albania-s-official-national-teacher-training-portal-b4d8",
-      "victim": "Albania's official national teacher training portal. — claimed by emperador",
-      "sector": "Education",
-      "country": "AL",
-      "pubDate": "2026-08-16T21:50:56.000Z"
+      "id": "prefeitura-municipal-de-arcos-3558",
+      "victim": "Prefeitura Municipal de Arcos — claimed by emperador",
+      "sector": "Government & Defense",
+      "country": "BR",
+      "pubDate": "2026-08-18T07:51:43.000Z"
     }
   ]
 }

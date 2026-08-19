@@ -4,25 +4,33 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-16T18:58:39.000Z",
-  "lastSeen": "2026-08-18T04:21:54.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 7 ransomware groups and 5 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-17T17:22:22.000Z",
+  "lastSeen": "2026-08-18T20:02:25.000Z",
+  "summary": "Sector hit by 7 leak-site victims across 7 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-16",
-      "count": 1
-    },
-    {
       "date": "2026-08-17",
-      "count": 5
+      "count": 3
     },
     {
       "date": "2026-08-18",
-      "count": 2
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "adl-embedded-solutions-2eb4",
+      "title": "ADL Embedded Solutions — claimed by securotrop",
+      "pubDate": "2026-08-18T20:02:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "r-amp-d-machine-and-engineering-4be9",
+      "title": "R &amp; D Machine and Engineering — claimed by dragonforce",
+      "pubDate": "2026-08-18T17:55:14.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "standard-tool-amp-die-dbde",
@@ -52,32 +60,20 @@
       "slug": "dl-e-amp-c-5ca6",
       "title": "DL E&amp;C — claimed by Panzer",
       "pubDate": "2026-08-17T17:22:22.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "doimo-cucine-b3f1",
-      "title": "Doimo Cucine — claimed by Panzer",
-      "pubDate": "2026-08-17T10:51:42.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "lloyd-coils-europe-5f85",
-      "title": "Lloyd Coils Europe — claimed by aurora",
-      "pubDate": "2026-08-17T09:52:52.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "teikoku-usa-5c5c",
-      "title": "Teikoku USA — claimed by qilin",
-      "pubDate": "2026-08-16T18:58:39.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "panzer",
-      "name": "Panzer",
-      "weight": 2
+      "slug": "securotrop",
+      "name": "securotrop",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "dragonforce",
+      "name": "dragonforce",
+      "weight": 1
     },
     {
       "type": "group",
@@ -105,14 +101,8 @@
     },
     {
       "type": "group",
-      "slug": "aurora",
-      "name": "aurora",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
+      "slug": "panzer",
+      "name": "Panzer",
       "weight": 1
     }
   ],

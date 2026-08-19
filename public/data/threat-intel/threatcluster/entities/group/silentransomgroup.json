@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "silentransomgroup",
+  "name": "SilentRansomGroup",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-18T18:52:28.000Z",
+  "lastSeen": "2026-08-18T22:51:57.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-18",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "troutman-pepper-locke-c53c",
+      "title": "Troutman Pepper Locke — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-18T22:51:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "t-p-l-81aa",
+      "title": "T... P... L... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-18T18:52:28.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "troutman-pepper-locke-c53c",
+      "victim": "Troutman Pepper Locke — claimed by SilentRansomGroup",
+      "sector": "Professional Services",
+      "country": "US",
+      "pubDate": "2026-08-18T22:51:57.000Z"
+    },
+    {
+      "id": "t-p-l-81aa",
+      "victim": "T... P... L... — claimed by SilentRansomGroup",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-08-18T18:52:28.000Z"
+    }
+  ]
+}

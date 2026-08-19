@@ -1,0 +1,14 @@
+{
+  "id": "spearfin-ltd-6b15",
+  "victim": "SpearFin Ltd",
+  "group": "incransom",
+  "sector": "Financial Services",
+  "country": "MU",
+  "title": "SpearFin Ltd — claimed by incransom",
+  "link": "https://threatcluster.io/dark-web/victim/SpearFin%20Ltd",
+  "guid": "darkweb-victim:incransom:spearfin ltd",
+  "pubDate": "2026-08-18T10:27:05.000Z",
+  "categories": ["Group: incransom", "Sector: Financial Services", "Country: MU"],
+  "description": "MU · Financial Services · SpearFin Ltd\n https://spearfin.net\n SpearFin offers a wide range of services including fund administration, corporate services, compliance support, and investor relations. \n Assets Under Administration US$10 billion.\n \n The leak occurred on June 26, 2026.\n Total leak: 416 GB \n \n Leak included: NDA, Correspondence Client, KYC - Passports, Certificates, Investing documents, \n Share Registry and Hold",
+  "sizeBytes": 426
+}

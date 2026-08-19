@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-17T09:24:54.000Z",
-  "lastSeen": "2026-08-17T09:24:54.000Z",
+  "firstSeen": "2026-08-18T17:55:14.000Z",
+  "lastSeen": "2026-08-18T17:55:14.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-17",
+      "date": "2026-08-18",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "vermont-xcenter-3a6f",
-      "title": "Vermont XCenter — claimed by dragonforce",
-      "pubDate": "2026-08-17T09:24:54.000Z"
+      "slug": "r-amp-d-machine-and-engineering-4be9",
+      "title": "R &amp; D Machine and Engineering — claimed by dragonforce",
+      "pubDate": "2026-08-18T17:55:14.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "vermont-xcenter-3a6f",
-      "victim": "Vermont XCenter — claimed by dragonforce",
-      "sector": "Not Found",
-      "country": "BR",
-      "pubDate": "2026-08-17T09:24:54.000Z"
+      "id": "r-amp-d-machine-and-engineering-4be9",
+      "victim": "R &amp; D Machine and Engineering — claimed by dragonforce",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-18T17:55:14.000Z"
     }
   ]
 }

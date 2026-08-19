@@ -4,17 +4,27 @@
   "name": "play",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
+  "mentionCount": 4,
   "firstSeen": "2026-08-17T20:26:20.000Z",
-  "lastSeen": "2026-08-17T20:27:30.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 1 country.",
+  "lastSeen": "2026-08-18T17:31:54.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 1 country.",
   "frequency": [
     {
       "date": "2026-08-17",
       "count": 3
+    },
+    {
+      "date": "2026-08-18",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "coltrane-systems-c2ee",
+      "title": "Coltrane Systems — claimed by play",
+      "pubDate": "2026-08-18T17:31:54.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "bridgeport-capital-services-d4a9",
@@ -37,6 +47,12 @@
   "relatedEntities": [
     {
       "type": "sector",
+      "slug": "technology",
+      "name": "Technology",
+      "weight": 1
+    },
+    {
+      "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
       "weight": 1
@@ -56,6 +72,13 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "coltrane-systems-c2ee",
+      "victim": "Coltrane Systems — claimed by play",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-18T17:31:54.000Z"
+    },
     {
       "id": "bridgeport-capital-services-d4a9",
       "victim": "Bridgeport Capital Services — claimed by play",

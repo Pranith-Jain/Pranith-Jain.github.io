@@ -4,18 +4,14 @@
   "name": "Panzer",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-16T17:52:24.000Z",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-17T17:22:22.000Z",
   "lastSeen": "2026-08-17T17:22:22.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 4 countries.",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-16",
-      "count": 1
-    },
-    {
       "date": "2026-08-17",
-      "count": 3
+      "count": 1
     }
   ],
   "recentActivity": [
@@ -24,24 +20,6 @@
       "slug": "dl-e-amp-c-5ca6",
       "title": "DL E&amp;C — claimed by Panzer",
       "pubDate": "2026-08-17T17:22:22.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "castilla-la-mancha-4e0f",
-      "title": "Castilla La Mancha — claimed by Panzer",
-      "pubDate": "2026-08-17T11:52:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "doimo-cucine-b3f1",
-      "title": "Doimo Cucine — claimed by Panzer",
-      "pubDate": "2026-08-17T10:51:42.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sagasta-sro-5ab7",
-      "title": "SAGASTA sro — claimed by Panzer",
-      "pubDate": "2026-08-16T17:52:24.000Z"
     }
   ],
   "relatedEntities": [
@@ -49,18 +27,6 @@
       "type": "sector",
       "slug": "manufacturing",
       "name": "Manufacturing",
-      "weight": 2
-    },
-    {
-      "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
       "weight": 1
     }
   ],
@@ -72,27 +38,6 @@
       "sector": "Manufacturing",
       "country": "KR",
       "pubDate": "2026-08-17T17:22:22.000Z"
-    },
-    {
-      "id": "castilla-la-mancha-4e0f",
-      "victim": "Castilla La Mancha — claimed by Panzer",
-      "sector": "Government & Defense",
-      "country": "ES",
-      "pubDate": "2026-08-17T11:52:02.000Z"
-    },
-    {
-      "id": "doimo-cucine-b3f1",
-      "victim": "Doimo Cucine — claimed by Panzer",
-      "sector": "Manufacturing",
-      "country": "IT",
-      "pubDate": "2026-08-17T10:51:42.000Z"
-    },
-    {
-      "id": "sagasta-sro-5ab7",
-      "victim": "SAGASTA sro — claimed by Panzer",
-      "sector": "Not Found",
-      "country": "CZ",
-      "pubDate": "2026-08-16T17:52:24.000Z"
     }
   ]
 }

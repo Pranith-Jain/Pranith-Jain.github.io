@@ -4,14 +4,14 @@
   "name": "aurora",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 3,
-  "firstSeen": "2026-08-17T09:52:52.000Z",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-17T14:22:18.000Z",
   "lastSeen": "2026-08-17T16:22:52.000Z",
-  "summary": "Ransomware group with 3 leak-site victims across 3 sectors and 3 countries.",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 2 countries.",
   "frequency": [
     {
       "date": "2026-08-17",
-      "count": 3
+      "count": 2
     }
   ],
   "recentActivity": [
@@ -26,12 +26,6 @@
       "slug": "natco-home-group-eeed",
       "title": "Natco Home Group — claimed by aurora",
       "pubDate": "2026-08-17T14:22:18.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "lloyd-coils-europe-5f85",
-      "title": "Lloyd Coils Europe — claimed by aurora",
-      "pubDate": "2026-08-17T09:52:52.000Z"
     }
   ],
   "relatedEntities": [
@@ -46,12 +40,6 @@
       "slug": "retail-e-commerce",
       "name": "Retail & E-Commerce",
       "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
     }
   ],
   "mitreTechniques": [],
@@ -60,7 +48,7 @@
       "id": "planungsgruppe-m-m-ag-d968",
       "victim": "Planungsgruppe M+M AG — claimed by aurora",
       "sector": "Professional Services",
-      "country": "CH",
+      "country": "DE",
       "pubDate": "2026-08-17T16:22:52.000Z"
     },
     {
@@ -69,13 +57,6 @@
       "sector": "Retail & E-Commerce",
       "country": "US",
       "pubDate": "2026-08-17T14:22:18.000Z"
-    },
-    {
-      "id": "lloyd-coils-europe-5f85",
-      "victim": "Lloyd Coils Europe — claimed by aurora",
-      "sector": "Manufacturing",
-      "country": "GB",
-      "pubDate": "2026-08-17T09:52:52.000Z"
     }
   ]
 }
