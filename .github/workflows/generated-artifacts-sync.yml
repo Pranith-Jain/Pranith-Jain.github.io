@@ -1,0 +1,124 @@
+name: Generated artifacts sync (daily)
+
+# Catch-all for the remaining generated-artifact residue that dirty the
+# working tree after source edits: MCP manifest + README (tool registrations
+# in worker/mcp-server.ts), llms-full.txt, wiki-meta.ts (wiki-articles.ts),
+# and sitemap.xml (prerender.mjs routes). Regenerates them from committed
+# source in a clean checkout, commits straight to main when anything
+# changed, and deploys. Fully automated — keeps main clean so manual
+# sessions never rebase against stale generated artifacts.
+# Runs 03:30 UTC (clear of the 04:00–08:30 sync cluster).
+
+on:
+  schedule:
+    - cron: "30 3 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: gen-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
+
+      - name: Regenerate MCP manifest + README + llms-full
+        run: |
+          node scripts/build-mcp-manifest.mjs
+          node scripts/build-llms-full.mjs
+
+      - name: Regenerate wiki-meta
+        run: node scripts/extract-wiki-meta.mjs
+
+      - name: Regenerate sitemap
+        run: node scripts/build-sitemap.mjs
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git add public/mcp-manifest.json public/mcp/README.md public/llms-full.txt \
+                  public/sitemap.xml src/data/dfir/wiki-meta.ts
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No generated-artifact changes — skipping deploy."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit to main
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          # Auto/data commits: skip husky/lint-staged (prettier reformats the
+          # generated files back to HEAD, making the commit empty and aborting
+          # the run — same fix as daily-briefs-sync.yml / webamon-dtb-sync.yml).
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet HEAD; then
+            echo "Nothing to commit after all."
+          else
+            git commit --no-verify -m "chore(gen): sync generated artifacts $(date -u +%Y-%m-%d)"
+            # Push may race with other auto-syncs pushing to main — rebase and
+            # retry instead of failing the run on a stale ref.
+            for attempt in 1 2 3; do
+              if git push origin main 2>/dev/null; then
+                echo "Push succeeded (attempt $attempt)."
+                exit 0
+              fi
+              echo "Push rejected (attempt $attempt) — rebasing onto origin/main and retrying."
+              git pull --rebase origin main
+            done
+            echo "::error::push failed after 3 attempts"
+            exit 1
+          fi
+
+      # ── Deploy (only when artifacts changed) ────────────────────────
+      - name: Typecheck
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npx tsc --noEmit -p tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.worker.json
+
+      - name: Build
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Budget check
+        if: steps.changes.outputs.changed == 'true'
+        run: node scripts/check-budgets.mjs
+
+      - name: Deploy to Cloudflare Workers
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+
+      - name: Smoke test
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 8
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/llms-full.txt")
+          echo "llms-full.txt -> HTTP $code"
+          test "$code" = "200" || { echo "::error::llms-full.txt returned HTTP $code"; exit 1; }

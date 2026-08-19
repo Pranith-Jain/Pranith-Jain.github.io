@@ -19,6 +19,7 @@
  * Wired into the build pipeline via `prebuild`.
  */
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -226,7 +227,7 @@ function main() {
     },
     capabilities: { tools: { listChanged: false } },
     toolCount: uniq.length,
-    generatedAt: new Date().toISOString(),
+    generatedAt: stableGeneratedAt(),
     tools: uniq.map((t) => ({
       name: t.name,
       description: t.description,
@@ -306,6 +307,26 @@ function main() {
   ].join('\n');
   writeFileSync(join(OUT_DIR, 'README.md'), md, 'utf8');
   console.log(`+ ${join(OUT_DIR, 'README.md')}`);
+}
+
+/**
+ * Deterministic `generatedAt`: the last commit that touched the tool surface
+ * (worker/mcp-server.ts) rather than the wall clock. Rebuilding an unchanged
+ * tree produces the same manifest byte-for-byte, so auto-sync workflows
+ * commit only on real tool changes. Falls back to the wall clock when not
+ * in a git repo.
+ */
+function stableGeneratedAt() {
+  try {
+    const stamp = execSync('git log -1 --format=%cI -- worker/mcp-server.ts', {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    if (stamp) return stamp;
+  } catch {
+    // not a git repo — fall through
+  }
+  return new Date().toISOString();
 }
 
 const isMain = (() => {
