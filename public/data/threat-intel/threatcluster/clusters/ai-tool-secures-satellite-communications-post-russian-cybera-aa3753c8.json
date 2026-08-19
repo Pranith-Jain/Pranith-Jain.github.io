@@ -1,0 +1,11 @@
+{
+  "slug": "ai-tool-secures-satellite-communications-post-russian-cybera-aa3753c8",
+  "title": "AI Tool Secures Satellite Communications Post-Russian Cyberattack",
+  "link": "https://threatcluster.io/cluster/ai-tool-secures-satellite-communications-post-russian-cybera-aa3753c8?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/ai-tool-secures-satellite-communications-post-russian-cybera-aa3753c8",
+  "pubDate": "2026-08-18T22:04:33.000Z",
+  "sourceCount": 5,
+  "categories": ["5 Sources"],
+  "description": "On February 24, 2022, Russia disabled thousands of satellite modems across Ukraine and Europe, disrupting communications. In response, Atalanta has launched 'Argo', an AI-assisted tool designed to secure satellite communication systems. This technology employs 'software understanding' to analyze vulnerabilities in software and internet-connected systems. It was instrumental in securing Viasat's network after the Russian hacking incident. The tool aims to address vulnerabilities amid ongoing threats from Russia and Iranian hackers targeting critical infrastructure. Atalanta's CEO emphasized that traditional cybersecurity methods are insufficient for modern threats. The Defense Advanced Research Project Agency (DARPA) has invested over $2 billion in related technologies, indicating a significant push towards advanced cybersecurity solutions. The tool's deployment is expected to become standard in the future for critical system defenses.\n\nKey Points:\n• Atalanta launched 'Argo', an AI tool to secure satellite communications.\n• The tool was crucial in securing Viasat's network after the 2022 Russian cyberattack.\n• DARPA's long-term investment in cybersecurity technologies supports the development of such tools.",
+  "sizeBytes": 1225
+}

@@ -4,17 +4,45 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
+  "mentionCount": 8,
   "firstSeen": "2026-08-17T14:23:55.000Z",
-  "lastSeen": "2026-08-17T14:54:40.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 2 sectors and 4 countries.",
+  "lastSeen": "2026-08-19T00:55:57.000Z",
+  "summary": "Ransomware group with 8 leak-site victims across 4 sectors and 4 countries.",
   "frequency": [
     {
       "date": "2026-08-17",
       "count": 4
+    },
+    {
+      "date": "2026-08-19",
+      "count": 4
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "photon-health-inc-3e99",
+      "title": "Photon Health, Inc. — claimed by direwolf",
+      "pubDate": "2026-08-19T00:55:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "infoflo-crm-7af6",
+      "title": "InfoFlo CRM — claimed by direwolf",
+      "pubDate": "2026-08-19T00:55:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "payup-b3b0",
+      "title": "PayUp — claimed by direwolf",
+      "pubDate": "2026-08-19T00:54:47.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lifesum-4015",
+      "title": "Lifesum — claimed by direwolf",
+      "pubDate": "2026-08-19T00:54:08.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "arizona-state-university-asu-c152",
@@ -45,7 +73,19 @@
       "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 3
+      "weight": 4
+    },
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
     },
     {
       "type": "sector",
@@ -56,6 +96,34 @@
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "photon-health-inc-3e99",
+      "victim": "Photon Health, Inc. — claimed by direwolf",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-19T00:55:57.000Z"
+    },
+    {
+      "id": "infoflo-crm-7af6",
+      "victim": "InfoFlo CRM — claimed by direwolf",
+      "sector": "Technology",
+      "country": "US",
+      "pubDate": "2026-08-19T00:55:20.000Z"
+    },
+    {
+      "id": "payup-b3b0",
+      "victim": "PayUp — claimed by direwolf",
+      "sector": "Financial Services",
+      "country": null,
+      "pubDate": "2026-08-19T00:54:47.000Z"
+    },
+    {
+      "id": "lifesum-4015",
+      "victim": "Lifesum — claimed by direwolf",
+      "sector": "Healthcare",
+      "country": "SE",
+      "pubDate": "2026-08-19T00:54:08.000Z"
+    },
     {
       "id": "arizona-state-university-asu-c152",
       "victim": "Arizona State University (ASU) — claimed by direwolf",

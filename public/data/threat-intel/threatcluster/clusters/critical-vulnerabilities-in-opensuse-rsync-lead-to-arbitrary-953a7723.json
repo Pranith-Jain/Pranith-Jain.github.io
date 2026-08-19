@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-in-opensuse-rsync-lead-to-arbitrary-953a7723",
+  "title": "Critical Vulnerabilities in openSUSE rsync Lead to Arbitrary Code Execution Risks",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-opensuse-rsync-lead-to-arbitrary-953a7723?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-opensuse-rsync-lead-to-arbitrary-953a7723",
+  "pubDate": "2026-08-18T12:31:52.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "A significant update for rsync in openSUSE addresses multiple vulnerabilities, including CVE-2026-53783, which allows restricted-directory escape, and CVE-2026-53790, which enables command injection via unquoted values. The vulnerabilities affect various SUSE Linux Enterprise products and openSUSE versions, posing risks of arbitrary code execution and unauthorized access. Attack vectors include directory escape and command injection, potentially leading to system-wide compromise. The vulnerabilities were published on August 13, 2026, and the advisory emphasizes the importance of auditing Linux privileges to mitigate risks. Administrators are urged to apply the patches immediately to protect their systems from potential exploitation.\n\nKey Points:\n• Multiple critical vulnerabilities in rsync affect openSUSE and SUSE Linux Enterprise systems.\n• CVE-2026-53783 allows directory escape, while CVE-2026-53790 enables command injection.\n• Patches are available, and immediate application is recommended to prevent exploitation.",
+  "sizeBytes": 1032
+}

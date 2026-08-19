@@ -4,25 +4,43 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-16T15:27:05.000Z",
-  "lastSeen": "2026-08-18T04:20:23.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 6 ransomware groups and 5 countries.",
+  "mentionCount": 10,
+  "firstSeen": "2026-08-17T14:23:55.000Z",
+  "lastSeen": "2026-08-19T00:55:20.000Z",
+  "summary": "Sector hit by 10 leak-site victims across 7 ransomware groups and 6 countries.",
   "frequency": [
-    {
-      "date": "2026-08-16",
-      "count": 1
-    },
     {
       "date": "2026-08-17",
       "count": 5
     },
     {
       "date": "2026-08-18",
-      "count": 2
+      "count": 4
+    },
+    {
+      "date": "2026-08-19",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "infoflo-crm-7af6",
+      "title": "InfoFlo CRM — claimed by direwolf",
+      "pubDate": "2026-08-19T00:55:20.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "coltrane-systems-c2ee",
+      "title": "Coltrane Systems — claimed by play",
+      "pubDate": "2026-08-18T17:31:54.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "logitech-streamlabs-20b2",
+      "title": "Logitech/ Streamlabs — claimed by shinyhunters",
+      "pubDate": "2026-08-18T13:19:17.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "penfold-86c1",
@@ -64,12 +82,6 @@
       "slug": "eva-ai-limited-70f1",
       "title": "Eva AI Limited — claimed by direwolf",
       "pubDate": "2026-08-17T14:23:55.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "airoyal-biz-f203",
-      "title": "airoyal.biz — claimed by settra",
-      "pubDate": "2026-08-16T15:27:05.000Z"
     }
   ],
   "relatedEntities": [
@@ -77,7 +89,19 @@
       "type": "group",
       "slug": "direwolf",
       "name": "direwolf",
-      "weight": 3
+      "weight": 4
+    },
+    {
+      "type": "group",
+      "slug": "play",
+      "name": "play",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "shinyhunters",
+      "name": "shinyhunters",
+      "weight": 1
     },
     {
       "type": "group",
@@ -101,12 +125,6 @@
       "type": "group",
       "slug": "everest",
       "name": "everest",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "settra",
-      "name": "settra",
       "weight": 1
     }
   ],

@@ -1,8 +1,8 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-18T05:55:09.616Z",
-  "eventCount": 6,
+  "syncedAt": "2026-08-19T05:58:52.172Z",
+  "eventCount": 7,
   "events": [
     {
       "uuid": "31fc2385-a89e-5ffa-af2e-e4bcd29facde",
@@ -53,12 +53,12 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "30599276-9ca6-553b-b32d-ae6117f5804e",
-      "info": "Critical Authentication Bypass Vulnerability in WordPress Plugin CVE-2026-15341",
-      "date": "2026-08-16",
+      "uuid": "77f40ba5-2ca2-5f73-b843-8a9a9bc90d15",
+      "info": "Critical Vulnerabilities in WordPress Plugins Expose 600,000 Sites to Attacks",
+      "date": "2026-08-18",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1786871841",
+      "timestamp": "1787056553",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
       "orgc": "ThreatCluster"
     },
@@ -73,13 +73,23 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "49b385e3-1f17-50da-82f6-12a9d8a3525f",
-      "info": "Critical OS Command Injection Vulnerability in wg-easy 15.3.0 Disclosed",
-      "date": "2026-08-12",
+      "uuid": "30599276-9ca6-553b-b32d-ae6117f5804e",
+      "info": "Critical Authentication Bypass Vulnerability in WordPress Plugin CVE-2026-15341",
+      "date": "2026-08-16",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1786502480",
+      "timestamp": "1786871841",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
+      "orgc": "ThreatCluster"
+    },
+    {
+      "uuid": "f3839884-eef5-501f-9288-87f73460a3e2",
+      "info": "Jewelbug APT Group Engages in Espionage and Cryptocurrency Fraud",
+      "date": "2026-08-13",
+      "analysis": "2",
+      "threat_level_id": "2",
+      "timestamp": "1786618310",
+      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:apt", "type:malware"],
       "orgc": "ThreatCluster"
     }
   ]

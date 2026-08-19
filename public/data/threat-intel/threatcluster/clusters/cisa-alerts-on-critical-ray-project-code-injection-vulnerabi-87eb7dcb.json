@@ -1,0 +1,11 @@
+{
+  "slug": "cisa-alerts-on-critical-ray-project-code-injection-vulnerabi-87eb7dcb",
+  "title": "CISA Urges Rapid Fix for Critical Ray RCE Vulnerability",
+  "link": "https://threatcluster.io/cluster/cisa-alerts-on-critical-ray-project-code-injection-vulnerabi-87eb7dcb?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/cisa-alerts-on-critical-ray-project-code-injection-vulnerabi-87eb7dcb",
+  "pubDate": "2026-08-18T11:06:28.000Z",
+  "sourceCount": 4,
+  "categories": ["4 Sources"],
+  "description": "CISA has added CVE-2025-62593, a critical remote code execution vulnerability in the Ray framework, to its Known Exploited Vulnerabilities catalog. This flaw, first disclosed in November 2025, allows attackers to exploit vulnerable Ray systems via malicious websites or ads, impacting developers and potentially corporate networks. The vulnerability affects Ray versions prior to 2.52.0 and has been confirmed as actively exploited in the wild. CISA has mandated a three-day remediation window for U.S. federal agencies, significantly shorter than the usual 14 days, due to the urgency of the threat. Ray is widely used by major tech companies, including Amazon and Apple, making the impact potentially extensive. The vulnerability arises from Ray's lack of authentication on critical endpoints, which historically assumed a trusted network environment. The latest version, Ray 2.52.0, introduces optional token-based authentication to mitigate this risk.\n\nKey Points:\n• CISA has issued a three-day deadline for federal agencies to patch CVE-2025-62593.\n• The vulnerability allows remote code execution through malicious websites targeting Ray developers.\n• Ray is widely used in AI and machine learning, affecting major tech companies and potentially corporate networks.",
+  "sizeBytes": 1271
+}

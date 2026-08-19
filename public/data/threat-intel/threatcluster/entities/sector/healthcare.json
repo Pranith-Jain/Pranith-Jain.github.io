@@ -4,10 +4,10 @@
   "name": "Healthcare",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
+  "mentionCount": 5,
   "firstSeen": "2026-08-17T18:25:39.000Z",
-  "lastSeen": "2026-08-18T04:20:54.000Z",
-  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 1 country.",
+  "lastSeen": "2026-08-19T00:55:57.000Z",
+  "summary": "Sector hit by 5 leak-site victims across 3 ransomware groups and 3 countries.",
   "frequency": [
     {
       "date": "2026-08-17",
@@ -15,10 +15,32 @@
     },
     {
       "date": "2026-08-18",
-      "count": 1
+      "count": 2
+    },
+    {
+      "date": "2026-08-19",
+      "count": 2
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "photon-health-inc-3e99",
+      "title": "Photon Health, Inc. — claimed by direwolf",
+      "pubDate": "2026-08-19T00:55:57.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "lifesum-4015",
+      "title": "Lifesum — claimed by direwolf",
+      "pubDate": "2026-08-19T00:54:08.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "foresee-pharmaceuticals-7571",
+      "title": "Foresee Pharmaceuticals — claimed by incransom",
+      "pubDate": "2026-08-18T08:55:05.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "windrose-health-network-2d84",
@@ -35,14 +57,20 @@
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "storm",
-      "name": "Storm",
-      "weight": 1
+      "slug": "direwolf",
+      "name": "direwolf",
+      "weight": 2
     },
     {
       "type": "group",
       "slug": "incransom",
       "name": "incransom",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "storm",
+      "name": "Storm",
       "weight": 1
     }
   ],

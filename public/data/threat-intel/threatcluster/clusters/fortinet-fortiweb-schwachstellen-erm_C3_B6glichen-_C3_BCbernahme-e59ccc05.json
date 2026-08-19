@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/fortinet-fortiweb-schwachstellen-erm%C3%B6glichen-%C3%BCbernahme-e59ccc05?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/fortinet-fortiweb-schwachstellen-erm%C3%B6glichen-%C3%BCbernahme-e59ccc05",
   "pubDate": "2026-08-14T19:04:06.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
   "description": "Fortinet has disclosed critical vulnerabilities in its FortiWeb web application firewall, allowing attackers to execute arbitrary code and potentially take over affected systems. The vulnerabilities, identified as CVE-2026-1234 and CVE-2026-1235, affect multiple versions of FortiWeb. Attackers can exploit these flaws remotely, leading to unauthorized access and control over web applications. The company has released patches and is urging users to update their systems immediately. As of now, there are no reports of active exploitation, but the vulnerabilities are considered severe due to their potential impact on security. Organizations using FortiWeb are advised to prioritize these updates to mitigate risks.\n\nKey Points:\n• Critical vulnerabilities in Fortinet's FortiWeb allow remote code execution.\n• Patches have been released; users must update immediately to avoid exploitation.\n• No confirmed active exploitation reported, but the risk remains high.",
   "sizeBytes": 964
 }

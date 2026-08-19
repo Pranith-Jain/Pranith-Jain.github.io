@@ -4,21 +4,45 @@
   "name": "incransom",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-17T09:28:41.000Z",
-  "lastSeen": "2026-08-18T00:26:41.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 2 countries.",
+  "mentionCount": 7,
+  "firstSeen": "2026-08-17T18:25:39.000Z",
+  "lastSeen": "2026-08-18T10:27:05.000Z",
+  "summary": "Ransomware group with 7 leak-site victims across 4 sectors and 6 countries.",
   "frequency": [
     {
       "date": "2026-08-17",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2026-08-18",
-      "count": 2
+      "count": 6
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "spearfin-ltd-6b15",
+      "title": "SpearFin Ltd — claimed by incransom",
+      "pubDate": "2026-08-18T10:27:05.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ssf-int-com-ssf-ing-de-e4cb",
+      "title": "ssf-int.com ssf-ing.de — claimed by incransom",
+      "pubDate": "2026-08-18T10:26:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "nyklawfirm-com-nyk-ae-43e5",
+      "title": "nyklawfirm.com nyk.ae — claimed by incransom",
+      "pubDate": "2026-08-18T10:25:50.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "foresee-pharmaceuticals-7571",
+      "title": "Foresee Pharmaceuticals — claimed by incransom",
+      "pubDate": "2026-08-18T08:55:05.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "sd-associates-sdn-bhd-9431",
@@ -36,42 +60,64 @@
       "slug": "lansing-urgent-care-51af",
       "title": "Lansing Urgent Care — claimed by incransom",
       "pubDate": "2026-08-17T18:25:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "otter-tail-county-minnesota-e425",
-      "title": "Otter Tail County, Minnesota — claimed by incransom",
-      "pubDate": "2026-08-17T09:28:41.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "not-found",
-      "name": "Not Found",
-      "weight": 1
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 2
     },
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 1
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 2
     },
     {
       "type": "sector",
       "slug": "healthcare",
       "name": "Healthcare",
-      "weight": 1
+      "weight": 2
     },
     {
       "type": "sector",
-      "slug": "government-defense",
-      "name": "Government & Defense",
+      "slug": "not-found",
+      "name": "Not Found",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "spearfin-ltd-6b15",
+      "victim": "SpearFin Ltd — claimed by incransom",
+      "sector": "Financial Services",
+      "country": "MU",
+      "pubDate": "2026-08-18T10:27:05.000Z"
+    },
+    {
+      "id": "ssf-int-com-ssf-ing-de-e4cb",
+      "victim": "ssf-int.com ssf-ing.de — claimed by incransom",
+      "sector": "Professional Services",
+      "country": "DE",
+      "pubDate": "2026-08-18T10:26:27.000Z"
+    },
+    {
+      "id": "nyklawfirm-com-nyk-ae-43e5",
+      "victim": "nyklawfirm.com nyk.ae — claimed by incransom",
+      "sector": "Professional Services",
+      "country": "AE",
+      "pubDate": "2026-08-18T10:25:50.000Z"
+    },
+    {
+      "id": "foresee-pharmaceuticals-7571",
+      "victim": "Foresee Pharmaceuticals — claimed by incransom",
+      "sector": "Healthcare",
+      "country": "TW",
+      "pubDate": "2026-08-18T08:55:05.000Z"
+    },
     {
       "id": "sd-associates-sdn-bhd-9431",
       "victim": "SD Associates Sdn Bhd — claimed by incransom",
@@ -92,13 +138,6 @@
       "sector": "Healthcare",
       "country": "US",
       "pubDate": "2026-08-17T18:25:39.000Z"
-    },
-    {
-      "id": "otter-tail-county-minnesota-e425",
-      "victim": "Otter Tail County, Minnesota — claimed by incransom",
-      "sector": "Government & Defense",
-      "country": "US",
-      "pubDate": "2026-08-17T09:28:41.000Z"
     }
   ]
 }

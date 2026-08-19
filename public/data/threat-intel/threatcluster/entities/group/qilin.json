@@ -4,21 +4,27 @@
   "name": "qilin",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 10,
-  "firstSeen": "2026-08-16T15:58:24.000Z",
-  "lastSeen": "2026-08-17T21:30:42.000Z",
-  "summary": "Ransomware group with 10 leak-site victims across 10 sectors and 6 countries.",
+  "mentionCount": 5,
+  "firstSeen": "2026-08-17T21:28:43.000Z",
+  "lastSeen": "2026-08-18T11:59:45.000Z",
+  "summary": "Ransomware group with 5 leak-site victims across 4 sectors and 3 countries.",
   "frequency": [
-    {
-      "date": "2026-08-16",
-      "count": 6
-    },
     {
       "date": "2026-08-17",
       "count": 4
+    },
+    {
+      "date": "2026-08-18",
+      "count": 1
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "berlin-brandenburgische-wohnungsbaugenossenschaft-4d57",
+      "title": "Berlin Brandenburgische Wohnungsbaugenossenschaft — claimed by qilin",
+      "pubDate": "2026-08-18T11:59:45.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "gsw-gemeinschaftsstadtwerke-gmbh-5a15",
@@ -42,45 +48,15 @@
       "slug": "empireworks-dc65",
       "title": "EmpireWorks — claimed by qilin",
       "pubDate": "2026-08-17T21:28:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "teikoku-usa-5c5c",
-      "title": "Teikoku USA — claimed by qilin",
-      "pubDate": "2026-08-16T18:58:39.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "agunsa-7c9b",
-      "title": "AGUNSA — claimed by qilin",
-      "pubDate": "2026-08-16T18:58:03.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "coface-81ce",
-      "title": "Coface — claimed by qilin",
-      "pubDate": "2026-08-16T18:57:25.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "spoonful-of-comfort-de4e",
-      "title": "Spoonful of Comfort — claimed by qilin",
-      "pubDate": "2026-08-16T18:56:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "mulino-padano-b91f",
-      "title": "Mulino Padano — claimed by qilin",
-      "pubDate": "2026-08-16T15:59:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "weba-meubelen-e26d",
-      "title": "WEBA Meubelen — claimed by qilin",
-      "pubDate": "2026-08-16T15:58:24.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 2
+    },
     {
       "type": "sector",
       "slug": "energy-utilities",
@@ -98,52 +74,17 @@
       "slug": "education",
       "name": "Education",
       "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "transportation",
-      "name": "Transportation",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "hospitality",
-      "name": "Hospitality",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "agriculture-and-food-production",
-      "name": "Agriculture and Food Production",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
+    {
+      "id": "berlin-brandenburgische-wohnungsbaugenossenschaft-4d57",
+      "victim": "Berlin Brandenburgische Wohnungsbaugenossenschaft — claimed by qilin",
+      "sector": "Other",
+      "country": "DE",
+      "pubDate": "2026-08-18T11:59:45.000Z"
+    },
     {
       "id": "gsw-gemeinschaftsstadtwerke-gmbh-5a15",
       "victim": "GSW Gemeinschaftsstadtwerke GmbH — claimed by qilin",
@@ -171,48 +112,6 @@
       "sector": "Other",
       "country": null,
       "pubDate": "2026-08-17T21:28:43.000Z"
-    },
-    {
-      "id": "teikoku-usa-5c5c",
-      "victim": "Teikoku USA — claimed by qilin",
-      "sector": "Manufacturing",
-      "country": "US",
-      "pubDate": "2026-08-16T18:58:39.000Z"
-    },
-    {
-      "id": "agunsa-7c9b",
-      "victim": "AGUNSA — claimed by qilin",
-      "sector": "Transportation",
-      "country": "CL",
-      "pubDate": "2026-08-16T18:58:03.000Z"
-    },
-    {
-      "id": "coface-81ce",
-      "victim": "Coface — claimed by qilin",
-      "sector": "Financial Services",
-      "country": "IT",
-      "pubDate": "2026-08-16T18:57:25.000Z"
-    },
-    {
-      "id": "spoonful-of-comfort-de4e",
-      "victim": "Spoonful of Comfort — claimed by qilin",
-      "sector": "Hospitality",
-      "country": "US",
-      "pubDate": "2026-08-16T18:56:41.000Z"
-    },
-    {
-      "id": "mulino-padano-b91f",
-      "victim": "Mulino Padano — claimed by qilin",
-      "sector": "Agriculture and Food Production",
-      "country": "IT",
-      "pubDate": "2026-08-16T15:59:09.000Z"
-    },
-    {
-      "id": "weba-meubelen-e26d",
-      "victim": "WEBA Meubelen — claimed by qilin",
-      "sector": "Retail & E-Commerce",
-      "country": "BE",
-      "pubDate": "2026-08-16T15:58:24.000Z"
     }
   ]
 }

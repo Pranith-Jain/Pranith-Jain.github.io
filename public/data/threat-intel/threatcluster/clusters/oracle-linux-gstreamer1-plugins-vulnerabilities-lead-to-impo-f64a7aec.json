@@ -1,0 +1,11 @@
+{
+  "slug": "oracle-linux-gstreamer1-plugins-vulnerabilities-lead-to-impo-f64a7aec",
+  "title": "Oracle Linux gstreamer1 Plugins Vulnerabilities Lead to Important Security Fixes",
+  "link": "https://threatcluster.io/cluster/oracle-linux-gstreamer1-plugins-vulnerabilities-lead-to-impo-f64a7aec?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/oracle-linux-gstreamer1-plugins-vulnerabilities-lead-to-impo-f64a7aec",
+  "pubDate": "2026-08-18T16:49:26.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Oracle has released important security updates for its gstreamer1 plugins across Oracle Linux 9 and 10 due to multiple vulnerabilities. The vulnerabilities include CVE-2026-19387, which addresses an ADPCM decoder negotiation issue, and CVE-2026-73433 and CVE-2026-73434, which fix out-of-bounds reads in AVI demuxer handling. The affected versions are gstreamer1-plugins-good and gstreamer1-plugins-ugly, with patches available for various architectures including x86_64 and aarch64. Users are advised to audit Linux privileges to prevent potential exploitation. The vulnerabilities were published between August 10 and August 12, 2026, indicating a recent emergence of these security issues. The updates are crucial for maintaining system integrity and preventing unauthorized access.\n\nKey Points:\n• Oracle Linux gstreamer1 plugins have critical vulnerabilities requiring immediate updates.\n• CVE-2026-19387, CVE-2026-73433, and CVE-2026-73434 are the key vulnerabilities addressed.\n• Users should audit Linux privileges to mitigate risks of exploitation.",
+  "sizeBytes": 1056
+}

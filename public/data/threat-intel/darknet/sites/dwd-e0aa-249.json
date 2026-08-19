@@ -6,11 +6,11 @@
   "url": "http://primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd.onion",
   "onion": "primeynxn52jsv3d7mbq2zoehoikid7kv5gv7t3p3n2qeeqdgicxh5yd",
   "status": "up",
-  "upMirrors": 6,
+  "upMirrors": 5,
   "totalMirrors": 7,
   "latencyMs": null,
   "httpCode": "200",
-  "pageSize": "178kb",
+  "pageSize": "127kb",
   "fingerprint": "56250578",
   "recommended": false,
   "isOnion": true
