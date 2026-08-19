@@ -5,11 +5,11 @@
   "discovered": "2026-08-18T00:00:00.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "United States",
+  "country": null,
   "sizeBytes": 0,
   "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/third-coast-bancshares-incransom-2026-08",
+  "source_url": "https://recentbreaches.com/breach/third-coast-bancshares-inc-ransom-2026-08",
   "groupAliases": [],
-  "activity": "Financial Services",
+  "activity": null,
   "references": ["RecentBreaches.com"]
 }

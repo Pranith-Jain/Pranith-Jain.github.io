@@ -5,11 +5,11 @@
   "discovered": "2026-08-18T00:00:00.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": null,
+  "country": "Malaysia",
   "sizeBytes": 0,
   "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/sd-associates-sdn-bhd-inc-ransom-2026-08",
+  "source_url": "https://recentbreaches.com/breach/sd-associates-sdn-bhd-incransom-2026-08",
   "groupAliases": [],
-  "activity": null,
+  "activity": "Not Found",
   "references": ["RecentBreaches.com"]
 }

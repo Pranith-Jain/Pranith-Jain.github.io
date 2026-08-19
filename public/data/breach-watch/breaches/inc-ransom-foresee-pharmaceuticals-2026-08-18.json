@@ -1,15 +1,15 @@
 {
   "slug": "inc-ransom-foresee-pharmaceuticals-2026-08-18",
   "title": "Foresee Pharmaceuticals",
-  "group": "inc ransom",
-  "discovered": "2026-08-18T15:30:15.000Z",
+  "group": "INC Ransom",
+  "discovered": "2026-08-18T00:00:00.000Z",
   "category": "data_breach",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomlook.io/screenshots/inc ransom/Foresee Pharmaceuticals.png",
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/foresee-pharmaceuticals-inc-ransom-2026-08",
   "groupAliases": [],
   "activity": null,
-  "references": ["ransomlook.io"]
+  "references": ["RecentBreaches.com"]
 }

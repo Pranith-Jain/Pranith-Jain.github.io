@@ -1,12 +1,12 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-08-19T06:14:04.545Z",
-  "counts": { "breaches": 350, "groups": 79, "categories": 2 },
-  "lastSyncedAt": "2026-08-19T06:14:04.545Z",
+  "replicatedAt": "2026-08-19T06:20:32.849Z",
+  "counts": { "breaches": 350, "groups": 77, "categories": 2 },
+  "lastSyncedAt": "2026-08-19T06:20:32.849Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 198 },
-    { "key": "data_breach", "label": "Data Breach", "count": 152 }
+    { "key": "ransomware", "label": "Ransomware", "count": 197 },
+    { "key": "data_breach", "label": "Data Breach", "count": 153 }
   ],
   "groups": [
     { "name": "qilin", "count": 39, "topCategory": "ransomware" },
@@ -20,12 +20,13 @@
     { "name": "Storm", "count": 13, "topCategory": "data_breach" },
     { "name": "ExfilSquad", "count": 11, "topCategory": "data_breach" },
     { "name": "inc ransom", "count": 8, "topCategory": "data_breach" },
+    { "name": "clop", "count": 8, "topCategory": "ransomware" },
     { "name": "lockbit5", "count": 7, "topCategory": "ransomware" },
     { "name": "coinbasecartel", "count": 7, "topCategory": "ransomware" },
-    { "name": "clop", "count": 7, "topCategory": "ransomware" },
     { "name": "SilentRansomGroup", "count": 6, "topCategory": "data_breach" },
     { "name": "Panzer", "count": 6, "topCategory": "data_breach" },
     { "name": "the gentlemen", "count": 5, "topCategory": "data_breach" },
+    { "name": "INC Ransom", "count": 5, "topCategory": "data_breach" },
     { "name": "medusalocker", "count": 5, "topCategory": "ransomware" },
     { "name": "blacknevas", "count": 5, "topCategory": "ransomware" },
     { "name": "Play", "count": 4, "topCategory": "ransomware" },
@@ -37,10 +38,8 @@
     { "name": "0DAY", "count": 4, "topCategory": "data_breach" },
     { "name": "dragonforce", "count": 3, "topCategory": "ransomware" },
     { "name": "emperador", "count": 3, "topCategory": "data_breach" },
-    { "name": "Qilin", "count": 3, "topCategory": "ransomware" },
     { "name": "GLOBAL SECRET", "count": 3, "topCategory": "data_breach" },
     { "name": "nightspire", "count": 3, "topCategory": "ransomware" },
-    { "name": "INC Ransom", "count": 3, "topCategory": "data_breach" },
     { "name": "Global Secret Group", "count": 3, "topCategory": "data_breach" },
     { "name": "aurora", "count": 3, "topCategory": "data_breach" },
     { "name": "settra", "count": 3, "topCategory": "data_breach" },
@@ -48,6 +47,7 @@
     { "name": "Unattributed", "count": 3, "topCategory": "data_breach" },
     { "name": "securotrop", "count": 2, "topCategory": "data_breach" },
     { "name": "anubis", "count": 2, "topCategory": "ransomware" },
+    { "name": "Qilin", "count": 2, "topCategory": "ransomware" },
     { "name": "insomnia", "count": 2, "topCategory": "data_breach" },
     { "name": "global secret group", "count": 2, "topCategory": "data_breach" },
     { "name": "everest", "count": 2, "topCategory": "ransomware" },
@@ -65,13 +65,11 @@
     { "name": "gunra", "count": 1, "topCategory": "data_breach" },
     { "name": "audit team", "count": 1, "topCategory": "data_breach" },
     { "name": "AuditTeam", "count": 1, "topCategory": "data_breach" },
-    { "name": "Gunra", "count": 1, "topCategory": "data_breach" },
-    { "name": "Leaknet", "count": 1, "topCategory": "data_breach" },
+    { "name": "Leakeddata", "count": 1, "topCategory": "data_breach" },
+    { "name": "Insomnia", "count": 1, "topCategory": "data_breach" },
+    { "name": "Unattributed group", "count": 1, "topCategory": "data_breach" },
     { "name": "Emperador", "count": 1, "topCategory": "data_breach" },
-    { "name": "ShinyHunters", "count": 1, "topCategory": "ransomware" },
-    { "name": "Akira", "count": 1, "topCategory": "ransomware" },
-    { "name": "The Gentlemen", "count": 1, "topCategory": "data_breach" },
-    { "name": "Audit Team", "count": 1, "topCategory": "data_breach" },
+    { "name": "DragonForce", "count": 1, "topCategory": "ransomware" },
     { "name": "bravox", "count": 1, "topCategory": "data_breach" },
     { "name": "Spacebears", "count": 1, "topCategory": "data_breach" },
     { "name": "eclipse", "count": 1, "topCategory": "data_breach" },
@@ -301,16 +299,6 @@
       "sizeBytes": 368
     },
     {
-      "slug": "direwolf-photon-health-inc-2026-08-19",
-      "title": "Photon Health, Inc.",
-      "group": "Direwolf",
-      "discovered": "2026-08-19T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 417
-    },
-    {
       "slug": "direwolf-lifesum-2026-08-19",
       "title": "Lifesum",
       "group": "Direwolf",
@@ -329,6 +317,16 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 397
+    },
+    {
+      "slug": "direwolf-photon-health-inc-2026-08-19",
+      "title": "Photon Health, Inc.",
+      "group": "Direwolf",
+      "discovered": "2026-08-19T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 417
     },
     {
       "slug": "direwolf-payup-2026-08-19",
@@ -971,44 +969,54 @@
       "sizeBytes": 1768
     },
     {
-      "slug": "gunra-bomohsa-2026-08-18",
-      "title": "Bomohsa",
-      "group": "Gunra",
-      "discovered": "2026-08-18T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "Honduras",
-      "sizeBytes": 371
-    },
-    {
-      "slug": "leaknet-nyc-health-hospitals-2026-08-18",
-      "title": "NYC Health + Hospitals",
-      "group": "Leaknet",
-      "discovered": "2026-08-18T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 429
-    },
-    {
-      "slug": "qilin-berlin-brandenburgische-wohnungsbaugenossenschaft-2026-08-18",
-      "title": "Berlin Brandenburgische Wohnungsbaugenossenschaft",
-      "group": "Qilin",
-      "discovered": "2026-08-18T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": null,
-      "sizeBytes": 494
-    },
-    {
-      "slug": "inc-ransom-sd-associates-sdn-bhd-2026-08-18",
-      "title": "SD Associates Sdn Bhd",
-      "group": "INC Ransom",
+      "slug": "leakeddata-troutman-pepper-locke-2026-08-18",
+      "title": "Troutman Pepper Locke",
+      "group": "Leakeddata",
       "discovered": "2026-08-18T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
       "country": null,
       "sizeBytes": 422
+    },
+    {
+      "slug": "insomnia-codinter-2026-08-18",
+      "title": "Codinter",
+      "group": "Insomnia",
+      "discovered": "2026-08-18T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 377
+    },
+    {
+      "slug": "unattributed-group-did-safepal-leak-my-home-address-what-the-2026-breach-actually-means-2026-08-18",
+      "title": "Did SafePal leak my home address? What the 2026 breach actually means",
+      "group": "Unattributed group",
+      "discovered": "2026-08-18T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 553
+    },
+    {
+      "slug": "inc-ransom-third-coast-bancshares-2026-08-18",
+      "title": "Third Coast Bancshares",
+      "group": "INC Ransom",
+      "discovered": "2026-08-18T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 425
+    },
+    {
+      "slug": "inc-ransom-foresee-pharmaceuticals-2026-08-18",
+      "title": "Foresee Pharmaceuticals",
+      "group": "INC Ransom",
+      "discovered": "2026-08-18T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 428
     },
     {
       "slug": "emperador-prefeitura-municipal-de-arcos-2026-08-18",
@@ -1021,49 +1029,29 @@
       "sizeBytes": 443
     },
     {
-      "slug": "shinyhunters-logitech-2026-08-18",
-      "title": "Logitech",
-      "group": "ShinyHunters",
-      "discovered": "2026-08-18T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Switzerland",
-      "sizeBytes": 412
-    },
-    {
-      "slug": "akira-borchert-laspina-2026-08-18",
-      "title": "Borchert & LaSpina",
-      "group": "Akira",
+      "slug": "dragonforce-r-d-machine-and-engineering-2026-08-18",
+      "title": "R & D Machine and Engineering",
+      "group": "DragonForce",
       "discovered": "2026-08-18T00:00:00.000Z",
       "category": "ransomware",
       "severity": "critical",
       "country": null,
-      "sizeBytes": 407
+      "sizeBytes": 462
     },
     {
-      "slug": "the-gentlemen-senvest-capital-2026-08-18",
-      "title": "Senvest Capital",
-      "group": "The Gentlemen",
-      "discovered": "2026-08-18T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 413
-    },
-    {
-      "slug": "inc-ransom-ssf-int-com-ssf-ing-de-2026-08-18",
-      "title": "ssf-int.com ssf-ing.de",
+      "slug": "inc-ransom-sd-associates-sdn-bhd-2026-08-18",
+      "title": "SD Associates Sdn Bhd",
       "group": "INC Ransom",
       "discovered": "2026-08-18T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "Germany",
-      "sizeBytes": 429
+      "country": "Malaysia",
+      "sizeBytes": 434
     },
     {
-      "slug": "audit-team-audit-entity-2026-08-18",
-      "title": "Audit Entity",
-      "group": "Audit Team",
+      "slug": "inc-ransom-spearfin-ltd-2026-08-18",
+      "title": "SpearFin Ltd",
+      "group": "INC Ransom",
       "discovered": "2026-08-18T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
@@ -1071,14 +1059,14 @@
       "sizeBytes": 395
     },
     {
-      "slug": "inc-ransom-third-coast-bancshares-2026-08-18",
-      "title": "Third Coast Bancshares",
+      "slug": "inc-ransom-ssf-int-com-ssf-ing-de-2026-08-18",
+      "title": "ssf-int.com  ssf-ing.de",
       "group": "INC Ransom",
       "discovered": "2026-08-18T00:00:00.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "United States",
-      "sizeBytes": 451
+      "country": null,
+      "sizeBytes": 426
     },
     {
       "slug": "insomnia-codinter-2026-08-17",
@@ -3589,6 +3577,16 @@
       "severity": "critical",
       "country": "US",
       "sizeBytes": 445
+    },
+    {
+      "slug": "clop-midlandind-com-au-2026-08-12",
+      "title": "MIDLANDIND.COM.AU",
+      "group": "clop",
+      "discovered": "2026-08-12T15:46:22.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "AU",
+      "sizeBytes": 443
     }
   ]
 }

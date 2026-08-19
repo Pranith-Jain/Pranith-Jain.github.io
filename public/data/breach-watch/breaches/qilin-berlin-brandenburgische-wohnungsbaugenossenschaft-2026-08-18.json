@@ -1,15 +1,15 @@
 {
   "slug": "qilin-berlin-brandenburgische-wohnungsbaugenossenschaft-2026-08-18",
   "title": "Berlin Brandenburgische Wohnungsbaugenossenschaft",
-  "group": "Qilin",
-  "discovered": "2026-08-18T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-08-18T11:59:45.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "DE",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/berlin-brandenburgische-wohnungsbaugenossenschaft-qilin-2026-08",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Other",
+  "references": ["ransomware.live"]
 }
