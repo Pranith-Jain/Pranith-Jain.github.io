@@ -88,10 +88,6 @@ async function initiateSearch(
   maxResults: number
 ): Promise<{ search_id: string; ms: number }> {
   const t0 = Date.now();
-  const res = await fetch(`${INTELX_BASE}${endpoint}`, {
-    method: 'GET',
-    signal: AbortSignal.timeout(TIMEOUT_MS),
-  });
   // IntelligenceX uses GET with query params for search initiation
   const url = new URL(`${INTELX_BASE}${endpoint}`);
   url.searchParams.set('term', q);
