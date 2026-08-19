@@ -1,0 +1,113 @@
+name: Breach Watch sync (2x daily)
+
+# Rebuilds the breach-watch manifest under public/data/breach-watch/ from the
+# 7 free public trackers (ransomware.live, ransomlook.io, Darkfield,
+# RecentBreaches.com, CTI.FYI, XposedOrNot), commits directly to main when
+# the data changed, and deploys. Fully automated — keeps main clean so
+# manual sessions never rebase against stale breach data.
+# Runs 07:30 and 19:30 UTC (clear of the 05:30–08:30 sync cluster).
+
+on:
+  schedule:
+    - cron: "30 7,19 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: bw-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
+
+      - name: Build breach-watch manifest
+        run: node scripts/build-breach-watch.mjs
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git add public/data/breach-watch/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No new breaches — skipping deploy."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit to main
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          # Auto/data commits: skip husky/lint-staged (prettier reformats the
+          # generated JSON back to HEAD, making the commit empty and aborting
+          # the run — same fix as daily-briefs-sync.yml / webamon-dtb-sync.yml).
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet HEAD; then
+            echo "Nothing to commit after all."
+          else
+            git commit --no-verify -m "chore(data): breach-watch sync $(date -u +%Y-%m-%d)"
+            # Push may race with other auto-syncs pushing to main — rebase and
+            # retry instead of failing the run on a stale ref.
+            for attempt in 1 2 3; do
+              if git push origin main 2>/dev/null; then
+                echo "Push succeeded (attempt $attempt)."
+                exit 0
+              fi
+              echo "Push rejected (attempt $attempt) — rebasing onto origin/main and retrying."
+              git pull --rebase origin main
+            done
+            echo "::error::push failed after 3 attempts"
+            exit 1
+          fi
+
+      # ── Deploy (only when data changed) ─────────────────────────────
+      - name: Typecheck
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npx tsc --noEmit -p tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.worker.json
+
+      - name: Build
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Budget check
+        if: steps.changes.outputs.changed == 'true'
+        run: node scripts/check-budgets.mjs
+
+      - name: Deploy to Cloudflare Workers
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+
+      - name: Smoke test
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 8
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/data/breach-watch/index.json")
+          echo "breach-watch index -> HTTP $code"
+          test "$code" = "200" || { echo "::error::breach-watch index returned HTTP $code"; exit 1; }
