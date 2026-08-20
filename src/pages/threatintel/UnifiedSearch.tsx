@@ -406,7 +406,7 @@ export default function UnifiedSearch(): JSX.Element {
             const Icon = SECTION_ICONS[section.kind] ?? Search;
             const color =
               SECTION_COLORS[section.kind] ??
-              'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]';
+              'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]';
             return (
               <section key={section.kind} className="surface-card overflow-hidden">
                 <div

@@ -224,10 +224,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
   const hasMoreIssues = (snapshot.issues?.length ?? 0) > issues.length;
 
   return (
-    <section
-      aria-label={title}
-      className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]"
-    >
+    <section aria-label={title} className="surface-card p-4">
       <header className="flex flex-wrap items-center gap-3">
         <div
           className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl font-mono text-lg font-bold ring-2 ${tone.bg} ${tone.ring} ${tone.text}`}

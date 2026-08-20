@@ -252,10 +252,7 @@ export default function GoogleDorks(): JSX.Element {
           </p>
           <ol className="space-y-4">
             {data.results.map((r) => (
-              <li
-                key={`${r.position ?? r.link}|${r.link}`}
-                className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-              >
+              <li key={`${r.position ?? r.link}|${r.link}`} className="list-none">
                 <div className="flex items-start gap-2">
                   <div className="flex-1 min-w-0">
                     <a

@@ -400,7 +400,7 @@ export default function OsintCountryMap(): JSX.Element {
                           }}
                           className={`text-xs px-2 py-0.5 rounded-full border transition-colors ${
                             active
-                              ? 'bg-slate-200 dark:bg-slate-700 border-slate-400 dark:border-slate-500 text-slate-800 dark:text-slate-200'
+                              ? 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] border-slate-400 dark:border-[rgb(var(--border-500))] text-slate-800 dark:text-slate-200'
                               : 'bg-white dark:bg-[rgb(var(--surface-300)/0.5)] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
                           }`}
                         >
@@ -500,7 +500,7 @@ function ResourceRow({ resource }: { resource: OsintCountryResource }): JSX.Elem
             <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </a>
-        <span className="text-micro px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 shrink-0">
+        <span className="text-micro px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))]/50 text-slate-500 dark:text-slate-400 shrink-0">
           {CATEGORY_LABELS[resource.category] ?? resource.category}
         </span>
       </div>

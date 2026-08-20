@@ -27,7 +27,7 @@ export function Toggle({ label, checked, onChange, disabled = false, description
           'relative inline-flex h-6 w-10 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
           'disabled:opacity-50 disabled:cursor-not-allowed',
-          checked ? 'bg-brand-600 dark:bg-brand-500' : 'bg-slate-300 dark:bg-slate-700',
+          checked ? 'bg-brand-600 dark:bg-brand-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]',
         ].join(' ')}
       >
         <span

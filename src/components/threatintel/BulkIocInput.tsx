@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Upload, X, Loader2, AlertTriangle, Check } from 'lucide-react';
+import { Textarea } from '../ui/Input';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface ParsedIoc {
@@ -157,12 +158,12 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
             <p className="mb-3 text-xs text-slate-500 dark:text-slate-400">
               Paste IPs, domains, hashes, CVEs, emails, or URLs - one per line or comma-separated.
             </p>
-            <textarea
+            <Textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
               onInput={handleParse}
               placeholder={`8.8.8.8\n1.1.1.1\nCVE-2024-1709\nevil.com\ncafebabedeadbeef...`}
-              className="h-28 w-full resize-none rounded-xl border border-slate-200 bg-white p-3 text-xs font-mono text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
+              className="h-28 w-full resize-none"
               spellCheck={false}
             />
             {parsed.length > 0 && (

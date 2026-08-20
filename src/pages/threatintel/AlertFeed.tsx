@@ -45,7 +45,7 @@ const TLP_COLORS: Record<string, string> = {
   RED: 'bg-red-600 text-white',
   AMBER: 'bg-amber-500 text-white',
   GREEN: 'bg-green-500 text-white',
-  CLEAR: 'bg-slate-300 text-slate-700 dark:bg-slate-600 dark:text-slate-200',
+  CLEAR: 'bg-slate-300 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-200',
 };
 
 export default function AlertFeed() {

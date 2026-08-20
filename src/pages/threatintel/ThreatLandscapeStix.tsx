@@ -136,7 +136,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
             <button
               type="button"
               onClick={addFilter}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             >
               <Filter size={12} /> Add Filter
             </button>
@@ -144,7 +144,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
               type="button"
               onClick={exportAsJson}
               disabled={!data?.length}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-40 transition-colors"
             >
               <Download size={12} /> Export JSON
             </button>
@@ -251,17 +251,76 @@ export default function ThreatLandscapeStix(): JSX.Element {
           {data && (
             <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
               <DataTable
-                columns={[
-                  { key: 'bundle_id', header: 'Bundle ID', sortValue: (row: typeof data[number]) => row.bundle_id, render: (row) => <span className="font-mono text-micro text-slate-500 max-w-[200px] truncate" title={row.bundle_id}>{row.bundle_id}</span> },
-                  { key: 'source_type', header: 'Type', sortValue: (row: typeof data[number]) => row.source_type, render: (row) => (
-                    <span className={`px-1.5 py-0.5 rounded-full text-micro ${row.source_type === 'darknet' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300'}`}>{row.source_type}</span>
-                  ) },
-                  { key: 'title', header: 'Title', sortValue: (row: typeof data[number]) => row.title, render: (row) => <span className="max-w-[300px] truncate" title={row.title}>{row.title}</span> },
-                  { key: 'published', header: 'Published', sortValue: (row: typeof data[number]) => row.stix_published_at ?? '', render: (row) => <span className="text-slate-500">{row.stix_published_at ? new Date(row.stix_published_at).toLocaleDateString() : '-'}</span> },
-                  { key: 'ioc_count', header: 'IOCs', align: 'right', sortValue: (row: typeof data[number]) => row.ioc_count, render: (row) => <span className="font-mono">{row.ioc_count}</span> },
-                  { key: 'actor_count', header: 'Actors', align: 'right', sortValue: (row: typeof data[number]) => row.actor_count, render: (row) => <span className="font-mono">{row.actor_count}</span> },
-                  { key: 'malware_count', header: 'Malware', align: 'right', sortValue: (row: typeof data[number]) => row.malware_count, render: (row) => <span className="font-mono">{row.malware_count}</span> },
-                ] as DataTableColumn<typeof data[number]>[]}
+                columns={
+                  [
+                    {
+                      key: 'bundle_id',
+                      header: 'Bundle ID',
+                      sortValue: (row: (typeof data)[number]) => row.bundle_id,
+                      render: (row) => (
+                        <span
+                          className="font-mono text-micro text-slate-500 max-w-[200px] truncate"
+                          title={row.bundle_id}
+                        >
+                          {row.bundle_id}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'source_type',
+                      header: 'Type',
+                      sortValue: (row: (typeof data)[number]) => row.source_type,
+                      render: (row) => (
+                        <span
+                          className={`px-1.5 py-0.5 rounded-full text-micro ${row.source_type === 'darknet' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300'}`}
+                        >
+                          {row.source_type}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'title',
+                      header: 'Title',
+                      sortValue: (row: (typeof data)[number]) => row.title,
+                      render: (row) => (
+                        <span className="max-w-[300px] truncate" title={row.title}>
+                          {row.title}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'published',
+                      header: 'Published',
+                      sortValue: (row: (typeof data)[number]) => row.stix_published_at ?? '',
+                      render: (row) => (
+                        <span className="text-slate-500">
+                          {row.stix_published_at ? new Date(row.stix_published_at).toLocaleDateString() : '-'}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'ioc_count',
+                      header: 'IOCs',
+                      align: 'right',
+                      sortValue: (row: (typeof data)[number]) => row.ioc_count,
+                      render: (row) => <span className="font-mono">{row.ioc_count}</span>,
+                    },
+                    {
+                      key: 'actor_count',
+                      header: 'Actors',
+                      align: 'right',
+                      sortValue: (row: (typeof data)[number]) => row.actor_count,
+                      render: (row) => <span className="font-mono">{row.actor_count}</span>,
+                    },
+                    {
+                      key: 'malware_count',
+                      header: 'Malware',
+                      align: 'right',
+                      sortValue: (row: (typeof data)[number]) => row.malware_count,
+                      render: (row) => <span className="font-mono">{row.malware_count}</span>,
+                    },
+                  ] as DataTableColumn<(typeof data)[number]>[]
+                }
                 rows={data}
                 rowKey={(row) => row.bundle_id}
                 rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}

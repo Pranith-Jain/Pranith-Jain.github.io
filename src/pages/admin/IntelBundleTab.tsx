@@ -136,7 +136,7 @@ function Result({ data }: { data: InspectShape }) {
         }
     : {
         label: 'LLM skipped',
-        tone: 'bg-slate-100 dark:bg-slate-700/30 text-slate-500 dark:text-slate-400 border-slate-700/40',
+        tone: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))/0.3] text-slate-500 dark:text-slate-400 border-slate-700/40',
       };
 
   return (

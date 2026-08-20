@@ -59,7 +59,7 @@ function slug(s: string): string {
 const NODE_STYLES: Record<MindmapNode['kind'], { light: string; dark: string; ring: string }> = {
   finding: {
     light: 'border-slate-400 bg-slate-50 text-slate-900',
-    dark: 'dark:border-slate-500 dark:bg-[rgb(var(--surface-200))] dark:text-slate-100',
+    dark: 'dark:border-[rgb(var(--border-500))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100',
     ring: '#64748b',
   },
   actor: {

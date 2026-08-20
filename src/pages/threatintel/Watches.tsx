@@ -204,7 +204,7 @@ export default function Watches(): JSX.Element {
           {loading && watches.length === 0 ? (
             <DataState loading={true} rows={4} />
           ) : watches.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-600 px-4 py-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] px-4 py-10 text-center">
               <Bell size={32} className="mx-auto mb-2 text-slate-300 dark:text-slate-500" />
               <p className="text-sm text-slate-500 font-mono">No watches configured yet.</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono">
@@ -271,7 +271,7 @@ export default function Watches(): JSX.Element {
                         <button
                           type="button"
                           onClick={cancelEdit}
-                          className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                          className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                         >
                           Cancel
                         </button>

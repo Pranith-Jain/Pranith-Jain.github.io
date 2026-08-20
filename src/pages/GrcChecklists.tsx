@@ -175,7 +175,7 @@ export default function GrcChecklists() {
 
                 {fwLoading ? (
                   <div className="flex items-center justify-center py-12 text-slate-500">
-                    <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
+                    <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
                     Loading framework...
                   </div>
                 ) : fwError ? (

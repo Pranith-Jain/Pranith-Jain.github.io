@@ -226,7 +226,7 @@ export default function ArgusPage() {
             fallback={
               <div className="absolute inset-0 grid place-items-center">
                 <div className="flex flex-col items-center gap-3 text-slate-400 dark:text-slate-500">
-                  <span className="h-6 w-6 rounded-full border-2 border-slate-300 dark:border-slate-600 border-t-rose-500 animate-spin" />
+                  <span className="h-6 w-6 rounded-full border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-rose-500 animate-spin" />
                   <span className="font-mono text-micro uppercase tracking-[0.16em]">Loading view</span>
                 </div>
               </div>

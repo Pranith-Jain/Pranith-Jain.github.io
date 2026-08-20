@@ -75,7 +75,7 @@ function ListField({ label, items }: { label: string; items?: string[] }) {
         {items.map((it, i) => (
           <span
             key={i}
-            className="font-mono text-micro text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
+            className="font-mono text-micro text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
           >
             {it}
           </span>
@@ -256,7 +256,7 @@ export default function DfirRef() {
 
         {loading ? (
           <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
+            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading reference...
           </div>
         ) : filtered.length === 0 ? (
@@ -287,7 +287,7 @@ export default function DfirRef() {
                     {item.tags.slice(0, 4).map((t, i) => (
                       <span
                         key={i}
-                        className="font-mono text-micro text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded"
+                        className="font-mono text-micro text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 rounded"
                       >
                         {t}
                       </span>

@@ -163,7 +163,7 @@ function SecurityScore({ score }: { score: number }) {
   const bg = score >= 80 ? 'bg-emerald-500' : score >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
     <div className="flex items-center gap-3">
-      <div className="relative h-3 w-32 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+      <div className="relative h-3 w-32 overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
         <div className={`absolute inset-y-0 left-0 ${bg} rounded-full transition-all`} style={{ width: `${score}%` }} />
       </div>
       <span className={`text-sm font-bold ${color}`}>{score}/100</span>
@@ -850,7 +850,7 @@ export default function ScanResults() {
       <nav className="flex items-center gap-2 text-sm text-slate-500">
         <Link
           to="/radar"
-          className="flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:hover:bg-slate-700"
+          className="flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))]"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
         </Link>

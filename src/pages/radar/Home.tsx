@@ -5,6 +5,7 @@ import { isAbortError } from '../../lib/abort-error';
 import { RadarStructuredData } from '../../components/ToolStructuredData';
 import { FaqStructuredData } from '../../components/FaqStructuredData';
 import { PageMeta } from '../../components/PageMeta';
+import { Input } from '../../components/ui/Input';
 import { RADAR_FAQ } from '../../data/radar-faq';
 
 export default function RadarHome() {
@@ -72,13 +73,14 @@ export default function RadarHome() {
           <div className="flex w-full flex-col gap-3">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
-              <input
+              <Input
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleScan()}
                 placeholder="Enter domain or URL (e.g., example.com)"
-                className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-base text-slate-900 shadow-e1 transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
+                className="h-14 pl-12"
+                mono={false}
                 disabled={scanning}
               />
             </div>

@@ -204,7 +204,7 @@ export default function OpenDirectory(): JSX.Element {
                 className={`px-2.5 py-1 rounded text-xs font-mono capitalize transition-colors ${
                   filterRisk === r
                     ? 'bg-brand-600 text-white'
-                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-slate-700'
+                    : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
                 }`}
               >
                 {r} {r !== 'all' && `(${riskCounts[r]})`}
@@ -217,27 +217,70 @@ export default function OpenDirectory(): JSX.Element {
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
               <DataTable
-                columns={[
-                  { key: 'name', header: 'Name', sortValue: (e: typeof filteredEntries[number]) => e.name, render: (e) => (
-                    <div className="flex items-center gap-2">
-                      {e.type === 'directory' ? <FolderOpen size={12} className="text-amber-500 flex-shrink-0" /> : <File size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0" />}
-                      <span className={`font-mono truncate ${e.risk === 'critical' ? 'font-semibold text-rose-700 dark:text-rose-300' : ''}`}>{e.name}</span>
-                    </div>
-                  ) },
-                  { key: 'type', header: 'Type', sortValue: (e: typeof filteredEntries[number]) => e.extension ?? '', render: (e) => <span className="font-mono text-slate-500">{e.extension ?? (e.type === 'directory' ? 'dir' : '-')}</span> },
-                  { key: 'size', header: 'Size', align: 'right', sortValue: (e: typeof filteredEntries[number]) => e.size, render: (e) => <span className="font-mono text-slate-500">{formatSize(e.size)}</span> },
-                  { key: 'risk', header: 'Risk', sortValue: (e: typeof filteredEntries[number]) => e.risk, render: (e) => (
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase border ${SEVERITY_TONE[e.risk]}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_BAR[e.risk]}`} />
-                      {e.risk}
-                    </span>
-                  ) },
-                  { key: 'reason', header: 'Reason', render: (e) => <span className="text-slate-500">{e.riskReason ?? '-'}</span> },
-                ] as DataTableColumn<typeof filteredEntries[number]>[]}
+                columns={
+                  [
+                    {
+                      key: 'name',
+                      header: 'Name',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.name,
+                      render: (e) => (
+                        <div className="flex items-center gap-2">
+                          {e.type === 'directory' ? (
+                            <FolderOpen size={12} className="text-amber-500 flex-shrink-0" />
+                          ) : (
+                            <File size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0" />
+                          )}
+                          <span
+                            className={`font-mono truncate ${e.risk === 'critical' ? 'font-semibold text-rose-700 dark:text-rose-300' : ''}`}
+                          >
+                            {e.name}
+                          </span>
+                        </div>
+                      ),
+                    },
+                    {
+                      key: 'type',
+                      header: 'Type',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.extension ?? '',
+                      render: (e) => (
+                        <span className="font-mono text-slate-500">
+                          {e.extension ?? (e.type === 'directory' ? 'dir' : '-')}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'size',
+                      header: 'Size',
+                      align: 'right',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.size,
+                      render: (e) => <span className="font-mono text-slate-500">{formatSize(e.size)}</span>,
+                    },
+                    {
+                      key: 'risk',
+                      header: 'Risk',
+                      sortValue: (e: (typeof filteredEntries)[number]) => e.risk,
+                      render: (e) => (
+                        <span
+                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase border ${SEVERITY_TONE[e.risk]}`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_BAR[e.risk]}`} />
+                          {e.risk}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'reason',
+                      header: 'Reason',
+                      render: (e) => <span className="text-slate-500">{e.riskReason ?? '-'}</span>,
+                    },
+                  ] as DataTableColumn<(typeof filteredEntries)[number]>[]
+                }
                 rows={filteredEntries}
                 rowKey={(e) => e.name}
                 onRowClick={(e) => setExpandedEntry(expandedEntry === e.name ? null : e.name)}
-                rowClassName={(e) => `cursor-pointer ${e.risk === 'critical' ? 'bg-rose-50/50 dark:bg-rose-950/10' : ''}`}
+                rowClassName={(e) =>
+                  `cursor-pointer ${e.risk === 'critical' ? 'bg-rose-50/50 dark:bg-rose-950/10' : ''}`
+                }
               />
             </div>
             {filteredEntries.length === 0 && (

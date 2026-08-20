@@ -24,9 +24,9 @@ const TAG_COLORS: Record<string, string> = {
   config: 'text-amber-600 dark:text-amber-400 border-amber-300/50 dark:border-amber-500/30',
   tunnel: 'text-sky-600 dark:text-sky-400 border-sky-300/50 dark:border-sky-500/30',
   scanner: 'text-sky-600 dark:text-sky-400 border-sky-300/50 dark:border-sky-500/30',
-  history: 'text-muted border-slate-300/50 dark:border-slate-600/40',
-  'source-code': 'text-muted border-slate-300/50 dark:border-slate-600/40',
-  archive: 'text-muted border-slate-300/50 dark:border-slate-600/40',
+  history: 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]',
+  'source-code': 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]',
+  archive: 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]',
 };
 
 /** Map a risk tag to the most relevant MITRE ATT&CK technique. */
@@ -56,7 +56,7 @@ function formatSize(bytes?: number): string {
 }
 
 function TagBadge({ tag }: { tag: string }): JSX.Element {
-  const color = TAG_COLORS[tag] ?? 'text-muted border-slate-300/50 dark:border-slate-600/40';
+  const color = TAG_COLORS[tag] ?? 'text-muted border-slate-300/50 dark:border-[rgb(var(--border-400))/0.4]';
   return <span className={`font-mono text-micro px-1.5 py-0.5 rounded border ${color}`}>{tag}</span>;
 }
 
@@ -73,7 +73,10 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
       >
         <td className="py-2.5 pl-2 pr-3">
           <div className="flex items-center gap-2">
-            <ChevronRight size={12} className={`text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
+            <ChevronRight
+              size={12}
+              className={`text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}
+            />
             {isDir ? (
               <Folder size={14} className="text-amber-500 dark:text-amber-400 shrink-0" />
             ) : (

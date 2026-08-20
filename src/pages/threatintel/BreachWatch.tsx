@@ -59,7 +59,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-700',
   low: 'bg-sky-100 text-cyan-800 dark:bg-sky-900/40 dark:text-sky-300 border-sky-300 dark:border-sky-700',
   unknown:
-    'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 border-slate-300 dark:border-slate-600',
+    'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 function humanSize(bytes: number): string {

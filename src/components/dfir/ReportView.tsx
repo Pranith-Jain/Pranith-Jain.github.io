@@ -710,7 +710,7 @@ function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
         {pirs.map((p, idx) => (
           <li key={idx} className="px-3 py-2.5 flex items-start gap-3">
             <span
-              className={`shrink-0 w-2 h-2 rounded-full mt-1.5 ${p.relevant ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-700'}`}
+              className={`shrink-0 w-2 h-2 rounded-full mt-1.5 ${p.relevant ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
             />
             <div className="flex-1 min-w-0">
               <p className="text-sm text-slate-900 dark:text-slate-100">{p.pir}</p>

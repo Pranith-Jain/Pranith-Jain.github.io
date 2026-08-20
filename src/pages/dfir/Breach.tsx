@@ -359,12 +359,12 @@ function SourceSignal({ label, t, r }: { label: string; t: boolean; r: boolean }
     <div className="flex items-center gap-1.5">
       <span
         aria-hidden="true"
-        className={`inline-block w-1.5 h-1.5 rounded-full ${t ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+        className={`inline-block w-1.5 h-1.5 rounded-full ${t ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
       />
       <span className="sr-only">{t ? 'present' : 'absent'} (text record)</span>
       <span
         aria-hidden="true"
-        className={`inline-block w-1.5 h-1.5 rounded-full ${r ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+        className={`inline-block w-1.5 h-1.5 rounded-full ${r ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
       />
       <span className="sr-only">{r ? 'present' : 'absent'} (reverse record)</span>
       <span className="text-slate-700 dark:text-slate-300">{label}</span>
@@ -377,7 +377,7 @@ function Signal({ label, value }: { label: string; value: boolean }): JSX.Elemen
     <div className="flex items-center gap-1.5">
       <span
         aria-hidden="true"
-        className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+        className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
       />
       <span className="sr-only">{value ? 'pass' : 'fail'}:</span>
       <span className={value ? 'text-slate-700 dark:text-slate-300' : 'text-slate-500 dark:text-slate-400'}>

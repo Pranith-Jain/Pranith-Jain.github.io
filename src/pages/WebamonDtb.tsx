@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
+import { Card } from '../components/ui/Card';
+import { Select } from '../components/ui/Input';
 import {
   Radar,
   TrendingUp,
@@ -115,17 +117,18 @@ export default function WebamonDtb() {
           </p>
         </div>
         {briefs.length > 0 && (
-          <select
+          <Select
             value={currentDate ?? ''}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white"
+            mono={false}
+            className="w-auto"
           >
             {briefs.map((b) => (
               <option key={b.date} value={b.date}>
                 {b.date}
               </option>
             ))}
-          </select>
+          </Select>
         )}
       </div>
 
@@ -135,37 +138,34 @@ export default function WebamonDtb() {
         <div className="space-y-6">
           {brief.estate && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+              <Card padding="md">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">
                   {brief.estate.campaignsTracked.toLocaleString()}
                 </div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">Campaigns Tracked</div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+              </Card>
+              <Card padding="md">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">
                   {brief.estate.uniqueDomains.toLocaleString()}
                 </div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">Unique Domains</div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+              </Card>
+              <Card padding="md">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">{brief.estate.percentOnline}%</div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">Online</div>
-              </div>
+              </Card>
             </div>
           )}
 
           {brief.kpis.length > 0 && (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
               {brief.kpis.map((kpi, i) => (
-                <div
-                  key={i}
-                  className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
-                >
+                <Card key={i} padding="sm" className="text-center">
                   <div className="text-lg font-bold text-slate-900 dark:text-white">
                     {Number(kpi.value).toLocaleString()}
                   </div>
                   <div className="text-mini leading-tight text-slate-500 dark:text-slate-400">{kpi.label}</div>
-                </div>
+                </Card>
               ))}
             </div>
           )}

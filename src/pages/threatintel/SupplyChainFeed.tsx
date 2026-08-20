@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { Card } from '../../components/ui/Card';
 import { fetchJsonCached } from '../../lib/api-client';
 import {
   AlertTriangle,
@@ -184,7 +185,7 @@ export default function SupplyChainFeed(): JSX.Element {
       backTo="/threatintel"
     >
       {/* ── Package check ───────────────────────────────────────────── */}
-      <div className="rounded-xl border border-slate-200 bg-white p-4 mb-6 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+      <Card padding="md" className="mb-6">
         <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Check a Package</h3>
         <div className="flex gap-2">
           <div className="relative flex-1">
@@ -211,7 +212,7 @@ export default function SupplyChainFeed(): JSX.Element {
         </div>
         {checkError && <p className="mt-2 text-xs text-rose-600 dark:text-rose-400">{checkError}</p>}
         {checkResult && <VerdictCard result={checkResult.data} />}
-      </div>
+      </Card>
 
       {/* ── Stats + Filters row ─────────────────────────────────────── */}
       <div className="flex flex-wrap items-start gap-4 mb-6">
@@ -333,7 +334,7 @@ export default function SupplyChainFeed(): JSX.Element {
 
       {/* ── Ecosystem breakdown ─────────────────────────────────────── */}
       {!loading && Object.keys(ecoBreakdown).length > 0 && (
-        <div className="mt-8 rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+        <Card padding="md" className="mt-8">
           <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Ecosystem Breakdown</h3>
           <div className="space-y-2">
             {Object.entries(ecoBreakdown)
@@ -356,7 +357,7 @@ export default function SupplyChainFeed(): JSX.Element {
                 );
               })}
           </div>
-        </div>
+        </Card>
       )}
 
       {/* ── Source ──────────────────────────────────────────────────── */}
