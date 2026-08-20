@@ -291,9 +291,9 @@ const Research = lazy(() => import('./pages/threatintel/Research'));
 const ResearchSignal = lazy(() => import('./pages/threatintel/Signal'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
 const SecopsCatalog = lazy(() => import('./pages/dfir/SecopsCatalog'));
-const SecOpsMtx = lazy(() => import('./pages/threatintel/SecOpsMtx'));
 const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
 const Settings = lazy(() => import('./pages/threatintel/Settings'));
+const ThreatActorMonitor = lazy(() => import('./pages/threatintel/ThreatActorMonitor'));
 
 const SocialFirehose = lazy(() => import('./pages/threatintel/SocialFirehose'));
 
@@ -679,7 +679,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/osint/toolbox', Component: CuratedToolbox },
   { path: '/threatintel/osint/certs', Component: CuratedCerts },
   { path: '/threatintel/osint/secops', Component: SecopsCatalog },
-  { path: '/threatintel/osint/secops-mtx', Component: SecOpsMtx },
+  { path: '/threatintel/osint/threat-actor-monitor', Component: ThreatActorMonitor },
   { path: '/threatintel/osint/directory', Component: OsintDirectory },
   { path: '/threatintel/research-hub/research', Component: Research },
   { path: '/threatintel/research-hub/redhunt-labs', Component: RedHuntLabsResearch },

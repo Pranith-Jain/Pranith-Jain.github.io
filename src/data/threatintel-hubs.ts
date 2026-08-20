@@ -1058,11 +1058,11 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'SecopsCatalog',
       },
       {
-        path: '/threatintel/osint/secops-mtx',
-        tabId: 'secops-mtx',
-        label: 'SecOps MTTX Dashboard',
-        desc: 'Mean Time to Detect, Acknowledge, and Respond metrics from Google SecOps (Chronicle).',
-        compVar: 'SecOpsMtx',
+        path: '/threatintel/osint/threat-actor-monitor',
+        tabId: 'threat-actor-monitor',
+        label: 'Threat Actor Monitor',
+        desc: 'Real-time APT monitoring across 30 OSINT feeds with MITRE ATT&CK + Kill Chain mapping.',
+        compVar: 'ThreatActorMonitor',
         badge: 'new',
       },
       {

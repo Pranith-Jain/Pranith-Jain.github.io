@@ -16,7 +16,6 @@ import {
   AlertTriangle,
   Award,
   BarChart as BarChartIcon,
-  BarChart3,
   Beaker as BeakerIcon,
   Bell,
   BookOpen,
@@ -224,7 +223,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/osint/toolbox': Wrench,
   '/threatintel/osint/certs': Award,
   '/threatintel/osint/secops': Settings,
-  '/threatintel/osint/secops-mtx': BarChart3,
+  '/threatintel/osint/threat-actor-monitor': Shield,
   // Tools
   '/threatintel/tools/copilot': Sparkles,
   '/threatintel/tools/mcp': Zap,

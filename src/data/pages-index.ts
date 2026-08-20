@@ -3950,9 +3950,9 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
-    path: '/threatintel/osint/secops-mtx',
-    label: 'SecOps MTTX Dashboard',
-    description: 'Mean Time to Detect, Acknowledge, and Respond metrics from Google SecOps (Chronicle).',
+    path: '/threatintel/osint/threat-actor-monitor',
+    label: 'Threat Actor Monitor',
+    description: 'Real-time APT monitoring across 30 OSINT feeds with MITRE ATT&CK + Kill Chain mapping.',
     sectionLabel: 'Threat Intel · OSINT',
     group: 'threatintel',
   },
