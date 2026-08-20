@@ -17,7 +17,18 @@ import {
   BarChart3,
   Trash2,
   Settings,
+  Bell,
+  BellOff,
+  Mail,
+  Webhook,
 } from 'lucide-react';
+import {
+  type AlertSettings,
+  loadAlertSettings,
+  saveAlertSettings,
+  requestNotificationPermission,
+  processAlerts,
+} from '../../lib/threat-monitor-alerts';
 import { APT_GROUPS, ALIAS_MAP } from '../../data/threat-monitor/apt-groups';
 import { TECHNIQUES, KILL_CHAIN_STAGES, TACTIC_TO_KILLCHAIN } from '../../data/threat-monitor/mitre-attack';
 import { OSINT_SOURCES } from '../../data/threat-monitor/osint-sources';
@@ -188,12 +199,29 @@ export default function ThreatActorMonitor() {
     return all;
   });
   const scanAbort = useRef<AbortController | null>(null);
+  const [alertSettings, setAlertSettings] = useState<AlertSettings>(loadAlertSettings);
+  const [showAlertSettings, setShowAlertSettings] = useState(false);
 
   // Load from localStorage on mount
   useEffect(() => {
     setDetections(loadDetections());
     setLastScan(loadLastScan());
   }, []);
+
+  // Auto-scan timer
+  useEffect(() => {
+    if (!alertSettings.autoScanMinutes || alertSettings.autoScanMinutes < 1) return;
+    const ms = alertSettings.autoScanMinutes * 60 * 1000;
+    const id = setInterval(() => {
+      if (!scanning) runScan();
+    }, ms);
+    return () => clearInterval(id);
+  }, [alertSettings.autoScanMinutes, scanning]);
+
+  // Save alert settings when changed
+  useEffect(() => {
+    saveAlertSettings(alertSettings);
+  }, [alertSettings]);
 
   const enabledSources = OSINT_SOURCES.filter((s) => sourcesEnabled[s.name]);
   const disabledCount = OSINT_SOURCES.length - enabledSources.length;
@@ -286,7 +314,10 @@ export default function ThreatActorMonitor() {
     setScanning(false);
 
     toast(`Scan complete: ${newCount} items scanned, ${relevantCount} matched, ${alertedCount} alerted`, 'success');
-  }, [scanning, enabledSources, toast]);
+
+    // Fire alerts for new high-confidence detections
+    processAlerts(alertSettings, newDetections, (msg: string) => toast(msg, 'warning'));
+  }, [scanning, enabledSources, toast, alertSettings]);
 
   const clearDetections = useCallback(() => {
     if (!confirm('Clear all detections?')) return;
@@ -463,6 +494,112 @@ export default function ThreatActorMonitor() {
             </button>
           ))}
         </div>
+      </Card>
+
+      {/* Alert Settings */}
+      <Card padding="md" className="mb-6">
+        <button
+          onClick={() => setShowAlertSettings(!showAlertSettings)}
+          className="flex items-center gap-2 w-full text-left"
+        >
+          {alertSettings.enabled ? (
+            <Bell size={14} className="text-emerald-500" />
+          ) : (
+            <BellOff size={14} className="text-slate-400" />
+          )}
+          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+            Email Alerts {alertSettings.enabled ? '(ON)' : '(OFF)'}
+          </h3>
+          <span className="ml-auto text-xs text-slate-400">{showAlertSettings ? '▾' : '▸'}</span>
+        </button>
+        {showAlertSettings && (
+          <div className="mt-4 space-y-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={alertSettings.enabled}
+                  onChange={(e) => setAlertSettings((s) => ({ ...s, enabled: e.target.checked }))}
+                  className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                />
+                <span className="text-sm text-slate-700 dark:text-slate-300">Enable Alerts</span>
+              </label>
+              <label className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={alertSettings.browserNotifications}
+                  onChange={(e) => {
+                    if (e.target.checked) requestNotificationPermission();
+                    setAlertSettings((s) => ({ ...s, browserNotifications: e.target.checked }));
+                  }}
+                  className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                />
+                <span className="text-sm text-slate-700 dark:text-slate-300">Desktop Notifications</span>
+              </label>
+            </div>
+            <div>
+              <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
+                Confidence Threshold ({(alertSettings.threshold * 100).toFixed(0)}%)
+              </label>
+              <input
+                type="range"
+                min={0.3}
+                max={1}
+                step={0.05}
+                value={alertSettings.threshold}
+                onChange={(e) => setAlertSettings((s) => ({ ...s, threshold: +e.target.value }))}
+                className="w-full"
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
+                  <Mail size={12} className="inline mr-1" />
+                  Email (mailto: draft)
+                </label>
+                <Input
+                  value={alertSettings.email}
+                  onChange={(e) => setAlertSettings((s) => ({ ...s, email: e.target.value }))}
+                  placeholder="your@email.com"
+                  mono={false}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
+                  <Webhook size={12} className="inline mr-1" />
+                  Webhook URL
+                </label>
+                <Input
+                  value={alertSettings.webhookUrl}
+                  onChange={(e) => setAlertSettings((s) => ({ ...s, webhookUrl: e.target.value }))}
+                  placeholder="https://hooks.slack.com/..."
+                  mono={false}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">
+                Auto-Scan Interval
+              </label>
+              <Select
+                value={String(alertSettings.autoScanMinutes)}
+                onChange={(e) => setAlertSettings((s) => ({ ...s, autoScanMinutes: +e.target.value }))}
+                className="w-48"
+                mono={false}
+              >
+                <option value="0">Manual only</option>
+                <option value="15">Every 15 minutes</option>
+                <option value="30">Every 30 minutes</option>
+                <option value="60">Every hour</option>
+                <option value="360">Every 6 hours</option>
+              </Select>
+            </div>
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              Alerts fire when new detections exceed the confidence threshold. Email opens a mailto: draft. Webhook
+              posts to Slack/Discord/generic.
+            </p>
+          </div>
+        )}
       </Card>
 
       {/* Detections Feed */}

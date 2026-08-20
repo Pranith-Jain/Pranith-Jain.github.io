@@ -1,4 +1,4 @@
-/** 40 APT groups + aliases from MITRE ATT&CK + public vendor reporting. */
+/** 65 APT groups + aliases from MITRE ATT&CK + public vendor reporting. */
 export interface AptGroup {
   mitre_id: string | null;
   aliases: string[];
@@ -6,6 +6,7 @@ export interface AptGroup {
   target_sectors: string[];
 }
 export const APT_GROUPS: Record<string, AptGroup> = {
+  // ── Russia ───────────────────────────────────────────────────────────────
   APT28: {
     mitre_id: 'G0007',
     aliases: ['APT28', 'Fancy Bear', 'Sofacy', 'Sednit', 'STRONTIUM', 'Forest Blizzard', 'Pawn Storm'],
@@ -36,6 +37,38 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'Russia',
     target_sectors: ['Government', 'Ukraine-focused'],
   },
+  'Wizard Spider': {
+    mitre_id: 'G0102',
+    aliases: ['Wizard Spider', 'TrickBot Gang', 'UNC1878', 'Periwinkle Tempest'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Healthcare', 'Financial', 'Ransomware'],
+  },
+  FIN7: {
+    mitre_id: 'G0046',
+    aliases: ['FIN7', 'Carbon Spider', 'Sangria Tempest'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Retail', 'Hospitality', 'Financial'],
+  },
+  Armageddon: {
+    mitre_id: 'G0017',
+    aliases: ['Armageddon', 'Gamaredon', 'Bugdropper', 'Iron Tilden'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Government', 'Ukraine-focused'],
+  },
+  'Turla Snake': {
+    mitre_id: null,
+    aliases: ['Turla Snake', 'Uroburos'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Intelligence', 'Government'],
+  },
+  BelBear: {
+    mitre_id: null,
+    aliases: ['BelBear', 'Ghostwriter'],
+    suspected_origin: 'Belarus',
+    target_sectors: ['Government', 'Media', 'Defense'],
+  },
+
+  // ── China ────────────────────────────────────────────────────────────────
   APT41: {
     mitre_id: 'G0096',
     aliases: ['APT41', 'Double Dragon', 'Winnti', 'Wicked Panda', 'BARIUM'],
@@ -72,6 +105,68 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'China',
     target_sectors: ['NGOs', 'Government', 'Southeast Asia'],
   },
+  'Winnti Group': {
+    mitre_id: 'G0044',
+    aliases: ['Winnti Group', 'Blackfly', 'Bronze Atlas'],
+    suspected_origin: 'China',
+    target_sectors: ['Gaming', 'Pharmaceuticals'],
+  },
+  'Lotus Blossom': {
+    mitre_id: 'G0030',
+    aliases: ['Lotus Blossom', 'Spring Dragon', 'Billbug'],
+    suspected_origin: 'China',
+    target_sectors: ['Government - Southeast Asia'],
+  },
+  'Earth Lusca': {
+    mitre_id: null,
+    aliases: ['Earth Lusca', 'TAG-22'],
+    suspected_origin: 'China',
+    target_sectors: ['Government', 'Gambling', 'Media'],
+  },
+  BlackTech: {
+    mitre_id: 'G0098',
+    aliases: ['BlackTech', 'Palmerworm', 'Circuit Panda'],
+    suspected_origin: 'China',
+    target_sectors: ['Telecom', 'Government - East Asia'],
+  },
+  Hafnium: {
+    mitre_id: 'G0106',
+    aliases: ['Hafnium', 'Widow Cricket', 'Lead Goanna'],
+    suspected_origin: 'China',
+    target_sectors: ['Healthcare', 'Universities', 'Research'],
+  },
+  'Flax Typhoon': {
+    mitre_id: 'G1024',
+    aliases: ['Flax Typhoon', 'DHAMPIR'],
+    suspected_origin: 'China',
+    target_sectors: ['IoT', 'Critical Infrastructure', 'Taiwan'],
+  },
+  'Salt Typhoon': {
+    mitre_id: 'G1038',
+    aliases: ['Salt Typhoon', 'Camaro Dragon'],
+    suspected_origin: 'China',
+    target_sectors: ['Telecom', 'Government'],
+  },
+  'Charcoal Typhoon': {
+    mitre_id: 'G1040',
+    aliases: ['Charcoal Typhoon', 'CHROMIUM'],
+    suspected_origin: 'China',
+    target_sectors: ['Government', 'NGOs', 'Education'],
+  },
+  'Brass Typhoon': {
+    mitre_id: 'G0035',
+    aliases: ['Brass Typhoon', 'APT14'],
+    suspected_origin: 'China',
+    target_sectors: ['Telecom', 'Defense'],
+  },
+  Naikon: {
+    mitre_id: 'G0019',
+    aliases: ['Naikon', 'Nexus Zt'],
+    suspected_origin: 'China',
+    target_sectors: ['Government', 'Military - APAC'],
+  },
+
+  // ── North Korea ──────────────────────────────────────────────────────────
   'Lazarus Group': {
     mitre_id: 'G0032',
     aliases: ['Lazarus Group', 'Hidden Cobra', 'Guardians of Peace', 'APT38', 'Zinc', 'Diamond Sleet'],
@@ -90,6 +185,20 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'North Korea',
     target_sectors: ['Defense', 'Healthcare', 'Financial'],
   },
+  APT38: {
+    mitre_id: 'G0082',
+    aliases: ['APT38', 'Bluenoroff', 'Stardust Chollima'],
+    suspected_origin: 'North Korea',
+    target_sectors: ['Financial', 'Cryptocurrency', 'Banks'],
+  },
+  'Labyrinth Chollima': {
+    mitre_id: 'G0156',
+    aliases: ['Labyrinth Chollima', 'Stardust'],
+    suspected_origin: 'North Korea',
+    target_sectors: ['Defense', 'Government'],
+  },
+
+  // ── Iran ─────────────────────────────────────────────────────────────────
   APT33: {
     mitre_id: 'G0064',
     aliases: ['APT33', 'Elfin', 'Refined Kitten', 'Peach Sandstorm'],
@@ -120,55 +229,6 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'Iran',
     target_sectors: ['Israel-focused', 'Diamond Industry'],
   },
-  'Equation Group': {
-    mitre_id: 'G0020',
-    aliases: ['Equation Group', 'Equation'],
-    suspected_origin: 'USA (alleged)',
-    target_sectors: ['Telecom', 'Government'],
-  },
-  'APT-C-36': {
-    mitre_id: null,
-    aliases: ['APT-C-36', 'Blind Eagle'],
-    suspected_origin: 'South America',
-    target_sectors: ['Colombia', 'Government', 'Financial'],
-  },
-  Machete: {
-    mitre_id: 'G0095',
-    aliases: ['Machete', 'APT-C-43'],
-    suspected_origin: 'South America',
-    target_sectors: ['Military', 'Government - LATAM'],
-  },
-  DarkHotel: {
-    mitre_id: 'G0012',
-    aliases: ['DarkHotel', 'APT-C-06', 'Tapaoux'],
-    suspected_origin: 'South Korea (alleged)',
-    target_sectors: ['Hospitality', 'Executives'],
-  },
-  'Winnti Group': {
-    mitre_id: 'G0044',
-    aliases: ['Winnti Group', 'Blackfly', 'Bronze Atlas'],
-    suspected_origin: 'China',
-    target_sectors: ['Gaming', 'Pharmaceuticals'],
-  },
-  FIN7: {
-    mitre_id: 'G0046',
-    aliases: ['FIN7', 'Carbon Spider', 'Sangria Tempest'],
-    suspected_origin: 'Unknown/Russia-linked',
-    target_sectors: ['Retail', 'Hospitality', 'Financial'],
-  },
-  FIN12: { mitre_id: 'G1004', aliases: ['FIN12'], suspected_origin: 'Unknown', target_sectors: ['Healthcare'] },
-  'Wizard Spider': {
-    mitre_id: 'G0102',
-    aliases: ['Wizard Spider', 'TrickBot Gang', 'UNC1878', 'Periwinkle Tempest'],
-    suspected_origin: 'Russia',
-    target_sectors: ['Healthcare', 'Financial', 'Ransomware'],
-  },
-  'Scattered Spider': {
-    mitre_id: 'G1015',
-    aliases: ['Scattered Spider', 'UNC3944', 'Octo Tempest', 'Muddled Libra'],
-    suspected_origin: 'Unknown (English-speaking)',
-    target_sectors: ['Telecom', 'BPO', 'Gaming', 'Retail'],
-  },
   APT39: {
     mitre_id: 'G0087',
     aliases: ['APT39', 'Chafer', 'Remix Kitten'],
@@ -181,6 +241,85 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'Iran',
     target_sectors: ['NGOs', 'Journalists', 'Activists'],
   },
+  'Cobalt Sandstorm': {
+    mitre_id: 'G1027',
+    aliases: ['Cobalt Sandstorm', 'Cobalt Gypsy'],
+    suspected_origin: 'Iran',
+    target_sectors: ['Telecom', 'Defense'],
+  },
+
+  // ── North Korea / DPRK (additional) ─────────────────────────────────────
+  DarkSeoul: {
+    mitre_id: null,
+    aliases: ['DarkSeoul', 'Jestefuna'],
+    suspected_origin: 'North Korea',
+    target_sectors: ['Banking', 'Media - South Korea'],
+  },
+
+  // ── North America / Western ──────────────────────────────────────────────
+  'Equation Group': {
+    mitre_id: 'G0020',
+    aliases: ['Equation Group', 'Equation'],
+    suspected_origin: 'USA (alleged)',
+    target_sectors: ['Telecom', 'Government'],
+  },
+
+  // ── South America ────────────────────────────────────────────────────────
+  'APT-C-36': {
+    mitre_id: null,
+    aliases: ['APT-C-36', 'Blind Eagle'],
+    suspected_origin: 'South America',
+    target_sectors: ['Colombia', 'Government', 'Financial'],
+  },
+  Machete: {
+    mitre_id: 'G0095',
+    aliases: ['Machete', 'APT-C-43'],
+    suspected_origin: 'South America',
+    target_sectors: ['Military', 'Government - LATAM'],
+  },
+
+  // ── East Asia ────────────────────────────────────────────────────────────
+  DarkHotel: {
+    mitre_id: 'G0012',
+    aliases: ['DarkHotel', 'APT-C-06', 'Tapaoux'],
+    suspected_origin: 'South Korea (alleged)',
+    target_sectors: ['Hospitality', 'Executives'],
+  },
+
+  // ── Financial / Ecrime ───────────────────────────────────────────────────
+  FIN12: { mitre_id: 'G1004', aliases: ['FIN12'], suspected_origin: 'Unknown', target_sectors: ['Healthcare'] },
+  'Scattered Spider': {
+    mitre_id: 'G1015',
+    aliases: ['Scattered Spider', 'UNC3944', 'Octo Tempest', 'Muddled Libra'],
+    suspected_origin: 'Unknown (English-speaking)',
+    target_sectors: ['Telecom', 'BPO', 'Gaming', 'Retail'],
+  },
+  Clop: {
+    mitre_id: null,
+    aliases: ['Clop', 'Cl0p', 'TA505'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Supply Chain', 'Ransomware', 'Government'],
+  },
+  'ALPHV/BlackCat': {
+    mitre_id: null,
+    aliases: ['ALPHV', 'BlackCat', 'Noberus'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Healthcare', 'Critical Infrastructure', 'Ransomware'],
+  },
+  LockBit: {
+    mitre_id: null,
+    aliases: ['LockBit', 'LockBit 2.0', 'LockBit 3.0', 'LockBit Supp'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Ransomware', 'Multiple Sectors'],
+  },
+  Conti: {
+    mitre_id: null,
+    aliases: ['Conti', 'TrickBot', 'Ryuk'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Healthcare', 'Government', 'Ransomware'],
+  },
+
+  // ── South Asia ───────────────────────────────────────────────────────────
   'Transparent Tribe': {
     mitre_id: 'G0134',
     aliases: ['Transparent Tribe', 'APT36', 'Mythic Leopard'],
@@ -205,6 +344,8 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'South Asia',
     target_sectors: ['Government', 'Energy - South Asia'],
   },
+
+  // ── Middle East ──────────────────────────────────────────────────────────
   Molerats: {
     mitre_id: 'G0021',
     aliases: ['Molerats', 'Gaza Cybergang', 'TA402'],
@@ -217,31 +358,65 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'Vietnam',
     target_sectors: ['Manufacturing', 'Media', 'ASEAN Government'],
   },
-  'Lotus Blossom': {
-    mitre_id: 'G0030',
-    aliases: ['Lotus Blossom', 'Spring Dragon', 'Billbug'],
-    suspected_origin: 'China',
-    target_sectors: ['Government - Southeast Asia'],
+  OilRig: {
+    mitre_id: 'G0049',
+    aliases: ['OilRig', 'APT34', 'Helix Kitten'],
+    suspected_origin: 'Iran',
+    target_sectors: ['Energy', 'Government'],
   },
-  'Earth Lusca': {
-    mitre_id: null,
-    aliases: ['Earth Lusca', 'TAG-22'],
-    suspected_origin: 'China',
-    target_sectors: ['Government', 'Gambling', 'Media'],
-  },
-  BlackTech: {
-    mitre_id: 'G0098',
-    aliases: ['BlackTech', 'Palmerworm', 'Circuit Panda'],
-    suspected_origin: 'China',
-    target_sectors: ['Telecom', 'Government - East Asia'],
-  },
+
+  // ── Unknown / Multi-origin ───────────────────────────────────────────────
   RedCurl: {
     mitre_id: null,
     aliases: ['RedCurl', 'Earth Kapre'],
     suspected_origin: 'Unknown',
     target_sectors: ['Corporate Espionage'],
   },
+  FIN8: {
+    mitre_id: 'G0092',
+    aliases: ['FIN8', 'DarkHydrus'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Healthcare', 'Hospitality', 'Financial'],
+  },
+  'Cobalt Group': {
+    mitre_id: 'G0080',
+    aliases: ['Cobalt Group', 'Carbanak', 'Anunak'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Financial', 'ATM', 'POS'],
+  },
+  DarkSide: {
+    mitre_id: null,
+    aliases: ['DarkSide'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Energy', 'Healthcare', 'Ransomware'],
+  },
+  Hive: { mitre_id: null, aliases: ['Hive'], suspected_origin: 'Russia', target_sectors: ['Healthcare', 'Ransomware'] },
+  BlackBasta: {
+    mitre_id: null,
+    aliases: ['BlackBasta', 'Black Basta'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Healthcare', 'Ransomware'],
+  },
+  ScatteredLaPossa: {
+    mitre_id: null,
+    aliases: ['ScatteredLaPossa', 'Scattered G00LA'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Ransomware', 'Telecom'],
+  },
+  'Vice Society': {
+    mitre_id: null,
+    aliases: ['Vice Society'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Education', 'Ransomware'],
+  },
+  DarkAngels: {
+    mitre_id: null,
+    aliases: ['DarkAngels', 'Dark Angels'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Healthcare', 'Ransomware'],
+  },
 };
+
 /** Flat alias map: lowercase alias → canonical group name */
 export const ALIAS_MAP: Record<string, string> = {};
 for (const [name, meta] of Object.entries(APT_GROUPS)) {

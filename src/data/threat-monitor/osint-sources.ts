@@ -1,10 +1,11 @@
-/** 30 public RSS/Atom threat intel feeds. */
+/** 42 public RSS/Atom threat intel feeds. */
 export interface OsintSource {
   name: string;
   url: string;
   category: string;
 }
 export const OSINT_SOURCES: OsintSource[] = [
+  // ── News ─────────────────────────────────────────────────────────────────
   { name: 'The Hacker News', url: 'https://feeds.feedburner.com/TheHackersNews', category: 'news' },
   { name: 'BleepingComputer', url: 'https://www.bleepingcomputer.com/feed/', category: 'news' },
   { name: 'Krebs on Security', url: 'https://krebsonsecurity.com/feed/', category: 'news' },
@@ -15,6 +16,10 @@ export const OSINT_SOURCES: OsintSource[] = [
   { name: 'SC Media', url: 'https://www.scmagazine.com/feed', category: 'news' },
   { name: 'CyberScoop', url: 'https://cyberscoop.com/feed/', category: 'news' },
   { name: 'Graham Cluley', url: 'https://grahamcluley.com/feed/', category: 'news' },
+  { name: 'Sophos News', url: 'https://news.sophos.com/en-us/feed/', category: 'news' },
+  { name: 'Ars Technica Security', url: 'https://feeds.arstechnica.com/arstechnica/security', category: 'news' },
+  { name: 'ZDNet Security', url: 'https://www.zdnet.com/topic/security/rss.xml', category: 'news' },
+  // ── Vendor / Research ────────────────────────────────────────────────────
   { name: 'Microsoft Security Blog', url: 'https://www.microsoft.com/en-us/security/blog/feed/', category: 'vendor' },
   {
     name: 'Google Threat Intel',
@@ -31,12 +36,19 @@ export const OSINT_SOURCES: OsintSource[] = [
   { name: 'Mandiant Blog', url: 'https://www.mandiant.com/resources/blog/rss.xml', category: 'vendor' },
   { name: 'Recorded Future Blog', url: 'https://www.recordedfuture.com/feed', category: 'vendor' },
   { name: 'SentinelOne Labs', url: 'https://www.sentinelone.com/labs/feed/', category: 'vendor' },
-  { name: 'Sophos News', url: 'https://news.sophos.com/en-us/feed/', category: 'vendor' },
   { name: 'Proofpoint Threat Insight', url: 'https://www.proofpoint.com/us/rss.xml', category: 'vendor' },
   { name: 'Volexity Blog', url: 'https://www.volexity.com/blog/feed/', category: 'vendor' },
+  { name: 'Rapid7 Blog', url: 'https://blog.rapid7.com/rss/', category: 'vendor' },
+  { name: 'Elastic Security Labs', url: 'https://www.elastic.co/security-labs/rss/feed.xml', category: 'vendor' },
+  { name: 'Sophos X-Ops', url: 'https://news.sophos.com/en-us/feed/', category: 'vendor' },
+  { name: 'Zscaler ThreatLabz', url: 'https://www.zscaler.com/blogs/security-research', category: 'vendor' },
+  { name: 'Flashpoint Blog', url: 'https://flashpoint.io/blog/feed/', category: 'vendor' },
+  // ── Government / CERT ────────────────────────────────────────────────────
   { name: 'CISA Advisories', url: 'https://www.cisa.gov/cybersecurity-advisories/all.xml', category: 'gov' },
   { name: 'CISA News', url: 'https://www.cisa.gov/news.xml', category: 'gov' },
   { name: 'UK NCSC News', url: 'https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml', category: 'gov' },
   { name: 'CERT-EU', url: 'https://cert.europa.eu/publications/threat-intelligence-rss', category: 'gov' },
   { name: 'NIST NVD', url: 'https://nvd.nist.gov/feeds/xml/cve/misc/nvd-rss.xml', category: 'gov' },
+  { name: 'JPCERT/CC', url: 'https://www.jpcert.or.jp/english/rss/jpcert_en.xml', category: 'gov' },
+  { name: 'AusCERT', url: 'https://www.auscert.org.au/rss/bulletins/', category: 'gov' },
 ];
