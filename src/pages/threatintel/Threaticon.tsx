@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import {
   Bug,
   Check,
@@ -362,6 +364,12 @@ function ActorDetailBody({ slug, onCopy, copied }: { slug: string; onCopy: () =>
   return (
     <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-sm">
       {body.description && <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>}
+      <PostAnalysisButton
+        title={body.name}
+        description={`${body.description ?? ''}\n\nsophistication: ${body.sophistication ?? 'n/a'} · motivation: ${body.motivation ?? 'n/a'} · sectors: ${body.targetedSectors.join(', ') || 'n/a'}\nCapabilities: ${body.keyCapabilities.join('; ') || 'n/a'}\nRecommended actions: ${body.recommendedActions.join('; ') || 'n/a'}`}
+        source="threaticon.com"
+        compact
+      />
       {body.goals && (
         <p className="text-xs text-slate-500 leading-relaxed">
           <span className="font-mono text-slate-600 dark:text-slate-400">goals: </span>
@@ -724,6 +732,12 @@ function CatalogDetailBody({ section, id }: { section: CatalogSectionId; id: num
   return (
     <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-sm">
       {body.description && <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>}
+      <PostAnalysisButton
+        title={typeof body.name === 'string' ? body.name : `${section} #${id}`}
+        description={typeof body.description === 'string' ? body.description : undefined}
+        source="threaticon.com"
+        compact
+      />
       {Array.isArray(body.aliases) && body.aliases.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini text-slate-500 font-mono mr-1">aliases:</span>
@@ -1011,6 +1025,58 @@ export default function ThreaticonFeeds() {
     return catalogIdx?.counts[id] ?? null;
   };
 
+  const summaryItems = useMemo(() => {
+    const source = 'threaticon.com';
+    const tabLabel = TABS.find((t) => t.id === tab)?.label ?? tab;
+    const items =
+      tab === 'actors'
+        ? filteredActors.slice(0, 30).map((a) => ({
+            title: a.name,
+            body: `types: ${a.types.join(', ') || 'unknown'} · origin: ${a.countryOfOrigin ?? 'unknown'} · ${a.status ?? 'no status'}`,
+            source,
+          }))
+        : tab === 'malware'
+          ? filteredFamilies.slice(0, 30).map((f) => ({
+              title: f.name,
+              body: `category: ${f.category ?? 'unknown'} · confidence: ${f.confidence ?? 'n/a'}%`,
+              source,
+            }))
+          : tab === 'coverage'
+            ? filteredCoverage.slice(0, 30).map((t) => ({
+                title: `${t.techniqueId} — ${t.name}`,
+                body: `tactic: ${t.tactic} · ${t.rules} detection rules`,
+                source,
+              }))
+            : tab === 'campaigns'
+              ? filteredCampaigns.slice(0, 30).map((c) => ({
+                  title: c.name,
+                  body: `status: ${c.status ?? 'unknown'}`,
+                  source,
+                }))
+              : tab === 'attack-patterns'
+                ? filteredPatterns.slice(0, 30).map((a) => ({
+                    title: a.name,
+                    body: `technique: ${a.techniqueId ?? 'n/a'}`,
+                    source,
+                  }))
+                : tab === 'catalog'
+                  ? filteredCatalogItems.slice(0, 30).map((i) => ({
+                      title: i.name,
+                      body: `status: ${i.status ?? 'unknown'}`,
+                      source,
+                    }))
+                  : [];
+    return { surface: `Threaticon · ${tabLabel}`, items };
+  }, [
+    tab,
+    filteredActors,
+    filteredFamilies,
+    filteredCoverage,
+    filteredCampaigns,
+    filteredPatterns,
+    filteredCatalogItems,
+  ]);
+
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -1085,6 +1151,11 @@ export default function ThreaticonFeeds() {
               );
             })}
           </div>
+
+          {/* AI summary of the active tab */}
+          {summaryItems.items.length > 0 && (
+            <AiSummaryCard surface={summaryItems.surface} items={summaryItems.items} requireAdmin={false} />
+          )}
 
           {/* Actors tab */}
           {tab === 'actors' && (

@@ -3,6 +3,7 @@ import { Shield, Search, Download, ExternalLink, AlertTriangle, ChevronLeft, Che
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { fetchJson } from '../../lib/fetch-helpers';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface KevEntry {
   cve_id: string;
@@ -31,7 +32,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   High: 'bg-orange-500 text-white',
   Medium: 'bg-amber-500 text-white',
   Low: 'bg-emerald-500 text-white',
-  '(none)': 'bg-slate-300 dark:bg-slate-600 text-slate-700 dark:text-slate-300',
+  '(none)': 'bg-slate-300 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300',
 };
 
 const SEVERITY_PILL: Record<string, string> = {
@@ -300,6 +301,17 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       </div>
 
       {/* Table */}
+      {!bare && filtered.length > 0 && (
+        <AiSummaryCard
+          surface="CISA KEV Catalog"
+          items={filtered.slice(0, 30).map((e) => ({
+            title: `${e.cve_id} — ${e.vulnerability_name}`,
+            body: `${e.vendor_project} ${e.product}\nseverity: ${e.severity ?? 'n/a'}${e.cvss_score != null ? ` (CVSS ${e.cvss_score.toFixed(1)})` : ''}${e.known_ransomware_campaign_use === 'Known' ? ' · ransomware campaign use' : ''}`,
+            source: 'cisa.gov',
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <DataTable
           columns={

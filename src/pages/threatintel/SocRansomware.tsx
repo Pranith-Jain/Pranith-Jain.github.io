@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ShieldAlert, Skull, Users, Crosshair, Building2, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-helpers';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
@@ -424,62 +425,73 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
     return <p className="text-meta font-mono text-slate-500 italic">No claims in window.</p>;
   }
   return (
-    <div className="overflow-x-auto -mx-4 sm:mx-0">
-      <DataTable
-        columns={
-          [
-            {
-              key: 'victim',
-              header: 'Victim',
-              sortValue: (v: (typeof rows)[number]) => v.victim,
-              render: (v) => (
-                <span className="text-slate-900 dark:text-slate-100 truncate max-w-[200px]" title={v.victim}>
-                  {v.victim}
-                </span>
-              ),
-            },
-            {
-              key: 'group',
-              header: 'Group',
-              sortValue: (v: (typeof rows)[number]) => v.group,
-              render: (v) => (
-                <Link
-                  to={`/threatintel/actors/${encodeURIComponent(slugifyGroup(v.group))}`}
-                  className="text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400"
-                >
-                  {v.group}
-                </Link>
-              ),
-            },
-            {
-              key: 'sector',
-              header: 'Sector',
-              sortValue: (v: (typeof rows)[number]) => v.sector ?? '',
-              render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.sector ?? '-'}</span>,
-            },
-            {
-              key: 'country',
-              header: 'Country',
-              sortValue: (v: (typeof rows)[number]) => v.country ?? '',
-              render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.country ?? '-'}</span>,
-            },
-            {
-              key: 'discovered',
-              header: 'Discovered',
-              align: 'right',
-              sortValue: (v: (typeof rows)[number]) => v.discovered ?? '',
-              render: (v) => (
-                <span className="text-slate-500 dark:text-slate-400 tabular-nums">
-                  {v.discovered ? v.discovered.slice(0, 10) : '-'}
-                </span>
-              ),
-            },
-          ] as DataTableColumn<(typeof rows)[number]>[]
-        }
-        rows={rows}
-        rowKey={(v, i) => `${v.victim}-${i}`}
-        rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+    <div className="space-y-3">
+      <AiSummaryCard
+        surface="Ransomware Claims"
+        items={rows.slice(0, 30).map((v) => ({
+          title: v.victim,
+          body: `group: ${v.group}${v.sector ? ` · sector: ${v.sector}` : ''}${v.country ? ` · country: ${v.country}` : ''}${v.description ? `\n${v.description}` : ''}`,
+          source: 'ransomware-recent',
+        }))}
+        requireAdmin={false}
       />
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <DataTable
+          columns={
+            [
+              {
+                key: 'victim',
+                header: 'Victim',
+                sortValue: (v: (typeof rows)[number]) => v.victim,
+                render: (v) => (
+                  <span className="text-slate-900 dark:text-slate-100 truncate max-w-[200px]" title={v.victim}>
+                    {v.victim}
+                  </span>
+                ),
+              },
+              {
+                key: 'group',
+                header: 'Group',
+                sortValue: (v: (typeof rows)[number]) => v.group,
+                render: (v) => (
+                  <Link
+                    to={`/threatintel/actors/${encodeURIComponent(slugifyGroup(v.group))}`}
+                    className="text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400"
+                  >
+                    {v.group}
+                  </Link>
+                ),
+              },
+              {
+                key: 'sector',
+                header: 'Sector',
+                sortValue: (v: (typeof rows)[number]) => v.sector ?? '',
+                render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.sector ?? '-'}</span>,
+              },
+              {
+                key: 'country',
+                header: 'Country',
+                sortValue: (v: (typeof rows)[number]) => v.country ?? '',
+                render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.country ?? '-'}</span>,
+              },
+              {
+                key: 'discovered',
+                header: 'Discovered',
+                align: 'right',
+                sortValue: (v: (typeof rows)[number]) => v.discovered ?? '',
+                render: (v) => (
+                  <span className="text-slate-500 dark:text-slate-400 tabular-nums">
+                    {v.discovered ? v.discovered.slice(0, 10) : '-'}
+                  </span>
+                ),
+              },
+            ] as DataTableColumn<(typeof rows)[number]>[]
+          }
+          rows={rows}
+          rowKey={(v, i) => `${v.victim}-${i}`}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+        />
+      </div>
     </div>
   );
 }

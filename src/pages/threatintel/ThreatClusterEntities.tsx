@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import {
   Activity,
   AlertTriangle,
@@ -272,6 +274,19 @@ export default function ThreatClusterEntities() {
             </div>
 
             <div className="max-h-[60vh] overflow-y-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50">
+              {filtered.length > 0 && (
+                <div className="p-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <AiSummaryCard
+                    surface="ThreatCluster Entities"
+                    items={filtered.slice(0, 30).map((e) => ({
+                      title: e.name,
+                      body: `${TYPE_META[e.type].label} · ${e.mentionCount} mentions${e.aliases.length > 0 ? ` · ${e.aliases.join(', ')}` : ''}`,
+                      source: 'threatcluster.io',
+                    }))}
+                    requireAdmin={false}
+                  />
+                </div>
+              )}
               {filtered.map((e) => {
                 const meta = TYPE_META[e.type];
                 const Icon = meta.icon;
@@ -356,6 +371,17 @@ function EntityProfile({
 
   return (
     <div className="space-y-4">
+      <PostAnalysisButton
+        title={body.name}
+        description={`${body.summary}\n\naliases: ${body.aliases.join(', ') || 'none'}\nMITRE: ${body.mitreTechniques.join(', ') || 'none'}\nrelated: ${body.relatedEntities.map((r) => `${r.name} (w${r.weight})`).join(', ') || 'none'}\nrecent: ${
+          body.recentActivity
+            .slice(0, 6)
+            .map((a) => a.title)
+            .join(' · ') || 'none'
+        }`}
+        source={body.sources[0] || 'threatcluster.io'}
+        compact
+      />
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
           <Icon className="w-5 h-5 text-slate-400 shrink-0" />

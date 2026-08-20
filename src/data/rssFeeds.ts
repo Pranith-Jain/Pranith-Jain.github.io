@@ -1632,3 +1632,47 @@ export function getFeedStats() {
     })),
   };
 }
+
+/**
+ * Feeds deliberately retired from this catalog (removed 2026-05..2026-08).
+ * Single structured registry so future sync/tooling can consult it and the
+ * catalog page can render the history. Keys are the old feed ids; the reason
+ * records why it is gone. DO NOT re-add these without a working live URL.
+ */
+export const RETIRED_FEEDS: Record<string, string> = {
+  'supplychain-attacks': 'HTTP 402 (requires payment)',
+  cybernews: '403 from Worker egress IP',
+  'lyrie-research': 'feed went dead',
+  threatpost: 'site frozen / feeds removed upstream (2023)',
+  countercept: 'duplicate of withsecure-labs',
+  'chronicle-blog': 'duplicate of google-cloud-blog',
+  'netscope-research': 'feed went dead',
+  thehackerblog: 'feed went dead',
+  pentestlab: 'feed went dead',
+  'curated-intel': 'out-of-scope curated feed',
+  vxdb: 'feed schema incompatible',
+  doublepulsar: 'out-of-scope curated feed',
+  'reddit-r-threatintel': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-cybersecurity': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-netsec': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-hacking': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-malware': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-apt': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-osint': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-scams': 'reddit blocks Worker egress IPs (network-level)',
+  'reddit-r-vxunderground': 'reddit blocks Worker egress IPs (network-level)',
+  'ccb-belg': 'ccb.belgium.be Cloudflare-fronted, 403 to Worker egress',
+  cvedetails: 'cvedetails.com Cloudflare-fronted, 403 (2026-05)',
+  exploitdb: 'exploit-db.com Cloudflare-fronted, 403 (2026-06)',
+  'wired-rss': 'feed path restructured upstream, 404 (removed /latest/)',
+  'gnews-cyber': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-india': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-ai': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-cloud': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-devsecops': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-ics': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-iot': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-mobile': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-ransomware': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+  'gnews-supply-chain': 'google news rate-limits Worker IPs, 503 (2026-05-24)',
+};

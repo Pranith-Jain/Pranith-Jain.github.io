@@ -3,6 +3,7 @@ import { Download, ExternalLink, Hash, RefreshCw, Search, Shield, AlertTriangle,
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface CertInAdvisory {
   id: string;
@@ -30,8 +31,6 @@ interface CertInResponse {
     limit?: number;
   };
 }
-
-
 
 const SEVERITY_STYLES: Record<string, string> = {
   critical: 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300',
@@ -68,7 +67,6 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
   useEffect(() => {
     /* state is already triggering refetch via url change */
   }, [qs]);
-
 
   const stats = useMemo(() => {
     if (!data) return { total: 0, critical: 0, high: 0, years: 0, withCve: 0 };
@@ -234,7 +232,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
       {data && (
         <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
           <span>
-            {(data?.advisories.length ?? 0)} of {data?.total ?? 0} advisories
+            {data?.advisories.length ?? 0} of {data?.total ?? 0} advisories
           </span>
           <a
             href="https://www.cert-in.org.in/"
@@ -248,53 +246,130 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
       )}
 
       {/* Table */}
-      <DataState loading={loading} error={error} empty={(data?.advisories.length ?? 0) === 0} onRetry={refetch} rows={6}>
+      <DataState
+        loading={loading}
+        error={error}
+        empty={(data?.advisories.length ?? 0) === 0}
+        onRetry={refetch}
+        rows={6}
+      >
+        {!bare && (data?.advisories.length ?? 0) > 0 && (
+          <AiSummaryCard
+            surface="CERT-In Advisories"
+            items={(data?.advisories ?? []).slice(0, 30).map((a) => ({
+              title: a.id,
+              body: `${a.severity.toUpperCase()}${a.cves.length > 0 ? ` · ${a.cves.join(', ')}` : ''}\n${a.description || a.summary}`,
+              source: 'cert-in.org.in',
+            }))}
+            requireAdmin={false}
+          />
+        )}
         <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
           <DataTable
-          columns={[
-            { key: 'id', header: 'Advisory ID', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.id, render: (adv) => (
-              <a href={adv.detail_url} target="_blank" rel="noopener noreferrer" className="font-mono whitespace-nowrap text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors">
-                {adv.id} <ExternalLink className="w-3 h-3" />
-              </a>
-            ) },
-            { key: 'published_at', header: 'Published', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.published_at, render: (adv) => <span className="font-mono whitespace-nowrap text-slate-600 dark:text-slate-400">{formatDate(adv.published_at)}</span> },
-            { key: 'severity', header: 'Severity', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.severity, render: (adv) => (
-              <span className={`inline-block px-2 py-0.5 rounded border text-xs font-mono uppercase tracking-wider ${SEVERITY_STYLES[adv.severity] || SEVERITY_STYLES.unknown}`}>{adv.severity}</span>
-            ) },
-            { key: 'cve_count', header: 'CVEs', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.cves.length, render: (adv) => (
-              <div className="flex flex-wrap gap-1 max-w-xs">
-                {adv.cves.slice(0, 3).map((cve) => (
-                  <a key={cve} href={`https://nvd.nist.gov/vuln/detail/${cve}`} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline">
-                    {cve}
-                  </a>
-                ))}
-                {adv.cves.length > 3 && <span className="text-xs text-slate-500">+{adv.cves.length - 3}</span>}
-              </div>
-            ) },
-            { key: 'products', header: 'Products', render: (adv) => (
-              <div className="max-w-xs">
-                {adv.products_affected.length > 0 ? (
-                  <div className="flex flex-wrap gap-1">
-                    {adv.products_affected.slice(0, 2).map((p, i) => (
-                      <span key={i} className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-slate-600 dark:text-slate-400">
-                        {p.length > 32 ? `${p.slice(0, 32)}…` : p}
-                      </span>
-                    ))}
-                    {adv.products_affected.length > 2 && <span className="text-xs text-slate-500">+{adv.products_affected.length - 2}</span>}
-                  </div>
-                ) : <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>}
-              </div>
-            ) },
-            { key: 'description', header: 'Description', render: (adv) => (
-              <span className="text-slate-600 dark:text-slate-400 text-xs max-w-md">
-                {adv.description ? <span className="line-clamp-2">{adv.description}</span> : <span className="italic text-slate-500 dark:text-slate-400">{adv.summary}</span>}
-              </span>
-            ) },
-          ] as DataTableColumn<NonNullable<typeof data>['advisories'][number]>[]}
-          rows={data?.advisories ?? []}
-          rowKey={(adv) => adv.id}
-          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
-        />
+            columns={
+              [
+                {
+                  key: 'id',
+                  header: 'Advisory ID',
+                  sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.id,
+                  render: (adv) => (
+                    <a
+                      href={adv.detail_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono whitespace-nowrap text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
+                    >
+                      {adv.id} <ExternalLink className="w-3 h-3" />
+                    </a>
+                  ),
+                },
+                {
+                  key: 'published_at',
+                  header: 'Published',
+                  sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.published_at,
+                  render: (adv) => (
+                    <span className="font-mono whitespace-nowrap text-slate-600 dark:text-slate-400">
+                      {formatDate(adv.published_at)}
+                    </span>
+                  ),
+                },
+                {
+                  key: 'severity',
+                  header: 'Severity',
+                  sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.severity,
+                  render: (adv) => (
+                    <span
+                      className={`inline-block px-2 py-0.5 rounded border text-xs font-mono uppercase tracking-wider ${SEVERITY_STYLES[adv.severity] || SEVERITY_STYLES.unknown}`}
+                    >
+                      {adv.severity}
+                    </span>
+                  ),
+                },
+                {
+                  key: 'cve_count',
+                  header: 'CVEs',
+                  sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.cves.length,
+                  render: (adv) => (
+                    <div className="flex flex-wrap gap-1 max-w-xs">
+                      {adv.cves.slice(0, 3).map((cve) => (
+                        <a
+                          key={cve}
+                          href={`https://nvd.nist.gov/vuln/detail/${cve}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                        >
+                          {cve}
+                        </a>
+                      ))}
+                      {adv.cves.length > 3 && <span className="text-xs text-slate-500">+{adv.cves.length - 3}</span>}
+                    </div>
+                  ),
+                },
+                {
+                  key: 'products',
+                  header: 'Products',
+                  render: (adv) => (
+                    <div className="max-w-xs">
+                      {adv.products_affected.length > 0 ? (
+                        <div className="flex flex-wrap gap-1">
+                          {adv.products_affected.slice(0, 2).map((p, i) => (
+                            <span
+                              key={i}
+                              className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-slate-600 dark:text-slate-400"
+                            >
+                              {p.length > 32 ? `${p.slice(0, 32)}…` : p}
+                            </span>
+                          ))}
+                          {adv.products_affected.length > 2 && (
+                            <span className="text-xs text-slate-500">+{adv.products_affected.length - 2}</span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>
+                      )}
+                    </div>
+                  ),
+                },
+                {
+                  key: 'description',
+                  header: 'Description',
+                  render: (adv) => (
+                    <span className="text-slate-600 dark:text-slate-400 text-xs max-w-md">
+                      {adv.description ? (
+                        <span className="line-clamp-2">{adv.description}</span>
+                      ) : (
+                        <span className="italic text-slate-500 dark:text-slate-400">{adv.summary}</span>
+                      )}
+                    </span>
+                  ),
+                },
+              ] as DataTableColumn<NonNullable<typeof data>['advisories'][number]>[]
+            }
+            rows={data?.advisories ?? []}
+            rowKey={(adv) => adv.id}
+            rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+          />
         </div>
       </DataState>
     </div>

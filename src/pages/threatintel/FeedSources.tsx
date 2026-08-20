@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Rss, ExternalLink, Globe, Shield, Newspaper, Cpu, GraduationCap, Wrench } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { rssFeeds } from '../../data/rssFeeds';
+import { rssFeeds, RETIRED_FEEDS } from '../../data/rssFeeds';
 import type { RSSFeed } from '../../data/rssFeeds';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -172,6 +172,20 @@ export default function FeedSources(): JSX.Element {
       </div>
 
       <details className="mt-10">
+        <summary className="cursor-pointer text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+          Retired feeds ({Object.keys(RETIRED_FEEDS).length}) — do not re-add without a working live URL
+        </summary>
+        <div className="mt-3 grid gap-1 max-w-2xl">
+          {Object.entries(RETIRED_FEEDS).map(([id, reason]) => (
+            <div key={id} className="flex items-baseline gap-2 text-mini font-mono text-slate-500">
+              <span className="font-semibold text-slate-600 dark:text-slate-400">{id}</span>
+              <span className="text-slate-400">— {reason}</span>
+            </div>
+          ))}
+        </div>
+      </details>
+
+      <details className="mt-3">
         <summary className="cursor-pointer text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
           How feed management works
         </summary>

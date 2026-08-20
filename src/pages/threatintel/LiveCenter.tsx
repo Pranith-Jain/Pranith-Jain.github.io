@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { ExternalLink, Terminal, Globe, AlertTriangle, Hash, Users } from 'lucide-react';
 
 interface ToolDetail {
@@ -325,6 +326,18 @@ export default function LiveCenter(): JSX.Element {
           </div>
         ))}
       </div>
+
+      <AiSummaryCard
+        surface="Live Tool Center"
+        items={CATEGORIES.flatMap((cat) => cat.tools.map((tool) => ({ tool, cat })))
+          .slice(0, 30)
+          .map(({ tool, cat }) => ({
+            title: tool.name,
+            body: `${cat.label} · ${tool.desc}`,
+            source: (tool.detail.url || '').replace(/^https?:\/\/(www\.)?/, '').split('/')[0] || 'live-center',
+          }))}
+        requireAdmin={false}
+      />
 
       <div className="space-y-8">
         {CATEGORIES.map((cat) => (

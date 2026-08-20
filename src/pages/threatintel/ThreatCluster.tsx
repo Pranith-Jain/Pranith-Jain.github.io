@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { fetchJsonCached } from '../../lib/api-client';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import {
   Activity,
   AlertTriangle,
@@ -407,6 +409,42 @@ export default function ThreatCluster(): JSX.Element {
 
   const setQuerySafe = (v: string) => setQuery(v);
 
+  const summaryItems = useMemo(() => {
+    const source = 'threatcluster.io';
+    const tabLabel = TABS.find((t) => t.id === tab)?.label ?? tab;
+    const items =
+      tab === 'clusters'
+        ? filteredClusters.slice(0, 30).map((c) => ({ title: c.title, body: `${c.slug}`, source }))
+        : tab === 'vulnerabilities'
+          ? filteredVulns.slice(0, 30).map((v) => ({ title: `${v.cveId} — ${v.title}`, body: `${v.cveId}`, source }))
+          : tab === 'exploits'
+            ? filteredExploits.slice(0, 30).map((e) => ({
+                title: `${e.cveId} — ${e.title}`,
+                body: `severity: ${e.severity ?? 'unknown'}${e.inKev ? ' · in CISA KEV' : ''}`,
+                source,
+              }))
+            : tab === 'victims'
+              ? filteredVictims.slice(0, 30).map((v) => ({
+                  title: v.victim,
+                  body: `group: ${v.group ?? 'unknown'} · sector: ${v.sector ?? 'unknown'} · country: ${v.country ?? 'unknown'}`,
+                  source,
+                }))
+              : tab === 'iocs'
+                ? filteredIocs.slice(0, 30).map((i) => ({
+                    title: i.value,
+                    body: `${i.type} · ${i.confidence} · ${i.reason ?? 'no reason'}`,
+                    source: i.sources.map((s) => s.source).join(', ') || source,
+                  }))
+                : tab === 'misp'
+                  ? filteredMisp.slice(0, 30).map((e) => ({
+                      title: e.info ?? e.uuid,
+                      body: `L${e.threat_level_id ?? '?'} · ${e.tags.join(', ') || 'no tags'}`,
+                      source: e.orgc ?? 'MISP',
+                    }))
+                  : [];
+    return { surface: `ThreatCluster · ${tabLabel}`, items };
+  }, [tab, filteredClusters, filteredVulns, filteredExploits, filteredVictims, filteredIocs, filteredMisp]);
+
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -478,6 +516,11 @@ export default function ThreatCluster(): JSX.Element {
               );
             })}
           </div>
+
+          {/* AI summary of the active tab */}
+          {summaryItems.items.length > 0 && (
+            <AiSummaryCard surface={summaryItems.surface} items={summaryItems.items} requireAdmin={false} />
+          )}
 
           {/* Per-tab body */}
           {tab === 'clusters' && (
@@ -806,6 +849,7 @@ function ClusterDetailBody({ slug }: { slug: string }) {
       <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
         {body.description}
       </p>
+      <PostAnalysisButton title={body.title} description={body.description} source="threatcluster.io" compact />
       <DetailLink href={body.link} />
     </>
   );
@@ -817,6 +861,12 @@ function VulnDetailBody({ cveId }: { cveId: string }) {
   return (
     <>
       <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>
+      <PostAnalysisButton
+        title={`${body.cveId} — ${body.title}`}
+        description={body.description}
+        source="threatcluster.io"
+        compact
+      />
       <DetailLink href={body.link} />
     </>
   );
@@ -828,6 +878,12 @@ function ExploitDetailBody({ cveId }: { cveId: string }) {
   return (
     <>
       <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>
+      <PostAnalysisButton
+        title={`${body.cveId} — ${body.title}`}
+        description={body.description}
+        source="threatcluster.io"
+        compact
+      />
       <DetailLink href={body.link} />
     </>
   );
@@ -839,6 +895,7 @@ function VictimDetailBody({ id }: { id: string }) {
   return (
     <>
       <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{body.description}</p>
+      <PostAnalysisButton title={body.victim} description={body.description} source="threatcluster.io" compact />
       <DetailLink href={body.link} />
     </>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Activity, ExternalLink, Fingerprint, Globe, RefreshCw, Search, ShieldOff, Star, Zap } from 'lucide-react';
 
@@ -408,11 +409,22 @@ export default function DarknetList(): JSX.Element {
           {filtered.length === 0 ? (
             <div className="text-center py-12 text-slate-500 font-mono text-sm">No sites match your filters</div>
           ) : (
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((site) => (
-                <SiteCard key={site.slug} site={site} />
-              ))}
-            </div>
+            <>
+              <AiSummaryCard
+                surface="Darknetlist Directory"
+                items={filtered.slice(0, 30).map((s) => ({
+                  title: s.name,
+                  body: `${CATEGORY_META[s.category]?.label ?? s.category} · ${s.status}${s.httpCode && s.httpCode !== 'n/a' ? ` · HTTP ${s.httpCode}` : ''}${s.recommended ? ' · recommended' : ''}`,
+                  source: 'darknetlist.is',
+                }))}
+                requireAdmin={false}
+              />
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {filtered.map((site) => (
+                  <SiteCard key={site.slug} site={site} />
+                ))}
+              </div>
+            </>
           )}
 
           <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">

@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -225,6 +227,12 @@ function IndicatorCard({ entry }: { entry: DphishIndexEntry }) {
                   ))}
                 </div>
               )}
+              <PostAnalysisButton
+                title={entry.value ?? entry.slug}
+                description={`${body.description ?? ''}\n\nSTIX pattern: ${body.pattern ?? 'n/a'}`}
+                source="dphish"
+                compact
+              />
               {body.pattern && (
                 <div>
                   <div className="flex items-center gap-1.5 text-micro text-slate-400 font-mono mb-1">
@@ -439,11 +447,22 @@ export default function Dphish(): JSX.Element {
           {filtered.length === 0 ? (
             <div className="text-center py-12 text-slate-500 font-mono text-sm">No indicators match your filters</div>
           ) : (
-            <div className="space-y-2">
-              {filtered.map((entry) => (
-                <IndicatorCard key={entry.slug} entry={entry} />
-              ))}
-            </div>
+            <>
+              <AiSummaryCard
+                surface="dPhish Phishing Feed"
+                items={filtered.slice(0, 30).map((entry) => ({
+                  title: entry.value ?? entry.slug,
+                  body: entry.description ?? '',
+                  source: 'dphish',
+                }))}
+                requireAdmin={false}
+              />
+              <div className="space-y-2">
+                {filtered.map((entry) => (
+                  <IndicatorCard key={entry.slug} entry={entry} />
+                ))}
+              </div>
+            </>
           )}
 
           <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">

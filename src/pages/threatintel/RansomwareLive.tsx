@@ -21,6 +21,7 @@ import {
   Users,
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { useSearchParams } from 'react-router-dom';
 
 /**
@@ -263,6 +264,22 @@ function GroupsView({ data }: { data: unknown }): JSX.Element {
         </div>
         <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{filtered.length} groups</span>
       </div>
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Ransomware Groups"
+          items={filtered.slice(0, 30).map((r) => {
+            const name = pick(r, ['group', 'name']) ?? '';
+            const victims = pick(r, ['victims', 'count']);
+            const alt = pick(r, ['altname', 'alt_name']);
+            return {
+              title: name,
+              body: `${victims ? `${victims} victims` : 'no victim count'}${alt ? ` · aka ${alt}` : ''}`,
+              source: 'ransomware.live',
+            };
+          })}
+          requireAdmin={false}
+        />
+      )}
       <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
         {filtered.map((r, i) => {
           const name = pick(r, ['group', 'name']) ?? `#${i + 1}`;

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import {
   AlertTriangle,
   ChevronDown,
@@ -188,6 +190,12 @@ function IncidentCard({ entry }: { entry: LtIndexEntry }) {
               {body.doc_summary && (
                 <div className="text-mini text-slate-600 dark:text-slate-300 leading-relaxed">{body.doc_summary}</div>
               )}
+              <PostAnalysisButton
+                title={entry.title}
+                description={`${body.doc_summary ?? ''}\n\nKill chain: ${body.kill_chain_summary ?? 'n/a'}\nDiamond model: ${body.diamond_model_summary ?? 'n/a'}\nCVEs: ${body.CVEs.join(', ') || 'none'}\nTools: ${body.Tools.join(', ') || 'none'}`}
+                source={entry.source || 'living-threat'}
+                compact
+              />
               {body.operational_tags && body.operational_tags.length > 0 && (
                 <div className="flex items-center gap-1.5 flex-wrap text-mini font-mono text-slate-500">
                   <Tag className="w-3 h-3" />
@@ -515,6 +523,17 @@ export default function LivingThreat(): JSX.Element {
           </div>
 
           <div className="space-y-2">
+            {incidents.length > 0 && (
+              <AiSummaryCard
+                surface="Living Threat Repository"
+                items={incidents.slice(0, 30).map((e) => ({
+                  title: e.title,
+                  body: `severity: ${e.severity} · actors: ${e.actors.join(', ') || 'none'} · tactics: ${e.tactics.join(' → ') || 'none'}`,
+                  source: e.source ? new URL(e.source).hostname : 'living-threat',
+                }))}
+                requireAdmin={false}
+              />
+            )}
             {incidents.map((e) => (
               <IncidentCard key={e.slug} entry={e} />
             ))}

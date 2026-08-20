@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Bug, AlertTriangle, Flame, ShieldCheck, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-helpers';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
@@ -469,69 +470,80 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
     return <p className="text-meta font-mono text-slate-500 italic">No CISA KEV entries in window.</p>;
   }
   return (
-    <div className="overflow-x-auto -mx-4 sm:mx-0">
-      <DataTable
-        columns={
-          [
-            {
-              key: 'cve',
-              header: 'CVE',
-              sortValue: (r: (typeof rows)[number]) => r.id,
-              render: (r) => (
-                <Link
-                  to={`/dfir/cve?id=${encodeURIComponent(r.id)}`}
-                  className="text-rose-600 dark:text-rose-400 hover:underline"
-                >
-                  {r.id}
-                </Link>
-              ),
-            },
-            {
-              key: 'cvss',
-              header: 'CVSS',
-              sortValue: (r: (typeof rows)[number]) => r.score ?? 0,
-              render: (r) => (
-                <span className="tabular-nums text-slate-700 dark:text-slate-300">{r.score?.toFixed(1) ?? '-'}</span>
-              ),
-            },
-            {
-              key: 'sev',
-              header: 'Sev',
-              sortValue: (r: (typeof rows)[number]) => r.severity,
-              render: (r) => (
-                <span
-                  className={`inline-block px-1.5 py-0.5 rounded text-mini font-mono border ${SEVERITY_PILL[cveSevToSoc(r.severity)]}`}
-                >
-                  {r.severity}
-                </span>
-              ),
-            },
-            {
-              key: 'vendor',
-              header: 'Vendor',
-              render: (r) => (
-                <span className="text-slate-700 dark:text-slate-300 truncate max-w-[200px]">
-                  {extractVendorFromDescription(r.description)}
-                </span>
-              ),
-            },
-            {
-              key: 'kev',
-              header: 'Added to KEV',
-              align: 'right',
-              sortValue: (r: (typeof rows)[number]) => r.kev_added ?? '',
-              render: (r) => (
-                <span className="text-slate-500 dark:text-slate-400 tabular-nums">
-                  {r.kev_added ? r.kev_added.slice(0, 10) : '-'}
-                </span>
-              ),
-            },
-          ] as DataTableColumn<(typeof rows)[number]>[]
-        }
-        rows={rows}
-        rowKey={(r) => r.id}
-        rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+    <div className="space-y-3">
+      <AiSummaryCard
+        surface="SOC Recent CVEs"
+        items={rows.slice(0, 30).map((r) => ({
+          title: r.id,
+          body: `${extractVendorFromDescription(r.description)}${r.kev ? '\nIn CISA KEV' : ''}${r.kev_ransomware ? ' (ransomware campaign use)' : ''}${(r.actors ?? []).length > 0 ? `\nActors: ${r.actors!.map((a) => a.slug).join(', ')}` : ''}`,
+          source: r.origin,
+        }))}
+        requireAdmin={false}
       />
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <DataTable
+          columns={
+            [
+              {
+                key: 'cve',
+                header: 'CVE',
+                sortValue: (r: (typeof rows)[number]) => r.id,
+                render: (r) => (
+                  <Link
+                    to={`/dfir/cve?id=${encodeURIComponent(r.id)}`}
+                    className="text-rose-600 dark:text-rose-400 hover:underline"
+                  >
+                    {r.id}
+                  </Link>
+                ),
+              },
+              {
+                key: 'cvss',
+                header: 'CVSS',
+                sortValue: (r: (typeof rows)[number]) => r.score ?? 0,
+                render: (r) => (
+                  <span className="tabular-nums text-slate-700 dark:text-slate-300">{r.score?.toFixed(1) ?? '-'}</span>
+                ),
+              },
+              {
+                key: 'sev',
+                header: 'Sev',
+                sortValue: (r: (typeof rows)[number]) => r.severity,
+                render: (r) => (
+                  <span
+                    className={`inline-block px-1.5 py-0.5 rounded text-mini font-mono border ${SEVERITY_PILL[cveSevToSoc(r.severity)]}`}
+                  >
+                    {r.severity}
+                  </span>
+                ),
+              },
+              {
+                key: 'vendor',
+                header: 'Vendor',
+                render: (r) => (
+                  <span className="text-slate-700 dark:text-slate-300 truncate max-w-[200px]">
+                    {extractVendorFromDescription(r.description)}
+                  </span>
+                ),
+              },
+              {
+                key: 'kev',
+                header: 'Added to KEV',
+                align: 'right',
+                sortValue: (r: (typeof rows)[number]) => r.kev_added ?? '',
+                render: (r) => (
+                  <span className="text-slate-500 dark:text-slate-400 tabular-nums">
+                    {r.kev_added ? r.kev_added.slice(0, 10) : '-'}
+                  </span>
+                ),
+              },
+            ] as DataTableColumn<(typeof rows)[number]>[]
+          }
+          rows={rows}
+          rowKey={(r) => r.id}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+        />
+      </div>
     </div>
   );
 }
