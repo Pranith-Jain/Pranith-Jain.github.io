@@ -96,7 +96,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 z-50 w-[420px] max-h-[500px] overflow-y-auto rounded-xl border border-brand-500/30 bg-white dark:bg-[rgb(var(--surface-200))] shadow-2xl animate-fade-in">
+        <div className="fixed left-4 right-4 top-20 z-50 sm:absolute sm:right-0 sm:left-auto sm:top-full sm:mt-2 sm:w-[420px] max-h-[70vh] sm:max-h-[500px] overflow-y-auto rounded-xl border border-brand-500/30 bg-white dark:bg-[rgb(var(--surface-200))] shadow-2xl animate-fade-in">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]/50 sticky top-0 bg-white dark:bg-[rgb(var(--surface-200))] z-10">
             <div className="flex items-center gap-2">
