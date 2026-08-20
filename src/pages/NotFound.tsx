@@ -25,6 +25,7 @@ const MOVED_SLUGS: ReadonlySet<string> = new Set([
   'cve-resources',
   'wiki',
   'secops-tools',
+  'secops-mtx',
   'awesome-lists',
   'osint-framework',
 ]);

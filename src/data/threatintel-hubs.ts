@@ -1058,6 +1058,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'SecopsCatalog',
       },
       {
+        path: '/threatintel/osint/secops-mtx',
+        tabId: 'secops-mtx',
+        label: 'SecOps MTTX Dashboard',
+        desc: 'Mean Time to Detect, Acknowledge, and Respond metrics from Google SecOps (Chronicle).',
+        compVar: 'SecOpsMtx',
+        badge: 'new',
+      },
+      {
         path: '/threatintel/osint/directory',
         tabId: 'directory',
         label: 'OSINT Portal Directory',

@@ -3950,6 +3950,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/osint/secops-mtx',
+    label: 'SecOps MTTX Dashboard',
+    description: 'Mean Time to Detect, Acknowledge, and Respond metrics from Google SecOps (Chronicle).',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/osint/directory',
     label: 'Directory',
     description: 'OSINT directory - categorized tool listings and investigative resources.',
