@@ -1,1 +1,15 @@
-{"slug":"storm-windrose-health-network-2026-08-18","title":"WindRose Health Network","group":"Storm","discovered":"2026-08-18T04:20:54.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"WindRose Health Network (WHN) is dedicated to providing affordable, quality healthcare services, focusing on family medicine, pediatrics, prenatal care, and behavioral health. The organization aims to improve the health of underserved communities by offering personalized and innovative healthcare solutions, including financial assistance programs. WHN operates multiple health centers and emphasizes compassionate care and preventative services. Their mission is to ensure that everyone, particularly the poor and vulnerable, has access to essential medical care.. \nThe company headquarters is located in 163 Butner Drive, Hope, IN 47246, United States. 51-200 Employees","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}
+{
+  "slug": "storm-windrose-health-network-2026-08-18",
+  "title": "WindRose Health Network",
+  "group": "Storm",
+  "discovered": "2026-08-18T04:20:54.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ae8b74bb-1da4-48b1-92f1-c7484ba8fae4",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

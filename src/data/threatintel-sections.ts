@@ -4,6 +4,7 @@ import {
   BookOpen,
   Bug,
   Compass,
+  Database,
   FileText,
   Globe,
   GitBranch,
@@ -147,6 +148,12 @@ export const SECTIONS: Section[] = [
         label: 'Detection Hub',
         desc: 'Detection rules (Sigma/YARA/Suricata), GoXDR KQL library, CVE feeds, KEV catalog, malware IOC browser, and YARA rules.',
         icon: Shield,
+      },
+      {
+        to: '/threatintel/detection-wiki',
+        label: 'Detection Wiki',
+        desc: '15,957 detection rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs.',
+        icon: Database,
       },
       {
         to: '/threatintel/cves',

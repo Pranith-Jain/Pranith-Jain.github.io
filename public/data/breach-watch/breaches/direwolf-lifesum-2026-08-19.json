@@ -1,1 +1,15 @@
-{"slug":"direwolf-lifesum-2026-08-19","title":"Lifesum","group":"direwolf","discovered":"2026-08-19T00:54:08.000Z","category":"data_breach","severity":"high","country":"SE","sizeBytes":0,"description":"Hospitals &amp; Physicians Clinics","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Healthcare","references":["ransomware.live"]}
+{
+  "slug": "direwolf-lifesum-2026-08-19",
+  "title": "Lifesum",
+  "group": "direwolf",
+  "discovered": "2026-08-19T00:54:08.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "SE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/aaef3e5f-1092-4e71-a729-3146e1c91afa",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

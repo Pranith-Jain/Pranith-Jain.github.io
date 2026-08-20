@@ -808,6 +808,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Threat-signal RSS feed with auto-classified indicators.',
         compVar: 'ThreatSignalRss',
       },
+      {
+        path: '/threatintel/detection-wiki',
+        tabId: 'wiki',
+        label: 'Detection Wiki',
+        desc: '15,957 rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs.',
+        compVar: 'DetectionWiki',
+      },
     ],
   },
   {

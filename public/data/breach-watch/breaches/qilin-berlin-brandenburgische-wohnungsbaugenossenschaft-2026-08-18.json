@@ -1,1 +1,15 @@
-{"slug":"qilin-berlin-brandenburgische-wohnungsbaugenossenschaft-2026-08-18","title":"Berlin Brandenburgische Wohnungsbaugenossenschaft","group":"qilin","discovered":"2026-08-18T11:59:45.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "qilin-berlin-brandenburgische-wohnungsbaugenossenschaft-2026-08-18",
+  "title": "Berlin Brandenburgische Wohnungsbaugenossenschaft",
+  "group": "qilin",
+  "discovered": "2026-08-18T11:59:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f04da80a-9d7f-41a9-8d76-a100ec18d681",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

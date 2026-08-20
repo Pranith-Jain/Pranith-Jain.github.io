@@ -1,1 +1,15 @@
-{"slug":"panzer-doimo-cucine-2026-08-17","title":"Doimo Cucine","group":"Panzer","discovered":"2026-08-17T10:51:42.000Z","category":"data_breach","severity":"high","country":"IT","sizeBytes":0,"description":"Doimo Cucine specializes in modern, customizable designer kitchens that blend beauty and harmony. The company emphasizes a holistic approach to kitchen design, offering a versatile system called All-arounD for creating personalized spaces. With a commitment to quality and innovation, all production is carried out in Italy, ensuring high standards and craftsmanship. Their target clients are those seeking stylish and functional kitchen solutions that nourish the soul.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "panzer-doimo-cucine-2026-08-17",
+  "title": "Doimo Cucine",
+  "group": "Panzer",
+  "discovered": "2026-08-17T10:51:42.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1be42a77-8279-493d-b895-9d4c2990b085",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

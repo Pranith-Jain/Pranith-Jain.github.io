@@ -415,6 +415,99 @@ export const APT_GROUPS: Record<string, AptGroup> = {
     suspected_origin: 'Russia',
     target_sectors: ['Healthcare', 'Ransomware'],
   },
+  // ── Additional Ecrime / Ransomware ─────────────────────────────────────
+  RansomHub: {
+    mitre_id: null,
+    aliases: ['RansomHub', 'Greenbender'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Ransomware', 'Multiple Sectors'],
+  },
+  Play: {
+    mitre_id: null,
+    aliases: ['Play', 'PlayCrypt'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Ransomware', 'Multiple Sectors'],
+  },
+  Royal: {
+    mitre_id: null,
+    aliases: ['Royal', 'BlackSuit'],
+    suspected_origin: 'Russia',
+    target_sectors: ['Ransomware', 'Healthcare'],
+  },
+  Rhysida: {
+    mitre_id: null,
+    aliases: ['Rhysida'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Healthcare', 'Education', 'Ransomware'],
+  },
+  Medusa: {
+    mitre_id: null,
+    aliases: ['Medusa', 'MedusaLocker'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Healthcare', 'Ransomware'],
+  },
+  Akira: {
+    mitre_id: null,
+    aliases: ['Akira', 'Akira Team'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Ransomware', 'Multiple Sectors'],
+  },
+  '8Base': {
+    mitre_id: null,
+    aliases: ['8Base', 'Phango'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Ransomware', 'Multiple Sectors'],
+  },
+  Embargo: {
+    mitre_id: null,
+    aliases: ['Embargo'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Ransomware', 'Healthcare'],
+  },
+  SafePay: {
+    mitre_id: null,
+    aliases: ['SafePay', 'Safepay Ransomware'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Ransomware', 'Multiple Sectors'],
+  },
+  // ── Additional China ────────────────────────────────────────────────────
+  'Iron Tiger': {
+    mitre_id: null,
+    aliases: ['Iron Tiger', 'Emissary Panda', 'APT17', 'Deputy Dog'],
+    suspected_origin: 'China',
+    target_sectors: ['Defense', 'Technology', 'Telecom'],
+  },
+  APT23: {
+    mitre_id: 'G0008',
+    aliases: ['APT23', 'Defray', 'Deep Panda'],
+    suspected_origin: 'China',
+    target_sectors: ['Healthcare', 'Government', 'Defense'],
+  },
+  // ── Infostealer operators ──────────────────────────────────────────────
+  'Lumma Operator': {
+    mitre_id: null,
+    aliases: ['Lumma', 'LummaC2', 'Lumma Stealer'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Infostealer', 'Credential Theft'],
+  },
+  'Raccoon Operator': {
+    mitre_id: null,
+    aliases: ['Raccoon', 'Raccoon Stealer', 'Raccoon2'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Infostealer', 'Credential Theft'],
+  },
+  'RedLine Operator': {
+    mitre_id: null,
+    aliases: ['RedLine', 'RedLine Stealer'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Infostealer', 'Credential Theft'],
+  },
+  'Vidar Operator': {
+    mitre_id: null,
+    aliases: ['Vidar', 'Vidar Stealer'],
+    suspected_origin: 'Unknown',
+    target_sectors: ['Infostealer', 'Credential Theft'],
+  },
 };
 
 /** Flat alias map: lowercase alias → canonical group name */

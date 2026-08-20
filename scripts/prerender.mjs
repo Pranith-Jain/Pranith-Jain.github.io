@@ -81,6 +81,7 @@ const ROUTES = [
   '/threatintel/detections/disarm',
   '/threatintel/detections/signal',
   '/threatintel/detections/yara',
+  '/threatintel/detection-wiki',
   '/threatintel/external/awesome',
   '/threatintel/supply-chain',
   '/threatintel/external/external',

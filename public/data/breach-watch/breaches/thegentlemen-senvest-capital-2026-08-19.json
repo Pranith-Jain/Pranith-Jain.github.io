@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-senvest-capital-2026-08-19","title":"Senvest Capital","group":"thegentlemen","discovered":"2026-08-19T08:11:13.000Z","category":"ransomware","severity":"critical","country":"CA","sizeBytes":0,"description":"senvest.com zoominfo.com/c/senvest-capital-inc/91423931 Senvest (including Senvest Capital and Senvest Management) is a major international investment firm and hedge fund sponsor managing billions of dollars in assets.\nFounded by Richard Mashaal, it specializes in contrarian value investing strategies across public equities, private markets, and real estate.\nHeadquartered in New York and Montreal, the firm focuses on discretionary investment advisory services and direct capital deployment for institutional clients.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-senvest-capital-2026-08-19",
+  "title": "Senvest Capital",
+  "group": "thegentlemen",
+  "discovered": "2026-08-19T08:11:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a037ea85-9826-4ae1-b0fc-8be4fd3f146c",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

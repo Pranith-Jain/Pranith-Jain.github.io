@@ -1,1 +1,15 @@
-{"slug":"direwolf-photon-health-inc-2026-08-19","title":"Photon Health, Inc.","group":"direwolf","discovered":"2026-08-19T00:55:57.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Healthcare","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Healthcare","references":["ransomware.live"]}
+{
+  "slug": "direwolf-photon-health-inc-2026-08-19",
+  "title": "Photon Health, Inc.",
+  "group": "direwolf",
+  "discovered": "2026-08-19T00:55:57.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/be2e7655-37f9-4df4-a625-a7fe294eafee",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

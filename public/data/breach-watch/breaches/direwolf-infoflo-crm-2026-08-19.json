@@ -1,1 +1,15 @@
-{"slug":"direwolf-infoflo-crm-2026-08-19","title":"InfoFlo CRM","group":"direwolf","discovered":"2026-08-19T00:55:20.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"software provider","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "direwolf-infoflo-crm-2026-08-19",
+  "title": "InfoFlo CRM",
+  "group": "direwolf",
+  "discovered": "2026-08-19T00:55:20.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1bc81fa6-1635-4006-bc17-ca18880be2b5",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

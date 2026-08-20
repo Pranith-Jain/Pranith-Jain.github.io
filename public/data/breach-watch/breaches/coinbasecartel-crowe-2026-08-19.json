@@ -1,1 +1,15 @@
-{"slug":"coinbasecartel-crowe-2026-08-19","title":"Crowe","group":"coinbasecartel","discovered":"2026-08-19T15:24:25.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"[AI generated] Crowe is a public accounting, consulting, and technology firm headquartered in the United States. It provides audit, tax, advisory, risk, and performance services to clients across various industries, including financial services, healthcare, and government. Crowe operates globally through its membership in Crowe Global, a network of independent accounting and advisory firms spanning over 140 countries.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "coinbasecartel-crowe-2026-08-19",
+  "title": "Crowe",
+  "group": "coinbasecartel",
+  "discovered": "2026-08-19T15:24:25.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0095df26-9b21-4e9a-8697-117d2f1a4f54",
+  "groupAliases": ["coinbase cartel"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

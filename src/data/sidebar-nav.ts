@@ -191,6 +191,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/detections/disarm': SwordIcon,
   '/threatintel/detections/yara': FileSearch,
   '/threatintel/detections/signal': Rss,
+  '/threatintel/detection-wiki': Database,
   // Research
   '/threatintel/research-hub/research': ScrollText,
   '/threatintel/research-hub/reports': FileText,

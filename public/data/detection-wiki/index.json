@@ -1,0 +1,156 @@
+{
+  "generatedAt": "2026-08-20T17:22:59.862Z",
+  "source": "https://detection.wiki",
+  "description": "Detection rule and event catalog — 15,957 rules from Sigma, Elastic, Splunk, Kusto, YARA-L, Panther, Sublime mapped to MITRE ATT&CK",
+  "stats": {
+    "totalRules": 15957,
+    "eventCount": 133319,
+    "techniqueCount": 116,
+    "subtechniqueCount": 102,
+    "platformCount": 17,
+    "labCount": 6,
+    "tacticCount": 14
+  },
+  "platforms": [
+    "macOS",
+    "auditd",
+    "Sysmon for Linux",
+    "Windows",
+    "Microsoft 365",
+    "Entra ID",
+    "Azure",
+    "Microsoft Intune",
+    "Power Platform",
+    "Defender XDR",
+    "AWS",
+    "GCP",
+    "Google Workspace",
+    "GitHub",
+    "Kubernetes",
+    "Okta",
+    "Sublime"
+  ],
+  "vendors": ["Sigma", "Elastic", "Splunk", "Kusto", "YARA-L", "Panther", "Sublime MQL"],
+  "topTechniques": [
+    {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter",
+      "ruleCount": 1505,
+      "tactic": "Execution"
+    },
+    {
+      "id": "T1078",
+      "name": "Valid Accounts",
+      "ruleCount": 778,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": "T1218",
+      "name": "System Binary Proxy Execution",
+      "ruleCount": 672,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": "T1098",
+      "name": "Account Manipulation",
+      "ruleCount": 564,
+      "tactic": "Persistence"
+    },
+    {
+      "id": "T1190",
+      "name": "Exploit Public-Facing Application",
+      "ruleCount": 549,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": "T1003",
+      "name": "OS Credential Dumping",
+      "ruleCount": 423,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": "T1548",
+      "name": "Abuse Elevation Control Mechanism",
+      "ruleCount": 365,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": "T1566",
+      "name": "Phishing",
+      "ruleCount": 351,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": "T1055",
+      "name": "Process Injection",
+      "ruleCount": 329,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": "T1204",
+      "name": "User Execution",
+      "ruleCount": 322,
+      "tactic": "Execution"
+    },
+    {
+      "id": "T1574",
+      "name": "Hijack Execution Flow",
+      "ruleCount": 321,
+      "tactic": "Execution"
+    },
+    {
+      "id": "T1036",
+      "name": "Masquerading",
+      "ruleCount": 313,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": "T1112",
+      "name": "Modify Registry",
+      "ruleCount": 307,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": "T1110",
+      "name": "Brute Force",
+      "ruleCount": 303,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": "T1021",
+      "name": "Remote Services",
+      "ruleCount": 298,
+      "tactic": "Lateral Movement"
+    },
+    {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information",
+      "ruleCount": 284,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution",
+      "ruleCount": 252,
+      "tactic": "Persistence"
+    },
+    {
+      "id": "T1543",
+      "name": "Create or Modify System Process",
+      "ruleCount": 251,
+      "tactic": "Persistence"
+    },
+    {
+      "id": "T1071",
+      "name": "Application Layer Protocol",
+      "ruleCount": 249,
+      "tactic": "Command and Control"
+    },
+    {
+      "id": "T1546",
+      "name": "Event Triggered Execution",
+      "ruleCount": 241,
+      "tactic": "Persistence"
+    }
+  ]
+}

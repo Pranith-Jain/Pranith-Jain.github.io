@@ -1,1 +1,15 @@
-{"slug":"play-sam-pack-auto-group-2026-08-17","title":"Sam Pack Auto Group","group":"play","discovered":"2026-08-17T20:26:56.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"United States","source_url":"https://www.ransomware.live/","groupAliases":["PlayCrypt"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}
+{
+  "slug": "play-sam-pack-auto-group-2026-08-17",
+  "title": "Sam Pack Auto Group",
+  "group": "play",
+  "discovered": "2026-08-17T20:26:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/955150c3-563c-4ee9-8563-67198b89d1b7",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

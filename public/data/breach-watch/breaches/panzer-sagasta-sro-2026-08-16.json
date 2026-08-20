@@ -1,1 +1,15 @@
-{"slug":"panzer-sagasta-sro-2026-08-16","title":"SAGASTA sro","group":"Panzer","discovered":"2026-08-16T17:52:24.000Z","category":"data_breach","severity":"high","country":"CZ","sizeBytes":0,"description":"SAGASTA is a design and engineering company specializing in modern construction, offering comprehensive design, engineering, and consulting services in the fields of railway, road, bridge, and water management construction.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}
+{
+  "slug": "panzer-sagasta-sro-2026-08-16",
+  "title": "SAGASTA sro",
+  "group": "Panzer",
+  "discovered": "2026-08-16T17:52:24.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CZ",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d6b49ca1-5898-4d9d-b062-ce17a3e81622",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

@@ -1,1 +1,15 @@
-{"slug":"securotrop-adl-embedded-solutions-2026-08-18","title":"ADL Embedded Solutions","group":"securotrop","discovered":"2026-08-18T20:02:25.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Status: AWAITING\nSize: 925 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "securotrop-adl-embedded-solutions-2026-08-18",
+  "title": "ADL Embedded Solutions",
+  "group": "securotrop",
+  "discovered": "2026-08-18T20:02:25.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/95e0a27c-f800-45a5-b133-87c83e5da153",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -23,6 +23,8 @@ import {
   Webhook,
   Download,
   TrendingUp,
+  Database,
+  FlaskConical,
 } from 'lucide-react';
 import {
   type AlertSettings,
@@ -240,6 +242,227 @@ function TimelineChart({ detections }: { detections: Detection[] }) {
               {day.slice(5)}
             </span>
           </div>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
+/* ── Detection Rule Coverage (detection.wiki) ── */
+interface DwTechnique {
+  id: string;
+  name: string;
+  tactic: string;
+  ruleCount: number;
+  isSubtechnique: boolean;
+  parentTechnique?: string;
+}
+
+function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX.Element | null {
+  const [techData, setTechData] = useState<DwTechnique[] | null>(null);
+
+  useEffect(() => {
+    fetch('/data/detection-wiki/techniques.json')
+      .then((r) => r.json())
+      .then((d: { all: DwTechnique[] }) => setTechData(d.all))
+      .catch(() => {});
+  }, []);
+
+  const coverage = useMemo(() => {
+    if (!techData) return null;
+    // Collect all unique technique IDs from detections
+    const detTechIds = new Set(detections.flatMap((d) => d.techniques.map((t) => t.id)));
+    if (detTechIds.size === 0) return null;
+
+    // Cross-reference with detection.wiki data
+    const matched = techData.filter((t) => detTechIds.has(t.id)).sort((a, b) => b.ruleCount - a.ruleCount);
+
+    const totalRules = matched.reduce((s, t) => s + t.ruleCount, 0);
+    const coveredCount = matched.length;
+    const uncoveredCount = detTechIds.size - coveredCount;
+
+    return {
+      matched,
+      totalRules,
+      coveredCount,
+      uncoveredCount,
+      totalTechIds: detTechIds.size,
+    };
+  }, [techData, detections]);
+
+  if (!coverage || coverage.matched.length === 0) return null;
+
+  const maxRules = Math.max(...coverage.matched.map((t) => t.ruleCount), 1);
+
+  return (
+    <Card padding="md" className="mb-6">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+          <Database size={14} className="inline mr-1" />
+          Detection Rule Coverage (detection.wiki)
+        </h3>
+        <a
+          href="/threatintel/detection-wiki"
+          className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+        >
+          open full matrix <ExternalLink size={9} />
+        </a>
+      </div>
+      <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-3">
+        {coverage.totalRules.toLocaleString()} detection rules across {coverage.coveredCount} matched techniques from
+        15,957 total (Sigma, Elastic, Splunk, Kusto, YARA-L, Panther, Sublime)
+      </p>
+      {/* Coverage bar */}
+      <div className="flex items-center gap-2 mb-3">
+        <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-brand-500 to-emerald-500 transition-all"
+            style={{ width: `${Math.min((coverage.coveredCount / Math.max(coverage.totalTechIds, 1)) * 100, 100)}%` }}
+          />
+        </div>
+        <span className="text-[10px] font-mono text-slate-500">
+          {coverage.coveredCount}/{coverage.totalTechIds} techniques
+        </span>
+      </div>
+      {/* Top techniques by rule count */}
+      <div className="space-y-1.5">
+        {coverage.matched.slice(0, 12).map((t) => (
+          <a
+            key={t.id}
+            href={`https://detection.wiki/rules/?q=${t.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 group"
+          >
+            <span
+              className="w-14 h-5 rounded flex items-center justify-center text-[9px] font-mono font-bold border transition-colors"
+              style={{
+                background:
+                  t.ruleCount > maxRules * 0.5
+                    ? 'rgba(244,63,94,0.25)'
+                    : t.ruleCount > maxRules * 0.2
+                      ? 'rgba(249,115,22,0.2)'
+                      : t.ruleCount > maxRules * 0.05
+                        ? 'rgba(245,158,11,0.15)'
+                        : 'rgba(148,163,184,0.1)',
+                borderColor:
+                  t.ruleCount > maxRules * 0.5
+                    ? 'rgba(244,63,94,0.3)'
+                    : t.ruleCount > maxRules * 0.2
+                      ? 'rgba(249,115,22,0.25)'
+                      : t.ruleCount > maxRules * 0.05
+                        ? 'rgba(245,158,11,0.2)'
+                        : 'rgba(148,163,184,0.15)',
+              }}
+            >
+              {t.ruleCount}
+            </span>
+            <span className="text-[10px] font-mono text-slate-700 dark:text-slate-300 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              {t.id}
+            </span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate flex-1">{t.name}</span>
+            <ExternalLink
+              size={8}
+              className="text-slate-400 group-hover:text-brand-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            />
+          </a>
+        ))}
+        {coverage.matched.length > 12 && (
+          <p className="text-[10px] font-mono text-slate-500">
+            +{coverage.matched.length - 12} more techniques with detection rules
+          </p>
+        )}
+      </div>
+    </Card>
+  );
+}
+
+/* ── Detection Labs (detection.wiki) ── */
+interface DwLab {
+  slug: string;
+  title: string;
+  author: string;
+  date: string;
+  description: string;
+  techniques: string[];
+}
+
+function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element | null {
+  const [labs, setLabs] = useState<DwLab[] | null>(null);
+
+  useEffect(() => {
+    fetch('/data/detection-wiki/labs.json')
+      .then((r) => r.json())
+      .then((d: DwLab[]) => setLabs(d))
+      .catch(() => {});
+  }, []);
+
+  const relevantLabs = useMemo(() => {
+    if (!labs) return [];
+    const detTechIds = new Set(detections.flatMap((d) => d.techniques.map((t) => t.id)));
+    if (detTechIds.size === 0) return [];
+
+    // Score labs by how many of their techniques overlap with detections
+    return labs
+      .map((lab) => ({
+        ...lab,
+        overlap: lab.techniques.filter((t) => detTechIds.has(t)).length,
+      }))
+      .filter((lab) => lab.overlap > 0)
+      .sort((a, b) => b.overlap - a.overlap);
+  }, [labs, detections]);
+
+  if (!relevantLabs || relevantLabs.length === 0) return null;
+
+  return (
+    <Card padding="md" className="mb-6">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+          <FlaskConical size={14} className="inline mr-1" />
+          Detection Labs (detection.wiki)
+        </h3>
+        <a
+          href="/threatintel/detection-wiki"
+          className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+        >
+          all labs <ExternalLink size={9} />
+        </a>
+      </div>
+      <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-3">
+        Hands-on KQL analysis labs matching techniques from your detections
+      </p>
+      <div className="space-y-2">
+        {relevantLabs.slice(0, 4).map((lab) => (
+          <a
+            key={lab.slug}
+            href={`https://detection.wiki/labs/${lab.slug}/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors group"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-mono font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {lab.title}
+                  </span>
+                  <span className="text-[9px] font-mono text-slate-400">{lab.overlap} overlap</span>
+                </div>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{lab.description}</p>
+              </div>
+              <ExternalLink size={9} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-0.5" />
+            </div>
+            <div className="flex flex-wrap gap-1 mt-1">
+              {lab.techniques.slice(0, 3).map((t) => (
+                <span
+                  key={t}
+                  className="text-[8px] font-mono px-1 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </a>
         ))}
       </div>
     </Card>
@@ -536,6 +759,12 @@ export default function ThreatActorMonitor() {
 
       {/* Timeline Chart */}
       {detections.length > 0 && <TimelineChart detections={detections} />}
+
+      {/* Detection Rule Coverage from detection.wiki */}
+      <DetectionRuleCoverage detections={detections} />
+
+      {/* Detection Labs from detection.wiki */}
+      <DetectionLabs detections={detections} />
 
       {/* Source Selector */}
       <Card padding="md" className="mb-6">

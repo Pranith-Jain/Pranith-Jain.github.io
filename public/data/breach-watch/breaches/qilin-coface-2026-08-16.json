@@ -1,1 +1,15 @@
-{"slug":"qilin-coface-2026-08-16","title":"Coface","group":"qilin","discovered":"2026-08-16T18:57:25.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "qilin-coface-2026-08-16",
+  "title": "Coface",
+  "group": "qilin",
+  "discovered": "2026-08-16T18:57:25.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/acbc3068-8f1c-4f4e-9b07-09fade8f674d",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

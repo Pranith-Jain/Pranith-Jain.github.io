@@ -318,6 +318,7 @@ const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const Writeups = lazy(() => import('./pages/threatintel/Writeups'));
 
 const YaraPage = lazy(() => import('./pages/threatintel/Yarahub'));
+const DetectionWiki = lazy(() => import('./pages/threatintel/DetectionWiki'));
 
 const NotFound = lazy(() => import('./pages/NotFound'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
@@ -621,6 +622,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/detections/disarm', Component: DisarmFramework },
   { path: '/threatintel/detections/yara', Component: YaraPage },
   { path: '/threatintel/detections/signal', Component: ThreatSignalRss },
+  { path: '/threatintel/detection-wiki', Component: DetectionWiki },
   { path: '/threatintel/phishing/phish', Component: PhishFeed },
   { path: '/threatintel/phishing/urls', Component: PhishingWordlists },
   { path: '/threatintel/phishing/scam', Component: ScamWatch },
@@ -965,6 +967,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/wiki', to: '/threatintel/catalog?cat=wiki' },
   { path: '/threatintel/signal', to: '/threatintel/detections/signal' },
   { path: '/threatintel/threatsignal', to: '/threatintel/detections/signal' },
+  { path: '/threatintel/detections/wiki', to: '/threatintel/detection-wiki' },
   { path: '/threatintel/yara', to: '/threatintel/detections/yara' },
   { path: '/threatintel/disarm', to: '/threatintel/detections/disarm' },
 

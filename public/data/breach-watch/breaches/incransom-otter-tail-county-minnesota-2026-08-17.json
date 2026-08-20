@@ -1,1 +1,15 @@
-{"slug":"incransom-otter-tail-county-minnesota-2026-08-17","title":"Otter Tail County, Minnesota","group":"incransom","discovered":"2026-08-17T09:28:41.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"https://ottertailcounty.gov/","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Government & Defense","references":["ransomware.live"]}
+{
+  "slug": "incransom-otter-tail-county-minnesota-2026-08-17",
+  "title": "Otter Tail County, Minnesota",
+  "group": "incransom",
+  "discovered": "2026-08-17T09:28:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/7364517c-04bc-46ce-9b02-38318f9b4ca2",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Government & Defense",
+  "references": ["Darkfield"]
+}

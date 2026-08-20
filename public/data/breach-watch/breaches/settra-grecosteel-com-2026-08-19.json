@@ -1,1 +1,15 @@
-{"slug":"settra-grecosteel-com-2026-08-19","title":"grecosteel.com","group":"settra","discovered":"2026-08-19T18:05:20.000Z","category":"data_breach","severity":"high","country":"GR","sizeBytes":0,"description":"How Greco Steel Products Lost Control of Finances and Payroll PROLOGUE: 19 document categories. A co...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}
+{
+  "slug": "settra-grecosteel-com-2026-08-19",
+  "title": "grecosteel.com",
+  "group": "settra",
+  "discovered": "2026-08-19T18:05:20.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/81bf1631-8b97-45f7-b393-9bd81b4aad64",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

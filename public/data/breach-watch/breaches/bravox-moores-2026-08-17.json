@@ -1,1 +1,15 @@
-{"slug":"bravox-moores-2026-08-17","title":"Moores","group":"bravox","discovered":"2026-08-17T03:22:23.000Z","category":"data_breach","severity":"high","country":"GB","sizeBytes":0,"description":"Kitchen solutions provider for housing developers.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}
+{
+  "slug": "bravox-moores-2026-08-17",
+  "title": "Moores",
+  "group": "bravox",
+  "discovered": "2026-08-17T03:22:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/097a8351-57e3-4fdc-8882-1f5c9cbd10dd",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

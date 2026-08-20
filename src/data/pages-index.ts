@@ -3525,6 +3525,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/detection-wiki',
+    label: 'Detection Wiki',
+    description:
+      '15,957 detection rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs with KQL queries.',
+    sectionLabel: 'Threat Intel · Detections',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/phishing/phish',
     label: 'Phish Feed',
     description: 'Phishing feed aggregation.',
