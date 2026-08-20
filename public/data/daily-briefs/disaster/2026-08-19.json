@@ -1,0 +1,20 @@
+{
+  "type": "disaster",
+  "date": "2026-08-19",
+  "overallThreat": "",
+  "executiveSummary": "Multiple high-impact disasters are ongoing across Asia, the Americas, and Europe, led by lethal earthquakes, destructive flooding, and large-scale wildfires. Humanitarian needs concentrate around shelter, medical care, food, clean water, and access restoration. A major earthquake on Flores Island, Indonesia caused at least 70 deaths, nearly 1,200 injuries, and displaced more than 40,000 people; extensive damage reported to homes, health facilities, and schools. View Article Update Western Colombia experienced a deadly earthquake with at least 289 fatalities, nearly 4,000 injured, and over 96,000 homes destroyed or damaged in a poor region. View Article Record flooding and severe storms in Indiana and the broader U.S. Midwest resulted in at least seven deaths, hundreds of evacuations, and extensive water rescues. View Article British Columbia wildfires forced more than 20,000 evacuations; about 2,200 remain displaced and roughly 25,000 are still on alert; approximately 150 structures were destroyed or damaged. View Article Typhoon impacts in eastern China led to more than 300,000 preemptive relocations and widespread transport disruption including cancellation of over 1,300 flights. View Article Hawaii faced deadly flooding and power outages after Tropical Storm Lala, with recovery operations ongoing. View Article Note: Some figures vary across reports as assessments evolve. Latest reliable updates are linked above. Active high-urgency events 13+ Escalate-designated crises across multiple regions Regions most affected Asia, Americas, Europe Earthquakes, floods, wildfires driving risk Primary humanitarian needs Shelter • WASH • Health Access constraints persist in several locations Operational posture Escalate Immediate relief, access restoration, and surge coordination required",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Indonesia (Flores): Expect continued aftershocks and evolving casualty figures; prioritize clearing key road corridors and restoring clinic functionality. Eastern China: Residual heavy rain and saturated soils may prolong flood and landslide risks; anticipate staggered transport restoration. U.S. Midwest/Appalachia: River levels may remain elevated; localized storms could trigger renewed flash flooding in vulnerable basins. British Columbia and Southern Europe: Hot, dry, and windy pockets will maintain wildfire spread potential; evacuation statuses may change rapidly. Hawaii: Ongoing debris clearance and power restoration; localized nuisance flooding possible in saturated catchments. Forecast emphasis reflects risk-informed judgment; conditions may change quickly.",
+  "regionalTrends": [
+    "Asia: Concurrent seismic emergency in Indonesia and cyclone-related evacuations in eastern China strain national response systems; localized monsoon flooding persists in the Philippines.",
+    "Americas: Canada's wildfire season continues to drive mass evacuations and infrastructure loss; U.S. Midwest flooding underscores compound severe-weather risk.",
+    "Europe: Heat- and wind-driven wildfires are affecting multiple countries (Greece, Croatia, France, Spain, Belgium, Germany), with rapid evacuation triggers and cross-border smoke/air-quality impacts.",
+    "Cross-cutting: Access, power, and health system functionality are the dominant constraints affecting life-saving assistance timelines."
+  ]
+}

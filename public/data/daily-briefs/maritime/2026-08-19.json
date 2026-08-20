@@ -1,0 +1,365 @@
+{
+  "type": "maritime",
+  "date": "2026-08-19",
+  "threatLevel": "Unknown",
+  "executiveSummary": "North Carolina Ports reported a cyberattack that disrupted IT systems and slowed cargo and gate operations across three facilities, triggering contingency procedures and supply-chain delays. View Article Institutional and industry reporting underscores persistent GNSS jamming/spoofing across multiple regions, with resulting erroneous positioning, near misses, and groundings; classification society guidance advises cross-checking GNSS with radar/visual fixes and maintaining alternative position-fixing. View Article Maritime Advisory Regional maritime centers recorded a surge of AIS deception incidents, degrading maritime domain awareness, sanctions/compliance screening, and navigational trust in certain waters. Supporting Report Government guidance highlights ongoing port-OT and technology supply-chain exposure (e.g., remotely maintainable cranes, logistics platforms), with recommended segmentation, MFA, monitoring, and backup validation steps for U.S. operators. Government Advisory India issued a national circular directing port facilities to integrate cyber risk management into ISPS assessments and plans, emphasizing IT/OT segregation, vendor/remote access controls, and incident reporting/exercises. Government Advisory Assessment: The collected intelligence supports an assessment that immediate operational risk is elevated for port operations in light of a recent disruptive attack, while navigation integrity risks remain persistently high in multiple regions due to GNSS interference and AIS deception. Confidence is high for the port incident and classification/government advisories, and medium for the broader regional incident tallies. Outlook: Over the next 72 hours, analysts should monitor for follow-on disruption reporting from affected U.S. ports, continuing GNSS integrity advisories, and enforcement of port cybersecurity directives. Confidence in this outlook is medium given active recovery efforts and established interference trends.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "6",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "1",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "5",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "1",
+        "label": "Active Incidents (as reported)"
+      },
+      {
+        "value": "3",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "3",
+        "label": "Port/Terminal Threats"
+      },
+      {
+        "value": "4",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [
+      "Technologies: Ship-to-shore cranes and remotely maintainable port equipment; logistics platforms (e.g., LOGINK); security screening equipment (e.g., Nuctech) - as highlighted by MARAD advisory. Government Advisory",
+      "Systems: Port IT (gates, operational support), terminal operating systems, communications networks, vendor/remote access pathways (India DGMA circular). Government Advisory"
+    ],
+    "sectors": [
+      "Ports & Terminals",
+      "Maritime Logistics",
+      "Vessel Navigation",
+      "Port OT / ICS",
+      "Maritime Communications (supporting)"
+    ]
+  },
+  "keyFindings": [],
+  "topThreats": [
+    {
+      "title": "North Carolina Ports cyberattack disrupts cargo and gate operations",
+      "action": "Direct operational disruption across multiple facilities with confirmed supply-chain impact Operational impact: Systems outage, delays, contingency workflows Affected: Port of Wilmington, Port of Morehead City, Charlotte Inland Port; port IT and gate systems Recommended attention: Incident-response posture, boundary monitoring during recovery, vendor/remote access review Confidence: High",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/amp/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Persistent GNSS jamming/spoofing affecting multiple sea lanes",
+      "action": "Erroneous positioning and degraded situational awareness can lead to near misses or groundings Operational impact: Loss of GNSS integrity; need for alternate position-fixing and cross-check procedures Recommended attention: ECDIS/RADAR/visual cross-checks; integrity monitoring; crew awareness Confidence: Medium to High (industry and classification reporting)",
+      "sources": [
+        {
+          "url": "https://www.rivieramm.com/news-content-hub/imo-safety-committee-reacts-to-gnss-interference-89479",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.irclass.org/technical-circulars/guidance-on-risks-associated-with-gnss-spoofing-and-gnss-jamming/",
+          "label": "Maritime Advisory"
+        }
+      ]
+    },
+    {
+      "title": "AIS deception surge degrading maritime domain awareness",
+      "action": "False identities/flags/types can mislead traffic monitoring and screening processes Operational impact: Potential confusion in congested waters; screening inaccuracies Recommended attention: Cross-verify AIS data with radar/visuals and port/VTS data; enhance anomaly alerts Confidence: Medium",
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-ais-deception-drives-surge-in-maritime-cyber-security-incidents/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Port OT and technology supply-chain exposure (U.S. MARAD 2026-007)",
+      "action": "Remote maintenance and foreign-manufactured systems can expand attack surface Operational impact: Potential for operational disruption, data exposure, and compliance ramifications Recommended attention: Network segmentation, MFA, monitoring, backup validation, USCG directive compliance Confidence: High",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "India: ISPS-aligned port cyber risk management directive",
+      "action": "Regulatory momentum requiring integrated cyber risk management at ports Operational impact: Required assessments, exercises, and vendor access governance Recommended attention: Embed cyber in PFSA/PFSP, segregate IT/OT, test recovery, formalize incident reporting Confidence: High",
+      "sources": [
+        {
+          "url": "https://dgma.gov.in/download/1785844849_6a71d47162335_cyber-security-circular.pdf",
+          "label": "Government Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Port Operations, Container Terminal, Cargo Operations, Maritime Supply Chain Affected systems: Port IT systems, Gate systems, Operational support systems Vessels/Ports: Port of Wilmington, Port of Morehead City, Charlotte Inland Port Operational impact: Systems-wide outage, delayed gate activity/trucking flows, contingency operations initiated Navigation impact: None reported Supply-chain impact: Confirmed Mitigations: Validate/rehearse cyber contingency plans; increase IT/OT boundary monitoring; review remote access/privileged accounts/third-party connectivity; verify backups and restoration; prepare user/trucker/agent comms",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/amp/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Port Operations, Container Terminal, Cargo Operations, Maritime Supply Chain",
+        "Affected systems: Port IT systems, Gate systems, Operational support systems",
+        "Vessels/Ports: Port of Wilmington, Port of Morehead City, Charlotte Inland Port",
+        "Operational impact: Systems-wide outage, delayed gate activity/trucking flows, contingency operations initiated",
+        "Navigation impact: None reported",
+        "Supply-chain impact: Confirmed",
+        "Mitigations: Validate/rehearse cyber contingency plans; increase IT/OT boundary monitoring; review remote access/privileged accounts/third-party connectivity; verify backups and restoration; prepare user/trucker/agent comms"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Maritime domains: Bridge operations, port approach/pilotage Navigation impact: Confirmed degradation of GNSS integrity Safety impact: Confirmed Recommendations: Alternative position-fixing; cross-check GNSS with radar/visuals; crew awareness of spoofing indicators",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.irclass.org/technical-circulars/guidance-on-risks-associated-with-gnss-spoofing-and-gnss-jamming/",
+          "label": "Maritime Advisory"
+        }
+      ],
+      "items": [
+        "Maritime domains: Bridge operations, port approach/pilotage",
+        "Navigation impact: Confirmed degradation of GNSS integrity",
+        "Safety impact: Confirmed",
+        "Recommendations: Alternative position-fixing; cross-check GNSS with radar/visuals; crew awareness of spoofing indicators"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Regions: Persian Gulf, Red Sea, Arabian Sea, Gulf of Aden, Black Sea, eastern Mediterranean, Baltic Sea Impacts: Erroneous positioning, near misses, reported groundings Ongoing work: Backup navigation and integrity monitoring standards",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.rivieramm.com/news-content-hub/imo-safety-committee-reacts-to-gnss-interference-89479",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Regions: Persian Gulf, Red Sea, Arabian Sea, Gulf of Aden, Black Sea, eastern Mediterranean, Baltic Sea",
+        "Impacts: Erroneous positioning, near misses, reported groundings",
+        "Ongoing work: Backup navigation and integrity monitoring standards"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Activity: 40 cyber incidents involving false AIS information (names, flags, types) Impact: Deception intended to mislead observers about vessel identity/status/purpose Navigation/Safety: Possible localized impact to situational awareness",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-ais-deception-drives-surge-in-maritime-cyber-security-incidents/",
+          "label": "Supporting Report"
+        }
+      ],
+      "items": [
+        "Activity: 40 cyber incidents involving false AIS information (names, flags, types)",
+        "Impact: Deception intended to mislead observers about vessel identity/status/purpose",
+        "Navigation/Safety: Possible localized impact to situational awareness"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Focus: Risks from LOGINK, Nuctech, PRC-manufactured cranes, remotely maintainable port equipment Operational impact: Potential vulnerabilities in IT/OT environments Mitigations: Segmentation, MFA, monitoring, backup validation, USCG directive compliance",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ],
+      "items": [
+        "Focus: Risks from LOGINK, Nuctech, PRC-manufactured cranes, remotely maintainable port equipment",
+        "Operational impact: Potential vulnerabilities in IT/OT environments",
+        "Mitigations: Segmentation, MFA, monitoring, backup validation, USCG directive compliance"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Scope: Terminal operating systems, cargo handling systems, VTS, access control, surveillance, communications, IT/OT Regulatory references: ISPS Code, IMO MSC.428(98), MSC-FAL.1/Circ.3 Mitigations: Cyber risk in PFSA/PFSP; critical asset inventory; segregation; backup/BCP testing; awareness, drills, incident reporting; vendor/third-party governance",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://dgma.gov.in/download/1785844849_6a71d47162335_cyber-security-circular.pdf",
+          "label": "Government Advisory"
+        }
+      ],
+      "items": [
+        "Scope: Terminal operating systems, cargo handling systems, VTS, access control, surveillance, communications, IT/OT",
+        "Regulatory references: ISPS Code, IMO MSC.428(98), MSC-FAL.1/Circ.3",
+        "Mitigations: Cyber risk in PFSA/PFSP; critical asset inventory; segregation; backup/BCP testing; awareness, drills, incident reporting; vendor/third-party governance"
+      ]
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Port Operations, Container Terminal, Cargo Operations, Maritime Supply Chain Affected systems: Port IT systems, Gate systems, Operational support systems Vessels/Ports: Port of Wilmington, Port of Morehead City, Charlotte Inland Port Operational impact: Systems-wide outage, delayed gate activity/trucking flows, contingency operations initiated Navigation impact: None reported Supply-chain impact: Confirmed Mitigations: Validate/rehearse cyber contingency plans; increase IT/OT boundary monitoring; review remote access/privileged accounts/third-party connectivity; verify backups and restoration; prepare user/trucker/agent comms",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/amp/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Port Operations, Container Terminal, Cargo Operations, Maritime Supply Chain",
+        "Affected systems: Port IT systems, Gate systems, Operational support systems",
+        "Vessels/Ports: Port of Wilmington, Port of Morehead City, Charlotte Inland Port",
+        "Operational impact: Systems-wide outage, delayed gate activity/trucking flows, contingency operations initiated",
+        "Navigation impact: None reported",
+        "Supply-chain impact: Confirmed",
+        "Mitigations: Validate/rehearse cyber contingency plans; increase IT/OT boundary monitoring; review remote access/privileged accounts/third-party connectivity; verify backups and restoration; prepare user/trucker/agent comms"
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "Maritime domains: Port Operations, Container Terminal, Cargo Operations, Maritime Supply Chain Affected systems: Port IT systems, Gate systems, Operational support systems Vessels/Ports: Port of Wilmington, Port of Morehead City, Charlotte Inland Port Operational impact: Systems-wide outage, delayed gate activity/trucking flows, contingency operations initiated Navigation impact: None reported Supply-chain impact: Confirmed Mitigations: Validate/rehearse cyber contingency plans; increase IT/OT boundary monitoring; review remote access/privileged accounts/third-party connectivity; verify backups and restoration; prepare user/trucker/agent comms",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/north-carolina-ports-confirms-cyberattack-disrupting-operations/amp/",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Maritime domains: Port Operations, Container Terminal, Cargo Operations, Maritime Supply Chain",
+        "Affected systems: Port IT systems, Gate systems, Operational support systems",
+        "Vessels/Ports: Port of Wilmington, Port of Morehead City, Charlotte Inland Port",
+        "Operational impact: Systems-wide outage, delayed gate activity/trucking flows, contingency operations initiated",
+        "Navigation impact: None reported",
+        "Supply-chain impact: Confirmed",
+        "Mitigations: Validate/rehearse cyber contingency plans; increase IT/OT boundary monitoring; review remote access/privileged accounts/third-party connectivity; verify backups and restoration; prepare user/trucker/agent comms"
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Maritime domains: Bridge operations, port approach/pilotage Navigation impact: Confirmed degradation of GNSS integrity Safety impact: Confirmed Recommendations: Alternative position-fixing; cross-check GNSS with radar/visuals; crew awareness of spoofing indicators",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.irclass.org/technical-circulars/guidance-on-risks-associated-with-gnss-spoofing-and-gnss-jamming/",
+          "label": "Maritime Advisory"
+        }
+      ],
+      "items": [
+        "Maritime domains: Bridge operations, port approach/pilotage",
+        "Navigation impact: Confirmed degradation of GNSS integrity",
+        "Safety impact: Confirmed",
+        "Recommendations: Alternative position-fixing; cross-check GNSS with radar/visuals; crew awareness of spoofing indicators"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Regions: Persian Gulf, Red Sea, Arabian Sea, Gulf of Aden, Black Sea, eastern Mediterranean, Baltic Sea Impacts: Erroneous positioning, near misses, reported groundings Ongoing work: Backup navigation and integrity monitoring standards",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.rivieramm.com/news-content-hub/imo-safety-committee-reacts-to-gnss-interference-89479",
+          "label": "View Article"
+        }
+      ],
+      "items": [
+        "Regions: Persian Gulf, Red Sea, Arabian Sea, Gulf of Aden, Black Sea, eastern Mediterranean, Baltic Sea",
+        "Impacts: Erroneous positioning, near misses, reported groundings",
+        "Ongoing work: Backup navigation and integrity monitoring standards"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Activity: 40 cyber incidents involving false AIS information (names, flags, types) Impact: Deception intended to mislead observers about vessel identity/status/purpose Navigation/Safety: Possible localized impact to situational awareness",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-ais-deception-drives-surge-in-maritime-cyber-security-incidents/",
+          "label": "Supporting Report"
+        }
+      ],
+      "items": [
+        "Activity: 40 cyber incidents involving false AIS information (names, flags, types)",
+        "Impact: Deception intended to mislead observers about vessel identity/status/purpose",
+        "Navigation/Safety: Possible localized impact to situational awareness"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Focus: Risks from LOGINK, Nuctech, PRC-manufactured cranes, remotely maintainable port equipment Operational impact: Potential vulnerabilities in IT/OT environments Mitigations: Segmentation, MFA, monitoring, backup validation, USCG directive compliance",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ],
+      "items": [
+        "Focus: Risks from LOGINK, Nuctech, PRC-manufactured cranes, remotely maintainable port equipment",
+        "Operational impact: Potential vulnerabilities in IT/OT environments",
+        "Mitigations: Segmentation, MFA, monitoring, backup validation, USCG directive compliance"
+      ]
+    },
+    {
+      "title": "",
+      "severity": "monitor",
+      "text": "Scope: Terminal operating systems, cargo handling systems, VTS, access control, surveillance, communications, IT/OT Regulatory references: ISPS Code, IMO MSC.428(98), MSC-FAL.1/Circ.3 Mitigations: Cyber risk in PFSA/PFSP; critical asset inventory; segregation; backup/BCP testing; awareness, drills, incident reporting; vendor/third-party governance",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://dgma.gov.in/download/1785844849_6a71d47162335_cyber-security-circular.pdf",
+          "label": "Government Advisory"
+        }
+      ],
+      "items": [
+        "Scope: Terminal operating systems, cargo handling systems, VTS, access control, surveillance, communications, IT/OT",
+        "Regulatory references: ISPS Code, IMO MSC.428(98), MSC-FAL.1/Circ.3",
+        "Mitigations: Cyber risk in PFSA/PFSP; critical asset inventory; segregation; backup/BCP testing; awareness, drills, incident reporting; vendor/third-party governance"
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "AIS deception: Identity and attribute falsification to mislead observers and screening systems (behavioral observation; no specific ATT&CK ID assigned). Supporting Report",
+      "GNSS spoofing/jamming: Manipulation or denial of positioning signals causing loss of integrity (navigation safety risk; ICS ATT&CK mapping not confirmed in sources). Maritime Advisory",
+      "Port-OT exposure: External remote services and third-party access pathways to industrial assets (derived from MARAD/DGMA guidance; formal ATT&CK technique IDs not specified). Government Advisory Government Advisory",
+      "Enterprise attack surface at ports: Potential phishing, ransomware, and exploitation of remote access referenced as common vectors in port guidance (generic classes; no campaign-specific mapping). Government Advisory"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional operational updates or residual effects from the NC Ports incident as recovery continues. Confidence: medium. View Article Continued reporting on GNSS interference is likely in affected regions; bridge teams should maintain heightened cross-check discipline. Confidence: medium-high. View Article Regulatory/industry advisories on port-OT risks and ISPS-aligned cyber controls may see further adoption and local enforcement actions. Confidence: medium. Government Advisory Government Advisory AIS deception trends may persist regionally; VTS and operators should continue anomaly monitoring and cross-verification. Confidence: medium. Supporting Report",
+  "relatedCves": []
+}
