@@ -1,0 +1,560 @@
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Card } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { Input, Select } from '../../components/ui/Input';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { useToast } from '../../components/ui/Toast';
+import {
+  Shield,
+  RefreshCw,
+  Loader2,
+  ExternalLink,
+  Eye,
+  Target,
+  Globe,
+  Radio,
+  BarChart3,
+  Trash2,
+  Settings,
+} from 'lucide-react';
+import { APT_GROUPS, ALIAS_MAP } from '../../data/threat-monitor/apt-groups';
+import { TECHNIQUES, KILL_CHAIN_STAGES, TACTIC_TO_KILLCHAIN } from '../../data/threat-monitor/mitre-attack';
+import { OSINT_SOURCES } from '../../data/threat-monitor/osint-sources';
+
+/* ── Types ── */
+interface Detection {
+  id: string;
+  source: string;
+  title: string;
+  url: string;
+  published: string;
+  apt_groups: string[];
+  techniques: { id: string; name: string; tactic: string; kill_chain: string }[];
+  kill_chain_stages: string[];
+  confidence: number;
+  created_at: string;
+}
+interface ScanResult {
+  newItems: number;
+  relevant: number;
+  alerted: number;
+  errors: number;
+  ts: string;
+}
+
+/* ── LocalStorage helpers ── */
+const LS_KEY = 'tam_detections';
+const LS_SCAN_KEY = 'tam_last_scan';
+function loadDetections(): Detection[] {
+  try {
+    return JSON.parse(localStorage.getItem(LS_KEY) ?? '[]');
+  } catch {
+    return [];
+  }
+}
+function saveDetections(d: Detection[]) {
+  localStorage.setItem(LS_KEY, JSON.stringify(d.slice(0, 500)));
+}
+function loadLastScan(): ScanResult | null {
+  try {
+    return JSON.parse(localStorage.getItem(LS_SCAN_KEY) ?? 'null');
+  } catch {
+    return null;
+  }
+}
+function saveLastScan(s: ScanResult) {
+  localStorage.setItem(LS_SCAN_KEY, JSON.stringify(s));
+}
+
+/* ── XML Parser (browser-native) ── */
+function parseFeedXML(xml: string): { title: string; link: string; published: string }[] {
+  const doc = new DOMParser().parseFromString(xml, 'text/xml');
+  const items: { title: string; link: string; published: string }[] = [];
+  // RSS 2.0
+  doc.querySelectorAll('item').forEach((el) => {
+    const title = el.querySelector('title')?.textContent?.trim() ?? '';
+    const link = el.querySelector('link')?.textContent?.trim() ?? '';
+    const pub =
+      el.querySelector('pubDate')?.textContent?.trim() ?? el.querySelector('published')?.textContent?.trim() ?? '';
+    if (title) items.push({ title, link, published: pub });
+  });
+  // Atom
+  doc.querySelectorAll('entry').forEach((el) => {
+    const title = el.querySelector('title')?.textContent?.trim() ?? '';
+    const linkEl = el.querySelector('link[rel="alternate"]') ?? el.querySelector('link');
+    const link = linkEl?.getAttribute('href') ?? '';
+    const pub =
+      el.querySelector('published')?.textContent?.trim() ?? el.querySelector('updated')?.textContent?.trim() ?? '';
+    if (title) items.push({ title, link, published: pub });
+  });
+  return items;
+}
+
+/* ── Detection Engine ── */
+function matchAPT(text: string): string[] {
+  const lower = text.toLowerCase();
+  const matched = new Set<string>();
+  for (const [alias, group] of Object.entries(ALIAS_MAP)) {
+    if (lower.includes(alias)) matched.add(group);
+  }
+  // Also check APT group keys directly
+  for (const key of Object.keys(APT_GROUPS)) {
+    if (lower.includes(key.toLowerCase())) matched.add(key);
+  }
+  return [...matched];
+}
+
+function matchTechniques(text: string): { id: string; name: string; tactic: string; kill_chain: string }[] {
+  const lower = text.toLowerCase();
+  const matched: { id: string; name: string; tactic: string; kill_chain: string }[] = [];
+  for (const [id, tech] of Object.entries(TECHNIQUES)) {
+    for (const kw of tech.keywords) {
+      if (lower.includes(kw.toLowerCase())) {
+        const kc = TACTIC_TO_KILLCHAIN[tech.tactic] ?? 'Actions on Objectives';
+        matched.push({ id, name: tech.name, tactic: tech.tactic, kill_chain: kc });
+        break;
+      }
+    }
+  }
+  return matched;
+}
+
+function scoreConfidence(aptMatches: number, techMatches: number, sourceIsVendor: boolean): number {
+  let c = 0.1; // base
+  if (aptMatches >= 3) c += 0.5;
+  else if (aptMatches >= 2) c += 0.35;
+  else if (aptMatches >= 1) c += 0.25;
+  if (techMatches >= 5) c += 0.3;
+  else if (techMatches >= 3) c += 0.2;
+  else if (techMatches >= 1) c += 0.1;
+  if (sourceIsVendor) c += 0.1;
+  return Math.min(c, 1);
+}
+
+/* ── Constants ── */
+const KC_COLORS: Record<string, string> = {
+  Reconnaissance: 'bg-blue-500',
+  Weaponization: 'bg-purple-500',
+  Delivery: 'bg-orange-500',
+  Exploitation: 'bg-red-500',
+  Installation: 'bg-pink-500',
+  'Command & Control': 'bg-amber-500',
+  'Actions on Objectives': 'bg-rose-600',
+};
+const CONF_COLORS: Record<string, string> = {
+  high: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+  medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
+  low: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300',
+};
+
+/* ── Sub-components ── */
+function ConfidenceBadge({ c }: { c: number }) {
+  const level = c >= 0.7 ? 'high' : c >= 0.35 ? 'medium' : 'low';
+  return (
+    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold ${CONF_COLORS[level]}`}>
+      {(c * 100).toFixed(0)}%
+    </span>
+  );
+}
+
+function KillChainBar({ stages }: { stages: string[] }) {
+  return (
+    <div className="flex gap-0.5 h-5 rounded overflow-hidden">
+      {KILL_CHAIN_STAGES.map((s) => (
+        <div
+          key={s}
+          className={`flex-1 ${stages.includes(s) ? KC_COLORS[s] : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))]'}`}
+          title={s}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ── Main Component ── */
+export default function ThreatActorMonitor() {
+  const { toast } = useToast();
+  const [scanning, setScanning] = useState(false);
+  const [detections, setDetections] = useState<Detection[]>([]);
+  const [filter, setFilter] = useState('');
+  const [confFilter, setConfFilter] = useState('all');
+  const [lastScan, setLastScan] = useState<ScanResult | null>(null);
+  const [sourcesEnabled, setSourcesEnabled] = useState<Record<string, boolean>>(() => {
+    const all: Record<string, boolean> = {};
+    OSINT_SOURCES.forEach((s) => {
+      all[s.name] = true;
+    });
+    return all;
+  });
+  const scanAbort = useRef<AbortController | null>(null);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    setDetections(loadDetections());
+    setLastScan(loadLastScan());
+  }, []);
+
+  const enabledSources = OSINT_SOURCES.filter((s) => sourcesEnabled[s.name]);
+  const disabledCount = OSINT_SOURCES.length - enabledSources.length;
+
+  /* ── Scan: poll RSS feeds, parse, match, store ── */
+  const runScan = useCallback(async () => {
+    if (scanning) return;
+    setScanning(true);
+    const abort = new AbortController();
+    scanAbort.current = abort;
+    toast(`Scanning ${enabledSources.length} OSINT feeds...`, 'info');
+
+    let newCount = 0,
+      relevantCount = 0,
+      alertedCount = 0,
+      errorCount = 0;
+    const existing = loadDetections();
+    const existingUrls = new Set(existing.map((d) => d.url));
+    const newDetections: Detection[] = [];
+
+    // Batch fetch (5 at a time to avoid hammering)
+    const batchSize = 5;
+    for (let i = 0; i < enabledSources.length; i += batchSize) {
+      if (abort.signal.aborted) break;
+      const batch = enabledSources.slice(i, i + batchSize);
+      const results = await Promise.allSettled(
+        batch.map(async (src) => {
+          try {
+            const proxyUrl = `/api/v1/threat-monitor/proxy?url=${encodeURIComponent(src.url)}`;
+            const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(20000) });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const xml = await res.text();
+            return { source: src, items: parseFeedXML(xml) };
+          } catch (e) {
+            errorCount++;
+            return { source: src, items: [] as { title: string; link: string; published: string }[] };
+          }
+        })
+      );
+
+      for (const r of results) {
+        if (r.status !== 'fulfilled') continue;
+        const { source, items } = r.value;
+        const isVendor = source.category === 'vendor';
+        for (const item of items) {
+          newCount++;
+          const combined = `${item.title}`;
+          const aptMatches = matchAPT(combined);
+          const techMatches = matchTechniques(combined);
+          if (aptMatches.length > 0 || techMatches.length >= 2) {
+            if (existingUrls.has(item.link)) continue;
+            relevantCount++;
+            const confidence = scoreConfidence(aptMatches.length, techMatches.length, isVendor);
+            const kcStages = [...new Set(techMatches.map((t) => t.kill_chain))];
+            const det: Detection = {
+              id: `det-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+              source: source.name,
+              title: item.title,
+              url: item.link,
+              published: item.published,
+              apt_groups: aptMatches,
+              techniques: techMatches,
+              kill_chain_stages: kcStages,
+              confidence,
+              created_at: new Date().toISOString(),
+            };
+            newDetections.push(det);
+            if (confidence >= 0.5) alertedCount++;
+          }
+        }
+      }
+    }
+
+    // Merge + save
+    const merged = [...newDetections, ...existing]
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .slice(0, 500);
+    saveDetections(merged);
+    setDetections(merged);
+
+    const scanResult: ScanResult = {
+      newItems: newCount,
+      relevant: relevantCount,
+      alerted: alertedCount,
+      errors: errorCount,
+      ts: new Date().toISOString(),
+    };
+    saveLastScan(scanResult);
+    setLastScan(scanResult);
+    setScanning(false);
+
+    toast(`Scan complete: ${newCount} items scanned, ${relevantCount} matched, ${alertedCount} alerted`, 'success');
+  }, [scanning, enabledSources, toast]);
+
+  const clearDetections = useCallback(() => {
+    if (!confirm('Clear all detections?')) return;
+    saveDetections([]);
+    setDetections([]);
+    toast('Detections cleared', 'info');
+  }, [toast]);
+
+  /* ── Computed stats ── */
+  const filtered = detections.filter((d) => {
+    if (filter) {
+      const q = filter.toLowerCase();
+      if (!d.title.toLowerCase().includes(q) && !d.apt_groups.some((g) => g.toLowerCase().includes(q))) return false;
+    }
+    if (confFilter !== 'all') {
+      if (confFilter === 'high' && d.confidence < 0.7) return false;
+      if (confFilter === 'medium' && (d.confidence < 0.35 || d.confidence >= 0.7)) return false;
+      if (confFilter === 'low' && d.confidence >= 0.35) return false;
+    }
+    return true;
+  });
+
+  const originMap: Record<string, number> = {};
+  const sourceMap: Record<string, number> = {};
+  const kcMap: Record<string, number> = {};
+  for (const d of detections) {
+    sourceMap[d.source] = (sourceMap[d.source] ?? 0) + 1;
+    for (const g of d.apt_groups) {
+      const o = APT_GROUPS[g]?.suspected_origin ?? 'Unknown';
+      originMap[o] = (originMap[o] ?? 0) + 1;
+    }
+    for (const s of d.kill_chain_stages) kcMap[s] = (kcMap[s] ?? 0) + 1;
+  }
+  const sourceList = Object.entries(sourceMap)
+    .map(([source, c]) => ({ source, c }))
+    .sort((a, b) => b.c - a.c);
+  const totalAptGroupsDetected = new Set(detections.flatMap((d) => d.apt_groups)).size;
+
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      backLabel="Threat Intel"
+      icon={<Shield size={20} />}
+      title="Global Threat Actor Monitor"
+      description={`Real-time APT monitoring across ${enabledSources.length} OSINT feeds — MITRE ATT&CK + Cyber Kill Chain mapping`}
+      maxWidthClass="max-w-7xl"
+    >
+      {/* Controls */}
+      <div className="flex flex-wrap items-center gap-3 mb-6">
+        <Button variant="primary-brand" size="sm" onClick={runScan} loading={scanning} icon={<Radio size={14} />}>
+          {scanning ? 'Scanning...' : `Scan ${enabledSources.length} Feeds`}
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => setDetections(loadDetections())}
+          icon={<RefreshCw size={14} />}
+        >
+          Refresh
+        </Button>
+        <Button variant="secondary" size="sm" onClick={clearDetections} icon={<Trash2 size={14} />}>
+          Clear
+        </Button>
+        {lastScan && (
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            Last: {lastScan.relevant} matched · {lastScan.alerted} alerted · {lastScan.errors} errors (
+            {new Date(lastScan.ts).toLocaleString()})
+          </span>
+        )}
+        {disabledCount > 0 && (
+          <span className="text-xs text-amber-600 dark:text-amber-400">{disabledCount} feeds disabled</span>
+        )}
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <Card padding="md">
+          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">Detections</div>
+          <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{detections.length}</div>
+        </Card>
+        <Card padding="md">
+          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">APT Groups</div>
+          <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+            {totalAptGroupsDetected}
+            <span className="text-sm text-slate-400">/40</span>
+          </div>
+        </Card>
+        <Card padding="md">
+          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">Techniques</div>
+          <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+            {Object.keys(TECHNIQUES).length}
+          </div>
+          <div className="text-xs text-slate-500">ATT&CK mapped</div>
+        </Card>
+        <Card padding="md">
+          <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">Alerts</div>
+          <div className="text-2xl font-bold font-mono text-red-600 dark:text-red-400">
+            {detections.filter((d) => d.confidence >= 0.5).length}
+          </div>
+          <div className="text-xs text-slate-500">high confidence</div>
+        </Card>
+      </div>
+
+      {/* Kill Chain + Origin + Top Sources */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <Card padding="md">
+          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+            <Target size={14} className="inline mr-1" />
+            Kill Chain Coverage
+          </h3>
+          <div className="space-y-2">
+            {KILL_CHAIN_STAGES.map((s) => (
+              <div key={s} className="flex items-center gap-2">
+                <div className={`w-3 h-3 rounded ${KC_COLORS[s]}`} />
+                <span className="text-xs text-slate-600 dark:text-slate-400 flex-1 truncate">{s}</span>
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">{kcMap[s] ?? 0}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+        <Card padding="md">
+          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+            <Globe size={14} className="inline mr-1" />
+            By Origin
+          </h3>
+          <div className="space-y-1.5">
+            {Object.entries(originMap)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 10)
+              .map(([o, c]) => (
+                <div key={o} className="flex items-center justify-between text-xs">
+                  <span className="text-slate-600 dark:text-slate-400 truncate">{o}</span>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">{c}</span>
+                </div>
+              ))}
+          </div>
+        </Card>
+        <Card padding="md">
+          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+            <BarChart3 size={14} className="inline mr-1" />
+            Top Sources
+          </h3>
+          <div className="space-y-1.5">
+            {sourceList.slice(0, 10).map((s) => (
+              <div key={s.source} className="flex items-center justify-between text-xs">
+                <span className="text-slate-600 dark:text-slate-400 truncate max-w-[180px]">{s.source}</span>
+                <span className="font-mono font-bold text-slate-900 dark:text-white">{s.c}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      {/* Source Selector */}
+      <Card padding="md" className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <Settings size={14} className="text-slate-500" />
+          <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+            OSINT Sources ({enabledSources.length}/{OSINT_SOURCES.length})
+          </h3>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {OSINT_SOURCES.map((s) => (
+            <button
+              key={s.name}
+              onClick={() => setSourcesEnabled((prev) => ({ ...prev, [s.name]: !prev[s.name] }))}
+              className={`px-2 py-1 rounded text-[10px] font-medium border transition-colors ${
+                sourcesEnabled[s.name]
+                  ? 'bg-brand-100 border-brand-300 text-brand-700 dark:bg-brand-900/30 dark:border-brand-600 dark:text-brand-300'
+                  : 'bg-slate-100 border-slate-200 text-slate-400 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-600'
+              }`}
+            >
+              {s.name}
+            </button>
+          ))}
+        </div>
+      </Card>
+
+      {/* Detections Feed */}
+      <Card padding="none">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div className="flex-1 min-w-[200px]">
+            <Input
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              placeholder="Filter by title or actor..."
+              mono={false}
+            />
+          </div>
+          <Select value={confFilter} onChange={(e) => setConfFilter(e.target.value)} className="w-auto" mono={false}>
+            <option value="all">All Confidence</option>
+            <option value="high">High (≥70%)</option>
+            <option value="medium">Medium (35-70%)</option>
+            <option value="low">Low (&lt;35%)</option>
+          </Select>
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} detections</span>
+        </div>
+        {scanning ? (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 size={28} className="animate-spin text-brand-500" />
+            <span className="ml-3 text-slate-400">Scanning feeds...</span>
+          </div>
+        ) : filtered.length === 0 ? (
+          <EmptyState
+            icon={<Eye size={32} />}
+            title="No detections yet"
+            description={`Click "Scan" to poll ${enabledSources.length} OSINT feeds and detect APT activity using MITRE ATT&CK matching`}
+          />
+        ) : (
+          <div className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+            {filtered.map((d) => (
+              <div
+                key={d.id}
+                className="p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <a
+                        href={d.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 truncate"
+                      >
+                        {d.title}
+                      </a>
+                      <ExternalLink size={12} className="text-slate-400 shrink-0" />
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{d.source}</span>
+                      {d.published && (
+                        <span className="text-xs text-slate-400">· {new Date(d.published).toLocaleDateString()}</span>
+                      )}
+                      <ConfidenceBadge c={d.confidence} />
+                    </div>
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {d.apt_groups.map((g) => (
+                        <span
+                          key={g}
+                          className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300"
+                        >
+                          {g}{' '}
+                          <span className="text-rose-400 dark:text-rose-500">
+                            ({APT_GROUPS[g]?.suspected_origin ?? '?'})
+                          </span>
+                        </span>
+                      ))}
+                      {d.techniques.slice(0, 5).map((t) => (
+                        <span
+                          key={t.id}
+                          className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                          title={`${t.name} (${t.tactic})`}
+                        >
+                          {t.id}
+                        </span>
+                      ))}
+                      {d.techniques.length > 5 && (
+                        <span className="text-[10px] text-slate-400">+{d.techniques.length - 5}</span>
+                      )}
+                    </div>
+                    <KillChainBar stages={d.kill_chain_stages} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </Card>
+    </DataPageLayout>
+  );
+}
