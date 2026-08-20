@@ -71,7 +71,8 @@ export default function CampaignLifecycle(): JSX.Element {
         placeholder="Related IOCs (optional, one per line)…"
         className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
       />
-      <button type="button"
+      <button
+        type="button"
         onClick={handleAnalyze}
         disabled={loading || !campaignName.trim()}
         className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
@@ -96,7 +97,9 @@ export default function CampaignLifecycle(): JSX.Element {
           <div className="surface-card-faint shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
-              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">Confidence: {lifecycle.confidence}%</span>
+              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                Confidence: {lifecycle.confidence}%
+              </span>
             </div>
             <div className="text-sm text-muted">Actor: {lifecycle.actor}</div>
             <div className="flex items-center gap-2 mt-2 text-xs">
@@ -112,19 +115,22 @@ export default function CampaignLifecycle(): JSX.Element {
               const isOpen = expandedPhase === phase.name;
               return (
                 <div key={phase.name} className="surface-card-faint shadow-e1 overflow-hidden">
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => setExpandedPhase(isOpen ? null : phase.name)}
                     className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
                   >
                     <div
-                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${phase.status === 'completed' ? 'bg-emerald-500' : phase.status === 'active' ? 'bg-rose-600' : 'bg-slate-300 dark:bg-slate-700'}`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${phase.status === 'completed' ? 'bg-emerald-500' : phase.status === 'active' ? 'bg-rose-600' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'}`}
                     >
                       {phase.status === 'completed' ? 'done' : i + 1}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{phase.name}</div>
                       {phase.start_date && (
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{phase.start_date}</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                          {phase.start_date}
+                        </div>
                       )}
                     </div>
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PHASE_STATUS[phase.status]}`}>

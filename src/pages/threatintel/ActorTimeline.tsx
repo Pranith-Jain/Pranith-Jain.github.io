@@ -365,7 +365,7 @@ function MirrorDots({ reachable, total }: { reachable: number; total: number }):
         <span
           key={d.key}
           className={`inline-block w-1.5 h-1.5 rounded-full ${
-            d.on ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-slate-700'
+            d.on ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-[rgb(var(--surface-300))]'
           }`}
         />
       ))}

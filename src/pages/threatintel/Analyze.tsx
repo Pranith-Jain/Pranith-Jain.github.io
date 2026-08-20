@@ -291,7 +291,7 @@ export default function Analyze(): JSX.Element {
             </div>
           </div>
           <div className="mb-3">
-            <div className="h-3 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="h-3 w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-1000 ${scoreBarClass(summary.score)}`}
                 style={{ width: `${summary.score}%` }}
@@ -425,7 +425,7 @@ export default function Analyze(): JSX.Element {
                         </td>
                         <td className="px-3 py-2.5">
                           <div className="flex items-center gap-2">
-                            <div className="w-16 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div className="w-16 h-1.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                               <div
                                 className={`h-full rounded-full ${scoreBarClass(r.score)}`}
                                 style={{ width: `${r.score}%` }}

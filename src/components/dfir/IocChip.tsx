@@ -145,8 +145,8 @@ function IocChipInner({
       : `rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] ${sz.box}`;
     return (
       <span className={`inline-flex items-center ${sz.gap} ${skeletonFrame} ${className}`} aria-hidden="true">
-        <span className={`${sz.icon} shrink-0 rounded bg-slate-200 dark:bg-slate-700 animate-pulse`} />
-        <span className="h-3 w-24 rounded bg-slate-200 dark:bg-slate-700 animate-pulse" />
+        <span className={`${sz.icon} shrink-0 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse`} />
+        <span className="h-3 w-24 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
       </span>
     );
   }
@@ -312,7 +312,9 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
               <>
                 <span className="flex items-center gap-1.5 font-mono text-meta font-medium text-slate-800 dark:text-slate-200">
                   {p.label}
-                  {p.external && <ExternalLink className="h-3 w-3 text-slate-500 dark:text-slate-400" aria-hidden="true" />}
+                  {p.external && (
+                    <ExternalLink className="h-3 w-3 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+                  )}
                 </span>
                 <span className="mt-0.5 block text-mini leading-snug text-slate-500 dark:text-slate-400">{p.desc}</span>
               </>

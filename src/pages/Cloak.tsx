@@ -90,7 +90,10 @@ function TechniqueDetail({ body, onClose }: { body: CloakTechniqueBody; onClose:
             </div>
             <div className="space-y-3">
               {body.subtechniques.map((sub) => (
-                <div key={sub.id} className="border border-slate-200 dark:border-slate-700 rounded-lg p-3">
+                <div
+                  key={sub.id}
+                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3"
+                >
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-mono text-micro font-bold text-slate-500">ST{sub.id}</span>
                     <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{sub.name}</span>
@@ -230,13 +233,13 @@ export default function Cloak() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search tactics or techniques..."
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[rgb(var(--surface-100))] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[rgb(var(--surface-100))] text-slate-800 dark:text-slate-200"
+          className="px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-800 dark:text-slate-200"
         >
           <option value="">All types</option>
           <option value="Technical">Technical</option>
@@ -250,7 +253,7 @@ export default function Cloak() {
           <div key={tactic.id} className={`${CARD} overflow-hidden`}>
             <button
               onClick={() => loadTactic(tactic.id)}
-              className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
             >
               {expandedTactic === tactic.id ? (
                 <ChevronDown size={16} className="text-slate-400 shrink-0" />
@@ -267,14 +270,14 @@ export default function Cloak() {
             </button>
 
             {expandedTactic === tactic.id && tacticData && (
-              <div className="border-t border-slate-200 dark:border-slate-700 px-4 py-3">
+              <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{tacticData.description}</p>
                 <div className="space-y-1.5">
                   {filteredTechniques.map((tech) => (
                     <button
                       key={tech.id}
                       onClick={() => loadTechnique(tech.id)}
-                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-left"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors text-left"
                     >
                       <span className="font-mono text-micro text-slate-400 shrink-0">T{tech.id}</span>
                       <span className="text-sm text-slate-700 dark:text-slate-200 flex-1">{tech.name}</span>

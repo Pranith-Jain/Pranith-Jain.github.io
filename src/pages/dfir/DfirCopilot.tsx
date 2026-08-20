@@ -112,7 +112,7 @@ function renderMarkdown(safeMd: string): string {
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(
       /`([^`]+)`/g,
-      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-xs font-mono">$1</code>'
+      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono">$1</code>'
     )
     .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
     .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-4 list-decimal text-sm">$1</li>')

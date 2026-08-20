@@ -339,7 +339,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                       <span className="text-mini font-mono text-slate-600 dark:text-slate-300 truncate flex-1">
                         {forum}
                       </span>
-                      <div className="w-20 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                      <div className="w-20 h-1.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500 rounded-full" style={{ width: `${pct}%` }} />
                       </div>
                       <span className="text-mini font-mono text-slate-500 dark:text-slate-400 w-8 text-right">

@@ -360,7 +360,7 @@ export default function EstateConfig() {
               return (
                 <div
                   key={a.id}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-700/30"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]/30"
                 >
                   <Icon size={18} className="text-slate-500 dark:text-slate-400" />
                   <div className="flex-1 min-w-0">

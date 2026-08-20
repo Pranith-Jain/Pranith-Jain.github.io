@@ -129,4 +129,6 @@ briefings-out/
 
 # Reddit feed artifact — published to the reddit-feed-data branch by CI, not committed
 reddit-feed.json
+# Telegram RSS cache artifact — published to the telegram-rss-cache branch by CI, not committed
+telegram-rss-cache.json
 og-overrides.generated.json

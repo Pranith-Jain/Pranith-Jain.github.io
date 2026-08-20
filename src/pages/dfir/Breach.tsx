@@ -254,7 +254,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
               {b.data_classes.slice(0, 8).map((d, j) => (
                 <span
                   key={j}
-                  className="text-xs px-2 py-0.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded"
+                  className="text-xs px-2 py-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 rounded"
                 >
                   {d}
                 </span>

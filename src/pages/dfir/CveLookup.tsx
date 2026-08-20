@@ -349,7 +349,7 @@ export default function CveLookup(): JSX.Element {
                           title={`KEV contribution: ${p.contributions.kev}`}
                         />
                       )}
-                      <div className="bg-slate-300 dark:bg-slate-700" style={{ flex: 1 }} />
+                      <div className="bg-slate-300 dark:bg-[rgb(var(--surface-300))]" style={{ flex: 1 }} />
                     </div>
                     <div className="flex flex-wrap gap-3 mt-1.5 text-micro font-mono text-slate-400 dark:text-slate-400">
                       <span className="inline-flex items-center gap-1">

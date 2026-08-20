@@ -260,7 +260,7 @@ export default function GrcEvidence(): JSX.Element {
                   </span>
                 </div>
                 <div className="text-micro text-slate-500 mb-2">{fw.description.slice(0, 80)}...</div>
-                <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-rose-500'}`}
                     style={{ width: `${Math.round(pct)}%` }}
@@ -322,7 +322,7 @@ export default function GrcEvidence(): JSX.Element {
                         toggleControl(ctrl.id);
                         if (!isExpanded) void handleFetchEvidence(ctrl.id);
                       }}
-                      className="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      className="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]/50 transition-colors"
                     >
                       {isExpanded ? (
                         <ChevronDown size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />

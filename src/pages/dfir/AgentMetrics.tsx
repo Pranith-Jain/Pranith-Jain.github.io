@@ -264,7 +264,7 @@ export default function AgentMetrics(): JSX.Element {
                   <span className="shrink-0 tabular-nums text-micro text-slate-500">{m.qualityScore}/100</span>
                 </div>
                 <div className="mt-0.5 flex flex-wrap gap-1 text-micro font-mono text-slate-500">
-                  <span className="rounded bg-slate-100 px-1 dark:bg-slate-800">{m.queryType}</span>
+                  <span className="rounded bg-slate-100 px-1 dark:bg-[rgb(var(--surface-300))]">{m.queryType}</span>
                   {m.actors.slice(0, 2).map((a) => (
                     <span key={a} className="rounded bg-rose-500/10 px-1 text-rose-600">
                       {a}
@@ -292,7 +292,11 @@ export default function AgentMetrics(): JSX.Element {
           <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
             Knowledge Graph ({graph.nodes.length} entities, {graph.edges.length} relationships)
           </h3>
-          <Suspense fallback={<div className="h-[460px] animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800" />}>
+          <Suspense
+            fallback={
+              <div className="h-[460px] animate-pulse rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-300))]" />
+            }
+          >
             <RelationshipGraph graph={graph} />
           </Suspense>
         </div>

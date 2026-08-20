@@ -12,6 +12,7 @@ import {
 } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
 import { SourceTogglePanel } from '../../components/threatintel/SourceTogglePanel';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
  * Scam Watch - live aggregator of digital-fraud reporting.
@@ -19,15 +20,15 @@ import { SourceTogglePanel } from '../../components/threatintel/SourceTogglePane
  * Sections:
  *   - Official alerts: FTC consumer alerts + FBI IC3 PSAs
  *   - Deepfake feed: Google News "deepfake scam" RSS query
- *   - Victim reports: Reddit r/Scams + r/CryptoScams + r/Romance_Scams + r/PhishingScams
+ *   - Victim reports: Google News digital-scam-victim coverage
  *   - Fact-checks + general scam news: Snopes + Google News "digital scam victim"
  */
 
-// gnews-* feeds were removed 2026-05-24: Google News rate-limits Worker
-// IPs aggressively (consistent 503s) with no recovery path. The Reddit
-// and direct-source feeds cover the same beat reliably. Sections that
-// previously depended ONLY on gnews are dropped; the remaining 9 categories
-// keep at least one reliable source each.
+// Reddit r/*.rss feeds were dropped 2026-08: Reddit blocks Worker egress IPs
+// at the network level (consistent 429s, no recovery). The /threatintel/reddit
+// firehose (GitHub-Action-built reddit-feed.json served from ASSETS) keeps
+// Reddit content available; the sections below use Google News search feeds
+// for the same scam beats.
 const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[] = [
   {
     id: 'alerts',
@@ -39,25 +40,25 @@ const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[
     id: 'crypto-nft',
     label: 'Crypto & NFT scams',
     blurb: 'Rug pulls, wallet drainers, NFT phishing, DeFi exploits - first-person + post-mortems.',
-    feedIds: ['rekt-news', 'web3-grift', 'reddit-cryptoscams'],
+    feedIds: ['rekt-news', 'web3-grift', 'gnews-rug-pull', 'gnews-nft-drainer'],
   },
   {
     id: 'job',
     label: 'Job & recruitment',
     blurb: 'Fake recruiters, fake interviews, fake offer letters - fastest-growing scam category.',
-    feedIds: ['reddit-jobscams'],
+    feedIds: ['gnews-job-scam'],
   },
   {
     id: 'impersonation',
     label: 'Impersonation & social engineering',
     blurb: 'Tech-support, IRS, Microsoft, SIM-swap, vishing - anyone-but-them on the phone.',
-    feedIds: ['reddit-scammer-payback'],
+    feedIds: ['gnews-tech-support', 'gnews-voice-clone', 'gnews-sim-swap'],
   },
   {
     id: 'victims',
     label: 'Victim reports',
-    blurb: 'First-person reports posted to Reddit fraud-recovery communities.',
-    feedIds: ['reddit-scams', 'reddit-phishing-scams'],
+    blurb: 'First-person and case-coverage reports of digital-fraud incidents.',
+    feedIds: ['gnews-victim', 'gnews-deepfake'],
   },
   {
     id: 'news',
@@ -303,6 +304,18 @@ export default function ScamWatch(): JSX.Element {
         <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
           No items returned from the aggregator. Try refresh; the upstream feeds may be temporarily slow.
         </div>
+      )}
+
+      {annotated.length > 0 && (
+        <AiSummaryCard
+          surface="Scam Watch"
+          items={annotated.slice(0, 30).map(({ item }) => ({
+            title: item.title ?? '(untitled)',
+            body: stripHtml(item.description ?? ''),
+            source: item.source,
+          }))}
+          requireAdmin={false}
+        />
       )}
 
       <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-3">

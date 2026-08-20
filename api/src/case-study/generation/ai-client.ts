@@ -162,11 +162,14 @@ interface WorkersAiBinding {
   run: (model: string, input: Record<string, unknown>) => Promise<unknown>;
 }
 
-function isWorkersAi(ai: unknown): ai is WorkersAiBinding {
+export function isWorkersAi(ai: unknown): ai is WorkersAiBinding {
   return !!ai && typeof ai === 'object' && typeof (ai as { run?: unknown }).run === 'function';
 }
 
-async function runWorkersAI(ai: WorkersAiBinding, input: CompletionInput): Promise<{ text: string; model: string }> {
+export async function runWorkersAI(
+  ai: WorkersAiBinding,
+  input: CompletionInput
+): Promise<{ text: string; model: string }> {
   let lastErr = 'no model attempted';
   for (const model of WORKERS_AI_MODELS) {
     try {

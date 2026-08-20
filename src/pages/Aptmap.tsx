@@ -60,7 +60,7 @@ function TopBarChart({ items, labelKey, maxItems = 15 }: { items: CountItem[]; l
             <span className="w-32 truncate text-xs font-mono text-slate-700 dark:text-slate-300 shrink-0" title={label}>
               {label}
             </span>
-            <div className="flex-1 h-4 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden">
+            <div className="flex-1 h-4 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500/60 rounded-full transition-all"
                 style={{ width: `${Math.max(pct, 2)}%` }}
@@ -110,7 +110,7 @@ function HorizontalStackedChart({
             <span className="w-40 truncate text-xs font-mono text-slate-700 dark:text-slate-300 shrink-0" title={label}>
               {label}
             </span>
-            <div className="flex-1 h-5 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden flex">
+            <div className="flex-1 h-5 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 rounded-full overflow-hidden flex">
               <div
                 className={`h-full ${colors[idx % colors.length]} rounded-full transition-all`}
                 style={{ width: `${Math.max(pct, 1)}%` }}
@@ -259,7 +259,7 @@ export default function AptmapPage() {
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-t-lg transition-colors ${
               activeTab === tab.id
                 ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-b-2 border-brand-500'
-                : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-800/30'
+                : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/30'
             }`}
           >
             {tab.icon}
@@ -290,7 +290,7 @@ export default function AptmapPage() {
                           setSelectedNode(n);
                           setActiveTab('graph');
                         }}
-                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-800/40 transition-colors truncate"
+                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 transition-colors truncate"
                         title={n.description || n.name}
                       >
                         {n.name}
@@ -314,7 +314,7 @@ export default function AptmapPage() {
                           setSelectedNode(n);
                           setActiveTab('graph');
                         }}
-                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-800/40 transition-colors truncate"
+                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 transition-colors truncate"
                         title={n.description || n.name}
                       >
                         {n.name}
@@ -343,7 +343,7 @@ export default function AptmapPage() {
                               setSelectedNode(n);
                               setActiveTab('graph');
                             }}
-                            className="px-2 py-0.5 rounded text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/40 hover:bg-slate-200 dark:bg-slate-700/50 transition-colors"
+                            className="px-2 py-0.5 rounded text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))]/40 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))/0.5] transition-colors"
                           >
                             {n.name}
                           </button>
@@ -483,7 +483,7 @@ export default function AptmapPage() {
                         key={`${l.source}-${l.target}`}
                         type="button"
                         onClick={() => setSelectedNode(node)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/20 hover:bg-slate-200 dark:bg-slate-700/30 transition-colors text-left"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))/0.3] transition-colors text-left"
                       >
                         <span
                           className="w-2 h-2 rounded-full shrink-0"
@@ -519,7 +519,7 @@ export default function AptmapPage() {
                   className={`flex items-center gap-2 px-2 py-1.5 rounded transition-colors text-left ${
                     selectedNode?.id === node.id
                       ? 'bg-brand-500/15 ring-1 ring-brand-500/30'
-                      : 'hover:bg-slate-100 dark:bg-slate-800/30'
+                      : 'hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/30'
                   }`}
                 >
                   <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: node.color || '#666' }} />
@@ -704,7 +704,7 @@ export default function AptmapPage() {
                   }
                   rows={certificates.slice(0, 30)}
                   rowKey={(c) => String(c.id)}
-                  rowClassName={() => 'hover:bg-slate-100 dark:bg-slate-800/20'}
+                  rowClassName={() => 'hover:bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20'}
                 />
               </div>
               <p className="text-micro font-mono text-slate-500 mt-3">

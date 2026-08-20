@@ -60,10 +60,27 @@ import { Modal } from '../ui/Modal';
 // Lazy-loaded: @xyflow/react is ~133KB and only needed when a report has a
 // relationship graph. Mirrors the StixGraph lazy pattern.
 const RelationshipGraph = lazy(() => import('./RelationshipGraph'));
-import type { Stakeholder, ReportActionCard, ReportIoc, ReportMitre, ReportDiamond, ReportPir, ReportActionItem } from './report-view-types';
+import type {
+  Stakeholder,
+  ReportActionCard,
+  ReportIoc,
+  ReportMitre,
+  ReportDiamond,
+  ReportPir,
+  ReportActionItem,
+} from './report-view-types';
 import { buildShareMarkdown, renderMarkdown } from './report-view-helpers';
 import { SEVERITY_COLORS } from './report-view-types';
-export type { Severity, Stakeholder, ReportActionCard, ReportIoc, ReportMitre, ReportDiamond, ReportPir, ReportActionItem } from './report-view-types';
+export type {
+  Severity,
+  Stakeholder,
+  ReportActionCard,
+  ReportIoc,
+  ReportMitre,
+  ReportDiamond,
+  ReportPir,
+  ReportActionItem,
+} from './report-view-types';
 export { SEVERITY_COLORS } from './report-view-types';
 
 interface ReportViewProps {
@@ -96,7 +113,6 @@ interface ReportViewProps {
 // ─────────────────────────────────────────────────────────────────────────
 // Constants
 // ─────────────────────────────────────────────────────────────────────────
-
 
 const TLP_COLORS: Record<string, string> = {
   CLEAR: 'border-emerald-400 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300',
@@ -1114,7 +1130,7 @@ export function ReportView({
             className={`px-1.5 py-0.5 rounded text-micro font-mono font-bold ${
               stakeholder === null
                 ? 'bg-brand-600 text-white'
-                : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
             }`}
           >
             ALL
@@ -1142,7 +1158,11 @@ export function ReportView({
           <h3 className="flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
             Relationship Graph
           </h3>
-          <Suspense fallback={<div className="h-[460px] animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800" />}>
+          <Suspense
+            fallback={
+              <div className="h-[460px] animate-pulse rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]" />
+            }
+          >
             <RelationshipGraph graph={actionCard.graph} />
           </Suspense>
         </div>

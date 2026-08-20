@@ -281,7 +281,7 @@ export default function RansomwareQuant(): JSX.Element {
                   {s.estimated_downtime_hours}h downtime
                 </span>
               </div>
-              <div className="mt-1 w-full h-1 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+              <div className="mt-1 w-full h-1 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                 <div
                   className="h-full rounded-full bg-emerald-500"
                   style={{ width: `${Math.min(100, (s.insurance_recovery / Math.max(s.total_impact, 1)) * 100)}%` }}

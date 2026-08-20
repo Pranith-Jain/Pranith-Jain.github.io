@@ -15,7 +15,7 @@
  */
 
 import type { Env } from '../env';
-import { runCompletion } from '../case-study/generation/ai-client';
+import { runCompletion, runWorkersAI, isWorkersAi } from '../case-study/generation/ai-client';
 import { findUngroundedCves, extractCves, detectSlop } from './ai-output-validator';
 import { fenceUntrusted, neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
 
@@ -78,12 +78,16 @@ ${UNTRUSTED_DATA_SYSTEM_NOTE}`;
 
 const MAX_BODY_CHARS = 12000;
 // Outer bound for the whole runCompletion chain (Groq → Gemini → NVIDIA →
-// Workers AI). Must be (a) long enough that the fallback chain can actually
-// run — a single Groq call alone allows 15s, so the old 12s value fired the
-// timeout BEFORE any fallback could respond, turning a slow/rate-limited Groq
-// into a hard 503 — and (b) short enough to return before the frontend's 20s
-// abort. 18s threads that needle.
-const CALL_TIMEOUT_MS = 18000;
+// Workers AI). Long enough that a slow-but-healthy Gemini/Groq fallback can
+// actually respond after a rate-limitted Groq (single Groq timeout is 15s,
+// so an 18s cap fired the timeout BEFORE any fallback had a chance — the
+// classic "AI summary sometimes never generates" 503). Short enough that
+// on total chain failure we still recover via the Workers-AI fallback below
+// and return before the frontend's 35s abort. 28s threads that needle.
+const CALL_TIMEOUT_MS = 28_000;
+// Bounds the recovery re-attempt after the chain races out. Workers AI is
+// first-party infra (no external rate quota), so it usually answers in 2-5s.
+const FALLBACK_TIMEOUT_MS = 12_000;
 
 function buildUserPrompt(input: SummaryInput): string {
   const items = input.items.slice(0, input.maxItems ?? 30);
@@ -116,6 +120,9 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
 
   const userPrompt = buildUserPrompt(input);
 
+  let text = '';
+  let modelUsed = '';
+
   try {
     const timeoutPromise = new Promise<never>((_, reject) =>
       setTimeout(() => reject(new Error('ai-summary timeout')), CALL_TIMEOUT_MS)
@@ -144,16 +151,56 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
       ),
       timeoutPromise,
     ]);
+    text = typeof result.text === 'string' ? result.text.trim() : '';
+    modelUsed = result.modelUsed;
+  } catch (err) {
+    // The whole chain raced out (slow/rate-limited Groq + slow fallbacks) or
+    // every provider failed. DON'T give up here — the Workers-AI recovery
+    // below usually still lands a summary.
+    console.error(
+      `generateAiSummary[${input.surface}] chain failed/timeout: ${err instanceof Error ? err.message : String(err)}`
+    );
+  }
 
-    const text = typeof result.text === 'string' ? result.text.trim() : '';
-    if (!text || text.length < 50) {
-      // Empty/near-empty completion — the classic reasoning-model symptom when
-      // max_completion_tokens is exhausted on the internal trace. Log it so the
-      // cause isn't lost behind the generic 503.
-      console.error(`generateAiSummary[${input.surface}] short output (${text.length} chars) from ${result.modelUsed}`);
-      return null;
+  if (!text || text.length < 50) {
+    // Empty/near-empty completion — the classic reasoning-model symptom when
+    // max_completion_tokens is exhausted on the internal trace, or the chain
+    // raced out. Retry the same prompt directly on Workers AI: it has no
+    // reasoning-trace token tax (fp8 instruct models emit visible text
+    // directly) and no external rate quota.
+    if (isWorkersAi(env.AI)) {
+      try {
+        const fallbackTimeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('ai-summary fallback timeout')), FALLBACK_TIMEOUT_MS)
+        );
+        const fb = await Promise.race([
+          runWorkersAI(env.AI, { system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 2000, temperature: 0.3 }),
+          fallbackTimeout,
+        ]);
+        const fbText = typeof fb.text === 'string' ? fb.text.trim() : '';
+        if (fbText.length >= 50) {
+          text = fbText;
+          modelUsed = `workers-ai:${fb.model.split('/').pop()}`;
+        } else {
+          console.error(
+            `generateAiSummary[${input.surface}] fallback short output (${fbText.length} chars) from ${fb.model}`
+          );
+        }
+      } catch (err) {
+        console.error(
+          `generateAiSummary[${input.surface}] fallback failed: ${err instanceof Error ? err.message : String(err)}`
+        );
+      }
     }
+  }
 
+  if (!text || text.length < 50) {
+    // Log it so the cause isn't lost behind the generic 503, then degrade.
+    console.error(`generateAiSummary[${input.surface}] no usable output (${text.length} chars, ${modelUsed})`);
+    return null;
+  }
+
+  try {
     const tweetSplit = text.split('---TWEET---');
     const summary = tweetSplit[0]!.trim();
     const linkedinSplit = (tweetSplit[1] ?? '').split('---LINKEDIN---');
@@ -184,7 +231,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
       summary,
       tweet,
       linkedin,
-      modelUsed: result.modelUsed,
+      modelUsed,
       itemCount: Math.min(input.items.length, input.maxItems ?? 30),
       _validation: {
         quality_score: quality,

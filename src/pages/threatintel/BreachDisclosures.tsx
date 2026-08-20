@@ -8,6 +8,7 @@ import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
  * Feed IDs - strictly breach-focused. Krebs / BleepingComputer cover
@@ -17,10 +18,8 @@ import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisBut
  */
 const BREACH_NEWS_FEED_IDS = [
   'databreaches',
-  'threatpost',
-  'cybernews',
-  'grahamcluley',
   'bleepingcomputer-breaches',
+  'grahamcluley',
   'hackread-breaches',
   'securityweek-breaches',
   'cyberscoop-breaches',
@@ -203,9 +202,37 @@ export default function BreachDisclosures(): JSX.Element {
             })()}
           </ul>
         )}
+
+        {news && news.length > 0 && (
+          <AiSummaryCard
+            surface="Breach Disclosures"
+            items={news
+              .filter((item) => item.title)
+              .slice(0, 30)
+              .map((item) => ({
+                title: item.title as string,
+                body: stripHtml(item.description ?? ''),
+                source: item.source,
+              }))}
+            requireAdmin={false}
+          />
+        )}
       </section>
 
       <BreachDatabasesPanel />
     </DataPageLayout>
+  );
+}
+
+function stripHtml(s: string): string {
+  return (
+    s
+      .replace(/<[^>]+>/g, '')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .trim() || ''
   );
 }

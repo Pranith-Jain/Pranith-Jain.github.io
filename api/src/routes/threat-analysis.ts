@@ -2,9 +2,51 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, internalError, tooManyRequests } from '../lib/api-error';
+import { runCompletion } from '../case-study/generation/ai-client';
 
-const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'openai/gpt-oss-120b';
+// ── Per-IP rate limiter (in-memory, per-isolate) ──────────────────────
+// Every hit is an LLM call — unbounded public POSTs would burn the free-tier
+// provider quotas. 15 req/min/IP is generous for the human click-path
+// (analysis panels + GlobalPulse) while blocking scripted abuse.
+const RATE_LIMIT_MAX = 15;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const rateLimitMap = new Map<string, { count: number; windowStart: number }>();
+let lastCleanup = Date.now();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  if (now - lastCleanup > 300_000) {
+    lastCleanup = now;
+    for (const [key, entry] of rateLimitMap) {
+      if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS * 2) rateLimitMap.delete(key);
+    }
+  }
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, windowStart: now });
+    return true;
+  }
+  entry.count++;
+  return entry.count <= RATE_LIMIT_MAX;
+}
+
+// ── Cache-API cache keyed by payload content hash ─────────────────────
+// Same (type, title, country, …) click from two tabs / re-opens served the
+// first LLM result instead of firing a second call. 6h TTL — analyses are
+// event-scoped and stale surprisingly slowly for a firehose surface.
+const CACHE_TTL = 6 * 3600;
+
+async function contentHash(s: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  const bytes = new Uint8Array(digest);
+  let hex = '';
+  for (let i = 0; i < 16; i += 1) hex += bytes[i]!.toString(16).padStart(2, '0');
+  return hex;
+}
+
+function cacheKey(req: ThreatAnalysisRequest): Request {
+  return new Request(`https://threat-analysis.internal/v1/${req.type}`);
+}
 
 interface ThreatAnalysisRequest {
   type: 'event' | 'country' | 'indicator' | 'research';
@@ -82,89 +124,6 @@ Return ONLY valid JSON with these fields:
 }
 No markdown. No explanation outside the JSON.`;
 
-async function callGroq(key: string, system: string, user: string, maxTokens = 1500): Promise<string> {
-  const res = await fetch(GROQ_URL, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
-    signal: AbortSignal.timeout(30_000),
-    body: JSON.stringify({
-      model: GROQ_MODEL,
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: user },
-      ],
-      max_completion_tokens: maxTokens,
-      temperature: 0.2,
-      reasoning_effort: 'medium',
-    }),
-  });
-  if (res.status === 429) throw new Error('groq rate-limited');
-  if (!res.ok) throw new Error(`groq HTTP ${res.status}`);
-  const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
-  const text = j?.choices?.[0]?.message?.content;
-  if (typeof text !== 'string' || !text.trim()) throw new Error('groq empty response');
-  return text.trim();
-}
-
-async function callWorkersAI(ai: Env['AI'], system: string, user: string, maxTokens = 1500): Promise<string> {
-  const result = (await ai.run(
-    '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as Parameters<typeof ai.run>[0],
-    {
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: user },
-      ],
-      max_tokens: maxTokens,
-      temperature: 0.2,
-    } as Parameters<typeof ai.run>[1]
-  )) as unknown as {
-    response?: string;
-    choices?: Array<{ message?: { content?: string } }>;
-  };
-  // Workers AI returns { response: string } for instruct models
-  if (typeof result?.response === 'string') return result.response;
-  if (typeof result === 'string') return result;
-  // Some models return { messages: [...] } format
-  if (result?.choices?.[0]?.message?.content) return result.choices[0].message.content;
-  return JSON.stringify(result);
-}
-
-async function callNvidia(
-  nvidiaKey: string,
-  system: string,
-  user: string,
-  maxTokens = 1500,
-  temperature = 0.2
-): Promise<string> {
-  const models = ['minimaxai/minimax-m2.7', 'z-ai/glm-5.2'];
-  for (const model of models) {
-    try {
-      const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${nvidiaKey}`, 'content-type': 'application/json' },
-        signal: AbortSignal.timeout(30_000),
-        body: JSON.stringify({
-          model,
-          messages: [
-            { role: 'system', content: system },
-            { role: 'user', content: user },
-          ],
-          max_tokens: maxTokens,
-          temperature,
-        }),
-      });
-      if (!res.ok) continue;
-      const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
-      const text = data?.choices?.[0]?.message?.content;
-      if (text?.trim()) return text;
-    } catch (_catchErr) {
-      logError('callNvidia failed', _catchErr);
-      /* try next model */
-    }
-  }
-  throw new Error('nvidia models unavailable');
-}
-
 async function callAi(
   ai: Env['AI'],
   groqKey: string | undefined,
@@ -173,20 +132,22 @@ async function callAi(
   user: string,
   maxTokens = 1500
 ): Promise<{ text: string; model: string }> {
-  if (groqKey) {
-    try {
-      const text = await callGroq(groqKey, system, user, maxTokens);
-      return { text, model: `groq:${GROQ_MODEL}` };
-    } catch {}
-  }
-  if (nvidiaKey) {
-    try {
-      const text = await callNvidia(nvidiaKey, system, user, maxTokens, 0.2);
-      return { text, model: 'nvidia:minimaxai/minimax-m2.7' };
-    } catch {}
-  }
-  const text = await callWorkersAI(ai, system, user, maxTokens);
-  return { text, model: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' };
+  // Shared multi-provider chain (Groq → Gemini → NVIDIA → Infron → Workers AI)
+  // with circuit-breaker + cooldown tracking, so this route inherits the same
+  // resilience as every other AI surface instead of the old groq-only custom
+  // chain (which 429'd into 500s whenever Groq's free tier throttled).
+  const result = await runCompletion(
+    ai,
+    { system, user, maxTokens, temperature: 0.2 },
+    {
+      infronKey: undefined,
+      googleKey: undefined,
+      groqKey: groqKey,
+      nvidiaKey: nvidiaKey as string | undefined,
+      preferGroq: true,
+    }
+  );
+  return { text: result.text, model: result.modelUsed };
 }
 
 function buildEventPrompt(body: ThreatAnalysisRequest): string {
@@ -279,6 +240,12 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
       return badRequest(c, 'missing type field');
     }
 
+    // Rate-limit the LLM spend per client IP.
+    const ip = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    if (!checkRateLimit(ip)) {
+      return tooManyRequests(c, 'Rate limit exceeded — try again in a moment', { windowSeconds: 60 });
+    }
+
     let system: string;
     let user: string;
     let maxTokens: number;
@@ -308,22 +275,55 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
         return badRequest(c, `unknown type: ${body.type}`);
     }
 
-    const key = c.env.GROQ_API_KEY;
-    const nvidiaKey = c.env.NVIDIA_API_KEY;
+    // Content-hash cache: identical clicks (re-opens, re-renders, two tabs)
+    // hit the Cache-API instead of re-invoking an LLM.
+    const cache = (caches as unknown as { default: Cache }).default;
+    const hash = await contentHash(
+      JSON.stringify({
+        type: body.type,
+        title: body.title,
+        description: body.description,
+        country: body.country,
+        indicator: body.indicator,
+        severity: body.severity,
+        kind: body.kind,
+        source: body.source,
+        url: body.url,
+        events: body.events?.length,
+      })
+    );
+    const key = new Request(`${cacheKey(body).url}?h=${hash}`);
+    try {
+      const cached = await cache.match(key);
+      if (cached) {
+        const data = await cached.json<Record<string, unknown>>();
+        if (data && data.analysis && !data.parse_failed) {
+          return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
+        }
+      }
+    } catch {
+      /* cache miss — proceed */
+    }
 
-    const { text, model } = await callAi(c.env.AI, key, nvidiaKey, system, user, maxTokens);
+    const { text, model } = await callAi(c.env.AI, c.env.GROQ_API_KEY, c.env.NVIDIA_API_KEY, system, user, maxTokens);
 
     // Try to extract JSON from the response
     let analysis: unknown;
+    let parseFailed = false;
     try {
       analysis = JSON.parse(text);
-    } catch (_catchErr) {
-      logError('handler failed', _catchErr);
+    } catch {
       // Try to extract JSON from markdown code block
       const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/);
       if (jsonMatch?.[1]) {
-        analysis = JSON.parse(jsonMatch[1]);
+        try {
+          analysis = JSON.parse(jsonMatch[1]);
+        } catch {
+          parseFailed = true;
+          analysis = { raw: text };
+        }
       } else {
+        parseFailed = true;
         analysis = { raw: text };
       }
     }
@@ -331,13 +331,32 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
     // Validate output quality
     const validationIssues = validateAnalysis(analysis as Record<string, unknown>, body.type);
 
-    return c.json({
+    const response = c.json({
       analysis,
       model,
       type: body.type,
       generated_at: new Date().toISOString(),
       ...(validationIssues.length > 0 ? { quality_warnings: validationIssues } : {}),
+      ...(parseFailed ? { parse_failed: true } : {}),
     });
+
+    // Cache successful structured analyses only — a transient provider hiccup
+    // must not pin a bad/raw payload for 6 hours.
+    if (!parseFailed && validationIssues.filter((i) => i.startsWith('missing required field')).length === 0) {
+      try {
+        const value = await response.clone().json();
+        await cache.put(
+          key,
+          new Response(JSON.stringify(value), {
+            headers: { 'content-type': 'application/json', 'cache-control': `max-age=${CACHE_TTL}` },
+          })
+        );
+      } catch {
+        /* best-effort cache write */
+      }
+    }
+
+    return response;
   } catch (e) {
     logError('handler failed', e);
     const msg = e instanceof Error ? e.message : String(e);

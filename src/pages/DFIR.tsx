@@ -322,18 +322,18 @@ export default function DFIRPage(): JSX.Element {
                   setQuery('');
                   inputRef.current?.focus();
                 }}
-                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-slate-100"
+                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-100"
                 aria-label="Clear search"
               >
                 <X size={12} /> clear
               </button>
             ) : (
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-500 dark:text-slate-400 sm:inline-flex">
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
                   /
                 </kbd>
                 <span>or</span>
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]">
                   ⌘K
                 </kbd>
               </span>

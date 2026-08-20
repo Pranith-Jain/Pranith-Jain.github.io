@@ -355,11 +355,11 @@ export default function Tracer(): JSX.Element {
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[260px_1fr_300px]">
         {/* Control rail */}
-        <div className="space-y-3 rounded-xl border border-slate-200 dark:border-slate-700 p-3 text-sm">
+        <div className="space-y-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 text-sm">
           <label className="block">
-            <span className="text-slate-500 dark:text-slate-400">Chain</span>
+            <span className="text-slate-500 dark:text-slate-400">Chain</span>{' '}
             <select
-              className="mt-1 w-full rounded bg-white dark:bg-slate-800 p-2"
+              className="mt-1 w-full rounded bg-white dark:bg-[rgb(var(--surface-200))] p-2"
               value={chain}
               onChange={(e) => setChain(e.target.value as TracerChain)}
             >
@@ -371,9 +371,9 @@ export default function Tracer(): JSX.Element {
             </select>
           </label>
           <label className="block">
-            <span className="text-slate-500 dark:text-slate-400">Seed address</span>
+            <span className="text-slate-500 dark:text-slate-400">Seed address</span>{' '}
             <input
-              className="mt-1 w-full rounded bg-white dark:bg-slate-800 p-2 font-mono text-xs"
+              className="mt-1 w-full rounded bg-white dark:bg-[rgb(var(--surface-200))] p-2 font-mono text-xs"
               value={seed}
               onChange={(e) => setSeed(e.target.value)}
               placeholder="0x… / bc1… / T…"
@@ -382,7 +382,7 @@ export default function Tracer(): JSX.Element {
           <label className="block">
             <span className="text-slate-500 dark:text-slate-400">Direction</span>
             <select
-              className="mt-1 w-full rounded bg-white dark:bg-slate-800 p-2"
+              className="mt-1 w-full rounded bg-white dark:bg-[rgb(var(--surface-200))] p-2"
               value={direction}
               onChange={(e) => setDirection(e.target.value as 'in' | 'out' | 'both')}
             >
@@ -391,32 +391,32 @@ export default function Tracer(): JSX.Element {
               <option value="in">Incoming</option>
             </select>
           </label>
-          <div className="border-t border-slate-200 dark:border-slate-700 pt-2">
+          <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
             <span className="text-slate-500 dark:text-slate-400">Time tolerance (optional)</span>
             <input
               type="datetime-local"
-              className="mt-1 w-full rounded bg-white dark:bg-slate-800 p-2 text-xs"
+              className="mt-1 w-full rounded bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs"
               value={around}
               onChange={(e) => setAround(e.target.value)}
             />
             <input
               type="number"
               min={1}
-              className="mt-1 w-full rounded bg-white dark:bg-slate-800 p-2 text-xs"
+              className="mt-1 w-full rounded bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs"
               value={toleranceMin}
               onChange={(e) => setToleranceMin(e.target.value)}
               placeholder="± minutes"
             />
           </div>
           <input
-            className="w-full rounded bg-white dark:bg-slate-800 p-2 text-xs"
+            className="w-full rounded bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs"
             value={token}
             onChange={(e) => setToken(e.target.value)}
             placeholder="Token symbol filter (e.g. USDT)"
           />
           <input
             type="number"
-            className="w-full rounded bg-white dark:bg-slate-800 p-2 text-xs"
+            className="w-full rounded bg-white dark:bg-[rgb(var(--surface-200))] p-2 text-xs"
             value={minAmount}
             onChange={(e) => setMinAmount(e.target.value)}
             placeholder="Min amount"
@@ -437,7 +437,7 @@ export default function Tracer(): JSX.Element {
           </button>
           <div className="grid grid-cols-2 gap-2">
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-2 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => {
                 setTraceTitle(`${chain}:${seed.slice(0, 10)}`);
@@ -447,7 +447,7 @@ export default function Tracer(): JSX.Element {
               Save trace
             </button>
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-2 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               onClick={loadList}
             >
               Load…
@@ -455,21 +455,21 @@ export default function Tracer(): JSX.Element {
           </div>
           <div className="grid grid-cols-3 gap-2">
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => void exportTrace('json')}
             >
               JSON
             </button>
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => void exportTrace('csv')}
             >
               CSV
             </button>
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => void exportTrace('png')}
             >
@@ -477,7 +477,7 @@ export default function Tracer(): JSX.Element {
             </button>
           </div>
           {savedList ? (
-            <div className="rounded border border-slate-200 dark:border-slate-700 p-2 text-xs">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 text-xs">
               <span className="text-slate-500 dark:text-slate-400">Saved traces</span>
               {savedList.length ? (
                 <ul className="mt-1 space-y-1">
@@ -506,7 +506,7 @@ export default function Tracer(): JSX.Element {
         </div>
 
         {/* Canvas */}
-        <div className="min-h-[560px] rounded-xl border border-slate-200 dark:border-slate-700">
+        <div className="min-h-[560px] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
           {graphData ? (
             <RelationshipGraphCanvas
               graphData={graphData}
@@ -521,7 +521,7 @@ export default function Tracer(): JSX.Element {
         </div>
 
         {/* Detail panel */}
-        <div className="space-y-3 rounded-xl border border-slate-200 dark:border-slate-700 p-3 text-sm">
+        <div className="space-y-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 text-sm">
           {selected ? (
             <>
               <div className="break-all font-mono text-xs">{selected.address}</div>
@@ -542,20 +542,20 @@ export default function Tracer(): JSX.Element {
               ) : null}
               <div className="flex flex-col gap-2 pt-2">
                 <button
-                  className="rounded bg-brand-600 p-2 text-xs hover:bg-brand-700 transition-colors"
+                  className="rounded bg-brand-600 p-2 text-xs hover:bg-brand-700 transition-colors min-h-[44px]"
                   onClick={() => void expand(selected.address, selected.chain, graph)}
                 >
                   Expand this node
                 </button>
                 <button
-                  className="flex items-center justify-center gap-1 rounded bg-emerald-700 p-2 text-xs hover:bg-emerald-600 transition-colors"
+                  className="flex items-center justify-center gap-1 rounded bg-emerald-700 p-2 text-xs hover:bg-emerald-600 transition-colors min-h-[44px]"
                   onClick={() => confirmHopsTo(selected.id)}
                 >
                   <Check className="h-3 w-3" /> Confirm hops
                 </button>
                 {sanitizeHttpUrl(selected.explorer_url) ? (
                   <a
-                    className="flex items-center justify-center gap-1 rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="flex items-center justify-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-2 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
                     href={sanitizeHttpUrl(selected.explorer_url)}
                     target="_blank"
                     rel="noreferrer"
@@ -564,7 +564,7 @@ export default function Tracer(): JSX.Element {
                   </a>
                 ) : null}
                 <button
-                  className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-2 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
                   onClick={() => void pinToInvestigation(selected.address, 'crypto-address')}
                 >
                   Pin to investigation
@@ -573,7 +573,7 @@ export default function Tracer(): JSX.Element {
 
               {/* Transactions → calldata inspector */}
               {incidentEdges.length ? (
-                <div className="border-t border-slate-200 dark:border-slate-700 pt-2">
+                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                   <span className="text-slate-500 dark:text-slate-400">Transactions</span>
                   <ul className="mt-1 space-y-1">
                     {incidentEdges.map((e) => (
@@ -582,14 +582,14 @@ export default function Tracer(): JSX.Element {
                           {e.tx_hash.slice(0, 14)}…
                         </span>
                         <button
-                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
+                          className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] disabled:opacity-40 transition-colors"
                           disabled={selected.chain === 'btc' || selected.chain === 'solana' || calldataLoading}
                           onClick={() => void inspectCalldata(e.tx_hash, selected.chain)}
                         >
                           Inspect calldata
                         </button>
                         <button
-                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                          className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
                           onClick={() => void pinToInvestigation(e.tx_hash, 'tx-hash')}
                         >
                           pin
@@ -601,7 +601,7 @@ export default function Tracer(): JSX.Element {
               ) : null}
               {calldataLoading ? <p className="text-xs text-slate-500">Analyzing calldata…</p> : null}
               {calldata ? (
-                <div className="rounded border border-slate-200 dark:border-slate-700 p-2 text-xs">
+                <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 text-xs">
                   <div>
                     Verdict:{' '}
                     <span
@@ -628,7 +628,7 @@ export default function Tracer(): JSX.Element {
                     </ul>
                   ) : null}
                   {calldata.resolved_pointer ? (
-                    <div className="mt-1 border-t border-slate-200 dark:border-slate-700 pt-1">
+                    <div className="mt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-1">
                       Cross-chain pointer →{' '}
                       {calldata.resolved_pointer.found ? `${calldata.resolved_pointer.chain} (resolved)` : 'unresolved'}
                       <div className="break-all font-mono text-micro text-slate-500">
@@ -641,14 +641,14 @@ export default function Tracer(): JSX.Element {
 
               {/* BTC common-input cluster */}
               {cluster && cluster.length ? (
-                <div className="border-t border-slate-200 dark:border-slate-700 pt-2">
+                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                   <span className="text-slate-500 dark:text-slate-400">Likely same-owner (common-input)</span>
                   <ul className="mt-1 space-y-1">
                     {cluster.slice(0, 8).map((c) => (
                       <li key={c.address} className="flex items-center justify-between gap-2">
                         <span className="truncate font-mono text-micro">{c.address}</span>
                         <button
-                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                          className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
                           onClick={() => setSeed(c.address)}
                         >
                           seed
@@ -660,7 +660,7 @@ export default function Tracer(): JSX.Element {
               ) : null}
 
               {/* OSINT pivots (Phase D) */}
-              <div className="border-t border-slate-200 dark:border-slate-700 pt-2">
+              <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                 <span className="text-slate-500 dark:text-slate-400">OSINT pivots</span>
                 <div className="mt-1 flex flex-wrap gap-1">
                   {buildDorkQueries(selected.address).map((d) => (
@@ -669,14 +669,14 @@ export default function Tracer(): JSX.Element {
                       href={d.webUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
                     >
                       {d.label}
                     </a>
                   ))}
                 </div>
                 <button
-                  className="mt-1 w-full rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="mt-1 w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
                   onClick={() => void runUnifiedSearch(selected.address)}
                 >
                   Run unified search
@@ -686,7 +686,7 @@ export default function Tracer(): JSX.Element {
                 ) : null}
                 {selected.chain === 'evm' && !selected.label && !ensName ? (
                   <button
-                    className="mt-1 w-full rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="mt-1 w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1 text-micro hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
                     onClick={() => void resolveEns(selected.address)}
                   >
                     Resolve ENS
@@ -720,16 +720,16 @@ export default function Tracer(): JSX.Element {
               </div>
 
               {/* Monitoring (Phase E) */}
-              <div className="border-t border-slate-200 dark:border-slate-700 pt-2">
+              <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                 <div className="grid grid-cols-2 gap-2">
                   <button
-                    className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-2 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors min-h-[44px]"
                     onClick={watchAddress}
                   >
                     Watch address
                   </button>
                   <button
-                    className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-2 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors min-h-[44px]"
                     onClick={loadAlerts}
                   >
                     Load alerts

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Brain, Shield, AlertTriangle, RefreshCw, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { ShareBar } from '../intel/ShareBar';
 
@@ -10,6 +10,8 @@ interface EventAnalysis {
   recommended_actions: string[];
   related_ttps: string[];
   context: string;
+  /** Set when the model failed to emit structured JSON (parse_failed). */
+  _raw?: string;
 }
 
 interface CountryAnalysis {
@@ -99,6 +101,9 @@ export function ThreatAnalysisPanel({
           source,
           events,
         }),
+        // 35s — the server walks the whole provider chain + Workers-AI
+        // fallback; a hung provider must not pin the panel forever.
+        signal: AbortSignal.timeout(35_000),
       });
       if (res.status === 429) {
         setError('Rate limited - try again in a moment');
@@ -106,19 +111,41 @@ export function ThreatAnalysisPanel({
       }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      setAnalysis(data.analysis);
+      if (data?.parse_failed && data?.analysis?.raw) {
+        // Model didn't return structured JSON — show the raw text rather
+        // than an empty card (the old silent-failure mode).
+        setAnalysis({
+          summary: '',
+          threat_level: '',
+          confidence: '',
+          impact: '',
+          recommended_actions: [],
+          related_ttps: [],
+          context: '',
+          _raw: String(data.analysis.raw),
+        } as EventAnalysis);
+      } else {
+        setAnalysis(data.analysis);
+      }
       setModel(data.model);
     } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        setError('Timed out waiting for the model — retry in a moment');
+        return;
+      }
       setError((e as Error).message);
     } finally {
       setLoading(false);
     }
   }, [type, title, description, country, indicator, severity, kind, source, events]);
 
-  // Auto-fetch on mount
-  useState(() => {
+  // Auto-fetch on mount. (The old `useState(() => { fetchAnalysis(); })`
+  // ran a side effect INSIDE the render-phase initializer — illegal React —
+  // and double-fired under StrictMode, hitting the LLM twice per open.)
+  useEffect(() => {
     fetchAnalysis();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isEvent = type === 'event' && analysis && 'summary' in analysis;
   const isCountry = type === 'country' && analysis && 'executive_summary' in analysis;
@@ -215,6 +242,20 @@ export function ThreatAnalysisPanel({
 }
 
 function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
+  if (analysis._raw) {
+    return (
+      <div className="space-y-3">
+        <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3">
+          <p className="text-xs text-amber-600 dark:text-amber-400 mb-1.5">
+            The model returned unstructured text — raw output shown below:
+          </p>
+          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono">
+            {analysis._raw}
+          </p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">

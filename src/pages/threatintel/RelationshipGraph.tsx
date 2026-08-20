@@ -296,7 +296,7 @@ export default function RelationshipGraphPage(): JSX.Element {
         {/* Graph actions */}
         {graphData && (
           <div className="flex gap-1.5 items-center">
-            <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1" />
+            <div className="h-6 w-px bg-slate-200 dark:bg-[rgb(var(--surface-300))] mx-1" />
             <button
               type="button"
               onClick={toggleLayout}

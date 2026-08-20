@@ -90,8 +90,9 @@ export function AiSummaryCard({
   // Inflight request - cancelled on unmount + before a new fetch, so a
   // fast double-click on "Generate" or a hot-reload doesn't leave a
   // pending POST in flight that could race a later one. Also bounds the
-  // request with a 20s timeout so a stuck AI worker can't pin the card
-  // on a spinner forever.
+  // request with a 35s timeout — the server allows the full provider
+  // fallback chain (28s) plus a Workers-AI recovery pass, so a 20s abort
+  // used to kill the request right before the fallback replied.
   const inflightRef = useRef<AbortController | null>(null);
 
   const fetchSummary = useCallback(async () => {
@@ -100,7 +101,7 @@ export function AiSummaryCard({
     if (inflightRef.current) inflightRef.current.abort();
     const ctrl = new AbortController();
     inflightRef.current = ctrl;
-    const timer = setTimeout(() => ctrl.abort(), 20_000);
+    const timer = setTimeout(() => ctrl.abort(), 35_000);
     setLoading(true);
     setError(null);
     try {

@@ -283,7 +283,7 @@ export default function UrlRisk() {
                     <span className="w-40 text-sm font-medium text-slate-900 dark:text-slate-100 flex-shrink-0">
                       {p.label}
                     </span>
-                    <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                    <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                       <div
                         className={`h-full rounded-full ${p.score > 0 ? 'bg-rose-500/70' : 'bg-emerald-500/50'}`}
                         style={{ width: `${Math.min((p.score / p.max) * 100, 100)}%` }}

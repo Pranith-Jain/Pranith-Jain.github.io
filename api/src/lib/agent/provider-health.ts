@@ -22,6 +22,8 @@ interface ProviderHealth {
   lastRateLimit: number;
   /** Consecutive failures (reset on success). */
   consecutiveFailures: number;
+  /** Timestamp of the most recent failure (ms since epoch). 0 = none yet. */
+  lastFailure: number;
   /** Total successes (for success rate). */
   successes: number;
   /** Total failures (for success rate). */
@@ -34,12 +36,25 @@ interface ProviderHealth {
 
 const RATE_LIMIT_COOLDOWN_MS = 60_000; // 1 minute cooldown after rate limit
 const MAX_CONSECUTIVE_FAILURES = 3; // circuit breaker threshold
+// Half-open reset window: after the circuit has been open this long, allow ONE
+// probe request through. A success closes the circuit; a failure re-opens it.
+// Without this the breaker stayed open for the whole isolate lifetime and a
+// provider that recovered mid-session was skipped for hours.
+const CIRCUIT_RESET_MS = 5 * 60_000;
 
 /** Per-isolate health store. Persists across invocations within an isolate. */
 const healthStore = new Map<Provider, ProviderHealth>();
 
 function emptyHealth(): ProviderHealth {
-  return { lastRateLimit: 0, consecutiveFailures: 0, successes: 0, failures: 0, avgResponseMs: 0, responseSamples: 0 };
+  return {
+    lastRateLimit: 0,
+    consecutiveFailures: 0,
+    lastFailure: 0,
+    successes: 0,
+    failures: 0,
+    avgResponseMs: 0,
+    responseSamples: 0,
+  };
 }
 
 function getHealth(provider: Provider): ProviderHealth {
@@ -56,9 +71,11 @@ export async function isProviderHealthy(provider: Provider): Promise<boolean> {
   if (health.lastRateLimit > 0 && Date.now() - health.lastRateLimit < RATE_LIMIT_COOLDOWN_MS) {
     return false;
   }
-  // Circuit breaker — too many consecutive failures
+  // Circuit breaker — too many consecutive failures. Half-open: after the
+  // reset window a probe is allowed through so a recovered provider is
+  // re-adopted on its first success instead of staying skipped forever.
   if (health.consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
-    return false;
+    return Date.now() - health.lastFailure >= CIRCUIT_RESET_MS;
   }
   return true;
 }
@@ -73,6 +90,7 @@ export async function recordSuccess(provider: Provider, responseMs: number): Pro
   healthStore.set(provider, {
     lastRateLimit: 0,
     consecutiveFailures: 0,
+    lastFailure: 0,
     successes: existing.successes + 1,
     failures: existing.failures,
     avgResponseMs: avgMs,
@@ -88,6 +106,7 @@ export async function recordFailure(provider: Provider, isRateLimit: boolean): P
   healthStore.set(provider, {
     lastRateLimit: isRateLimit ? Date.now() : existing.lastRateLimit,
     consecutiveFailures: existing.consecutiveFailures + 1,
+    lastFailure: Date.now(),
     successes: existing.successes,
     failures: existing.failures + 1,
     avgResponseMs: existing.avgResponseMs,

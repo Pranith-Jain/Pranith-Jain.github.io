@@ -359,7 +359,7 @@ export default function CyberPulse(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
+            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             <RefreshCw className={`w-4 h-4 text-slate-500 dark:text-slate-400 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -468,7 +468,7 @@ export default function CyberPulse(): JSX.Element {
                     type="button"
                     key={a.name}
                     onClick={() => setTypeFilter('')}
-                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400"
+                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-400"
                   >
                     <span className="truncate">{a.name}</span>
                     <span className="flex items-center gap-1 font-mono">
@@ -576,7 +576,7 @@ function FilterSelect({
                 onChange('');
                 setOpen(false);
               }}
-              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-500"
+              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-500"
             >
               All
             </button>
@@ -588,7 +588,7 @@ function FilterSelect({
                   onChange(k);
                   setOpen(false);
                 }}
-                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 ${value === k ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
+                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] ${value === k ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
               >
                 {v}
               </button>

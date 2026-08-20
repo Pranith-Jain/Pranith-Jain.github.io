@@ -131,10 +131,7 @@ export default function Signal(): JSX.Element {
           DoublePulsar. Low-volume sources, longer-form pieces.
           <p className="text-meta text-slate-500 dark:text-slate-400 font-mono mt-2">
             For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
-            <Link
-              to="/threatintel/research-hub/writeups"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
-            >
+            <Link to="/threatintel/research-hub/writeups" className="text-rose-600 dark:text-rose-400 hover:underline">
               /threatintel/writeups
             </Link>
             .
@@ -164,6 +161,7 @@ export default function Signal(): JSX.Element {
               body: it.description ?? '',
               source: it.source,
             }))}
+            requireAdmin={false}
           />
           <FeedAggregateCard
             sourceId="rss:signal"

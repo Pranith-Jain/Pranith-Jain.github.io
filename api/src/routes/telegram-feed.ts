@@ -7,6 +7,12 @@ import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
 
+// In-flight build dedup (per-colocate: module state persists across requests
+// within an isolate). Keyed by the cache-key string + bump, so concurrent
+// cold reads (firehose page, feed panel, queue-consumer warm) share ONE
+// fetchTelegramFeed build instead of firing three parallel t.me bursts.
+const inflightBuilds = new Map<string, Promise<TelegramFeedResponse>>();
+
 /**
  * Aggregated cybersec Telegram firehose.
  *
@@ -28,7 +34,12 @@ const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
 const TELEGRAM_RSS_CACHE_RAW_URL =
   'https://raw.githubusercontent.com/pranithjain/portfolio/telegram-rss-cache/telegram-rss-cache.json';
 
-const FETCH_TIMEOUT_MS = 12_000;
+const FETCH_TIMEOUT_MS = 6_000;
+// Bounded live-t.me budget. The GitHub pre-baked cache is now the PRIMARY
+// source (except custom channels + occasional cache misses), so live scraping
+// is only ever a targeted fill-in. Keeps a cold-cache / blocked-t.me build
+// inside the free-plan 50-subrequest cap instead of the old ~210+ burst.
+const LIVE_FETCH_BUDGET_PER_INVOCATION = 10;
 const CACHE_TTL = 75 * 60; // 75 min — over the hourly cron interval so every-other
 // tick avoids re-fetching all 34+ Telegram channels and preserves subrequest
 // budget for x-claims, x-feed, and reddit feed pre-warps in the same cron.
@@ -296,13 +307,20 @@ const BROWSER_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 
 async function fetchWithRetry(url: string): Promise<string | null> {
-  for (let attempt = 0; attempt < 3; attempt++) {
+  // 2 attempts max, 6s each, with a short gap — 3×12s back-to-back was exactly
+  // the burst Telegram's edge throttles, and with GitHub-first the live scrape
+  // only runs for channels that miss the pre-baked cache, so every attempt
+  // counts against the bounded LIVE_FETCH_BUDGET.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    if (attempt > 0) {
+      await new Promise((r) => setTimeout(r, 350));
+    }
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
     try {
       const ua =
         attempt === 0 ? 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)' : BROWSER_UA;
-      const fetchUrl = attempt >= 2 ? `${url}${url.includes('?') ? '&' : '?'}_=${Date.now()}` : url;
+      const fetchUrl = attempt >= 1 ? `${url}${url.includes('?') ? '&' : '?'}_=${Date.now()}` : url;
       const r = await fetch(fetchUrl, {
         signal: ctrl.signal,
         headers: {
@@ -752,13 +770,15 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
 
   const queue = [...CHANNELS, ...customChannels];
 
-  // Try GitHub RSS cache (pre-baked by GitHub Actions from RSS bridges, never
-  // blocked by Telegram's Cloudflare edge). Fetched once upfront so every
-  // channel can fall back to it without issuing N individual requests.
+  // Try GitHub RSS cache (pre-baked by GitHub Actions from t.me/s previews,
+  // never blocked by Telegram's Cloudflare edge). Fetched once upfront so every
+  // channel can fall back to it without issuing N individual requests. Now the
+  // PRIMARY source — it's fresh (≤30-min-old rebake), cheap (1 subrequest) and
+  // immune to the egress block that made the live fan-out blow the budget.
+  // A hard timeout keeps a stalled GitHub fetch from blocking the whole build.
   let gitHubCache: Map<string, ParsedMessage[]> | undefined;
   try {
-    const ghReq = new Request(TELEGRAM_RSS_CACHE_RAW_URL);
-    const ghRes = await fetch(ghReq);
+    const ghRes = await fetch(TELEGRAM_RSS_CACHE_RAW_URL, { signal: AbortSignal.timeout(8_000) });
     if (ghRes.ok) {
       const raw = (await ghRes.json()) as {
         items?: Array<{
@@ -787,30 +807,45 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
     /* GitHub cache unavailable — continue without it */
   }
 
+  // Bounded live-scrape budget shared across the worker pool. When the GitHub
+  // cache is present, only a handful of channels (custom adds, cache misses)
+  // ever hit t.me directly — so the whole cold build stays well inside the
+  // free-plan 50-subrequest cap. When the cache is entirely absent (workflow
+  // hasn't rebaked yet) fall back to unbounded live scraping so the firehose
+  // still builds at all.
+  const liveBudget = gitHubCache && gitHubCache.size > 0 ? LIVE_FETCH_BUDGET_PER_INVOCATION : Number.MAX_SAFE_INTEGER;
+  let liveUsed = 0;
+
   async function worker() {
     while (queue.length > 0) {
       const ch = queue.shift();
       if (!ch) return;
       let messages: ParsedMessage[] = [];
       const handle = encodeURIComponent(ch.handle);
-      const previewUrls = [`https://t.me/s/${handle}`, `https://telegram.me/s/${handle}`];
-      for (const url of previewUrls) {
-        if (messages.length > 0) break;
-        const html = await fetchHtml(url);
-        if (html) messages = parseChannelHtml(html);
+      // 1. GitHub pre-baked cache first — zero extra subrequests per channel,
+      //    never blocked by Telegram, and at most 30 minutes stale.
+      if (gitHubCache?.has(ch.handle)) {
+        messages = gitHubCache.get(ch.handle)!;
       }
-      // If preview scrape failed, try RSS bridge (avoids Workers IP block)
+      // 2. Bounded live t.me scrape — only for channels the cache can't serve.
+      if (messages.length === 0 && liveUsed < liveBudget) {
+        const previewUrls = [`https://t.me/s/${handle}`, `https://telegram.me/s/${handle}`];
+        for (const url of previewUrls) {
+          if (messages.length > 0) break;
+          liveUsed += 1;
+          const html = await fetchHtml(url);
+          if (html) messages = parseChannelHtml(html);
+        }
+      }
+      // 3. RSS bridge (avoids Workers IP block; both bridges are currently
+      //    flaky, so this is a best-effort third resort).
       if (messages.length === 0) {
         const rss = await fetchRssFeed(ch.handle);
         if (rss && rss.length > 0) {
           messages = rss;
         }
       }
-      // If live fetches failed, try GitHub RSS cache (pre-baked, never blocked)
-      if (messages.length === 0 && gitHubCache?.has(ch.handle)) {
-        messages = gitHubCache.get(ch.handle)!;
-      }
-      // If all scrapes failed, try Bot API KV cache
+      // 4. Bot API KV cache as the last line of defence.
       if (messages.length === 0 && kv && env) {
         const botMsgs = await fetchFromBotApiCache(kv, ch.handle);
         if (botMsgs) {
@@ -947,12 +982,28 @@ export async function getTelegramFeedCacheKey(env: Env): Promise<Request> {
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = await getTelegramFeedCacheKey(c.env);
+  const cacheKeyStr = cacheKey.url;
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
-  const body = await fetchTelegramFeed(c.env.KV_CACHE, c.env);
+  // In-flight dedup: a cold key can be hit by the firehose page, the feed
+  // panel on the same page, AND the queue-consumer warm — previously each ran
+  // its own full 26-channel rebuild within seconds (a thundering herd that
+  // tripped Telegram's throttling). Sharing ONE build promise collapses those
+  // bursts into a single build; each caller then serializes + caches its own
+  // Response (bodies are single-consumer streams, so we dedup the DATA build,
+  // not the Response object).
+  let build = inflightBuilds.get(cacheKeyStr);
+  if (!build) {
+    build = fetchTelegramFeed(c.env.KV_CACHE, c.env).finally(() => {
+      inflightBuilds.delete(cacheKeyStr);
+    });
+    inflightBuilds.set(cacheKeyStr, build);
+  }
+
+  const body = await build;
   // Serialize once and build TWO independent Response objects — one to
-  // return to the client, two to cache. Cloning the returned response
+  // return to the client, one to cache. Cloning the returned response
   // in `waitUntil` was failing (the cloned stream got canceled by the
   // client's read or by the runtime's per-invocation cleanup), which
   // left the cache empty and forced the next request to rebuild from

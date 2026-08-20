@@ -35,10 +35,7 @@ export default function Research(): JSX.Element {
               /threatintel/signal
             </Link>{' '}
             (curated) or{' '}
-            <Link
-              to="/threatintel/research-hub/writeups"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
-            >
+            <Link to="/threatintel/research-hub/writeups" className="text-rose-600 dark:text-rose-400 hover:underline">
               /threatintel/writeups
             </Link>{' '}
             (firehose).
@@ -56,6 +53,7 @@ export default function Research(): JSX.Element {
             body: p.excerpt,
             source: 'Pranith Jain',
           }))}
+          requireAdmin={false}
           className="mb-8"
         />
       )}

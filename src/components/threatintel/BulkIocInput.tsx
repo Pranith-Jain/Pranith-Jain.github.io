@@ -176,14 +176,15 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                     cve: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
                     url: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
                     email: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
-                    unknown: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300',
+                    unknown: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
                   };
                   for (const ioc of parsed) {
                     if (!counts[ioc.type])
                       counts[ioc.type] = {
                         count: 0,
                         color:
-                          typeColors[ioc.type] || 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300',
+                          typeColors[ioc.type] ||
+                          'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
                       };
                     const entry = counts[ioc.type]!;
                     entry.count++;

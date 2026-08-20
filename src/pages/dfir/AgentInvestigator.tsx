@@ -638,7 +638,7 @@ export default function AgentInvestigator(): JSX.Element {
             (agentState.cost || agentState.priorIntelligence || agentState.modelUsed) && (
               <div className="mb-3 flex flex-wrap items-center gap-2 text-micro font-mono">
                 {agentState.modelUsed && (
-                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300">
                     {agentState.modelUsed}
                   </span>
                 )}

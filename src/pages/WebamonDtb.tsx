@@ -55,7 +55,7 @@ function CollapsibleCard({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-slate-900 dark:text-white"
@@ -63,7 +63,9 @@ function CollapsibleCard({
         {title}
         {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
-      {open && <div className="border-t border-slate-200 px-4 py-3 dark:border-slate-700">{children}</div>}
+      {open && (
+        <div className="border-t border-slate-200 px-4 py-3 dark:border-[rgb(var(--border-400))]">{children}</div>
+      )}
     </div>
   );
 }
@@ -116,7 +118,7 @@ export default function WebamonDtb() {
           <select
             value={currentDate ?? ''}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white"
           >
             {briefs.map((b) => (
               <option key={b.date} value={b.date}>
@@ -133,19 +135,19 @@ export default function WebamonDtb() {
         <div className="space-y-6">
           {brief.estate && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">
                   {brief.estate.campaignsTracked.toLocaleString()}
                 </div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">Campaigns Tracked</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">
                   {brief.estate.uniqueDomains.toLocaleString()}
                 </div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">Unique Domains</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
                 <div className="text-2xl font-bold text-slate-900 dark:text-white">{brief.estate.percentOnline}%</div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">Online</div>
               </div>
@@ -157,7 +159,7 @@ export default function WebamonDtb() {
               {brief.kpis.map((kpi, i) => (
                 <div
                   key={i}
-                  className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-slate-700 dark:bg-slate-800"
+                  className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
                 >
                   <div className="text-lg font-bold text-slate-900 dark:text-white">
                     {Number(kpi.value).toLocaleString()}
@@ -238,7 +240,7 @@ export default function WebamonDtb() {
                 {brief.clusters.entries.map((cl, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 dark:bg-slate-700/50"
+                    className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 dark:bg-[rgb(var(--surface-300))/0.5]"
                   >
                     <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{cl.type}</span>
                     <span className="text-xs text-slate-500 dark:text-slate-400">

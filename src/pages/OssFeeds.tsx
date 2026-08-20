@@ -83,7 +83,10 @@ export default function OssFeeds() {
         {loading && (
           <div className="grid grid-cols-3 gap-4">
             {['Total Feeds', 'Categories', 'Active'].map((label) => (
-              <div key={label} className="h-20 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-800" />
+              <div
+                key={label}
+                className="h-20 animate-pulse rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))]"
+              />
             ))}
           </div>
         )}
@@ -173,7 +176,10 @@ export default function OssFeeds() {
           </div>
           <div className="space-y-2">
             {categoryDetail.feeds.map((feed, i) => (
-              <div key={i} className="flex items-start gap-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 p-2.5 text-xs">
+              <div
+                key={i}
+                className="flex items-start gap-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-100))]/50 p-2.5 text-xs"
+              >
                 <Globe size={12} className="mt-0.5 shrink-0 text-muted" />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">

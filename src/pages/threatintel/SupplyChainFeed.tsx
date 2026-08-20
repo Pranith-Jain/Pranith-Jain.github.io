@@ -406,7 +406,7 @@ function VerdictCard({ result }: { result: CheckResult }) {
         <Icon size={16} className={meta.color} />
         <span className={`text-sm font-bold ${meta.color}`}>{meta.label}</span>
         <span className="text-mini font-mono text-slate-500">{result.ref}</span>
-        <span className="ml-auto rounded bg-slate-200 px-1.5 py-0.5 text-micro font-mono text-slate-600 dark:bg-slate-700 dark:text-slate-400">
+        <span className="ml-auto rounded bg-slate-200 px-1.5 py-0.5 text-micro font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
           {result.confidence} confidence
         </span>
       </div>

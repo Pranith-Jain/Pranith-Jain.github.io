@@ -43,7 +43,8 @@ const TIER_LABELS: Record<number, { label: string; color: string }> = {
   },
   5: {
     label: 'Community',
-    color: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600',
+    color:
+      'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-200 dark:border-slate-600',
   },
 };
 

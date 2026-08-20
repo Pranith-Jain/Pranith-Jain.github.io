@@ -2,6 +2,7 @@ import tseslint from 'typescript-eslint';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import * as noRawDarkColors from './eslint-rules/no-raw-dark-colors.js';
 
 export default tseslint.config(
   {
@@ -60,12 +61,24 @@ export default tseslint.config(
       'jsx-a11y/scope': 'warn',
       'jsx-a11y/no-redundant-roles': 'warn',
       'jsx-a11y/alt-text': 'warn',
+      'no-raw-dark-colors/no-raw-dark-colors': 'warn',
     },
     settings: {
       'jsx-a11y': {
         components: {
           ThemeToggle: 'button',
           BackToTop: 'button',
+        },
+      },
+    },
+  },
+
+  // Custom ESLint plugins
+  {
+    plugins: {
+      'no-raw-dark-colors': {
+        rules: {
+          'no-raw-dark-colors': noRawDarkColors.default,
         },
       },
     },

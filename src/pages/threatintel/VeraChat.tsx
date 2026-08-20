@@ -824,7 +824,7 @@ export default function VeraChat(): JSX.Element {
                           className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-micro font-mono transition-all ${
                             role === r.id
                               ? `${r.color} text-white shadow-sm`
-                              : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-400 dark:hover:bg-slate-600'
+                              : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))]'
                           }`}
                         >
                           <RIcon size={10} />

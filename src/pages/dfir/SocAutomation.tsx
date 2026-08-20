@@ -393,7 +393,7 @@ export default function SocAutomation(): JSX.Element {
                           )}
                           {pb.actions.map((a, i) => (
                             <div key={a.id} className="flex items-center gap-2 text-micro font-mono text-slate-500">
-                              <span className="w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-micro font-bold">
+                              <span className="w-4 h-4 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-micro font-bold">
                                 {i + 1}
                               </span>
                               <span className="text-brand-600">{a.type}</span>

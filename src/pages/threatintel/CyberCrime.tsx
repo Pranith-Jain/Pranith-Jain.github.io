@@ -256,6 +256,7 @@ export default function CyberCrime(): JSX.Element {
             body: it.description ?? '',
             source: it.source,
           }))}
+          requireAdmin={false}
         />
       )}
 

@@ -1683,7 +1683,7 @@ function TimelineTab() {
       {/* Timeline visualization */}
       <div className="relative">
         {/* Vertical line */}
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700" />
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
 
         <div className="space-y-4">
           {timeline.map((report) => {

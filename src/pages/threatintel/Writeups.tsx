@@ -305,6 +305,7 @@ export default function Writeups(): JSX.Element {
               body: it.description ?? '',
               source: it.source,
             }))}
+            requireAdmin={false}
           />
           <FeedAggregateCard
             sourceId="rss:writeups"

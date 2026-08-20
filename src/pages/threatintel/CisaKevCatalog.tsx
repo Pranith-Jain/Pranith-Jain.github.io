@@ -212,7 +212,6 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
     return counts;
   }, [filtered]);
 
-
   const body = (
     <div className="space-y-4">
       {/* KPI cards */}
@@ -303,28 +302,95 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       {/* Table */}
       <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <DataTable
-          columns={[
-            { key: 'date_added', header: 'Added', sortValue: (v: typeof pageEntries[number]) => v.date_added, render: (v) => <span className="text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.date_added}</span> },
-            { key: 'cve_id', header: 'CVE ID', sortValue: (v: typeof pageEntries[number]) => v.cve_id, render: (v) => (
-              <a href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`} target="_blank" rel="noopener noreferrer" className="text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs transition-colors">{v.cve_id}</a>
-            ) },
-            { key: 'severity', header: 'Severity', sortValue: (v: typeof pageEntries[number]) => v.severity, render: (v) => (
-              <span>
-                <SeverityBadge severity={v.severity} />
-                {v.cvss_score != null && <span className="ml-1.5 text-mini text-slate-500 dark:text-slate-400 font-mono">{v.cvss_score.toFixed(1)}</span>}
-              </span>
-            ) },
-            { key: 'vendor_project', header: 'Vendor', sortValue: (v: typeof pageEntries[number]) => v.vendor_project, render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.vendor_project}</span> },
-            { key: 'product', header: 'Product', sortValue: (v: typeof pageEntries[number]) => v.product, render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.product}</span> },
-            { key: 'vulnerability_name', header: 'Vulnerability', sortValue: (v: typeof pageEntries[number]) => v.vulnerability_name, render: (v) => <span className="text-slate-600 dark:text-slate-400 max-w-xs truncate">{v.vulnerability_name}</span> },
-            { key: 'due_date', header: 'Due', sortValue: (v: typeof pageEntries[number]) => v.due_date ?? '', render: (v) => {
-              const overdue = v.due_date && new Date(v.due_date) < new Date();
-              return <span className={`whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}`}>{v.due_date}</span>;
-            } },
-            { key: 'ransomware', header: 'Ransomware', render: (v) => v.known_ransomware_campaign_use === 'Known' ? (
-              <span className="inline-flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-full"><AlertTriangle size={10} /> Yes</span>
-            ) : <span className="text-xs text-slate-500 dark:text-slate-400">No</span> },
-          ] as DataTableColumn<typeof pageEntries[number]>[]}
+          columns={
+            [
+              {
+                key: 'date_added',
+                header: 'Added',
+                sortValue: (v: (typeof pageEntries)[number]) => v.date_added,
+                render: (v) => (
+                  <span className="text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.date_added}</span>
+                ),
+              },
+              {
+                key: 'cve_id',
+                header: 'CVE ID',
+                sortValue: (v: (typeof pageEntries)[number]) => v.cve_id,
+                render: (v) => (
+                  <a
+                    href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs transition-colors"
+                  >
+                    {v.cve_id}
+                  </a>
+                ),
+              },
+              {
+                key: 'severity',
+                header: 'Severity',
+                sortValue: (v: (typeof pageEntries)[number]) => v.severity,
+                render: (v) => (
+                  <span>
+                    <SeverityBadge severity={v.severity} />
+                    {v.cvss_score != null && (
+                      <span className="ml-1.5 text-mini text-slate-500 dark:text-slate-400 font-mono">
+                        {v.cvss_score.toFixed(1)}
+                      </span>
+                    )}
+                  </span>
+                ),
+              },
+              {
+                key: 'vendor_project',
+                header: 'Vendor',
+                sortValue: (v: (typeof pageEntries)[number]) => v.vendor_project,
+                render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.vendor_project}</span>,
+              },
+              {
+                key: 'product',
+                header: 'Product',
+                sortValue: (v: (typeof pageEntries)[number]) => v.product,
+                render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.product}</span>,
+              },
+              {
+                key: 'vulnerability_name',
+                header: 'Vulnerability',
+                sortValue: (v: (typeof pageEntries)[number]) => v.vulnerability_name,
+                render: (v) => (
+                  <span className="text-slate-600 dark:text-slate-400 max-w-xs truncate">{v.vulnerability_name}</span>
+                ),
+              },
+              {
+                key: 'due_date',
+                header: 'Due',
+                sortValue: (v: (typeof pageEntries)[number]) => v.due_date ?? '',
+                render: (v) => {
+                  const overdue = v.due_date && new Date(v.due_date) < new Date();
+                  return (
+                    <span
+                      className={`whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}`}
+                    >
+                      {v.due_date}
+                    </span>
+                  );
+                },
+              },
+              {
+                key: 'ransomware',
+                header: 'Ransomware',
+                render: (v) =>
+                  v.known_ransomware_campaign_use === 'Known' ? (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-full">
+                      <AlertTriangle size={10} /> Yes
+                    </span>
+                  ) : (
+                    <span className="text-xs text-slate-500 dark:text-slate-400">No</span>
+                  ),
+              },
+            ] as DataTableColumn<(typeof pageEntries)[number]>[]
+          }
           rows={pageEntries}
           rowKey={(v) => v.cve_id}
           rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}
@@ -359,7 +425,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   type="button"
                   disabled={page === 0}
                   onClick={() => setPage(Math.max(0, page - 1))}
-                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Previous page"
                 >
                   <ChevronLeft size={14} />
@@ -371,7 +437,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   type="button"
                   disabled={page >= pageCount - 1}
                   onClick={() => setPage(Math.min(pageCount - 1, page + 1))}
-                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Next page"
                 >
                   <ChevronRight size={14} />

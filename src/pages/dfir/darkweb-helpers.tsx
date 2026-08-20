@@ -12,16 +12,10 @@ export const DARKWEB_FEEDS: { id: string; label: string }[] = [
   { id: 'databreaches', label: 'DataBreaches.net' },
   { id: 'dfir-report', label: 'The DFIR Report' },
   { id: 'the-record', label: 'The Record' },
-  { id: 'curated-intel', label: 'Curated Intelligence' },
   // Added round 2: more breadth, all verified live
-  { id: 'reddit-malware', label: 'r/Malware' },
-  { id: 'reddit-blueteamsec', label: 'r/blueteamsec' },
-  { id: 'reddit-threatintel', label: 'r/threatintel' },
-  { id: 'reddit-netsec', label: 'r/netsec' },
   { id: 'bleepingcomputer', label: 'BleepingComputer' },
   { id: 'krebsonsecurity', label: 'Krebs on Security' },
   { id: 'malware-traffic-analysis', label: 'Malware Traffic Analysis' },
-  { id: 'doublepulsar', label: 'DoublePulsar' },
   // Added 2026-05-18: dark-web / CTI research breadth, all HTTP-200+XML verified
   { id: 'cyble-blog', label: 'Cyble Research' },
   { id: 'socradar-blog', label: 'SOCRadar' },

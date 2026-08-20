@@ -55,10 +55,10 @@ export const BREACH_COVERAGE_SOURCES: Array<{ id: string; name: string; url: str
     description: 'Cybersecurity reporting from Recorded Future — dark web + ransomware focus',
   },
   {
-    id: 'threatpost',
-    name: 'Threatpost',
-    url: 'https://threatpost.com/feed/',
-    description: 'Enterprise vulnerability reporting, zero-day tracking, breach coverage',
+    id: 'grahamcluley',
+    name: 'Graham Cluley',
+    url: 'https://www.grahamcluley.com/feed/',
+    description: 'Independent security commentary — breach incidents + threat research roundups',
   },
   {
     id: 'hackread-breaches',

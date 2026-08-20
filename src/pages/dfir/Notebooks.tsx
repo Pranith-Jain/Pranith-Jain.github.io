@@ -437,17 +437,27 @@ export default function Notebooks() {
                         if (!selected || entries.length === 0) return;
                         setSummaryLoading(true);
                         try {
-                          const entryText = entries.map((e) => `[${e.entry_type}] ${e.content}`).join('\n');
+                          // /api/v1/ai-summary expects { surface, date, items[] }
+                          // — the old { text } payload 400'd every time.
                           const res = await fetch('/api/v1/ai-summary', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
-                              text: `Summarize this investigation notebook:\n\nTitle: ${selected.title}\nDescription: ${selected.description || 'N/A'}\n\nEntries:\n${entryText}`,
+                              surface: `Notebook: ${selected.title}`,
+                              date: new Date().toISOString().slice(0, 10),
+                              items: entries.map((e) => ({
+                                title: `${e.entry_type} entry`,
+                                body: `Title: ${selected.title}\nDescription: ${selected.description || 'N/A'}\n${e.content}`,
+                              })),
                             }),
                           });
                           if (res.ok) {
                             const d = await res.json();
-                            setSummary(d.summary ?? d.text ?? JSON.stringify(d));
+                            setSummary(d.summary ?? JSON.stringify(d));
+                          } else {
+                            const err = await res.json().catch(() => null);
+                            const detail = err?.message ?? err?.issues?.join('; ') ?? '';
+                            throw new Error(`HTTP ${res.status}${detail ? ': ' + detail : ''}`);
                           }
                         } catch {
                           /* ignore */

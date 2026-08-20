@@ -608,7 +608,7 @@ function TgIntelSearch() {
                     setFilterChannel(tc.channel_handle);
                     doSearch(query, 0);
                   }}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                 >
                   @{tc.channel_handle} ({tc.count})
                 </button>

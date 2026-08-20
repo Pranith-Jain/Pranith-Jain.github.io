@@ -183,7 +183,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           <button
             type="button"
             onClick={() => setExpanded(true)}
-            className="ml-auto inline-flex items-center gap-1 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="ml-auto inline-flex items-center gap-1 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
             aria-expanded={false}
           >
             Show details
@@ -363,20 +363,20 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             // belt-and-suspenders.
             download={`${view.bundleId}.stix.json`}
             rel="noopener"
-            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             Download STIX 2.1
           </a>
           <a
             href={`/dfir/stix-builder/b/${encodeURIComponent(view.bundleId)}`}
-            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             Open in STIX Builder
           </a>
           <button
             type="button"
             onClick={() => setExpanded(false)}
-            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
+            className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
             aria-expanded={true}
           >
             Hide details

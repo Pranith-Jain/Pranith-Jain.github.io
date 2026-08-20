@@ -32,7 +32,7 @@ export function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; curr
                   ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
                   : isActive
                     ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300 ring-1 ring-rose-500/50'
-                    : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+                    : 'bg-slate-100 text-slate-400 dark:bg-[rgb(var(--surface-300))] dark:text-slate-500'
             }`}
           >
             {isDone ? (
@@ -69,7 +69,7 @@ export function renderMarkdown(safeMd: string): string {
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(
       /`([^`]+)`/g,
-      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-xs font-mono">$1</code>'
+      '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono">$1</code>'
     )
     .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
     .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-4 list-decimal text-sm">$1</li>')

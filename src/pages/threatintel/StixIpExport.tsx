@@ -306,7 +306,7 @@ export default function StixIpExport() {
                     <button
                       type="button"
                       onClick={copyJson}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                       {copied ? 'Copied' : 'Copy JSON'}
@@ -333,7 +333,7 @@ export default function StixIpExport() {
                   ).map(([type, count]) => (
                     <span
                       key={type}
-                      className="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+                      className="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300"
                     >
                       {type}: {String(count)}
                     </span>

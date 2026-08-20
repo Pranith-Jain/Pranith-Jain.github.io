@@ -468,7 +468,7 @@ export default function InfostealerIntel(): JSX.Element {
                       <div className="flex flex-col items-center">
                         <div className="w-2 h-2 rounded-full bg-brand-600 dark:bg-brand-400 shrink-0 mt-1.5" />
                         {i < infectionResult.analysis.infection_flow.length - 1 && (
-                          <div className="w-px flex-1 bg-slate-200 dark:bg-slate-700" />
+                          <div className="w-px flex-1 bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
                         )}
                       </div>
                       <div className="pb-3">

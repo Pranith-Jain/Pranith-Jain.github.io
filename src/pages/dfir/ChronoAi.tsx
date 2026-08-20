@@ -319,7 +319,7 @@ export default function ChronoAi(): JSX.Element {
                               {p.label}
                             </span>
                           </div>
-                          <div className="h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                          <div className="h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                             <div
                               className={`h-full rounded-full ${p.color} transition-all duration-500`}
                               style={{ width: `${pct}%` }}

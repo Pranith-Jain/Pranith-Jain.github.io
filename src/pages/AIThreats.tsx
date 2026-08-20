@@ -94,7 +94,10 @@ export default function AIThreats() {
         {loading && (
           <div className="grid grid-cols-3 gap-4">
             {['Total Entries', 'Main Tracker', 'Deepfake'].map((label) => (
-              <div key={label} className="h-20 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-800" />
+              <div
+                key={label}
+                className="h-20 animate-pulse rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))]"
+              />
             ))}
           </div>
         )}
@@ -215,7 +218,7 @@ export default function AIThreats() {
                     <div>
                       <div className="mb-1 font-medium text-muted">TTP Mapping</div>
                       <div
-                        className="rounded-xl bg-slate-50 dark:bg-slate-900/50 p-3 font-mono text-mini leading-relaxed whitespace-pre-wrap"
+                        className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-100))]/50 p-3 font-mono text-mini leading-relaxed whitespace-pre-wrap"
                         dangerouslySetInnerHTML={{
                           __html: entryDetail.ttpMd
                             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')

@@ -187,10 +187,10 @@ function StaleChunkFallback(): JSX.Element {
             >
               <RefreshCw className="w-4 h-4" />
               Reload page
-            </button>
+            </button>{' '}
             <a
               href="/"
-              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors inline-flex items-center gap-2"
+              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))] hover:bg-slate-300 dark:hover:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors inline-flex items-center gap-2 min-h-[44px]"
             >
               <Home className="w-4 h-4" />
               Go home
@@ -267,7 +267,7 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
             </button>
             <a
               href="/"
-              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-[rgb(var(--surface-300))] hover:bg-slate-300 dark:hover:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 min-h-[44px]"
             >
               <Home className="w-4 h-4" />
               Go Home

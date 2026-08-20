@@ -65,7 +65,10 @@ export function usePostSummaries(opts: UsePostSummariesOpts): Map<string, string
 
     const ctrl = new AbortController();
     inflightRef.current = ctrl;
-    const timer = setTimeout(() => ctrl.abort(), 25_000);
+    // 35s: the server walks the provider chain per batch round (up to 3
+    // rounds of 4 concurrent × 10s), so 25s aborted mid-chain. Per-post
+    // summaries are KV-cached — the abort only wasted the round-trip.
+    const timer = setTimeout(() => ctrl.abort(), 35_000);
 
     (async () => {
       try {

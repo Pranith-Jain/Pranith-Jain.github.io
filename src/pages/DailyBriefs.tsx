@@ -131,7 +131,9 @@ function Expandable({
           <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
         )}
       </button>
-      {open && <div className="border-t border-slate-200 px-4 py-3 dark:border-slate-700">{children}</div>}
+      {open && (
+        <div className="border-t border-slate-200 px-4 py-3 dark:border-[rgb(var(--border-400))]">{children}</div>
+      )}
     </div>
   );
 }
@@ -234,7 +236,7 @@ export default function DailyBriefs() {
           {Object.entries(indexData?.counts ?? {}).map(([type, count]) => (
             <span
               key={type}
-              className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+              className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300"
             >
               {type}: {count}
             </span>
@@ -243,7 +245,7 @@ export default function DailyBriefs() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-6 flex gap-1 rounded-xl bg-slate-100 p-1 dark:bg-slate-800">
+      <div className="mb-6 flex gap-1 rounded-xl bg-slate-100 p-1 dark:bg-[rgb(var(--surface-200))]">
         {TAB_CONFIG.map(({ id, label, icon: Icon, color }) => (
           <button
             key={id}
@@ -253,7 +255,7 @@ export default function DailyBriefs() {
             }}
             className={`flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
               tab === id
-                ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white'
+                ? 'bg-white text-slate-900 shadow-sm dark:bg-[rgb(var(--surface-300))] dark:text-white'
                 : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
             }`}
           >
@@ -273,7 +275,7 @@ export default function DailyBriefs() {
               className={`whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                 currentDate === d
                   ? 'bg-brand-600 text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))}'
               }`}
             >
               {d}
@@ -350,7 +352,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
           <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Key Findings</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {brief.keyFindings.map((f, i) => (
-              <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-slate-700">
+              <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-[rgb(var(--border-400))]">
                 <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{f.title}</h3>
                 <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{f.summary}</p>
               </div>
@@ -365,7 +367,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
           <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Top Priority Threats</h2>
           <div className="space-y-3">
             {brief.topThreats.map((t, i) => (
-              <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-slate-700">
+              <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center gap-2">
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-mini font-bold text-rose-700 dark:bg-rose-950/60 dark:text-rose-300">
                     {i + 1}
@@ -408,7 +410,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                 {brief.dashboard.vendors.map((v, i) => (
                   <span
                     key={i}
-                    className="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                    className="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300"
                   >
                     {v}
                   </span>
@@ -489,7 +491,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                 href={`https://attack.mitre.org/techniques/${id.split('.')[0]}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-mono text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors"
+                className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-mono text-slate-700 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
               >
                 {id} <ExternalLink size={10} />
               </a>
@@ -547,7 +549,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                     {ev.chips.map((c, j) => (
                       <span
                         key={j}
-                        className="rounded-full bg-slate-100 px-2 py-0.5 text-micro text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                        className="rounded-full bg-slate-100 px-2 py-0.5 text-micro text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400"
                       >
                         {c}
                       </span>
@@ -782,7 +784,8 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
           <div className="space-y-3">
             {brief.topEvents.map((ev, i) => (
               <div key={i} className="surface-card rounded-xl overflow-hidden">
-                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-700">
+                {' '}
+                <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-[rgb(var(--border-400))]">
                   <span className="text-sm font-semibold text-slate-900 dark:text-white">{ev.title}</span>
                   <span
                     className={`rounded-full px-2.5 py-0.5 text-micro font-bold uppercase tracking-wider border ${sevPill(ev.severity)}`}

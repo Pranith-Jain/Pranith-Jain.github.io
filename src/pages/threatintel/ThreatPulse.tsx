@@ -60,8 +60,7 @@ const KIND_LABEL = {
 const KIND_COLOR = {
   cve: 'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400',
   actor: 'border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400',
-  technique:
-    'border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400',
+  technique: 'border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400',
   malware:
     'border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400',
 } as const;
@@ -228,6 +227,7 @@ export default function ThreatPulse(): JSX.Element {
             title: `${e.label} (${e.kind}) - seen in ${e.source_count} source${e.source_count > 1 ? 's' : ''}`,
             body: `Sources: ${e.sources.join(', ')}`,
           }))}
+          requireAdmin={false}
         />
       )}
 

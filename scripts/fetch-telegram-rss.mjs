@@ -1,7 +1,18 @@
 import { writeFileSync } from 'node:fs';
 
+// Writes the built feed to telegram-rss-cache.json. The GitHub workflow
+// (telegram-rss-cache.yml) publishes that file to the `telegram-rss-cache`
+// branch and the Worker reads it from raw.githubusercontent.com — no KV/API
+// token involved. The Worker builds its /api/v1/telegram-feed from this cache
+// FIRST (see api/src/routes/telegram-feed.ts), so this script + workflow ARE
+// the primary data path, not a fallback.
+//
+// PRIMARY source: the official t.me/s/<handle> HTML preview (server-rendered,
+// no auth, no bridge). The old RSS-bridge sources (tg.i-c-a.su → 429,
+// rsshub.app → 403) both died in 2025-2026 and are kept only as a last resort.
 const OUT_FILE = 'telegram-rss-cache.json';
 
+// Keep in sync with the CHANNELS list in api/src/routes/telegram-feed.ts.
 const CHANNELS = [
   { handle: 'vxunderground', name: 'vx-underground', blurb: 'Malware-source archive + threat-actor commentary', topic: 'malware' },
   { handle: 'androidmalware', name: 'Android Malware', blurb: 'Daily Android-malware sample drops + analysis', topic: 'malware' },
@@ -27,6 +38,8 @@ const CHANNELS = [
   { handle: 'dailybountywriteup', name: 'Daily Bounty Writeup', blurb: 'Curated bug-bounty write-ups + disclosed vuln reports', topic: 'osint' },
   { handle: 'threatinteltrends', name: 'CTT CTI Trends', blurb: 'Community-driven CTI trends — threat actor tracking, campaign intel, and curated security news', topic: 'osint' },
   { handle: 'malwr', name: 'Malware Analysis', blurb: 'Malware analysis reports, sample drops, and reverse-engineering write-ups', topic: 'malware' },
+  { handle: 'ctiwatch', name: 'CTI Watch', blurb: 'Curated threat intelligence watch — IOCs, TTPs, and incident tracking', topic: 'osint' },
+  { handle: 'FSECINTELES2', name: 'FSEC Intel', blurb: 'FSEC threat-intelligence firehose — IOCs, breach alerts, and actor tracking', topic: 'osint' },
 ];
 
 const RSS_BRIDGES = [
@@ -34,15 +47,96 @@ const RSS_BRIDGES = [
   (handle) => `https://rsshub.app/telegram/channel/${encodeURIComponent(handle)}`,
 ];
 
-const FETCH_TIMEOUT_MS = 15_000;
+const FETCH_TIMEOUT_MS = 12_000;
 const MAX_TEXT_LEN = 800;
 const MAX_MESSAGE_AGE_DAYS = 30;
 const MAX_MESSAGES_PER_CHANNEL = 50;
-const CONCURRENCY = 4;
-const DELAY_BETWEEN_MS = 3_000;
+const CONCURRENCY = 6;
+const DELAY_BETWEEN_MS = 1_500;
 const MAX_RETRIES = 1;
 
+const BROWSER_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+function decodeEntities(s) {
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+}
+
+function stripHtml(s) {
+  if (!s) return '';
+  const withBreaks = s.replace(/<br\s*\/?>/gi, '\n');
+  return decodeEntities(withBreaks.replace(/<[^>]+>/g, '')).trim();
+}
+
+// Parse the t.me/s/<handle> preview HTML (mirrors the Worker's
+// parseChannelHtml in api/src/routes/telegram-feed.ts).
+function parseChannelHtml(html) {
+  const SENTINEL = '\x01TGMSG\x01';
+  const marked = html.replace(/<div class="tgme_widget_message_wrap/g, SENTINEL + '<div class="tgme_widget_message_wrap');
+  const blocks = marked.split(SENTINEL).slice(1);
+
+  const out = [];
+  for (const block of blocks) {
+    const permalink = /<a class="tgme_widget_message_date"[^>]*href="([^"]+)"/.exec(block)?.[1];
+    const datetime = /datetime="([^"]+)"/.exec(block)?.[1];
+    const views = /tgme_widget_message_views"[^>]*>([^<]+)/.exec(block)?.[1]?.trim();
+    const textBlock = /<div[^>]*class="[^"]*tgme_widget_message_text[^"]*"[^>]*>([\s\S]*?)<\/div>/i.exec(block)?.[1];
+    if (!permalink || !datetime) continue;
+    let text = textBlock ? stripHtml(textBlock) : '';
+    if (text.length > MAX_TEXT_LEN) text = text.slice(0, MAX_TEXT_LEN - 1) + '\u2026';
+    out.push({ permalink, datetime, views, text });
+  }
+  // Telegram renders oldest-first. Filter to the window, then keep the
+  // newest MAX_MESSAGES_PER_CHANNEL — newest first.
+  const cutoff = Date.now() - MAX_MESSAGE_AGE_DAYS * 86_400_000;
+  const fresh = out.filter((m) => {
+    const t = Date.parse(m.datetime);
+    return Number.isFinite(t) && t >= cutoff;
+  });
+  const pool = fresh.length > 0 ? fresh : out;
+  return pool.slice(-MAX_MESSAGES_PER_CHANNEL).reverse();
+}
+
+async function fetchHtml(url) {
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+      const r = await fetch(url, {
+        signal: ctrl.signal,
+        headers: {
+          accept: 'text/html,application/xhtml+xml',
+          'accept-language': 'en-US,en;q=0.9',
+          'user-agent': BROWSER_UA,
+        },
+        redirect: 'follow',
+      });
+      clearTimeout(timer);
+      if (!r.ok) {
+        if (attempt < MAX_RETRIES) { await sleep(2000); }
+        continue;
+      }
+      const html = await r.text();
+      if (!html.includes('tgme_widget_message_wrap')) {
+        if (attempt < MAX_RETRIES) { await sleep(2000); }
+        continue;
+      }
+      return html;
+    } catch {
+      clearTimeout(timer);
+      if (attempt < MAX_RETRIES) { await sleep(2000); }
+    }
+  }
+  return null;
+}
 
 function parseRssToMessages(xml) {
   const items = [];
@@ -100,7 +194,7 @@ async function fetchRssFeed(handle) {
         const msgs = parseRssToMessages(xml);
         if (msgs.length > 0) return msgs;
       } catch {
-        if (attempt < MAX_RETRIES) { await sleep(2000); continue; }
+        if (attempt < MAX_RETRIES) { await sleep(2000); }
       }
     }
   }
@@ -171,9 +265,21 @@ async function buildCache() {
     while (queue.length > 0) {
       const ch = queue.shift();
       if (!ch) return;
-      const messages = await fetchRssFeed(ch.handle);
+      let messages = [];
+      // 1. t.me/s HTML preview (primary — no bridge dependency).
+      const handle = encodeURIComponent(ch.handle);
+      const previewUrls = [`https://t.me/s/${handle}`, `https://telegram.me/s/${handle}`];
+      for (const url of previewUrls) {
+        if (messages.length > 0) break;
+        const html = await fetchHtml(url);
+        if (html) messages = parseChannelHtml(html);
+      }
+      // 2. RSS bridge (last resort — both bridges have been flaky/dead).
       if (messages.length === 0) {
-        warnings.push(`could not fetch ${ch.handle} from any RSS bridge`);
+        messages = await fetchRssFeed(ch.handle);
+      }
+      if (messages.length === 0) {
+        warnings.push(`could not fetch ${ch.handle} (t.me/s preview + RSS bridges failed)`);
         channelStatus.push({ handle: ch.handle, name: ch.name, topic: ch.topic, ok: false, count: 0 });
         continue;
       }
@@ -210,7 +316,7 @@ async function buildCache() {
 }
 
 async function main() {
-  console.log('Building Telegram RSS cache...');
+  console.log('Building Telegram RSS cache (t.me/s preview scrape)...');
   const cache = await buildCache();
   const liveCount = cache.items.filter((i) => i.datetime > new Date(Date.now() - 86400000).toISOString()).length;
   const channelsOk = cache.channels.filter((c) => c.ok).length;

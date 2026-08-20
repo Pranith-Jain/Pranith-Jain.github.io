@@ -487,7 +487,7 @@ export default function RiskRegister(): JSX.Element {
                       return (
                         <div key={level} className="flex items-center gap-2">
                           <span className="text-micro font-mono text-slate-500 w-16 shrink-0 capitalize">{level}</span>
-                          <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-slate-700">
+                          <div className="flex-1 h-2 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
                             <div
                               className={`h-full rounded-full ${color} transition-all`}
                               style={{ width: `${pct}%` }}

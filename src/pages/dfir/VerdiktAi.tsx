@@ -242,7 +242,7 @@ export default function VerdiktAi(): JSX.Element {
                 className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 pr-20 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
               />
               {iocValue.trim() && (
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-300">
                   {TYPE_ICONS[iocType]}
                   {TYPE_LABELS[iocType]}
                 </div>

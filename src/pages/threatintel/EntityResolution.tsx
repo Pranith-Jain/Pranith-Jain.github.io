@@ -102,7 +102,7 @@ function ConfidenceBar({ score }: { score: number }) {
   const color = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
     <div className="flex items-center gap-2 text-mini font-mono text-slate-500">
-      <div className="h-1.5 w-16 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+      <div className="h-1.5 w-16 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
       <span>{pct}%</span>
@@ -250,7 +250,7 @@ export default function EntityResolution(): JSX.Element {
           onClick={() => setMode('resolve')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'resolve'
-              ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-e1'
+              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -261,7 +261,7 @@ export default function EntityResolution(): JSX.Element {
           onClick={() => setMode('extract')}
           className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
             mode === 'extract'
-              ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-e1'
+              ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 shadow-e1'
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >

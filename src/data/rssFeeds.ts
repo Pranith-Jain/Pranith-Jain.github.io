@@ -75,16 +75,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'supplychain-attacks',
-    name: 'Supply Chain Attack Tracker',
-    url: 'https://supplychainattack.org/feed.xml',
-    description:
-      'New software supply-chain compromise incidents (npm/PyPI/container/AI-agents). Change-detection signal; full structured data on the Supply-chain incidents page.',
-    category: 'threat-intel',
-    source: 'supplychainattack.org',
-    language: 'en',
-  },
-  {
     id: 'cisa-ics-advisories',
     name: 'CISA ICS Advisories',
     url: 'https://www.cisa.gov/cybersecurity-advisories/ics-advisories.xml',
@@ -162,7 +152,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'sophos-news',
     name: 'Sophos News',
-    url: 'https://www.sophos.com/en-gb/blog/feed/',
+    url: 'https://www.sophos.com/en-us/blog/feed/',
     description: 'Sophos X-Ops threat research, malware analysis, and defensive guidance',
     category: 'threat-intel',
     source: 'sophos.com',
@@ -235,16 +225,6 @@ export const rssFeeds: RSSFeed[] = [
     source: 'infostealers.com',
     language: 'en',
   },
-  {
-    id: 'vxdb',
-    name: 'vxdb.sh',
-    url: 'https://vxdb.sh/rss/',
-    description:
-      'Threat intelligence and cybercrime news - deep-dive investigations into organized crime, crypto heists, infostealers, piracy takedowns, and underground markets.',
-    category: 'threat-intel',
-    source: 'vxdb.sh',
-    language: 'en',
-  },
 
   // Dark web, ransomware, and breach trackers
   {
@@ -285,16 +265,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   // databreachtoday.com RSS endpoint 404s as of 2026-05. Replaced with Threatpost.
-  {
-    id: 'threatpost',
-    name: 'Threatpost',
-    url: 'https://threatpost.com/feed/',
-    description:
-      'Threatpost - enterprise vulnerability reporting, zero-day tracking, and breach coverage. Cybersecurity news for security pros.',
-    category: 'news',
-    source: 'threatpost.com',
-    language: 'en-US',
-  },
   {
     id: 'bleepingcomputer-breaches',
     name: 'BleepingComputer · Data Breaches',
@@ -352,31 +322,12 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'lyrie-research',
-    name: 'Lyrie Research',
-    url: 'https://lyrie.ai/research/api/rss',
-    description:
-      'Autonomous CTI platform - CVE deep-dives, active exploitation, breaches, and original threat research',
-    category: 'threat-intel',
-    source: 'lyrie.ai',
-    language: 'en',
-  },
-  {
     id: 'the-record',
     name: 'The Record',
     url: 'https://therecord.media/feed',
     description: 'Cybersecurity reporting from Recorded Future, with strong dark web and ransomware coverage',
     category: 'threat-intel',
     source: 'therecord.media',
-    language: 'en',
-  },
-  {
-    id: 'curated-intel',
-    name: 'Curated Intelligence',
-    url: 'https://www.curatedintel.org/feeds/posts/default',
-    description: 'Threat actor and ransomware research from the Curated Intelligence collective',
-    category: 'threat-intel',
-    source: 'curatedintel.org',
     language: 'en',
   },
 
@@ -659,42 +610,6 @@ export const rssFeeds: RSSFeed[] = [
   // Reddit communities. Reddit aggressively rate-limits Cloudflare Worker egress
   // for the most popular subs (r/cybersecurity, r/ransomware return 502); the four
   // listed below have been verified to return parseable Atom from the proxy.
-  {
-    id: 'reddit-netsec',
-    name: 'Reddit r/netsec',
-    url: 'https://www.reddit.com/r/netsec/.rss',
-    description: 'Network security community discussions',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
-  {
-    id: 'reddit-malware',
-    name: 'Reddit r/Malware',
-    url: 'https://www.reddit.com/r/Malware/.rss',
-    description: 'Malware analysis, samples, and reverse engineering discussion',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
-  {
-    id: 'reddit-blueteamsec',
-    name: 'Reddit r/blueteamsec',
-    url: 'https://www.reddit.com/r/blueteamsec/.rss',
-    description: 'Defender-focused threat intel, detection rules, and incident reports',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
-  {
-    id: 'reddit-threatintel',
-    name: 'Reddit r/threatintel',
-    url: 'https://www.reddit.com/r/threatintel/.rss',
-    description: 'Threat intelligence discussion, IOC sharing, and actor tracking',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
 
   // ============================================================================
   // SCAM WATCH SOURCES - official alerts, deepfake news, victim reports
@@ -764,56 +679,6 @@ export const rssFeeds: RSSFeed[] = [
     category: 'news',
     source: 'Google News (IN)',
     language: 'en-IN',
-  },
-  {
-    id: 'reddit-scams',
-    name: 'Reddit r/Scams',
-    url: 'https://www.reddit.com/r/Scams/.rss',
-    description:
-      'First-person scam reports - phishing, IRS impersonation, romance, marketplace, tech-support, gift-card',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
-  {
-    id: 'reddit-cryptoscams',
-    name: 'Reddit r/CryptoScams',
-    url: 'https://www.reddit.com/r/CryptoScams/.rss',
-    description: 'Cryptocurrency-specific scam reports - pig butchering, fake exchanges, wallet drainers',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
-  {
-    id: 'reddit-phishing-scams',
-    name: 'Reddit r/PhishingScams',
-    url: 'https://www.reddit.com/r/PhishingScams/.rss',
-    description: 'User-reported phishing samples - SMS, email, voice (vishing)',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
-  {
-    id: 'reddit-jobscams',
-    name: 'Reddit r/JobScams',
-    url: 'https://www.reddit.com/r/JobScams/.rss',
-    description: 'Fake recruiter / fake interview / employment-fraud reports',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
-  },
-  {
-    // 2026-05: r/ScammerPayback subreddit went private/banned (404 from Reddit's
-    // RSS endpoint). r/scambait covers the same beat - call-centre exposes,
-    // scammer-baiting write-ups, impersonation tradecraft. Keeping the same id
-    // so all references in landing widgets + ScamWatch sections continue to work.
-    id: 'reddit-scammer-payback',
-    name: 'Reddit r/scambait',
-    url: 'https://www.reddit.com/r/scambait/.rss',
-    description: 'Scammer-baiting and call-centre exposé community - scammer tradecraft, impersonation patterns',
-    category: 'threat-intel',
-    source: 'Reddit',
-    language: 'en-US',
   },
   {
     id: 'gnews-pig-butcher',
@@ -1232,15 +1097,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'cybernews',
-    name: 'CyberNews',
-    url: 'https://feeds.feedburner.com/cybernews',
-    description: 'CyberNews - data breach investigations, cybersecurity research, and exposure reports.',
-    category: 'threat-intel',
-    source: 'cybernews.com',
-    language: 'en',
-  },
-  {
     id: 'grahamcluley',
     name: 'Graham Cluley',
     url: 'https://grahamcluley.com/feed/',
@@ -1280,15 +1136,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'countercept',
-    name: 'Countercept (WithSecure)',
-    url: 'https://www.withsecure.com/rss/',
-    description: 'Countercept (WithSecure) - advanced threat hunting, red team research, and detection engineering.',
-    category: 'threat-intel',
-    source: 'withsecure.com',
-    language: 'en',
-  },
-  {
     id: 'elasticsecurity',
     name: 'Elastic Security Labs',
     url: 'https://www.elastic.co/security-labs/rss/feed.xml',
@@ -1322,24 +1169,6 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Intel 471 - cybercrime intelligence, adversary tracking, and underground ecosystem monitoring.',
     category: 'threat-intel',
     source: 'intel471.com',
-    language: 'en',
-  },
-  {
-    id: 'chronicle-blog',
-    name: 'Google Online Security Blog',
-    url: 'https://feeds.feedburner.com/GoogleOnlineSecurityBlog',
-    description: 'Google online security research - product security, threat analysis, and vulnerability disclosures.',
-    category: 'threat-intel',
-    source: 'Google Security Blog',
-    language: 'en',
-  },
-  {
-    id: 'netscope-research',
-    name: 'Netskope Threat Labs',
-    url: 'https://www.netskope.com/blog/feed',
-    description: 'Netskope Threat Labs - cloud threat research, SaaS security, and malware analysis.',
-    category: 'threat-intel',
-    source: 'netskope.com',
     language: 'en',
   },
   {
@@ -1526,16 +1355,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'thehackerblog',
-    name: 'The Hacker Blog (Matthew Bryant)',
-    url: 'https://thehackerblog.com/feed.xml',
-    description:
-      'Web security research and unintended-use hacking from the author of XSS Hunter - SSRF, blind XSS, DNS rebinding',
-    category: 'threat-intel',
-    source: 'thehackerblog.com',
-    language: 'en',
-  },
-  {
     id: 'detectify',
     name: 'Detectify Blog',
     url: 'https://blog.detectify.com/feed/',
@@ -1543,16 +1362,6 @@ export const rssFeeds: RSSFeed[] = [
       'Web security vulnerability research, bug bounty write-ups, and security culture insights from the Detectify team',
     category: 'threat-intel',
     source: 'blog.detectify.com',
-    language: 'en',
-  },
-  {
-    id: 'pentestlab',
-    name: 'Penetration Testing Lab',
-    url: 'https://pentestlab.blog/feed/',
-    description:
-      'Offensive security techniques and methodologies - exploitation, privilege escalation, persistence, and lateral movement',
-    category: 'threat-intel',
-    source: 'pentestlab.blog',
     language: 'en',
   },
   {
@@ -1627,7 +1436,6 @@ export const rssFeeds: RSSFeed[] = [
 const EXCLUDE_FROM_LANDING = new Set<string>([
   // Structured-source feeds whose full data lives on a dedicated page; the RSS
   // is only a change-detection signal, so keep it out of the landing card.
-  'supplychain-attacks',
   // Wiz RSS is a change-detection signal; full cloud incidents live on the Cloud-incidents page.
   'wiz-cloud-threats',
   // Scam Watch sources (live at /threatintel/scam-watch)
@@ -1645,11 +1453,6 @@ const EXCLUDE_FROM_LANDING = new Set<string>([
   'gnews-rug-pull',
   'gnews-nft-drainer',
   'gnews-defi-hack',
-  'reddit-scams',
-  'reddit-cryptoscams',
-  'reddit-phishing-scams',
-  'reddit-jobscams',
-  'reddit-scammer-payback',
   'rekt-news',
   'web3-grift',
 ]);
@@ -1746,7 +1549,6 @@ export const landingThreatVendor = [
   'trendmicro-research',
   'withsecure-labs',
   'malware-traffic-analysis',
-  'doublepulsar',
   'dfir-lab',
   'dfir-radar',
   'sans-isc',
@@ -1763,7 +1565,6 @@ export const landingThreatVendor = [
 export const landingThreatInvestigation = [
   'dfir-report',
   'the-record',
-  'curated-intel',
   'darkwebinformer',
   'databreaches',
   'mitre-attack-medium',
@@ -1772,8 +1573,6 @@ export const landingThreatInvestigation = [
   'bushidotoken',
   'infostealers-com',
   'tisiphone',
-  'thehackerblog',
-  'pentestlab',
   'embracethered',
   'darknet',
 ];
@@ -1801,17 +1600,13 @@ export const landingThreatNews = [
   'theregister-security',
   'helpnetsecurity',
   'csoconline',
-  'threatpost',
   'malwaretech',
   'hexacorn',
   'objective-see',
-  'countercept',
   'elasticsecurity',
   'datadog-security',
   'flashpoint',
   'intel471',
-  'chronicle-blog',
-  'netscope-research',
   'wordfence',
 ];
 

@@ -9,9 +9,11 @@ interface PostAnalysis {
   impact: string;
   recommended_actions: string[];
   context: string;
+  /** The /api/v1/threat-analysis EVENT schema returns related_ttps (not ttps). */
+  related_ttps?: string[];
   iocs?: string[];
-  ttps?: string[];
   tweet?: string;
+  raw?: string;
 }
 
 interface PostAnalysisButtonProps {
@@ -55,10 +57,18 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
           description: description?.slice(0, 1500),
           source,
         }),
+        signal: AbortSignal.timeout(35_000),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      setAnalysis(data.analysis);
+      const parsed = data.analysis as PostAnalysis;
+      if (data?.parse_failed) {
+        // Unstructured model output — surface the raw text instead of an
+        // empty card.
+        setAnalysis({ ...parsed, raw: String(parsed?.raw ?? '') });
+      } else {
+        setAnalysis(parsed);
+      }
       setModel(data.model);
     } catch (e) {
       setError((e as Error).message);
@@ -88,7 +98,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
       {open && (
         <div className="absolute right-0 top-full mt-2 z-50 w-[420px] max-h-[500px] overflow-y-auto rounded-xl border border-brand-500/30 bg-white dark:bg-[rgb(var(--surface-200))] shadow-2xl animate-fade-in">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-slate-700/50 sticky top-0 bg-white dark:bg-[rgb(var(--surface-200))] z-10">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]/50 sticky top-0 bg-white dark:bg-[rgb(var(--surface-200))] z-10">
             <div className="flex items-center gap-2">
               <Brain size={14} className="text-brand-400" />
               <span className="text-xs font-semibold text-slate-900 dark:text-slate-200">AI Analysis</span>
@@ -135,80 +145,77 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
             {/* Analysis */}
             {analysis && (
               <>
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`inline-flex items-center gap-1 px-2 py-0.5 text-micro font-mono rounded border ${THREAT_COLORS[analysis.threat_level] || THREAT_COLORS.unknown}`}
-                  >
-                    <Shield size={10} />
-                    {analysis.threat_level?.toUpperCase()}
-                  </span>
-                  <span className="text-micro font-mono text-slate-500">conf: {analysis.confidence}</span>
-                </div>
-
-                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
-
-                {analysis.impact && (
-                  <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
-                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
-                      Impact
-                    </span>
-                    <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.impact}</p>
+                {analysis.raw ? (
+                  <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3">
+                    <p className="text-xs text-amber-600 dark:text-amber-400 mb-1.5">
+                      The model returned unstructured text — raw output shown below:
+                    </p>
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono">
+                      {analysis.raw}
+                    </p>
                   </div>
-                )}
-
-                {analysis.context && (
-                  <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
-                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
-                      Context
-                    </span>
-                    <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.context}</p>
-                  </div>
-                )}
-
-                {analysis.iocs?.length ? (
-                  <div>
-                    <span className="text-micro font-mono uppercase text-slate-500 block mb-1">IOCs</span>
-                    <div className="flex flex-wrap gap-1">
-                      {analysis.iocs.map((ioc, i) => (
-                        <span
-                          key={i}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20 break-all"
-                        >
-                          {ioc}
-                        </span>
-                      ))}
+                ) : (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 text-micro font-mono rounded border ${THREAT_COLORS[analysis.threat_level] || THREAT_COLORS.unknown}`}
+                      >
+                        <Shield size={10} />
+                        {analysis.threat_level?.toUpperCase()}
+                      </span>
+                      <span className="text-micro font-mono text-slate-500">conf: {analysis.confidence}</span>
                     </div>
-                  </div>
-                ) : null}
 
-                {analysis.ttps?.length ? (
-                  <div>
-                    <span className="text-micro font-mono uppercase text-slate-500 block mb-1">MITRE ATT&CK</span>
-                    <div className="flex flex-wrap gap-1">
-                      {analysis.ttps.map((t, i) => (
-                        <span
-                          key={i}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20"
-                        >
-                          {t}
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
+
+                    {analysis.impact && (
+                      <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
+                        <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
+                          Impact
                         </span>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
+                        <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.impact}</p>
+                      </div>
+                    )}
 
-                {analysis.recommended_actions?.length > 0 && (
-                  <div>
-                    <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
-                    <ul className="space-y-0.5">
-                      {analysis.recommended_actions.map((a, i) => (
-                        <li key={i} className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-slate-400">
-                          <span className="text-brand-400 mt-0.5">•</span>
-                          {a}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {analysis.context && (
+                      <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
+                        <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-500 block mb-0.5">
+                          Context
+                        </span>
+                        <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.context}</p>
+                      </div>
+                    )}
+
+                    {analysis.related_ttps?.filter(Boolean).length ? (
+                      <div>
+                        <span className="text-micro font-mono uppercase text-slate-500 block mb-1">MITRE ATT&CK</span>
+                        <div className="flex flex-wrap gap-1">
+                          {analysis.related_ttps.filter(Boolean).map((t, i) => (
+                            <span
+                              key={i}
+                              className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {analysis.recommended_actions?.length > 0 && (
+                      <div>
+                        <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
+                        <ul className="space-y-0.5">
+                          {analysis.recommended_actions.map((a, i) => (
+                            <li key={i} className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-slate-400">
+                              <span className="text-brand-400 mt-0.5">•</span>
+                              {a}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
                 )}
 
                 <AnalysisShareRow analysis={analysis} title={title} />
@@ -225,7 +232,7 @@ function AnalysisShareRow({ analysis, title }: { analysis: PostAnalysis; title: 
   const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareText = analysis.tweet || analysis.summary || `Threat analysis: ${title}`;
   return (
-    <div className="pt-2 border-t border-slate-200 dark:border-slate-700/50">
+    <div className="pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]/50">
       <ShareBar shareText={shareText} url={pageUrl} size="sm" label="Share:" />
     </div>
   );

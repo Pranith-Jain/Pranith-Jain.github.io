@@ -182,7 +182,7 @@ export default function ActorDNA(): JSX.Element {
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             !matchMode
               ? 'bg-rose-600 text-white'
-              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
           }`}
         >
           <Users className="w-4 h-4 inline mr-2" />
@@ -194,7 +194,7 @@ export default function ActorDNA(): JSX.Element {
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             matchMode
               ? 'bg-rose-600 text-white'
-              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
           }`}
         >
           <Dna className="w-4 h-4 inline mr-2" />

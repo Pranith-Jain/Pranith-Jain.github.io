@@ -145,7 +145,7 @@ export default function AlertFeed() {
         <button
           type="button"
           onClick={loadAlerts}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
         </button>
@@ -204,7 +204,7 @@ export default function AlertFeed() {
                         <button
                           type="button"
                           onClick={() => markRead(alert.id)}
-                          className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-green-500"
+                          className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:text-green-500"
                           title="Mark read"
                         >
                           <CheckCircle size={14} />
@@ -213,7 +213,7 @@ export default function AlertFeed() {
                       <button
                         type="button"
                         onClick={() => dismiss(alert.id)}
-                        className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-red-500"
+                        className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:text-red-500"
                         title="Dismiss"
                       >
                         <XCircle size={14} />
@@ -255,7 +255,7 @@ export default function AlertFeed() {
                       {alert.topics.map((t) => (
                         <span
                           key={t}
-                          className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500"
+                          className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
                         >
                           {t}
                         </span>

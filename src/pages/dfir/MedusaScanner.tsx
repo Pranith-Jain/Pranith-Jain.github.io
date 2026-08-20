@@ -572,7 +572,7 @@ export default function MedusaScanner(): JSX.Element {
                               <HitIcon size={14} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-2 flex-wrap">
-                                  <span className="text-micro font-mono px-1 py-0.5 rounded border bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-muted">
+                                  <span className="text-micro font-mono px-1 py-0.5 rounded border bg-slate-100 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
                                     {hit.ruleId}
                                   </span>
                                   <span className={`font-display font-semibold text-sm ${st.text}`}>{hit.message}</span>
@@ -581,7 +581,7 @@ export default function MedusaScanner(): JSX.Element {
                                   <span>
                                     line {hit.line}:{hit.column}
                                   </span>
-                                  <span className="text-micro px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700">
+                                  <span className="text-micro px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
                                     {CATEGORY_LABELS[hit.kind] || hit.kind}
                                   </span>
                                 </div>
