@@ -65,7 +65,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/detections/disarm', '/__prerendered/threatintel__detections__disarm'],
   ['/threatintel/detections/yara', '/__prerendered/threatintel__detections__yara'],
   ['/threatintel/detections/signal', '/__prerendered/threatintel__detections__signal'],
-  ['/threatintel/detection-wiki', '/__prerendered/threatintel__detection__wiki'],
+  ['/threatintel/detection-wiki', '/__prerendered/threatintel__detection-wiki'],
   ['/threatintel/phishing/phish', '/__prerendered/threatintel__phishing__phish'],
   ['/threatintel/phishing/urls', '/__prerendered/threatintel__phishing__urls'],
   ['/threatintel/phishing/scam', '/__prerendered/threatintel__phishing__scam'],
