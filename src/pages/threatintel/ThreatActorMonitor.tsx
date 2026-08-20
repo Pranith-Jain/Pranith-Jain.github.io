@@ -21,6 +21,8 @@ import {
   BellOff,
   Mail,
   Webhook,
+  Download,
+  TrendingUp,
 } from 'lucide-react';
 import {
   type AlertSettings,
@@ -29,6 +31,7 @@ import {
   requestNotificationPermission,
   processAlerts,
 } from '../../lib/threat-monitor-alerts';
+import { exportCsv, exportJson } from '../../lib/threat-monitor-export';
 import { APT_GROUPS, ALIAS_MAP } from '../../data/threat-monitor/apt-groups';
 import { TECHNIQUES, KILL_CHAIN_STAGES, TACTIC_TO_KILLCHAIN } from '../../data/threat-monitor/mitre-attack';
 import { OSINT_SOURCES } from '../../data/threat-monitor/osint-sources';
@@ -106,10 +109,14 @@ function parseFeedXML(xml: string): { title: string; link: string; published: st
 function matchAPT(text: string): string[] {
   const lower = text.toLowerCase();
   const matched = new Set<string>();
-  for (const [alias, group] of Object.entries(ALIAS_MAP)) {
-    if (lower.includes(alias)) matched.add(group);
+  // Check aliases (sorted longest-first to avoid partial matches)
+  const sortedAliases = Object.entries(ALIAS_MAP).sort((a, b) => b[0].length - a[0].length);
+  for (const [alias, group] of sortedAliases) {
+    if (lower.includes(alias)) {
+      matched.add(group);
+    }
   }
-  // Also check APT group keys directly
+  // Also check canonical group names directly
   for (const key of Object.keys(APT_GROUPS)) {
     if (lower.includes(key.toLowerCase())) matched.add(key);
   }
@@ -131,15 +138,32 @@ function matchTechniques(text: string): { id: string; name: string; tactic: stri
   return matched;
 }
 
-function scoreConfidence(aptMatches: number, techMatches: number, sourceIsVendor: boolean): number {
-  let c = 0.1; // base
+function scoreConfidence(
+  aptMatches: number,
+  techMatches: number,
+  sourceIsVendor: boolean,
+  killChainStages: string[],
+  title: string
+): number {
+  let c = 0.05; // base
+  // APT matches (strongest signal)
   if (aptMatches >= 3) c += 0.5;
   else if (aptMatches >= 2) c += 0.35;
-  else if (aptMatches >= 1) c += 0.25;
-  if (techMatches >= 5) c += 0.3;
-  else if (techMatches >= 3) c += 0.2;
+  else if (aptMatches === 1) c += 0.25;
+  // Technique matches
+  if (techMatches >= 5) c += 0.25;
+  else if (techMatches >= 3) c += 0.18;
   else if (techMatches >= 1) c += 0.1;
-  if (sourceIsVendor) c += 0.1;
+  // Kill chain breadth (covering more stages = higher confidence)
+  if (killChainStages.length >= 4) c += 0.1;
+  else if (killChainStages.length >= 2) c += 0.05;
+  // Vendor source bonus (they write detailed analysis)
+  if (sourceIsVendor) c += 0.08;
+  // High-signal keywords in title
+  const lower = title.toLowerCase();
+  if (lower.includes('campaign') || lower.includes('operation') || lower.includes('apt')) c += 0.05;
+  if (lower.includes('zero-day') || lower.includes('0-day') || lower.includes('exploit')) c += 0.05;
+  if (lower.includes('ransomware') || lower.includes('breach') || lower.includes('attack')) c += 0.03;
   return Math.min(c, 1);
 }
 
@@ -180,6 +204,45 @@ function KillChainBar({ stages }: { stages: string[] }) {
         />
       ))}
     </div>
+  );
+}
+
+/* ── Timeline Chart ── */
+function TimelineChart({ detections }: { detections: Detection[] }) {
+  // Group by day
+  const dayMap: Record<string, number> = {};
+  for (const d of detections) {
+    const day = d.created_at.slice(0, 10);
+    dayMap[day] = (dayMap[day] ?? 0) + 1;
+  }
+  const days = Object.entries(dayMap)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .slice(-14);
+  if (days.length === 0) return null;
+  const maxVal = Math.max(...days.map(([, c]) => c), 1);
+
+  return (
+    <Card padding="md" className="mb-6">
+      <h3 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-3">
+        <TrendingUp size={14} className="inline mr-1" />
+        Detection Timeline (Last 14 Days)
+      </h3>
+      <div className="flex items-end gap-1 h-24">
+        {days.map(([day, count]) => (
+          <div key={day} className="flex-1 flex flex-col items-center gap-1">
+            <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500">{count}</span>
+            <div
+              className="w-full rounded-t bg-brand-400 dark:bg-brand-500 transition-all min-h-[2px]"
+              style={{ height: `${(count / maxVal) * 80}%` }}
+              title={`${day}: ${count} detections`}
+            />
+            <span className="text-[8px] font-mono text-slate-400 dark:text-slate-500 -rotate-45 origin-top-left whitespace-nowrap">
+              {day.slice(5)}
+            </span>
+          </div>
+        ))}
+      </div>
+    </Card>
   );
 }
 
@@ -274,8 +337,8 @@ export default function ThreatActorMonitor() {
           if (aptMatches.length > 0 || techMatches.length >= 2) {
             if (existingUrls.has(item.link)) continue;
             relevantCount++;
-            const confidence = scoreConfidence(aptMatches.length, techMatches.length, isVendor);
             const kcStages = [...new Set(techMatches.map((t) => t.kill_chain))];
+            const confidence = scoreConfidence(aptMatches.length, techMatches.length, isVendor, kcStages, item.title);
             const det: Detection = {
               id: `det-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
               source: source.name,
@@ -402,7 +465,7 @@ export default function ThreatActorMonitor() {
           <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">APT Groups</div>
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
             {totalAptGroupsDetected}
-            <span className="text-sm text-slate-400">/40</span>
+            <span className="text-sm text-slate-400">/65</span>
           </div>
         </Card>
         <Card padding="md">
@@ -470,6 +533,9 @@ export default function ThreatActorMonitor() {
           </div>
         </Card>
       </div>
+
+      {/* Timeline Chart */}
+      {detections.length > 0 && <TimelineChart detections={detections} />}
 
       {/* Source Selector */}
       <Card padding="md" className="mb-6">
@@ -620,6 +686,26 @@ export default function ThreatActorMonitor() {
             <option value="low">Low (&lt;35%)</option>
           </Select>
           <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} detections</span>
+          <div className="flex gap-1">
+            <button
+              onClick={() => exportCsv(filtered)}
+              disabled={filtered.length === 0}
+              className="px-2 py-1 rounded text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 disabled:opacity-40 disabled:cursor-not-allowed dark:bg-emerald-900/20 dark:text-emerald-300 dark:border-emerald-800 dark:hover:bg-emerald-900/40 transition-colors"
+              title="Export as CSV"
+            >
+              <Download size={10} className="inline mr-0.5" />
+              CSV
+            </button>
+            <button
+              onClick={() => exportJson(filtered)}
+              disabled={filtered.length === 0}
+              className="px-2 py-1 rounded text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800 dark:hover:bg-blue-900/40 transition-colors"
+              title="Export as JSON"
+            >
+              <Download size={10} className="inline mr-0.5" />
+              JSON
+            </button>
+          </div>
         </div>
         {scanning ? (
           <div className="flex items-center justify-center py-16">
