@@ -2,11 +2,11 @@
   "source": "threaticon.com",
   "url": "https://threaticon.com/",
   "description": "Threaticon is a STIX 2.1 / TAXII 2.1 threat-intel platform (solo-run by Jefferson Shillingford) aggregating threat actors, malware families, campaigns, CVEs and ATT&CK detection coverage. Public preview content mirrored for read-only reference — structured facts only, AI-generated prose excluded.",
-  "syncedAt": "2026-08-18T05:55:49.606Z",
-  "builtAt": "2026-08-18T07:15:55.892Z",
+  "syncedAt": "2026-08-21T06:01:35.621Z",
+  "builtAt": "2026-08-21T07:20:34.181Z",
   "counts": {
-    "actors": 1500,
-    "actorsWithProfiles": 1500,
+    "actors": 1502,
+    "actorsWithProfiles": 1502,
     "malwareFamilies": 9224,
     "malwareCategories": 17,
     "techniques": 493,
@@ -642,6 +642,23 @@
       "targetedCountriesCount": 13,
       "tagsCount": 15,
       "added": "Jul 22, 2026"
+    },
+    {
+      "slug": "androidkitkat",
+      "id": 1715,
+      "name": "androidkitkat",
+      "mitreId": null,
+      "status": "Active",
+      "tlp": "white",
+      "confidence": 55,
+      "types": [],
+      "originCode": null,
+      "countryOfOrigin": null,
+      "techniquesCount": 0,
+      "toolsCount": 0,
+      "targetedCountriesCount": 0,
+      "tagsCount": 0,
+      "added": "Aug 19, 2026"
     },
     {
       "slug": "andromeda-spider",
@@ -15279,6 +15296,23 @@
       "targetedCountriesCount": 17,
       "tagsCount": 12,
       "added": "May 17, 2026"
+    },
+    {
+      "slug": "purpledelta",
+      "id": 1714,
+      "name": "purpledelta",
+      "mitreId": null,
+      "status": "Active",
+      "tlp": "white",
+      "confidence": 55,
+      "types": [],
+      "originCode": null,
+      "countryOfOrigin": null,
+      "techniquesCount": 0,
+      "toolsCount": 0,
+      "targetedCountriesCount": 0,
+      "tagsCount": 0,
+      "added": "Aug 19, 2026"
     },
     {
       "slug": "purplehaze",

@@ -2,13 +2,13 @@
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/feeds",
   "description": "Aggregated threat clusters, CVEs, exploits, dark-web victims, and high-confidence IOCs from ThreatCluster. Feeds refresh hourly upstream and are replicated here on the threat-intel sync cadence.",
-  "syncedAt": "2026-08-21T05:14:26.443Z",
+  "syncedAt": "2026-08-21T06:01:06.551Z",
   "lastBuildDates": {
-    "clusters": "Fri, 21 Aug 2026 04:52:59 GMT",
+    "clusters": "Fri, 21 Aug 2026 05:53:00 GMT",
     "vulnerabilities": "Fri, 21 Aug 2026 05:11:52 GMT",
     "exploits": "Fri, 21 Aug 2026 05:08:55 GMT",
-    "victims": "Fri, 21 Aug 2026 04:54:08 GMT",
-    "iocs": "2026-08-21T05:14:29Z"
+    "victims": "Fri, 21 Aug 2026 05:55:57 GMT",
+    "iocs": "2026-08-21T06:01:08Z"
   },
   "counts": { "clusters": 50, "vulnerabilities": 50, "exploits": 46, "victims": 50, "iocs": 41, "mispEvents": 9 },
   "feeds": [
@@ -848,7 +848,7 @@
       "victim": "ProSim Aviation Research",
       "group": "direwolf",
       "sector": "Technology",
-      "country": "FR",
+      "country": "NL",
       "pubDate": "2026-08-21T02:28:35.000Z",
       "sizeBytes": 38
     },
@@ -992,9 +992,9 @@
       "victim": "Be Media",
       "group": "play",
       "sector": "Technology",
-      "country": null,
+      "country": "US",
       "pubDate": "2026-08-20T17:28:01.000Z",
-      "sizeBytes": 26
+      "sizeBytes": 31
     },
     {
       "id": "latoplast-ca6d",

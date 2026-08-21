@@ -4,13 +4,13 @@
   "repoUrl": "https://github.com/HudKSD/Living-Threat",
   "description": "Living Threat Repository — real-world incidents continuously mapped to MITRE ATT&CK tactics and techniques, with per-kill-chain-stage detection + remediation notes (AI-enriched), CVEs, threat actors, tools, priority scoring, and hunt-pack guidance.",
   "license": "MIT (github.com/HudKSD/Living-Threat); ATT&CK is a MITRE trademark — platform not affiliated with MITRE",
-  "syncedAt": "2026-08-21T05:14:21.205Z",
+  "syncedAt": "2026-08-21T06:01:32.431Z",
   "meta": {
     "apiIndex": null,
     "latestTs": "2026-08-21T00:03:02Z",
     "latestSeq": 21690,
     "anchorTs": "2026-08-21T00:03:02Z",
-    "fetchedAt": "2026-08-21T05:14:10Z",
+    "fetchedAt": "2026-08-21T06:01:28Z",
     "cap": "Upstream /api/bootstrap caps at 5000 docs; index holds ~21k. Newest 5000 shipped."
   },
   "counts": {

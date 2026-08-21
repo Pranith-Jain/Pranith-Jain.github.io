@@ -3,12 +3,12 @@
   "victim": "Be Media",
   "group": "play",
   "sector": "Technology",
-  "country": null,
+  "country": "US",
   "title": "Be Media — claimed by play",
   "link": "https://threatcluster.io/dark-web/victim/Be%20Media",
   "guid": "darkweb-victim:play:be media",
   "pubDate": "2026-08-20T17:28:01.000Z",
-  "categories": ["Group: play", "Sector: Technology"],
-  "description": "Technology · United States",
-  "sizeBytes": 26
+  "categories": ["Group: play", "Sector: Technology", "Country: US"],
+  "description": "US · Technology · United States",
+  "sizeBytes": 31
 }
