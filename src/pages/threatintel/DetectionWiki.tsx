@@ -39,6 +39,20 @@ interface DwPlatform {
   totalRules?: number;
 }
 
+interface DwPlatformDetail {
+  generatedAt: string;
+  source: string;
+  platform: string;
+  slug: string;
+  description: string;
+  events: number;
+  rulesWithSamples: number;
+  totalRules: number | null;
+  sampleEvents: Array<Record<string, unknown>>;
+  sampleCount: number;
+  note: string;
+}
+
 interface DwLabEntry {
   slug: string;
   title: string;
@@ -182,6 +196,10 @@ export default function DetectionWiki(): JSX.Element {
   const [search, setSearch] = useState('');
   const [selectedTactic, setSelectedTactic] = useState<string | null>(null);
   const [onlyWithRules, setOnlyWithRules] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
+  const [platformDetail, setPlatformDetail] = useState<DwPlatformDetail | null>(null);
+  const [platformDetailLoading, setPlatformDetailLoading] = useState(false);
+  const [platformDetailError, setPlatformDetailError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -219,6 +237,38 @@ export default function DetectionWiki(): JSX.Element {
       ctrl.abort();
     };
   }, []);
+
+  useEffect(() => {
+    if (!selectedPlatform) {
+      setPlatformDetail(null);
+      setPlatformDetailError(null);
+      return;
+    }
+    let cancelled = false;
+    setPlatformDetailLoading(true);
+    setPlatformDetailError(null);
+    fetch(`/data/detection-wiki/platforms-detail/${selectedPlatform}.json`)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((d: DwPlatformDetail) => {
+        if (!cancelled) setPlatformDetail(d);
+      })
+      .catch((e: Error) => {
+        if (!cancelled) setPlatformDetailError(e.message);
+      })
+      .finally(() => {
+        if (!cancelled) setPlatformDetailLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedPlatform]);
+
+  useEffect(() => {
+    if (tab !== 'platforms') setSelectedPlatform(null);
+  }, [tab]);
 
   const filteredTechniques = useMemo(() => {
     if (!techData) return [] as DwTechnique[];
@@ -662,24 +712,144 @@ export default function DetectionWiki(): JSX.Element {
 
       {/* ── Platforms ──────────────────────────────────────────────── */}
       {tab === 'platforms' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {filteredPlatforms.map((p) => (
-            <div key={p.slug} className="surface-card p-4">
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{p.name}</h3>
-                <span className="text-micro font-mono text-slate-500">{p.events.toLocaleString()} events</span>
-              </div>
-              <p className="text-xs text-muted leading-relaxed mb-2">{p.description}</p>
-              <div className="flex gap-3 text-micro font-mono text-slate-500">
-                <span>{p.rulesWithSamples} rules w/ samples</span>
-                {p.totalRules && <span>· {p.totalRules} total rules</span>}
-              </div>
+        <>
+          {selectedPlatform ? (
+            <div className="space-y-3">
+              <button
+                onClick={() => setSelectedPlatform(null)}
+                className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              >
+                ← Back to platforms
+              </button>
+              {platformDetailLoading && (
+                <p className="text-xs text-muted font-mono py-8 text-center">Loading {selectedPlatform}…</p>
+              )}
+              {platformDetailError && (
+                <p className="text-xs text-rose-600 font-mono py-4">
+                  Failed to load {selectedPlatform}: {platformDetailError}
+                </p>
+              )}
+              {platformDetail && (
+                <div className="surface-card p-4 space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-mono text-base font-bold text-slate-900 dark:text-white">
+                        {platformDetail.platform}
+                      </h3>
+                      <p className="text-xs text-muted">{platformDetail.description}</p>
+                      <a
+                        href={platformDetail.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 mt-1"
+                      >
+                        {platformDetail.source.replace('https://', '')} <ExternalLink size={10} />
+                      </a>
+                    </div>
+                    <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))]">
+                      {platformDetail.slug}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 text-xs font-mono">
+                    <div className="surface-card p-2 text-center">
+                      <div className="text-slate-500">Events</div>
+                      <div className="font-bold text-slate-900 dark:text-white">
+                        {platformDetail.events.toLocaleString()}
+                      </div>
+                    </div>
+                    <div className="surface-card p-2 text-center">
+                      <div className="text-slate-500">Rules w/ samples</div>
+                      <div className="font-bold text-emerald-600">{platformDetail.rulesWithSamples}</div>
+                    </div>
+                    <div className="surface-card p-2 text-center">
+                      <div className="text-slate-500">Total rules</div>
+                      <div className="font-bold">{platformDetail.totalRules ?? '—'}</div>
+                    </div>
+                  </div>
+                  {platformDetail.note && (
+                    <p className="text-xs text-muted font-mono bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-2 rounded">
+                      {platformDetail.note}
+                    </p>
+                  )}
+                  <div className="text-xs font-mono text-slate-500">
+                    {platformDetail.sampleCount} sample events{' '}
+                    {platformDetail.sampleEvents.length > 0
+                      ? `· showing ${Math.min(platformDetail.sampleEvents.length, 5)}`
+                      : ''}
+                  </div>
+                  {platformDetail.sampleEvents.length > 0 && (
+                    <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-96 overflow-y-auto">
+                      <table className="w-full text-xs font-mono">
+                        <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
+                          <tr>
+                            {Object.keys(platformDetail.sampleEvents[0] as Record<string, unknown>)
+                              .slice(0, 5)
+                              .map((k) => (
+                                <th key={k} className="text-left px-2 py-1 text-slate-500">
+                                  {k}
+                                </th>
+                              ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+                          {platformDetail.sampleEvents.slice(0, 5).map((ev, i) => (
+                            <tr key={i} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]">
+                              {Object.values(ev)
+                                .slice(0, 5)
+                                .map((v, j) => (
+                                  <td key={j} className="px-2 py-1 truncate max-w-[180px]">
+                                    {String(v)}
+                                  </td>
+                                ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                  <a
+                    href={`https://detection.wiki/${platformDetail.slug}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                  >
+                    Open {platformDetail.platform} on detection.wiki <ExternalLink size={10} />
+                  </a>
+                </div>
+              )}
             </div>
-          ))}
-          {filteredPlatforms.length === 0 && (
-            <p className="text-xs text-muted font-mono col-span-full text-center py-8">No platforms match "{search}"</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {filteredPlatforms.map((p) => (
+                <button
+                  key={p.slug}
+                  onClick={() => setSelectedPlatform(p.slug)}
+                  className="surface-card p-4 text-left hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors group"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                      {p.name}
+                    </h3>
+                    <span className="text-micro font-mono text-slate-500">{p.events.toLocaleString()} events</span>
+                  </div>
+                  <p className="text-xs text-muted leading-relaxed mb-2">{p.description}</p>
+                  <div className="flex gap-3 text-micro font-mono text-slate-500">
+                    <span>{p.rulesWithSamples} rules w/ samples</span>
+                    {p.totalRules && <span>· {p.totalRules} total rules</span>}
+                  </div>
+                  <div className="mt-2 text-micro font-mono text-brand-600 dark:text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                    View details →
+                  </div>
+                </button>
+              ))}
+              {filteredPlatforms.length === 0 && (
+                <p className="text-xs text-muted font-mono col-span-full text-center py-8">
+                  No platforms match "{search}"
+                </p>
+              )}
+            </div>
           )}
-        </div>
+        </>
       )}
 
       {/* ── Labs ───────────────────────────────────────────────────── */}
