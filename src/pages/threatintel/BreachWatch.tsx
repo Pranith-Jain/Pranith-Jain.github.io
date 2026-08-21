@@ -146,9 +146,9 @@ function BreachCard({
           {CATEGORY_LABELS[entry.category] ?? entry.category}
         </span>
         <PostAnalysisButton
-          title={entry.title}
+          title={`${entry.title} — ${entry.group} breach`}
+          description={`Ransomware group ${entry.group}${entry.country ? ` targeting ${entry.country}` : ''} claims ${entry.category === 'ransomware' ? 'ransomware' : 'data breach'} affecting ${entry.title}. Severity: ${entry.severity}. Discovered: ${entry.discovered ? new Date(entry.discovered).toLocaleDateString() : 'unknown'}. Data size: ${humanSize(entry.sizeBytes)}. Category: ${CATEGORY_LABELS[entry.category] ?? entry.category}.`}
           source={entry.group}
-          link={`/api/v1/breach-watch/breaches/${entry.slug}`}
           compact
         />
       </div>

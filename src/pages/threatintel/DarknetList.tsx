@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Activity, ExternalLink, Fingerprint, Globe, RefreshCw, Search, ShieldOff, Star, Zap } from 'lucide-react';
 
@@ -177,6 +178,12 @@ function SiteCard({ site }: { site: DarknetSite }) {
           <Activity className="w-2.5 h-2.5" />
           {site.upMirrors}/{site.totalMirrors} mirrors
         </span>
+        <PostAnalysisButton
+          title={`${site.name} — ${catMeta.label} onion site`}
+          description={`${site.name} (${catMeta.label}): status ${site.status}, ${site.upMirrors}/${site.totalMirrors} mirrors up${site.latencyMs != null ? `, latency ${site.latencyMs}ms` : ''}${site.fingerprint ? `, fingerprint ${site.fingerprint}` : ''}. Onion URL: ${site.onion ?? site.url ?? 'n/a'}.`}
+          source="darknetlist.is"
+          compact
+        />
         {site.latencyMs != null && (
           <span className="flex items-center gap-1">
             <Zap className="w-2.5 h-2.5" />
@@ -309,6 +316,23 @@ export default function DarknetList(): JSX.Element {
               </div>
             ))}
           </div>
+
+          {/* Top-level AI threat analysis for the darknet site list */}
+          {filtered.length > 0 && (
+            <div className="mb-4">
+              <PostAnalysisButton
+                title={`Darknet Site Digest \u2014 ${filtered.length} sites${category !== 'all' ? ` (${category})` : ''}${statusFilter !== 'all' ? ` (${statusFilter})` : ''}${recommendedOnly ? ' (recommended)' : ''}`}
+                description={filtered
+                  .slice(0, 20)
+                  .map(
+                    (s) =>
+                      `${s.name} (${CATEGORY_META[s.category]?.label ?? s.category}): status ${s.status}, ${s.upMirrors}/${s.totalMirrors} mirrors up${s.fingerprint ? `, fingerprint ${s.fingerprint}` : ''}. Onion: ${s.onion ?? 'n/a'}.`
+                  )
+                  .join('\n')}
+                source="darknetlist.is"
+              />
+            </div>
+          )}
 
           {/* Search + filters */}
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
