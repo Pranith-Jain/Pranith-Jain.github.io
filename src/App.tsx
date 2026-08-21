@@ -365,6 +365,9 @@ const ArgusPage = lazy(() => import('./pages/Argus'));
  */
 function DfirFileRedirect() {
   const [params] = useSearchParams();
+  // SSR: StaticRouter cannot handle <Navigate> on initial render — return null
+  // and let the client hydrate then redirect.
+  if (typeof window === 'undefined') return null;
   const hash = params.get('h');
   // Target /dfir/ioc-investigate directly. /dfir/ioc-check is itself a
   // preserveQuery redirect to /dfir/ioc-investigate, so routing through it
@@ -381,6 +384,7 @@ function DfirFileRedirect() {
  */
 function QueryRedirect({ to }: { to: string }) {
   const [params] = useSearchParams();
+  if (typeof window === 'undefined') return null;
   const qs = params.toString();
   const target = qs ? `${to}?${qs}` : to;
   return <Navigate to={target} replace />;

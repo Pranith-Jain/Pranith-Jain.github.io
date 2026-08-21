@@ -121,6 +121,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 // eslint-disable-next-line react-refresh/only-export-components
 export function useToast(): ToastContextValue {
   const ctx = useContext(ToastContext);
-  if (!ctx) throw new Error('useToast must be used within a ToastProvider');
+  if (!ctx) {
+    // SSR prerender has no ToastProvider in entry-server.tsx — return no-op
+    // so ThreatActorMonitor and other pages can render without throwing.
+    return {
+      toasts: [],
+      toast: () => {},
+      success: () => {},
+      error: () => {},
+      warning: () => {},
+      info: () => {},
+      dismiss: () => {},
+    };
+  }
   return ctx;
 }

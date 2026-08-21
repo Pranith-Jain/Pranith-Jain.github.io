@@ -16,6 +16,7 @@ export interface StoreState {
 
 export function loadState(): StoreState {
   try {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') return { current: null, recents: [] };
     const raw = localStorage.getItem(STORE_KEY);
     if (!raw) return { current: null, recents: [] };
     const parsed = JSON.parse(raw) as Partial<StoreState>;
