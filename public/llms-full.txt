@@ -235,11 +235,11 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [PCMedicalist Feed](https://pranithjain.qzz.io/threatintel/pcmedicalist) (threatintel): Daily security-intel digest from the PCMedicalist Intelligence Network - 38+ feeds deduplicated into an 11-layer taxonomy with trust scoring and CVE tracking.
 - [Domain Monitor](https://pranithjain.qzz.io/threatintel/infra/domain) (threatintel): Domain monitoring - typosquats, lookalikes, certificate transparency.
 - [AI Honeypot Observatory](https://pranithjain.qzz.io/threatintel/infra/ai-honeypot) (threatintel): LLM/AI endpoint honeypot intelligence - attacker categories, top IPs, and attack volume from ai-honeypots.com.
+- [Detection Wiki](https://pranithjain.qzz.io/threatintel/detection-wiki) (threatintel): Mirrored detection.wiki — 15,957 Sigma/Elastic/Splunk/Kusto/YARA-L/Panther/Sublime rules mapped to 218 ATT&CK techniques, 1,518 Windows providers (103k events), 426 Security-Auditing events, 17 platforms, 6 labs.
 - [Detection Rules](https://pranithjain.qzz.io/threatintel/detections/detections) (threatintel): Detection rule catalog - Sigma, YARA, Suricata, KQL.
 - [DISARM Framework](https://pranithjain.qzz.io/threatintel/detections/disarm) (threatintel): DISARM red-team framework mapping.
 - [YARA Hub](https://pranithjain.qzz.io/threatintel/detections/yara) (threatintel): YARA rule hub - community and curated rules.
 - [Threat Signal RSS](https://pranithjain.qzz.io/threatintel/detections/signal) (threatintel): Threat-signal RSS feed with auto-classified indicators.
-- [Detection Wiki](https://pranithjain.qzz.io/threatintel/detection-wiki) (threatintel): 15,957 rules from Sigma, Elastic, Splunk, Kusto mapped to MITRE ATT&CK — plus detection labs.
 - [Threat Intel Reports](https://pranithjain.qzz.io/threatintel/research-hub/reports) (threatintel): Original research reports with IOCs, detections, severity scoring.
 - [AI Reports](https://pranithjain.qzz.io/threatintel/research-hub/ai) (threatintel): AI-generated research reports from LLM analysis.
 - [Write-ups](https://pranithjain.qzz.io/threatintel/research-hub/writeups) (threatintel): Security write-ups and post-mortems.
@@ -271,7 +271,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Curated Toolbox](https://pranithjain.qzz.io/threatintel/osint/toolbox) (threatintel): Curated security toolbox - hand-picked, vetted, well-maintained.
 - [Free Cert Courses](https://pranithjain.qzz.io/threatintel/osint/certs) (threatintel): Syberseeker’s start.me hub of free certification tracks - security, cloud, blue team, OSINT, GRC.
 - [SecOps Tools](https://pranithjain.qzz.io/threatintel/osint/secops) (threatintel): SecOps tools catalog - SIEM, EDR, SOAR, log shippers.
-- [Threat Actor Monitor](https://pranithjain.qzz.io/threatintel/osint/threat-actor-monitor) (threatintel): Real-time APT monitoring across 30 OSINT feeds with MITRE ATT&CK + Kill Chain mapping.
 - [OSINT Portal Directory](https://pranithjain.qzz.io/threatintel/osint/directory) (threatintel): Curated directory of 40 OSINT portals and resources filtered by category.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot - ask, pivot, summarize, draft.
 - [Entity Graph](https://pranithjain.qzz.io/threatintel/entity-graph) (threatintel): Interactive topology of CVEs, actors, IOCs, sectors, and techniques.
@@ -307,6 +306,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Observe](https://pranithjain.qzz.io/threatintel/predictive/observe) (threatintel): Observation dashboard - what is happening right now.
 - [Live Center - Web OSINT](https://pranithjain.qzz.io/threatintel/live-center) (threatintel): Browser-based live OSINT tools with install, example, and reference URL per tool.
 - [Dashboard Hub](https://pranithjain.qzz.io/threatintel/dashboard-hub) (threatintel): Threat intelligence dashboards - TI weekly report, CTI operations, and live threat landscape.
+- [Threat Actor Monitor](https://pranithjain.qzz.io/threatintel/threat-actor-monitor) (threatintel): Real-time APT monitoring across 81 groups, 108 techniques, 39 OSINT feeds with MITRE ATT&CK + Kill Chain mapping — replication of hero-itsme/Global-Threat-Actor-Monitor expanded (40→81 groups, 29→108 techniques, 30→39 feeds).
 - [Alert Feed](https://pranithjain.qzz.io/threatintel/alerts) (threatintel): Prioritised threat intelligence alerts - noise-filtered, confidence-scored, and matched to your estate.
 - [Ransomware Live](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Live ransomware victim and group monitoring with sector/region filtering.
 - [Estate Config](https://pranithjain.qzz.io/threatintel/estate) (threatintel): Manage your digital estate - assets, tech stack, sector, and data types for personalised correlation.
