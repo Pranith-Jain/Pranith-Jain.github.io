@@ -1,0 +1,10 @@
+{
+  "name": "Clop",
+  "mitre_id": null,
+  "aliases": ["Clop", "Cl0p", "TA505"],
+  "aliasCount": 3,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Supply Chain", "Ransomware", "Government"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

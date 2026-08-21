@@ -1,0 +1,10 @@
+{
+  "name": "Turla",
+  "mitre_id": "G0010",
+  "aliases": ["Turla", "Snake", "Uroburos", "Venomous Bear", "Waterbug"],
+  "aliasCount": 5,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Government", "Diplomatic", "Defense"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.542Z",
+  "source": "https://detection.wiki/gws/",
+  "platform": "Google Workspace",
+  "slug": "google-workspace",
+  "description": "Admin SDK events by application and event name",
+  "events": 838,
+  "rulesWithSamples": 40,
+  "totalRules": 80,
+  "sampleEvents": [
+    {
+      "id": "CREATE_USER",
+      "application": "Admin",
+      "event": "CREATE_USER",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "LOGIN_SUCCESS",
+      "application": "Login",
+      "event": "LOGIN_SUCCESS",
+      "hasSample": true,
+      "hasRule": true
+    }
+  ],
+  "sampleCount": 2,
+  "note": "Sample of 2 events from 838 total for this platform; full catalog mirrored via detection.wiki"
+}

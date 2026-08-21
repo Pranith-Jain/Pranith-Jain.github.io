@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Search, ExternalLink, Database, Shield, FlaskConical, BarChart3, Globe } from 'lucide-react';
+import { Search, ExternalLink, Database, Shield, FlaskConical, BarChart3, Globe, Layers, Server } from 'lucide-react';
 
 // ── Types ─────────────────────────────────────────────────────────────
 
@@ -48,6 +48,36 @@ interface DwLabEntry {
   techniques: string[];
 }
 
+interface DwWindowsProvider {
+  name: string;
+  slug: string;
+  events: number;
+  samples: number;
+  rules: number;
+  channel: string;
+}
+interface DwWindowsCatalog {
+  totalProviders: number;
+  totalEvents: number;
+  providersWithSamples: number;
+  providers: DwWindowsProvider[];
+}
+interface DwSecurityAuditingEvent {
+  id: number;
+  title: string;
+  channel: string;
+  hasSample: boolean;
+  hasRule: boolean;
+  tactic: string | null;
+}
+interface DwSecurityAuditingCatalog {
+  provider: string;
+  channel: string;
+  eventCount: number;
+  sampleCount: number;
+  rulesCount: number;
+  events: DwSecurityAuditingEvent[];
+}
 interface DwIndex {
   generatedAt: string;
   source: string;
@@ -60,17 +90,23 @@ interface DwIndex {
     platformCount: number;
     labCount: number;
     tacticCount: number;
+    windowsProviders?: number;
+    securityAuditingEvents?: number;
+    totalWindowsEvents?: number;
+    totalWindowsProviders?: number;
   };
   platforms: string[];
   vendors: string[];
   topTechniques: DwTechnique[];
 }
 
-type Tab = 'matrix' | 'platforms' | 'labs' | 'top';
+type Tab = 'matrix' | 'top' | 'platforms' | 'windows' | 'auditing' | 'labs';
 
 const TABS: { id: Tab; label: string; icon: typeof Shield }[] = [
   { id: 'matrix', label: 'ATT&CK Matrix', icon: Shield },
   { id: 'top', label: 'Top Techniques', icon: BarChart3 },
+  { id: 'windows', label: 'Windows Catalog', icon: Server },
+  { id: 'auditing', label: 'Security Auditing', icon: Layers },
   { id: 'platforms', label: 'Platforms', icon: Globe },
   { id: 'labs', label: 'Detection Labs', icon: FlaskConical },
 ];
@@ -138,11 +174,14 @@ export default function DetectionWiki(): JSX.Element {
   const [techData, setTechData] = useState<DwTechniquesIndex | null>(null);
   const [platforms, setPlatforms] = useState<DwPlatform[]>([]);
   const [labs, setLabs] = useState<DwLabEntry[]>([]);
+  const [windowsCatalog, setWindowsCatalog] = useState<DwWindowsCatalog | null>(null);
+  const [auditingCatalog, setAuditingCatalog] = useState<DwSecurityAuditingCatalog | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>('matrix');
   const [search, setSearch] = useState('');
   const [selectedTactic, setSelectedTactic] = useState<string | null>(null);
+  const [onlyWithRules, setOnlyWithRules] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -152,13 +191,21 @@ export default function DetectionWiki(): JSX.Element {
       fetch('/data/detection-wiki/techniques.json', { signal: ctrl.signal }).then((r) => r.json()),
       fetch('/data/detection-wiki/platforms.json', { signal: ctrl.signal }).then((r) => r.json()),
       fetch('/data/detection-wiki/labs.json', { signal: ctrl.signal }).then((r) => r.json()),
+      fetch('/data/detection-wiki/windows.json', { signal: ctrl.signal })
+        .then((r) => r.json())
+        .catch(() => null),
+      fetch('/data/detection-wiki/security-auditing.json', { signal: ctrl.signal })
+        .then((r) => r.json())
+        .catch(() => null),
     ])
-      .then(([idx, tech, plat, lab]) => {
+      .then(([idx, tech, plat, lab, win, audit]) => {
         if (cancelled) return;
         setIndex(idx);
         setTechData(tech);
         setPlatforms(plat);
         setLabs(lab);
+        if (win) setWindowsCatalog(win);
+        if (audit) setAuditingCatalog(audit);
       })
       .catch((e) => {
         if (cancelled || e.name === 'AbortError') return;
@@ -196,6 +243,44 @@ export default function DetectionWiki(): JSX.Element {
     return cols;
   }, [techData, selectedTactic]);
 
+  const filteredWindowsProviders = useMemo(() => {
+    if (!windowsCatalog) return [] as DwWindowsProvider[];
+    let list = windowsCatalog.providers;
+    if (onlyWithRules) list = list.filter((p) => p.rules > 0);
+    if (selectedTactic) {
+      // no tactic filter for providers
+    }
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter((p) => `${p.name} ${p.slug} ${p.channel}`.toLowerCase().includes(q));
+    }
+    return list;
+  }, [windowsCatalog, search, onlyWithRules]);
+
+  const filteredAuditingEvents = useMemo(() => {
+    if (!auditingCatalog) return [] as DwSecurityAuditingEvent[];
+    let list = auditingCatalog.events;
+    if (onlyWithRules) list = list.filter((e) => e.hasRule);
+    if (selectedTactic) list = list.filter((e) => e.tactic === selectedTactic);
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter((e) => `${e.id} ${e.title} ${e.channel} ${e.tactic ?? ''}`.toLowerCase().includes(q));
+    }
+    return list;
+  }, [auditingCatalog, search, selectedTactic, onlyWithRules]);
+
+  const filteredPlatforms = useMemo(() => {
+    if (!search) return platforms;
+    const q = search.toLowerCase();
+    return platforms.filter((p) => `${p.name} ${p.description}`.toLowerCase().includes(q));
+  }, [platforms, search]);
+
+  const filteredLabs = useMemo(() => {
+    if (!search) return labs;
+    const q = search.toLowerCase();
+    return labs.filter((l) => `${l.title} ${l.description} ${l.techniques.join(' ')}`.toLowerCase().includes(q));
+  }, [labs, search]);
+
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -205,7 +290,10 @@ export default function DetectionWiki(): JSX.Element {
         <span>
           <strong>{index?.stats.totalRules.toLocaleString() ?? '15,957'}</strong> detection rules from Sigma, Elastic,
           Splunk, Kusto, YARA-L, Panther, and Sublime — mapped to <strong>{index?.stats.techniqueCount ?? 218}</strong>{' '}
-          MITRE ATT&CK techniques across <strong>{index?.stats.platformCount ?? 17}</strong> platforms. Source:{' '}
+          MITRE ATT&CK techniques across <strong>{index?.stats.platformCount ?? 17}</strong> platforms ·{' '}
+          <strong>{windowsCatalog?.totalProviders.toLocaleString() ?? '1,518'}</strong> Windows providers (
+          <strong>{windowsCatalog?.totalEvents.toLocaleString() ?? '103,315'}</strong> events) ·{' '}
+          <strong>{auditingCatalog?.eventCount ?? 426}</strong> Security-Auditing events · 6 detection labs. Source:{' '}
           <a
             href="https://detection.wiki"
             target="_blank"
@@ -221,10 +309,20 @@ export default function DetectionWiki(): JSX.Element {
     >
       {/* Stats strip */}
       {index && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-6">
           <StatCard label="Detection Rules" value={index.stats.totalRules.toLocaleString()} accent="rose" />
           <StatCard label="ATT&CK Techniques" value={index.stats.techniqueCount} accent="brand" />
-          <StatCard label="Platforms" value={index.stats.platformCount} accent="emerald" />
+          <StatCard
+            label="Windows Providers"
+            value={windowsCatalog?.totalProviders.toLocaleString() ?? '1,518'}
+            accent="emerald"
+          />
+          <StatCard
+            label="Windows Events"
+            value={windowsCatalog?.totalEvents.toLocaleString() ?? '103,315'}
+            accent="emerald"
+          />
+          <StatCard label="Sec-Auditing" value={auditingCatalog?.eventCount ?? 426} accent="amber" />
           <StatCard label="Events Cataloged" value={index.stats.eventCount.toLocaleString()} accent="amber" />
         </div>
       )}
@@ -255,10 +353,29 @@ export default function DetectionWiki(): JSX.Element {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search techniques, platforms…"
+              placeholder={
+                tab === 'windows'
+                  ? 'Search Windows providers, channels…'
+                  : tab === 'auditing'
+                    ? 'Search Event IDs, titles, tactics…'
+                    : tab === 'platforms'
+                      ? 'Search platforms…'
+                      : 'Search techniques, tactics…'
+              }
               className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:border-brand-500/50 focus:outline-none"
             />
           </div>
+          {(tab === 'auditing' || tab === 'windows') && (
+            <label className="flex items-center gap-1.5 text-xs font-mono text-slate-600 dark:text-slate-400 shrink-0">
+              <input
+                type="checkbox"
+                checked={onlyWithRules}
+                onChange={(e) => setOnlyWithRules(e.target.checked)}
+                className="w-3 h-3 rounded border-slate-300"
+              />
+              only with rules
+            </label>
+          )}
           {selectedTactic && (
             <button
               onClick={() => setSelectedTactic(null)}
@@ -287,6 +404,16 @@ export default function DetectionWiki(): JSX.Element {
             );
           })}
         </div>
+        {tab !== 'matrix' && tab !== 'top' && (
+          <p className="text-micro font-mono text-slate-400 mt-2">
+            {tab === 'windows' &&
+              `${filteredWindowsProviders.length} of ${windowsCatalog?.providers.length ?? 0} sampled providers (of ${windowsCatalog?.totalProviders.toLocaleString() ?? '1,518'} total) · ${windowsCatalog?.totalEvents.toLocaleString() ?? '103,315'} events`}
+            {tab === 'auditing' &&
+              `${filteredAuditingEvents.length} of ${auditingCatalog?.events.length ?? 0} sampled events (of ${auditingCatalog?.eventCount ?? 426} total) · ${auditingCatalog?.sampleCount ?? 222} with samples · ${auditingCatalog?.rulesCount ?? 133} mapped to rules`}
+            {tab === 'platforms' && `${filteredPlatforms.length} platforms`}
+            {tab === 'labs' && `${filteredLabs.length} labs`}
+          </p>
+        )}
       </div>
 
       {/* ── ATT&CK Matrix ─────────────────────────────────────────── */}
@@ -366,10 +493,177 @@ export default function DetectionWiki(): JSX.Element {
         </div>
       )}
 
+      {/* ── Windows Catalog ────────────────────────────────────────── */}
+      {tab === 'windows' && (
+        <div className="space-y-2">
+          <p className="text-xs text-muted font-mono">
+            Windows Event Log providers —{' '}
+            <a
+              href="https://detection.wiki/windows/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              detection.wiki/windows <ExternalLink size={10} />
+            </a>{' '}
+            · 103,315 events across 1,518 providers (top 74 sampled here). Channel = where the event is logged.
+          </p>
+          <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <table className="w-full text-xs font-mono">
+              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500">
+                <tr>
+                  <th className="text-left px-3 py-2">Provider</th>
+                  <th className="text-right px-3 py-2">Events</th>
+                  <th className="text-right px-3 py-2">Samples</th>
+                  <th className="text-right px-3 py-2">Rules</th>
+                  <th className="text-left px-3 py-2">Channel</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+                {filteredWindowsProviders.slice(0, 100).map((p) => (
+                  <tr
+                    key={p.slug}
+                    className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                  >
+                    <td className="px-3 py-2">
+                      <a
+                        href={`https://detection.wiki/${p.slug}/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                      >
+                        {p.name} <ExternalLink size={10} />
+                      </a>
+                    </td>
+                    <td className="text-right px-3 py-2">{p.events.toLocaleString()}</td>
+                    <td className="text-right px-3 py-2">{p.samples.toLocaleString()}</td>
+                    <td className="text-right px-3 py-2">
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-micro ${p.rules > 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-slate-100 text-slate-400 dark:bg-slate-700 dark:text-slate-500'}`}
+                      >
+                        {p.rules}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2 text-slate-500 truncate max-w-[180px]">{p.channel}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-micro font-mono text-slate-400">
+            Data from{' '}
+            <a
+              href="https://detection.wiki/windows/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              detection.wiki/windows
+            </a>{' '}
+            · showing top providers by sample data. Full catalog has 1,518 providers.
+          </p>
+        </div>
+      )}
+
+      {/* ── Security Auditing (Microsoft-Windows-Security-Auditing) ─────── */}
+      {tab === 'auditing' && (
+        <div className="space-y-2">
+          <p className="text-xs text-muted font-mono">
+            <a
+              href="https://detection.wiki/microsoft-windows-security-auditing/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              Microsoft-Windows-Security-Auditing <ExternalLink size={10} />
+            </a>{' '}
+            · 426 events in the Security channel · 222 with sample data · 133 mapped to detection rules. Subset of 87
+            high-value events shown here (full catalog via API).
+          </p>
+          <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <table className="w-full text-xs font-mono">
+              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500">
+                <tr>
+                  <th className="text-left px-3 py-2">ID</th>
+                  <th className="text-left px-3 py-2">Title</th>
+                  <th className="text-center px-2 py-2">Sample</th>
+                  <th className="text-center px-2 py-2">Rule</th>
+                  <th className="text-left px-3 py-2">Tactic</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))]">
+                {filteredAuditingEvents.slice(0, 100).map((e) => (
+                  <tr
+                    key={e.id}
+                    className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                  >
+                    <td className="px-3 py-2 font-bold">
+                      <a
+                        href={`https://detection.wiki/microsoft-windows-security-auditing/#${e.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand-600 dark:text-brand-400 hover:underline"
+                      >
+                        {e.id}
+                      </a>
+                    </td>
+                    <td className="px-3 py-2 max-w-[420px] truncate" title={e.title}>
+                      {e.title}
+                    </td>
+                    <td className="text-center px-2 py-2">
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-micro ${e.hasSample ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-slate-100 text-slate-400'}`}
+                      >
+                        {e.hasSample ? 'Y' : 'N'}
+                      </span>
+                    </td>
+                    <td className="text-center px-2 py-2">
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-micro ${e.hasRule ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-slate-100 text-slate-400'}`}
+                      >
+                        {e.hasRule ? 'Y' : 'N'}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2">
+                      {e.tactic ? (
+                        <span className="px-1.5 py-0.5 rounded text-micro bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                          {e.tactic}
+                        </span>
+                      ) : (
+                        <span className="text-slate-400">—</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <a
+              href="https://detection.wiki/microsoft-windows-security-auditing/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              Full Security-Auditing catalog <ExternalLink size={10} />
+            </a>
+            <span className="text-xs font-mono text-slate-400">·</span>
+            <a
+              href="/api/v1/detection-wiki/security-auditing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-slate-500 hover:underline inline-flex items-center gap-1"
+            >
+              API <ExternalLink size={10} />
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* ── Platforms ──────────────────────────────────────────────── */}
       {tab === 'platforms' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {platforms.map((p) => (
+          {filteredPlatforms.map((p) => (
             <div key={p.slug} className="surface-card p-4">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="font-mono text-sm font-semibold text-slate-900 dark:text-white">{p.name}</h3>
@@ -382,6 +676,9 @@ export default function DetectionWiki(): JSX.Element {
               </div>
             </div>
           ))}
+          {filteredPlatforms.length === 0 && (
+            <p className="text-xs text-muted font-mono col-span-full text-center py-8">No platforms match "{search}"</p>
+          )}
         </div>
       )}
 
@@ -390,9 +687,22 @@ export default function DetectionWiki(): JSX.Element {
         <div className="space-y-3">
           <p className="text-xs text-muted font-mono">
             Hands-on detection analysis labs from detection.wiki. Each lab includes KQL queries, sample data, and
-            step-by-step analysis.
+            step-by-step analysis. Per-lab bodies with KQL available via{' '}
+            <a
+              href="/api/v1/detection-wiki/labs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              /api/v1/detection-wiki/labs <ExternalLink size={10} />
+            </a>{' '}
+            and MCP{' '}
+            <span className="font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1 py-0.5 rounded">
+              dw_list_labs
+            </span>
+            .
           </p>
-          {labs.map((lab) => (
+          {filteredLabs.map((lab) => (
             <a
               key={lab.slug}
               href={`https://detection.wiki/labs/${lab.slug}/`}

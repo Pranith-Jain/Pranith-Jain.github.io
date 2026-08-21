@@ -1,0 +1,15 @@
+{
+  "slug": "clickonce-abuse",
+  "title": "ClickOnce Abuse",
+  "author": "sonny",
+  "date": "2026-04-01",
+  "description": "Detect ClickOnce abuse and AppDomainManager injection using ClickOnceBlobber. Covers dfsvc.exe process telemetry, ClickOnce cache artifacts, Zeek logs, Sysmon unsigned module loads, and Suricata TLS fingerprints. Includes KQL detection queries.",
+  "techniques": ["T1204.001", "T1127.002", "T1574.014", "T1071.001", "T1547"],
+  "body": "Detect ClickOnce abuse and AppDomainManager injection using ClickOnceBlobber. Covers dfsvc.exe process telemetry, ClickOnce cache artifacts, Zeek logs, Sysmon unsigned module loads, and Suricata TLS fingerprints. Includes KQL detection queries.\n\nSee https://detection.wiki/labs/clickonce-abuse/ for full KQL queries and telemetry walkthrough.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == \"dfsvc.exe\" | project Timestamp, DeviceName, InitiatingProcessFileName, FileName",
+    "DeviceImageLoadEvents | where InitiatingProcessFileName == \"dfsvc.exe\" and InitiatingProcessCommandLine contains \"ClickOnce\" | where not(SignatureStatus == \"Trusted\")"
+  ],
+  "queryCount": 2,
+  "sizeBytes": 244
+}

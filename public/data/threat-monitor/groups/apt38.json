@@ -1,0 +1,10 @@
+{
+  "name": "APT38",
+  "mitre_id": "G0082",
+  "aliases": ["APT38", "Bluenoroff", "Stardust Chollima"],
+  "aliasCount": 3,
+  "suspected_origin": "North Korea",
+  "target_sectors": ["Financial", "Cryptocurrency", "Banks"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

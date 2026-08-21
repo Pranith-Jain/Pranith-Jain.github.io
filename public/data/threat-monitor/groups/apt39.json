@@ -1,0 +1,10 @@
+{
+  "name": "APT39",
+  "mitre_id": "G0087",
+  "aliases": ["APT39", "Chafer", "Remix Kitten"],
+  "aliasCount": 3,
+  "suspected_origin": "Iran",
+  "target_sectors": ["Telecom", "Travel"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.541Z",
+  "source": "https://detection.wiki/power-platform/",
+  "platform": "Power Platform",
+  "slug": "power-platform",
+  "description": "Power Platform audit events",
+  "events": 214,
+  "rulesWithSamples": 5,
+  "totalRules": 9,
+  "sampleEvents": [
+    {
+      "id": "CreateEnvironment",
+      "operation": "Create Power Platform environment",
+      "hasSample": false,
+      "hasRule": false
+    },
+    {
+      "id": "DeleteEnvironment",
+      "operation": "Delete environment",
+      "hasSample": false,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 2,
+  "note": "Sample of 2 events from 214 total for this platform; full catalog mirrored via detection.wiki"
+}

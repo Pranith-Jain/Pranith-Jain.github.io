@@ -1,0 +1,10 @@
+{
+  "name": "MuddyWater",
+  "mitre_id": "G0069",
+  "aliases": ["MuddyWater", "Mango Sandstorm", "Static Kitten", "Seedworm"],
+  "aliasCount": 4,
+  "suspected_origin": "Iran",
+  "target_sectors": ["Telecom", "Government", "Oil and Gas"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

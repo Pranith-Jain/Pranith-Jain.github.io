@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T17:22:59.862Z",
+  "generatedAt": "2026-08-21T04:08:47.568Z",
   "source": "https://detection.wiki",
   "description": "Detection rule and event catalog — 15,957 rules from Sigma, Elastic, Splunk, Kusto, YARA-L, Panther, Sublime mapped to MITRE ATT&CK",
   "stats": {
@@ -9,7 +9,11 @@
     "subtechniqueCount": 102,
     "platformCount": 17,
     "labCount": 6,
-    "tacticCount": 14
+    "tacticCount": 14,
+    "windowsProviders": 74,
+    "securityAuditingEvents": 87,
+    "totalWindowsEvents": 103315,
+    "totalWindowsProviders": 1518
   },
   "platforms": [
     "macOS",

@@ -1,0 +1,10 @@
+{
+  "name": "Lazarus Group",
+  "mitre_id": "G0032",
+  "aliases": ["Lazarus Group", "Hidden Cobra", "Guardians of Peace", "APT38", "Zinc", "Diamond Sleet"],
+  "aliasCount": 6,
+  "suspected_origin": "North Korea",
+  "target_sectors": ["Financial", "Cryptocurrency", "Defense"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

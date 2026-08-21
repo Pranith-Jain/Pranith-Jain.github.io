@@ -1,0 +1,10 @@
+{
+  "name": "Lotus Blossom",
+  "mitre_id": "G0030",
+  "aliases": ["Lotus Blossom", "Spring Dragon", "Billbug"],
+  "aliasCount": 3,
+  "suspected_origin": "China",
+  "target_sectors": ["Government - Southeast Asia"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

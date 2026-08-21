@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.541Z",
+  "source": "https://detection.wiki/defender/",
+  "platform": "Defender XDR",
+  "slug": "defender-xdr",
+  "description": "Defender Advanced Hunting ActionTypes",
+  "events": 39213,
+  "rulesWithSamples": 570,
+  "totalRules": null,
+  "sampleEvents": [
+    {
+      "id": "ProcessCreation",
+      "actionType": "ProcessCreated",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "NetworkConnection",
+      "actionType": "ConnectionSuccess",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "RegistryValueSet",
+      "actionType": "RegistryValueSet",
+      "hasSample": true,
+      "hasRule": true
+    }
+  ],
+  "sampleCount": 3,
+  "note": "Sample of 3 events from 39,213 total for this platform; full catalog mirrored via detection.wiki"
+}

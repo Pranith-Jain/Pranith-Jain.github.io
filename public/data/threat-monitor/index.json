@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-08-21T04:10:41.763Z",
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor",
+  "license": "MIT (upstream)",
+  "description": "Global Threat Actor Monitor — 40 APT groups (upstream) mapped to MITRE ATT&CK + Cyber Kill Chain, sourced from 30 OSINT feeds polled every 10 minutes. Portfolio expands to 65 groups / 47 techniques / 42 feeds with local detection engine.",
+  "upstream": {
+    "groups": 40,
+    "aliases": 148,
+    "techniques": 29,
+    "sources": 30,
+    "killChainStages": 7
+  },
+  "expanded": {
+    "groups": 81,
+    "aliases": 241,
+    "techniques": 108,
+    "sources": 39
+  },
+  "architecture": {
+    "entry": "main.py",
+    "poller": "core/osint_poller.py (async concurrent, bounded)",
+    "mapper": "core/killchain_mapper.py (alias+keyword scoring)",
+    "storage": "core/storage.py (SQLite dedup + history)",
+    "alerts": "alerts/telegram_bot.py (Telegram Bot API)",
+    "our_port": "ThreatActorMonitor.tsx (browser-native RSS proxy via /api/v1/threat-monitor/proxy + localStorage + Mitre/KillChain scoring)"
+  },
+  "files": ["groups.json", "techniques.json", "sources.json"],
+  "stats": {
+    "totalGroups": 81,
+    "totalTechniques": 108,
+    "totalSources": 39,
+    "killChainStages": 7
+  }
+}

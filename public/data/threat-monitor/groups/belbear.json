@@ -1,0 +1,10 @@
+{
+  "name": "BelBear",
+  "mitre_id": null,
+  "aliases": ["BelBear", "Ghostwriter"],
+  "aliasCount": 2,
+  "suspected_origin": "Belarus",
+  "target_sectors": ["Government", "Media", "Defense"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

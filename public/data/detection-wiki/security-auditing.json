@@ -1,0 +1,707 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.510Z",
+  "source": "https://detection.wiki/microsoft-windows-security-auditing/",
+  "provider": "Microsoft-Windows-Security-Auditing",
+  "channel": "Security",
+  "eventCount": 426,
+  "sampleCount": 222,
+  "rulesCount": 133,
+  "events": [
+    {
+      "id": 412,
+      "title": "AD FS authentication failure.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": true,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": 501,
+      "title": "AD FS proxy authentication request.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": true,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": 675,
+      "title": "Pre-authentication failed (legacy Windows 2003 Kerberos event; superseded by 4771)",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4608,
+      "title": "Windows is starting up.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": null
+    },
+    {
+      "id": 4609,
+      "title": "Windows is shutting down.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": false,
+      "tactic": null
+    },
+    {
+      "id": 4610,
+      "title": "An authentication package has been loaded by the Local Security Authority.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4611,
+      "title": "A trusted logon process has been registered with the Local Security Authority.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4612,
+      "title": "Internal resources allocated for the queuing of audit messages have been exhausted.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": false,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4614,
+      "title": "A notification package has been loaded by the Security Account Manager.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4615,
+      "title": "Invalid use of LPC port.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": false,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4616,
+      "title": "The system time was changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4618,
+      "title": "A monitored security event pattern has occurred.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": false,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4621,
+      "title": "Administrator recovered system from CrashOnAuditFail.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": false,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4622,
+      "title": "A security package has been loaded by the Local Security Authority.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4624,
+      "title": "An account was successfully logged on.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": 4625,
+      "title": "An account failed to log on.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": 4626,
+      "title": "User / Device claims information.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": false,
+      "tactic": null
+    },
+    {
+      "id": 4627,
+      "title": "Group membership information.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Discovery"
+    },
+    {
+      "id": 4634,
+      "title": "An account was logged off.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": null
+    },
+    {
+      "id": 4646,
+      "title": "notification",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": false,
+      "tactic": null
+    },
+    {
+      "id": 4647,
+      "title": "User initiated logoff.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": null
+    },
+    {
+      "id": 4648,
+      "title": "A logon was attempted using explicit credentials.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Lateral Movement"
+    },
+    {
+      "id": 4649,
+      "title": "A replay attack was detected.",
+      "channel": "Security",
+      "hasSample": false,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4656,
+      "title": "A handle to an object was requested.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Collection"
+    },
+    {
+      "id": 4657,
+      "title": "A registry value was modified.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4658,
+      "title": "The handle to an object was closed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": null
+    },
+    {
+      "id": 4660,
+      "title": "An object was deleted.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Impact"
+    },
+    {
+      "id": 4661,
+      "title": "A handle to an object was requested.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Collection"
+    },
+    {
+      "id": 4662,
+      "title": "An operation was performed on an object.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Collection"
+    },
+    {
+      "id": 4663,
+      "title": "An attempt was made to access an object.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Collection"
+    },
+    {
+      "id": 4670,
+      "title": "Permissions on an object were changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4672,
+      "title": "Special privileges assigned to new logon.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4673,
+      "title": "A privileged service was called.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4674,
+      "title": "An operation was attempted on a privileged object.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4688,
+      "title": "A new process has been created.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Execution"
+    },
+    {
+      "id": 4689,
+      "title": "A process has exited.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": null
+    },
+    {
+      "id": 4690,
+      "title": "An attempt was made to duplicate a handle to an object.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4697,
+      "title": "A service was installed in the system.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4698,
+      "title": "A scheduled task was created.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Execution"
+    },
+    {
+      "id": 4699,
+      "title": "A scheduled task was deleted.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4700,
+      "title": "A scheduled task was enabled.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4701,
+      "title": "A scheduled task was disabled.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4702,
+      "title": "A scheduled task was updated.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4703,
+      "title": "A user right was adjusted.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4704,
+      "title": "A user right was assigned.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4706,
+      "title": "A new trust was created to a domain.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4717,
+      "title": "System security access was granted to an account.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4719,
+      "title": "System audit policy was changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4720,
+      "title": "A user account was created.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4722,
+      "title": "A user account was enabled.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4723,
+      "title": "An attempt was made to change an account password.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4724,
+      "title": "An attempt was made to reset an account password.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4725,
+      "title": "A user account was disabled.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4726,
+      "title": "A user account was deleted.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Impact"
+    },
+    {
+      "id": 4727,
+      "title": "A security-enabled global group was created.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4728,
+      "title": "A member was added to a security-enabled global group.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4729,
+      "title": "A member was removed from a security-enabled global group.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4730,
+      "title": "A security-enabled global group was deleted.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Impact"
+    },
+    {
+      "id": 4731,
+      "title": "A security-enabled local group was created.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4732,
+      "title": "A member was added to a security-enabled local group.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4733,
+      "title": "A member was removed from a security-enabled local group.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4734,
+      "title": "A security-enabled local group was deleted.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Impact"
+    },
+    {
+      "id": 4735,
+      "title": "A security-enabled local group was changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4737,
+      "title": "A security-enabled global group was changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4738,
+      "title": "A user account was changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4740,
+      "title": "A user account was locked out.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Impact"
+    },
+    {
+      "id": 4741,
+      "title": "A computer account was created.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4742,
+      "title": "A computer account was changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4743,
+      "title": "A computer account was deleted.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Impact"
+    },
+    {
+      "id": 4765,
+      "title": "SID History was added to an account.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 4768,
+      "title": "A Kerberos authentication ticket (TGT) was requested.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4769,
+      "title": "A Kerberos service ticket was requested.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4771,
+      "title": "Kerberos pre-authentication failed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4776,
+      "title": "The domain controller attempted to validate the credentials for an account.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 4780,
+      "title": "The ACL was set on accounts which are members of administrators groups.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Privilege Escalation"
+    },
+    {
+      "id": 4781,
+      "title": "The name of an account was changed.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Defense Evasion"
+    },
+    {
+      "id": 4798,
+      "title": "A user's local group membership was enumerated.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Discovery"
+    },
+    {
+      "id": 4799,
+      "title": "A security-enabled local group membership was enumerated.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Discovery"
+    },
+    {
+      "id": 4800,
+      "title": "The workstation was locked.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": null
+    },
+    {
+      "id": 4825,
+      "title": "A user was denied the access to Remote Desktop.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Initial Access"
+    },
+    {
+      "id": 4826,
+      "title": "Boot Configuration Data loaded.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Persistence"
+    },
+    {
+      "id": 5378,
+      "title": "Credential Manager credentials were backed up.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": true,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 5379,
+      "title": "Credential Manager credentials were restored from a backup.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 5381,
+      "title": "Vault credentials were backed up.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 5382,
+      "title": "Vault credentials were restored.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": "Credential Access"
+    },
+    {
+      "id": 5888,
+      "title": "A COM+ Catalog was backed up.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": null
+    },
+    {
+      "id": 5889,
+      "title": "A COM+ Catalog was restored.",
+      "channel": "Security",
+      "hasSample": true,
+      "hasRule": false,
+      "tactic": null
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Lumma Operator",
+  "mitre_id": null,
+  "aliases": ["Lumma", "LummaC2", "Lumma Stealer"],
+  "aliasCount": 3,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Infostealer", "Credential Theft"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

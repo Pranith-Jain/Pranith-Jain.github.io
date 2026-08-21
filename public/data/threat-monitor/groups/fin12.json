@@ -1,0 +1,10 @@
+{
+  "name": "FIN12",
+  "mitre_id": "G1004",
+  "aliases": ["FIN12"],
+  "aliasCount": 1,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Healthcare"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

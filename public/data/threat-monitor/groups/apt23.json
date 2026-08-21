@@ -1,0 +1,10 @@
+{
+  "name": "APT23",
+  "mitre_id": "G0008",
+  "aliases": ["APT23", "Defray", "Deep Panda"],
+  "aliasCount": 3,
+  "suspected_origin": "China",
+  "target_sectors": ["Healthcare", "Government", "Defense"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

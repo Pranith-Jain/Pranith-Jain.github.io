@@ -1,0 +1,10 @@
+{
+  "name": "RedCurl",
+  "mitre_id": null,
+  "aliases": ["RedCurl", "Earth Kapre"],
+  "aliasCount": 2,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Corporate Espionage"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

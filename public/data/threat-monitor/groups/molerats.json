@@ -1,0 +1,10 @@
+{
+  "name": "Molerats",
+  "mitre_id": "G0021",
+  "aliases": ["Molerats", "Gaza Cybergang", "TA402"],
+  "aliasCount": 3,
+  "suspected_origin": "Middle East",
+  "target_sectors": ["Government - Middle East"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

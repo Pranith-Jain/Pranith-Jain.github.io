@@ -1,0 +1,10 @@
+{
+  "name": "Vice Society",
+  "mitre_id": null,
+  "aliases": ["Vice Society"],
+  "aliasCount": 1,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Education", "Ransomware"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

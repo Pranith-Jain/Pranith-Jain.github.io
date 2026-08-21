@@ -1,0 +1,1142 @@
+{
+  "generatedAt": "2026-08-21T04:10:41.762Z",
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/mitre_attack.py",
+  "description": "29 curated ATT&CK techniques (upstream) expanded to 47 with Kill Chain mapping",
+  "totalTechniques": 108,
+  "upstreamTechniques": 29,
+  "expandedTechniques": 79,
+  "killChainStages": [
+    "Reconnaissance",
+    "Weaponization",
+    "Delivery",
+    "Exploitation",
+    "Installation",
+    "Command & Control",
+    "Actions on Objectives"
+  ],
+  "tacticToKillChain": {
+    "Reconnaissance": "Reconnaissance",
+    "Resource Development": "Weaponization",
+    "Initial Access": "Delivery",
+    "Execution": "Exploitation",
+    "Persistence": "Installation",
+    "Privilege Escalation": "Installation",
+    "Defense Evasion": "Installation",
+    "Credential Access": "Actions on Objectives",
+    "Discovery": "Actions on Objectives",
+    "Lateral Movement": "Actions on Objectives",
+    "Collection": "Actions on Objectives",
+    "Command and Control": "Command & Control",
+    "Exfiltration": "Actions on Objectives",
+    "Impact": "Actions on Objectives"
+  },
+  "techniques": [
+    {
+      "id": "T1595",
+      "name": "Active Scanning",
+      "tactic": "Reconnaissance",
+      "kill_chain": "Reconnaissance",
+      "keywords": ["active scanning", "port scan", "vulnerability scan", "nmap", "masscan", "shodan scan"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1592",
+      "name": "Gather Victim Host Information",
+      "tactic": "Reconnaissance",
+      "kill_chain": "Reconnaissance",
+      "keywords": [
+        "reconnaissance scan",
+        "victim profiling",
+        "open source recon",
+        "osint gathering on target",
+        "host fingerprinting"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1598",
+      "name": "Phishing for Information",
+      "tactic": "Reconnaissance",
+      "kill_chain": "Reconnaissance",
+      "keywords": ["phishing for information", "social engineering recon", "pretexting", "recon email", "recon phish"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1590",
+      "name": "Gather Victim Network Information",
+      "tactic": "Reconnaissance",
+      "kill_chain": "Reconnaissance",
+      "keywords": ["network recon", "dns enumeration", "ip address gathering", "domain recon", "network topology"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1583",
+      "name": "Acquire Infrastructure",
+      "tactic": "Resource Development",
+      "kill_chain": "Weaponization",
+      "keywords": [
+        "registered domain for c2",
+        "acquired vps",
+        "purchased infrastructure",
+        "bought domain",
+        "infrastructure setup"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1584",
+      "name": "Compromise Infrastructure",
+      "tactic": "Resource Development",
+      "kill_chain": "Weaponization",
+      "keywords": [
+        "compromised infrastructure",
+        "hijacked domain",
+        "bulletproof hosting",
+        "commandeer server",
+        "compromised server"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1587",
+      "name": "Develop Capabilities",
+      "tactic": "Resource Development",
+      "kill_chain": "Weaponization",
+      "keywords": ["developed malware", "custom implant", "built backdoor", "malware development", "tool development"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1588",
+      "name": "Obtain Capabilities",
+      "tactic": "Resource Development",
+      "kill_chain": "Weaponization",
+      "keywords": ["obtained tool", "purchased exploit", "acquired malware", "downloaded implant", "obtained zero-day"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1566",
+      "name": "Phishing",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": [
+        "phishing",
+        "spearphishing",
+        "spear-phishing",
+        "malicious email",
+        "phishing email",
+        "lure document",
+        "credential harvesting",
+        "phishing campaign"
+      ],
+      "keywordCount": 8
+    },
+    {
+      "id": "T1566.001",
+      "name": "Spearphishing Attachment",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": [
+        "malicious attachment",
+        "weaponized document",
+        "macro-enabled document",
+        "phishing attachment",
+        "malicious pdf"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1566.002",
+      "name": "Spearphishing Link",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": ["phishing link", "malicious url", "credential harvesting link", "phishing url", "fake login page"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1190",
+      "name": "Exploit Public-Facing Application",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": [
+        "exploited vulnerability",
+        "zero-day",
+        "0-day",
+        "unpatched",
+        "public-facing application",
+        "web shell",
+        "webshell",
+        "rce exploit",
+        "remote code execution",
+        "log4j",
+        "fortinet",
+        "citrix exploit",
+        "exchange exploit"
+      ],
+      "keywordCount": 13
+    },
+    {
+      "id": "T1195",
+      "name": "Supply Chain Compromise",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": [
+        "supply chain attack",
+        "supply-chain compromise",
+        "compromised update",
+        "trojanized installer",
+        "software supply chain",
+        "dependency confusion",
+        "npm",
+        "pypi"
+      ],
+      "keywordCount": 8
+    },
+    {
+      "id": "T1133",
+      "name": "External Remote Services",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": [
+        "vpn compromise",
+        "rdp exposed",
+        "remote desktop protocol",
+        "external remote service",
+        "citrix exploit",
+        "fortinet",
+        "vpn vulnerability"
+      ],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1199",
+      "name": "Trusted Relationship",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": [
+        "trusted relationship",
+        "managed service provider",
+        "msp compromise",
+        "third-party access",
+        "vendor compromise"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1078",
+      "name": "Valid Accounts",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": [
+        "valid accounts",
+        "compromised credentials used",
+        "legitimate account abuse",
+        "stolen credentials",
+        "credential reuse",
+        "password spray",
+        "default credentials"
+      ],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1189",
+      "name": "Drive-by Compromise",
+      "tactic": "Initial Access",
+      "kill_chain": "Delivery",
+      "keywords": ["drive-by download", "watering hole", "watering-hole attack", "browser exploit", "exploit kit"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": [
+        "powershell script",
+        "malicious macro",
+        "vbscript",
+        "living off the land",
+        "lolbin",
+        "command line execution",
+        "batch script",
+        "powershell",
+        "cmd.exe",
+        "bash script",
+        "python script",
+        "javascript execution"
+      ],
+      "keywordCount": 12
+    },
+    {
+      "id": "T1059.001",
+      "name": "PowerShell",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": [
+        "powershell",
+        "pwsh",
+        "powershell.exe",
+        "encoded command",
+        "invoke-expression",
+        "iex",
+        "downloadstring",
+        "bypass execution policy"
+      ],
+      "keywordCount": 8
+    },
+    {
+      "id": "T1059.003",
+      "name": "Windows Command Shell",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["cmd.exe", "command prompt", "batch file", "bat script", "cmd /c", "command shell"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1059.004",
+      "name": "Unix Shell",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["bash", "sh shell", "zsh", "linux shell", "unix command", "curl | bash", "wget | sh"],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1059.005",
+      "name": "Visual Basic",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["vbscript", "visual basic", "vba macro", "vb script", "wscript", "cscript"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1059.006",
+      "name": "Python",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["python script", "python execution", "py script", "python3", "pip install malicious"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1059.007",
+      "name": "JavaScript",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["javascript execution", "js script", "node.js", "jscript", "html smuggling", "electron"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1053",
+      "name": "Scheduled Task/Job",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["scheduled task", "cron job persistence", "scheduled job", "at.exe", "schtasks", "crontab"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1053.005",
+      "name": "Scheduled Task",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["schtasks", "scheduled task creation", "task scheduler", "xml task"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1047",
+      "name": "Windows Management Instrumentation",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": [
+        "wmi execution",
+        "wmic",
+        "powershell remoting",
+        "remote execution via wmi",
+        "wmi event subscription"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1203",
+      "name": "Exploitation for Client Execution",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["client-side exploit", "malicious document", "exploit document", "macro-enabled", "office exploit"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1204",
+      "name": "User Execution",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": [
+        "user execution",
+        "clicked malicious link",
+        "opened attachment",
+        "social engineering",
+        "user opened"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1204.002",
+      "name": "Malicious File",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["malicious file", "opened malicious file", "user ran executable", "downloaded and opened"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1059.009",
+      "name": "Cloud API",
+      "tactic": "Execution",
+      "kill_chain": "Exploitation",
+      "keywords": ["cloud api execution", "aws cli", "az cli", "gcloud", "cloud shell"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1547",
+      "name": "Boot or Logon Autostart Execution",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": [
+        "registry run key",
+        "startup folder",
+        "autostart",
+        "bootkit",
+        "hijack execution flow",
+        "run key",
+        "currentversion\run"
+      ],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1547.001",
+      "name": "Registry Run Keys / Startup Folder",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": [
+        "registry run key",
+        "startup folder",
+        "run key persistence",
+        "hkcusoftwaremicrosoftwindowscurrentversion\run"
+      ],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1543",
+      "name": "Create or Modify System Process",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": ["systemd service", "windows service", "launch agent", "launch daemon", "service creation"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1543.003",
+      "name": "Windows Service",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": ["windows service", "sc create", "service installation", "new service", "service persistence"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1546",
+      "name": "Event Triggered Execution",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": ["event triggered", "wmi event", "screensaver", "appinit dll", "accessibility features", "sethc"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1098",
+      "name": "Account Manipulation",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": ["account manipulation", "added credentials", "ssh key added", "new account", "cloud role"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1136",
+      "name": "Create Account",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": ["new account created", "created user", "added administrator", "new local account"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1505",
+      "name": "Server Software Component",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": ["web shell persistence", "sql server stored procedure", "iis module", "webshell planted"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1505.003",
+      "name": "Web Shell",
+      "tactic": "Persistence",
+      "kill_chain": "Installation",
+      "keywords": ["web shell", "webshell", "aspx shell", "php shell", "jsp shell", "ironpython webshell"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1548",
+      "name": "Abuse Elevation Control Mechanism",
+      "tactic": "Privilege Escalation",
+      "kill_chain": "Installation",
+      "keywords": ["uac bypass", "sudo abuse", "elevation", "setuid", "privilege escalation"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1548.002",
+      "name": "Bypass User Account Control",
+      "tactic": "Privilege Escalation",
+      "kill_chain": "Installation",
+      "keywords": ["uac bypass", "fodhelper", "eventvwr", "cmstp", "computerdefaults", "uac me"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1068",
+      "name": "Exploitation for Privilege Escalation",
+      "tactic": "Privilege Escalation",
+      "kill_chain": "Installation",
+      "keywords": ["privilege escalation exploit", "local exploit", "kernel exploit", "windows exploit", "cve exploit"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1134",
+      "name": "Access Token Manipulation",
+      "tactic": "Privilege Escalation",
+      "kill_chain": "Installation",
+      "keywords": ["token theft", "token impersonation", "pass the token", "make and impersonate token"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1055",
+      "name": "Process Injection",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": [
+        "process injection",
+        "dll injection",
+        "process hollowing",
+        "reflective loading",
+        "atom bombing",
+        "ptrace",
+        "apc injection"
+      ],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1027",
+      "name": "Obfuscated Files or Information",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": [
+        "obfuscated payload",
+        "packed malware",
+        "encrypted payload",
+        "steganography",
+        "binary padding",
+        "base64 encoded"
+      ],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1027.010",
+      "name": "Command Obfuscation",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": [
+        "obfuscated command",
+        "encoded command",
+        "string concatenation",
+        "character replacement",
+        "reverse string"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1070",
+      "name": "Indicator Removal",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": [
+        "log deletion",
+        "anti-forensic",
+        "cleared event logs",
+        "wiped logs",
+        "timestomping",
+        "cleared security log"
+      ],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1070.004",
+      "name": "File Deletion",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["deleted files", "wiped evidence", "removed artifacts", "cleanup", "file deletion"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1140",
+      "name": "Deobfuscate/Decode Files",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["decoded payload", "deobfuscation", "runtime unpacking", "encoded script", "base64 decode"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1036",
+      "name": "Masquerading",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["masquerading", "file name manipulation", "renamed executable", "double extension", "disguised"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1218",
+      "name": "System Binary Proxy Execution",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["mshta", "regsvr32", "rundll32", "msiexec", "cmstp", "installutil", "signed binary proxy"],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1218.011",
+      "name": "Rundll32",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["rundll32", "rundll32.exe", "rundll32 proxy", "javascript rundll32"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1218.005",
+      "name": "Mshta",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["mshta", "mshta.exe", "html application", "hta execution"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1112",
+      "name": "Modify Registry",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["registry modification", "reg add", "registry persistence", "registry change"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1564",
+      "name": "Hide Artifacts",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["hidden file", "hidden user", "ntfs attribute", "hidden window", "ad preferences"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1070.006",
+      "name": "Timestomp",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["timestomp", "modified timestamp", "file time manipulation", "altered mtime"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1574",
+      "name": "Hijack Execution Flow",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["dll hijack", "path interception", "dll search order", "unquoted path", "dll side-loading"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1620",
+      "name": "Reflective Code Loading",
+      "tactic": "Defense Evasion",
+      "kill_chain": "Installation",
+      "keywords": ["reflective loading", "memory loading", "byte array execution", "unmanaged code"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1003",
+      "name": "OS Credential Dumping",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "credential dumping",
+        "mimikatz",
+        "lsass dump",
+        "password hash extraction",
+        "sam database",
+        "dcsync",
+        "ntds.dit"
+      ],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1003.001",
+      "name": "LSASS Memory",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["lsass", "lsass dump", "mimikatz", "procdump lsass", "comsvcs.dll", "nanodump", "pypykatz"],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1003.002",
+      "name": "Security Account Manager",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["sam database", "sam dump", "reg save sam", "credential editor"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1003.003",
+      "name": "NTDS",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["ntds.dit", "ntds dump", "domain controller credential", "dcsync attack", "secretsdump"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1003.006",
+      "name": "DCSync",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["dcsync", "dcsync attack", "replication", "mimikatz dcsync", "secretsdump"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1110",
+      "name": "Brute Force",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "brute force attack",
+        "password spraying",
+        "credential stuffing",
+        "password guessing",
+        "login attempt"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1558",
+      "name": "Steal or Forge Kerberos Tickets",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["kerberoasting", "golden ticket", "silver ticket", "pass-the-ticket", "as-rep roasting"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1557",
+      "name": "Adversary-in-the-Middle",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["mitm attack", "man-in-the-middle", "llmnr poisoning", "ntlm relay", "arp poisoning", "aitm"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1555",
+      "name": "Credentials from Password Stores",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["password manager", "browser password", "saved password", "keychain", "credential store"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1552",
+      "name": "Unsecured Credentials",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "credentials in files",
+        "hardcoded password",
+        "password in config",
+        "unsecured credential",
+        "plaintext password"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1539",
+      "name": "Steal Web Session Cookie",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["session cookie", "cookie theft", "session hijack", "browser cookie", "session token"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1649",
+      "name": "Steal or Forge Authentication Certificates",
+      "tactic": "Credential Access",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["certificate theft", "adcs", "certify", "certified", "certificate abuse", "esc1"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1087",
+      "name": "Account Discovery",
+      "tactic": "Discovery",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["account enumeration", "domain enumeration", "net user", "ldap query", "ad enumeration"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1082",
+      "name": "System Information Discovery",
+      "tactic": "Discovery",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["system reconnaissance", "host fingerprinting", "systeminfo", "os detection"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1083",
+      "name": "File and Directory Discovery",
+      "tactic": "Discovery",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["file listing", "directory enumeration", "ls command", "dir command", "file search"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1046",
+      "name": "Network Service Discovery",
+      "tactic": "Discovery",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["port scanning", "network scanning", "service enumeration", "nmap scan", "port scan"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1069",
+      "name": "Permission Groups Discovery",
+      "tactic": "Discovery",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["group enumeration", "domain group", "admin group", "local group", "net localgroup"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1018",
+      "name": "Remote System Discovery",
+      "tactic": "Discovery",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["network host", "discover hosts", "arp scan", "ping sweep", "net view"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1049",
+      "name": "System Network Connections Discovery",
+      "tactic": "Discovery",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["network connections", "netstat", "active connections", "established connections"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1021",
+      "name": "Remote Services",
+      "tactic": "Lateral Movement",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "lateral movement",
+        "remote services abuse",
+        "psexec",
+        "wmi lateral movement",
+        "rdp lateral",
+        "winrm",
+        "ssh lateral"
+      ],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1021.002",
+      "name": "SMB/Windows Admin Shares",
+      "tactic": "Lateral Movement",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["smb lateral", "admin share", "c$", "ipc$", "net use", "smbexec"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1021.006",
+      "name": "Windows Remote Management",
+      "tactic": "Lateral Movement",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["winrm", "winrs", "powershell remoting", "enter-pssession", "invoke-command"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1570",
+      "name": "Lateral Tool Transfer",
+      "tactic": "Lateral Movement",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["tool transfer laterally", "copied malware", "shared folder malware", "smb copy"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1550",
+      "name": "Use Alternate Authentication Material",
+      "tactic": "Lateral Movement",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["pass the hash", "pass the ticket", "pth", "ptt", "overpass the hash", "skeleton key"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1005",
+      "name": "Data from Local System",
+      "tactic": "Collection",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["collected local data", "file collection", "gathered files", "staged data locally"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1074",
+      "name": "Data Staged",
+      "tactic": "Collection",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["data staging", "staged data", "data staged", "temp folder staging"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1560",
+      "name": "Archive Collected Data",
+      "tactic": "Collection",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "data staged",
+        "archived stolen data",
+        "compressed data for exfiltration",
+        "7zip",
+        "rar archive",
+        "tar archive"
+      ],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1114",
+      "name": "Email Collection",
+      "tactic": "Collection",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["email collection", "email forwarding", "outlook exfiltration", "mailbox access", "email rule"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1056",
+      "name": "Input Capture",
+      "tactic": "Collection",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["keylogger", "input capture", "keystroke logging", "screen capture", "clipboard capture"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1113",
+      "name": "Screen Capture",
+      "tactic": "Collection",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["screen capture", "screenshot", "screen recording", "desktop capture"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1119",
+      "name": "Automated Collection",
+      "tactic": "Collection",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["automated collection", "file harvesting", "drive mapping", "auto collection"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1071",
+      "name": "Application Layer Protocol",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": [
+        "c2 communication",
+        "command and control server",
+        "https c2",
+        "dns tunneling",
+        "beaconing",
+        "c2 channel",
+        "c2 traffic"
+      ],
+      "keywordCount": 7
+    },
+    {
+      "id": "T1071.001",
+      "name": "Web Protocols",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": ["https c2", "http c2", "web c2", "rest api c2", "webhook c2"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1105",
+      "name": "Ingress Tool Transfer",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": [
+        "downloaded second-stage payload",
+        "dropped additional malware",
+        "tool transfer",
+        "remote file copy",
+        "downloaded tool"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1572",
+      "name": "Protocol Tunneling",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": ["protocol tunneling", "tunneled traffic", "proxy c2", "icmp tunnel", "dns over https", "ssh tunnel"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1573",
+      "name": "Encrypted Channel",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": ["encrypted c2", "tls c2", "ssl c2", "encrypted communication", "https encrypted"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1568",
+      "name": "Dynamic Resolution",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": ["dynamic dns", "fast flux", "domain generation algorithm", "dga", "ddns"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1090",
+      "name": "Proxy",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": ["c2 proxy", "proxy relay", "multi-hop proxy", "compromised proxy", "forward proxy"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1132",
+      "name": "Data Encoding",
+      "tactic": "Command and Control",
+      "kill_chain": "Command & Control",
+      "keywords": ["data encoding", "base64 c2", "encoded communication", "custom encoding"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1041",
+      "name": "Exfiltration Over C2 Channel",
+      "tactic": "Exfiltration",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "data exfiltration",
+        "exfiltrated data",
+        "stolen data uploaded",
+        "data theft",
+        "data leak",
+        "exfiltrated over c2"
+      ],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1048",
+      "name": "Exfiltration Over Alternative Protocol",
+      "tactic": "Exfiltration",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "exfiltration over dns",
+        "exfiltration over icmp",
+        "exfiltration over alt protocol",
+        "dns exfiltration"
+      ],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1567",
+      "name": "Exfiltration Over Web Service",
+      "tactic": "Exfiltration",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "exfiltrated to cloud",
+        "data exfiltration via paste",
+        "exfiltrated via github",
+        "exfiltration to cloud storage",
+        "uploaded to paste site"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1537",
+      "name": "Transfer Data to Cloud Account",
+      "tactic": "Exfiltration",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["transferred to cloud", "aws s3 exfiltration", "azure blob exfiltration", "gcs exfiltration"],
+      "keywordCount": 4
+    },
+    {
+      "id": "T1486",
+      "name": "Data Encrypted for Impact",
+      "tactic": "Impact",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "ransomware",
+        "encrypted files",
+        "ransom note",
+        "double extortion",
+        "file encryption attack",
+        "crypto locker",
+        "lockbit",
+        "blackcat",
+        "akira"
+      ],
+      "keywordCount": 9
+    },
+    {
+      "id": "T1490",
+      "name": "Inhibit System Recovery",
+      "tactic": "Impact",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "deleted shadow copies",
+        "disabled backups",
+        "inhibited recovery",
+        "vss delete",
+        "bcdedit",
+        "shadow copy deletion"
+      ],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1498",
+      "name": "Network Denial of Service",
+      "tactic": "Impact",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["ddos attack", "denial of service", "network flooding", "volumetric attack", "amplification attack"],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1485",
+      "name": "Data Destruction",
+      "tactic": "Impact",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["data destruction", "wiper malware", "disk wiper", "shamoon", "notpetya", "whispergate"],
+      "keywordCount": 6
+    },
+    {
+      "id": "T1489",
+      "name": "Service Stop",
+      "tactic": "Impact",
+      "kill_chain": "Actions on Objectives",
+      "keywords": [
+        "stopped services",
+        "killed processes",
+        "disabled antivirus",
+        "stopped backup service",
+        "service termination"
+      ],
+      "keywordCount": 5
+    },
+    {
+      "id": "T1499",
+      "name": "Endpoint Denial of Service",
+      "tactic": "Impact",
+      "kill_chain": "Actions on Objectives",
+      "keywords": ["endpoint dos", "system crash", "blue screen", "resource exhaustion"],
+      "keywordCount": 4
+    }
+  ]
+}

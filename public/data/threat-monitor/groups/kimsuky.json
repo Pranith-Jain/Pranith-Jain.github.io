@@ -1,0 +1,10 @@
+{
+  "name": "Kimsuky",
+  "mitre_id": "G0094",
+  "aliases": ["Kimsuky", "Velvet Chollima", "Black Banshee", "Emerald Sleet", "Thallium"],
+  "aliasCount": 5,
+  "suspected_origin": "North Korea",
+  "target_sectors": ["Think Tanks", "Government", "Nuclear Policy"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

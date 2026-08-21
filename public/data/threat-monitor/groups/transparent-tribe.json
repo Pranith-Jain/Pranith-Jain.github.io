@@ -1,0 +1,10 @@
+{
+  "name": "Transparent Tribe",
+  "mitre_id": "G0134",
+  "aliases": ["Transparent Tribe", "APT36", "Mythic Leopard"],
+  "aliasCount": 3,
+  "suspected_origin": "Pakistan",
+  "target_sectors": ["Government", "Military - India focus"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

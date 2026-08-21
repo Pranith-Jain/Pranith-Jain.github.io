@@ -1,0 +1,10 @@
+{
+  "name": "Charcoal Typhoon",
+  "mitre_id": "G1040",
+  "aliases": ["Charcoal Typhoon", "CHROMIUM"],
+  "aliasCount": 2,
+  "suspected_origin": "China",
+  "target_sectors": ["Government", "NGOs", "Education"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

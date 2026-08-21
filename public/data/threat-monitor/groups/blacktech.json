@@ -1,0 +1,10 @@
+{
+  "name": "BlackTech",
+  "mitre_id": "G0098",
+  "aliases": ["BlackTech", "Palmerworm", "Circuit Panda"],
+  "aliasCount": 3,
+  "suspected_origin": "China",
+  "target_sectors": ["Telecom", "Government - East Asia"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

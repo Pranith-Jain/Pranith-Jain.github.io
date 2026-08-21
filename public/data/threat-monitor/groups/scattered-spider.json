@@ -1,0 +1,10 @@
+{
+  "name": "Scattered Spider",
+  "mitre_id": "G1015",
+  "aliases": ["Scattered Spider", "UNC3944", "Octo Tempest", "Muddled Libra"],
+  "aliasCount": 4,
+  "suspected_origin": "Unknown (English-speaking)",
+  "target_sectors": ["Telecom", "BPO", "Gaming", "Retail"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

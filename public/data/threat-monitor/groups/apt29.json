@@ -1,0 +1,10 @@
+{
+  "name": "APT29",
+  "mitre_id": "G0016",
+  "aliases": ["APT29", "Cozy Bear", "The Dukes", "Midnight Blizzard", "NOBELIUM", "Yttrium"],
+  "aliasCount": 6,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Government", "Think Tanks", "Healthcare"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

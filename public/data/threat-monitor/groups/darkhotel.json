@@ -1,0 +1,10 @@
+{
+  "name": "DarkHotel",
+  "mitre_id": "G0012",
+  "aliases": ["DarkHotel", "APT-C-06", "Tapaoux"],
+  "aliasCount": 3,
+  "suspected_origin": "South Korea (alleged)",
+  "target_sectors": ["Hospitality", "Executives"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

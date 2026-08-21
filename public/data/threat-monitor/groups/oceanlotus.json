@@ -1,0 +1,10 @@
+{
+  "name": "OceanLotus",
+  "mitre_id": "G0050",
+  "aliases": ["OceanLotus", "APT32", "SeaLotus", "Canvas Cyclone"],
+  "aliasCount": 4,
+  "suspected_origin": "Vietnam",
+  "target_sectors": ["Manufacturing", "Media", "ASEAN Government"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

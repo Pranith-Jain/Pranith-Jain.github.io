@@ -1,0 +1,245 @@
+{
+  "generatedAt": "2026-08-21T04:10:41.763Z",
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/osint_sources.py",
+  "description": "30 upstream OSINT RSS/Atom feeds (polled every 10m) expanded to 42 with gov + vendor research feeds",
+  "totalSources": 39,
+  "upstreamSources": 30,
+  "expandedSources": 9,
+  "categories": ["news", "vendor", "gov"],
+  "sources": [
+    {
+      "name": "The Hacker News",
+      "url": "https://feeds.feedburner.com/TheHackersNews",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/feed/",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "Krebs on Security",
+      "url": "https://krebsonsecurity.com/feed/",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "Dark Reading",
+      "url": "https://www.darkreading.com/rss.xml",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "SecurityWeek",
+      "url": "https://www.securityweek.com/feed/",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "The Record",
+      "url": "https://therecord.media/feed",
+      "category": "news",
+      "isUpstream": false
+    },
+    {
+      "name": "Infosecurity Magazine",
+      "url": "https://www.infosecurity-magazine.com/rss/news/",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "SC Media",
+      "url": "https://www.scmagazine.com/feed",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "CyberScoop",
+      "url": "https://cyberscoop.com/feed/",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "Graham Cluley",
+      "url": "https://grahamcluley.com/feed/",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "Sophos News",
+      "url": "https://news.sophos.com/en-us/feed/",
+      "category": "news",
+      "isUpstream": true
+    },
+    {
+      "name": "Ars Technica Security",
+      "url": "https://feeds.arstechnica.com/arstechnica/security",
+      "category": "news",
+      "isUpstream": false
+    },
+    {
+      "name": "ZDNet Security",
+      "url": "https://www.zdnet.com/topic/security/rss.xml",
+      "category": "news",
+      "isUpstream": false
+    },
+    {
+      "name": "Microsoft Security Blog",
+      "url": "https://www.microsoft.com/en-us/security/blog/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Google Threat Intel",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/rss/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Cisco Talos",
+      "url": "https://blog.talosintelligence.com/rss/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Palo Alto Unit 42",
+      "url": "https://unit42.paloaltonetworks.com/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "CrowdStrike Blog",
+      "url": "https://www.crowdstrike.com/blog/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Kaspersky Securelist",
+      "url": "https://securelist.com/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "ESET WeLiveSecurity",
+      "url": "https://www.welivesecurity.com/en/rss/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Trend Micro Research",
+      "url": "https://www.trendmicro.com/en_us/research.rss",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Check Point Research",
+      "url": "https://research.checkpoint.com/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Mandiant Blog",
+      "url": "https://www.mandiant.com/resources/blog/rss.xml",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Recorded Future Blog",
+      "url": "https://www.recordedfuture.com/feed",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "SentinelOne Labs",
+      "url": "https://www.sentinelone.com/labs/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Proofpoint Threat Insight",
+      "url": "https://www.proofpoint.com/us/rss.xml",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Volexity Blog",
+      "url": "https://www.volexity.com/blog/feed/",
+      "category": "vendor",
+      "isUpstream": true
+    },
+    {
+      "name": "Rapid7 Blog",
+      "url": "https://blog.rapid7.com/rss/",
+      "category": "vendor",
+      "isUpstream": false
+    },
+    {
+      "name": "Elastic Security Labs",
+      "url": "https://www.elastic.co/security-labs/rss/feed.xml",
+      "category": "vendor",
+      "isUpstream": false
+    },
+    {
+      "name": "Sophos X-Ops",
+      "url": "https://news.sophos.com/en-us/feed/",
+      "category": "vendor",
+      "isUpstream": false
+    },
+    {
+      "name": "Zscaler ThreatLabz",
+      "url": "https://www.zscaler.com/blogs/security-research",
+      "category": "vendor",
+      "isUpstream": false
+    },
+    {
+      "name": "Flashpoint Blog",
+      "url": "https://flashpoint.io/blog/feed/",
+      "category": "vendor",
+      "isUpstream": false
+    },
+    {
+      "name": "CISA Advisories",
+      "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+      "category": "gov",
+      "isUpstream": true
+    },
+    {
+      "name": "CISA News",
+      "url": "https://www.cisa.gov/news.xml",
+      "category": "gov",
+      "isUpstream": true
+    },
+    {
+      "name": "UK NCSC News",
+      "url": "https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml",
+      "category": "gov",
+      "isUpstream": true
+    },
+    {
+      "name": "CERT-EU",
+      "url": "https://cert.europa.eu/publications/threat-intelligence-rss",
+      "category": "gov",
+      "isUpstream": true
+    },
+    {
+      "name": "NIST NVD",
+      "url": "https://nvd.nist.gov/feeds/xml/cve/misc/nvd-rss.xml",
+      "category": "gov",
+      "isUpstream": false
+    },
+    {
+      "name": "JPCERT/CC",
+      "url": "https://www.jpcert.or.jp/english/rss/jpcert_en.xml",
+      "category": "gov",
+      "isUpstream": false
+    },
+    {
+      "name": "AusCERT",
+      "url": "https://www.auscert.org.au/rss/bulletins/",
+      "category": "gov",
+      "isUpstream": false
+    }
+  ]
+}

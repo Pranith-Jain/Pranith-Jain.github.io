@@ -1,0 +1,10 @@
+{
+  "name": "Machete",
+  "mitre_id": "G0095",
+  "aliases": ["Machete", "APT-C-43"],
+  "aliasCount": 2,
+  "suspected_origin": "South America",
+  "target_sectors": ["Military", "Government - LATAM"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

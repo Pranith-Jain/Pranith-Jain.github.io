@@ -1,0 +1,10 @@
+{
+  "name": "Labyrinth Chollima",
+  "mitre_id": "G0156",
+  "aliases": ["Labyrinth Chollima", "Stardust"],
+  "aliasCount": 2,
+  "suspected_origin": "North Korea",
+  "target_sectors": ["Defense", "Government"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

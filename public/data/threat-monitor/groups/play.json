@@ -1,0 +1,10 @@
+{
+  "name": "Play",
+  "mitre_id": null,
+  "aliases": ["Play", "PlayCrypt"],
+  "aliasCount": 2,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Ransomware", "Multiple Sectors"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

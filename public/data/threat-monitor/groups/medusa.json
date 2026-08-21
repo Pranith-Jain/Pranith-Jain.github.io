@@ -1,0 +1,10 @@
+{
+  "name": "Medusa",
+  "mitre_id": null,
+  "aliases": ["Medusa", "MedusaLocker"],
+  "aliasCount": 2,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Healthcare", "Ransomware"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

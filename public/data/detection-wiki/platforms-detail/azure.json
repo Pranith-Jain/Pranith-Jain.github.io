@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.541Z",
+  "source": "https://detection.wiki/azure/",
+  "platform": "Azure",
+  "slug": "azure",
+  "description": "Azure control plane operations",
+  "events": 4210,
+  "rulesWithSamples": 195,
+  "totalRules": 120,
+  "sampleEvents": [
+    {
+      "id": "Microsoft.Compute/virtualMachines/write",
+      "operation": "Create or update VM",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "Microsoft.Authorization/roleAssignments/write",
+      "operation": "Create role assignment",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "Microsoft.KeyVault/vaults/write",
+      "operation": "Create Key Vault",
+      "hasSample": false,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 3,
+  "note": "Sample of 3 events from 4,210 total for this platform; full catalog mirrored via detection.wiki"
+}

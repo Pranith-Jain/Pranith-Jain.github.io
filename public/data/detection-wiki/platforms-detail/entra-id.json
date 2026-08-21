@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.541Z",
+  "source": "https://detection.wiki/entra/",
+  "platform": "Entra ID",
+  "slug": "entra-id",
+  "description": "Entra ID directory and sign-in logs",
+  "events": 970,
+  "rulesWithSamples": 112,
+  "totalRules": 116,
+  "sampleEvents": [
+    {
+      "id": "SignInLogs",
+      "operation": "User sign-in",
+      "category": "SignIn",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "AuditLogs.DirectoryManagement",
+      "operation": "Add member to group",
+      "category": "Audit",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "ServicePrincipalSignIn",
+      "operation": "Service principal sign-in",
+      "category": "SignIn",
+      "hasSample": false,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 3,
+  "note": "Sample of 3 events from 970 total for this platform; full catalog mirrored via detection.wiki"
+}

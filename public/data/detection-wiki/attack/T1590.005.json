@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.545Z",
+  "source": "https://detection.wiki/attack/T1590/",
+  "technique": {
+    "id": "T1590.005",
+    "name": "Gather Victim Network Information: IP Addresses",
+    "tactic": "Reconnaissance",
+    "ruleCount": 4,
+    "isSubtechnique": true,
+    "parentTechnique": "T1590"
+  },
+  "tactic": "Reconnaissance",
+  "ruleCount": 4,
+  "isSubtechnique": true,
+  "parentTechnique": "T1590",
+  "vendors": ["Sigma", "Elastic", "Splunk", "Kusto", "YARA-L", "Panther", "Sublime MQL"],
+  "platforms": [
+    "macOS",
+    "auditd",
+    "Sysmon for Linux",
+    "Windows",
+    "Microsoft 365",
+    "Entra ID",
+    "Azure",
+    "Microsoft Intune",
+    "Power Platform",
+    "Defender XDR",
+    "AWS",
+    "GCP",
+    "Google Workspace",
+    "GitHub",
+    "Kubernetes",
+    "Okta",
+    "Sublime"
+  ],
+  "note": "Full per-technique rule bodies are available via detection.wiki search; this index mirrors technique-level coverage."
+}

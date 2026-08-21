@@ -1,0 +1,10 @@
+{
+  "name": "Sandworm",
+  "mitre_id": "G0034",
+  "aliases": ["Sandworm", "Sandworm Team", "Voodoo Bear", "Seashell Blizzard", "Iron Viking"],
+  "aliasCount": 5,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Energy", "Government", "Critical Infrastructure"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,12 @@
+{
+  "slug": "clickfix-electron-script-jacking-and-mandatory-user-profiles",
+  "title": "ClickFix, Electron Script-jacking, and Mandatory User Profiles",
+  "author": "sonny",
+  "date": "2026-03-10",
+  "description": "This attack simulation is inspired by Seqrite Lab's Operation HanKook Phantom: North Korean APT37 targeting South Korea and Praetorian's Corrupting the Hive Mind: Persistence Through Forgotten Windows Internals. It relies on a simple ClickFix attack to launch a PowerShell script that drops a Loki C2 payload, which is in turn used to establish persistence with a Mandatory User Profile.",
+  "techniques": ["T1204", "T1547", "T1059"],
+  "body": "This attack simulation is inspired by Seqrite Lab's Operation HanKook Phantom: North Korean APT37 targeting South Korea and Praetorian's Corrupting the Hive Mind: Persistence Through Forgotten Windows Internals. It relies on a simple ClickFix attack to launch a PowerShell script that drops a Loki C2 payload, which is in turn used to establish persistence with a Mandatory User Profile.\n\nSee https://detection.wiki/labs/clickfix-electron-script-jacking-and-mandatory-user-profiles/ for full KQL queries and telemetry walkthrough.",
+  "queries": [],
+  "queryCount": 0,
+  "sizeBytes": 387
+}

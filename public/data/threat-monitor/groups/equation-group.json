@@ -1,0 +1,10 @@
+{
+  "name": "Equation Group",
+  "mitre_id": "G0020",
+  "aliases": ["Equation Group", "Equation"],
+  "aliasCount": 2,
+  "suspected_origin": "USA (alleged)",
+  "target_sectors": ["Telecom", "Government"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

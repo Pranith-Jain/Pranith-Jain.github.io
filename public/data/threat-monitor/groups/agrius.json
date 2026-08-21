@@ -1,0 +1,10 @@
+{
+  "name": "Agrius",
+  "mitre_id": "G1030",
+  "aliases": ["Agrius", "Pink Sandstorm", "BlackShadow"],
+  "aliasCount": 3,
+  "suspected_origin": "Iran",
+  "target_sectors": ["Israel-focused", "Diamond Industry"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

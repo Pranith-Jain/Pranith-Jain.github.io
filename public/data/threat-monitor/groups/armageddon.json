@@ -1,0 +1,10 @@
+{
+  "name": "Armageddon",
+  "mitre_id": "G0017",
+  "aliases": ["Armageddon", "Gamaredon", "Bugdropper", "Iron Tilden"],
+  "aliasCount": 4,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Government", "Ukraine-focused"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

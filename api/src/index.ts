@@ -1051,6 +1051,7 @@ import { siemLibraryRouter } from './routes/siem-library-edge-tools';
 import { huntHypothesesRouter } from './routes/hunt-hypotheses-edge-tools';
 import { cloudRefRouter } from './routes/cloud-ref-edge-tools';
 import { pqcRouter } from './routes/pqc-edge-tools';
+import { detectionWikiRouter } from './routes/detection-wiki-edge-tools';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -2313,6 +2314,9 @@ app.route('/api/v1', siemLibraryRouter);
 app.route('/api/v1', huntHypothesesRouter);
 app.route('/api/v1', cloudRefRouter);
 app.route('/api/v1', pqcRouter);
+
+// Detection Wiki — 15,957 rules, ATT&CK matrix, Windows catalog (103k events), Security-Auditing (426), labs
+app.route('/api/v1', detectionWikiRouter);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

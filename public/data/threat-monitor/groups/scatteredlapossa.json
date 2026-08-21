@@ -1,0 +1,10 @@
+{
+  "name": "ScatteredLaPossa",
+  "mitre_id": null,
+  "aliases": ["ScatteredLaPossa", "Scattered G00LA"],
+  "aliasCount": 2,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Ransomware", "Telecom"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

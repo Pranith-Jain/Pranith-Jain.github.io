@@ -648,9 +648,63 @@ export default function ThreatActorMonitor() {
       backLabel="Threat Intel"
       icon={<Shield size={20} />}
       title="Global Threat Actor Monitor"
-      description={`Real-time APT monitoring across ${enabledSources.length} OSINT feeds — MITRE ATT&CK + Cyber Kill Chain mapping`}
+      description={
+        <span>
+          Real-time APT monitoring across <strong>{enabledSources.length}</strong> OSINT feeds — MITRE ATT&CK + Cyber
+          Kill Chain mapping · Replication of{' '}
+          <a
+            href="https://github.com/hero-itsme/Global-Threat-Actor-Monitor"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+          >
+            hero-itsme/Global-Threat-Actor-Monitor <ExternalLink size={10} />
+          </a>{' '}
+          · Upstream 40 groups → {Object.keys(APT_GROUPS).length} locally · Polling via{' '}
+          <span className="font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] px-1 py-0.5 rounded">
+            /api/v1/threat-monitor/proxy
+          </span>
+        </span>
+      }
       maxWidthClass="max-w-7xl"
     >
+      {/* Upstream replication provenance */}
+      <div className="surface-card p-3 mb-4 flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400 border">
+          Replication
+        </span>
+        <a
+          href="https://github.com/hero-itsme/Global-Threat-Actor-Monitor"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+        >
+          hero-itsme/Global-Threat-Actor-Monitor <ExternalLink size={10} />
+        </a>
+        <span className="text-slate-400">·</span>
+        <span className="text-slate-600 dark:text-slate-400">
+          Upstream: <strong>40</strong> groups · <strong>148</strong> aliases · <strong>29</strong> techniques ·{' '}
+          <strong>30</strong> feeds · 7 Kill Chain stages
+        </span>
+        <span className="text-slate-400">·</span>
+        <span className="text-emerald-600 dark:text-emerald-400">
+          Expanded: <strong>{Object.keys(APT_GROUPS).length}</strong> groups ·{' '}
+          <strong>{Object.keys(TECHNIQUES).length}</strong> techniques · <strong>{OSINT_SOURCES.length}</strong> feeds
+        </span>
+        <a
+          href="/api/v1/threat-monitor/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-auto text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+        >
+          API <ExternalLink size={10} />
+        </a>
+        <span className="text-slate-400">·</span>
+        <span className="text-slate-500">
+          MCP: tam_list_groups · tam_get_group · tam_list_techniques · tam_list_sources
+        </span>
+      </div>
+
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <Button variant="primary-brand" size="sm" onClick={runScan} loading={scanning} icon={<Radio size={14} />}>
@@ -688,7 +742,10 @@ export default function ThreatActorMonitor() {
           <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400">APT Groups</div>
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
             {totalAptGroupsDetected}
-            <span className="text-sm text-slate-400">/65</span>
+            <span className="text-sm text-slate-400">/{Object.keys(APT_GROUPS).length}</span>
+            <span className="block text-[10px] font-mono text-slate-400">
+              upstream 40 → {Object.keys(APT_GROUPS).length} expanded
+            </span>
           </div>
         </Card>
         <Card padding="md">

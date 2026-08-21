@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.542Z",
+  "source": "https://detection.wiki/aws/",
+  "platform": "AWS",
+  "slug": "aws",
+  "description": "CloudTrail events by service and API action",
+  "events": 178513,
+  "rulesWithSamples": 500,
+  "totalRules": 564,
+  "sampleEvents": [
+    {
+      "id": "s3:PutObject",
+      "service": "S3",
+      "operation": "PutObject",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "ec2:RunInstances",
+      "service": "EC2",
+      "operation": "RunInstances",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "iam:CreateUser",
+      "service": "IAM",
+      "operation": "CreateUser",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "sts:AssumeRole",
+      "service": "STS",
+      "operation": "AssumeRole",
+      "hasSample": true,
+      "hasRule": true
+    }
+  ],
+  "sampleCount": 4,
+  "note": "Sample of 4 events from 178,513 total for this platform; full catalog mirrored via detection.wiki"
+}
