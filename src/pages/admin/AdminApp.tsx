@@ -182,7 +182,16 @@ export default function AdminApp() {
   useEffect(() => {
     if (authStatus !== 'authed') return;
     getJson<{ calls: number; totalTokens: number; estimatedCostCents: number; overCap: boolean }>('/inference-stats')
-      .then(setInferenceStats)
+      .then((data) => {
+        if (
+          data &&
+          typeof data.calls === 'number' &&
+          typeof data.totalTokens === 'number' &&
+          typeof data.estimatedCostCents === 'number'
+        ) {
+          setInferenceStats(data);
+        }
+      })
       .catch(() => {});
   }, [authStatus]);
 
@@ -220,9 +229,9 @@ export default function AdminApp() {
                   ? 'bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 border-rose-200 dark:border-rose-700/50'
                   : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]'
               }`}
-              title={`${inferenceStats.calls} calls · ${inferenceStats.totalTokens.toLocaleString()} tokens`}
+              title={`${inferenceStats.calls ?? 0} calls · ${(inferenceStats.totalTokens ?? 0).toLocaleString()} tokens`}
             >
-              ${inferenceStats.estimatedCostCents.toFixed(2)} this month
+              ${(inferenceStats.estimatedCostCents ?? 0).toFixed(2)} this month
             </span>
           )}
           <a
