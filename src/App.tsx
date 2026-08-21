@@ -228,6 +228,8 @@ const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMar
 const DarknetList = lazy(() => import('./pages/threatintel/DarknetList'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const Detections = lazy(() => import('./pages/threatintel/Detections'));
+const DetectionWiki = lazy(() => import('./pages/threatintel/DetectionWiki'));
+const ThreatActorMonitor = lazy(() => import('./pages/threatintel/ThreatActorMonitor'));
 const DisarmFramework = lazy(() => import('./pages/threatintel/DisarmFramework'));
 const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
@@ -502,6 +504,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
   { path: '/threatintel/cyberpulse', Component: CyberPulse },
   { path: '/threatintel/infra/ai-honeypot', Component: AiHoneypotObservatory },
+  { path: '/threatintel/threat-actor-monitor', Component: ThreatActorMonitor },
   { path: '/threatintel/alerts', Component: AlertFeed },
   { path: '/threatintel/vera', Component: VeraChat },
   { path: '/threatintel/estate', Component: EstateConfig },
@@ -616,6 +619,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/predictive/analyze', Component: Analyze },
   { path: '/threatintel/predictive/assessments', Component: Assessments },
   { path: '/threatintel/predictive/observe', Component: Observe },
+  { path: '/threatintel/detection-wiki', Component: DetectionWiki },
   { path: '/threatintel/detections/detections', Component: Detections },
   { path: '/threatintel/detections/disarm', Component: DisarmFramework },
   { path: '/threatintel/detections/yara', Component: YaraPage },
