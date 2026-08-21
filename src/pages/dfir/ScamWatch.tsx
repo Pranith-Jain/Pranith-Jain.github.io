@@ -195,6 +195,21 @@ export default function ScamWatch(): JSX.Element {
         </p>
       </div>
 
+      {/* AI Summary — prominent, above filters */}
+      {annotated.length > 0 && (
+        <div className="mb-6">
+          <AiSummaryCard
+            surface="Scam Watch"
+            items={annotated.slice(0, 30).map(({ item }) => ({
+              title: item.title ?? '(untitled)',
+              body: stripHtml(item.description ?? ''),
+              source: item.source,
+            }))}
+            requireAdmin={false}
+          />
+        </div>
+      )}
+
       {/* Filters */}
       <section className="mb-6 surface-card p-5 space-y-3">
         <div className="flex items-center gap-2">
@@ -304,18 +319,6 @@ export default function ScamWatch(): JSX.Element {
         <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
           No items returned from the aggregator. Try refresh; the upstream feeds may be temporarily slow.
         </div>
-      )}
-
-      {annotated.length > 0 && (
-        <AiSummaryCard
-          surface="Scam Watch"
-          items={annotated.slice(0, 30).map(({ item }) => ({
-            title: item.title ?? '(untitled)',
-            body: stripHtml(item.description ?? ''),
-            source: item.source,
-          }))}
-          requireAdmin={false}
-        />
       )}
 
       <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-3">

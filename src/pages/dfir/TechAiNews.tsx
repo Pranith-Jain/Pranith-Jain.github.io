@@ -221,6 +221,21 @@ export default function TechAiNews(): JSX.Element {
         </p>
       </div>
 
+      {/* AI Summary — prominent, above filters */}
+      {annotated.length > 0 && (
+        <div className="mb-6">
+          <AiSummaryCard
+            surface="Tech & AI News"
+            items={annotated.slice(0, 30).map(({ item }) => ({
+              title: item.title ?? '',
+              body: item.description ?? '',
+              source: item.source ?? '',
+            }))}
+            requireAdmin={false}
+          />
+        </div>
+      )}
+
       {/* Filters */}
       <section className="mb-6 surface-card p-5 space-y-3">
         <div className="flex items-center gap-2">
@@ -342,18 +357,6 @@ export default function TechAiNews(): JSX.Element {
           </>
         )}
       </p>
-
-      {annotated.length > 0 && (
-        <AiSummaryCard
-          surface="Tech & AI News"
-          items={annotated.slice(0, 30).map(({ item }) => ({
-            title: item.title ?? '',
-            body: item.description ?? '',
-            source: item.source ?? '',
-          }))}
-          requireAdmin={false}
-        />
-      )}
 
       <ul className="space-y-2">
         {annotated.slice(0, 200).map(({ item, section }) => (

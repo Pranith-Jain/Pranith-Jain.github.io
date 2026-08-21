@@ -234,6 +234,21 @@ export default function ThreatFeeds(): JSX.Element {
         </p>
       </div>
 
+      {/* AI Summary — prominent, above filters so it's the first actionable card */}
+      {annotated.length > 0 && (
+        <div className="mb-6">
+          <AiSummaryCard
+            surface="Threat Feeds"
+            items={annotated.slice(0, 30).map(({ item }) => ({
+              title: item.title ?? '(untitled)',
+              body: stripHtml(item.description ?? ''),
+              source: item.source,
+            }))}
+            requireAdmin={false}
+          />
+        </div>
+      )}
+
       {/* Filters */}
       <section className="mb-6 surface-card p-5 space-y-3">
         <div className="flex items-center gap-2">
@@ -468,18 +483,6 @@ export default function ThreatFeeds(): JSX.Element {
             onClose={() => setShowDigest(false)}
           />
         </div>
-      )}
-
-      {annotated.length > 0 && (
-        <AiSummaryCard
-          surface="Threat Feeds"
-          items={annotated.slice(0, 30).map(({ item }) => ({
-            title: item.title ?? '(untitled)',
-            body: stripHtml(item.description ?? ''),
-            source: item.source,
-          }))}
-          requireAdmin={false}
-        />
       )}
 
       <ul className="space-y-2">

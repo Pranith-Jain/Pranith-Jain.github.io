@@ -166,15 +166,13 @@ export function AiSummaryCard({
 
   return (
     <div
-      // Wrapper sits on the page background in both themes - no panel,
-      // no gradient, no chromatic cast. In light mode a 1px slate hairline
-      // gives the header row an edge; in dark mode the card literally
-      // becomes the page so the AI summary reads as content, not chrome.
-      // The previous gradient + brand-950/20 wash made this the only
-      // dark card on the site with a permanent blue tint on its surface,
-      // which the v8 'chrome stays monochrome' pass explicitly removed
-      // everywhere else.
-      className={`overflow-hidden border-t border-slate-200 dark:border-white/8 ${className ?? ''}`}
+      // Prominent card — visible above the feed list in both themes.
+      // Previous `border-t` only was too subtle and got lost in the page
+      // background, especially on light mode where the 1px hairline blended
+      // with surrounding `surface-card` borders. Now a full `surface-card`
+      // with rounded corners, border, and shadow so the AI summary reads as
+      // a distinct, actionable card, not inline content.
+      className={`surface-card rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-sm overflow-hidden ${className ?? ''}`}
     >
       {/* Header */}
       <button
