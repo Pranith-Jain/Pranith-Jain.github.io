@@ -1,0 +1,42 @@
+{
+  "type": "maritime",
+  "date": "2026-08-20",
+  "threatLevel": "Unknown",
+  "executiveSummary": "A confirmed cyberattack against North Carolina Ports disrupted gate operations and IT services across multiple facilities, forcing contingency procedures and creating immediate logistics delays. This remains the principal near-term maritime cyber risk in this cycle. Source Supporting Report Government advisories underscore persistent exposure from remotely serviceable maritime technology (e.g., ship-to-shore cranes), third-party access, and configuration/patch hygiene, elevating supply-chain and port-OT risk even absent specific new exploits. Government Advisory Research on space and satellite ecosystems highlights continuing risk to GNSS and satellite communications, which support maritime navigation and connectivity; exposed receivers and service disruptions could degrade bridge situational awareness if not mitigated. View Report",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "Remotely serviceable ship-to-shore cranes and terminal systems (vendor-agnostic risk highlighted by MARAD). Government Advisory",
+      "GNSS receivers and maritime satcom terminals (exposure and disruption risks). View Report",
+      "Port IT systems supporting gates, manifests, and scheduling (impacted in NC incident). Source"
+    ],
+    "sectors": [
+      "Ports and Terminals (U.S.): active disruption",
+      "Ports and Terminals (India): policy/circular implementation focus",
+      "Global Shipping: GNSS/satcom dependency risks"
+    ]
+  },
+  "keyFindings": [],
+  "topThreats": [],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Initial access via phishing or exploitation of public-facing applications (analytical inference; not source-confirmed)",
+      "Privilege escalation and lateral movement across business IT (analytical inference)",
+      "Service disruption of enterprise systems supporting gates and terminal operations (reported impact in NC)",
+      "Third-party remote access pathways to port equipment (highlighted risk) Government Advisory"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor recovery progress at North Carolina Ports and watch for secondary congestion and scheduling impacts; additional official updates are likely. Source Supporting Report Given MARAD's advisory emphasis on vendor and remote-service exposure, additional scrutiny of third-party access pathways to port equipment is warranted; further advisories or operator notices may emerge. Government Advisory GNSS/satcom: Continued reporting on space-system cyber risks is likely; immediate maritime risk appears unchanged but warrants vigilance for interference anomalies. View Report Confidence in this outlook: Medium.",
+  "relatedCves": []
+}

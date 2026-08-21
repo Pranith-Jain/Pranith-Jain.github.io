@@ -1,0 +1,105 @@
+{
+  "type": "disaster",
+  "date": "2026-08-20",
+  "overallThreat": "",
+  "executiveSummary": "Two major earthquake crises dominate the global picture: western Colombia has reported at least 312 fatalities with roughly 29,000 homes destroyed and about 69,000 people affected or displaced. View Article On Indonesia's Flores Island, the death toll has risen to at least 71 with nearly 1,200 injured and over 59,600 people sheltering in tents and evacuation centers; reporting earlier in the week cited lower figures as assessments evolved. View Article Wildfires in British Columbia forced more than 20,000 people to evacuate, left about 2,200 still under evacuation orders, damaged or destroyed around 150 structures, and caused at least one death. View Article Severe flooding in Indiana killed at least seven people and prompted hundreds of evacuations, including of seniors in a mobile home community; the federal government approved disaster assistance. View Article Japan's Chiba prefecture experienced deadly flooding with at least five fatalities and around 400,000 residents under evacuation orders or warnings at one point. View Article Hawaii's recent tropical storm left one person dead, more than 100,000 customers without power at peak, and some communities isolated; most schools subsequently reopened as recovery advanced. View Article Puerto Rico initiated 48-hour rotating water shutoffs around the San Juan metro due to reservoir depletion from drought, affecting tens of thousands of residents. Source",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Western Colombia's earthquake has transitioned from life-saving to sustained rel",
+      "summary": "Western Colombia's earthquake has transitioned from life-saving to sustained relief, with extensive housing loss and strained health services signaling high, protracted needs. View Article"
+    },
+    {
+      "title": "Flores Island's evolving caseload and infrastructure impacts indicate access con",
+      "summary": "Flores Island's evolving caseload and infrastructure impacts indicate access constraints and large-scale shelter/WASH demand, with figures increasing as assessments improved. View Article"
+    },
+    {
+      "title": "British Columbia's wildfire emergency displaced tens of thousands and damaged ~1",
+      "summary": "British Columbia's wildfire emergency displaced tens of thousands and damaged ~150 structures; lingering utility restoration and air quality concerns will slow returns. View Article"
+    },
+    {
+      "title": "Indiana flooding produced multi-county disaster declarations, boat rescues, and ",
+      "summary": "Indiana flooding produced multi-county disaster declarations, boat rescues, and fatalities; vulnerable seniors were disproportionately affected. View Article"
+    },
+    {
+      "title": "Japan's Chiba floods triggered mass evacuation orders/warnings and widespread di",
+      "summary": "Japan's Chiba floods triggered mass evacuation orders/warnings and widespread disruption, underscoring persistent landslide and transport risks. View Article"
+    },
+    {
+      "title": "Hawaii's storm impacts highlight ongoing recovery priorities",
+      "summary": "clearing blocked roads, restoring power, and supporting isolated communities. View Article"
+    },
+    {
+      "title": "Puerto Rico's drought-driven rationing is disrupting household water security, e",
+      "summary": "Puerto Rico's drought-driven rationing is disrupting household water security, elevating WASH and health risks for vulnerable groups. Source"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least 312 fatalities; ~29,000 homes destroyed; about 69,000 affected/displaced; continuing relief with high shelter, health, and WASH needs. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/084c9389ee26f0faf48688fc3b02882a",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least 71 dead, nearly 1,200 injured; >59,600 displaced; widespread damage to homes, schools, and health facilities; access hindered by debris and landslides. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/8cdec4fe5834d8379893179f73d20d47",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": ">20,000 evacuated; ~2,200 still displaced; ~150 structures destroyed/damaged; at least one death; power restoration ongoing in affected areas. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/e8929ef2f9a70ffb5400bc1661d143db",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least seven deaths; hundreds evacuated; boat rescues and senior communities affected; federal disaster aid approved. View Article",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/aa3624a3ff1a0d241f62ec980a23e856",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "severity": "escalate",
+      "text": "At least five fatalities; around 400,000 people were under evacuation orders/warnings; transport and power disruptions reported. View Article",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/environment/flooding/2026/aug/14/all",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Earthquakes (Colombia, Indonesia): Expect continued aftershocks and access challenges; prioritize debris clearance, WASH, emergency shelter scale-up, and MHPSS services. Flooding (US, Japan, India): Monitor for additional rainfall and riverine responses; prepare for localized evacuations, shelter extensions, and infrastructure safety inspections. Wildfires (Canada, US, Europe): Wind shifts could prompt rapid fire behavior and renewed evacuation orders; maintain ready-to-move shelter capacity and power restoration crews. Tropical impacts (Hawaii): Focus on road clearance, power restoration, and supply reach to isolated pockets; schools/critical services may open with contingencies. Drought (Puerto Rico): Anticipate extended rationing schedules; pre-position bottled water, hygiene kits, and health outreach for vulnerable populations.",
+  "regionalTrends": [
+    "Seismic risk: Back-to-back mass-impact earthquakes (Colombia, Indonesia) with complex, evolving tallies indicate sustained aftershock and landslide exposure.",
+    "Hydrometeorological compounding: Flood emergencies from the US Midwest to Japan continue amid saturated soils and infrastructure vulnerabilities.",
+    "Fire weather: Prolonged heat and dryness sustain high wildfire potential in western North America and southern Europe despite localized containment gains.",
+    "Slow-onset stressors: Drought conditions (Puerto Rico) producing service rationing and secondary public health risks."
+  ]
+}
