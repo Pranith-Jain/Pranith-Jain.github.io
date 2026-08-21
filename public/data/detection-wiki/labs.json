@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "clickonce-abuse",
+    "title": "ClickOnce Abuse",
+    "author": "sonny",
+    "date": "2026-04-01",
+    "description": "Detect ClickOnce abuse and AppDomainManager injection using ClickOnceBlobber. Covers dfsvc.exe process telemetry, ClickOnce cache artifacts, Zeek logs, Sysmon unsigned module loads, and Suricata TLS fingerprints. Includes KQL detection queries.",
+    "techniques": ["T1204.001", "T1127.002", "T1574.014", "T1071.001", "T1547"]
+  },
+  {
+    "slug": "windows-screensaver-files-and-rmm-persistence",
+    "title": "Windows Screensaver Files and RMM Persistence",
+    "author": "sonny",
+    "date": "2026-03-30",
+    "description": "This is a simple emulation of a campaign documented by ReliaQuest, 'New Campaign Uses Screensavers for RMM-Based Persistence'. LimeWire.com is used to deliver a self-extracting archive masquerading as a Windows screensaver file that installs ScreenConnect.",
+    "techniques": ["T1204.002", "T1059.003", "T1218.007", "T1036"]
+  },
+  {
+    "slug": "python-persistence-via-pth-files",
+    "title": "Python Persistence via .pth Files",
+    "author": "sonny",
+    "date": "2026-03-27",
+    "description": "Abuse of Python .pth files to establish persistence on Windows. The lab demonstrates how code embedded in site-packages path files executes automatically when Python starts.",
+    "techniques": ["T1546", "T1059", "T1071", "T1562.004"]
+  },
+  {
+    "slug": "byovd-and-ksld-sys",
+    "title": "BYOVD and KslD.sys",
+    "author": "sonny",
+    "date": "2026-03-24",
+    "description": "Hands-on lab demonstrating a BYOVD technique using Microsoft's KslD.sys driver to extract domain credentials from LSASS. Explore detection gaps in Windows telemetry, learn how to implement controls using WDAC, and see how attackers evade monitoring.",
+    "techniques": ["T1003"]
+  },
+  {
+    "slug": "dll-sideloading-with-the-windows-bluetooth-file-transfer-wizard",
+    "title": "DLL Sideloading with the Windows Bluetooth File Transfer Wizard",
+    "author": "sonny",
+    "date": "2026-03-18",
+    "description": "KQL analysis lab of malicious DLL sideloading via the Windows Bluetooth File Transfer Wizard. Demonstrates loading from a user dir and how to detect the behavior using MDE telemetry.",
+    "techniques": ["T1218", "T1574.002"]
+  },
+  {
+    "slug": "clickfix-electron-script-jacking-and-mandatory-user-profiles",
+    "title": "ClickFix, Electron Script-jacking, and Mandatory User Profiles",
+    "author": "sonny",
+    "date": "2026-03-10",
+    "description": "This attack simulation is inspired by Seqrite Lab's Operation HanKook Phantom: North Korean APT37 targeting South Korea and Praetorian's Corrupting the Hive Mind: Persistence Through Forgotten Windows Internals. It relies on a simple ClickFix attack to launch a PowerShell script that drops a Loki C2 payload, which is in turn used to establish persistence with a Mandatory User Profile.",
+    "techniques": ["T1204", "T1547", "T1059"]
+  }
+]

@@ -1,0 +1,133 @@
+[
+  {
+    "name": "macOS",
+    "slug": "macos",
+    "description": "Endpoint Security events by domain",
+    "events": 14857,
+    "rulesWithSamples": 13
+  },
+  {
+    "name": "auditd",
+    "slug": "auditd",
+    "description": "Linux audit record types",
+    "events": 20517,
+    "rulesWithSamples": 120
+  },
+  {
+    "name": "Sysmon for Linux",
+    "slug": "sysmon-linux",
+    "description": "Sysmon events for Linux endpoints",
+    "events": 1410,
+    "rulesWithSamples": 3
+  },
+  {
+    "name": "Windows",
+    "slug": "windows",
+    "description": "Windows Event Log providers and events",
+    "events": 102294,
+    "rulesWithSamples": 1016,
+    "totalRules": 1449
+  },
+  {
+    "name": "Microsoft 365",
+    "slug": "microsoft-365",
+    "description": "Microsoft 365 audit log operations",
+    "events": 3642,
+    "rulesWithSamples": 70,
+    "totalRules": 154
+  },
+  {
+    "name": "Entra ID",
+    "slug": "entra-id",
+    "description": "Entra ID directory and sign-in logs",
+    "events": 970,
+    "rulesWithSamples": 112,
+    "totalRules": 116
+  },
+  {
+    "name": "Azure",
+    "slug": "azure",
+    "description": "Azure control plane operations",
+    "events": 4210,
+    "rulesWithSamples": 195,
+    "totalRules": 120
+  },
+  {
+    "name": "Microsoft Intune",
+    "slug": "intune",
+    "description": "Intune device-management audit events",
+    "events": 138,
+    "rulesWithSamples": 36,
+    "totalRules": 12
+  },
+  {
+    "name": "Power Platform",
+    "slug": "power-platform",
+    "description": "Power Platform audit events",
+    "events": 214,
+    "rulesWithSamples": 5,
+    "totalRules": 9
+  },
+  {
+    "name": "Defender XDR",
+    "slug": "defender-xdr",
+    "description": "Defender Advanced Hunting ActionTypes",
+    "events": 39213,
+    "rulesWithSamples": 570
+  },
+  {
+    "name": "AWS",
+    "slug": "aws",
+    "description": "CloudTrail events by service and API action",
+    "events": 178513,
+    "rulesWithSamples": 500,
+    "totalRules": 564
+  },
+  {
+    "name": "GCP",
+    "slug": "gcp",
+    "description": "Cloud Audit Log operations by service and method",
+    "events": 15343,
+    "rulesWithSamples": 191,
+    "totalRules": 118
+  },
+  {
+    "name": "Google Workspace",
+    "slug": "google-workspace",
+    "description": "Admin SDK events by application and event name",
+    "events": 838,
+    "rulesWithSamples": 40,
+    "totalRules": 80
+  },
+  {
+    "name": "GitHub",
+    "slug": "github",
+    "description": "Audit log actions by category prefix",
+    "events": 1161,
+    "rulesWithSamples": 36,
+    "totalRules": 133
+  },
+  {
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "description": "Audit log API operations by resource and verb",
+    "events": 7586,
+    "rulesWithSamples": 75,
+    "totalRules": 154
+  },
+  {
+    "name": "Okta",
+    "slug": "okta",
+    "description": "System Log event types by namespace",
+    "events": 1179,
+    "rulesWithSamples": 250,
+    "totalRules": 98
+  },
+  {
+    "name": "Sublime",
+    "slug": "sublime",
+    "description": "Email detection events",
+    "events": 280,
+    "rulesWithSamples": 28
+  }
+]

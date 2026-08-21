@@ -1,0 +1,34 @@
+{
+  "vendors": ["Sigma", "Elastic", "Splunk", "Kusto", "YARA-L", "Panther", "Sublime MQL"],
+  "vendorCounts": {
+    "Sigma": 4228,
+    "Elastic": 3369,
+    "Splunk": 2990,
+    "Kusto": 2498,
+    "YARA-L": 379,
+    "Panther": 1168,
+    "Sublime MQL": 1325
+  },
+  "platforms": [
+    "Windows",
+    "Linux",
+    "macOS",
+    "AWS",
+    "Azure",
+    "GCP",
+    "Microsoft 365",
+    "Intune",
+    "Google Workspace",
+    "Okta",
+    "GitHub",
+    "Kubernetes"
+  ],
+  "domains": ["Endpoint", "Cloud", "Identity", "SaaS", "Container", "Network", "Web", "Application"],
+  "statuses": [
+    { "name": "stable", "count": 6060 },
+    { "name": "deprecated", "count": 17 },
+    { "name": "test", "count": 3360 },
+    { "name": "experimental", "count": 983 },
+    { "name": "unspecified", "count": 5537 }
+  ]
+}
