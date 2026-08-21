@@ -1,0 +1,10 @@
+{
+  "name": "Bitter",
+  "mitre_id": "G1002",
+  "aliases": ["Bitter", "APT-C-08", "T-APT-17"],
+  "aliasCount": 3,
+  "suspected_origin": "South Asia",
+  "target_sectors": ["Government", "Energy - South Asia"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

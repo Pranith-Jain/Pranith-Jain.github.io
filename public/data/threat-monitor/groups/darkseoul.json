@@ -1,0 +1,10 @@
+{
+  "name": "DarkSeoul",
+  "mitre_id": null,
+  "aliases": ["DarkSeoul", "Jestefuna"],
+  "aliasCount": 2,
+  "suspected_origin": "North Korea",
+  "target_sectors": ["Banking", "Media - South Korea"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Earth Lusca",
+  "mitre_id": null,
+  "aliases": ["Earth Lusca", "TAG-22"],
+  "aliasCount": 2,
+  "suspected_origin": "China",
+  "target_sectors": ["Government", "Gambling", "Media"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

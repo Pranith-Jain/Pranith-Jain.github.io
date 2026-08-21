@@ -92,6 +92,35 @@ import {
   type WinRegListOptions,
 } from './lib/winreg-manifest';
 import {
+  loadDwIndex,
+  loadDwTechniques,
+  loadDwPlatforms,
+  loadDwLabs,
+  getDwLab,
+  loadDwFilters,
+  loadDwWindows,
+  loadDwSecurityAuditing,
+  loadDwPlatformDetail,
+  loadDwAttackIndex,
+  getDwAttackTechnique,
+  loadDwRules,
+  filterDwTechniques,
+  filterDwWindowsProviders,
+  filterDwSecurityAuditingEvents,
+  dwCacheStats,
+} from './lib/detection-wiki-manifest';
+import {
+  loadTamIndex,
+  loadTamGroups,
+  loadTamTechniques,
+  loadTamSources,
+  getTamGroup,
+  filterTamGroups,
+  filterTamTechniques as filterTamTechniquesMcp,
+  filterTamSources,
+  tamCacheStats,
+} from './lib/threat-monitor-manifest';
+import {
   loadPcmIndex,
   getPcmDigest,
   getPcmLatest,
@@ -1837,6 +1866,456 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             license: idx.license,
             replicatedAt: idx.replicatedAt,
             cache: winRegCacheStats(),
+          });
+        }
+      );
+
+      // ── Detection Wiki tools ────────────────────────────────────────
+      // Full detection.wiki mirror — 15,957 rules, 218 techniques across 14 tactics,
+      // 103k Windows events (1,518 providers), 426 Security-Auditing events, 6 labs with KQL.
+      // Source: https://detection.wiki (public, Cloudflare-protected, built via Playwright)
+
+      this.tools(
+        'dw_list_techniques',
+        'List MITRE ATT&CK techniques indexed by detection.wiki: technique ID, name, tactic, and number of detection rules. Filter by tactic, keyword, minimum rule count, or subtechnique inclusion. Use dw_get_technique to fetch a single technique.',
+        {
+          tactic: z
+            .string()
+            .optional()
+            .describe('Filter by ATT&CK tactic (e.g. "Execution", "Initial Access", "Defense Evasion")'),
+          q: z.string().optional().describe('Free-text search across technique ID, name, and tactic'),
+          min_rules: z
+            .number()
+            .int()
+            .min(0)
+            .optional()
+            .describe('Only techniques with at least this many detection rules'),
+          subtechniques: z.boolean().optional().describe('Include sub-techniques (default true)'),
+          limit: z.number().int().min(1).max(218).optional().describe('Max techniques to return (default 50)'),
+        },
+        async ({ tactic, q, min_rules, subtechniques, limit }) => {
+          const idx = await loadDwTechniques(ASSETS);
+          const filtered = filterDwTechniques(idx.all, { tactic, q, minRules: min_rules, subtechniques });
+          return untrustedToolResult({
+            total: idx.all.length,
+            returned: Math.min(filtered.length, limit ?? 50),
+            techniques: filtered.slice(0, limit ?? 50),
+          });
+        }
+      );
+
+      this.tools(
+        'dw_get_technique',
+        'Return a single MITRE ATT&CK technique from the detection.wiki mirror: name, tactic, detection rule count, and whether it is a sub-technique. Use dw_list_techniques first to discover IDs.',
+        { id: z.string().describe('Technique ID, e.g. "T1059.001" or "T1078". Get these from dw_list_techniques.') },
+        async ({ id }) => {
+          const idx = await loadDwTechniques(ASSETS);
+          const found = idx.all.find((t) => t.id.toLowerCase() === id.toLowerCase());
+          if (!found)
+            return untrustedToolResult({
+              error: 'technique_not_found',
+              id,
+              hint: 'Call dw_list_techniques to see available IDs.',
+            });
+          return untrustedToolResult(found);
+        }
+      );
+
+      this.tools(
+        'dw_list_platforms',
+        'List the 17 platform telemetry catalogs indexed by detection.wiki: Windows, AWS, Azure, M365, GCP, Kubernetes, Okta, GitHub, and more. Each entry has event count and rule coverage.',
+        {},
+        async () => {
+          const platforms = await loadDwPlatforms(ASSETS);
+          return untrustedToolResult({ total: platforms.length, platforms });
+        }
+      );
+
+      this.tools(
+        'dw_list_windows_providers',
+        'List Windows Event Log providers from the detection.wiki Windows catalog: provider name, slug, event count, samples with field definitions, and detection-rule coverage. Covers 1,518 providers (74 sampled with counts, 103,315 total events). Filter by keyword or whether they have rules.',
+        {
+          q: z.string().optional().describe('Free-text search across provider name and channel'),
+          has_rules: z
+            .boolean()
+            .optional()
+            .describe('Only providers that have at least one mapped detection rule (true) or none (false)'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max providers to return (default 50)'),
+        },
+        async ({ q, has_rules, limit }) => {
+          const cat = await loadDwWindows(ASSETS);
+          if (!cat) return untrustedToolResult({ error: 'windows_catalog_not_found' });
+          const filtered = filterDwWindowsProviders(cat.providers, { q, hasRules: has_rules, limit: limit ?? 50 });
+          return untrustedToolResult({
+            totalProviders: cat.totalProviders,
+            sampledProviders: cat.providers.length,
+            totalEvents: cat.totalEvents,
+            returned: filtered.length,
+            providers: filtered,
+          });
+        }
+      );
+
+      this.tools(
+        'dw_get_windows_provider',
+        'Return a single Windows Event Log provider by slug: event count, samples, rules, and channel. Use dw_list_windows_providers first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe(
+              'Provider slug, e.g. "microsoft-windows-security-auditing" or "service-control-manager". Get these from dw_list_windows_providers.'
+            ),
+        },
+        async ({ slug }) => {
+          const cat = await loadDwWindows(ASSETS);
+          if (!cat) return untrustedToolResult({ error: 'windows_catalog_not_found' });
+          const prov = cat.providers.find((p) => p.slug.toLowerCase() === slug.toLowerCase());
+          if (!prov)
+            return untrustedToolResult({
+              error: 'provider_not_found',
+              slug,
+              hint: 'Call dw_list_windows_providers to see available slugs.',
+            });
+          return untrustedToolResult(prov);
+        }
+      );
+
+      this.tools(
+        'dw_list_security_auditing_events',
+        'List Microsoft-Windows-Security-Auditing events (Security channel, 426 total): event ID, title, and whether it has sample data or a mapped detection rule. Filter by keyword, ATT&CK tactic, sample/rule presence. Use dw_get_security_auditing_event to fetch a single event.',
+        {
+          q: z.string().optional().describe('Free-text search across event ID, title, tactic'),
+          tactic: z
+            .string()
+            .optional()
+            .describe('Filter by ATT&CK tactic (e.g. "Execution", "Credential Access", "Persistence")'),
+          has_sample: z.boolean().optional().describe('Only events that have sample data (true) or not (false)'),
+          has_rule: z.boolean().optional().describe('Only events that have a mapped detection rule'),
+          limit: z.number().int().min(1).max(426).optional().describe('Max events to return (default 100)'),
+        },
+        async ({ q, tactic, has_sample, has_rule, limit }) => {
+          const cat = await loadDwSecurityAuditing(ASSETS);
+          if (!cat) return untrustedToolResult({ error: 'security_auditing_not_found' });
+          const filtered = filterDwSecurityAuditingEvents(cat.events, {
+            q,
+            tactic,
+            hasSample: has_sample,
+            hasRule: has_rule,
+            limit: limit ?? 100,
+          });
+          return untrustedToolResult({
+            provider: cat.provider,
+            channel: cat.channel,
+            totalEvents: cat.eventCount,
+            returned: filtered.length,
+            events: filtered,
+          });
+        }
+      );
+
+      this.tools(
+        'dw_get_security_auditing_event',
+        'Return a single Microsoft-Windows-Security-Auditing event by Event ID: title, channel, sample/rule flags, and ATT&CK tactic. Use dw_list_security_auditing_events first to discover IDs.',
+        {
+          id: z
+            .number()
+            .int()
+            .describe('Event ID, e.g. 4624, 4688, 4720. Get these from dw_list_security_auditing_events.'),
+        },
+        async ({ id }) => {
+          const cat = await loadDwSecurityAuditing(ASSETS);
+          if (!cat) return untrustedToolResult({ error: 'security_auditing_not_found' });
+          const ev = cat.events.find((e) => e.id === id);
+          if (!ev)
+            return untrustedToolResult({
+              error: 'event_not_found',
+              id,
+              hint: 'Call dw_list_security_auditing_events to see available IDs.',
+            });
+          return untrustedToolResult(ev);
+        }
+      );
+
+      this.tools(
+        'dw_list_labs',
+        'List hands-on detection labs from detection.wiki: title, author, date, description, and mapped ATT&CK techniques. Filter by keyword. Use dw_get_lab to fetch the full body with KQL queries.',
+        {
+          q: z.string().optional().describe('Free-text search across title, description, or technique IDs'),
+          limit: z.number().int().min(1).max(20).optional().describe('Max labs to return (default 10)'),
+        },
+        async ({ q, limit }) => {
+          const labs = await loadDwLabs(ASSETS);
+          const filtered = q
+            ? labs.filter((l) =>
+                `${l.title} ${l.description} ${l.techniques.join(' ')}`.toLowerCase().includes(q.toLowerCase())
+              )
+            : labs;
+          return untrustedToolResult({
+            total: labs.length,
+            returned: Math.min(filtered.length, limit ?? 10),
+            labs: filtered.slice(0, limit ?? 10),
+          });
+        }
+      );
+
+      this.tools(
+        'dw_get_lab',
+        'Return the full body of a single detection.wiki lab: title, description, ATT&CK techniques, KQL queries, and raw markdown body. Use dw_list_labs first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Lab slug, e.g. "clickonce-abuse" or "byovd-and-ksld-sys". Get these from dw_list_labs.'),
+        },
+        async ({ slug }) => {
+          const body = await getDwLab(ASSETS, slug);
+          if (!body)
+            return untrustedToolResult({
+              error: 'lab_not_found',
+              slug,
+              hint: 'Call dw_list_labs to see available slugs.',
+            });
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'dw_stats',
+        'Return cache + manifest stats for the detection.wiki mirror: 15k rules, 218 techniques, 1,518 Windows providers, 426 Security-Auditing events, 17 platforms, 6 labs, and LRU body-cache info.',
+        {},
+        async () => {
+          const idx = await loadDwIndex(ASSETS);
+          const windows = await loadDwWindows(ASSETS);
+          const sa = await loadDwSecurityAuditing(ASSETS);
+          return untrustedToolResult({
+            index: idx.stats,
+            windows: windows
+              ? {
+                  totalProviders: windows.totalProviders,
+                  sampled: windows.providers.length,
+                  totalEvents: windows.totalEvents,
+                }
+              : null,
+            securityAuditing: sa
+              ? { eventCount: sa.eventCount, sampleCount: sa.sampleCount, rulesCount: sa.rulesCount }
+              : null,
+            source: idx.source,
+            cache: dwCacheStats(),
+          });
+        }
+      );
+
+      this.tools(
+        'dw_get_platform',
+        'Return detailed event catalog for a single detection.wiki platform (e.g. macOS ESF, auditd, AWS CloudTrail, Defender XDR, Entra ID): total events, sampled event types, and source URL. Use dw_list_platforms first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe(
+              'Platform slug, e.g. "auditd", "aws", "macos", "entra-id", "gcp", "kubernetes". Get these from dw_list_platforms.'
+            ),
+        },
+        async ({ slug }) => {
+          const detail = await loadDwPlatformDetail(ASSETS, slug);
+          if (!detail)
+            return untrustedToolResult({
+              error: 'platform_not_found',
+              slug,
+              hint: 'Call dw_list_platforms to see available slugs.',
+            });
+          return untrustedToolResult(detail);
+        }
+      );
+
+      this.tools(
+        'dw_get_attack',
+        'Return the MITRE ATT&CK coverage index from detection.wiki: tactics with total rules per tactic and technique counts. This mirrors https://detection.wiki/attack/ and https://detection.wiki/rules/.',
+        {},
+        async () => {
+          const attack = await loadDwAttackIndex(ASSETS);
+          if (!attack) return untrustedToolResult({ error: 'attack_index_not_found' });
+          return untrustedToolResult(attack);
+        }
+      );
+
+      this.tools(
+        'dw_get_attack_technique',
+        'Return a single ATT&CK technique body as it appears under https://detection.wiki/attack/Txxxx/: technique metadata, rule count, tactic, and cross-references. Use dw_list_techniques or dw_get_attack first to discover IDs.',
+        { id: z.string().describe('Technique ID, e.g. "T1589" or "T1059.001". Get these from dw_list_techniques.') },
+        async ({ id }) => {
+          const body = await getDwAttackTechnique(ASSETS, id);
+          if (!body)
+            return untrustedToolResult({
+              error: 'attack_technique_not_found',
+              id,
+              hint: 'Call dw_list_techniques to see available IDs.',
+            });
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'dw_list_rules',
+        'List sampled detection rules from detection.wiki (15,957 total): rule ID, title, vendor (Sigma/Elastic/Splunk/Kusto/YARA-L/Panther/Sublime), technique, tactic, platform, and status. Full rule bodies live at detection.wiki per technique; use dw_get_attack_technique for per-technique coverage.',
+        {
+          vendor: z
+            .string()
+            .optional()
+            .describe('Filter by vendor (Sigma, Elastic, Splunk, Kusto, YARA-L, Panther, Sublime MQL)'),
+          platform: z.string().optional().describe('Filter by platform (Windows, AWS, Azure, GCP, etc.)'),
+          technique: z.string().optional().describe('Filter by technique ID (e.g. T1059)'),
+          q: z.string().optional().describe('Free-text search across title, technique, tactic'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max rules to return (default 30)'),
+        },
+        async ({ vendor, platform, technique, q, limit }) => {
+          const idx = await loadDwRules(ASSETS);
+          if (!idx) return untrustedToolResult({ error: 'rules_not_found' });
+          let rules = idx.rules;
+          if (vendor) rules = rules.filter((r) => r.vendor.toLowerCase() === vendor.toLowerCase());
+          if (platform) rules = rules.filter((r) => r.platform.toLowerCase() === platform.toLowerCase());
+          if (technique) rules = rules.filter((r) => r.technique.toLowerCase() === technique.toLowerCase());
+          if (q) {
+            const needle = q.toLowerCase();
+            rules = rules.filter((r) =>
+              `${r.title} ${r.technique} ${r.tactic} ${r.vendor}`.toLowerCase().includes(needle)
+            );
+          }
+          return untrustedToolResult({
+            totalRules: idx.totalRules,
+            sampled: idx.sampledRules,
+            returned: Math.min(rules.length, limit ?? 30),
+            rules: rules.slice(0, limit ?? 30),
+          });
+        }
+      );
+
+      // ── Global Threat Actor Monitor tools (hero-itsme replication) ──
+      // Full replication of https://github.com/hero-itsme/Global-Threat-Actor-Monitor
+      // 40 APT groups + 148 aliases upstream (81 groups expanded), 29 techniques upstream
+      // (108 expanded) -> Kill Chain, 30 OSINT feeds upstream (39 expanded). Data ships in
+      // public/data/threat-monitor/ built by scripts/build-threat-monitor.mjs (MIT).
+
+      this.tools(
+        'tam_list_groups',
+        'List APT threat-actor groups from the Global Threat Actor Monitor replication. Upstream 40 groups + expanded to 81 covering Russia/China/NK/Iran eCrime/ransomware/infostealer. Filter by origin country, keyword, or upstream-only. Use tam_get_group to fetch full aliases + sectors.',
+        {
+          q: z.string().optional().describe('Free-text search across group name, aliases, origin, sectors, MITRE ID'),
+          origin: z.string().optional().describe('Filter by suspected origin (e.g. Russia, China, Iran, North Korea)'),
+          upstream_only: z
+            .boolean()
+            .optional()
+            .describe('Only the 40 upstream groups (true) vs all 81 (false, default)'),
+          limit: z.number().int().min(1).max(81).optional().describe('Max groups to return (default 50)'),
+        },
+        async ({ q, origin, upstream_only, limit }) => {
+          const file = await loadTamGroups(ASSETS);
+          const filtered = filterTamGroups(file.groups, { q, origin, upstreamOnly: upstream_only, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: file.totalGroups,
+            upstream: file.upstreamGroups,
+            expanded: file.expandedGroups,
+            returned: filtered.length,
+            groups: filtered,
+          });
+        }
+      );
+
+      this.tools(
+        'tam_get_group',
+        'Return a single APT group body: aliases, MITRE Group ID, suspected_origin, target_sectors, and upstream flag. Use tam_list_groups first to discover names/slugs.',
+        {
+          slug: z
+            .string()
+            .describe(
+              'Group slug or name, e.g. "apt29", "lazarus-group", "Volt Typhoon". Get these from tam_list_groups.'
+            ),
+        },
+        async ({ slug }) => {
+          const body = await getTamGroup(ASSETS, slug);
+          if (!body)
+            return untrustedToolResult({
+              error: 'group_not_found',
+              slug,
+              hint: 'Call tam_list_groups to see available groups.',
+            });
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'tam_list_techniques',
+        'List MITRE ATT&CK techniques curated for the Threat Actor Monitor (29 upstream -> 108 expanded) with Kill Chain mapping and detection keywords. Filter by tactic, kill chain stage, or keyword. Use for killchain_mapper scoring.',
+        {
+          q: z.string().optional().describe('Free-text search across technique ID, name, tactic, kill_chain, keywords'),
+          tactic: z
+            .string()
+            .optional()
+            .describe('Filter by ATT&CK tactic (e.g. "Initial Access", "Execution", "Defense Evasion")'),
+          kill_chain: z
+            .string()
+            .optional()
+            .describe(
+              'Filter by Kill Chain stage (Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Command & Control, Actions on Objectives)'
+            ),
+          limit: z.number().int().min(1).max(108).optional().describe('Max techniques to return (default 50)'),
+        },
+        async ({ q, tactic, kill_chain, limit }) => {
+          const file = await loadTamTechniques(ASSETS);
+          const filtered = filterTamTechniquesMcp(file.techniques, { q, tactic, kill_chain, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: file.totalTechniques,
+            upstream: file.upstreamTechniques,
+            expanded: file.expandedTechniques,
+            returned: filtered.length,
+            techniques: filtered,
+            killChainStages: file.killChainStages,
+          });
+        }
+      );
+
+      this.tools(
+        'tam_list_sources',
+        'List OSINT RSS/Atom feed sources polled by the Global Threat Actor Monitor (30 upstream -> 39 expanded): name, URL, category (news/vendor/gov), upstream flag. Filter by category or keyword. Feeds are polled every 10 minutes with concurrent bounded fetch.',
+        {
+          q: z.string().optional().describe('Free-text search across feed name, URL, category'),
+          category: z.string().optional().describe('Filter by category (news, vendor, gov)'),
+          upstream_only: z
+            .boolean()
+            .optional()
+            .describe('Only the 30 upstream feeds (true) vs all 39 (false, default)'),
+          limit: z.number().int().min(1).max(50).optional().describe('Max feeds to return (default 50)'),
+        },
+        async ({ q, category, upstream_only, limit }) => {
+          const file = await loadTamSources(ASSETS);
+          const filtered = filterTamSources(file.sources, {
+            q,
+            category,
+            upstreamOnly: upstream_only,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            total: file.totalSources,
+            upstream: file.upstreamSources,
+            expanded: file.expandedSources,
+            categories: file.categories,
+            returned: filtered.length,
+            sources: filtered,
+          });
+        }
+      );
+
+      this.tools(
+        'tam_stats',
+        'Return cache + manifest stats for the Global Threat Actor Monitor replication: 40->81 groups, 29->108 techniques, 30->39 OSINT feeds, 7 Kill Chain stages, and LRU cache info.',
+        {},
+        async () => {
+          const idx = await loadTamIndex(ASSETS);
+          return untrustedToolResult({
+            stats: idx.stats,
+            upstream: idx.upstream,
+            expanded: idx.expanded,
+            source: idx.source,
+            architecture: idx.architecture,
+            cache: tamCacheStats(),
           });
         }
       );

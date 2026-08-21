@@ -1031,6 +1031,7 @@ import { traceixRouter } from './routes/traceix';
 import { profileStatsRouter } from './routes/profile-stats';
 import { nhiScanRouter } from './routes/nhi-scan';
 import { whoxyRouter } from './routes/whoxy';
+import { threatMonitorRouter } from './routes/threat-monitor';
 import { truecallerRouter } from './routes/truecaller';
 import { fullhuntRouter } from './routes/fullhunt';
 import { opensanctionsRouter } from './routes/opensanctions';
@@ -1050,6 +1051,7 @@ import { siemLibraryRouter } from './routes/siem-library-edge-tools';
 import { huntHypothesesRouter } from './routes/hunt-hypotheses-edge-tools';
 import { cloudRefRouter } from './routes/cloud-ref-edge-tools';
 import { pqcRouter } from './routes/pqc-edge-tools';
+import { detectionWikiRouter } from './routes/detection-wiki-edge-tools';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -2088,6 +2090,10 @@ app.route('/api/v1', nhiScanRouter);
 // Endpoint: GET /api/v1/whoxy/reverse?q=<term>&type=email|name|company|keyword
 app.route('/api/v1', whoxyRouter);
 
+// Global Threat Actor Monitor — RSS proxy for client-side APT detection.
+// Endpoints: /api/v1/threat-monitor/*
+app.route('/api/v1', threatMonitorRouter);
+
 // Truecaller — reverse phone lookup (caller name, carrier, spam score).
 // Requires TRUECALLER_API_KEY Worker secret.
 // Endpoint: GET /api/v1/truecaller/lookup?phone=<number>
@@ -2308,6 +2314,9 @@ app.route('/api/v1', siemLibraryRouter);
 app.route('/api/v1', huntHypothesesRouter);
 app.route('/api/v1', cloudRefRouter);
 app.route('/api/v1', pqcRouter);
+
+// Detection Wiki — 15,957 rules, ATT&CK matrix, Windows catalog (103k events), Security-Auditing (426), labs
+app.route('/api/v1', detectionWikiRouter);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

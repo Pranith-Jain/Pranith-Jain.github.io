@@ -1,0 +1,10 @@
+{
+  "name": "APT33",
+  "mitre_id": "G0064",
+  "aliases": ["APT33", "Elfin", "Refined Kitten", "Peach Sandstorm"],
+  "aliasCount": 4,
+  "suspected_origin": "Iran",
+  "target_sectors": ["Aviation", "Energy", "Petrochemical"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

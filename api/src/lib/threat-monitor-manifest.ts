@@ -1,0 +1,1 @@
+../../../worker/lib/threat-monitor-manifest.ts

@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.541Z",
+  "source": "https://detection.wiki/windows/",
+  "platform": "Windows",
+  "slug": "windows",
+  "description": "Windows Event Log providers and events",
+  "events": 102294,
+  "rulesWithSamples": 1016,
+  "totalRules": 1449,
+  "sampleEvents": [],
+  "sampleCount": 0,
+  "note": "Platform catalog — events indexed by technique and vendor"
+}

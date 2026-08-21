@@ -1,0 +1,10 @@
+{
+  "name": "APT35",
+  "mitre_id": "G0059",
+  "aliases": ["APT35", "Charming Kitten", "Phosphorus", "Mint Sandstorm", "TA453"],
+  "aliasCount": 5,
+  "suspected_origin": "Iran",
+  "target_sectors": ["Academia", "Government", "Media"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.540Z",
+  "source": "https://detection.wiki/auditd/",
+  "platform": "auditd",
+  "slug": "auditd",
+  "description": "Linux audit record types",
+  "events": 20517,
+  "rulesWithSamples": 120,
+  "totalRules": null,
+  "sampleEvents": [
+    {
+      "id": "SYSCALL",
+      "name": "System call event",
+      "msgtype": 1300,
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "EXECVE",
+      "name": "Execve arguments",
+      "msgtype": 1309,
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "PATH",
+      "name": "Filename path",
+      "msgtype": 1302,
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "USER_LOGIN",
+      "name": "User login attempt",
+      "msgtype": 1112,
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "SERVICE_START",
+      "name": "Service (daemon) start",
+      "msgtype": 1130,
+      "hasSample": true,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 5,
+  "note": "Sample of 5 events from 20,517 total for this platform; full catalog mirrored via detection.wiki"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Conti",
+  "mitre_id": null,
+  "aliases": ["Conti", "TrickBot", "Ryuk"],
+  "aliasCount": 3,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Healthcare", "Government", "Ransomware"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "APT28",
+  "mitre_id": "G0007",
+  "aliases": ["APT28", "Fancy Bear", "Sofacy", "Sednit", "STRONTIUM", "Forest Blizzard", "Pawn Storm"],
+  "aliasCount": 7,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Government", "Military", "Media"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "FIN7",
+  "mitre_id": "G0046",
+  "aliases": ["FIN7", "Carbon Spider", "Sangria Tempest"],
+  "aliasCount": 3,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Retail", "Hospitality", "Financial"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

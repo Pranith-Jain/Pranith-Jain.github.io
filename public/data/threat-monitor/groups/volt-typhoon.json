@@ -1,0 +1,10 @@
+{
+  "name": "Volt Typhoon",
+  "mitre_id": "G1017",
+  "aliases": ["Volt Typhoon", "Vanguard Panda", "BRONZE SILHOUETTE"],
+  "aliasCount": 3,
+  "suspected_origin": "China",
+  "target_sectors": ["Critical Infrastructure", "Communications", "Utilities"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

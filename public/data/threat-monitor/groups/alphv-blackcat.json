@@ -1,0 +1,10 @@
+{
+  "name": "ALPHV/BlackCat",
+  "mitre_id": null,
+  "aliases": ["ALPHV", "BlackCat", "Noberus"],
+  "aliasCount": 3,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Healthcare", "Critical Infrastructure", "Ransomware"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

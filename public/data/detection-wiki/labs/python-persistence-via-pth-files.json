@@ -1,0 +1,12 @@
+{
+  "slug": "python-persistence-via-pth-files",
+  "title": "Python Persistence via .pth Files",
+  "author": "sonny",
+  "date": "2026-03-27",
+  "description": "Abuse of Python .pth files to establish persistence on Windows. The lab demonstrates how code embedded in site-packages path files executes automatically when Python starts.",
+  "techniques": ["T1546", "T1059", "T1071", "T1562.004"],
+  "body": "Abuse of Python .pth files to establish persistence on Windows. The lab demonstrates how code embedded in site-packages path files executes automatically when Python starts.\n\nSee https://detection.wiki/labs/python-persistence-via-pth-files/ for full KQL queries and telemetry walkthrough.",
+  "queries": [],
+  "queryCount": 0,
+  "sizeBytes": 173
+}

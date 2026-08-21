@@ -1,0 +1,10 @@
+{
+  "name": "LockBit",
+  "mitre_id": null,
+  "aliases": ["LockBit", "LockBit 2.0", "LockBit 3.0", "LockBit Supp"],
+  "aliasCount": 4,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Ransomware", "Multiple Sectors"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

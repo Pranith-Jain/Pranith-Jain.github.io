@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.542Z",
+  "source": "https://detection.wiki/gcp/",
+  "platform": "GCP",
+  "slug": "gcp",
+  "description": "Cloud Audit Log operations by service and method",
+  "events": 15343,
+  "rulesWithSamples": 191,
+  "totalRules": 118,
+  "sampleEvents": [
+    {
+      "id": "google.compute.instances.insert",
+      "service": "Compute",
+      "method": "instances.insert",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "google.iam.serviceAccounts.create",
+      "service": "IAM",
+      "method": "serviceAccounts.create",
+      "hasSample": true,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 2,
+  "note": "Sample of 2 events from 15,343 total for this platform; full catalog mirrored via detection.wiki"
+}

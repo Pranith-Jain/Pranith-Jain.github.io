@@ -1,0 +1,10 @@
+{
+  "name": "FIN8",
+  "mitre_id": "G0092",
+  "aliases": ["FIN8", "DarkHydrus"],
+  "aliasCount": 2,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Healthcare", "Hospitality", "Financial"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

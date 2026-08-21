@@ -1,0 +1,12 @@
+{
+  "slug": "windows-screensaver-files-and-rmm-persistence",
+  "title": "Windows Screensaver Files and RMM Persistence",
+  "author": "sonny",
+  "date": "2026-03-30",
+  "description": "This is a simple emulation of a campaign documented by ReliaQuest, 'New Campaign Uses Screensavers for RMM-Based Persistence'. LimeWire.com is used to deliver a self-extracting archive masquerading as a Windows screensaver file that installs ScreenConnect.",
+  "techniques": ["T1204.002", "T1059.003", "T1218.007", "T1036"],
+  "body": "This is a simple emulation of a campaign documented by ReliaQuest, 'New Campaign Uses Screensavers for RMM-Based Persistence'. LimeWire.com is used to deliver a self-extracting archive masquerading as a Windows screensaver file that installs ScreenConnect.\n\nSee https://detection.wiki/labs/windows-screensaver-files-and-rmm-persistence/ for full KQL queries and telemetry walkthrough.",
+  "queries": [],
+  "queryCount": 0,
+  "sizeBytes": 256
+}

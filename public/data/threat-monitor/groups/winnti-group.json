@@ -1,0 +1,10 @@
+{
+  "name": "Winnti Group",
+  "mitre_id": "G0044",
+  "aliases": ["Winnti Group", "Blackfly", "Bronze Atlas"],
+  "aliasCount": 3,
+  "suspected_origin": "China",
+  "target_sectors": ["Gaming", "Pharmaceuticals"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

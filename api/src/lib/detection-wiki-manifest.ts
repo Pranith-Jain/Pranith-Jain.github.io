@@ -1,0 +1,1 @@
+../../../worker/lib/detection-wiki-manifest.ts

@@ -1,0 +1,602 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.509Z",
+  "source": "https://detection.wiki/windows/",
+  "description": "Windows Event Log providers — 103,315 events across 1,518 providers, 10,346 with sample data",
+  "totalProviders": 1518,
+  "totalEvents": 103315,
+  "providersWithSamples": 10346,
+  "providers": [
+    {
+      "name": "Microsoft-Windows-Security-Auditing",
+      "slug": "microsoft-windows-security-auditing",
+      "events": 426,
+      "samples": 222,
+      "rules": 133,
+      "channel": "Security"
+    },
+    {
+      "name": "Microsoft-Windows-Sysmon",
+      "slug": "microsoft-windows-sysmon",
+      "events": 30,
+      "samples": 30,
+      "rules": 29,
+      "channel": "Microsoft-Windows-Sysmon/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-PowerShell",
+      "slug": "microsoft-windows-powershell",
+      "events": 189,
+      "samples": 48,
+      "rules": 2,
+      "channel": "Microsoft-Windows-PowerShell/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Windows Defender",
+      "slug": "microsoft-windows-windows-defender",
+      "events": 94,
+      "samples": 31,
+      "rules": 25,
+      "channel": "Microsoft-Windows-Windows Defender/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-TaskScheduler",
+      "slug": "microsoft-windows-taskscheduler",
+      "events": 148,
+      "samples": 38,
+      "rules": 6,
+      "channel": "Microsoft-Windows-TaskScheduler/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-WMI-Activity",
+      "slug": "microsoft-windows-wmi-activity",
+      "events": 25,
+      "samples": 17,
+      "rules": 4,
+      "channel": "Microsoft-Windows-WMI-Activity/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-TerminalServices-LocalSessionManager",
+      "slug": "microsoft-windows-terminalservices-localsessionmanager",
+      "events": 47,
+      "samples": 16,
+      "rules": 3,
+      "channel": "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-DNS-Server-Service",
+      "slug": "microsoft-windows-dns-server-service",
+      "events": 497,
+      "samples": 35,
+      "rules": 4,
+      "channel": "DNS Server"
+    },
+    {
+      "name": "Microsoft-Windows-ActiveDirectory_DomainService",
+      "slug": "microsoft-windows-activedirectory-domainservice",
+      "events": 41,
+      "samples": 41,
+      "rules": 0,
+      "channel": "Directory Service"
+    },
+    {
+      "name": "Microsoft-Windows-Kernel-Process",
+      "slug": "microsoft-windows-kernel-process",
+      "events": 27,
+      "samples": 13,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Kernel-Process/Analytic"
+    },
+    {
+      "name": "Service Control Manager",
+      "slug": "service-control-manager",
+      "events": 91,
+      "samples": 36,
+      "rules": 7,
+      "channel": "System"
+    },
+    {
+      "name": "Microsoft-Windows-Bits-Client",
+      "slug": "microsoft-windows-bits-client",
+      "events": 114,
+      "samples": 29,
+      "rules": 3,
+      "channel": "Microsoft-Windows-Bits-Client/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Windows Firewall With Advanced Security",
+      "slug": "microsoft-windows-windows-firewall-with-advanced-security",
+      "events": 171,
+      "samples": 65,
+      "rules": 25,
+      "channel": "Microsoft-Windows-Windows Firewall With Advanced Security/Firewall"
+    },
+    {
+      "name": "Microsoft-Windows-AppLocker",
+      "slug": "microsoft-windows-applocker",
+      "events": 49,
+      "samples": 19,
+      "rules": 12,
+      "channel": "Microsoft-Windows-AppLocker/EXE and DLL"
+    },
+    {
+      "name": "Microsoft-Windows-NTLM",
+      "slug": "microsoft-windows-ntlm",
+      "events": 24,
+      "samples": 5,
+      "rules": 3,
+      "channel": "Microsoft-Windows-NTLM/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Security-Kerberos",
+      "slug": "microsoft-windows-security-kerberos",
+      "events": 90,
+      "samples": 14,
+      "rules": 0,
+      "channel": "System"
+    },
+    {
+      "name": "Microsoft-Windows-CertificationAuthority",
+      "slug": "microsoft-windows-certificationauthority",
+      "events": 355,
+      "samples": 38,
+      "rules": 2,
+      "channel": "Microsoft-Windows-CertificationAuthority/Admin"
+    },
+    {
+      "name": "Microsoft-Office-Word2",
+      "slug": "microsoft-office-word2",
+      "events": 976,
+      "samples": 955,
+      "rules": 0,
+      "channel": "Microsoft Office Word"
+    },
+    {
+      "name": "Microsoft-Office-Word",
+      "slug": "microsoft-office-word",
+      "events": 886,
+      "samples": 886,
+      "rules": 0,
+      "channel": "Microsoft Office Word"
+    },
+    {
+      "name": "OfficeAirSpace",
+      "slug": "officeairspace",
+      "events": 470,
+      "samples": 470,
+      "rules": 0,
+      "channel": "OfficeAirSpace"
+    },
+    {
+      "name": "Microsoft-Office-Word3",
+      "slug": "microsoft-office-word3",
+      "events": 450,
+      "samples": 417,
+      "rules": 0,
+      "channel": "Microsoft Office Word"
+    },
+    {
+      "name": "Microsoft-Windows-Shell-Core",
+      "slug": "microsoft-windows-shell-core",
+      "events": 2380,
+      "samples": 355,
+      "rules": 1,
+      "channel": "Microsoft-Windows-Shell-Core/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-XAML",
+      "slug": "microsoft-windows-xaml",
+      "events": 571,
+      "samples": 187,
+      "rules": 0,
+      "channel": "Microsoft-Windows-XAML/Operational"
+    },
+    {
+      "name": "Microsoft-IE",
+      "slug": "microsoft-ie",
+      "events": 1379,
+      "samples": 166,
+      "rules": 0,
+      "channel": "Microsoft-IE/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-TCPIP",
+      "slug": "microsoft-windows-tcpip",
+      "events": 624,
+      "samples": 155,
+      "rules": 0,
+      "channel": "Microsoft-Windows-TCPIP/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-AppXDeployment-Server",
+      "slug": "microsoft-windows-appxdeployment-server",
+      "events": 2020,
+      "samples": 128,
+      "rules": 10,
+      "channel": "Microsoft-Windows-AppXDeployment-Server/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Dwm-Core",
+      "slug": "microsoft-windows-dwm-core",
+      "events": 334,
+      "samples": 120,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Dwm-Core/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Security-SPP",
+      "slug": "microsoft-windows-security-spp",
+      "events": 326,
+      "samples": 117,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Security-SPP/Admin"
+    },
+    {
+      "name": "Microsoft-Windows-Hyper-V-VMMS",
+      "slug": "microsoft-windows-hyper-v-vmms",
+      "events": 7057,
+      "samples": 113,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Hyper-V-VMMS-Admin"
+    },
+    {
+      "name": "Microsoft-Windows-WebIO",
+      "slug": "microsoft-windows-webio",
+      "events": 156,
+      "samples": 110,
+      "rules": 0,
+      "channel": "Microsoft-Windows-WebIO/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-DxgKrnl",
+      "slug": "microsoft-windows-dxgkrnl",
+      "events": 707,
+      "samples": 93,
+      "rules": 0,
+      "channel": "Microsoft-Windows-DxgKrnl/Diagnostic"
+    },
+    {
+      "name": "Microsoft-Office-Events",
+      "slug": "microsoft-office-events",
+      "events": 91,
+      "samples": 91,
+      "rules": 0,
+      "channel": "Microsoft-Office-Events"
+    },
+    {
+      "name": "Microsoft-WindowsPhone-CoreMessaging",
+      "slug": "microsoft-windowsphone-coremessaging",
+      "events": 141,
+      "samples": 86,
+      "rules": 0,
+      "channel": "Microsoft-WindowsPhone-CoreMessaging/Operational"
+    },
+    {
+      "name": "AD FS",
+      "slug": "ad-fs",
+      "events": 562,
+      "samples": 80,
+      "rules": 0,
+      "channel": "AD FS/Admin"
+    },
+    {
+      "name": "Microsoft-Windows-Win32k",
+      "slug": "microsoft-windows-win32k",
+      "events": 358,
+      "samples": 80,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Win32k/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-WinRM",
+      "slug": "microsoft-windows-winrm",
+      "events": 327,
+      "samples": 80,
+      "rules": 0,
+      "channel": "Microsoft-Windows-WinRM/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Application Server-Applications",
+      "slug": "microsoft-windows-application-server-applications",
+      "events": 481,
+      "samples": 78,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Application Server-Applications/Operational"
+    },
+    {
+      "name": "Microsoft-IEFRAME",
+      "slug": "microsoft-ieframe",
+      "events": 873,
+      "samples": 77,
+      "rules": 0,
+      "channel": "Microsoft-IEFRAME/Operational"
+    },
+    {
+      "name": "Microsoft-Quic",
+      "slug": "microsoft-quic",
+      "events": 181,
+      "samples": 69,
+      "rules": 0,
+      "channel": "Microsoft-Quic/Operational"
+    },
+    {
+      "name": "Defender-DeviceEvents",
+      "slug": "defender-deviceevents",
+      "events": 219,
+      "samples": 67,
+      "rules": 26,
+      "channel": "Defender"
+    },
+    {
+      "name": "Microsoft-Windows-MediaFoundation-Performance",
+      "slug": "microsoft-windows-mediafoundation-performance",
+      "events": 532,
+      "samples": 67,
+      "rules": 0,
+      "channel": "Microsoft-Windows-MediaFoundation-Performance/Operational"
+    },
+    {
+      "name": "Microsoft-JScript",
+      "slug": "microsoft-jscript",
+      "events": 258,
+      "samples": 66,
+      "rules": 0,
+      "channel": "Microsoft-JScript/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-DotNETRuntime",
+      "slug": "microsoft-windows-dotnetruntime",
+      "events": 145,
+      "samples": 66,
+      "rules": 0,
+      "channel": "Microsoft-Windows-DotNETRuntime/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-ServerManager-MultiMachine",
+      "slug": "microsoft-windows-servermanager-multimachine",
+      "events": 333,
+      "samples": 66,
+      "rules": 0,
+      "channel": "Microsoft-Windows-ServerManager-MultiMachine/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-GroupPolicy",
+      "slug": "microsoft-windows-grouppolicy",
+      "events": 177,
+      "samples": 65,
+      "rules": 0,
+      "channel": "Microsoft-Windows-GroupPolicy/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-WinINet",
+      "slug": "microsoft-windows-wininet",
+      "events": 330,
+      "samples": 65,
+      "rules": 0,
+      "channel": "Microsoft-Windows-WinINet/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider",
+      "slug": "microsoft-windows-devicemanagement-enterprise-diagnostics-provider",
+      "events": 996,
+      "samples": 64,
+      "rules": 0,
+      "channel": "DeviceManagement-Enterprise-Diagnostics-Provider/Admin"
+    },
+    {
+      "name": "Microsoft-Windows-Kernel-PnP",
+      "slug": "microsoft-windows-kernel-pnp",
+      "events": 196,
+      "samples": 64,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Kernel-PnP/Device Configuration"
+    },
+    {
+      "name": "Microsoft-Windows-PushNotifications-Platform",
+      "slug": "microsoft-windows-pushnotifications-platform",
+      "events": 412,
+      "samples": 64,
+      "rules": 0,
+      "channel": "Microsoft-Windows-PushNotifications-Platform/Operational"
+    },
+    {
+      "name": "MSSQL$SQLEXPRESS",
+      "slug": "mssql-sqlexpress",
+      "events": 63,
+      "samples": 63,
+      "rules": 0,
+      "channel": "MSSQL$SQLEXPRESS"
+    },
+    {
+      "name": "Microsoft-Windows-SMBServer",
+      "slug": "microsoft-windows-smbserver",
+      "events": 207,
+      "samples": 61,
+      "rules": 2,
+      "channel": "Microsoft-Windows-SMBServer/Security"
+    },
+    {
+      "name": "Microsoft.Windows.Defender",
+      "slug": "microsoft-windows-defender",
+      "events": 60,
+      "samples": 60,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Windows Defender/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Kernel-Power",
+      "slug": "microsoft-windows-kernel-power",
+      "events": 353,
+      "samples": 58,
+      "rules": 0,
+      "channel": "System"
+    },
+    {
+      "name": "Microsoft-Windows-Hyper-V-VmSwitch",
+      "slug": "microsoft-windows-hyper-v-vmswitch",
+      "events": 534,
+      "samples": 55,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Hyper-V-VmSwitch-Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Search-Core",
+      "slug": "microsoft-windows-search-core",
+      "events": 365,
+      "samples": 53,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Search-Core/Operational"
+    },
+    {
+      "name": "MSSQL$MICROSOFT##WID",
+      "slug": "mssql-microsoft-wid",
+      "events": 50,
+      "samples": 50,
+      "rules": 0,
+      "channel": "MSSQL$MICROSOFT##WID"
+    },
+    {
+      "name": "Microsoft-Windows-Dhcp-Client",
+      "slug": "microsoft-windows-dhcp-client",
+      "events": 164,
+      "samples": 48,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Dhcp-Client/Admin"
+    },
+    {
+      "name": "Microsoft-Windows-DeviceManagement-Pushrouter",
+      "slug": "microsoft-windows-devicemanagement-pushrouter",
+      "events": 107,
+      "samples": 46,
+      "rules": 0,
+      "channel": "Microsoft-Windows-DeviceManagement-Pushrouter/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-ESE",
+      "slug": "microsoft-windows-ese",
+      "events": 140,
+      "samples": 46,
+      "rules": 0,
+      "channel": "Application"
+    },
+    {
+      "name": "Microsoft-Windows-SMBClient",
+      "slug": "microsoft-windows-smbclient",
+      "events": 181,
+      "samples": 46,
+      "rules": 5,
+      "channel": "Microsoft-Windows-SMBClient/Security"
+    },
+    {
+      "name": "Microsoft-Antimalware-Engine",
+      "slug": "microsoft-antimalware-engine",
+      "events": 110,
+      "samples": 45,
+      "rules": 0,
+      "channel": "Microsoft-Antimalware-Engine"
+    },
+    {
+      "name": "Microsoft-Windows-DirectComposition",
+      "slug": "microsoft-windows-directcomposition",
+      "events": 75,
+      "samples": 43,
+      "rules": 0,
+      "channel": "Microsoft-Windows-DirectComposition/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Time-Service",
+      "slug": "microsoft-windows-time-service",
+      "events": 178,
+      "samples": 43,
+      "rules": 0,
+      "channel": "System"
+    },
+    {
+      "name": "Microsoft-Windows-SENSE",
+      "slug": "microsoft-windows-sense",
+      "events": 214,
+      "samples": 42,
+      "rules": 0,
+      "channel": "Microsoft-Windows-SENSE/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-DHCP-Server",
+      "slug": "microsoft-windows-dhcp-server",
+      "events": 565,
+      "samples": 38,
+      "rules": 4,
+      "channel": "Microsoft-Windows-DHCP-Server/Admin"
+    },
+    {
+      "name": "ESENT",
+      "slug": "esent",
+      "events": 36,
+      "samples": 36,
+      "rules": 4,
+      "channel": "Application"
+    },
+    {
+      "name": "Microsoft-Windows-AppReadiness",
+      "slug": "microsoft-windows-appreadiness",
+      "events": 174,
+      "samples": 35,
+      "rules": 0,
+      "channel": "Microsoft-Windows-AppReadiness/Admin"
+    },
+    {
+      "name": "Microsoft-Windows-DeviceSetupManager",
+      "slug": "microsoft-windows-devicesetupmanager",
+      "events": 102,
+      "samples": 34,
+      "rules": 0,
+      "channel": "Microsoft-Windows-DeviceSetupManager/Admin"
+    },
+    {
+      "name": "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS",
+      "slug": "microsoft-windows-remotedesktopservices-rdpcorets",
+      "events": 89,
+      "samples": 34,
+      "rules": 2,
+      "channel": "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-FailoverClustering",
+      "slug": "microsoft-windows-failoverclustering",
+      "events": 762,
+      "samples": 32,
+      "rules": 0,
+      "channel": "Microsoft-Windows-FailoverClustering/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-Ntfs",
+      "slug": "microsoft-windows-ntfs",
+      "events": 73,
+      "samples": 31,
+      "rules": 1,
+      "channel": "Microsoft-Windows-Ntfs/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-CAPI2",
+      "slug": "microsoft-windows-capi2",
+      "events": 74,
+      "samples": 28,
+      "rules": 2,
+      "channel": "Microsoft-Windows-CAPI2/Operational"
+    },
+    {
+      "name": "Microsoft-Windows-PrintService",
+      "slug": "microsoft-windows-printservice",
+      "events": 219,
+      "samples": 28,
+      "rules": 5,
+      "channel": "Microsoft-Windows-PrintService/Admin"
+    },
+    {
+      "name": "Microsoft-Windows-Threat-Intelligence",
+      "slug": "microsoft-windows-threat-intelligence",
+      "events": 34,
+      "samples": 28,
+      "rules": 0,
+      "channel": "Microsoft-Windows-Threat-Intelligence/Operational"
+    }
+  ]
+}

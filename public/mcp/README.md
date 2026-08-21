@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**307 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**326 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (195)
+### other (214)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -80,6 +80,20 @@
 - `dn_vulners_exploit` - Search specifically for exploits (ExploitDB entries) on Vulners. Returns exploit code references and details. Free.
 - `dn_vulners_id` - Look up a vulnerability by ID (CVE, EDB, GHSA) on Vulners. Returns CVSS, description, affected products, and exploit availability. Free, no key.
 - `dn_vulners_search` - Search the Vulners vulnerability database using Lucene queries. Returns matching CVEs/exploits with CVSS scores. Free.
+- `dw_get_attack` - Return the MITRE ATT&CK coverage index from detection.wiki: tactics with total rules per tactic and technique counts. This mirrors https://detection.wiki/attack/ and https://detection.wiki/rules/.
+- `dw_get_attack_technique` - Return a single ATT&CK technique body as it appears under https://detection.wiki/attack/Txxxx/: technique metadata, rule count, tactic, and cross-references. Use dw_list_techniques or dw_get_attack first to discover IDs.
+- `dw_get_lab` - Return the full body of a single detection.wiki lab: title, description, ATT&CK techniques, KQL queries, and raw markdown body. Use dw_list_labs first to discover slugs.
+- `dw_get_platform` - Return detailed event catalog for a single detection.wiki platform (e.g. macOS ESF, auditd, AWS CloudTrail, Defender XDR, Entra ID): total events, sampled event types, and source URL. Use dw_list_platforms first to discover slugs.
+- `dw_get_security_auditing_event` - Return a single Microsoft-Windows-Security-Auditing event by Event ID: title, channel, sample/rule flags, and ATT&CK tactic. Use dw_list_security_auditing_events first to discover IDs.
+- `dw_get_technique` - Return a single MITRE ATT&CK technique from the detection.wiki mirror: name, tactic, detection rule count, and whether it is a sub-technique. Use dw_list_techniques first to discover IDs.
+- `dw_get_windows_provider` - Return a single Windows Event Log provider by slug: event count, samples, rules, and channel. Use dw_list_windows_providers first to discover slugs.
+- `dw_list_labs` - List hands-on detection labs from detection.wiki: title, author, date, description, and mapped ATT&CK techniques. Filter by keyword. Use dw_get_lab to fetch the full body with KQL queries.
+- `dw_list_platforms` - List the 17 platform telemetry catalogs indexed by detection.wiki: Windows, AWS, Azure, M365, GCP, Kubernetes, Okta, GitHub, and more. Each entry has event count and rule coverage.
+- `dw_list_rules` - List sampled detection rules from detection.wiki (15,957 total): rule ID, title, vendor (Sigma/Elastic/Splunk/Kusto/YARA-L/Panther/Sublime), technique, tactic, platform, and status. Full rule bodies live at detection.wiki per technique; use dw_get_attack_technique for per-technique coverage.
+- `dw_list_security_auditing_events` - List Microsoft-Windows-Security-Auditing events (Security channel, 426 total): event ID, title, and whether it has sample data or a mapped detection rule. Filter by keyword, ATT&CK tactic, sample/rule presence. Use dw_get_security_auditing_event to fetch a single event.
+- `dw_list_techniques` - List MITRE ATT&CK techniques indexed by detection.wiki: technique ID, name, tactic, and number of detection rules. Filter by tactic, keyword, minimum rule count, or subtechnique inclusion. Use dw_get_technique to fetch a single technique.
+- `dw_list_windows_providers` - List Windows Event Log providers from the detection.wiki Windows catalog: provider name, slug, event count, samples with field definitions, and detection-rule coverage. Covers 1,518 providers (74 sampled with counts, 103,315 total events). Filter by keyword or whether they have rules.
+- `dw_stats` - Return cache + manifest stats for the detection.wiki mirror: 15k rules, 218 techniques, 1,518 Windows providers, 426 Security-Auditing events, 17 platforms, 6 labs, and LRU body-cache info.
 - `email_check_registration` - Check which platforms an email address is registered on using site-specific APIs (not just HTTP status codes). Returns rich profile metadata when available. Inspired by kaifcodec/user-scanner (MIT, 2.4k stars). Checks 20+ platforms: GitHub, GitLab, Instagram, TikTok, Etsy, Spotify, Steam, and more.
 - `email_list_registration_platforms` - List all platforms available for email registration checking. Returns platform IDs, names, and categories.
 - `etda_get_actor` - Return the full actor body for a single APT threat actor from the ETDA Threat Group Cards vertical. Includes names (with vendor sources), aliases, country, sponsor, motivation, description, sectors, tools, operations, counter operations, MITRE ATT&CK link, and information references. Use etda_list_actors first to discover slugs.
@@ -131,6 +145,11 @@
 - `stix_query_bundles` - Query the STIX 2.1 intelligence bundle store with PostgREST-style filters. Returns threat intelligence bundles matching your criteria. Use stix_translate first to convert natural language to structured filter parameters. Supports filters: source_type (eq.osint/eq.darknet), threat_actors (cs.{APT29}), malware_names, sectors, countries_target, vulnerabilities, date ranges (stix_published_at=gte.), and more. Supports select, order, limit, offset.
 - `stix_query_iocs` - Query the threat intelligence IOC store with PostgREST-style filters. Returns indicators of compromise with their type, validity period, and source bundle reference. Supports filtering by ioc_type (eq.ipv4, eq.domain, eq.hash_sha256), date ranges, and source. Also supports per-type active IOC queries via ioc_type filter. Use seq_id for incremental sync.
 - `stix_translate` - Translate a natural language threat intelligence question into structured STIX 2.1 query parameters. Given plain English, returns the classified intent, extracted entities, and filter parameters to use with stix_query_bundles. Supports actors, malware, CVEs, sectors, countries, campaigns, time ranges, and strategic queries.
+- `tam_get_group` - Return a single APT group body: aliases, MITRE Group ID, suspected_origin, target_sectors, and upstream flag. Use tam_list_groups first to discover names/slugs.
+- `tam_list_groups` - List APT threat-actor groups from the Global Threat Actor Monitor replication. Upstream 40 groups + expanded to 81 covering Russia/China/NK/Iran eCrime/ransomware/infostealer. Filter by origin country, keyword, or upstream-only. Use tam_get_group to fetch full aliases + sectors.
+- `tam_list_sources` - List OSINT RSS/Atom feed sources polled by the Global Threat Actor Monitor (30 upstream -> 39 expanded): name, URL, category (news/vendor/gov), upstream flag. Filter by category or keyword. Feeds are polled every 10 minutes with concurrent bounded fetch.
+- `tam_list_techniques` - List MITRE ATT&CK techniques curated for the Threat Actor Monitor (29 upstream -> 108 expanded) with Kill Chain mapping and detection keywords. Filter by tactic, kill chain stage, or keyword. Use for killchain_mapper scoring.
+- `tam_stats` - Return cache + manifest stats for the Global Threat Actor Monitor replication: 40->81 groups, 29->108 techniques, 30->39 OSINT feeds, 7 Kill Chain stages, and LRU cache info.
 - `tc_feed` - List ThreatCluster (threatcluster.io) public feed summaries: trending threat clusters, CVE vulnerabilities, exploits with public PoCs, dark-web victims, and the IOC blocklist — with per-feed counts and last build dates.
 - `tc_get_cluster` - Return the full ThreatCluster trending-cluster body: title, publication date, source count, link to the cluster page (summary + timeline + source articles), and full description with key points. Use tc_feed with feed=clusters to discover slugs.
 - `tc_get_cve` - Return a single ThreatCluster CVE item from the vulnerabilities feed (7-day window) or the exploits feed (30-day window, public PoCs). Full description, severity, CISA KEV status (exploits only), and a link to the ThreatCluster CVE page. Use tc_feed with feed=vulnerabilities or feed=exploits first.

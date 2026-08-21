@@ -1,0 +1,10 @@
+{
+  "name": "Wizard Spider",
+  "mitre_id": "G0102",
+  "aliases": ["Wizard Spider", "TrickBot Gang", "UNC1878", "Periwinkle Tempest"],
+  "aliasCount": 4,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Healthcare", "Financial", "Ransomware"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

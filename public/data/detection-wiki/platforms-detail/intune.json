@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.541Z",
+  "source": "https://detection.wiki/intune/",
+  "platform": "Microsoft Intune",
+  "slug": "intune",
+  "description": "Intune device-management audit events",
+  "events": 138,
+  "rulesWithSamples": 36,
+  "totalRules": 12,
+  "sampleEvents": [],
+  "sampleCount": 0,
+  "note": "Platform catalog — events indexed by technique and vendor"
+}

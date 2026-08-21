@@ -1,0 +1,10 @@
+{
+  "name": "DarkSide",
+  "mitre_id": null,
+  "aliases": ["DarkSide"],
+  "aliasCount": 1,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Energy", "Healthcare", "Ransomware"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

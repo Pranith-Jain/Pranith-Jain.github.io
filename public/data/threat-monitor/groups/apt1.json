@@ -1,0 +1,10 @@
+{
+  "name": "APT1",
+  "mitre_id": "G0006",
+  "aliases": ["APT1", "Comment Crew", "Comment Panda", "PLA Unit 61398"],
+  "aliasCount": 4,
+  "suspected_origin": "China",
+  "target_sectors": ["Manufacturing", "Defense"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

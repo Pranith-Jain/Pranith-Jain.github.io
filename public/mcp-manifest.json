@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 307 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 326 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,7 +16,7 @@
       "listChanged": false
     }
   },
-  "toolCount": 307,
+  "toolCount": 326,
   "generatedAt": "2026-08-19T11:49:52+05:30",
   "tools": [
     {
@@ -387,6 +387,76 @@
     {
       "name": "dn_vulners_search",
       "description": "Search the Vulners vulnerability database using Lucene queries. Returns matching CVEs/exploits with CVSS scores. Free.",
+      "category": "other"
+    },
+    {
+      "name": "dw_get_attack",
+      "description": "Return the MITRE ATT&CK coverage index from detection.wiki: tactics with total rules per tactic and technique counts. This mirrors https://detection.wiki/attack/ and https://detection.wiki/rules/.",
+      "category": "other"
+    },
+    {
+      "name": "dw_get_attack_technique",
+      "description": "Return a single ATT&CK technique body as it appears under https://detection.wiki/attack/Txxxx/: technique metadata, rule count, tactic, and cross-references. Use dw_list_techniques or dw_get_attack first to discover IDs.",
+      "category": "other"
+    },
+    {
+      "name": "dw_get_lab",
+      "description": "Return the full body of a single detection.wiki lab: title, description, ATT&CK techniques, KQL queries, and raw markdown body. Use dw_list_labs first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "dw_get_platform",
+      "description": "Return detailed event catalog for a single detection.wiki platform (e.g. macOS ESF, auditd, AWS CloudTrail, Defender XDR, Entra ID): total events, sampled event types, and source URL. Use dw_list_platforms first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "dw_get_security_auditing_event",
+      "description": "Return a single Microsoft-Windows-Security-Auditing event by Event ID: title, channel, sample/rule flags, and ATT&CK tactic. Use dw_list_security_auditing_events first to discover IDs.",
+      "category": "other"
+    },
+    {
+      "name": "dw_get_technique",
+      "description": "Return a single MITRE ATT&CK technique from the detection.wiki mirror: name, tactic, detection rule count, and whether it is a sub-technique. Use dw_list_techniques first to discover IDs.",
+      "category": "other"
+    },
+    {
+      "name": "dw_get_windows_provider",
+      "description": "Return a single Windows Event Log provider by slug: event count, samples, rules, and channel. Use dw_list_windows_providers first to discover slugs.",
+      "category": "other"
+    },
+    {
+      "name": "dw_list_labs",
+      "description": "List hands-on detection labs from detection.wiki: title, author, date, description, and mapped ATT&CK techniques. Filter by keyword. Use dw_get_lab to fetch the full body with KQL queries.",
+      "category": "other"
+    },
+    {
+      "name": "dw_list_platforms",
+      "description": "List the 17 platform telemetry catalogs indexed by detection.wiki: Windows, AWS, Azure, M365, GCP, Kubernetes, Okta, GitHub, and more. Each entry has event count and rule coverage.",
+      "category": "other"
+    },
+    {
+      "name": "dw_list_rules",
+      "description": "List sampled detection rules from detection.wiki (15,957 total): rule ID, title, vendor (Sigma/Elastic/Splunk/Kusto/YARA-L/Panther/Sublime), technique, tactic, platform, and status. Full rule bodies live at detection.wiki per technique; use dw_get_attack_technique for per-technique coverage.",
+      "category": "other"
+    },
+    {
+      "name": "dw_list_security_auditing_events",
+      "description": "List Microsoft-Windows-Security-Auditing events (Security channel, 426 total): event ID, title, and whether it has sample data or a mapped detection rule. Filter by keyword, ATT&CK tactic, sample/rule presence. Use dw_get_security_auditing_event to fetch a single event.",
+      "category": "other"
+    },
+    {
+      "name": "dw_list_techniques",
+      "description": "List MITRE ATT&CK techniques indexed by detection.wiki: technique ID, name, tactic, and number of detection rules. Filter by tactic, keyword, minimum rule count, or subtechnique inclusion. Use dw_get_technique to fetch a single technique.",
+      "category": "other"
+    },
+    {
+      "name": "dw_list_windows_providers",
+      "description": "List Windows Event Log providers from the detection.wiki Windows catalog: provider name, slug, event count, samples with field definitions, and detection-rule coverage. Covers 1,518 providers (74 sampled with counts, 103,315 total events). Filter by keyword or whether they have rules.",
+      "category": "other"
+    },
+    {
+      "name": "dw_stats",
+      "description": "Return cache + manifest stats for the detection.wiki mirror: 15k rules, 218 techniques, 1,518 Windows providers, 426 Security-Auditing events, 17 platforms, 6 labs, and LRU body-cache info.",
       "category": "other"
     },
     {
@@ -1112,6 +1182,31 @@
     {
       "name": "stix_translate",
       "description": "Translate a natural language threat intelligence question into structured STIX 2.1 query parameters. Given plain English, returns the classified intent, extracted entities, and filter parameters to use with stix_query_bundles. Supports actors, malware, CVEs, sectors, countries, campaigns, time ranges, and strategic queries.",
+      "category": "other"
+    },
+    {
+      "name": "tam_get_group",
+      "description": "Return a single APT group body: aliases, MITRE Group ID, suspected_origin, target_sectors, and upstream flag. Use tam_list_groups first to discover names/slugs.",
+      "category": "other"
+    },
+    {
+      "name": "tam_list_groups",
+      "description": "List APT threat-actor groups from the Global Threat Actor Monitor replication. Upstream 40 groups + expanded to 81 covering Russia/China/NK/Iran eCrime/ransomware/infostealer. Filter by origin country, keyword, or upstream-only. Use tam_get_group to fetch full aliases + sectors.",
+      "category": "other"
+    },
+    {
+      "name": "tam_list_sources",
+      "description": "List OSINT RSS/Atom feed sources polled by the Global Threat Actor Monitor (30 upstream -> 39 expanded): name, URL, category (news/vendor/gov), upstream flag. Filter by category or keyword. Feeds are polled every 10 minutes with concurrent bounded fetch.",
+      "category": "other"
+    },
+    {
+      "name": "tam_list_techniques",
+      "description": "List MITRE ATT&CK techniques curated for the Threat Actor Monitor (29 upstream -> 108 expanded) with Kill Chain mapping and detection keywords. Filter by tactic, kill chain stage, or keyword. Use for killchain_mapper scoring.",
+      "category": "other"
+    },
+    {
+      "name": "tam_stats",
+      "description": "Return cache + manifest stats for the Global Threat Actor Monitor replication: 40->81 groups, 29->108 techniques, 30->39 OSINT feeds, 7 Kill Chain stages, and LRU cache info.",
       "category": "other"
     },
     {

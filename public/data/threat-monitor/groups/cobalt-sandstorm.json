@@ -1,0 +1,10 @@
+{
+  "name": "Cobalt Sandstorm",
+  "mitre_id": "G1027",
+  "aliases": ["Cobalt Sandstorm", "Cobalt Gypsy"],
+  "aliasCount": 2,
+  "suspected_origin": "Iran",
+  "target_sectors": ["Telecom", "Defense"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

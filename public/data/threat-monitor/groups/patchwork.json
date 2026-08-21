@@ -1,0 +1,10 @@
+{
+  "name": "Patchwork",
+  "mitre_id": "G0040",
+  "aliases": ["Patchwork", "Dropping Elephant", "APT-C-09"],
+  "aliasCount": 3,
+  "suspected_origin": "India (alleged)",
+  "target_sectors": ["Government", "Think Tanks - South Asia"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.542Z",
+  "source": "https://detection.wiki/sublime/",
+  "platform": "Sublime",
+  "slug": "sublime",
+  "description": "Email detection events",
+  "events": 280,
+  "rulesWithSamples": 28,
+  "totalRules": null,
+  "sampleEvents": [
+    {
+      "id": "credential-phishing",
+      "category": "Credential Phishing",
+      "hasSample": false,
+      "hasRule": true
+    },
+    {
+      "id": "malware-ransomware",
+      "category": "Malware/Ransomware",
+      "hasSample": false,
+      "hasRule": true
+    },
+    {
+      "id": "bec-fraud",
+      "category": "BEC/Fraud",
+      "hasSample": false,
+      "hasRule": true
+    }
+  ],
+  "sampleCount": 3,
+  "note": "Sample of 3 events from 280 total for this platform; full catalog mirrored via detection.wiki"
+}

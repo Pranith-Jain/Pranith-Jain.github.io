@@ -1,0 +1,10 @@
+{
+  "name": "RedLine Operator",
+  "mitre_id": null,
+  "aliases": ["RedLine", "RedLine Stealer"],
+  "aliasCount": 2,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Infostealer", "Credential Theft"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

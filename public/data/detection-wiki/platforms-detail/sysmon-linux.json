@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.540Z",
+  "source": "https://detection.wiki/sysmon-for-linux/",
+  "platform": "Sysmon for Linux",
+  "slug": "sysmon-linux",
+  "description": "Sysmon events for Linux endpoints",
+  "events": 1410,
+  "rulesWithSamples": 3,
+  "totalRules": null,
+  "sampleEvents": [
+    {
+      "id": 1,
+      "name": "ProcessCreate",
+      "description": "Process creation",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": 3,
+      "name": "NetworkConnect",
+      "description": "Network connection detected",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": 5,
+      "name": "ProcessTerminate",
+      "description": "Process terminated",
+      "hasSample": false,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 3,
+  "note": "Sample of 3 events from 1,410 total for this platform; full catalog mirrored via detection.wiki"
+}

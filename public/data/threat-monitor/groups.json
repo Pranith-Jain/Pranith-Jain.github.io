@@ -1,0 +1,740 @@
+{
+  "generatedAt": "2026-08-21T04:10:41.761Z",
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor",
+  "description": "APT group registry — upstream 40 groups (148 aliases) + expanded to 65 covering eCrime/ransomware/infostealer operators",
+  "totalGroups": 81,
+  "upstreamGroups": 40,
+  "expandedGroups": 41,
+  "aliasCount": 241,
+  "groups": [
+    {
+      "name": "APT28",
+      "mitre_id": "G0007",
+      "aliases": ["APT28", "Fancy Bear", "Sofacy", "Sednit", "STRONTIUM", "Forest Blizzard", "Pawn Storm"],
+      "aliasCount": 7,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Government", "Military", "Media"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT29",
+      "mitre_id": "G0016",
+      "aliases": ["APT29", "Cozy Bear", "The Dukes", "Midnight Blizzard", "NOBELIUM", "Yttrium"],
+      "aliasCount": 6,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Government", "Think Tanks", "Healthcare"],
+      "isUpstream": true
+    },
+    {
+      "name": "Sandworm",
+      "mitre_id": "G0034",
+      "aliases": ["Sandworm", "Sandworm Team", "Voodoo Bear", "Seashell Blizzard", "Iron Viking"],
+      "aliasCount": 5,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Energy", "Government", "Critical Infrastructure"],
+      "isUpstream": true
+    },
+    {
+      "name": "Turla",
+      "mitre_id": "G0010",
+      "aliases": ["Turla", "Snake", "Uroburos", "Venomous Bear", "Waterbug"],
+      "aliasCount": 5,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Government", "Diplomatic", "Defense"],
+      "isUpstream": true
+    },
+    {
+      "name": "Gamaredon",
+      "mitre_id": "G0047",
+      "aliases": ["Gamaredon", "Primitive Bear", "Armageddon", "Shuckworm"],
+      "aliasCount": 4,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Government", "Ukraine-focused"],
+      "isUpstream": true
+    },
+    {
+      "name": "Wizard Spider",
+      "mitre_id": "G0102",
+      "aliases": ["Wizard Spider", "TrickBot Gang", "UNC1878", "Periwinkle Tempest"],
+      "aliasCount": 4,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Healthcare", "Financial", "Ransomware"],
+      "isUpstream": true
+    },
+    {
+      "name": "FIN7",
+      "mitre_id": "G0046",
+      "aliases": ["FIN7", "Carbon Spider", "Sangria Tempest"],
+      "aliasCount": 3,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Retail", "Hospitality", "Financial"],
+      "isUpstream": true
+    },
+    {
+      "name": "Armageddon",
+      "mitre_id": "G0017",
+      "aliases": ["Armageddon", "Gamaredon", "Bugdropper", "Iron Tilden"],
+      "aliasCount": 4,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Government", "Ukraine-focused"],
+      "isUpstream": false
+    },
+    {
+      "name": "Turla Snake",
+      "mitre_id": null,
+      "aliases": ["Turla Snake", "Uroburos"],
+      "aliasCount": 2,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Intelligence", "Government"],
+      "isUpstream": false
+    },
+    {
+      "name": "BelBear",
+      "mitre_id": null,
+      "aliases": ["BelBear", "Ghostwriter"],
+      "aliasCount": 2,
+      "suspected_origin": "Belarus",
+      "target_sectors": ["Government", "Media", "Defense"],
+      "isUpstream": false
+    },
+    {
+      "name": "APT41",
+      "mitre_id": "G0096",
+      "aliases": ["APT41", "Double Dragon", "Winnti", "Wicked Panda", "BARIUM"],
+      "aliasCount": 5,
+      "suspected_origin": "China",
+      "target_sectors": ["Gaming", "Healthcare", "Telecom", "Supply Chain"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT1",
+      "mitre_id": "G0006",
+      "aliases": ["APT1", "Comment Crew", "Comment Panda", "PLA Unit 61398"],
+      "aliasCount": 4,
+      "suspected_origin": "China",
+      "target_sectors": ["Manufacturing", "Defense"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT10",
+      "mitre_id": "G0045",
+      "aliases": ["APT10", "Stone Panda", "MenuPass", "Red Apollo", "Cicada"],
+      "aliasCount": 5,
+      "suspected_origin": "China",
+      "target_sectors": ["MSPs", "Cloud Providers", "Government"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT40",
+      "mitre_id": "G0065",
+      "aliases": ["APT40", "Leviathan", "TEMP.Periscope", "Kryptonite Panda", "Gingham Typhoon"],
+      "aliasCount": 5,
+      "suspected_origin": "China",
+      "target_sectors": ["Maritime", "Defense", "Research"],
+      "isUpstream": true
+    },
+    {
+      "name": "Volt Typhoon",
+      "mitre_id": "G1017",
+      "aliases": ["Volt Typhoon", "Vanguard Panda", "BRONZE SILHOUETTE"],
+      "aliasCount": 3,
+      "suspected_origin": "China",
+      "target_sectors": ["Critical Infrastructure", "Communications", "Utilities"],
+      "isUpstream": true
+    },
+    {
+      "name": "Mustang Panda",
+      "mitre_id": "G0129",
+      "aliases": ["Mustang Panda", "TA416", "Bronze President", "Red Lich"],
+      "aliasCount": 4,
+      "suspected_origin": "China",
+      "target_sectors": ["NGOs", "Government", "Southeast Asia"],
+      "isUpstream": true
+    },
+    {
+      "name": "Winnti Group",
+      "mitre_id": "G0044",
+      "aliases": ["Winnti Group", "Blackfly", "Bronze Atlas"],
+      "aliasCount": 3,
+      "suspected_origin": "China",
+      "target_sectors": ["Gaming", "Pharmaceuticals"],
+      "isUpstream": true
+    },
+    {
+      "name": "Lotus Blossom",
+      "mitre_id": "G0030",
+      "aliases": ["Lotus Blossom", "Spring Dragon", "Billbug"],
+      "aliasCount": 3,
+      "suspected_origin": "China",
+      "target_sectors": ["Government - Southeast Asia"],
+      "isUpstream": true
+    },
+    {
+      "name": "Earth Lusca",
+      "mitre_id": null,
+      "aliases": ["Earth Lusca", "TAG-22"],
+      "aliasCount": 2,
+      "suspected_origin": "China",
+      "target_sectors": ["Government", "Gambling", "Media"],
+      "isUpstream": true
+    },
+    {
+      "name": "BlackTech",
+      "mitre_id": "G0098",
+      "aliases": ["BlackTech", "Palmerworm", "Circuit Panda"],
+      "aliasCount": 3,
+      "suspected_origin": "China",
+      "target_sectors": ["Telecom", "Government - East Asia"],
+      "isUpstream": true
+    },
+    {
+      "name": "Hafnium",
+      "mitre_id": "G0106",
+      "aliases": ["Hafnium", "Widow Cricket", "Lead Goanna"],
+      "aliasCount": 3,
+      "suspected_origin": "China",
+      "target_sectors": ["Healthcare", "Universities", "Research"],
+      "isUpstream": false
+    },
+    {
+      "name": "Flax Typhoon",
+      "mitre_id": "G1024",
+      "aliases": ["Flax Typhoon", "DHAMPIR"],
+      "aliasCount": 2,
+      "suspected_origin": "China",
+      "target_sectors": ["IoT", "Critical Infrastructure", "Taiwan"],
+      "isUpstream": false
+    },
+    {
+      "name": "Salt Typhoon",
+      "mitre_id": "G1038",
+      "aliases": ["Salt Typhoon", "Camaro Dragon"],
+      "aliasCount": 2,
+      "suspected_origin": "China",
+      "target_sectors": ["Telecom", "Government"],
+      "isUpstream": false
+    },
+    {
+      "name": "Charcoal Typhoon",
+      "mitre_id": "G1040",
+      "aliases": ["Charcoal Typhoon", "CHROMIUM"],
+      "aliasCount": 2,
+      "suspected_origin": "China",
+      "target_sectors": ["Government", "NGOs", "Education"],
+      "isUpstream": false
+    },
+    {
+      "name": "Brass Typhoon",
+      "mitre_id": "G0035",
+      "aliases": ["Brass Typhoon", "APT14"],
+      "aliasCount": 2,
+      "suspected_origin": "China",
+      "target_sectors": ["Telecom", "Defense"],
+      "isUpstream": false
+    },
+    {
+      "name": "Naikon",
+      "mitre_id": "G0019",
+      "aliases": ["Naikon", "Nexus Zt"],
+      "aliasCount": 2,
+      "suspected_origin": "China",
+      "target_sectors": ["Government", "Military - APAC"],
+      "isUpstream": false
+    },
+    {
+      "name": "Lazarus Group",
+      "mitre_id": "G0032",
+      "aliases": ["Lazarus Group", "Hidden Cobra", "Guardians of Peace", "APT38", "Zinc", "Diamond Sleet"],
+      "aliasCount": 6,
+      "suspected_origin": "North Korea",
+      "target_sectors": ["Financial", "Cryptocurrency", "Defense"],
+      "isUpstream": true
+    },
+    {
+      "name": "Kimsuky",
+      "mitre_id": "G0094",
+      "aliases": ["Kimsuky", "Velvet Chollima", "Black Banshee", "Emerald Sleet", "Thallium"],
+      "aliasCount": 5,
+      "suspected_origin": "North Korea",
+      "target_sectors": ["Think Tanks", "Government", "Nuclear Policy"],
+      "isUpstream": true
+    },
+    {
+      "name": "Andariel",
+      "mitre_id": "G0138",
+      "aliases": ["Andariel", "Silent Chollima", "Onyx Sleet", "Stonefly"],
+      "aliasCount": 4,
+      "suspected_origin": "North Korea",
+      "target_sectors": ["Defense", "Healthcare", "Financial"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT38",
+      "mitre_id": "G0082",
+      "aliases": ["APT38", "Bluenoroff", "Stardust Chollima"],
+      "aliasCount": 3,
+      "suspected_origin": "North Korea",
+      "target_sectors": ["Financial", "Cryptocurrency", "Banks"],
+      "isUpstream": false
+    },
+    {
+      "name": "Labyrinth Chollima",
+      "mitre_id": "G0156",
+      "aliases": ["Labyrinth Chollima", "Stardust"],
+      "aliasCount": 2,
+      "suspected_origin": "North Korea",
+      "target_sectors": ["Defense", "Government"],
+      "isUpstream": false
+    },
+    {
+      "name": "APT33",
+      "mitre_id": "G0064",
+      "aliases": ["APT33", "Elfin", "Refined Kitten", "Peach Sandstorm"],
+      "aliasCount": 4,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Aviation", "Energy", "Petrochemical"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT34",
+      "mitre_id": "G0049",
+      "aliases": ["APT34", "OilRig", "Helix Kitten", "Crambus", "Cobalt Gypsy"],
+      "aliasCount": 5,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Government", "Financial", "Energy"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT35",
+      "mitre_id": "G0059",
+      "aliases": ["APT35", "Charming Kitten", "Phosphorus", "Mint Sandstorm", "TA453"],
+      "aliasCount": 5,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Academia", "Government", "Media"],
+      "isUpstream": true
+    },
+    {
+      "name": "MuddyWater",
+      "mitre_id": "G0069",
+      "aliases": ["MuddyWater", "Mango Sandstorm", "Static Kitten", "Seedworm"],
+      "aliasCount": 4,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Telecom", "Government", "Oil and Gas"],
+      "isUpstream": true
+    },
+    {
+      "name": "Agrius",
+      "mitre_id": "G1030",
+      "aliases": ["Agrius", "Pink Sandstorm", "BlackShadow"],
+      "aliasCount": 3,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Israel-focused", "Diamond Industry"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT39",
+      "mitre_id": "G0087",
+      "aliases": ["APT39", "Chafer", "Remix Kitten"],
+      "aliasCount": 3,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Telecom", "Travel"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT42",
+      "mitre_id": "G1044",
+      "aliases": ["APT42", "Charming Kitten subgroup", "Damselfly"],
+      "aliasCount": 3,
+      "suspected_origin": "Iran",
+      "target_sectors": ["NGOs", "Journalists", "Activists"],
+      "isUpstream": true
+    },
+    {
+      "name": "Cobalt Sandstorm",
+      "mitre_id": "G1027",
+      "aliases": ["Cobalt Sandstorm", "Cobalt Gypsy"],
+      "aliasCount": 2,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Telecom", "Defense"],
+      "isUpstream": false
+    },
+    {
+      "name": "DarkSeoul",
+      "mitre_id": null,
+      "aliases": ["DarkSeoul", "Jestefuna"],
+      "aliasCount": 2,
+      "suspected_origin": "North Korea",
+      "target_sectors": ["Banking", "Media - South Korea"],
+      "isUpstream": false
+    },
+    {
+      "name": "Equation Group",
+      "mitre_id": "G0020",
+      "aliases": ["Equation Group", "Equation"],
+      "aliasCount": 2,
+      "suspected_origin": "USA (alleged)",
+      "target_sectors": ["Telecom", "Government"],
+      "isUpstream": true
+    },
+    {
+      "name": "APT-C-36",
+      "mitre_id": null,
+      "aliases": ["APT-C-36", "Blind Eagle"],
+      "aliasCount": 2,
+      "suspected_origin": "South America",
+      "target_sectors": ["Colombia", "Government", "Financial"],
+      "isUpstream": true
+    },
+    {
+      "name": "Machete",
+      "mitre_id": "G0095",
+      "aliases": ["Machete", "APT-C-43"],
+      "aliasCount": 2,
+      "suspected_origin": "South America",
+      "target_sectors": ["Military", "Government - LATAM"],
+      "isUpstream": true
+    },
+    {
+      "name": "DarkHotel",
+      "mitre_id": "G0012",
+      "aliases": ["DarkHotel", "APT-C-06", "Tapaoux"],
+      "aliasCount": 3,
+      "suspected_origin": "South Korea (alleged)",
+      "target_sectors": ["Hospitality", "Executives"],
+      "isUpstream": true
+    },
+    {
+      "name": "FIN12",
+      "mitre_id": "G1004",
+      "aliases": ["FIN12"],
+      "aliasCount": 1,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Healthcare"],
+      "isUpstream": true
+    },
+    {
+      "name": "Scattered Spider",
+      "mitre_id": "G1015",
+      "aliases": ["Scattered Spider", "UNC3944", "Octo Tempest", "Muddled Libra"],
+      "aliasCount": 4,
+      "suspected_origin": "Unknown (English-speaking)",
+      "target_sectors": ["Telecom", "BPO", "Gaming", "Retail"],
+      "isUpstream": true
+    },
+    {
+      "name": "Clop",
+      "mitre_id": null,
+      "aliases": ["Clop", "Cl0p", "TA505"],
+      "aliasCount": 3,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Supply Chain", "Ransomware", "Government"],
+      "isUpstream": false
+    },
+    {
+      "name": "ALPHV/BlackCat",
+      "mitre_id": null,
+      "aliases": ["ALPHV", "BlackCat", "Noberus"],
+      "aliasCount": 3,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Healthcare", "Critical Infrastructure", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "LockBit",
+      "mitre_id": null,
+      "aliases": ["LockBit", "LockBit 2.0", "LockBit 3.0", "LockBit Supp"],
+      "aliasCount": 4,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Ransomware", "Multiple Sectors"],
+      "isUpstream": false
+    },
+    {
+      "name": "Conti",
+      "mitre_id": null,
+      "aliases": ["Conti", "TrickBot", "Ryuk"],
+      "aliasCount": 3,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Healthcare", "Government", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "Transparent Tribe",
+      "mitre_id": "G0134",
+      "aliases": ["Transparent Tribe", "APT36", "Mythic Leopard"],
+      "aliasCount": 3,
+      "suspected_origin": "Pakistan",
+      "target_sectors": ["Government", "Military - India focus"],
+      "isUpstream": true
+    },
+    {
+      "name": "SideWinder",
+      "mitre_id": "G0121",
+      "aliases": ["SideWinder", "Rattlesnake", "T-APT-04"],
+      "aliasCount": 3,
+      "suspected_origin": "India (alleged)",
+      "target_sectors": ["Government", "Military - South Asia"],
+      "isUpstream": true
+    },
+    {
+      "name": "Patchwork",
+      "mitre_id": "G0040",
+      "aliases": ["Patchwork", "Dropping Elephant", "APT-C-09"],
+      "aliasCount": 3,
+      "suspected_origin": "India (alleged)",
+      "target_sectors": ["Government", "Think Tanks - South Asia"],
+      "isUpstream": true
+    },
+    {
+      "name": "Bitter",
+      "mitre_id": "G1002",
+      "aliases": ["Bitter", "APT-C-08", "T-APT-17"],
+      "aliasCount": 3,
+      "suspected_origin": "South Asia",
+      "target_sectors": ["Government", "Energy - South Asia"],
+      "isUpstream": true
+    },
+    {
+      "name": "Molerats",
+      "mitre_id": "G0021",
+      "aliases": ["Molerats", "Gaza Cybergang", "TA402"],
+      "aliasCount": 3,
+      "suspected_origin": "Middle East",
+      "target_sectors": ["Government - Middle East"],
+      "isUpstream": true
+    },
+    {
+      "name": "OceanLotus",
+      "mitre_id": "G0050",
+      "aliases": ["OceanLotus", "APT32", "SeaLotus", "Canvas Cyclone"],
+      "aliasCount": 4,
+      "suspected_origin": "Vietnam",
+      "target_sectors": ["Manufacturing", "Media", "ASEAN Government"],
+      "isUpstream": true
+    },
+    {
+      "name": "OilRig",
+      "mitre_id": "G0049",
+      "aliases": ["OilRig", "APT34", "Helix Kitten"],
+      "aliasCount": 3,
+      "suspected_origin": "Iran",
+      "target_sectors": ["Energy", "Government"],
+      "isUpstream": false
+    },
+    {
+      "name": "RedCurl",
+      "mitre_id": null,
+      "aliases": ["RedCurl", "Earth Kapre"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Corporate Espionage"],
+      "isUpstream": true
+    },
+    {
+      "name": "FIN8",
+      "mitre_id": "G0092",
+      "aliases": ["FIN8", "DarkHydrus"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Healthcare", "Hospitality", "Financial"],
+      "isUpstream": false
+    },
+    {
+      "name": "Cobalt Group",
+      "mitre_id": "G0080",
+      "aliases": ["Cobalt Group", "Carbanak", "Anunak"],
+      "aliasCount": 3,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Financial", "ATM", "POS"],
+      "isUpstream": false
+    },
+    {
+      "name": "DarkSide",
+      "mitre_id": null,
+      "aliases": ["DarkSide"],
+      "aliasCount": 1,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Energy", "Healthcare", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "Hive",
+      "mitre_id": null,
+      "aliases": ["Hive"],
+      "aliasCount": 1,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Healthcare", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "BlackBasta",
+      "mitre_id": null,
+      "aliases": ["BlackBasta", "Black Basta"],
+      "aliasCount": 2,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Healthcare", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "ScatteredLaPossa",
+      "mitre_id": null,
+      "aliases": ["ScatteredLaPossa", "Scattered G00LA"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Ransomware", "Telecom"],
+      "isUpstream": false
+    },
+    {
+      "name": "Vice Society",
+      "mitre_id": null,
+      "aliases": ["Vice Society"],
+      "aliasCount": 1,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Education", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "DarkAngels",
+      "mitre_id": null,
+      "aliases": ["DarkAngels", "Dark Angels"],
+      "aliasCount": 2,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Healthcare", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "RansomHub",
+      "mitre_id": null,
+      "aliases": ["RansomHub", "Greenbender"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Ransomware", "Multiple Sectors"],
+      "isUpstream": false
+    },
+    {
+      "name": "Play",
+      "mitre_id": null,
+      "aliases": ["Play", "PlayCrypt"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Ransomware", "Multiple Sectors"],
+      "isUpstream": false
+    },
+    {
+      "name": "Royal",
+      "mitre_id": null,
+      "aliases": ["Royal", "BlackSuit"],
+      "aliasCount": 2,
+      "suspected_origin": "Russia",
+      "target_sectors": ["Ransomware", "Healthcare"],
+      "isUpstream": false
+    },
+    {
+      "name": "Rhysida",
+      "mitre_id": null,
+      "aliases": ["Rhysida"],
+      "aliasCount": 1,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Healthcare", "Education", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "Medusa",
+      "mitre_id": null,
+      "aliases": ["Medusa", "MedusaLocker"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Healthcare", "Ransomware"],
+      "isUpstream": false
+    },
+    {
+      "name": "Akira",
+      "mitre_id": null,
+      "aliases": ["Akira", "Akira Team"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Ransomware", "Multiple Sectors"],
+      "isUpstream": false
+    },
+    {
+      "name": "8Base",
+      "mitre_id": null,
+      "aliases": ["8Base", "Phango"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Ransomware", "Multiple Sectors"],
+      "isUpstream": false
+    },
+    {
+      "name": "Embargo",
+      "mitre_id": null,
+      "aliases": ["Embargo"],
+      "aliasCount": 1,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Ransomware", "Healthcare"],
+      "isUpstream": false
+    },
+    {
+      "name": "SafePay",
+      "mitre_id": null,
+      "aliases": ["SafePay", "Safepay Ransomware"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Ransomware", "Multiple Sectors"],
+      "isUpstream": false
+    },
+    {
+      "name": "Iron Tiger",
+      "mitre_id": null,
+      "aliases": ["Iron Tiger", "Emissary Panda", "APT17", "Deputy Dog"],
+      "aliasCount": 4,
+      "suspected_origin": "China",
+      "target_sectors": ["Defense", "Technology", "Telecom"],
+      "isUpstream": false
+    },
+    {
+      "name": "APT23",
+      "mitre_id": "G0008",
+      "aliases": ["APT23", "Defray", "Deep Panda"],
+      "aliasCount": 3,
+      "suspected_origin": "China",
+      "target_sectors": ["Healthcare", "Government", "Defense"],
+      "isUpstream": false
+    },
+    {
+      "name": "Lumma Operator",
+      "mitre_id": null,
+      "aliases": ["Lumma", "LummaC2", "Lumma Stealer"],
+      "aliasCount": 3,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Infostealer", "Credential Theft"],
+      "isUpstream": false
+    },
+    {
+      "name": "Raccoon Operator",
+      "mitre_id": null,
+      "aliases": ["Raccoon", "Raccoon Stealer", "Raccoon2"],
+      "aliasCount": 3,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Infostealer", "Credential Theft"],
+      "isUpstream": false
+    },
+    {
+      "name": "RedLine Operator",
+      "mitre_id": null,
+      "aliases": ["RedLine", "RedLine Stealer"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Infostealer", "Credential Theft"],
+      "isUpstream": false
+    },
+    {
+      "name": "Vidar Operator",
+      "mitre_id": null,
+      "aliases": ["Vidar", "Vidar Stealer"],
+      "aliasCount": 2,
+      "suspected_origin": "Unknown",
+      "target_sectors": ["Infostealer", "Credential Theft"],
+      "isUpstream": false
+    }
+  ]
+}

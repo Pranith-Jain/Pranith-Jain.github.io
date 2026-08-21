@@ -1,0 +1,10 @@
+{
+  "name": "Brass Typhoon",
+  "mitre_id": "G0035",
+  "aliases": ["Brass Typhoon", "APT14"],
+  "aliasCount": 2,
+  "suspected_origin": "China",
+  "target_sectors": ["Telecom", "Defense"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.510Z",
+  "source": "https://detection.wiki/macos/",
+  "platform": "macOS",
+  "slug": "macos",
+  "description": "Endpoint Security events by domain",
+  "events": 14857,
+  "rulesWithSamples": 13,
+  "totalRules": null,
+  "sampleEvents": [
+    {
+      "id": "es_file_create",
+      "name": "ES File Create",
+      "section": "File System",
+      "hasSample": true,
+      "hasRule": true,
+      "type": "NOTIFY"
+    },
+    {
+      "id": "es_process_exec",
+      "name": "Process Exec",
+      "section": "Process",
+      "hasSample": true,
+      "hasRule": true,
+      "type": "NOTIFY"
+    },
+    {
+      "id": "es_tcc_change",
+      "name": "TCC Privacy Change",
+      "section": "TCC",
+      "hasSample": false,
+      "hasRule": true,
+      "type": "NOTIFY"
+    },
+    {
+      "id": "es_btm_launch_item",
+      "name": "BTM Launch Item Add",
+      "section": "Background Task Management",
+      "hasSample": false,
+      "hasRule": false,
+      "type": "NOTIFY"
+    },
+    {
+      "id": "es_sudo",
+      "name": "Sudo Execution",
+      "section": "Authentication",
+      "hasSample": true,
+      "hasRule": true,
+      "type": "NOTIFY"
+    }
+  ],
+  "sampleCount": 5,
+  "note": "Sample of 5 events from 14,857 total for this platform; full catalog mirrored via detection.wiki"
+}

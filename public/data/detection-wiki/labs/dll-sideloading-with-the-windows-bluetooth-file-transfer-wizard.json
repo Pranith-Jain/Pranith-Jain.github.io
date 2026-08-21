@@ -1,0 +1,14 @@
+{
+  "slug": "dll-sideloading-with-the-windows-bluetooth-file-transfer-wizard",
+  "title": "DLL Sideloading with the Windows Bluetooth File Transfer Wizard",
+  "author": "sonny",
+  "date": "2026-03-18",
+  "description": "KQL analysis lab of malicious DLL sideloading via the Windows Bluetooth File Transfer Wizard. Demonstrates loading from a user dir and how to detect the behavior using MDE telemetry.",
+  "techniques": ["T1218", "T1574.002"],
+  "body": "KQL analysis lab of malicious DLL sideloading via the Windows Bluetooth File Transfer Wizard. Demonstrates loading from a user dir and how to detect the behavior using MDE telemetry.\n\nSee https://detection.wiki/labs/dll-sideloading-with-the-windows-bluetooth-file-transfer-wizard/ for full KQL queries and telemetry walkthrough.",
+  "queries": [
+    "DeviceImageLoadEvents | where InitiatingProcessFileName == \"fsquirt.exe\" and FolderPath startswith \"C:\\\\Users\""
+  ],
+  "queryCount": 1,
+  "sizeBytes": 182
+}

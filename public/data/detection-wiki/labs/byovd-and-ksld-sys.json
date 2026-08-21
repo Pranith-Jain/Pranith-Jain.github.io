@@ -1,0 +1,15 @@
+{
+  "slug": "byovd-and-ksld-sys",
+  "title": "BYOVD and KslD.sys",
+  "author": "sonny",
+  "date": "2026-03-24",
+  "description": "Hands-on lab demonstrating a BYOVD technique using Microsoft's KslD.sys driver to extract domain credentials from LSASS. Explore detection gaps in Windows telemetry, learn how to implement controls using WDAC, and see how attackers evade monitoring.",
+  "techniques": ["T1003"],
+  "body": "Hands-on lab demonstrating a BYOVD technique using Microsoft's KslD.sys driver to extract domain credentials from LSASS. Explore detection gaps in Windows telemetry, learn how to implement controls using WDAC, and see how attackers evade monitoring.\n\nSee https://detection.wiki/labs/byovd-and-ksld-sys/ for full KQL queries and telemetry walkthrough.",
+  "queries": [
+    "DeviceEvents | where ActionType == \"DriverLoad\" and AdditionalFields contains \"KslD.sys\"",
+    "DeviceProcessEvents | where ProcessCommandLine contains \"lsass\" and InitiatingProcessFileName != \"lsass.exe\""
+  ],
+  "queryCount": 2,
+  "sizeBytes": 249
+}

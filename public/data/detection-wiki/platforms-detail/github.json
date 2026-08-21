@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.542Z",
+  "source": "https://detection.wiki/github/",
+  "platform": "GitHub",
+  "slug": "github",
+  "description": "Audit log actions by category prefix",
+  "events": 1161,
+  "rulesWithSamples": 36,
+  "totalRules": 133,
+  "sampleEvents": [
+    {
+      "id": "org.add_member",
+      "category": "org",
+      "action": "add_member",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "repo.create",
+      "category": "repo",
+      "action": "create",
+      "hasSample": true,
+      "hasRule": false
+    },
+    {
+      "id": "team.add_member",
+      "category": "team",
+      "action": "add_member",
+      "hasSample": false,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 3,
+  "note": "Sample of 3 events from 1,161 total for this platform; full catalog mirrored via detection.wiki"
+}

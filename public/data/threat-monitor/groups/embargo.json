@@ -1,0 +1,10 @@
+{
+  "name": "Embargo",
+  "mitre_id": null,
+  "aliases": ["Embargo"],
+  "aliasCount": 1,
+  "suspected_origin": "Unknown",
+  "target_sectors": ["Ransomware", "Healthcare"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

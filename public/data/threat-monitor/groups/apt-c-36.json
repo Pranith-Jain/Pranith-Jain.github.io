@@ -1,0 +1,10 @@
+{
+  "name": "APT-C-36",
+  "mitre_id": null,
+  "aliases": ["APT-C-36", "Blind Eagle"],
+  "aliasCount": 2,
+  "suspected_origin": "South America",
+  "target_sectors": ["Colombia", "Government", "Financial"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

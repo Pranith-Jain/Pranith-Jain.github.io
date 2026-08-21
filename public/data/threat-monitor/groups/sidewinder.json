@@ -1,0 +1,10 @@
+{
+  "name": "SideWinder",
+  "mitre_id": "G0121",
+  "aliases": ["SideWinder", "Rattlesnake", "T-APT-04"],
+  "aliasCount": 3,
+  "suspected_origin": "India (alleged)",
+  "target_sectors": ["Government", "Military - South Asia"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

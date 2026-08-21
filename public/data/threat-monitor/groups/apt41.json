@@ -1,0 +1,10 @@
+{
+  "name": "APT41",
+  "mitre_id": "G0096",
+  "aliases": ["APT41", "Double Dragon", "Winnti", "Wicked Panda", "BARIUM"],
+  "aliasCount": 5,
+  "suspected_origin": "China",
+  "target_sectors": ["Gaming", "Healthcare", "Telecom", "Supply Chain"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

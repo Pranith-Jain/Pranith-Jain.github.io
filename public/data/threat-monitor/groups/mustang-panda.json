@@ -1,0 +1,10 @@
+{
+  "name": "Mustang Panda",
+  "mitre_id": "G0129",
+  "aliases": ["Mustang Panda", "TA416", "Bronze President", "Red Lich"],
+  "aliasCount": 4,
+  "suspected_origin": "China",
+  "target_sectors": ["NGOs", "Government", "Southeast Asia"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

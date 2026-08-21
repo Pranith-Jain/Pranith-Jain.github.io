@@ -1,0 +1,10 @@
+{
+  "name": "Naikon",
+  "mitre_id": "G0019",
+  "aliases": ["Naikon", "Nexus Zt"],
+  "aliasCount": 2,
+  "suspected_origin": "China",
+  "target_sectors": ["Government", "Military - APAC"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

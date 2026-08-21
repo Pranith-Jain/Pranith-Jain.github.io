@@ -1,0 +1,10 @@
+{
+  "name": "APT34",
+  "mitre_id": "G0049",
+  "aliases": ["APT34", "OilRig", "Helix Kitten", "Crambus", "Cobalt Gypsy"],
+  "aliasCount": 5,
+  "suspected_origin": "Iran",
+  "target_sectors": ["Government", "Financial", "Energy"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

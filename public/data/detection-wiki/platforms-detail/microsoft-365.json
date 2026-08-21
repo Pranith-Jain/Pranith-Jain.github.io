@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.541Z",
+  "source": "https://detection.wiki/m365/",
+  "platform": "Microsoft 365",
+  "slug": "microsoft-365",
+  "description": "Microsoft 365 audit log operations",
+  "events": 3642,
+  "rulesWithSamples": 70,
+  "totalRules": 154,
+  "sampleEvents": [
+    {
+      "id": "SearchMailbox",
+      "operation": "SearchMailbox",
+      "workload": "Exchange",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "Add member to role",
+      "operation": "Add member to role",
+      "workload": "Exchange",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "FileAccessed",
+      "operation": "FileAccessed",
+      "workload": "SharePoint",
+      "hasSample": true,
+      "hasRule": false
+    }
+  ],
+  "sampleCount": 3,
+  "note": "Sample of 3 events from 3,642 total for this platform; full catalog mirrored via detection.wiki"
+}

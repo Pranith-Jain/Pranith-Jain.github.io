@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.549Z",
+  "source": "https://detection.wiki/attack/T1078/",
+  "technique": {
+    "id": "T1078.003",
+    "name": "Valid Accounts: Local Accounts",
+    "tactic": "Initial Access",
+    "ruleCount": 23,
+    "isSubtechnique": true,
+    "parentTechnique": "T1078"
+  },
+  "tactic": "Initial Access",
+  "ruleCount": 23,
+  "isSubtechnique": true,
+  "parentTechnique": "T1078",
+  "vendors": ["Sigma", "Elastic", "Splunk", "Kusto", "YARA-L", "Panther", "Sublime MQL"],
+  "platforms": [
+    "macOS",
+    "auditd",
+    "Sysmon for Linux",
+    "Windows",
+    "Microsoft 365",
+    "Entra ID",
+    "Azure",
+    "Microsoft Intune",
+    "Power Platform",
+    "Defender XDR",
+    "AWS",
+    "GCP",
+    "Google Workspace",
+    "GitHub",
+    "Kubernetes",
+    "Okta",
+    "Sublime"
+  ],
+  "note": "Full per-technique rule bodies are available via detection.wiki search; this index mirrors technique-level coverage."
+}

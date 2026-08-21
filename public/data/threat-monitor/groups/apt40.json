@@ -1,0 +1,10 @@
+{
+  "name": "APT40",
+  "mitre_id": "G0065",
+  "aliases": ["APT40", "Leviathan", "TEMP.Periscope", "Kryptonite Panda", "Gingham Typhoon"],
+  "aliasCount": 5,
+  "suspected_origin": "China",
+  "target_sectors": ["Maritime", "Defense", "Research"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

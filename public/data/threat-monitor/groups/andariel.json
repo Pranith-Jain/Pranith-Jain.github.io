@@ -1,0 +1,10 @@
+{
+  "name": "Andariel",
+  "mitre_id": "G0138",
+  "aliases": ["Andariel", "Silent Chollima", "Onyx Sleet", "Stonefly"],
+  "aliasCount": 4,
+  "suspected_origin": "North Korea",
+  "target_sectors": ["Defense", "Healthcare", "Financial"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

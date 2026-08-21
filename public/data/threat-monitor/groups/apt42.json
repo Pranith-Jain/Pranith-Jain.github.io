@@ -1,0 +1,10 @@
+{
+  "name": "APT42",
+  "mitre_id": "G1044",
+  "aliases": ["APT42", "Charming Kitten subgroup", "Damselfly"],
+  "aliasCount": 3,
+  "suspected_origin": "Iran",
+  "target_sectors": ["NGOs", "Journalists", "Activists"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

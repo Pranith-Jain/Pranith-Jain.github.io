@@ -1,0 +1,10 @@
+{
+  "name": "Flax Typhoon",
+  "mitre_id": "G1024",
+  "aliases": ["Flax Typhoon", "DHAMPIR"],
+  "aliasCount": 2,
+  "suspected_origin": "China",
+  "target_sectors": ["IoT", "Critical Infrastructure", "Taiwan"],
+  "isUpstream": false,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

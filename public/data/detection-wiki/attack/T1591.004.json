@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.545Z",
+  "source": "https://detection.wiki/attack/T1591/",
+  "technique": {
+    "id": "T1591.004",
+    "name": "Gather Victim Org Information: Identify Roles",
+    "tactic": "Reconnaissance",
+    "ruleCount": 2,
+    "isSubtechnique": true,
+    "parentTechnique": "T1591"
+  },
+  "tactic": "Reconnaissance",
+  "ruleCount": 2,
+  "isSubtechnique": true,
+  "parentTechnique": "T1591",
+  "vendors": ["Sigma", "Elastic", "Splunk", "Kusto", "YARA-L", "Panther", "Sublime MQL"],
+  "platforms": [
+    "macOS",
+    "auditd",
+    "Sysmon for Linux",
+    "Windows",
+    "Microsoft 365",
+    "Entra ID",
+    "Azure",
+    "Microsoft Intune",
+    "Power Platform",
+    "Defender XDR",
+    "AWS",
+    "GCP",
+    "Google Workspace",
+    "GitHub",
+    "Kubernetes",
+    "Okta",
+    "Sublime"
+  ],
+  "note": "Full per-technique rule bodies are available via detection.wiki search; this index mirrors technique-level coverage."
+}

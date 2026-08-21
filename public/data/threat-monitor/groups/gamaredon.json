@@ -1,0 +1,10 @@
+{
+  "name": "Gamaredon",
+  "mitre_id": "G0047",
+  "aliases": ["Gamaredon", "Primitive Bear", "Armageddon", "Shuckworm"],
+  "aliasCount": 4,
+  "suspected_origin": "Russia",
+  "target_sectors": ["Government", "Ukraine-focused"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

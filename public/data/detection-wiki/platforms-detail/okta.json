@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.542Z",
+  "source": "https://detection.wiki/okta/",
+  "platform": "Okta",
+  "slug": "okta",
+  "description": "System Log event types by namespace",
+  "events": 1179,
+  "rulesWithSamples": 250,
+  "totalRules": 98,
+  "sampleEvents": [
+    {
+      "id": "user.session.start",
+      "eventType": "user.session.start",
+      "hasSample": true,
+      "hasRule": true
+    },
+    {
+      "id": "group.user_membership.add",
+      "eventType": "group.user_membership.add",
+      "hasSample": true,
+      "hasRule": true
+    }
+  ],
+  "sampleCount": 2,
+  "note": "Sample of 2 events from 1,179 total for this platform; full catalog mirrored via detection.wiki"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "APT10",
+  "mitre_id": "G0045",
+  "aliases": ["APT10", "Stone Panda", "MenuPass", "Red Apollo", "Cicada"],
+  "aliasCount": 5,
+  "suspected_origin": "China",
+  "target_sectors": ["MSPs", "Cloud Providers", "Government"],
+  "isUpstream": true,
+  "source": "https://github.com/hero-itsme/Global-Threat-Actor-Monitor/blob/main/config/apt_groups.py"
+}

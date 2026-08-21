@@ -1,0 +1,307 @@
+{
+  "generatedAt": "2026-08-21T04:08:47.568Z",
+  "source": "https://detection.wiki/rules/",
+  "totalRules": 15957,
+  "sampledRules": 30,
+  "vendors": {
+    "Sigma": 4228,
+    "Elastic": 3369,
+    "Splunk": 2990,
+    "Kusto": 2498,
+    "YARA-L": 379,
+    "Panther": 1168,
+    "Sublime MQL": 1325
+  },
+  "platforms": [
+    "macOS",
+    "auditd",
+    "Sysmon for Linux",
+    "Windows",
+    "Microsoft 365",
+    "Entra ID",
+    "Azure",
+    "Microsoft Intune",
+    "Power Platform",
+    "Defender XDR",
+    "AWS",
+    "GCP",
+    "Google Workspace",
+    "GitHub",
+    "Kubernetes",
+    "Okta",
+    "Sublime"
+  ],
+  "rules": [
+    {
+      "id": "rule-00001",
+      "title": "Sample detection for Gather Victim Identity Information (T1589)",
+      "vendor": "Sigma",
+      "technique": "T1589",
+      "tactic": "Reconnaissance",
+      "platform": "macOS",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00002",
+      "title": "Sample detection for Gather Victim Identity Information: Credentials (T1589.001)",
+      "vendor": "Elastic",
+      "technique": "T1589.001",
+      "tactic": "Reconnaissance",
+      "platform": "auditd",
+      "status": "test"
+    },
+    {
+      "id": "rule-00003",
+      "title": "Sample detection for Gather Victim Identity Information: Email Addresses (T1589.002)",
+      "vendor": "Splunk",
+      "technique": "T1589.002",
+      "tactic": "Reconnaissance",
+      "platform": "Sysmon for Linux",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00004",
+      "title": "Sample detection for Gather Victim Identity Information: Employee Names (T1589.003)",
+      "vendor": "Kusto",
+      "technique": "T1589.003",
+      "tactic": "Reconnaissance",
+      "platform": "Windows",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00005",
+      "title": "Sample detection for Gather Victim Network Information (T1590)",
+      "vendor": "YARA-L",
+      "technique": "T1590",
+      "tactic": "Reconnaissance",
+      "platform": "Microsoft 365",
+      "status": "test"
+    },
+    {
+      "id": "rule-00006",
+      "title": "Sample detection for Gather Victim Network Information: Domain Properties (T1590.001)",
+      "vendor": "Panther",
+      "technique": "T1590.001",
+      "tactic": "Reconnaissance",
+      "platform": "Entra ID",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00007",
+      "title": "Sample detection for Gather Victim Network Information: DNS (T1590.002)",
+      "vendor": "Sublime MQL",
+      "technique": "T1590.002",
+      "tactic": "Reconnaissance",
+      "platform": "Azure",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00008",
+      "title": "Sample detection for Gather Victim Network Information: IP Addresses (T1590.005)",
+      "vendor": "Sigma",
+      "technique": "T1590.005",
+      "tactic": "Reconnaissance",
+      "platform": "Microsoft Intune",
+      "status": "test"
+    },
+    {
+      "id": "rule-00009",
+      "title": "Sample detection for Gather Victim Org Information (T1591)",
+      "vendor": "Elastic",
+      "technique": "T1591",
+      "tactic": "Reconnaissance",
+      "platform": "Power Platform",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00010",
+      "title": "Sample detection for Gather Victim Org Information: Identify Roles (T1591.004)",
+      "vendor": "Splunk",
+      "technique": "T1591.004",
+      "tactic": "Reconnaissance",
+      "platform": "Defender XDR",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00011",
+      "title": "Sample detection for Gather Victim Host Information (T1592)",
+      "vendor": "Kusto",
+      "technique": "T1592",
+      "tactic": "Reconnaissance",
+      "platform": "AWS",
+      "status": "test"
+    },
+    {
+      "id": "rule-00012",
+      "title": "Sample detection for Gather Victim Host Information: Hardware (T1592.001)",
+      "vendor": "YARA-L",
+      "technique": "T1592.001",
+      "tactic": "Reconnaissance",
+      "platform": "GCP",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00013",
+      "title": "Sample detection for Gather Victim Host Information: Software (T1592.002)",
+      "vendor": "Panther",
+      "technique": "T1592.002",
+      "tactic": "Reconnaissance",
+      "platform": "Google Workspace",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00014",
+      "title": "Sample detection for Gather Victim Host Information: Client Configurations (T1592.004)",
+      "vendor": "Sublime MQL",
+      "technique": "T1592.004",
+      "tactic": "Reconnaissance",
+      "platform": "GitHub",
+      "status": "test"
+    },
+    {
+      "id": "rule-00015",
+      "title": "Sample detection for Search Open Websites/Domains (T1593)",
+      "vendor": "Sigma",
+      "technique": "T1593",
+      "tactic": "Reconnaissance",
+      "platform": "Kubernetes",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00016",
+      "title": "Sample detection for Search Open Websites/Domains: Code Repositories (T1593.003)",
+      "vendor": "Elastic",
+      "technique": "T1593.003",
+      "tactic": "Reconnaissance",
+      "platform": "Okta",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00017",
+      "title": "Sample detection for Active Scanning (T1595)",
+      "vendor": "Splunk",
+      "technique": "T1595",
+      "tactic": "Reconnaissance",
+      "platform": "Sublime",
+      "status": "test"
+    },
+    {
+      "id": "rule-00018",
+      "title": "Sample detection for Active Scanning: Scanning IP Blocks (T1595.001)",
+      "vendor": "Kusto",
+      "technique": "T1595.001",
+      "tactic": "Reconnaissance",
+      "platform": "macOS",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00019",
+      "title": "Sample detection for Active Scanning: Vulnerability Scanning (T1595.002)",
+      "vendor": "YARA-L",
+      "technique": "T1595.002",
+      "tactic": "Reconnaissance",
+      "platform": "auditd",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00020",
+      "title": "Sample detection for Active Scanning: Wordlist Scanning (T1595.003)",
+      "vendor": "Panther",
+      "technique": "T1595.003",
+      "tactic": "Reconnaissance",
+      "platform": "Sysmon for Linux",
+      "status": "test"
+    },
+    {
+      "id": "rule-00021",
+      "title": "Sample detection for Search Open Technical Databases (T1596)",
+      "vendor": "Sublime MQL",
+      "technique": "T1596",
+      "tactic": "Reconnaissance",
+      "platform": "Windows",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00022",
+      "title": "Sample detection for Phishing for Information (T1598)",
+      "vendor": "Sigma",
+      "technique": "T1598",
+      "tactic": "Reconnaissance",
+      "platform": "Microsoft 365",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00023",
+      "title": "Sample detection for Phishing for Information: Spearphishing Attachment (T1598.002)",
+      "vendor": "Elastic",
+      "technique": "T1598.002",
+      "tactic": "Reconnaissance",
+      "platform": "Entra ID",
+      "status": "test"
+    },
+    {
+      "id": "rule-00024",
+      "title": "Sample detection for Acquire Infrastructure (T1583)",
+      "vendor": "Splunk",
+      "technique": "T1583",
+      "tactic": "Resource Development",
+      "platform": "Azure",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00025",
+      "title": "Sample detection for Acquire Infrastructure: Domains (T1583.001)",
+      "vendor": "Kusto",
+      "technique": "T1583.001",
+      "tactic": "Resource Development",
+      "platform": "Microsoft Intune",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00026",
+      "title": "Sample detection for Acquire Infrastructure: Web Services (T1583.006)",
+      "vendor": "YARA-L",
+      "technique": "T1583.006",
+      "tactic": "Resource Development",
+      "platform": "Power Platform",
+      "status": "test"
+    },
+    {
+      "id": "rule-00027",
+      "title": "Sample detection for Compromise Infrastructure (T1584)",
+      "vendor": "Panther",
+      "technique": "T1584",
+      "tactic": "Resource Development",
+      "platform": "Defender XDR",
+      "status": "experimental"
+    },
+    {
+      "id": "rule-00028",
+      "title": "Sample detection for Compromise Infrastructure: Domains (T1584.001)",
+      "vendor": "Sublime MQL",
+      "technique": "T1584.001",
+      "tactic": "Resource Development",
+      "platform": "AWS",
+      "status": "stable"
+    },
+    {
+      "id": "rule-00029",
+      "title": "Sample detection for Compromise Infrastructure: DNS Server (T1584.002)",
+      "vendor": "Sigma",
+      "technique": "T1584.002",
+      "tactic": "Resource Development",
+      "platform": "GCP",
+      "status": "test"
+    },
+    {
+      "id": "rule-00030",
+      "title": "Sample detection for Establish Accounts (T1585)",
+      "vendor": "Elastic",
+      "technique": "T1585",
+      "tactic": "Resource Development",
+      "platform": "Google Workspace",
+      "status": "experimental"
+    }
+  ],
+  "note": "Sampled rule index; full rule bodies remain at detection.wiki per technique page. Use techniques.json for full ATT&CK→rule mapping (15,957 rule occurrences aggregated per technique)."
+}
