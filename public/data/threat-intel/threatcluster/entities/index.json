@@ -2,11 +2,11 @@
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/entities",
   "description": "Derived entity intelligence from ThreatCluster clusters, MISP galaxy attribution, dark-web victims and CVE feeds. Entities are extracted deterministically at build time from in-repo signals (MISP galaxy tags, victim group/sector fields, CVE regexes, Daily-Hunt family dictionary matching) — no LLM in the loop.",
-  "builtAt": "2026-08-21T05:14:38.955Z",
+  "builtAt": "2026-08-21T07:20:33.058Z",
   "counts": {
     "actor": 2,
-    "group": 20,
-    "malware": 36,
+    "group": 19,
+    "malware": 37,
     "cve": 116,
     "sector": 14
   },
@@ -112,15 +112,6 @@
         "mentionCount": 1,
         "firstSeen": "2026-08-21T02:53:01.000Z",
         "lastSeen": "2026-08-21T02:53:01.000Z"
-      },
-      {
-        "type": "group",
-        "slug": "cl0p-ransomware",
-        "name": "Cl0p Ransomware",
-        "aliases": [],
-        "mentionCount": 1,
-        "firstSeen": "2026-08-14T07:52:39.000Z",
-        "lastSeen": "2026-08-14T07:52:39.000Z"
       },
       {
         "type": "group",
@@ -299,6 +290,15 @@
         "type": "malware",
         "slug": "cl0p",
         "name": "Cl0p",
+        "aliases": [],
+        "mentionCount": 1,
+        "firstSeen": "2026-08-14T07:52:39.000Z",
+        "lastSeen": "2026-08-14T07:52:39.000Z"
+      },
+      {
+        "type": "malware",
+        "slug": "cl0p-ransomware",
+        "name": "Cl0p ransomware",
         "aliases": [],
         "mentionCount": 1,
         "firstSeen": "2026-08-14T07:52:39.000Z",

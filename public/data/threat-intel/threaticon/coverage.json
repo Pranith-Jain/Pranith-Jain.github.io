@@ -1,6 +1,6 @@
 {
   "source": "threaticon.com/detection-coverage",
-  "syncedAt": "2026-08-18T05:55:49.606Z",
+  "syncedAt": "2026-08-21T06:01:35.621Z",
   "techniqueCount": 493,
   "tactics": {
     "Reconnaissance": { "techniqueCount": 46, "coveragePct": 100 },
