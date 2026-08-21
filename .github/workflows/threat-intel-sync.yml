@@ -113,6 +113,7 @@ jobs:
 
       - name: Open PR if data changed
         id: pr
+        continue-on-error: true
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "chore(ti): sync threat intel from upstream sources"

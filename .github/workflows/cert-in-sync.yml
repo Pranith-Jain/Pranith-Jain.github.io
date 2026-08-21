@@ -113,7 +113,10 @@ jobs:
         if: steps.plan.outputs.fetch_count != '0'
         run: |
           set -euo pipefail
-          xargs -a to_fetch.txt -n 1 -P 1 node scripts/build-cert-in-index.mjs 2>&1 | tail -40
+          # Some CERT-In pages are JS-rendered shells that return no parsable severity/CVEs
+          # (SKIP) — the builder exits non-zero for those, which xargs propagates as 123.
+          # Don't fail the whole sync for a few unparsable advisories.
+          xargs -a to_fetch.txt -n 1 -P 1 node scripts/build-cert-in-index.mjs 2>&1 | tail -40 || true
 
       - name: "Compute structured diff"
         id: diff

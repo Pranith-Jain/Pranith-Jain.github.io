@@ -30,15 +30,12 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
-            echo "::error::CLOUDFLARE_API_TOKEN secret is not set on this repo."
-            echo "Create a Cloudflare API token with D1 read scope (Account > API Tokens > Create Token > Custom) and add it as a repository secret named CLOUDFLARE_API_TOKEN."
-            echo "Dashboard: https://dash.cloudflare.com/profile/api-tokens"
-            exit 1
+            echo "::warning::CLOUDFLARE_API_TOKEN secret is not set — skipping briefings export (set it in repo Settings > Secrets to enable)."
+            exit 0
           fi
           if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "::error::CLOUDFLARE_ACCOUNT_ID secret is not set on this repo."
-            echo "Find it at https://dash.cloudflare.com/ (right sidebar) and add it as a repository secret named CLOUDFLARE_ACCOUNT_ID."
-            exit 1
+            echo "::warning::CLOUDFLARE_ACCOUNT_ID secret is not set — skipping briefings export."
+            exit 0
           fi
           # Wipe stale files so briefings beyond the 30-day window are removed.
           rm -rf briefings
