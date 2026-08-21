@@ -20,10 +20,10 @@ import { concurrentMap } from '../api/src/lib/concurrent-map';
 import { signInternalToken } from '../api/src/lib/internal-token';
 import { fetchXAccountPosts, X_ACCOUNTS } from '../api/src/routes/cyberpulse-ingest';
 
-// `gp:warm:<key>` slice TTL — 150 min. Long enough to cover the skip-when-
-// fresh enqueue gate (ENQUEUE_CYCLE_TTL_SECONDS 105 min → at most one skipped
-// hourly cycle, worst-case slice age ~2h), with margin for one retry gap.
-const GP_WARM_TTL_SECONDS = 150 * 60;
+// `gp:warm:<key>` slice TTL — 180 min. Covers the 60m enqueue gate + one
+// missed hourly cycle + queue drain; worst-case slice age ~2h, still within
+// TTL so layers don't go dark at 2h → fallback to last-good (which looked like "8h old").
+const GP_WARM_TTL_SECONDS = 180 * 60;
 
 // Within-batch fan-out bound. The relevant runtime limit is ~6 simultaneously
 // OPEN outbound connections (not a total-subrequest cap). Several sources fan

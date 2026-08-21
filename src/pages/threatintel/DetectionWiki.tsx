@@ -204,17 +204,41 @@ export default function DetectionWiki(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
+    const safeJson = async (url: string): Promise<unknown | null> => {
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const r = await fetch(url, { signal: ctrl.signal });
+          if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+          const ct = r.headers.get('content-type') ?? '';
+          if (!ct.includes('json') && !ct.includes('application/json')) {
+            const text = await r.text();
+            if (text.trimStart().startsWith('<!doctype') || text.trimStart().startsWith('<html')) {
+              throw new Error(`Expected JSON but got HTML for ${url} — file missing or not deployed`);
+            }
+            throw new Error(`Unexpected content-type ${ct} for ${url}`);
+          }
+          return await r.json();
+        } catch (e) {
+          if (e instanceof DOMException && e.name === 'AbortError') throw e;
+          if (attempt === 2) throw e;
+          await new Promise((res) => setTimeout(res, 300 * 2 ** attempt + Math.random() * 200));
+        }
+      }
+      return null;
+    };
     Promise.all([
-      fetch('/data/detection-wiki/index.json', { signal: ctrl.signal }).then((r) => r.json()),
-      fetch('/data/detection-wiki/techniques.json', { signal: ctrl.signal }).then((r) => r.json()),
-      fetch('/data/detection-wiki/platforms.json', { signal: ctrl.signal }).then((r) => r.json()),
-      fetch('/data/detection-wiki/labs.json', { signal: ctrl.signal }).then((r) => r.json()),
-      fetch('/data/detection-wiki/windows.json', { signal: ctrl.signal })
-        .then((r) => r.json())
-        .catch(() => null),
-      fetch('/data/detection-wiki/security-auditing.json', { signal: ctrl.signal })
-        .then((r) => r.json())
-        .catch(() => null),
+      safeJson('/data/detection-wiki/index.json').then((d) => d as DwIndex),
+      safeJson('/data/detection-wiki/techniques.json').then((d) => d as DwTechniquesIndex),
+      safeJson('/data/detection-wiki/platforms.json')
+        .then((d) => d as DwPlatform[])
+        .catch(() => [] as DwPlatform[]),
+      safeJson('/data/detection-wiki/labs.json')
+        .then((d) => d as DwLabEntry[])
+        .catch(() => [] as DwLabEntry[]),
+      safeJson('/data/detection-wiki/windows.json').catch(() => null) as Promise<DwWindowsCatalog | null>,
+      safeJson('/data/detection-wiki/security-auditing.json').catch(
+        () => null
+      ) as Promise<DwSecurityAuditingCatalog | null>,
     ])
       .then(([idx, tech, plat, lab, win, audit]) => {
         if (cancelled) return;
@@ -248,8 +272,15 @@ export default function DetectionWiki(): JSX.Element {
     setPlatformDetailLoading(true);
     setPlatformDetailError(null);
     fetch(`/data/detection-wiki/platforms-detail/${selectedPlatform}.json`)
-      .then((r) => {
+      .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const ct = r.headers.get('content-type') ?? '';
+        if (!ct.includes('json') && !ct.includes('application/json')) {
+          const text = await r.text();
+          if (text.trimStart().startsWith('<!doctype'))
+            throw new Error(`Platform ${selectedPlatform} not found — file missing`);
+          throw new Error(`Unexpected content-type ${ct}`);
+        }
         return r.json();
       })
       .then((d: DwPlatformDetail) => {

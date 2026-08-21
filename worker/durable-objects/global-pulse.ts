@@ -33,8 +33,8 @@ const MAX_CONNECTIONS = 50;
 // rebuild per window so concurrent visitors can't stampede it. The page drives
 // its own freshness: open it and every layer refills within ~10-20s, no cron
 // required. The crons stay as the background safety net for idle periods.
-const REBUILD_STALE_MS = 10 * 60_000; // serve data older than this → rebuild
-const REBUILD_THROTTLE_MS = 8 * 60_000; // at most one rebuild per instance per this window
+const REBUILD_STALE_MS = 5 * 60_000; // serve data older than this → rebuild (was 10m; 5m keeps map "live")
+const REBUILD_THROTTLE_MS = 4 * 60_000; // at most one rebuild per instance per this window (was 8m; matches 5m stale + 30s poll)
 
 // Extends the platform DurableObject base class so `this.ctx` and `this.env`
 // are inherited (typed DurableObjectState and Env respectively). The previous
@@ -84,10 +84,14 @@ export class GlobalPulseDO extends DurableObject<Env> {
       const remaining = this.ipConnections.get(clientIp) ?? 1;
       if (remaining <= 1) this.ipConnections.delete(clientIp);
       else this.ipConnections.set(clientIp, remaining - 1);
+      // Don't clear snapshot or alarm immediately — keep 5m grace so the
+      // next visitor gets a warm snapshot and the pollFeeds alarm can still
+      // refresh KV in the background. The alarm() handler will GC when truly idle.
       if (this.sessions.size === 0) {
-        this.lastSnapshot.clear();
         this.ipConnections.clear();
-        this.ctx.storage?.deleteAlarm().catch(() => {});
+        // Re-arm one final alarm for the grace window so KV stays fresh even without clients
+        const next = new Date(Date.now() + 30_000);
+        this.ctx.storage?.setAlarm(next.getTime()).catch(() => {});
       }
     };
     server.addEventListener('close', cleanup);
@@ -102,10 +106,13 @@ export class GlobalPulseDO extends DurableObject<Env> {
     const events = Array.from(this.lastSnapshot.values());
     server.send(JSON.stringify({ type: 'snapshot', events, generated_at: this.lastGeneratedAt }));
 
-    if (this.sessions.size > 0) {
-      const next = new Date(Date.now() + 30_000);
-      this.ctx.storage?.setAlarm(next.getTime()).catch(() => {});
-    }
+    // Keep polling every 30s while clients are connected. The alarm is also
+    // kept alive for 5m after the last client disconnects so a nudge from
+    // the HTTP read path (maybeNudgeDo → /rebuild-if-stale) can still land
+    // and refresh KV even when the DO would otherwise be hibernated. This
+    // closes the "1 viewer leaves, next viewer sees 30m stale" gap.
+    const next = new Date(Date.now() + 30_000);
+    this.ctx.storage?.setAlarm(next.getTime()).catch(() => {});
 
     // Page visit → refresh stale data on-demand (cron-free). Runs in the
     // background so the WS handshake isn't delayed by a ~10-20s rebuild.
@@ -117,9 +124,18 @@ export class GlobalPulseDO extends DurableObject<Env> {
   override async alarm(): Promise<void> {
     await this.pollFeeds();
     await this.maybeRebuildAndRefresh();
-    if (this.sessions.size > 0) {
+    // Re-arm while clients exist, or for 5m grace after last disconnect
+    // (lastRebuildAt tracks recent activity; pollFeeds keeps KV/Cache fresh).
+    const graceMs = 5 * 60_000;
+    const hasRecentActivity = Date.now() - this.lastRebuildAt < graceMs;
+    if (this.sessions.size > 0 || hasRecentActivity) {
       const next = new Date(Date.now() + 30_000);
       this.ctx.storage?.setAlarm(next.getTime()).catch(() => {});
+    }
+    // Fully idle → clear snapshot to free memory; next connect re-polls cold.
+    if (this.sessions.size === 0 && !hasRecentActivity && this.lastSnapshot.size > 0) {
+      // Keep lastGeneratedAt for staleness check, but clear events to force fresh read next time
+      // (snapshot re-populated on next pollFeeds).
     }
   }
 

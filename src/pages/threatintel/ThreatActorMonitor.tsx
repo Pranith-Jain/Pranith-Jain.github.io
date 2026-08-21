@@ -263,7 +263,16 @@ function DetectionRuleCoverage({ detections }: { detections: Detection[] }): JSX
 
   useEffect(() => {
     fetch('/data/detection-wiki/techniques.json')
-      .then((r) => r.json())
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const ct = r.headers.get('content-type') ?? '';
+        if (!ct.includes('json')) {
+          const t = await r.text();
+          if (t.trimStart().startsWith('<!doctype')) throw new Error('HTML fallback — file missing');
+          throw new Error('Unexpected content-type');
+        }
+        return r.json();
+      })
       .then((d: { all: DwTechnique[] }) => setTechData(d.all))
       .catch(() => {});
   }, []);
@@ -392,7 +401,16 @@ function DetectionLabs({ detections }: { detections: Detection[] }): JSX.Element
 
   useEffect(() => {
     fetch('/data/detection-wiki/labs.json')
-      .then((r) => r.json())
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const ct = r.headers.get('content-type') ?? '';
+        if (!ct.includes('json')) {
+          const t = await r.text();
+          if (t.trimStart().startsWith('<!doctype')) throw new Error('HTML fallback — file missing');
+          throw new Error('Unexpected content-type');
+        }
+        return r.json();
+      })
       .then((d: DwLab[]) => setLabs(d))
       .catch(() => {});
   }, []);

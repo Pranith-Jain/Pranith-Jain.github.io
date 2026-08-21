@@ -245,10 +245,57 @@ function trackLabHit(key: string): DwLabBody | null {
 // ── Helpers ───────────────────────────────────────────────────────────
 
 async function fetchJson<T>(assets: Fetcher, path: string): Promise<T | null> {
+  const cacheKey = `https://cache.internal${path}`;
+  // Tier 2: Cache API (cross-isolate, survives in-memory eviction)
+  try {
+    const cache = (globalThis as unknown as { caches?: CacheStorage }).caches?.default;
+    if (cache) {
+      const hit = await cache.match(cacheKey);
+      if (hit) {
+        const ct = hit.headers.get('content-type') ?? '';
+        if (ct.includes('json') && hit.ok) {
+          try {
+            return (await hit.json()) as T;
+          } catch {
+            // fall through to origin
+          }
+        }
+      }
+    }
+  } catch {
+    // ignore cache read errors
+  }
   try {
     const res = await assets.fetch(`https://internal${path}`);
     if (!res.ok) return null;
-    return (await res.json()) as T;
+    const ct = res.headers.get('content-type') ?? '';
+    // Guard against SPA shell fallback (text/html) when asset is missing
+    if (!ct.includes('json') && !ct.includes('application/json')) {
+      // Try to still parse as json, but if it fails, treat as missing
+      try {
+        return (await res.json()) as T;
+      } catch {
+        return null;
+      }
+    }
+    const data = (await res.clone().json()) as T;
+    // Tier 2 put (fire-and-forget, 5 min TTL via Cache-Control)
+    try {
+      const cache = (globalThis as unknown as { caches?: CacheStorage }).caches?.default;
+      if (cache) {
+        const toCache = new Response(JSON.stringify(data), {
+          headers: {
+            'content-type': 'application/json',
+            'cache-control': 'public, max-age=300, stale-while-revalidate=600',
+          },
+        });
+        // Use waitUntil if available (inside request context), else await
+        void cache.put(cacheKey, toCache);
+      }
+    } catch {
+      // ignore cache put errors
+    }
+    return data;
   } catch {
     return null;
   }

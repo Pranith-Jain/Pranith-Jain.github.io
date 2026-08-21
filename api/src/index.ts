@@ -764,6 +764,8 @@ app.use('/api/v1/*', async (c, next) => {
   if (c.req.method !== 'GET' || c.res.status !== 200) return;
   const path = new URL(c.req.url).pathname;
   let maxAge = 0;
+  let staleWhileRevalidate = 0;
+  let staleIfError = 0;
   if (
     path.includes('/si/') ||
     path.includes('/threat-intel/') ||
@@ -781,16 +783,27 @@ app.use('/api/v1/*', async (c, next) => {
     path.includes('/campaigns/')
   ) {
     maxAge = 300; // 5 min for static manifest data
+    staleWhileRevalidate = 600; // 10 min SWR — serve stale while revalidating
+    staleIfError = 86400; // 24h stale-if-error — survive origin blips
   } else if (path.includes('/darknet-intel/') || path.includes('/live-iocs') || path.includes('/ransomware-recent')) {
     maxAge = 60; // 1 min for live data
+    staleWhileRevalidate = 30; // 30s SWR for live feeds
+    staleIfError = 300; // 5 min on error
   } else if (path.includes('/feed-status') || path.includes('/briefings/')) {
     maxAge = 120; // 2 min for status/briefings
+    staleWhileRevalidate = 600; // 10 min SWR
+    staleIfError = 3600; // 1h on error
   } else if (path.includes('/profile/gh-stats')) {
     maxAge = 3600; // 1h for README stat cards (self-hosted stats SVGs)
+    staleWhileRevalidate = 86400; // 24h SWR
+    staleIfError = 86400;
   }
   const headers = new Headers(c.res.headers);
   if (maxAge > 0) {
-    headers.set('Cache-Control', `public, s-maxage=${maxAge}, max-age=${maxAge}`);
+    const cc = `public, s-maxage=${maxAge}, max-age=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}, stale-if-error=${staleIfError}`;
+    headers.set('Cache-Control', cc);
+    headers.set('CDN-Cache-Control', cc);
+    headers.set('Vary', 'Accept-Encoding');
   } else {
     headers.set('Cache-Control', 'no-store');
   }

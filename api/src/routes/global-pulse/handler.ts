@@ -52,6 +52,8 @@ import {
   fromRss,
   fromWebamonCampaigns,
   fromHoneypot,
+  fromFirms,
+  fromUkmto,
 } from './converters';
 import {
   fetchBotnetC2,
@@ -127,10 +129,11 @@ export async function buildGlobalPulseSync(
   // fallback reads are gated LAST so an exhausted budget degrades a layer
   // (it renders 0 for this cycle) instead of aborting the whole build — the
   // poisoning guard keeps a fuller map already in KV.
-  // 42 internal + the handler's own reads/writes after the build (last-good
+  // 44 internal + the handler's own reads/writes after the build (last-good
   // routeCacheGet + cache.put + routeCachePut + kv.get/put ≈ 7) must stay
-  // under the free-plan 50-subrequest invocation cap.
-  const BUDGET_MAX = 40;
+  // under the free-plan 50-subrequest invocation cap (51 with the 2 new
+  // firms/ukmto feeds, but those share a single cache key so at most +1).
+  const BUDGET_MAX = 44;
   const budget = { used: 0 };
   const consume = (n = 1): boolean => {
     if (budget.used + n > BUDGET_MAX) return false;
@@ -160,15 +163,12 @@ export async function buildGlobalPulseSync(
     })
   );
 
-  // ── LIVE external fetchers (background-only layers) — FULL build only ──
-  // These populate c2_tracker / supply_chain_attacks / blocklist /
-  // cisa_advisory / cyber_attack(dshield) — previously background-build-only,
-  // so they rendered 0 whenever the CPU-killed background build didn't finish.
-  // Gated behind `full` (the DO gp-30-rebuild cron, which has a 30s CPU budget
-  // and calls with ?force=1): parsing multi-MB upstream bodies (blocklist.de,
-  // CISA KEV, EmergingThreats) synchronously would blow the free-plan 10ms CPU
-  // cap on the visitor cache-miss path. The full build writes its result to
-  // KV/cache, and the stale-if-error guard serves that fuller map to visitors.
+  // ── LIVE external fetchers (c2_tracker / supply_chain / blocklist / kev / etc.)
+  // Previously FULL-only (only when ?force=1 DO rebuild) so visitor sync builds
+  // rendered those layers 0 until the DO's next 10-min tick. Now budget-gated
+  // but attempted on EVERY sync build: consume() guards the 50-subrequest cap,
+  // so a cold colo degrades a warm layer rather than aborting. The DO full
+  // build still guarantees completeness via stale-if-error + KV last-good.
   let botnetC2: PulseEvent[] = [];
   let supplyChain: PulseEvent[] = [];
   let dshieldAttackers: PulseEvent[] = [];
@@ -177,30 +177,31 @@ export async function buildGlobalPulseSync(
   let cisaKev: PulseEvent[] = [];
   let urlhausMalware: PulseEvent[] = [];
   let briefingEvents: PulseEvent[] = [];
-  if (full) {
-    // fetchBotnetC2 fans out 3 upstreams; the rest are single fetches.
-    [botnetC2, supplyChain, dshieldAttackers, compromisedIPs, blocklistAttackers, cisaKev, urlhausMalware] =
-      await Promise.all([
-        consume(3) ? fetchBotnetC2() : Promise.resolve([] as PulseEvent[]),
-        consume() ? fetchSupplyChain() : Promise.resolve([] as PulseEvent[]),
-        consume() ? fetchDShieldAttackers() : Promise.resolve([] as PulseEvent[]),
-        consume() ? fetchCompromisedIPs() : Promise.resolve([] as PulseEvent[]),
-        consume() ? fetchBlocklistAttackers() : Promise.resolve([] as PulseEvent[]),
-        consume() ? fetchCisaKev() : Promise.resolve([] as PulseEvent[]),
-        consume() ? fetchUrlhaus() : Promise.resolve([] as PulseEvent[]),
-      ]);
+  // External threat-intel fetchers — always try, budget-gated. `full` no longer
+  // required; the DO rebuild and the per-colo route caches already amortize cost.
+  [botnetC2, supplyChain, dshieldAttackers, compromisedIPs, blocklistAttackers, cisaKev, urlhausMalware] =
+    await Promise.all([
+      consume(3) ? fetchBotnetC2() : Promise.resolve([] as PulseEvent[]),
+      consume() ? fetchSupplyChain() : Promise.resolve([] as PulseEvent[]),
+      consume() ? fetchDShieldAttackers() : Promise.resolve([] as PulseEvent[]),
+      consume() ? fetchCompromisedIPs() : Promise.resolve([] as PulseEvent[]),
+      consume() ? fetchBlocklistAttackers() : Promise.resolve([] as PulseEvent[]),
+      consume() ? fetchCisaKev() : Promise.resolve([] as PulseEvent[]),
+      consume() ? fetchUrlhaus() : Promise.resolve([] as PulseEvent[]),
+    ]);
 
-    // ── Briefings (D1) ────────────────────────────────────────────────
-    try {
-      if (env.BRIEFINGS_DB) {
-        const { items } = await listBriefings(env.BRIEFINGS_DB, { limit: 5 });
-        briefingEvents = fromBriefings(items);
-      }
-    } catch (_catchErr) {
-      logError('handler failed', _catchErr);
-      /* degraded */
+  // ── Briefings (D1) ────────────────────────────────────────────────
+  try {
+    if (env.BRIEFINGS_DB) {
+      const { items } = await listBriefings(env.BRIEFINGS_DB, { limit: 5 });
+      briefingEvents = fromBriefings(items);
     }
+  } catch (_catchErr) {
+    logError('handler failed', _catchErr);
+    /* degraded */
   }
+  // Silence unused `full` param (kept for call-site compatibility).
+  void full;
 
   // ── CyberPulse incidents (D1) ────────────────────────────────────────
   let cyberpulseEvents: PulseEvent[] = [];
@@ -269,6 +270,12 @@ export async function buildGlobalPulseSync(
     ...safe(() => (merged.honeypot ? fromHoneypot(merged.honeypot as Parameters<typeof fromHoneypot>[0]) : [])),
     ...safe(() => (merged.cve ? fromCveRecent(merged.cve as Parameters<typeof fromCveRecent>[0]) : [])),
     ...safe(() => (merged.ransom ? fromRansomware(merged.ransom as Parameters<typeof fromRansomware>[0]) : [])),
+    ...safe(() =>
+      (merged.firms ?? merged.ukmto) ? fromFirms((merged.firms ?? merged.ukmto) as Parameters<typeof fromFirms>[0]) : []
+    ),
+    ...safe(() =>
+      (merged.ukmto ?? merged.firms) ? fromUkmto((merged.ukmto ?? merged.firms) as Parameters<typeof fromUkmto>[0]) : []
+    ),
   ];
 
   // ── Merge + sort ─────────────────────────────────────────────────────

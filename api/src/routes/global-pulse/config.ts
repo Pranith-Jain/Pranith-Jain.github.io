@@ -33,6 +33,8 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
   { key: 'rss', path: '/api/v1/cyber-news' },
   { key: 'webamon', path: '/api/v1/webamon/campaign-intel' },
   { key: 'honeypot', path: '/api/v1/ai-honeypot-feed' },
+  { key: 'firms', path: '/api/v1/firms-fires' },
+  { key: 'ukmto', path: '/api/v1/ukmto-incidents' },
 ];
 
 // Per-feed warm-slice KV key for a global-pulse feed.
@@ -78,6 +80,8 @@ export const GP_FEED_CACHE_KEYS: Readonly<Record<string, string>> = {
   secretleaks: 'https://secret-leaks-cache.internal/v5-noedgecache',
   malpkg: 'https://malicious-packages-cache.internal/v2?e=npm',
   honeypot: 'https://ai-honeypot-feed.internal/v2',
+  firms: 'https://global-pulse-cache.internal/firms-ukmto-v1',
+  ukmto: 'https://global-pulse-cache.internal/firms-ukmto-v1',
 };
 
 // GP-warm enqueue-cycle marker — SEPARATE from the live-iocs enqueue marker
@@ -89,7 +93,7 @@ export const GP_FEED_CACHE_KEYS: Readonly<Record<string, string>> = {
 // cron) went dark. gp feeds get their own gate so live-iocs traffic can never
 // starve the map.
 export const GP_ENQUEUE_CYCLE_KEY = 'gp:enqueue-cycle';
-export const GP_ENQUEUE_CYCLE_TTL_SECONDS = 105 * 60;
+export const GP_ENQUEUE_CYCLE_TTL_SECONDS = 60 * 60;
 
 /** True when the last gp-warm enqueue cycle is still fresh → the hourly gp enqueue can be skipped. */
 export async function shouldSkipGpEnqueue(kv: KVNamespace | undefined): Promise<boolean> {
@@ -134,8 +138,8 @@ export async function enqueueGpFeeds(queue: Queue<FeedQueueMessage>, _hour?: num
 
 /* ─── Cache keys (all warmed by hourly cron) ────────────────────────────── */
 
-export const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v24-ti-only';
-export const CACHE_TTL = 300;
+export const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v25-live';
+export const CACHE_TTL = 120;
 // Global KV key holding the last fully-built response (raw JSON string).
 // The Cache-API entry above is per-colo, so a reader in a cold colo would
 // otherwise re-run the whole multi-source build (risking the Free-plan
@@ -147,7 +151,7 @@ export const GP_RESPONSE_KEY = 'gp:response:v3';
 // successful build between builds. CACHE_TTL (300s) is only right for the
 // per-colo Cache-API entry; reusing it here made the KV entry expire ~5 min after
 // each build, leaving the WS live feed empty for ~55 min of every hour.
-export const GP_RESPONSE_TTL = 7200;
+export const GP_RESPONSE_TTL = 3600;
 // Long-lived copy of the last SUCCESSFUL full build (written only by the
 // background build, which is the only path that populates the external-fetcher
 // layers: c2_tracker, supply_chain_attacks, blocklist, briefing, cisa_advisory).

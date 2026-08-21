@@ -1,5 +1,21 @@
 import type { ReactNode } from 'react';
-import { Radio, Zap, Bug, Skull, Shield, Newspaper, Rss, MessageSquare, AtSign, AlertTriangle, ShieldAlert, Flame, Box, Crosshair } from 'lucide-react';
+import {
+  Radio,
+  Zap,
+  Bug,
+  Skull,
+  Shield,
+  Newspaper,
+  Rss,
+  MessageSquare,
+  AtSign,
+  AlertTriangle,
+  ShieldAlert,
+  Flame,
+  Box,
+  Crosshair,
+  Anchor,
+} from 'lucide-react';
 
 export type PulseKind =
   | 'ioc_activity'
@@ -30,7 +46,9 @@ export type PulseKind =
   | 'kev'
   | 'cyberpulse'
   | 'rss'
-  | 'honeypot';
+  | 'honeypot'
+  | 'firm'
+  | 'maritime';
 
 export interface PulseEvent {
   id: string;
@@ -297,6 +315,22 @@ export const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     icon: <Crosshair size={14} />,
     color: 'text-teal-600 dark:text-teal-400',
     bgColor: 'bg-teal-500/10 border-teal-500/20',
+    group: 'intel',
+  },
+  firm: {
+    label: 'FIRMS Fires',
+    shortLabel: 'FIRE',
+    icon: <Flame size={14} />,
+    color: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-500/10 border-orange-500/20',
+    group: 'intel',
+  },
+  maritime: {
+    label: 'Maritime (UKMTO)',
+    shortLabel: 'SEA',
+    icon: <Anchor size={14} />,
+    color: 'text-sky-600 dark:text-sky-400',
+    bgColor: 'bg-sky-500/10 border-sky-500/20',
     group: 'intel',
   },
 };
