@@ -274,6 +274,23 @@ export default function ThreatClusterEntities() {
             </div>
 
             <div className="max-h-[60vh] overflow-y-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] divide-y divide-slate-200 dark:divide-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50">
+              {/* Top-level AI threat analysis for the filtered entities */}
+              {filtered.length > 0 && (
+                <div className="p-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <PostAnalysisButton
+                    title={`ThreatCluster Entity Digest \u2014 ${filtered.length} entities`}
+                    description={filtered
+                      .slice(0, 20)
+                      .map(
+                        (e) =>
+                          `${e.name} (${TYPE_META[e.type].label}): ${e.mentionCount} mentions${e.aliases.length > 0 ? `, aliases: ${e.aliases.join(', ')}` : ''}`
+                      )
+                      .join('\n')}
+                    source="threatcluster.io"
+                  />
+                </div>
+              )}
+
               {filtered.length > 0 && (
                 <div className="p-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <AiSummaryCard

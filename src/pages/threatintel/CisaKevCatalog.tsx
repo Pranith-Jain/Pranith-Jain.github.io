@@ -4,6 +4,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { fetchJson } from '../../lib/fetch-helpers';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface KevEntry {
   cve_id: string;
@@ -301,6 +302,21 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       </div>
 
       {/* Table */}
+      {!bare && filtered.length > 0 && (
+        <div className="mb-4">
+          <PostAnalysisButton
+            title={`CISA KEV Digest \u2014 ${filtered.length} exploited CVEs`}
+            description={filtered
+              .slice(0, 20)
+              .map(
+                (e) =>
+                  `${e.cve_id} — ${e.vulnerability_name}: ${e.vendor_project} ${e.product}, severity ${e.severity ?? 'n/a'}${e.cvss_score != null ? ` (CVSS ${e.cvss_score.toFixed(1)})` : ''}${e.known_ransomware_campaign_use === 'Known' ? ', ransomware campaign' : ''}`
+              )
+              .join('\n')}
+            source="cisa.gov"
+          />
+        </div>
+      )}
       {!bare && filtered.length > 0 && (
         <AiSummaryCard
           surface="CISA KEV Catalog"

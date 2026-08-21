@@ -571,6 +571,12 @@ function MalwareCard({ fam }: { fam: TiMalwareFamily }) {
         )}
         <Confidence value={fam.confidence} />
       </div>
+      <PostAnalysisButton
+        title={`${fam.name} malware family`}
+        description={`Malware family: ${fam.name}${fam.category ? ` (${fam.category})` : ''}${fam.status ? `, status: ${fam.status}` : ''}${fam.tlp ? `, TLP: ${fam.tlp}` : ''}. Confidence: ${fam.confidence ?? 'n/a'}.`}
+        source="threaticon.com"
+        compact
+      />
     </div>
   );
 }
@@ -1151,6 +1157,20 @@ export default function ThreaticonFeeds() {
               );
             })}
           </div>
+
+          {/* Top-level AI threat analysis for the active tab */}
+          {summaryItems.items.length > 0 && (
+            <div className="mb-4">
+              <PostAnalysisButton
+                title={`Threaticon ${tab.charAt(0).toUpperCase() + tab.slice(1)} Digest \u2014 ${summaryItems.items.length} items`}
+                description={summaryItems.items
+                  .slice(0, 20)
+                  .map((it) => `${it.title}: ${it.body}`)
+                  .join('\n')}
+                source="threaticon.com"
+              />
+            </div>
+          )}
 
           {/* AI summary of the active tab */}
           {summaryItems.items.length > 0 && (
