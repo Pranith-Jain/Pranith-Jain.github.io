@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/critical-vulnerabilities-in-wordpress-plugins-expose-600000--97e92648?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-in-wordpress-plugins-expose-600000--97e92648",
   "pubDate": "2026-08-18T08:48:33.000Z",
-  "sourceCount": 2,
-  "categories": ["2 Sources"],
-  "description": "IT researchers have identified critical vulnerabilities in the Forminator Forms and Royal Elementor Addons WordPress plugins. The Forminator Forms plugin, used in over 600,000 installations, has a flaw (CVE-2026-15748) allowing unauthenticated users to upload malicious files, rated CVSS 9.8. This vulnerability can lead to full control of affected sites. Additionally, Royal Elementor Addons has two vulnerabilities (CVE-2026-17123 and CVE-2026-19217) that allow server-side request forgery and cross-site scripting attacks, respectively. The affected versions of these plugins are 1.56.1 and earlier for Forminator Forms, and prior to version 1.7.1066 for Royal Elementor Addons. Users are advised to update to the latest versions to mitigate these risks. The vulnerabilities were disclosed on August 12, 16, and 18, 2026.\n\nKey Points:\n• Forminator Forms plugin vulnerability allows file uploads by unauthenticated users.\n• Over 600,000 WordPress sites are affected by these critical vulnerabilities.\n• Immediate updates to the latest plugin versions are essential to prevent exploitation.",
-  "sizeBytes": 1091
+  "sourceCount": 6,
+  "categories": ["6 Sources"],
+  "description": "IT researchers have identified critical vulnerabilities in the Forminator Forms and Royal Elementor Addons WordPress plugins.",
+  "sizeBytes": 125
 }

@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-18T03:55:20.000Z",
-  "lastSeen": "2026-08-18T03:55:20.000Z",
+  "firstSeen": "2026-08-20T10:36:56.000Z",
+  "lastSeen": "2026-08-20T10:36:56.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-18",
+      "date": "2026-08-20",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "terra-petra-com-4412",
-      "title": "terra-petra.com — claimed by lockbit5",
-      "pubDate": "2026-08-18T03:55:20.000Z"
+      "slug": "usbank-com-e345",
+      "title": "usbank.com — claimed by lockbit5",
+      "pubDate": "2026-08-20T10:36:56.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "energy-utilities",
-      "name": "Energy & Utilities",
+      "slug": "financial-services",
+      "name": "Financial Services",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "terra-petra-com-4412",
-      "victim": "terra-petra.com — claimed by lockbit5",
-      "sector": "Energy & Utilities",
-      "country": "DE",
-      "pubDate": "2026-08-18T03:55:20.000Z"
+      "id": "usbank-com-e345",
+      "victim": "usbank.com — claimed by lockbit5",
+      "sector": "Financial Services",
+      "country": "US",
+      "pubDate": "2026-08-20T10:36:56.000Z"
     }
   ]
 }

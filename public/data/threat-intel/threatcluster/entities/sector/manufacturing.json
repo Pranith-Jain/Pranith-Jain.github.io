@@ -4,87 +4,81 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 7,
-  "firstSeen": "2026-08-17T17:22:22.000Z",
-  "lastSeen": "2026-08-18T20:02:25.000Z",
-  "summary": "Sector hit by 7 leak-site victims across 7 ransomware groups and 3 countries.",
+  "mentionCount": 8,
+  "firstSeen": "2026-08-20T11:03:16.000Z",
+  "lastSeen": "2026-08-21T02:25:53.000Z",
+  "summary": "Sector hit by 8 leak-site victims across 5 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-17",
-      "count": 3
+      "date": "2026-08-20",
+      "count": 7
     },
     {
-      "date": "2026-08-18",
-      "count": 4
+      "date": "2026-08-21",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "adl-embedded-solutions-2eb4",
-      "title": "ADL Embedded Solutions — claimed by securotrop",
-      "pubDate": "2026-08-18T20:02:25.000Z"
+      "slug": "allstar-industries-f240",
+      "title": "Allstar Industries — claimed by direwolf",
+      "pubDate": "2026-08-21T02:25:53.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "r-amp-d-machine-and-engineering-4be9",
-      "title": "R &amp; D Machine and Engineering — claimed by dragonforce",
-      "pubDate": "2026-08-18T17:55:14.000Z"
+      "slug": "gruppo-spaggiari-parma-c2b1",
+      "title": "Gruppo Spaggiari Parma — claimed by xpl0itrs",
+      "pubDate": "2026-08-20T19:31:43.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "standard-tool-amp-die-dbde",
-      "title": "Standard Tool &amp; Die — claimed by Storm",
-      "pubDate": "2026-08-18T04:21:54.000Z"
+      "slug": "latoplast-ca6d",
+      "title": "Latoplast — claimed by play",
+      "pubDate": "2026-08-20T17:27:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "scholle-ipn-sig-cf38",
-      "title": "Scholle IPN / SIG — claimed by anubis",
-      "pubDate": "2026-08-18T03:21:51.000Z"
+      "slug": "termotecnica-industriale-s-r-l-6054",
+      "title": "Termotecnica Industriale S.r.l. — claimed by titan",
+      "pubDate": "2026-08-20T16:58:09.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "bmw-group-fbb5",
-      "title": "BMW Group — claimed by xpl0itrs",
-      "pubDate": "2026-08-17T18:30:10.000Z"
+      "slug": "condor-spa-7fec",
+      "title": "CONDOR SPA — claimed by titan",
+      "pubDate": "2026-08-20T14:00:11.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "the-rubber-group-1122",
-      "title": "The Rubber Group — claimed by Global Secret Group",
-      "pubDate": "2026-08-17T18:22:02.000Z"
+      "slug": "elbor-s-p-a-aa5a",
+      "title": "Elbor S.p.A. — claimed by titan",
+      "pubDate": "2026-08-20T13:59:30.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "dl-e-amp-c-5ca6",
-      "title": "DL E&amp;C — claimed by Panzer",
-      "pubDate": "2026-08-17T17:22:22.000Z"
+      "slug": "deas-millwork-1aa0",
+      "title": "Deas Millwork — claimed by akira",
+      "pubDate": "2026-08-20T13:51:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "elcon-megarad-s-p-a-0ee1",
+      "title": "ELCON MEGARAD S.p.A — claimed by titan",
+      "pubDate": "2026-08-20T11:03:16.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "securotrop",
-      "name": "securotrop",
-      "weight": 1
+      "slug": "titan",
+      "name": "titan",
+      "weight": 4
     },
     {
       "type": "group",
-      "slug": "dragonforce",
-      "name": "dragonforce",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "storm",
-      "name": "Storm",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "anubis",
-      "name": "anubis",
+      "slug": "direwolf",
+      "name": "direwolf",
       "weight": 1
     },
     {
@@ -95,14 +89,14 @@
     },
     {
       "type": "group",
-      "slug": "global-secret-group",
-      "name": "Global Secret Group",
+      "slug": "play",
+      "name": "play",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "panzer",
-      "name": "Panzer",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     }
   ],

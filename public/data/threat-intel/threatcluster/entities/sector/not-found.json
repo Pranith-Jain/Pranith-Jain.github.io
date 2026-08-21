@@ -4,49 +4,53 @@
   "name": "Not Found",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-08-18T00:26:41.000Z",
-  "lastSeen": "2026-08-18T18:52:28.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 5 ransomware groups and 3 countries.",
+  "mentionCount": 4,
+  "firstSeen": "2026-08-20T14:15:06.000Z",
+  "lastSeen": "2026-08-21T02:30:11.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-18",
-      "count": 5
+      "date": "2026-08-20",
+      "count": 3
+    },
+    {
+      "date": "2026-08-21",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "t-p-l-81aa",
-      "title": "T... P... L... — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-18T18:52:28.000Z"
+      "slug": "northstar-cbc6",
+      "title": "NorthStar — claimed by direwolf",
+      "pubDate": "2026-08-21T02:30:11.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "borchert-amp-laspina-b187",
-      "title": "Borchert &amp; LaSpina — claimed by akira",
-      "pubDate": "2026-08-18T14:52:33.000Z"
+      "slug": "d-3384",
+      "title": "D... — claimed by SilentRansomGroup",
+      "pubDate": "2026-08-20T20:52:31.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "bomohsa-e5a4",
-      "title": "BOMOHSA — claimed by gunra",
-      "pubDate": "2026-08-18T10:55:52.000Z"
+      "slug": "ctp-s-r-l-3118",
+      "title": "CTP S.r.l. — claimed by titan",
+      "pubDate": "2026-08-20T15:02:58.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "de-up-f115",
-      "title": "De***up — claimed by AuditTeam",
-      "pubDate": "2026-08-18T02:50:19.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sd-associates-sdn-bhd-9431",
-      "title": "SD Associates Sdn Bhd — claimed by incransom",
-      "pubDate": "2026-08-18T00:26:41.000Z"
+      "slug": "p-r-f529",
+      "title": "P**** R***** — claimed by thegentlemen",
+      "pubDate": "2026-08-20T14:15:06.000Z"
     }
   ],
   "relatedEntities": [
+    {
+      "type": "group",
+      "slug": "direwolf",
+      "name": "direwolf",
+      "weight": 1
+    },
     {
       "type": "group",
       "slug": "silentransomgroup",
@@ -55,26 +59,14 @@
     },
     {
       "type": "group",
-      "slug": "akira",
-      "name": "akira",
+      "slug": "titan",
+      "name": "titan",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "gunra",
-      "name": "gunra",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "auditteam",
-      "name": "AuditTeam",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
       "weight": 1
     }
   ],

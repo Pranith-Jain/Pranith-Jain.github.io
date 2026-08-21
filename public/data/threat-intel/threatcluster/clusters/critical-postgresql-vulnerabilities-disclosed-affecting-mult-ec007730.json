@@ -1,0 +1,11 @@
+{
+  "slug": "critical-postgresql-vulnerabilities-disclosed-affecting-mult-ec007730",
+  "title": "Critical PostgreSQL Vulnerabilities Disclosed Affecting Multiple Versions",
+  "link": "https://threatcluster.io/cluster/critical-postgresql-vulnerabilities-disclosed-affecting-mult-ec007730?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-postgresql-vulnerabilities-disclosed-affecting-mult-ec007730",
+  "pubDate": "2026-08-20T13:30:44.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "Multiple vulnerabilities were discovered in PostgreSQL, including issues with COPY FROM STDIN, extended statistics ownership, and USAGE privilege checks.",
+  "sizeBytes": 153
+}

@@ -4,75 +4,41 @@
   "name": "Professional Services",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-08-17T16:22:52.000Z",
-  "lastSeen": "2026-08-18T22:51:57.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 4 ransomware groups and 3 countries.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-20T14:36:30.000Z",
+  "lastSeen": "2026-08-20T15:01:34.000Z",
+  "summary": "Sector hit by 2 leak-site victims across 2 ransomware groups and 2 countries.",
   "frequency": [
     {
-      "date": "2026-08-17",
+      "date": "2026-08-20",
       "count": 2
-    },
-    {
-      "date": "2026-08-18",
-      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "troutman-pepper-locke-c53c",
-      "title": "Troutman Pepper Locke — claimed by SilentRansomGroup",
-      "pubDate": "2026-08-18T22:51:57.000Z"
+      "slug": "tedesco-amp-partners-stp-srl-d3f3",
+      "title": "Tedesco &amp; Partners STP srl — claimed by titan",
+      "pubDate": "2026-08-20T15:01:34.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "ssf-int-com-ssf-ing-de-e4cb",
-      "title": "ssf-int.com ssf-ing.de — claimed by incransom",
-      "pubDate": "2026-08-18T10:26:27.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "nyklawfirm-com-nyk-ae-43e5",
-      "title": "nyklawfirm.com nyk.ae — claimed by incransom",
-      "pubDate": "2026-08-18T10:25:50.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "white-daters-amp-associates-inc-6f04",
-      "title": "White-Daters &amp; Associates, Inc — claimed by qilin",
-      "pubDate": "2026-08-17T21:30:02.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "planungsgruppe-m-m-ag-d968",
-      "title": "Planungsgruppe M+M AG — claimed by aurora",
-      "pubDate": "2026-08-17T16:22:52.000Z"
+      "slug": "job-net-com-mm-1b43",
+      "title": "Job Net .COM.MM — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T14:36:30.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 2
-    },
-    {
-      "type": "group",
-      "slug": "silentransomgroup",
-      "name": "SilentRansomGroup",
+      "slug": "titan",
+      "name": "titan",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "qilin",
-      "name": "qilin",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "aurora",
-      "name": "aurora",
+      "slug": "dysphor1a",
+      "name": "DYSPHOR1A",
       "weight": 1
     }
   ],

@@ -4,69 +4,29 @@
   "name": "Retail & E-Commerce",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-17T14:22:18.000Z",
-  "lastSeen": "2026-08-18T04:21:24.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 2 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-20T14:21:22.000Z",
+  "lastSeen": "2026-08-20T14:21:22.000Z",
+  "summary": "Sector hit by 1 leak-site victim across 1 ransomware group and 0 countries.",
   "frequency": [
     {
-      "date": "2026-08-17",
-      "count": 3
-    },
-    {
-      "date": "2026-08-18",
+      "date": "2026-08-20",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "westco-motors-cairns-8cd9",
-      "title": "Westco Motors Cairns — claimed by Storm",
-      "pubDate": "2026-08-18T04:21:24.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sam-pack-auto-group-4671",
-      "title": "Sam Pack Auto Group — claimed by play",
-      "pubDate": "2026-08-17T20:26:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "4m-realty-company-fc43",
-      "title": "4M REALTY COMPANY — claimed by Global Secret Group",
-      "pubDate": "2026-08-17T17:21:21.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "natco-home-group-eeed",
-      "title": "Natco Home Group — claimed by aurora",
-      "pubDate": "2026-08-17T14:22:18.000Z"
+      "slug": "cascade-coffee-5eb1",
+      "title": "Cascade Coffee — claimed by akira",
+      "pubDate": "2026-08-20T14:21:22.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "storm",
-      "name": "Storm",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "play",
-      "name": "play",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "global-secret-group",
-      "name": "Global Secret Group",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "aurora",
-      "name": "aurora",
+      "slug": "akira",
+      "name": "akira",
       "weight": 1
     }
   ],

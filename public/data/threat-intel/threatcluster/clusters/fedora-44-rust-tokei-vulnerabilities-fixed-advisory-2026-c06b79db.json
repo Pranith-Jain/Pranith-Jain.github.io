@@ -6,6 +6,6 @@
   "pubDate": "2026-08-16T01:08:11.000Z",
   "sourceCount": 13,
   "categories": ["13 Sources"],
-  "description": "Recent security advisories for Fedora 43 and 44 highlight vulnerabilities in Rust packages linked to the libgit2 library. These vulnerabilities, including CVE-2026-5917 and others, affect applications using Rust bindings for libgit2, which could lead to privilege escalation and system-wide damage. The affected packages include rust-lsd, rust-git-delta, rust-git-interactive-rebase-tool, rust-pretty-git-prompt, and rust-tokei. Users are advised to rebuild their applications with the latest libgit2-sys crate to mitigate these risks. The vulnerabilities were published on August 11, 2026, and updates are available for installation via the dnf update program. The advisories emphasize the importance of auditing Linux privileges to prevent exploitation.\n\nKey Points:\n• Multiple Fedora Rust packages are affected by critical vulnerabilities in libgit2.\n• CVE-2026-5917 and related issues could allow privilege escalation and system compromise.\n• Users must rebuild applications with the latest libgit2-sys crate to ensure security.",
-  "sizeBytes": 1032
+  "description": "Recent security advisories for Fedora 43 and 44 highlight vulnerabilities in Rust packages linked to the libgit2 library. These vulnerabilities, including CVE-2026-5917 and others, affect applications…",
+  "sizeBytes": 201
 }

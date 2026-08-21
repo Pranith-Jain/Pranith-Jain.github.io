@@ -1,0 +1,126 @@
+{
+  "type": "group",
+  "slug": "dysphor1a",
+  "name": "DYSPHOR1A",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 6,
+  "firstSeen": "2026-08-20T14:36:11.000Z",
+  "lastSeen": "2026-08-20T20:50:28.000Z",
+  "summary": "Ransomware group with 6 leak-site victims across 4 sectors and 4 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-20",
+      "count": 6
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "the-university-of-delhi-du-69be",
+      "title": "The University of Delhi (DU) — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T20:50:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "ayudhya-th-insurance-1985",
+      "title": "AYUDHYA TH Insurance — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T14:37:28.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "gusto-college-glms-4ed2",
+      "title": "GUSTO College GLMS — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T14:37:09.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "indonesian-police-database-a8ec",
+      "title": "Indonesian Police Database — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T14:36:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "job-net-com-mm-1b43",
+      "title": "Job Net .COM.MM — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T14:36:30.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "strategy-first-international-college-f5a7",
+      "title": "Strategy First International College — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T14:36:11.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "financial-services",
+      "name": "Financial Services",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "government-defense",
+      "name": "Government & Defense",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "professional-services",
+      "name": "Professional Services",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "the-university-of-delhi-du-69be",
+      "victim": "The University of Delhi (DU) — claimed by DYSPHOR1A",
+      "sector": "Education",
+      "country": "IN",
+      "pubDate": "2026-08-20T20:50:28.000Z"
+    },
+    {
+      "id": "ayudhya-th-insurance-1985",
+      "victim": "AYUDHYA TH Insurance — claimed by DYSPHOR1A",
+      "sector": "Financial Services",
+      "country": "TH",
+      "pubDate": "2026-08-20T14:37:28.000Z"
+    },
+    {
+      "id": "gusto-college-glms-4ed2",
+      "victim": "GUSTO College GLMS — claimed by DYSPHOR1A",
+      "sector": "Education",
+      "country": "TH",
+      "pubDate": "2026-08-20T14:37:09.000Z"
+    },
+    {
+      "id": "indonesian-police-database-a8ec",
+      "victim": "Indonesian Police Database — claimed by DYSPHOR1A",
+      "sector": "Government & Defense",
+      "country": "ID",
+      "pubDate": "2026-08-20T14:36:49.000Z"
+    },
+    {
+      "id": "job-net-com-mm-1b43",
+      "victim": "Job Net .COM.MM — claimed by DYSPHOR1A",
+      "sector": "Professional Services",
+      "country": "MM",
+      "pubDate": "2026-08-20T14:36:30.000Z"
+    },
+    {
+      "id": "strategy-first-international-college-f5a7",
+      "victim": "Strategy First International College — claimed by DYSPHOR1A",
+      "sector": "Education",
+      "country": "MM",
+      "pubDate": "2026-08-20T14:36:11.000Z"
+    }
+  ]
+}

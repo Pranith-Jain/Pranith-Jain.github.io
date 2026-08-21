@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/french-taxpayers-data-stolen-in-hack-of-finance-ministry-9f961c5f?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/french-taxpayers-data-stolen-in-hack-of-finance-ministry-9f961c5f",
   "pubDate": "2026-08-14T15:14:33.000Z",
-  "sourceCount": 37,
-  "categories": ["37 Sources"],
-  "description": "In late June 2026, a cyberattack on France's General Directorate of Public Finances (DGFiP) compromised the data of approximately 700,000 taxpayers. The breach was confirmed by the French Finance Ministry on August 13, 2026, after a hacker known as 'ZeroBytes' claimed responsibility and advertised the stolen data on a cybercrime forum. The attack reportedly involved the exploitation of stolen credentials and an MFA bypass technique, allowing unauthorized access to sensitive taxpayer information, including names, addresses, and income details. Initial reports indicated that 70 gigabytes of data were extracted, with the potential for further exposure of sensitive banking information. The Ministry is conducting investigations to assess the full scope of the breach and notify affected individuals. This incident follows a series of cyberattacks on French public sector entities earlier in the year, highlighting ongoing vulnerabilities in national cybersecurity.\n\nKey Points:\n• 700,000 taxpayer records compromised in a cyberattack on France's DGFiP.\n• Hacker 'ZeroBytes' claimed responsibility, using stolen credentials and MFA bypass.\n• Ongoing investigations to assess the full impact and notify affected individuals.",
-  "sizeBytes": 1227
+  "sourceCount": 47,
+  "categories": ["47 Sources"],
+  "description": "In late June 2026, a cyberattack on France's General Directorate of Public Finances DGFiP compromised the data of approximately 700,000 taxpayers.",
+  "sizeBytes": 146
 }

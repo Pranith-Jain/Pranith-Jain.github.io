@@ -4,84 +4,74 @@
   "name": "Technology",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 10,
-  "firstSeen": "2026-08-17T14:23:55.000Z",
-  "lastSeen": "2026-08-19T00:55:20.000Z",
-  "summary": "Sector hit by 10 leak-site victims across 7 ransomware groups and 6 countries.",
+  "mentionCount": 9,
+  "firstSeen": "2026-08-20T12:51:44.000Z",
+  "lastSeen": "2026-08-21T02:29:39.000Z",
+  "summary": "Sector hit by 9 leak-site victims across 7 ransomware groups and 5 countries.",
   "frequency": [
     {
-      "date": "2026-08-17",
-      "count": 5
+      "date": "2026-08-20",
+      "count": 6
     },
     {
-      "date": "2026-08-18",
-      "count": 4
-    },
-    {
-      "date": "2026-08-19",
-      "count": 1
+      "date": "2026-08-21",
+      "count": 3
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "infoflo-crm-7af6",
-      "title": "InfoFlo CRM — claimed by direwolf",
-      "pubDate": "2026-08-19T00:55:20.000Z"
+      "slug": "aztec-software-9fdf",
+      "title": "Aztec Software — claimed by direwolf",
+      "pubDate": "2026-08-21T02:29:39.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "coltrane-systems-c2ee",
-      "title": "Coltrane Systems — claimed by play",
-      "pubDate": "2026-08-18T17:31:54.000Z"
+      "slug": "prosim-aviation-research-d33b",
+      "title": "ProSim Aviation Research — claimed by direwolf",
+      "pubDate": "2026-08-21T02:28:35.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "logitech-streamlabs-20b2",
-      "title": "Logitech/ Streamlabs — claimed by shinyhunters",
-      "pubDate": "2026-08-18T13:19:17.000Z"
+      "slug": "authenticate-information-systems-40c8",
+      "title": "Authenticate Information Systems — claimed by direwolf",
+      "pubDate": "2026-08-21T02:28:02.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "penfold-86c1",
-      "title": "Penfold — claimed by Storm",
-      "pubDate": "2026-08-18T04:20:23.000Z"
+      "slug": "cyrus-1ed1",
+      "title": "Cyrus****** — claimed by shinyhunters",
+      "pubDate": "2026-08-20T18:43:17.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "t-w-x-0b1c",
-      "title": "T****w**x — claimed by nightspire",
-      "pubDate": "2026-08-18T00:30:43.000Z"
+      "slug": "netexam-5526",
+      "title": "NetExam — claimed by emperador",
+      "pubDate": "2026-08-20T17:50:47.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "codinter-de0c",
-      "title": "Codinter — claimed by insomnia",
-      "pubDate": "2026-08-17T21:56:17.000Z"
+      "slug": "be-media-a7f8",
+      "title": "Be Media — claimed by play",
+      "pubDate": "2026-08-20T17:28:01.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "wishfully-studios-81c0",
-      "title": "Wishfully Studios — claimed by direwolf",
-      "pubDate": "2026-08-17T14:53:46.000Z"
+      "slug": "qualiflex-datacenter-hwz-studiengnge-fh-hwz-ch-myenb-ch-etc-ecea",
+      "title": "Qualiflex Datacenter | HWZ-Studiengnge (fh-hwz.ch), myenb.ch, etc — claimed by payload",
+      "pubDate": "2026-08-20T17:26:46.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "rx-networks-0432",
-      "title": "Rx Networks — claimed by everest",
-      "pubDate": "2026-08-17T14:25:14.000Z"
+      "slug": "tecnologica-s-r-l-55f7",
+      "title": "TECNOLOGICA S.r.l. — claimed by titan",
+      "pubDate": "2026-08-20T13:32:30.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mighty-kingdom-328d",
-      "title": "Mighty Kingdom — claimed by direwolf",
-      "pubDate": "2026-08-17T14:24:29.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "eva-ai-limited-70f1",
-      "title": "Eva AI Limited — claimed by direwolf",
-      "pubDate": "2026-08-17T14:23:55.000Z"
+      "slug": "alert-29e3",
+      "title": "Alert — claimed by Sovcali",
+      "pubDate": "2026-08-20T12:51:44.000Z"
     }
   ],
   "relatedEntities": [
@@ -89,13 +79,7 @@
       "type": "group",
       "slug": "direwolf",
       "name": "direwolf",
-      "weight": 4
-    },
-    {
-      "type": "group",
-      "slug": "play",
-      "name": "play",
-      "weight": 1
+      "weight": 3
     },
     {
       "type": "group",
@@ -105,26 +89,32 @@
     },
     {
       "type": "group",
-      "slug": "storm",
-      "name": "Storm",
+      "slug": "emperador",
+      "name": "emperador",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "nightspire",
-      "name": "nightspire",
+      "slug": "play",
+      "name": "play",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "insomnia",
-      "name": "insomnia",
+      "slug": "payload",
+      "name": "payload",
       "weight": 1
     },
     {
       "type": "group",
-      "slug": "everest",
-      "name": "everest",
+      "slug": "titan",
+      "name": "titan",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "sovcali",
+      "name": "Sovcali",
       "weight": 1
     }
   ],

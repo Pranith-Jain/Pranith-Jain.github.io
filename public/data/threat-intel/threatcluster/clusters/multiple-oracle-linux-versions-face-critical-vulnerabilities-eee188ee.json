@@ -1,0 +1,11 @@
+{
+  "slug": "multiple-oracle-linux-versions-face-critical-vulnerabilities-eee188ee",
+  "title": "Multiple Oracle Linux Versions Face Critical Vulnerabilities in PCP Tools",
+  "link": "https://threatcluster.io/cluster/multiple-oracle-linux-versions-face-critical-vulnerabilities-eee188ee?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/multiple-oracle-linux-versions-face-critical-vulnerabilities-eee188ee",
+  "pubDate": "2026-08-20T10:25:24.000Z",
+  "sourceCount": 3,
+  "categories": ["3 Sources"],
+  "description": "Recent advisories reveal critical vulnerabilities affecting Oracle Linux versions 8, 9, and 10, specifically in the Performance Co-Pilot PCP tools.",
+  "sizeBytes": 147
+}

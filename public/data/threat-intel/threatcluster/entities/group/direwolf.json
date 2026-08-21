@@ -4,68 +4,88 @@
   "name": "direwolf",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-17T14:23:55.000Z",
-  "lastSeen": "2026-08-19T00:55:57.000Z",
-  "summary": "Ransomware group with 8 leak-site victims across 4 sectors and 4 countries.",
+  "mentionCount": 13,
+  "firstSeen": "2026-08-21T02:23:41.000Z",
+  "lastSeen": "2026-08-21T02:30:11.000Z",
+  "summary": "Ransomware group with 13 leak-site victims across 8 sectors and 6 countries.",
   "frequency": [
     {
-      "date": "2026-08-17",
-      "count": 4
-    },
-    {
-      "date": "2026-08-19",
-      "count": 4
+      "date": "2026-08-21",
+      "count": 13
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "photon-health-inc-3e99",
-      "title": "Photon Health, Inc. — claimed by direwolf",
-      "pubDate": "2026-08-19T00:55:57.000Z"
+      "slug": "northstar-cbc6",
+      "title": "NorthStar — claimed by direwolf",
+      "pubDate": "2026-08-21T02:30:11.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "infoflo-crm-7af6",
-      "title": "InfoFlo CRM — claimed by direwolf",
-      "pubDate": "2026-08-19T00:55:20.000Z"
+      "slug": "aztec-software-9fdf",
+      "title": "Aztec Software — claimed by direwolf",
+      "pubDate": "2026-08-21T02:29:39.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "payup-b3b0",
-      "title": "PayUp — claimed by direwolf",
-      "pubDate": "2026-08-19T00:54:47.000Z"
+      "slug": "the-revel-collective-c60d",
+      "title": "The Revel Collective — claimed by direwolf",
+      "pubDate": "2026-08-21T02:29:07.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "lifesum-4015",
-      "title": "Lifesum — claimed by direwolf",
-      "pubDate": "2026-08-19T00:54:08.000Z"
+      "slug": "prosim-aviation-research-d33b",
+      "title": "ProSim Aviation Research — claimed by direwolf",
+      "pubDate": "2026-08-21T02:28:35.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "arizona-state-university-asu-c152",
-      "title": "Arizona State University (ASU) — claimed by direwolf",
-      "pubDate": "2026-08-17T14:54:40.000Z"
+      "slug": "authenticate-information-systems-40c8",
+      "title": "Authenticate Information Systems — claimed by direwolf",
+      "pubDate": "2026-08-21T02:28:02.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "wishfully-studios-81c0",
-      "title": "Wishfully Studios — claimed by direwolf",
-      "pubDate": "2026-08-17T14:53:46.000Z"
+      "slug": "diaco-global-26f1",
+      "title": "Diaco Global — claimed by direwolf",
+      "pubDate": "2026-08-21T02:27:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "mighty-kingdom-328d",
-      "title": "Mighty Kingdom — claimed by direwolf",
-      "pubDate": "2026-08-17T14:24:29.000Z"
+      "slug": "ison-xperiences-a835",
+      "title": "iSON XPERIENCES — claimed by direwolf",
+      "pubDate": "2026-08-21T02:26:56.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "eva-ai-limited-70f1",
-      "title": "Eva AI Limited — claimed by direwolf",
-      "pubDate": "2026-08-17T14:23:55.000Z"
+      "slug": "deer-creek-mackinaw-cusd-5de3",
+      "title": "Deer Creek-Mackinaw CUSD — claimed by direwolf",
+      "pubDate": "2026-08-21T02:26:25.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "allstar-industries-f240",
+      "title": "Allstar Industries — claimed by direwolf",
+      "pubDate": "2026-08-21T02:25:53.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "hp-carriers-9e0c",
+      "title": "HP Carriers — claimed by direwolf",
+      "pubDate": "2026-08-21T02:25:21.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "mct-group-of-companies-43fe",
+      "title": "MCT Group of Companies — claimed by direwolf",
+      "pubDate": "2026-08-21T02:24:48.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "reviso-cloud-accounting-limited-b08a",
+      "title": "Reviso Cloud Accounting Limited — claimed by direwolf",
+      "pubDate": "2026-08-21T02:24:16.000Z"
     }
   ],
   "relatedEntities": [
@@ -73,84 +93,143 @@
       "type": "sector",
       "slug": "technology",
       "name": "Technology",
-      "weight": 4
+      "weight": 3
     },
     {
       "type": "sector",
-      "slug": "healthcare",
-      "name": "Healthcare",
+      "slug": "other",
+      "name": "Other",
+      "weight": 3
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
       "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "transportation",
+      "name": "Transportation",
+      "weight": 1
     },
     {
       "type": "sector",
       "slug": "financial-services",
       "name": "Financial Services",
       "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "education",
-      "name": "Education",
-      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "photon-health-inc-3e99",
-      "victim": "Photon Health, Inc. — claimed by direwolf",
-      "sector": "Healthcare",
-      "country": "US",
-      "pubDate": "2026-08-19T00:55:57.000Z"
+      "id": "northstar-cbc6",
+      "victim": "NorthStar — claimed by direwolf",
+      "sector": "Not Found",
+      "country": "CA",
+      "pubDate": "2026-08-21T02:30:11.000Z"
     },
     {
-      "id": "infoflo-crm-7af6",
-      "victim": "InfoFlo CRM — claimed by direwolf",
+      "id": "aztec-software-9fdf",
+      "victim": "Aztec Software — claimed by direwolf",
+      "sector": "Technology",
+      "country": "MX",
+      "pubDate": "2026-08-21T02:29:39.000Z"
+    },
+    {
+      "id": "the-revel-collective-c60d",
+      "victim": "The Revel Collective — claimed by direwolf",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-08-21T02:29:07.000Z"
+    },
+    {
+      "id": "prosim-aviation-research-d33b",
+      "victim": "ProSim Aviation Research — claimed by direwolf",
+      "sector": "Technology",
+      "country": "FR",
+      "pubDate": "2026-08-21T02:28:35.000Z"
+    },
+    {
+      "id": "authenticate-information-systems-40c8",
+      "victim": "Authenticate Information Systems — claimed by direwolf",
       "sector": "Technology",
       "country": "US",
-      "pubDate": "2026-08-19T00:55:20.000Z"
+      "pubDate": "2026-08-21T02:28:02.000Z"
     },
     {
-      "id": "payup-b3b0",
-      "victim": "PayUp — claimed by direwolf",
-      "sector": "Financial Services",
+      "id": "diaco-global-26f1",
+      "victim": "Diaco Global — claimed by direwolf",
+      "sector": "Other",
       "country": null,
-      "pubDate": "2026-08-19T00:54:47.000Z"
+      "pubDate": "2026-08-21T02:27:28.000Z"
     },
     {
-      "id": "lifesum-4015",
-      "victim": "Lifesum — claimed by direwolf",
-      "sector": "Healthcare",
-      "country": "SE",
-      "pubDate": "2026-08-19T00:54:08.000Z"
+      "id": "ison-xperiences-a835",
+      "victim": "iSON XPERIENCES — claimed by direwolf",
+      "sector": "Hospitality",
+      "country": "MX",
+      "pubDate": "2026-08-21T02:26:56.000Z"
     },
     {
-      "id": "arizona-state-university-asu-c152",
-      "victim": "Arizona State University (ASU) — claimed by direwolf",
+      "id": "deer-creek-mackinaw-cusd-5de3",
+      "victim": "Deer Creek-Mackinaw CUSD — claimed by direwolf",
       "sector": "Education",
       "country": "US",
-      "pubDate": "2026-08-17T14:54:40.000Z"
+      "pubDate": "2026-08-21T02:26:25.000Z"
     },
     {
-      "id": "wishfully-studios-81c0",
-      "victim": "Wishfully Studios — claimed by direwolf",
-      "sector": "Technology",
-      "country": "SE",
-      "pubDate": "2026-08-17T14:53:46.000Z"
+      "id": "allstar-industries-f240",
+      "victim": "Allstar Industries — claimed by direwolf",
+      "sector": "Manufacturing",
+      "country": "US",
+      "pubDate": "2026-08-21T02:25:53.000Z"
     },
     {
-      "id": "mighty-kingdom-328d",
-      "victim": "Mighty Kingdom — claimed by direwolf",
-      "sector": "Technology",
-      "country": "AU",
-      "pubDate": "2026-08-17T14:24:29.000Z"
+      "id": "hp-carriers-9e0c",
+      "victim": "HP Carriers — claimed by direwolf",
+      "sector": "Transportation",
+      "country": "US",
+      "pubDate": "2026-08-21T02:25:21.000Z"
     },
     {
-      "id": "eva-ai-limited-70f1",
-      "victim": "Eva AI Limited — claimed by direwolf",
-      "sector": "Technology",
-      "country": "GB",
-      "pubDate": "2026-08-17T14:23:55.000Z"
+      "id": "mct-group-of-companies-43fe",
+      "victim": "MCT Group of Companies — claimed by direwolf",
+      "sector": "Other",
+      "country": "AE",
+      "pubDate": "2026-08-21T02:24:48.000Z"
+    },
+    {
+      "id": "reviso-cloud-accounting-limited-b08a",
+      "victim": "Reviso Cloud Accounting Limited — claimed by direwolf",
+      "sector": "Financial Services",
+      "country": "DK",
+      "pubDate": "2026-08-21T02:24:16.000Z"
+    },
+    {
+      "id": "studee-321c",
+      "victim": "Studee — claimed by direwolf",
+      "sector": "Education",
+      "country": null,
+      "pubDate": "2026-08-21T02:23:41.000Z"
     }
   ]
 }

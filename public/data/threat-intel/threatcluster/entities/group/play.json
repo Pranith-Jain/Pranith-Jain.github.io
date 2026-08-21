@@ -4,44 +4,28 @@
   "name": "play",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 4,
-  "firstSeen": "2026-08-17T20:26:20.000Z",
-  "lastSeen": "2026-08-18T17:31:54.000Z",
-  "summary": "Ransomware group with 4 leak-site victims across 4 sectors and 1 country.",
+  "mentionCount": 2,
+  "firstSeen": "2026-08-20T17:27:28.000Z",
+  "lastSeen": "2026-08-20T17:28:01.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-17",
-      "count": 3
-    },
-    {
-      "date": "2026-08-18",
-      "count": 1
+      "date": "2026-08-20",
+      "count": 2
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "coltrane-systems-c2ee",
-      "title": "Coltrane Systems — claimed by play",
-      "pubDate": "2026-08-18T17:31:54.000Z"
+      "slug": "be-media-a7f8",
+      "title": "Be Media — claimed by play",
+      "pubDate": "2026-08-20T17:28:01.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "bridgeport-capital-services-d4a9",
-      "title": "Bridgeport Capital Services — claimed by play",
-      "pubDate": "2026-08-17T20:27:30.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "sam-pack-auto-group-4671",
-      "title": "Sam Pack Auto Group — claimed by play",
-      "pubDate": "2026-08-17T20:26:56.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "woodhaven-association-9d51",
-      "title": "Woodhaven Association — claimed by play",
-      "pubDate": "2026-08-17T20:26:20.000Z"
+      "slug": "latoplast-ca6d",
+      "title": "Latoplast — claimed by play",
+      "pubDate": "2026-08-20T17:27:28.000Z"
     }
   ],
   "relatedEntities": [
@@ -53,52 +37,26 @@
     },
     {
       "type": "sector",
-      "slug": "financial-services",
-      "name": "Financial Services",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "retail-e-commerce",
-      "name": "Retail & E-Commerce",
-      "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "other",
-      "name": "Other",
+      "slug": "manufacturing",
+      "name": "Manufacturing",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "coltrane-systems-c2ee",
-      "victim": "Coltrane Systems — claimed by play",
+      "id": "be-media-a7f8",
+      "victim": "Be Media — claimed by play",
       "sector": "Technology",
-      "country": "US",
-      "pubDate": "2026-08-18T17:31:54.000Z"
+      "country": null,
+      "pubDate": "2026-08-20T17:28:01.000Z"
     },
     {
-      "id": "bridgeport-capital-services-d4a9",
-      "victim": "Bridgeport Capital Services — claimed by play",
-      "sector": "Financial Services",
-      "country": "US",
-      "pubDate": "2026-08-17T20:27:30.000Z"
-    },
-    {
-      "id": "sam-pack-auto-group-4671",
-      "victim": "Sam Pack Auto Group — claimed by play",
-      "sector": "Retail & E-Commerce",
-      "country": "US",
-      "pubDate": "2026-08-17T20:26:56.000Z"
-    },
-    {
-      "id": "woodhaven-association-9d51",
-      "victim": "Woodhaven Association — claimed by play",
-      "sector": "Other",
-      "country": "US",
-      "pubDate": "2026-08-17T20:26:20.000Z"
+      "id": "latoplast-ca6d",
+      "victim": "Latoplast — claimed by play",
+      "sector": "Manufacturing",
+      "country": "LV",
+      "pubDate": "2026-08-20T17:27:28.000Z"
     }
   ]
 }

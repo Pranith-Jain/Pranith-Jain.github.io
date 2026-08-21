@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/russian-hackers-breach-nearly-50-companies-worldwide-includi-108c6970?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/russian-hackers-breach-nearly-50-companies-worldwide-includi-108c6970",
   "pubDate": "2026-08-14T07:52:39.000Z",
-  "sourceCount": 29,
-  "categories": ["29 Sources"],
-  "description": "The Cl0p hacking group has claimed to have stolen significant data from nearly 50 companies, including Shell, Philips, General Electric (GE), and Fiserv. The group reported stealing approximately 89GB from Shell and 13.5GB from Philips, including sensitive engineering documents and project plans. The attacks exploit vulnerabilities in PTC Windchill and FlexPLM software, specifically a critical remote code execution vulnerability tracked as CVE-2026-12569. Both Shell and Philips confirmed attempts to breach their systems but have not verified the extent of the data theft. Fiserv and GE are also investigating the claims but have found no evidence of compromised customer data. The Ransomware Information Sharing and Analysis Center (Ransom-ISAC) issued warnings about the exploitation of these vulnerabilities as early as July 22, 2026. The situation remains under investigation as companies assess the potential impact.\n\nKey Points:\n• Cl0p claims to have stolen data from nearly 50 companies, including Shell and Philips.\n• The attacks exploit vulnerabilities in PTC Windchill and FlexPLM, particularly CVE-2026-12569.\n• Both Shell and Philips are investigating the incidents but have not confirmed data theft.",
-  "sizeBytes": 1217
+  "sourceCount": 30,
+  "categories": ["30 Sources"],
+  "description": "The Cl0p hacking group has claimed to have stolen significant data from nearly 50 companies, including Shell, Philips, General Electric GE, and Fiserv.",
+  "sizeBytes": 151
 }

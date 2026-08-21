@@ -6,6 +6,6 @@
   "pubDate": "2026-08-17T15:33:26.000Z",
   "sourceCount": 2,
   "categories": ["2 Sources"],
-  "description": "Storm-0501, a financially motivated cybercrime group, has been active since 2021 and is known for conducting ransomware operations using various Ransomware-as-a-Service (RaaS) variants. They have recently expanded their tactics to target cloud environments, specifically Azure, by hijacking high-privilege administrative identities and weaponizing native cloud tools. The group has utilized tools like ADRecon.ps1 and Azurehound for reconnaissance and has executed brute force attacks to obtain credentials. They have also leveraged PowerShell and Cloud CLI for command execution and data exfiltration. Storm-0501's operations have included destroying data backups and encrypting files, leading to significant impacts on victim organizations. Current detection capabilities, such as those from Tenable One, are essential for identifying and mitigating these sophisticated attacks.\n\nKey Points:\n• Storm-0501 uses Ransomware-as-a-Service (RaaS) to conduct Azure-based ransomware operations.\n• The group employs advanced tactics, including hijacking administrative identities and using cloud-native tools.\n• Detection solutions like Tenable One are crucial for identifying and responding to Storm-0501's tactics.",
-  "sizeBytes": 1209
+  "description": "Storm-0501, a financially motivated cybercrime group, has been active since 2021 and is known for conducting ransomware operations using various Ransomware-as-a-Service RaaS variants.",
+  "sizeBytes": 183
 }

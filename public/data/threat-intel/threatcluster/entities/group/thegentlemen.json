@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "thegentlemen",
+  "name": "thegentlemen",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-20T14:15:06.000Z",
+  "lastSeen": "2026-08-20T14:15:27.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 0 countries.",
+  "frequency": [
+    {
+      "date": "2026-08-20",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "biopharma-c6f4",
+      "title": "BioPharma — claimed by thegentlemen",
+      "pubDate": "2026-08-20T14:15:27.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "p-r-f529",
+      "title": "P**** R***** — claimed by thegentlemen",
+      "pubDate": "2026-08-20T14:15:06.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "biopharma-c6f4",
+      "victim": "BioPharma — claimed by thegentlemen",
+      "sector": "Healthcare",
+      "country": null,
+      "pubDate": "2026-08-20T14:15:27.000Z"
+    },
+    {
+      "id": "p-r-f529",
+      "victim": "P**** R***** — claimed by thegentlemen",
+      "sector": "Not Found",
+      "country": null,
+      "pubDate": "2026-08-20T14:15:06.000Z"
+    }
+  ]
+}

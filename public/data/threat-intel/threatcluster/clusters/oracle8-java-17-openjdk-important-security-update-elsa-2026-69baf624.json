@@ -6,6 +6,6 @@
   "pubDate": "2026-08-14T13:06:21.000Z",
   "sourceCount": 3,
   "categories": ["3 Sources"],
-  "description": "Oracle has released significant security updates for Java 17 OpenJDK across multiple Linux distributions, including Oracle Linux 8 and 9. These updates address several vulnerabilities, including CVE-2026-46917, CVE-2026-47059, and others, all published on 2026-07-21. The vulnerabilities could lead to privilege escalation and system compromise if exploited. Users of Oracle Linux 8 and 9 are urged to audit their Linux privileges to limit potential damage. The updates include various package versions, with Oracle vendor bug URL [Orabug: 34340155] provided for reference. The updates are critical for maintaining system security and preventing unauthorized access. Administrators should apply these updates promptly to mitigate risks associated with these vulnerabilities.\n\nKey Points:\n• Oracle released critical security updates for Java 17 OpenJDK on 2026-08-13 and 2026-08-14.\n• Multiple CVEs, including CVE-2026-46917 and CVE-2026-47059, were addressed in these updates.\n• Affected systems include Oracle Linux 8 and 9, with urgent recommendations for privilege audits.",
-  "sizeBytes": 1075
+  "description": "Oracle has released significant security updates for Java 17 OpenJDK across multiple Linux distributions, including Oracle Linux 8 and 9.",
+  "sizeBytes": 137
 }

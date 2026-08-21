@@ -5,39 +5,39 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 1,
-  "firstSeen": "2026-08-17T17:22:22.000Z",
-  "lastSeen": "2026-08-17T17:22:22.000Z",
+  "firstSeen": "2026-08-20T16:22:01.000Z",
+  "lastSeen": "2026-08-20T16:22:01.000Z",
   "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-17",
+      "date": "2026-08-20",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "dl-e-amp-c-5ca6",
-      "title": "DL E&amp;C — claimed by Panzer",
-      "pubDate": "2026-08-17T17:22:22.000Z"
+      "slug": "frisian-flag-indonesia-f90a",
+      "title": "Frisian Flag Indonesia — claimed by Panzer",
+      "pubDate": "2026-08-20T16:22:01.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
+      "slug": "agriculture-and-food-production",
+      "name": "Agriculture and Food Production",
       "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "dl-e-amp-c-5ca6",
-      "victim": "DL E&amp;C — claimed by Panzer",
-      "sector": "Manufacturing",
-      "country": "KR",
-      "pubDate": "2026-08-17T17:22:22.000Z"
+      "id": "frisian-flag-indonesia-f90a",
+      "victim": "Frisian Flag Indonesia — claimed by Panzer",
+      "sector": "Agriculture and Food Production",
+      "country": "ID",
+      "pubDate": "2026-08-20T16:22:01.000Z"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "type": "actor",
+  "slug": "midnight-blizzard",
+  "name": "Midnight Blizzard",
+  "aliases": ["Apt29", "Cozy Bear"],
+  "sources": ["misp"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-19T00:00:00.000Z",
+  "lastSeen": "2026-08-19T00:00:00.000Z",
+  "summary": "Threat actor mentioned in one record",
+  "frequency": [
+    {
+      "date": "2026-08-19",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "mispEvent",
+      "slug": "9dcafa76-fc19-526f-8968-ffbcb17ee56d",
+      "title": "Critical RCE Vulnerability in Zimbra Exploited by Attackers",
+      "pubDate": "2026-08-19T00:00:00.000Z"
+    }
+  ],
+  "relatedEntities": [],
+  "mitreTechniques": []
+}

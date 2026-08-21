@@ -1,11 +1,144 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-19T05:58:50Z",
-  "syncedAt": "2026-08-19T05:58:50.965Z",
+  "generatedAt": "2026-08-21T05:14:29Z",
+  "syncedAt": "2026-08-21T05:14:29.611Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 36,
+  "count": 41,
   "iocs": [
+    {
+      "type": "domain",
+      "value": "drive.google.verify-drive.com",
+      "confidence": "high",
+      "reason": "Identified as a malware distribution domain.",
+      "first_seen": "2026-08-21T00:32:07.289805+00:00",
+      "last_seen": "2026-08-21T00:32:07.289805+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "cloud.google.com",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/distinct-clusters-target-individuals-of-interest-to-russia",
+          "pub_date": "2026-08-21T00:32:07.289805+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "miov2iaiaoubqosiqoiajwowiwjso.online",
+      "confidence": "high",
+      "reason": "C2 for AtomicStealer identified.",
+      "first_seen": "2026-08-21T00:32:07.289805+00:00",
+      "last_seen": "2026-08-21T00:32:07.289805+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "cloud.google.com",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/distinct-clusters-target-individuals-of-interest-to-russia",
+          "pub_date": "2026-08-21T00:32:07.289805+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "verify-drive.com",
+      "confidence": "high",
+      "reason": "Identified as a malware distribution domain.",
+      "first_seen": "2026-08-21T00:32:07.289805+00:00",
+      "last_seen": "2026-08-21T00:32:07.289805+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "cloud.google.com",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/distinct-clusters-target-individuals-of-interest-to-russia",
+          "pub_date": "2026-08-21T00:32:07.289805+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv6",
+      "value": "2605:6400::",
+      "confidence": "high",
+      "reason": "Listed as an IP used for spraying attacks.",
+      "first_seen": "2026-08-19T14:18:19.959764+00:00",
+      "last_seen": "2026-08-19T14:18:19.959764+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.huntress.com",
+          "url": "https://www.huntress.com/blog/twist-the-nozzle-on-password-spraying-a-tradecraft-tuesday-recap?hnt=ns5oa1n4i3gx",
+          "pub_date": "2026-08-19T14:18:19.959764+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv6",
+      "value": "2605:6404::",
+      "confidence": "high",
+      "reason": "Listed as an IP used for spraying attacks.",
+      "first_seen": "2026-08-19T14:18:19.959764+00:00",
+      "last_seen": "2026-08-19T14:18:19.959764+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "www.huntress.com",
+          "url": "https://www.huntress.com/blog/twist-the-nozzle-on-password-spraying-a-tradecraft-tuesday-recap?hnt=ns5oa1n4i3gx",
+          "pub_date": "2026-08-19T14:18:19.959764+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv6",
+      "value": "2a0a:d683::",
+      "confidence": "high",
+      "reason": "Listed as an IP range used in attacks.",
+      "first_seen": "2026-08-19T14:00:10+00:00",
+      "last_seen": "2026-08-19T14:18:19.959764+00:00",
+      "source_count": 2,
+      "sources": [
+        {
+          "source": "www.huntress.com",
+          "url": "https://www.huntress.com/blog/twist-the-nozzle-on-password-spraying-a-tradecraft-tuesday-recap?hnt=ns5oa1n4i3gx",
+          "pub_date": "2026-08-19T14:18:19.959764+00:00"
+        },
+        {
+          "source": "Bleepingcomputer",
+          "url": "https://www.bleepingcomputer.com/news/security/password-spraying-attacks-surge-155x-as-hackers-exploit-mfa-gaps/",
+          "pub_date": "2026-08-19T14:00:10+00:00"
+        }
+      ]
+    },
+    {
+      "type": "domain",
+      "value": "spyroid.net",
+      "confidence": "high",
+      "reason": "Identified as a commercial RAT framework sold to cybercriminals.",
+      "first_seen": "2026-08-19T09:52:51+00:00",
+      "last_seen": "2026-08-19T09:52:51+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Group-Ib",
+          "url": "https://www.group-ib.com/blog/balonx-sistema-mexico-phaas/",
+          "pub_date": "2026-08-19T09:52:51+00:00"
+        }
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "196.251.84.11",
+      "confidence": "high",
+      "reason": "Identified as active C2 server for Spyroid-based malware.",
+      "first_seen": "2026-08-19T09:52:51+00:00",
+      "last_seen": "2026-08-19T09:52:51+00:00",
+      "source_count": 1,
+      "sources": [
+        {
+          "source": "Group-Ib",
+          "url": "https://www.group-ib.com/blog/balonx-sistema-mexico-phaas/",
+          "pub_date": "2026-08-19T09:52:51+00:00"
+        }
+      ]
+    },
     {
       "type": "ipv4",
       "value": "108.187.42.63",
@@ -551,54 +684,6 @@
           "source": "medium.com",
           "url": "https://medium.com/@anyrun/kratos-phaas-targets-us-and-eu-how-to-reduce-microsoft-365-account-takeover-risk-5696ddc8ab09",
           "pub_date": "2026-07-22T16:17:23.678778+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "gobf.mx",
-      "confidence": "high",
-      "reason": "Identified as C2 server in context.",
-      "first_seen": "2026-07-20T15:43:55+00:00",
-      "last_seen": "2026-07-20T15:43:55+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rapid7",
-          "url": "https://www.rapid7.com/blog/post/tr-exposed-webdav-malware-delivery-lab-analysis",
-          "pub_date": "2026-07-20T15:43:55+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "23.94.252.228",
-      "confidence": "high",
-      "reason": "Identified as C2 server in context.",
-      "first_seen": "2026-07-20T15:43:55+00:00",
-      "last_seen": "2026-07-20T15:43:55+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rapid7",
-          "url": "https://www.rapid7.com/blog/post/tr-exposed-webdav-malware-delivery-lab-analysis",
-          "pub_date": "2026-07-20T15:43:55+00:00"
-        }
-      ]
-    },
-    {
-      "type": "ipv4",
-      "value": "77.110.127.205",
-      "confidence": "high",
-      "reason": "Identified as C2 server in context.",
-      "first_seen": "2026-07-20T15:43:55+00:00",
-      "last_seen": "2026-07-20T15:43:55+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "Rapid7",
-          "url": "https://www.rapid7.com/blog/post/tr-exposed-webdav-malware-delivery-lab-analysis",
-          "pub_date": "2026-07-20T15:43:55+00:00"
         }
       ]
     }

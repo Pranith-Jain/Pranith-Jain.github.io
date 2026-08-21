@@ -1,0 +1,11 @@
+{
+  "slug": "critical-vulnerabilities-found-in-traefik-and-grafana-requir-0446f6f1",
+  "title": "Critical Vulnerabilities Found in Traefik and Grafana Require Immediate Patching",
+  "link": "https://threatcluster.io/cluster/critical-vulnerabilities-found-in-traefik-and-grafana-requir-0446f6f1?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/critical-vulnerabilities-found-in-traefik-and-grafana-requir-0446f6f1",
+  "pubDate": "2026-08-18T09:48:45.000Z",
+  "sourceCount": 2,
+  "categories": ["2 Sources"],
+  "description": "Multiple vulnerabilities have been identified in Traefik and Grafana, allowing attackers to spoof identities and escalate privileges.",
+  "sizeBytes": 133
+}

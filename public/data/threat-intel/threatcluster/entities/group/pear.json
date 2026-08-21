@@ -1,0 +1,94 @@
+{
+  "type": "group",
+  "slug": "pear",
+  "name": "pear",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 4,
+  "firstSeen": "2026-08-20T11:29:14.000Z",
+  "lastSeen": "2026-08-20T11:30:59.000Z",
+  "summary": "Ransomware group with 4 leak-site victims across 3 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-20",
+      "count": 4
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "medical-arts-chemists-and-surgicals-b7d6",
+      "title": "Medical Arts Chemists and Surgicals — claimed by pear",
+      "pubDate": "2026-08-20T11:30:59.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "club-one-casino-ef41",
+      "title": "Club One Casino — claimed by pear",
+      "pubDate": "2026-08-20T11:30:24.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "practi-cal-d38f",
+      "title": "Practi-Cal — claimed by pear",
+      "pubDate": "2026-08-20T11:29:49.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "austin-plastic-surgery-institute-9b38",
+      "title": "Austin Plastic Surgery Institute — claimed by pear",
+      "pubDate": "2026-08-20T11:29:14.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 2
+    },
+    {
+      "type": "sector",
+      "slug": "hospitality",
+      "name": "Hospitality",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "other",
+      "name": "Other",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "medical-arts-chemists-and-surgicals-b7d6",
+      "victim": "Medical Arts Chemists and Surgicals — claimed by pear",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-20T11:30:59.000Z"
+    },
+    {
+      "id": "club-one-casino-ef41",
+      "victim": "Club One Casino — claimed by pear",
+      "sector": "Hospitality",
+      "country": "US",
+      "pubDate": "2026-08-20T11:30:24.000Z"
+    },
+    {
+      "id": "practi-cal-d38f",
+      "victim": "Practi-Cal — claimed by pear",
+      "sector": "Other",
+      "country": "US",
+      "pubDate": "2026-08-20T11:29:49.000Z"
+    },
+    {
+      "id": "austin-plastic-surgery-institute-9b38",
+      "victim": "Austin Plastic Surgery Institute — claimed by pear",
+      "sector": "Healthcare",
+      "country": "US",
+      "pubDate": "2026-08-20T11:29:14.000Z"
+    }
+  ]
+}

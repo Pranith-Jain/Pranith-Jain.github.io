@@ -5,56 +5,46 @@
   "aliases": [],
   "sources": ["victims"],
   "mentionCount": 4,
-  "firstSeen": "2026-08-17T20:27:30.000Z",
-  "lastSeen": "2026-08-19T00:54:47.000Z",
-  "summary": "Sector hit by 4 leak-site victims across 3 ransomware groups and 2 countries.",
+  "firstSeen": "2026-08-20T10:36:56.000Z",
+  "lastSeen": "2026-08-21T02:24:16.000Z",
+  "summary": "Sector hit by 4 leak-site victims across 4 ransomware groups and 3 countries.",
   "frequency": [
     {
-      "date": "2026-08-17",
-      "count": 1
+      "date": "2026-08-20",
+      "count": 3
     },
     {
-      "date": "2026-08-18",
-      "count": 2
-    },
-    {
-      "date": "2026-08-19",
+      "date": "2026-08-21",
       "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "payup-b3b0",
-      "title": "PayUp — claimed by direwolf",
-      "pubDate": "2026-08-19T00:54:47.000Z"
+      "slug": "reviso-cloud-accounting-limited-b08a",
+      "title": "Reviso Cloud Accounting Limited — claimed by direwolf",
+      "pubDate": "2026-08-21T02:24:16.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "spearfin-ltd-6b15",
-      "title": "SpearFin Ltd — claimed by incransom",
-      "pubDate": "2026-08-18T10:27:05.000Z"
+      "slug": "ayudhya-th-insurance-1985",
+      "title": "AYUDHYA TH Insurance — claimed by DYSPHOR1A",
+      "pubDate": "2026-08-20T14:37:28.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "third-coast-bancshares-89f1",
-      "title": "Third Coast Bancshares — claimed by incransom",
-      "pubDate": "2026-08-18T00:26:02.000Z"
+      "slug": "cca-bank-65e4",
+      "title": "CCA Bank — claimed by everest",
+      "pubDate": "2026-08-20T13:54:00.000Z"
     },
     {
       "recordType": "victim",
-      "slug": "bridgeport-capital-services-d4a9",
-      "title": "Bridgeport Capital Services — claimed by play",
-      "pubDate": "2026-08-17T20:27:30.000Z"
+      "slug": "usbank-com-e345",
+      "title": "usbank.com — claimed by lockbit5",
+      "pubDate": "2026-08-20T10:36:56.000Z"
     }
   ],
   "relatedEntities": [
-    {
-      "type": "group",
-      "slug": "incransom",
-      "name": "incransom",
-      "weight": 2
-    },
     {
       "type": "group",
       "slug": "direwolf",
@@ -63,8 +53,20 @@
     },
     {
       "type": "group",
-      "slug": "play",
-      "name": "play",
+      "slug": "dysphor1a",
+      "name": "DYSPHOR1A",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "everest",
+      "name": "everest",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "lockbit5",
+      "name": "lockbit5",
       "weight": 1
     }
   ],
