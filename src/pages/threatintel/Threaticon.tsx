@@ -592,6 +592,12 @@ function CoverageCard({ tech }: { tech: TiCoverageTechnique }) {
       </div>
       <p className="text-sm text-slate-600 dark:text-slate-300 leading-snug">{tech.name}</p>
       <p className="text-mini text-slate-500 mt-1 font-mono">{tech.tactic}</p>
+      <PostAnalysisButton
+        title={`${tech.techniqueId} — ${tech.name}`}
+        description={`MITRE technique ${tech.techniqueId} (${tech.name}) in tactic ${tech.tactic}. ${tech.rules} detection rules mapped.`}
+        source="threaticon.com"
+        compact
+      />
     </div>
   );
 }
