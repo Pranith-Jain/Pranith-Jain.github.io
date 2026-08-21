@@ -356,6 +356,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/detection-chokepoints', '/__prerendered/dfir__detection-chokepoints'],
   ['/dfir/one-time-secret', '/__prerendered/dfir__one-time-secret'],
   ['/dfir/xss-payloads', '/__prerendered/dfir__xss-payloads'],
+  ['/threatintel/detection-wiki', '/__prerendered/threatintel__detection-wiki'],
+  ['/threatintel/threat-actor-monitor', '/__prerendered/threatintel__threat-actor-monitor'],
   ['/threatintel/alerts', '/__prerendered/threatintel__alerts'],
   ['/threatintel/apt-actors', '/__prerendered/threatintel__apt-actors'],
   ['/threatintel/aptmap', '/__prerendered/threatintel__aptmap'],

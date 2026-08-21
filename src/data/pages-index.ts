@@ -3032,6 +3032,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/threat-actor-monitor',
+    label: 'Threat Actor Monitor',
+    description:
+      'Real-time APT monitoring across 81 groups, 108 techniques, 39 OSINT feeds with MITRE ATT&CK + Kill Chain mapping — replication of hero-itsme/Global-Threat-Actor-Monitor expanded (40→81 groups, 29→108 techniques, 30→39 feeds).',
+    sectionLabel: 'Threat Intel · Monitoring',
+    group: 'threatintel',
+    keywords: ['apt', 'threat actor', 'monitor', 'kill chain', 'mitre', 'osint', 'hero-itsme', 'groups', 'techniques'],
+  },
+  {
     path: '/threatintel/estate',
     label: 'Estate Configuration',
     description:
@@ -3523,6 +3532,29 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     description: 'ThreatSignal RSS feed.',
     sectionLabel: 'Threat Intel · Detections',
     group: 'threatintel',
+  },
+  {
+    path: '/threatintel/detection-wiki',
+    label: 'Detection Wiki',
+    description:
+      'Mirrored detection.wiki — 15,957 Sigma/Elastic/Splunk/Kusto/YARA-L/Panther/Sublime rules mapped to 218 ATT&CK techniques, 1,518 Windows providers, 426 Security-Auditing events, 17 platforms, 6 labs.',
+    sectionLabel: 'Threat Intel · Detections',
+    group: 'threatintel',
+    keywords: [
+      'detection.wiki',
+      'sigma',
+      'elastic',
+      'splunk',
+      'kusto',
+      'yara-l',
+      'panther',
+      'sublime',
+      'att&ck',
+      'windows',
+      'security-auditing',
+      'platforms',
+      'labs',
+    ],
   },
   {
     path: '/threatintel/phishing/phish',

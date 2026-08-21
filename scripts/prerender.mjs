@@ -390,6 +390,8 @@ const ROUTES = [
   '/dfir/detection-chokepoints',
   '/dfir/one-time-secret',
   '/dfir/xss-payloads',
+  '/threatintel/detection-wiki',
+  '/threatintel/threat-actor-monitor',
   '/threatintel/alerts',
   '/threatintel/apt-actors',
   '/threatintel/aptmap',
