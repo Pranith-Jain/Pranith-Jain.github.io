@@ -472,6 +472,16 @@ export default function ThreatCluster(): JSX.Element {
     >
       {idx && (
         <>
+          {/* AI summary — above all UI elements so it's the first card */}
+          {summaryItems.items.length > 0 && (
+            <AiSummaryCard
+              surface={summaryItems.surface}
+              items={summaryItems.items}
+              requireAdmin={false}
+              className="mb-5"
+            />
+          )}
+
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-5">
             {[
@@ -516,11 +526,6 @@ export default function ThreatCluster(): JSX.Element {
               );
             })}
           </div>
-
-          {/* AI summary of the active tab */}
-          {summaryItems.items.length > 0 && (
-            <AiSummaryCard surface={summaryItems.surface} items={summaryItems.items} requireAdmin={false} />
-          )}
 
           {/* Per-tab body */}
           {tab === 'clusters' && (

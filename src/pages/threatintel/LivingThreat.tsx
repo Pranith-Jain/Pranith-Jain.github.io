@@ -522,6 +522,23 @@ export default function LivingThreat(): JSX.Element {
             </div>
           </div>
 
+          {/* Top-level AI threat analysis for the filtered incidents */}
+          {incidents.length > 0 && (
+            <div className="mb-4">
+              <PostAnalysisButton
+                title={`Living Threat Digest \u2014 ${incidents.length} incidents`}
+                description={incidents
+                  .slice(0, 20)
+                  .map(
+                    (e) =>
+                      `${e.title} (${e.severity}): actors ${e.actors.join(', ') || 'none'} · tactics ${e.tactics.join(' \u2192 ') || 'none'}`
+                  )
+                  .join('\n')}
+                source="living-threat.rabitanoor.com"
+              />
+            </div>
+          )}
+
           <div className="space-y-2">
             {incidents.length > 0 && (
               <AiSummaryCard

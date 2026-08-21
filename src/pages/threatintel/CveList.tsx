@@ -7,6 +7,7 @@ import { useLastVisit, isNewSince } from '../../hooks';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { SEVERITY_TONE } from '../../components/severity';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface RecentCve {
@@ -173,6 +174,20 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
 
   const body = (
     <>
+      {/* Top-level AI threat analysis for the filtered CVE set */}
+      {filtered.length > 0 && (
+        <div className="mb-6">
+          <PostAnalysisButton
+            title={`CVE Digest — ${filtered.length} CVEs${kevOnly ? ' (KEV only)' : ''}${newCount > 0 ? ` · ${newCount} new` : ''}`}
+            description={filtered
+              .slice(0, 20)
+              .map((c) => `${c.id} (${c.severity}, score ${c.score ?? '?'}): ${c.description.slice(0, 150)}`)
+              .join('\n')}
+            source="nvd+kev+mti"
+          />
+        </div>
+      )}
+
       <AiSummaryCard
         surface="Live CVE Updates"
         items={summaryItems}
@@ -360,17 +375,19 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                   </span>
                 </div>
               </div>
-              <p className="text-meta font-mono text-muted leading-relaxed">{c.description}</p>
-              {c.reference && (
-                <a
-                  href={sanitizeUrl(c.reference) || undefined}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline mt-2 transition-colors"
-                >
-                  primary reference <ExternalLink size={9} />
-                </a>
-              )}
+              <div className="flex items-center gap-2 mt-2">
+                <PostAnalysisButton title={c.id} description={c.description} source={c.origin} compact />
+                {c.reference && (
+                  <a
+                    href={sanitizeUrl(c.reference) || undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
+                  >
+                    primary reference <ExternalLink size={9} />
+                  </a>
+                )}
+              </div>
             </li>
           );
         })}

@@ -448,6 +448,20 @@ export default function Dphish(): JSX.Element {
             <div className="text-center py-12 text-slate-500 font-mono text-sm">No indicators match your filters</div>
           ) : (
             <>
+              {/* Top-level AI threat analysis for the filtered dPhish indicators */}
+              <div className="mb-4">
+                <PostAnalysisButton
+                  title={`dPhish Digest \u2014 ${filtered.length} phishing indicators${category !== 'all' ? ` (${category})` : ''}${activeOnly ? ' (active only)' : ''}`}
+                  description={filtered
+                    .slice(0, 20)
+                    .map(
+                      (e) => `${e.value ?? e.slug} (${e.category ?? 'unknown'}): ${(e.description ?? '').slice(0, 120)}`
+                    )
+                    .join('\n')}
+                  source="dphish.com"
+                />
+              </div>
+
               <AiSummaryCard
                 surface="dPhish Phishing Feed"
                 items={filtered.slice(0, 30).map((entry) => ({

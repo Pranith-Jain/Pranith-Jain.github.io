@@ -3,7 +3,18 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ExternalLink, RefreshCw, Radio, Loader2, Search, AlertTriangle, CheckCircle2, BarChart3 } from 'lucide-react';
+import {
+  Brain,
+  ExternalLink,
+  RefreshCw,
+  Radio,
+  Loader2,
+  Search,
+  AlertTriangle,
+  CheckCircle2,
+  BarChart3,
+  Shield,
+} from 'lucide-react';
 import {
   fetchAggregatedFeed,
   formatRelativeTime,
@@ -118,6 +129,20 @@ export default function ThreatFeeds(): JSX.Element {
   const [disabled, setDisabled] = useState<Set<string>>(() => loadDisabled());
   const [showSourcePanel, setShowSourcePanel] = useState(false);
   const [showDigest, setShowDigest] = useState(false);
+  const [topAnalysis, setTopAnalysis] = useState<{
+    summary: string;
+    threat_level: string;
+    confidence: string;
+    impact: string;
+    recommended_actions: string[];
+    related_ttps?: string[];
+    iocs?: string[];
+    raw?: string;
+  } | null>(null);
+  const [topAnalysisLoading, setTopAnalysisLoading] = useState(false);
+  const [topAnalysisError, setTopAnalysisError] = useState<string | null>(null);
+  const [topAnalysisExpanded, setTopAnalysisExpanded] = useState(true);
+  const [topAnalysisModel, setTopAnalysisModel] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -180,6 +205,56 @@ export default function ThreatFeeds(): JSX.Element {
       });
   }, [items, urlToSection, activeSection, search]);
 
+  const fetchTopAnalysis = useCallback(async () => {
+    if (topAnalysis) {
+      setTopAnalysisExpanded((p) => !p);
+      return;
+    }
+    if (annotated.length === 0) return;
+    setTopAnalysisLoading(true);
+    setTopAnalysisError(null);
+    setTopAnalysisExpanded(true);
+    try {
+      const top = annotated.slice(0, 20);
+      const combined = top
+        .map(({ item }) => `${item.title ?? 'untitled'}: ${stripHtml(item.description ?? '').slice(0, 200)}`)
+        .join('\n');
+      const res = await fetch('/api/v1/threat-analysis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'event',
+          title: `Threat Feeds Digest \u2014 ${top.length} latest items from ${new Set(top.map(({ item }) => item.source)).size} sources`,
+          description: combined.slice(0, 4000),
+          source: 'threatfeeds-aggregated',
+        }),
+        signal: AbortSignal.timeout(35_000),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const parsed = data.analysis as {
+        summary: string;
+        threat_level: string;
+        confidence: string;
+        impact: string;
+        recommended_actions: string[];
+        related_ttps?: string[];
+        iocs?: string[];
+        raw?: string;
+      } | null;
+      if (data?.parse_failed) {
+        setTopAnalysis({ ...parsed, raw: String(parsed?.raw ?? '') } as NonNullable<typeof topAnalysis>);
+      } else {
+        setTopAnalysis(parsed);
+      }
+      setTopAnalysisModel(data.model);
+    } catch (e) {
+      setTopAnalysisError((e as Error).message);
+    } finally {
+      setTopAnalysisLoading(false);
+    }
+  }, [annotated, topAnalysis]);
+
   const sectionCounts = useMemo(() => {
     const counts: Record<string, number> = { all: items.length };
     for (const sec of SECTIONS) counts[sec.id] = 0;
@@ -233,6 +308,131 @@ export default function ThreatFeeds(): JSX.Element {
           .
         </p>
       </div>
+
+      {/* ─── Top-level AI Feed Analysis Card ─── */}
+      {annotated.length > 0 && (
+        <div className="relative mb-6 surface-card rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-sm overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
+          <button
+            type="button"
+            onClick={() => void fetchTopAnalysis()}
+            className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/50 dark:hover:bg-white/5 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
+                <Brain size={14} className="text-brand-600 dark:text-brand-400" />
+              </span>
+              <span className="text-sm font-display font-bold text-slate-900 dark:text-slate-100">
+                AI Threat Analysis
+              </span>
+              {topAnalysis && (
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-1">
+                  {topAnalysisModel && topAnalysisModel.split(':').pop()}
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              {!topAnalysisLoading && !topAnalysis && (
+                <span className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline">
+                  Analyze Feed
+                </span>
+              )}
+              <span className="text-micro text-slate-500 dark:text-slate-400">{topAnalysisExpanded ? '▲' : '▼'}</span>
+            </div>
+          </button>
+
+          {topAnalysisExpanded && (
+            <div className="px-4 pb-4">
+              {topAnalysisLoading && !topAnalysis && (
+                <div className="flex items-center gap-2 py-4 text-sm text-slate-500 dark:text-slate-400">
+                  <Loader2 size={14} className="animate-spin" />
+                  Analyzing feed content…
+                </div>
+              )}
+
+              {topAnalysisError && (
+                <div className="flex items-center justify-between py-3">
+                  <p className="text-sm text-rose-600 dark:text-rose-400">{topAnalysisError}</p>
+                  <button
+                    type="button"
+                    onClick={() => void fetchTopAnalysis()}
+                    className="flex items-center gap-1.5 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
+                  >
+                    <RefreshCw size={12} /> Retry
+                  </button>
+                </div>
+              )}
+
+              {topAnalysis && !topAnalysis.raw && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`inline-flex items-center gap-1 px-2 py-0.5 text-micro font-mono rounded border ${topAnalysis.threat_level === 'critical' ? 'text-rose-700 dark:text-rose-400 bg-rose-500/10 border-rose-500/30' : topAnalysis.threat_level === 'high' ? 'text-orange-700 dark:text-orange-400 bg-orange-500/10 border-orange-500/30' : topAnalysis.threat_level === 'medium' ? 'text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30' : 'text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/30'}`}
+                    >
+                      <Shield size={10} />
+                      {topAnalysis.threat_level?.toUpperCase()}
+                    </span>
+                    <span className="text-micro font-mono text-slate-500">conf: {topAnalysis.confidence}</span>
+                  </div>
+
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{topAnalysis.summary}</p>
+
+                  {topAnalysis.impact && (
+                    <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
+                      <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Impact</span>
+                      <p className="text-xs text-slate-700 dark:text-slate-400">{topAnalysis.impact}</p>
+                    </div>
+                  )}
+
+                  {topAnalysis.related_ttps?.filter(Boolean).length ? (
+                    <div>
+                      <span className="text-micro font-mono uppercase text-slate-500 block mb-1">MITRE ATT&CK</span>
+                      <div className="flex flex-wrap gap-1">
+                        {topAnalysis.related_ttps.filter(Boolean).map((t, i) => (
+                          <span
+                            key={i}
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {topAnalysis.recommended_actions?.length > 0 && (
+                    <div>
+                      <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Actions</span>
+                      <ul className="space-y-0.5">
+                        {topAnalysis.recommended_actions.map((a, i) => (
+                          <li key={i} className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-slate-400">
+                            <span className="text-brand-400 mt-0.5">•</span>
+                            {a}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {topAnalysis?.raw && (
+                <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3">
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mb-1.5">Unstructured model output:</p>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap font-mono">
+                    {topAnalysis.raw}
+                  </p>
+                </div>
+              )}
+
+              {!topAnalysisLoading && !topAnalysisError && !topAnalysis && (
+                <p className="text-sm text-slate-500 dark:text-slate-400 py-2 italic">
+                  Click to generate an AI-powered threat analysis of the latest {annotated.length} feed items.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* AI Summary — prominent, above filters so it's the first actionable card */}
       {annotated.length > 0 && (

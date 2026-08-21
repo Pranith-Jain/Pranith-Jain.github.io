@@ -96,9 +96,9 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 z-50 w-[420px] max-h-[500px] overflow-y-auto rounded-xl border border-brand-500/30 bg-white dark:bg-[rgb(var(--surface-200))] shadow-2xl animate-fade-in">
+        <div className="absolute right-0 top-full mt-2 z-50 w-[420px] max-h-[500px] overflow-y-auto rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-2xl animate-fade-in before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:rounded-t-xl before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]/50 sticky top-0 bg-white dark:bg-[rgb(var(--surface-200))] z-10">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-brand-500/10 sticky top-0 bg-gradient-to-br from-brand-50/60 via-white to-white dark:from-brand-500/[0.06] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] z-10">
             <div className="flex items-center gap-2">
               <Brain size={14} className="text-brand-400" />
               <span className="text-xs font-semibold text-slate-900 dark:text-slate-200">AI Analysis</span>

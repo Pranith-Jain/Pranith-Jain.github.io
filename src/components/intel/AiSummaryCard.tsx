@@ -172,16 +172,18 @@ export function AiSummaryCard({
       // with surrounding `surface-card` borders. Now a full `surface-card`
       // with rounded corners, border, and shadow so the AI summary reads as
       // a distinct, actionable card, not inline content.
-      className={`surface-card rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-sm overflow-hidden ${className ?? ''}`}
+      className={`relative surface-card rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-sm hover:shadow-md transition-shadow overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500 ${className ?? ''}`}
     >
       {/* Header */}
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/50 dark:hover:bg-white/5 transition-colors"
       >
         <div className="flex items-center gap-2">
-          <Sparkles size={16} className="text-brand-600 dark:text-brand-400" />
+          <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
+            <Sparkles size={14} className="text-brand-600 dark:text-brand-400" />
+          </span>
           <span className="text-sm font-display font-bold text-slate-900 dark:text-slate-100">
             AI Summary - {surface}
           </span>

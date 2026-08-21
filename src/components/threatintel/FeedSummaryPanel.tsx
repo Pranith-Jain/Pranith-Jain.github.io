@@ -57,8 +57,8 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
   }, [entries]);
 
   return (
-    <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 animate-fade-in overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10">
+    <div className="relative rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-sm animate-fade-in overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10 hover:bg-brand-50/50 dark:hover:bg-white/5 transition-colors">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
             <BarChart3 size={16} className="text-brand-400" />
