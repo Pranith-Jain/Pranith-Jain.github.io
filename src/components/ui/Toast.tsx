@@ -122,17 +122,21 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 export function useToast(): ToastContextValue {
   const ctx = useContext(ToastContext);
   if (!ctx) {
-    // SSR prerender has no ToastProvider in entry-server.tsx — return no-op
-    // so ThreatActorMonitor and other pages can render without throwing.
-    return {
-      toasts: [],
-      toast: () => {},
-      success: () => {},
-      error: () => {},
-      warning: () => {},
-      info: () => {},
-      dismiss: () => {},
-    };
+    // SSR: entry-server.tsx renders without ToastProvider — return no-op so
+    // prerender doesn't throw, but still throw in browser/jsdom where a missing
+    // provider is a real bug (keeps src/components/__tests__/Toast.test.tsx green).
+    if (typeof window === 'undefined') {
+      return {
+        toasts: [],
+        toast: () => {},
+        success: () => {},
+        error: () => {},
+        warning: () => {},
+        info: () => {},
+        dismiss: () => {},
+      };
+    }
+    throw new Error('useToast must be used within a ToastProvider');
   }
   return ctx;
 }
