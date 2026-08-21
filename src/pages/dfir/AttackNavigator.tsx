@@ -461,7 +461,7 @@ export default function AttackNavigator(): JSX.Element {
               {getLegendItems(colorMode).map((item) => (
                 <span key={item.label} className="inline-flex items-center gap-1.5">
                   <span
-                    className="inline-block w-4 h-4 rounded border border-slate-300 dark:border-slate-600"
+                    className="inline-block w-4 h-4 rounded border border-slate-300 dark:border-[rgb(var(--border-400))]"
                     style={{ backgroundColor: item.color }}
                   />
                   {item.label}
@@ -471,7 +471,7 @@ export default function AttackNavigator(): JSX.Element {
           ) : (
             <span className="inline-flex items-center gap-1.5">
               <span
-                className="inline-block w-4 h-4 rounded border border-slate-300 dark:border-slate-600"
+                className="inline-block w-4 h-4 rounded border border-slate-300 dark:border-[rgb(var(--border-400))]"
                 style={{ backgroundColor: matrixSource === 'a3m' ? '#8F00FF' : '#0ea5e9' }}
               />
               {matrixSource === 'a3m' ? 'A3M technique' : 'D3FEND technique'}

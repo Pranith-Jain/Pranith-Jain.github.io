@@ -140,7 +140,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
               {body.parsers.map((p, i) => (
                 <span
                   key={i}
-                  className="font-mono text-micro text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
+                  className="font-mono text-micro text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 rounded"
                 >
                   {p}
                 </span>
@@ -285,7 +285,7 @@ export default function WinReg() {
         {/* Artifact grid */}
         {artsLoading ? (
           <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
+            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading artifacts...
           </div>
         ) : filtered.length === 0 ? (

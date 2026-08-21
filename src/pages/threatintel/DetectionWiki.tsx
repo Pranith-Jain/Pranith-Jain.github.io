@@ -297,9 +297,6 @@ export default function DetectionWiki(): JSX.Element {
     if (!windowsCatalog) return [] as DwWindowsProvider[];
     let list = windowsCatalog.providers;
     if (onlyWithRules) list = list.filter((p) => p.rules > 0);
-    if (selectedTactic) {
-      // no tactic filter for providers
-    }
     if (search) {
       const q = search.toLowerCase();
       list = list.filter((p) => `${p.name} ${p.slug} ${p.channel}`.toLowerCase().includes(q));

@@ -502,7 +502,7 @@ export default function ThreatActorMonitor() {
       if (!scanning) runScan();
     }, ms);
     return () => clearInterval(id);
-  }, [alertSettings.autoScanMinutes, scanning]);
+  }, [alertSettings.autoScanMinutes, scanning]); // eslint-disable-line react-hooks/exhaustive-deps -- runScan is stable via useCallback and intentional interval
 
   // Save alert settings when changed
   useEffect(() => {
@@ -541,7 +541,7 @@ export default function ThreatActorMonitor() {
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const xml = await res.text();
             return { source: src, items: parseFeedXML(xml) };
-          } catch (e) {
+          } catch {
             errorCount++;
             return { source: src, items: [] as { title: string; link: string; published: string }[] };
           }

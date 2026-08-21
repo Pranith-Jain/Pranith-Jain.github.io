@@ -294,7 +294,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
+            className="p-1 rounded hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             <RefreshCw className={`w-4 h-4 text-slate-500 dark:text-slate-400 ${loading ? 'animate-spin' : ''}`} />
           </button>

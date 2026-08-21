@@ -93,7 +93,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
             </span>
           )}
           {body.score != null && (
-            <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-slate-700">
+            <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-[rgb(var(--border-400))]">
               score {body.score}
             </span>
           )}
@@ -289,7 +289,7 @@ export default function SigBase() {
         {/* Rule grid */}
         {rulesLoading ? (
           <div className="flex items-center justify-center py-16 text-slate-500">
-            <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
+            <div className="w-6 h-6 border-2 border-slate-300 dark:border-[rgb(var(--border-400))] border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading rules...
           </div>
         ) : filtered.length === 0 ? (

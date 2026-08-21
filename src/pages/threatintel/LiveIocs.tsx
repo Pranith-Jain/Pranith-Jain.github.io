@@ -333,7 +333,7 @@ export default function LiveIocs(): JSX.Element {
                   )}
                   {isEmpty && s.ok && (
                     <span
-                      className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600"
+                      className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-[rgb(var(--surface-300))]"
                       aria-label="empty this snapshot"
                     />
                   )}
@@ -452,7 +452,10 @@ export default function LiveIocs(): JSX.Element {
                     <AdmiraltyBadge admiralty={gradeForLiveIoc(it.source, it.kind)} compact />
                     {it.reporter && <span className="text-muted">{it.reporter}</span>}
                     {it.context && (
-                      <span className="text-slate-500 dark:text-slate-400 italic truncate max-w-[40ch]" title={it.context}>
+                      <span
+                        className="text-slate-500 dark:text-slate-400 italic truncate max-w-[40ch]"
+                        title={it.context}
+                      >
                         · {it.context}
                       </span>
                     )}

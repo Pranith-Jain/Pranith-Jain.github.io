@@ -413,7 +413,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 </button>
               </div>
             </div>
-            <pre className="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl p-4 text-xs font-mono overflow-x-auto max-h-[500px] overflow-y-auto">
+            <pre className="bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 rounded-xl p-4 text-xs font-mono overflow-x-auto max-h-[500px] overflow-y-auto">
               {poc}
             </pre>
           </div>
@@ -430,7 +430,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                   <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 mb-2">
                     For GET requests, an invisible img tag can trigger the request without user interaction:
                   </p>
-                  <pre className="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl p-3 text-xs font-mono overflow-x-auto">
+                  <pre className="bg-slate-100 dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 rounded-xl p-3 text-xs font-mono overflow-x-auto">
                     {imgPoc}
                   </pre>
                 </div>

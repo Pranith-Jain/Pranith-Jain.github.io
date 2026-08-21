@@ -530,7 +530,7 @@ function InvestigationsPage(): JSX.Element {
                         {t.status === 'completed' ? (
                           <CheckCircle2 size={14} className="text-emerald-500" />
                         ) : (
-                          <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-slate-600" />
+                          <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-300 dark:border-[rgb(var(--border-400))]" />
                         )}
                       </button>
                       <span

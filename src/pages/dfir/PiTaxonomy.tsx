@@ -342,7 +342,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           <button
             aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
           >
             <X size={16} />
           </button>

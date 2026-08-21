@@ -500,7 +500,7 @@ function ResourceRow({ resource }: { resource: OsintCountryResource }): JSX.Elem
             <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         </a>
-        <span className="text-micro px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 shrink-0">
+        <span className="text-micro px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))]/50 text-slate-500 dark:text-slate-400 shrink-0">
           {CATEGORY_LABELS[resource.category] ?? resource.category}
         </span>
       </div>

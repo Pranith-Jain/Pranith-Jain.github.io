@@ -430,7 +430,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onCopy}
-              className="inline-flex items-center gap-1.5 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             >
               <Copy size={12} />
               {copyStatus === 'copied' ? 'Copied' : copyStatus === 'failed' ? 'Failed' : 'Copy'}
@@ -438,7 +438,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onDownload}
-              className="inline-flex items-center gap-1.5 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             >
               <Download size={12} /> Download
             </button>

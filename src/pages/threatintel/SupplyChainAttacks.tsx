@@ -284,7 +284,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                     <Link
                       key={pkg}
                       to={`/dfir/ioc-check?indicator=${encodeURIComponent(pkg)}`}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                       title="Pivot to IOC checker"
                     >
                       {pkg} →

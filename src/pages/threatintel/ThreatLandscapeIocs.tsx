@@ -108,7 +108,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             <button
               type="button"
               onClick={fetchData}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             >
               <RefreshCw size={12} /> Refresh
             </button>
@@ -116,7 +116,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
               type="button"
               onClick={exportAsJson}
               disabled={!data?.length}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-40 transition-colors"
             >
               <Download size={12} /> Export JSON
             </button>
