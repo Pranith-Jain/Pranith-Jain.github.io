@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-edmunds-2026-06-17",
+  "title": "Edmunds",
+  "group": "Unattributed",
+  "discovered": "2026-06-17T06:26:59.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Edmunds, an automotive research and car-shopping platform, was allegedly breached by the ShinyHunters group in January 2026, with data later published exposing 191k unique email addresses along with usernames, passwords, IP addresses, phone numbers, and vehicle-related records.",
+  "source_url": "https://xposedornot.com/breach/Edmunds",
+  "groupAliases": [],
+  "activity": "Transport",
+  "references": ["XposedOrNot"]
+}

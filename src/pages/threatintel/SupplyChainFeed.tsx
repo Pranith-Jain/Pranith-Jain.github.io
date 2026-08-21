@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { fetchJsonCached } from '../../lib/api-client';
 import {
   AlertTriangle,
@@ -302,15 +303,22 @@ export default function SupplyChainFeed(): JSX.Element {
             {filteredEntries.length} packages {ecoFilter ? `in ${ecoFilter}` : 'across all ecosystems'}
           </div>
           {filteredEntries.length > 0 && (
-            <AiSummaryCard
-              surface="Malicious Package Feed"
-              items={filteredEntries.slice(0, 30).map((e) => ({
-                title: e.name,
-                body: `ecosystem: ${e.ecosystem}`,
-                source: 'ossf',
-              }))}
-              requireAdmin={false}
-            />
+            <>
+              <PostAnalysisButton
+                title="Malicious Package Feed Digest"
+                description="AI-powered threat analysis of the current feed."
+                source="supplychainfeed"
+              />
+              <AiSummaryCard
+                surface="Malicious Package Feed"
+                items={filteredEntries.slice(0, 30).map((e) => ({
+                  title: e.name,
+                  body: `ecosystem: ${e.ecosystem}`,
+                  source: 'ossf',
+                }))}
+                requireAdmin={false}
+              />
+            </>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {filteredEntries.length === 0 && (

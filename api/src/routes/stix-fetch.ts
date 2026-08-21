@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
 import { badRequest, badGateway } from '../lib/api-error';
-import { ATTACK_ID_INDEX } from '../data/attack-id-index';
+import { loadAttackIdIndex } from '../lib/attack-id-lazy';
 
 /**
  * STIX 2.1 fetch-by-ID via the public MITRE ATT&CK TAXII server.
@@ -112,7 +112,9 @@ export async function stixFetchHandler(c: Context<{ Bindings: Env }>): Promise<R
     stixId = raw;
     targets = COLLECTIONS; // unknown collection — fan out to all three
   } else if (ATTACK_ID_RE.test(raw)) {
-    const ref = ATTACK_ID_INDEX[raw.toUpperCase()];
+    // Strict lookup — an unknown id must 404, never silently pass. The
+    // /api/v1 preload middleware normally has this hot already.
+    const ref = (await loadAttackIdIndex(c.env))[raw.toUpperCase()];
     if (!ref) {
       return c.json(
         {

@@ -5,6 +5,7 @@ import { Search, RefreshCw, AlertTriangle, FileText, ExternalLink } from 'lucide
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { SEVERITY_TONE } from '../../components/severity';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface LeakEntry {
   id: number;
@@ -163,15 +164,22 @@ export default function TelegramLeaks(): JSX.Element {
       {/* AI summary of the visible Telegram leak entries. Public surface so
           every visitor sees the analyst take on the credential/file leaks. */}
       {entries.length > 0 && (
-        <AiSummaryCard
-          surface="Telegram leak monitor"
-          items={entries.slice(0, 30).map((e) => ({
-            title: `${e.leak_type} · @${e.channel_handle}`,
-            body: `${e.severity} · ${e.credential_count} cred(s) · ${e.message_text.slice(0, 200)}`,
-            source: e.channel_handle,
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Telegram leak monitor Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="telegramleaks"
+          />
+          <AiSummaryCard
+            surface="Telegram leak monitor"
+            items={entries.slice(0, 30).map((e) => ({
+              title: `${e.leak_type} · @${e.channel_handle}`,
+              body: `${e.severity} · ${e.credential_count} cred(s) · ${e.message_text.slice(0, 200)}`,
+              source: e.channel_handle,
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
       {entries.map((entry) => {
         const TypeIcon = LEAK_TYPE_ICONS[entry.leak_type] ?? FileText;

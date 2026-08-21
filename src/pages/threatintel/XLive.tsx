@@ -16,6 +16,7 @@ import {
   Radio,
 } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 import { XClaimsPanel } from '../../components/threatintel/XClaimsPanel';
@@ -336,6 +337,11 @@ export default function XLive(): JSX.Element {
 
       {filtered.length > 0 && (
         <>
+          <PostAnalysisButton
+            title="X Live Cybersec Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="xlive"
+          />
           <AiSummaryCard
             surface="X Live Cybersec"
             items={filtered.slice(0, 30).map((t) => ({

@@ -4,6 +4,7 @@ import { Radio, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { XLivePanel } from '../../components/threatintel/XLivePanel';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -154,6 +155,11 @@ export default function Signal(): JSX.Element {
           page surfaces today's actors / malware / CVEs / IoCs at a glance. */}
       {filtered.length > 0 && (
         <>
+          <PostAnalysisButton
+            title="Research Signal Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="signal"
+          />
           <AiSummaryCard
             surface="Research Signal"
             items={filtered.slice(0, 30).map((it) => ({

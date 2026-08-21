@@ -12,6 +12,7 @@ import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
 import { gradeForLiveIoc } from '../../lib/dfir/admiralty-quick';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 import { sourceColor, sourcesSentence } from '../../lib/dfir/source-meta';
@@ -386,15 +387,22 @@ export default function LiveIocs(): JSX.Element {
       </section>
 
       {filtered.length > 0 && (
-        <AiSummaryCard
-          surface="Live IOC Stream"
-          items={filtered.slice(0, 30).map((it) => ({
-            title: it.value,
-            body: `${it.kind} · ${it.source} · ${it.context ?? ''}`,
-            source: it.source,
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Live IOC Stream Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="liveiocs"
+          />
+          <AiSummaryCard
+            surface="Live IOC Stream"
+            items={filtered.slice(0, 30).map((it) => ({
+              title: it.value,
+              body: `${it.kind} · ${it.source} · ${it.context ?? ''}`,
+              source: it.source,
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
 
       <DataState

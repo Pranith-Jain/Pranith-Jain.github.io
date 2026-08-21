@@ -30,7 +30,7 @@ import type { Env } from '../env';
 import type { ExtractedEntities } from './extract';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { MALWARE_DICT } from '../data/malware-dict';
-import { ATTACK_ID_INDEX } from '../data/attack-id-index';
+import { loadedAttackIdIndexOrNull, loadAttackIdIndex } from './attack-id-lazy';
 import { TACTIC_ORDER } from './attack-flow';
 import { runCompletion as defaultRunCompletion } from '../case-study/generation/ai-client';
 import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
@@ -229,7 +229,7 @@ export function validateLlmEntities(
     const id = isString(o.id) ? o.id.trim() : '';
     const name = isString(o.name) ? o.name.trim() : '';
     if (!ATTACK_ID_RE.test(id)) continue;
-    if (!(id in ATTACK_ID_INDEX)) continue;
+    if (!(id in (loadedAttackIdIndexOrNull() ?? {}))) continue;
     if (seenAttack.has(id)) continue;
     seenAttack.add(id);
     // Optional tactic (kill-chain phase shortname) — kept only when it's a
@@ -336,6 +336,10 @@ export async function extractLlm(
   if (!shouldRunLlm(body, options.findingsCount)) {
     return { ...EMPTY_LLM_ENTITIES };
   }
+  // Ensure the ATT&CK index is loaded before validateLlmEntities filters
+  // attack patterns against it (no-op when the /api/v1 middleware already
+  // preloaded it for this isolate).
+  await loadAttackIdIndex(env);
   const run = options.runCompletion ?? defaultRunCompletion;
   // Report title+body is untrusted (uploaded PDF/DOCX/OCR text, fetched pages).
   // Fence it so an embedded injection cannot override the extraction schema.

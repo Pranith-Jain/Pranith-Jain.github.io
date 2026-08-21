@@ -9,7 +9,7 @@ import { fetchCybercrime, CYBERCRIME_CACHE_KEY } from './cybercrime';
 import { fetchXLive } from './x-live';
 import { fetchAuthedTimeline, XAuthMissingError } from '../lib/twitter-auth-graphql';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
-import { ATTACK_ID_INDEX } from '../data/attack-id-index';
+import { loadAttackIdIndex, loadedAttackIdIndexOrNull } from '../lib/attack-id-lazy';
 import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { LIVE_IOCS_CACHE_KEY, type LiveIocsResponse } from './live-iocs';
 import { MALWARE_SAMPLES_CACHE_KEY, type MalwareSamplesResponse } from './malware-samples';
@@ -108,12 +108,14 @@ function extractCves(text: string): Set<string> {
 
 /** Extract MITRE technique IDs from text — validated against the canonical
  *  ATT&CK index so noise like "T1234" tax-form references doesn't slip in
- *  alongside real techniques. */
+ *  alongside real techniques. The handler awaits loadAttackIdIndex() before
+ *  classifying, so the memoised index is always hot here. */
 function extractTechniques(text: string): Set<string> {
+  const index = loadedAttackIdIndexOrNull() ?? {};
   const out = new Set<string>();
   for (const m of text.matchAll(MITRE_TECH_RE)) {
     const id = m[0].toUpperCase();
-    if (ATTACK_ID_INDEX[id]) out.add(id);
+    if (index[id]) out.add(id);
   }
   return out;
 }
@@ -474,6 +476,11 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
   const cacheReq = new Request(THREAT_PULSE_CACHE_KEY);
   const cached = await cache.match(cacheReq);
   if (cached) return new Response(cached.body, cached);
+
+  // Strict technique extraction needs the ATT&CK index loaded (memoised;
+  // usually already hot via the /api/v1 preload middleware). extractTechniques
+  // reads it via loadedAttackIdIndexOrNull().
+  await loadAttackIdIndex(c.env);
 
   const entityMap = new Map<string, PulseEntity>();
 

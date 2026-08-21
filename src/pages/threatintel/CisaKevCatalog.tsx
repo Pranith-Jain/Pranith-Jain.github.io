@@ -417,6 +417,18 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                     <span className="text-xs text-slate-500 dark:text-slate-400">No</span>
                   ),
               },
+              {
+                key: 'analyze',
+                header: '',
+                render: (v) => (
+                  <PostAnalysisButton
+                    title={`${v.cve_id} — ${v.vulnerability_name}`}
+                    description={`${v.vendor_project} ${v.product}: ${v.vulnerability_name}. Severity: ${v.severity ?? 'n/a'}${v.cvss_score != null ? ` (CVSS ${v.cvss_score.toFixed(1)})` : ''}${v.known_ransomware_campaign_use === 'Known' ? ' (ransomware campaign use)' : ''}. Due: ${v.due_date ?? 'n/a'}.`}
+                    source="cisa.gov"
+                    compact
+                  />
+                ),
+              },
             ] as DataTableColumn<(typeof pageEntries)[number]>[]
           }
           rows={pageEntries}

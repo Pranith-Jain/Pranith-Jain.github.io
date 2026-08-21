@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { XClaimsPanel } from '../../components/threatintel/XClaimsPanel';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 import {
@@ -754,6 +755,11 @@ export default function XWatch(): JSX.Element {
 
         {filteredTweets.length > 0 && (
           <>
+            <PostAnalysisButton
+              title="X Watch Cybersec Digest"
+              description="AI-powered threat analysis of the current feed."
+              source="xwatch"
+            />
             <AiSummaryCard
               surface="X Watch Cybersec"
               items={filteredTweets.slice(0, 30).map((t) => ({

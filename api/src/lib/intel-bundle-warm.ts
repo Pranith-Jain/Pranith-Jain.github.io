@@ -32,6 +32,7 @@ import { enrichCves, type CveEnrichment } from './cve-enrich';
 import { buildStixBundle, type ReportInput } from './stix-build';
 import type { Briefing, BriefingFinding, BriefingSection } from './briefing-builder';
 import { EMPTY_LLM_ENTITIES, extractLlm as defaultExtractLlm } from './extract-llm';
+import { loadAttackIdIndex } from './attack-id-lazy';
 
 export interface WarmOptions {
   /** Max briefings to process per invocation. Default 1 (subrequest-budget safe). */
@@ -117,6 +118,12 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
 
   const db = env.BRIEFINGS_DB;
   if (!db) return out;
+
+  // Cron context has no /api/v1 middleware — load the ATT&CK index here so
+  // stix-build/extract-llm see real lookups. Best-effort: on failure the
+  // bundle still ships, just without ATT&CK external references (consistent
+  // with the warmer's per-branch fault isolation).
+  await loadAttackIdIndex(env).catch(() => {});
 
   // Fetch one extra row so we can report whether more work is queued
   // without a second COUNT(*) query.

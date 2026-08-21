@@ -1,0 +1,15 @@
+{
+  "slug": "unattributed-ralphlauren-2026-06-28",
+  "title": "RalphLauren",
+  "group": "Unattributed",
+  "discovered": "2026-06-28T12:23:32.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Ralph Lauren, a fashion retailer, was targeted by attackers in June 2026, with data later published online exposing 142k unique email addresses along with names, phone numbers, genders, and other information allegedly obtained from its Salesforce environment.",
+  "source_url": "https://xposedornot.com/breach/RalphLauren",
+  "groupAliases": [],
+  "activity": "Retail",
+  "references": ["XposedOrNot"]
+}

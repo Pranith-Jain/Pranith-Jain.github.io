@@ -8,6 +8,7 @@ import { ExternalLink, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
@@ -251,15 +252,22 @@ export default function RedditFirehose(): JSX.Element {
           DataState so it survives a transient empty-filter state — mirrors
           the XFirehose / CyberPulse placement. */}
       {filtered.length > 0 && (
-        <AiSummaryCard
-          surface="Reddit Firehose"
-          items={filtered.slice(0, 30).map((it) => ({
-            title: it.title,
-            body: `${it.title} ${it.text ?? ''}`,
-            source: it.author,
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Reddit Firehose Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="redditfirehose"
+          />
+          <AiSummaryCard
+            surface="Reddit Firehose"
+            items={filtered.slice(0, 30).map((it) => ({
+              title: it.title,
+              body: `${it.title} ${it.text ?? ''}`,
+              source: it.author,
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
 
       <DataState

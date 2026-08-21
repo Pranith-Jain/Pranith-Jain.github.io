@@ -1,1 +1,15 @@
-{"slug":"qilin-trends-and-concepts-2026-08-20","title":"Trends And Concepts","group":"qilin","discovered":"2026-08-20T08:56:45.000Z","category":"ransomware","severity":"critical","country":"ZA","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "qilin-trends-and-concepts-2026-08-20",
+  "title": "Trends And Concepts",
+  "group": "qilin",
+  "discovered": "2026-08-20T08:56:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "ZA",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/67f9b836-33f7-40d7-95d2-a32d18f2a541",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

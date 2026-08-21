@@ -22,7 +22,7 @@
 
 import { stixId, uuidv5, NS_INTEL_BUNDLE } from './uuidv5';
 import type { IndicatorType } from './indicator';
-import { ATTACK_ID_INDEX } from '../data/attack-id-index';
+import { loadedAttackIdIndexOrNull } from './attack-id-lazy';
 import type { ExtractedActor, ExtractedCve, ExtractedEntities, ExtractedIoc, ExtractedMalware } from './extract';
 import type { IocEnrichment, ProviderScore } from './enrich-bulk';
 import type { CveEnrichment } from './cve-enrich';
@@ -255,7 +255,9 @@ function detectHashKind(value: string): 'MD5' | 'SHA-1' | 'SHA-256' | 'SHA-512' 
 
 function attackExternalRefFor(externalId: string | undefined, type: 'group' | 'software' | 'technique') {
   if (!externalId) return null;
-  if (!ATTACK_ID_INDEX[externalId]) return null;
+  // Graceful when the runtime index hasn't loaded (unit tests, pre-middleware
+  // calls): the external reference is simply omitted.
+  if (!loadedAttackIdIndexOrNull()?.[externalId]) return null;
   const path = type === 'group' ? 'groups' : type === 'software' ? 'software' : 'techniques';
   return {
     source_name: 'mitre-attack',

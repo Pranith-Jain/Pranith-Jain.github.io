@@ -4,6 +4,7 @@ import { Copy, ExternalLink, History, Newspaper, Radio, RefreshCw, ShieldAlert }
 import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
@@ -424,15 +425,22 @@ export default function BreachForums(): JSX.Element {
         {/* Page-level AI summary across the visible OSINT breach headlines.
             Public (requireAdmin={false}) so every visitor sees it. */}
         {coverageData && coverageData.items.length > 0 && (
-          <AiSummaryCard
-            surface="Breach OSINT coverage"
-            items={coverageData.items.slice(0, 30).map((it) => ({
-              title: it.title,
-              body: it.snippet,
-              source: it.source_name || it.source_id,
-            }))}
-            requireAdmin={false}
-          />
+          <>
+            <PostAnalysisButton
+              title="Breach OSINT coverage Digest"
+              description="AI-powered threat analysis of the current feed."
+              source="breachforums"
+            />
+            <AiSummaryCard
+              surface="Breach OSINT coverage"
+              items={coverageData.items.slice(0, 30).map((it) => ({
+                title: it.title,
+                body: it.snippet,
+                source: it.source_name || it.source_id,
+              }))}
+              requireAdmin={false}
+            />
+          </>
         )}
         <DataState
           loading={coverageLoading}

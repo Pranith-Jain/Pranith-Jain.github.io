@@ -64,6 +64,7 @@ stats.html
 .temp
 .wrangler/
 .wrangler-dryrun/
+.wrangler-output/
 
 # Prompt-eval harness CSV output (scripts/prompt-eval.mjs)
 /artifacts/

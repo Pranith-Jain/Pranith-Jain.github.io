@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 import {
@@ -387,6 +388,11 @@ export default function CyberPulse(): JSX.Element {
               <p className="text-xs mt-2">Try broadening your filters or waiting for the next scan.</p>
             </div>
           )}
+          <PostAnalysisButton
+            title="CyberPulse Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="cyberpulse"
+          />
           <AiSummaryCard
             surface="CyberPulse"
             items={incidents.slice(0, 30).map((inc) => ({

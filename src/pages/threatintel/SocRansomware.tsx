@@ -4,6 +4,7 @@ import { ShieldAlert, Skull, Users, Crosshair, Building2, ExternalLink } from 'l
 import { fetchJson } from '../../lib/fetch-helpers';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
@@ -426,6 +427,11 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
   }
   return (
     <div className="space-y-3">
+      <PostAnalysisButton
+        title="Ransomware Claims Digest"
+        description="AI-powered threat analysis of the current feed."
+        source="soc ransomware"
+      />
       <AiSummaryCard
         surface="Ransomware Claims"
         items={rows.slice(0, 30).map((v) => ({

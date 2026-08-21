@@ -4,6 +4,7 @@ import { Bug, AlertTriangle, Flame, ShieldCheck, ExternalLink } from 'lucide-rea
 import { fetchJson } from '../../lib/fetch-helpers';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
@@ -471,6 +472,11 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
   }
   return (
     <div className="space-y-3">
+      <PostAnalysisButton
+        title="SOC Recent CVEs Digest"
+        description="AI-powered threat analysis of the current feed."
+        source="soc vulns"
+      />
       <AiSummaryCard
         surface="SOC Recent CVEs"
         items={rows.slice(0, 30).map((r) => ({

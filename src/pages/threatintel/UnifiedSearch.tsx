@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sections';
 import { searchPages } from '../../data/pages-index';
 import { detectIoc, getIocPivots, IOC_TYPE_LABEL } from '../../lib/dfir/ioc-detect';
@@ -390,6 +391,11 @@ export default function UnifiedSearch(): JSX.Element {
       {data && total > 0 && (
         <div className="space-y-4">
           {/* Opt-in AI summary - public same-origin endpoint, button-triggered. */}
+          <PostAnalysisButton
+            title="Unified Search Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="unifiedsearch"
+          />
           <AiSummaryCard
             surface="Unified Search"
             items={summaryItems}

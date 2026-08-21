@@ -3,6 +3,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { fetchJsonCached } from '../../lib/api-client';
 import { Bell, BellOff, RefreshCw, CheckCircle, XCircle, AlertTriangle, Shield, Info, Skull } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface Alert {
   id: string;
@@ -156,15 +157,22 @@ export default function AlertFeed() {
         {/* AI summary of the visible estate alerts. Public surface so every
             visitor sees the analyst take on the prioritised alerts. */}
         {alerts.length > 0 && (
-          <AiSummaryCard
-            surface="Estate alert feed"
-            items={alerts.slice(0, 30).map((a) => ({
-              title: a.title,
-              body: `${a.severity} · ${a.alert_type} · ${a.description} · topics: ${a.topics.join(', ')} · assets: ${a.matched_assets.join(', ')}`,
-              source: a.source,
-            }))}
-            requireAdmin={false}
-          />
+          <>
+            <PostAnalysisButton
+              title="Estate alert feed Digest"
+              description="AI-powered threat analysis of the current feed."
+              source="alertfeed"
+            />
+            <AiSummaryCard
+              surface="Estate alert feed"
+              items={alerts.slice(0, 30).map((a) => ({
+                title: a.title,
+                body: `${a.severity} · ${a.alert_type} · ${a.description} · topics: ${a.topics.join(', ')} · assets: ${a.matched_assets.join(', ')}`,
+                source: a.source,
+              }))}
+              requireAdmin={false}
+            />
+          </>
         )}
         {alerts.map((alert) => {
           const cfg = SEVERITY_CONFIG[alert.severity] ?? SEVERITY_CONFIG.info!;

@@ -4,6 +4,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { BookText, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
@@ -298,6 +299,11 @@ export default function Writeups(): JSX.Element {
           actors / malware / CVEs across the long tail without a per-item fan-out. */}
       {filtered.length > 0 && (
         <>
+          <PostAnalysisButton
+            title="CTI Writeups Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="writeups"
+          />
           <AiSummaryCard
             surface="CTI Writeups"
             items={filtered.slice(0, 40).map((it) => ({

@@ -1,1 +1,15 @@
-{"slug":"incransom-ssf-int-com-ssf-ing-de-2026-08-18","title":"ssf-int.com ssf-ing.de","group":"incransom","discovered":"2026-08-18T10:26:27.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"SSF International GmbH is an engineering firm headquartered in Munich, Germany. A subsidiary of SSF Ingenieure AG, the company provides comprehensive engineering services in project management, supervision, consultancy, design, quality management, and special construction design worldwide. It specializes in railways, high-speed railway lines, metro and light rail, Maglev lines, and large infrastructure projects, including bridges and railway stations. The company serves international clients across various stages of project development, from early studies and design to construction, commissioning, operation, and maintenance. Its service portfolio includes BIM and GIS solutions, environmental protection, and specialized solutions for acoustic and vibration control.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "incransom-ssf-int-com-ssf-ing-de-2026-08-18",
+  "title": "ssf-int.com ssf-ing.de",
+  "group": "incransom",
+  "discovered": "2026-08-18T10:26:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/623c7f0d-38b6-45fd-a9d2-2578683ff8fe",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

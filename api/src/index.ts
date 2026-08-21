@@ -429,6 +429,7 @@ import {
 import { rateLimit } from './lib/ratelimit';
 import { burstLimitActorProfile } from './lib/actor-profile-burst';
 import { apiKeyRateLimit } from './lib/api-key-ratelimit';
+import { loadAttackIdIndex } from './lib/attack-id-lazy';
 import { requestLogger } from './lib/request-logger';
 import { csrfGuard } from './lib/csrf-guard';
 import { errorHandler } from './lib/error-handler';
@@ -818,6 +819,15 @@ app.use('/api/v1/*', rateLimit);
 // paid-upstream fan-out" gap the per-IP limiter alone left open.
 app.use('/api/v1/*', apiKeyRateLimit);
 app.use('/api/v1/*', apiVersion);
+// Preload the MITRE ATT&CK id index (runtime asset, see lib/attack-id-lazy).
+// Memoised per isolate — after the first request this is a pointer read, but
+// awaiting here guarantees every downstream handler/lib sees a loaded index
+// instead of silently empty lookups. A missing asset fails loudly (500) on
+// the first request rather than corrupting lookups all over the API.
+app.use('/api/v1/*', async (c, next) => {
+  await loadAttackIdIndex(c.env);
+  await next();
+});
 app.use(
   '/api/taxii2/*',
   cors({

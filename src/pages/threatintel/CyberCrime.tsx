@@ -6,6 +6,7 @@ import { AlertOctagon, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 /**
  * /threatintel/cyber-crime - live aggregation of cyber fraud + cyber crime
@@ -249,15 +250,22 @@ export default function CyberCrime(): JSX.Element {
       </div>
 
       {filtered.length > 0 && (
-        <AiSummaryCard
-          surface="Cybercrime"
-          items={filtered.slice(0, 30).map((it) => ({
-            title: it.title,
-            body: it.description ?? '',
-            source: it.source,
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Cybercrime Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="cybercrime"
+          />
+          <AiSummaryCard
+            surface="Cybercrime"
+            items={filtered.slice(0, 30).map((it) => ({
+              title: it.title,
+              body: it.description ?? '',
+              source: it.source,
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
 
       <DataState

@@ -9,6 +9,7 @@ import { relativeAgo } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
@@ -455,15 +456,22 @@ export default function TelegramFirehose({ bare = false }: { bare?: boolean }): 
           (requireAdmin={false}) so every visitor sees it. Placed outside
           DataState so it survives a transient empty-filter state. */}
       {filtered.length > 0 && (
-        <AiSummaryCard
-          surface="Telegram Firehose"
-          items={visible.slice(0, 30).map((it) => ({
-            title: it.title,
-            body: it.body,
-            source: it.channel,
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Telegram Firehose Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="telegramfirehose"
+          />
+          <AiSummaryCard
+            surface="Telegram Firehose"
+            items={visible.slice(0, 30).map((it) => ({
+              title: it.title,
+              body: it.body,
+              source: it.channel,
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
 
       {/* Items */}

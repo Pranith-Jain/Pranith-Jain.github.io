@@ -1,10 +1,17 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { env as testEnv } from 'cloudflare:test';
 import { extractLlm, EMPTY_LLM_ENTITIES, parseLlmJson, validateLlmEntities } from '../../src/lib/extract-llm';
+import { loadAttackIdIndex } from '../../src/lib/attack-id-lazy';
 import type { Env } from '../../src/env';
 import type { ExtractedEntities } from '../../src/lib/extract';
 
 const env = testEnv as unknown as Env;
+
+// validateLlmEntities filters attack patterns against the runtime ATT&CK
+// index (lib/attack-id-lazy) — load it from the ASSETS binding up front.
+beforeAll(async () => {
+  await loadAttackIdIndex(env);
+});
 
 const emptyEntities: ExtractedEntities = {
   iocs: [],

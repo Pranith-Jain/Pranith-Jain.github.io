@@ -4,6 +4,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { fetchJsonCached } from '../../lib/api-client';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface AggregatedFeed {
   id: string;
@@ -148,15 +149,22 @@ export default function AggregatedFeeds() {
       {/* AI summary across the visible aggregated IOC feeds. Public surface so
           every visitor sees the landscape take. */}
       {(filteredFeeds?.length ?? 0) > 0 && (
-        <AiSummaryCard
-          surface="Aggregated IOC feeds"
-          items={filteredFeeds!.slice(0, 30).map((f) => ({
-            title: f.name,
-            body: `${f.category} · ${f.description} · ${f.ioc_count ?? '?'} IOCs · ${f.sample_entries.slice(0, 5).join(', ')}`,
-            source: f.category,
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Aggregated IOC feeds Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="aggregatedfeeds"
+          />
+          <AiSummaryCard
+            surface="Aggregated IOC feeds"
+            items={filteredFeeds!.slice(0, 30).map((f) => ({
+              title: f.name,
+              body: `${f.category} · ${f.description} · ${f.ioc_count ?? '?'} IOCs · ${f.sample_entries.slice(0, 5).join(', ')}`,
+              source: f.category,
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
       <div className="grid gap-4">
         {filteredFeeds?.map((feed) => {

@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
+import { env as testEnv } from 'cloudflare:test';
 import { buildStixBundle, type ReportInput } from '../../src/lib/stix-build';
 import { extract } from '../../src/lib/extract';
 import type { IocEnrichment } from '../../src/lib/enrich-bulk';
@@ -6,6 +7,15 @@ import type { CveEnrichment } from '../../src/lib/cve-enrich';
 import type { LlmEntities } from '../../src/lib/extract-llm';
 import { EMPTY_LLM_ENTITIES } from '../../src/lib/extract-llm';
 import { ATTACK_FLOW_EXT_ID } from '../../src/lib/attack-flow';
+import { loadAttackIdIndex } from '../../src/lib/attack-id-lazy';
+import type { Env } from '../../src/env';
+
+// buildStixBundle attaches MITRE external references via the runtime
+// ATT&CK index (lib/attack-id-lazy) — load it from the ASSETS binding
+// before any bundle is built.
+beforeAll(async () => {
+  await loadAttackIdIndex(testEnv as unknown as Env);
+});
 
 const APT28_BRIEF_BODY = `Microsoft Threat Intelligence Center (MSTIC) has observed APT28 (Fancy Bear/STRONTIUM) conducting spear-phishing campaigns targeting European government entities throughout Q4 2024. The campaigns leverage spoofed diplomatic communications and exploit CVE-2023-36884 to deliver a new variant of the CremShell malware. Second-wave attacks utilized compromised legitimate accounts, with escalation in December involving direct exploitation attempts against government networks.
 
@@ -60,8 +70,7 @@ describe('buildStixBundle (APT28 brief)', () => {
     const entities = extract(TITLE, APT28_BRIEF_BODY);
     const { bundle } = await buildStixBundle(report, entities, emptyBulk);
     const actor = bundle.objects.find((o) => o.type === 'threat-actor' && (o as { name?: string }).name === 'APT28') as
-      | { external_references?: { source_name?: string; external_id?: string; url?: string }[] }
-      | undefined;
+      { external_references?: { source_name?: string; external_id?: string; url?: string }[] } | undefined;
     expect(actor?.external_references?.[0]?.external_id).toBe('G0007');
     expect(actor?.external_references?.[0]?.source_name).toBe('mitre-attack');
   });
@@ -237,8 +246,7 @@ describe('buildStixBundle (APT28 brief)', () => {
       };
       const { bundle } = await buildStixBundle(report, entities, bulk);
       const ind = bundle.objects.find((o) => o.type === 'indicator') as
-        | { labels?: string[]; x_tags?: string[] }
-        | undefined;
+        { labels?: string[]; x_tags?: string[] } | undefined;
       expect(ind?.labels).toContain('malicious-activity');
       expect(ind?.labels).toContain('attribution');
       expect(ind?.labels).toContain('anonymization');

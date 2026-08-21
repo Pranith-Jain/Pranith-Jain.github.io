@@ -1,13 +1,14 @@
-import { ATTACK_ID_INDEX } from '../../data/attack-id-index';
+import { loadedAttackIdIndexOrNull } from '../attack-id-lazy';
 import { ACTOR_ALIASES } from '../../data/threat-actor-aliases';
 
 /** Drop MITRE technique IDs not present in the canonical ATT&CK index. */
 export function validateMitreIds(ids: string[]): { valid: string[]; rejected: string[] } {
+  const index = loadedAttackIdIndexOrNull();
   const valid: string[] = [];
   const rejected: string[] = [];
   for (const raw of ids) {
     const id = raw.trim().toUpperCase();
-    (id in ATTACK_ID_INDEX ? valid : rejected).push(id);
+    (index && id in index ? valid : rejected).push(id);
   }
   return { valid, rejected };
 }

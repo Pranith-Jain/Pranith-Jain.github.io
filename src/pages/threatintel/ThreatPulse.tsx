@@ -4,6 +4,7 @@ import { Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers, RefreshCw,
 import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /** Build a deep link for an entity label so the analyst can pivot
@@ -221,14 +222,21 @@ export default function ThreatPulse(): JSX.Element {
       )}
 
       {data && data.entities.length > 0 && (
-        <AiSummaryCard
-          surface="Threat Pulse"
-          items={data.entities.slice(0, 30).map((e) => ({
-            title: `${e.label} (${e.kind}) - seen in ${e.source_count} source${e.source_count > 1 ? 's' : ''}`,
-            body: `Sources: ${e.sources.join(', ')}`,
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Threat Pulse Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="threatpulse"
+          />
+          <AiSummaryCard
+            surface="Threat Pulse"
+            items={data.entities.slice(0, 30).map((e) => ({
+              title: `${e.label} (${e.kind}) - seen in ${e.source_count} source${e.source_count > 1 ? 's' : ''}`,
+              body: `Sources: ${e.sources.join(', ')}`,
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
 
       {/* Controls */}

@@ -166,19 +166,17 @@ export function AiSummaryCard({
 
   return (
     <div
-      // Prominent card — visible above the feed list in both themes.
-      // Previous `border-t` only was too subtle and got lost in the page
-      // background, especially on light mode where the 1px hairline blended
-      // with surrounding `surface-card` borders. Now a full `surface-card`
-      // with rounded corners, border, and shadow so the AI summary reads as
-      // a distinct, actionable card, not inline content.
-      className={`relative surface-card rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-sm hover:shadow-md transition-shadow overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500 ${className ?? ''}`}
+      // Prominent card — visible above the feed list in both themes. Uses the
+      // canonical `surface-card` treatment (8px radius, hairline border, e1
+      // shadow, flat surface) so it reads as part of the design system rather
+      // than a decorated one-off.
+      className={`relative surface-card overflow-hidden ${className ?? ''}`}
     >
       {/* Header */}
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-50/50 dark:hover:bg-white/5 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
       >
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-brand-500/10 dark:bg-brand-400/15">

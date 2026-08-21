@@ -1,1 +1,15 @@
-{"slug":"panzer-frisian-flag-indonesia-2026-08-20","title":"Frisian Flag Indonesia","group":"Panzer","discovered":"2026-08-20T16:22:01.000Z","category":"data_breach","severity":"high","country":"ID","sizeBytes":0,"description":"Frisian Flag Indonesia specializes in high-quality dairy products, including sweetened condensed milk, UHT milk, powdered milk for families, and cheese. The company aims to provide nutritious options that support the health and well-being of families, offering products enriched with vitamins and minerals. Their target clients include families, pregnant women, and children, focusing on delivering nutritional benefits through their diverse product range. Established in 1871, Frisian Flag is committed to building strong families by promoting healthy dietary habits.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Agriculture and Food Production","references":["ransomware.live"]}
+{
+  "slug": "panzer-frisian-flag-indonesia-2026-08-20",
+  "title": "Frisian Flag Indonesia",
+  "group": "Panzer",
+  "discovered": "2026-08-20T16:22:01.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "ID",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d5dd0dc1-2e03-4c64-987c-a87f79a59f67",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["Darkfield"]
+}

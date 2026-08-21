@@ -244,11 +244,21 @@ function trackLabHit(key: string): DwLabBody | null {
 
 // ── Helpers ───────────────────────────────────────────────────────────
 
+/** Structural subset of the Cache API — avoids referencing DOM globals that trip eslint no-undef. */
+interface CacheApiLike {
+  match(key: string): Promise<Response | undefined>;
+  put(key: string, response: Response): Promise<void>;
+}
+
+function getCacheApi(): CacheApiLike | undefined {
+  return (globalThis as unknown as { caches?: { default?: CacheApiLike } }).caches?.default;
+}
+
 async function fetchJson<T>(assets: Fetcher, path: string): Promise<T | null> {
   const cacheKey = `https://cache.internal${path}`;
   // Tier 2: Cache API (cross-isolate, survives in-memory eviction)
   try {
-    const cache = (globalThis as unknown as { caches?: CacheStorage }).caches?.default;
+    const cache = getCacheApi();
     if (cache) {
       const hit = await cache.match(cacheKey);
       if (hit) {
@@ -278,10 +288,10 @@ async function fetchJson<T>(assets: Fetcher, path: string): Promise<T | null> {
         return null;
       }
     }
-    const data = (await res.clone().json()) as T;
+    const data = (await res.json()) as T;
     // Tier 2 put (fire-and-forget, 5 min TTL via Cache-Control)
     try {
-      const cache = (globalThis as unknown as { caches?: CacheStorage }).caches?.default;
+      const cache = getCacheApi();
       if (cache) {
         const toCache = new Response(JSON.stringify(data), {
           headers: {
@@ -343,7 +353,11 @@ export async function getDwLab(assets: Fetcher, slug: string): Promise<DwLabBody
   const hit = trackLabHit(key);
   if (hit) return hit;
   const body = await fetchJson<DwLabBody>(assets, `${DATA_PREFIX}/labs/${key}.json`);
-  if (body && labCache.size < LAB_CACHE_MAX) {
+  if (body) {
+    if (labCache.size >= LAB_CACHE_MAX) {
+      const oldest = labCache.keys().next().value;
+      if (oldest !== undefined) labCache.delete(oldest);
+    }
     labCache.set(key, body);
   }
   return body;

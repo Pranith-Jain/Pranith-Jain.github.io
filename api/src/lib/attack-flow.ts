@@ -1,5 +1,5 @@
 import type { StixCommon } from './stix-build';
-import { ATTACK_ID_INDEX } from '../data/attack-id-index';
+import { loadedAttackIdIndexOrNull } from './attack-id-lazy';
 
 /** MITRE Attack-Flow STIX 2.1 extension-definition id (canonical, from the spec). */
 export const ATTACK_FLOW_EXT_ID = 'extension-definition--fb9c968a-745b-4ade-9b25-c324172197f4';
@@ -30,7 +30,9 @@ export interface FlowTechnique {
 }
 
 function tacticIndex(t: FlowTechnique): number {
-  const tac = (t.tactic ?? ATTACK_ID_INDEX[t.id]?.tac ?? '').toLowerCase();
+  // Graceful when the runtime index hasn't loaded (pure-function tests,
+  // pre-middleware calls): unknown ids sort last, same as a missing tac.
+  const tac = (t.tactic ?? loadedAttackIdIndexOrNull()?.[t.id]?.tac ?? '').toLowerCase();
   const i = TACTIC_ORDER.indexOf(tac);
   return i === -1 ? TACTIC_ORDER.length : i;
 }

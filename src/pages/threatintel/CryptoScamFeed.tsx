@@ -7,6 +7,7 @@ import { fetchJsonCached } from '../../lib/api-client';
 import { memoryCache } from '../../infrastructure/cache/memory-cache';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 
@@ -208,15 +209,22 @@ export default function CryptoScamFeed(): JSX.Element {
       )}
 
       {filtered.length > 0 && (
-        <AiSummaryCard
-          surface="Crypto Scam Domains"
-          items={filtered.slice(0, 30).map((it) => ({
-            title: it.domain,
-            body: `TLD: ${it.tld}`,
-            source: 'crypto-scam-feed',
-          }))}
-          requireAdmin={false}
-        />
+        <>
+          <PostAnalysisButton
+            title="Crypto Scam Domains Digest"
+            description="AI-powered threat analysis of the current feed."
+            source="cryptoscamfeed"
+          />
+          <AiSummaryCard
+            surface="Crypto Scam Domains"
+            items={filtered.slice(0, 30).map((it) => ({
+              title: it.domain,
+              body: `TLD: ${it.tld}`,
+              source: 'crypto-scam-feed',
+            }))}
+            requireAdmin={false}
+          />
+        </>
       )}
 
       <DataState
