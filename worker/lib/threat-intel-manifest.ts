@@ -576,6 +576,23 @@ export interface DphishIndicatorBody extends DphishIndexEntry {
   detection: boolean | null;
 }
 
+// ─── Destroylist (phishdestroy/destroylist) ────────────────────────────
+
+/** index.json emitted by scripts/build-destroylist.mjs. */
+export interface TiDestroylistIndex {
+  source: string;
+  license: string;
+  syncedAt: string;
+  bucketCount: number;
+  bucketsWritten: number;
+  counts: {
+    primary: number;
+    primaryRoots: number;
+    community: number | null;
+    primaryActive: number | null;
+  };
+}
+
 // ─── Living Threat Repository (living-threat.rabitanoor.com) ───────────
 //
 // A separate manifest tree under /data/threat-intel/living-threat/: the
@@ -774,6 +791,11 @@ let cachedTiCoverage: TiThreaticonCoverageBody | null = null;
 let cachedTiMap: TiThreaticonMapBody | null = null;
 let cachedDphishIndex: DphishIndex | null = null;
 let cachedDphishIndexAt: number | null = null;
+// ── Destroylist (phishdestroy/destroylist) ───────────────────────────
+const destroylistBucketCache: BodyCache<string[]> = { map: new Map(), hits: 0, misses: 0 };
+let cachedDestroylistIndex: TiDestroylistIndex | null = null;
+let cachedDestroylistIndexAt: number | null = null;
+let cachedDestroylistRoots: string[] | null = null;
 let cachedLtIndex: LivingThreatIndex | null = null;
 let cachedLtIndexAt: number | null = null;
 let cachedMaIndex: MaIndex | null = null;
@@ -1177,6 +1199,108 @@ export async function getDphishIndicator(assets: Fetcher, slug: string): Promise
   );
   if (!body) return null;
   return recordHit(dphishBodyCache, key, body);
+}
+
+// ─── Destroylist loaders ──────────────────────────────────────────────
+
+export async function loadDestroylistIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TiDestroylistIndex | null> {
+  if (cachedDestroylistIndex && !opts.forceRefresh) return cachedDestroylistIndex;
+  const idx = await fetchJson<TiDestroylistIndex>(assets, `${DATA_PREFIX}/destroylist/index.json`);
+  if (!idx) return null;
+  cachedDestroylistIndex = idx;
+  cachedDestroylistIndexAt = Date.now();
+  return idx;
+}
+
+/**
+ * Sorted root-domain rollup of the primary feed (roots.json). Consumed by
+ * the blocklist builder's destroylist format and by search endpoints.
+ */
+export async function loadDestroylistRoots(assets: Fetcher): Promise<string[] | null> {
+  if (cachedDestroylistRoots) return cachedDestroylistRoots;
+  const roots = await fetchJson<string[]>(assets, `${DATA_PREFIX}/destroylist/roots.json`);
+  if (!roots) return null;
+  cachedDestroylistRoots = roots;
+  return roots;
+}
+
+/** Same djb2 as scripts/build-destroylist.mjs — MUST stay in sync. */
+const DESTROYLIST_BUCKETS = 64;
+function destroylistBucketOf(domain: string): number {
+  let h = 5381;
+  const s = domain.toLowerCase();
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+  return h % DESTROYLIST_BUCKETS;
+}
+
+async function getDestroylistBucket(assets: Fetcher, bucket: number): Promise<string[] | null> {
+  const key = String(bucket).padStart(2, '0');
+  const hit = trackHit(destroylistBucketCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<string[]>(assets, `${DATA_PREFIX}/destroylist/buckets/${key}.json`);
+  if (!body) return null;
+  return recordHit(destroylistBucketCache, key, body);
+}
+
+function binarySearch(sorted: string[], needle: string): boolean {
+  let lo = 0;
+  let hi = sorted.length - 1;
+  while (lo <= hi) {
+    const mid = (lo + hi) >>> 1;
+    const cmp = sorted[mid]!.localeCompare(needle);
+    if (cmp === 0) return true;
+    if (cmp < 0) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return false;
+}
+
+/**
+ * Membership check against the replicated primary feed. Normalizes the
+ * input (scheme/path/www/trailing-dot strip, lowercase), checks the exact
+ * value, then walks up to two parent domains (subdomain → root) so a
+ * phishing page on a listed apex matches too.
+ *
+ * Returns `null` when the manifest is unavailable (caller decides how to
+ * degrade), otherwise `{ listed, matched }` where `matched` is the exact
+ * feed entry that hit.
+ */
+export async function checkDestroylistDomain(
+  assets: Fetcher | undefined,
+  rawDomain: string
+): Promise<{ listed: boolean; matched: string | null } | null> {
+  if (!assets) return null;
+  // Gate on the index: if it loads the manifest exists, and any bucket
+  // miss afterwards means "empty bucket" (domain not listed), not absence.
+  const idx = await loadDestroylistIndex(assets);
+  if (!idx) return null;
+
+  let d = rawDomain.trim().toLowerCase();
+  try {
+    if (d.includes('://')) d = new URL(d).hostname;
+    else if (d.includes('/')) d = new URL(`https://${d}`).hostname;
+  } catch {
+    /* keep as-is */
+  }
+  d = d.replace(/^www\./i, '').replace(/\.$/, '');
+  if (!d || !d.includes('.')) return { listed: false, matched: null };
+
+  const candidates = [d];
+  const parts = d.split('.');
+  // Walk parent domains (max 2 hops: sub.sub.example.com → example.com).
+  for (let i = 1; i < Math.min(parts.length - 1, 3); i += 1) {
+    candidates.push(parts.slice(i).join('.'));
+  }
+
+  for (const candidate of candidates) {
+    const bucket = await getDestroylistBucket(assets, destroylistBucketOf(candidate));
+    if (!bucket) continue;
+    if (binarySearch(bucket, candidate)) return { listed: true, matched: candidate };
+  }
+  return { listed: false, matched: null };
 }
 
 // ─── Living Threat loaders ──────────────────────────────────────────────
@@ -1910,6 +2034,11 @@ export function tiCacheStats(): {
     indexAgeMs: number | null;
     bodies: { size: number; hits: number; misses: number };
   };
+  destroylist: {
+    indexLoaded: boolean;
+    indexAgeMs: number | null;
+    buckets: { size: number; hits: number; misses: number };
+  };
   livingThreat: {
     indexLoaded: boolean;
     indexAgeMs: number | null;
@@ -1977,6 +2106,15 @@ export function tiCacheStats(): {
       indexLoaded: cachedDphishIndex !== null,
       indexAgeMs: cachedDphishIndexAt ? Date.now() - cachedDphishIndexAt : null,
       bodies: { size: dphishBodyCache.map.size, hits: dphishBodyCache.hits, misses: dphishBodyCache.misses },
+    },
+    destroylist: {
+      indexLoaded: cachedDestroylistIndex !== null,
+      indexAgeMs: cachedDestroylistIndexAt ? Date.now() - cachedDestroylistIndexAt : null,
+      buckets: {
+        size: destroylistBucketCache.map.size,
+        hits: destroylistBucketCache.hits,
+        misses: destroylistBucketCache.misses,
+      },
     },
     livingThreat: {
       indexLoaded: cachedLtIndex !== null,
@@ -2047,6 +2185,11 @@ export function _resetTiCacheForTests(): void {
   dphishBodyCache.hits = dphishBodyCache.misses = 0;
   cachedDphishIndex = null;
   cachedDphishIndexAt = null;
+  destroylistBucketCache.map.clear();
+  destroylistBucketCache.hits = destroylistBucketCache.misses = 0;
+  cachedDestroylistIndex = null;
+  cachedDestroylistIndexAt = null;
+  cachedDestroylistRoots = null;
   ltShardCache.map.clear();
   ltShardCache.hits = ltShardCache.misses = 0;
   cachedLtIndex = null;

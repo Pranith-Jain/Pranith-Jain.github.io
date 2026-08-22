@@ -13,14 +13,6 @@ interface Candidate {
   status: string;
 }
 
-type GenResult = Record<string, unknown>;
-
-interface SocialPreview {
-  key: string;
-  platform: string;
-  content: string;
-}
-
 /** Pull up to 3 source URLs out of a candidate's evidence so an operator can
  *  verify provenance before approving. Mirrors the shapes the backend
  *  discovery runners store (urls[], sources[], victims[].url, sourceUrl,
@@ -105,9 +97,6 @@ export default function PendingTab() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
-  const [generating, setGenerating] = useState<Record<string, string>>({});
-  const [genResults, setGenResults] = useState<Record<string, GenResult>>({});
-  const [socialPreview, setSocialPreview] = useState<SocialPreview | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -168,29 +157,6 @@ export default function PendingTab() {
     } catch (e) {
       console.error('clearAll failed:', e instanceof Error ? e.message : String(e));
       setActionMsg(`clear all failed: ${e instanceof Error ? e.message : String(e)}`);
-    }
-  }
-
-  async function generate(candidate: Candidate, format: string) {
-    const key = `${candidate.key}:${format}`;
-    setGenerating((prev) => ({ ...prev, [key]: 'generating' }));
-    setGenResults((prev) => ({ ...prev, [key]: {} }));
-    try {
-      const res = await postJsonWithBody<{ ok: boolean; result: GenResult; errors?: string[] }>(
-        `/candidates/${encodeURIComponent(candidate.key)}/generate?type=${encodeURIComponent(candidate.type)}`,
-        { formats: [format] }
-      );
-      setGenResults((prev) => ({ ...prev, [key]: res }));
-      const content = (res.result?.[format] as { content?: string } | undefined)?.content ?? '';
-      if (content) {
-        setSocialPreview({ key: candidate.key, platform: format, content });
-      }
-      setActionMsg(`${format} generated for ${candidate.title.slice(0, 50)}`);
-    } catch (e) {
-      console.error('generate failed:', e instanceof Error ? e.message : String(e));
-      setActionMsg(`${format} failed: ${e instanceof Error ? e.message : String(e)}`);
-    } finally {
-      setGenerating((prev) => ({ ...prev, [key]: '' }));
     }
   }
 
@@ -326,20 +292,6 @@ export default function PendingTab() {
                           >
                             Skip
                           </button>
-                          <GenerateBtn
-                            label="LI"
-                            title="Generate a LinkedIn draft from this candidate"
-                            busy={generating[`${c.key}:linkedin`]}
-                            ok={genResults[`${c.key}:linkedin`]?.ok as boolean | undefined}
-                            onClick={() => generate(c, 'linkedin')}
-                          />
-                          <GenerateBtn
-                            label="X"
-                            title="Generate an X / Twitter draft from this candidate"
-                            busy={generating[`${c.key}:twitter`]}
-                            ok={genResults[`${c.key}:twitter`]?.ok as boolean | undefined}
-                            onClick={() => generate(c, 'twitter')}
-                          />
                         </div>
                       </td>
                     </tr>
@@ -347,106 +299,9 @@ export default function PendingTab() {
                 })}
               </tbody>
             </table>
-            {socialPreview && <SocialPreviewPanel preview={socialPreview} onClose={() => setSocialPreview(null)} />}
           </div>
         );
       }}
     </SearchFilter>
-  );
-}
-
-function GenerateBtn({
-  label,
-  title,
-  busy,
-  ok,
-  onClick,
-}: {
-  label: string;
-  title?: string;
-  busy?: string;
-  ok?: boolean;
-  onClick: () => void;
-}) {
-  const base = 'px-2 py-1 rounded text-xs border ';
-  if (busy === 'generating') {
-    return (
-      <button
-        disabled
-        title={title}
-        className={
-          base + 'border-amber-200 dark:border-amber-600/40 text-amber-700 dark:text-amber-500 opacity-60 cursor-wait'
-        }
-      >
-        {label}…
-      </button>
-    );
-  }
-  if (ok === true) {
-    return (
-      <button
-        disabled
-        title={title}
-        className={
-          base + 'border-emerald-200 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-400 opacity-60'
-        }
-      >
-        {label}
-      </button>
-    );
-  }
-  return (
-    <button
-      onClick={onClick}
-      title={title}
-      className={
-        base +
-        'border-blue-200 dark:border-blue-700/60 text-brand-700 dark:text-brand-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-brand-300 dark:hover:border-brand-600/80'
-      }
-    >
-      {label}
-    </button>
-  );
-}
-
-function SocialPreviewPanel({ preview, onClose }: { preview: SocialPreview; onClose: () => void }) {
-  const [copied, setCopied] = useState(false);
-
-  async function copyText(text: string) {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (_catchErr) {
-      console.error('copyText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // fallback: select the textarea content
-    }
-  }
-
-  return (
-    <div className="mt-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-          {preview.platform === 'linkedin' ? 'LinkedIn' : 'X / Twitter'} - {preview.key.slice(0, 50)}
-        </h3>
-        <div className="flex gap-2">
-          <button
-            onClick={() => void copyText(preview.content)}
-            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
-          >
-            {copied ? 'Copied!' : 'Copy'}
-          </button>
-          <button
-            onClick={onClose}
-            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-      <pre className="whitespace-pre-wrap text-sm text-slate-700 dark:text-slate-200 font-sans bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 max-h-[60vh] overflow-y-auto leading-relaxed">
-        {preview.content}
-      </pre>
-    </div>
   );
 }

@@ -60,6 +60,7 @@ const CATEGORY_HINTS = [
   { match: /^(trace_wallet|wallet|crypto)/, cat: 'crypto' },
   { match: /^(generate_dork|dork|google)/, cat: 'osint' },
   { match: /^(check_exposure|exposure|scan_website|scan_site|get_technologies|builtwith)/, cat: 'exposure' },
+  { match: /^(dl_|destroylist)/, cat: 'phishing' },
 ];
 
 export function categorize(name) {

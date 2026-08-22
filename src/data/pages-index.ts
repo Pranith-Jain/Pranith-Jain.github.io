@@ -3675,6 +3675,25 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['dphish', 'phishing', 'taxii', 'stix', 'domain', 'url', 'ioc', 'indicator', 'attachment', 'feed'],
   },
   {
+    path: '/threatintel/feeds/destroylist',
+    label: 'Destroylist Blacklist',
+    description:
+      'Phishing & scam domain blacklist (phishdestroy/destroylist, MIT) - curated primary feed with local membership checks, root-domain search, DNS-active counts, and a Pi-hole/AdGuard-ready roots.txt subscription.',
+    sectionLabel: 'Threat Intel · Feeds',
+    group: 'threatintel',
+    keywords: [
+      'destroylist',
+      'phishdestroy',
+      'blacklist',
+      'blocklist',
+      'phishing',
+      'scam',
+      'domain',
+      'pihole',
+      'adguard',
+    ],
+  },
+  {
     path: '/threatintel/feeds/living-threat',
     label: 'Living Threat Repository',
     description:

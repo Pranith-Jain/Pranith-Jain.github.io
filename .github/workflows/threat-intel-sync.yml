@@ -55,6 +55,10 @@ jobs:
         continue-on-error: true
         run: node scripts/sync-dphish.mjs
 
+      - name: Sync Destroylist phishing blacklist
+        continue-on-error: true
+        run: node scripts/sync-destroylist.mjs
+
       - name: Sync Living Threat Repository (MITRE-mapped incidents)
         continue-on-error: true
         run: node scripts/sync-living-threat.mjs
@@ -91,6 +95,10 @@ jobs:
       - name: Build dPhish manifest
         continue-on-error: true
         run: node scripts/build-dphish.mjs
+
+      - name: Build Destroylist manifest
+        continue-on-error: true
+        run: node scripts/build-destroylist.mjs
 
       - name: Build Living Threat manifest
         continue-on-error: true

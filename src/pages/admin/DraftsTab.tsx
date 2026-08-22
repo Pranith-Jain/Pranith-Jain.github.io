@@ -59,8 +59,6 @@ export default function DraftsTab() {
   const [previewLoading, setPreviewLoading] = useState<string | null>(null);
   const [actionBusy, setActionBusy] = useState<string | null>(null);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- dead code, kept for future social generation feature
-  const [_socialGen, _setSocialGen] = useState<Record<string, string>>({});
   const latestPreviewReq = useRef<string | null>(null);
 
   const load = useCallback(async () => {
@@ -207,27 +205,6 @@ export default function DraftsTab() {
       setActionMsg(`${verb} failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setActionBusy(null);
-    }
-  }
-
-  // @ts-expect-error: dead code, kept for future social generation feature
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async function _generateSocial(slug: string, platform: string) {
-    // The backend /social/:slug/:platform endpoint uses getPostOrDraft which
-    // reads from BOTH posts:<slug> and drafts:<slug> KV keys, so this works
-    // for drafts too. No candidateId lookup needed.
-    const key = `${slug}:${platform}`;
-    _setSocialGen((prev) => ({ ...prev, [key]: 'busy' }));
-    setActionMsg(null);
-    try {
-      await postJsonWithBody(`/social/${encodeURIComponent(slug)}/${platform}`, {});
-      setActionMsg(`${platform} generated for ${slug}`);
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e);
-      console.error('_generateSocial failed:', msg);
-      setActionMsg(`${platform} failed: ${msg}`);
-    } finally {
-      _setSocialGen((prev) => ({ ...prev, [key]: '' }));
     }
   }
 
@@ -628,129 +605,9 @@ function LinkVerifyBadge({
   );
 }
 
-// @ts-expect-error: dead code, kept for future social generation feature
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onClick: () => void }) {
-  const base = 'px-2 py-1 rounded text-xs border ';
-  if (busy === 'busy') {
-    return (
-      <button
-        disabled
-        className={base + 'border-amber-600/40 text-amber-700 dark:text-amber-500 opacity-60 cursor-wait'}
-      >
-        {label}…
-      </button>
-    );
-  }
-  return (
-    <button
-      onClick={onClick}
-      className={
-        base +
-        'border-purple-700/60 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:border-purple-600/80'
-      }
-    >
-      {label}
-    </button>
-  );
-}
-
-/**
- * Compact "Regen" dropdown for the drafts table. Two visible options:
- *  - Fix (no LLM, free) - runs postProcess; auto-linkifies References
- *  - Rewrite (LLM) - opens a notes textarea, then re-issues generatePost
- * The dropdown lives inline in the Actions cell so the row stays a
- * single line on desktop and wraps gracefully on narrow viewports.
- */
-// @ts-expect-error: dead code, kept for future social generation feature
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function RegenMenu({
-  slug,
-  busy,
-  disabled,
-  onRegen,
-}: {
-  slug: string;
-  busy: boolean;
-  disabled: boolean;
-  onRegen: (mode: 'fix' | 'rewrite', notes?: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const [notes, setNotes] = useState('');
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-
-  // Click-outside to close the dropdown without cancelling the form.
-  useEffect(() => {
-    if (!open) return;
-    function onDoc(e: MouseEvent) {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', onDoc);
-    return () => document.removeEventListener('mousedown', onDoc);
-  }, [open]);
-
-  return (
-    <div className="relative" ref={wrapRef}>
-      <button
-        onClick={() => setOpen((o) => !o)}
-        disabled={disabled}
-        className="px-2 py-1 border border-blue-200 dark:border-blue-800 rounded text-xs text-brand-700 dark:text-brand-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 disabled:opacity-50"
-        title={`Regenerate ${slug}`}
-      >
-        {busy ? '…' : 'Regen'}
-      </button>
-      {open && (
-        <div className="absolute right-0 mt-1 z-10 w-72 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e3 p-3 text-xs">
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setOpen(false);
-                onRegen('fix');
-              }}
-              disabled={disabled}
-              className="px-2 py-1.5 border border-emerald-200 dark:border-emerald-800 rounded text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-left disabled:opacity-50"
-            >
-              <div className="font-semibold">Fix (no LLM)</div>
-              <div className="text-slate-500 dark:text-slate-400 text-micro mt-0.5">
-                postProcess - auto-linkify References, refresh QA. Free.
-              </div>
-            </button>
-            <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
-              <label htmlFor={`regen-notes-${slug}`} className="block text-slate-500 dark:text-slate-400 mb-1">
-                Rewrite with notes (LLM call):
-              </label>
-              <textarea
-                id={`regen-notes-${slug}`}
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="e.g. add attack-flow chart, rebalance toward the Sigma rule"
-                rows={3}
-                className="w-full bg-slate-100 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-slate-800 dark:text-slate-200 text-mini font-mono"
-              />
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  onRegen('rewrite', notes);
-                  setNotes('');
-                }}
-                disabled={disabled}
-                className="mt-1.5 w-full px-2 py-1.5 border border-amber-200 dark:border-amber-700 rounded text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/30 disabled:opacity-50"
-              >
-                Rewrite (LLM)
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 /**
  * Inline regenerate controls for the preview panel. Smaller than the
- * table-row RegenMenu because the preview footer has less horizontal
+ * table-row regenerate menu because the preview footer has less horizontal
  * space; the textarea is hidden behind a toggle so the row stays tight
  * until the admin actively opts into a rewrite.
  */

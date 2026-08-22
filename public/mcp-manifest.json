@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 326 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 328 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,7 +16,7 @@
       "listChanged": false
     }
   },
-  "toolCount": 326,
+  "toolCount": 328,
   "generatedAt": "2026-08-21T10:02:29+05:30",
   "tools": [
     {
@@ -173,6 +173,16 @@
       "name": "depx_stats",
       "description": "Supply-chain intelligence statistics — ecosystem breakdown, recent advisory counts, and disclosure trends from the OpenSSF Malicious Packages database.",
       "category": "other"
+    },
+    {
+      "name": "dl_check_domain",
+      "description": "Check whether a domain (or URL host) is on the Destroylist phishing/scam blacklist (github.com/phishdestroy/destroylist, MIT): ~193k curated primary domains replicated locally (zero egress) plus parent-domain matching, so a phishing page on a listed apex matches too. Returns listed status, matched feed entry, verdict, and feed sync timestamp.",
+      "category": "phishing"
+    },
+    {
+      "name": "dl_stats",
+      "description": "Return Destroylist feed statistics: primary/community/DNS-active domain counts, root-domain rollup count, last sync time, bucket layout, and per-isolate bucket cache health. Use before bulk checks to confirm the manifest is loaded.",
+      "category": "phishing"
     },
     {
       "name": "dn_abuseipdb_blacklist",

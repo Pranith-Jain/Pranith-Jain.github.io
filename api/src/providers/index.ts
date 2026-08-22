@@ -64,6 +64,7 @@ import { interpol } from './interpol';
 import { mozillaTls } from './mozilla-tls';
 import { virushee } from './virushee';
 import { dphish } from './dphish';
+import { destroylist } from './destroylist';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS, PROVIDER_TIER };
 
@@ -132,6 +133,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   'mozilla-tls': mozillaTls,
   virushee,
   dphish,
+  destroylist,
 };
 
 /**
@@ -213,6 +215,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   'mozilla-tls': 'Mozilla TLS Observatory',
   virushee: 'Virushee',
   dphish: 'dPhish',
+  destroylist: 'Destroylist',
 };
 
 export function buildProviderEnv(env: {

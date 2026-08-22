@@ -32,31 +32,74 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.use('*', requireAdminMiddleware);
 
   // ─── Generate content from custom input ─────────────────────────────
+  // Powers the admin "Generate" tab. Mirrors the reference n8n LinkedIn
+  // pipeline's contract: brand configuration (topic/audience/tone) →
+  // composition → approval gate (weak/empty content is REJECTED with a
+  // reason, never returned as usable) → normalized single `final_post`
+  // field per format → optional dry-run (compose without persisting).
   admin.post('/generate', async (c) => {
     const parsed = await safeJsonBody<{
-      title: string;
-      content: string;
+      title?: string;
+      topic?: string;
+      content?: string;
+      audience?: string;
+      tone?: string;
       formats?: string[];
       type?: string;
+      notes?: string;
+      dry_run?: boolean;
     }>(c, { maxBytes: 128 * 1024 });
     if ('error' in parsed) return parsed.error;
-    const { title, content, formats: rawFormats, type } = parsed.value;
+    const { title, topic, content, audience, tone, formats: rawFormats, type, notes, dry_run } = parsed.value;
 
-    if (!title?.trim()) return badRequest(c, 'title is required');
-    if (!content?.trim()) return badRequest(c, 'content is required');
+    const subject = (title ?? topic ?? '').trim();
+    if (!subject) return badRequest(c, 'title or topic is required');
+    if (!content?.trim() && !notes?.trim() && !topic?.trim()) {
+      return badRequest(c, 'content, notes, or topic is required');
+    }
 
-    const formats = rawFormats ?? ['linkedin', 'twitter'];
+    const formats = rawFormats && rawFormats.length > 0 ? rawFormats : ['blog', 'linkedin', 'twitter'];
     const now = new Date();
 
-    const slug = title
+    const slug = subject
       .toLowerCase()
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
       .slice(0, 80);
 
+    /** Brand-configuration hints folded into the source body (n8n layer 1). */
+    const brandConfig = [
+      content?.trim() ?? '',
+      notes?.trim() ? `<admin_notes>${notes.trim()}</admin_notes>` : '',
+      audience?.trim() ? `Target audience: ${audience.trim()}.` : '',
+      tone?.trim() ? `Tone: ${tone.trim()}.` : '',
+    ]
+      .filter(Boolean)
+      .join('\n\n');
+
     const result: Record<string, unknown> = {};
     const errors: string[] = [];
+
+    /** Approval gate — mirrors the n8n "reject weak/empty output" node. */
+    function approve(platform: string, text: string | undefined, minLen: number, validation?: unknown) {
+      const trimmed = (text ?? '').trim();
+      const score =
+        typeof (validation as { score?: number } | undefined)?.score === 'number'
+          ? (validation as { score: number }).score
+          : null;
+      if (trimmed.length === 0) {
+        return { rejected: true, reason: 'empty_content' };
+      }
+      if (trimmed.length < minLen) {
+        return { rejected: true, reason: `too_short (${trimmed.length} < ${minLen} chars)` };
+      }
+      if (score !== null && score < 60) {
+        return { rejected: true, reason: `quality_score_below_threshold (${score}/100)` };
+      }
+      void platform;
+      return { rejected: false };
+    }
 
     for (const fmt of formats) {
       try {
@@ -64,10 +107,10 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           const pseudo: Candidate = {
             key: `custom-${slug}`,
             type: (type as CaseStudyType | undefined) ?? 'analysis',
-            title,
-            rationale: title,
+            title: subject,
+            rationale: subject,
             score: 0.8,
-            evidence: { userContent: content },
+            evidence: { userContent: brandConfig },
             discoveredAt: now.toISOString(),
             status: 'pending',
           };
@@ -79,32 +122,36 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
             infronKey: c.env.INFRON_API_KEY,
           });
-          await putDraft(c.env.CASE_STUDIES, post);
-          result.blog = { slug: post.slug, title: post.title, status: 'draft' };
-        } else if (fmt === 'linkedin') {
-          const notes = { slug: `custom-${slug}`, title, body: content };
-          const { linkedin, generatedAt, _validation } = await generateLinkedinFromNotes(
-            notes,
+          const gate = approve('blog', post.body, 500);
+          if (!gate.rejected && !dry_run) await putDraft(c.env.CASE_STUDIES, post);
+          result.blog = {
+            slug: post.slug,
+            title: post.title,
+            final_post: post.body,
+            status: dry_run ? 'dry_run' : gate.rejected ? 'rejected' : 'draft',
+            ...gate,
+          };
+        } else if (fmt === 'linkedin' || fmt === 'twitter') {
+          const gen = fmt === 'linkedin' ? generateLinkedinFromNotes : generateTwitterFromNotes;
+          const notesBody = { slug: `custom-${slug}`, title: subject, body: brandConfig };
+          const out = (await gen(
+            notesBody,
             getAi(c.env),
             now,
             c.env.GROQ_API_KEY,
             c.env.GOOGLE_AI_STUDIO_API_KEY,
             c.env.NVIDIA_API_KEY as string | undefined,
             c.env.INFRON_API_KEY
-          );
-          result.linkedin = { content: linkedin, generatedAt, validation: _validation };
-        } else if (fmt === 'twitter') {
-          const notes = { slug: `custom-${slug}`, title, body: content };
-          const { twitter, generatedAt, _validation } = await generateTwitterFromNotes(
-            notes,
-            getAi(c.env),
-            now,
-            c.env.GROQ_API_KEY,
-            c.env.GOOGLE_AI_STUDIO_API_KEY,
-            c.env.NVIDIA_API_KEY as string | undefined,
-            c.env.INFRON_API_KEY
-          );
-          result.twitter = { content: twitter, generatedAt, validation: _validation };
+          )) as { linkedin?: string; twitter?: string; generatedAt: string; _validation?: unknown };
+          const text = fmt === 'linkedin' ? out.linkedin : out.twitter;
+          const gate = approve(fmt, text, fmt === 'linkedin' ? 400 : 120, out._validation);
+          result[fmt] = {
+            final_post: text ?? '',
+            generatedAt: out.generatedAt,
+            validation: out._validation,
+            status: gate.rejected ? 'rejected' : 'ready',
+            ...gate,
+          };
         } else {
           errors.push(`unknown format: ${fmt}`);
         }
@@ -117,6 +164,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     return c.json({
       ok: errors.length === 0,
       slug: `custom-${slug}`,
+      dry_run: dry_run === true,
       result,
       errors: errors.length > 0 ? errors : undefined,
     });

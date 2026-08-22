@@ -43,7 +43,11 @@ const BUDGETS = {
   // explorer, nhiscan, supply-chain feed, plus per-page utility classes)
   // pushed the CSS 0.2KB over the 50KB line. +2KB headroom; transfer impact
   // is negligible — gzipped CSS is cached aggressively.
-  'index-*.css': { uncompressed: 390_000, gzip: 52_000 },
+  // raw 390→398KB / gzip unchanged: the admin content-generation rework
+  // (new GenerateTab) and the Destroylist feed page added per-page utility
+  // classes. +8KB raw headroom; both pages are admin/lazy routes so the
+  // transfer cost lands on the chunks that need them.
+  'index-*.css': { uncompressed: 398_000, gzip: 52_000 },
   // raw 280→300KB / gzip 92→96KB: the in-flight Dnscope, EmailDefense,
   // and IntodnsPanel pages (plus the api/ validation rewrite) added new
   // panel components and form schemas to the main app chunk. +20KB raw

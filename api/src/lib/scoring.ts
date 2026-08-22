@@ -31,6 +31,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     stopforumspam: 2,
     dshield: 3,
     dphish: 3,
+    destroylist: 3,
   },
   ipv6: {
     maltiverse: 4,
@@ -58,6 +59,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     stopforumspam: 2,
     dshield: 3,
     dphish: 3,
+    destroylist: 3,
   },
   domain: {
     maltiverse: 4,
@@ -76,6 +78,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     digitalside: 3,
     kaspersky: 3,
     dphish: 4,
+    destroylist: 4,
   },
   url: {
     maltiverse: 4,
@@ -91,6 +94,7 @@ export const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>>
     digitalside: 3,
     kaspersky: 3,
     dphish: 4,
+    destroylist: 4,
   },
   hash: {
     maltiverse: 4,

@@ -45,6 +45,7 @@ const SOURCE_RELIABILITY: Partial<Record<ProviderId, Reliability>> = {
   malpedia: 'B',
   kaspersky: 'B',
   dphish: 'B',
+  destroylist: 'B',
 };
 
 /** Indicator-type baseline credibility — more persistent artifacts score higher. */

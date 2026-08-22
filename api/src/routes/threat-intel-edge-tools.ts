@@ -946,6 +946,134 @@ threatIntelRouter.get('/threat-intel/dphish/indicators/:slug', async (c) => {
   }
 });
 
+// ─── Destroylist (phishdestroy/destroylist, MIT) ────────────────────────
+// Phishing & scam domain blacklist — primary curated feed replicated as
+// hash-bucketed sorted arrays in public/data/threat-intel/destroylist/
+// (membership via ASSETS + binary search, no egress). The community
+// aggregate is reachable through the keyless api.destroy.tools live lookup.
+
+threatIntelRouter.get('/threat-intel/destroylist', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDestroylistIndex(c.env.ASSETS);
+    if (!idx)
+      return serviceUnavailable(c, 'destroylist manifest not built — run sync-destroylist && build-destroylist');
+    return c.json({
+      source: idx.source,
+      license: idx.license,
+      syncedAt: idx.syncedAt,
+      counts: idx.counts,
+      bucketCount: idx.bucketCount,
+      stats: mod.tiCacheStats().destroylist,
+      feeds: {
+        primary: 'https://raw.githubusercontent.com/phishdestroy/destroylist/main/list.txt',
+        community: 'https://raw.githubusercontent.com/phishdestroy/destroylist/main/community/blocklist.txt',
+        liveApi: 'https://api.destroy.tools',
+      },
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_destroylist_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/destroylist/check', async (c) => {
+  const domain = c.req.query('domain') || c.req.query('q');
+  if (!domain) return badRequest(c, 'domain query parameter required');
+  try {
+    const mod = await loadTiMod();
+    const result = await mod.checkDestroylistDomain(c.env.ASSETS, domain);
+    if (result === null) return serviceUnavailable(c, 'destroylist manifest unavailable');
+    const idx = await mod.loadDestroylistIndex(c.env.ASSETS).catch(() => null);
+    return c.json({
+      domain,
+      listed: result.listed,
+      matched: result.matched,
+      verdict: result.listed ? 'malicious' : 'clean',
+      feed: 'primary',
+      syncedAt: idx?.syncedAt,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_destroylist_check_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+/** Bulk check — up to 100 domains per request. */
+threatIntelRouter.post('/threat-intel/destroylist/check', async (c) => {
+  try {
+    const body = await c.req.json<{ domains?: unknown }>().catch(() => null);
+    const domains = Array.isArray(body?.domains) ? body!.domains.filter((d): d is string => typeof d === 'string') : [];
+    if (domains.length === 0) return badRequest(c, 'domains array required');
+    if (domains.length > 100) return badRequest(c, 'max 100 domains per request');
+    const mod = await loadTiMod();
+    const results = await Promise.all(
+      domains.map(async (domain) => {
+        const r = await mod.checkDestroylistDomain(c.env.ASSETS, domain);
+        return { domain, listed: r?.listed ?? null, matched: r?.matched ?? null };
+      })
+    );
+    return c.json({
+      checked: results.length,
+      listedCount: results.filter((r) => r.listed).length,
+      results,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_destroylist_bulk_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+/** Root-domain search over the primary rollup (prefix/substring match). */
+threatIntelRouter.get('/threat-intel/destroylist/search', async (c) => {
+  const q = (c.req.query('q') || '').trim().toLowerCase();
+  if (q.length < 3) return badRequest(c, 'q must be at least 3 characters');
+  const limitRaw = c.req.query('limit');
+  const limit = limitRaw ? Math.min(500, Math.max(1, Number(limitRaw) || 50)) : 50;
+  try {
+    const mod = await loadTiMod();
+    const roots = await mod.loadDestroylistRoots(c.env.ASSETS);
+    if (!roots) return serviceUnavailable(c, 'destroylist manifest not built');
+    const matches = roots.filter((d) => d.includes(q)).slice(0, limit);
+    return c.json({
+      query: q,
+      total: matches.length,
+      truncated: roots.filter((d) => d.includes(q)).length > matches.length,
+      roots: matches,
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_destroylist_search_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+/**
+ * Plain-text root-domain list for DNS/firewall subscription (Pi-hole,
+ * AdGuard Home, RPZ converters). Root domains only — per upstream guidance
+ * that full lists carry hosting-platform subdomains unsuitable for
+ * firewall rules. Cached at the edge for 6h.
+ */
+threatIntelRouter.get('/threat-intel/destroylist/roots.txt', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const roots = await mod.loadDestroylistRoots(c.env.ASSETS);
+    if (!roots) return serviceUnavailable(c, 'destroylist manifest not built');
+    const idx = await mod.loadDestroylistIndex(c.env.ASSETS).catch(() => null);
+    const body =
+      `# destroylist primary root domains (${roots.length}) — github.com/phishdestroy/destroylist (MIT)\n` +
+      `# synced ${idx?.syncedAt ?? 'unknown'}\n` +
+      roots.join('\n') +
+      '\n';
+    return c.body(body, 200, {
+      'content-type': 'text/plain; charset=utf-8',
+      'cache-control': 'public, max-age=21600',
+    });
+  } catch (e) {
+    logError('handler failed', e);
+    return internalError(c, `ti_destroylist_roots_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
 // ─── Living Threat Repository (living-threat.rabitanoor.com) ───────────
 // Real-world incidents continuously mapped to MITRE ATT&CK tactics +
 // techniques with per-kill-chain-stage detection/remediation notes

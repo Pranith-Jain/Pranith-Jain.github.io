@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**326 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**328 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -325,6 +325,14 @@
 - `notebook_list` - List investigation notebooks. Each notebook is a persistent investigation session with notes, IOCs, findings, and timeline entries stored in D1.
 - `notebook_update` - Update a notebook title, description, status, or severity.
 
+### phishing (5)
+
+- `analyze_phishing_email` - Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.
+- `analyze_phishing_url` - Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.
+- `analyze_url_risk` - Correlate a URL across VirusTotal, Google Safe Browsing, urlscan.io, AbuseIPDB, and WHOIS domain age using the weighted IntelX risk engine. Returns a 0-100 risk score, verdict (Critical/High/Suspicious/Low/No Strong Threat Evidence), confidence, static heuristic flags (punycode, shorteners, keywords, @-symbol, IP hosts), and a per-provider evidence chain with score breakdown.
+- `dl_check_domain` - Check whether a domain (or URL host) is on the Destroylist phishing/scam blacklist (github.com/phishdestroy/destroylist, MIT): ~193k curated primary domains replicated locally (zero egress) plus parent-domain matching, so a phishing page on a listed apex matches too. Returns listed status, matched feed entry, verdict, and feed sync timestamp.
+- `dl_stats` - Return Destroylist feed statistics: primary/community/DNS-active domain counts, root-domain rollup count, last sync time, bucket layout, and per-isolate bucket cache health. Use before bulk checks to confirm the manifest is loaded.
+
 ### analysis (5)
 
 - `analyze_report` - Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR. When format=markdown returns a TI Mindmap HUB-style rich formatted markdown report.
@@ -347,12 +355,6 @@
 - `winreg_list_artifacts` - List Windows Registry forensic artifacts from the WinReg DFIR reference. Filter by category, hive, MITRE technique, or free-text keyword.
 - `winreg_list_categories` - List the Windows Registry artifact categories in the WinReg DFIR reference. Returns category keys, names, descriptions, and artifact counts.
 - `winreg_stats` - Return cache + manifest stats for the WinReg DFIR data: artifact counts, hive types, MITRE technique coverage, and LRU body-cache hit/miss ratios.
-
-### phishing (3)
-
-- `analyze_phishing_email` - Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.
-- `analyze_phishing_url` - Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.
-- `analyze_url_risk` - Correlate a URL across VirusTotal, Google Safe Browsing, urlscan.io, AbuseIPDB, and WHOIS domain age using the weighted IntelX risk engine. Returns a 0-100 risk score, verdict (Critical/High/Suspicious/Low/No Strong Threat Evidence), confidence, static heuristic flags (punycode, shorteners, keywords, @-symbol, IP hosts), and a per-provider evidence chain with score breakdown.
 
 ### cve (3)
 

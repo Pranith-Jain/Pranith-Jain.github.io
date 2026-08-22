@@ -123,6 +123,16 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
       'OpenCTI-backed TAXII 2.1 phishing indicator collection — malicious domains, phishing URLs, sender IPs, phone numbers, attachment rules',
     known_bias: 'Public collection; indicator scope limited to what dphish.com publishes',
   },
+  destroylist: {
+    id: 'destroylist',
+    name: 'Destroylist',
+    reliability: 'B',
+    category: 'secondary',
+    description:
+      'Real-time phishing & scam domain blacklist (phishdestroy/destroylist, MIT) — curated primary feed plus a 13+ source community aggregate with DNS/HTTP content verification',
+    known_bias:
+      'Community aggregate mixes feed quality; primary feed is curator-verified. Cloaking can hide live phishing from content checks.',
+  },
   'hudson-rock': {
     id: 'hudson-rock',
     name: 'Hudson Rock',

@@ -474,6 +474,14 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'live',
       },
       {
+        path: '/threatintel/feeds/destroylist',
+        tabId: 'destroylist',
+        label: 'Destroylist Blacklist',
+        desc: 'Phishing & scam domain blacklist (MIT) - curated primary feed with local membership checks, root-domain search, and Pi-hole/AdGuard-ready roots.txt.',
+        compVar: 'DestroylistFeeds',
+        badge: 'live',
+      },
+      {
         path: '/threatintel/feeds/living-threat',
         tabId: 'living-threat',
         label: 'Living Threat Repository',

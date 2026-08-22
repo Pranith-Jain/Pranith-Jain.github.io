@@ -40,6 +40,9 @@ import {
   type DphishIndex,
   type DphishIndicatorBody,
   type DphishIndexEntry,
+  loadDestroylistIndex,
+  checkDestroylistDomain,
+  loadDestroylistRoots,
   loadLivingThreatIndex,
   getLivingThreatIncident,
   filterLivingThreatIncidents,
@@ -2258,5 +2261,80 @@ describe('MalwareAnalyzer (filterMaFeed)', () => {
     expect(filterMaFeed(feed, { keyword: 'TOURBUSAN' })).toHaveLength(1);
     expect(filterMaFeed(feed, { keyword: 'nope' })).toHaveLength(0);
     expect(filterMaFeed(feed, { limit: 1 })).toHaveLength(1);
+  });
+});
+
+// ── Destroylist (phishdestroy/destroylist) ─────────────────────────────
+
+describe('Destroylist (loadDestroylistIndex / checkDestroylistDomain)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  function makeDestroylistFixture(domains: string[]) {
+    const { assets, data } = makeAssetsFixture() as { assets: Fetcher; data: Map<string, unknown> };
+    const idx = {
+      source: 'github.com/phishdestroy/destroylist',
+      license: 'MIT',
+      syncedAt: '2026-08-22T00:00:00Z',
+      bucketCount: 64,
+      bucketsWritten: 64,
+      counts: { primary: domains.length, primaryRoots: domains.length, community: null, primaryActive: null },
+    };
+    data.set('/data/threat-intel/destroylist/index.json', idx);
+
+    // Replicate the build script's bucketing exactly.
+    const buckets: string[][] = Array.from({ length: 64 }, () => []);
+    for (const d of domains) {
+      let h = 5381;
+      for (let i = 0; i < d.length; i++) h = ((h << 5) + h + d.charCodeAt(i)) >>> 0;
+      buckets[h % 64]!.push(d);
+    }
+    for (const b of buckets) b.sort();
+    for (let i = 0; i < 64; i += 1) {
+      if (buckets[i]!.length > 0) {
+        data.set(`/data/threat-intel/destroylist/buckets/${String(i).padStart(2, '0')}.json`, buckets[i]);
+      }
+    }
+    data.set('/data/threat-intel/destroylist/roots.json', [...domains].sort());
+    return { assets };
+  }
+
+  it('matches a listed domain exactly and reports the feed entry', async () => {
+    const { assets } = makeDestroylistFixture(['evil.example.com', '0-collab.land']);
+    await expect(checkDestroylistDomain(assets, '0-collab.land')).resolves.toEqual({
+      listed: true,
+      matched: '0-collab.land',
+    });
+  });
+
+  it('normalizes scheme/path/www and matches parent domains of subdomains', async () => {
+    const { assets } = makeDestroylistFixture(['phish-apex.example']);
+    // URL form + path + www + deeper subdomain all resolve to the apex entry
+    await expect(checkDestroylistDomain(assets, 'http://login.phish-apex.example/secure/login')).resolves.toEqual({
+      listed: true,
+      matched: 'phish-apex.example',
+    });
+    await expect(checkDestroylistDomain(assets, 'https://www.phish-apex.example/x')).resolves.toEqual({
+      listed: true,
+      matched: 'phish-apex.example',
+    });
+  });
+
+  it('returns clean for an unknown domain and null when the manifest is absent', async () => {
+    const { assets } = makeDestroylistFixture(['known-bad.example']);
+    await expect(checkDestroylistDomain(assets, 'totally-fine.example')).resolves.toEqual({
+      listed: false,
+      matched: null,
+    });
+    // Fresh isolate without the manifest files — the index gate returns null.
+    _resetTiCacheForTests();
+    const empty = { fetch: vi.fn(async () => new Response('not found', { status: 404 })) } as unknown as Fetcher;
+    await expect(checkDestroylistDomain(empty, 'anything.example')).resolves.toBeNull();
+  });
+
+  it('loads index + roots rollup', async () => {
+    const { assets } = makeDestroylistFixture(['a.example', 'b.example']);
+    const idx = await loadDestroylistIndex(assets);
+    expect(idx?.counts.primary).toBe(2);
+    expect(await loadDestroylistRoots(assets)).toEqual(['a.example', 'b.example']);
   });
 });

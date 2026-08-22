@@ -507,6 +507,49 @@ TLP:CLEAR marking included. Params: `include=entities,iocs,darknet,threaticon`,
 `api/src/routes/threat-intel-edge-tools.ts` (route),
 `api/test/routes/threat-intel-stix.test.ts` (4 tests).
 
+## Destroylist — Phishing & Scam Domain Blacklist
+
+A replicated vertical from [phishdestroy/destroylist](https://github.com/phishdestroy/destroylist)
+(MIT): ~193k curated primary phishing/scam domains plus a 13+ source community
+aggregate (~1M). **Primary ships as 64 hash-bucketed sorted domain arrays**
+(`public/data/threat-intel/destroylist/buckets/`) — membership = one ASSETS
+fetch + binary search, LRU-cached per isolate. The community aggregate is NOT
+shipped (23MB); it stays reachable through the keyless `api.destroy.tools`
+live lookup with a 24h per-colo Cache-API shadow.
+
+**2 MCP tools** (registered on `DFIR_MCP`): `dl_check_domain`, `dl_stats`
+
+**5 REST routes** under `/api/v1/threat-intel/destroylist/*`:
+`/` (index+counts+cache), `/check?domain=`, `POST /check` (bulk ≤100),
+`/search?q=` (root-domain substring), `/roots.txt` (Pi-hole/AdGuard-ready
+subscription, 6h edge cache)
+
+**1 provider adapter** (`destroylist`, tier 1, domains/URLs) in the IOC
+fan-out — local manifest first, live API only on primary miss.
+
+**1 SPA route** at `/threatintel/feeds/destroylist`.
+
+**Files**: `scripts/sync-destroylist.mjs` + `build-destroylist.mjs`,
+manifest loaders in `worker/lib/threat-intel-manifest.ts`
+(`checkDestroylistDomain`, bucket djb2 hash MUST stay in sync with the build
+script), provider `api/src/providers/destroylist.ts`, routes in
+`api/src/routes/threat-intel-edge-tools.ts`, SPA `src/pages/threatintel/
+Destroylist.tsx`. Daily sync rides `.github/workflows/threat-intel-sync.yml`.
+
+## Admin content-generation system (/admin/generate + tabs)
+
+The admin Generate tab (formerly "Manual") drives on-demand content: topic +
+audience + tone + type → blog draft and/or LinkedIn/X posts via
+`POST /admin/generate`. Mirrors the reference n8n LinkedIn pipeline contract:
+brand configuration → composition → **approval gate** (empty/too-short/
+score<60 output is returned `rejected` with a reason, never usable) →
+normalized single `final_post` field per format → optional `dry_run`
+(compose without persisting). Social publishing supports `?dry_run=true` on
+`/social/:slug/:platform/post-*` — returns exactly what would be posted.
+Dead admin UI (PendingTab per-candidate LI/X buttons, DraftsTab `_SocialBtn`
+/`_generateSocial`/unused regenerate menu) was removed; social generation for
+candidates lives in PublishedTab, drafts get it after approval.
+
 ## WinReg DFIR — Windows Registry Forensic Artifact Reference
 
 A data vertical replicating the SI pattern for the upstream Windows Registry

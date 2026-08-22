@@ -61,6 +61,8 @@ import {
   filterThreaticonIndicators,
   threaticonIndicatorTypes,
   loadDphishIndex,
+  checkDestroylistDomain,
+  loadDestroylistIndex,
   getDphishIndicator,
   filterDphishIndicators,
   loadLivingThreatIndex,
@@ -3750,6 +3752,56 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             });
           }
           return untrustedToolResult(body);
+        }
+      );
+
+      // ── Destroylist (phishdestroy/destroylist, MIT) ────────────────
+      // Phishing & scam domain blacklist: primary curated feed replicated
+      // as hash-bucketed sorted arrays under public/data/threat-intel/
+      // destroylist/ (membership via ASSETS + binary search); community
+      // aggregate reachable through the keyless api.destroy.tools lookup.
+
+      this.tools(
+        'dl_check_domain',
+        'Check whether a domain (or URL host) is on the Destroylist phishing/scam blacklist (github.com/phishdestroy/destroylist, MIT): ~193k curated primary domains replicated locally (zero egress) plus parent-domain matching, so a phishing page on a listed apex matches too. Returns listed status, matched feed entry, verdict, and feed sync timestamp.',
+        {
+          domain: z
+            .string()
+            .describe('Domain or URL to check (e.g. "0-collab.land" or "https://evil.example.com/login")'),
+        },
+        async ({ domain }) => {
+          const result = await checkDestroylistDomain(ASSETS, domain);
+          if (result === null) {
+            return untrustedToolResult({
+              error: 'destroylist_manifest_unavailable',
+              hint: 'Run scripts/sync-destroylist.mjs && scripts/build-destroylist.mjs',
+            });
+          }
+          const idx = await loadDestroylistIndex(ASSETS).catch(() => null);
+          return untrustedToolResult({
+            domain,
+            listed: result.listed,
+            matched: result.matched,
+            verdict: result.listed ? 'malicious' : 'clean',
+            feed: 'primary',
+            syncedAt: idx?.syncedAt,
+          });
+        }
+      );
+
+      this.tools(
+        'dl_stats',
+        'Return Destroylist feed statistics: primary/community/DNS-active domain counts, root-domain rollup count, last sync time, bucket layout, and per-isolate bucket cache health. Use before bulk checks to confirm the manifest is loaded.',
+        {},
+        async () => {
+          const idx = await loadDestroylistIndex(ASSETS);
+          if (!idx) {
+            return untrustedToolResult({
+              error: 'destroylist_manifest_unavailable',
+              hint: 'Data ships via scripts/sync-destroylist.mjs && scripts/build-destroylist.mjs.',
+            });
+          }
+          return untrustedToolResult({ ...idx, cache: tiCacheStats().destroylist });
         }
       );
 

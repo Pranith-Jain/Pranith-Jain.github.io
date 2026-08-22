@@ -409,12 +409,21 @@ socialRouter.post('/social/:slug/linkedin', async (c) => {
 });
 
 // ─── Post to social platforms ──────────────────────────────────────
+// `?dry_run=true` composes exactly what WOULD be posted (content + image
+// attach decision) and returns it without publishing or marking posted —
+// the n8n workflow's Slack dry-run lane, in-process.
+
 socialRouter.post('/social/:slug/post-twitter', async (c) => {
   const slug = c.req.param('slug');
   if (!validSlug(slug)) return badRequest(c, 'invalid slug');
+  const dryRun = c.req.query('dry_run') === 'true';
 
   const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialTwitter(slug));
   if (!social) return badRequest(c, 'no_twitter_content — generate social content first');
+
+  if (dryRun) {
+    return c.json({ ok: true, dry_run: true, platform: 'twitter', final_post: social });
+  }
 
   const image = await fetchOgCardPng(c.env, 'blog', slug);
   const result = await postToTwitter(
@@ -442,29 +451,35 @@ socialRouter.post('/social/:slug/post-twitter', async (c) => {
 socialRouter.post('/social/:slug/post-linkedin', async (c) => {
   const slug = c.req.param('slug');
   if (!validSlug(slug)) return badRequest(c, 'invalid slug');
+  const dryRun = c.req.query('dry_run') === 'true';
 
-  if (!c.env.LINKEDIN_ACCESS_TOKEN) {
+  if (!dryRun && !c.env.LINKEDIN_ACCESS_TOKEN) {
     return serviceUnavailable(c, 'linkedin_token_missing');
   }
 
   const image = await fetchOgCardPng(c.env, 'blog', slug);
 
   const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialLinkedin(slug));
-  if (!social) {
-    const combined = await c.env.CASE_STUDIES.get<SocialContent>(csKvKeys.social(slug), 'json');
-    if (!combined?.linkedin) return badRequest(c, 'no_linkedin_content — generate social content first');
-    const result = await postToLinkedin(combined.linkedin, c.env.LINKEDIN_ACCESS_TOKEN, image);
-    if (!result.ok) {
-      notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch((err) =>
-        logError('notifySocialFailed (linkedin) failed', err)
-      );
-      return c.json(result, 400);
-    }
-    await markSocialPosted(c.env.CASE_STUDIES, slug, 'linkedin');
-    return c.json(result);
+  const linkedinFromCombined =
+    social ?? (await c.env.CASE_STUDIES.get<SocialContent>(csKvKeys.social(slug), 'json'))?.linkedin ?? undefined;
+  if (!linkedinFromCombined) return badRequest(c, 'no_linkedin_content — generate social content first');
+
+  if (dryRun) {
+    return c.json({
+      ok: true,
+      dry_run: true,
+      platform: 'linkedin',
+      final_post: linkedinFromCombined,
+      image_attached: !!image,
+    });
   }
 
-  const result = await postToLinkedin(social, c.env.LINKEDIN_ACCESS_TOKEN, image);
+  const result = await postToLinkedin(
+    linkedinFromCombined,
+    // Guarded above: non-dry-run requires the token.
+    (c.env.LINKEDIN_ACCESS_TOKEN ?? '') as string,
+    image
+  );
   if (!result.ok) {
     notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch((err) =>
       logError('notifySocialFailed (linkedin) failed', err)

@@ -64,7 +64,8 @@ export type ProviderId =
   | 'interpol'
   | 'mozilla-tls'
   | 'virushee'
-  | 'dphish';
+  | 'dphish'
+  | 'destroylist';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -239,6 +240,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   'mozilla-tls': ['domain', 'ipv4', 'ipv6'],
   virushee: ['hash'],
   dphish: ['ipv4', 'ipv6', 'domain', 'url'],
+  destroylist: ['domain', 'url'],
 };
 
 /**
@@ -314,4 +316,5 @@ export const PROVIDER_TIER: Record<ProviderId, ProviderTier> = {
   'mozilla-tls': 2,
   virushee: 2,
   dphish: 1,
+  destroylist: 1,
 };

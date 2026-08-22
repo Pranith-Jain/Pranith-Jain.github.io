@@ -254,6 +254,7 @@ const FeedSources = lazy(() => import('./pages/threatintel/FeedSources'));
 const ThreatClusterFeeds = lazy(() => import('./pages/threatintel/ThreatCluster'));
 const ThreaticonFeeds = lazy(() => import('./pages/threatintel/Threaticon'));
 const DphishFeeds = lazy(() => import('./pages/threatintel/Dphish'));
+const DestroylistFeeds = lazy(() => import('./pages/threatintel/Destroylist'));
 const LivingThreatFeeds = lazy(() => import('./pages/threatintel/LivingThreat'));
 const MalwareAnalyzerFeeds = lazy(() => import('./pages/threatintel/MalwareAnalyzer'));
 const ThreatClusterEntities = lazy(() => import('./pages/threatintel/ThreatClusterEntities'));
@@ -654,6 +655,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   },
   { path: '/threatintel/feeds/threaticon', Component: ThreaticonFeeds },
   { path: '/threatintel/feeds/dphish', Component: DphishFeeds },
+  { path: '/threatintel/feeds/destroylist', Component: DestroylistFeeds },
   { path: '/threatintel/feeds/living-threat', Component: LivingThreatFeeds },
   { path: '/threatintel/feeds/malwareanalyzer', Component: MalwareAnalyzerFeeds },
   { path: '/threatintel/feeds/threatfeeds', Component: ThreatFeeds },

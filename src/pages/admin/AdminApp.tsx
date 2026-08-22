@@ -9,7 +9,7 @@ import DraftsTab from './DraftsTab';
 import PublishedTab from './PublishedTab';
 import FailedTab from './FailedTab';
 import HealthTab from './HealthTab';
-import ManualTab from './ManualTab';
+import GenerateTab from './GenerateTab';
 import IntelBundleTab from './IntelBundleTab';
 import ApiKeysTab from './ApiKeysTab';
 import XCookiesTab from './XCookiesTab';
@@ -43,7 +43,7 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'schedule', label: 'Schedule' },
   { key: 'drafts', label: 'Drafts' },
   { key: 'published', label: 'Published' },
-  { key: 'manual', label: 'Manual' },
+  { key: 'manual', label: 'Generate' },
   { key: 'failed', label: 'Failed' },
   { key: 'health', label: 'Health' },
   { key: 'intel', label: 'Intel bundle' },
@@ -277,7 +277,7 @@ export default function AdminApp() {
         {active === 'published' && <PublishedTab />}
         {active === 'failed' && <FailedTab />}
         {active === 'health' && <HealthTab />}
-        {active === 'manual' && <ManualTab />}
+        {active === 'manual' && <GenerateTab />}
         {active === 'intel' && <IntelBundleTab />}
         {active === 'apikeys' && <ApiKeysTab />}
         {active === 'xcookies' && <XCookiesTab />}
