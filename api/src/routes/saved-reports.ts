@@ -35,7 +35,12 @@ export async function listSavedReports(c: Context<{ Bindings: Env }>): Promise<R
 export async function getSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   const db = c.env.BRIEFINGS_DB!;
-  const row = await db.prepare('SELECT id, title, source_url, source_text, report_json, text_length, elapsed_ms, ioc_count, ttp_count, cve_count, created_at FROM saved_reports WHERE id = ?').bind(id).first();
+  const row = await db
+    .prepare(
+      'SELECT id, title, source_url, source_text, report_json, text_length, elapsed_ms, ioc_count, ttp_count, cve_count, created_at FROM saved_reports WHERE id = ?'
+    )
+    .bind(id)
+    .first();
   if (!row) return notFound(c, 'not_found');
   return c.json(row);
 }
@@ -196,7 +201,6 @@ export async function getTimeline(c: Context<{ Bindings: Env }>): Promise<Respon
   return c.json({ timeline, sharedIocs });
 }
 
-
 // ── Sharing + branding (Fleet-parity: branded reports, artifact sharing) ──
 
 /** Normalize + validate a branding payload. Returns null when invalid. */
@@ -233,12 +237,15 @@ export async function setBranding(c: Context<{ Bindings: Env }>): Promise<Respon
   let body: { branding?: unknown };
   try {
     body = await c.req.json();
-  } catch (_e) {
+  } catch {
     return badRequest(c, 'invalid JSON');
   }
   const branding = body.branding === null ? {} : normalizeBranding(body.branding);
   if (branding === null) {
-    return badRequest(c, "branding must be an object with optional keys: orgName, logoUrl, accent, footer, classification");
+    return badRequest(
+      c,
+      'branding must be an object with optional keys: orgName, logoUrl, accent, footer, classification'
+    );
   }
   const db = c.env.BRIEFINGS_DB!;
   const res = await db
@@ -256,10 +263,7 @@ export async function shareSavedReport(c: Context<{ Bindings: Env }>): Promise<R
   const row = await db.prepare('SELECT id FROM saved_reports WHERE id = ?').bind(id).first();
   if (!row) return notFound(c, 'not_found');
   const token = shareToken();
-  await db
-    .prepare('UPDATE saved_reports SET share_token = ?, shared_at = ? WHERE id = ?')
-    .bind(token, now(), id)
-    .run();
+  await db.prepare('UPDATE saved_reports SET share_token = ?, shared_at = ? WHERE id = ?').bind(token, now(), id).run();
   return c.json({ ok: true, token, url: `/share/report/${token}`, shared_at: now() });
 }
 
