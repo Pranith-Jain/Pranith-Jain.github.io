@@ -1,1 +1,15 @@
-{"slug":"qilin-quaker-state-mexico-2026-08-21","title":"Quaker State Mexico","group":"qilin","discovered":"2026-08-21T14:56:15.000Z","category":"ransomware","severity":"critical","country":"MX","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Energy & Utilities","references":["ransomware.live"]}
+{
+  "slug": "qilin-quaker-state-mexico-2026-08-21",
+  "title": "Quaker State Mexico",
+  "group": "qilin",
+  "discovered": "2026-08-21T14:56:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/17804436-6134-4ab5-a30b-74a5508ea198",
+  "groupAliases": [],
+  "activity": "Energy & Utilities",
+  "references": ["Darkfield"]
+}

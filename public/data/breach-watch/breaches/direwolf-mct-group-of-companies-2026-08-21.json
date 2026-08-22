@@ -1,1 +1,15 @@
-{"slug":"direwolf-mct-group-of-companies-2026-08-21","title":"MCT Group of Companies","group":"direwolf","discovered":"2026-08-21T02:24:48.000Z","category":"data_breach","severity":"high","country":"AE","sizeBytes":0,"description":"Building Materials","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "direwolf-mct-group-of-companies-2026-08-21",
+  "title": "MCT Group of Companies",
+  "group": "direwolf",
+  "discovered": "2026-08-21T02:24:48.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/f10b8928-7936-40ca-82db-76bfbbf39d4b",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

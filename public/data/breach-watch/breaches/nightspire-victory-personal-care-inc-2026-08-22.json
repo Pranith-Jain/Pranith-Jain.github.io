@@ -1,1 +1,15 @@
-{"slug":"nightspire-victory-personal-care-inc-2026-08-22","title":"Victory Personal Care, Inc","group":"nightspire","discovered":"2026-08-22T03:25:30.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Data is not available now.","source_url":"https://www.ransomware.live/","groupAliases":["NIGHT SPIRE"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}
+{
+  "slug": "nightspire-victory-personal-care-inc-2026-08-22",
+  "title": "Victory Personal Care, Inc",
+  "group": "nightspire",
+  "discovered": "2026-08-22T03:25:30.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/5e69c2e7-e331-4c68-9ad7-cd2d99c62808",
+  "groupAliases": ["NIGHT SPIRE"],
+  "activity": "Retail & E-Commerce",
+  "references": ["Darkfield"]
+}

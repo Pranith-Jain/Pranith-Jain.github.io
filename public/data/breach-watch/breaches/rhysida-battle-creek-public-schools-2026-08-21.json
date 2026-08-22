@@ -1,1 +1,15 @@
-{"slug":"rhysida-battle-creek-public-schools-2026-08-21","title":"Battle Creek Public Schools","group":"rhysida","discovered":"2026-08-21T10:28:03.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Battle Creek Public Schools Battle Creek Public Schools in Nebraska provides educational services for students from pre-kindergarten through 12th grade. We are pleased to present:Student records of named minors:**  IEP/special-ed files, disability determination notices, discipline/suspension records.Federal funds compliance trail (ESSA/Title I application), staff health-spending claims (payflex/EHA)    More","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Education","references":["ransomware.live"]}
+{
+  "slug": "rhysida-battle-creek-public-schools-2026-08-21",
+  "title": "Battle Creek Public Schools",
+  "group": "rhysida",
+  "discovered": "2026-08-21T10:28:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/cad9bae2-d2a8-48c9-bd17-770f9b5a6552",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

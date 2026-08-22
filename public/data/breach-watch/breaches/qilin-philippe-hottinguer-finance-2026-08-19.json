@@ -1,1 +1,15 @@
-{"slug":"qilin-philippe-hottinguer-finance-2026-08-19","title":"Philippe Hottinguer Finance","group":"qilin","discovered":"2026-08-19T11:30:14.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "qilin-philippe-hottinguer-finance-2026-08-19",
+  "title": "Philippe Hottinguer Finance",
+  "group": "qilin",
+  "discovered": "2026-08-19T11:30:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c7df65b2-9900-4f29-b12c-b8d00481ce43",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

@@ -1,1 +1,15 @@
-{"slug":"iah6477-acima-2026-08-20","title":"acima","group":"iah6477","discovered":"2026-08-20T18:29:32.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Size: 2.1 TiB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "iah6477-acima-2026-08-20",
+  "title": "acima",
+  "group": "iah6477",
+  "discovered": "2026-08-20T18:29:32.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/253e1c1a-adf9-4035-9c41-8e001cb255f9",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

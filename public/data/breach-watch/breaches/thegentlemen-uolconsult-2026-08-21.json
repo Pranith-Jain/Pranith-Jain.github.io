@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-uolconsult-2026-08-21","title":"UOLconsult","group":"thegentlemen","discovered":"2026-08-21T08:30:17.000Z","category":"ransomware","severity":"critical","country":"BR","sizeBytes":0,"description":"uol-consult.com UOLconsult GmbH is a boutique management consulting firm based in Vienna, Austria, founded in 2015.\nThey specialize in strategic management, business development, and investment consulting.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-uolconsult-2026-08-21",
+  "title": "UOLconsult",
+  "group": "thegentlemen",
+  "discovered": "2026-08-21T08:30:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1368bbf4-379c-4a8d-ada9-ca34a740ad49",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

@@ -1,1 +1,15 @@
-{"slug":"coinbase-cartel-lifebank-microfinance-foundation-new-2026-08-22","title":"LifeBank Microfinance Foundation NEW","group":"Coinbase Cartel","discovered":"2026-08-22T00:00:00.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Internal files exfiltrated","source_url":"https://recentbreaches.com/breach/lifebank-microfinance-foundation-new-coinbase-cartel-2026-08","groupAliases":[],"activity":null,"references":["RecentBreaches.com"]}
+{
+  "slug": "coinbase-cartel-lifebank-microfinance-foundation-new-2026-08-22",
+  "title": "LifeBank Microfinance Foundation NEW",
+  "group": "coinbase cartel",
+  "discovered": "2026-08-22T15:21:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Finance - $5 Million",
+  "source_url": "https://www.ransomlook.io/screenshots/coinbase cartel/LifeBank Microfinance Foundation NEW.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

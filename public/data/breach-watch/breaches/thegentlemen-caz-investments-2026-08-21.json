@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-caz-investments-2026-08-21","title":"CAZ Investments","group":"thegentlemen","discovered":"2026-08-21T08:26:36.000Z","category":"ransomware","severity":"critical","country":"BZ","sizeBytes":0,"description":"cazinvestments.com zoominfo.com/c/caz-investments-lp/16765398 CAZ Investments We have taken NDA files, HR data, user data, employee data, models, bank statements, tax and legal documents, confidential files, photos of your work and leisure time, screenshots, information about interactions with offshore accounts, your and your clients' dirty laundry, passport scans, VIP client data, and much more the total volume of data exceeds 478 GB. is a Houston-based wealth management and multi-family office firm founded in 2001.\nThey manage over $10.3 billion in assets, providing exclusive access to alternative investments like private equity, credit, and sports ownership.\nThe firm curates unique investment opportunities for a global network of individual investors, financial advisors, and institutions.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-caz-investments-2026-08-21",
+  "title": "CAZ Investments",
+  "group": "thegentlemen",
+  "discovered": "2026-08-21T08:26:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BZ",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/399112c7-cbe7-468d-9f81-eec114a75847",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

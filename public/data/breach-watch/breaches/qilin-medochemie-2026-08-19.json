@@ -1,1 +1,15 @@
-{"slug":"qilin-medochemie-2026-08-19","title":"Medochemie","group":"qilin","discovered":"2026-08-19T11:01:27.000Z","category":"ransomware","severity":"critical","country":"CY","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}
+{
+  "slug": "qilin-medochemie-2026-08-19",
+  "title": "Medochemie",
+  "group": "qilin",
+  "discovered": "2026-08-19T11:01:27.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CY",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/7e83c3d0-85ce-4c2a-a102-9b225fb979c9",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

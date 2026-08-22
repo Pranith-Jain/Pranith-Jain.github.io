@@ -1,1 +1,15 @@
-{"slug":"direwolf-diaco-global-2026-08-21","title":"Diaco Global","group":"direwolf","discovered":"2026-08-21T02:27:28.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Jewelry &amp; Watch Retail","source_url":"https://www.ransomware.live/","groupAliases":["DIRE WOLF"],"activity":"Other","references":["ransomware.live"]}
+{
+  "slug": "direwolf-diaco-global-2026-08-21",
+  "title": "Diaco Global",
+  "group": "direwolf",
+  "discovered": "2026-08-21T02:27:28.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/26c030b0-944e-48e8-90af-b90ee453d863",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": "Other",
+  "references": ["Darkfield"]
+}

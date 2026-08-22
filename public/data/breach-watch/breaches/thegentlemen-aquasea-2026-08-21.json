@@ -1,1 +1,15 @@
-{"slug":"thegentlemen-aquasea-2026-08-21","title":"Aquasea","group":"thegentlemen","discovered":"2026-08-21T08:26:56.000Z","category":"ransomware","severity":"critical","country":"NO","sizeBytes":0,"description":"aquasea.com rocketreach.co/aquasea-inc-profile_b468216cfc5c9f6e Aquasea Inc. is a clothing and apparel manufacturing company headquartered in Compton, California, operating since 1995.\nThe business specializes in full-package production, including cut and sew services, private label manufacturing, and screen printing.\nThey also operate nearshore textile manufacturing facilities to support their comprehensive apparel production capabilities.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Energy & Utilities","references":["ransomware.live"]}
+{
+  "slug": "thegentlemen-aquasea-2026-08-21",
+  "title": "Aquasea",
+  "group": "thegentlemen",
+  "discovered": "2026-08-21T08:26:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "NO",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/6d00f6a6-2418-4d12-82bf-4a9bf52d6298",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Energy & Utilities",
+  "references": ["Darkfield"]
+}

@@ -1,1 +1,15 @@
-{"slug":"coinbase-cartel-kessler-creative-new-2026-08-22","title":"Kessler Creative NEW","group":"coinbase cartel","discovered":"2026-08-22T15:21:55.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Advertising Networks - $17.1 Million","source_url":"https://www.ransomlook.io/screenshots/coinbase cartel/Kessler Creative NEW.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}
+{
+  "slug": "coinbase-cartel-kessler-creative-new-2026-08-22",
+  "title": "Kessler Creative NEW",
+  "group": "Coinbase Cartel",
+  "discovered": "2026-08-22T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/kessler-creative-new-coinbase-cartel-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

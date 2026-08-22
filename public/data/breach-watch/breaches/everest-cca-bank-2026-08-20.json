@@ -1,1 +1,15 @@
-{"slug":"everest-cca-bank-2026-08-20","title":"CCA Bank","group":"everest","discovered":"2026-08-20T13:54:00.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"[AI generated] N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "everest-cca-bank-2026-08-20",
+  "title": "CCA Bank",
+  "group": "everest",
+  "discovered": "2026-08-20T13:54:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/34d313d6-f12a-45e5-9a31-e16d551d18ab",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

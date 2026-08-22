@@ -1,1 +1,15 @@
-{"slug":"qilin-professional-2026-08-21","title":"Professional","group":"qilin","discovered":"2026-08-21T09:55:36.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}
+{
+  "slug": "qilin-professional-2026-08-21",
+  "title": "Professional",
+  "group": "qilin",
+  "discovered": "2026-08-21T09:55:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a9cee1c7-36f7-42e5-a9b0-3d4c97da5a71",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

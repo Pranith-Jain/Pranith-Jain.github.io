@@ -1,1 +1,15 @@
-{"slug":"titan-ctp-s-r-l-2026-08-20","title":"CTP S.r.l.","group":"titan","discovered":"2026-08-20T15:02:58.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"[AI generated] CTP S.r.l. is an Italian company operating in the printing and publishing technology sector. Based in Italy, it specializes in the development and supply of software and systems for editorial production, prepress, and content management. The company serves media, publishing, and printing industries, providing workflow automation solutions that help customers manage and streamline the production of newspapers, magazines, and other printed or digital content.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}
+{
+  "slug": "titan-ctp-s-r-l-2026-08-20",
+  "title": "CTP S.r.l.",
+  "group": "titan",
+  "discovered": "2026-08-20T15:02:58.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/d75c907c-0061-4d95-b74f-6a68f0722e38",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["Darkfield"]
+}

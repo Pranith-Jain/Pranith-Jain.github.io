@@ -1,1 +1,15 @@
-{"slug":"settra-gt-tele-com-2026-08-21","title":"gt-tele.com","group":"settra","discovered":"2026-08-21T05:49:55.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"MJR Technologies / GT Telecom &amp; GT Security: Internal Documents of an American Telecom Contracto...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}
+{
+  "slug": "settra-gt-tele-com-2026-08-21",
+  "title": "gt-tele.com",
+  "group": "settra",
+  "discovered": "2026-08-21T05:49:55.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1713cd37-a130-464c-b724-6815d50316fb",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["Darkfield"]
+}

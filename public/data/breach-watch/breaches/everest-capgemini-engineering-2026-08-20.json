@@ -1,1 +1,15 @@
-{"slug":"everest-capgemini-engineering-2026-08-20","title":"Capgemini Engineering","group":"everest","discovered":"2026-08-20T02:53:03.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"[AI generated] Capgemini Engineering is a global technology and engineering services company headquartered in France. It provides R&D and engineering outsourcing services across industries including aerospace, automotive, telecommunications, energy, and semiconductors. Operating in over 30 countries, it combines software, hardware, and connected systems expertise to help clients design, develop, and deploy innovative products and digital solutions.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "everest-capgemini-engineering-2026-08-20",
+  "title": "Capgemini Engineering",
+  "group": "everest",
+  "discovered": "2026-08-20T02:53:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/ffdbbcae-ba82-452f-b352-99591f136129",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

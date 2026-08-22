@@ -1,1 +1,15 @@
-{"slug":"pear-mogren-glessner-ahrens-p-s-2026-08-22","title":"Mogren, Glessner & Ahrens, P.S.","group":"pear","discovered":"2026-08-22T07:57:08.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Services in family law","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}
+{
+  "slug": "pear-mogren-glessner-ahrens-p-s-2026-08-22",
+  "title": "Mogren, Glessner & Ahrens, P.S.",
+  "group": "pear",
+  "discovered": "2026-08-22T07:57:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/00d3857c-ae46-4a3d-a4c6-806bef06ac07",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["Darkfield"]
+}

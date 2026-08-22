@@ -1,0 +1,15 @@
+{
+  "slug": "pear-mogren-2026-08-22",
+  "title": "Mogren",
+  "group": "Pear",
+  "discovered": "2026-08-22T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/mogren-pear-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}
