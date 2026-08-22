@@ -638,9 +638,11 @@ darknetIntelRouter.get('/darknet-intel/hibp/data-classes', async (c) => {
   }
 });
 
-darknetIntelRouter.get('/darknet-intel/hibp/password', async (c) => {
-  const password = c.req.query('password');
-  if (!password) return badRequest(c, 'password parameter required');
+// Shared HIBP pwned-password logic. The password arrives in a JSON BODY —
+// never a URL query, which leaks plaintext into CF logs/analytics and any
+// intermediary logging.
+async function hibpPwnedPassword(c: Context<{ Bindings: Env }>, password: string | undefined) {
+  if (!password) return badRequest(c, 'password required');
   try {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
@@ -678,6 +680,17 @@ darknetIntelRouter.get('/darknet-intel/hibp/password', async (c) => {
   } catch (e) {
     return badGateway(c, e instanceof Error ? e.message : 'HIBP unreachable');
   }
+}
+
+/** POST {password} — preferred: keeps the plaintext out of URLs/logs. */
+darknetIntelRouter.post('/darknet-intel/hibp/password', async (c) => {
+  const body = await c.req.json<{ password?: string }>().catch(() => null);
+  return hibpPwnedPassword(c, body?.password);
+});
+
+/** Legacy GET — kept for older clients; plaintext rides in the URL. */
+darknetIntelRouter.get('/darknet-intel/hibp/password', async (c) => {
+  return hibpPwnedPassword(c, c.req.query('password'));
 });
 
 // ─── Deep abuse.ch (ThreatFox, URLhaus, MalwareBazaar — free) ────────

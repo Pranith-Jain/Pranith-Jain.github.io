@@ -1582,12 +1582,17 @@ export function bridgeMcpTools(
     () => '/api/v1/darknet-intel/hibp/data-classes',
     []
   );
-  dnGet(
-    'dn_hibp_password',
-    'Check if a password has appeared in known data breaches (HIBP).',
-    (a) => `/api/v1/darknet-intel/hibp/password?password=${encodeURIComponent(String(a.password))}`,
-    [{ name: 'password', description: 'Password to check', required: true }]
-  );
+  //  ── HIBP password (POST body — plaintext must not ride in URLs) ────
+  add({
+    name: 'dn_hibp_password',
+    description: 'Check if a password has appeared in known data breaches (HIBP).',
+    params: [{ name: 'password', description: 'Password to check', required: true, type: 'string' as const }],
+    execute: async (args) => {
+      return apiFetchWithMethod('/api/v1/darknet-intel/hibp/password', 'POST', {
+        password: String(args.password ?? ''),
+      });
+    },
+  });
 
   // ── ThreatFox (abuse.ch) ─────────────────────────────────────────
   dnGet(

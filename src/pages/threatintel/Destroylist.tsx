@@ -58,21 +58,26 @@ export default function Destroylist(): JSX.Element {
 
   const [checkDomain, setCheckDomain] = useState('');
   const [checkResult, setCheckResult] = useState<CheckResult | null>(null);
+  const [checkError, setCheckError] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
   const [searchQ, setSearchQ] = useState('');
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
+  const [searchError, setSearchError] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
 
   async function runCheck() {
     if (!checkDomain.trim()) return;
     setChecking(true);
     setCheckResult(null);
+    setCheckError(null);
     try {
-      const res = await fetch(
-        `/api/v1/threat-intel/destroylist/check?domain=${encodeURIComponent(checkDomain.trim())}`,
-        { signal: AbortSignal.timeout(15_000) }
-      );
-      if (res.ok) setCheckResult((await res.json()) as CheckResult);
+      const res = await fetch(`/api/v1/threat-intel/destroylist/check?domain=${encodeURIComponent(checkDomain.trim())}`, {
+        signal: AbortSignal.timeout(15_000),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setCheckResult((await res.json()) as CheckResult);
+    } catch (e) {
+      setCheckError(e instanceof Error ? e.message : String(e));
     } finally {
       setChecking(false);
     }
@@ -82,6 +87,7 @@ export default function Destroylist(): JSX.Element {
     if (searchQ.trim().length < 3) return;
     setSearching(true);
     setSearchResult(null);
+    setSearchError(null);
     try {
       const res = await fetch(
         `/api/v1/threat-intel/destroylist/search?q=${encodeURIComponent(searchQ.trim())}&limit=100`,
@@ -89,7 +95,10 @@ export default function Destroylist(): JSX.Element {
           signal: AbortSignal.timeout(15_000),
         }
       );
-      if (res.ok) setSearchResult((await res.json()) as SearchResult);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setSearchResult((await res.json()) as SearchResult);
+    } catch (e) {
+      setSearchError(e instanceof Error ? e.message : String(e));
     } finally {
       setSearching(false);
     }
@@ -144,6 +153,11 @@ export default function Destroylist(): JSX.Element {
             Check
           </button>
         </div>
+        {checkError && (
+          <p role="alert" className="mt-3 text-sm text-rose-600 dark:text-rose-400">
+            Check failed: {checkError}
+          </p>
+        )}
         {checkResult && (
           <div
             role="status"
@@ -192,6 +206,11 @@ export default function Destroylist(): JSX.Element {
             Search
           </button>
         </div>
+        {searchError && (
+          <p role="alert" className="mt-3 text-sm text-rose-600 dark:text-rose-400">
+            Search failed: {searchError}
+          </p>
+        )}
         {searchResult && searchResult.roots.length > 0 && (
           <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5 max-h-80 overflow-y-auto">
             {searchResult.roots.map((d) => (

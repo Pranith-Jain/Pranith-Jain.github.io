@@ -304,16 +304,9 @@ export default function GenerateTab() {
                   </p>
                 ) : fmt === 'blog' ? (
                   <p className="text-sm text-slate-700 dark:text-slate-300">
-                    {dryRun ? 'Composed (dry run — not saved).' : 'Draft created.'}{' '}
-                    <a
-                      href={`/blog/${r.slug}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline text-brand-600 dark:text-brand-400"
-                    >
-                      /blog/{r.slug}
-                    </a>{' '}
-                    — review it in the Drafts tab.
+                    {dryRun ? 'Composed (dry run — not saved).' : 'Draft created.'} A generated post lives in the KV
+                    drafts store until approved — it has no public /blog URL yet.{' '}
+                    <span className="text-slate-500 dark:text-slate-400">Review it in the Drafts tab.</span>
                   </p>
                 ) : (
                   <pre className="whitespace-pre-wrap text-sm font-mono text-slate-700 dark:text-slate-300 max-h-72 overflow-y-auto">

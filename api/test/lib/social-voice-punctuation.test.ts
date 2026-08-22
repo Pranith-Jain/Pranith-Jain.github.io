@@ -29,6 +29,19 @@ describe('normalizeDashesAndSemicolons (social voice punctuation bans)', () => {
     );
   });
 
+  it('preserves numeric en-dash ranges (factual data, not punctuation)', () => {
+    expect(normalizeDashesAndSemicolons('campaign ran 2020–2024 across 10–15 sectors.')).toBe(
+      'campaign ran 2020–2024 across 10–15 sectors.'
+    );
+  });
+
+  it('does not capitalize pre-existing lowercase sentence starts or mid-sentence words', () => {
+    const input = 'lockbit posted again. tracking the affiliate churn — it repeats quarterly.';
+    const out = normalizeDashesAndSemicolons(input);
+    expect(out.startsWith('lockbit')).toBe(true); // twitter lowercase voice preserved
+    expect(out).toContain('it repeats');
+  });
+
   it('collapses doubled separators produced by consecutive dashes', () => {
     expect(normalizeDashesAndSemicolons('A — B — c.')).toBe('A. B, c.');
   });

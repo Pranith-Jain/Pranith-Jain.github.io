@@ -142,9 +142,21 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             c.env.GOOGLE_AI_STUDIO_API_KEY,
             c.env.NVIDIA_API_KEY as string | undefined,
             c.env.INFRON_API_KEY
-          )) as { linkedin?: string; twitter?: string; generatedAt: string; _validation?: unknown };
+          )) as {
+            linkedin?: string;
+            twitter?: string;
+            generatedAt: string;
+            _validation?: { quality?: { score?: number } };
+          };
           const text = fmt === 'linkedin' ? out.linkedin : out.twitter;
-          const gate = approve(fmt, text, fmt === 'linkedin' ? 400 : 120, out._validation);
+          // The score lives at _validation.quality.score (SocialQuality) —
+          // passing the wrapper itself made the score check dead code.
+          const gate = approve(
+            fmt,
+            text,
+            fmt === 'linkedin' ? 400 : 120,
+            out._validation?.quality
+          );
           result[fmt] = {
             final_post: text ?? '',
             generatedAt: out.generatedAt,

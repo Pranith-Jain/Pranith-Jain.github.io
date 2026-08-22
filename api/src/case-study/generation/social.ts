@@ -417,17 +417,33 @@ function cleanSocial(text: string, sourceBody: string): string {
  */
 export function normalizeDashesAndSemicolons(text: string): string {
   // 1. Semicolons are always sentence breaks: ". " + capitalize the next
-  //    letter. (Digits/CVE ids pass through unchanged.)
-  let out = text.replace(/([^\s])\s*;\s*/g, '$1. ');
+  //    letter. (Digits/CVE ids pass through unchanged.) Inserted breaks get
+  //    a \u0000 sentinel so capitalization (step 4) touches ONLY our edits,
+  //    never pre-existing sentence starts or the intentional lowercase
+  //    Twitter voice.
+  let out = text.replace(/([^\s])\s*;\s*/g, '$1.\u0000 ');
   // 2. Em/en-dash punctuation: "." before an uppercase word (new sentence),
-  //    "," otherwise (continuation). Hyphenated compounds and ranges are
-  //    untouched (the dash must have surrounding space to count).
-  out = out.replace(/\s*[—–]\s*(\w)/g, (_m, next: string) => (/[A-Z]/.test(next) ? `. ${next}` : `, ${next}`));
+  //    "," otherwise (continuation). Lookbehind/lookahead keep the
+  //    neighbouring chars unconsumed, so consecutive dashes ("A — B — c.")
+  //    each get processed. Numeric en-dash ranges ("2020–2024", "10–15")
+  //    are preserved — a digit on BOTH sides means a range, not punctuation;
+  //    converting one silently falsifies published numbers. Hyphenated
+  //    compounds ("supply-chain", CVE ids) never match: the dash must have
+  //    surrounding space.
+  out = out.replace(
+    /(?<=\S)\s*[—–]\s*(?=\w)/g,
+    (m: string, offset: number, str: string) => {
+      const prev = str[offset - 1] ?? '';
+      const next = str[offset + m.length] ?? '';
+      if (/\d/.test(prev) && /\d/.test(next)) return m; // numeric range — keep
+      return /[A-Z]/.test(next) ? `.\u0000 ` : `, `;
+    }
+  );
   // 3. Tidy doubled separators left by adjacent conversions.
   out = out.replace(/,\s*,/g, ', ').replace(/\.\s*\./g, '. ').replace(/\s+,/g, ',');
-  // 4. Sentences (from step 1's inserted periods) start capitalized.
-  out = out.replace(/([.]\s+)([a-z])/g, (_m, pre: string, ch: string) => pre + ch.toUpperCase());
-  return out.trim();
+  // 4. Capitalize letters following OUR inserted breaks only.
+  out = out.replace(/\u0000 ([a-z])/g, (_m, ch: string) => ` ${ch.toUpperCase()}`);
+  return out.replace(/\u0000/g, '').trim();
 }
 
 // ── Self-heal loop ──────────────────────────────────────────────────────
@@ -476,7 +492,10 @@ async function generateWithValidation(
     if (lastQuality.score >= 60 && !lastQuality.over_limit) break;
   }
 
-  return { text: lastText, quality: lastQuality! };
+  // Punctuation bans (em-dash/semicolon) are enforced on EVERY path — a
+  // first attempt that passed validation while containing banned marks used
+  // to ship unmodified.
+  return { text: normalizeDashesAndSemicolons(lastText), quality: lastQuality! };
 }
 
 // ── Prompt builders ─────────────────────────────────────────────────────

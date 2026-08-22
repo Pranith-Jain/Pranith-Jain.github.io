@@ -1,5 +1,5 @@
 import { logCatch } from '../../lib/log';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -110,6 +110,9 @@ interface ScanData {
 }
 
 type TabId = 'recon' | 'secrets';
+
+/** Categories shown under the "Keys & Secrets" tab (exposure-oriented). */
+const SECRET_CATEGORY_IDS = new Set(['attack_surface', 'security', 'vulnerabilities']);
 
 const CATEGORIES = [
   { id: 'overview', label: 'Overview', icon: Globe },
@@ -721,7 +724,12 @@ export default function ScanResults() {
   const [activeCategory, setActiveCategory] = useState('overview');
   const [crawlStatus, setCrawlStatus] = useState<string>('');
 
-  const startCrawl = useCallback(async (crawlId: string, target: string) => {
+  // Generation token for the deep-crawl poll loop: navigating between two
+  // scans re-uses this component instance, so a still-running poll from scan
+  // A must not splice its results into scan B's data.
+  const crawlGenRef = useRef(0);
+
+  const startCrawl = useCallback(async (crawlId: string, target: string, gen: number) => {
     try {
       const hostname = new URL(target).hostname;
       await fetch(`/api/v1/radar/crawl/${crawlId}/start`, {
@@ -729,7 +737,8 @@ export default function ScanResults() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: crawlId, target, hostname }),
       });
-      pollCrawl(crawlId);
+      if (crawlGenRef.current !== gen) return;
+      pollCrawl(crawlId, gen);
     } catch (_catchErr) {
       console.error('ScanResults failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* crawl start failed, non-critical */
@@ -737,14 +746,18 @@ export default function ScanResults() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const pollCrawl = useCallback(async (crawlId: string) => {
+  const pollCrawl = useCallback(async (crawlId: string, gen: number) => {
+    let errorRetries = 0;
     const poll = async () => {
+      // Stale generation (user navigated to another scan / unmounted) — die.
+      if (crawlGenRef.current !== gen) return;
       try {
         const res = await fetch(`/api/v1/radar/crawl/${crawlId}/state`);
         if (!res.ok) return;
         const state = (await res.json()) as { status: string; crawledCount: number; maxPages: number };
         setCrawlStatus(`${state.status} (${state.crawledCount}/${state.maxPages})`);
         if (state.status === 'done') {
+          if (crawlGenRef.current !== gen) return;
           const resultRes = await fetch(`/api/v1/radar/crawl/${crawlId}/result`);
           if (resultRes.ok) {
             const raw = await resultRes.json();
@@ -752,7 +765,7 @@ export default function ScanResults() {
             for (const [k, v] of Object.entries(raw)) {
               crawlData[k.replace(/([A-Z])/g, '_$1').toLowerCase()] = v;
             }
-            setData((prev) => (prev ? { ...prev, ...crawlData } : prev));
+            setData((prev) => (prev && crawlGenRef.current === gen ? { ...prev, ...crawlData } : prev));
           }
           setCrawlStatus('');
           return;
@@ -762,7 +775,14 @@ export default function ScanResults() {
         }
       } catch (_catchErr) {
         logCatch(_catchErr);
-        setTimeout(poll, 3000);
+        // Cap consecutive network failures so a dead backend doesn't leave
+        // an immortal retry loop running for the lifetime of the tab.
+        errorRetries += 1;
+        if (errorRetries <= 5 && crawlGenRef.current === gen) {
+          setTimeout(poll, 3000);
+        } else {
+          setCrawlStatus('');
+        }
       }
     };
     poll();
@@ -770,17 +790,27 @@ export default function ScanResults() {
 
   useEffect(() => {
     if (!id) return;
+    // New scan → invalidate any in-flight crawl poll from the previous one.
+    const gen = ++crawlGenRef.current;
+    const ac = new AbortController();
     setLoading(true);
     api
-      .get<ScanData & { crawlId?: string }>(`/api/v1/radar/scan/${id}`)
+      .get<ScanData & { crawlId?: string }>(`/api/v1/radar/scan/${id}`, { signal: ac.signal })
       .then((result) => {
+        if (ac.signal.aborted || crawlGenRef.current !== gen) return;
         setData(result);
         if (result.crawlId) {
-          startCrawl(result.crawlId, result.target);
+          startCrawl(result.crawlId, result.target, gen);
         }
       })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+      .catch((err) => {
+        if (ac.signal.aborted) return;
+        setError(err.message);
+      })
+      .finally(() => {
+        if (!ac.signal.aborted) setLoading(false);
+      });
+    return () => ac.abort();
   }, [id, startCrawl]);
 
   if (loading)
@@ -894,7 +924,10 @@ export default function ScanResults() {
           <div className="sticky top-20 max-h-[calc(100vh-120px)] overflow-y-auto rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
             <div className="flex border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
               <button
-                onClick={() => setActiveTab('recon')}
+                onClick={() => {
+                  setActiveTab('recon');
+                  setActiveCategory((cur) => (SECRET_CATEGORY_IDS.has(cur) ? 'overview' : cur));
+                }}
                 className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 px-3 py-3 text-xs font-semibold transition-colors ${activeTab === 'recon' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
               >
                 <Globe className="h-3.5 w-3.5" /> Reconnaissance
@@ -903,7 +936,14 @@ export default function ScanResults() {
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab('secrets')}
+                onClick={() => {
+                  setActiveTab('secrets');
+                  // Jump to the first secrets-relevant category so the click
+                  // visibly changes the panel (the tab used to be dead UI).
+                  setActiveCategory((cur) =>
+                    SECRET_CATEGORY_IDS.has(cur) ? cur : CATEGORIES.find((c) => SECRET_CATEGORY_IDS.has(c.id))?.id ?? cur
+                  );
+                }}
                 className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 px-3 py-3 text-xs font-semibold transition-colors ${activeTab === 'secrets' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
               >
                 <Shield className="h-3.5 w-3.5" /> Keys & Secrets{' '}
@@ -911,7 +951,10 @@ export default function ScanResults() {
               </button>
             </div>
             <nav className="flex flex-col p-1">
-              {CATEGORIES.map((cat) => {
+              {(activeTab === 'secrets'
+                ? CATEGORIES.filter((c) => SECRET_CATEGORY_IDS.has(c.id))
+                : CATEGORIES
+              ).map((cat) => {
                 const Icon = cat.icon;
                 const count = catCount(cat.id);
                 return (

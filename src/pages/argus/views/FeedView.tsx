@@ -108,6 +108,16 @@ function parseRSS(xml: string, sourceName: string, sourceCategory: FeedItem['cat
   const doc = new DOMParser().parseFromString(xml, 'text/xml');
   const items: FeedItem[] = [];
 
+  // One malformed date must not throw (RangeError) and silently drop the
+  // whole source — fall back to today for unparseable timestamps.
+  const safeDate = (raw: string): string => {
+    if (raw) {
+      const ts = Date.parse(raw);
+      if (Number.isFinite(ts)) return new Date(ts).toISOString().split('T')[0]!;
+    }
+    return new Date().toISOString().split('T')[0]!;
+  };
+
   // RSS 2.0
   for (const item of doc.querySelectorAll('item')) {
     const title = item.querySelector('title')?.textContent?.trim() || '';
@@ -128,7 +138,7 @@ function parseRSS(xml: string, sourceName: string, sourceCategory: FeedItem['cat
       title,
       source: sourceName,
       url: link,
-      published: pubDate ? new Date(pubDate).toISOString().split('T')[0]! : new Date().toISOString().split('T')[0]!,
+      published: safeDate(pubDate ?? ''),
       category,
       related_actors: relatedActors.length > 0 ? relatedActors : undefined,
     });
@@ -147,7 +157,7 @@ function parseRSS(xml: string, sourceName: string, sourceCategory: FeedItem['cat
       title,
       source: sourceName,
       url: link,
-      published: updated ? new Date(updated).toISOString().split('T')[0]! : new Date().toISOString().split('T')[0]!,
+      published: safeDate(updated ?? ''),
       category: sourceCategory,
       related_actors: relatedActors.length > 0 ? relatedActors : undefined,
     });

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
+import { useDebounce } from '../hooks/useDebounce';
 import { DataPageLayout } from '../components/DataPageLayout';
 import { Search as SearchIcon, Globe, Database, ExternalLink, Activity } from 'lucide-react';
 
@@ -50,6 +51,9 @@ function catColor(category: string): string {
 
 export default function OssFeeds() {
   const [searchTerm, setSearchTerm] = useState('');
+  // Debounce the fetch key: a request per keystroke hammered the endpoint
+  // and flickered the list on slow connections.
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const [categoryFilter, setCategoryFilter] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -57,7 +61,7 @@ export default function OssFeeds() {
 
   const { data: feedsData } = useDataFetch<{ total: number; returned: number; feeds: FeedEntry[] }>({
     url: `/api/v1/oss-feeds/feeds?${new URLSearchParams({
-      ...(searchTerm ? { q: searchTerm } : {}),
+      ...(debouncedSearch ? { q: debouncedSearch } : {}),
       ...(categoryFilter ? { category: categoryFilter } : {}),
       limit: '200',
     }).toString()}`,
@@ -210,7 +214,7 @@ export default function OssFeeds() {
       <div className="space-y-2">
         {feeds.length === 0 && !loading && (
           <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
-            {searchTerm || categoryFilter ? 'No feeds match your filters.' : 'No feeds found. Ensure data is built.'}
+            {debouncedSearch || categoryFilter ? 'No feeds match your filters.' : 'No feeds found. Ensure data is built.'}
           </div>
         )}
 

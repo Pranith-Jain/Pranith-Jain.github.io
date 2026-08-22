@@ -267,7 +267,19 @@ export function GlobeView({ actors, onOpen }: Props) {
       renderer.domElement.removeEventListener('wheel', onWheel);
       renderer.domElement.removeEventListener('touchstart', onTouchStart);
       renderer.domElement.removeEventListener('touchmove', onTouchMove);
+      // Free every geometry/material in the scene (graticule, starfield,
+      // borders, markers, arcs — dozens of GPU buffers). Chrome caps live
+      // WebGL contexts (~16); without forceContextLoss the dropped-context
+      // cliff eventually blanks the canvas mid-session.
+      scene.traverse((obj) => {
+        const mesh = obj as THREE.Mesh & { material?: THREE.Material | THREE.Material[] };
+        if (mesh.geometry) mesh.geometry.dispose();
+        const mat = mesh.material;
+        if (Array.isArray(mat)) mat.forEach((m) => m.dispose());
+        else if (mat) mat.dispose();
+      });
       renderer.dispose();
+      renderer.forceContextLoss();
       if (mount.contains(renderer.domElement)) {
         mount.removeChild(renderer.domElement);
       }
@@ -310,17 +322,39 @@ export function GlobeView({ actors, onOpen }: Props) {
     const s = stateRef.current;
     if (!s) return;
 
-    // Clear old markers
-    for (const pt of s.pickTargets) s.globeGroup.remove(pt.mesh);
+    // Clear old markers — dispose their GPU resources too: this effect runs
+    // on every filter keystroke, so skipped disposal leaks buffers per key.
+    const disposeObj = (obj: THREE.Object3D) => {
+      obj.traverse((o) => {
+        const mesh = o as THREE.Mesh & { material?: THREE.Material | THREE.Material[] };
+        if (mesh.geometry) mesh.geometry.dispose();
+        const mat = mesh.material;
+        if (Array.isArray(mat)) mat.forEach((m) => m.dispose());
+        else if (mat) mat.dispose();
+      });
+    };
+    for (const pt of s.pickTargets) {
+      s.globeGroup.remove(pt.mesh);
+      disposeObj(pt.mesh);
+    }
     s.pickTargets = [];
-    for (const m of s.markerMeshes) s.globeGroup.remove(m);
+    for (const m of s.markerMeshes) {
+      s.globeGroup.remove(m);
+      disposeObj(m);
+    }
     s.markerMeshes = [];
 
     // Clear old arcs + country highlights (tracked explicitly so the accurate
     // border lines drawn by the world-map effect are never touched).
-    for (const line of s.arcs) s.globeGroup.remove(line);
+    for (const line of s.arcs) {
+      s.globeGroup.remove(line);
+      disposeObj(line);
+    }
     s.arcs = [];
-    for (const line of s.mapHighlights) s.globeGroup.remove(line);
+    for (const line of s.mapHighlights) {
+      s.globeGroup.remove(line);
+      disposeObj(line);
+    }
     s.mapHighlights = [];
 
     // Highlight home nations of the currently visible actors in their
