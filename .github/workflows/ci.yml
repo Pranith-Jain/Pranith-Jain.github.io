@@ -139,6 +139,8 @@ jobs:
       # concurrency model (EADDRNOTAVAIL when many tests connect at once);
       # we run the deterministic lib + case-study subset here. Route tests
       # remain runnable locally via `cd api && npx vitest run test/routes`.
+      - name: build assets for ASSETS binding
+        run: npm run build:client
       - name: api vitest (lib + case-study + health)
         working-directory: api
         run: npx vitest run test/lib test/case-study test/health.test.ts
