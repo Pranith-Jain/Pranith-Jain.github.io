@@ -1,4 +1,5 @@
 import { logCatch } from '../../lib/log';
+import { useDictation } from '../../hooks/useDictation';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   BarChart3,
@@ -12,6 +13,7 @@ import {
   Globe,
   Loader2,
   Lock,
+  Mic,
   Mail,
   Network,
   Play,
@@ -250,6 +252,7 @@ function SpecialistProgressBar({ steps }: { steps: AgentStep[] }): JSX.Element {
 
 export default function AgentInvestigator(): JSX.Element {
   const [query, setQuery] = useState('');
+  const dictation = useDictation((text) => setQuery((prev) => (prev ? `${prev} ${text}` : text)));
   const [activeId, setActiveId] = useState<string | null>(null);
   const [agentState, setAgentState] = useState<AgentState | null>(null);
   const [streamingReport, setStreamingReport] = useState('');
@@ -467,10 +470,25 @@ export default function AgentInvestigator(): JSX.Element {
                 if (e.key === 'Enter' && !e.shiftKey) startInvestigation();
               }}
               placeholder="Investigate: IP, domain, hash, CVE, threat actor, ransomware group..."
-              className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-10 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Investigation query"
               disabled={agentState?.status === 'running'}
             />
+            {dictation.supported && (
+              <button
+                type="button"
+                onClick={dictation.toggle}
+                title={dictation.listening ? 'Stop dictation' : 'Voice dictation'}
+                aria-label={dictation.listening ? 'Stop voice dictation' : 'Start voice dictation'}
+                className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1.5 transition-colors ${
+                  dictation.listening
+                    ? 'bg-rose-100 text-rose-600 dark:bg-rose-950/60 dark:text-rose-400 animate-pulse'
+                    : 'text-slate-400 hover:text-brand-600 dark:hover:text-brand-400'
+                }`}
+              >
+                <Mic size={16} />
+              </button>
+            )}
           </div>
           <button
             type="button"

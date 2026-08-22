@@ -61,6 +61,7 @@ const CoCGenerator = lazy(() => import('./pages/dfir/CoCGenerator'));
 const SocCalculators = lazy(() => import('./pages/dfir/SocCalculators'));
 const SysmonConfig = lazy(() => import('./pages/dfir/SysmonConfig'));
 const HexWorkbench = lazy(() => import('./pages/dfir/HexWorkbench'));
+const DfirConsole = lazy(() => import('./pages/dfir/DfirConsole'));
 const ShareReportView = lazy(() => import('./pages/share/ShareReportView'));
 const SigBase = lazy(() => import('./pages/SigBase'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
@@ -448,6 +449,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/soc-calculators', Component: SocCalculators },
   { path: '/dfir/sysmon-config', Component: SysmonConfig },
   { path: '/dfir/hex-workbench', Component: HexWorkbench },
+  { path: '/dfir/console', Component: DfirConsole },
   { path: '/dfir/sigbase', Component: SigBase },
   { path: '/dfir/traceix', Component: Traceix },
   { path: '/dfir/nhi-scan', Component: NhiScan },
