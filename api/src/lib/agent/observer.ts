@@ -56,6 +56,16 @@ export interface ObserverOutput {
   confidence: 'high' | 'medium' | 'low';
   gaps: string[];
   /**
+   * Hypothesis updates proposed by the observer (Fleet-style hypothesis
+   * tracking). Empty from the deterministic fallback — only the LLM pass
+   * reasons about hypotheses.
+   */
+  hypothesisUpdates: Array<{
+    text: string;
+    status: 'proposed' | 'testing' | 'supported' | 'refuted';
+    evidence?: string;
+  }>;
+  /**
    * Provenance of this observation. 'llm' = produced by the observer LLM pass;
    * 'fallback' = produced by the deterministic heuristic stub (LLM unavailable,
    * all tools errored, or parse failure). Downstream consumers (working memory,
@@ -122,7 +132,9 @@ Tool results:
 ${resultBlock}
 </step>
 
-Analyze these results. What was found? Extract exact values into keyFacts/iocs/actors/cves/malware/mitre. Which Diamond Model vertex did this populate? What report sections can now be written, and which gaps remain?`;
+Analyze these results. What was found? Extract exact values into keyFacts/iocs/actors/cves/malware/mitre. Which Diamond Model vertex did this populate? What report sections can now be written, and which gaps remain?
+
+Hypothesis tracking: maintain the investigation's working hypotheses. If a result confirms one, return {text, status:"supported", evidence:"<which tool/data>"}. If it contradicts one, status:"refuted" with evidence. If results suggest a new testable explanation (e.g. "loader for known family X"), propose it with status:"proposed". Only include entries whose status changed or that are new — omit unchanged hypotheses.`;
 
     const input: CompletionInput = { system, user, maxTokens: 1200, temperature: 0.1 };
 
@@ -158,6 +170,7 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
           mitre: parsed.data.mitre,
           confidence: parsed.data.confidence,
           gaps: parsed.data.gaps.length > 0 ? parsed.data.gaps : fallback.gaps,
+          hypothesisUpdates: parsed.data.hypothesis_updates ?? [],
           provenance,
         };
         // Cache the observation so a repeat of the same tool+args (via
@@ -225,6 +238,7 @@ function deterministicObserve(results: AgentToolResult[]): ObserverOutput {
     // no LLM analysis was performed.
     confidence: 'low',
     gaps: [],
+    hypothesisUpdates: [],
     provenance: 'fallback',
   };
 }

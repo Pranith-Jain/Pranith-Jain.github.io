@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { AgentStep } from '../../src/lib/agent/types';
-import { rebuildWorkingMemory, createWorkingMemory, buildFactList } from '../../src/lib/agent/agent-framework';
+import { rebuildWorkingMemory, createWorkingMemory, buildFactList, upsertHypothesis } from '../../src/lib/agent/agent-framework';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Regression gate for cross-alarm working-memory persistence.
@@ -300,5 +300,66 @@ describe('buildFactList', () => {
     const out = buildFactList(steps);
     expect(out).not.toContain('[unconfirmed]');
     expect(out).not.toContain('Unconfirmed heuristic extractions');
+  });
+});
+
+describe('hypothesis tracking', () => {
+  it('replays observerFindings.hypothesisUpdates across steps in order', () => {
+    const steps: AgentStep[] = [
+      step({
+        stepNumber: 1,
+        observerFindings: {
+          iocs: [],
+          mitre: [],
+          keyFacts: [],
+          provenance: 'llm',
+          gaps: [],
+          hypothesisUpdates: [{ text: 'loader for Emotet', status: 'proposed' }],
+        },
+      }),
+      step({
+        stepNumber: 2,
+        observerFindings: {
+          iocs: [],
+          mitre: [],
+          keyFacts: [],
+          provenance: 'llm',
+          gaps: [],
+          hypothesisUpdates: [
+            { text: 'loader for Emotet', status: 'supported', evidence: 'yara match 2 rules' },
+          ],
+        },
+      }),
+    ];
+    const mem = rebuildWorkingMemory(steps);
+    expect(mem.hypotheses).toHaveLength(1);
+    expect(mem.hypotheses[0].status).toBe('supported');
+    expect(mem.hypotheses[0].evidence).toContain('yara');
+    expect(mem.hypotheses[0].stepProposed).toBe(1);
+  });
+
+  it('memoryToPrompt surfaces hypotheses with statuses', async () => {
+    const { memoryToPrompt } = await import('../../src/lib/agent/agent-framework');
+    const mem = createWorkingMemory();
+    upsertHypothesis(mem, 'C2 over DNS tunneling', 'testing', 1);
+    const prompt = memoryToPrompt(mem);
+    expect(prompt).toContain('[testing]');
+    expect(prompt).toContain('C2 over DNS tunneling');
+  });
+
+  it('upsertHypothesis dedupes case-insensitively and caps at 8 (dropping oldest non-supported)', () => {
+    const mem = createWorkingMemory();
+    expect(upsertHypothesis(mem, 'Hypothesis One', 'proposed', 1)).toBe(true);
+    expect(upsertHypothesis(mem, 'hypothesis one', 'supported', 2, 'ev')).toBe(true);
+    expect(mem.hypotheses).toHaveLength(1);
+    expect(mem.hypotheses[0].status).toBe('supported');
+    for (let i = 0; i < 9; i++) {
+      upsertHypothesis(mem, `filler ${i}`, 'refuted', 3);
+    }
+    // cap enforced
+    expect(mem.hypotheses.length).toBeLessThanOrEqual(8);
+    // supported original must survive cap eviction
+    expect(mem.hypotheses.some((h) => h.text === 'Hypothesis One')).toBe(true);
+    expect(upsertHypothesis(mem, '', 'proposed', 4)).toBe(false);
   });
 });

@@ -2278,6 +2278,117 @@ export function bridgeMcpTools(
     execute: async (args) => apiFetchWithMethod('/api/v1/yara/validate', 'POST', { rule: args.rule }),
   });
   add({
+    name: 'validate_detection_rule',
+    description:
+      'Validate a detection rule before use: YARA (structure, string refs, hex tokens, dup names), Sigma (schema + logsource + detection + condition identifiers), Suricata/Snort (header grammar, msg/sid/rev), osquery (read-only guard, paren balance, known tables).',
+    params: [
+      {
+        name: 'kind',
+        type: 'string',
+        description: 'Rule kind (yara | sigma | suricata | snort | osquery)',
+        required: true,
+      },
+      { name: 'source', type: 'string', description: 'Full rule text to validate', required: true },
+    ],
+    execute: async (args) => apiFetchWithMethod('/api/v1/rules/validate', 'POST', { kind: args.kind, source: args.source }),
+  });
+  add({
+    name: 'convert_sigma_rule',
+    description:
+      'Convert a Sigma rule to Splunk SPL or Microsoft Sentinel KQL. Handles field modifiers, multi-value lists, N-of expansions, optional field-name mapping.',
+    params: [
+      { name: 'yaml', type: 'string', description: 'Sigma rule YAML source', required: true },
+      { name: 'target', type: 'string', description: 'Target language (splunk | kql)', required: true },
+      { name: 'field_map_json', type: 'string', description: 'Optional JSON field-name map', required: false },
+    ],
+    execute: async (args) => {
+      let fieldNameMap: Record<string, string> | undefined;
+      if (args.field_map_json) {
+        try {
+          fieldNameMap = JSON.parse(String(args.field_map_json)) as Record<string, string>;
+        } catch {
+          return { error: 'field_map_json is not valid JSON' };
+        }
+      }
+      return apiFetchWithMethod('/api/v1/rules/sigma/convert', 'POST', {
+        yaml: args.yaml,
+        target: args.target,
+        fieldNameMap,
+      });
+    },
+  });
+  add({
+    name: 'extract_observables_fast',
+    description:
+      'Deterministic regex-based IOC extraction from raw text — no AI. Handles defanged indicators (hxxp, [.], [at], [dot]); extracts IPs, domains, URLs, emails, hashes, CVEs, mutexes, registry keys, file paths, crypto addresses with positions.',
+    params: [
+      { name: 'text', type: 'string', description: 'Raw text (max 500k chars)', required: true },
+      { name: 'max_hits', type: 'number', description: 'Cap on unique observables (default 2000)', required: false },
+    ],
+    execute: async (args) =>
+      apiFetchWithMethod('/api/v1/observables/extract', 'POST', {
+        text: String(args.text ?? '').slice(0, 500_000),
+        ...(args.max_hits ? { maxHits: Number(args.max_hits) } : {}),
+      }),
+  });
+  add({
+    name: 'static_triage_file',
+    description:
+      'Static file triage from base64 bytes (max ~6MB): magic-byte family detection, hashes, entropy, PE header parse, packer signals, embedded artifacts. No execution.',
+    params: [
+      { name: 'data_base64', type: 'string', description: 'Base64-encoded file bytes', required: true },
+      { name: 'filename', type: 'string', description: 'Filename hint', required: false },
+    ],
+    execute: async (args) => {
+      const b64 = String(args.data_base64 ?? '').replace(/\s+/g, '');
+      const approxBytes = Math.floor((b64.length * 3) / 4);
+      if (!b64) return { error: 'data_base64 is required' };
+      if (approxBytes > 8 * 1024 * 1024) return { error: `file too large (${approxBytes} bytes > 8MB)` };
+      return apiFetchWithMethod('/api/v1/file/triage-static', 'POST', {
+        dataBase64: b64,
+        ...(args.filename ? { filename: String(args.filename) } : {}),
+      });
+    },
+  });
+  add({
+    name: 'detect_c2_beaconing',
+    description:
+      'Score connection timestamps to one destination for C2 beacon periodicity: jitter ratio, payload-size consistency, 0-100 beacon score.',
+    params: [
+      { name: 'timestamps', type: 'string', description: 'Comma-separated timestamps (epoch ms or ISO)', required: true },
+      { name: 'destination', type: 'string', description: 'Destination ip or host:port', required: false },
+      { name: 'bytes', type: 'string', description: 'Optional comma-separated byte counts per connection', required: false },
+    ],
+    execute: async (args) => {
+      const parse = (s: unknown) => String(s ?? '').split(',').map((v) => v.trim()).filter(Boolean);
+      const ts = parse(args.timestamps);
+      if (ts.length < 4) return { error: 'need at least 4 timestamps' };
+      const bytes = args.bytes ? parse(args.bytes).map(Number).filter(Number.isFinite) : undefined;
+      return apiFetchWithMethod('/api/v1/net-analytics/beacon', 'POST', {
+        timestamps: ts,
+        ...(args.destination ? { destination: String(args.destination) } : {}),
+        ...(bytes && bytes.length ? { bytes } : {}),
+      });
+    },
+  });
+  add({
+    name: 'detect_dns_tunneling',
+    description:
+      'Heuristic DNS-tunneling detection over query names targeting one zone: label length/entropy/uniqueness → 0-100 tunnel score.',
+    params: [
+      { name: 'queries', type: 'string', description: 'Newline/comma-separated DNS query names', required: true },
+      { name: 'zone', type: 'string', description: 'Authoritative zone; inferred when omitted', required: false },
+    ],
+    execute: async (args) => {
+      const queries = String(args.queries ?? '').split(/[\n,]+/).map((q) => q.trim()).filter(Boolean);
+      if (queries.length < 5) return { error: 'need at least 5 DNS queries' };
+      return apiFetchWithMethod('/api/v1/net-analytics/dns-tunnel', 'POST', {
+        queries,
+        ...(args.zone ? { zone: String(args.zone) } : {}),
+      });
+    },
+  });
+  add({
     name: 'watch_domain_ct',
     description: 'Set up CT monitoring for a domain (certificate transparency watch).',
     params: [{ name: 'domain', type: 'string', description: 'Domain to watch', required: true }],

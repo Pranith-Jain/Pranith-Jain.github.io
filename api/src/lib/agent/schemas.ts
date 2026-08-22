@@ -36,6 +36,16 @@ export const ObserverOutputSchema = z.object({
   mitre: z.array(z.string()).optional().default([]),
   confidence: z.enum(['high', 'medium', 'low']).optional().default('medium'),
   gaps: z.array(z.string()).optional().default([]),
+  hypothesis_updates: z
+    .array(
+      z.object({
+        text: z.string(),
+        status: z.enum(['proposed', 'testing', 'supported', 'refuted']),
+        evidence: z.string().optional().default(''),
+      })
+    )
+    .optional()
+    .default([]),
 });
 
 export type ObserverOutputValidated = z.infer<typeof ObserverOutputSchema>;

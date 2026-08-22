@@ -75,6 +75,12 @@ export interface AgentStep {
     gaps: string[];
     /** 'llm' = observer LLM produced these findings; 'fallback' = heuristic stub. */
     provenance?: 'llm' | 'fallback';
+    /** Fleet-style hypothesis updates from the observer (new/promoted/refuted). */
+    hypothesisUpdates?: Array<{
+      text: string;
+      status: 'proposed' | 'testing' | 'supported' | 'refuted';
+      evidence?: string;
+    }>;
   };
   /** Whether the agent decided to continue or synthesize */
   nextAction?: 'continue' | 'synthesize';
