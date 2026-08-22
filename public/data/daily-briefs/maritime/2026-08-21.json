@@ -1,0 +1,45 @@
+{
+  "type": "maritime",
+  "date": "2026-08-21",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Available reporting indicates two significant logistics-facing cyber incidents with direct maritime relevance over the period: (1) North Carolina Ports experienced a confirmed cyberattack that triggered contingency procedures and manual processing across multiple facilities, with U.S. Coast Guard engagement; the port reported the incident was \"contained.\" View Article CEVA Logistics, a CMA CGM Group subsidiary, disclosed a cyberattack that disrupted European contract logistics operations at eight warehouses, delaying shipments and creating downstream supply-chain friction for maritime customers. View Article",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [
+      "CEVA Logistics (CMA CGM Group subsidiary) reported IT and warehouse operations disruption; no specific vendor technologies or products were identified in the sources. View Article",
+      "North Carolina Ports did not name affected products or vendors in public reporting. View Article"
+    ],
+    "sectors": [
+      "Ports and Terminals: North Carolina Ports operational disruption (contained). Source",
+      "Logistics and Warehousing (Shipping Supply Chain): CEVA European warehouses with shipment delays. Source"
+    ]
+  },
+  "keyFindings": [],
+  "topThreats": [],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "No CVE-specific vulnerabilities or exploitation reports were included in the provided dataset for maritime OT/ICS or navigation systems."
+      ]
+    }
+  ],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Observed behavior (plain language): Intrusion into enterprise IT environments causing disruption to port administrative workflows and warehouse contract logistics operations.",
+      "Potential behaviors (inferred, not confirmed): Unauthorized access to business applications, disruption of fulfillment systems, and forced manual fallback. A formal ATT&CK mapping could not be confirmed from the supplied sources."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional operational updates from North Carolina Ports as backlog clearance and normalization continue; residual scheduling impacts may persist. Confidence: medium. Supporting Report Continued reporting is likely around CEVA's service restoration and customer shipment delays; downstream impacts on port gate flows may emerge where warehouses feed imminent sailings. Confidence: medium. Supporting Report Current evidence does not establish elevated navigation-system risk in the immediate term based on supplied sources. Confidence: medium.",
+  "relatedCves": []
+}

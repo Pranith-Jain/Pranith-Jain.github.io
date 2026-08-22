@@ -1,0 +1,23 @@
+{
+  "type": "disaster",
+  "date": "2026-08-21",
+  "overallThreat": "",
+  "executiveSummary": "",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "Earthquakes",
+      "severity": "monitor",
+      "text": "",
+      "chips": [],
+      "sources": []
+    }
+  ],
+  "outlook72h": "",
+  "regionalTrends": []
+}

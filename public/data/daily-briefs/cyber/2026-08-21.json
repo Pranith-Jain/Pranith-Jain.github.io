@@ -1,0 +1,94 @@
+{
+  "type": "cyber",
+  "date": "2026-08-21",
+  "threatLevel": "",
+  "executiveSummary": "Active, AI-assisted exploitation targeting Siemens S7 PLCs across U.S. critical sectors (including Water and Wastewater) is confirmed by a multi-agency advisory. Immediate removal of Internet exposure, segmentation, and S7comm monitoring are required. Security Advisory U.S. Water/Wastewater facilities experienced direct PLC lockouts (password/IP changes), forcing manual operations and public safety notices-indicating active OT impact. Security Advisory Critical perimeter gateways and management systems (NetScaler ADC/Gateway pre-auth RCE, VMware vCenter, JetBrains TeamCity, Metabase) continue to be exploited for initial access and webshell persistence, increasing IT-to-OT pivot risk. Advisory Weekly Report Eclipse Milo OPC UA vulnerabilities (authorization bypass, diagnostics exposure, padding-oracle, monitored item exhaustion) present direct ICS disruption and information leakage risks on widely deployed OPC UA servers. CISA Bulletin State-sponsored operations leveraging compromised edge devices and routers are pre-positioning in critical infrastructure networks; urgent router hygiene (SNMPv3, disabling Smart Install, AAA hardening) and segmentation are advised. Security Advisory Confirmed destructive OT intrusion via misconfigured private APN led to a turbine and process-water shutdown at a CHP plant, demonstrating a repeatable cellular pathway risk into OT. Incident Report",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "ESCALATE 14 • MONITOR 20+ • IGNORE 15+",
+        "label": "Decisioned events (this brief)"
+      },
+      {
+        "value": "10+",
+        "label": "Actively exploited (KEV or confirmed in-the-wild)"
+      },
+      {
+        "value": "5",
+        "label": "Direct OT impact events"
+      },
+      {
+        "value": "Water/Wastewater • Energy • Critical Manufacturing",
+        "label": "Most at-risk sectors"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Siemens S7-200/300/400/1200/1500",
+      "Siemens Desigo DXR/PXC (BACnet)",
+      "NetScaler ADC/Gateway",
+      "VMware vCenter",
+      "JetBrains TeamCity",
+      "Metabase",
+      "OPC UA (Eclipse Milo)",
+      "TrueConf Server",
+      "Johnson Controls Simplex",
+      "EVSE (EVbee/Autel)",
+      "Cisco ASA/FTD",
+      "Fortinet FortiGate"
+    ],
+    "sectors": [
+      "Water and Wastewater",
+      "Energy and Utilities",
+      "Critical Manufacturing",
+      "Transportation Systems",
+      "Communications",
+      "Healthcare",
+      "Government Facilities",
+      "Education"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "State-sponsored operations abusing compromised routers/edge devices for pre-positioning in CI networks; tactics include SNMP config theft, Smart Install abuse, GRE/IPsec tunnels, and traffic mirroring. Security Advisory",
+        "Pro-Russia hacktivist groups opportunistically access Internet-exposed VNC on HMIs, altering setpoints and suppressing alarms (Water, Food & Agriculture, Energy). Security Advisory",
+        "Head Mare APT exploiting TrueConf Server to deploy PhantomCore/PhantomGraph backdoors; targets include energy and transportation, enabling IT-to-OT pivot potential. Supporting Report",
+        "APT29 subclusters abuse OAuth/device linking and captive portal AitM (identity takeover) impacting enterprise SSO that may front OT portals. View Article"
+      ]
+    }
+  ],
+  "relevance": "Multiple concurrent drivers raise OT risk to a critical level: (1) confirmed field impact in Water/Wastewater; (2) credible, AI-assisted PLC exploitation workflows targeting Siemens S7 families; (3) active exploitation of identity, remote access, and CI/CD systems that commonly bridge IT to OT; and (4) ICS-native protocol exposure (OPC UA/Milo). Organizations should assume elevated likelihood of attempts to access engineering workstations, historians, and PLCs via exposed IT perimeters, vendor remote access, or misconfigured cellular paths. Prioritize near-term actions listed below to reduce blast radius and detect intrusions rapidly.",
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Siemens Desigo DXR/PXC BACnet DoS via malformed packets; patch firmware and segment BACnet (UDP 47808). Security Advisory",
+        "Johnson Controls Simplex Incident Manager credential exposure in memory; patch to v2.01.01 and harden local access. Security Advisory",
+        "Eclipse Milo (OPC UA) issues affecting authorization, diagnostics, crypto, and DoS. CISA Bulletin",
+        "EVSE exposures (EVbee DC-80/Autel) include unauthenticated RCE, unsigned firmware, and OCPP abuse; segment EVSE networks and enforce mTLS. CISA Bulletin",
+        "NetScaler ADC/Gateway RCE (CVE-2026-8452) and critical auth bypass-rapid exploitation history; patch and hunt for webshells. Advisory",
+        "JFrog Artifactory cache/metadata poisoning threats to CI/CD supply chains feeding OT deployments; patch and enforce artifact signing. View Article"
+      ]
+    }
+  ],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial access: Exploitation of public-facing applications (NetScaler SAML overflow; vCenter traversal; TeamCity deserialization), abuse of exposed VNC/SSO/OAuth flows, router/SOHO compromise.",
+      "Persistence: Webshells under NetScaler /var/vpn/theme; rogue admin users on vCenter/TeamCity; container/Guest Shell enablement on network gear.",
+      "Lateral movement: Valid accounts, Impacket tools, VPN pivot via stolen credentials; abuse of AD/SSO and RMM platforms.",
+      "ICS impacts: S7comm memory/logic writes; OPC UA MonitoredItem flooding; setpoint manipulation and alarm suppression on HMIs.",
+      "Exfiltration/C2: Cloud relays (Microsoft Graph/OneDrive), DNS over HTTPS, residential proxy/IP masking."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Expect continued scanning and exploitation of NetScaler ADC/Gateway and Metabase/TeamCity/vCenter instances; prioritize patching, webroot integrity checks, and SSO hardening. Increase monitoring for S7comm anomalies and unauthorized online logic changes across S7-1200/1500 fleets; schedule targeted maintenance windows for firmware updates. Conduct emergency APN and remote-access reviews for any cellular pathways touching OT; enforce device isolation at the carrier and enterprise edge. Proactively hunt for OPC UA (Milo) service anomalies and disable diagnostics endpoints exposed beyond trusted zones.",
+  "relatedCves": [
+    "CVE-2026-8452",
+    "CVE-2026-40126"
+  ]
+}
