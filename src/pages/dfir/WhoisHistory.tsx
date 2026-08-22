@@ -489,7 +489,7 @@ export default function WhoisHistory(): JSX.Element {
 
       {!history && !loading && !error && (
         <div className="text-center py-16">
-          <Globe size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
+          <Globe size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
           <p className="text-slate-500">Enter a domain to explore its WHOIS registration history</p>
           <p className="text-xs text-muted mt-1">
             Track ownership changes, registrar transfers, and pivot across related domains

@@ -118,7 +118,7 @@ export default function ShareReportView(): JSX.Element {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-input-200">
         <p className="animate-pulse font-mono text-sm text-slate-500">loading shared report…</p>
       </div>
     );
@@ -126,8 +126,8 @@ export default function ShareReportView(): JSX.Element {
 
   if (error || !data) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950 px-4">
-        <div className="max-w-md rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-input-200 px-4">
+        <div className="max-w-md rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
           <Lock className="mx-auto mb-3 text-slate-400" size={28} />
           <h1 className="mb-2 text-lg font-semibold">Report unavailable</h1>
           <p className="text-sm text-slate-500">{error || 'Unknown error'}</p>
@@ -155,7 +155,7 @@ export default function ShareReportView(): JSX.Element {
     (cls ? 'bg-slate-600' : '');
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-slate-50 dark:bg-input-200">
       {/* Classification banner */}
       {b.classification && (
         <div className={`${clsColor} py-1 text-center font-mono text-xs font-bold uppercase tracking-widest`}>
@@ -164,7 +164,7 @@ export default function ShareReportView(): JSX.Element {
       )}
 
       {/* Branded header */}
-      <header className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
+      <header className="border-b border-slate-200 bg-white dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             {b.logoUrl && /^https:\/\//.test(b.logoUrl) && (
@@ -215,7 +215,7 @@ export default function ShareReportView(): JSX.Element {
 
         {/* Executive summary */}
         {r?.summary && (
-          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
+          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
             <h2 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
               <FileWarning size={15} style={{ color: accent }} /> Executive Summary
             </h2>
@@ -227,7 +227,7 @@ export default function ShareReportView(): JSX.Element {
 
         {/* ATT&CK techniques */}
         {r?.ttp && r.ttp.length > 0 && (
-          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
+          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500">
               <Crosshair size={15} style={{ color: accent }} /> MITRE ATT&CK Techniques
             </h2>
@@ -244,7 +244,7 @@ export default function ShareReportView(): JSX.Element {
 
         {/* CVEs */}
         {r?.cves && r.cves.length > 0 && (
-          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
+          <section className="rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-slate-500">CVEs</h2>
             <div className="flex flex-wrap gap-1.5">
               {r.cves.map((c) => (
@@ -259,7 +259,7 @@ export default function ShareReportView(): JSX.Element {
 
         {/* IOC block — grouped by kind from the flat ExtractedIoc list */}
         {Object.keys(iocGroups).length > 0 && (
-          <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[rgb(var(--surface-100))]">
+          <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-line-1 dark:bg-[rgb(var(--surface-100))]">
             <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Indicators of Compromise</h2>
             {(Object.entries(IOC_LABELS) as Array<[string, string]>).map(([kind, label]) => {
               const values = iocGroups[kind];
@@ -276,7 +276,7 @@ export default function ShareReportView(): JSX.Element {
         )}
 
         {/* Footer */}
-        <footer className="border-t border-slate-200 pt-4 text-center text-xs text-slate-400 dark:border-slate-800">
+        <footer className="border-t border-slate-200 pt-4 text-center text-xs text-slate-400 dark:border-line-1">
           {b.footer || 'Shared via capability link — do not redistribute without authorization.'}
         </footer>
       </main>

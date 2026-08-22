@@ -304,9 +304,7 @@ export default function DfirCopilot(): JSX.Element {
         <div role="status" aria-live="polite" className="py-16 text-center">
           <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" aria-hidden="true" />
           <p className="font-mono text-sm text-muted">Gathering intelligence…</p>
-          <p className="mt-1 font-mono text-xs text-slate-500 dark:text-slate-500">
-            Querying threat data sources and generating narrative
-          </p>
+          <p className="mt-1 font-mono text-xs text-muted">Querying threat data sources and generating narrative</p>
         </div>
       )}
 
@@ -353,7 +351,7 @@ export default function DfirCopilot(): JSX.Element {
                   {result.sources.map((s, i) => (
                     <span
                       key={s.name}
-                      className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                      className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted"
                     >
                       <span className="font-bold text-muted">{i + 1}.</span>
                       {s.name}
@@ -385,7 +383,7 @@ export default function DfirCopilot(): JSX.Element {
           {/* Source details */}
           {result.sources.length > 0 && (
             <details className="group">
-              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
+              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-muted dark:hover:text-slate-300">
                 <Sparkles size={14} />
                 Raw source data ({result.sources.length} sources)
               </summary>

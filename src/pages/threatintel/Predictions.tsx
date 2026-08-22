@@ -193,7 +193,7 @@ export default function Predictions(): JSX.Element {
             <section key={bucket}>
               <h2 className="flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-muted mb-4">
                 <meta.icon size={14} className={meta.accent.split(' ')[0]} /> {meta.label}
-                <span className="text-slate-400 dark:text-slate-400">· {markets.length}</span>
+                <span className="text-slate-400">· {markets.length}</span>
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {markets.map((m) => (

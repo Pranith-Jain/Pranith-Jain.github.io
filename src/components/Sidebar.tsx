@@ -144,7 +144,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                           className={`group flex items-center gap-2 px-2 py-1.5 text-tool transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                             active
                               ? `${activeBg} font-medium`
-                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
+                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-muted dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
                           }`}
                         >
                           <Icon
@@ -225,7 +225,7 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
           <button
             type="button"
             onClick={() => setCollapsed((c) => !c)}
-            className="grid h-6 w-6 place-items-center text-muted transition hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="grid h-6 w-6 place-items-center text-muted transition hover:text-muted dark:hover:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? <ChevronRight size={14} aria-hidden="true" /> : <ChevronLeft size={14} aria-hidden="true" />}
@@ -256,7 +256,7 @@ function SidebarContentCollapsed({ config }: { config: SidebarConfig }): JSX.Ele
                 className={`grid h-8 w-8 mx-auto place-items-center transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                   active
                     ? `${activeBg} border-l-2 ${activeBorder}`
-                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-muted dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
                 }`}
               >
                 <Icon size={14} className={active ? activeIcon : ''} aria-hidden="true" />

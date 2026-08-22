@@ -131,7 +131,7 @@ export default function LinkAuditTab() {
       {audits.length > 0 && (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <thead className="text-left text-xs uppercase tracking-wider text-muted border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
               <tr>
                 <th className="py-2 pr-4">Post</th>
                 <th className="py-2 pr-4">Type</th>

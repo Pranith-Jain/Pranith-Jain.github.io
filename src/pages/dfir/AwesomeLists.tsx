@@ -141,7 +141,7 @@ export default function AwesomeLists(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-400 mb-4">
         Showing {filtered.length} of {LISTS.length}
       </p>
 
@@ -180,7 +180,7 @@ export default function AwesomeLists(): JSX.Element {
             )}
             <p className="text-meta font-mono text-muted leading-relaxed mb-2">{r.description}</p>
             <p className="text-meta font-mono italic text-muted leading-relaxed mb-3">
-              <span className="text-slate-400 dark:text-slate-400 not-italic">why:</span> {r.why}
+              <span className="text-slate-400 not-italic">why:</span> {r.why}
             </p>
             <div className="flex flex-wrap items-center gap-1.5">
               {r.focus.map((f) => (

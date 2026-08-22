@@ -107,7 +107,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
       <h2 id="manual-metrics-heading" className="text-sm font-semibold uppercase tracking-wider text-body mb-3">
         Add / update metrics manually
       </h2>
-      <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">
+      <p className="text-xs text-muted mb-4">
         For LinkedIn and Instagram: read the numbers off the platform and enter them here. Twitter is auto-refreshed by
         the cron.
       </p>
@@ -115,7 +115,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
         <div className="flex flex-wrap gap-3 items-end">
           {/* Slug */}
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">Slug</span>
+            <span className="block text-xs uppercase tracking-wider text-muted mb-1">Slug</span>
             <input
               type="text"
               value={form.slug}
@@ -130,9 +130,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
 
           {/* Platform */}
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-              Platform
-            </span>
+            <span className="block text-xs uppercase tracking-wider text-muted mb-1">Platform</span>
             <select
               value={form.platform}
               onChange={(e) => set('platform', e.target.value as MetricsFormState['platform'])}
@@ -159,9 +157,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
             ] as Array<{ field: keyof MetricsFormState; label: string }>
           ).map(({ field, label }) => (
             <label key={field} className="block">
-              <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-                {label}
-              </span>
+              <span className="block text-xs uppercase tracking-wider text-muted mb-1">{label}</span>
               <input
                 type="number"
                 min={0}
@@ -177,9 +173,7 @@ function MetricsForm({ onSaved }: { onSaved: () => void }) {
 
         {/* Post URL */}
         <label className="block">
-          <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-            Post URL (optional)
-          </span>
+          <span className="block text-xs uppercase tracking-wider text-muted mb-1">Post URL (optional)</span>
           <input
             type="url"
             value={form.postUrl}

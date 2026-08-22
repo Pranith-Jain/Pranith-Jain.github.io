@@ -127,7 +127,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; color: string; icon: type
   },
   'INFRA-COLLISION': {
     label: 'Infra Collision',
-    color: 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20',
+    color: 'bg-slate-500/10 text-slate-700 dark:text-muted border-slate-500/20',
     icon: Globe,
     description: 'Legitimate infrastructure accidentally hitting AI endpoints',
   },
@@ -137,7 +137,7 @@ const CONFIDENCE_COLORS: Record<string, string> = {
   'very-high': 'bg-red-500/20 text-red-700 dark:text-red-400',
   high: 'bg-orange-500/20 text-orange-700 dark:text-orange-400',
   medium: 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400',
-  low: 'bg-slate-500/20 text-slate-700 dark:text-slate-400',
+  low: 'bg-slate-500/20 text-slate-700 dark:text-muted',
 };
 
 function formatHits(n: number): string {
@@ -243,7 +243,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
 
       {/* Source info + actions */}
       <div className="flex flex-wrap items-center gap-3 mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
-        <Shield className="w-4 h-4 text-slate-600 dark:text-slate-500" />
+        <Shield className="w-4 h-4 text-muted" />
         <span className="text-xs text-muted">
           Source:{' '}
           <a
@@ -254,9 +254,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           >
             ai-honeypots.com
           </a>
-          {feed?.published && (
-            <span className="ml-2 text-slate-500 dark:text-slate-500">Published {relativeTime(feed.published)}</span>
-          )}
+          {feed?.published && <span className="ml-2 text-muted">Published {relativeTime(feed.published)}</span>}
         </span>
         <div className="ml-auto flex items-center gap-2">
           <a
@@ -370,7 +368,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
             Clear filters
           </button>
         )}
-        <span className="ml-auto text-xs text-slate-500 dark:text-slate-500">
+        <span className="ml-auto text-xs text-muted">
           {filtered.length} / {indicators.length} IPs
         </span>
       </div>
@@ -392,14 +390,14 @@ export default function AiHoneypotObservatory(): JSX.Element {
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={6} className="px-3 py-8 text-center text-slate-500 dark:text-slate-500">
+                  <td colSpan={6} className="px-3 py-8 text-center text-muted">
                     Loading IOC feed...
                   </td>
                 </tr>
               )}
               {!loading && filtered.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-3 py-8 text-center text-slate-500 dark:text-slate-500">
+                  <td colSpan={6} className="px-3 py-8 text-center text-muted">
                     No entries match your filters.
                   </td>
                 </tr>
@@ -417,20 +415,20 @@ export default function AiHoneypotObservatory(): JSX.Element {
                       <td className="px-3 py-2 font-mono text-heading">{entry.value}</td>
                       <td className="px-3 py-2">
                         <span
-                          className={`px-1.5 py-0.5 text-micro font-medium rounded border ${cfg?.color ?? 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20'}`}
+                          className={`px-1.5 py-0.5 text-micro font-medium rounded border ${cfg?.color ?? 'bg-slate-500/10 text-slate-700 dark:text-muted border-slate-500/20'}`}
                         >
                           {cfg?.label ?? entry.actor_category}
                         </span>
                       </td>
                       <td className="px-3 py-2">
                         <span
-                          className={`px-1.5 py-0.5 text-micro font-medium rounded ${CONFIDENCE_COLORS[entry.confidence] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
+                          className={`px-1.5 py-0.5 text-micro font-medium rounded ${CONFIDENCE_COLORS[entry.confidence] ?? 'bg-slate-500/20 text-slate-700 dark:text-muted'}`}
                         >
                           {entry.confidence}
                         </span>
                       </td>
                       <td className="px-3 py-2 text-right font-mono text-heading">{formatHits(entry.total_hits)}</td>
-                      <td className="px-3 py-2 text-right font-mono text-slate-500 dark:text-slate-500">
+                      <td className="px-3 py-2 text-right font-mono text-muted">
                         {entry.ttps.length > 0 ? entry.ttps.length : '-'}
                       </td>
                       <td className="px-3 py-2 text-center">
@@ -522,9 +520,9 @@ export default function AiHoneypotObservatory(): JSX.Element {
                 <div>
                   <div className="text-xs font-semibold text-heading">
                     {cfg?.label ?? key}
-                    {count > 0 && <span className="ml-1.5 text-slate-500 dark:text-slate-500">({count})</span>}
+                    {count > 0 && <span className="ml-1.5 text-muted">({count})</span>}
                   </div>
-                  <div className="text-mini text-slate-600 dark:text-slate-500 mt-0.5">{desc}</div>
+                  <div className="text-mini text-muted mt-0.5">{desc}</div>
                 </div>
               </div>
             );
@@ -540,11 +538,11 @@ export default function AiHoneypotObservatory(): JSX.Element {
             {Object.entries(feed.taxonomy.confidence_levels).map(([level, desc]) => (
               <div key={level} className="text-mini">
                 <span
-                  className={`px-1.5 py-0.5 font-medium rounded ${CONFIDENCE_COLORS[level] ?? 'bg-slate-500/20 text-slate-700 dark:text-slate-400'}`}
+                  className={`px-1.5 py-0.5 font-medium rounded ${CONFIDENCE_COLORS[level] ?? 'bg-slate-500/20 text-slate-700 dark:text-muted'}`}
                 >
                   {level}
                 </span>
-                <span className="ml-1.5 text-slate-600 dark:text-slate-500">{desc}</span>
+                <span className="ml-1.5 text-muted">{desc}</span>
               </div>
             ))}
           </div>
@@ -568,9 +566,7 @@ function StatCard({
   return (
     <div className="surface-card p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{displayValue ?? formatHits(value)}</div>
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
-        {label}
-      </div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mt-0.5">{label}</div>
     </div>
   );
 }

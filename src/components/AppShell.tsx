@@ -174,7 +174,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
      first paint and causes a jump when the bar collapses. dvh tracks the
      visible viewport. */
   return (
-    <div className="min-h-dvh flex flex-col text-slate-900 dark:text-slate-50">
+    <div className="min-h-dvh flex flex-col text-heading">
       <SkipToContent />
       <TopBar
         sectionLabel={section.label}

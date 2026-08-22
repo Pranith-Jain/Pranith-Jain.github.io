@@ -65,7 +65,7 @@ const TAG_COLORS: Record<string, string> = {
 };
 
 function tagColor(tag: string): string {
-  return TAG_COLORS[tag] ?? 'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700';
+  return TAG_COLORS[tag] ?? 'text-muted bg-slate-50 dark:bg-input-200/40 border-line-1';
 }
 
 function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) {
@@ -132,7 +132,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
             {body.body}
           </pre>
         </div>
-        <div className="text-micro text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-micro text-muted pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Data from{' '}
           <a
             href="https://github.com/Neo23x0/signature-base"
@@ -326,7 +326,7 @@ export default function SigBase() {
         )}
 
         {/* Source footer */}
-        <div className="text-center pt-6 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Data sourced from{' '}
           <a
             href="https://github.com/Neo23x0/signature-base"

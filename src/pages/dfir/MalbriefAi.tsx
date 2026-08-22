@@ -329,7 +329,7 @@ export default function MalbriefAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Bug size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
+              <Bug size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Paste behavioral indicators and click <span className="font-semibold">Analyze</span>
               </p>

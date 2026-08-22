@@ -293,7 +293,7 @@ export default function OpenDirectory(): JSX.Element {
 
       {!result && !loading && !error && (
         <div className="text-center py-16">
-          <FolderOpen size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
+          <FolderOpen size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
           <p className="text-slate-500">Enter a URL to scan for exposed open directories</p>
           <p className="text-xs text-muted mt-1">
             Identifies malware staging, credential dumps, config files, and other sensitive artifacts

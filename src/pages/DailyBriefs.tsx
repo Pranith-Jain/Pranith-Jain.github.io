@@ -91,10 +91,7 @@ const SEV_STYLES: Record<string, string> = {
 };
 
 function sevPill(s: string): string {
-  return (
-    SEV_STYLES[s?.toLowerCase() ?? ''] ??
-    'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700'
-  );
+  return SEV_STYLES[s?.toLowerCase() ?? ''] ?? 'text-muted bg-slate-50 dark:bg-input-200/40 border-line-1';
 }
 
 const TAB_CONFIG: { id: Tab; label: string; icon: typeof Shield; color: string }[] = [
@@ -267,7 +264,7 @@ export default function DailyBriefs() {
             className={`flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
               tab === id
                 ? 'bg-white text-slate-900 shadow-sm dark:bg-[rgb(var(--surface-300))] dark:text-white'
-                : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+                : 'text-slate-500 hover:text-slate-700 dark:text-muted dark:hover:text-slate-200'
             }`}
           >
             <Icon size={16} className={tab === id ? color : ''} />
@@ -555,7 +552,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                     {ev.chips.map((c, j) => (
                       <span
                         key={j}
-                        className="rounded-full bg-slate-100 px-2 py-0.5 text-micro text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400"
+                        className="rounded-full bg-slate-100 px-2 py-0.5 text-micro text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted"
                       >
                         {c}
                       </span>

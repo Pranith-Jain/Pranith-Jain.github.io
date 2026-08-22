@@ -385,7 +385,7 @@ export default function ThreatFeeds(): JSX.Element {
                   {topAnalysis.impact && (
                     <div className="rounded-xl bg-slate-100 dark:bg-[rgb(var(--surface-200))]/50 p-2.5">
                       <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Impact</span>
-                      <p className="text-xs text-slate-700 dark:text-slate-400">{topAnalysis.impact}</p>
+                      <p className="text-xs text-slate-700 dark:text-muted">{topAnalysis.impact}</p>
                     </div>
                   )}
 
@@ -621,7 +621,7 @@ export default function ThreatFeeds(): JSX.Element {
         )}
 
         {activeSection !== 'all' && (
-          <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
+          <p className="text-mini font-mono text-slate-400">
             <span className="text-body">{SECTIONS.find((s) => s.id === activeSection)?.label}:</span>{' '}
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
@@ -634,7 +634,7 @@ export default function ThreatFeeds(): JSX.Element {
         </p>
       )}
 
-      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-3">
+      <p className="text-mini font-mono text-slate-400 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
         data
         {failedCount > 0 && (
@@ -715,7 +715,7 @@ export default function ThreatFeeds(): JSX.Element {
                 />
               </div>
             </div>
-            <div className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-1">
+            <div className="text-mini font-mono text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>

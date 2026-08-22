@@ -381,7 +381,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {nothingAnywhere && (
         <div className="py-12 text-center">
-          <Search size={32} className="mx-auto text-slate-300 dark:text-slate-400 mb-3" />
+          <Search size={32} className="mx-auto text-slate-300 dark:text-muted mb-3" />
           <p className="font-mono text-sm text-slate-500">
             No results for &ldquo;{query.trim()}&rdquo; across any tool or intelligence source.
           </p>

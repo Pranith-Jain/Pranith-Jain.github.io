@@ -442,7 +442,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               <p className="font-display italic text-base sm:text-lg text-brand-600 dark:text-brand-400 leading-snug">
                 “Trust nothing. Verify everything. Assume breach.”
               </p>
-              <p className="mt-2 text-meta font-mono text-slate-500 dark:text-slate-500 uppercase tracking-wider">
+              <p className="mt-2 text-meta font-mono text-muted uppercase tracking-wider">
                 Source: Anthropic, Zero Trust for AI Agents eBook (2026)
               </p>
             </aside>
@@ -646,7 +646,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               </div>
             </div>
 
-            <p className="mt-3 text-meta font-mono text-slate-500 dark:text-slate-500 leading-relaxed">
+            <p className="mt-3 text-meta font-mono text-muted leading-relaxed">
               Each tier builds on the last.{' '}
               <span className="text-body font-semibold">Skip one capability and attackers exploit the gap.</span>{' '}
               <span className="text-slate-500">Click any row for practice notes and failure modes.</span>
@@ -846,7 +846,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
           </article>
         </section>
 
-        <footer className="mt-10 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-meta font-mono text-slate-500 dark:text-slate-500 flex flex-wrap items-center justify-between gap-2">
+        <footer className="mt-10 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-meta font-mono text-muted flex flex-wrap items-center justify-between gap-2">
           <span>Reference card · derived from public security guidance</span>
           <span className="uppercase tracking-wider">v3 · 2026 · interactive · light theme</span>
         </footer>
@@ -876,7 +876,7 @@ function FilterPill({
         'inline-flex items-center text-micro font-mono uppercase tracking-[0.12em] px-2 py-1 rounded ring-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
         active
           ? (activeClass ?? 'bg-brand-50 text-brand-700 ring-brand-500/40 dark:bg-brand-500/15 dark:text-brand-300')
-          : 'bg-white text-slate-600 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:ring-slate-800 dark:hover:text-slate-200 dark:hover:ring-slate-700',
+          : 'bg-white text-slate-600 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 dark:bg-[rgb(var(--surface-200))] dark:text-muted dark:ring-slate-800 dark:hover:text-slate-200 dark:hover:ring-slate-700',
       ].join(' ')}
     >
       {label}

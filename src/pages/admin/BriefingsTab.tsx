@@ -74,7 +74,7 @@ const num = (n: number | undefined): number => n ?? 0;
 const isEmpty = (s: BriefingStats | undefined): boolean => num(s?.findings) === 0;
 
 function StatPills({ stats }: { stats: BriefingStats | undefined }) {
-  if (!stats) return <span className="text-slate-600 dark:text-slate-500">-</span>;
+  if (!stats) return <span className="text-muted">-</span>;
   const empty = isEmpty(stats);
   return (
     <span className={`font-mono text-xs ${empty ? 'text-rose-700 dark:text-rose-300' : 'text-body'}`}>
@@ -271,7 +271,7 @@ export default function BriefingsTab() {
               {buildResult.ok ? 'Built' : 'Done'}
             </span>{' '}
             <code className="font-mono text-body">{buildResult.slug}</code>
-            {buildResult.reason && <span className="text-slate-600 dark:text-slate-500"> - {buildResult.reason}</span>}
+            {buildResult.reason && <span className="text-muted"> - {buildResult.reason}</span>}
             <div className="mt-1">
               <StatPills stats={buildResult.stats} />
             </div>
@@ -295,9 +295,7 @@ export default function BriefingsTab() {
         </p>
         <div className="flex flex-wrap items-end gap-3 mb-3">
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-              Daily (0–21)
-            </span>
+            <span className="block text-xs uppercase tracking-wider text-muted mb-1">Daily (0–21)</span>
             <input
               type="number"
               min={0}
@@ -309,9 +307,7 @@ export default function BriefingsTab() {
             />
           </label>
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-              Weekly (0–4)
-            </span>
+            <span className="block text-xs uppercase tracking-wider text-muted mb-1">Weekly (0–4)</span>
             <input
               type="number"
               min={0}
@@ -354,8 +350,8 @@ export default function BriefingsTab() {
             <div>
               <span className="text-emerald-700 dark:text-emerald-300">written:</span> daily{' '}
               {backfillResult.daily.length}, weekly {backfillResult.weekly.length} ·{' '}
-              <span className="text-slate-600 dark:text-slate-500">skipped:</span> daily{' '}
-              {backfillResult.daily_skipped.length}, weekly {backfillResult.weekly_skipped.length}
+              <span className="text-muted">skipped:</span> daily {backfillResult.daily_skipped.length}, weekly{' '}
+              {backfillResult.weekly_skipped.length}
               {backfillResult.failures.length > 0 && (
                 <span className="text-rose-700 dark:text-rose-300"> · failures: {backfillResult.failures.length}</span>
               )}
@@ -376,9 +372,7 @@ export default function BriefingsTab() {
         </p>
         <div className="flex flex-wrap items-end gap-3 mb-3">
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-              Max age (days)
-            </span>
+            <span className="block text-xs uppercase tracking-wider text-muted mb-1">Max age (days)</span>
             <input
               type="number"
               min={1}
@@ -432,7 +426,7 @@ export default function BriefingsTab() {
             </button>
           </div>
         </div>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mb-3">
+        <p className="text-xs text-muted mb-3">
           Empty (0 findings / 0 IOCs) rows are flagged in red. The list is edge-cached ~5 min, so a just-built row may
           lag - the build/backfill result above shows fresh stats.
         </p>

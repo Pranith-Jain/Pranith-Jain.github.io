@@ -251,12 +251,10 @@ export default function DlpScan(): JSX.Element {
                         >
                           {f.confidence}
                         </span>
-                        <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
+                        <span className="text-micro font-mono text-slate-400">
                           {CATEGORY_LABELS[f.pattern.category]}
                         </span>
-                        <span className="text-micro font-mono text-slate-400 dark:text-slate-400 ml-auto">
-                          @ {f.index}
-                        </span>
+                        <span className="text-micro font-mono text-slate-400 ml-auto">@ {f.index}</span>
                       </div>
                       <p className="text-meta font-mono text-body mb-1">{f.pattern.description}</p>
                       <code className="text-meta font-mono text-heading break-all bg-white dark:bg-[rgb(var(--surface-200))] rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 inline-block">
@@ -274,7 +272,7 @@ export default function DlpScan(): JSX.Element {
                   </h2>
                   <CopyChip value={redacted} label="copy redacted" />
                 </div>
-                <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-2">
+                <p className="text-mini font-mono text-slate-400 mb-2">
                   Every finding replaced with <code>[REDACTED:&lt;pattern-id&gt;]</code>. Safe to share in a ticket or
                   on Slack.
                 </p>
@@ -311,16 +309,14 @@ export default function DlpScan(): JSX.Element {
                 >
                   {p.severity}
                 </span>
-                <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
-                  {CATEGORY_LABELS[p.category]}
-                </span>
+                <span className="text-micro font-mono text-slate-400">{CATEGORY_LABELS[p.category]}</span>
                 {p.validate && (
                   <span className="text-micro font-mono px-1 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
                     validated
                   </span>
                 )}
               </div>
-              <p className="text-mini font-mono text-slate-400 dark:text-slate-400 leading-relaxed">{p.description}</p>
+              <p className="text-mini font-mono text-slate-400 leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>

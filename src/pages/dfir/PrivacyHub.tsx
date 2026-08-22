@@ -204,7 +204,7 @@ export default function PrivacyHub(): JSX.Element {
                 style={{ width: `${Math.max(2, c.score)}%` }}
               />
             </div>
-            <div className="text-micro font-mono text-slate-400 dark:text-slate-400">
+            <div className="text-micro font-mono text-slate-400">
               {c.covered}/{c.total} items
             </div>
           </button>
@@ -364,9 +364,7 @@ function ArticleRow({
           {STATUS_STYLES[s].label}
         </button>
         <span className="font-display font-semibold text-sm text-heading">{article.title}</span>
-        {article.citation && (
-          <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{article.citation}</span>
-        )}
+        {article.citation && <span className="text-micro font-mono text-slate-400">{article.citation}</span>}
       </div>
       <p className="text-meta font-mono text-muted leading-relaxed">{article.body}</p>
     </li>

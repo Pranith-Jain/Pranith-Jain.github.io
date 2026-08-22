@@ -220,7 +220,7 @@ export default function Socmint(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
@@ -267,7 +267,7 @@ export default function Socmint(): JSX.Element {
               </button>
             );
           })}
-          <label className="text-mini font-mono text-slate-400 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
+          <label className="text-mini font-mono text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
             <input type="checkbox" checked={includePaid} onChange={(e) => setIncludePaid(e.target.checked)} />
             include paid services
           </label>
@@ -301,7 +301,7 @@ export default function Socmint(): JSX.Element {
                 >
                   <Icon size={10} /> {meta.label}
                 </span>
-                <span className="text-mini font-mono text-slate-400 dark:text-slate-400">{meta.blurb}</span>
+                <span className="text-mini font-mono text-slate-400">{meta.blurb}</span>
               </div>
               <ul className="grid sm:grid-cols-2 gap-2">
                 {list.map((p) => {
@@ -336,7 +336,7 @@ export default function Socmint(): JSX.Element {
       </div>
 
       {value && (
-        <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-8">
+        <p className="text-micro font-mono text-slate-400 mt-8">
           {matchingPivots.length} pivot{matchingPivots.length === 1 ? '' : 's'} for {KIND_LABEL[kind!]}. Input shape
           detected as <code>{kind}</code>. Pivots are URL templates; nothing about your input is sent anywhere except
           the destination service when you click a link.
@@ -365,8 +365,8 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
           {internal ? <Globe2 size={10} /> : <ExternalLink size={10} />}
         </span>
       </div>
-      <span className="block text-mini font-mono text-slate-400 dark:text-slate-400">{pivot.blurb}</span>
-      <span className="block text-micro font-mono text-slate-400 dark:text-slate-400 truncate mt-1">{url}</span>
+      <span className="block text-mini font-mono text-slate-400">{pivot.blurb}</span>
+      <span className="block text-micro font-mono text-slate-400 truncate mt-1">{url}</span>
     </>
   );
 }

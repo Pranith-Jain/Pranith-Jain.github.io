@@ -111,7 +111,7 @@ export default function ApiKeysTab() {
         <h2 className="text-sm font-semibold text-heading mb-4">Create API Key</h2>
         <form onSubmit={handleCreate} className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[200px]">
-            <label htmlFor="key-label" className="block text-xs text-slate-600 dark:text-slate-500 mb-1">
+            <label htmlFor="key-label" className="block text-xs text-muted mb-1">
               Label
             </label>
             <input
@@ -124,7 +124,7 @@ export default function ApiKeysTab() {
             />
           </div>
           <div>
-            <label htmlFor="key-role" className="block text-xs text-slate-600 dark:text-slate-500 mb-1">
+            <label htmlFor="key-role" className="block text-xs text-muted mb-1">
               Role
             </label>
             <select
@@ -162,7 +162,7 @@ export default function ApiKeysTab() {
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
-            <p className="mt-2 text-xs text-slate-600 dark:text-slate-500">
+            <p className="mt-2 text-xs text-muted">
               Label: {newKey.label} · Role: {newKey.role} · Prefix: <code>{newKey.prefix}…</code>
             </p>
           </div>
@@ -174,9 +174,9 @@ export default function ApiKeysTab() {
         <h2 className="text-sm font-semibold text-heading mb-4">Active Keys</h2>
         {error && <p className="text-sm text-rose-600 dark:text-rose-400 mb-4">{error}</p>}
         {loading ? (
-          <p className="text-sm text-slate-600 dark:text-slate-500">Loading…</p>
+          <p className="text-sm text-muted">Loading…</p>
         ) : keys.length === 0 ? (
-          <p className="text-sm text-slate-600 dark:text-slate-500">No API keys yet. Create one above.</p>
+          <p className="text-sm text-muted">No API keys yet. Create one above.</p>
         ) : (
           <div className="overflow-x-auto">
             <DataTable

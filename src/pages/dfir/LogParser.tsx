@@ -144,15 +144,15 @@ export default function LogParser(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
               <div>
                 <div className="text-2xl font-bold text-heading">{summary.total}</div>
-                <div className="text-mini font-mono text-slate-400 dark:text-slate-400">total lines</div>
+                <div className="text-mini font-mono text-slate-400">total lines</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-heading">{summary.unique_techniques.length}</div>
-                <div className="text-mini font-mono text-slate-400 dark:text-slate-400">unique MITRE techniques</div>
+                <div className="text-mini font-mono text-slate-400">unique MITRE techniques</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-heading">{summary.unique_event_ids.length}</div>
-                <div className="text-mini font-mono text-slate-400 dark:text-slate-400">unique event IDs</div>
+                <div className="text-mini font-mono text-slate-400">unique event IDs</div>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -222,14 +222,8 @@ export default function LogParser(): JSX.Element {
                     {r.severity}
                   </span>
                   {r.event_id && <span className="text-mini font-mono text-body">EID {r.event_id}</span>}
-                  {r.source && (
-                    <span className="text-mini font-mono text-slate-400 dark:text-slate-400">{r.source}</span>
-                  )}
-                  {r.timestamp && (
-                    <span className="text-mini font-mono text-slate-400 dark:text-slate-400 ml-auto">
-                      {r.timestamp}
-                    </span>
-                  )}
+                  {r.source && <span className="text-mini font-mono text-slate-400">{r.source}</span>}
+                  {r.timestamp && <span className="text-mini font-mono text-slate-400 ml-auto">{r.timestamp}</span>}
                 </div>
 
                 {r.mitre_techniques.length > 0 && (
@@ -258,7 +252,7 @@ export default function LogParser(): JSX.Element {
                 )}
 
                 <details>
-                  <summary className="text-mini font-mono text-slate-400 dark:text-slate-400 cursor-pointer">
+                  <summary className="text-mini font-mono text-slate-400 cursor-pointer">
                     {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} - show
                     structured JSON
                   </summary>

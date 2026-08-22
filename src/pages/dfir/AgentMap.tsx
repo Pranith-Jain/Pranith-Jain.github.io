@@ -283,7 +283,7 @@ export default function AgentMap(): JSX.Element {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-mini font-mono text-slate-400 dark:text-slate-400 leading-relaxed">
+              <p className="mt-3 text-mini font-mono text-slate-400 leading-relaxed">
                 Classification is heuristic - based on tool name, description, and Claude Code permission shape. Hover a
                 node to see the source detail.
               </p>
@@ -309,7 +309,7 @@ export default function AgentMap(): JSX.Element {
                       >
                         {r.severity}
                       </span>
-                      <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{r.kind}</span>
+                      <span className="text-micro font-mono text-slate-400">{r.kind}</span>
                     </div>
                     <p className="text-sm font-mono text-body mb-2">{r.detail}</p>
                     <div className="flex flex-wrap items-center gap-1.5 mb-2">
@@ -347,7 +347,7 @@ export default function AgentMap(): JSX.Element {
                       <span className="font-semibold text-heading">{t.label}</span>
                       <span className="text-muted">[{t.origin}]</span>
                       {t.capabilities.length === 0 ? (
-                        <span className="text-micro text-slate-400 dark:text-slate-400">no capability classified</span>
+                        <span className="text-micro text-slate-400">no capability classified</span>
                       ) : (
                         t.capabilities.map((c) => (
                           <span

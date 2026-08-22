@@ -261,7 +261,7 @@ export default function StixBuilder(): JSX.Element {
       </header>
 
       {deepLinkBundleId && (
-        <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400">
+        <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted">
           Viewing persisted bundle <code className="font-mono text-mini">{deepLinkBundleId}</code>. Build a new one
           below to replace, or close this tab to keep this view linkable.
         </div>
@@ -279,7 +279,7 @@ export default function StixBuilder(): JSX.Element {
               className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono uppercase tracking-wider transition-colors ${
                 active
                   ? 'border-brand-500/40 bg-brand-500/15 text-brand-700 dark:bg-brand-400/15 dark:text-brand-300'
-                  : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400'
+                  : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted'
               }`}
             >
               <Icon size={12} /> {label}
@@ -345,7 +345,7 @@ export default function StixBuilder(): JSX.Element {
                 className={`rounded border px-2 py-1 transition-colors ${
                   tlp === t
                     ? 'border-brand-500/40 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted'
                 }`}
               >
                 {t}

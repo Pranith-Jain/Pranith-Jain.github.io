@@ -359,7 +359,7 @@ export function SectionErrorBoundary({ sectionName, children }: { sectionName: s
           <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-3" />
           <h3 className="text-lg font-bold text-heading mb-2">{sectionName} Section</h3>
           <p className="text-sm text-muted mb-4">This section encountered an error and couldn't load.</p>
-          <p className="text-xs text-slate-400 dark:text-slate-400">The rest of the page is still functional.</p>
+          <p className="text-xs text-slate-400">The rest of the page is still functional.</p>
         </div>
       }
     >

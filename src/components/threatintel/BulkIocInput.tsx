@@ -136,7 +136,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
           setOpen(!open);
           if (!open) setEnrichResults(null);
         }}
-        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
+        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:text-muted dark:hover:border-brand-400 dark:hover:text-brand-400"
       >
         <Upload size={12} />
         Bulk IOC
@@ -247,14 +247,14 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                   setParsed([]);
                   setEnrichResults(null);
                 }}
-                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
+                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-muted"
               >
                 Cancel
               </button>
               <button
                 onClick={handleEnrich}
                 disabled={parsed.length === 0 || enriching}
-                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-600 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400 transition-colors"
+                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-600 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 dark:border-[rgb(var(--border-400))] dark:text-muted transition-colors"
               >
                 {enriching ? <Loader2 size={11} className="animate-spin" /> : 'Enrich'}
               </button>

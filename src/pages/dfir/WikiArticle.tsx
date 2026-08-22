@@ -111,7 +111,7 @@ export default function WikiArticle(): JSX.Element {
                   className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 hover:border-brand-500/40"
                 >
                   <span className="font-display font-semibold text-sm text-heading">{t.term}</span>
-                  <span className="block text-mini font-mono text-slate-400 dark:text-slate-400 mt-0.5">{t.blurb}</span>
+                  <span className="block text-mini font-mono text-slate-400 mt-0.5">{t.blurb}</span>
                 </Link>
               </li>
             ))}

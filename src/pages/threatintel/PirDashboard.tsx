@@ -961,7 +961,7 @@ export default function PirDashboard(): JSX.Element {
                                       <button
                                         type="button"
                                         onClick={() => toggleKiq(pir.id, j)}
-                                        className={`mt-0.5 shrink-0 ${answered ? 'text-emerald-500' : 'text-slate-300 dark:text-slate-400'}`}
+                                        className={`mt-0.5 shrink-0 ${answered ? 'text-emerald-500' : 'text-slate-300 dark:text-muted'}`}
                                         title={answered ? 'Mark unanswered' : 'Mark answered'}
                                       >
                                         {answered ? <CheckCircle size={12} /> : <Circle size={12} />}

@@ -79,7 +79,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-rose-500/40'
+      : 'border-line-1 text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -202,7 +202,7 @@ export default function SupplyChainAttacks(): JSX.Element {
           const titleHref = safeHref(inc.url);
           const packages = inc.iocs.packages ?? [];
           return (
-            <div key={inc.id} className="rounded-xl border border-line-1 bg-slate-50 dark:bg-slate-950 p-3">
+            <div key={inc.id} className="rounded-xl border border-line-1 bg-slate-50 dark:bg-input-200 p-3">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-heading leading-snug">
                   {titleHref ? (

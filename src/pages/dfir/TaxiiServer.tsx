@@ -222,7 +222,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
     >
       <div className="flex items-center gap-2">
         <span
-          className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
+          className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted'}`}
         >
           {obj.type}
         </span>

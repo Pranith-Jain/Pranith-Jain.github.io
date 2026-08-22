@@ -602,7 +602,7 @@ export default function AssetIntel(): JSX.Element {
 
       {!loading && !error && !hostIntel && !whoisData && !initial && (
         <div className="text-center py-16">
-          <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
+          <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
           <p className="text-slate-500">Enter an IP address or domain to begin asset intelligence</p>
           <p className="text-xs text-muted mt-1">
             IP → exposed host, open ports, CVEs, artifacts · Domain → WHOIS history, registration changes, related

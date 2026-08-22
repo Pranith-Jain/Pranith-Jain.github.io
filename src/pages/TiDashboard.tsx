@@ -140,7 +140,7 @@ function exploitColor(status: string): string {
   const s = (status ?? '').toLowerCase();
   if (s.includes('active')) return SEVERITY_STYLES['critical'] ?? SEV_DEFAULT;
   if (s.includes('functional') || s.includes('confirmed')) return SEVERITY_STYLES['high'] ?? SEV_DEFAULT;
-  return 'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700';
+  return 'text-muted bg-slate-50 dark:bg-input-200/40 border-line-1';
 }
 
 function severityPill(s: string): string {

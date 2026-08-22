@@ -146,7 +146,7 @@ function DfirRefDetail({ body, onClose }: { body: DfirRefBody; onClose: () => vo
           </>
         )}
 
-        <div className="text-micro text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-micro text-muted pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Authored reference data — verify against vendor documentation before use in production IR.
         </div>
       </div>
@@ -301,7 +301,7 @@ export default function DfirRef() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Authored in-repo reference data — event IDs, Volatility plugins, browser artifact locations and evidence
           collection phases for day-to-day IR. Cross-check against vendor docs before triage decisions.
         </div>

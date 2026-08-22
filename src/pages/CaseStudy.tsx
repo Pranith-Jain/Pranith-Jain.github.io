@@ -115,7 +115,7 @@ export default function CaseStudy(): JSX.Element {
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 mt-4">
           <span className="font-medium text-body">Pranith Jain</span>
-          <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
+          <span aria-hidden="true" className="text-slate-300 dark:text-muted">
             ·
           </span>
           <time dateTime={study.publishedAt}>
@@ -125,7 +125,7 @@ export default function CaseStudy(): JSX.Element {
               day: 'numeric',
             })}
           </time>
-          <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
+          <span aria-hidden="true" className="text-slate-300 dark:text-muted">
             ·
           </span>
           <span className="inline-flex items-center gap-1">
@@ -187,7 +187,7 @@ export default function CaseStudy(): JSX.Element {
             '[&_li]:leading-relaxed ' +
             '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
             '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-300))] [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-            '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
+            '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-muted ' +
             '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-[rgb(var(--border-400))]'
           }
           dangerouslySetInnerHTML={{ __html: html }}

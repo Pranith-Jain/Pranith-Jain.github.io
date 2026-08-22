@@ -300,14 +300,14 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
                       {analysis.impact && (
                         <div className="rounded-xl bg-slate-50 dark:bg-white/[0.04] p-2.5">
                           <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Impact</span>
-                          <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.impact}</p>
+                          <p className="text-xs text-slate-700 dark:text-muted">{analysis.impact}</p>
                         </div>
                       )}
 
                       {analysis.context && (
                         <div className="rounded-xl bg-slate-50 dark:bg-white/[0.04] p-2.5">
                           <span className="text-micro font-mono uppercase text-slate-500 block mb-0.5">Context</span>
-                          <p className="text-xs text-slate-700 dark:text-slate-400">{analysis.context}</p>
+                          <p className="text-xs text-slate-700 dark:text-muted">{analysis.context}</p>
                         </div>
                       )}
 

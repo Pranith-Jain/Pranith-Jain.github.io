@@ -221,11 +221,7 @@ export default function ETDAActorsPage() {
                     <Crosshair className="w-3 h-3" /> {actor.sectorCount} sectors
                   </span>
                 )}
-                {actor.firstSeen && (
-                  <span className="font-mono text-micro text-slate-500 dark:text-slate-500">
-                    since {actor.firstSeen}
-                  </span>
-                )}
+                {actor.firstSeen && <span className="font-mono text-micro text-muted">since {actor.firstSeen}</span>}
               </div>
               {actor.description && <p className="text-xs text-muted mt-1.5 line-clamp-2">{actor.description}</p>}
             </button>
@@ -235,7 +231,7 @@ export default function ETDAActorsPage() {
         {/* Empty state */}
         {!loading && filteredActors.length === 0 && (
           <div className="text-center py-16">
-            <Globe className="w-8 h-8 mx-auto mb-3 opacity-40 text-slate-500 dark:text-slate-500" />
+            <Globe className="w-8 h-8 mx-auto mb-3 opacity-40 text-muted" />
             <p className="text-sm text-muted">No actors match your filters</p>
           </div>
         )}
@@ -258,10 +254,7 @@ export default function ETDAActorsPage() {
                     <p className="font-mono text-xs text-muted mt-0.5">aka {detailData.aliases.join(', ')}</p>
                   )}
                 </div>
-                <button
-                  onClick={() => setSelectedSlug(null)}
-                  className="shrink-0 text-slate-500 dark:text-slate-500 hover:text-heading p-1"
-                >
+                <button onClick={() => setSelectedSlug(null)} className="shrink-0 text-muted hover:text-heading p-1">
                   <X size={20} />
                 </button>
               </div>
@@ -340,7 +333,7 @@ export default function ETDAActorsPage() {
                         </span>
                       ))}
                       {detailData.toolsUsed.length > 30 && (
-                        <span className="font-mono text-micro text-slate-500 dark:text-slate-500 self-center">
+                        <span className="font-mono text-micro text-muted self-center">
                           +{detailData.toolsUsed.length - 30} more
                         </span>
                       )}
@@ -431,7 +424,7 @@ export default function ETDAActorsPage() {
 
         {/* Footer */}
         {indexData && (
-          <div className="text-xs text-slate-500 dark:text-slate-500 border-t border-[rgb(var(--border-400))] pt-3 mt-6">
+          <div className="text-xs text-muted border-t border-[rgb(var(--border-400))] pt-3 mt-6">
             Source: {indexData.source} &middot; License: {indexData.license}
             {indexData.lastSyncedAt && (
               <> &middot; Last synced: {new Date(indexData.lastSyncedAt).toLocaleDateString()}</>

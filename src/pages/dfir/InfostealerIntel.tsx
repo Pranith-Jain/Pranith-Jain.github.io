@@ -361,7 +361,7 @@ export default function InfostealerIntel(): JSX.Element {
                 {(entry.credentials ?? []).map((cred, j) => (
                   <div key={j} className="px-4 py-2 flex flex-wrap items-center gap-2.5 text-xs">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded-full border text-xs ${TYPE_COLORS[cred.type] ?? 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:border-[rgb(var(--border-400))]'}`}
+                      className={`inline-block px-2 py-0.5 rounded-full border text-xs ${TYPE_COLORS[cred.type] ?? 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-muted dark:border-[rgb(var(--border-400))]'}`}
                     >
                       {cred.type}
                     </span>

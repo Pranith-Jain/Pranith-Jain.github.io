@@ -171,7 +171,7 @@ export default function Grc(): JSX.Element {
               <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
                 <div className={`h-full ${scoreColour(c.score)}`} style={{ width: `${Math.max(2, c.score)}%` }} />
               </div>
-              <div className="text-micro font-mono text-slate-400 dark:text-slate-400">
+              <div className="text-micro font-mono text-slate-400">
                 {c.covered}/{c.total} controls
               </div>
             </button>
@@ -292,7 +292,7 @@ export default function Grc(): JSX.Element {
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">A.{theme.number}</span>
                 <h3 className="font-display font-semibold text-heading">{theme.title}</h3>
-                <span className="text-micro font-mono text-slate-400 dark:text-slate-400 ml-auto">
+                <span className="text-micro font-mono text-slate-400 ml-auto">
                   {theme.controls.length}/{theme.controlCount} sampled
                 </span>
               </div>
@@ -329,7 +329,7 @@ export default function Grc(): JSX.Element {
                   );
                 })}
                 {theme.controls.length === 0 && (
-                  <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
+                  <p className="text-mini font-mono text-slate-400">
                     Detail-level controls not enumerated - use the official ISO 27001:2022 Annex A for the full set (
                     {theme.controlCount} controls in this theme).
                   </p>
@@ -360,7 +360,7 @@ export default function Grc(): JSX.Element {
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">{domain.shortId}</span>
                 <h3 className="font-display font-semibold text-heading">{domain.title}</h3>
-                <span className="text-micro font-mono text-slate-400 dark:text-slate-400 ml-auto">
+                <span className="text-micro font-mono text-slate-400 ml-auto">
                   {domain.controls.length} control{domain.controls.length === 1 ? '' : 's'}
                 </span>
               </div>
@@ -490,7 +490,7 @@ export default function Grc(): JSX.Element {
               <div key={d.id} className="surface-card p-4">
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
                   <h3 className="font-display font-semibold text-heading">{d.title}</h3>
-                  <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{d.description}</span>
+                  <span className="text-micro font-mono text-slate-400">{d.description}</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
                   {([0, 1, 2, 3, 4, 5] as MaturityLevel[]).map((n) => (

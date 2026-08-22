@@ -217,9 +217,7 @@ export default function AdminApp() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-display font-bold text-slate-900 dark:text-white">Case Study Admin</h1>
-          <p className="text-xs font-mono text-slate-600 dark:text-slate-500 mt-0.5">
-            Pipeline management and content admin
-          </p>
+          <p className="text-xs font-mono text-muted mt-0.5">Pipeline management and content admin</p>
         </div>
         <div className="flex items-center gap-3">
           {inferenceStats && (
@@ -260,7 +258,7 @@ export default function AdminApp() {
             className={`px-4 py-2 text-sm font-medium transition-colors ${
               active === t.key
                 ? 'border-b-2 border-brand-500 -mb-px text-slate-900 dark:text-white'
-                : 'text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+                : 'text-muted hover:text-slate-900 dark:hover:text-slate-300'
             }`}
           >
             {t.label}

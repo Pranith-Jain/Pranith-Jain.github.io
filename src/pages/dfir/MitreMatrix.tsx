@@ -274,7 +274,7 @@ export default function MitreMatrix(): JSX.Element {
             platforms, data sources, detection guidance, related techniques, and tracked actors that use it. Highlighted
             tiles indicate techniques observed in actor tradecraft.
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-500 mb-3">
+          <p className="text-xs text-muted mb-3">
             Purple team coverage:{' '}
             <a
               href="https://navigator.ipurple.team/"
@@ -390,9 +390,7 @@ export default function MitreMatrix(): JSX.Element {
         )}
 
         {/* Matrix - horizontally scrollable; explicit hint so touch users know to swipe */}
-        <p className="sm:hidden text-mini font-mono text-slate-400 dark:text-slate-400 mb-2 italic">
-          Swipe horizontally to scan tactics →
-        </p>
+        <p className="sm:hidden text-mini font-mono text-slate-400 mb-2 italic">Swipe horizontally to scan tactics →</p>
         <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
           <div className="flex gap-3 min-w-max">
             {visibleMatrix.map((tactic) => (
@@ -454,7 +452,7 @@ export default function MitreMatrix(): JSX.Element {
                             aria-label={`coverage: ${COVERAGE_LABEL[cov]}`}
                           />
                         )}
-                        <div className="text-micro font-mono text-slate-400 dark:text-slate-400">{technique.id}</div>
+                        <div className="text-micro font-mono text-slate-400">{technique.id}</div>
                         <div className="text-tool sm:text-xs font-medium text-heading leading-snug line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>
@@ -466,7 +464,7 @@ export default function MitreMatrix(): JSX.Element {
                           </div>
                         )}
                         {technique.subtechniques && technique.subtechniques.length > 0 && (
-                          <div className="mt-1 text-micro font-mono text-slate-400 dark:text-slate-400">
+                          <div className="mt-1 text-micro font-mono text-slate-400">
                             +{technique.subtechniques.length} sub-techniques
                           </div>
                         )}

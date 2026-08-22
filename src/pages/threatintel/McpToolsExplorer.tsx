@@ -39,10 +39,10 @@ const CATEGORY_COLORS: Record<string, string> = {
   detection: 'bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-800',
   osint: 'bg-lime-50 dark:bg-lime-950/40 text-lime-700 dark:text-lime-300 border-lime-200 dark:border-lime-800',
   pdns: 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800',
-  search: 'bg-slate-50 dark:bg-slate-950/40 text-body border-line-1',
+  search: 'bg-slate-50 dark:bg-input-200/40 text-body border-line-1',
   exposure:
     'bg-yellow-50 dark:bg-yellow-950/40 text-yellow-700 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800',
-  other: 'bg-slate-50 dark:bg-slate-950/40 text-muted border-slate-200 dark:border-slate-700',
+  other: 'bg-slate-50 dark:bg-input-200/40 text-muted border-slate-200 dark:border-slate-700',
 };
 
 const CARD = 'surface-card';

@@ -306,7 +306,7 @@ function TgIntelSearch() {
                   <button
                     type="button"
                     onClick={() => handleDeleteSaved(s.id)}
-                    className="p-1 text-slate-300 dark:text-slate-400 hover:text-rose-500 ml-2"
+                    className="p-1 text-slate-300 dark:text-muted hover:text-rose-500 ml-2"
                   >
                     <Trash2 size={12} />
                   </button>

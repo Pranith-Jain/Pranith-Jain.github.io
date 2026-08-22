@@ -299,7 +299,7 @@ export default function Pivex(): JSX.Element {
 
       {!showGraph && !loading && (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
-          <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-400" />
+          <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-muted" />
           <p className="text-sm text-muted">
             Enter an IP, domain, CVE, or actor name and click{' '}
             <span className="font-semibold text-body">Build Graph</span> to visualise the infrastructure pivot graph.

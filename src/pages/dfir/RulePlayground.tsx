@@ -234,7 +234,7 @@ export default function RulePlayground(): JSX.Element {
               <div className="grid gap-1.5 sm:grid-cols-2 mb-3">
                 {result.parsed.meta.map((m) => (
                   <div key={m.k} className="text-mini font-mono text-muted">
-                    <span className="text-slate-400 dark:text-slate-400">{m.k}:</span> {m.v}
+                    <span className="text-slate-400">{m.k}:</span> {m.v}
                   </div>
                 ))}
               </div>

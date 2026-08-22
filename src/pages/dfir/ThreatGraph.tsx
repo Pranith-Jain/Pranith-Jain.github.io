@@ -283,7 +283,7 @@ export default function ThreatGraph(): JSX.Element {
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Network size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
+              <Network size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">Node not found</p>
             </div>
           )}
@@ -293,7 +293,7 @@ export default function ThreatGraph(): JSX.Element {
         <div className="space-y-4 animate-fade-in-up">
           {communities.length === 0 ? (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Users size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
+              <Users size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">No communities detected</p>
             </div>
           ) : (

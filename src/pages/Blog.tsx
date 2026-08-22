@@ -379,11 +379,11 @@ export default function Blog() {
                 </Link>
                 <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-500">
                   <span className="font-medium text-body">Pranith Jain</span>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
+                  <span aria-hidden="true" className="text-slate-300 dark:text-muted">
                     ·
                   </span>
                   <time>{formatDate(p.publishedAt)}</time>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
+                  <span aria-hidden="true" className="text-slate-300 dark:text-muted">
                     ·
                   </span>
                   <span>{estimateReadingTime(p.excerpt)} min read</span>
@@ -397,7 +397,7 @@ export default function Blog() {
                         className={`rounded border px-2 py-0.5 text-mini font-mono transition-colors ${
                           tagFilter === t
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                            : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                            : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
                         }`}
                         title={`Browse tag: ${t}`}
                       >

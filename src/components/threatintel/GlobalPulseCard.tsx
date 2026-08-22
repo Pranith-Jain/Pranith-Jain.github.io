@@ -71,7 +71,7 @@ export function GlobalPulseCard(): JSX.Element | null {
           {topLayers.map(([kind, count]) => `${kind.replace(/_/g, ' ')} (${fmt(count)})`).join(' · ')}
         </p>
       </div>
-      <ArrowRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 dark:text-slate-400" />
+      <ArrowRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 dark:text-muted" />
     </Link>
   );
 }

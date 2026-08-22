@@ -479,7 +479,7 @@ export default function ExternalResources(): JSX.Element {
             )}
             {r.why && (
               <p className="text-meta font-mono italic text-muted leading-relaxed">
-                <span className="text-slate-400 dark:text-slate-400 not-italic">why:</span> {r.why}
+                <span className="text-slate-400 not-italic">why:</span> {r.why}
               </p>
             )}
           </li>
@@ -511,7 +511,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={() => setSignInOpen(true)}
-            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
             title="Paste your admin token to enable runtime editing"
           >
             <KeyRound size={11} /> editor sign in

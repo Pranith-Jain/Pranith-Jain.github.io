@@ -382,7 +382,7 @@ export default function EntityResolution(): JSX.Element {
                                 ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
                                 : pir.priority === 'high'
                                   ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
-                                  : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'
+                                  : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted'
                             }`}
                           >
                             {pir.priority}

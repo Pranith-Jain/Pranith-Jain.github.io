@@ -414,7 +414,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             </Suspense>
           ) : (
             <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-4 p-8 text-center">
-              <Network size={40} className="text-slate-300 dark:text-slate-400" />
+              <Network size={40} className="text-slate-300 dark:text-muted" />
               <div className="font-semibold text-muted">Search any entity to see its relationships</div>
               <div className="text-xs text-muted max-w-md">
                 Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all

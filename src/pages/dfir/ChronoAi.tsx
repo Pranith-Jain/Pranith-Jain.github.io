@@ -343,7 +343,7 @@ export default function ChronoAi(): JSX.Element {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 text-xs text-muted font-mono">
                             <span>{event.timestamp}</span>
-                            <span className="text-slate-300 dark:text-slate-400">|</span>
+                            <span className="text-slate-300 dark:text-muted">|</span>
                             <span>{event.source}</span>
                             {event.isLateral && (
                               <span className="px-1 py-0.5 rounded text-micro font-mono bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
@@ -412,7 +412,7 @@ export default function ChronoAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Clock size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
+              <Clock size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Paste log events and click <span className="font-semibold">Reconstruct</span>
               </p>

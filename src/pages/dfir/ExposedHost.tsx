@@ -524,7 +524,7 @@ export default function ExposedHostView(): JSX.Element {
 
       {!result && !loading && !error && (
         <div className="text-center py-16">
-          <Server size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
+          <Server size={48} className="mx-auto mb-4 text-slate-300 dark:text-muted" />
           <p className="text-slate-500">Enter an IP address to see exposed host intelligence</p>
           <p className="text-xs text-muted mt-1">
             Shows open ports, CVEs, hostnames, privacy flags, and artifact inventory

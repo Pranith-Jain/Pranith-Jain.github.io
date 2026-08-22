@@ -439,7 +439,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* Results */}
       {input.trim() && parsed && (
         <>
-          <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
+          <p className="text-mini font-mono text-slate-400 mb-4">
             {filtered.length} lookup{filtered.length !== 1 ? 's' : ''} available
           </p>
           <ul className="grid gap-3 md:grid-cols-2">

@@ -93,7 +93,7 @@ function ArtifactRowInner({ artifact }: { artifact: HostArtifact }): JSX.Element
               {artifact.http_status}
             </span>
           ) : (
-            <span className="font-mono text-xs text-slate-400 dark:text-slate-400">-</span>
+            <span className="font-mono text-xs text-slate-400">-</span>
           )}
         </td>
       </tr>

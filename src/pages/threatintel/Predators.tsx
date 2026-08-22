@@ -269,7 +269,7 @@ export default function Predators(): JSX.Element {
 
             <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-3">{cat.description}</p>
 
-            <div className="mt-auto space-y-2 text-xs font-mono text-slate-500 dark:text-slate-500">
+            <div className="mt-auto space-y-2 text-xs font-mono text-muted">
               <div>
                 <span className="flex items-center gap-1 text-muted mb-1">
                   <AlertTriangle size={11} /> Indicators

@@ -74,7 +74,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-brand-600 dark:text-muted dark:hover:text-brand-400 transition"
             aria-expanded={showAll}
           >
             {showAll ? (

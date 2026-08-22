@@ -75,7 +75,7 @@ function AlgorithmDetail({ body, onClose }: { body: PqcAlgorithmBody; onClose: (
             <p className="text-sm text-body leading-relaxed">{body.notes}</p>
           </div>
         )}
-        <p className="text-micro text-slate-500 dark:text-slate-500">{body.status}</p>
+        <p className="text-micro text-muted">{body.status}</p>
       </div>
     </Modal>
   );
@@ -208,7 +208,7 @@ export default function Pqc() {
           </div>
         </div>
 
-        <div className="text-center pt-2 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Summarized from NIST FIPS 203/204/205/206 + NSA CNSSP-15. Track IETF TLS hybrid drafts before production
           migration.
         </div>

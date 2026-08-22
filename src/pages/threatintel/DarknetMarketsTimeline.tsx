@@ -458,7 +458,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                       </span>
                     ))}
                   </div>
-                  {m.notes && <p className="text-mini text-slate-500 dark:text-slate-500 mt-1.5 italic">{m.notes}</p>}
+                  {m.notes && <p className="text-mini text-muted mt-1.5 italic">{m.notes}</p>}
                 </div>
               </div>
             </div>

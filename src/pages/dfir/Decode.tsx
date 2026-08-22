@@ -10,7 +10,7 @@ import { Textarea } from '../../components/ui/Input';
 const FORMAT_BADGE: Record<string, string> = {
   base64: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
   url: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
 };
 
 export default function Decode(): JSX.Element {

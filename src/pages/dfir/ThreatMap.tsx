@@ -915,7 +915,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
               <span className={`inline-block w-2.5 h-2.5 rounded shrink-0 ${KIND_COLOUR[r.kind]}`} aria-hidden="true" />
               <span className="text-heading font-semibold">{KIND_LABEL[r.kind]}</span>
               <span className="text-slate-500 ml-auto tabular-nums">{r.count.toLocaleString()}</span>
-              <span className="text-slate-400 dark:text-slate-400 text-micro tabular-nums">{pct.toFixed(0)}%</span>
+              <span className="text-slate-400 text-micro tabular-nums">{pct.toFixed(0)}%</span>
             </Link>
           );
         })}

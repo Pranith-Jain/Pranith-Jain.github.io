@@ -248,7 +248,7 @@ export default function OnionWatch(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search group name, .onion fqdn, or page title…"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-input-200 border border-line-1 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search onion mirrors"
           />
         </div>
@@ -333,7 +333,7 @@ export default function OnionWatch(): JSX.Element {
                   className={`rounded-xl border p-3 ${
                     g.any_reachable
                       ? 'border-emerald-500/30 bg-emerald-500/5'
-                      : 'border-line-1 bg-slate-50 dark:bg-slate-950 opacity-80'
+                      : 'border-line-1 bg-slate-50 dark:bg-input-200 opacity-80'
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
@@ -472,7 +472,7 @@ function Stat({
   loading: boolean;
 }): JSX.Element {
   return (
-    <div className="rounded border border-line-1 bg-slate-50 dark:bg-slate-950 px-2 py-2">
+    <div className="rounded border border-line-1 bg-slate-50 dark:bg-input-200 px-2 py-2">
       <div className="text-2xl font-display font-bold text-heading tabular-nums">
         {loading ? '…' : (valueText ?? value ?? 0)}
       </div>

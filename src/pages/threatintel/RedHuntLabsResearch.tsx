@@ -147,9 +147,7 @@ function ToolRow({
             <>
               <p className="mt-1 text-sm text-muted leading-relaxed">{tool.description}</p>
               {tool.conferences.length > 0 && (
-                <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">
-                  Showcased at: {tool.conferences.join(' · ')}
-                </p>
+                <p className="mt-1 text-xs text-muted">Showcased at: {tool.conferences.join(' · ')}</p>
               )}
             </>
           )}
@@ -174,11 +172,7 @@ function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: strin
         <div className="min-w-0 flex-1">
           <h3 className="text-base font-medium text-heading">{item.title}</h3>
           <p className="mt-1 text-sm text-muted leading-relaxed">{item.summary}</p>
-          {item.details && (
-            <p className="mt-2 text-xs text-slate-500 dark:text-slate-500 leading-relaxed line-clamp-3">
-              {item.details}
-            </p>
-          )}
+          {item.details && <p className="mt-2 text-xs text-muted leading-relaxed line-clamp-3">{item.details}</p>}
           <p className="mt-2 inline-flex items-center gap-1 text-xs text-rose-600 dark:text-rose-400">
             {hostnameOf(item.url)}
             <ExternalLink className="h-3 w-3" />
@@ -518,7 +512,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             </div>
           </div>
 
-          <p className="text-center text-xs text-slate-500 dark:text-slate-500">
+          <p className="text-center text-xs text-muted">
             Built with passion by the RedHunt Labs Research Team - Fueling research and innovation for the community.
           </p>
         </div>

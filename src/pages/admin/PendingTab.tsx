@@ -201,7 +201,7 @@ export default function PendingTab() {
               </button>
             </div>
             <table className="w-full text-sm">
-              <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <thead className="text-left text-xs uppercase tracking-wider text-muted border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <tr>
                   <th scope="col" className="py-2 pr-4">
                     Type
@@ -240,7 +240,7 @@ export default function PendingTab() {
                       <td className="py-2 pr-4 text-xs max-w-[12rem]">
                         {(() => {
                           const links = sourceLinksFrom(c.evidence);
-                          if (links.length === 0) return <span className="text-slate-400 dark:text-slate-400">-</span>;
+                          if (links.length === 0) return <span className="text-slate-400">-</span>;
                           return (
                             <div className="flex flex-col gap-0.5">
                               {links.map((u) => {
@@ -269,7 +269,7 @@ export default function PendingTab() {
                           );
                         })()}
                       </td>
-                      <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                      <td className="py-2 pr-4 text-muted text-xs whitespace-nowrap">
                         {new Date(c.discoveredAt).toLocaleString()}
                       </td>
                       <td className="py-2 whitespace-nowrap">

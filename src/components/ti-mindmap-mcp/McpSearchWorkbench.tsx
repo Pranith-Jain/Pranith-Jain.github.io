@@ -48,7 +48,7 @@ const SEVERITY_PILL: Record<Severity, string> = {
   critical: 'border-rose-400 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300',
   high: 'border-orange-400 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-400 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-300 bg-slate-50 dark:bg-slate-950/40 text-muted',
+  low: 'border-slate-300 bg-slate-50 dark:bg-input-200/40 text-muted',
 };
 
 const HISTORY_KEY = 'ti-mindmap:search-history';
@@ -986,6 +986,6 @@ function SeverityBadge({ severity }: { severity: string }): JSX.Element {
         ? 'bg-orange-100 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-800'
         : s === 'medium'
           ? 'bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800'
-          : 'bg-slate-100 dark:bg-slate-950/40 text-muted border-slate-300 dark:border-slate-700';
+          : 'bg-slate-100 dark:bg-input-200/40 text-muted border-line-1';
   return <span className={`rounded px-1.5 py-0.5 text-micro font-mono border ${cls}`}>{severity}</span>;
 }

@@ -179,7 +179,7 @@ export default function UrlRisk() {
             </Button>
           </form>
           <div className="flex flex-wrap gap-1.5 mt-3">
-            <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
+            <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
             {SAMPLES.map((s) => (
               <button
                 key={s.label}

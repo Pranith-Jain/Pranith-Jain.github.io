@@ -131,11 +131,11 @@ export function TopBar({
         <button
           type="button"
           onClick={openPalette}
-          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition-colors hover:border-[rgb(var(--border-500))] hover:bg-white dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition-colors hover:border-[rgb(var(--border-500))] hover:bg-white dark:bg-[rgb(var(--surface-200))] dark:text-muted dark:hover:bg-[rgb(var(--surface-300))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search
-            className="h-4 w-4 flex-shrink-0 text-muted group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-muted"
+            className="h-4 w-4 flex-shrink-0 text-muted group-hover:text-muted dark:group-hover:text-muted"
             aria-hidden="true"
           />
           <span className="truncate flex-1 text-tool sm:text-sm">

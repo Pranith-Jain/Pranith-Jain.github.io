@@ -102,14 +102,12 @@ export default function IntelBundleTab() {
             {loading ? 'Inspecting…' : 'Inspect'}
           </button>
         </div>
-        <p className="text-xs text-slate-600 dark:text-slate-500 font-mono">
-          GET /api/v1/admin/intel-bundle/&lt;source&gt;/&lt;ref&gt;
-        </p>
+        <p className="text-xs text-muted font-mono">GET /api/v1/admin/intel-bundle/&lt;source&gt;/&lt;ref&gt;</p>
         {error && (
           <p className="mt-3 text-xs font-mono text-rose-400 break-all">
             error: {error}
             {error.includes('not_found') && (
-              <span className="block mt-1 text-slate-600 dark:text-slate-500">
+              <span className="block mt-1 text-muted">
                 No persisted row for that (source, ref). The warmer may not have run yet - wait for the top of the next
                 hour or check `wrangler tail` for the `intel-bundle-warm` log line.
               </span>
@@ -142,7 +140,7 @@ function Result({ data }: { data: InspectShape }) {
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <h3 className="font-semibold">{data.title}</h3>
-          <p className="text-xs text-slate-600 dark:text-slate-500 font-mono mt-1">
+          <p className="text-xs text-muted font-mono mt-1">
             {data.source.name} · {data.generatedAt && new Date(data.generatedAt).toLocaleString()}
           </p>
         </div>
@@ -160,7 +158,7 @@ function Result({ data }: { data: InspectShape }) {
             key={c.label}
             className="rounded bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-2"
           >
-            <div className="text-slate-600 dark:text-slate-500 text-micro uppercase tracking-wider">{c.label}</div>
+            <div className="text-muted text-micro uppercase tracking-wider">{c.label}</div>
             <div className="text-lg font-mono">{c.value}</div>
           </div>
         ))}
@@ -190,7 +188,7 @@ function Result({ data }: { data: InspectShape }) {
           <ul className="space-y-1 text-xs font-mono">
             {data.affectedProducts.map((p) => (
               <li key={`${p.vendor}|${p.product}`}>
-                <span className="text-slate-600 dark:text-slate-500">{p.vendor}</span> · {p.product}
+                <span className="text-muted">{p.vendor}</span> · {p.product}
               </li>
             ))}
           </ul>
@@ -225,7 +223,7 @@ function Result({ data }: { data: InspectShape }) {
             {data.actorCandidates.map((c) => (
               <li key={c.name}>
                 <span className="font-mono">{c.name}</span>
-                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> - {c.rationale}</span>}
+                {c.rationale && <span className="text-muted"> - {c.rationale}</span>}
               </li>
             ))}
           </ul>
@@ -240,14 +238,14 @@ function Result({ data }: { data: InspectShape }) {
             {data.malwareCandidates.map((c) => (
               <li key={c.name}>
                 <span className="font-mono">{c.name}</span>
-                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> - {c.rationale}</span>}
+                {c.rationale && <span className="text-muted"> - {c.rationale}</span>}
               </li>
             ))}
           </ul>
         )}
       </Block>
 
-      <footer className="flex flex-wrap items-center gap-3 text-mini font-mono text-slate-600 dark:text-slate-500 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <footer className="flex flex-wrap items-center gap-3 text-mini font-mono text-muted pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
         <span>bundle: {data.bundleId.slice(0, 24)}…</span>
         <span>hash: {data.extractedHash.slice(0, 12)}…</span>
         <Link
@@ -274,7 +272,7 @@ function Result({ data }: { data: InspectShape }) {
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h4 className="text-mini uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">{title}</h4>
+      <h4 className="text-mini uppercase tracking-wider text-muted mb-2">{title}</h4>
       {children}
     </section>
   );

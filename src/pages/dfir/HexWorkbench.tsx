@@ -331,7 +331,7 @@ export default function HexWorkbench() {
             </div>
           )}
 
-          <div className="overflow-x-auto rounded-lg border border-line-1 bg-white dark:bg-slate-950 p-3">
+          <div className="overflow-x-auto rounded-lg border border-line-1 bg-white dark:bg-input-200 p-3">
             <pre className="font-mono text-xs leading-5">
               {visibleRows.map((r) => {
                 const hasHit = hits.some((h) => h >= r.off && h < r.off + ROW_BYTES);

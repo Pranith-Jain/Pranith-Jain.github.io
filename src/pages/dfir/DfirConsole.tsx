@@ -202,7 +202,7 @@ function EndpointsTab(): JSX.Element {
               {flows.map((f) => (
                 <div
                   key={f.flow_id}
-                  className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 py-1 text-xs"
+                  className="flex items-center justify-between border-b border-slate-100 dark:border-line-1 py-1 text-xs"
                 >
                   <span className="font-mono">{f.flow_id}</span>
                   <span className="truncate px-2 text-slate-500">{(f.artifacts ?? []).join(', ')}</span>
@@ -530,7 +530,7 @@ function ObservablesTab(): JSX.Element {
             </thead>
             <tbody>
               {hits.slice(0, 500).map((h, i) => (
-                <tr key={`${h.type}-${h.value}-${i}`} className="border-t border-slate-100 dark:border-slate-800">
+                <tr key={`${h.type}-${h.value}-${i}`} className="border-t border-slate-100 dark:border-line-1">
                   <td className="px-3 py-1 font-mono text-slate-500">{h.type}</td>
                   <td className="px-3 py-1 font-mono break-all">{h.value}</td>
                 </tr>

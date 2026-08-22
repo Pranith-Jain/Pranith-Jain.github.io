@@ -157,7 +157,7 @@ export default function EmailDefense(): JSX.Element {
               />
             </div>
             <p className="text-sm font-mono text-body mb-3">{assessment.headline}</p>
-            <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
+            <p className="text-mini font-mono text-slate-400">
               Higher score = easier for an attacker to send mail "from" {data.domain} that lands in someone's inbox. 0
               means well-defended.
             </p>

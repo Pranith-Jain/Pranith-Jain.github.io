@@ -191,7 +191,7 @@ function CategoryPill({
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
         active
           ? `${accent} border-current bg-current/10`
-          : 'border-slate-300/60 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-100'
+          : 'border-slate-300/60 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted dark:hover:border-slate-600 dark:hover:text-slate-100'
       }`}
     >
       {label}

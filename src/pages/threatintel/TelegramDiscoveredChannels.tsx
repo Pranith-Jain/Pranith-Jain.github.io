@@ -181,7 +181,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
 
       <DataState loading={loading} error={error} rows={6}>
         {filtered.length === 0 ? (
-          <div className="text-center py-16 text-slate-500 dark:text-slate-500">
+          <div className="text-center py-16 text-muted">
             <Radio size={40} className="mx-auto mb-4 opacity-40" />
             <p className="text-sm font-mono">No discovered channels</p>
           </div>

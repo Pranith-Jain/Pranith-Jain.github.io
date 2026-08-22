@@ -340,7 +340,7 @@ export default function CtiDashboard(): JSX.Element {
                       className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                     >
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-mini font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-mini font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-muted'}`}
                       >
                         {type}
                       </span>

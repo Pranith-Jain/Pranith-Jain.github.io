@@ -43,9 +43,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 function catColor(category: string): string {
-  return (
-    CATEGORY_COLORS[category] ?? 'text-body bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700'
-  );
+  return CATEGORY_COLORS[category] ?? 'text-body bg-slate-50 dark:bg-input-200/40 border-line-1';
 }
 
 export default function OssFeeds() {

@@ -136,7 +136,7 @@ export function AsyncState({
       <div
         role="status"
         aria-live="polite"
-        className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 px-4 py-12 text-center text-tool text-slate-500 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
+        className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 px-4 py-12 text-center text-tool text-slate-500 dark:border-[rgb(var(--border-400))] dark:text-muted"
       >
         <div className="mb-3 text-slate-400 dark:text-slate-500" aria-hidden="true">
           {emptyIcon ?? <Inbox size={28} strokeWidth={1.5} />}

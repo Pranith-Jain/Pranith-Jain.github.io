@@ -224,7 +224,7 @@ export default function MostWanted(): JSX.Element {
 
             <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-3">{actor.description}</p>
 
-            <div className="mt-auto space-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-500">
+            <div className="mt-auto space-y-1.5 text-xs font-mono text-muted">
               {actor.aliases.length > 0 && (
                 <p>
                   <span className="text-muted">Aliases:</span> {actor.aliases.join(', ')}

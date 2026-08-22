@@ -195,7 +195,7 @@ export default function FeedCatalog() {
                     </a>
                   </div>
                   <div className="mt-2">
-                    <code className="text-xs text-slate-400 dark:text-slate-400 font-mono break-all">{entry.url}</code>
+                    <code className="text-xs text-slate-400 font-mono break-all">{entry.url}</code>
                   </div>
                 </div>
               </div>

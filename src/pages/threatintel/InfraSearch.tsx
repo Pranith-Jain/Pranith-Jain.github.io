@@ -238,7 +238,7 @@ export default function InfraSearch(): JSX.Element {
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
                   <Map size={12} />
                   <span>{mapGlobal ? 'Global view' : 'Zoomed to results'}</span>
-                  <span className="text-slate-300 dark:text-slate-400">·</span>
+                  <span className="text-slate-300 dark:text-muted">·</span>
                   <span>{filtered.length} shown</span>
                 </div>
                 <div className="flex items-center gap-1">

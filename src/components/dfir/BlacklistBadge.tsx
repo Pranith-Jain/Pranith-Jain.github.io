@@ -21,7 +21,7 @@ function BlacklistBadgeInner({ bl, compact, showName = true }: Props): JSX.Eleme
   let Icon: typeof ShieldAlert;
   let title: string | undefined;
   if (bl.blocked) {
-    tone = 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-400';
+    tone = 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-muted';
     label = 'blocked';
     Icon = ShieldQuestion;
     title =

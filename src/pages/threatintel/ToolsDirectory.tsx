@@ -201,7 +201,7 @@ export default function ToolsDirectory(): JSX.Element {
           {/* Tool grid */}
           {filtered.length === 0 ? (
             <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
+              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400" />
               No tools match your filters
               {query && <> for &quot;{query}&quot;</>}.
             </div>

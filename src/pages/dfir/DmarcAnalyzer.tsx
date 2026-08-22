@@ -360,7 +360,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           className="hidden"
           aria-label="Upload DMARC XML report"
         />
-        <Upload size={36} className="mx-auto mb-3 text-slate-400 dark:text-slate-400" />
+        <Upload size={36} className="mx-auto mb-3 text-slate-400" />
         <p className="text-sm font-mono text-muted mb-1">Drag &amp; drop your DMARC XML report here</p>
         <p className="text-xs text-muted font-mono">or click to browse - .xml, .gz, .zip up to 25 MB</p>
       </div>

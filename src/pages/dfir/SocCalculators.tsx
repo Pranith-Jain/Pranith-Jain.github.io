@@ -291,7 +291,7 @@ export default function SocCalculators() {
           </div>
         </Panel>
 
-        <div className="text-center pt-2 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Estimates only — plug in your own averages (your EPS, your analyst wage, your auto-rate) for planning
           conversations, not commitments.
         </div>

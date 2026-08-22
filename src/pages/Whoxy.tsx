@@ -150,15 +150,15 @@ export default function Whoxy() {
               <div className="flex gap-6">
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.total_results}</div>
-                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Total Domains</div>
+                  <div className="text-mini font-mono text-slate-400">Total Domains</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.domains.length}</div>
-                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Fetched</div>
+                  <div className="text-mini font-mono text-slate-400">Fetched</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.pages_fetched}</div>
-                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Pages</div>
+                  <div className="text-mini font-mono text-slate-400">Pages</div>
                 </div>
               </div>
             </section>

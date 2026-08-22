@@ -102,9 +102,7 @@ export default function RetentionTab() {
 
         <div className="flex flex-wrap items-end gap-3 mb-4">
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-              Max age (days)
-            </span>
+            <span className="block text-xs uppercase tracking-wider text-muted mb-1">Max age (days)</span>
             <input
               type="number"
               min={1}
@@ -155,9 +153,7 @@ export default function RetentionTab() {
 
         <div className="flex flex-wrap items-end gap-3 mb-4">
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
-              Retention (days)
-            </span>
+            <span className="block text-xs uppercase tracking-wider text-muted mb-1">Retention (days)</span>
             <input
               type="number"
               min={1}
@@ -245,14 +241,12 @@ export default function RetentionTab() {
             )}
 
             {result.tables_swept.length === 0 && (
-              <p className="text-sm text-slate-600 dark:text-slate-500">
-                No tables had rows past the cutoff - nothing to do.
-              </p>
+              <p className="text-sm text-muted">No tables had rows past the cutoff - nothing to do.</p>
             )}
           </div>
         )}
 
-        <p className="mt-4 text-xs text-slate-600 dark:text-slate-500">
+        <p className="mt-4 text-xs text-muted">
           The sweep excludes <code>api_keys</code>, <code>telegram_watched_channels</code>, <code>ct_watch</code>, and{' '}
           <code>counters</code> - those are operator-state, not intel.
         </p>

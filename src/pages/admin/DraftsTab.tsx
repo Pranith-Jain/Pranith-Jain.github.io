@@ -273,7 +273,7 @@ export default function DraftsTab() {
                       header: 'Generated',
                       sortValue: (d: (typeof filtered)[number]) => d.publishedAt,
                       render: (d) => (
-                        <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                        <span className="text-muted text-xs whitespace-nowrap">
                           {new Date(d.publishedAt).toLocaleString()}
                         </span>
                       ),
@@ -427,7 +427,7 @@ function DraftPreviewPanel({
       <div className="flex items-center justify-between mb-3">
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wider text-body">Preview</h3>
-          <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
+          <p className="text-xs text-muted mt-0.5">
             <span className="font-mono">{post.slug}</span> · type <span className="uppercase">{post.type}</span>
             {post.quality?.total !== undefined && <> · quality {post.quality.total}</>}
             {post.iocs.length > 0 && <> · {post.iocs.length} IOCs</>}
@@ -439,14 +439,14 @@ function DraftPreviewPanel({
           {!editing && (
             <button
               onClick={() => setEditing(true)}
-              className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
+              className="text-xs text-muted hover:text-slate-900 dark:hover:text-slate-300"
             >
               Edit
             </button>
           )}
           <button
             onClick={onClose}
-            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300 transition-colors"
+            className="text-xs text-muted hover:text-slate-900 dark:hover:text-slate-300 transition-colors"
           >
             Close
           </button>

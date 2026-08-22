@@ -106,7 +106,7 @@ export default function HealthTab() {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <p className="text-xs font-mono text-slate-600 dark:text-slate-500">
+        <p className="text-xs font-mono text-muted">
           {fetchedAt ? `Updated ${fetchedAt.toLocaleTimeString()} · auto-refresh ${AUTO_REFRESH_MS / 1000}s` : ''}
           {error && ` · last refresh failed: ${error}`}
         </p>
@@ -125,7 +125,7 @@ export default function HealthTab() {
             key={card.key}
             className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)]"
           >
-            <div className="text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500">{card.label}</div>
+            <div className="text-xs uppercase tracking-wider text-muted">{card.label}</div>
             <div className="text-2xl font-semibold text-heading mt-1 tabular-nums">{health[card.key]}</div>
           </div>
         ))}

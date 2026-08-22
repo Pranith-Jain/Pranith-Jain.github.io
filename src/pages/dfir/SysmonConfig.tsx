@@ -215,7 +215,7 @@ export default function SysmonConfig() {
           </pre>
         </section>
 
-        <div className="text-center pt-2 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Test in a VM first — Sysmon schema evolves (current 4.90 at v15.x). Pair with event ID 22 for DNS hunting and
           the{' '}
           <a href="/dfir/siem-library" className="text-brand-600 dark:text-brand-400 hover:underline">

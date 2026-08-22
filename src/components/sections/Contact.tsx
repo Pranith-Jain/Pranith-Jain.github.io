@@ -81,7 +81,7 @@ export function Contact({ personalInfo }: ContactProps) {
               per-link bg chips. Panel is now light, so the row uses
               slate-500 default and slate-900 hover. */}
           <ul
-            className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-black/10 pt-6 font-mono text-mini uppercase tracking-[0.1em] text-slate-500 dark:border-white/10 dark:text-slate-400"
+            className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-black/10 pt-6 font-mono text-mini uppercase tracking-[0.1em] text-slate-500 dark:border-white/10 dark:text-muted"
             aria-label="Social media and professional links"
           >
             <li>

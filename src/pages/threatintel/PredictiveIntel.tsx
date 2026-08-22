@@ -31,7 +31,7 @@ interface PredictiveReport {
 const CONFIDENCE_BADGE: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
+  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
 };
 
 const TREND_ICON: Record<string, JSX.Element> = {
@@ -71,7 +71,7 @@ export default function PredictiveIntel(): JSX.Element {
       onRetry={refetch}
       empty={!loading && forecasts.length === 0 && sectorRisks.length === 0}
       emptyMessage="No predictive data available yet."
-      emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-slate-400" />}
+      emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-muted" />}
     >
       {summary && (
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-rose-500/5 to-rose-500/10 dark:from-rose-500/10 dark:to-rose-500/5 p-5 mb-6">

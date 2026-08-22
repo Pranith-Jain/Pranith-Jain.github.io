@@ -431,7 +431,7 @@ export default function VerdiktAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Search size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
+              <Search size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Enter an IOC and click <span className="font-semibold">Enrich & Analyze</span>
               </p>

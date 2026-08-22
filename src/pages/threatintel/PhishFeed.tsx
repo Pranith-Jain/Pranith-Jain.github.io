@@ -329,7 +329,7 @@ export default function PhishFeed(): JSX.Element {
                 }`}
               >
                 <span className="font-mono truncate flex-1 text-left">{brand}</span>
-                <span className="font-mono text-slate-400 dark:text-slate-400">{count}</span>
+                <span className="font-mono text-slate-400">{count}</span>
               </button>
             ))}
           </div>

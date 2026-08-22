@@ -281,7 +281,7 @@ export default function CloudReference() {
           </>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           SRM summarized from vendor documentation — verify against your cloud provider's current model before contract
           decisions.
         </div>

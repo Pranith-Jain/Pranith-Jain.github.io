@@ -1326,7 +1326,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       </section>
 
       {/* Stats */}
-      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-400 mb-4">
         Showing {filtered.length} of {ENTRIES.length} entries
         {showExploitsOnly && ' (exploit available)'}
       </p>

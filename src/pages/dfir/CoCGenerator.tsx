@@ -310,7 +310,7 @@ export default function CoCGenerator() {
           </div>
         </section>
 
-        <div className="text-center pt-2 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-2 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Pairs with the{' '}
           <a href="/dfir/dfir-ref?section=evidence" className="text-brand-600 dark:text-brand-400 hover:underline">
             DFIR Reference

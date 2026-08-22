@@ -176,10 +176,7 @@ export default function GoogleDorks(): JSX.Element {
         </label>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search
-              size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-400 pointer-events-none"
-            />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
             <input
               id="dork-q"
               type="text"

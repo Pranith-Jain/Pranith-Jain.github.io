@@ -40,7 +40,7 @@ const TYPE_COLORS: Record<ActorType, string> = {
     'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   insider:
     'bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
-  supplier: 'bg-slate-50 dark:bg-slate-950/40 text-body border-line-1',
+  supplier: 'bg-slate-50 dark:bg-input-200/40 text-body border-line-1',
 };
 
 const STATUS_PILL: Record<string, string> = {

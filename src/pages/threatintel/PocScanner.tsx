@@ -118,7 +118,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 mt-2 text-mini text-slate-500 dark:text-slate-500">
+                  <div className="flex items-center gap-3 mt-2 text-mini text-muted">
                     {repo.language && (
                       <span className="flex items-center gap-1">
                         <Code2 className="h-3 w-3" />

@@ -326,7 +326,7 @@ export default function SampleScan(): JSX.Element {
           Analysis, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky) → composite verdict + one-click deep links to 12
           free public sandboxes for deeper detonation.
         </p>
-        <p className="mt-2 max-w-prose text-xs text-slate-500 dark:text-slate-500">
+        <p className="mt-2 max-w-prose text-xs text-muted">
           <strong className="text-body">Free, no secrets required.</strong> Cloudflare Workers Free caps server CPU at
           10ms, so the SHA-256 is computed client-side (your file never leaves the browser until the hash is
           dispatched). The hash fan-out is on the same /api/v1/ read-rate-limit as the rest of the toolkit.

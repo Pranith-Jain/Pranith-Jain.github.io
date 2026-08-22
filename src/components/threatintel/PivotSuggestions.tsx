@@ -43,7 +43,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   campaign: 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/20',
   sector: 'text-sky-600 bg-sky-50 dark:text-sky-400 dark:bg-sky-950/20',
   technique: 'text-indigo-600 bg-indigo-50 dark:text-indigo-400 dark:bg-indigo-950/20',
-  general: 'text-slate-600 bg-slate-50 dark:text-slate-400 dark:bg-slate-950/20',
+  general: 'text-slate-600 bg-slate-50 dark:text-muted dark:bg-input-200/20',
 } as const;
 
 const CONFIDENCE_LABELS = {
@@ -152,7 +152,7 @@ export function PivotSuggestions({
               className="group flex w-full items-start gap-2 rounded-xl border border-slate-100 bg-slate-50/50 px-2.5 py-2 text-left transition-all hover:border-brand-300 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3] dark:hover:border-brand-400/30 dark:hover:bg-brand-900/10"
             >
               <span
-                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${CATEGORY_COLORS[s.category] ?? 'text-slate-600 bg-slate-50 dark:text-slate-400 dark:bg-slate-950/20'}`}
+                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${CATEGORY_COLORS[s.category] ?? 'text-slate-600 bg-slate-50 dark:text-muted dark:bg-input-200/20'}`}
               >
                 <Icon size={12} />
               </span>

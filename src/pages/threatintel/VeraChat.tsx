@@ -822,7 +822,7 @@ export default function VeraChat(): JSX.Element {
                           className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-micro font-mono transition-all ${
                             role === r.id
                               ? `${r.color} text-white shadow-sm`
-                              : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))]'
+                              : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-muted dark:hover:bg-[rgb(var(--surface-300))]'
                           }`}
                         >
                           <RIcon size={10} />
@@ -855,7 +855,7 @@ export default function VeraChat(): JSX.Element {
                           setQuery(starter);
                           void submitChat(starter);
                         }}
-                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted"
                       >
                         {starter}
                       </button>
@@ -951,7 +951,7 @@ export default function VeraChat(): JSX.Element {
                               {msg.sources.map((s) => (
                                 <span
                                   key={s.name}
-                                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted"
                                 >
                                   {s.name}
                                   <span className="text-muted">({s.items})</span>
@@ -1313,7 +1313,7 @@ function FollowUpSuggestions({
           type="button"
           key={s}
           onClick={() => onSubmit(s)}
-          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-rose-400 dark:hover:text-rose-400"
+          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-muted dark:hover:border-rose-400 dark:hover:text-rose-400"
         >
           {s}
         </button>

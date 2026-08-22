@@ -23,7 +23,7 @@ interface CampaignLifecycle {
 const PHASE_STATUS: Record<string, string> = {
   completed: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   active: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
-  upcoming: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
+  upcoming: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
 };
 
 export default function CampaignLifecycle(): JSX.Element {

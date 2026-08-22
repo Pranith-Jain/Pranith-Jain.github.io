@@ -110,7 +110,7 @@ export default function Traceix() {
             </Button>
           </form>
           <div className="flex flex-wrap gap-1.5 mt-3">
-            <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
+            <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
             {SAMPLES.map((s) => (
               <button
                 key={s.hash}
@@ -148,15 +148,15 @@ export default function Traceix() {
               <div className="flex gap-6">
                 <div>
                   <div className="text-2xl font-bold text-heading">{safeCount}</div>
-                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Safe</div>
+                  <div className="text-mini font-mono text-slate-400">Safe</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{maliciousCount}</div>
-                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Malicious</div>
+                  <div className="text-mini font-mono text-slate-400">Malicious</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-heading">{data.avResults.length}</div>
-                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Engines</div>
+                  <div className="text-mini font-mono text-slate-400">Engines</div>
                 </div>
               </div>
             </section>

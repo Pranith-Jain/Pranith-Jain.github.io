@@ -302,7 +302,7 @@ export default function PublishedTab() {
     <div>
       {actionMsg && <p className="text-xs font-mono text-muted mb-2">{actionMsg}</p>}
       <SocialQueueAgenda />
-      <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Click a row to expand/collapse social content.</p>
+      <p className="text-xs text-muted mb-4">Click a row to expand/collapse social content.</p>
       <SearchFilter items={posts} placeholder="Filter published posts…">
         {(filtered) => (
           <div className="overflow-x-auto">
@@ -326,7 +326,7 @@ export default function PublishedTab() {
                     header: 'Published',
                     sortValue: (p: (typeof filtered)[number]) => p.publishedAt,
                     render: (p) => (
-                      <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                      <span className="text-muted text-xs whitespace-nowrap">
                         {new Date(p.publishedAt).toLocaleString()}
                       </span>
                     ),
@@ -472,7 +472,7 @@ function SocialQueueAgenda() {
         <ul className="space-y-1" aria-label="Queued social posts">
           {queue.map((item: SocialQueueItem) => (
             <li key={`${item.slug}-${item.platform}`} className="flex flex-wrap items-center gap-2 text-xs text-muted">
-              <span className="font-mono text-slate-500 dark:text-slate-500 whitespace-nowrap">
+              <span className="font-mono text-muted whitespace-nowrap">
                 {item.scheduledAt ? new Date(item.scheduledAt).toLocaleString() : '-'}
               </span>
               <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
@@ -654,14 +654,12 @@ function SocialContentPanel({
         <h3 className="text-sm font-semibold uppercase tracking-wider text-body">Social Content</h3>
         <button
           onClick={onClose}
-          className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+          className="text-xs text-muted hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
         >
           Close
         </button>
       </div>
-      <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">
-        Generated {new Date(effective.generatedAt).toLocaleString()}
-      </p>
+      <p className="text-xs text-muted mb-4">Generated {new Date(effective.generatedAt).toLocaleString()}</p>
 
       {effective._validation?.readiness && <ReadinessBadge verdict={effective._validation.readiness} />}
 
@@ -815,7 +813,7 @@ function InstagramSection({
       {/* Caption */}
       <div className="mb-3">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-micro uppercase tracking-wider text-slate-600 dark:text-slate-500">Caption</span>
+          <span className="text-micro uppercase tracking-wider text-muted">Caption</span>
           <button
             onClick={copyCaption}
             className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
@@ -836,9 +834,7 @@ function InstagramSection({
       {total > 0 && (
         <div className="mb-3">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-micro uppercase tracking-wider text-slate-600 dark:text-slate-500">
-              Carousel slides ({total})
-            </span>
+            <span className="text-micro uppercase tracking-wider text-muted">Carousel slides ({total})</span>
             <button
               onClick={downloadAll}
               disabled={downloading || objectUrls.every((u) => !u)}
@@ -958,7 +954,7 @@ function SocialSection({
           <button
             onClick={onRegen}
             disabled={regenBusy}
-            className="text-micro uppercase tracking-wider text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-50 transition-colors"
+            className="text-micro uppercase tracking-wider text-muted hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-50 transition-colors"
             title="Regenerate"
           >
             {regenBusy ? '…' : 'Regenerate'}
@@ -980,7 +976,7 @@ function SocialSection({
       </pre>
       {parts.link && (
         <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-slate-600 dark:text-slate-500">{parts.link.label}:</span>
+          <span className="text-muted">{parts.link.label}:</span>
           <span className="font-mono text-body break-all">{parts.link.value}</span>
           <button
             onClick={() => copy('link', parts.link!.value)}
@@ -993,9 +989,7 @@ function SocialSection({
       {parts.carousel && (
         <div className="mt-2">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-micro uppercase tracking-wider text-slate-600 dark:text-slate-500">
-              Carousel outline
-            </span>
+            <span className="text-micro uppercase tracking-wider text-muted">Carousel outline</span>
             <button
               onClick={() => copy('carousel', parts.carousel!)}
               className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
@@ -1076,7 +1070,7 @@ function HookSelector({
         <h4 className="text-mini font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
           A/B Hook Selection
         </h4>
-        {result && <span className="text-micro text-slate-600 dark:text-slate-500">{result}</span>}
+        {result && <span className="text-micro text-muted">{result}</span>}
       </div>
       <p className="text-micro text-muted mb-2">
         Pick an alternative opening hook. The social copy will be regenerated with the chosen angle as a strong
@@ -1236,7 +1230,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
     <div className="mb-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] p-3">
       <div className="flex items-center justify-between mb-2">
         <h4 className="text-mini font-semibold uppercase tracking-wider text-muted">Posting queue</h4>
-        {msg && <span className="text-micro text-slate-600 dark:text-slate-500">{msg}</span>}
+        {msg && <span className="text-micro text-muted">{msg}</span>}
       </div>
       <div className="space-y-3">
         {rows.map((platform) => {
@@ -1349,7 +1343,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 {status === 'posted' ? 'Mark pending' : 'Mark posted'}
               </button>
 
-              <span className="text-micro text-slate-600 dark:text-slate-500">{bestTimeHint(platform)}</span>
+              <span className="text-micro text-muted">{bestTimeHint(platform)}</span>
             </div>
           );
         })}

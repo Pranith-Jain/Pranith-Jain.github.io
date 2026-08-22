@@ -378,7 +378,7 @@ export default function InsightAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Sparkles size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
+              <Sparkles size={32} className="text-slate-300 dark:text-muted mx-auto mb-3" />
               <p className="text-sm text-muted">
                 Paste an alert and select modes, then click <span className="font-semibold">Generate</span>
               </p>

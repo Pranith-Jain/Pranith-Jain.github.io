@@ -429,11 +429,9 @@ export default function OsintCountryMap(): JSX.Element {
             ) : (
               <div className="surface-card-faint h-[500px] flex items-center justify-center">
                 <div className="text-center p-6">
-                  <Globe className="w-10 h-10 text-slate-300 dark:text-slate-400 mx-auto mb-3" />
+                  <Globe className="w-10 h-10 text-slate-300 dark:text-muted mx-auto mb-3" />
                   <p className="text-sm text-muted mb-1">Click a country on the map</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-400">
-                    or search for a country above to view its OSINT resources
-                  </p>
+                  <p className="text-xs text-slate-400">or search for a country above to view its OSINT resources</p>
                 </div>
               </div>
             )}

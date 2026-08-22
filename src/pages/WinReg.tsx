@@ -55,7 +55,7 @@ const HIVE_COLORS: Record<string, string> = {
   AMCACHE: 'text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 border-teal-300 dark:border-teal-800',
   USRCLASS:
     'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800',
-  ALL: 'text-muted bg-slate-50 dark:bg-slate-950/40 border-slate-300 dark:border-slate-700',
+  ALL: 'text-muted bg-slate-50 dark:bg-input-200/40 border-line-1',
 };
 
 function hiveColor(hive: string): string {
@@ -140,7 +140,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
             </div>
           </div>
         )}
-        <div className="text-micro text-slate-500 dark:text-slate-500 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-micro text-muted pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Data from{' '}
           <a
             href={body.sourceUrl}
@@ -330,7 +330,7 @@ export default function WinReg() {
         )}
 
         {/* Source footer */}
-        <div className="text-center pt-6 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Data sourced from{' '}
           <a
             href="https://dfir-scripts.github.io/registry/"

@@ -42,13 +42,10 @@ export default function AdminLogin({ onLogin }: Props) {
   return (
     <div className="max-w-sm mx-auto px-6 py-16 min-h-screen flex flex-col justify-center">
       <h1 className="text-xl font-display font-bold text-slate-900 dark:text-white mb-1">Case Study Admin</h1>
-      <p className="text-xs font-mono text-slate-600 dark:text-slate-500 mb-6">Enter your admin token to continue</p>
+      <p className="text-xs font-mono text-muted mb-6">Enter your admin token to continue</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label
-            htmlFor="adminToken"
-            className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1.5"
-          >
+          <label htmlFor="adminToken" className="block text-xs font-mono uppercase tracking-wider text-muted mb-1.5">
             Admin Token
           </label>
           <input

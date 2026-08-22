@@ -41,10 +41,13 @@ export function useDictation(onFinal: (text: string) => void) {
   const [error, setError] = useState('');
   const recRef = useRef<SpeechRecognitionLike | null>(null);
   const finalRef = useRef(onFinal);
+  // Whether the user still wants hands-free mode (drives onend auto-restart).
+  const wantsRef = useRef(false);
   finalRef.current = onFinal;
   const supported = typeof window !== 'undefined' && getRecognitionCtor() !== null;
 
   const stop = useCallback(() => {
+    wantsRef.current = false;
     recRef.current?.stop();
     setListening(false);
     setInterim('');
@@ -74,29 +77,39 @@ export function useDictation(onFinal: (text: string) => void) {
         }
         setInterim(interimText);
       };
+      const FATAL_ERRORS = new Set(['not-allowed', 'service-not-allowed', 'audio-capture']);
       rec.onerror = (e) => {
         if (e.error === 'not-allowed') setError('microphone permission denied');
-        else if (e.error === 'no-speech') setError('no speech detected');
-        else if (e.error && e.error !== 'aborted') setError(e.error);
+        else if (e.error === 'no-speech') {
+          // Routine during pauses in Chrome — NOT fatal: keep hands-free
+          // mode alive and let onend auto-restart handle it.
+          setError('');
+          return;
+        } else if (e.error && e.error !== 'aborted') setError(e.error);
+        // Only fatal errors end the session.
+        if (!e.error || FATAL_ERRORS.has(e.error) || e.error === 'no-speech') return;
+        wantsRef.current = false;
         setListening(false);
       };
       rec.onend = () => {
         // Chrome auto-stops after silence; restart while the user still
-        // wants dictation so long investigations stay hands-free.
-        setListening((wants) => {
-          if (wants) {
-            try {
-              rec.start();
-              return true;
-            } catch {
-              return false;
-            }
+        // wants dictation so long investigations stay hands-free. start()
+        // lives OUTSIDE the state updater — StrictMode double-invokes
+        // updaters, which would throw "already started" and desync state.
+        if (wantsRef.current) {
+          try {
+            rec.start();
+            setListening(true);
+          } catch {
+            setListening(false);
           }
-          return false;
-        });
+        } else {
+          setListening(false);
+        }
       };
       recRef.current = rec;
       rec.start();
+      wantsRef.current = true;
       setListening(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));

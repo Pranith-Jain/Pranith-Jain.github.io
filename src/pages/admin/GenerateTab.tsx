@@ -36,7 +36,7 @@ interface GenerateResponse {
 
 const inputCls =
   'w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-heading placeholder-slate-500 dark:placeholder-slate-600';
-const labelCls = 'block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1';
+const labelCls = 'block text-xs uppercase tracking-wider text-muted mb-1';
 
 export default function GenerateTab() {
   const [mode, setMode] = useState<'ai' | 'manual'>('ai');
@@ -133,7 +133,7 @@ export default function GenerateTab() {
             className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
               mode === m
                 ? 'bg-white dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-white shadow-sm'
-                : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                : 'text-slate-500 hover:text-slate-700 dark:text-muted'
             }`}
           >
             {label}

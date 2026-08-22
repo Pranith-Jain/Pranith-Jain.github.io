@@ -368,9 +368,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
               if ('children' in link && link.children) {
                 return (
                   <div key={link.label} className="pt-2 first:pt-0">
-                    <div className="px-4 pb-1 text-eyebrow font-mono uppercase text-slate-400 dark:text-slate-400">
-                      {link.label}
-                    </div>
+                    <div className="px-4 pb-1 text-eyebrow font-mono uppercase text-slate-400">{link.label}</div>
                     {link.children.map((child) => (
                       <Link
                         key={child.href}

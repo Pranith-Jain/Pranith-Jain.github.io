@@ -263,7 +263,7 @@ export default function GrcChecklists() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Summarized from public standards & regulations — not a substitute for the official texts. Pairs with the GRC
           Toolkit (self-assessment) and the DPDP AI controls for AI-risk coverage.
         </div>

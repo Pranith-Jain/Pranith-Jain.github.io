@@ -76,9 +76,7 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
         </Badge>
       )}
       {ioc.listedIn.length > 0 && <span className="text-micro text-muted">listed in {ioc.listedIn.length}</span>}
-      <span className="ml-auto text-micro uppercase tracking-wider text-slate-400 dark:text-slate-400">
-        {VERDICT_LABEL[ioc.verdict]}
-      </span>
+      <span className="ml-auto text-micro uppercase tracking-wider text-slate-400">{VERDICT_LABEL[ioc.verdict]}</span>
     </div>
   );
 }
@@ -371,9 +369,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           >
             Hide details
           </button>
-          <span className="ml-auto font-mono text-micro text-slate-400 dark:text-slate-400">
-            {view.bundleId.slice(0, 18)}…
-          </span>
+          <span className="ml-auto font-mono text-micro text-slate-400">{view.bundleId.slice(0, 18)}…</span>
         </footer>
       )}
     </article>

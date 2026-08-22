@@ -52,7 +52,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   high: 'bg-orange-500/20 text-orange-700 dark:text-orange-400 border-orange-500/30',
   medium: 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 border-yellow-500/30',
   low: 'bg-brand-500/20 text-brand-700 dark:text-brand-400 border-brand-500/30',
-  info: 'bg-slate-500/20 text-slate-700 dark:text-slate-400 border-slate-500/30',
+  info: 'bg-slate-500/20 text-slate-700 dark:text-muted border-slate-500/30',
 };
 
 const TYPE_COLORS: Record<string, string> = {
@@ -66,7 +66,7 @@ const TYPE_COLORS: Record<string, string> = {
   breach: 'bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/20',
   ddos: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20',
   hacktivism: 'bg-pink-500/10 text-pink-700 dark:text-pink-400 border-pink-500/20',
-  other: 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/20',
+  other: 'bg-slate-500/10 text-slate-700 dark:text-muted border-slate-500/20',
 };
 
 const TYPE_LABELS: Record<string, string> = {
@@ -280,7 +280,7 @@ export default function CyberPulse(): JSX.Element {
 
       {/* Filters bar */}
       <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]">
-        <Filter className="w-4 h-4 text-slate-600 dark:text-slate-500" />
+        <Filter className="w-4 h-4 text-muted" />
         <div className="relative">
           <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
           <input
@@ -327,7 +327,7 @@ export default function CyberPulse(): JSX.Element {
               Last scan: {relativeTime(stats.last_scan)}
             </span>
           )}
-          <span className="text-xs text-slate-600 dark:text-slate-500">{total.toLocaleString()} incidents</span>
+          <span className="text-xs text-muted">{total.toLocaleString()} incidents</span>
           <button
             type="button"
             onClick={async () => {
@@ -382,7 +382,7 @@ export default function CyberPulse(): JSX.Element {
         {/* Incidents feed */}
         <div className="flex-1 min-w-0 space-y-3">
           {incidents.length === 0 && !loading && (
-            <div className="text-center py-12 text-slate-600 dark:text-slate-500">
+            <div className="text-center py-12 text-muted">
               <Shield className="w-12 h-12 mx-auto mb-3 opacity-30" />
               <p>No incidents found. The ingestion pipeline runs hourly.</p>
               <p className="text-xs mt-2">Try broadening your filters or waiting for the next scan.</p>
@@ -447,7 +447,7 @@ export default function CyberPulse(): JSX.Element {
                     type="button"
                     key={t.incident_type}
                     onClick={() => setTypeFilter(typeFilter === t.incident_type ? '' : t.incident_type)}
-                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-brand-500/20 text-brand-600 dark:text-brand-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400'}`}
+                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-brand-500/20 text-brand-600 dark:text-brand-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-muted'}`}
                   >
                     <span className="flex items-center gap-1.5">
                       <span
@@ -474,7 +474,7 @@ export default function CyberPulse(): JSX.Element {
                     type="button"
                     key={a.name}
                     onClick={() => setTypeFilter('')}
-                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-400"
+                    className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-muted"
                   >
                     <span className="truncate">{a.name}</span>
                     <span className="flex items-center gap-1 font-mono">
@@ -497,7 +497,7 @@ export default function CyberPulse(): JSX.Element {
                 {stats.top_victims.map((v) => (
                   <div
                     key={v.victim_name}
-                    className="flex items-center justify-between px-2 py-1 text-xs text-slate-700 dark:text-slate-400"
+                    className="flex items-center justify-between px-2 py-1 text-xs text-slate-700 dark:text-muted"
                   >
                     <span className="truncate">{v.victim_name}</span>
                     <span className="font-mono text-slate-900 dark:text-white">{v.count}</span>
@@ -524,9 +524,7 @@ export default function CyberPulse(): JSX.Element {
                       title={`${d.day}: ${d.count}`}
                     >
                       <div className="w-full bg-brand-500/40 rounded-t" style={{ height: barPx }} />
-                      <span className="text-micro text-slate-600 dark:text-slate-500 font-mono leading-none mt-0.5">
-                        {d.day.slice(5)}
-                      </span>
+                      <span className="text-micro text-muted font-mono leading-none mt-0.5">{d.day.slice(5)}</span>
                     </div>
                   );
                 })}
@@ -543,9 +541,7 @@ function StatCard({ label, value, color }: { label: string; value: number; color
   return (
     <div className="surface-card p-3 text-center">
       <div className={`text-xl font-bold ${color}`}>{formatNumber(value)}</div>
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-500 mt-0.5">
-        {label}
-      </div>
+      <div className="text-micro font-mono uppercase tracking-wider text-muted mt-0.5">{label}</div>
     </div>
   );
 }
@@ -567,7 +563,7 @@ function FilterSelect({
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-brand-500/50 text-brand-600 dark:text-brand-400 bg-brand-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-400'}`}
+        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-brand-500/50 text-brand-600 dark:text-brand-400 bg-brand-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-muted'}`}
       >
         {value ? (options[value] ?? value) : placeholder}
         <ChevronDown className="w-3 h-3" />
@@ -582,7 +578,7 @@ function FilterSelect({
                 onChange('');
                 setOpen(false);
               }}
-              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-500"
+              className="block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-muted"
             >
               All
             </button>
@@ -638,14 +634,14 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
             >
               {TYPE_LABELS[inc.incident_type] ?? inc.incident_type}
             </span>
-            <span className="text-micro text-slate-600 dark:text-slate-500 font-mono">
+            <span className="text-micro text-muted font-mono">
               {PLATFORM_LABELS[inc.source_platform] ?? inc.source_platform}
             </span>
           </div>
 
           <p className="text-sm text-heading leading-snug mb-1.5 line-clamp-2">{inc.title}</p>
 
-          <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500 flex-wrap">
+          <div className="flex items-center gap-3 text-xs text-muted flex-wrap">
             {inc.victim_name && (
               <span className="flex items-center gap-1">
                 <Building2 className="w-3 h-3" />
@@ -658,7 +654,7 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
                 {inc.threat_actor}
               </span>
             )}
-            {inc.victim_sector && <span className="text-slate-600 dark:text-slate-500">{inc.victim_sector}</span>}
+            {inc.victim_sector && <span className="text-muted">{inc.victim_sector}</span>}
             {inc.records_count && (
               <span className="font-mono text-slate-700 dark:text-slate-500">
                 {formatNumber(inc.records_count)} records
@@ -671,7 +667,7 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
             {tags.slice(0, 5).map((tag) => (
               <span
                 key={tag}
-                className="px-1.5 py-0.5 text-micro rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-500"
+                className="px-1.5 py-0.5 text-micro rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-muted"
               >
                 {tag}
               </span>

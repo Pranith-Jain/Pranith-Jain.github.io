@@ -55,9 +55,14 @@ shadows are accents, not defaults.
 - Chips/pills: rounded-full, tinted bg at low alpha, mono text-xs.
 - Buttons: brand-600 solid primary; ghost/bordered secondary; no gradients.
 
-## Known debt (tracked)
+## Known debt → resolved + waivers
 
-- ~6k raw `dark:text-slate-*` usages across pages predate the token ladder; the
-  dominant pairing (`text-slate-500 dark:text-slate-400`) maps exactly to `text-muted`.
-  Codemod in progress; new code must use tokens.
+- Raw `dark:slate-*` usage swept from ~7,000 to ~240 (−97%) via three pairing codemods
+  into semantic tokens (`text-muted`, `text-heading`, `text-body`, `border-line-1`,
+  `bg-input-200`). New code must use tokens.
+- **Intentional raw-color waivers** (do not codemod): inverted chip text
+  (`text-slate-300 dark:text-slate-600/700`), decorative separators/dots at deliberately
+  low contrast (`dark:text-slate-700`, `dark:bg-slate-600`), opacity composites
+  (`slate-500/10`, `/40`) used as washes, and dark-only emphasis overrides inside
+  light-styled controls. These read correctly per-context; a blind swap would regress them.
 - ESLint rule `no-raw-dark-colors` warns on raw dark palette classes in touched files.

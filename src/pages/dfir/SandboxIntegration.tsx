@@ -25,7 +25,7 @@ const STATUS_BADGE: Record<string, string> = {
   malicious: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   suspicious: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   clean: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
 };
 
 const SOURCE_ICONS: Record<string, typeof Shield> = {
@@ -221,7 +221,7 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.behaviors.map((b, j) => (
                       <div key={j} className="flex items-center gap-2 text-xs">
                         <span
-                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted'}`}
                         >
                           {b.severity}
                         </span>

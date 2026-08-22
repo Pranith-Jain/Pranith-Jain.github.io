@@ -216,7 +216,7 @@ export default function XCookiesTab() {
       <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
         <h2 className="text-sm font-semibold text-heading mb-4">X (Twitter) Session Cookies</h2>
         {loading ? (
-          <p className="text-sm text-slate-600 dark:text-slate-500">Loading…</p>
+          <p className="text-sm text-muted">Loading…</p>
         ) : status ? (
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export default function XCookiesTab() {
               >
                 {status.configured ? 'Configured' : 'Not configured'}
               </span>
-              <span className="text-xs text-slate-600 dark:text-slate-500">Source: {SOURCE_LABEL[status.source]}</span>
+              <span className="text-xs text-muted">Source: {SOURCE_LABEL[status.source]}</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
               <div className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
@@ -245,13 +245,13 @@ export default function XCookiesTab() {
                 </span>
               </div>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-500">
+            <p className="text-xs text-muted">
               {status.bearerOverridden ? 'Custom bearer token in use. ' : ''}
               {status.updatedAt ? `Override updated ${new Date(status.updatedAt).toLocaleString()}.` : ''}
             </p>
           </div>
         ) : null}
-        <p className="mt-4 text-xs text-slate-500 dark:text-slate-500 leading-relaxed">
+        <p className="mt-4 text-xs text-muted leading-relaxed">
           Cookies from a logged-in x.com session (DevTools → Application → Cookies → x.com). The admin override stored
           here takes precedence over the <code>X_AUTH_TOKEN</code> / <code>X_CT0</code> worker secrets. Values are never
           shown back in full - only the last 4 characters.
@@ -285,9 +285,7 @@ export default function XCookiesTab() {
             </span>
           )}
         </div>
-        {health?.detail && (
-          <p className="mt-2 text-xs font-mono text-slate-500 dark:text-slate-500 break-all">{health.detail}</p>
-        )}
+        {health?.detail && <p className="mt-2 text-xs font-mono text-muted break-all">{health.detail}</p>}
       </section>
 
       {/* Set override */}
@@ -297,7 +295,7 @@ export default function XCookiesTab() {
         {saved && <p className="text-sm text-emerald-600 dark:text-emerald-400 mb-4">{saved}</p>}
         <form onSubmit={handleSave} className="space-y-4">
           <div>
-            <label htmlFor="x-auth-token" className="block text-xs text-slate-600 dark:text-slate-500 mb-1">
+            <label htmlFor="x-auth-token" className="block text-xs text-muted mb-1">
               auth_token
             </label>
             <input
@@ -311,7 +309,7 @@ export default function XCookiesTab() {
             />
           </div>
           <div>
-            <label htmlFor="x-ct0" className="block text-xs text-slate-600 dark:text-slate-500 mb-1">
+            <label htmlFor="x-ct0" className="block text-xs text-muted mb-1">
               ct0
             </label>
             <input
@@ -325,7 +323,7 @@ export default function XCookiesTab() {
             />
           </div>
           <div>
-            <label htmlFor="x-bearer" className="block text-xs text-slate-600 dark:text-slate-500 mb-1">
+            <label htmlFor="x-bearer" className="block text-xs text-muted mb-1">
               Bearer token (optional - defaults to the public web bearer)
             </label>
             <input
@@ -363,7 +361,7 @@ export default function XCookiesTab() {
       {/* Query IDs */}
       <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
         <h2 className="text-sm font-semibold text-heading mb-4">GraphQL Query IDs</h2>
-        <p className="text-xs text-slate-500 dark:text-slate-500 leading-relaxed mb-4">
+        <p className="text-xs text-muted leading-relaxed mb-4">
           X rotates these query IDs every few weeks; stale IDs break every authenticated fetch. Paste fresh IDs from
           x.com DevTools → Network → filter <code>graphql</code> (the ID is the path segment after{' '}
           <code>/graphql/</code>
@@ -371,7 +369,7 @@ export default function XCookiesTab() {
         </p>
         {qidsMsg && <p className="text-sm text-emerald-600 dark:text-emerald-400 mb-4">{qidsMsg}</p>}
         {qidsStatus && (
-          <p className="text-xs text-slate-500 dark:text-slate-500 mb-4">
+          <p className="text-xs text-muted mb-4">
             Source: {qidsStatus.source === 'kv' ? 'Admin override (KV)' : 'Hardcoded defaults'}
             {qidsStatus.updatedAt ? ` · updated ${new Date(qidsStatus.updatedAt).toLocaleString()}` : ''}
           </p>
@@ -379,7 +377,7 @@ export default function XCookiesTab() {
         <form onSubmit={handleSaveQids} className="space-y-4">
           {QID_FIELDS.map((f) => (
             <div key={f.key}>
-              <label htmlFor={`qid-${f.key}`} className="block text-xs text-slate-600 dark:text-slate-500 mb-1">
+              <label htmlFor={`qid-${f.key}`} className="block text-xs text-muted mb-1">
                 {f.label}
                 {qidsStatus?.overridden[f.key] && (
                   <span className="ml-2 text-emerald-600 dark:text-emerald-400">(overridden)</span>

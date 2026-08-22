@@ -17,7 +17,7 @@ const LEVEL_BADGE: Record<string, string> = {
   probable: 'bg-blue-100 text-brand-800 dark:bg-blue-900/30 dark:text-brand-300',
   'reasonably-likely': 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   possible: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-  doubtful: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
+  doubtful: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
   improbable: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
 };
 

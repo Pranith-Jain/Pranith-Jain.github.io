@@ -385,7 +385,7 @@ export default function DFIRPage(): JSX.Element {
                   >
                     <Icon
                       size={12}
-                      className="text-slate-500 group-hover:text-brand-500 dark:text-slate-400 dark:group-hover:text-brand-400"
+                      className="text-slate-500 group-hover:text-brand-500 dark:text-muted dark:group-hover:text-brand-400"
                     />
                     <span>{meta?.label ?? entry.label}</span>
                     <ArrowRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />

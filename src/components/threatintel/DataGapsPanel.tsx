@@ -60,7 +60,7 @@ export function DataGapsPanel({ dataGaps }: { dataGaps: ToolFailure[] }): JSX.El
                 <div className="mt-1 text-xs text-muted">
                   <span className="font-mono text-slate-400">missed:</span> {f.missedCapability}
                 </div>
-                <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-500 italic">{f.diagnosis}</div>
+                <div className="mt-0.5 text-xs text-muted italic">{f.diagnosis}</div>
                 {f.error && (
                   <div className="mt-0.5 text-xs font-mono text-rose-500 dark:text-rose-400 truncate">
                     {f.error.slice(0, 120)}

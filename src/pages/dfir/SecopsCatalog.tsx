@@ -207,7 +207,7 @@ export default function SecopsCatalog(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-400 mb-4">
         Showing {filtered.length} of {TOOLS.length}
       </p>
 

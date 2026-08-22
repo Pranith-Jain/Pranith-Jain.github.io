@@ -153,7 +153,7 @@ function StatusBadge({ status }: { status: number }) {
         ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
         : status >= 400
           ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400'
-          : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400';
+          : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-muted';
   return (
     <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${color}`}>
       {status}
@@ -410,7 +410,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
                   ? 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-400'
                   : ep.method === 'POST'
                     ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-                    : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'
+                    : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-muted'
               }`}
             >
               {ep.method}
@@ -536,9 +536,9 @@ function AttackSurfacePanel({ data }: { data: ScanData }) {
         if (items.length === 0) return null;
         return (
           <div key={section.label} className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2 dark:border-slate-800">
+            <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2 dark:border-line-1">
               <span className="text-sm font-semibold text-slate-900 dark:text-white">{section.label}</span>
-              <span className="ml-auto rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
+              <span className="ml-auto rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted">
                 {items.length}
               </span>
             </div>
@@ -581,7 +581,7 @@ function FormsPanel({ data }: { data: ScanData }) {
           <div key={i} className="rounded-xl border border-slate-200 p-4 dark:border-[rgb(var(--border-400))]">
             <div className="mb-2 flex items-center gap-2 text-sm">
               <span className="font-semibold text-slate-900 dark:text-white">Form {i + 1}</span>
-              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
+              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-xs font-mono text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted">
                 {form.method}
               </span>
               {form.action && <span className="text-xs text-slate-500">→ {form.action}</span>}
@@ -614,7 +614,7 @@ function ImagesPanel({ data }: { data: ScanData }) {
           className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]"
         >
           <div className="flex h-24 items-center justify-center bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
-            <Image className="h-8 w-8 text-slate-300 dark:text-slate-400" />
+            <Image className="h-8 w-8 text-slate-300 dark:text-muted" />
           </div>
           <div className="p-2">
             <p className="truncate text-xs text-muted" title={img.src}>
@@ -880,14 +880,14 @@ export default function ScanResults() {
       <nav className="flex items-center gap-2 text-sm text-slate-500">
         <Link
           to="/radar"
-          className="flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))]"
+          className="flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-muted dark:hover:bg-[rgb(var(--surface-300))]"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
         </Link>
         <Link to="/radar" className="hover:text-brand-600">
           Recent Radar Runs
         </Link>
-        <ChevronRight className="h-3.5 w-3.5 text-slate-300 dark:text-slate-400" />
+        <ChevronRight className="h-3.5 w-3.5 text-slate-300 dark:text-muted" />
         <span className="truncate text-slate-900 dark:text-white">{data.target}</span>
       </nav>
 
@@ -960,14 +960,14 @@ export default function ScanResults() {
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategory(cat.id)}
-                      className={`flex items-center justify-between rounded px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}`}
+                      className={`flex items-center justify-between rounded px-3 py-2 text-left text-sm transition-colors ${activeCategory === cat.id ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300' : 'text-slate-600 hover:bg-slate-50 dark:text-muted dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}`}
                     >
                       <span className="flex items-center gap-2">
                         <Icon className="h-4 w-4" />
                         {cat.label}
                       </span>
                       {count > 0 && (
-                        <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-micro font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400">
+                        <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-micro font-semibold text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted">
                           {count}
                         </span>
                       )}

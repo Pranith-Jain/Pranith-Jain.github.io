@@ -752,7 +752,7 @@ function Diamond(): JSX.Element {
             return (
               <label key={v.id} className="block">
                 <span className="text-xs font-mono text-body mb-1 block">
-                  {v.name} <span className="text-slate-400 dark:text-slate-400">- {v.short}</span>
+                  {v.name} <span className="text-slate-400">- {v.short}</span>
                 </span>
                 <textarea
                   value={event[k]}
@@ -807,7 +807,7 @@ function Diamond(): JSX.Element {
                     placeholder={a.description}
                   />
                 </label>
-                <ul className="mt-1.5 text-mini font-mono text-slate-400 dark:text-slate-400 space-y-0.5 list-disc pl-4">
+                <ul className="mt-1.5 text-mini font-mono text-slate-400 space-y-0.5 list-disc pl-4">
                   {a.questions.map((q) => (
                     <li key={q}>{q}</li>
                   ))}

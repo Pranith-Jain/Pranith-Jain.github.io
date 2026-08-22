@@ -184,7 +184,7 @@ export default function PowershellDeobf(): JSX.Element {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-muted font-mono">Decoded output</h2>
               <div className="flex items-center gap-2">
-                <span className="text-mini font-mono text-slate-400 dark:text-slate-400">
+                <span className="text-mini font-mono text-slate-400">
                   {result.steps.length} transform{result.steps.length === 1 ? '' : 's'} · {result.iterations} iter ·{' '}
                   {result.fixedPoint ? 'fixed point' : 'max iter reached'}
                 </span>

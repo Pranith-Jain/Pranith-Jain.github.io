@@ -99,7 +99,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 <li key={l.href}>
                   <Link
                     to={l.href}
-                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-muted dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                   >
                     {l.label}
                   </Link>
@@ -116,7 +116,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 <li key={l.href}>
                   <Link
                     to={l.href}
-                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-muted dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                   >
                     {l.label}
                   </Link>
@@ -127,7 +127,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
         </div>
 
         {/* Bottom strip - copyright, view counter, stack credit */}
-        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-mini text-slate-500 dark:border-white/10 dark:text-slate-400 sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-mini text-slate-500 dark:border-white/10 dark:text-muted sm:flex-row sm:items-center">
           <span>
             © {currentYear} {personalInfo.name}. All rights reserved.
           </span>

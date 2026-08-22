@@ -214,7 +214,7 @@ export default function OsintDirectory(): JSX.Element {
 
           {filtered.length === 0 ? (
             <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
+              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400" />
               No portals match{query ? ` "${query}"` : ''}
               {categoryFilter ? ` in ${CATEGORY_LABELS[categoryFilter] ?? categoryFilter}` : ''}
               {freeFilter !== 'all' ? ` (${freeFilter})` : ''}.
@@ -244,7 +244,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
 function PortalCard({ portal }: { portal: OsintPortalEntry }) {
   const badgeColor =
     CATEGORY_BADGE_COLORS[portal.category] ??
-    'bg-slate-100 dark:bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-slate-700';
+    'bg-slate-100 dark:bg-slate-500/10 text-slate-700 dark:text-muted border-line-1';
 
   return (
     <div className="surface-card p-4 flex flex-col hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors">

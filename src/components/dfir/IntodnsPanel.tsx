@@ -191,7 +191,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-mini font-mono text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)] dark:text-slate-400">
+      <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-mini font-mono text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)] dark:text-muted">
         <Loader2 size={12} className="animate-spin" aria-hidden="true" />
         fetching intodns.ai grade…
       </div>
@@ -318,14 +318,14 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
       )}
 
       <footer className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 pt-2 dark:border-[rgb(var(--border-400))]">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-micro font-mono text-slate-500 dark:text-slate-500">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-micro font-mono text-muted">
           <span className="flex items-center gap-1.5">
             <Sparkles size={9} aria-hidden="true" />
             powered by intodns.ai
           </span>
           <Link
             to={`/dfir/email-defense?eml=`}
-            className="underline-offset-2 hover:underline dark:text-slate-400"
+            className="underline-offset-2 hover:underline dark:text-muted"
             title="Analyze a raw email for spam score, SPF/DKIM/DMARC alignment, and inbox-placement suggestions"
           >
             email test
@@ -334,7 +334,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
             to={`/dfir/sec-headers-live-live?domain=${encodeURIComponent(snapshot.domain)}`}
             onMouseEnter={() => preloadRoute('/dfir/sec-headers-live-live')}
             onFocus={() => preloadRoute('/dfir/sec-headers-live-live')}
-            className="underline-offset-2 hover:underline dark:text-slate-400"
+            className="underline-offset-2 hover:underline dark:text-muted"
             title="Live third-party HTTP security-headers scan"
           >
             headers
@@ -343,7 +343,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
             href={CITATIONS.methodology}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline-offset-2 hover:underline dark:text-slate-400 transition-colors"
+            className="underline-offset-2 hover:underline dark:text-muted transition-colors"
           >
             methodology
           </a>
@@ -351,7 +351,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+          className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 hover:text-slate-700 dark:text-muted dark:hover:text-slate-200"
           aria-expanded={expanded}
         >
           {expanded ? 'less' : 'more'}
@@ -360,7 +360,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
       </footer>
 
       {expanded && (
-        <p className="mt-2 text-micro text-slate-500 dark:text-slate-500">
+        <p className="mt-2 text-micro text-muted">
           scan: {new Date(snapshot.timestamp).toUTCString()} · cache hit on follow-up queries for 6h ·{' '}
           <a
             href={CITATIONS.emailTest(snapshot.domain)}

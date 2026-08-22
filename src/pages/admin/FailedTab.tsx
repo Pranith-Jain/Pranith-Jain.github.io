@@ -100,9 +100,7 @@ export default function FailedTab() {
               {actionMsg ? (
                 <p className="text-xs font-mono text-muted">{actionMsg}</p>
               ) : (
-                <p className="text-xs font-mono text-slate-600 dark:text-slate-500">
-                  {failures.length} failure(s) recorded
-                </p>
+                <p className="text-xs font-mono text-muted">{failures.length} failure(s) recorded</p>
               )}
               <button
                 type="button"
@@ -142,7 +140,7 @@ export default function FailedTab() {
                       header: 'Failed at',
                       sortValue: (f: (typeof shown)[number]) => f.failedAt,
                       render: (f) => (
-                        <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                        <span className="text-muted text-xs whitespace-nowrap">
                           {new Date(f.failedAt).toLocaleString()}
                         </span>
                       ),

@@ -253,7 +253,7 @@ function BigStat({
       </div>
       <div className="mt-1 flex items-baseline gap-1.5 text-xs">
         <span className="font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">{fmtDelta(delta)}</span>
-        <span className="text-slate-500 dark:text-slate-500">{fmtWindow(win)}</span>
+        <span className="text-muted">{fmtWindow(win)}</span>
       </div>
     </div>
   );

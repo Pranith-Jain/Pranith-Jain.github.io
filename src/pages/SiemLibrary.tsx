@@ -272,7 +272,7 @@ export default function SiemLibrary() {
           </div>
         )}
 
-        <div className="text-center pt-6 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-6 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Authored detection library. Queries reference MITRE ATT&CK technique IDs; validate queries in your environment
           before enabling as alerts.
         </div>

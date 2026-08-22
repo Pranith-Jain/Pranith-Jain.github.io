@@ -477,7 +477,7 @@ export default function NhiScan() {
                   {Object.entries(summary.owasp_counts).map(([code, count]) => (
                     <div
                       key={code}
-                      className="flex items-center justify-between text-sm py-1 border-b border-slate-100 dark:border-slate-800 last:border-0"
+                      className="flex items-center justify-between text-sm py-1 border-b border-slate-100 dark:border-line-1 last:border-0"
                     >
                       <span className="font-mono text-heading">
                         {code}

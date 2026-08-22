@@ -104,7 +104,7 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
                 className={`rounded px-1.5 py-0.5 text-micro font-semibold transition-colors ${
                   ruleType === r.id
                     ? r.color
-                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'
+                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-muted'
                 }`}
               >
                 {r.label}

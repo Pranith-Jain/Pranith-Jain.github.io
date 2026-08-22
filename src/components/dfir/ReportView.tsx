@@ -229,7 +229,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
       case 'LOW':
         return 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300';
       default:
-        return 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400';
+        return 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted';
     }
   };
 
@@ -242,7 +242,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
       case 'poc-public':
         return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
       default:
-        return 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400';
+        return 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted';
     }
   };
 
@@ -399,7 +399,7 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
   const confColor: Record<string, string> = {
     Confirmed: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
     Probable: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    Possible: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
+    Possible: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
   };
   // Type-color map - gives the "Type" column a quick visual signal that
   // matches the indicator's nature (file hash = rose, domain = cyan, etc.).
@@ -462,7 +462,7 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
                 >
                   <td className="px-3 py-1.5">
                     <span
-                      className={`inline-block px-1.5 py-0.5 rounded text-micro font-mono font-bold uppercase ${typeColor[i.type] ?? 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
+                      className={`inline-block px-1.5 py-0.5 rounded text-micro font-mono font-bold uppercase ${typeColor[i.type] ?? 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-muted'}`}
                     >
                       {i.type}
                     </span>
@@ -521,7 +521,7 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
     sigma: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
     kql: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300',
     splunk: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    none: 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
+    none: 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-muted',
   };
   return (
     <div className="surface-card mb-4 overflow-hidden">
@@ -1121,7 +1121,7 @@ export function ReportView({
             className={`px-1.5 py-0.5 rounded text-micro font-mono font-bold ${
               stakeholder === null
                 ? 'bg-brand-600 text-white'
-                : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
+                : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-muted hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]'
             }`}
           >
             ALL

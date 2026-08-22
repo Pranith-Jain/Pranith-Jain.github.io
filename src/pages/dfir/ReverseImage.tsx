@@ -107,7 +107,7 @@ export default function ReverseImage(): JSX.Element {
           </p>
         )}
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
@@ -140,7 +140,7 @@ export default function ReverseImage(): JSX.Element {
                 <code className="block text-mini font-mono text-body break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 mb-2">
                   {trimmed}
                 </code>
-                <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
+                <p className="text-mini font-mono text-slate-400">
                   If the preview doesn't load, the image host may block hot-linking. The reverse-search engines fetch
                   the image server-side regardless, so the lookups still work.
                 </p>
@@ -185,15 +185,13 @@ export default function ReverseImage(): JSX.Element {
                     </div>
                     <p className="text-mini font-mono text-muted">{engine.blurb}</p>
                     {engine.coverage && (
-                      <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-1 italic">
-                        {engine.coverage}
-                      </p>
+                      <p className="text-micro font-mono text-slate-400 mt-1 italic">{engine.coverage}</p>
                     )}
                   </a>
                 </li>
               ))}
             </ul>
-            <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-3">
+            <p className="text-micro font-mono text-slate-400 mt-3">
               <Star size={9} className="inline text-brand-600 dark:text-brand-400" /> = recommended starting set. Run
               all four (Lens / Bing / Yandex / TinEye) - coverage barely overlaps.
             </p>

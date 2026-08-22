@@ -166,9 +166,7 @@ export default function CveRiskMatrix() {
                     style={{ width: `${Math.max(2, (count / Math.max(1, data?.count ?? 1)) * 100)}%` }}
                   />
                 </div>
-                <p className="text-micro font-mono text-slate-400 dark:text-slate-400 leading-relaxed">
-                  {meta.explainer}
-                </p>
+                <p className="text-micro font-mono text-slate-400 leading-relaxed">{meta.explainer}</p>
               </button>
             );
           })}
@@ -285,7 +283,7 @@ export default function CveRiskMatrix() {
           </table>
         </div>
 
-        <div className="text-center pt-4 pb-2 text-xs text-slate-500 dark:text-slate-500 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="text-center pt-4 pb-2 text-xs text-muted border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           Score = CVSS 30% + EPSS 35% + KEV/ransomware 25% + recency 10%. Weights mirror ThreadHub's prioritization
           approach; adjust to your environment's reality.
         </div>

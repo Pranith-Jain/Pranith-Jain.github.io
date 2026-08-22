@@ -172,7 +172,7 @@ export default function CyberNewsFeed(): JSX.Element {
                           <span className={`px-1.5 py-0.5 text-micro font-medium rounded border ${tier.color}`}>
                             {tier.label}
                           </span>
-                          <span className="text-mini text-slate-500 dark:text-slate-500">{article.source}</span>
+                          <span className="text-mini text-muted">{article.source}</span>
                           {article.pub_date && (
                             <span className="text-mini text-muted">{relativeAgo(article.pub_date)}</span>
                           )}

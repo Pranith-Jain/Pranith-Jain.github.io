@@ -122,14 +122,12 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
                 href={node.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-medium ${isLeaf ? 'text-base text-slate-900 dark:text-slate-50' : 'text-base text-slate-900 dark:text-slate-50'} hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors`}
+                className={`font-medium ${isLeaf ? 'text-base text-heading' : 'text-base text-heading'} hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors`}
               >
                 {node.title}
               </a>
             ) : (
-              <span
-                className={`font-medium ${isLeaf ? 'text-base text-slate-900 dark:text-slate-50' : 'text-base text-slate-900 dark:text-slate-50'}`}
-              >
+              <span className={`font-medium ${isLeaf ? 'text-base text-heading' : 'text-base text-heading'}`}>
                 {node.title}
               </span>
             )}
@@ -370,7 +368,7 @@ export default function OwaspAiLandscape(): JSX.Element {
           {/* Tree */}
           {filtered.length === 0 ? (
             <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-muted">
-              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
+              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400" />
               No resources match the current filters.
             </div>
           ) : (
