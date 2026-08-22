@@ -65,6 +65,39 @@ export async function loadOgData(env: Env, type: OgImageType, slug: string): Pro
     };
   }
 
+  // Shared investigation report (capability-token link). The token is the
+  // credential — the card only exposes title/org/counts, never raw IOCs.
+  if (type === 'report') {
+    if (!env.BRIEFINGS_DB) return null;
+    const row = await env.BRIEFINGS_DB.prepare(
+      `SELECT title, ioc_count, cve_count, ttp_count, branding_json
+       FROM saved_reports WHERE share_token = ?`
+    )
+      .bind(slug)
+      .first<{ title: string; ioc_count?: number; cve_count?: number; ttp_count?: number; branding_json?: string }>();
+    if (!row) return null;
+    let orgName = '';
+    try {
+      const branding = row.branding_json ? (JSON.parse(row.branding_json) as { orgName?: string }) : null;
+      orgName = branding?.orgName ?? '';
+    } catch {
+      /* malformed branding → generic badge */
+    }
+    return {
+      title: `Investigation Report — ${row.title}`.slice(0, 90),
+      subtitle: orgName ? `Shared by ${orgName}` : 'Shared capability link',
+      type: 'briefing', // reuse the briefing stats-strip renderer
+      date: new Date().toISOString().slice(0, 10),
+      badge: 'THREAT INVESTIGATION',
+      product: 'DFIR Toolkit',
+      stats: {
+        iocs: row.ioc_count ?? 0,
+        findings: row.ttp_count ?? 0,
+        cves: row.cve_count ?? 0,
+      },
+    };
+  }
+
   // blog
   const post = await readBlogPostShadowed<BlogOgRecord>(env, slug);
   if (!post?.title) return null;

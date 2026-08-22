@@ -802,6 +802,38 @@ export function ogMetaForPath(pathname: string): OgPageMeta | null {
  * meaningful override — the URL/canonical still get corrected regardless.
  */
 export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> {
+  // Shared investigation reports (capability-token links). Title/description
+  // from D1; image is a per-report dynamic card. Token never appears in meta.
+  const sr = /^\/share\/report\/([0-9a-f]{32})$/.exec(url.pathname);
+  if (sr && env.BRIEFINGS_DB) {
+    const token = sr[1]!;
+    try {
+      const row = await env.BRIEFINGS_DB.prepare(`SELECT title, branding_json FROM saved_reports WHERE share_token = ?`)
+        .bind(token)
+        .first<{ title: string; branding_json?: string }>();
+      if (row) {
+        let orgName = '';
+        try {
+          const branding = row.branding_json ? (JSON.parse(row.branding_json) as { orgName?: string }) : null;
+          orgName = branding?.orgName ?? '';
+        } catch {
+          /* malformed branding */
+        }
+        const description = orgName
+          ? `Threat investigation report shared by ${orgName} — findings, MITRE mapping and IOCs.`
+          : 'Threat investigation report — findings, MITRE mapping and IOCs.';
+        return {
+          title: `Investigation Report — ${row.title}`.slice(0, 90),
+          description,
+          image: `/api/v1/og-image/report/${token}.png`,
+          imageAlt: description,
+        };
+      }
+    } catch {
+      /* D1 miss → fall through to generic SPA card */
+    }
+  }
+
   const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
   if (m && env.CASE_STUDIES) {
     const image = `/api/v1/og-image/blog/${m[1]}.png`;

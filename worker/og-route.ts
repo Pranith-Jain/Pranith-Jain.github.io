@@ -39,6 +39,7 @@ const FALLBACK: Record<OgImageType, string> = {
   briefing: '/og-threatintel.png',
   blog: '/og-image.png',
   page: '/og-image.png',
+  report: '/og-image.png',
 };
 
 /** Global-KV TTL for a rendered card. Cards are slug-stable, so a long TTL

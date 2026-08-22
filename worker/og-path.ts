@@ -29,7 +29,9 @@
 // staying import-free.
 import { OG_BUILD_VERSION } from './og-version.generated';
 
-const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog)\/([a-z0-9][a-z0-9-]{0,199})\.png$/i;
+// Shared-report cards: slug is a 32-hex capability token — same charset
+// as the generic slug rule but semantically distinct (D1 lookup by token).
+const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog|report)\/([a-z0-9][a-z0-9-]{0,199})\.png$/i;
 
 /** Pathname of the generic per-page card endpoint (legacy query form). */
 export const OG_PAGE_PATH = '/api/v1/og-image/page.png';
@@ -37,9 +39,10 @@ export const OG_PAGE_PATH = '/api/v1/og-image/page.png';
 /** Path prefix of the dot-encoded per-page card endpoint (legacy, unversioned). */
 export const OG_PAGE_PREFIX = '/api/v1/og-image/page/';
 
-const OG_PAGE_DOT_RE = /^\/(?:api\/v1\/)?og-image(?:\/v[a-z0-9]+)?\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i;
+const OG_PAGE_DOT_RE =
+  /^\/(?:api\/v1\/)?og-image(?:\/v[a-z0-9]+)?\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i;
 
-export type OgImageType = 'briefing' | 'blog' | 'page';
+export type OgImageType = 'briefing' | 'blog' | 'page' | 'report';
 
 /** Parse `/api/v1/og-image/:type/:slug.png` into its parts, or null if the
  *  path is not a valid entity-card OG-image request. */
@@ -60,9 +63,7 @@ export function matchOgPagePath(url: URL): string | null {
   if (sm) return `/${sm[1]!.replace(/\./g, '/')}`;
   // Versioned dynamic form: /og-image/v<build>/page/<dot>.png — emitted by
   // earlier deploys; still resolves through the dynamic rasterizer.
-  const vm = /^\/og-image\/v[a-z0-9]+\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i.exec(
-    url.pathname
-  );
+  const vm = /^\/og-image\/v[a-z0-9]+\/page\/([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*)\.png$/i.exec(url.pathname);
   if (vm) return `/${vm[1]!.replace(/\./g, '/')}`;
   // Legacy `?p=` form first — `/page.png` is the exact legacy pathname and
   // also matches the dot-form regex below, so it must win before that.
