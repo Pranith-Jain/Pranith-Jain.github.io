@@ -526,6 +526,10 @@ import {
   deleteSavedReport,
   correlateIocs,
   getTimeline,
+  setBranding,
+  shareSavedReport,
+  unshareSavedReport,
+  getSharedReport,
 } from './routes/saved-reports';
 import { leakIxSearchHandler } from './routes/leakix';
 import { hostIntelHandler } from './routes/host';
@@ -1076,6 +1080,7 @@ import { observableExtractRouter } from './routes/observable-extract';
 import { fileTriageRouter } from './routes/file-triage';
 import { ruleValidatorRouter } from './routes/rule-validator';
 import { netAnalyticsRouter } from './routes/net-analytics-tools';
+import { velociraptorRouter } from './routes/velociraptor';
 import { cloudRefRouter } from './routes/cloud-ref-edge-tools';
 import { pqcRouter } from './routes/pqc-edge-tools';
 import { detectionWikiRouter } from './routes/detection-wiki-edge-tools';
@@ -1630,6 +1635,12 @@ app.get('/api/v1/saved-reports/timeline', getTimeline);
 app.get('/api/v1/saved-reports/:id', getSavedReport);
 app.post('/api/v1/saved-reports', saveReport);
 app.delete('/api/v1/saved-reports/:id', deleteSavedReport);
+app.post('/api/v1/saved-reports/:id/branding', setBranding);
+app.post('/api/v1/saved-reports/:id/share', shareSavedReport);
+app.delete('/api/v1/saved-reports/:id/share', unshareSavedReport);
+// Public share link — OUTSIDE /api/v1 so it bypasses the API-key gate; the
+// 128-bit capability token in the path IS the auth.
+app.get('/share/report/:token', getSharedReport);
 app.post('/api/v1/saved-reports/correlate', correlateIocs);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
@@ -2343,6 +2354,7 @@ app.route('/api/v1', observableExtractRouter);
 app.route('/api/v1', fileTriageRouter);
 app.route('/api/v1', ruleValidatorRouter);
 app.route('/api/v1', netAnalyticsRouter);
+app.route('/api/v1', velociraptorRouter);
 app.route('/api/v1', cloudRefRouter);
 app.route('/api/v1', pqcRouter);
 

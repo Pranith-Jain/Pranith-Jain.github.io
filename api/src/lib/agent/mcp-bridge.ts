@@ -2352,6 +2352,114 @@ export function bridgeMcpTools(
       return { ok: true, ...recipe };
     },
   });
+  // ── Velociraptor endpoint acquisition bridge ──────────────────────
+  add({
+    name: 'velo_list_clients',
+    description:
+      'List Velociraptor-managed endpoints (hostname, OS, labels, last-seen). Optional hostname search. Degrades to {configured:false} when VELO_API_URL is not set.',
+    params: [
+      { name: 'search', type: 'string', description: 'Hostname/client-id filter', required: false },
+      { name: 'limit', type: 'number', description: 'Max clients (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      const p = new URLSearchParams();
+      if (args.search) p.set('search', String(args.search));
+      if (args.limit) p.set('limit', String(Math.min(Number(args.limit), 500)));
+      const qs = p.toString() ? `?${p}` : '';
+      return apiFetchWithMethod(`/api/v1/velociraptor/clients${qs}`, 'GET');
+    },
+  });
+  add({
+    name: 'velo_get_client',
+    description: 'Get one managed endpoint by client id (C.xxxx).',
+    params: [{ name: 'client_id', type: 'string', description: "Client id ('C.1234')", required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/velociraptor/client', 'POST', { client_id: String(args.client_id) }),
+  });
+  add({
+    name: 'velo_list_flows',
+    description: 'List recent collections on an endpoint — artifact names, state, created time.',
+    params: [
+      { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
+      { name: 'limit', type: 'number', description: 'Max flows (default 20)', required: false },
+    ],
+    execute: async (args) =>
+      apiFetchWithMethod('/api/v1/velociraptor/flows', 'POST', {
+        client_id: String(args.client_id),
+        ...(args.limit ? { limit: Number(args.limit) } : {}),
+      }),
+  });
+  add({
+    name: 'velo_collect_artifact',
+    description:
+      'Launch a Velociraptor artifact collection on a managed endpoint (evidence acquisition). Returns flow id; poll with velo_get_flow_status then velo_get_flow_results.',
+    params: [
+      { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
+      { name: 'artifacts', type: 'string', description: 'Comma-separated artifact names (max 10)', required: true },
+      { name: 'parameters_json', type: 'string', description: 'Optional JSON artifact parameters', required: false },
+      { name: 'urgent', type: 'boolean', description: 'Queue ahead of scheduled hunts', required: false },
+    ],
+    execute: async (args) => {
+      let parameters: Record<string, string> | undefined;
+      if (args.parameters_json) {
+        try { parameters = JSON.parse(String(args.parameters_json)) as Record<string, string>; }
+        catch { return { error: 'parameters_json is not valid JSON' }; }
+      }
+      return apiFetchWithMethod('/api/v1/velociraptor/collect', 'POST', {
+        client_id: String(args.client_id),
+        artifacts: String(args.artifacts).split(',').map((s) => s.trim()).filter(Boolean).slice(0, 10),
+        ...(parameters ? { parameters } : {}),
+        urgent: args.urgent === true,
+      });
+    },
+  });
+  add({
+    name: 'velo_get_flow_status',
+    description: 'Poll a Velociraptor collection — state, duration, bytes collected.',
+    params: [
+      { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
+      { name: 'flow_id', type: 'string', description: "Flow id ('F.xxxx')", required: true },
+    ],
+    execute: async (args) =>
+      apiFetchWithMethod('/api/v1/velociraptor/flow', 'POST', { client_id: String(args.client_id), flow_id: String(args.flow_id) }),
+  });
+  add({
+    name: 'velo_get_flow_results',
+    description:
+      'Fetch collected rows from a finished Velociraptor collection — the evidence payload for the investigation.',
+    params: [
+      { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
+      { name: 'flow_id', type: 'string', description: 'Flow id', required: true },
+      { name: 'artifact', type: 'string', description: 'Filter to one artifact', required: false },
+      { name: 'offset', type: 'number', description: 'Row offset', required: false },
+      { name: 'rows', type: 'number', description: 'Max rows (default 100, max 1000)', required: false },
+    ],
+    execute: async (args) =>
+      apiFetchWithMethod('/api/v1/velociraptor/results', 'POST', {
+        client_id: String(args.client_id),
+        flow_id: String(args.flow_id),
+        ...(args.artifact ? { artifact: String(args.artifact) } : {}),
+        ...(args.offset ? { offset: Number(args.offset) } : {}),
+        ...(args.rows ? { rows: Math.min(Number(args.rows), 1000) } : {}),
+      }),
+  });
+  add({
+    name: 'share_saved_report',
+    description:
+      'Publish a saved report at a public capability-token share URL; optional MSSP branding (orgName/logoUrl/accent/footer/classification). Final delivery step after saving an investigation report.',
+    params: [
+      { name: 'report_id', type: 'string', description: 'Saved-report id', required: true },
+      { name: 'branding_json', type: 'string', description: 'Optional branding JSON object', required: false },
+    ],
+    execute: async (args) => {
+      const base = `/api/v1/saved-reports/${encodeURIComponent(String(args.report_id))}`;
+      if (args.branding_json) {
+        try {
+          await apiFetchWithMethod(`${base}/branding`, 'POST', { branding: JSON.parse(String(args.branding_json)) });
+        } catch { /* non-fatal */ }
+      }
+      return apiFetchWithMethod(`${base}/share`, 'POST', {});
+    },
+  });
   add({
     name: 'static_triage_file',
     description:

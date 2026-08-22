@@ -1412,6 +1412,146 @@ export function buildToolRegistry(
     },
 
     // ══════════════════════════════════════════════════════════════════════
+    //  ENDPOINT ACQUISITION (VELOCIRAPTOR BRIDGE)
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'velo_list_clients',
+      description:
+        'List Velociraptor-managed endpoints (hostname, OS, arch, labels, last-seen). Optional hostname search. Requires VELO_API_URL configured — returns {configured:false} gracefully when not.',
+      params: [
+        { name: 'search', type: 'string', description: 'Hostname/client-id filter', required: false },
+        { name: 'limit', type: 'number', description: 'Max clients (default 50, max 500)', required: false },
+      ],
+      execute: (args) => {
+        const p = new URLSearchParams();
+        if (args.search) p.set('search', String(args.search));
+        if (args.limit) p.set('limit', String(Math.min(Number(args.limit), 500)));
+        const qs = p.toString() ? `?${p}` : '';
+        return apiFetch(self, `/api/v1/velociraptor/clients${qs}`, apiKey, undefined, ih);
+      },
+    },
+    {
+      name: 'velo_get_client',
+      description: 'Get one managed endpoint by client id (C.xxxx) — OS build, labels, last check-in.',
+      params: [{ name: 'client_id', type: 'string', description: "Velociraptor client id ('C.1234')", required: true }],
+      execute: (args) =>
+        apiFetch(self, '/api/v1/velociraptor/client', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ client_id: String(args.client_id) }),
+        }, ih),
+    },
+    {
+      name: 'velo_list_flows',
+      description: 'List recent collections (flows) on an endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.',
+      params: [
+        { name: 'client_id', type: 'string', description: "Velociraptor client id", required: true },
+        { name: 'limit', type: 'number', description: 'Max flows (default 20)', required: false },
+      ],
+      execute: (args) =>
+        apiFetch(self, '/api/v1/velociraptor/flows', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ client_id: String(args.client_id), ...(args.limit ? { limit: Number(args.limit) } : {}) }),
+        }, ih),
+    },
+    {
+      name: 'velo_collect_artifact',
+      description:
+        'Launch a Velociraptor artifact collection on a managed endpoint (evidence acquisition): e.g. Windows.KapeFiles.Collect, Custom.Detection.*, Windows.Sysinternals.Autoruns. Returns flow id; poll with velo_get_flow_status then fetch rows with velo_get_flow_results.',
+      params: [
+        { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
+        { name: 'artifacts', type: 'string', description: 'Comma-separated artifact names (max 10)', required: true },
+        { name: 'parameters_json', type: 'string', description: 'Optional JSON object of artifact env parameters', required: false },
+        { name: 'urgent', type: 'boolean', description: 'Queue ahead of scheduled hunts', required: false },
+      ],
+      execute: (args) => {
+        let parameters: Record<string, string> | undefined;
+        if (args.parameters_json) {
+          try { parameters = JSON.parse(String(args.parameters_json)) as Record<string, string>; }
+          catch { return Promise.resolve({ error: 'parameters_json is not valid JSON' }); }
+        }
+        return apiFetch(self, '/api/v1/velociraptor/collect', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            client_id: String(args.client_id),
+            artifacts: String(args.artifacts).split(',').map((s) => s.trim()).filter(Boolean).slice(0, 10),
+            ...(parameters ? { parameters } : {}),
+            urgent: args.urgent === true,
+          }),
+        }, ih);
+      },
+    },
+    {
+      name: 'velo_get_flow_status',
+      description: 'Poll a Velociraptor collection status — state, duration, bytes collected, files loaded.',
+      params: [
+        { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
+        { name: 'flow_id', type: 'string', description: "Flow id from velo_collect_artifact ('F.xxxx')", required: true },
+      ],
+      execute: (args) =>
+        apiFetch(self, '/api/v1/velociraptor/flow', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ client_id: String(args.client_id), flow_id: String(args.flow_id) }),
+        }, ih),
+    },
+    {
+      name: 'velo_get_flow_results',
+      description:
+        'Fetch collected rows from a finished Velociraptor collection (VQL results table with columns + pagination). This is the evidence payload for the investigation.',
+      params: [
+        { name: 'client_id', type: 'string', description: 'Velociraptor client id', required: true },
+        { name: 'flow_id', type: 'string', description: 'Flow id', required: true },
+        { name: 'artifact', type: 'string', description: 'Filter to one collected artifact', required: false },
+        { name: 'offset', type: 'number', description: 'Row offset for pagination', required: false },
+        { name: 'rows', type: 'number', description: 'Max rows per call (default 100, max 1000)', required: false },
+      ],
+      execute: (args) =>
+        apiFetch(self, '/api/v1/velociraptor/results', apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            client_id: String(args.client_id),
+            flow_id: String(args.flow_id),
+            ...(args.artifact ? { artifact: String(args.artifact) } : {}),
+            ...(args.offset ? { offset: Number(args.offset) } : {}),
+            ...(args.rows ? { rows: Math.min(Number(args.rows), 1000) } : {}),
+          }),
+        }, ih),
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  REPORT DELIVERY
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'share_saved_report',
+      description:
+        'Publish a saved report at a public share URL (capability-token link, no login needed) and optionally attach MSSP branding (orgName/logoUrl/accent/footer/classification). Use as the final delivery step after saving an investigation report.',
+      params: [
+        { name: 'report_id', type: 'string', description: 'Saved-report id from POST /api/v1/saved-reports', required: true },
+        { name: 'branding_json', type: 'string', description: 'Optional branding JSON: orgName, logoUrl, accent, footer, classification', required: false },
+      ],
+      execute: (args) => {
+        const run = async (): Promise<unknown> => {
+          if (args.branding_json) {
+            try {
+              const branding = JSON.parse(String(args.branding_json));
+              await apiFetch(self, `/api/v1/saved-reports/${encodeURIComponent(String(args.report_id))}/branding`, apiKey, {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ branding }),
+              }, ih);
+            } catch { /* non-fatal — share still proceeds */ }
+          }
+          return apiFetch(self, `/api/v1/saved-reports/${encodeURIComponent(String(args.report_id))}/share`, apiKey, { method: 'POST' }, ih);
+        };
+        return run();
+      },
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
     //  IR & RESPONSE
     // ══════════════════════════════════════════════════════════════════════
     {

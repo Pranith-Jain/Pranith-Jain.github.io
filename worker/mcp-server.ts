@@ -7640,6 +7640,117 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── Velociraptor endpoint acquisition bridge ─────────────────────
+    this.tools(
+      'velo_list_clients',
+      'List Velociraptor-managed endpoints (hostname, OS, arch, labels, last-seen). Optional hostname search. Degrades gracefully when VELO_API_URL is not configured.',
+      {
+        search: z.string().optional().describe('Hostname/client-id filter'),
+        limit: z.number().int().min(1).max(500).optional().describe('Max clients (default 50)'),
+      },
+      async ({ search, limit }) => {
+        const p = new URLSearchParams();
+        if (search) p.set('search', search);
+        if (limit) p.set('limit', String(limit));
+        const qs = p.toString() ? `?${p}` : '';
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/velociraptor/clients${qs}`, this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'velo_get_client',
+      'Get one Velociraptor-managed endpoint by client id (C.xxxx) — OS build, labels, last check-in.',
+      { client_id: z.string().describe("Client id ('C.1234')") },
+      async ({ client_id }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/client', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ client_id }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'velo_list_flows',
+      'List recent collections (flows) on a managed endpoint — artifact names, state (RUNNING/FINISHED/ERROR), created time.',
+      {
+        client_id: z.string().describe('Velociraptor client id'),
+        limit: z.number().int().min(1).max(200).optional().describe('Max flows (default 20)'),
+      },
+      async ({ client_id, limit }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/flows', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ client_id, ...(limit ? { limit } : {}) }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'velo_collect_artifact',
+      'Launch a Velociraptor artifact collection on a managed endpoint (evidence acquisition): e.g. Windows.KapeFiles.Collect. Returns flow id; poll with velo_get_flow_status then velo_get_flow_results.',
+      {
+        client_id: z.string().describe('Velociraptor client id'),
+        artifacts: z.array(z.string()).max(10).describe('Artifact names to collect'),
+        parameters_json: z.string().optional().describe('JSON object of artifact env parameters'),
+        urgent: z.boolean().optional().describe('Queue ahead of scheduled hunts'),
+      },
+      async ({ client_id, artifacts, parameters_json, urgent }) => {
+        let parameters: Record<string, string> | undefined;
+        if (parameters_json) {
+          try { parameters = JSON.parse(parameters_json) as Record<string, string>; }
+          catch { return { content: [{ type: 'text', text: JSON.stringify({ error: 'parameters_json is not valid JSON' }) }] }; }
+        }
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/collect', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ client_id, artifacts, ...(parameters ? { parameters } : {}), urgent: urgent === true }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'velo_get_flow_status',
+      'Poll a Velociraptor collection status — state, duration, bytes collected, files loaded.',
+      {
+        client_id: z.string().describe('Velociraptor client id'),
+        flow_id: z.string().describe("Flow id from velo_collect_artifact ('F.xxxx')"),
+      },
+      async ({ client_id, flow_id }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/flow', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ client_id, flow_id }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'velo_get_flow_results',
+      'Fetch collected rows from a finished Velociraptor collection (VQL results table with pagination) — the evidence payload for the investigation.',
+      {
+        client_id: z.string().describe('Velociraptor client id'),
+        flow_id: z.string().describe('Flow id'),
+        artifact: z.string().optional().describe('Filter to one collected artifact'),
+        offset: z.number().int().min(0).optional().describe('Row offset'),
+        rows: z.number().int().min(1).max(1000).optional().describe('Max rows (default 100)'),
+      },
+      async ({ client_id, flow_id, artifact, offset, rows }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/velociraptor/results', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            client_id,
+            flow_id,
+            ...(artifact ? { artifact } : {}),
+            ...(offset !== undefined ? { offset } : {}),
+            ...(rows !== undefined ? { rows } : {}),
+          }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── Investigation recipes ─────────────────────────────────────────
     this.tools(
       'get_recipe',

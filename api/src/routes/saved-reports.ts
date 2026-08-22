@@ -195,3 +195,124 @@ export async function getTimeline(c: Context<{ Bindings: Env }>): Promise<Respon
 
   return c.json({ timeline, sharedIocs });
 }
+
+
+// ── Sharing + branding (Fleet-parity: branded reports, artifact sharing) ──
+
+/** Normalize + validate a branding payload. Returns null when invalid. */
+export function normalizeBranding(input: unknown): Record<string, string> | null {
+  if (typeof input !== 'object' || input === null || Array.isArray(input)) return null;
+  const out: Record<string, string> = {};
+  const allowed: Array<[string, number]> = [
+    ['orgName', 120],
+    ['logoUrl', 500],
+    ['accent', 40],
+    ['footer', 300],
+    ['classification', 60],
+  ];
+  for (const [key, max] of allowed) {
+    const v = (input as Record<string, unknown>)[key];
+    if (typeof v === 'string' && v.trim()) {
+      // logoUrl/accent get light scheme validation; others are plain text
+      if ((key === 'logoUrl' || key === 'accent') && /^javascript:/i.test(v.trim())) return null;
+      out[key] = v.trim().slice(0, max);
+    }
+  }
+  return Object.keys(out).length > 0 ? out : null;
+}
+
+function shareToken(): string {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return [...bytes].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/** POST /saved-reports/:id/branding { branding: {...} } — set/clear branding. */
+export async function setBranding(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const id = c.req.param('id');
+  let body: { branding?: unknown };
+  try {
+    body = await c.req.json();
+  } catch (_e) {
+    return badRequest(c, 'invalid JSON');
+  }
+  const branding = body.branding === null ? {} : normalizeBranding(body.branding);
+  if (branding === null) {
+    return badRequest(c, "branding must be an object with optional keys: orgName, logoUrl, accent, footer, classification");
+  }
+  const db = c.env.BRIEFINGS_DB!;
+  const res = await db
+    .prepare('UPDATE saved_reports SET branding_json = ? WHERE id = ?')
+    .bind(Object.keys(branding).length ? JSON.stringify(branding) : null, id)
+    .run();
+  if (!res.success) return badRequest(c, 'update failed');
+  return c.json({ ok: true, branding });
+}
+
+/** POST /saved-reports/:id/share — mint (or re-mint) a public share token. */
+export async function shareSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const id = c.req.param('id');
+  const db = c.env.BRIEFINGS_DB!;
+  const row = await db.prepare('SELECT id FROM saved_reports WHERE id = ?').bind(id).first();
+  if (!row) return notFound(c, 'not_found');
+  const token = shareToken();
+  await db
+    .prepare('UPDATE saved_reports SET share_token = ?, shared_at = ? WHERE id = ?')
+    .bind(token, now(), id)
+    .run();
+  return c.json({ ok: true, token, url: `/share/report/${token}`, shared_at: now() });
+}
+
+/** DELETE /saved-reports/:id/share — revoke the share link. */
+export async function unshareSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const id = c.req.param('id');
+  const db = c.env.BRIEFINGS_DB!;
+  await db.prepare('UPDATE saved_reports SET share_token = NULL, shared_at = NULL WHERE id = ?').bind(id).run();
+  return c.json({ ok: true });
+}
+
+/**
+ * GET /share/report/:token — PUBLIC read-only render payload. Auth is the
+ * capability token itself (32 hex chars); mounted OUTSIDE /api/v1 so it
+ * bypasses the API-key gate. Only shares rows with a non-null token.
+ */
+export async function getSharedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const token = c.req.param('token') ?? '';
+  if (!/^[0-9a-f]{32}$/.test(token)) return notFound(c, 'not_found');
+  const db = c.env.BRIEFINGS_DB!;
+  const row = await db
+    .prepare(
+      `SELECT id, title, source_url, report_json, text_length, ioc_count, ttp_count, cve_count,
+              branding_json, created_at, shared_at
+       FROM saved_reports WHERE share_token = ?`
+    )
+    .bind(token)
+    .first();
+  if (!row) return notFound(c, 'not_found');
+  let report: unknown = null;
+  try {
+    report = JSON.parse((row.report_json as string) ?? 'null');
+  } catch {
+    report = null;
+  }
+  let branding: unknown = null;
+  try {
+    branding = row.branding_json ? JSON.parse(row.branding_json as string) : null;
+  } catch {
+    branding = null;
+  }
+  return c.json({
+    title: row.title,
+    source_url: row.source_url,
+    report,
+    branding,
+    counts: {
+      iocs: row.ioc_count ?? 0,
+      ttps: row.ttp_count ?? 0,
+      cves: row.cve_count ?? 0,
+      textLength: row.text_length ?? 0,
+    },
+    created_at: row.created_at,
+    shared_at: row.shared_at,
+  });
+}

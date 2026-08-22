@@ -34,6 +34,12 @@ export interface Env {
    *  external GET/HEAD `/api/v1/*` reads are allowed WITHOUT an API key again —
    *  restoring the fully-public behavior. Unset/anything-else keeps reads gated. */
   OPEN_PUBLIC_READS?: string;
+  /** Velociraptor endpoint-connector (gRPC-gateway HTTP JSON API). Optional —
+   *  velo_* tools degrade to {configured:false} when unset. */
+  VELO_API_URL?: string;
+  VELO_API_TOKEN?: string;
+  VELO_USERNAME?: string;
+  VELO_PASSWORD?: string;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
   VECTORIZE?: VectorizeIndex;
