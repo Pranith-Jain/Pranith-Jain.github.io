@@ -1,15 +1,1 @@
-{
-  "slug": "interlock-southeastern-oklahoma-state-university-2026-08-19",
-  "title": "Southeastern Oklahoma State University",
-  "group": "interlock",
-  "discovered": "2026-08-19T13:56:47.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/676c63c3-63a4-49b7-9790-ed372f48d8a8",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["Darkfield"]
-}
+{"slug":"interlock-southeastern-oklahoma-state-university-2026-08-19","title":"Southeastern Oklahoma State University","group":"interlock","discovered":"2026-08-19T13:56:47.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/676c63c3-63a4-49b7-9790-ed372f48d8a8","groupAliases":[],"activity":"Education","references":["Darkfield"]}

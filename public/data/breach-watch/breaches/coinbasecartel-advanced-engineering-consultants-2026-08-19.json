@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-advanced-engineering-consultants-2026-08-19",
-  "title": "Advanced Engineering Consultants",
-  "group": "coinbasecartel",
-  "discovered": "2026-08-19T15:23:42.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ad6642e2-4b76-4888-8fa9-6803b3ec7e97",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Professional Services",
-  "references": ["Darkfield"]
-}
+{"slug":"coinbasecartel-advanced-engineering-consultants-2026-08-19","title":"Advanced Engineering Consultants","group":"coinbasecartel","discovered":"2026-08-19T15:23:42.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/ad6642e2-4b76-4888-8fa9-6803b3ec7e97","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["Darkfield"]}

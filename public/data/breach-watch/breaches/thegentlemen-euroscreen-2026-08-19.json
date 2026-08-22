@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-euroscreen-2026-08-19",
-  "title": "Euroscreen",
-  "group": "thegentlemen",
-  "discovered": "2026-08-19T08:11:54.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/70ba1786-4fda-4beb-a010-18e420b5dc4c",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["Darkfield"]
-}
+{"slug":"thegentlemen-euroscreen-2026-08-19","title":"Euroscreen","group":"thegentlemen","discovered":"2026-08-19T08:11:54.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/70ba1786-4fda-4beb-a010-18e420b5dc4c","groupAliases":["the gentlemen"],"activity":"Technology","references":["Darkfield"]}

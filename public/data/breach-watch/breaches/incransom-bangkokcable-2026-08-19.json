@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-bangkokcable-2026-08-19",
-  "title": "BANGKOKCABLE",
-  "group": "incransom",
-  "discovered": "2026-08-19T13:55:48.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/b0bfe245-f2d3-4b69-9d94-be9d93bc679c",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Manufacturing",
-  "references": ["Darkfield"]
-}
+{"slug":"incransom-bangkokcable-2026-08-19","title":"BANGKOKCABLE","group":"incransom","discovered":"2026-08-19T13:55:48.000Z","category":"ransomware","severity":"critical","country":"TH","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/b0bfe245-f2d3-4b69-9d94-be9d93bc679c","groupAliases":["inc ransom","INC"],"activity":"Manufacturing","references":["Darkfield"]}

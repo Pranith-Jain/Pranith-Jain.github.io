@@ -1,15 +1,1 @@
-{
-  "slug": "titan-tedesco-partners-stp-srl-2026-08-20",
-  "title": "Tedesco & Partners STP srl",
-  "group": "titan",
-  "discovered": "2026-08-20T15:01:34.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/283343be-d0af-45d5-955b-6e175e12e399",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["Darkfield"]
-}
+{"slug":"titan-tedesco-partners-stp-srl-2026-08-20","title":"Tedesco & Partners STP srl","group":"titan","discovered":"2026-08-20T15:01:34.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/283343be-d0af-45d5-955b-6e175e12e399","groupAliases":[],"activity":"Professional Services","references":["Darkfield"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-icnavais-com-2026-08-22",
-  "title": "icnavais.com",
-  "group": "lockbit5",
-  "discovered": "2026-08-22T12:30:34.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "PT",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/76bb606a-ae8c-4eaa-af6b-079b938cc23b",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["Darkfield"]
-}
+{"slug":"lockbit5-icnavais-com-2026-08-22","title":"icnavais.com","group":"lockbit5","discovered":"2026-08-22T12:30:34.000Z","category":"ransomware","severity":"high","country":"PT","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/76bb606a-ae8c-4eaa-af6b-079b938cc23b","groupAliases":[],"activity":"Not Found","references":["Darkfield"]}

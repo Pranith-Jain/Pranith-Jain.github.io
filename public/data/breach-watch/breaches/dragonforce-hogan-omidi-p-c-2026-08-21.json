@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-hogan-omidi-p-c-2026-08-21",
-  "title": "Hogan Omidi P.C.",
-  "group": "dragonforce",
-  "discovered": "2026-08-21T06:25:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/707764c7-2917-498b-8710-c854b67e50ec",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Professional Services",
-  "references": ["Darkfield"]
-}
+{"slug":"dragonforce-hogan-omidi-p-c-2026-08-21","title":"Hogan Omidi P.C.","group":"dragonforce","discovered":"2026-08-21T06:25:00.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/707764c7-2917-498b-8710-c854b67e50ec","groupAliases":["DRAGON FORCE"],"activity":"Professional Services","references":["Darkfield"]}

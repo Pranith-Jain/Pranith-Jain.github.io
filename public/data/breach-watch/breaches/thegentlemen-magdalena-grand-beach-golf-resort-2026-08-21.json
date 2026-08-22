@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-magdalena-grand-beach-golf-resort-2026-08-21",
-  "title": "Magdalena Grand Beach Golf Resort",
-  "group": "thegentlemen",
-  "discovered": "2026-08-21T08:28:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "MX",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/408be5a5-e666-4a1c-a342-16ea12a71dcb",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Hospitality",
-  "references": ["Darkfield"]
-}
+{"slug":"thegentlemen-magdalena-grand-beach-golf-resort-2026-08-21","title":"Magdalena Grand Beach Golf Resort","group":"thegentlemen","discovered":"2026-08-21T08:28:59.000Z","category":"ransomware","severity":"critical","country":"MX","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/408be5a5-e666-4a1c-a342-16ea12a71dcb","groupAliases":["the gentlemen"],"activity":"Hospitality","references":["Darkfield"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "orova-dl-holdings-group-2026-08-19",
-  "title": "DL HOLDINGS GROUP",
-  "group": "Orova",
-  "discovered": "2026-08-19T14:51:23.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/be941168-d49f-487d-90b7-aa1c10bdd9ee",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["Darkfield"]
-}
+{"slug":"orova-dl-holdings-group-2026-08-19","title":"DL HOLDINGS GROUP","group":"Orova","discovered":"2026-08-19T14:51:23.000Z","category":"data_breach","severity":"high","country":"HK","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/be941168-d49f-487d-90b7-aa1c10bdd9ee","groupAliases":[],"activity":"Other","references":["Darkfield"]}

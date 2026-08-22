@@ -1,15 +1,1 @@
-{
-  "slug": "insomnia-aurora-health-management-2026-08-19",
-  "title": "Aurora Health Management",
-  "group": "insomnia",
-  "discovered": "2026-08-19T14:57:13.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3c1d1bb9-4692-4101-af27-f2d150db07b8",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["Darkfield"]
-}
+{"slug":"insomnia-aurora-health-management-2026-08-19","title":"Aurora Health Management","group":"insomnia","discovered":"2026-08-19T14:57:13.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/3c1d1bb9-4692-4101-af27-f2d150db07b8","groupAliases":[],"activity":"Healthcare","references":["Darkfield"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-hp-carriers-2026-08-21",
-  "title": "HP Carriers",
-  "group": "direwolf",
-  "discovered": "2026-08-21T02:25:21.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/9d79da77-ae95-4ac6-8009-bded2eaf0ae7",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": "Transportation",
-  "references": ["Darkfield"]
-}
+{"slug":"direwolf-hp-carriers-2026-08-21","title":"HP Carriers","group":"direwolf","discovered":"2026-08-21T02:25:21.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/9d79da77-ae95-4ac6-8009-bded2eaf0ae7","groupAliases":["DIRE WOLF"],"activity":"Transportation","references":["Darkfield"]}

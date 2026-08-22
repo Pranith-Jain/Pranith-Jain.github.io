@@ -1,15 +1,1 @@
-{
-  "slug": "rhysida-cri-electric-2026-08-22",
-  "title": "CRI Electric",
-  "group": "rhysida",
-  "discovered": "2026-08-22T05:56:26.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/257fad1d-5972-4de2-bdcd-485c0c94b229",
-  "groupAliases": [],
-  "activity": "Energy & Utilities",
-  "references": ["Darkfield"]
-}
+{"slug":"rhysida-cri-electric-2026-08-22","title":"CRI Electric","group":"rhysida","discovered":"2026-08-22T05:56:26.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/257fad1d-5972-4de2-bdcd-485c0c94b229","groupAliases":[],"activity":"Energy & Utilities","references":["Darkfield"]}

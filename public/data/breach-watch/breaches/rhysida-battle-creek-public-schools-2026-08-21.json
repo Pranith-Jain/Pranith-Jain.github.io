@@ -1,15 +1,1 @@
-{
-  "slug": "rhysida-battle-creek-public-schools-2026-08-21",
-  "title": "Battle Creek Public Schools",
-  "group": "rhysida",
-  "discovered": "2026-08-21T10:28:03.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/cad9bae2-d2a8-48c9-bd17-770f9b5a6552",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["Darkfield"]
-}
+{"slug":"rhysida-battle-creek-public-schools-2026-08-21","title":"Battle Creek Public Schools","group":"rhysida","discovered":"2026-08-21T10:28:03.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/cad9bae2-d2a8-48c9-bd17-770f9b5a6552","groupAliases":[],"activity":"Education","references":["Darkfield"]}

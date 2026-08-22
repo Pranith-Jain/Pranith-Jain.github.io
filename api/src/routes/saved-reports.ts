@@ -264,7 +264,7 @@ export async function shareSavedReport(c: Context<{ Bindings: Env }>): Promise<R
   if (!row) return notFound(c, 'not_found');
   const token = shareToken();
   await db.prepare('UPDATE saved_reports SET share_token = ?, shared_at = ? WHERE id = ?').bind(token, now(), id).run();
-  return c.json({ ok: true, token, url: `/share/report/${token}`, shared_at: now() });
+  return c.json({ ok: true, token, url: `/share/report/${token}`, data_url: `/api/v1/public/report/${token}`, shared_at: now() });
 }
 
 /** DELETE /saved-reports/:id/share — revoke the share link. */

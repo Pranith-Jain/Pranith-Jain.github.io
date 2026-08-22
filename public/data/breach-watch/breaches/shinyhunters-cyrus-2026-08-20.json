@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-cyrus-2026-08-20",
-  "title": "Cyrus******",
-  "group": "shinyhunters",
-  "discovered": "2026-08-20T18:43:17.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/283f1d45-3b55-4bfc-a18f-1ece050965f2",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["Darkfield"]
-}
+{"slug":"shinyhunters-cyrus-2026-08-20","title":"Cyrus******","group":"shinyhunters","discovered":"2026-08-20T18:43:17.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/283f1d45-3b55-4bfc-a18f-1ece050965f2","groupAliases":[],"activity":"Technology","references":["Darkfield"]}

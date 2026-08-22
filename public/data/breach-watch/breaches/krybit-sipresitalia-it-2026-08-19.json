@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-sipresitalia-it-2026-08-19",
-  "title": "sipresitalia.it",
-  "group": "krybit",
-  "discovered": "2026-08-19T11:57:40.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f100e05e-b460-4e7d-808c-c7de3fb9a832",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["Darkfield"]
-}
+{"slug":"krybit-sipresitalia-it-2026-08-19","title":"sipresitalia.it","group":"krybit","discovered":"2026-08-19T11:57:40.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/f100e05e-b460-4e7d-808c-c7de3fb9a832","groupAliases":[],"activity":"Manufacturing","references":["Darkfield"]}

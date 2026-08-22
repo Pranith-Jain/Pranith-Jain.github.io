@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-estech-2026-08-19",
-  "title": "Estech",
-  "group": "qilin",
-  "discovered": "2026-08-19T12:28:48.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ed44f37d-9e94-4eaf-afdf-5ddd17614ef3",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["Darkfield"]
-}
+{"slug":"qilin-estech-2026-08-19","title":"Estech","group":"qilin","discovered":"2026-08-19T12:28:48.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/ed44f37d-9e94-4eaf-afdf-5ddd17614ef3","groupAliases":[],"activity":"Technology","references":["Darkfield"]}

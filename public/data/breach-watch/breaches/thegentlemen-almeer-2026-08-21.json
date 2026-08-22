@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-almeer-2026-08-21",
-  "title": "Almeer",
-  "group": "thegentlemen",
-  "discovered": "2026-08-21T08:27:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AE",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d3ba5c1b-c8cc-4b30-b5f1-46ce27f8a176",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Other",
-  "references": ["Darkfield"]
-}
+{"slug":"thegentlemen-almeer-2026-08-21","title":"Almeer","group":"thegentlemen","discovered":"2026-08-21T08:27:57.000Z","category":"ransomware","severity":"critical","country":"AE","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/d3ba5c1b-c8cc-4b30-b5f1-46ce27f8a176","groupAliases":["the gentlemen"],"activity":"Other","references":["Darkfield"]}

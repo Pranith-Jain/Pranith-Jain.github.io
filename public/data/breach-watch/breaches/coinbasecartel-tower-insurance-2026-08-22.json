@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-tower-insurance-2026-08-22",
-  "title": "Tower Insurance",
-  "group": "coinbasecartel",
-  "discovered": "2026-08-22T14:00:01.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "NZ",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/df2f7d71-9b53-4e88-9347-ee36cd08aa65",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Financial Services",
-  "references": ["Darkfield"]
-}
+{"slug":"coinbasecartel-tower-insurance-2026-08-22","title":"Tower Insurance","group":"coinbasecartel","discovered":"2026-08-22T14:00:01.000Z","category":"ransomware","severity":"high","country":"NZ","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/df2f7d71-9b53-4e88-9347-ee36cd08aa65","groupAliases":["coinbase cartel"],"activity":"Financial Services","references":["Darkfield"]}

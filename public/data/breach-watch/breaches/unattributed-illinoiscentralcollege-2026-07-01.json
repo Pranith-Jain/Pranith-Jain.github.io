@@ -1,15 +1,1 @@
-{
-  "slug": "unattributed-illinoiscentralcollege-2026-07-01",
-  "title": "IllinoisCentralCollege",
-  "group": "Unattributed",
-  "discovered": "2026-07-01T13:43:07.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Illinois Central College, a community college, was allegedly breached by the ShinyHunters group in June 2026, exposing 220k unique email addresses along with names, usernames, phone numbers, and dates of birth.",
-  "source_url": "https://xposedornot.com/breach/IllinoisCentralCollege",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["XposedOrNot"]
-}
+{"slug":"unattributed-illinoiscentralcollege-2026-07-01","title":"IllinoisCentralCollege","group":"Unattributed","discovered":"2026-07-01T13:43:07.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Illinois Central College, a community college, was allegedly breached by the ShinyHunters group in June 2026, exposing 220k unique email addresses along with names, usernames, phone numbers, and dates of birth.","source_url":"https://xposedornot.com/breach/IllinoisCentralCollege","groupAliases":[],"activity":"Education","references":["XposedOrNot"]}

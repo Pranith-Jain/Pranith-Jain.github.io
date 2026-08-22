@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-escon-group-2026-08-21",
-  "title": "ESCON Group",
-  "group": "thegentlemen",
-  "discovered": "2026-08-21T08:28:18.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ae37a969-119d-43f8-b830-029cb08f0e7c",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["Darkfield"]
-}
+{"slug":"thegentlemen-escon-group-2026-08-21","title":"ESCON Group","group":"thegentlemen","discovered":"2026-08-21T08:28:18.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/ae37a969-119d-43f8-b830-029cb08f0e7c","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["Darkfield"]}

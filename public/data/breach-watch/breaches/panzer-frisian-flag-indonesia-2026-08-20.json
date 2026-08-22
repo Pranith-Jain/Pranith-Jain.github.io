@@ -1,15 +1,1 @@
-{
-  "slug": "panzer-frisian-flag-indonesia-2026-08-20",
-  "title": "Frisian Flag Indonesia",
-  "group": "Panzer",
-  "discovered": "2026-08-20T16:22:01.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "ID",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d5dd0dc1-2e03-4c64-987c-a87f79a59f67",
-  "groupAliases": [],
-  "activity": "Agriculture and Food Production",
-  "references": ["Darkfield"]
-}
+{"slug":"panzer-frisian-flag-indonesia-2026-08-20","title":"Frisian Flag Indonesia","group":"Panzer","discovered":"2026-08-20T16:22:01.000Z","category":"data_breach","severity":"high","country":"ID","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/d5dd0dc1-2e03-4c64-987c-a87f79a59f67","groupAliases":[],"activity":"Agriculture and Food Production","references":["Darkfield"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-oteis-conseil-ing-nierie-2026-08-22",
-  "title": "OTEIS Conseil & Ingénierie",
-  "group": "coinbasecartel",
-  "discovered": "2026-08-22T13:58:39.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d033b6a4-a986-47a4-b4c8-446b42a99130",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Professional Services",
-  "references": ["Darkfield"]
-}
+{"slug":"coinbasecartel-oteis-conseil-ing-nierie-2026-08-22","title":"OTEIS Conseil & Ingénierie","group":"coinbasecartel","discovered":"2026-08-22T13:58:39.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/d033b6a4-a986-47a4-b4c8-446b42a99130","groupAliases":["coinbase cartel"],"activity":"Professional Services","references":["Darkfield"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-freelom-2026-08-22",
-  "title": "Freelom",
-  "group": "spacebears",
-  "discovered": "2026-08-22T07:59:41.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "CZ",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/17a05f2c-8cee-4564-bf83-7c57c939acbe",
-  "groupAliases": ["space bears"],
-  "activity": "Not Found",
-  "references": ["Darkfield"]
-}
+{"slug":"spacebears-freelom-2026-08-22","title":"Freelom","group":"spacebears","discovered":"2026-08-22T07:59:41.000Z","category":"data_breach","severity":"high","country":"CZ","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/17a05f2c-8cee-4564-bf83-7c57c939acbe","groupAliases":["space bears"],"activity":"Not Found","references":["Darkfield"]}

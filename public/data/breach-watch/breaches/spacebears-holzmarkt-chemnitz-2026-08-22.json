@@ -1,15 +1,1 @@
-{
-  "slug": "spacebears-holzmarkt-chemnitz-2026-08-22",
-  "title": "holzmarkt chemnitz",
-  "group": "spacebears",
-  "discovered": "2026-08-22T08:00:14.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/d2362679-9d4c-40e2-8d9a-07d9ce4a1168",
-  "groupAliases": ["space bears"],
-  "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
-}
+{"slug":"spacebears-holzmarkt-chemnitz-2026-08-22","title":"holzmarkt chemnitz","group":"spacebears","discovered":"2026-08-22T08:00:14.000Z","category":"data_breach","severity":"high","country":"DE","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/d2362679-9d4c-40e2-8d9a-07d9ce4a1168","groupAliases":["space bears"],"activity":"Retail & E-Commerce","references":["Darkfield"]}

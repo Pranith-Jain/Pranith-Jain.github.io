@@ -1,15 +1,1 @@
-{
-  "slug": "majinahanashi-grand-ion-delemen-hotel-2026-08-20",
-  "title": "Grand Ion Delemen Hotel",
-  "group": "majinahanashi",
-  "discovered": "2026-08-20T10:33:42.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/3e8acc5e-e350-4c0d-8e6a-e6ff21bf98c5",
-  "groupAliases": [],
-  "activity": "Hospitality",
-  "references": ["Darkfield"]
-}
+{"slug":"majinahanashi-grand-ion-delemen-hotel-2026-08-20","title":"Grand Ion Delemen Hotel","group":"majinahanashi","discovered":"2026-08-20T10:33:42.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/3e8acc5e-e350-4c0d-8e6a-e6ff21bf98c5","groupAliases":[],"activity":"Hospitality","references":["Darkfield"]}

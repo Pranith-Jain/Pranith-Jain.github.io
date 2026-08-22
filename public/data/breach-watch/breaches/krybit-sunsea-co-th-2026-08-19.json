@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-sunsea-co-th-2026-08-19",
-  "title": "sunsea.co.th",
-  "group": "krybit",
-  "discovered": "2026-08-19T15:57:27.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "TH",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/58cff260-9b89-495b-aeea-25e621582d2d",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["Darkfield"]
-}
+{"slug":"krybit-sunsea-co-th-2026-08-19","title":"sunsea.co.th","group":"krybit","discovered":"2026-08-19T15:57:27.000Z","category":"ransomware","severity":"high","country":"TH","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/58cff260-9b89-495b-aeea-25e621582d2d","groupAliases":[],"activity":"Other","references":["Darkfield"]}

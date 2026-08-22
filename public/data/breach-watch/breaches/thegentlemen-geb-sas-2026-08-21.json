@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-geb-sas-2026-08-21",
-  "title": "Geb Sas",
-  "group": "thegentlemen",
-  "discovered": "2026-08-21T08:27:36.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ec266d3a-d734-454c-8e5c-f76f8d6296b8",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Not Found",
-  "references": ["Darkfield"]
-}
+{"slug":"thegentlemen-geb-sas-2026-08-21","title":"Geb Sas","group":"thegentlemen","discovered":"2026-08-21T08:27:36.000Z","category":"ransomware","severity":"critical","country":"FR","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/ec266d3a-d734-454c-8e5c-f76f8d6296b8","groupAliases":["the gentlemen"],"activity":"Not Found","references":["Darkfield"]}

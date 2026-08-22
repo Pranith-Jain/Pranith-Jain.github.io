@@ -1,15 +1,1 @@
-{
-  "slug": "titan-tecnologica-s-r-l-2026-08-20",
-  "title": "TECNOLOGICA S.r.l.",
-  "group": "titan",
-  "discovered": "2026-08-20T13:32:30.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/17dd4a13-f358-4da4-86b4-76f1b444f728",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["Darkfield"]
-}
+{"slug":"titan-tecnologica-s-r-l-2026-08-20","title":"TECNOLOGICA S.r.l.","group":"titan","discovered":"2026-08-20T13:32:30.000Z","category":"ransomware","severity":"high","country":"IT","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/17dd4a13-f358-4da4-86b4-76f1b444f728","groupAliases":[],"activity":"Technology","references":["Darkfield"]}

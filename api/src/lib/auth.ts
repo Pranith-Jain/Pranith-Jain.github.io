@@ -255,6 +255,13 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
       return next();
     }
 
+    // Capability-token public reads (/api/v1/public/**): the unguessable
+    // token in the path IS the credential (e.g. shared report links). Only
+    // exact-shape tokens reach handlers; handlers 404 on unknown tokens.
+    if (c.req.path.startsWith('/api/v1/public/')) {
+      return next();
+    }
+
     // Internal requests from our own Durable Objects via the SELF service
     // binding. DOs carry a signed internal token (HMAC-SHA256, short TTL)
     // that replaces the old spoofable X-Internal-Agent header.

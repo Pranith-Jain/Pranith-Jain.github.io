@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-bok-financial-2026-08-22",
-  "title": "BOK Financial",
-  "group": "shinyhunters",
-  "discovered": "2026-08-22T14:13:39.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/c15ac22b-25f4-438c-ad6a-f7a3c97d6ce9",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["Darkfield"]
-}
+{"slug":"shinyhunters-bok-financial-2026-08-22","title":"BOK Financial","group":"shinyhunters","discovered":"2026-08-22T14:13:39.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/c15ac22b-25f4-438c-ad6a-f7a3c97d6ce9","groupAliases":[],"activity":"Financial Services","references":["Darkfield"]}

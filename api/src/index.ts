@@ -1638,9 +1638,9 @@ app.delete('/api/v1/saved-reports/:id', deleteSavedReport);
 app.post('/api/v1/saved-reports/:id/branding', setBranding);
 app.post('/api/v1/saved-reports/:id/share', shareSavedReport);
 app.delete('/api/v1/saved-reports/:id/share', unshareSavedReport);
-// Public share link — OUTSIDE /api/v1 so it bypasses the API-key gate; the
-// 128-bit capability token in the path IS the auth.
-app.get('/share/report/:token', getSharedReport);
+// Public share DATA endpoint — capability-token routes are exempt from the
+// API-key gate (see auth.ts); the SPA page /share/report/:token fetches this.
+app.get('/api/v1/public/report/:token', getSharedReport);
 app.post('/api/v1/saved-reports/correlate', correlateIocs);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);

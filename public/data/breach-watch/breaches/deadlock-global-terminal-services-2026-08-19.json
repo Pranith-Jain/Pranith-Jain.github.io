@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-global-terminal-services-2026-08-19",
-  "title": "Global Terminal Services",
-  "group": "Deadlock",
-  "discovered": "2026-08-19T18:18:14.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "TR",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/8c41e591-d626-4880-94f8-ef03e483b962",
-  "groupAliases": [],
-  "activity": "Transportation",
-  "references": ["Darkfield"]
-}
+{"slug":"deadlock-global-terminal-services-2026-08-19","title":"Global Terminal Services","group":"Deadlock","discovered":"2026-08-19T18:18:14.000Z","category":"ransomware","severity":"critical","country":"TR","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/8c41e591-d626-4880-94f8-ef03e483b962","groupAliases":[],"activity":"Transportation","references":["Darkfield"]}

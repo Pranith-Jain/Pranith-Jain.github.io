@@ -1,15 +1,1 @@
-{
-  "slug": "settra-makfreight-com-2026-08-19",
-  "title": "makfreight.com",
-  "group": "settra",
-  "discovered": "2026-08-19T18:04:47.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "MY",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/8fd73984-7268-468e-80a6-227686d86d89",
-  "groupAliases": [],
-  "activity": "Transportation",
-  "references": ["Darkfield"]
-}
+{"slug":"settra-makfreight-com-2026-08-19","title":"makfreight.com","group":"settra","discovered":"2026-08-19T18:04:47.000Z","category":"data_breach","severity":"high","country":"MY","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/8fd73984-7268-468e-80a6-227686d86d89","groupAliases":[],"activity":"Transportation","references":["Darkfield"]}

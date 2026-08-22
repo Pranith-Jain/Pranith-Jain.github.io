@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-reviso-cloud-accounting-limited-2026-08-21",
-  "title": "Reviso Cloud Accounting Limited",
-  "group": "direwolf",
-  "discovered": "2026-08-21T02:24:16.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "DK",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1e9bd500-02c7-4352-98f9-5af9dad98efa",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": "Financial Services",
-  "references": ["Darkfield"]
-}
+{"slug":"direwolf-reviso-cloud-accounting-limited-2026-08-21","title":"Reviso Cloud Accounting Limited","group":"direwolf","discovered":"2026-08-21T02:24:16.000Z","category":"data_breach","severity":"high","country":"DK","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/1e9bd500-02c7-4352-98f9-5af9dad98efa","groupAliases":["DIRE WOLF"],"activity":"Financial Services","references":["Darkfield"]}

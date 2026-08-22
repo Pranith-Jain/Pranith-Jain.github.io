@@ -1,15 +1,1 @@
-{
-  "slug": "akira-jc-sales-2026-08-21",
-  "title": "JC Sales",
-  "group": "akira",
-  "discovered": "2026-08-21T13:21:20.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/ecbcda0b-eb4e-4f38-8a07-a06eedcf306f",
-  "groupAliases": ["Megazord"],
-  "activity": "Retail & E-Commerce",
-  "references": ["Darkfield"]
-}
+{"slug":"akira-jc-sales-2026-08-21","title":"JC Sales","group":"akira","discovered":"2026-08-21T13:21:20.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/ecbcda0b-eb4e-4f38-8a07-a06eedcf306f","groupAliases":["Megazord"],"activity":"Retail & E-Commerce","references":["Darkfield"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "settra-am-bition-jp-2026-08-19",
-  "title": "am-bition.jp",
-  "group": "settra",
-  "discovered": "2026-08-19T18:05:52.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/f12f2736-e632-4280-bc5d-8cfa97a7f12f",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["Darkfield"]
-}
+{"slug":"settra-am-bition-jp-2026-08-19","title":"am-bition.jp","group":"settra","discovered":"2026-08-19T18:05:52.000Z","category":"data_breach","severity":"high","country":"JP","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/f12f2736-e632-4280-bc5d-8cfa97a7f12f","groupAliases":[],"activity":"Other","references":["Darkfield"]}

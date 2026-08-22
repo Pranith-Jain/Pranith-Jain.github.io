@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-caz-investments-2026-08-21",
-  "title": "CAZ Investments",
-  "group": "thegentlemen",
-  "discovered": "2026-08-21T08:26:36.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BZ",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/399112c7-cbe7-468d-9f81-eec114a75847",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Financial Services",
-  "references": ["Darkfield"]
-}
+{"slug":"thegentlemen-caz-investments-2026-08-21","title":"CAZ Investments","group":"thegentlemen","discovered":"2026-08-21T08:26:36.000Z","category":"ransomware","severity":"critical","country":"BZ","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/399112c7-cbe7-468d-9f81-eec114a75847","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["Darkfield"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "akira-ericksen-krentel-2026-08-19",
-  "title": "Ericksen Krentel",
-  "group": "akira",
-  "discovered": "2026-08-19T15:21:44.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/1fd590e3-5661-4424-b9df-0ef91a44174f",
-  "groupAliases": ["Megazord"],
-  "activity": "Professional Services",
-  "references": ["Darkfield"]
-}
+{"slug":"akira-ericksen-krentel-2026-08-19","title":"Ericksen Krentel","group":"akira","discovered":"2026-08-19T15:21:44.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/1fd590e3-5661-4424-b9df-0ef91a44174f","groupAliases":["Megazord"],"activity":"Professional Services","references":["Darkfield"]}

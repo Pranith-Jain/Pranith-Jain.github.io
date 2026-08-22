@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-novocure-limited-2026-08-22",
-  "title": "NovoCure Limited",
-  "group": "shinyhunters",
-  "discovered": "2026-08-22T14:13:59.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IL",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/e2011311-18c2-4ec9-b382-21615a436857",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["Darkfield"]
-}
+{"slug":"shinyhunters-novocure-limited-2026-08-22","title":"NovoCure Limited","group":"shinyhunters","discovered":"2026-08-22T14:13:59.000Z","category":"ransomware","severity":"critical","country":"IL","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/e2011311-18c2-4ec9-b382-21615a436857","groupAliases":[],"activity":"Healthcare","references":["Darkfield"]}
