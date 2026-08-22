@@ -4,28 +4,22 @@
   "name": "akira",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 2,
-  "firstSeen": "2026-08-20T13:51:49.000Z",
-  "lastSeen": "2026-08-20T14:21:22.000Z",
-  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 0 countries.",
+  "mentionCount": 1,
+  "firstSeen": "2026-08-21T13:21:20.000Z",
+  "lastSeen": "2026-08-21T13:21:20.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 0 countries.",
   "frequency": [
     {
-      "date": "2026-08-20",
-      "count": 2
+      "date": "2026-08-21",
+      "count": 1
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
-      "slug": "cascade-coffee-5eb1",
-      "title": "Cascade Coffee — claimed by akira",
-      "pubDate": "2026-08-20T14:21:22.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "deas-millwork-1aa0",
-      "title": "Deas Millwork — claimed by akira",
-      "pubDate": "2026-08-20T13:51:49.000Z"
+      "slug": "jc-sales-3b46",
+      "title": "JC Sales — claimed by akira",
+      "pubDate": "2026-08-21T13:21:20.000Z"
     }
   ],
   "relatedEntities": [
@@ -34,29 +28,16 @@
       "slug": "retail-e-commerce",
       "name": "Retail & E-Commerce",
       "weight": 1
-    },
-    {
-      "type": "sector",
-      "slug": "manufacturing",
-      "name": "Manufacturing",
-      "weight": 1
     }
   ],
   "mitreTechniques": [],
   "victims": [
     {
-      "id": "cascade-coffee-5eb1",
-      "victim": "Cascade Coffee — claimed by akira",
+      "id": "jc-sales-3b46",
+      "victim": "JC Sales — claimed by akira",
       "sector": "Retail & E-Commerce",
       "country": null,
-      "pubDate": "2026-08-20T14:21:22.000Z"
-    },
-    {
-      "id": "deas-millwork-1aa0",
-      "victim": "Deas Millwork — claimed by akira",
-      "sector": "Manufacturing",
-      "country": null,
-      "pubDate": "2026-08-20T13:51:49.000Z"
+      "pubDate": "2026-08-21T13:21:20.000Z"
     }
   ]
 }

@@ -1,10 +1,67 @@
 {
   "sector": "healthcare",
   "title": "Healthcare sector brief",
-  "generatedAt": "2026-08-21",
-  "topCount": 0,
-  "preview": "No KEV-flagged CVEs in the current window.",
-  "sizeBytes": 290,
+  "generatedAt": "2026-08-22",
+  "topCount": 8,
+  "preview": "CVE-2026-65400 (critical) leads with priority 92.",
+  "sizeBytes": 2685,
   "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
-  "topThreats": []
+  "topThreats": [
+    {
+      "cveId": "CVE-2026-65400",
+      "title": "An authentication issue was addressed with improved state management. This issue is fixed in macOS Sequoia 15.7.9, macOS",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-59310",
+      "title": "VMware vCenter contains a directory traversal vulnerability in the Syslog server. A malicious actor with network access ",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-9198",
+      "title": "IBM Langflow OSS 1.0.0 through 1.10.0 allows unauthenticated attackers to chain /api/v1/auto_login (mints SUPERUSER toke",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-33824",
+      "title": "Double free in Windows IKE Extension allows an unauthorized attacker to execute code over a network.",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2026-55040",
+      "title": "Weak authentication in Microsoft Office SharePoint allows an unauthorized attacker to bypass a security feature over a n",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.1; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2022-26486",
+      "title": "An unexpected message in the WebGPU IPC framework could lead to a use-after-free and exploitable sandbox escape. We have",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.6; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2021-26855",
+      "title": "Microsoft Exchange Server Remote Code Execution Vulnerability",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 9.1; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    },
+    {
+      "cveId": "CVE-2023-21529",
+      "title": "Microsoft Exchange Server Remote Code Execution Vulnerability",
+      "relevance": "broadly-critical",
+      "risk": "CVSS 8.8; actively exploited.",
+      "recommendedAction": "Patch within the CISA KEV due date; verify compensating controls."
+    }
+  ]
 }

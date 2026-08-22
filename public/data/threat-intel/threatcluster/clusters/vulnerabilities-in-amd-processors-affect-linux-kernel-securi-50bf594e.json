@@ -1,0 +1,11 @@
+{
+  "slug": "vulnerabilities-in-amd-processors-affect-linux-kernel-securi-50bf594e",
+  "title": "Critical Linux Kernel Vulnerabilities Affecting Ubuntu Systems",
+  "link": "https://threatcluster.io/cluster/vulnerabilities-in-amd-processors-affect-linux-kernel-securi-50bf594e?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
+  "guid": "https://threatcluster.io/cluster/vulnerabilities-in-amd-processors-affect-linux-kernel-securi-50bf594e",
+  "pubDate": "2026-08-20T23:31:14.000Z",
+  "sourceCount": 7,
+  "categories": ["7 Sources"],
+  "description": "Multiple security vulnerabilities have been identified in the Linux kernel affecting Ubuntu 24.04 and 26.04 LTS. Key issues include improper isolation of shared resources in AMD Zen 2 processors, lead…",
+  "sizeBytes": 201
+}

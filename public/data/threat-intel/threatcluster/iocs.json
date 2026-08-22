@@ -1,10 +1,10 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/api/iocs/public/feed.json",
-  "generatedAt": "2026-08-21T06:01:08Z",
-  "syncedAt": "2026-08-21T06:01:08.404Z",
+  "generatedAt": "2026-08-22T05:52:37Z",
+  "syncedAt": "2026-08-22T05:52:37.609Z",
   "filters": { "confidence": "high", "window_days": 30, "types": ["ipv4", "ipv6", "domain"] },
-  "count": 41,
+  "count": 39,
   "iocs": [
     {
       "type": "domain",
@@ -27,22 +27,6 @@
       "value": "miov2iaiaoubqosiqoiajwowiwjso.online",
       "confidence": "high",
       "reason": "C2 for AtomicStealer identified.",
-      "first_seen": "2026-08-21T00:32:07.289805+00:00",
-      "last_seen": "2026-08-21T00:32:07.289805+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "cloud.google.com",
-          "url": "https://cloud.google.com/blog/topics/threat-intelligence/distinct-clusters-target-individuals-of-interest-to-russia",
-          "pub_date": "2026-08-21T00:32:07.289805+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "verify-drive.com",
-      "confidence": "high",
-      "reason": "Identified as a malware distribution domain.",
       "first_seen": "2026-08-21T00:32:07.289805+00:00",
       "last_seen": "2026-08-21T00:32:07.289805+00:00",
       "source_count": 1,
@@ -522,19 +506,14 @@
       "value": "claude.ai.download-app.us",
       "confidence": "high",
       "reason": "Redirects users to malicious content.",
-      "first_seen": "2026-07-22T20:08:20+00:00",
+      "first_seen": "2026-07-25T01:04:41.598641+00:00",
       "last_seen": "2026-07-25T01:04:41.598641+00:00",
-      "source_count": 2,
+      "source_count": 1,
       "sources": [
         {
           "source": "www.huntress.com",
           "url": "https://www.huntress.com/blog/fakeagent-claude-desktop-malvertising-ends-in-dotnet-rat",
           "pub_date": "2026-07-25T01:04:41.598641+00:00"
-        },
-        {
-          "source": "Huntress",
-          "url": "https://www.huntress.com/blog/fakeagent-claude-desktop-malvertising-ends-in-redline-stealer",
-          "pub_date": "2026-07-22T20:08:20+00:00"
         }
       ]
     },
@@ -668,22 +647,6 @@
           "source": "jscrambler.com",
           "url": "https://jscrambler.com/blog/beyond-the-vault-what-banking-sites-share",
           "pub_date": "2026-07-23T08:02:59.893399+00:00"
-        }
-      ]
-    },
-    {
-      "type": "domain",
-      "value": "dwbud.vilaribit.com",
-      "confidence": "high",
-      "reason": "Identified as associated domain with exfiltration code.",
-      "first_seen": "2026-07-22T16:17:23.678778+00:00",
-      "last_seen": "2026-07-22T16:17:23.678778+00:00",
-      "source_count": 1,
-      "sources": [
-        {
-          "source": "medium.com",
-          "url": "https://medium.com/@anyrun/kratos-phaas-targets-us-and-eu-how-to-reduce-microsoft-365-account-takeover-risk-5696ddc8ab09",
-          "pub_date": "2026-07-22T16:17:23.678778+00:00"
         }
       ]
     }

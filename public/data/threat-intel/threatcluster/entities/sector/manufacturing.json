@@ -4,99 +4,83 @@
   "name": "Manufacturing",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 8,
-  "firstSeen": "2026-08-20T11:03:16.000Z",
-  "lastSeen": "2026-08-21T02:25:53.000Z",
-  "summary": "Sector hit by 8 leak-site victims across 5 ransomware groups and 3 countries.",
+  "mentionCount": 6,
+  "firstSeen": "2026-08-21T02:25:53.000Z",
+  "lastSeen": "2026-08-21T11:57:12.000Z",
+  "summary": "Sector hit by 6 leak-site victims across 5 ransomware groups and 4 countries.",
   "frequency": [
     {
-      "date": "2026-08-20",
-      "count": 7
-    },
-    {
       "date": "2026-08-21",
-      "count": 1
+      "count": 6
     }
   ],
   "recentActivity": [
     {
       "recordType": "victim",
+      "slug": "gindre-india-9ba2",
+      "title": "Gindre India — claimed by qilin",
+      "pubDate": "2026-08-21T11:57:12.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "clifton-architectural-glass-amp-metal-d1aa",
+      "title": "Clifton Architectural Glass &amp; Metal — claimed by pear",
+      "pubDate": "2026-08-21T10:26:51.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "akatake-engineering-b2a1",
+      "title": "Akatake Engineering — claimed by thegentlemen",
+      "pubDate": "2026-08-21T08:28:39.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "escon-group-dfda",
+      "title": "ESCON Group — claimed by thegentlemen",
+      "pubDate": "2026-08-21T08:28:18.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "avkvalves-com-32f4",
+      "title": "avkvalves.com — claimed by settra",
+      "pubDate": "2026-08-21T05:50:27.000Z"
+    },
+    {
+      "recordType": "victim",
       "slug": "allstar-industries-f240",
       "title": "Allstar Industries — claimed by direwolf",
       "pubDate": "2026-08-21T02:25:53.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gruppo-spaggiari-parma-c2b1",
-      "title": "Gruppo Spaggiari Parma — claimed by xpl0itrs",
-      "pubDate": "2026-08-20T19:31:43.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "latoplast-ca6d",
-      "title": "Latoplast — claimed by play",
-      "pubDate": "2026-08-20T17:27:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "termotecnica-industriale-s-r-l-6054",
-      "title": "Termotecnica Industriale S.r.l. — claimed by titan",
-      "pubDate": "2026-08-20T16:58:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "condor-spa-7fec",
-      "title": "CONDOR SPA — claimed by titan",
-      "pubDate": "2026-08-20T14:00:11.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "elbor-s-p-a-aa5a",
-      "title": "Elbor S.p.A. — claimed by titan",
-      "pubDate": "2026-08-20T13:59:30.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "deas-millwork-1aa0",
-      "title": "Deas Millwork — claimed by akira",
-      "pubDate": "2026-08-20T13:51:49.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "elcon-megarad-s-p-a-0ee1",
-      "title": "ELCON MEGARAD S.p.A — claimed by titan",
-      "pubDate": "2026-08-20T11:03:16.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "titan",
-      "name": "titan",
-      "weight": 4
+      "slug": "thegentlemen",
+      "name": "thegentlemen",
+      "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "qilin",
+      "name": "qilin",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "pear",
+      "name": "pear",
+      "weight": 1
+    },
+    {
+      "type": "group",
+      "slug": "settra",
+      "name": "settra",
+      "weight": 1
     },
     {
       "type": "group",
       "slug": "direwolf",
       "name": "direwolf",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "xpl0itrs",
-      "name": "xpl0itrs",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "play",
-      "name": "play",
-      "weight": 1
-    },
-    {
-      "type": "group",
-      "slug": "akira",
-      "name": "akira",
       "weight": 1
     }
   ],

@@ -1,0 +1,62 @@
+{
+  "type": "group",
+  "slug": "rhysida",
+  "name": "rhysida",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 2,
+  "firstSeen": "2026-08-21T10:28:03.000Z",
+  "lastSeen": "2026-08-21T12:28:19.000Z",
+  "summary": "Ransomware group with 2 leak-site victims across 2 sectors and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-21",
+      "count": 2
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "fairview-dental-group-daec",
+      "title": "Fairview Dental Group — claimed by rhysida",
+      "pubDate": "2026-08-21T12:28:19.000Z"
+    },
+    {
+      "recordType": "victim",
+      "slug": "battle-creek-public-schools-a798",
+      "title": "Battle Creek Public Schools — claimed by rhysida",
+      "pubDate": "2026-08-21T10:28:03.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "weight": 1
+    },
+    {
+      "type": "sector",
+      "slug": "education",
+      "name": "Education",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "fairview-dental-group-daec",
+      "victim": "Fairview Dental Group — claimed by rhysida",
+      "sector": "Healthcare",
+      "country": null,
+      "pubDate": "2026-08-21T12:28:19.000Z"
+    },
+    {
+      "id": "battle-creek-public-schools-a798",
+      "victim": "Battle Creek Public Schools — claimed by rhysida",
+      "sector": "Education",
+      "country": "US",
+      "pubDate": "2026-08-21T10:28:03.000Z"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "type": "group",
+  "slug": "l-group",
+  "name": "L Group",
+  "aliases": [],
+  "sources": ["victims"],
+  "mentionCount": 1,
+  "firstSeen": "2026-08-22T00:51:01.000Z",
+  "lastSeen": "2026-08-22T00:51:01.000Z",
+  "summary": "Ransomware group with 1 leak-site victim across 1 sector and 1 country.",
+  "frequency": [
+    {
+      "date": "2026-08-22",
+      "count": 1
+    }
+  ],
+  "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "cedarridge-org-b18a",
+      "title": "cedarridge.org — claimed by L Group",
+      "pubDate": "2026-08-22T00:51:01.000Z"
+    }
+  ],
+  "relatedEntities": [
+    {
+      "type": "sector",
+      "slug": "not-found",
+      "name": "Not Found",
+      "weight": 1
+    }
+  ],
+  "mitreTechniques": [],
+  "victims": [
+    {
+      "id": "cedarridge-org-b18a",
+      "victim": "cedarridge.org — claimed by L Group",
+      "sector": "Not Found",
+      "country": "US",
+      "pubDate": "2026-08-22T00:51:01.000Z"
+    }
+  ]
+}

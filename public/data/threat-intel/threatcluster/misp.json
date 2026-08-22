@@ -1,9 +1,28 @@
 {
   "source": "threatcluster.io",
   "url": "https://threatcluster.io/misp/manifest.json",
-  "syncedAt": "2026-08-21T06:01:08.883Z",
-  "eventCount": 9,
+  "syncedAt": "2026-08-22T05:52:38.418Z",
+  "eventCount": 6,
   "events": [
+    {
+      "uuid": "84e7ebe2-89fd-5e62-a924-0d78728ac032",
+      "info": "AI-Generated Exploits Target Siemens PLCs Amid Zimbra RCE Vulnerability Exploitation",
+      "date": "2026-08-21",
+      "analysis": "2",
+      "threat_level_id": "1",
+      "timestamp": "1787350742",
+      "tags": [
+        "source:ThreatCluster",
+        "tlp:clear",
+        "threat-level:high",
+        "type:apt",
+        "type:ransomware",
+        "type:malware",
+        "type:vulnerability",
+        "misp-galaxy:ransomware=\"Cl0p\""
+      ],
+      "orgc": "ThreatCluster"
+    },
     {
       "uuid": "d38f383b-80cc-5277-9d2d-c50c1d8d8881",
       "info": "Critical RCE Vulnerability in Windows IKE Actively Exploited",
@@ -35,24 +54,6 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "6670a23d-1445-5df6-bc4a-801317308cdc",
-      "info": "Cl0p Ransomware Group Claims Data Theft from Nearly 50 Companies",
-      "date": "2026-08-14",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1786708394",
-      "tags": [
-        "source:ThreatCluster",
-        "tlp:clear",
-        "threat-level:medium",
-        "type:ransomware",
-        "type:vulnerability",
-        "misp-galaxy:ransomware=\"Cl0p\"",
-        "misp-galaxy:ransomware=\"Clop\""
-      ],
-      "orgc": "ThreatCluster"
-    },
-    {
       "uuid": "30599276-9ca6-553b-b32d-ae6117f5804e",
       "info": "Critical Authentication Bypass Vulnerability in WordPress Plugin CVE-2026-15341",
       "date": "2026-08-16",
@@ -73,43 +74,13 @@
       "orgc": "ThreatCluster"
     },
     {
-      "uuid": "77f40ba5-2ca2-5f73-b843-8a9a9bc90d15",
-      "info": "Critical Vulnerabilities in WordPress Plugins Expose 600,000 Sites to Attacks",
-      "date": "2026-08-18",
+      "uuid": "fac2391d-fcbb-504d-8a7b-9741b7a14583",
+      "info": "Critical Account Takeover Vulnerability in Red Hat Keycloak",
+      "date": "2026-08-21",
       "analysis": "2",
       "threat_level_id": "2",
-      "timestamp": "1787056553",
+      "timestamp": "1787294866",
       "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "3ade4e5c-44b1-5ce6-baa8-e692bf0a5c37",
-      "info": "17 Iranians Charged in Cyber Theft Campaign Targeting U.S. Institutions",
-      "date": "2026-08-18",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787083770",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:malware"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "ed4b6c15-195c-5081-acf4-7eeab3eac285",
-      "info": "Critical Authentication Bypass Vulnerability in SiYuan (CVE-2026-73046)",
-      "date": "2026-08-16",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1786916944",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:vulnerability"],
-      "orgc": "ThreatCluster"
-    },
-    {
-      "uuid": "a35d5981-482d-50a1-b358-c2304f1f1fe0",
-      "info": "Rapid7 Reports Surge in Vulnerability Exploitation Outpacing Patching Efforts",
-      "date": "2026-08-18",
-      "analysis": "2",
-      "threat_level_id": "2",
-      "timestamp": "1787070341",
-      "tags": ["source:ThreatCluster", "tlp:clear", "threat-level:medium", "type:ransomware", "type:malware"],
       "orgc": "ThreatCluster"
     }
   ]

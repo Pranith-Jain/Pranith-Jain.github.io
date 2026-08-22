@@ -4,21 +4,23 @@
   "name": "Education",
   "aliases": [],
   "sources": ["victims"],
-  "mentionCount": 5,
-  "firstSeen": "2026-08-20T14:36:11.000Z",
-  "lastSeen": "2026-08-21T02:26:25.000Z",
-  "summary": "Sector hit by 5 leak-site victims across 2 ransomware groups and 4 countries.",
+  "mentionCount": 3,
+  "firstSeen": "2026-08-21T02:23:41.000Z",
+  "lastSeen": "2026-08-21T10:28:03.000Z",
+  "summary": "Sector hit by 3 leak-site victims across 2 ransomware groups and 1 country.",
   "frequency": [
     {
-      "date": "2026-08-20",
-      "count": 3
-    },
-    {
       "date": "2026-08-21",
-      "count": 2
+      "count": 3
     }
   ],
   "recentActivity": [
+    {
+      "recordType": "victim",
+      "slug": "battle-creek-public-schools-a798",
+      "title": "Battle Creek Public Schools — claimed by rhysida",
+      "pubDate": "2026-08-21T10:28:03.000Z"
+    },
     {
       "recordType": "victim",
       "slug": "deer-creek-mackinaw-cusd-5de3",
@@ -30,38 +32,20 @@
       "slug": "studee-321c",
       "title": "Studee — claimed by direwolf",
       "pubDate": "2026-08-21T02:23:41.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "the-university-of-delhi-du-69be",
-      "title": "The University of Delhi (DU) — claimed by DYSPHOR1A",
-      "pubDate": "2026-08-20T20:50:28.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "gusto-college-glms-4ed2",
-      "title": "GUSTO College GLMS — claimed by DYSPHOR1A",
-      "pubDate": "2026-08-20T14:37:09.000Z"
-    },
-    {
-      "recordType": "victim",
-      "slug": "strategy-first-international-college-f5a7",
-      "title": "Strategy First International College — claimed by DYSPHOR1A",
-      "pubDate": "2026-08-20T14:36:11.000Z"
     }
   ],
   "relatedEntities": [
     {
       "type": "group",
-      "slug": "dysphor1a",
-      "name": "DYSPHOR1A",
-      "weight": 3
-    },
-    {
-      "type": "group",
       "slug": "direwolf",
       "name": "direwolf",
       "weight": 2
+    },
+    {
+      "type": "group",
+      "slug": "rhysida",
+      "name": "rhysida",
+      "weight": 1
     }
   ],
   "mitreTechniques": []

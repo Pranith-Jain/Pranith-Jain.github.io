@@ -4,8 +4,8 @@
   "link": "https://threatcluster.io/cluster/supply-chain-attack-compromises-popular-rust-crates-arrayref-f1cbc2f3?utm_source=rss&utm_medium=feed&utm_campaign=rss_feed",
   "guid": "https://threatcluster.io/cluster/supply-chain-attack-compromises-popular-rust-crates-arrayref-f1cbc2f3",
   "pubDate": "2026-08-20T13:23:12.000Z",
-  "sourceCount": 8,
-  "categories": ["8 Sources"],
+  "sourceCount": 17,
+  "categories": ["17 Sources"],
   "description": "On August 20, 2026, a supply chain attack targeted the Rust ecosystem, compromising the widely used crates arrayref, append-only-vec, and internment.",
   "sizeBytes": 149
 }
