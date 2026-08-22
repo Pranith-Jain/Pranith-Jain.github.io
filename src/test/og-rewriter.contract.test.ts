@@ -115,9 +115,9 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
 
   it('gives a deep page a UNIQUE generated page card (og:image + twitter:image)', async () => {
     const html = await serve('/dfir/cve');
-    // Versioned, /api/-free form (per-deploy cache-bust for X's card cache).
-    expect(metaByProperty(html, 'og:image')).toMatch(/\/og-image\/v[a-z0-9]+\/page\/dfir\.cve\.png/);
-    expect(metaByName(html, 'twitter:image')).toMatch(/\/og-image\/v[a-z0-9]+\/page\/dfir\.cve\.png/);
+    // Static build-time card: /og/pages/<dot>.png (generate-page-og.mjs).
+    expect(metaByProperty(html, 'og:image')).toBe('https://pranithjain.qzz.io/og/pages/dfir.cve.png');
+    expect(metaByName(html, 'twitter:image')).toBe('https://pranithjain.qzz.io/og/pages/dfir.cve.png');
     // X-compat contract: the card image URL must contain no query string and
     // no percent-encoded separators — X's parser drops query-string images
     // and corrupts %2F on re-fetch, in both cases rendering chip-without-image.

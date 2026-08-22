@@ -15,7 +15,7 @@
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.tsx",
     "build:prerender": "node scripts/prerender.mjs",
-    "build": "npm run build:client && npm run build:server && npm run build:prerender",
+    "build": "npm run build:client && npm run build:server && npm run build:prerender && node scripts/generate-page-og.mjs",
     "check:budgets": "node scripts/check-budgets.mjs",
     "check:no-px-text": "node scripts/check-no-px-text.mjs",
     "build:check": "npm run build && npm run check:budgets",

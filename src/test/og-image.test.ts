@@ -137,10 +137,12 @@ describe('pageCardUrl', () => {
     expect(matchOgPagePath(url)).toBe('/threatintel/feeds/threatfeeds');
   });
 
-  it('emits the versioned, /api/-free prefix (X cache-bust per deploy)', () => {
-    expect(pageCardUrl('/dfir/cve')).toMatch(/^\/og-image\/v[a-z0-9]+\/page\/dfir\.cve\.png$/);
+  it('emits the static build-time prefix (/og/pages/) — CDN delivery, no runtime deps', () => {
+    expect(pageCardUrl('/dfir/cve')).toBe('/og/pages/dfir.cve.png');
     // Legacy /api/v1/og-image/page/... form still resolves for old meta.
     expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page/dfir.cve.png'))).toBe('/dfir/cve');
+    // Static form round-trips.
+    expect(matchOgPagePath(new URL('https://x/og/pages/dfir.cve.png'))).toBe('/dfir/cve');
   });
 });
 
@@ -180,8 +182,8 @@ describe('resolveOg dynamic image wiring', () => {
 
   it('gives a deep tool page its OWN unique page card (not the section card)', async () => {
     const og = await resolveOg(new URL('https://pranithjain.qzz.io/dfir/cve'), {} as never);
-    // Versioned, /api/-free form (per-deploy cache-bust for X's card cache).
-    expect(og?.image).toMatch(/^\/og-image\/v[a-z0-9]+\/page\/dfir\.cve\.png$/);
+    // Static build-time card: /og/pages/<dot>.png (generate-page-og.mjs).
+    expect(og?.image).toBe('/og/pages/dfir.cve.png');
     expect(og?.title).toContain('CVE');
   });
 
