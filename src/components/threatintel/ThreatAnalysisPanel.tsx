@@ -152,18 +152,18 @@ export function ThreatAnalysisPanel({
   const isIndicator = type === 'indicator' && analysis && 'assessment' in analysis;
 
   return (
-    <div className="relative rounded-xl border border-brand-200/60 dark:border-brand-400/20 bg-gradient-to-br from-brand-50/40 via-white to-white dark:from-brand-500/[0.04] dark:via-[rgb(var(--surface-200))] dark:to-[rgb(var(--surface-200))] shadow-sm hover:shadow-md transition-shadow animate-fade-in overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-brand-500 before:via-rose-500 before:to-brand-500">
+    <div className="relative surface-card animate-fade-in overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-brand-500/10 hover:bg-brand-50/50 dark:hover:bg-white/5 transition-colors">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/15">
-            <Brain size={16} className="text-brand-400" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/10 dark:bg-brand-400/15">
+            <Brain size={16} className="text-brand-600 dark:text-brand-400" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">AI Threat Analysis</h3>
               {model && (
-                <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400">
+                <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
                   {model}
                 </span>
               )}
@@ -176,7 +176,7 @@ export function ThreatAnalysisPanel({
             type="button"
             onClick={() => fetchAnalysis()}
             disabled={loading}
-            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             title="Re-analyze"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -184,7 +184,7 @@ export function ThreatAnalysisPanel({
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
@@ -192,7 +192,7 @@ export function ThreatAnalysisPanel({
             aria-label="Close"
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             <X size={14} />
           </button>
@@ -213,11 +213,11 @@ export function ThreatAnalysisPanel({
           {/* Error */}
           {error && (
             <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-center">
-              <p className="text-xs text-rose-400">{error}</p>
+              <p className="text-xs text-rose-600 dark:text-rose-400">{error}</p>
               <button
                 type="button"
                 onClick={fetchAnalysis}
-                className="mt-2 text-xs font-mono text-brand-400 hover:underline transition-colors"
+                className="mt-2 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
               >
                 Retry
               </button>
