@@ -393,11 +393,18 @@ export async function runCompletion(
       const infronModels = opts.quality
         ? [INFRON_MODEL_QUALITY, INFRON_MODEL, INFRON_MODEL_FALLBACK]
         : [INFRON_MODEL, INFRON_MODEL_FALLBACK, INFRON_MODEL_QUALITY];
+      // Provider-level failure is recorded ONCE per invocation (after all
+      // models fail). Recording per-model attempts inflated consecutiveFailures
+      // 3-4x — a single TPM-limited invocation opened the circuit breaker and
+      // skipped the provider entirely for the next 5 minutes.
+      let infronSucceeded = false;
+      let infronAllRateLimited = true;
       for (const model of infronModels) {
         const startMs = Date.now();
         try {
           const text = await runInfron(infronKey, input, model);
           if (health) await health.recordSuccess('infron', Date.now() - startMs);
+          infronSucceeded = true;
           opts.recordUsage?.(`infron:${model}`, inputText, text, usageRole);
           return { text, modelUsed: `infron:${model}` };
         } catch (err) {
@@ -408,16 +415,21 @@ export async function runCompletion(
           // do not walk the remaining models/providers.
           if (isSubrequestExhausted(err)) throw err;
           if (isRequestTooLarge(err)) break;
-          if (health) await health.recordFailure('infron', isRateLimited(err));
           if (isAuthError(err)) break;
+          if (!isRateLimited(err)) infronAllRateLimited = false;
         }
       }
+      if (!infronSucceeded && health) await health.recordFailure('infron', infronAllRateLimited);
     } else if (provider === 'groq' && groqKey) {
       const groqModels = [GROQ_MODEL, GROQ_MODEL_FALLBACK, GROQ_MODEL_DEEP, 'llama-3.1-8b-instant'];
+      // See infron note: one aggregated failure per invocation.
+      let groqSucceeded = false;
+      let groqAnyNonRateLimit = false;
       for (const model of groqModels) {
         const startMs = Date.now();
         try {
           const text = await runGroq(groqKey, input, model);
+          groqSucceeded = true;
           if (health) await health.recordSuccess('groq', Date.now() - startMs);
           opts.recordUsage?.(`groq:${model}`, inputText, text, usageRole);
           return { text, modelUsed: `groq:${model}` };
@@ -432,10 +444,11 @@ export async function runCompletion(
           // gemini/nvidia/workers-ai, which have larger input windows.
           if (isSubrequestExhausted(err)) throw err;
           if (isRequestTooLarge(err)) break;
-          if (health) await health.recordFailure('groq', isRateLimited(err));
           if (isAuthError(err)) break;
+          if (!isRateLimited(err)) groqAnyNonRateLimit = true;
         }
       }
+      if (!groqSucceeded && health) await health.recordFailure('groq', !groqAnyNonRateLimit);
     } else if (provider === 'gemini' && opts.googleKey) {
       const startMs = Date.now();
       try {
